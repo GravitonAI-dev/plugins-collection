@@ -1,0 +1,20 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "plugins-collection",
+  "description": "Marketplace de plugins de Claude de GravitonAI. Colección de referencia con skills, agentes, MCP servers y tools para flujos legales y otros verticales. Todo el contenido está en español.",
+  "owner": {
+    "name": "GravitonAI"
+  },
+  "plugins": [
+    {
+      "name": "commercial-legal",
+      "displayName": "Commercial Legal",
+      "source": "./commercial-legal",
+      "version": "0.1.0",
+      "description": "Revisión de acuerdos comerciales (NDAs, MSAs, SaaS) contra el playbook del equipo, con triage automático GREEN/YELLOW/RED y escalación estructurada a un abogado. Estado: ejemplo de referencia — un plugin, una skill.",
+      "author": {
+        "name": "GravitonAI"
+      }
+    }
+  ]
+}

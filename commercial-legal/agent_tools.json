@@ -1,0 +1,20 @@
+{
+  "description": "Subset de tools que consume el plugin commercial-legal. Referencia por id al catalogo global agent_tools.json.",
+  "tools": [
+    {
+      "id": "io.gravitonai.tools.read_document",
+      "required": true,
+      "purpose": "Leer el NDA desde su ubicacion original (path local o URL)."
+    },
+    {
+      "id": "io.gravitonai.tools.draft_markdown",
+      "required": true,
+      "purpose": "Generar el memo de triage usando la plantilla en assets/."
+    },
+    {
+      "id": "io.gravitonai.tools.escalate_to_attorney",
+      "required": true,
+      "purpose": "Crear ticket de escalacion cuando el veredicto es RED."
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "commercial-legal",
+  "displayName": "Commercial Legal",
+  "version": "0.1.0",
+  "description": "Revisión de acuerdos comerciales (NDAs, MSAs, suscripciones SaaS) contra el playbook del equipo, con triage automatico GREEN/YELLOW/RED y escalacion estructurada a un abogado.",
+  "author": {
+    "name": "GravitonAI"
+  },
+  "license": "Apache-2.0",
+  "homepage": "./README.md",
+  "skills": ["nda-review"],
+  "agents": [],
+  "hooks": []
+}

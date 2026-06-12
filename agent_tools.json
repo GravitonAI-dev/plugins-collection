@@ -1,0 +1,147 @@
+{
+  "$schema": "https://anthropic.com/mcp/tool.schema.json",
+  "version": "1.0",
+  "description": "Catálogo global de herramientas que los plugins pueden invocar. Sigue el formato de declaración de tools de MCP (input_schema / output_schema en JSON Schema). Los plugins referencian tools por su `id` desde su propio `agent_tools.json`.",
+  "owner": {
+    "name": "GravitonAI"
+  },
+  "tools": [
+    {
+      "id": "io.gravitonai.tools.read_document",
+      "name": "read_document",
+      "description": "Lee el contenido de un documento por ruta local o URL",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "path": { "type": "string", "description": "Ruta local absoluta o URL" },
+          "format": { "type": "string", "enum": ["text", "markdown", "json"], "default": "text" }
+        },
+        "required": ["path"]
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "text": { "type": "string" },
+          "metadata": { "type": "object" }
+        }
+      },
+      "tags": ["io", "documents"],
+      "side_effects": false
+    },
+    {
+      "id": "io.gravitonai.tools.draft_markdown",
+      "name": "draft_markdown",
+      "description": "Genera un documento markdown a partir de un esquema o prompt estructurado",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "template_id": { "type": "string", "description": "ID de la plantilla a usar (resuelve contra `assets/` del plugin)" },
+          "variables": { "type": "object", "description": "Variables a inyectar en la plantilla" }
+        },
+        "required": ["template_id"]
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "markdown": { "type": "string" }
+        }
+      },
+      "tags": ["drafting", "markdown"],
+      "side_effects": false
+    },
+    {
+      "id": "io.gravitonai.tools.search_corpus",
+      "name": "search_corpus",
+      "description": "Búsqueda semántica en un corpus indexado (documentos locales, VDR, base de conocimiento)",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "query": { "type": "string" },
+          "top_k": { "type": "integer", "default": 5 },
+          "filter": { "type": "object", "description": "Filtros por metadata (tag, fecha, autor)" }
+        },
+        "required": ["query"]
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "text": { "type": "string" },
+                "score": { "type": "number" },
+                "metadata": { "type": "object" }
+              }
+            }
+          }
+        }
+      },
+      "tags": ["retrieval", "search"],
+      "side_effects": false
+    },
+    {
+      "id": "io.gravitonai.tools.escalate_to_attorney",
+      "name": "escalate_to_attorney",
+      "description": "Crea un ticket de escalación a un abogado humano con contexto estructurado",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "subject": { "type": "string" },
+          "context": { "type": "string", "description": "Resumen del caso y por qué se escala" },
+          "urgency": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
+          "attachments": { "type": "array", "items": { "type": "string" } }
+        },
+        "required": ["subject", "context", "urgency"]
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "ticket_id": { "type": "string" },
+          "assigned_to": { "type": "string" }
+        }
+      },
+      "tags": ["workflow", "escalation"],
+      "side_effects": true
+    },
+    {
+      "id": "io.gravitonai.tools.redline_extract",
+      "name": "redline_extract",
+      "description": "Extrae el texto base y los cambios marcados de un documento con redline (track changes) en formatos Word o PDF",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "path": { "type": "string" },
+          "format": { "type": "string", "enum": ["docx", "pdf", "md"] }
+        },
+        "required": ["path", "format"]
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "base_text": { "type": "string" },
+          "changes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": { "type": "string", "enum": ["insert", "delete"] },
+                "text": { "type": "string" },
+                "author": { "type": "string" }
+              }
+            }
+          }
+        }
+      },
+      "tags": ["documents", "redline", "review"],
+      "side_effects": false
+    }
+  ]
+}

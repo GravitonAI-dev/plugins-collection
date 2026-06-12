@@ -1,0 +1,75 @@
+{
+  "$schema": "https://anthropic.com/mcp/registry.schema.json",
+  "version": "1.0",
+  "description": "Catálogo global de servidores MCP disponibles para los plugins de plugins-collection. Los plugins NO duplican el schema: referencian servidores por su `id` desde su propio `.mcp.json`.",
+  "owner": {
+    "name": "GravitonAI"
+  },
+  "servers": [
+    {
+      "id": "io.gravitonai.courtlistener",
+      "name": "courtlistener",
+      "displayName": "CourtListener",
+      "description": "Dockets y opiniones federales de EE.UU. (datos públicos, clave API opcional)",
+      "version": "1.0.0",
+      "homepage": "https://www.courtlistener.com",
+      "transport": {
+        "type": "http",
+        "url": "https://www.courtlistener.com/api/rest/v4/"
+      },
+      "auth": {
+        "type": "optional_api_key",
+        "env_var": "COURTLISTENER_API_KEY"
+      },
+      "tags": ["legal-research", "us-federal", "public"],
+      "used_by": ["commercial-legal", "ip-legal", "litigation-legal"]
+    },
+    {
+      "id": "io.gravitonai.slack",
+      "name": "slack",
+      "displayName": "Slack",
+      "description": "Leer canales, buscar mensajes, enviar mensajes y canvases",
+      "version": "1.0.0",
+      "transport": { "type": "stdio" },
+      "auth": { "type": "oauth2" },
+      "tags": ["productivity", "messaging"],
+      "used_by": ["*"]
+    },
+    {
+      "id": "io.gravitonai.gdrive",
+      "name": "gdrive",
+      "displayName": "Google Drive",
+      "description": "Leer documentos, hojas y slides; obtener por enlace compartido",
+      "version": "1.0.0",
+      "transport": { "type": "stdio" },
+      "auth": { "type": "oauth2" },
+      "tags": ["productivity", "documents"],
+      "used_by": ["*"]
+    },
+    {
+      "id": "io.gravitonai.ironclad",
+      "name": "ironclad",
+      "displayName": "Ironclad",
+      "description": "Registro de contratos, fechas de renovación, metadatos de cláusulas desde CLM",
+      "version": "1.0.0",
+      "transport": { "type": "http" },
+      "auth": {
+        "type": "api_key",
+        "env_var": "IRONCLAD_API_KEY"
+      },
+      "tags": ["clm", "contracts", "commercial"],
+      "used_by": ["commercial-legal"]
+    },
+    {
+      "id": "io.gravitonai.docusign",
+      "name": "docusign",
+      "displayName": "DocuSign",
+      "description": "Estado de sobres, contratos firmados, metadatos CLM",
+      "version": "1.0.0",
+      "transport": { "type": "http" },
+      "auth": { "type": "oauth2" },
+      "tags": ["clm", "esign", "commercial"],
+      "used_by": ["commercial-legal"]
+    }
+  ]
+}

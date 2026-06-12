@@ -1,0 +1,56 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors / IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+
+# Python (para validadores futuros)
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+.mypy_cache/
+.pytest_cache/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Borradores privados / notas locales (NUNCA commitear)
+*.local.md
+drafts/
+private/
+.scratch/
+
+# Archivos subidos por el usuario (si aplica)
+uploads/
+*.pdf.upload
+
+# Logs
+*.log
+logs/
+
+# Variables de entorno
+.env
+.env.local
+.env.*.local
+
+# Resultados de pruebas
+coverage/
+.coverage
+htmlcov/
+
+# Marketplace / Claude Code
+.claude/

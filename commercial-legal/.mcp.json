@@ -1,0 +1,15 @@
+{
+  "description": "Subset de servidores MCP que consume el plugin commercial-legal. Referencia por id al catalogo global mcp_servers.json.",
+  "servers": [
+    {
+      "id": "io.gravitonai.courtlistener",
+      "required": false,
+      "purpose": "Verificar jurisprudencia cuando hay clausulas atipicas o disputas potenciales."
+    },
+    {
+      "id": "io.gravitonai.gdrive",
+      "required": true,
+      "purpose": "Leer NDAs subidos como documentos de Google Drive."
+    }
+  ]
+}
