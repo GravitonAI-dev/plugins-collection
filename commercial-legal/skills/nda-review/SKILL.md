@@ -1,23 +1,6 @@
 ---
-description: Triage automatico de NDAs entrantes con veredicto VERDE/AMARILLO/ROJO y memo estructurado para revision por abogado.
-when_to_use: |
-  - El usuario pega el texto de un NDA o indica una ruta/URL a uno.
-  - El usuario pregunta "puedo firmar este NDA?", "este NDA es aceptable?", "clasifica este NDA".
-  - Aparece un NDA en una conversacion y se pide una evaluacion inicial.
-  NO usar para: MSAs, NDAs embebidos en otros acuerdos, contratos de trabajo, NDAs en idiomas distintos al ingles (escalar antes).
-inputs:
-  - nda_text: texto completo del NDA (string) — alternativo a path/url
-  - nda_path: ruta local o URL al NDA (string) — alternativo a text
-  - counterparty: nombre de la contraparte (string, opcional)
-  - context: contexto adicional del usuario (string, opcional) — proposito del NDA, urgencia, etc.
-outputs:
-  - verdict: "VERDE" | "AMARILLO" | "ROJO"
-  - memo_markdown: memo estructurado siguiendo assets/nda-triage-output-template.md
-  - escalation_required: boolean — true si verdict == "ROJO"
-references:
-  - references/nda-clause-checklist.md
-assets:
-  - assets/nda-triage-output-template.md
+name: nda-review
+description: Triage automatico de NDAs entrantes con veredicto VERDE/AMARILLO/ROJO y memo estructurado para revision por abogado. Usar cuando el usuario pega el texto de un NDA, indica una ruta o URL a uno, o pregunta si puede firmarlo o si es aceptable. NO usar para MSAs, NDAs embebidos en otros acuerdos, contratos de trabajo ni NDAs en idiomas distintos al ingles.
 ---
 
 # nda-review
