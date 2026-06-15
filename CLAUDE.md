@@ -55,14 +55,14 @@ At the END of your response, you MUST output a JSON object with the list of sour
 
 Format:
 ```json
-{
+{{
   "sources": [
-    {
+    {{
       "url": "URL or file_path of the source",
       "preview": "~5 lines of relevant text from this source that supports your answer"
-    }
+    }}
   ]
-}
+}}
 ```
 
 Sources can come from:
