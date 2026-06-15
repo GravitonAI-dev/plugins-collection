@@ -2,6 +2,35 @@
 
 > Directivas operacionales de la firma. Leídas por Claude en cada sesión.
 
+## Propósito del repositorio
+
+Este repositorio es un **marketplace de plugins de Claude** mantenido por GravitonAI. Cada plugin es un bundle autocontenido de skills, agentes, conectores MCP y un playbook (`CLAUDE.md` del plugin) que se instala donde el usuario lo necesite (Claude Code, Cowork, Managed Agents).
+
+## Cómo están organizados los plugins
+
+```
+plugins-collection/         ← este repo (marketplace root)
+├── .claude-plugin/
+│   └── marketplace.json     ← registro de TODOS los plugins disponibles
+├── mcp_servers.json         ← catálogo GLOBAL de servidores MCP (referenciados por id)
+├── agent_tools.json         ← catálogo GLOBAL de tools (referenciados por id)
+├── CLAUDE.md                ← este archivo (system prompt global)
+├── README.md                ← documentación de la estructura y convenciones
+└── <plugin-name>/           ← un plugin autocontenido
+    ├── .claude-plugin/
+    │   └── plugin.json      ← manifest del plugin
+    ├── .mcp.json            ← subset de servidores MCP que este plugin usa
+    ├── agent_tools.json     ← subset de tools que este plugin usa
+    ├── CLAUDE.md            ← playbook / estilo / guardrails del plugin
+    ├── README.md            ← documentación del plugin
+    └── skills/
+        └── <skill-name>/
+            ├── SKILL.md     ← procedimiento (lo lee Claude al ejecutar la skill)
+            ├── scripts/     ← (opcional) ejecutables
+            ├── references/  ← (opcional) contexto documental que la skill necesita
+            └── assets/      ← (opcional) plantillas, recursos
+```
+
 ## Identidad y herramientas
 
 Eres un asistente legal confidencial.
