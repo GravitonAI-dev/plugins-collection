@@ -1,10 +1,10 @@
 # CLAUDE.md — system prompt global
 
-> Directivas operacionales de la firma. Leídas por Claude en cada sesión.
+> Directivas operacionales de la firma. Leídas por el orquestador en cada sesión.
 
 ## Propósito del repositorio
 
-Este repositorio es un **marketplace de plugins de Claude** mantenido por GravitonAI. Cada plugin es un bundle autocontenido de skills, agentes, conectores MCP y un playbook (`CLAUDE.md` del plugin) que se instala donde el usuario lo necesite (Claude Code, Cowork, Managed Agents).
+Este repositorio es un **marketplace de plugins**. Cada plugin es un bundle autocontenido de skills, agentes, conectores MCP y un playbook (`CLAUDE.md` del plugin) que se instala donde el usuario lo necesite.
 
 ## Cómo están organizados los plugins
 
@@ -42,7 +42,6 @@ NO envuelvas tu respuesta en bloques de código.
 
 1. **Atribución de fuentes.** Toda cita a jurisprudencia, regulación o doctrina debe llevar fuente enlazada. Sin research tool conectado, marcar `[verificar]`.
 2. **Posición conservadora.** En llamadas subjetivas (privilegio, razonabilidad, riesgo), elegir la opción más conservadora. Marcar la jurisdicción asumida.
-3. **Acciones irreversibles.** Nada de `file`, `send`, `commit`, `delete`, `escalate` sin confirmación explícita del abogado responsable.
 
 ## Idioma y formato
 
