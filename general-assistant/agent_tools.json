@@ -1,0 +1,10 @@
+{
+  "description": "Subset de tools que consume el plugin general-assistant. Referencia por id al catalogo global agent_tools.json.",
+  "tools": [
+    {
+      "id": "io.gravitonai.tools.web_search",
+      "required": true,
+      "purpose": "Recuperar informacion publica actual cuando la consulta parece requerir datos externos, hechos en tiempo real, jurisprudencia/regulacion abierta, o verificacion de afirmaciones factuales."
+    }
+  ]
+}

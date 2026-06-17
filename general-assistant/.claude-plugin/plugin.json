@@ -1,0 +1,7 @@
+{
+  "name": "general-assistant",
+  "version": "0.1.0",
+  "description": "Asistente de proposito general para consultas que requieren informacion publica, hechos actuales, contexto externo o verificacion. No es un plugin de dominio vertical: cubre el caso 'no se que plugin usar'.",
+  "author": { "name": "GravitonAI" },
+  "skills": ["general-query"]
+}

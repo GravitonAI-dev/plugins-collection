@@ -86,6 +86,41 @@
       "side_effects": false
     },
     {
+      "id": "io.gravitonai.tools.web_search",
+      "name": "web_search",
+      "description": "Realiza una búsqueda en la web abierta y devuelve hasta N resultados con título, URL, snippet y contenido completo extraído. Útil para jurisprudencia, regulación, hechos actuales o cualquier información que requiera datos públicos en tiempo real.",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "query": { "type": "string", "description": "Consulta de búsqueda en lenguaje natural. El texto debe llegar ya anonimizado (sin PIIs)." },
+          "num_results": { "type": "integer", "default": 5, "description": "Número de resultados a devolver (1-10). Por defecto 5." }
+        },
+        "required": ["query"]
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "query": { "type": "string" },
+          "num_results": { "type": "integer" },
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": { "type": "string" },
+                "url": { "type": "string" },
+                "snippet": { "type": "string" },
+                "content": { "type": "string" }
+              }
+            }
+          }
+        }
+      },
+      "tags": ["retrieval", "web", "research"],
+      "side_effects": false
+    },
+    {
       "id": "io.gravitonai.tools.escalate_to_attorney",
       "name": "escalate_to_attorney",
       "description": "Crea un ticket de escalación a un abogado humano con contexto estructurado",

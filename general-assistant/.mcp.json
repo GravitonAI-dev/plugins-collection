@@ -1,0 +1,4 @@
+{
+  "description": "El plugin general-assistant no consume servidores MCP externos en esta version. La unica tool que necesita (web_search) se ejecuta in-process. Este archivo se mantiene para preservar el shape canonico del plugin.",
+  "servers": []
+}
