@@ -570,4 +570,3 @@ Ver `commercial-legal/README.md` para detalle completo.
 8. **Subagentes**: definir el mecanismo de delegación entre skills.
 
 **Mantenido por GravitonAI.** Para preguntas, abrir issue en el repo.
-fix-verification-1783031409
