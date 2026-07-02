@@ -54,3 +54,5 @@ htmlcov/
 
 # Marketplace / Claude Code
 .claude/
+
+plugin-builder-skill.md
