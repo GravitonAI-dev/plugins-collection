@@ -1,0 +1,20 @@
+{
+  "description": "Subset de tools que consume el plugin historical-drafting. Referencia por id al catalogo global agent_tools.json.",
+  "tools": [
+    {
+      "id": "io.gravitonai.tools.web_search",
+      "required": false,
+      "purpose": "Buscar fuentes y verificar hechos sobre el evento historico en la web abierta."
+    },
+    {
+      "id": "io.gravitonai.tools.read_document",
+      "required": false,
+      "purpose": "Leer documentos fuente cuando el usuario aporta URL o path local."
+    },
+    {
+      "id": "io.gravitonai.tools.draft_markdown",
+      "required": false,
+      "purpose": "Generar el borrador en markdown a partir de la plantilla de la skill."
+    }
+  ]
+}

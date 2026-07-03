@@ -1,0 +1,11 @@
+{
+  "name": "historical-drafting",
+  "version": "0.1.0",
+  "description": "Automatización de resúmenes y análisis estructurados sobre eventos históricos para investigadores en general, con borradores verificables y trazabilidad de fuentes.",
+  "author": {
+    "name": "GravitonAI"
+  },
+  "skills": ["venezuela-history"],
+  "agents": [],
+  "hooks": []
+}
