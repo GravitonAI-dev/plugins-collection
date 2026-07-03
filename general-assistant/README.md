@@ -1,6 +1,6 @@
 # general-assistant
 
-Plugin de proposito general. Atiende consultas que requieren informacion publica, hechos actuales, contexto externo o verificacion. Cubre el caso "no se que plugin usar" — cuando la consulta no encaja claramente en un vertical, este plugin es el fallback.
+Plugin de propósito general. Atiende consultas que requieren información pública, hechos actuales, contexto externo o verificacion. Cubre el caso "no se que plugin usar" — cuando la consulta no encaja claramente en un vertical, este plugin es el fallback.
 
 > Todo output de este plugin es una respuesta directa, **no** un borrador legal, fiscal ni medico. Para temas verticales, usar el plugin correspondiente.
 
