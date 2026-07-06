@@ -1,4 +1,4 @@
-# plugins-collection
+# plugins-collection (...)
 
 Marketplace de plugins para agentes LLM. La estructura es **agnóstica del orquestador**: está pensada para ser consumida por Claude (Code, Cowork, Managed Agents), pero también por LangGraph, AutoGen, Temporal, o cualquier orquestador custom que respete el shape.
 
