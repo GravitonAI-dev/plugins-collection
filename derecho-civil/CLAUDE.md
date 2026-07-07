@@ -79,6 +79,7 @@ El agente no redacta nada hasta haber recogido estos datos:
 - `arrendamiento-urbano`: genera el contrato completo (vivienda o local) a partir de los datos de las partes y el inmueble.
 - `monitorio`: genera la peticion inicial de proceso monitorio (arts. 812-818 LEC) para reclamar deudas dinerarias, con opcion de burofax de requerimiento previo.
 - `desahucio`: genera la demanda de juicio verbal de desahucio de finca urbana (falta de pago con acumulacion de rentas, expiracion de plazo o precario) conforme a la LEC y la LAU.
+- `juicio-ordinario`: prepara de principio a fin un juicio ordinario civil (intake, admisibilidad, demanda del Art. 399, audiencia previa, proposicion de prueba y conclusiones) conforme a la LEC.
 - `convenio-regulador`: genera el convenio regulador de separacion o divorcio de mutuo acuerdo (art. 90 CC) y, en su caso, la demanda conjunta (art. 777 LEC), determinando via judicial o notarial.
 - `particion-herencia`: genera el cuaderno particional y el documento de aceptacion de herencia (CC, con respeto de la legitima), con aviso del Impuesto de Sucesiones autonomico.
 - `reclamacion-clausulas-abusivas`: genera la reclamacion extrajudicial y la demanda de nulidad de clausulas abusivas de consumo con restitucion de cantidades (TRLGDCU, LCGC, Directiva 93/13).

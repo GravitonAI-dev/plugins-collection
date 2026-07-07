@@ -76,6 +76,18 @@ Output: demanda de desahucio en markdown, DRAFT, segun el supuesto.
 
 Que NO hace: no cubre la tutela sumaria frente a okupacion ilegal (Art. 250.1.4), finca rustica ni ejecucion hipotecaria; no redacta la oposicion del demandado.
 
+### `juicio-ordinario`
+
+Prepara de principio a fin un juicio ordinario civil (cuantia superior a 15.000 euros o materia del Art. 249.1 LEC): intake del caso, checklist de admisibilidad (cuantia, competencia, postulacion, MASC), demanda del Art. 399, guion de audiencia previa (Arts. 414-430), proposicion de prueba (Art. 429) y minuta de conclusiones (Art. 433).
+
+Invocacion: `/derecho-civil:juicio-ordinario`
+
+Inputs requeridos: fase (o ciclo completo); materia y via (por materia o por cuantia); datos del actor y del demandado; hechos; cuantia y su justificacion; documentos y periciales; partido judicial; postulacion (abogado y procurador); si se intento MASC.
+
+Output: segun la fase, checklist de admisibilidad, demanda, guion de audiencia previa, proposicion de prueba y/o minuta de conclusiones, en markdown, DRAFT.
+
+Que NO hace: no cubre asuntos de juicio verbal (por materia o cuantia igual o inferior a 15.000 euros), procesos especiales, ni la contestacion, reconvencion o recursos del demandado.
+
 ### `convenio-regulador`
 
 Genera el convenio regulador de separacion o divorcio de mutuo acuerdo (Art. 90 CC) y, para la via judicial, la demanda conjunta (Art. 777 LEC). Determina la via (judicial con Ministerio Fiscal si hay hijos menores o con discapacidad dependientes; notarial o ante Letrado de la Administracion de Justicia si no los hay).
