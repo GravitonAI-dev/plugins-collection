@@ -30,38 +30,8 @@
       "name": "derecho-civil",
       "displayName": "Derecho Civil",
       "source": "./derecho-civil",
-      "version": "0.5.0",
-      "description": "Generacion de documentos de derecho civil espanol, siempre en su version consolidada vigente verificada en el BOE: contratos de arrendamiento urbano (LAU), proceso monitorio y juicio ordinario (LEC) y desahucios.",
-      "author": {
-        "name": "GravitonAI"
-      }
-    },
-    {
-      "name": "derecho-familia",
-      "displayName": "Derecho de Familia",
-      "source": "./derecho-familia",
-      "version": "0.1.0",
-      "description": "Generacion de documentos de derecho de familia espanol (separacion y divorcio de mutuo acuerdo, medidas sobre los hijos, regimen economico matrimonial y parejas de hecho), siempre en su version consolidada vigente verificada en el BOE.",
-      "author": {
-        "name": "GravitonAI"
-      }
-    },
-    {
-      "name": "derecho-consumo",
-      "displayName": "Derecho de Consumo",
-      "source": "./derecho-consumo",
-      "version": "0.1.0",
-      "description": "Generacion de documentos de derecho de consumo espanol (reclamacion de clausulas abusivas y restitucion de cantidades, reclamaciones de consumidores frente a empresas), siempre en su version consolidada vigente verificada en el BOE.",
-      "author": {
-        "name": "GravitonAI"
-      }
-    },
-    {
-      "name": "sucesiones",
-      "displayName": "Sucesiones",
-      "source": "./sucesiones",
-      "version": "0.1.0",
-      "description": "Generacion de documentos de derecho sucesorio espanol (particion de herencia, aceptacion de herencia y voluntades), siempre en su version consolidada vigente verificada en el BOE, con respeto de la legitima y aviso del Impuesto de Sucesiones.",
+      "version": "0.6.0",
+      "description": "Generacion de documentos de derecho civil espanol, siempre en su version consolidada vigente verificada en el BOE: arrendamiento urbano (LAU), proceso monitorio y juicio ordinario (LEC), desahucios, convenio regulador de divorcio de mutuo acuerdo, particion de herencia y reclamacion de clausulas abusivas de consumo.",
       "author": {
         "name": "GravitonAI"
       }

@@ -90,15 +90,35 @@ Output: segun la fase, checklist de admisibilidad, demanda, guion de audiencia p
 
 Que NO hace: no cubre asuntos de juicio verbal (por materia o cuantia igual o inferior a 15.000 euros), procesos especiales, ni la contestacion, reconvencion o recursos del demandado.
 
+### `convenio-regulador`
+
+Genera el convenio regulador de separacion o divorcio de mutuo acuerdo (Art. 90 CC) y, para la via judicial, la demanda conjunta (Art. 777 LEC). Determina la via (judicial con Ministerio Fiscal si hay hijos menores o con discapacidad dependientes; notarial o ante Letrado de la Administracion de Justicia si no los hay).
+
+Invocacion: `/derecho-civil:convenio-regulador`
+
+Output: convenio regulador en markdown, DRAFT (y, opcionalmente, demanda de mutuo acuerdo).
+
+### `particion-herencia`
+
+Genera el cuaderno particional o escritura de aceptacion y particion (inventario, avaluo, liquidacion y adjudicaciones, con respeto de la legitima) y el documento de aceptacion de herencia, para sucesion testada o intestada. Advierte del Impuesto de Sucesiones (autonomico) y la plusvalia municipal.
+
+Invocacion: `/derecho-civil:particion-herencia`
+
+Output: cuaderno particional en markdown, DRAFT (y, opcionalmente, aceptacion de herencia).
+
+### `reclamacion-clausulas-abusivas`
+
+Genera la reclamacion extrajudicial y/o la demanda de nulidad de clausula abusiva con restitucion de cantidades, en contratos con consumidores (TRLGDCU, LCGC, Directiva 93/13). Verifica la jurisprudencia reciente del TJUE y del Tribunal Supremo.
+
+Invocacion: `/derecho-civil:reclamacion-clausulas-abusivas`
+
+Output: reclamacion extrajudicial y/o demanda de nulidad con restitucion, en markdown, DRAFT.
+
 ---
 
-## Plugins relacionados
+## Alcance del plugin
 
-Los documentos de otras areas del derecho privado se han trasladado a sus propios plugins:
-
-- `derecho-familia` — convenio regulador de divorcio, medidas y parejas de hecho.
-- `derecho-consumo` — reclamacion de clausulas abusivas y consumo.
-- `sucesiones` — particion y aceptacion de herencia.
+Este plugin cubre documentos JURIDICOS de derecho civil (contratos, demandas, reclamaciones). Los TRAMITES administrativos ante organismos (DGT, Hacienda, Seguridad Social, registros, extranjeria) se ubicaran en un futuro plugin `gestoria`.
 
 ---
 
