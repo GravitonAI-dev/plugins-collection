@@ -1,6 +1,6 @@
 # Estilo de Redaccion de Hojas de Datos ante la Seguridad Social
 
-> Material de referencia para la skill `alta-seguridad-social`. Reglas de estilo aplicables a las hojas de
+> Material de referencia para la skill `alta-baja-seguridad-social`. Reglas de estilo aplicables a las hojas de
 > datos y checklists dirigidos a la Tesoreria General de la Seguridad Social (TGSS). Basado en guias de
 > lenguaje administrativo claro. La skill aplica estas reglas al preparar el tramite; no forman parte del
 > output al usuario.

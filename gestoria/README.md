@@ -46,11 +46,11 @@ Inputs: tipo de operacion (alta / baja); datos del interesado; actividad y epigr
 
 Output: hojas de datos del alta o baja censal (036) y del alta o baja en RETA (con cuota estimada en el alta) y checklist de documentos, sedes y plazos, en markdown, DRAFT.
 
-### `alta-seguridad-social`
+### `alta-baja-seguridad-social`
 
 Prepara altas y bajas en la Seguridad Social por el lado del empleador y del Regimen General (LGSS, RD 84/1996): afiliacion inicial / NUSS (TA.1), inscripcion de empresa y CCC (TA.6), alta y baja de trabajadores por cuenta ajena (Sistema RED / Import@ss) y empleadas de hogar.
 
-Invocacion: `/gestoria:alta-seguridad-social`
+Invocacion: `/gestoria:alta-baja-seguridad-social`
 
 Inputs: tipo de operacion (alta / baja); sujeto (afiliacion inicial / empresa / trabajador / empleada de hogar); datos del empleador (CIF, CCC); datos del trabajador (nombre, NIF, NUSS, grupo de cotizacion); fecha de efectos; tipo de contrato.
 

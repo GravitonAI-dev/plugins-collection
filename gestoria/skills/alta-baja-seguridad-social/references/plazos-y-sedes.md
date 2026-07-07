@@ -1,6 +1,6 @@
 # Plazos, Sedes y Regla de Auto-actualizacion
 
-> Material de referencia para la skill `alta-seguridad-social`. Registra las fuentes normativas, los plazos
+> Material de referencia para la skill `alta-baja-seguridad-social`. Registra las fuentes normativas, los plazos
 > de las altas y bajas, las sedes de presentacion y la regla de auto-actualizacion. La skill verifica estas
 > fuentes en cada lanzamiento y, si detecta una version posterior, ACTUALIZA el archivo correspondiente del
 > plugin antes de preparar el tramite.

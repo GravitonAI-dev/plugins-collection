@@ -1,6 +1,6 @@
 # Tramites ante la TGSS y Modelos TA
 
-> Material de referencia para la skill `alta-seguridad-social`. Relaciona cada operacion (alta o baja)
+> Material de referencia para la skill `alta-baja-seguridad-social`. Relaciona cada operacion (alta o baja)
 > con el modelo TA correspondiente, la via de presentacion y el circuito ante la Tesoreria General de la
 > Seguridad Social (TGSS). La skill verifica los modelos y la via en cada lanzamiento y, si detecta un
 > cambio, ACTUALIZA este archivo antes de preparar el tramite.

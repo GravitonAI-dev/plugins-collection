@@ -1,6 +1,6 @@
 # LGSS y Reglamento de Inscripcion, Afiliacion, Altas y Bajas
 
-> Material de referencia para la skill `alta-seguridad-social`. Resume el regimen legal de la inscripcion
+> Material de referencia para la skill `alta-baja-seguridad-social`. Resume el regimen legal de la inscripcion
 > de empresas, la afiliacion, las altas, las bajas y las variaciones de datos en la Seguridad Social,
 > conforme al texto refundido de la LGSS (RD-legislativo 8/2015) y al Reglamento general aprobado por el
 > RD 84/1996. La skill verifica estas fuentes en cada lanzamiento y, si detecta una version posterior,

@@ -1,5 +1,5 @@
 ---
-name: alta-seguridad-social
+name: alta-baja-seguridad-social
 description: >
   Prepara altas y bajas en la Seguridad Social (Regimen General) que corresponden al empleador y al
   trabajador por cuenta ajena en Espana: (1) afiliacion inicial y numero de la Seguridad Social (NUSS)
