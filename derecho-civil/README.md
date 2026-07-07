@@ -1,6 +1,6 @@
 # Derecho Civil
 
-Plugin de GravitonAI para la generacion de contratos de arrendamiento urbano con cumplimiento de la Ley 29/1994 de Arrendamientos Urbanos (LAU).
+Plugin de GravitonAI para la generacion de documentos de derecho civil: contratos de arrendamiento urbano (Ley 29/1994 LAU) y peticiones de proceso monitorio para reclamacion de deudas dinerarias (arts. 812-818 LEC).
 
 ---
 
@@ -12,6 +12,7 @@ Plugin de GravitonAI para la generacion de contratos de arrendamiento urbano con
 - Aplica la normativa vigente verificando siempre la ultima version consolidada de la LAU en el BOE antes de redactar.
 - Advierte sobre zonas de mercado residencial tensionado y aplica las limitaciones de renta correspondientes (Art. 17.6 y 17.7 LAU, Ley 12/2023).
 - Genera clausulas conformes a la LAU e indica cuales son imperativas y cuales dispositivas.
+- Genera peticiones de proceso monitorio para reclamar deudas dinerarias (arts. 812-818 LEC), con opcion de burofax de requerimiento previo y variante para rentas de arrendamiento impagadas.
 
 ## Que NO hace
 
@@ -42,6 +43,26 @@ Inputs requeridos:
 - Fecha de inicio del contrato
 
 Output: contrato completo en markdown, DRAFT, listo para revision por abogado.
+
+### `monitorio`
+
+Genera la peticion inicial de proceso monitorio para reclamar una deuda dineraria liquida, vencida y exigible (arts. 812-818 LEC), verificando la version vigente en el BOE. Pregunta al usuario el alcance (solo peticion inicial o tambien burofax de requerimiento previo) y el tipo de deuda (rentas de arrendamiento u otra).
+
+Invocacion: `/derecho-civil:monitorio`
+
+Inputs requeridos:
+- Alcance (solo peticion inicial / peticion inicial + burofax previo)
+- Tipo de deuda (rentas de arrendamiento / otra)
+- Datos del acreedor (nombre/razon social, NIF/CIF, domicilio, naturaleza: persona fisica o juridica)
+- Datos del deudor (nombre/razon social, NIF/CIF, domicilio o lugar donde pueda ser hallado)
+- Origen de la deuda y documentos que la acreditan
+- Cuantia (principal e intereses si proceden) y fecha de vencimiento
+- Partido judicial del domicilio del deudor
+- Si se ha intentado un MASC (si / no)
+
+Output: peticion inicial de monitorio en markdown, DRAFT (y, opcionalmente, burofax de requerimiento previo).
+
+Que NO hace: no redacta la oposicion del deudor ni la demanda de juicio declarativo; no reclama deudas iliquidas o controvertidas; no reclama a Administraciones Publicas; no tramita el desahucio (para recuperar la posesion, valorar el juicio de desahucio).
 
 ---
 

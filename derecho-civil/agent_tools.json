@@ -3,17 +3,17 @@
     {
       "id": "io.gravitonai.tools.read_document",
       "required": true,
-      "purpose": "Lectura directa de la LAU en el BOE para verificar la version consolidada vigente antes de redactar cualquier clausula. URL: https://www.boe.es/buscar/act.php?id=BOE-A-1994-26003&p=20230525&tn=1"
+      "purpose": "Lectura directa en el BOE de la norma aplicable para verificar la version consolidada vigente antes de redactar: LAU (BOE-A-1994-26003) para arrendamiento-urbano; LEC (BOE-A-2000-323, arts. 812-818 y 264) y el modelo normalizado del CGPJ para monitorio. Si detecta una version posterior, actualiza los archivos del plugin."
     },
     {
       "id": "io.gravitonai.tools.web_search",
       "required": true,
-      "purpose": "Fallback normativo si read_document falla. Tambien para consultar normativa autonomica especifica (deposito de fianza, indices de referencia, declaracion de zona tensionada) del municipio del inmueble."
+      "purpose": "Fallback normativo si read_document falla. Tambien para consultar normativa autonomica o especial (deposito de fianza, indices de referencia, zona tensionada; especialidades del proceso monitorio o deudas de comunidad de propietarios)."
     },
     {
       "id": "io.gravitonai.tools.draft_markdown",
       "required": true,
-      "purpose": "Generacion del contrato de arrendamiento en markdown desde la plantilla correspondiente (vivienda o local) con los datos recogidos del usuario."
+      "purpose": "Generacion del documento en markdown desde la plantilla correspondiente (contrato de arrendamiento; peticion inicial de monitorio o burofax de requerimiento previo) con los datos recogidos del usuario."
     },
     {
       "id": "io.gravitonai.tools.escalate_to_attorney",

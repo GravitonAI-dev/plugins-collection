@@ -30,8 +30,8 @@
       "name": "derecho-civil",
       "displayName": "Derecho Civil",
       "source": "./derecho-civil",
-      "version": "0.1.0",
-      "description": "Generacion de contratos de arrendamiento urbano (vivienda y local de negocio) entre arrendador y arrendatario, con cumplimiento de la Ley 29/1994 de Arrendamientos Urbanos (LAU) en su version consolidada vigente. Verifica siempre la ultima actualizacion del BOE antes de redactar.",
+      "version": "0.2.0",
+      "description": "Generacion de documentos de derecho civil: contratos de arrendamiento urbano (Ley 29/1994 LAU) y peticiones de proceso monitorio para reclamacion de deudas dinerarias (arts. 812-818 LEC), con opcion de burofax de requerimiento previo. Verifica siempre la ultima version consolidada en el BOE antes de redactar.",
       "author": {
         "name": "GravitonAI"
       }

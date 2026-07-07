@@ -77,6 +77,7 @@ El agente no redacta nada hasta haber recogido estos datos:
 ## Skills incluidas
 
 - `arrendamiento-urbano`: genera el contrato completo (vivienda o local) a partir de los datos de las partes y el inmueble.
+- `monitorio`: genera la peticion inicial de proceso monitorio (arts. 812-818 LEC) para reclamar deudas dinerarias, con opcion de burofax de requerimiento previo. Cada skill define su propia verificacion normativa, preguntas obligatorias y matriz de escalacion en su `SKILL.md`.
 
 ## Limitaciones explicitas
 
