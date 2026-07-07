@@ -30,8 +30,8 @@
       "name": "derecho-civil",
       "displayName": "Derecho Civil",
       "source": "./derecho-civil",
-      "version": "0.2.0",
-      "description": "Generacion de documentos de derecho civil: contratos de arrendamiento urbano (Ley 29/1994 LAU) y peticiones de proceso monitorio para reclamacion de deudas dinerarias (arts. 812-818 LEC), con opcion de burofax de requerimiento previo. Verifica siempre la ultima version consolidada en el BOE antes de redactar.",
+      "version": "0.3.0",
+      "description": "Generacion de documentos de derecho civil espanol, siempre en su version consolidada vigente verificada en el BOE: contratos de arrendamiento urbano (LAU), proceso monitorio (LEC), desahucios, convenios reguladores de divorcio de mutuo acuerdo, particion de herencia y reclamacion de clausulas abusivas de consumo.",
       "author": {
         "name": "GravitonAI"
       }

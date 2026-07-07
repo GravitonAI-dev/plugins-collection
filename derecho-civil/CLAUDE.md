@@ -77,7 +77,13 @@ El agente no redacta nada hasta haber recogido estos datos:
 ## Skills incluidas
 
 - `arrendamiento-urbano`: genera el contrato completo (vivienda o local) a partir de los datos de las partes y el inmueble.
-- `monitorio`: genera la peticion inicial de proceso monitorio (arts. 812-818 LEC) para reclamar deudas dinerarias, con opcion de burofax de requerimiento previo. Cada skill define su propia verificacion normativa, preguntas obligatorias y matriz de escalacion en su `SKILL.md`.
+- `monitorio`: genera la peticion inicial de proceso monitorio (arts. 812-818 LEC) para reclamar deudas dinerarias, con opcion de burofax de requerimiento previo.
+- `desahucio`: genera la demanda de juicio verbal de desahucio de finca urbana (falta de pago con acumulacion de rentas, expiracion de plazo o precario) conforme a la LEC y la LAU.
+- `convenio-regulador`: genera el convenio regulador de separacion o divorcio de mutuo acuerdo (art. 90 CC) y, en su caso, la demanda conjunta (art. 777 LEC), determinando via judicial o notarial.
+- `particion-herencia`: genera el cuaderno particional y el documento de aceptacion de herencia (CC, con respeto de la legitima), con aviso del Impuesto de Sucesiones autonomico.
+- `reclamacion-clausulas-abusivas`: genera la reclamacion extrajudicial y la demanda de nulidad de clausulas abusivas de consumo con restitucion de cantidades (TRLGDCU, LCGC, Directiva 93/13).
+
+Cada skill define su propia verificacion normativa (con auto-actualizacion desde el BOE), preguntas obligatorias y matriz de escalacion en su `SKILL.md`.
 
 ## Limitaciones explicitas
 
