@@ -55,38 +55,44 @@ assets:
 
 ## Procedimiento
 
-### Paso 1 — Verificacion y actualizacion normativa (OBLIGATORIO, antes de cualquier otra accion)
+### Paso 1 — Verificacion y AUTO-ACTUALIZACION normativa (OBLIGATORIO, antes de cualquier otra accion)
 
-Verificar la version vigente de la LEC (arts. 812-818 y 264) y del modelo normalizado del CGPJ. Invocar:
+La skill se actualiza a si misma en cada lanzamiento: comprueba las fuentes oficiales y, si detecta una version posterior, reescribe sus propios archivos (references y assets) antes de redactar. Ejecutar SIEMPRE esta secuencia:
+
+**1.1 — Leer la fecha/version registrada localmente.** Abrir `references/fuentes-plantillas-validadas.md` y anotar la "Version registrada" de la LEC y del modelo del CGPJ.
+
+**1.2 — Consultar la fuente oficial vigente.** Invocar:
 ```
 read_document(
   path: "https://www.boe.es/buscar/act.php?id=BOE-A-2000-323",
   format: "text"
 )
 ```
+Extraer: fecha del texto consolidado vigente de la LEC; redaccion actual de los arts. 812 a 818 y del art. 264 (acreditacion del intento de MASC); estado de aplicacion de la LO 1/2025 (BOE-A-2025-76).
 
-Extraer:
-- Fecha del texto consolidado vigente de la LEC.
-- Redaccion actual de los arts. 812 a 818 y del art. 264 (acreditacion del intento de MASC).
-- Estado de aplicacion de la LO 1/2025 (BOE-A-2025-76).
-
-**Actualizacion del plugin (OBLIGATORIA):** si la version consolidada en el BOE es posterior a la registrada en `references/fuentes-plantillas-validadas.md`, o si el texto de los articulos ha cambiado respecto a lo recogido en las references, actualizar los archivos afectados del plugin (references y, si aplica, el asset del CGPJ) con la version vigente y anotar la nueva fecha verificada antes de continuar.
-
-Verificar tambien el modelo normalizado del CGPJ:
+Consultar tambien el modelo normalizado del CGPJ:
 ```
 read_document(
   path: "https://www.poderjudicial.es/cgpj/es/Servicios/Atencion-Ciudadana/Modelos-normalizados/El-proceso-monitorio",
   format: "text"
 )
 ```
-Si el CGPJ publica una version posterior del modelo, actualizar `assets/peticion-inicial-monitorio.md`.
 
-Si read_document falla (error HTTP, timeout):
+**1.3 — Comparar.** Contrastar la version oficial con la registrada localmente y con el texto de las references.
+
+**1.4 — Auto-actualizar los archivos del plugin (OBLIGATORIO si hay cambios).** Si la version oficial es posterior o el texto de los articulos ha cambiado, usar las herramientas de escritura (Write/Edit) para:
+- Actualizar el contenido afectado en `references/lec-proceso-monitorio-812-818.md`, `references/lec-documentos-acreditativos-deuda.md` y/o `references/masc-requisito-procedibilidad-lo1-2025.md` con la redaccion vigente.
+- Si el CGPJ publica un modelo posterior, actualizar la estructura de `assets/peticion-inicial-monitorio.md` (y la variante de rentas si procede).
+- Actualizar la tabla "Version registrada" y las fechas en `references/fuentes-plantillas-validadas.md`.
+- Informar brevemente al usuario de que se detecto y aplico una version mas reciente (norma y fecha).
+
+No redactar ningun documento hasta haber completado esta actualizacion. Nunca usar una version desactualizada.
+
+**1.5 — Fallback si la fuente no es accesible.** Si `read_document` falla (error HTTP, timeout):
 ```
 web_search("Ley Enjuiciamiento Civil proceso monitorio articulos 812 818 texto consolidado BOE")
 ```
-
-Si ambos fallan: usar las references como respaldo y notificar al usuario:
+Si tambien falla: usar las references locales como respaldo y notificar al usuario:
 "No se pudo verificar la version vigente de la LEC en el BOE. La peticion se genera con la version de referencia. Verificar manualmente antes de presentar."
 
 ### Paso 2 — Preguntas al usuario (una pregunta por bloque si no las ha proporcionado)
