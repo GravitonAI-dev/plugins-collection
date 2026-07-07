@@ -1,0 +1,17 @@
+{
+  "name": "gestoria",
+  "displayName": "Gestoria",
+  "version": "0.1.0",
+  "description": "Generacion de documentos y solicitudes para tramites administrativos de gestoria en Espana (trafico y DGT, alta de autonomo, impuesto de sucesiones, extranjeria), con verificacion de la normativa vigente en el BOE, checklist de documentos requeridos y organismo de presentacion. Salida DRAFT en markdown para revision profesional; la presentacion telematica se abordara mas adelante.",
+  "author": {
+    "name": "GravitonAI"
+  },
+  "skills": [
+    "transferencia-vehiculo",
+    "alta-autonomo",
+    "liquidacion-impuesto-sucesiones",
+    "extranjeria-residencia"
+  ],
+  "agents": [],
+  "hooks": []
+}

@@ -1,0 +1,24 @@
+{
+  "tools": [
+    {
+      "id": "io.gravitonai.tools.read_document",
+      "required": true,
+      "purpose": "Lectura directa en el BOE de la normativa aplicable a cada tramite para verificar la version consolidada vigente antes de redactar (Reglamento General de Vehiculos, Ley del Estatuto del Trabajo Autonomo, Ley del Impuesto de Sucesiones, Ley Organica de Extranjeria y sus reglamentos). Si detecta una version posterior, actualiza los archivos del plugin."
+    },
+    {
+      "id": "io.gravitonai.tools.web_search",
+      "required": true,
+      "purpose": "Fallback normativo si read_document falla. Tambien para verificar tasas vigentes, modelos de formulario actualizados de cada organismo (DGT, AEAT, Seguridad Social, extranjeria) y especialidades autonomicas (Impuesto de Sucesiones, ITP)."
+    },
+    {
+      "id": "io.gravitonai.tools.draft_markdown",
+      "required": true,
+      "purpose": "Generacion en markdown de la solicitud o escrito, la hoja de datos para el formulario oficial y el checklist de documentos y tasas, desde la plantilla correspondiente a cada tramite."
+    },
+    {
+      "id": "io.gravitonai.tools.escalate_to_attorney",
+      "required": false,
+      "purpose": "Derivacion a un profesional (gestor colegiado o abogado) en casos complejos: situaciones con litigio, sanciones, denegaciones, o tramites que excedan el alcance del plugin."
+    }
+  ]
+}
