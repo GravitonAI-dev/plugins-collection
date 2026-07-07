@@ -40,7 +40,7 @@ assets:
 
 ## Guardrails
 
-1. Verificar siempre la LAU en el BOE antes de redactar. Sin verificacion, no proceder.
+1. Verificar siempre la LAU en el BOE antes de redactar. Sin verificacion, no proceder. Si se detecta una version de la LAU posterior a la registrada en las references, actualizar los archivos del plugin antes de redactar (ver Paso 1). No usar una version desactualizada.
 2. Nunca incluir clausulas que perjudiquen al arrendatario en los derechos reconocidos por el Titulo II LAU (son nulas de pleno derecho — Art. 6).
 3. Si el municipio es zona de mercado residencial tensionado, aplicar obligatoriamente las limitaciones de renta de los Art. 17.6 y 17.7 LAU y advertir al usuario.
 4. Si el arrendador es persona juridica, la duracion minima es 7 anos (no 5). Nunca reducirla.
@@ -51,26 +51,34 @@ assets:
 
 ## Procedimiento
 
-### Paso 1 — Verificacion normativa (OBLIGATORIO, antes de cualquier otra accion)
+### Paso 1 — Verificacion y AUTO-ACTUALIZACION normativa (OBLIGATORIO, antes de cualquier otra accion)
 
-Invocar:
+La skill se actualiza a si misma en cada lanzamiento: comprueba la LAU en la fuente oficial y, si detecta una version posterior, reescribe sus propias references antes de redactar. Ejecutar SIEMPRE esta secuencia:
+
+**1.1 — Leer la version registrada localmente.** Las references indican la ultima modificacion conocida (25/05/2023, Ley 12/2023). Anotar esa fecha como referencia de comparacion.
+
+**1.2 — Consultar la fuente oficial vigente.** Invocar:
 ```
 read_document(
   path: "https://www.boe.es/buscar/act.php?id=BOE-A-1994-26003&p=20230525&tn=1",
   format: "text"
 )
 ```
+Extraer: fecha de ultima modificacion del texto consolidado; articulos modificados respecto a la version registrada; version verificada para el encabezado del contrato.
 
-Extraer:
-- Fecha de ultima modificacion del texto consolidado.
-- Si la fecha es posterior a 25/05/2023, identificar los articulos modificados y aplicarlos.
-- Anotar la version verificada para incluirla en el encabezado del contrato.
+**1.3 — Comparar.** Contrastar la fecha/redaccion oficial con la registrada en las references.
 
-Si read_document falla (error HTTP, timeout):
+**1.4 — Auto-actualizar los archivos del plugin (OBLIGATORIO si hay cambios).** Si la fecha oficial es posterior o cambia la redaccion de articulos aplicados, usar las herramientas de escritura (Write/Edit) para:
+- Actualizar el contenido afectado en `references/lau-vivienda-plazos-renta-fianza.md`, `references/lau-derechos-obligaciones-partes.md` y/o `references/lau-arrendamiento-local-negocio.md` con la redaccion vigente.
+- Actualizar la nota de "ultima modificacion conocida" en el encabezado de esas references con la nueva fecha.
+- Informar brevemente al usuario de que se detecto y aplico una version mas reciente de la LAU (fecha y articulos).
+
+No redactar el contrato hasta haber completado esta actualizacion. Nunca usar una version desactualizada.
+
+**1.5 — Fallback si la fuente no es accesible.** Si read_document falla (error HTTP, timeout):
 ```
 web_search("Ley 29/1994 Arrendamientos Urbanos texto consolidado BOE ultima modificacion")
 ```
-
 Si ambos fallan: usar references como respaldo y notificar al usuario:
 "No se pudo verificar la version vigente de la LAU en el BOE. El contrato se genera con la version de referencia (25/05/2023). Verificar manualmente antes de firmar."
 
