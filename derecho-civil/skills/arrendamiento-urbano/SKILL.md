@@ -1,5 +1,5 @@
 ---
-name: generar-contrato-arrendamiento
+name: arrendamiento-urbano
 description: >
   Genera un contrato de arrendamiento urbano completo (vivienda habitual o local de negocio)
   entre arrendador y arrendatario, aplicando la Ley 29/1994 de Arrendamientos Urbanos (LAU)

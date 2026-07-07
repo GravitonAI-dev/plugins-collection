@@ -1,4 +1,4 @@
-# Civil - Arrendamiento Urbano
+# Derecho Civil
 
 Plugin de GravitonAI para la generacion de contratos de arrendamiento urbano con cumplimiento de la Ley 29/1994 de Arrendamientos Urbanos (LAU).
 
@@ -25,11 +25,11 @@ Plugin de GravitonAI para la generacion de contratos de arrendamiento urbano con
 
 ## Skills
 
-### `generar-contrato-arrendamiento`
+### `arrendamiento-urbano`
 
 Genera un contrato de arrendamiento urbano completo a partir de los datos recogidos al usuario.
 
-Invocacion: `/civil-arrendamiento-urbano:generar-contrato-arrendamiento`
+Invocacion: `/derecho-civil:arrendamiento-urbano`
 
 Inputs requeridos:
 - Tipo de inmueble (vivienda / local de negocio)
@@ -70,7 +70,7 @@ Ninguno.
 ## Instalacion
 
 ```
-/plugin marketplace add ./civil-arrendamiento-urbano
+/plugin marketplace add ./derecho-civil
 ```
 
 ---
@@ -80,5 +80,5 @@ Ninguno.
 <!-- EDITAR PARA TU EQUIPO: personalizar segun la practica del despacho -->
 
 - Jurisdiccion por defecto: en `CLAUDE.md`, campo "Jurisdiccion por defecto".
-- Clausulas adicionales habituales del despacho: agregar en `skills/generar-contrato-arrendamiento/references/` como nuevo archivo de referencia y referenciar desde `SKILL.md`.
-- Plantillas personalizadas: editar `skills/generar-contrato-arrendamiento/assets/contrato-arrendamiento-vivienda.md` y `contrato-arrendamiento-local.md`.
+- Clausulas adicionales habituales del despacho: agregar en `skills/arrendamiento-urbano/references/` como nuevo archivo de referencia y referenciar desde `SKILL.md`.
+- Plantillas personalizadas: editar `skills/arrendamiento-urbano/assets/contrato-arrendamiento-vivienda.md` y `contrato-arrendamiento-local.md`.

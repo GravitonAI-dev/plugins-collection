@@ -1,13 +1,13 @@
 {
-  "name": "civil-arrendamiento-urbano",
-  "displayName": "Civil - Arrendamiento Urbano",
+  "name": "derecho-civil",
+  "displayName": "Derecho Civil",
   "version": "0.1.0",
   "description": "Generacion de contratos de arrendamiento urbano (vivienda y local de negocio) entre arrendador y arrendatario, con cumplimiento de la Ley 29/1994 de Arrendamientos Urbanos (LAU) en su version consolidada vigente.",
   "author": {
     "name": "GravitonAI"
   },
   "skills": [
-    "generar-contrato-arrendamiento"
+    "arrendamiento-urbano"
   ],
   "agents": [],
   "hooks": []

@@ -1,4 +1,4 @@
-# Plugin: Civil - Arrendamiento Urbano
+# Plugin: Derecho Civil
 
 ## Proposito
 
@@ -76,7 +76,7 @@ El agente no redacta nada hasta haber recogido estos datos:
 
 ## Skills incluidas
 
-- `generar-contrato-arrendamiento`: genera el contrato completo (vivienda o local) a partir de los datos de las partes y el inmueble.
+- `arrendamiento-urbano`: genera el contrato completo (vivienda o local) a partir de los datos de las partes y el inmueble.
 
 ## Limitaciones explicitas
 
