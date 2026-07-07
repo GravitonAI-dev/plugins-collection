@@ -9,7 +9,8 @@ Salida en DRAFT markdown para revision profesional en el editor. La presentacion
 ## Que hace
 
 - Prepara el cambio de titularidad de vehiculo ante la DGT y la notificacion de venta.
-- Prepara el alta de autonomo (censo AEAT 036 e alta en el RETA de la Seguridad Social).
+- Prepara el alta y la baja de autonomo (censo AEAT 036 y RETA de la Seguridad Social).
+- Prepara altas y bajas en la Seguridad Social (afiliacion/NUSS, empresa y CCC, trabajadores del Regimen General, empleadas de hogar).
 - Prepara la autoliquidacion del Impuesto de Sucesiones (modelo 650) y avisa de la plusvalia municipal.
 - Prepara la solicitud de NIE o de autorizacion de residencia (formularios EX, tasa 790).
 - Verifica la normativa, los modelos y las tasas vigentes en el BOE y auto-actualiza sus references si detecta una version posterior.
@@ -35,15 +36,25 @@ Inputs: rol (comprador / vendedor / ambos); datos del vehiculo (matricula, basti
 
 Output: contrato de compraventa, solicitud de cambio de titularidad (hoja de datos + checklist + tasa) y notificacion de venta, en markdown, DRAFT.
 
-### `alta-autonomo`
+### `alta-baja-autonomo`
 
-Prepara el alta de autonomo: alta censal en la AEAT (modelo 036) y alta en el RETA de la Seguridad Social por rendimientos reales (Ley 20/2007, RD-ley 13/2022).
+Prepara el alta y la baja de autonomo: alta y baja censal en la AEAT (modelo 036) y alta y baja en el RETA de la Seguridad Social por rendimientos reales (Ley 20/2007, RD-ley 13/2022).
 
-Invocacion: `/gestoria:alta-autonomo`
+Invocacion: `/gestoria:alta-baja-autonomo`
 
-Inputs: datos del interesado; actividad y epigrafe IAE; fecha de inicio; rendimientos netos previstos (para el tramo); regimen de IVA e IRPF; tarifa plana; domicilio de la actividad.
+Inputs: tipo de operacion (alta / baja); datos del interesado; actividad y epigrafe IAE; fecha de inicio o de cese; rendimientos netos previstos (para el tramo); regimen de IVA e IRPF; tarifa plana; domicilio de la actividad.
 
-Output: hoja de datos del alta censal (036) y del alta en RETA (con cuota estimada) y checklist de documentos, sedes y plazos, en markdown, DRAFT.
+Output: hojas de datos del alta o baja censal (036) y del alta o baja en RETA (con cuota estimada en el alta) y checklist de documentos, sedes y plazos, en markdown, DRAFT.
+
+### `alta-seguridad-social`
+
+Prepara altas y bajas en la Seguridad Social por el lado del empleador y del Regimen General (LGSS, RD 84/1996): afiliacion inicial / NUSS (TA.1), inscripcion de empresa y CCC (TA.6), alta y baja de trabajadores por cuenta ajena (Sistema RED / Import@ss) y empleadas de hogar.
+
+Invocacion: `/gestoria:alta-seguridad-social`
+
+Inputs: tipo de operacion (alta / baja); sujeto (afiliacion inicial / empresa / trabajador / empleada de hogar); datos del empleador (CIF, CCC); datos del trabajador (nombre, NIF, NUSS, grupo de cotizacion); fecha de efectos; tipo de contrato.
+
+Output: hoja de datos del modelo TA correspondiente, checklist de documentos, organismo (TGSS) y via (Import@ss / Sistema RED) y plazos, en markdown, DRAFT.
 
 ### `liquidacion-impuesto-sucesiones`
 

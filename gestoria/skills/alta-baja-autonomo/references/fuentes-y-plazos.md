@@ -1,9 +1,9 @@
 # Fuentes Oficiales, Sedes y Plazos
 
-> Material de referencia para la skill `alta-autonomo`. Registra las fuentes normativas, las sedes de
-> presentacion y los plazos del alta censal (AEAT) y del alta en el RETA (Seguridad Social). La skill
-> verifica estas fuentes en cada lanzamiento y, si detecta una version posterior, ACTUALIZA el archivo
-> correspondiente del plugin antes de preparar el tramite.
+> Material de referencia para la skill `alta-baja-autonomo`. Registra las fuentes normativas, las sedes de
+> presentacion y los plazos del alta y la baja censal (AEAT) y del alta y la baja en el RETA (Seguridad
+> Social). La skill verifica estas fuentes en cada lanzamiento y, si detecta una version posterior,
+> ACTUALIZA el archivo correspondiente del plugin antes de preparar el tramite.
 
 ---
 
@@ -33,7 +33,7 @@ Articulos relevantes de la Ley 20/2007 para esta skill: arts. 30 a 38 bis (cotiz
 
 ---
 
-## Plazos y orden de los tramites
+## Plazos y orden de los tramites — ALTA
 
 | Paso | Tramite | Plazo |
 |---|---|---|
@@ -41,6 +41,21 @@ Articulos relevantes de la Ley 20/2007 para esta skill: arts. 30 a 38 bis (cotiz
 | 2 | Alta en el RETA en Import@ss | Hasta 60 dias naturales antes del inicio; efectos desde la fecha de inicio real |
 
 Nota: aunque el orden habitual es censo y luego RETA, el alta en el RETA puede solicitarse anticipadamente. Ambos deben estar formalizados para la fecha de inicio real de la actividad.
+
+---
+
+## Plazos y orden de los tramites — BAJA
+
+| Paso | Tramite | Plazo |
+|---|---|---|
+| 1 | Baja en el RETA en Import@ss | 3 dias naturales siguientes al cese de la actividad |
+| 2 | Baja censal (modelo 036, casilla 150) en la AEAT | 1 mes desde el cese de la actividad |
+
+Notas [verificar]:
+- Ambos plazos se cuentan desde la fecha real de cese; la baja en el RETA es la mas urgente (3 dias naturales, se cuentan fines de semana y festivos).
+- La baja censal se comunica en el modelo 036 marcando la causa de baja (casilla 150) y la fecha efectiva del cese (casilla 152). En caso de fallecimiento del obligado, el plazo es de 6 meses.
+- Efectos en la cuota del RETA: desde el sistema de cotizacion por rendimientos reales, las tres primeras bajas de cada ano natural surten efecto desde el dia del cese (se cotiza solo por los dias trabajados); a partir de la cuarta baja del mismo ano, se cotiza el mes completo. Si la baja se comunica fuera de plazo, surte efecto la fecha de presentacion y se generan cuotas hasta entonces.
+- La baja censal implica dejar de ser sujeto pasivo de las obligaciones derivadas de la actividad, pero NO exime de presentar las ultimas declaraciones del periodo ni de saldar deudas pendientes.
 
 ---
 

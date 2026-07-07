@@ -1,6 +1,6 @@
 # Estilo de Redaccion de Escritos y Hojas de Datos Administrativas
 
-> Material de referencia para la skill `alta-autonomo`. Reglas de estilo aplicables a las hojas de datos
+> Material de referencia para la skill `alta-baja-autonomo`. Reglas de estilo aplicables a las hojas de datos
 > y checklists dirigidos a la AEAT y a la Seguridad Social. Basado en guias de lenguaje administrativo
 > claro. La skill aplica estas reglas al preparar el tramite; no forman parte del output al usuario.
 
@@ -29,7 +29,7 @@
 
 ## Reglas de estructura (hoja de datos)
 
-- Encabezamiento con el organismo y el tramite (ALTA CENSAL - AEAT / ALTA EN EL RETA - Seguridad Social).
+- Encabezamiento con el organismo y el tramite (ALTA/BAJA CENSAL - AEAT / ALTA/BAJA EN EL RETA - Seguridad Social).
 - Datos del interesado agrupados como en el formulario oficial.
 - Datos de la actividad, epigrafe y regimenes en bloques diferenciados.
 - Checklist de documentos accionable (casillas), correlativo a lo que exige el organismo.

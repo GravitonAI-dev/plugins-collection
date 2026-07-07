@@ -58,7 +58,8 @@ Cada skill no prepara nada hasta recoger los datos necesarios del tramite (datos
 ## Skills incluidas
 
 - `transferencia-vehiculo`: cambio de titularidad / notificacion de venta de vehiculo ante la DGT, con el ITP del vehiculo usado cuando proceda.
-- `alta-autonomo`: alta censal en la AEAT (modelo 036/037) y alta en el RETA de la Seguridad Social.
+- `alta-baja-autonomo`: alta y baja censal en la AEAT (modelo 036) y alta y baja en el RETA de la Seguridad Social.
+- `alta-seguridad-social`: altas y bajas en la Seguridad Social (afiliacion/NUSS, empresa y CCC, trabajadores del Regimen General y empleadas de hogar) ante la TGSS.
 - `liquidacion-impuesto-sucesiones`: autoliquidacion del Impuesto de Sucesiones (modelo 650) y aviso de la plusvalia municipal.
 - `extranjeria-residencia`: solicitud de NIE o de autorizacion de residencia (formularios EX y tasa 790).
 

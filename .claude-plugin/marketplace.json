@@ -40,8 +40,8 @@
       "name": "gestoria",
       "displayName": "Gestoria",
       "source": "./gestoria",
-      "version": "0.1.0",
-      "description": "Generacion de documentos y solicitudes para tramites administrativos de gestoria en Espana (trafico y DGT, alta de autonomo, impuesto de sucesiones, extranjeria), con verificacion de la normativa vigente en el BOE, checklist de documentos y organismo de presentacion. Salida DRAFT en markdown para revision profesional.",
+      "version": "0.2.0",
+      "description": "Generacion de documentos y solicitudes para tramites administrativos de gestoria en Espana (trafico y DGT, alta y baja de autonomo, altas y bajas en la Seguridad Social, impuesto de sucesiones, extranjeria), con verificacion de la normativa vigente en el BOE, checklist de documentos y organismo de presentacion. Salida DRAFT en markdown para revision profesional.",
       "author": {
         "name": "GravitonAI"
       }

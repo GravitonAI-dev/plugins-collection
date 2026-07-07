@@ -1,9 +1,10 @@
 # RETA — Cotizacion por Rendimientos Reales y Tarifa Plana
 
-> Material de referencia para la skill `alta-autonomo`. Resume el sistema de cotizacion del Regimen
+> Material de referencia para la skill `alta-baja-autonomo`. Resume el sistema de cotizacion del Regimen
 > Especial de Trabajadores Autonomos (RETA) por rendimientos netos, conforme al RD-ley 13/2022 y a la
-> tabla de cuotas del ejercicio en curso. TODOS los importes son ORIENTATIVOS: la skill los verifica en
-> el Paso 1 y los marca `[verificar]`; se regularizan anualmente segun los rendimientos reales.
+> tabla de cuotas del ejercicio en curso, y las reglas de la baja en el RETA. TODOS los importes son
+> ORIENTATIVOS: la skill los verifica en el Paso 1 y los marca `[verificar]`; se regularizan anualmente
+> segun los rendimientos reales.
 
 ---
 
@@ -73,6 +74,35 @@ Si el usuario no cumple los requisitos o hay duda, NO aplicar la tarifa plana: u
 | Identificacion | Certificado digital, DNI electronico o Cl@ve |
 | Plazo | Hasta 60 dias naturales antes del inicio; efectos desde la fecha de inicio real de la actividad |
 | Base de la cuota | Rendimientos netos previstos, elegidos por el interesado dentro del tramo |
+
+---
+
+## Baja en el RETA (cese de actividad)
+
+Al cesar la actividad, el autonomo debe comunicar la baja en el RETA. Es el tramite mas urgente del cese por su plazo corto.
+
+| Aspecto | Detalle [verificar] |
+|---|---|
+| Organismo | Tesoreria General de la Seguridad Social (TGSS) |
+| Sede | Import@ss (portal de la Seguridad Social) e Importass app |
+| Identificacion | Certificado digital, DNI electronico o Cl@ve |
+| Plazo | 3 dias naturales siguientes al cese de la actividad (se cuentan fines de semana y festivos) |
+| Fecha de efecto | La fecha real de cese, si se comunica en plazo; si se comunica fuera de plazo, la fecha de presentacion |
+
+### Efectos en la cuota
+
+Desde el sistema de cotizacion por rendimientos reales (RD-ley 13/2022):
+
+- Las **tres primeras bajas de cada ano natural** surten efecto desde el dia del cese: se cotiza solo por los dias efectivamente trabajados de ese mes (prorrata diaria).
+- A partir de la **cuarta baja del mismo ano natural**, se cotiza el **mes completo** aunque el cese sea a mitad de mes.
+- Si la baja se comunica **fuera del plazo de 3 dias**, surte efecto la fecha de presentacion y se generan cuotas hasta entonces, aunque no haya habido actividad.
+
+Marcar estas reglas como `[verificar]` y confirmarlas en el Paso 1, ya que dependen de la normativa del ejercicio en curso.
+
+### Obligaciones tras la baja
+
+- La baja en el RETA no da derecho automatico a prestacion: la prestacion por cese de actividad (paro del autonomo) es un tramite distinto, con requisitos propios, que EXCEDE el alcance de esta skill.
+- Regularizar la cotizacion del ejercicio del cese segun los rendimientos reales cuando la AEAT los comunique a la TGSS.
 
 ---
 

@@ -1,7 +1,7 @@
-# AEAT — Alta Censal del Autonomo (Modelo 036, Epigrafes IAE, IVA e IRPF)
+# AEAT — Alta y Baja Censal del Autonomo (Modelo 036, Epigrafes IAE, IVA e IRPF)
 
-> Material de referencia para la skill `alta-autonomo`. Resume el alta en el censo de empresarios,
-> profesionales y retenedores de la AEAT y la eleccion de regimenes de IVA e IRPF.
+> Material de referencia para la skill `alta-baja-autonomo`. Resume el alta y la baja en el censo de
+> empresarios, profesionales y retenedores de la AEAT y la eleccion de regimenes de IVA e IRPF.
 > La skill verifica siempre el modelo censal vigente en la Sede Electronica de la AEAT antes de aplicar estos datos.
 
 ---
@@ -72,6 +72,36 @@ El autonomo presenta pagos fraccionados trimestrales de IRPF (modelo 130 en esti
 | Documentos | NIF del interesado; datos de la actividad y del local; epigrafe IAE elegido |
 | Plazo | ANTES del inicio de la actividad |
 | Sancion por retraso | Multa (importe fijo de escasa cuantia) por presentacion fuera de plazo [verificar] |
+
+---
+
+## Baja censal (cese de actividad)
+
+Cuando el autonomo cesa su actividad economica debe comunicarlo a la AEAT mediante el mismo modelo 036, marcando la causa de baja en el censo. Con la baja censal deja de ser sujeto pasivo de las obligaciones derivadas de la actividad (IVA, pagos fraccionados de IRPF, retenciones).
+
+| Aspecto | Detalle |
+|---|---|
+| Modelo | Modelo 036 (misma declaracion censal usada para el alta) |
+| Casilla de baja | Casilla 150 — baja en el censo de empresarios, profesionales y retenedores |
+| Fecha efectiva | Casilla 152 — fecha efectiva de la baja (fecha del cese) |
+| Plazo | 1 mes desde el cese de la actividad (6 meses en caso de fallecimiento del obligado) [verificar] |
+| Sede | Sede Electronica de la AEAT (sede.agenciatributaria.gob.es) |
+| Identificacion | Certificado digital, DNI electronico o Cl@ve |
+| Alcance | Baja total (cese de toda actividad) o modificacion censal si solo cesa un epigrafe manteniendo otra actividad |
+
+### Efectos en IVA e IRPF y obligaciones pendientes
+
+La baja censal no cierra por si sola el ejercicio fiscal: quedan pendientes las ultimas declaraciones del periodo.
+
+| Obligacion | Modelo |
+|---|---|
+| Ultima autoliquidacion trimestral de IVA | Modelo 303 del periodo del cese |
+| Resumen anual de IVA | Modelo 390 |
+| Ultimo pago fraccionado de IRPF | Modelo 130 (estimacion directa) o 131 (objetiva) |
+| Declaracion anual de la renta | IRPF del ejercicio del cese |
+| Retenciones e ingresos a cuenta, si procedian | Modelo 111/115 y resumenes 190/180 |
+
+Advertir de que la baja NO exime de presentar estas declaraciones ni de saldar deudas pendientes con la AEAT.
 
 ---
 
