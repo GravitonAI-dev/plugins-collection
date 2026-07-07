@@ -1,0 +1,24 @@
+{
+  "tools": [
+    {
+      "id": "io.gravitonai.tools.read_document",
+      "required": true,
+      "purpose": "Lectura directa en el BOE de la norma aplicable para verificar la version consolidada vigente antes de redactar: Codigo Civil (BOE-A-1889-4763, arts. 81-90, 92-97), LEC (BOE-A-2000-323, art. 777) y Ley 15/2015 de Jurisdiccion Voluntaria. Si detecta una version posterior, actualiza los archivos del plugin."
+    },
+    {
+      "id": "io.gravitonai.tools.web_search",
+      "required": true,
+      "purpose": "Fallback normativo si read_document falla. Tambien para consultar especialidades autonomicas (parejas de hecho, derecho civil foral) y criterios jurisprudenciales recientes en materia de guarda y custodia y pensiones."
+    },
+    {
+      "id": "io.gravitonai.tools.draft_markdown",
+      "required": true,
+      "purpose": "Generacion del documento en markdown desde la plantilla correspondiente (convenio regulador, demanda de mutuo acuerdo) con los datos recogidos del usuario."
+    },
+    {
+      "id": "io.gravitonai.tools.escalate_to_attorney",
+      "required": false,
+      "purpose": "Escalacion a abogado humano en casos complejos: divorcio contencioso, desacuerdo entre las partes, indicios de violencia, situaciones que afecten al interes superior del menor, o cualquier caso que exceda el alcance del plugin."
+    }
+  ]
+}

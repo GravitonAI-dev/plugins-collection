@@ -1,0 +1,14 @@
+{
+  "name": "sucesiones",
+  "displayName": "Sucesiones",
+  "version": "0.1.0",
+  "description": "Generacion de documentos de derecho sucesorio espanol (particion de herencia, aceptacion de herencia y voluntades), siempre en su version consolidada vigente verificada en el BOE, con respeto de la legitima y aviso del Impuesto de Sucesiones.",
+  "author": {
+    "name": "GravitonAI"
+  },
+  "skills": [
+    "particion-herencia"
+  ],
+  "agents": [],
+  "hooks": []
+}

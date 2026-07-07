@@ -1,0 +1,24 @@
+{
+  "tools": [
+    {
+      "id": "io.gravitonai.tools.read_document",
+      "required": true,
+      "purpose": "Lectura directa en el BOE del Codigo Civil (BOE-A-1889-4763): sucesiones (arts. 657 ss), legitima (arts. 806-808, 834 ss) y particion (arts. 1035-1087), para verificar la version consolidada vigente antes de redactar. Si detecta una version posterior, actualiza los archivos del plugin."
+    },
+    {
+      "id": "io.gravitonai.tools.web_search",
+      "required": true,
+      "purpose": "Fallback normativo si read_document falla. Tambien para consultar la normativa autonomica del Impuesto de Sucesiones y Donaciones (bonificaciones, plazos), la plusvalia municipal y el derecho civil foral aplicable."
+    },
+    {
+      "id": "io.gravitonai.tools.draft_markdown",
+      "required": true,
+      "purpose": "Generacion del documento en markdown desde la plantilla correspondiente (cuaderno particional, aceptacion de herencia) con los datos recogidos del usuario."
+    },
+    {
+      "id": "io.gravitonai.tools.escalate_to_attorney",
+      "required": false,
+      "purpose": "Escalacion a abogado humano en casos complejos: litigios sucesorios entre herederos, herederos desconocidos o incapaces, herencias con elemento internacional, o cualquier situacion que exceda el alcance del plugin."
+    }
+  ]
+}

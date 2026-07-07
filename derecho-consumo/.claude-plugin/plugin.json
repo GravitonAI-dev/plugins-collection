@@ -1,0 +1,14 @@
+{
+  "name": "derecho-consumo",
+  "displayName": "Derecho de Consumo",
+  "version": "0.1.0",
+  "description": "Generacion de documentos de derecho de consumo espanol (reclamacion de clausulas abusivas y restitucion de cantidades, reclamaciones de consumidores frente a empresas), siempre en su version consolidada vigente verificada en el BOE.",
+  "author": {
+    "name": "GravitonAI"
+  },
+  "skills": [
+    "reclamacion-clausulas-abusivas"
+  ],
+  "agents": [],
+  "hooks": []
+}

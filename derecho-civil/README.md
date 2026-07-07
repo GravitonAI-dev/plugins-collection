@@ -1,6 +1,6 @@
 # Derecho Civil
 
-Plugin de GravitonAI para la generacion de documentos de derecho civil espanol, verificando siempre la version consolidada vigente en el BOE: arrendamiento urbano, proceso monitorio, desahucios, convenios reguladores de divorcio de mutuo acuerdo, particion de herencia y reclamacion de clausulas abusivas de consumo.
+Plugin de GravitonAI para la generacion de documentos de derecho civil espanol, verificando siempre la version consolidada vigente en el BOE: arrendamiento urbano, proceso monitorio, juicio ordinario y desahucios.
 
 ---
 
@@ -13,6 +13,8 @@ Plugin de GravitonAI para la generacion de documentos de derecho civil espanol, 
 - Advierte sobre zonas de mercado residencial tensionado y aplica las limitaciones de renta correspondientes (Art. 17.6 y 17.7 LAU, Ley 12/2023).
 - Genera clausulas conformes a la LAU e indica cuales son imperativas y cuales dispositivas.
 - Genera peticiones de proceso monitorio para reclamar deudas dinerarias (arts. 812-818 LEC), con opcion de burofax de requerimiento previo y variante para rentas de arrendamiento impagadas.
+- Genera demandas de desahucio (falta de pago con acumulacion de rentas, expiracion de plazo o precario).
+- Prepara el juicio ordinario civil de principio a fin (admisibilidad, demanda, audiencia previa, prueba y conclusiones).
 
 ## Que NO hace
 
@@ -88,41 +90,15 @@ Output: segun la fase, checklist de admisibilidad, demanda, guion de audiencia p
 
 Que NO hace: no cubre asuntos de juicio verbal (por materia o cuantia igual o inferior a 15.000 euros), procesos especiales, ni la contestacion, reconvencion o recursos del demandado.
 
-### `convenio-regulador`
+---
 
-Genera el convenio regulador de separacion o divorcio de mutuo acuerdo (Art. 90 CC) y, para la via judicial, la demanda conjunta (Art. 777 LEC). Determina la via (judicial con Ministerio Fiscal si hay hijos menores o con discapacidad dependientes; notarial o ante Letrado de la Administracion de Justicia si no los hay).
+## Plugins relacionados
 
-Invocacion: `/derecho-civil:convenio-regulador`
+Los documentos de otras areas del derecho privado se han trasladado a sus propios plugins:
 
-Inputs requeridos: alcance (solo convenio / convenio + demanda); separacion o divorcio; existencia de hijos menores o dependientes y sus datos; datos de ambos conyuges; regimen economico; guarda y custodia y visitas; uso de la vivienda; pension de alimentos; liquidacion del regimen; pension compensatoria si procede.
-
-Output: convenio regulador en markdown, DRAFT (y, opcionalmente, demanda de mutuo acuerdo).
-
-Que NO hace: no cubre divorcio contencioso, modificacion de medidas ni nulidad matrimonial.
-
-### `particion-herencia`
-
-Genera el cuaderno particional o escritura de aceptacion y particion (inventario, avaluo, liquidacion y adjudicaciones, con respeto de la legitima) y el documento de aceptacion de herencia (pura y simple o a beneficio de inventario), para sucesion testada o intestada. Aplica el Codigo Civil y advierte del Impuesto de Sucesiones (autonomico) y la plusvalia municipal.
-
-Invocacion: `/derecho-civil:particion-herencia`
-
-Inputs requeridos: tipo de documento; sucesion testada o intestada; datos del causante y titulo sucesorio; herederos y legitimarios; inventario de bienes y deudas; donaciones colacionables; modo de aceptacion; comunidad autonoma.
-
-Output: cuaderno particional en markdown, DRAFT (y, opcionalmente, aceptacion de herencia).
-
-Que NO hace: no redacta testamentos, no resuelve litigios sucesorios contenciosos ni sustituye la escritura notarial de particion.
-
-### `reclamacion-clausulas-abusivas`
-
-Genera la reclamacion extrajudicial a la entidad o empresa y/o la demanda de nulidad de clausula abusiva con restitucion de cantidades, en contratos con consumidores (TRLGDCU, LCGC, Directiva 93/13). Cubre gastos de hipoteca, clausula suelo, IRPH, comision de apertura, interes de demora, tarjeta revolving u otras. Verifica la jurisprudencia reciente del TJUE y del Tribunal Supremo.
-
-Invocacion: `/derecho-civil:reclamacion-clausulas-abusivas`
-
-Inputs requeridos: alcance (extrajudicial / demanda); tipo de clausula; datos del reclamante (consumidor) y del predisponente; datos del contrato y clausula impugnada; cantidades reclamadas; comunidad autonoma.
-
-Output: reclamacion extrajudicial y/o demanda de nulidad con restitucion, en markdown, DRAFT.
-
-Que NO hace: no cubre contratos entre empresarios sin consumidor, clausulas negociadas individualmente ni reclamaciones ajenas al derecho de consumo.
+- `derecho-familia` — convenio regulador de divorcio, medidas y parejas de hecho.
+- `derecho-consumo` — reclamacion de clausulas abusivas y consumo.
+- `sucesiones` — particion y aceptacion de herencia.
 
 ---
 
