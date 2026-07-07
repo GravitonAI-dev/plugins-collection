@@ -1,0 +1,19 @@
+{
+  "name": "derecho-civil",
+  "displayName": "Derecho Civil",
+  "version": "0.3.0",
+  "description": "Generacion de documentos de derecho civil espanol, siempre en su version consolidada vigente verificada en el BOE: contratos de arrendamiento urbano (LAU), proceso monitorio (LEC), desahucios, convenios reguladores de divorcio de mutuo acuerdo, particion de herencia y reclamacion de clausulas abusivas de consumo.",
+  "author": {
+    "name": "GravitonAI"
+  },
+  "skills": [
+    "arrendamiento-urbano",
+    "monitorio",
+    "desahucio",
+    "convenio-regulador",
+    "particion-herencia",
+    "reclamacion-clausulas-abusivas"
+  ],
+  "agents": [],
+  "hooks": []
+}

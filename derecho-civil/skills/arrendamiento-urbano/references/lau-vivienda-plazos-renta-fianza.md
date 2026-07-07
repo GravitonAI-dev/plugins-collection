@@ -1,6 +1,6 @@
 # LAU — Vivienda: Plazos, Renta y Fianza
 
-> Material de referencia para la skill `generar-contrato-arrendamiento`. Basado en la LAU 29/1994,
+> Material de referencia para la skill `arrendamiento-urbano`. Basado en la LAU 29/1994,
 > texto consolidado (ultima modificacion conocida: 25/05/2023, Ley 12/2023).
 > La skill verifica siempre la version vigente en el BOE antes de aplicar estos datos.
 

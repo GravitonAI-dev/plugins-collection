@@ -1,0 +1,24 @@
+{
+  "tools": [
+    {
+      "id": "io.gravitonai.tools.read_document",
+      "required": true,
+      "purpose": "Lectura directa en el BOE de la norma aplicable para verificar la version consolidada vigente antes de redactar: LAU (BOE-A-1994-26003) para arrendamiento-urbano; LEC (BOE-A-2000-323, arts. 812-818 y 264) y el modelo normalizado del CGPJ para monitorio. Si detecta una version posterior, actualiza los archivos del plugin."
+    },
+    {
+      "id": "io.gravitonai.tools.web_search",
+      "required": true,
+      "purpose": "Fallback normativo si read_document falla. Tambien para consultar normativa autonomica o especial (deposito de fianza, indices de referencia, zona tensionada; especialidades del proceso monitorio o deudas de comunidad de propietarios)."
+    },
+    {
+      "id": "io.gravitonai.tools.draft_markdown",
+      "required": true,
+      "purpose": "Generacion del documento en markdown desde la plantilla correspondiente (contrato de arrendamiento; peticion inicial de monitorio o burofax de requerimiento previo) con los datos recogidos del usuario."
+    },
+    {
+      "id": "io.gravitonai.tools.escalate_to_attorney",
+      "required": false,
+      "purpose": "Escalacion a abogado humano en casos complejos: litigios previos entre las partes, clausulas en conflicto con normas imperativas, arrendatarios en situacion de vulnerabilidad, o cualquier situacion que exceda el alcance del plugin."
+    }
+  ]
+}
