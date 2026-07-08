@@ -569,4 +569,4 @@ Ver `commercial-legal/README.md` para detalle completo.
 7. **Hooks**: decidir qué eventos necesitan hooks (pre-tool para redacción de PII, post-tool para logging).
 8. **Subagentes**: definir el mecanismo de delegación entre skills.
 
-**Mantenido por GravitonAI.** Para preguntas, abrir issue en el repo.
+**Mantenido por GravitonAI.**
