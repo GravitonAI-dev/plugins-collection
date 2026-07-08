@@ -2,7 +2,7 @@
 
 Marketplace de plugins para agentes LLM. La estructura es **agnóstica del orquestador**: está pensada para ser consumida por Claude (Code, Cowork, Managed Agents), pero también por LangGraph, AutoGen, Temporal, o cualquier orquestador custom que respete el shape.
 
-> Todo el contenido en español. Tono profesional, sin emojis. Comandos y nombres técnicos en inglés.
+> Todo el contenido en español. Tono profesional, sin emojis. Posibles comandos y nombres técnicos en inglés.
 
 ---
 
