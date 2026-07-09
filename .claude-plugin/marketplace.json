@@ -45,16 +45,6 @@
       "author": {
         "name": "GravitonAI"
       }
-    },
-    {
-      "name": "historical-drafting",
-      "displayName": "Historical Drafting",
-      "source": "./historical-drafting",
-      "version": "0.1.0",
-      "description": "Automatización de la creación de resúmenes y análisis estructurados sobre eventos históricos, con borradores verificables y trazabilidad de fuentes para investigadores en general. Verifica siempre la versión vigente de la información antes de publicar.",
-      "author": {
-        "name": "GravitonAI"
-      }
     }
   ]
 }
