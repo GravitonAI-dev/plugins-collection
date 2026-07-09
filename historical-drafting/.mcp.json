@@ -1,4 +1,0 @@
-{
-  "description": "Subset de servidores MCP que consume el plugin historical-drafting. Referencia por id al catalogo global mcp_servers.json.",
-  "servers": []
-}
