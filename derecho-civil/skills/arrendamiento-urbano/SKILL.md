@@ -105,6 +105,7 @@ Si la comunidad autonoma tiene normativa propia relevante (Cataluna, Pais Vasco,
 
 **Como conducir la entrevista:**
 - Una seccion por mensaje, en el orden 1→5. Esperar la respuesta antes de pasar a la siguiente.
+- Mostrar el titulo de la seccion como encabezado del mensaje al usuario (p. ej. "**Seccion 2 — Ubicacion**") antes de la pregunta correspondiente, para que pueda seguir el progreso de la entrevista.
 - Si el usuario aporta espontaneamente datos de varias secciones a la vez (por ejemplo, en su primer mensaje), aceptarlos e integrarlos igualmente; solo preguntar por las secciones que sigan incompletas.
 - Desde que se resuelve la Seccion 1, generar y actualizar el borrador del contrato de forma progresiva (ver "Generacion del contrato") conforme llegan las respuestas de las Secciones 2-5, en vez de esperar a tenerlas todas.
 
