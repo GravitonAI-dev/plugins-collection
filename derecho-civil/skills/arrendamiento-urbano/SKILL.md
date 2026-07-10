@@ -167,6 +167,38 @@ las cuatro preguntas (0, 1, 2 o 3) con su texto literal, y nada mas. Si la
 respuesta que se esta a punto de enviar contiene mas de una pregunta, o una
 pregunta que no aparece textualmente arriba, no enviarla: corregirla primero.
 
+**La Seccion 1 completa es un dialogo de 4 turnos, no un formulario en un solo mensaje.** Asi se ve la secuencia correcta completa (cada bloque ASISTENTE es un mensaje separado, y entre medias siempre hay un mensaje de USUARIO real — no se generan las cuatro preguntas seguidas):
+
+```
+ASISTENTE: ¿El arrendamiento es para residencia habitual y permanente o para
+una actividad de negocio estable, o es de temporada (vacacional, de verano,
+por trabajo temporal) o una vivienda turistica gestionada como alojamiento?
+
+USUARIO: Es para vivienda habitual.
+
+ASISTENTE: ¿El contrato es para vivienda habitual o para un local de negocio
+/ uso distinto de vivienda?
+
+USUARIO: Vivienda.
+
+ASISTENTE: ¿El arrendador es persona fisica o persona juridica (empresa,
+sociedad)?
+
+USUARIO: Persona fisica.
+
+ASISTENTE: ¿Y el arrendatario, es persona fisica o persona juridica?
+
+USUARIO: Tambien persona fisica.
+
+[Aqui, y solo aqui, termina la Seccion 1. Recien ahora se ejecuta el Paso 2
+(buscar el asset) y se continua con la Verificacion normativa y la Seccion 2.]
+```
+
+Nunca comprimir esta secuencia en un solo mensaje tipo "1. ¿Vivienda o local? 2.
+¿Persona fisica o juridica? 3. ¿Y el arrendatario?" — eso es un formulario
+("chorizo" de preguntas), no un dialogo, y esta prohibido por esta skill aunque
+parezca mas eficiente.
+
 En cuanto el usuario responda, ejecutar la Verificacion normativa (mas abajo) antes de continuar con la Seccion 2.
 
 **Las Secciones 2-10 estan alineadas 1:1 con las clausulas del contrato** (ver "Estructura de clausulas" en "Generacion del contrato"), en el mismo orden en que aparecen en la plantilla. Esto permite ir rellenando el documento clausula por clausula conforme avanza la entrevista, no por bloques tematicos sueltos.
