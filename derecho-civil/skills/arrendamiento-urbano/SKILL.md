@@ -259,6 +259,16 @@ Seleccionar la plantilla segun `tipo_inmueble` (Seccion 1):
 - Vivienda: `assets/contrato-arrendamiento-vivienda.md`
 - Local de negocio: `assets/contrato-arrendamiento-local.md`
 
+**Estructura de clausulas del contrato (numeracion ordinal femenina: PRIMERA, SEGUNDA, TERCERA...).** Esta es la estructura obligatoria del documento final, tal como esta en las plantillas de `assets/`. Si por cualquier motivo no se tiene acceso al archivo de la plantilla, usar esta lista igualmente — es la fuente de verdad de que clausulas debe tener el contrato y en que orden:
+
+Para `tipo_inmueble = VIVIENDA` (`contrato-arrendamiento-vivienda.md`):
+PRIMERA — Objeto del arrendamiento · SEGUNDA — Destino · TERCERA — Duracion · CUARTA — Renta · QUINTA — Actualizacion de la renta · SEXTA — Fianza · SEPTIMA — Gastos y suministros · OCTAVA — Conservacion y obras · NOVENA — Cesion y subarriendo · DECIMA — Derecho de adquisicion preferente · DECIMOPRIMERA — Resolucion del contrato · DECIMOSEGUNDA — Notificaciones · DECIMOTERCERA — Fuero y legislacion aplicable.
+
+Para `tipo_inmueble = LOCAL` (`contrato-arrendamiento-local.md`):
+PRIMERA — Objeto del arrendamiento · SEGUNDA — Destino y actividad · TERCERA — Duracion · CUARTA — Renta · QUINTA — Actualizacion de la renta · SEXTA — Fianza · SEPTIMA — Gastos, tributos y suministros · OCTAVA — Obras · NOVENA — Cesion y subarriendo · DECIMA — Derecho de adquisicion preferente · DECIMOPRIMERA — Indemnizacion al arrendatario por extincion del contrato · DECIMOSEGUNDA — Resolucion del contrato · DECIMOTERCERA — Notificaciones · DECIMOCUARTA — Fuero y legislacion aplicable.
+
+Ambas plantillas incluyen ademas, antes de las clausulas: encabezado con DRAFT y fecha de verificacion LAU, y bloque REUNIDOS/EXPONEN con la identificacion de las partes; y despues de las clausulas: CLAUSULAS ADICIONALES, FIRMAS, y (solo vivienda) INVENTARIO DE MOBILIARIO Y ENSERES si aplica. No inventar una estructura de clausulas distinta ni renombrar los encabezados.
+
 Primera invocacion, en cuanto se resuelva la Seccion 1 (y, si ya se dispone, la Seccion 2 o 3):
 ```
 draft_markdown(
