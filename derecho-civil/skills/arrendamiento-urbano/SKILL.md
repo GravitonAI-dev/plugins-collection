@@ -70,6 +70,11 @@ Determina la plantilla, el titulo de la LAU aplicable, el plazo minimo y la fian
 | Arrendador persona juridica | `naturaleza_arrendador = JURIDICA` · duracion minima 7 anos (Art. 9.1 LAU) |
 | Arrendatario persona fisica/juridica | `naturaleza_arrendatario = FISICA` / `JURIDICA` |
 
+**Alcance de la Seccion 1 — solo estas tres preguntas:**
+- No preguntar por jurisdiccion, pais, ciudad o provincia como parte de la clasificacion: esta skill aplica exclusivamente a Espana y a la LAU (Ley 29/1994), segun el `CLAUDE.md` del plugin `derecho-civil`. Si el usuario indica que el inmueble esta fuera de Espana, esta skill no aplica; indicarlo y no continuar con el procedimiento.
+- No preguntar por el regimen registral del bien (titularidad inscrita, cargas, hipotecas, propiedad horizontal, embargos): esta skill genera el contrato de arrendamiento, no realiza due diligence de titularidad. No forma parte de la clasificacion ni de ningun otro paso de este procedimiento.
+- No sustituir ni ampliar estas tres preguntas por otras. Si el usuario aporta datos adicionales por su cuenta, se pueden anotar como clausula adicional (Seccion 5), pero no se preguntan de forma proactiva aqui.
+
 Esperar esta respuesta antes de continuar: sin ella no hay plantilla ni marco legal que aplicar, asi que no se genera ningun borrador ni se avanza a la Seccion 2 hasta tenerla completa. No es un bloqueo formal con mensaje de error — es, simplemente, la primera pregunta de la entrevista, y las demas esperan su turno.
 
 En cuanto el usuario responda, ejecutar la Verificacion normativa (mas abajo) antes de continuar con la Seccion 2.
