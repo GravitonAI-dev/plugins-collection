@@ -40,7 +40,7 @@ assets:
 
 ## Guardrails
 
-1. Verificar siempre la LAU en el BOE antes de redactar. Sin verificacion, no proceder. Si se detecta una version de la LAU posterior a la registrada en las references, actualizar los archivos del plugin antes de redactar (ver Paso 1). No usar una version desactualizada.
+1. Verificar siempre la LAU en el BOE antes de redactar. Sin verificacion, no proceder. Si se detecta una version de la LAU posterior a la registrada en las references, actualizar los archivos del plugin antes de redactar (ver Paso 2). No usar una version desactualizada.
 2. Nunca incluir clausulas que perjudiquen al arrendatario en los derechos reconocidos por el Titulo II LAU (son nulas de pleno derecho — Art. 6).
 3. Si el municipio es zona de mercado residencial tensionado, aplicar obligatoriamente las limitaciones de renta de los Art. 17.6 y 17.7 LAU y advertir al usuario.
 4. Si el arrendador es persona juridica, la duracion minima es 7 anos (no 5). Nunca reducirla.
@@ -48,17 +48,48 @@ assets:
 6. Los gastos de gestion inmobiliaria y formalizacion del contrato son siempre a cargo del arrendador (Art. 20.1 LAU). No pueden pactarse a cargo del arrendatario.
 7. Marcar todos los campos a rellenar con `[DATO]` en mayusculas. Nunca inventar datos.
 8. Si el usuario pide clausulas que contradigan normas imperativas, rechazar y explicar el motivo.
-9. **BLOQUEANTE — clasificacion previa obligatoria.** `tipo_inmueble`, `naturaleza_arrendador` y `naturaleza_arrendatario` (Bloques A y B del Paso 2) determinan la plantilla, el plazo minimo (5 vs 7 anos) y la fianza minima (1 vs 2 mensualidades) aplicables. Nunca proceder a los Pasos 3-5 sin haber obtenido estos tres datos de forma explicita del usuario. Nunca inferirlos, asumirlos por defecto, ni rellenarlos como `[DATO — PENDIENTE DE COMPLETAR]`: si faltan, detener el procedimiento en el Paso 2 y preguntar antes de continuar. El fallback de `[DATO — PENDIENTE DE COMPLETAR]` del Paso 5 aplica solo a datos accesorios (p. ej. referencia catastral, elementos accesorios), nunca a estos tres campos de clasificacion.
+9. **BLOQUEANTE.** Nunca verificar la LAU, recoger el resto de datos ni redactar nada sin haber resuelto antes el arbol de decision del Paso 1 (`tipo_inmueble`, `naturaleza_arrendador`, `naturaleza_arrendatario`). Es el primer paso del procedimiento, antes incluso de la verificacion normativa. Nunca inferir estas tres respuestas, asumirlas por defecto, ni rellenarlas como `[DATO — PENDIENTE DE COMPLETAR]`.
 
 ## Procedimiento
 
-### Paso 1 — Verificacion y AUTO-ACTUALIZACION normativa (OBLIGATORIO, antes de cualquier otra accion)
+### Paso 1 — Arbol de decision: clasificacion del contrato (OBLIGATORIO, primer paso — antes de verificar la LAU, recoger datos o redactar nada)
+
+Esta es la primera accion del procedimiento, por delante de la verificacion normativa (Paso 2). Su salida determina la plantilla, el titulo de la LAU aplicable, el plazo minimo y la fianza minima. Resolver el arbol completo antes de continuar:
+
+```
+Pregunta 1 — Tipo de inmueble
+"El contrato es para: (1) vivienda habitual, (2) local de negocio / uso distinto de vivienda?"
+  |
+  ├─ Vivienda habitual  → tipo_inmueble = VIVIENDA
+  |                        Titulo II LAU | plantilla contrato-arrendamiento-vivienda.md | fianza minima 1 mensualidad
+  |
+  └─ Local de negocio   → tipo_inmueble = LOCAL
+                           Titulo III LAU | plantilla contrato-arrendamiento-local.md | fianza minima 2 mensualidades
+
+Pregunta 2 — Naturaleza del arrendador
+"El arrendador es persona fisica o persona juridica (empresa, sociedad)?"
+  |
+  ├─ Persona fisica     → naturaleza_arrendador = FISICA    → duracion minima 5 anos (Art. 9.1 LAU)
+  |
+  └─ Persona juridica    → naturaleza_arrendador = JURIDICA  → duracion minima 7 anos (Art. 9.1 LAU)
+
+Pregunta 3 — Naturaleza del arrendatario
+"El arrendatario es persona fisica o persona juridica?"
+  |
+  ├─ Persona fisica     → naturaleza_arrendatario = FISICA
+  |
+  └─ Persona juridica    → naturaleza_arrendatario = JURIDICA
+```
+
+**Regla de bloqueo:** si el usuario no ha respondido explicitamente estas tres preguntas, detener el procedimiento aqui mismo. No pasar al Paso 2 (verificacion normativa), no recoger el resto de datos (Paso 3), no redactar nada. Nunca inferir la respuesta ni asumir un valor por defecto (por ejemplo "vivienda" o "persona fisica"), y nunca rellenarlas como `[DATO — PENDIENTE DE COMPLETAR]`: son las unicas respuestas de todo el procedimiento sin ese fallback, porque sin ellas no existe plantilla ni marco legal aplicable que redactar.
+
+### Paso 2 — Verificacion y AUTO-ACTUALIZACION normativa (OBLIGATORIO, tras resolver el Paso 1)
 
 La skill se actualiza a si misma en cada lanzamiento: comprueba la LAU en la fuente oficial y, si detecta una version posterior, reescribe sus propias references antes de redactar. Ejecutar SIEMPRE esta secuencia:
 
-**1.1 — Leer la version registrada localmente.** Las references indican la ultima modificacion conocida (25/05/2023, Ley 12/2023). Anotar esa fecha como referencia de comparacion.
+**2.1 — Leer la version registrada localmente.** Las references indican la ultima modificacion conocida (25/05/2023, Ley 12/2023). Anotar esa fecha como referencia de comparacion.
 
-**1.2 — Consultar la fuente oficial vigente.** Invocar:
+**2.2 — Consultar la fuente oficial vigente.** Invocar:
 ```
 read_document(
   path: "https://www.boe.es/buscar/act.php?id=BOE-A-1994-26003&p=20230525&tn=1",
@@ -67,57 +98,50 @@ read_document(
 ```
 Extraer: fecha de ultima modificacion del texto consolidado; articulos modificados respecto a la version registrada; version verificada para el encabezado del contrato.
 
-**1.3 — Comparar.** Contrastar la fecha/redaccion oficial con la registrada en las references.
+**2.3 — Comparar.** Contrastar la fecha/redaccion oficial con la registrada en las references.
 
-**1.4 — Auto-actualizar los archivos del plugin (OBLIGATORIO si hay cambios).** Si la fecha oficial es posterior o cambia la redaccion de articulos aplicados, usar las herramientas de escritura (Write/Edit) para:
+**2.4 — Auto-actualizar los archivos del plugin (OBLIGATORIO si hay cambios).** Si la fecha oficial es posterior o cambia la redaccion de articulos aplicados, usar las herramientas de escritura (Write/Edit) para:
 - Actualizar el contenido afectado en `references/lau-vivienda-plazos-renta-fianza.md`, `references/lau-derechos-obligaciones-partes.md` y/o `references/lau-arrendamiento-local-negocio.md` con la redaccion vigente.
 - Actualizar la nota de "ultima modificacion conocida" en el encabezado de esas references con la nueva fecha.
 - Informar brevemente al usuario de que se detecto y aplico una version mas reciente de la LAU (fecha y articulos).
 
 No redactar el contrato hasta haber completado esta actualizacion. Nunca usar una version desactualizada.
 
-**1.5 — Fallback si la fuente no es accesible.** Si read_document falla (error HTTP, timeout):
+**2.5 — Fallback si la fuente no es accesible.** Si read_document falla (error HTTP, timeout):
 ```
 web_search("Ley 29/1994 Arrendamientos Urbanos texto consolidado BOE ultima modificacion")
 ```
 Si ambos fallan: usar references como respaldo y notificar al usuario:
 "No se pudo verificar la version vigente de la LAU en el BOE. El contrato se genera con la version de referencia (25/05/2023). Verificar manualmente antes de firmar."
 
-### Paso 2 — Recogida de datos (una pregunta por bloque si el usuario no los ha proporcionado)
+### Paso 3 — Recogida de datos (una pregunta por bloque si el usuario no los ha proporcionado)
 
-Si el usuario no ha proporcionado todos los datos, preguntar en este orden:
+`tipo_inmueble`, `naturaleza_arrendador` y `naturaleza_arrendatario` ya se obtuvieron en el Paso 1. Si el usuario no ha proporcionado el resto de los datos, preguntar en este orden:
 
-**Bloque A — Tipo de contrato:**
-"El contrato es para: (1) vivienda habitual, (2) local de negocio / uso distinto de vivienda?"
-
-**Bloque B — Naturaleza de las partes:**
-"El arrendador es persona fisica o persona juridica (empresa, sociedad)?"
-"El arrendatario es persona fisica o persona juridica?"
-
-**Bloque C — Ubicacion:**
+**Bloque A — Ubicacion:**
 "Comunidad autonoma y municipio donde se ubica el inmueble?"
 "El municipio esta declarado zona de mercado residencial tensionado? (si / no / no lo se)"
 
 Si responde "no lo se": invocar `web_search("zona mercado residencial tensionado [municipio] [comunidad autonoma]")` y comunicar el resultado.
 
-**Bloque D — Datos de las partes:**
+**Bloque B — Datos de las partes:**
 - Arrendador: nombre completo o razon social, NIF/CIF, domicilio a efectos de notificaciones.
 - Arrendatario: nombre completo o razon social, NIF/CIF, domicilio actual.
 
-**Bloque E — Datos del inmueble:**
+**Bloque C — Datos del inmueble:**
 - Direccion completa (calle, numero, piso, puerta, codigo postal, municipio).
 - Referencia catastral (si se dispone).
 - Descripcion: superficie util aproximada, numero de habitaciones (vivienda) o descripcion del local.
 - Elementos accesorios incluidos: plaza de garaje, trastero, mobiliario (si aplica).
 
-**Bloque F — Condiciones economicas:**
+**Bloque D — Condiciones economicas:**
 - Renta mensual pactada en euros.
 - Duracion del contrato (anos) o "minimo legal".
 - Fianza: numero de mensualidades o "segun ley".
 - Actualizacion de renta: indice pactado o "segun ley" (IGC con tope IPC).
 - Gastos a cargo del arrendatario (comunidad, IBI, suministros): si/no y cuales.
 
-### Paso 3 — Validacion de condiciones
+### Paso 4 — Validacion de condiciones
 
 Antes de generar el contrato, validar:
 
@@ -137,7 +161,7 @@ d) **Clausulas adicionales solicitadas:**
    - Verificar que no contradigan normas imperativas del Titulo II (vivienda) o Titulo III (local) LAU.
    - Si alguna es nula, rechazarla, explicar el motivo citando el articulo, y proponer alternativa valida.
 
-### Paso 4 — Consulta de normativa autonomica (si aplica)
+### Paso 5 — Consulta de normativa autonomica (si aplica)
 
 Si el usuario menciona una comunidad autonoma con normativa propia relevante (Cataluna, Pais Vasco, Navarra, Madrid zona tensionada, etc.):
 
@@ -147,9 +171,9 @@ web_search("deposito fianza arrendamiento [comunidad autonoma] organismo compete
 
 Incluir en el contrato la clausula de deposito de fianza ante el organismo autonomico correspondiente.
 
-### Paso 5 — Generacion del contrato
+### Paso 6 — Generacion del contrato
 
-Seleccionar la plantilla segun tipo de inmueble:
+Seleccionar la plantilla segun `tipo_inmueble` (Paso 1):
 - Vivienda: `assets/contrato-arrendamiento-vivienda.md`
 - Local de negocio: `assets/contrato-arrendamiento-local.md`
 
@@ -158,31 +182,32 @@ Invocar:
 draft_markdown(
   template_id: "contrato-arrendamiento-vivienda" | "contrato-arrendamiento-local",
   variables: {
-    todos los datos recogidos en los bloques A-F
+    tipo_inmueble, naturaleza_arrendador, naturaleza_arrendatario (Paso 1),
+    todos los datos recogidos en los bloques A-D (Paso 3)
   }
 )
 ```
 
-Rellenar todos los campos `[DATO]` con los datos reales. Los campos que el usuario no haya proporcionado quedan como `[DATO — PENDIENTE DE COMPLETAR]`.
+Rellenar todos los campos `[DATO]` con los datos reales. Los campos accesorios que el usuario no haya proporcionado quedan como `[DATO — PENDIENTE DE COMPLETAR]` (esto no aplica a `tipo_inmueble`, `naturaleza_arrendador` ni `naturaleza_arrendatario`: ver Paso 1).
 
-### Paso 6 — Revision final antes de entregar
+### Paso 7 — Revision final antes de entregar
 
 Verificar que el contrato generado:
 - Tiene el header DRAFT.
-- Incluye la fecha de verificacion normativa (del Paso 1).
+- Incluye la fecha de verificacion normativa (del Paso 2).
 - Tiene todas las clausulas obligatorias segun el tipo de inmueble.
 - No contiene clausulas nulas.
 - Todos los importes son coherentes (renta, fianza, actualizacion).
 - Los plazos son conformes a la LAU.
 
-### Paso 7 — Entrega y advertencias finales
+### Paso 8 — Entrega y advertencias finales
 
 Entregar el contrato y anadir al final:
 
 ```
 Advertencias:
 1. Este contrato es un DRAFT generado automaticamente. Debe ser revisado por un abogado colegiado antes de su firma.
-2. Version de la LAU verificada: [fecha extraida en Paso 1].
+2. Version de la LAU verificada: [fecha extraida en Paso 2].
 3. Si el inmueble se ubica en zona de mercado residencial tensionado, verificar la aplicacion de los limites de renta antes de firmar.
 4. El deposito de fianza ante el organismo autonomico competente es obligatorio. Consultar el procedimiento en [comunidad autonoma].
 5. Se recomienda la inscripcion del contrato en el Registro de la Propiedad para mayor seguridad juridica (Art. 37 LAU).
