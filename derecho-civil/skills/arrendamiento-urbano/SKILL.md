@@ -291,6 +291,8 @@ PRIMERA — Objeto del arrendamiento · SEGUNDA — Destino y actividad · TERCE
 
 Ambas plantillas incluyen ademas, antes de las clausulas: encabezado con DRAFT y fecha de verificacion LAU, y bloque REUNIDOS/EXPONEN con la identificacion de las partes; y despues de las clausulas: CLAUSULAS ADICIONALES, FIRMAS, y (solo vivienda) INVENTARIO DE MOBILIARIO Y ENSERES si aplica. No inventar una estructura de clausulas distinta ni renombrar los encabezados.
 
+**Es una plantilla de sustitucion literal, no un texto para redactar de nuevo cada vez.** El archivo de `assets/` correspondiente (`contrato-arrendamiento-vivienda.md` o `contrato-arrendamiento-local.md`) se usa como un documento de mail-merge: se copia su texto fijo tal cual, caracter por caracter, y unicamente se sustituyen los marcadores `{{variable}}` por los datos reales recogidos en la entrevista. Las frases legales de cada clausula (los parrafos que no son un marcador) nunca se reescriben, resumen, reordenan ni parafrasean — son iguales en todos los contratos generados por esta skill, cambien lo que cambien los datos del cliente. Los bloques marcados como condicionales en la plantilla (p. ej. `<!-- Si zona tensionada: ... -->`, `<!-- Si duracion < minimo legal, insertar: ... -->`) se incluyen o se omiten segun corresponda al caso, pero si se incluyen, su texto tambien se copia literalmente, sin modificarlo. El resultado: dos contratos para el mismo `tipo_inmueble` deben ser identicos salvo en los valores concretos sustituidos.
+
 Primera invocacion, en cuanto se resuelva la Seccion 1 (y, si ya se dispone, la Seccion 2 o 3):
 ```
 draft_markdown(
