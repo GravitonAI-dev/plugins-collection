@@ -55,6 +55,11 @@ assets:
 
 Este procedimiento se conduce como una entrevista: se presenta una seccion, se espera la respuesta del usuario, y solo entonces se pasa a la siguiente. Nunca se listan dos secciones a la vez ni se vuelca el formulario completo de golpe. La verificacion normativa, la validacion de condiciones y la generacion del contrato son acciones internas que se disparan en los puntos indicados — no son preguntas adicionales al usuario.
 
+**Resumen operativo en 3 pasos (en este orden, sin saltarse ninguno):**
+1. **Arbol de decision** (Seccion 1, Pregunta 0-3) — una pregunta por turno, texto literal, sin asumir nada.
+2. **Escribir el contrato** — en cuanto termina el paso 1, generar el documento inicial (`draft_markdown`) con los campos de relleno como `[DATO — PENDIENTE DE COMPLETAR]`. El documento existe ya, aunque este casi vacio de datos.
+3. **Ir seccion por seccion del contrato rellenando datos** (Secciones 2-5) — una seccion por turno, actualizando (Edit) el documento ya creado en el paso 2 conforme llegan las respuestas. Nunca volcar todas las preguntas de las Secciones 2-5 de golpe en una lista larga.
+
 ### Entrevista (una seccion por turno)
 
 **Seccion 1 — Clasificacion** (primera pregunta, antes de cualquier otra cosa)
@@ -84,6 +89,8 @@ Espera la respuesta del usuario. No continues a la Pregunta 1 ni a ninguna otra 
        este tipo de arrendamiento (ver "Como NO se usa esta skill") y no continuar
        con las Secciones 2-5 ni generar ningun borrador.
 ```
+
+**Regla anti-suposicion:** una respuesta a otra pregunta nunca resuelve la Pregunta 0. Por ejemplo, si el usuario dice "es para vivienda" antes de que se le haya preguntado la Pregunta 0, eso responde (como mucho) a la Pregunta 1 (tipo de inmueble), pero NO dice si es habitual/permanente o de temporada/turistica — no asumir "habitual" a partir de eso. Si la respuesta de un turno no distingue con claridad entre las opciones de la pregunta que se esta resolviendo en ese momento, repetir la misma pregunta (texto literal) pidiendo que se aclare esa distincion especifica, en vez de asumir una opcion.
 
 Solo si la respuesta es "habitual / permanente", continuar con las tres preguntas de clasificacion, **una por turno, esperando la respuesta antes de pasar a la siguiente**:
 
