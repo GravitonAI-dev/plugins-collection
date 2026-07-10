@@ -69,6 +69,8 @@ Determina la plantilla, el titulo de la LAU aplicable, el plazo minimo y la fian
 TEXTO EXACTO A USAR (copiar literalmente, sin modificar ni una palabra):
 "¿El arrendamiento es para residencia habitual y permanente o para una actividad de negocio estable, o es de temporada (vacacional, de verano, por trabajo temporal) o una vivienda turistica gestionada como alojamiento?"
 
+Espera la respuesta del usuario. No continues a la Pregunta 1 ni a ninguna otra cosa hasta recibirla.
+
 ```
   ├─ Habitual / permanente (vivienda o negocio estable) → continuar con la Pregunta 1
   └─ Temporada / vacacional / turistica                 → FUERA DE ALCANCE de esta skill
@@ -88,6 +90,8 @@ Solo si la respuesta es "habitual / permanente", continuar con las tres pregunta
 TEXTO EXACTO A USAR (copiar literalmente, sin modificar ni una palabra):
 "¿El contrato es para vivienda habitual o para un local de negocio / uso distinto de vivienda?"
 
+Espera la respuesta del usuario. No continues a la Pregunta 2 ni a ninguna otra cosa hasta recibirla.
+
 | Respuesta | Efecto |
 |---|---|
 | Vivienda habitual | `tipo_inmueble = VIVIENDA` · Titulo II LAU · plantilla `contrato-arrendamiento-vivienda.md` · fianza minima 1 mensualidad |
@@ -97,6 +101,8 @@ TEXTO EXACTO A USAR (copiar literalmente, sin modificar ni una palabra):
 TEXTO EXACTO A USAR (copiar literalmente, sin modificar ni una palabra):
 "¿El arrendador es persona fisica o persona juridica (empresa, sociedad)?"
 
+Espera la respuesta del usuario. No continues a la Pregunta 3 ni a ninguna otra cosa hasta recibirla.
+
 | Respuesta | Efecto |
 |---|---|
 | Persona fisica | `naturaleza_arrendador = FISICA` · duracion minima 5 anos (Art. 9.1 LAU) |
@@ -105,6 +111,8 @@ TEXTO EXACTO A USAR (copiar literalmente, sin modificar ni una palabra):
 **Pregunta 3 — Naturaleza del arrendatario** (se pregunta tras recibir la respuesta a la Pregunta 2):
 TEXTO EXACTO A USAR (copiar literalmente, sin modificar ni una palabra):
 "¿Y el arrendatario, es persona fisica o persona juridica?"
+
+Espera la respuesta del usuario. No continues a la Seccion 2 ni a generar ningun borrador hasta recibirla.
 
 | Respuesta | Efecto |
 |---|---|
