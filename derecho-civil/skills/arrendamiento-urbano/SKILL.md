@@ -49,6 +49,7 @@ assets:
 7. Marcar todos los campos a rellenar con `[DATO]` en mayusculas. Nunca inventar datos.
 8. Si el usuario pide clausulas que contradigan normas imperativas, rechazar y explicar el motivo.
 9. La clasificacion del contrato (`tipo_inmueble`, `naturaleza_arrendador`, `naturaleza_arrendatario`) se resuelve en la Seccion 1 de la entrevista (ver Procedimiento), antes de generar cualquier borrador. No se asume un valor por defecto para estos tres campos ni se dejan como `[DATO — PENDIENTE DE COMPLETAR]`: son la primera pregunta natural de la conversacion, no una validacion con mensaje de error.
+10. **No confundir los datos de clasificacion (Guardrail 9, bloqueantes) con los datos de relleno del contrato (Secciones 2-5: ubicacion, partes, inmueble, condiciones economicas).** Estos ultimos son siempre opcionales para el usuario y nunca bloquean nada: no retrasar la generacion, la revision final ni la entrega del contrato por campos de esta categoria sin responder. Se dejan como `[DATO — PENDIENTE DE COMPLETAR]` y se entrega el documento igual.
 
 ## Procedimiento
 
@@ -263,16 +264,18 @@ draft_markdown(
 
 Rellenar todos los campos `[DATO]` con los datos reales disponibles en ese momento. Los campos accesorios que el usuario no haya proporcionado quedan como `[DATO — PENDIENTE DE COMPLETAR]` (esto no aplica a `tipo_inmueble`, `naturaleza_arrendador` ni `naturaleza_arrendatario`: ver Seccion 1, que debe estar resuelta antes de esta primera invocacion).
 
-Invocaciones siguientes: cada vez que el usuario responda una nueva seccion de la entrevista, actualizar (Edit) el mismo documento sustituyendo los `[DATO — PENDIENTE DE COMPLETAR]` correspondientes, en vez de regenerarlo desde cero. La Revision final solo se ejecuta como cierre, cuando ya no queden secciones pendientes.
+Invocaciones siguientes: cada vez que el usuario responda una nueva seccion de la entrevista, actualizar (Edit) el mismo documento sustituyendo los `[DATO — PENDIENTE DE COMPLETAR]` correspondientes, en vez de regenerarlo desde cero.
+
+**Los datos de relleno (Secciones 2-5) nunca bloquean la entrega.** Solo la Seccion 1 (clasificacion) es bloqueante — eso ya se resolvio antes de la primera invocacion de `draft_markdown`. A partir de ahi, el borrador existe y es entregable en cualquier momento, tenga los campos accesorios que tenga. Si el usuario pide el contrato, pide cerrarlo, o simplemente deja de responder mas preguntas de las Secciones 2-5, ejecutar la Revision final y la Entrega igualmente, con `[DATO — PENDIENTE DE COMPLETAR]` en lo que falte. Nunca negarse a entregar, ni retrasar la entrega, ni pedir mas datos de relleno como condicion para cerrar: esos campos son opcionales para el usuario, no un requisito del procedimiento.
 
 ### Revision final antes de entregar
 
-Verificar que el contrato generado:
+Se ejecuta cuando el usuario pide el documento o da por terminada la entrevista, tenga o no todas las Secciones 2-5 completas — no es necesario que esten todas respondidas. Verificar que el contrato generado:
 - Tiene el header DRAFT.
 - Incluye la fecha de la Verificacion normativa.
 - Tiene todas las clausulas obligatorias segun el tipo de inmueble.
 - No contiene clausulas nulas.
-- Todos los importes son coherentes (renta, fianza, actualizacion).
+- Todos los importes son coherentes entre si (renta, fianza, actualizacion) — los que esten disponibles; los pendientes quedan como `[DATO — PENDIENTE DE COMPLETAR]`.
 - Los plazos son conformes a la LAU.
 
 ### Entrega y advertencias finales
