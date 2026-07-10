@@ -83,6 +83,8 @@ Pregunta 3 — Naturaleza del arrendatario
 
 **Regla de bloqueo:** si el usuario no ha respondido explicitamente estas tres preguntas, detener el procedimiento aqui mismo. No pasar al Paso 2 (verificacion normativa), no recoger el resto de datos (Paso 3), no redactar nada. Nunca inferir la respuesta ni asumir un valor por defecto (por ejemplo "vivienda" o "persona fisica"), y nunca rellenarlas como `[DATO — PENDIENTE DE COMPLETAR]`: son las unicas respuestas de todo el procedimiento sin ese fallback, porque sin ellas no existe plantilla ni marco legal aplicable que redactar.
 
+**Regla de no-mezcla:** estas tres preguntas se presentan en un mensaje propio, separado de cualquier pregunta del Paso 3. Nunca combinarlas con las preguntas de recogida de datos (nombres, direccion, renta, fianza, etc.) en el mismo mensaje ni en la misma lista: son de naturaleza distinta (clasifican el contrato, no lo rellenan) y deben resolverse por completo antes de que exista ninguna pregunta del Paso 3.
+
 ### Paso 2 — Verificacion y AUTO-ACTUALIZACION normativa (OBLIGATORIO, tras resolver el Paso 1)
 
 La skill se actualiza a si misma en cada lanzamiento: comprueba la LAU en la fuente oficial y, si detecta una version posterior, reescribe sus propias references antes de redactar. Ejecutar SIEMPRE esta secuencia:
@@ -114,9 +116,17 @@ web_search("Ley 29/1994 Arrendamientos Urbanos texto consolidado BOE ultima modi
 Si ambos fallan: usar references como respaldo y notificar al usuario:
 "No se pudo verificar la version vigente de la LAU en el BOE. El contrato se genera con la version de referencia (25/05/2023). Verificar manualmente antes de firmar."
 
-### Paso 3 — Recogida de datos (una pregunta por bloque si el usuario no los ha proporcionado)
+### Paso 3 — Recogida de datos (progresiva, un bloque por mensaje, mientras se va editando el documento)
 
-`tipo_inmueble`, `naturaleza_arrendador` y `naturaleza_arrendatario` ya se obtuvieron en el Paso 1. Si el usuario no ha proporcionado el resto de los datos, preguntar en este orden:
+`tipo_inmueble`, `naturaleza_arrendador` y `naturaleza_arrendatario` ya se obtuvieron en el Paso 1 y no se repiten aqui. Estos son datos de relleno del documento, no de clasificacion: se recogen de forma progresiva, nunca todos de golpe en una unica lista.
+
+**Como recoger estos datos:**
+- Preguntar un bloque (A, B, C o D) por mensaje, en este orden, y esperar la respuesta antes de pasar al siguiente.
+- En cuanto haya datos suficientes del Bloque A y B, generar un primer borrador del contrato (Paso 6) con `[DATO — PENDIENTE DE COMPLETAR]` en los campos de los bloques aun no respondidos, en vez de esperar a tener el bloque D para generar cualquier version del documento.
+- Tras cada respuesta del usuario, actualizar (Edit, no reescribir desde cero) el borrador ya generado con los datos nuevos y volver a mostrarlo o confirmarlo antes de pedir el siguiente bloque.
+- Si el usuario aporta espontaneamente datos de varios bloques a la vez (por ejemplo, en su primer mensaje), aceptarlos e integrarlos igualmente; solo preguntar por los bloques que sigan incompletos.
+
+Preguntar en este orden:
 
 **Bloque A — Ubicacion:**
 "Comunidad autonoma y municipio donde se ubica el inmueble?"
@@ -171,24 +181,26 @@ web_search("deposito fianza arrendamiento [comunidad autonoma] organismo compete
 
 Incluir en el contrato la clausula de deposito de fianza ante el organismo autonomico correspondiente.
 
-### Paso 6 — Generacion del contrato
+### Paso 6 — Generacion del contrato (iterativa, en paralelo al Paso 3)
 
 Seleccionar la plantilla segun `tipo_inmueble` (Paso 1):
 - Vivienda: `assets/contrato-arrendamiento-vivienda.md`
 - Local de negocio: `assets/contrato-arrendamiento-local.md`
 
-Invocar:
+Primera invocacion, en cuanto haya datos minimos del Bloque A/B del Paso 3:
 ```
 draft_markdown(
   template_id: "contrato-arrendamiento-vivienda" | "contrato-arrendamiento-local",
   variables: {
     tipo_inmueble, naturaleza_arrendador, naturaleza_arrendatario (Paso 1),
-    todos los datos recogidos en los bloques A-D (Paso 3)
+    datos disponibles de los bloques A-D (Paso 3)
   }
 )
 ```
 
-Rellenar todos los campos `[DATO]` con los datos reales. Los campos accesorios que el usuario no haya proporcionado quedan como `[DATO — PENDIENTE DE COMPLETAR]` (esto no aplica a `tipo_inmueble`, `naturaleza_arrendador` ni `naturaleza_arrendatario`: ver Paso 1).
+Rellenar todos los campos `[DATO]` con los datos reales disponibles en ese momento. Los campos accesorios que el usuario no haya proporcionado quedan como `[DATO — PENDIENTE DE COMPLETAR]` (esto no aplica a `tipo_inmueble`, `naturaleza_arrendador` ni `naturaleza_arrendatario`: ver Paso 1, que deben estar resueltos antes de esta primera invocacion).
+
+Invocaciones siguientes: cada vez que el usuario responda un nuevo bloque del Paso 3, actualizar (Edit) el mismo documento sustituyendo los `[DATO — PENDIENTE DE COMPLETAR]` correspondientes, en vez de regenerarlo desde cero. El Paso 7 (revision final) solo se ejecuta como cierre, cuando ya no queden bloques pendientes.
 
 ### Paso 7 — Revision final antes de entregar
 
