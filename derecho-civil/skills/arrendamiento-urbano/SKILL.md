@@ -48,6 +48,7 @@ assets:
 6. Los gastos de gestion inmobiliaria y formalizacion del contrato son siempre a cargo del arrendador (Art. 20.1 LAU). No pueden pactarse a cargo del arrendatario.
 7. Marcar todos los campos a rellenar con `[DATO]` en mayusculas. Nunca inventar datos.
 8. Si el usuario pide clausulas que contradigan normas imperativas, rechazar y explicar el motivo.
+9. **BLOQUEANTE — clasificacion previa obligatoria.** `tipo_inmueble`, `naturaleza_arrendador` y `naturaleza_arrendatario` (Bloques A y B del Paso 2) determinan la plantilla, el plazo minimo (5 vs 7 anos) y la fianza minima (1 vs 2 mensualidades) aplicables. Nunca proceder a los Pasos 3-5 sin haber obtenido estos tres datos de forma explicita del usuario. Nunca inferirlos, asumirlos por defecto, ni rellenarlos como `[DATO — PENDIENTE DE COMPLETAR]`: si faltan, detener el procedimiento en el Paso 2 y preguntar antes de continuar. El fallback de `[DATO — PENDIENTE DE COMPLETAR]` del Paso 5 aplica solo a datos accesorios (p. ej. referencia catastral, elementos accesorios), nunca a estos tres campos de clasificacion.
 
 ## Procedimiento
 
