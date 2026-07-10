@@ -49,17 +49,57 @@ assets:
 7. Marcar todos los campos a rellenar con `[DATO]` en mayusculas. Nunca inventar datos.
 8. Si el usuario pide clausulas que contradigan normas imperativas, rechazar y explicar el motivo.
 9. La clasificacion del contrato (`tipo_inmueble`, `naturaleza_arrendador`, `naturaleza_arrendatario`) se resuelve en la Seccion 1 de la entrevista (ver Procedimiento), antes de generar cualquier borrador. No se asume un valor por defecto para estos tres campos ni se dejan como `[DATO — PENDIENTE DE COMPLETAR]`: son la primera pregunta natural de la conversacion, no una validacion con mensaje de error.
-10. **No confundir los datos de clasificacion (Guardrail 9, bloqueantes) con los datos de relleno del contrato (Secciones 2-10: ubicacion, partes, y una clausula del contrato por seccion — ver Procedimiento).** Estos ultimos son siempre opcionales para el usuario y nunca bloquean nada: no retrasar la generacion, la revision final ni la entrega del contrato por campos de esta categoria sin responder. Se dejan como `[DATO — PENDIENTE DE COMPLETAR]` y se entrega el documento igual.
+10. **Generación diferida del documento hasta el cierre completo de la entrevista.** El documento final no debe generarse, ni se debe invocar la herramienta `draft_markdown` ni crear/modificar archivo alguno en el disco, hasta que las Secciones 1 a 10 hayan sido consultadas individualmente y el usuario haya dado su confirmación explícita para proceder a la redacción. Hasta ese momento, ninguna acción de escritura sobre el entregable puede ejecutarse, ni siquiera con datos genéricos ni con marcadores `[DATO — PENDIENTE DE COMPLETAR]`. Esta regla prevalece sobre la lógica de "generación progresiva" o "mail-merge desde la Sección 1" descrita en otros apartados del propio SKILL.md.
 
 ## Procedimiento
 
 Este procedimiento se conduce como una entrevista: se presenta una seccion, se espera la respuesta del usuario, y solo entonces se pasa a la siguiente. Nunca se listan dos secciones a la vez ni se vuelca el formulario completo de golpe. La verificacion normativa, la validacion de condiciones y la generacion del contrato son acciones internas que se disparan en los puntos indicados — no son preguntas adicionales al usuario.
 
-**Resumen operativo en 4 pasos (en este orden, sin saltarse ninguno):**
-1. **Arbol de decision** (Seccion 1, Pregunta 0-3) — una pregunta por turno, texto literal, sin asumir nada. **PAUSA obligatoria despues de cada pregunta:** el modelo se detiene y espera la respuesta del usuario antes de continuar. En particular, tras la Pregunta 1 (tipo de inmueble) la pausa es imprescindible porque el paso 2 (buscar el asset) no se puede ejecutar sin saber si `tipo_inmueble` es VIVIENDA o LOCAL — no hay asset que buscar todavia.
-2. **Buscar el asset** — con `tipo_inmueble` ya resuelto (y solo entonces) en el paso 1, determinar cual de los dos archivos de plantilla corresponde: `assets/contrato-arrendamiento-vivienda.md` (VIVIENDA) o `assets/contrato-arrendamiento-local.md` (LOCAL).
-3. **Cargar el asset** — leer (Read) el contenido real de ese archivo antes de generar nada. Nunca redactar el contrato de memoria o "recordando" como es la plantilla: hay que tener el texto literal delante para poder copiarlo (ver "Es una plantilla de sustitucion literal" en "Generacion del contrato").
-4. **Modificar seccion por seccion** (Secciones 2-10) — una seccion por turno, sustituyendo los marcadores `{{variable}}` del asset ya cargado conforme llegan las respuestas, sin reescribir el texto fijo de las clausulas. Nunca volcar todas las preguntas de las Secciones 2-10 de golpe en una lista larga.
+### Estado interno y regla de parada (evaluar ANTES de cada respuesta)
+
+Antes de emitir cualquier respuesta, el LLM debe evaluar internamente:
+
+1. ¿En qué paso de la entrevista me encuentro? (Pre-entrevista; Sección 1 con Preguntas 0-3; Sección 2; ...; Sección 10; Cierre de entrevista; Generación; Realimentación).
+2. ¿He recibido respuesta del usuario a la pregunta de la sección/paso actual?
+3. ¿He obtenido confirmación explícita del usuario para avanzar al siguiente paso?
+
+Reglas duras:
+- Determina en qué sección de la entrevista te encuentras. Formula únicamente la pregunta correspondiente a esa sección y detén la generación inmediatamente. Prohibido avanzar a la siguiente sección sin recibir la respuesta del usuario.
+- Si la pregunta ha sido respondida pero no he recibido confirmación explícita para avanzar, mostrar la vista previa del cambio aplicado a la cláusula correspondiente y preguntar "¿Confirmamos esta cláusula y avanzamos a la siguiente?". Detenerse hasta recibir OK.
+- Si he recibido respuesta y confirmación, marcar la sección como completada en la Tabla de progreso, actualizar la sección actual a la siguiente y formular la siguiente pregunta.
+- Solo después de que la Sección 10 haya sido confirmada, preguntar al usuario si procede a la redacción final. Hasta que el usuario dé su OK explícito a esa pregunta final, no se carga ningún asset, no se invoca `draft_markdown`, no se crea ni se modifica ningún archivo en el disco.
+
+### Tabla de progreso
+
+El LLM mantiene esta tabla de progreso actualizada en cada turno (la muestra al inicio de su respuesta o al pedir cada nueva sección) para que el usuario vea dónde está:
+
+| # | Sección | Descripción | Estado |
+|---|---------|-------------|--------|
+| 0 | Finalidad del uso | Filtro de alcance (Pregunta 0) | Pendiente |
+| 1 | Tipo de inmueble | Pregunta 1 | Pendiente |
+| 2 | Naturaleza del arrendador | Pregunta 2 | Pendiente |
+| 3 | Naturaleza del arrendatario | Pregunta 3 | Pendiente |
+| 4 | Ubicación y zona tensionada | Sección 2 | Pendiente |
+| 5 | Datos de las partes | Sección 3 | Pendiente |
+| 6 | Cláusulas PRIMERA y SEGUNDA (Objeto/Destino) | Sección 4 | Pendiente |
+| 7 | Cláusula TERCERA (Duración) | Sección 5 | Pendiente |
+| 8 | Cláusula CUARTA (Renta) | Sección 6 | Pendiente |
+| 9 | Cláusula QUINTA (Actualización) | Sección 7 | Pendiente |
+| 10 | Cláusula SEXTA (Fianza) | Sección 8 | Pendiente |
+| 11 | Cláusula SÉPTIMA (Gastos y suministros) | Sección 9 | Pendiente |
+| 12 | Pactos opcionales y cláusulas adicionales | Sección 10 | Pendiente |
+| 13 | Cierre de entrevista | OK de redacción | Pendiente |
+| 14 | Redacción y entrega | Generación del documento | Pendiente |
+| 15 | Realimentación | Bucle post-entrega | Pendiente |
+
+Estados posibles: `Pendiente`, `En curso`, `Confirmada`, `Omitida (modo rápido)`.
+
+**Resumen operativo en 5 pasos (en este orden, sin saltarse ninguno):**
+1. **Recorrer la entrevista** (Secciones 1-10, que cubren las filas 0-12 de la Tabla de progreso) — una sección por turno, con confirmación explícita del usuario entre cada paso. Ningún archivo se crea ni se modifica en el disco durante este recorrido.
+2. **Confirmación final de cierre de entrevista** (fila 13 de la Tabla) — tras la Sección 10, preguntar al usuario "¿Procedemos a la redacción del contrato?" y esperar OK explícito. Sin ese OK, no avanzar.
+3. **Buscar y cargar el asset** — solo tras el OK del paso 2. Leer (Read) el archivo de plantilla correspondiente al `tipo_inmueble` ya resuelto (`assets/contrato-arrendamiento-vivienda.md` para VIVIENDA, `assets/contrato-arrendamiento-local.md` para LOCAL). Nunca redactar el contrato de memoria: hay que tener el texto literal delante para poder copiarlo.
+4. **Generar el documento** (fila 14 de la Tabla) — sustituir los `{{variable}}` del asset por los datos confirmados en las Secciones 1-10 y crear el archivo del contrato en el disco (Write). Es una sola operación al cierre, no progresiva.
+5. **Bucle de realimentación** (fila 15 de la Tabla) — tras la entrega, abrir el menú de ajustes (ver "Bucle de realimentación post-entrega").
 
 ### Entrevista (una seccion por turno)
 
@@ -167,38 +207,6 @@ las cuatro preguntas (0, 1, 2 o 3) con su texto literal, y nada mas. Si la
 respuesta que se esta a punto de enviar contiene mas de una pregunta, o una
 pregunta que no aparece textualmente arriba, no enviarla: corregirla primero.
 
-**La Seccion 1 completa es un dialogo de 4 turnos, no un formulario en un solo mensaje.** Asi se ve la secuencia correcta completa (cada bloque ASISTENTE es un mensaje separado, y entre medias siempre hay un mensaje de USUARIO real — no se generan las cuatro preguntas seguidas):
-
-```
-ASISTENTE: ¿El arrendamiento es para residencia habitual y permanente o para
-una actividad de negocio estable, o es de temporada (vacacional, de verano,
-por trabajo temporal) o una vivienda turistica gestionada como alojamiento?
-
-USUARIO: Es para vivienda habitual.
-
-ASISTENTE: ¿El contrato es para vivienda habitual o para un local de negocio
-/ uso distinto de vivienda?
-
-USUARIO: Vivienda.
-
-ASISTENTE: ¿El arrendador es persona fisica o persona juridica (empresa,
-sociedad)?
-
-USUARIO: Persona fisica.
-
-ASISTENTE: ¿Y el arrendatario, es persona fisica o persona juridica?
-
-USUARIO: Tambien persona fisica.
-
-[Aqui, y solo aqui, termina la Seccion 1. Recien ahora se ejecuta el Paso 2
-(buscar el asset) y se continua con la Verificacion normativa y la Seccion 2.]
-```
-
-Nunca comprimir esta secuencia en un solo mensaje tipo "1. ¿Vivienda o local? 2.
-¿Persona fisica o juridica? 3. ¿Y el arrendatario?" — eso es un formulario
-("chorizo" de preguntas), no un dialogo, y esta prohibido por esta skill aunque
-parezca mas eficiente.
-
 En cuanto el usuario responda, ejecutar la Verificacion normativa (mas abajo) antes de continuar con la Seccion 2.
 
 **Las Secciones 2-10 estan alineadas 1:1 con las clausulas del contrato** (ver "Estructura de clausulas" en "Generacion del contrato"), en el mismo orden en que aparecen en la plantilla. Esto permite ir rellenando el documento clausula por clausula conforme avanza la entrevista, no por bloques tematicos sueltos.
@@ -245,9 +253,35 @@ Si la comunidad autonoma tiene normativa propia relevante (Cataluna, Pais Vasco,
 
 **Como conducir la entrevista:**
 - Una seccion por mensaje, en el orden 2→10. Esperar la respuesta antes de pasar a la siguiente seccion. Dentro de una misma seccion sí se pueden agrupar varias preguntas en el mismo mensaje — son datos de la misma clausula. Esto es distinto de la Seccion 1 (arbol de decision), donde cada pregunta va sola, sin excepcion (ver Seccion 1), y nunca se mezcla con estas (ver "Alcance de la Seccion 1").
-- Mostrar el titulo de la seccion como encabezado del mensaje al usuario (p. ej. "**Seccion 4 — Clausula PRIMERA (Objeto)**") antes de la pregunta correspondiente, para que pueda seguir el progreso de la entrevista clausula por clausula.
-- Si el usuario aporta espontaneamente datos de varias secciones a la vez (por ejemplo, en su primer mensaje), aceptarlos e integrarlos igualmente; solo preguntar por las secciones que sigan incompletas.
-- Desde que se resuelve la Seccion 1, generar y actualizar el borrador del contrato de forma progresiva (ver "Generacion del contrato") conforme llegan las respuestas de las Secciones 2-10, en vez de esperar a tenerlas todas. Cada respuesta de seccion actualiza la clausula correspondiente del documento ya creado (ver Guardrail 10: estas secciones nunca son bloqueantes; el documento es entregable en cualquier momento).
+- Mostrar el titulo de la seccion como encabezado del mensaje al usuario (p. ej. "**Seccion 4 — Clausula PRIMERA (Objeto)**") antes de la pregunta correspondiente, para que pueda seguir el progreso de la entrevista clausula por clausula. La vista previa de la cláusula rellenada se muestra justo debajo de la pregunta, en texto plano formateado (sin bloques de código), seguida de la pregunta de confirmación "¿Confirmamos esta cláusula y avanzamos a la siguiente?".
+- Si el usuario aporta espontaneamente datos de varias secciones a la vez (por ejemplo, en su primer mensaje), aceptarlos e integrarlos igualmente; solo preguntar por las secciones que sigan incompletas. Si el usuario aporta datos de varias secciones ANTES de que se haya resuelto la Sección 1, las Preguntas 0-3 siguen siendo obligatorias una a una (no se mezclan con datos de relleno; ver "Alcance de la Seccion 1").
+- NO se genera ni se modifica ningun archivo en disco durante la entrevista. La generacion del documento ocurre una sola vez, al cierre de la entrevista (Sección 10 confirmada y OK explicito de "procedemos a la redaccion"); ver Guardrail 10 y "Generacion del contrato".
+
+**Patron completo de un turno de las Secciones 2-10 (ejemplo, Seccion 4):**
+
+> **Seccion 4 — Clausula PRIMERA (Objeto) y SEGUNDA (Destino)**
+>
+> Direccion completa del inmueble (calle, numero, piso, puerta, codigo postal, municipio). Referencia catastral, si se dispone de ella. Descripcion: superficie util aproximada y numero de habitaciones (vivienda), o descripcion del local (uso distinto). ¿Incluye elementos accesorios como plaza de garaje, trastero o mobiliario?
+>
+> --- Vista previa aplicada (todavia no se ha escrito en disco) ---
+>
+> PRIMERA — Objeto del arrendamiento
+> La parte arrendadora cede en arrendamiento a la parte arrendataria la vivienda situada en [DIRECCION], con superficie util aproximada de [X] m² y [Y] habitaciones, Referencia Catastral [REF]. Incluye: plaza de garaje nº [X], trastero nº [Y].
+>
+> SEGUNDA — Destino
+> La vivienda se destina a residencia habitual y permanente de la parte arrendataria y su unidad familiar, quedando prohibida cualquier otra utilizacion.
+>
+> --- Fin de la vista previa ---
+>
+> ¿Confirmamos esta clausula y avanzamos a la siguiente seccion?
+
+Tras la confirmacion explicita del usuario (por ejemplo, "OK", "confirmado", "perfecto", "adelante"), marcar la seccion como `Confirmada` en la Tabla de progreso, formular la siguiente pregunta (Seccion 5) y detenerse hasta recibir su respuesta.
+
+**Manejo de interrupciones (compatible con la regla global del `CLAUDE.md`):**
+- Si el usuario pausa, hace una pregunta lateral, o aporta datos de varias secciones a la vez, registra lo recibido, responde brevemente a su pregunta o dato, y luego retoma la seccion pendiente sin perder el progreso.
+- Si el usuario quiere volver a una seccion anterior, retrocede sin perder lo avanzado: actualiza la Tabla de progreso para reflejar que esa seccion vuelve a estar `En curso` y vuelve a preguntarla (o confirma el cambio si solo quiere ajustar un dato).
+- Si el usuario dice "saltemos gates", "avanza con defaults" o equivalente, omite las confirmaciones intermedias y solo confirma al cierre de la entrevista ("¿Procedemos a la redaccion?"); ademas, aplica los defaults del `CLAUDE.md` del plugin para los datos que el usuario no haya especificado (duracion minima legal, fianza minima legal, indice IGC, gastos a cargo del arrendador, etc.). Documenta en el chat que se ha activado el modo rapido y marca las secciones afectadas como `Omitida (modo rápido)` en la Tabla de progreso.
+- Si el usuario dice "cancela", "olvida lo anterior" o equivalente, descarta el progreso de la entrevista (todas las secciones vuelven a `Pendiente`) y vuelve a la Pregunta 0.
 
 ### Verificacion normativa (disparada tras la Seccion 1; accion interna, no es una pregunta al usuario)
 
@@ -308,9 +342,11 @@ web_search("deposito fianza arrendamiento [comunidad autonoma] organismo compete
 
 Incluir en el contrato la clausula de deposito de fianza ante el organismo autonomico correspondiente.
 
-### Generacion del contrato (progresiva, en paralelo a la entrevista)
+### Generacion del contrato (unica, al cierre de la entrevista)
 
-Seleccionar la plantilla segun `tipo_inmueble` (Seccion 1):
+La generacion del documento ocurre UNA SOLA VEZ, al cierre de la entrevista, tras la confirmacion explicita del usuario. Durante la entrevista (Secciones 1-10) NO se escribe ni se modifica ningun archivo en el disco; las "vistas previas" que el LLM muestra al usuario son texto plano en el chat, no escrituras reales (ver Guardrail 10 y "Como conducir la entrevista").
+
+Seleccionar la plantilla segun `tipo_inmueble` (Seccion 1, ya resuelta al llegar aqui):
 - Vivienda: `assets/contrato-arrendamiento-vivienda.md`
 - Local de negocio: `assets/contrato-arrendamiento-local.md`
 
@@ -324,30 +360,25 @@ PRIMERA — Objeto del arrendamiento · SEGUNDA — Destino y actividad · TERCE
 
 Ambas plantillas incluyen ademas, antes de las clausulas: encabezado con DRAFT y fecha de verificacion LAU, y bloque REUNIDOS/EXPONEN con la identificacion de las partes; y despues de las clausulas: CLAUSULAS ADICIONALES, FIRMAS, y (solo vivienda) INVENTARIO DE MOBILIARIO Y ENSERES si aplica. No inventar una estructura de clausulas distinta ni renombrar los encabezados.
 
-**Es una plantilla de sustitucion literal, no un texto para redactar de nuevo cada vez.** El archivo de `assets/` correspondiente (`contrato-arrendamiento-vivienda.md` o `contrato-arrendamiento-local.md`) se usa como un documento de mail-merge: se copia su texto fijo tal cual, caracter por caracter, y unicamente se sustituyen los marcadores `{{variable}}` por los datos reales recogidos en la entrevista. Las frases legales de cada clausula (los parrafos que no son un marcador) nunca se reescriben, resumen, reordenan ni parafrasean — son iguales en todos los contratos generados por esta skill, cambien lo que cambien los datos del cliente. Los bloques marcados como condicionales en la plantilla (p. ej. `<!-- Si zona tensionada: ... -->`, `<!-- Si duracion < minimo legal, insertar: ... -->`) se incluyen o se omiten segun corresponda al caso, pero si se incluyen, su texto tambien se copia literalmente, sin modificarlo. El resultado: dos contratos para el mismo `tipo_inmueble` deben ser identicos salvo en los valores concretos sustituidos.
+**Es una plantilla de sustitucion literal, no un texto para redactar de nuevo cada vez.** El archivo de `assets/` correspondiente (`contrato-arrendamiento-vivienda.md` o `contrato-arrendamiento-local.md`) se usa como un documento de mail-merge: se copia su texto fijo tal cual, caracter por caracter, y unicamente se sustituyen los marcadores `{{variable}}` por los datos reales confirmados en la entrevista. Las frases legales de cada clausula (los parrafos que no son un marcador) nunca se reescriben, resumen, reordenan ni parafrasean — son iguales en todos los contratos generados por esta skill, cambien lo que cambien los datos del cliente. Los bloques marcados como condicionales en la plantilla (p. ej. `<!-- Si zona tensionada: ... -->`, `<!-- Si duracion < minimo legal, insertar: ... -->`) se incluyen o se omiten segun corresponda al caso, pero si se incluyen, su texto tambien se copia literalmente, sin modificarlo. El resultado: dos contratos para el mismo `tipo_inmueble` deben ser identicos salvo en los valores concretos sustituidos.
 
-En cuanto se resuelva la Seccion 1, antes de la primera invocacion de `draft_markdown`:
-```
-Read(assets/contrato-arrendamiento-vivienda.md)   # o contrato-arrendamiento-local.md, segun tipo_inmueble
-```
-Este paso (Buscar + Cargar el asset, ver "Resumen operativo") es obligatorio y no puede omitirse: sin el contenido real del archivo delante, no hay texto literal que sustituir.
+**Cuando generar el documento:** solo cuando se den las DOS condiciones siguientes:
+1. La Seccion 10 ha sido confirmada por el usuario.
+2. El usuario ha dado su OK explicito a la pregunta final de cierre "¿Procedemos a la redaccion del contrato?".
 
-Primera invocacion de `draft_markdown`, con el asset ya cargado (y, si ya se dispone, la Seccion 2 o 3):
-```
-draft_markdown(
-  template_id: "contrato-arrendamiento-vivienda" | "contrato-arrendamiento-local",
-  variables: {
-    tipo_inmueble, naturaleza_arrendador, naturaleza_arrendatario (Seccion 1),
-    datos disponibles de las Secciones 2-10
-  }
-)
-```
+Hasta que ambas se cumplan, ninguna operacion de escritura sobre el entregable se ejecuta.
 
-Rellenar todos los campos `[DATO]` con los datos reales disponibles en ese momento. Los campos accesorios que el usuario no haya proporcionado quedan como `[DATO — PENDIENTE DE COMPLETAR]` (esto no aplica a `tipo_inmueble`, `naturaleza_arrendador` ni `naturaleza_arrendatario`: ver Seccion 1, que debe estar resuelta antes de esta primera invocacion).
+**Pasos de la generacion unica (fila 14 de la Tabla de progreso):**
+1. Invocar `Read(assets/contrato-arrendamiento-vivienda.md)` o `Read(assets/contrato-arrendamiento-local.md)`, segun `tipo_inmueble`. Este paso es obligatorio y no puede omitirse: sin el contenido real del archivo delante, no hay texto literal que sustituir.
+2. Sustituir en memoria (mentalmente) todos los `{{variable}}` del asset por los datos confirmados en las Secciones 1-10, bloque por bloque, conservando el texto fijo de las clausulas.
+3. Crear el archivo del contrato en el disco con `Write`, usando `snake_case` como nomenclatura (ej. `contrato_arrendamiento_vivienda_calle_mayor_123.md`) y conservando el header DRAFT y la fecha de verificacion LAU.
+4. Confirmar en el chat la creacion del archivo y mostrar las advertencias finales (ver "Entrega y advertencias finales").
 
-Invocaciones siguientes: cada vez que el usuario responda una nueva seccion de la entrevista, actualizar (Edit) el mismo documento sustituyendo los `[DATO — PENDIENTE DE COMPLETAR]` correspondientes, en vez de regenerarlo desde cero.
+**Manejo de campos sin confirmar al cierre de la entrevista.** Si al llegar al cierre de la entrevista algun dato de relleno sigue sin ser confirmado por el usuario, el LLM debe:
+- Si el dato tiene un default legal claro (duracion minima, fianza minima, indice IGC, gastos a cargo del arrendador): aplicar el default del `CLAUDE.md` del plugin y registrarlo en el chat.
+- Si el dato NO tiene default (nombres de las partes, direccion del inmueble, importe de la renta): preguntar al usuario UNA vez si quiere proporcionar ese dato antes de la redaccion o prefiere que el campo quede como `[DATO — PENDIENTE DE COMPLETAR]`. Si el usuario prefiere este formato, el contrato se genera con esos campos pendientes y se anade una advertencia explicita en la entrega.
 
-**Los datos de relleno (Secciones 2-10) nunca bloquean la entrega.** Solo la Seccion 1 (clasificacion) es bloqueante — eso ya se resolvio antes de la primera invocacion de `draft_markdown`. A partir de ahi, el borrador existe y es entregable en cualquier momento, tenga los campos accesorios que tenga. Si el usuario pide el contrato, pide cerrarlo, o simplemente deja de responder mas preguntas de las Secciones 2-10, ejecutar la Revision final y la Entrega igualmente, con `[DATO — PENDIENTE DE COMPLETAR]` en lo que falte. Nunca negarse a entregar, ni retrasar la entrega, ni pedir mas datos de relleno como condicion para cerrar: esos campos son opcionales para el usuario, no un requisito del procedimiento.
+**No hay invocaciones progresivas de `draft_markdown` durante la entrevista.** La regla anterior de "actualizar el borrador con cada seccion" y la coletilla final sobre "datos de relleno que nunca bloquean la entrega" quedan sin efecto (ver Guardrail 10). Solo hay una invocacion, al cierre, tras la doble confirmacion indicada arriba.
 
 ### Revision final antes de entregar
 
@@ -371,6 +402,41 @@ Advertencias:
 4. El deposito de fianza ante el organismo autonomico competente es obligatorio. Consultar el procedimiento en [comunidad autonoma].
 5. Se recomienda la inscripcion del contrato en el Registro de la Propiedad para mayor seguridad juridica (Art. 37 LAU).
 ```
+
+## Bucle de realimentación post-entrega
+
+Tras la entrega del contrato (fila 14 de la Tabla de progreso confirmada), el LLM NO da por terminada la conversacion. Entra en el paso 5 del Resumen operativo (fila 15 de la Tabla): un bucle de realimentacion en el que ofrece al usuario un menu explicito de ajustes y permanece a la espera hasta que el usuario cierre la conversacion o indique que el contrato esta conforme.
+
+**Mensaje de apertura del bucle** (justo despues de la entrega del contrato en el chat, junto a la confirmacion de `Write`):
+
+---
+
+Contrato entregado en `[nombre_del_archivo.extension]`.
+
+¿Que quieres hacer ahora?
+
+1. Ajustar una clausula existente (indicame cual y que cambio quieres aplicar).
+2. Añadir una clausula adicional (indicame el contenido que quieras incorporar).
+3. Eliminar una clausula opcional (indicame cual).
+4. Corregir un dato de las partes o del inmueble (indicame el dato y el valor correcto).
+5. Regenerar el contrato completo desde una seccion concreta (indicame desde cual).
+6. Revisar la verificacion normativa de la LAU (volver a comprobar la version vigente en el BOE).
+7. Cerrar y dar el contrato por bueno.
+
+---
+
+**Reglas del bucle:**
+- El LLM permanece en este estado hasta que el usuario elija la opcion 7 ("Cerrar y dar el contrato por bueno") o abandone la conversacion. Cualquier otra opcion del menu, cualquier pregunta lateral o cualquier dato nuevo aportado por el usuario se trata como una iteracion del bucle.
+- Si el usuario elige cualquiera de las opciones 1-6, el LLM aplica el ajuste con el mismo patron gate explicito: recoge los datos o la indicacion correspondiente, muestra la vista previa del cambio en texto plano, pregunta "¿Confirmamos?", y tras la confirmacion aplica la modificacion al archivo en disco con `Edit` y confirma la operacion en el chat.
+- Si el ajuste afecta a un dato de clasificacion (Sección 1: tipo de inmueble, naturaleza de las partes, finalidad), el LLM advierte al usuario que eso puede requerir regenerar el documento desde la plantilla correspondiente (VIVIENDA o LOCAL) y le ofrece esa opcion en el menu.
+- Si el usuario hace una pregunta lateral o solicita una revision tecnica (por ejemplo, "esta clausula respeta el Art. 17 LAU?"), el LLM responde a la pregunta con su analisis tecnico y, tras responder, vuelve a mostrar el menu del bucle.
+- Si el usuario aporta datos nuevos que no estaban en el contrato original, se tratan como ajuste del dato correspondiente (opcion 4 del menu): se les pide confirmacion, se aplica con `Edit` y se confirma en el chat.
+- En cada iteracion del bucle, el LLM actualiza la Tabla de progreso añadiendo una linea "Ajuste realizado: [resumen]" como registro visible de las modificaciones aplicadas.
+- La regla global de "interrupciones y cambios de direccion" del `CLAUDE.md` aplica tambien dentro de este bucle: el usuario puede mezclar varias solicitudes en un mismo turno y el LLM las procesa todas antes de volver a mostrar el menu.
+
+**Como NO se aplica este bucle:**
+- El bucle NO se usa para revisar contratos generados por terceros; esa funcionalidad no entra en el alcance de esta skill (ver "Limitaciones" en el `CLAUDE.md` del plugin).
+- El bucle NO se usa para reabrir la entrevista desde cero. Si el usuario quiere rehacer, debe decirlo explicitamente ("empezar de nuevo", "rehacer el contrato", "volver a la pregunta 0"); en ese caso, el LLM reinicia la Tabla de progreso (todas las filas vuelven a `Pendiente`) y vuelve a la Pregunta 0 de la Sección 1.
 
 ## Como NO se usa esta skill
 
