@@ -55,10 +55,11 @@ assets:
 
 Este procedimiento se conduce como una entrevista: se presenta una seccion, se espera la respuesta del usuario, y solo entonces se pasa a la siguiente. Nunca se listan dos secciones a la vez ni se vuelca el formulario completo de golpe. La verificacion normativa, la validacion de condiciones y la generacion del contrato son acciones internas que se disparan en los puntos indicados — no son preguntas adicionales al usuario.
 
-**Resumen operativo en 3 pasos (en este orden, sin saltarse ninguno):**
+**Resumen operativo en 4 pasos (en este orden, sin saltarse ninguno):**
 1. **Arbol de decision** (Seccion 1, Pregunta 0-3) — una pregunta por turno, texto literal, sin asumir nada.
-2. **Escribir el contrato** — en cuanto termina el paso 1, generar el documento inicial (`draft_markdown`) con los campos de relleno como `[DATO — PENDIENTE DE COMPLETAR]`. El documento existe ya, aunque este casi vacio de datos.
-3. **Ir seccion por seccion del contrato rellenando datos** (Secciones 2-10) — una seccion por turno, actualizando (Edit) el documento ya creado en el paso 2 conforme llegan las respuestas. Nunca volcar todas las preguntas de las Secciones 2-10 de golpe en una lista larga.
+2. **Buscar el asset** — con `tipo_inmueble` ya resuelto en el paso 1, determinar cual de los dos archivos de plantilla corresponde: `assets/contrato-arrendamiento-vivienda.md` (VIVIENDA) o `assets/contrato-arrendamiento-local.md` (LOCAL).
+3. **Cargar el asset** — leer (Read) el contenido real de ese archivo antes de generar nada. Nunca redactar el contrato de memoria o "recordando" como es la plantilla: hay que tener el texto literal delante para poder copiarlo (ver "Es una plantilla de sustitucion literal" en "Generacion del contrato").
+4. **Modificar seccion por seccion** (Secciones 2-10) — una seccion por turno, sustituyendo los marcadores `{{variable}}` del asset ya cargado conforme llegan las respuestas, sin reescribir el texto fijo de las clausulas. Nunca volcar todas las preguntas de las Secciones 2-10 de golpe en una lista larga.
 
 ### Entrevista (una seccion por turno)
 
@@ -293,7 +294,13 @@ Ambas plantillas incluyen ademas, antes de las clausulas: encabezado con DRAFT y
 
 **Es una plantilla de sustitucion literal, no un texto para redactar de nuevo cada vez.** El archivo de `assets/` correspondiente (`contrato-arrendamiento-vivienda.md` o `contrato-arrendamiento-local.md`) se usa como un documento de mail-merge: se copia su texto fijo tal cual, caracter por caracter, y unicamente se sustituyen los marcadores `{{variable}}` por los datos reales recogidos en la entrevista. Las frases legales de cada clausula (los parrafos que no son un marcador) nunca se reescriben, resumen, reordenan ni parafrasean — son iguales en todos los contratos generados por esta skill, cambien lo que cambien los datos del cliente. Los bloques marcados como condicionales en la plantilla (p. ej. `<!-- Si zona tensionada: ... -->`, `<!-- Si duracion < minimo legal, insertar: ... -->`) se incluyen o se omiten segun corresponda al caso, pero si se incluyen, su texto tambien se copia literalmente, sin modificarlo. El resultado: dos contratos para el mismo `tipo_inmueble` deben ser identicos salvo en los valores concretos sustituidos.
 
-Primera invocacion, en cuanto se resuelva la Seccion 1 (y, si ya se dispone, la Seccion 2 o 3):
+En cuanto se resuelva la Seccion 1, antes de la primera invocacion de `draft_markdown`:
+```
+Read(assets/contrato-arrendamiento-vivienda.md)   # o contrato-arrendamiento-local.md, segun tipo_inmueble
+```
+Este paso (Buscar + Cargar el asset, ver "Resumen operativo") es obligatorio y no puede omitirse: sin el contenido real del archivo delante, no hay texto literal que sustituir.
+
+Primera invocacion de `draft_markdown`, con el asset ya cargado (y, si ya se dispone, la Seccion 2 o 3):
 ```
 draft_markdown(
   template_id: "contrato-arrendamiento-vivienda" | "contrato-arrendamiento-local",
