@@ -49,7 +49,7 @@ assets:
 7. Marcar todos los campos a rellenar con `[DATO]` en mayusculas. Nunca inventar datos.
 8. Si el usuario pide clausulas que contradigan normas imperativas, rechazar y explicar el motivo.
 9. La clasificacion del contrato (`tipo_inmueble`, `naturaleza_arrendador`, `naturaleza_arrendatario`) se resuelve en la Seccion 1 de la entrevista (ver Procedimiento), antes de generar cualquier borrador. No se asume un valor por defecto para estos tres campos ni se dejan como `[DATO — PENDIENTE DE COMPLETAR]`: son la primera pregunta natural de la conversacion, no una validacion con mensaje de error.
-10. **No confundir los datos de clasificacion (Guardrail 9, bloqueantes) con los datos de relleno del contrato (Secciones 2-5: ubicacion, partes, inmueble, condiciones economicas).** Estos ultimos son siempre opcionales para el usuario y nunca bloquean nada: no retrasar la generacion, la revision final ni la entrega del contrato por campos de esta categoria sin responder. Se dejan como `[DATO — PENDIENTE DE COMPLETAR]` y se entrega el documento igual.
+10. **No confundir los datos de clasificacion (Guardrail 9, bloqueantes) con los datos de relleno del contrato (Secciones 2-10: ubicacion, partes, y una clausula del contrato por seccion — ver Procedimiento).** Estos ultimos son siempre opcionales para el usuario y nunca bloquean nada: no retrasar la generacion, la revision final ni la entrega del contrato por campos de esta categoria sin responder. Se dejan como `[DATO — PENDIENTE DE COMPLETAR]` y se entrega el documento igual.
 
 ## Procedimiento
 
@@ -58,7 +58,7 @@ Este procedimiento se conduce como una entrevista: se presenta una seccion, se e
 **Resumen operativo en 3 pasos (en este orden, sin saltarse ninguno):**
 1. **Arbol de decision** (Seccion 1, Pregunta 0-3) — una pregunta por turno, texto literal, sin asumir nada.
 2. **Escribir el contrato** — en cuanto termina el paso 1, generar el documento inicial (`draft_markdown`) con los campos de relleno como `[DATO — PENDIENTE DE COMPLETAR]`. El documento existe ya, aunque este casi vacio de datos.
-3. **Ir seccion por seccion del contrato rellenando datos** (Secciones 2-5) — una seccion por turno, actualizando (Edit) el documento ya creado en el paso 2 conforme llegan las respuestas. Nunca volcar todas las preguntas de las Secciones 2-5 de golpe en una lista larga.
+3. **Ir seccion por seccion del contrato rellenando datos** (Secciones 2-10) — una seccion por turno, actualizando (Edit) el documento ya creado en el paso 2 conforme llegan las respuestas. Nunca volcar todas las preguntas de las Secciones 2-10 de golpe en una lista larga.
 
 ### Entrevista (una seccion por turno)
 
@@ -87,7 +87,7 @@ Espera la respuesta del usuario. No continues a la Pregunta 1 ni a ninguna otra 
          se rige por la normativa turistica de la comunidad autonoma correspondiente.
        Detener el procedimiento aqui: explicar al usuario que esta skill no cubre
        este tipo de arrendamiento (ver "Como NO se usa esta skill") y no continuar
-       con las Secciones 2-5 ni generar ningun borrador.
+       con las Secciones 2-10 ni generar ningun borrador.
 ```
 
 **Regla anti-suposicion:** una respuesta a otra pregunta nunca resuelve la Pregunta 0. Por ejemplo, si el usuario dice "es para vivienda" antes de que se le haya preguntado la Pregunta 0, eso responde (como mucho) a la Pregunta 1 (tipo de inmueble), pero NO dice si es habitual/permanente o de temporada/turistica — no asumir "habitual" a partir de eso. Si la respuesta de un turno no distingue con claridad entre las opciones de la pregunta que se esta resolviendo en ese momento, repetir la misma pregunta (texto literal) pidiendo que se aclare esa distincion especifica, en vez de asumir una opcion.
@@ -129,10 +129,10 @@ Espera la respuesta del usuario. No continues a la Seccion 2 ni a generar ningun
 
 **Alcance de la Seccion 1 — solo estas cuatro preguntas (0-3), una por turno:**
 - Cada pregunta (0, 1, 2, 3) va en su propio mensaje. Nunca combinar dos o mas preguntas de esta lista en el mismo turno, ni presentar el arbol completo de una vez: se avanza pregunta a pregunta, tomando cada decision antes de pasar a la siguiente.
-- **Nunca mezclar preguntas de la Seccion 1 con datos de relleno del contrato (Secciones 2-5).** Por ejemplo, "Datos de las partes: nombre completo y DNI/NIF/NIE del arrendador, del arrendatario, domicilio de notificacion de cada parte" es contenido de la Seccion 3 (Partes) — un dato de relleno, no de clasificacion — y no debe aparecer en el mismo mensaje que la Pregunta 0, 1, 2 o 3, ni antes de que la Seccion 1 este resuelta por completo. Son dos categorias distintas de pregunta (ver Guardrail 9 y 10) y nunca comparten turno.
+- **Nunca mezclar preguntas de la Seccion 1 con datos de relleno del contrato (Secciones 2-10).** Por ejemplo, "Datos de las partes: nombre completo y DNI/NIF/NIE del arrendador, del arrendatario, domicilio de notificacion de cada parte" es contenido de la Seccion 3 (Partes) — un dato de relleno, no de clasificacion — y no debe aparecer en el mismo mensaje que la Pregunta 0, 1, 2 o 3, ni antes de que la Seccion 1 este resuelta por completo. Son dos categorias distintas de pregunta (ver Guardrail 9 y 10) y nunca comparten turno.
 - No preguntar por jurisdiccion, pais, ciudad o provincia como parte de la clasificacion: esta skill aplica exclusivamente a Espana y a la LAU (Ley 29/1994), segun el `CLAUDE.md` del plugin `derecho-civil`. Si el usuario indica que el inmueble esta fuera de Espana, esta skill no aplica; indicarlo y no continuar con el procedimiento.
 - No preguntar por el regimen registral del bien (titularidad inscrita, cargas, hipotecas, propiedad horizontal, embargos): esta skill genera el contrato de arrendamiento, no realiza due diligence de titularidad. No forma parte de la clasificacion ni de ningun otro paso de este procedimiento.
-- No sustituir ni ampliar estas cuatro preguntas por otras. Si el usuario aporta datos adicionales por su cuenta, se pueden anotar como clausula adicional (Seccion 5), pero no se preguntan de forma proactiva aqui.
+- No sustituir ni ampliar estas cuatro preguntas por otras. Si el usuario aporta datos adicionales por su cuenta, se pueden anotar como clausula adicional (Seccion 10), pero no se preguntan de forma proactiva aqui.
 - Si el usuario responde varias preguntas a la vez de forma espontanea (por ejemplo, en su primer mensaje), aceptarlas e integrarlas igualmente; solo preguntar por las que sigan sin respuesta.
 
 Esperar las cuatro respuestas antes de continuar: sin ellas no hay plantilla ni marco legal que aplicar, asi que no se genera ningun borrador ni se avanza a la Seccion 2 hasta tenerlas completas. No es un bloqueo formal con mensaje de error — es, simplemente, el orden natural de la entrevista, pregunta a pregunta.
@@ -168,7 +168,9 @@ pregunta que no aparece textualmente arriba, no enviarla: corregirla primero.
 
 En cuanto el usuario responda, ejecutar la Verificacion normativa (mas abajo) antes de continuar con la Seccion 2.
 
-**Seccion 2 — Ubicacion**
+**Las Secciones 2-10 estan alineadas 1:1 con las clausulas del contrato** (ver "Estructura de clausulas" en "Generacion del contrato"), en el mismo orden en que aparecen en la plantilla. Esto permite ir rellenando el documento clausula por clausula conforme avanza la entrevista, no por bloques tematicos sueltos.
+
+**Seccion 2 — Ubicacion** (contexto previo al encabezado y a REUNIDOS)
 
 "¿En que comunidad autonoma y municipio esta el inmueble? ¿Sabes si el municipio esta declarado zona de mercado residencial tensionado? (si / no / no lo se)"
 
@@ -176,23 +178,43 @@ Si responde "no lo se": invocar `web_search("zona mercado residencial tensionado
 
 Si la comunidad autonoma tiene normativa propia relevante (Cataluna, Pais Vasco, Navarra, Madrid zona tensionada, etc.), ejecutar la Consulta de normativa autonomica (mas abajo) antes de continuar con la Seccion 3.
 
-**Seccion 3 — Partes**
+**Seccion 3 — Partes** (bloque REUNIDOS)
 
 "Datos del arrendador: nombre completo o razon social, NIF/CIF, y domicilio a efectos de notificaciones. Datos del arrendatario: nombre completo o razon social, NIF/CIF, y domicilio actual."
 
-**Seccion 4 — Inmueble**
+**Seccion 4 — Clausula PRIMERA (Objeto) y SEGUNDA (Destino)**
 
-"Direccion completa del inmueble (calle, numero, piso, puerta, codigo postal, municipio). Referencia catastral, si se dispone de ella. Descripcion: superficie util aproximada y numero de habitaciones (vivienda), o descripcion del local (uso distinto). ¿Incluye elementos accesorios como plaza de garaje, trastero o mobiliario?"
+"Direccion completa del inmueble (calle, numero, piso, puerta, codigo postal, municipio). Referencia catastral, si se dispone de ella. Descripcion: superficie util aproximada y numero de habitaciones (vivienda), o descripcion del local (uso distinto). ¿Incluye elementos accesorios como plaza de garaje, trastero o mobiliario?" Si `tipo_inmueble = LOCAL`, anadir: "¿Que actividad se va a desarrollar en el local?" (rellena la clausula SEGUNDA — Destino y actividad; en vivienda, la Segunda es boilerplate fijo y no necesita pregunta).
 
-**Seccion 5 — Condiciones economicas**
+**Seccion 5 — Clausula TERCERA (Duracion)**
 
-"Renta mensual pactada, en euros. Duracion del contrato en anos, o 'minimo legal'. Fianza: numero de mensualidades, o 'segun ley'. Actualizacion de renta: indice pactado, o 'segun ley' (IGC con tope IPC). ¿Algun gasto a cargo del arrendatario (comunidad, IBI, suministros)? ¿Alguna clausula adicional que quieras incluir?"
+"Duracion del contrato en anos, o 'minimo legal'. Fecha de inicio del contrato."
+
+**Seccion 6 — Clausula CUARTA (Renta)**
+
+"Renta mensual pactada, en euros. Forma de pago (transferencia, domiciliacion, otro) y cuenta/IBAN del arrendador."
+
+**Seccion 7 — Clausula QUINTA (Actualizacion de la renta)**
+
+"Actualizacion de renta: indice pactado, o 'segun ley' (IGC con tope IPC)."
+
+**Seccion 8 — Clausula SEXTA (Fianza)**
+
+"Fianza: numero de mensualidades, o 'segun ley'. ¿Se pacta alguna garantia adicional (aval bancario, seguro de impago, deposito adicional)?"
+
+**Seccion 9 — Clausula SEPTIMA (Gastos y suministros)**
+
+"¿Algun gasto a cargo del arrendatario (comunidad, IBI, seguro del edificio)? Los suministros individualizados (agua, luz, gas) son siempre a cargo del arrendatario segun la plantilla — confirmar si aplica alguna excepcion."
+
+**Seccion 10 — Pactos opcionales y clausulas adicionales** (Clausula DECIMA, Notificaciones, Fuero, y Clausulas Adicionales)
+
+"¿Se renuncia al derecho de adquisicion preferente (Art. 25 LAU), o se mantiene? ¿Correos electronicos de las partes para notificaciones, si se desea anadirlos ademas del domicilio? ¿Se pacta mediacion o arbitraje antes de la via judicial? ¿Alguna clausula adicional que quieras incluir?"
 
 **Como conducir la entrevista:**
-- Una seccion por mensaje, en el orden 2→5. Esperar la respuesta antes de pasar a la siguiente seccion. Dentro de una misma seccion (2 a 5) sí se pueden agrupar varias preguntas en el mismo mensaje — son datos del mismo tema (ubicacion, partes, inmueble, condiciones economicas). Esto es distinto de la Seccion 1 (arbol de decision), donde cada pregunta va sola, sin excepcion (ver Seccion 1).
-- Mostrar el titulo de la seccion como encabezado del mensaje al usuario (p. ej. "**Seccion 2 — Ubicacion**") antes de la pregunta correspondiente, para que pueda seguir el progreso de la entrevista.
+- Una seccion por mensaje, en el orden 2→10. Esperar la respuesta antes de pasar a la siguiente seccion. Dentro de una misma seccion sí se pueden agrupar varias preguntas en el mismo mensaje — son datos de la misma clausula. Esto es distinto de la Seccion 1 (arbol de decision), donde cada pregunta va sola, sin excepcion (ver Seccion 1), y nunca se mezcla con estas (ver "Alcance de la Seccion 1").
+- Mostrar el titulo de la seccion como encabezado del mensaje al usuario (p. ej. "**Seccion 4 — Clausula PRIMERA (Objeto)**") antes de la pregunta correspondiente, para que pueda seguir el progreso de la entrevista clausula por clausula.
 - Si el usuario aporta espontaneamente datos de varias secciones a la vez (por ejemplo, en su primer mensaje), aceptarlos e integrarlos igualmente; solo preguntar por las secciones que sigan incompletas.
-- Desde que se resuelve la Seccion 1, generar y actualizar el borrador del contrato de forma progresiva (ver "Generacion del contrato") conforme llegan las respuestas de las Secciones 2-5, en vez de esperar a tenerlas todas.
+- Desde que se resuelve la Seccion 1, generar y actualizar el borrador del contrato de forma progresiva (ver "Generacion del contrato") conforme llegan las respuestas de las Secciones 2-10, en vez de esperar a tenerlas todas. Cada respuesta de seccion actualiza la clausula correspondiente del documento ya creado (ver Guardrail 10: estas secciones nunca son bloqueantes; el documento es entregable en cualquier momento).
 
 ### Verificacion normativa (disparada tras la Seccion 1; accion interna, no es una pregunta al usuario)
 
@@ -275,7 +297,7 @@ draft_markdown(
   template_id: "contrato-arrendamiento-vivienda" | "contrato-arrendamiento-local",
   variables: {
     tipo_inmueble, naturaleza_arrendador, naturaleza_arrendatario (Seccion 1),
-    datos disponibles de las Secciones 2-5
+    datos disponibles de las Secciones 2-10
   }
 )
 ```
@@ -284,11 +306,11 @@ Rellenar todos los campos `[DATO]` con los datos reales disponibles en ese momen
 
 Invocaciones siguientes: cada vez que el usuario responda una nueva seccion de la entrevista, actualizar (Edit) el mismo documento sustituyendo los `[DATO — PENDIENTE DE COMPLETAR]` correspondientes, en vez de regenerarlo desde cero.
 
-**Los datos de relleno (Secciones 2-5) nunca bloquean la entrega.** Solo la Seccion 1 (clasificacion) es bloqueante — eso ya se resolvio antes de la primera invocacion de `draft_markdown`. A partir de ahi, el borrador existe y es entregable en cualquier momento, tenga los campos accesorios que tenga. Si el usuario pide el contrato, pide cerrarlo, o simplemente deja de responder mas preguntas de las Secciones 2-5, ejecutar la Revision final y la Entrega igualmente, con `[DATO — PENDIENTE DE COMPLETAR]` en lo que falte. Nunca negarse a entregar, ni retrasar la entrega, ni pedir mas datos de relleno como condicion para cerrar: esos campos son opcionales para el usuario, no un requisito del procedimiento.
+**Los datos de relleno (Secciones 2-10) nunca bloquean la entrega.** Solo la Seccion 1 (clasificacion) es bloqueante — eso ya se resolvio antes de la primera invocacion de `draft_markdown`. A partir de ahi, el borrador existe y es entregable en cualquier momento, tenga los campos accesorios que tenga. Si el usuario pide el contrato, pide cerrarlo, o simplemente deja de responder mas preguntas de las Secciones 2-10, ejecutar la Revision final y la Entrega igualmente, con `[DATO — PENDIENTE DE COMPLETAR]` en lo que falte. Nunca negarse a entregar, ni retrasar la entrega, ni pedir mas datos de relleno como condicion para cerrar: esos campos son opcionales para el usuario, no un requisito del procedimiento.
 
 ### Revision final antes de entregar
 
-Se ejecuta cuando el usuario pide el documento o da por terminada la entrevista, tenga o no todas las Secciones 2-5 completas — no es necesario que esten todas respondidas. Verificar que el contrato generado:
+Se ejecuta cuando el usuario pide el documento o da por terminada la entrevista, tenga o no todas las Secciones 2-10 completas — no es necesario que esten todas respondidas. Verificar que el contrato generado:
 - Tiene el header DRAFT.
 - Incluye la fecha de la Verificacion normativa.
 - Tiene todas las clausulas obligatorias segun el tipo de inmueble.
