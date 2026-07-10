@@ -128,6 +128,35 @@ Espera la respuesta del usuario. No continues a la Seccion 2 ni a generar ningun
 
 Esperar las cuatro respuestas antes de continuar: sin ellas no hay plantilla ni marco legal que aplicar, asi que no se genera ningun borrador ni se avanza a la Seccion 2 hasta tenerlas completas. No es un bloqueo formal con mensaje de error — es, simplemente, el orden natural de la entrevista, pregunta a pregunta.
 
+**Ejemplo de respuesta CORRECTA para el primer turno** (usuario dice "quiero un contrato de alquiler"):
+
+```
+¿El arrendamiento es para residencia habitual y permanente o para una actividad
+de negocio estable, o es de temporada (vacacional, de verano, por trabajo
+temporal) o una vivienda turistica gestionada como alojamiento?
+```
+
+Y ahi termina la respuesta. Nada mas.
+
+**Ejemplo de respuesta INCORRECTA para ese mismo turno** (no hacer esto — patron real observado y prohibido):
+
+```
+Antes de ayudarle, necesito que me indique varios puntos:
+1. Su posicion en la operacion: ¿arrendador o arrendatario?
+2. Naturaleza del inmueble: ¿vivienda, local, oficina, garaje, finca rustica?
+3. Jurisdiccion: ¿en que pais/ciudad esta el inmueble?
+4. Finalidad: ¿quiere un contrato, una revision, o asesoramiento?
+```
+
+Esto esta mal por multiples motivos a la vez: mezcla varias preguntas en un solo
+turno, ninguna de las 4 preguntas coincide con el texto literal de la Seccion 1,
+pregunta por jurisdiccion (prohibido), y pregunta por cosas fuera del alcance de
+esta skill (posicion en la operacion, tipo de servicio). Antes de enviar
+cualquier respuesta en la Seccion 1, verificar que contiene EXACTAMENTE una de
+las cuatro preguntas (0, 1, 2 o 3) con su texto literal, y nada mas. Si la
+respuesta que se esta a punto de enviar contiene mas de una pregunta, o una
+pregunta que no aparece textualmente arriba, no enviarla: corregirla primero.
+
 En cuanto el usuario responda, ejecutar la Verificacion normativa (mas abajo) antes de continuar con la Seccion 2.
 
 **Seccion 2 — Ubicacion**
