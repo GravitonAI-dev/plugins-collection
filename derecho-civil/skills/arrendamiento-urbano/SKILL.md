@@ -77,60 +77,87 @@ Determina la plantilla, el titulo de la LAU aplicable, el plazo minimo y la fian
        con las Secciones 2-5 ni generar ningun borrador.
 ```
 
-Solo si la respuesta es "habitual / permanente", continuar con las tres preguntas de clasificacion:
+Solo si la respuesta es "habitual / permanente", continuar con las tres preguntas de clasificacion, **una por turno, esperando la respuesta antes de pasar a la siguiente**:
 
-"Para preparar el contrato: ¿es para vivienda habitual o para un local de negocio / uso distinto de vivienda? ¿El arrendador es persona fisica o persona juridica (empresa, sociedad)? ¿Y el arrendatario?"
+**Pregunta 1 — Tipo de inmueble:**
+"¿El contrato es para vivienda habitual o para un local de negocio / uso distinto de vivienda?"
 
 | Respuesta | Efecto |
 |---|---|
 | Vivienda habitual | `tipo_inmueble = VIVIENDA` · Titulo II LAU · plantilla `contrato-arrendamiento-vivienda.md` · fianza minima 1 mensualidad |
 | Local de negocio | `tipo_inmueble = LOCAL` · Titulo III LAU · plantilla `contrato-arrendamiento-local.md` · fianza minima 2 mensualidades |
-| Arrendador persona fisica | `naturaleza_arrendador = FISICA` · duracion minima 5 anos (Art. 9.1 LAU) |
-| Arrendador persona juridica | `naturaleza_arrendador = JURIDICA` · duracion minima 7 anos (Art. 9.1 LAU) |
-| Arrendatario persona fisica/juridica | `naturaleza_arrendatario = FISICA` / `JURIDICA` |
 
-**Alcance de la Seccion 1 — solo estas cuatro preguntas (0-3):**
+**Pregunta 2 — Naturaleza del arrendador** (se pregunta tras recibir la respuesta a la Pregunta 1):
+"¿El arrendador es persona fisica o persona juridica (empresa, sociedad)?"
+
+| Respuesta | Efecto |
+|---|---|
+| Persona fisica | `naturaleza_arrendador = FISICA` · duracion minima 5 anos (Art. 9.1 LAU) |
+| Persona juridica | `naturaleza_arrendador = JURIDICA` · duracion minima 7 anos (Art. 9.1 LAU) |
+
+**Pregunta 3 — Naturaleza del arrendatario** (se pregunta tras recibir la respuesta a la Pregunta 2):
+"¿Y el arrendatario, es persona fisica o persona juridica?"
+
+| Respuesta | Efecto |
+|---|---|
+| Persona fisica | `naturaleza_arrendatario = FISICA` |
+| Persona juridica | `naturaleza_arrendatario = JURIDICA` |
+
+**Alcance de la Seccion 1 — solo estas cuatro preguntas (0-3), una por turno:**
+- Cada pregunta (0, 1, 2, 3) va en su propio mensaje. Nunca combinar dos o mas preguntas de esta lista en el mismo turno, ni presentar el arbol completo de una vez: se avanza pregunta a pregunta, tomando cada decision antes de pasar a la siguiente.
 - No preguntar por jurisdiccion, pais, ciudad o provincia como parte de la clasificacion: esta skill aplica exclusivamente a Espana y a la LAU (Ley 29/1994), segun el `CLAUDE.md` del plugin `derecho-civil`. Si el usuario indica que el inmueble esta fuera de Espana, esta skill no aplica; indicarlo y no continuar con el procedimiento.
 - No preguntar por el regimen registral del bien (titularidad inscrita, cargas, hipotecas, propiedad horizontal, embargos): esta skill genera el contrato de arrendamiento, no realiza due diligence de titularidad. No forma parte de la clasificacion ni de ningun otro paso de este procedimiento.
-- No sustituir ni ampliar estas tres preguntas por otras. Si el usuario aporta datos adicionales por su cuenta, se pueden anotar como clausula adicional (Seccion 5), pero no se preguntan de forma proactiva aqui.
+- No sustituir ni ampliar estas cuatro preguntas por otras. Si el usuario aporta datos adicionales por su cuenta, se pueden anotar como clausula adicional (Seccion 5), pero no se preguntan de forma proactiva aqui.
+- Si el usuario responde varias preguntas a la vez de forma espontanea (por ejemplo, en su primer mensaje), aceptarlas e integrarlas igualmente; solo preguntar por las que sigan sin respuesta.
 
-Esperar esta respuesta antes de continuar: sin ella no hay plantilla ni marco legal que aplicar, asi que no se genera ningun borrador ni se avanza a la Seccion 2 hasta tenerla completa. No es un bloqueo formal con mensaje de error — es, simplemente, la primera pregunta de la entrevista, y las demas esperan su turno.
+Esperar las cuatro respuestas antes de continuar: sin ellas no hay plantilla ni marco legal que aplicar, asi que no se genera ningun borrador ni se avanza a la Seccion 2 hasta tenerlas completas. No es un bloqueo formal con mensaje de error — es, simplemente, el orden natural de la entrevista, pregunta a pregunta.
 
 En cuanto el usuario responda, ejecutar la Verificacion normativa (mas abajo) antes de continuar con la Seccion 2.
 
-**Seccion 2 — Ubicacion**
+**Seccion 2 — Ubicacion** (cada pregunta en su propio turno)
 
-"¿En que comunidad autonoma y municipio esta el inmueble? ¿Sabes si el municipio esta declarado zona de mercado residencial tensionado?"
+2.1 — "¿En que comunidad autonoma y municipio esta el inmueble?"
+
+2.2 — (tras la respuesta anterior) "¿Sabes si el municipio esta declarado zona de mercado residencial tensionado? (si / no / no lo se)"
 
 Si responde "no lo se": invocar `web_search("zona mercado residencial tensionado [municipio] [comunidad autonoma]")` y comunicar el resultado.
 
 Si la comunidad autonoma tiene normativa propia relevante (Cataluna, Pais Vasco, Navarra, Madrid zona tensionada, etc.), ejecutar la Consulta de normativa autonomica (mas abajo) antes de continuar con la Seccion 3.
 
-**Seccion 3 — Partes**
+**Seccion 3 — Partes** (cada pregunta en su propio turno)
 
-- Arrendador: nombre completo o razon social, NIF/CIF, domicilio a efectos de notificaciones.
-- Arrendatario: nombre completo o razon social, NIF/CIF, domicilio actual.
+3.1 — "Datos del arrendador: nombre completo o razon social, NIF/CIF, y domicilio a efectos de notificaciones."
 
-**Seccion 4 — Inmueble**
+3.2 — (tras la respuesta anterior) "Datos del arrendatario: nombre completo o razon social, NIF/CIF, y domicilio actual."
 
-- Direccion completa (calle, numero, piso, puerta, codigo postal, municipio).
-- Referencia catastral (si se dispone).
-- Descripcion: superficie util aproximada, numero de habitaciones (vivienda) o descripcion del local.
-- Elementos accesorios incluidos: plaza de garaje, trastero, mobiliario (si aplica).
+**Seccion 4 — Inmueble** (cada pregunta en su propio turno)
 
-**Seccion 5 — Condiciones economicas**
+4.1 — "Direccion completa del inmueble (calle, numero, piso, puerta, codigo postal, municipio)."
 
-- Renta mensual pactada en euros.
-- Duracion del contrato (anos) o "minimo legal".
-- Fianza: numero de mensualidades o "segun ley".
-- Actualizacion de renta: indice pactado o "segun ley" (IGC con tope IPC).
-- Gastos a cargo del arrendatario (comunidad, IBI, suministros): si/no y cuales.
-- Clausulas adicionales que el usuario quiera incluir.
+4.2 — (tras la respuesta anterior) "Referencia catastral, si se dispone de ella."
+
+4.3 — (tras la respuesta anterior) "Descripcion del inmueble: superficie util aproximada y numero de habitaciones (vivienda), o descripcion del local (uso distinto)."
+
+4.4 — (tras la respuesta anterior) "¿Incluye elementos accesorios? Por ejemplo plaza de garaje, trastero o mobiliario."
+
+**Seccion 5 — Condiciones economicas** (cada pregunta en su propio turno)
+
+5.1 — "Renta mensual pactada, en euros."
+
+5.2 — (tras la respuesta anterior) "Duracion del contrato en anos, o 'minimo legal'."
+
+5.3 — (tras la respuesta anterior) "Fianza: numero de mensualidades, o 'segun ley'."
+
+5.4 — (tras la respuesta anterior) "Actualizacion de renta: indice pactado, o 'segun ley' (IGC con tope IPC)."
+
+5.5 — (tras la respuesta anterior) "¿Algun gasto a cargo del arrendatario (comunidad, IBI, suministros)? Si es asi, ¿cuales?"
+
+5.6 — (tras la respuesta anterior) "¿Alguna clausula adicional que quieras incluir?"
 
 **Como conducir la entrevista:**
-- Una seccion por mensaje, en el orden 1→5. Esperar la respuesta antes de pasar a la siguiente.
-- Mostrar el titulo de la seccion como encabezado del mensaje al usuario (p. ej. "**Seccion 2 — Ubicacion**") antes de la pregunta correspondiente, para que pueda seguir el progreso de la entrevista.
-- Si el usuario aporta espontaneamente datos de varias secciones a la vez (por ejemplo, en su primer mensaje), aceptarlos e integrarlos igualmente; solo preguntar por las secciones que sigan incompletas.
+- Una pregunta por mensaje, dentro de cada seccion, y las secciones en el orden 1→5. Esperar la respuesta antes de pasar a la siguiente pregunta o seccion. Nunca combinar dos o mas preguntas (de la misma seccion o de secciones distintas) en un mismo mensaje, ni volcar una seccion entera como lista de golpe.
+- Mostrar el titulo de la seccion como encabezado del mensaje al usuario (p. ej. "**Seccion 2 — Ubicacion**") la primera vez que se entra en ella, para que pueda seguir el progreso de la entrevista.
+- Si el usuario aporta espontaneamente varios datos a la vez (por ejemplo, en su primer mensaje), aceptarlos e integrarlos igualmente; solo preguntar por lo que siga sin respuesta.
 - Desde que se resuelve la Seccion 1, generar y actualizar el borrador del contrato de forma progresiva (ver "Generacion del contrato") conforme llegan las respuestas de las Secciones 2-5, en vez de esperar a tenerlas todas.
 
 ### Verificacion normativa (disparada tras la Seccion 1; accion interna, no es una pregunta al usuario)
