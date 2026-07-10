@@ -62,10 +62,11 @@ Determina la plantilla, el titulo de la LAU aplicable, el plazo minimo y la fian
 
 **Consistencia obligatoria:** el arbol de decision (Pregunta 0, 1, 2 y 3, con su redaccion exacta y su orden) es fijo y no cambia de una conversacion a otra. Usar textualmente la redaccion de estas cuatro preguntas tal como aparece aqui abajo, sin parafrasear, sin generar una redaccion alternativa, sin anadir preguntas nuevas ni reordenarlas. Si en algun momento se detecta que se esta a punto de formular estas preguntas de otra manera, releer esta seccion y usar el texto literal.
 
-**Nota de implementacion (ConfidentialAI):** este SKILL.md es la especificacion de referencia, pero el backend de produccion de ConfidentialAI (repo `GravitonAI-dev/GPT`) no lee este archivo directamente. El arbol de decision de esta seccion esta ademas implementado como un intent propio (`rental_contract_intake`) en `user_intents/system_directives.json` (y sus archivos hermanos `descriptions.json`, `system_roles.json`, `chains_of_thought.json`) de ese backend, con el mismo texto literal de las Pregunta 0-3 y las mismas reglas de una-pregunta-por-turno. Si se edita el arbol aqui, hay que reflejar el cambio tambien alli para mantener ambos sincronizados.
+**Nota de implementacion (ConfidentialAI):** este `SKILL.md` es la especificacion de referencia y la unica fuente de verdad del arbol de decision. El backend de produccion de ConfidentialAI (repo `GravitonAI-dev/GPT`) no lee este archivo directamente hoy: tiene su propio sistema de "user intents" (`descriptions.json`, `system_roles.json`, `system_directives.json`, `chains_of_thought.json`) que no conoce esta skill. Para que el arbol de decision de esta seccion (Pregunta 0-3) llegue realmente al modelo en produccion, quien integre esta skill en ese backend debe copiar el texto literal de las Pregunta 0-3 (tal cual aparece aqui abajo, sin parafrasear) dentro de las instrucciones de esa intencion. Mientras esa integracion no exista, este documento sirve como especificacion para cualquier orquestador (Claude Code, Claude Agent SDK, u otro) que sí cargue y seleccione esta skill directamente.
 
 **Pregunta 0 — Finalidad del uso (filtro de alcance, se pregunta primero):**
 
+TEXTO EXACTO A USAR (copiar literalmente, sin modificar ni una palabra):
 "¿El arrendamiento es para residencia habitual y permanente o para una actividad de negocio estable, o es de temporada (vacacional, de verano, por trabajo temporal) o una vivienda turistica gestionada como alojamiento?"
 
 ```
@@ -84,6 +85,7 @@ Determina la plantilla, el titulo de la LAU aplicable, el plazo minimo y la fian
 Solo si la respuesta es "habitual / permanente", continuar con las tres preguntas de clasificacion, **una por turno, esperando la respuesta antes de pasar a la siguiente**:
 
 **Pregunta 1 — Tipo de inmueble:**
+TEXTO EXACTO A USAR (copiar literalmente, sin modificar ni una palabra):
 "¿El contrato es para vivienda habitual o para un local de negocio / uso distinto de vivienda?"
 
 | Respuesta | Efecto |
@@ -92,6 +94,7 @@ Solo si la respuesta es "habitual / permanente", continuar con las tres pregunta
 | Local de negocio | `tipo_inmueble = LOCAL` · Titulo III LAU · plantilla `contrato-arrendamiento-local.md` · fianza minima 2 mensualidades |
 
 **Pregunta 2 — Naturaleza del arrendador** (se pregunta tras recibir la respuesta a la Pregunta 1):
+TEXTO EXACTO A USAR (copiar literalmente, sin modificar ni una palabra):
 "¿El arrendador es persona fisica o persona juridica (empresa, sociedad)?"
 
 | Respuesta | Efecto |
@@ -100,6 +103,7 @@ Solo si la respuesta es "habitual / permanente", continuar con las tres pregunta
 | Persona juridica | `naturaleza_arrendador = JURIDICA` · duracion minima 7 anos (Art. 9.1 LAU) |
 
 **Pregunta 3 — Naturaleza del arrendatario** (se pregunta tras recibir la respuesta a la Pregunta 2):
+TEXTO EXACTO A USAR (copiar literalmente, sin modificar ni una palabra):
 "¿Y el arrendatario, es persona fisica o persona juridica?"
 
 | Respuesta | Efecto |
