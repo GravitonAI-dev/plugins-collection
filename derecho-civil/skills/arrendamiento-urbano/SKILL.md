@@ -58,7 +58,26 @@ Este procedimiento se conduce como una entrevista: se presenta una seccion, se e
 
 **Seccion 1 — Clasificacion** (primera pregunta, antes de cualquier otra cosa)
 
-Determina la plantilla, el titulo de la LAU aplicable, el plazo minimo y la fianza minima:
+Determina la plantilla, el titulo de la LAU aplicable, el plazo minimo y la fianza minima. Empieza con un filtro de alcance (Pregunta 0) antes de las tres preguntas de clasificacion:
+
+**Pregunta 0 — Finalidad del uso (filtro de alcance, se pregunta primero):**
+
+"¿El arrendamiento es para residencia habitual y permanente o para una actividad de negocio estable, o es de temporada (vacacional, de verano, por trabajo temporal) o una vivienda turistica gestionada como alojamiento?"
+
+```
+  ├─ Habitual / permanente (vivienda o negocio estable) → continuar con la Pregunta 1
+  └─ Temporada / vacacional / turistica                 → FUERA DE ALCANCE de esta skill
+       • Temporada (Art. 3.2 LAU): arrendamiento para uso distinto de vivienda por
+         temporada (de verano o cualquier otra) — regimen de libertad de pactos,
+         sin plazo minimo de 5/7 anos ni el resto de protecciones del Titulo II.
+       • Vivienda turistica (Art. 5.e LAU): excluida expresamente de la LAU;
+         se rige por la normativa turistica de la comunidad autonoma correspondiente.
+       Detener el procedimiento aqui: explicar al usuario que esta skill no cubre
+       este tipo de arrendamiento (ver "Como NO se usa esta skill") y no continuar
+       con las Secciones 2-5 ni generar ningun borrador.
+```
+
+Solo si la respuesta es "habitual / permanente", continuar con las tres preguntas de clasificacion:
 
 "Para preparar el contrato: ¿es para vivienda habitual o para un local de negocio / uso distinto de vivienda? ¿El arrendador es persona fisica o persona juridica (empresa, sociedad)? ¿Y el arrendatario?"
 
@@ -70,7 +89,7 @@ Determina la plantilla, el titulo de la LAU aplicable, el plazo minimo y la fian
 | Arrendador persona juridica | `naturaleza_arrendador = JURIDICA` · duracion minima 7 anos (Art. 9.1 LAU) |
 | Arrendatario persona fisica/juridica | `naturaleza_arrendatario = FISICA` / `JURIDICA` |
 
-**Alcance de la Seccion 1 — solo estas tres preguntas:**
+**Alcance de la Seccion 1 — solo estas cuatro preguntas (0-3):**
 - No preguntar por jurisdiccion, pais, ciudad o provincia como parte de la clasificacion: esta skill aplica exclusivamente a Espana y a la LAU (Ley 29/1994), segun el `CLAUDE.md` del plugin `derecho-civil`. Si el usuario indica que el inmueble esta fuera de Espana, esta skill no aplica; indicarlo y no continuar con el procedimiento.
 - No preguntar por el regimen registral del bien (titularidad inscrita, cargas, hipotecas, propiedad horizontal, embargos): esta skill genera el contrato de arrendamiento, no realiza due diligence de titularidad. No forma parte de la clasificacion ni de ningun otro paso de este procedimiento.
 - No sustituir ni ampliar estas tres preguntas por otras. Si el usuario aporta datos adicionales por su cuenta, se pueden anotar como clausula adicional (Seccion 5), pero no se preguntan de forma proactiva aqui.
@@ -220,7 +239,7 @@ Advertencias:
 ## Como NO se usa esta skill
 
 - No usar para revisar contratos existentes de terceros.
-- No usar para contratos de temporada o viviendas turisticas.
+- No usar para contratos de temporada o viviendas turisticas (filtrado en la Pregunta 0 de la Seccion 1).
 - No usar para arrendamientos de finca rustica.
 - No usar si el usuario solicita opinion juridica sobre un litigio: derivar a `escalate_to_attorney`.
 
@@ -232,3 +251,4 @@ Advertencias:
 | Clausulas que no pueden resolverse con la LAU | Escalar via escalate_to_attorney |
 | Arrendatario en situacion de vulnerabilidad acreditada | Advertir y ofrecer escalacion |
 | Duda sobre zona tensionada que no resuelve web_search | Advertir y recomendar consulta al ayuntamiento |
+| Pregunta 0 revela arrendamiento de temporada o vivienda turistica | Detener el procedimiento, explicar la exclusion (Art. 3.2 o Art. 5.e LAU) y no generar el contrato |
