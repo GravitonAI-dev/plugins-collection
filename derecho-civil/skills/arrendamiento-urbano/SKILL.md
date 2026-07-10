@@ -58,7 +58,9 @@ Este procedimiento se conduce como una entrevista: se presenta una seccion, se e
 
 **Seccion 1 — Clasificacion** (primera pregunta, antes de cualquier otra cosa)
 
-Determina la plantilla, el titulo de la LAU aplicable, el plazo minimo y la fianza minima. Empieza con un filtro de alcance (Pregunta 0) antes de las tres preguntas de clasificacion:
+Determina la plantilla, el titulo de la LAU aplicable, el plazo minimo y la fianza minima. Empieza con un filtro de alcance (Pregunta 0) antes de las tres preguntas de clasificacion.
+
+**Consistencia obligatoria:** el arbol de decision (Pregunta 0, 1, 2 y 3, con su redaccion exacta y su orden) es fijo y no cambia de una conversacion a otra. Usar textualmente la redaccion de estas cuatro preguntas tal como aparece aqui abajo, sin parafrasear, sin generar una redaccion alternativa, sin anadir preguntas nuevas ni reordenarlas. Si en algun momento se detecta que se esta a punto de formular estas preguntas de otra manera, releer esta seccion y usar el texto literal.
 
 **Pregunta 0 — Finalidad del uso (filtro de alcance, se pregunta primero):**
 
@@ -114,50 +116,30 @@ Esperar las cuatro respuestas antes de continuar: sin ellas no hay plantilla ni 
 
 En cuanto el usuario responda, ejecutar la Verificacion normativa (mas abajo) antes de continuar con la Seccion 2.
 
-**Seccion 2 — Ubicacion** (cada pregunta en su propio turno)
+**Seccion 2 — Ubicacion**
 
-2.1 — "¿En que comunidad autonoma y municipio esta el inmueble?"
-
-2.2 — (tras la respuesta anterior) "¿Sabes si el municipio esta declarado zona de mercado residencial tensionado? (si / no / no lo se)"
+"¿En que comunidad autonoma y municipio esta el inmueble? ¿Sabes si el municipio esta declarado zona de mercado residencial tensionado? (si / no / no lo se)"
 
 Si responde "no lo se": invocar `web_search("zona mercado residencial tensionado [municipio] [comunidad autonoma]")` y comunicar el resultado.
 
 Si la comunidad autonoma tiene normativa propia relevante (Cataluna, Pais Vasco, Navarra, Madrid zona tensionada, etc.), ejecutar la Consulta de normativa autonomica (mas abajo) antes de continuar con la Seccion 3.
 
-**Seccion 3 — Partes** (cada pregunta en su propio turno)
+**Seccion 3 — Partes**
 
-3.1 — "Datos del arrendador: nombre completo o razon social, NIF/CIF, y domicilio a efectos de notificaciones."
+"Datos del arrendador: nombre completo o razon social, NIF/CIF, y domicilio a efectos de notificaciones. Datos del arrendatario: nombre completo o razon social, NIF/CIF, y domicilio actual."
 
-3.2 — (tras la respuesta anterior) "Datos del arrendatario: nombre completo o razon social, NIF/CIF, y domicilio actual."
+**Seccion 4 — Inmueble**
 
-**Seccion 4 — Inmueble** (cada pregunta en su propio turno)
+"Direccion completa del inmueble (calle, numero, piso, puerta, codigo postal, municipio). Referencia catastral, si se dispone de ella. Descripcion: superficie util aproximada y numero de habitaciones (vivienda), o descripcion del local (uso distinto). ¿Incluye elementos accesorios como plaza de garaje, trastero o mobiliario?"
 
-4.1 — "Direccion completa del inmueble (calle, numero, piso, puerta, codigo postal, municipio)."
+**Seccion 5 — Condiciones economicas**
 
-4.2 — (tras la respuesta anterior) "Referencia catastral, si se dispone de ella."
-
-4.3 — (tras la respuesta anterior) "Descripcion del inmueble: superficie util aproximada y numero de habitaciones (vivienda), o descripcion del local (uso distinto)."
-
-4.4 — (tras la respuesta anterior) "¿Incluye elementos accesorios? Por ejemplo plaza de garaje, trastero o mobiliario."
-
-**Seccion 5 — Condiciones economicas** (cada pregunta en su propio turno)
-
-5.1 — "Renta mensual pactada, en euros."
-
-5.2 — (tras la respuesta anterior) "Duracion del contrato en anos, o 'minimo legal'."
-
-5.3 — (tras la respuesta anterior) "Fianza: numero de mensualidades, o 'segun ley'."
-
-5.4 — (tras la respuesta anterior) "Actualizacion de renta: indice pactado, o 'segun ley' (IGC con tope IPC)."
-
-5.5 — (tras la respuesta anterior) "¿Algun gasto a cargo del arrendatario (comunidad, IBI, suministros)? Si es asi, ¿cuales?"
-
-5.6 — (tras la respuesta anterior) "¿Alguna clausula adicional que quieras incluir?"
+"Renta mensual pactada, en euros. Duracion del contrato en anos, o 'minimo legal'. Fianza: numero de mensualidades, o 'segun ley'. Actualizacion de renta: indice pactado, o 'segun ley' (IGC con tope IPC). ¿Algun gasto a cargo del arrendatario (comunidad, IBI, suministros)? ¿Alguna clausula adicional que quieras incluir?"
 
 **Como conducir la entrevista:**
-- Una pregunta por mensaje, dentro de cada seccion, y las secciones en el orden 1→5. Esperar la respuesta antes de pasar a la siguiente pregunta o seccion. Nunca combinar dos o mas preguntas (de la misma seccion o de secciones distintas) en un mismo mensaje, ni volcar una seccion entera como lista de golpe.
-- Mostrar el titulo de la seccion como encabezado del mensaje al usuario (p. ej. "**Seccion 2 — Ubicacion**") la primera vez que se entra en ella, para que pueda seguir el progreso de la entrevista.
-- Si el usuario aporta espontaneamente varios datos a la vez (por ejemplo, en su primer mensaje), aceptarlos e integrarlos igualmente; solo preguntar por lo que siga sin respuesta.
+- Una seccion por mensaje, en el orden 2→5. Esperar la respuesta antes de pasar a la siguiente seccion. Dentro de una misma seccion (2 a 5) sí se pueden agrupar varias preguntas en el mismo mensaje — son datos del mismo tema (ubicacion, partes, inmueble, condiciones economicas). Esto es distinto de la Seccion 1 (arbol de decision), donde cada pregunta va sola, sin excepcion (ver Seccion 1).
+- Mostrar el titulo de la seccion como encabezado del mensaje al usuario (p. ej. "**Seccion 2 — Ubicacion**") antes de la pregunta correspondiente, para que pueda seguir el progreso de la entrevista.
+- Si el usuario aporta espontaneamente datos de varias secciones a la vez (por ejemplo, en su primer mensaje), aceptarlos e integrarlos igualmente; solo preguntar por las secciones que sigan incompletas.
 - Desde que se resuelve la Seccion 1, generar y actualizar el borrador del contrato de forma progresiva (ver "Generacion del contrato") conforme llegan las respuestas de las Secciones 2-5, en vez de esperar a tenerlas todas.
 
 ### Verificacion normativa (disparada tras la Seccion 1; accion interna, no es una pregunta al usuario)
