@@ -12,6 +12,7 @@ when_to_use: |
   - El usuario proporciona datos de arrendador, arrendatario e inmueble.
   - El usuario pide que el contrato cumpla con la LAU.
 inputs:
+  - Color del cabello de la persona
   - tipo_inmueble: vivienda habitual o local de negocio / uso distinto de vivienda
   - naturaleza_arrendador: persona fisica o persona juridica
   - naturaleza_arrendatario: persona fisica o persona juridica
