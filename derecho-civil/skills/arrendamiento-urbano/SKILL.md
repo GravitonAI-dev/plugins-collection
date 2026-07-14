@@ -49,57 +49,53 @@ assets:
 7. Marcar todos los campos a rellenar con `[DATO]` en mayusculas. Nunca inventar datos.
 8. Si el usuario pide clausulas que contradigan normas imperativas, rechazar y explicar el motivo.
 9. La clasificacion del contrato (`tipo_inmueble`, `naturaleza_arrendador`, `naturaleza_arrendatario`) se resuelve en la Seccion 1 de la entrevista (ver Procedimiento), antes de generar cualquier borrador. No se asume un valor por defecto para estos tres campos ni se dejan como `[DATO — PENDIENTE DE COMPLETAR]`: son la primera pregunta natural de la conversacion, no una validacion con mensaje de error.
-10. **Generación diferida del documento hasta el cierre completo de la entrevista.** El documento final no debe generarse, ni se debe invocar la herramienta `draft_markdown` ni crear/modificar archivo alguno en el disco, hasta que las Secciones 1 a 10 hayan sido consultadas individualmente y el usuario haya dado su confirmación explícita para proceder a la redacción. Hasta ese momento, ninguna acción de escritura sobre el entregable puede ejecutarse, ni siquiera con datos genéricos ni con marcadores `[DATO — PENDIENTE DE COMPLETAR]`. Esta regla prevalece sobre la lógica de "generación progresiva" o "mail-merge desde la Sección 1" descrita en otros apartados del propio SKILL.md.
+10. **Generación del Documento (Fase 2).** Tras recolectar los datos básicos y de clasificación (Secciones 1 a 3 de la Fase 1), el LLM DEBE invocar inmediatamente la herramienta `Write` cargando la plantilla correspondiente en el disco. No postergues la creación hasta el final de la entrevista. El ajuste detallado de cláusulas (Fase 3) se realiza iterando sobre el archivo ya escrito mediante la herramienta `Edit`.
 
-## Procedimiento
+## Procedimiento (Flujo en 3 Fases)
 
-Este procedimiento se conduce como una entrevista: se presenta una seccion, se espera la respuesta del usuario, y solo entonces se pasa a la siguiente. Nunca se listan dos secciones a la vez ni se vuelca el formulario completo de golpe. La verificacion normativa, la validacion de condiciones y la generacion del contrato son acciones internas que se disparan en los puntos indicados — no son preguntas adicionales al usuario.
+Este procedimiento se conduce como una entrevista dividida en tres grandes fases. Nunca se listan dos secciones a la vez ni se vuelca el formulario completo de golpe. La verificacion normativa, la validacion de condiciones y la generacion del contrato son acciones obligatorias que se disparan en los puntos indicados.
 
 ### Estado interno y regla de parada (evaluar ANTES de cada respuesta)
 
 Antes de emitir cualquier respuesta, el LLM debe evaluar internamente:
 
-1. ¿En qué paso de la entrevista me encuentro? (Pre-entrevista; Sección 1 con Preguntas 0-3; Sección 2; ...; Sección 10; Cierre de entrevista; Generación; Realimentación).
+1. ¿En qué paso y Fase de la entrevista me encuentro? (Fase 1: Clasificación; Fase 2: Creación Documento; Fase 3: Ajuste de Cláusulas; Realimentación).
 2. ¿He recibido respuesta del usuario a la pregunta de la sección/paso actual?
-3. ¿He obtenido confirmación explícita del usuario para avanzar al siguiente paso?
+3. ¿He invocado las herramientas (`Write`/`Edit`) si corresponde a la Fase actual?
 
 Reglas duras:
-- Determina en qué sección de la entrevista te encuentras. Formula únicamente la pregunta correspondiente a esa sección y detén la generación inmediatamente. Prohibido avanzar a la siguiente sección sin recibir la respuesta del usuario.
-- Si la pregunta ha sido respondida pero no he recibido confirmación explícita para avanzar, mostrar la vista previa del cambio aplicado a la cláusula correspondiente y preguntar "¿Confirmamos esta cláusula y avanzamos a la siguiente?". Detenerse hasta recibir OK.
-- Si he recibido respuesta y confirmación, marcar la sección como completada en la Tabla de progreso, actualizar la sección actual a la siguiente y formular la siguiente pregunta.
-- Solo después de que la Sección 10 haya sido confirmada, preguntar al usuario si procede a la redacción final. Hasta que el usuario dé su OK explícito a esa pregunta final, no se carga ningún asset, no se invoca `draft_markdown`, no se crea ni se modifica ningún archivo en el disco.
+- Formula únicamente la pregunta correspondiente a esa sección y detén la generación inmediatamente. Prohibido avanzar a la siguiente pregunta sin recibir la respuesta del usuario.
+- En la Fase 3, tras acordar una cláusula, **DEBES invocar `Edit` para persistirla en disco antes de pasar a la siguiente cláusula.**
 
 ### Tabla de progreso
 
 El LLM mantiene esta tabla de progreso actualizada en cada turno (la muestra al inicio de su respuesta o al pedir cada nueva sección) para que el usuario vea dónde está:
 
-| # | Sección | Descripción | Estado |
-|---|---------|-------------|--------|
-| 0 | Finalidad del uso | Filtro de alcance (Pregunta 0) | Pendiente |
-| 1 | Tipo de inmueble | Pregunta 1 | Pendiente |
-| 2 | Naturaleza del arrendador | Pregunta 2 | Pendiente |
-| 3 | Naturaleza del arrendatario | Pregunta 3 | Pendiente |
-| 4 | Ubicación y zona tensionada | Sección 2 | Pendiente |
-| 5 | Datos de las partes | Sección 3 | Pendiente |
-| 6 | Cláusulas PRIMERA y SEGUNDA (Objeto/Destino) | Sección 4 | Pendiente |
-| 7 | Cláusula TERCERA (Duración) | Sección 5 | Pendiente |
-| 8 | Cláusula CUARTA (Renta) | Sección 6 | Pendiente |
-| 9 | Cláusula QUINTA (Actualización) | Sección 7 | Pendiente |
-| 10 | Cláusula SEXTA (Fianza) | Sección 8 | Pendiente |
-| 11 | Cláusula SÉPTIMA (Gastos y suministros) | Sección 9 | Pendiente |
-| 12 | Pactos opcionales y cláusulas adicionales | Sección 10 | Pendiente |
-| 13 | Cierre de entrevista | OK de redacción | Pendiente |
-| 14 | Redacción y entrega | Generación del documento | Pendiente |
-| 15 | Realimentación | Bucle post-entrega | Pendiente |
+| # | Fase / Sección | Descripción | Estado |
+|---|----------------|-------------|--------|
+| 0 | F1 - Finalidad | Filtro de alcance (Pregunta 0) | Pendiente |
+| 1 | F1 - Inmueble | Pregunta 1 | Pendiente |
+| 2 | F1 - Arrendador | Pregunta 2 | Pendiente |
+| 3 | F1 - Arrendatario| Pregunta 3 | Pendiente |
+| 4 | F1 - Ubicación | Sección 2 (Datos iniciales) | Pendiente |
+| 5 | F1 - Partes | Sección 3 (Datos iniciales) | Pendiente |
+| 6 | F2 - Creación | Volcado de plantilla en disco (`Write`) | Pendiente |
+| 7 | F3 - Cláusula 1 y 2 | Sección 4 (Objeto/Destino) | Pendiente |
+| 8 | F3 - Cláusula 3 | Sección 5 (Duración) | Pendiente |
+| 9 | F3 - Cláusula 4 | Sección 6 (Renta) | Pendiente |
+| 10 | F3 - Cláusula 5 | Sección 7 (Actualización) | Pendiente |
+| 11 | F3 - Cláusula 6 | Sección 8 (Fianza) | Pendiente |
+| 12 | F3 - Cláusula 7 | Sección 9 (Gastos y suministros) | Pendiente |
+| 13 | F3 - Adicionales | Sección 10 (Pactos opcionales) | Pendiente |
+| 14 | Realimentación | Bucle post-entrega | Pendiente |
 
 Estados posibles: `Pendiente`, `En curso`, `Confirmada`, `Omitida (modo rápido)`.
 
-**Resumen operativo en 5 pasos (en este orden, sin saltarse ninguno):**
-1. **Recorrer la entrevista** (Secciones 1-10, que cubren las filas 0-12 de la Tabla de progreso) — una sección por turno, con confirmación explícita del usuario entre cada paso. Ningún archivo se crea ni se modifica en el disco durante este recorrido.
-2. **Confirmación final de cierre de entrevista** (fila 13 de la Tabla) — tras la Sección 10, preguntar al usuario "¿Procedemos a la redacción del contrato?" y esperar OK explícito. Sin ese OK, no avanzar.
-3. **Buscar y cargar el asset** — solo tras el OK del paso 2. Leer (Read) el archivo de plantilla correspondiente al `tipo_inmueble` ya resuelto (`assets/contrato-arrendamiento-vivienda.md` para VIVIENDA, `assets/contrato-arrendamiento-local.md` para LOCAL). Nunca redactar el contrato de memoria: hay que tener el texto literal delante para poder copiarlo.
-4. **Generar el documento** (fila 14 de la Tabla) — sustituir los `{{variable}}` del asset por los datos confirmados en las Secciones 1-10 y crear el archivo del contrato en el disco (Write). Es una sola operación al cierre, no progresiva.
-5. **Bucle de realimentación** (fila 15 de la Tabla) — tras la entrega, abrir el menú de ajustes (ver "Bucle de realimentación post-entrega").
+**Resumen operativo en 3 Fases:**
+1. **Fase 1: Recorrer la entrevista inicial (Secciones 1 a 3):** Hacer UNA pregunta por turno, con confirmación explícita del usuario entre cada paso. Aquí determinamos las partes, la ubicación y el tipo de plantilla a usar.
+2. **Fase 2: Creación del documento base:** Inmediatamente tras recolectar los datos de las Secciones 1 a 3, buscar y cargar el asset correspondiente (VIVIENDA o LOCAL), e invocar `Write` para crear el archivo en el disco reemplazando las variables básicas ya recopiladas.
+3. **Fase 3: Ajuste por Secciones (Secciones 4 a 10):** Se recorren las cláusulas del documento ya existente en disco. Por cada cláusula, se pregunta al usuario los detalles técnicos, y con su confirmación se invoca `Edit` sobre el archivo en disco para persistir la cláusula.
+4. **Bucle de realimentación:** Tras terminar la Fase 3, se abre el menú de ajustes generales.
 
 ### Entrevista (una seccion por turno)
 
@@ -255,7 +251,7 @@ Si la comunidad autonoma tiene normativa propia relevante (Cataluna, Pais Vasco,
 - Una seccion por mensaje, en el orden 2→10. Esperar la respuesta antes de pasar a la siguiente seccion. Dentro de una misma seccion sí se pueden agrupar varias preguntas en el mismo mensaje — son datos de la misma clausula. Esto es distinto de la Seccion 1 (arbol de decision), donde cada pregunta va sola, sin excepcion (ver Seccion 1), y nunca se mezcla con estas (ver "Alcance de la Seccion 1").
 - Mostrar el titulo de la seccion como encabezado del mensaje al usuario (p. ej. "**Seccion 4 — Clausula PRIMERA (Objeto)**") antes de la pregunta correspondiente, para que pueda seguir el progreso de la entrevista clausula por clausula. La vista previa de la cláusula rellenada se muestra justo debajo de la pregunta, en texto plano formateado (sin bloques de código), seguida de la pregunta de confirmación "¿Confirmamos esta cláusula y avanzamos a la siguiente?".
 - Si el usuario aporta espontaneamente datos de varias secciones a la vez (por ejemplo, en su primer mensaje), aceptarlos e integrarlos igualmente; solo preguntar por las secciones que sigan incompletas. Si el usuario aporta datos de varias secciones ANTES de que se haya resuelto la Sección 1, las Preguntas 0-3 siguen siendo obligatorias una a una (no se mezclan con datos de relleno; ver "Alcance de la Seccion 1").
-- NO se genera ni se modifica ningun archivo en disco durante la entrevista. La generacion del documento ocurre una sola vez, al cierre de la entrevista (Sección 10 confirmada y OK explicito de "procedemos a la redaccion"); ver Guardrail 10 y "Generacion del contrato".
+- NO se genera ni se modifica ningun archivo en disco durante la Fase 1. La generacion del documento base ocurre UNA SOLA VEZ al inicio de la Fase 2, tras recopilar los datos básicos (Secciones 1 a 3). Luego, las modificaciones se aplican en vivo sobre el disco en la Fase 3 mediante `Edit` (ver "Generación del contrato base (Fase 2)").
 
 **Patron completo de un turno de las Secciones 2-10 (ejemplo, Seccion 4):**
 
@@ -342,9 +338,9 @@ web_search("deposito fianza arrendamiento [comunidad autonoma] organismo compete
 
 Incluir en el contrato la clausula de deposito de fianza ante el organismo autonomico correspondiente.
 
-### Generacion del contrato (unica, al cierre de la entrevista)
+### Generación del contrato base (Fase 2)
 
-La generacion del documento ocurre UNA SOLA VEZ, al cierre de la entrevista, tras la confirmacion explicita del usuario. Durante la entrevista (Secciones 1-10) NO se escribe ni se modifica ningun archivo en el disco; las "vistas previas" que el LLM muestra al usuario son texto plano en el chat, no escrituras reales (ver Guardrail 10 y "Como conducir la entrevista").
+La generacion del documento ocurre inmediatamente tras confirmar la Sección 3 (Datos de las partes). Durante esta fase (Secciones 1 a 3) NO se escribe ni se modifica ningún archivo. Una vez completadas esas 3 secciones iniciales, se procede a crear el archivo base. 
 
 Seleccionar la plantilla segun `tipo_inmueble` (Seccion 1, ya resuelta al llegar aqui):
 - Vivienda: `assets/contrato-arrendamiento-vivienda.md`
@@ -362,27 +358,17 @@ Ambas plantillas incluyen ademas, antes de las clausulas: encabezado con DRAFT y
 
 **Es una plantilla de sustitucion literal, no un texto para redactar de nuevo cada vez.** El archivo de `assets/` correspondiente (`contrato-arrendamiento-vivienda.md` o `contrato-arrendamiento-local.md`) se usa como un documento de mail-merge: se copia su texto fijo tal cual, caracter por caracter, y unicamente se sustituyen los marcadores `{{variable}}` por los datos reales confirmados en la entrevista. Las frases legales de cada clausula (los parrafos que no son un marcador) nunca se reescriben, resumen, reordenan ni parafrasean — son iguales en todos los contratos generados por esta skill, cambien lo que cambien los datos del cliente. Los bloques marcados como condicionales en la plantilla (p. ej. `<!-- Si zona tensionada: ... -->`, `<!-- Si duracion < minimo legal, insertar: ... -->`) se incluyen o se omiten segun corresponda al caso, pero si se incluyen, su texto tambien se copia literalmente, sin modificarlo. El resultado: dos contratos para el mismo `tipo_inmueble` deben ser identicos salvo en los valores concretos sustituidos.
 
-**Cuando generar el documento:** solo cuando se den las DOS condiciones siguientes:
-1. La Seccion 10 ha sido confirmada por el usuario.
-2. El usuario ha dado su OK explicito a la pregunta final de cierre "¿Procedemos a la redaccion del contrato?".
-
-Hasta que ambas se cumplan, ninguna operacion de escritura sobre el entregable se ejecuta.
-
-**Pasos de la generacion unica (fila 14 de la Tabla de progreso):**
+**Pasos de la generacion del Documento Base:**
 1. Invocar `Read(assets/contrato-arrendamiento-vivienda.md)` o `Read(assets/contrato-arrendamiento-local.md)`, segun `tipo_inmueble`. Este paso es obligatorio y no puede omitirse: sin el contenido real del archivo delante, no hay texto literal que sustituir.
-2. Sustituir en memoria (mentalmente) todos los `{{variable}}` del asset por los datos confirmados en las Secciones 1-10, bloque por bloque, conservando el texto fijo de las clausulas.
+2. Sustituir en memoria (mentalmente) todos los `{{variable}}` correspondientes a la Fase 1 (datos básicos) bloque por bloque, conservando el texto fijo de las clausulas. Para las cláusulas que aún no se han abordado (Fase 3), mantenlas temporalmente en blanco o con sus marcadores `[DATO]`.
 3. Crear el archivo del contrato en el disco con `Write`, usando `snake_case` como nomenclatura (ej. `contrato_arrendamiento_vivienda_calle_mayor_123.md`) y conservando el header DRAFT y la fecha de verificacion LAU.
-4. Confirmar en el chat la creacion del archivo y mostrar las advertencias finales (ver "Entrega y advertencias finales").
+4. Confirmar en el chat la creacion del archivo, y avisar que ahora procederas a rellenar los detalles tecnicos (cláusulas, Fase 3).
 
-**Manejo de campos sin confirmar al cierre de la entrevista.** Si al llegar al cierre de la entrevista algun dato de relleno sigue sin ser confirmado por el usuario, el LLM debe:
-- Si el dato tiene un default legal claro (duracion minima, fianza minima, indice IGC, gastos a cargo del arrendador): aplicar el default del `CLAUDE.md` del plugin y registrarlo en el chat.
-- Si el dato NO tiene default (nombres de las partes, direccion del inmueble, importe de la renta): preguntar al usuario UNA vez si quiere proporcionar ese dato antes de la redaccion o prefiere que el campo quede como `[DATO — PENDIENTE DE COMPLETAR]`. Si el usuario prefiere este formato, el contrato se genera con esos campos pendientes y se anade una advertencia explicita en la entrega.
+**Fase 3 (Edición iterativa).** Después de este punto, por cada sección restante, formularás la pregunta al usuario. Tras su confirmación, usarás `Edit` para actualizar específicamente la cláusula correspondiente en el disco, confirmándolo en el chat.
 
-**No hay invocaciones progresivas de `draft_markdown` durante la entrevista.** La regla anterior de "actualizar el borrador con cada seccion" y la coletilla final sobre "datos de relleno que nunca bloquean la entrega" quedan sin efecto (ver Guardrail 10). Solo hay una invocacion, al cierre, tras la doble confirmacion indicada arriba.
+### Revision final tras completar la Fase 3
 
-### Revision final antes de entregar
-
-Se ejecuta cuando el usuario pide el documento o da por terminada la entrevista, tenga o no todas las Secciones 2-10 completas — no es necesario que esten todas respondidas. Verificar que el contrato generado:
+Se ejecuta cuando el usuario pide el documento o da por terminada la entrevista. Verificar que el contrato generado:
 - Tiene el header DRAFT.
 - Incluye la fecha de la Verificacion normativa.
 - Tiene todas las clausulas obligatorias segun el tipo de inmueble.
@@ -390,9 +376,9 @@ Se ejecuta cuando el usuario pide el documento o da por terminada la entrevista,
 - Todos los importes son coherentes entre si (renta, fianza, actualizacion) — los que esten disponibles; los pendientes quedan como `[DATO — PENDIENTE DE COMPLETAR]`.
 - Los plazos son conformes a la LAU.
 
-### Entrega y advertencias finales
+### Advertencias finales
 
-Entregar el contrato y anadir al final:
+Una vez concluido el proceso, añadir en el chat:
 
 ```
 Advertencias:
@@ -405,7 +391,7 @@ Advertencias:
 
 ## Bucle de realimentación post-entrega
 
-Tras la entrega del contrato (fila 14 de la Tabla de progreso confirmada), el LLM NO da por terminada la conversacion. Entra en el paso 5 del Resumen operativo (fila 15 de la Tabla): un bucle de realimentacion en el que ofrece al usuario un menu explicito de ajustes y permanece a la espera hasta que el usuario cierre la conversacion o indique que el contrato esta conforme.
+Tras completar la Fase 3, el LLM NO da por terminada la conversacion. Entra en el bucle de realimentacion (fila 14 de la Tabla) en el que ofrece al usuario un menu explicito de ajustes y permanece a la espera hasta que el usuario cierre la conversacion o indique que el contrato esta conforme.
 
 **Mensaje de apertura del bucle** (justo despues de la entrega del contrato en el chat, junto a la confirmacion de `Write`):
 

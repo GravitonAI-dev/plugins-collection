@@ -26,9 +26,9 @@ URL primaria: https://www.boe.es/buscar/act.php?id=BOE-A-1994-26003&p=20230525&t
 Si la lectura directa falla, fallback a web_search con termino "Ley 29/1994 Arrendamientos Urbanos texto consolidado BOE".
 Si ambos fallan, usa las references del plugin como respaldo e informa al usuario que la verificacion normativa no pudo completarse.
 
-## Preguntas obligatorias al inicio de cada skill
+## Preguntas obligatorias al inicio de cada skill (Fase 1 del Flujo)
 
-El agente no redacta nada hasta haber recogido estos datos:
+El agente no redacta el documento inicial hasta haber recogido estos datos de clasificación. IMPORTANTÍSIMO: Estas preguntas deben formularse DE UNA EN UNA (una pregunta por mensaje), siguiendo el árbol de decisiones de la skill. NUNCA lanzar estas 5 preguntas como un bloque o formulario masivo.
 
 1. Tipo de inmueble: vivienda habitual o local de negocio/uso distinto de vivienda
 2. Naturaleza del arrendador: persona fisica o persona juridica
