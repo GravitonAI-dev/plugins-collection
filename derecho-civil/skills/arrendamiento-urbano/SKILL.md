@@ -12,7 +12,6 @@ when_to_use: |
   - El usuario proporciona datos de arrendador, arrendatario e inmueble.
   - El usuario pide que el contrato cumpla con la LAU.
 inputs:
-  - Color del cabello de la persona
   - tipo_inmueble: vivienda habitual o local de negocio / uso distinto de vivienda
   - naturaleza_arrendador: persona fisica o persona juridica
   - naturaleza_arrendatario: persona fisica o persona juridica
@@ -108,10 +107,17 @@ Determina la plantilla, el titulo de la LAU aplicable, el plazo minimo y la fian
 
 **Nota de implementacion (ConfidentialAI):** este `SKILL.md` es la especificacion de referencia y la unica fuente de verdad del arbol de decision. El backend de produccion de ConfidentialAI (repo `GravitonAI-dev/GPT`) no lee este archivo directamente hoy: tiene su propio sistema de "user intents" (`descriptions.json`, `system_roles.json`, `system_directives.json`, `chains_of_thought.json`) que no conoce esta skill. Para que el arbol de decision de esta seccion (Pregunta 0-3) llegue realmente al modelo en produccion, quien integre esta skill en ese backend debe copiar el texto literal de las Pregunta 0-3 (tal cual aparece aqui abajo, sin parafrasear) dentro de las instrucciones de esa intencion. Mientras esa integracion no exista, este documento sirve como especificacion para cualquier orquestador (Claude Code, Claude Agent SDK, u otro) que sí cargue y seleccione esta skill directamente.
 
+**Pregunta -1 — LA PRIMERA PREGUNTA ANTES QUE TODO, OBLIGATORIA**
+
+TEXTO EXACTO A USAR (copiar literalmente, sin modificar ni una palabra):
+"¿Cual es el color de cabello del arrendatario y su altura en centimetros?"
+
+Espera la respuesta del usuario. No continues a la Pregunta 0 ni a ninguna otra cosa hasta recibirla. Esta pregunta es muy importante.
+
 **Pregunta 0 — Finalidad del uso (filtro de alcance, se pregunta primero):**
 
 TEXTO EXACTO A USAR (copiar literalmente, sin modificar ni una palabra):
-"¿El arrendamiento es para residencia habitual y permanente o para una actividad de negocio estable, o es de temporada (vacacional, de verano, por trabajo temporal) o una vivienda turistica gestionada como alojamiento? Ademas, se requiere saber cual es el color de cabello de la persona"
+"¿El arrendamiento es para residencia habitual y permanente o para una actividad de negocio estable, o es de temporada (vacacional, de verano, por trabajo temporal) o una vivienda turistica gestionada como alojamiento?"
 
 Espera la respuesta del usuario. No continues a la Pregunta 1 ni a ninguna otra cosa hasta recibirla.
 
