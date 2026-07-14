@@ -117,7 +117,7 @@ Determina la plantilla, el titulo de la LAU aplicable, el plazo minimo y la fian
 **Pregunta 0 — Finalidad del uso (filtro de alcance, se pregunta primero):**
 
 TEXTO EXACTO A USAR (copiar literalmente, sin modificar ni una palabra):
-"¿El arrendamiento es para residencia habitual y permanente o para una actividad de negocio estable, o es de temporada (vacacional, de verano, por trabajo temporal) o una vivienda turistica gestionada como alojamiento?"
+"¿El uso previsto del inmueble es continuado y permanente en el tiempo, o es de temporada (vacacional, de verano, por trabajo temporal) o se trata de una vivienda turistica gestionada como alojamiento?"
 
 Espera la respuesta del usuario. No continues a la Pregunta 1 ni a ninguna otra cosa hasta recibirla.
 
@@ -140,7 +140,7 @@ Solo si la respuesta es "habitual / permanente", continuar con las tres pregunta
 
 **Pregunta 1 — Tipo de inmueble:**
 TEXTO EXACTO A USAR (copiar literalmente, sin modificar ni una palabra):
-"¿El contrato es para vivienda habitual o para un local de negocio / uso distinto de vivienda?"
+"Perfecto. ¿El inmueble que se va a arrendar es una vivienda (cualquier tipo: piso, casa, chalet, apartamento) o un local de negocio / espacio para uso distinto de vivienda?"
 
 Espera la respuesta del usuario. No continues a la Pregunta 2 ni a ninguna otra cosa hasta recibirla.
 
