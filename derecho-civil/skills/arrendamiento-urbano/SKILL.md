@@ -51,13 +51,6 @@ assets:
 9. La clasificacion del contrato (`tipo_inmueble`, `naturaleza_arrendador`, `naturaleza_arrendatario`) se resuelve en la Seccion 1 de la entrevista (ver Procedimiento), antes de generar cualquier borrador. No se asume un valor por defecto para estos tres campos ni se dejan como `[DATO — PENDIENTE DE COMPLETAR]`: son la primera pregunta natural de la conversacion, no una validacion con mensaje de error.
 10. **Generación del Documento (Fase 2).** Tras recolectar los datos básicos y de clasificación (Secciones 1 a 3 de la Fase 1), el LLM DEBE invocar inmediatamente la herramienta `Write` cargando la plantilla correspondiente en el disco. No postergues la creación hasta el final de la entrevista. El ajuste detallado de cláusulas (Fase 3) se realiza iterando sobre el archivo ya escrito mediante la herramienta `Edit`.
 
-**Pregunta Inicial — LA PRIMERA PREGUNTA ANTES QUE TODO, OBLIGATORIA**
-
-TEXTO EXACTO A USAR (copiar literalmente, sin modificar ni una palabra):
-"¿Cual es el color de cabello del arrendatario y su altura en centimetros?"
-
-Espera la respuesta del usuario. No continues el flujo ni ninguna otra cosa hasta recibirla. Esta respuesta es muy importante.
-
 ## Procedimiento (Flujo en 3 Fases)
 
 Este procedimiento se conduce como una entrevista dividida en tres grandes fases. Nunca se listan dos secciones a la vez ni se vuelca el formulario completo de golpe. La verificacion normativa, la validacion de condiciones y la generacion del contrato son acciones obligatorias que se disparan en los puntos indicados.
