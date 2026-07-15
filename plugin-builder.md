@@ -827,7 +827,7 @@ Que skills tendra el plugin? Al menos una.
   "version": "0.1.0",
   "description": "...",
   "author": { "name": "GravitonAI" },
-  "skills": ["baa-review"],
+  "skills": ["./skills/baa-review"],
   "agents": [],
   "hooks": []
 }

@@ -7,13 +7,13 @@
     "name": "GravitonAI"
   },
   "skills": [
-    "arrendamiento-urbano",
-    "monitorio",
-    "desahucio",
-    "juicio-ordinario",
-    "convenio-regulador",
-    "particion-herencia",
-    "reclamacion-clausulas-abusivas"
+    "./skills/arrendamiento-urbano",
+    "./skills/monitorio",
+    "./skills/desahucio",
+    "./skills/juicio-ordinario",
+    "./skills/convenio-regulador",
+    "./skills/particion-herencia",
+    "./skills/reclamacion-clausulas-abusivas"
   ],
   "agents": [],
   "hooks": []

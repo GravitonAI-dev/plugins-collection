@@ -247,7 +247,7 @@ Un plugin es una unidad de **dominio vertical** (legal comercial, privacidad, pr
   "version": "0.1.0",
   "description": "...",
   "author": { "name": "GravitonAI" },
-  "skills": ["nda-review"],
+  "skills": ["./skills/nda-review"],
   "agents": [],
   "hooks": []
 }
