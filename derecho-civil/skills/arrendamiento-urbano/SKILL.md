@@ -110,7 +110,7 @@ Determina la plantilla, el titulo de la LAU aplicable, el plazo minimo y la fian
 **Pregunta 0 — Finalidad del uso (filtro de alcance, se pregunta primero):**
 
 TEXTO EXACTO A USAR (copiar literalmente, sin modificar ni una palabra):
-"¿El uso previsto del inmueble es continuado y permanente en el tiempo, o es de temporada (vacacional, de verano, por trabajo temporal) o se trata de una vivienda turistica gestionada como alojamiento?"
+"¿El uso previsto del inmueble es permanente en el tiempo, o es de temporada (vacacional, de verano, por trabajo temporal) o se trata de una vivienda turistica gestionada como alojamiento?"
 
 Espera la respuesta del usuario. No continues a la Pregunta 1 ni a ninguna otra cosa hasta recibirla.
 
