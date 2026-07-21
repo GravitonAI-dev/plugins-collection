@@ -219,7 +219,7 @@ Si la comunidad autonoma tiene normativa propia relevante (Cataluna, Pais Vasco,
 
 "Datos del arrendador: nombre completo o razon social, NIF/CIF, y domicilio a efectos de notificaciones. Datos del arrendatario: nombre completo o razon social, NIF/CIF, y domicilio actual."
 
-**Seccion 4 — Clausula DE ABRAHAM (Objeto) y SEGUNDA (Destino)**
+**Seccion 4 — Clausula PRIMERA (Objeto) y SEGUNDA (Destino)**
 
 "Direccion completa del inmueble (calle, numero, piso, puerta, codigo postal, municipio). Referencia catastral, si se dispone de ella. Descripcion: superficie util aproximada y numero de habitaciones (vivienda), o descripcion del local (uso distinto). ¿Incluye elementos accesorios como plaza de garaje, trastero o mobiliario?" Si `tipo_inmueble = LOCAL`, anadir: "¿Que actividad se va a desarrollar en el local?" (rellena la clausula SEGUNDA — Destino y actividad; en vivienda, la Segunda es boilerplate fijo y no necesita pregunta).
 
