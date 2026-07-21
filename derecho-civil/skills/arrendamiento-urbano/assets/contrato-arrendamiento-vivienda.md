@@ -61,11 +61,11 @@ Queda expresamente prohibido destinar la vivienda a uso turistico, comercial o c
 
 ### TERCERA — Duracion
 
-La duracion del presente contrato se establece en <!-- {{duracion_pactada}} --> anos, contados desde la fecha de inicio: <!-- {{fecha_inicio}} -->.
+La duracion del presente contrato se establece en <!-- {{duracion_pactada}} --> años, contados desde la fecha de inicio: <!-- {{fecha_inicio}} -->.
 
-<!-- Si duracion < minimo legal, insertar: De conformidad con el articulo 9.1 de la LAU, si la duracion pactada fuera inferior a {{plazo_minimo}} anos, el contrato se prorrogara obligatoriamente por plazos anuales hasta alcanzar dicho plazo minimo, salvo que el ARRENDATARIO manifieste su voluntad de no renovarlo con al menos 30 dias de antelacion a cada vencimiento. -->
+<!-- Si duracion < minimo legal, insertar: De conformidad con el articulo 9.1 de la LAU, si la duracion pactada fuera inferior a {{plazo_minimo}} años, el contrato se prorrogara obligatoriamente por plazos anuales hasta alcanzar dicho plazo minimo, salvo que el ARRENDATARIO manifieste su voluntad de no renovarlo con al menos 30 dias de antelacion a cada vencimiento. -->
 
-A la finalizacion del plazo de duracion o de cualquiera de sus prorrogas, si ninguna de las partes hubiera notificado su voluntad de no renovar —el ARRENDADOR con al menos 4 meses de antelacion, el ARRENDATARIO con al menos 2 meses—, el contrato se prorrogara obligatoriamente por plazos anuales hasta un maximo de 3 anos adicionales (Art. 10.1 LAU).
+A la finalizacion del plazo de duracion o de cualquiera de sus prorrogas, si ninguna de las partes hubiera notificado su voluntad de no renovar —el ARRENDADOR con al menos 4 meses de antelacion, el ARRENDATARIO con al menos 2 meses—, el contrato se prorrogara obligatoriamente por plazos anuales hasta un maximo de 3 años adicionales (Art. 10.1 LAU).
 
 <!-- Si zona tensionada: CLAUSULA ESPECIAL — ZONA DE MERCADO RESIDENCIAL TENSIONADO. El inmueble se ubica en {{municipio}}, declarado zona de mercado residencial tensionado conforme a la Ley 12/2023. La prorroga extraordinaria prevista en el articulo 10.3 de la LAU sera de aplicacion a solicitud del ARRENDATARIO. -->
 
@@ -77,11 +77,11 @@ El pago se realizara dentro de los primeros 7 dias de cada mes, mediante <!-- {{
 
 El ARRENDADOR entregara recibo de pago o documento acreditativo equivalente al ARRENDATARIO.
 
-<!-- Si zona tensionada: La renta pactada cumple con los limites establecidos en el articulo 17.6 de la LAU, no superando la ultima renta del contrato anterior en la misma vivienda en los ultimos 5 anos ({{ultima_renta_anterior}} euros/mes), con la actualizacion aplicable. -->
+<!-- Si zona tensionada: La renta pactada cumple con los limites establecidos en el articulo 17.6 de la LAU, no superando la ultima renta del contrato anterior en la misma vivienda en los ultimos 5 años ({{ultima_renta_anterior}} euros/mes), con la actualizacion aplicable. -->
 
 ### QUINTA — Actualizacion de la renta
 
-La renta se actualizara anualmente en la fecha en que se cumpla cada ano de vigencia del contrato, conforme al <!-- {{indice_actualizacion: Indice de Garantia de Competitividad (IGC) / IPC / otro indice pactado}} -->, de conformidad con el articulo 18 de la LAU.
+La renta se actualizara anualmente en la fecha en que se cumpla cada año de vigencia del contrato, conforme al <!-- {{indice_actualizacion: Indice de Garantia de Competitividad (IGC) / IPC / otro indice pactado}} -->, de conformidad con el articulo 18 de la LAU.
 
 En todo caso, el incremento anual no podra superar la variacion porcentual del Indice de Precios al Consumo (IPC) en el periodo correspondiente, conforme al articulo 18.1 de la LAU.
 
