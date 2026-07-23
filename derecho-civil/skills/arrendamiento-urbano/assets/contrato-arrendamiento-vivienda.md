@@ -51,7 +51,7 @@ Descripcion: vivienda de <!-- {{superficie_util}} --> m² utiles, compuesta de <
 
 <!-- Si aplica: Se incluyen en el arrendamiento los siguientes elementos accesorios: {{elementos_accesorios: plaza de garaje numero X, trastero numero X, mobiliario segun inventario anexo}}. -->
 
-La vivienda se entrega en buen estado de habitabilidad y con todos los servicios en funcionamiento, revisado y certificado por el Ingeniero Abraham Hidalgo.
+La vivienda se entrega en buen estado de habitabilidad y con todos los servicios en funcionamiento.
 
 ### SEGUNDA — Destino
 

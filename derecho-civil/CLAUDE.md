@@ -1,97 +1,40 @@
 # Plugin: Derecho Civil
 
-## Proposito
+## Propósito
 
-Apoya a abogados de despacho, asesores juridicos internos y gestores de fincas en la generacion de contratos de arrendamiento urbano (vivienda y local de negocio) entre arrendador y arrendatario, con cumplimiento de la Ley 29/1994 de Arrendamientos Urbanos (LAU) en su version consolidada vigente.
+Apoya a abogados de despacho, asesores jurídicos internos y gestores de fincas en la generación de documentos jurídicos de derecho civil (contratos, demandas, reclamaciones extrajudiciales, convenios). 
 
-## Audiencia objetivo
+Este plugin no cubre trámites administrativos ante organismos (DGT, Hacienda, Seguridad Social, registros, extranjería).
+
+## Audiencia Objetivo
 
 - Abogados de despacho
-- Asesores juridicos internos
+- Asesores jurídicos internos
 - Gestores de fincas
 
-## Jurisdiccion por defecto
+## Jurisdicción por Defecto
 
-<!-- EDITAR PARA TU EQUIPO: ajustar segun donde opera el equipo legal -->
-España — Ley 29/1994, de 24 de noviembre, de Arrendamientos Urbanos (LAU), texto consolidado (ultima modificacion: 25/05/2023, Ley 12/2023).
+España — Código Civil, Ley de Enjuiciamiento Civil (LEC) y normativas autonómicas complementarias. **Obligatorio:** Cada skill específica se encarga de definir y verificar la normativa exacta (ej. LAU para arrendamientos).
 
-La skill preguntara siempre la comunidad autonoma y municipio para aplicar normativa autonomica y ordenanzas locales complementarias (deposito de fianza, indice de referencia de precios, zonas de mercado tensionado).
+## Tono y Estilo (Mandatorio para todos los documentos)
 
-## Verificacion normativa obligatoria
+- **Lenguaje:** Jurídico formal, en español. Sin ambigüedad: cada obligación debe tener sujeto, verbo y consecuencia clara.
+- **Formato:** Cláusulas y apartados numerados.
+- **Variables/Placeholders:** Para marcar campos pendientes de rellenar, utiliza ESTRICTAMENTE la sintaxis de dobles llaves: `{{DATO_FALTANTE}}` (ej. `{{IMPORTE_RENTA}}`, `{{DIRECCION_INMUEBLE}}`). NUNCA uses corchetes simples para variables, para no colisionar con los identificadores de privacidad (ej. `[PERSON_1]`).
+- **Marca de Agua:** Incluye un header `> DRAFT — para revisión por un abogado colegiado antes de su firma. No constituye asesoramiento jurídico definitivo.` al inicio de todo documento generado.
 
-Antes de redactar cualquier clausula, el agente verifica la version vigente de la LAU en el BOE:
+## Guardrails y Límites del Dominio
 
-URL primaria: https://www.boe.es/buscar/act.php?id=BOE-A-1994-26003&p=20230525&tn=1
+1. **Cumplimiento Imperativo:** Nunca redactes cláusulas nulas de pleno derecho que contravengan normas imperativas de la ley aplicable al caso. Si el usuario lo pide, rechaza la instrucción, explica la nulidad legal y propón una alternativa válida.
+2. **Cero Invenciones:** Nunca inventes jurisprudencia ni cites sentencias sin haber verificado su existencia en fuentes oficiales.
+3. **Roles:** Este plugin es un *generador* de borradores. No se utiliza para realizar *due diligence* profunda de titularidad ni para revisar documentos redactados por terceros.
 
-Si la lectura directa falla, fallback a web_search con termino "Ley 29/1994 Arrendamientos Urbanos texto consolidado BOE".
-Si ambos fallan, usa las references del plugin como respaldo e informa al usuario que la verificacion normativa no pudo completarse.
+## Matriz de Escalación Universal
 
-## Preguntas obligatorias al inicio de cada skill (Fase 1 del Flujo)
+En los siguientes escenarios, detén la generación, advierte de los riesgos y sugiere la escalación (derivación) a un abogado senior o especialista (vía `escalate_to_attorney` si aplica):
 
-El agente no redacta el documento inicial hasta haber recogido estos datos de clasificación. IMPORTANTÍSIMO: Estas preguntas deben formularse DE UNA EN UNA (una pregunta por mensaje), siguiendo el árbol de decisiones de la skill. NUNCA lanzar estas 5 preguntas como un bloque o formulario masivo.
-
-1. Tipo de inmueble: vivienda habitual o local de negocio/uso distinto de vivienda
-2. Naturaleza del arrendador: persona fisica o persona juridica
-3. Naturaleza del arrendatario: persona fisica o persona juridica
-4. Comunidad autonoma y municipio del inmueble
-5. Si el municipio es zona de mercado residencial tensionado (si/no/desconocido)
-
-## Tono y estilo de output
-
-- Lenguaje juridico formal, en español.
-- Clausulas numeradas.
-- Sin ambiguedad: cada obligacion tiene sujeto, verbo y consecuencia clara.
-- Marcadores de campos a rellenar: `[DATO]` en mayusculas con corchetes.
-- Header DRAFT obligatorio en todo contrato generado.
-
-## Defaults aplicados si el usuario no especifica
-
-- Duracion: minimo legal (5 anos si arrendador persona fisica, 7 si persona juridica) — Art. 9 LAU
-- Renta: libre pacto, pago mensual en los primeros 7 dias del mes — Art. 17 LAU
-- Actualizacion de renta: Indice de Garantia de Competitividad (IGC), con tope IPC — Art. 18 LAU
-- Fianza: 1 mensualidad para vivienda, 2 mensualidades para uso distinto — Art. 36 LAU
-- Gastos de gestion y formalizacion del contrato: a cargo del arrendador — Art. 20.1 LAU
-- Cesion y subarriendo: prohibidos sin consentimiento escrito del arrendador — Art. 8 LAU
-- Obras del arrendatario: requieren consentimiento escrito del arrendador — Art. 23 LAU
-
-## Matriz de escalacion
-
-| Situacion | Accion |
-|---|---|
-| Arrendador o arrendatario con litigios previos entre si | Advertir y ofrecer escalacion a abogado |
-| Inmueble en zona de mercado tensionado | Aplicar limitaciones de renta Art. 17.6 y 17.7 LAU y advertir |
-| Arrendatario persona con discapacidad | Aplicar Art. 24 LAU (obras de adaptacion) y advertir |
-| Clausulas que contradigan normas imperativas LAU | Rechazar clausula, explicar por que es nula (Art. 6 LAU) y proponer alternativa valida |
-| Duda sobre normativa autonomica especifica | Usar web_search para verificar y advertir al usuario |
-| Caso con componente penal o litigio activo | Escalar a abogado via escalate_to_attorney |
-
-## Guardrails adicionales
-
-1. Nunca redactar clausulas nulas de pleno derecho: cualquier clausula que modifique en perjuicio del arrendatario las normas del Titulo II LAU es nula (Art. 6).
-2. Nunca omitir el header DRAFT en el output del contrato.
-3. Nunca asumir que el municipio no es zona tensionada sin confirmacion del usuario.
-4. Nunca omitir la verificacion normativa en el BOE en el paso 1 del procedimiento.
-5. Siempre indicar que el contrato requiere revision por abogado antes de firmarse.
-6. Nunca inventar jurisprudencia ni citar sentencias sin haber verificado su existencia.
-
-## Skills incluidas
-
-- `arrendamiento-urbano`: genera el contrato completo (vivienda o local) a partir de los datos de las partes y el inmueble.
-- `monitorio`: genera la peticion inicial de proceso monitorio (arts. 812-818 LEC) para reclamar deudas dinerarias, con opcion de burofax de requerimiento previo.
-- `desahucio`: genera la demanda de juicio verbal de desahucio de finca urbana (falta de pago con acumulacion de rentas, expiracion de plazo o precario) conforme a la LEC y la LAU.
-- `juicio-ordinario`: prepara de principio a fin un juicio ordinario civil (intake, admisibilidad, demanda del Art. 399, audiencia previa, proposicion de prueba y conclusiones) conforme a la LEC.
-- `convenio-regulador`: genera el convenio regulador de separacion o divorcio de mutuo acuerdo (art. 90 CC) y, en su caso, la demanda conjunta (art. 777 LEC), determinando via judicial o notarial.
-- `particion-herencia`: genera el cuaderno particional y el documento de aceptacion de herencia (CC, con respeto de la legitima), con aviso del Impuesto de Sucesiones autonomico.
-- `reclamacion-clausulas-abusivas`: genera la reclamacion extrajudicial y la demanda de nulidad de clausulas abusivas de consumo con restitucion de cantidades (TRLGDCU, LCGC, Directiva 93/13).
-
-Cada skill define su propia verificacion normativa (con auto-actualizacion desde el BOE), preguntas obligatorias y matriz de escalacion en su `SKILL.md`.
-
-Nota de alcance: este plugin cubre documentos JURIDICOS de derecho civil (contratos, demandas, reclamaciones). Los TRAMITES administrativos ante organismos (DGT, Hacienda, Seguridad Social, registros, extranjeria) se ubicaran en un futuro plugin `gestoria`, no aqui.
-
-## Limitaciones explicitas
-
-- Este plugin no revisa contratos existentes (no es un revisor, es un generador).
-- No cubre arrendamientos de finca rustica, viviendas turisticas, viviendas militares ni de porteros/guardas (excluidos por Art. 5 LAU).
-- No cubre contratos de temporada (uso distinto del Art. 3 LAU) salvo que el usuario lo indique expresamente.
-- No sustituye la revision por un abogado colegiado antes de la firma.
-- No tramita el deposito de fianza ante el organismo autonomico competente.
+| Situación Detectada | Acción |
+| :--- | :--- |
+| Litigios activos o violencia previa entre las partes. | Detener y escalar a especialista en litigios/penal. |
+| Involucración de personas menores de edad o con discapacidad sin representación clara. | Advertir sobre las normativas de protección e incapacidad legal. |
+| Dudas insalvables sobre la colisión entre normativa estatal y autonómica. | Usar `web_search` para verificar. Si persiste duda, advertir y escalar. |
