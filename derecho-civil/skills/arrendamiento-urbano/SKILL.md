@@ -36,9 +36,19 @@ assets:
 
 # Generar Contrato de Arrendamiento
 
-## PASO 1: CLASIFICACIÓN DINÁMICA (Vectores de Estado)
+**DIRECTIVA DE INVISIBILIDAD (Chat Limpio):**
+Toda la lógica descrita en este documento (la clasificación de vectores V1-V4, las secuencias numeradas, la verificación normativa y la creación del documento base) es un flujo de ejecución ESTRICTAMENTE INTERNO.
+Tienes PROHIBIDO mencionar en el chat:
+- Nombres de vectores (ej. "V1", "V2").
+- Resúmenes de validación con checks (ej. "Finalidad: ✔").
+- En qué fase de la instrucción te encuentras (ej. "Ahora pasaremos al punto 4", "Voy a proceder a crear el documento").
+- Preámbulos conversacionales antes de hacer las preguntas de clasificación. Si es tu turno de preguntar, **emite únicamente la pregunta exacta y nada más**.
 
-Tu primer objetivo es resolver 4 vectores de clasificación. Aplica la Escucha Activa Global para extraer estos datos de cualquier mensaje proporcionado por el usuario:
+## 1. CLASIFICACIÓN DINÁMICA (Vectores de Estado)
+
+Tu primer objetivo es resolver 4 vectores de clasificación de manera SILENCIOSA. 
+Aplica la Escucha Activa Global para extraer estos datos de cualquier mensaje. 
+**IMPORTANTE (Invisibilidad):** Los nombres de estos vectores (`V1`, `V2`, etc.) y el hecho de que estás validándolos son de uso estrictamente interno. **NUNCA los menciones en el chat.** No imprimas listas de validación ni resúmenes con "checks" (✔). Si extraes un dato con éxito, simplemente regístralo en tu memoria en silencio.
 
 - **V1 (Finalidad):** Habitual (permanente) / Negocio estable / Temporada / Turístico.
 - **V2 (Tipo Inmueble):** Vivienda / Local.
@@ -46,7 +56,7 @@ Tu primer objetivo es resolver 4 vectores de clasificación. Aplica la Escucha A
 - **V4 (Naturaleza Arrendatario):** Física / Jurídica.
 
 **REGLA ESTRICTA DE PREGUNTAS (Protocolo Predecible):**
-Si, tras analizar el contexto, te falta resolver uno o más vectores, **TIENES PROHIBIDO inventar la redacción de la pregunta**. Debes formular **UNA SOLA PREGUNTA por turno**, utilizando EXACTAMENTE el texto que corresponda al vector faltante, en este orden estricto:
+Si, tras analizar el contexto, te falta resolver uno o más vectores, **TIENES PROHIBIDO inventar la redacción de la pregunta**. Debes formular **UNA SOLA PREGUNTA por turno**, utilizando EXACTAMENTE el texto que corresponda al vector faltante, en este orden estricto, **sin añadir preámbulos ni resúmenes de lo que ya sabes**:
 
 *   **Para V1 (Finalidad):** "¿El uso previsto del inmueble es permanente en el tiempo, o es de temporada (vacacional, de verano, por trabajo temporal) o se trata de una vivienda turística gestionada como alojamiento?"
 *   **Para V2 (Tipo Inmueble):** "¿El inmueble que se va a arrendar es una vivienda (cualquier tipo: piso, casa, chalet, apartamento) o un local de negocio / espacio para uso distinto de vivienda?"
@@ -63,26 +73,26 @@ Una vez resueltos los 4 vectores (V1 a V4), evalúa:
 
 ---
 
-## PASO 2: VERIFICACIÓN NORMATIVA BOE (Interno)
+## 2. VERIFICACIÓN NORMATIVA BOE (Interno)
 
-Una vez completado el Enrutamiento (Paso 1), no hagas más preguntas al usuario. Ejecuta de inmediato:
+Una vez completado el Enrutamiento (Punto 1), no hagas más preguntas al usuario. Ejecuta de inmediato:
 1. Lee `references/` para saber la última modificación conocida (ej. 25/05/2023).
 2. Consulta (vía WebSearch o lectura de URL) el BOE de la Ley 29/1994 (Arrendamientos Urbanos) texto consolidado.
 3. Si hay cambios, actualiza los archivos en `references/` usando `Edit`. Si falla la consulta, usa las referencias existentes como respaldo e informa al usuario.
 
 ---
 
-## PASO 3: CREACIÓN DEL DOCUMENTO BASE (Cero Vacíos)
+## 3. CREACIÓN DEL DOCUMENTO BASE (Cero Vacíos)
 
-Inmediatamente después del Paso 2, estás OBLIGADO a crear el documento en disco.
-1. Utiliza `Read` para leer la plantilla seleccionada en el Paso 1 (`vivienda` o `local`).
+Inmediatamente después de la verificación normativa (Punto 2), estás OBLIGADO a crear el documento en disco.
+1. Utiliza `Read` para leer la plantilla seleccionada en el Punto 1 (`vivienda` o `local`).
 2. Reemplaza en memoria las variables de clasificación y CUALQUIER OTRO DATO que ya poseas gracias a la escucha activa inicial (nombres, dirección, etc.).
 3. Utiliza `Write` para guardar el archivo completo en disco. Los datos faltantes deben quedar intactos como `{{DATO_FALTANTE}}`.
 4. (Regla Global): Ejecuta `Read` para validar y confirma la ruta absoluta en el chat al usuario.
 
 ---
 
-## PASO 4: EDICIÓN INCREMENTAL DE CLÁUSULAS
+## 4. EDICIÓN INCREMENTAL DE CLÁUSULAS
 
 Ahora, recorre secuencialmente la siguiente lista de cláusulas. Por cada cláusula de la que falten datos, aplica el Ciclo de Edición Incremental del sistema global (Formular Pregunta -> Mostrar Vista Previa en texto plano -> Pedir Confirmación -> Tras confirmación, usar `Edit` en disco):
 
@@ -105,7 +115,7 @@ Ahora, recorre secuencialmente la siguiente lista de cláusulas. Por cada cláus
 
 ## BUCLE DE REALIMENTACIÓN FINAL
 
-Tras completar el Paso 4, muestra el siguiente menú y espera instrucciones (aplicando `Edit` según corresponda):
+Tras completar el Punto 4, muestra el siguiente menú y espera instrucciones (aplicando `Edit` según corresponda):
 1. Ajustar una cláusula existente.
 2. Añadir una cláusula adicional.
 3. Eliminar una cláusula opcional.
