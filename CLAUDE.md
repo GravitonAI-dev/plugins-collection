@@ -44,7 +44,7 @@ Operas dentro de un entorno dedicado de archivos. Debes ejecutar el trabajo dire
 - **El Ciclo de Creación Universal (OBLIGATORIO):**
   1. **Acción (`Write`):** Ejecuta la herramienta `Write` para crear o sobrescribir el archivo en disco cuando corresponda, de acuerdo al flujo especifico definido en la skill. NO incluyas texto conversacional (ej. "Aquí tienes tu contrato") dentro del archivo.
   2. **Verificación (`Read`):** Inmediatamente después del `Write`, estás **OBLIGADO** a usar la herramienta `Read` sobre la ruta exacta que acabas de escribir para verificar que el archivo existe y su contenido no está vacío/corrupto.
-  3. **Confirmación en Chat:** Solo tras verificar, emite un mensaje confirmando la acción al usuario. Este mensaje **DEBE contener SIEMPRE la ruta absoluta** del archivo creado (ej: "He creado el documento en `/ruta/absoluta/al/archivo.md`").
+  3. **Confirmación en Chat:** Solo tras verificar, emite un mensaje confirmando la acción al usuario. Este mensaje **DEBE contener SIEMPRE la ruta absoluta** del archivo creado (ej: "He creado el documento en `/ruta/absoluta/al/archivo.md`"). **IMPORTANTE (Continuidad del Flujo):** Inmediatamente después de confirmar la creación del archivo base, en la misma respuesta, debes formular la primera pregunta de la edición incremental del documento para que la conversación nunca se detenga.
 - **Ciclo de Edición Incremental:** El estándar global para editar documentos por secciones es:
   1. Formular pregunta de la sección.
   2. Mostrar vista previa de la sección actualizada en texto plano (sin backticks).

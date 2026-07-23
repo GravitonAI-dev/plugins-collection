@@ -88,7 +88,7 @@ Inmediatamente después de la verificación normativa (Punto 2), estás OBLIGADO
 1. Utiliza `Read` para leer la plantilla seleccionada en el Punto 1 (`vivienda` o `local`).
 2. Reemplaza en memoria las variables de clasificación y CUALQUIER OTRO DATO que ya poseas gracias a la escucha activa inicial (nombres, dirección, etc.).
 3. Utiliza `Write` para guardar el archivo completo en disco. Los datos faltantes deben quedar intactos como `{{DATO_FALTANTE}}`.
-4. (Regla Global): Ejecuta `Read` para validar y confirma la ruta absoluta en el chat al usuario.
+4. (Regla Global): Ejecuta `Read` para validar y confirma la ruta absoluta en el chat al usuario. Inmediatamente después, en la misma respuesta, formula la primera pregunta de la edición incremental (Punto 4, sección 1: Ubicación y Zona Tensionada) para iniciar el ajuste detallado.
 
 ---
 
