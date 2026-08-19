@@ -29,12 +29,26 @@ references:
   - references/lau-vivienda-plazos-renta-fianza.md
   - references/lau-derechos-obligaciones-partes.md
   - references/lau-arrendamiento-local-negocio.md
+  - references/fuentes-plantillas-validadas.md
 assets:
   - assets/contrato-arrendamiento-vivienda.md
   - assets/contrato-arrendamiento-local.md
 ---
 
 # Generar Contrato de Arrendamiento
+
+> DRAFT — para revision por un abogado colegiado antes de su firma. No constituye asesoramiento juridico.
+
+## Guardrails
+
+1. Verificar siempre la LAU en el BOE antes de redactar. Sin verificacion, no proceder.
+2. Si se detecta en el BOE una version de la LAU posterior a la registrada en las references, actualizar los archivos del plugin antes de redactar (ver Paso 2). No usar una version desactualizada.
+3. Duracion minima: 5 anos si el arrendador es persona fisica, 7 anos si es persona juridica (Art. 9.1 LAU). No pactar plazos inferiores sin advertir de la prorroga obligatoria.
+4. Gastos de gestion y formalizacion del contrato siempre a cargo del arrendador (Art. 20.1 LAU).
+5. En zonas de mercado residencial tensionado, aplicar los limites de renta de los Arts. 17.6 y 17.7 LAU si el usuario confirma que el inmueble esta en una zona declarada como tal.
+6. Fianza minima: 1 mensualidad en vivienda, 2 mensualidades en local de negocio (Art. 36 LAU). No admitir fianzas inferiores.
+7. Marcar todos los campos a rellenar con `{{DATO_FALTANTE}}`. Nunca inventar datos, rentas, fechas ni referencia catastral.
+8. Nunca redactar clausulas que contravengan normas imperativas de la LAU. Nunca inventar jurisprudencia.
 
 **DIRECTIVA DE INVISIBILIDAD (Chat Limpio):**
 Toda la lógica descrita en este documento (la clasificación de vectores V1-V4, las secuencias numeradas, la verificación normativa y la creación del documento base) es un flujo de ejecución ESTRICTAMENTE INTERNO.
@@ -73,12 +87,35 @@ Una vez resueltos los 4 vectores (V1 a V4), evalúa:
 
 ---
 
-## 2. VERIFICACIÓN NORMATIVA BOE (Interno)
+## 2. VERIFICACIÓN Y AUTO-ACTUALIZACIÓN NORMATIVA BOE (Interno)
 
-Una vez completado el Enrutamiento (Punto 1), no hagas más preguntas al usuario. Ejecuta de inmediato:
-1. Lee `references/` para saber la última modificación conocida (ej. 25/05/2023).
-2. Consulta (vía WebSearch o lectura de URL) el BOE de la Ley 29/1994 (Arrendamientos Urbanos) texto consolidado.
-3. Si hay cambios, actualiza los archivos en `references/` usando `Edit`. Si falla la consulta, usa las referencias existentes como respaldo e informa al usuario.
+Una vez completado el Enrutamiento (Punto 1), no hagas más preguntas al usuario. La skill se actualiza a sí misma en cada lanzamiento: comprueba la fuente oficial y, si detecta una versión posterior, reescribe sus propios archivos antes de redactar. Ejecuta SIEMPRE esta secuencia:
+
+**2.1 — Leer la versión registrada localmente.** Abre `references/fuentes-plantillas-validadas.md` y anota la "Versión registrada" de la LAU.
+
+**2.2 — Consultar la fuente oficial vigente.** Invoca:
+```
+read_document(
+  path: "https://www.boe.es/buscar/act.php?id=BOE-A-1994-26003",
+  format: "text"
+)
+```
+Extrae: fecha del texto consolidado vigente de la LAU; redacción actual de los arts. 9 (duración), 17 y 20 (renta y gastos), 27 (resolución) y 36 (fianza).
+
+**2.3 — Comparar.** Contrasta la versión oficial con la registrada localmente y con el texto de las references.
+
+**2.4 — Auto-actualizar los archivos del plugin (OBLIGATORIO si hay cambios).** Si la versión oficial es posterior o el texto de los artículos cambió, usa `Write`/`Edit` para:
+- Actualizar el contenido afectado en `references/lau-vivienda-plazos-renta-fianza.md`, `references/lau-derechos-obligaciones-partes.md` y/o `references/lau-arrendamiento-local-negocio.md` con la redacción vigente.
+- Actualizar la tabla "Versión registrada" y la fecha en `references/fuentes-plantillas-validadas.md`.
+- Informar brevemente al usuario de que se detectó y aplicó una versión más reciente (norma y fecha).
+
+No redactes ningún documento hasta haber completado esta actualización. Nunca uses una versión desactualizada.
+
+**2.5 — Fallback si la fuente no es accesible.** Si `read_document` falla (error HTTP, timeout):
+```
+web_search("Ley 29/1994 Arrendamientos Urbanos texto consolidado BOE articulos 9 17 20 27 36")
+```
+Si también falla: usa las references locales como respaldo y notifica al usuario: "No se pudo verificar la versión vigente de la LAU en el BOE. El contrato se genera con la versión de referencia. Verificar manualmente antes de firmar."
 
 ---
 
@@ -106,10 +143,7 @@ Ahora, recorre secuencialmente la siguiente lista de cláusulas. Por cada cláus
 8. **Gastos y Suministros:** Quién paga IBI, comunidad (por defecto arrendador; suministros a cargo del inquilino).
 9. **Pactos Opcionales:** Renuncia a adquisición preferente, correos electrónicos para notificaciones, mediación, cláusulas extra.
 
-### Límites Legales (Guardrails de Dominio)
-- **Duración:** Si V3 (Arrendador) = Física -> mínimo 5 años. Si V3 = Jurídica -> mínimo 7 años. (Art. 9.1 LAU).
-- **Gastos:** Gastos de gestión/formalización siempre a cargo del arrendador (Art. 20.1 LAU).
-- **Zonas Tensionadas:** Aplicar límites de renta Arts. 17.6 y 17.7 LAU si aplica.
+(Los límites legales de cada cláusula — duración, gastos, zonas tensionadas, fianza — están fijados en la sección Guardrails al inicio de este documento; no se redactan por fuera de esos límites.)
 
 ---
 
@@ -122,4 +156,28 @@ Tras completar el Punto 4, muestra el siguiente menú y espera instrucciones (ap
 4. Corregir un dato.
 5. Cerrar y dar el contrato por bueno.
 
-*(Al cerrar, emite las advertencias estándar: DRAFT, necesidad de revisión por abogado colegiado, depósito autonómico de fianza y registro de la propiedad).*
+Al cerrar, añade al final:
+```
+Advertencias:
+1. Este documento es un DRAFT generado automaticamente. Debe ser revisado por un abogado colegiado antes de su firma.
+2. Version de la LAU verificada: [fecha extraida en el Punto 2].
+3. La fianza debe depositarse en el organismo autonomico correspondiente (Art. 36.3 LAU) segun la comunidad autonoma del inmueble.
+4. Se recomienda la inscripcion del contrato en el Registro de la Propiedad para su oponibilidad frente a terceros.
+```
+
+## Como NO se usa esta skill
+
+- No usar para arrendamientos de finca rústica (excluidos de la LAU, Art. 5.a).
+- No usar para viviendas turísticas ni contratos de temporada (excluidos de la LAU, Art. 5.e y 3.2).
+- No usar para viviendas militares, de porteros o guardas, ni las demás excluidas por el Art. 5 LAU.
+- No usar para redactar la resolución o el desahucio derivado de un incumplimiento: para eso, derivar a la skill `desahucio`.
+- No usar si el usuario pide opinión jurídica sobre un litigio ya existente entre las partes: derivar a `escalate_to_attorney`.
+
+## Escalación
+
+| Situación | Acción |
+|---|---|
+| Litigio o conflicto ya existente entre arrendador y arrendatario | Escalar vía `escalate_to_attorney` |
+| Inmueble en zona de mercado residencial tensionado, con dudas sobre los límites de renta aplicables | Verificar con `web_search` la declaración autonómica vigente y advertir |
+| Arrendatario o arrendador menor de edad o con discapacidad sin representación clara | Advertir de la necesidad de representación legal y escalar |
+| Duda sobre normativa autonómica o foral que module la LAU | Usar `web_search` para verificar; si persiste la duda, advertir y escalar |
