@@ -126,6 +126,11 @@ Ej: "nda-review: triage de NDAs entrantes con verdict VERDE/AMARILLO/ROJO".`
 
 Si el usuario nombra una sola skill, esta pasara al Modo B despues del Modo A. Si nombra varias, haras Modo B por cada una.
 
+**Pregunta 8 — Guardrails y matriz de escalacion.**
+`Que reglas nunca puede romper este plugin? (ej: no redactar clausulas nulas de pleno derecho, no dar opinion legal definitiva sin abogado colegiado). Y en que situaciones debe detenerse y escalar a un humano? (ej: litigios activos, menores involucrados, dudas normativas insalvables).`
+
+Esta respuesta va directo a las secciones "Guardrails y Limites del Dominio" y "Matriz de Escalacion Universal" del `CLAUDE.md` del plugin (plantilla en `PLUGIN_AUTHORING_GUIDE.md`, seccion 2). **NUNCA inventas estas reglas por tu cuenta.** Si el usuario no sabe que responder, puedes mostrarle como referencia las de un plugin existente (ej. `derecho-civil/CLAUDE.md`), marcadas explicitamente como `[sugerencia]`, y pides confirmacion o ajuste antes de darlas por buenas.
+
 ### 3.2 Plan global (ver seccion 7)
 
 Antes de escribir nada, presenta el plan global.
@@ -260,7 +265,25 @@ El flujo de toda skill debe encajar en los 4 pasos obligatorios definidos allí:
 
 Dime cómo encaja la lógica de esta skill ("<nombre>") dentro de esas 4 secciones obligatorias, para que yo arme el esqueleto de tu SKILL.md. Si alguna sección (como Verificación) no aplica, dímelo.`
 
-**Pregunta 10 — Escalacion.**
+**Pregunta 10 — Verificacion legal y articulos aplicables.**
+
+Obligatoria (no omitible, no opcional) si el output de la skill es legal, regulatorio, fiscal o de privacidad. En `PLUGIN_AUTHORING_GUIDE.md` el paso "Verificacion" es opcional por defecto; para estas skills, tú lo conviertes en obligatorio.
+
+No le preguntas al usuario que artículos aplican. La secuencia es:
+
+1. Con el dominio/tema ya conocido (por las respuestas previas), busca tú la normativa aplicable en su fuente oficial (BOE u equivalente) usando `WebSearch` o lectura de la URL.
+2. Extrae los artículos concretos que rigen o limitan el contenido de la skill.
+3. Presentaselos al abogado para que decida: `Encontre esto en <ley>: <articulo> — <resumen de una linea>. ¿Confirmas que aplica, lo corriges, o agregas otro?` Repite hasta que el abogado confirme la lista final.
+4. **El abogado tiene la ultima palabra.** Tú nunca decides solo qué artículo aplica ni lo das por bueno sin su confirmación explícita.
+
+Los artículos confirmados se guardan en dos lugares:
+
+- `references/<ley>-articulos.md`: cada artículo con su texto o resumen y la fecha en que se verificó contra la fuente oficial.
+- Una sección "Límites Legales (Guardrails de Dominio)" dentro del `SKILL.md`, citando el artículo literal (ej: `Art. 9.1 LAU`), siguiendo el patrón de `derecho-civil/skills/arrendamiento-urbano/SKILL.md`.
+
+Además, el paso "2. VERIFICACIÓN DE CONTEXTO" del `SKILL.md` generado (plantilla de `PLUGIN_AUTHORING_GUIDE.md`, sección 3) debe instruir a la skill para que, **en cada ejecución**, vuelva a consultar la fuente oficial y compare contra la fecha guardada en `references/`; si la ley cambió, actualiza el reference con `Edit` y avisa al usuario antes de redactar nada.
+
+**Pregunta 11 — Escalacion.**
 `Cuando debe escalar la skill y a donde?
 
   - "Ninguna" — la skill no escala.
@@ -268,7 +291,7 @@ Dime cómo encaja la lógica de esta skill ("<nombre>") dentro de esas 4 seccion
   - "A otro plugin" — derivar (ej: derivar a commercial-legal si la consulta es de contratos).
   - "A humano" — flujo de aprobacion humana (gate obligatorio).`
 
-**Pregunta 11 — Header DRAFT.**
+**Pregunta 12 — Header DRAFT.**
 `El output de esta skill toca temas legales, regulatorios, fiscales o de privacidad? Si "si", el SKILL.md llevara header `DRAFT — para revision por un abogado. No constituye asesoria legal.` y todos los assets tambien.`
 
 ### 4.2 Plan global (ver seccion 7)
@@ -515,7 +538,12 @@ Contenido que se escribira:
 6. Header DRAFT:
    - <OK | FIX NECESARIO>: si la skill toca temas legales/regulatorios/fiscales/privacidad, lleva header DRAFT en SKILL.md y en assets.
 
-7. Convenciones:
+7. Verificacion legal (solo skills legales/regulatorias/fiscales/privacidad):
+   - <OK | FIX NECESARIO>: cada articulo citado en "Limites Legales" tiene su fuente en `references/<ley>-articulos.md` con fecha de verificacion.
+   - <OK | FIX NECESARIO>: el abogado confirmo explicitamente la lista de articulos (no quedaron sin confirmar).
+   - <OK | FIX NECESARIO>: el paso de Verificacion del SKILL.md instruye re-consultar la fuente oficial en cada ejecucion.
+
+8. Convenciones:
    - <OK | FIX NECESARIO>: marcadores `EDITAR PARA TU EQUIPO` presentes donde el usuario debe personalizar.
    - <OK | FIX NECESARIO>: sin emojis en archivos creados.
 ```
