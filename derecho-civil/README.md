@@ -131,6 +131,7 @@ Este plugin cubre documentos JURIDICOS de derecho civil (contratos, demandas, re
 | `io.gravitonai.tools.read_file` | Lectura y verificación de documentos en el workspace |
 | `io.gravitonai.tools.web_search` | Verificación normativa en el BOE y consulta autonómica |
 | `io.gravitonai.tools.create_file` | Creación inicial de documentos en el workspace |
+| `io.gravitonai.tools.edit_file` | Edición incremental de cláusulas y secciones en el workspace |
 
 ### Servidores MCP
 

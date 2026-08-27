@@ -87,14 +87,14 @@ Una vez completado el Enrutamiento (Punto 1), no hagas más preguntas al usuario
 Inmediatamente después de la verificación normativa (Punto 2), estás OBLIGADO a crear el documento en disco.
 1. Toma el texto íntegro de la plantilla seleccionada (`contrato-arrendamiento-vivienda.md` o `contrato-arrendamiento-local.md`), ubicada directamente en el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas).
 2. Reemplaza en memoria las variables de clasificación y CUALQUIER OTRO DATO que ya poseas gracias a la escucha activa inicial (nombres, dirección, etc.).
-3. Utiliza `Write` (o `create_file`) para guardar el archivo completo en disco del workspace. Los datos faltantes deben quedar intactos como `{{DATO_FALTANTE}}`.
+3. Utiliza `create_file` para guardar el archivo completo en disco del workspace. Los datos faltantes deben quedar intactos como `{{DATO_FALTANTE}}`.
 4. (Regla Global): Ejecuta `read_file` exclusivamente sobre el archivo creado en disco para validar y confirma la ruta absoluta en el chat al usuario. Inmediatamente después, en la misma respuesta, formula la primera pregunta de la edición incremental (Punto 4, sección 1: Ubicación y Zona Tensionada) para iniciar el ajuste detallado.
 
 ---
 
 ## 4. EDICIÓN INCREMENTAL DE CLÁUSULAS
 
-Ahora, recorre secuencialmente la siguiente lista de cláusulas. Por cada cláusula de la que falten datos, aplica el Ciclo de Edición Incremental del sistema global (Formular Pregunta -> Mostrar Vista Previa en texto plano -> Pedir Confirmación -> Tras confirmación, usar `Edit` en disco):
+Ahora, recorre secuencialmente la siguiente lista de cláusulas. Por cada cláusula de la que falten datos, aplica el Ciclo de Edición Incremental del sistema global (Formular Pregunta -> Mostrar Vista Previa en texto plano -> Pedir Confirmación -> Tras confirmación, usar `edit_file` en disco):
 
 1. **Ubicación y Zona Tensionada:** Comunidad autónoma, municipio. ¿Es zona tensionada? (Si no lo sabe, búscalo).
 2. **Partes:** Nombre/Razón social, NIF/CIF, domicilio para notificaciones.
@@ -115,7 +115,7 @@ Ahora, recorre secuencialmente la siguiente lista de cláusulas. Por cada cláus
 
 ## BUCLE DE REALIMENTACIÓN FINAL
 
-Tras completar el Punto 4, muestra el siguiente menú y espera instrucciones (aplicando `Edit` según corresponda):
+Tras completar el Punto 4, muestra el siguiente menú y espera instrucciones (aplicando `edit_file` según corresponda):
 1. Ajustar una cláusula existente.
 2. Añadir una cláusula adicional.
 3. Eliminar una cláusula opcional.

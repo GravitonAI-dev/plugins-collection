@@ -14,6 +14,11 @@
       "id": "io.gravitonai.tools.create_file",
       "required": true,
       "purpose": "Creación en disco dentro del workspace de la solicitud, escrito, hoja de datos para el formulario oficial y checklist de documentos y tasas."
+    },
+    {
+      "id": "io.gravitonai.tools.edit_file",
+      "required": true,
+      "purpose": "Edición incremental de hojas de datos, solicitudes y borradores en disco dentro del workspace para incorporar datos corregidos o ajustes del usuario."
     }
   ]
 }

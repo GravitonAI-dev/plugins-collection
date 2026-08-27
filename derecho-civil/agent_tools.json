@@ -14,6 +14,11 @@
       "id": "io.gravitonai.tools.create_file",
       "required": true,
       "purpose": "Creación inicial del documento en disco dentro del espacio de trabajo (workspace) a partir de la plantilla seleccionada y los datos recopilados."
+    },
+    {
+      "id": "io.gravitonai.tools.edit_file",
+      "required": true,
+      "purpose": "Edición incremental de cláusulas, secciones y correcciones del documento en disco dentro del workspace."
     }
   ]
 }

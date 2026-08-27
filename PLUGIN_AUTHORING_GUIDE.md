@@ -113,16 +113,16 @@ Una vez resueltos todos los vectores, evalúa:
 Inmediatamente tras el paso anterior, estás OBLIGADO a crear el documento:
 1. Toma el texto íntegro de la plantilla [nombre-archivo-asset.md], disponible directamente en el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas).
 2. Reemplaza en memoria TODOS los datos que ya poseas (gracias a los vectores, escucha activa e investigación). Los faltantes quedan como `{{DATO_FALTANTE}}`.
-3. Utiliza `Write` (o `create_file`) para guardar el archivo en disco del workspace.
-4. (Regla Global): Ejecuta `Read` (o `read_file`) exclusivamente sobre el archivo creado en disco para validar y confirma la ruta absoluta en el chat al usuario. Inmediatamente después, en la misma respuesta, formula la primera pregunta de la edición incremental (Punto 4) para no detener la conversación.
+3. Utiliza `create_file` para guardar el archivo en disco del workspace.
+4. (Regla Global): Ejecuta `read_file` exclusivamente sobre el archivo creado en disco para validar y confirma la ruta absoluta en el chat al usuario. Inmediatamente después, en la misma respuesta, formula la primera pregunta de la edición incremental (Punto 4) para no detener la conversación.
 
 ## 4. EDICIÓN INCREMENTAL DE CLÁUSULAS / SECCIONES
-Recorre secuencialmente la siguiente lista. Por cada sección incompleta, aplica el Ciclo de Edición Incremental Global (Formular Pregunta -> Mostrar Vista Previa en texto plano -> Pedir Confirmación -> Usar `Edit` en disco):
+Recorre secuencialmente la siguiente lista. Por cada sección incompleta, aplica el Ciclo de Edición Incremental Global (Formular Pregunta -> Mostrar Vista Previa en texto plano -> Pedir Confirmación -> Tras confirmación, usar `edit_file` en disco):
 1. **[Sección 1]:** [Qué datos faltan, instrucciones específicas].
 2. **[Sección 2]:** [Qué datos faltan, instrucciones específicas].
 
 ## BUCLE DE REALIMENTACIÓN FINAL
-Tras completar el Punto 4, muestra el siguiente menú y espera instrucciones (aplicando `Edit` según corresponda):
+Tras completar el Punto 4, muestra el siguiente menú y espera instrucciones (aplicando `edit_file` según corresponda):
 1. Ajustar una sección existente.
 2. Añadir contenido adicional.
 3. Eliminar contenido opcional.

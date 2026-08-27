@@ -87,6 +87,7 @@ Output: hoja de datos del formulario EX (con checklist, organismo y tasa 790) y 
 | `io.gravitonai.tools.read_file` | Lectura y verificación de documentos en el workspace |
 | `io.gravitonai.tools.web_search` | Verificación normativa en el BOE, tasas y modelos oficiales |
 | `io.gravitonai.tools.create_file` | Creación de solicitudes, hojas de datos y checklists en el workspace |
+| `io.gravitonai.tools.edit_file` | Edición incremental de hojas de datos, solicitudes y borradores en el workspace |
 
 ### Servidores MCP
 

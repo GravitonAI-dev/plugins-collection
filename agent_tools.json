@@ -66,6 +66,46 @@
       "side_effects": true
     },
     {
+      "id": "io.gravitonai.tools.edit_file",
+      "name": "edit_file",
+      "description": "Edita un archivo existente en el espacio de trabajo de la conversación reemplazando ocurrencias de `old_string` con `new_string`. Usa esta herramienta para modificar, mejorar, expandir o corregir archivos existentes en el workspace en lugar de crear nuevos archivos versionados.\n\nREGLAS CRÍTICAS:\n- Consultar el contenido auténtico en '# WORKSPACE ACTIVE DOCUMENTS' para identificar el texto exacto de `old_string`.\n- Nunca usar marcadores de sincronización (ej. '[Contenido sincronizado...]') como `old_string` o `new_string`.\n- Si `replace_all` es false (por defecto), `old_string` debe aparecer EXACTAMENTE una vez en el archivo; de lo contrario la llamada falla.\n- Si `replace_all` es true, se reemplaza cada ocurrencia.\n- La coincidencia es exacta a nivel de bytes primero, y luego tolerante a diferencias de finales de línea, secuencias de espacios en blanco y escapes de barra invertida en markdown. Si no coincide nada, el error incluye la región más cercana del archivo en disco: copiar `old_string` textualmente de ese fragmento en lugar de reintentar el mismo texto.\n- El archivo ya debe existir en el espacio de trabajo. Path traversal bloqueado.\nDevuelve {\"success\": bool, \"data\": <ruta_absoluta>} en caso de éxito o {\"success\": false, \"error\": \"...\"} en caso de fallo.",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "relative_file_path": {
+            "type": "string",
+            "description": "Ruta estilo POSIX (barras inclinadas '/') relativa al directorio raíz del espacio de trabajo. Se rechazan '..' y rutas absolutas."
+          },
+          "old_string": {
+            "type": "string",
+            "description": "La subcadena a buscar en el archivo existente. No debe estar vacía y debe ser única en el archivo a menos que replace_all sea true."
+          },
+          "new_string": {
+            "type": "string",
+            "description": "La subcadena de reemplazo. Puede estar vacía (elimina el texto coincidente) o ser igual a old_string (operación no-op). Los marcadores de sincronización están estrictamente prohibidos."
+          },
+          "replace_all": {
+            "type": "boolean",
+            "default": false,
+            "description": "Si es true, reemplaza cada ocurrencia de old_string. Si es false (por defecto), old_string debe aparecer exactamente una vez."
+          }
+        },
+        "required": ["relative_file_path", "old_string", "new_string"],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "type": "string", "description": "Ruta absoluta del archivo editado" },
+          "error": { "type": "string", "description": "Mensaje de error si la edición falla" }
+        }
+      },
+      "tags": ["io", "workspace", "files", "editing"],
+      "side_effects": true
+    },
+    {
       "id": "io.gravitonai.tools.web_search",
       "name": "web_search",
       "description": "Realiza una búsqueda en la web abierta y devuelve hasta N resultados con título, URL, snippet y contenido completo extraído. Útil para jurisprudencia, regulación, hechos actuales o cualquier información que requiera datos públicos en tiempo real.",

@@ -770,6 +770,7 @@ El plugin necesitara tools? Te listo las disponibles:
 
   - `io.gravitonai.tools.read_file` — Lee contenido UTF-8 de un archivo del workspace por ruta relativa
   - `io.gravitonai.tools.create_file` — Crea un archivo nuevo en el workspace con su contenido UTF-8
+  - `io.gravitonai.tools.edit_file` — Edita un archivo existente en el workspace reemplazando ocurrencias de texto
   - `io.gravitonai.tools.web_search` — Busqueda en la web abierta
 
 ¿Cuales quieres incluir?

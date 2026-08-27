@@ -27,7 +27,7 @@ Este repo es un **punto de partida**. Contiene la estructura completa y un plugi
 |---|---|---|
 | Marketplace | `.claude-plugin/marketplace.json` con registry de plugins | Instalador propio (se usa el de Claude Code) |
 | Catálogo de MCP servers | `mcp_servers.json` con 5 servers declarados | Cliente MCP que los conecte y ejecute |
-| Catálogo de tools | `agent_tools.json` con 5 tools declarados (input/output schema) | Runtime que los invoque |
+| Catálogo de tools | `agent_tools.json` con 4 tools declarados (input/output schema) | Runtime que los invoque |
 | Plugin manifest | `plugin.json` con metadatos y lista de skills | Sistema de versionado / firma de plugins |
 | Playbook | `CLAUDE.md` raíz y por plugin | Sistema que cargue perfiles desde `~/.claude/...` |
 | Skills | `SKILL.md` con frontmatter y procedimiento | Mecanismo de auto-invocación por contexto |
@@ -436,6 +436,7 @@ Mientras no exista `validate.py`, la validación cruzada se hace con un script a
   + [commercial-legal] MCP ref 'io.gravitonai.gdrive' -> found
   + [commercial-legal] tool ref 'io.gravitonai.tools.read_file' -> found
   + [commercial-legal] tool ref 'io.gravitonai.tools.create_file' -> found
+  + [commercial-legal] tool ref 'io.gravitonai.tools.edit_file' -> found
 ```
 
 Cuando agregues un plugin o skill, el flujo mínimo de validación es:
@@ -543,7 +544,7 @@ Plugin de ejemplo. Cubre flujos legales transaccionales comerciales: revisión d
 - `nda-review`: triage de NDAs entrantes con output VERDE/AMARILLO/ROJO + memo para abogado.
 
 **MCP servers referenciados**: `io.gravitonai.courtlistener` (opcional), `io.gravitonai.gdrive` (requerido).
-**Tools referenciadas**: `io.gravitonai.tools.read_file`, `io.gravitonai.tools.create_file`.
+**Tools referenciadas**: `io.gravitonai.tools.read_file`, `io.gravitonai.tools.create_file`, `io.gravitonai.tools.edit_file`.
 
 Ver `commercial-legal/README.md` para detalle completo.
 
