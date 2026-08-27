@@ -20,7 +20,6 @@ España — Código Civil, Ley de Enjuiciamiento Civil (LEC) y normativas auton�
 
 - **Lenguaje:** Jurídico formal, en español. Sin ambigüedad: cada obligación debe tener sujeto, verbo y consecuencia clara.
 - **Formato:** Cláusulas y apartados numerados.
-- **Variables/Placeholders:** Para marcar campos pendientes de rellenar, utiliza ESTRICTAMENTE la sintaxis de dobles llaves: `{{DATO_FALTANTE}}` (ej. `{{IMPORTE_RENTA}}`, `{{DIRECCION_INMUEBLE}}`). NUNCA uses corchetes simples para variables, para no colisionar con los identificadores de privacidad (ej. `[PERSON_1]`).
 - **Marca de Agua:** Incluye un header `> DRAFT — para revisión por un abogado colegiado antes de su firma. No constituye asesoramiento jurídico definitivo.` al inicio de todo documento generado.
 
 ## Guardrails y Límites del Dominio
