@@ -108,33 +108,40 @@
     {
       "id": "io.gravitonai.tools.web_search",
       "name": "web_search",
-      "description": "Realiza una búsqueda en la web abierta y devuelve hasta N resultados con título, URL, snippet y contenido completo extraído. Útil para jurisprudencia, regulación, hechos actuales o cualquier información que requiera datos públicos en tiempo real.",
+      "description": "Realiza una búsqueda en la web abierta y devuelve hasta N resultados con título, URL, fragmento (snippet) y un breve extracto de contenido (~800 caracteres por resultado). Cada resultado es un objeto con las claves: title (str), url (str), snippet (str), content (str).\n\nREGLAS DE USO — ESTRICTAMENTE OBLIGATORIAS:\n- DEBES EVITAR usar esta herramienta a menos que sea ESTRICTAMENTE necesario.\n- PRIMERO, determina si puedes responder a la consulta del usuario utilizando tus propios conocimientos sin búsqueda web. La búsqueda web es una operación costosa, úsala ÚNICAMENTE si es estrictamente necesaria.\n- Realiza como máximo entre 1 y 4 llamadas a web_search por turno. NUNCA emitas 5 o más llamadas con temas superpuestos.\n- Cada llamada DEBE tener un ID único y un par (query, num_results) único. Las llamadas duplicadas se descartan silenciosamente y devuelven resultados vacíos.\n- `query` es OBLIGATORIO y DEBE ser una cadena no vacía. Las llamadas con query vacía o ausente se descartan silenciosamente.\n- Usa `num_results` entre 3 y 5. Solicita hasta 10 ÚNICAMENTE cuando el tema sea amplio y realmente necesites mayor cobertura.\n- Cada resultado ya incluye título, url, snippet y un extracto de contenido breve. NO vuelvas a llamar a web_search para obtener la misma página completa; cita las URLs en su lugar.\n- Si necesitas información sobre varios aspectos, prefiere UNA consulta específica por llamada en lugar de muchas llamadas paralelas similares.\n- Por defecto, los resultados NO están restringidos por fecha. Establece `recency` ÚNICAMENTE para temas sensibles al tiempo (noticias de última hora, precios, lanzamientos recientes, 'esta semana/hoy'). Para temas permanentes/atemporales (leyes, definiciones, historia, hechos consolidados), OMITE `recency` — restringir el rango de fechas en estos casos perjudica la calidad de los resultados.\n\nÚtil para jurisprudencia, regulación, hechos actuales o cualquier información que requiera datos públicos en tiempo real.",
       "version": "1.0.0",
       "input_schema": {
         "type": "object",
         "properties": {
-          "query": { "type": "string", "description": "Consulta de búsqueda en lenguaje natural. El texto debe llegar ya anonimizado (sin PIIs)." },
-          "num_results": { "type": "integer", "default": 5, "description": "Número de resultados a devolver (1-10). Por defecto 5." }
+          "query": {
+            "type": "string",
+            "description": "Consulta de búsqueda en lenguaje natural. El texto debe llegar ya anonimizado (sin PIIs)."
+          },
+          "num_results": {
+            "type": "integer",
+            "default": 3,
+            "description": "Número de resultados a devolver (1-10). Por defecto 3. Usar 3–5 para la mayoría de consultas."
+          },
+          "recency": {
+            "type": "string",
+            "enum": ["day", "week", "month", "year"],
+            "description": "Filtro opcional de antigüedad temporal. Restringe los resultados al último día/semana/mes/año ('day', 'week', 'month', 'year'). OMITIR para temas atemporales (leyes, definiciones, jurisprudencia consolidada); establecer únicamente cuando la frescura sea determinante (noticias, precios, lanzamientos)."
+          }
         },
-        "required": ["query"]
+        "required": ["query"],
+        "additionalProperties": false
       },
       "output_schema": {
-        "type": "object",
-        "properties": {
-          "query": { "type": "string" },
-          "num_results": { "type": "integer" },
-          "results": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "title": { "type": "string" },
-                "url": { "type": "string" },
-                "snippet": { "type": "string" },
-                "content": { "type": "string" }
-              }
-            }
-          }
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "title": { "type": "string", "description": "Título de la página web." },
+            "url": { "type": "string", "description": "URL pública de la fuente." },
+            "snippet": { "type": "string", "description": "Fragmento descriptivo o resumen corto." },
+            "content": { "type": "string", "description": "Extracto textual representativo extraído de la página (~800 caracteres)." }
+          },
+          "required": ["title", "url", "snippet", "content"]
         }
       },
       "tags": ["retrieval", "web", "research"],
