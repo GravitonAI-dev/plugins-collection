@@ -142,7 +142,7 @@ Antes de escribir nada, presenta el plan global.
 | `<plugin>/CLAUDE.md` | Playbook: proposito, audiencia, jurisdiccion por defecto (con marcador `EDITAR PARA TU EQUIPO`), tono y estilo, defaults, matriz de escalacion, guardrails adicionales. **(DEBE seguir EXACTAMENTE la Plantilla Obligatoria definida en `PLUGIN_AUTHORING_GUIDE.md`, sin repetir directivas operacionales globales).** |
 | `<plugin>/README.md` | Documentacion humana: que hace, que NO hace, skills, dependencias (MCP + tools), instalacion, tuning |
 | `<plugin>/.mcp.json` | Solo si el plugin usa servers MCP. Lista de `{ id, required, purpose }`. **Lo lee el orquestador, no el LLM.** |
-| `<plugin>/agent_tools.json` | Solo si el plugin usa tools. Lista de `{ id, required, purpose }`. **Lo lee el LLM.** |
+| `<plugin>/agent_tools.json` | Herramientas que el plugin usa (de base incluye las 7 tools nativas). Subconjunto con las mismas definiciones completas (input_schema/output_schema) del `agent_tools.json` global. **Lo lee el LLM.** |
 | `<plugin>/skills/<skill>/SKILL.md` | Por cada skill nombrada en Pregunta 7. Ver Modo B. |
 | `.claude-plugin/marketplace.json` raiz | Agregar entrada al array `plugins[]` |
 
@@ -661,18 +661,19 @@ Si en medio de un modo el usuario dice algo que no es de scaffolding (ej: "ahora
 | Al menos una skill | El plugin sin skills no es util | `skills/<skill>/SKILL.md` |
 | Entrada en `.claude-plugin/marketplace.json` raiz | Registro para que el orquestador sepa que existe el plugin | Entry en `plugins[]` con `name`, `source`, `version`, `description`, `author` |
 
-### 13.2 Plugin — referencias a catalogos globales
+### 13.2 Plugin — referencias a servidores MCP y subconjunto de tools
 
-Estos dos archivos se crean solo si el plugin referencia items de los catalogos globales. **Ambos son referencias por id, nunca definiciones de servidores o tools.** El builder nunca modifica los catalogos globales.
+- `.mcp.json`: Referencia por ID de servidores MCP del catálogo global (`mcp_servers.json`).
+- `agent_tools.json`: Subconjunto de herramientas habilitadas para el plugin con las mismas definiciones completas (`$schema`, `name`, `description`, `input_schema`, `output_schema`, etc.) copiadas idénticas de `agent_tools.json` raíz. De base, todo plugin incluye las 7 herramientas nativas.
 
 | Archivo | Quien lo lee | Cuando incluirlo | Contenido |
 |---|---|---|---|
 | `<plugin>/.mcp.json` | **El orquestador** (no el LLM). Los desarrolladores del orquestador lo consultan para saber que conexiones externas levantar antes de ejecutar las skills. | Si el plugin consume servers MCP del catalogo global. | Lista de `{ id, required, purpose }` por server. Los ids vienen de `mcp_servers.json` raiz. |
-| `<plugin>/agent_tools.json` | **El LLM** al ejecutar cualquier skill del plugin. Define las herramientas que el LLM conoce y puede invocar (function calling). | Si el plugin consume tools del catalogo global. | Lista de `{ id, required, purpose }` por tool. Los ids vienen de `agent_tools.json` raiz. |
+| `<plugin>/agent_tools.json` | **El LLM** al ejecutar cualquier skill del plugin. Define las herramientas completas que el LLM conoce y puede invocar (function calling). | Siempre (todo plugin incluye de base las 7 tools nativas). | Archivo JSON con la lista `tools[]` que contiene las definiciones completas e idénticas a `agent_tools.json` global. |
 
 **Distincion critica**:
 - `.mcp.json` del plugin = guia para el orquestador sobre conexiones externas. El LLM lo ignora.
-- `agent_tools.json` del plugin = interfaz de tools del LLM. El LLM lo lee.
+- `agent_tools.json` del plugin = interfaz de tools completas del LLM (con input_schema y output_schema). El LLM lo lee.
 
 **Regla fundamental**: el usuario del builder nunca define IDs nuevos en los catalogos globales. Solo selecciona de los existentes. Si necesita un id que no existe, queda como pendiente para que el equipo de desarrollo del orquestador lo agregue al catalogo raiz fuera de esta sesion.
 

@@ -274,7 +274,7 @@ Los arrays `agents` y `hooks` están **vacíos** en este punto (no implementados
 
 ### 7.3 `agent_tools.json`
 
-**Rol en el flujo**: análogo a `.mcp.json` pero para tools. El orquestador sabe qué tools tiene que tener disponibles antes de ejecutar cualquier skill de este plugin.
+**Rol en el flujo**: subconjunto de herramientas que el plugin expone para que el LLM pueda invocarlas. A diferencia de `.mcp.json` (que solo guarda referencias), `agent_tools.json` del plugin contiene las **definiciones completas e idénticas** (esquemas `input_schema` y `output_schema`, descripción, tags, etc.) copiadas del catálogo global `agent_tools.json` raíz. De base, todos los plugins incorporan las 7 herramientas nativas.
 
 ### 7.4 `CLAUDE.md` del plugin
 
@@ -453,7 +453,7 @@ Regla de oro: **definir una vez, referenciar por id**.
 | Cosa | Dónde se define | Dónde se referencia |
 |---|---|---|
 | Servidor MCP | `mcp_servers.json` (raíz) | `<plugin>/.mcp.json` |
-| Tool | `agent_tools.json` (raíz) | `<plugin>/agent_tools.json` |
+| Tool | `agent_tools.json` (raíz) | `<plugin>/agent_tools.json` (subconjunto con definición completa) |
 
 **Por qué**: si dos plugins necesitan el mismo servidor MCP (ej: CourtListener), solo se define una vez. Cambiar la URL o el método de auth es un solo cambio. Si un plugin necesita un server que no existe, primero se agrega al catálogo y luego se referencia.
 
