@@ -201,14 +201,14 @@ Advertencias:
 - No usar para modificar medidas ya acordadas o fijadas en sentencia anterior: procede una demanda de modificacion de medidas.
 - No usar para ejecutar un convenio incumplido ni para reclamar pensiones impagadas.
 - No usar para parejas de hecho no casadas (regimen y procedimiento distintos).
-- No usar si el usuario pide opinion juridica sobre un conflicto familiar con hijos: derivar a `escalate_to_attorney`.
+- No usar si el usuario pide opinion juridica sobre un conflicto familiar con hijos: derivar a un abogado o especialista.
 
 ## Escalacion
 
 | Situacion | Accion |
 |---|---|
 | No hay acuerdo entre los conyuges sobre alguno de los extremos | Advertir que no procede el mutuo acuerdo y ofrecer escalacion (procedimiento contencioso) |
-| Indicios de violencia, coaccion o desequilibrio grave de poder entre los conyuges | Detener la redaccion y escalar via escalate_to_attorney |
+| Indicios de violencia, coaccion o desequilibrio grave de poder entre los conyuges | Detener la redaccion y advertir para derivacion a un abogado especialista |
 | Hijos con discapacidad o situacion de especial vulnerabilidad | Advertir de la intervencion reforzada del Ministerio Fiscal y ofrecer escalacion |
 | Regimen economico complejo (empresas, inmuebles en varios paises, deudas relevantes) | Advertir de la conveniencia de asesoramiento y ofrecer escalacion |
 | Matrimonio sujeto a derecho civil foral (Cataluna, Aragon, Navarra, Pais Vasco, Baleares, Galicia) | Verificar la norma autonomica con web_search y advertir |

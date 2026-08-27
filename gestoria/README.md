@@ -88,12 +88,6 @@ Output: hoja de datos del formulario EX (con checklist, organismo y tasa 790) y 
 | `io.gravitonai.tools.web_search` | Fallback normativo, tasas vigentes, modelos actualizados y especialidades autonomicas |
 | `io.gravitonai.tools.draft_markdown` | Generacion de la solicitud, hoja de datos y checklist desde plantilla |
 
-### Tools opcionales
-
-| ID | Uso |
-|---|---|
-| `io.gravitonai.tools.escalate_to_attorney` | Derivacion a profesional en casos con sancion, litigio o denegacion |
-
 ### Servidores MCP
 
 Ninguno por ahora. La presentacion telematica (conectores por API y presentacion asistida por navegador) se abordara mas adelante.

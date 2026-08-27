@@ -193,13 +193,13 @@ Advertencias:
 - No usar para asilo, proteccion internacional ni apatridia.
 - No usar para recurrir una denegacion previa ni para un procedimiento sancionador o de expulsion: derivar a un profesional.
 - No usar para tramitar la tarjeta de residencia de familiar de ciudadano de la Union (regimen comunitario) sin advertir de que sigue un procedimiento distinto.
-- No usar si el usuario pide una valoracion juridica sobre sus posibilidades de exito: la resolucion es discrecional; derivar via `escalate_to_attorney`.
+- No usar si el usuario pide una valoracion juridica sobre sus posibilidades de exito: la resolucion es discrecional; derivar a un abogado o profesional especialista.
 
 ## Escalacion
 
 | Situacion | Accion |
 |---|---|
-| Denegacion previa, recurso administrativo o contencioso | Advertir que excede el alcance y derivar via escalate_to_attorney |
+| Denegacion previa, recurso administrativo o contencioso | Advertir que excede el alcance y derivar a un abogado especialista en extranjeria |
 | Procedimiento sancionador, expulsion o devolucion en curso | Escalar a abogado; no preparar el tramite de residencia sin asistencia |
 | Tramite consular o visado desde el extranjero | Indicar que corresponde al consulado y derivar |
 | Regimen comunitario (familiar de ciudadano UE) o proteccion internacional | Advertir de la diferencia de procedimiento y derivar |

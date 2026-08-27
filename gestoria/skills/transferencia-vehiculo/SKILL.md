@@ -179,7 +179,7 @@ Advertencias:
 - No usar para transmisiones por herencia mientras la adjudicacion no este resuelta (procede antes la particion; derivar a la skill de sucesiones o a un profesional).
 - No usar para vehiculos de compraventa profesional en regimen de existencias (transmision a compraventa autorizada, art. 33 RGV): advertir y derivar.
 - No usar para calcular con caracter definitivo el ITP: la skill avisa y estima, pero el importe debe verificarse en la Hacienda autonomica.
-- No usar para recurrir una denegacion o una sancion asociada al vehiculo: derivar via `escalate_to_attorney`.
+- No usar para recurrir una denegacion o una sancion asociada al vehiculo: derivar a un gestor colegiado o abogado.
 
 ## Escalacion
 
@@ -189,4 +189,4 @@ Advertencias:
 | ITV caducada o IVTM impagado | Advertir del riesgo de denegacion y recomendar regularizar antes |
 | Transmision por herencia o con varios titulares en disputa | Derivar a la particion / a un profesional |
 | Duda sobre el tipo de ITP o exencion en la comunidad autonoma | Verificar con web_search y advertir; no fijar el importe como definitivo |
-| Denegacion previa del tramite o sancion asociada | Escalar via escalate_to_attorney |
+| Denegacion previa del tramite o sancion asociada | Advertir y derivar a un gestor colegiado |

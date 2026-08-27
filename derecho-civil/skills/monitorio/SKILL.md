@@ -192,7 +192,7 @@ Advertencias:
 - No usar para deudas iliquidas, controvertidas o de existencia dudosa: procede el juicio declarativo.
 - No usar para reclamar a una Administracion Publica.
 - No usar para redactar la oposicion del deudor ni la posterior demanda de juicio declarativo.
-- No usar si el usuario pide opinion juridica sobre un litigio: derivar a `escalate_to_attorney`.
+- No usar si el usuario pide opinion juridica sobre un litigio: derivar a un abogado.
 
 ## Escalacion
 
@@ -202,4 +202,4 @@ Advertencias:
 | Deudor ilocalizable (sin domicilio ni lugar donde ser hallado) | Advertir de la limitacion del Art. 813 y ofrecer escalacion |
 | Deuda superior a 15.000 euros con oposicion previsible | Advertir del paso a juicio ordinario y ofrecer escalacion |
 | Duda sobre la exigibilidad del MASC en el caso concreto | Advertir y recomendar confirmar con el juzgado competente |
-| Existencia de litigio conexo o reconvencion previsible | Escalar via escalate_to_attorney |
+| Existencia de litigio conexo o reconvencion previsible | Advertir y derivar a un abogado |

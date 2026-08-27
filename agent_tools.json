@@ -52,40 +52,6 @@
       "side_effects": false
     },
     {
-      "id": "io.gravitonai.tools.search_corpus",
-      "name": "search_corpus",
-      "description": "Búsqueda semántica en un corpus indexado (documentos locales, VDR, base de conocimiento)",
-      "version": "1.0.0",
-      "input_schema": {
-        "type": "object",
-        "properties": {
-          "query": { "type": "string" },
-          "top_k": { "type": "integer", "default": 5 },
-          "filter": { "type": "object", "description": "Filtros por metadata (tag, fecha, autor)" }
-        },
-        "required": ["query"]
-      },
-      "output_schema": {
-        "type": "object",
-        "properties": {
-          "results": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": { "type": "string" },
-                "text": { "type": "string" },
-                "score": { "type": "number" },
-                "metadata": { "type": "object" }
-              }
-            }
-          }
-        }
-      },
-      "tags": ["retrieval", "search"],
-      "side_effects": false
-    },
-    {
       "id": "io.gravitonai.tools.web_search",
       "name": "web_search",
       "description": "Realiza una búsqueda en la web abierta y devuelve hasta N resultados con título, URL, snippet y contenido completo extraído. Útil para jurisprudencia, regulación, hechos actuales o cualquier información que requiera datos públicos en tiempo real.",
@@ -118,64 +84,6 @@
         }
       },
       "tags": ["retrieval", "web", "research"],
-      "side_effects": false
-    },
-    {
-      "id": "io.gravitonai.tools.escalate_to_attorney",
-      "name": "escalate_to_attorney",
-      "description": "Crea un ticket de escalación a un abogado humano con contexto estructurado",
-      "version": "1.0.0",
-      "input_schema": {
-        "type": "object",
-        "properties": {
-          "subject": { "type": "string" },
-          "context": { "type": "string", "description": "Resumen del caso y por qué se escala" },
-          "urgency": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
-          "attachments": { "type": "array", "items": { "type": "string" } }
-        },
-        "required": ["subject", "context", "urgency"]
-      },
-      "output_schema": {
-        "type": "object",
-        "properties": {
-          "ticket_id": { "type": "string" },
-          "assigned_to": { "type": "string" }
-        }
-      },
-      "tags": ["workflow", "escalation"],
-      "side_effects": true
-    },
-    {
-      "id": "io.gravitonai.tools.redline_extract",
-      "name": "redline_extract",
-      "description": "Extrae el texto base y los cambios marcados de un documento con redline (track changes) en formatos Word o PDF",
-      "version": "1.0.0",
-      "input_schema": {
-        "type": "object",
-        "properties": {
-          "path": { "type": "string" },
-          "format": { "type": "string", "enum": ["docx", "pdf", "md"] }
-        },
-        "required": ["path", "format"]
-      },
-      "output_schema": {
-        "type": "object",
-        "properties": {
-          "base_text": { "type": "string" },
-          "changes": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "type": { "type": "string", "enum": ["insert", "delete"] },
-                "text": { "type": "string" },
-                "author": { "type": "string" }
-              }
-            }
-          }
-        }
-      },
-      "tags": ["documents", "redline", "review"],
       "side_effects": false
     }
   ]

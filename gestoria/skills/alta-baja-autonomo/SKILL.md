@@ -272,4 +272,4 @@ Advertencias:
 | Deudas con la AEAT o la TGSS que impiden la tarifa plana o complican la baja | Advertir y derivar |
 | Duda sobre el epigrafe IAE o el metodo de IRPF aplicable | Orientar segun la actividad y recomendar confirmacion profesional |
 | Baja ligada a la solicitud de la prestacion por cese de actividad | Advertir que la prestacion excede el alcance de la skill y derivar |
-| Sancion, requerimiento o recurso administrativo asociado | Escalar via escalate_to_attorney |
+| Sancion, requerimiento o recurso administrativo asociado | Advertir y derivar a gestor colegiado o abogado |

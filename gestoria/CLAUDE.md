@@ -42,7 +42,7 @@ Cada skill no prepara nada hasta recoger los datos necesarios del tramite (datos
 
 | Situacion | Accion |
 |---|---|
-| Tramite con sancion, embargo o litigio asociado | Derivar a gestor colegiado o abogado (escalate_to_attorney) |
+| Tramite con sancion, embargo o litigio asociado | Derivar a gestor colegiado o abogado |
 | Denegacion previa o recurso administrativo | Advertir y derivar |
 | Dudas sobre normativa autonomica de impuestos | Verificar con web_search y advertir |
 | Tramite fuera del alcance de las skills del plugin | Indicarlo y no improvisar |

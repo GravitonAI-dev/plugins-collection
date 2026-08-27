@@ -14,11 +14,6 @@
       "id": "io.gravitonai.tools.draft_markdown",
       "required": true,
       "purpose": "Generacion del documento en markdown desde la plantilla correspondiente (contrato de arrendamiento; peticion inicial de monitorio o burofax de requerimiento previo) con los datos recogidos del usuario."
-    },
-    {
-      "id": "io.gravitonai.tools.escalate_to_attorney",
-      "required": false,
-      "purpose": "Escalacion a abogado humano en casos complejos: litigios previos entre las partes, clausulas en conflicto con normas imperativas, arrendatarios en situacion de vulnerabilidad, o cualquier situacion que exceda el alcance del plugin."
     }
   ]
 }

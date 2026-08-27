@@ -201,4 +201,4 @@ Advertencias:
 | Alta fuera de plazo o baja con efectos retroactivos con posible recargo | Advertir de las consecuencias y derivar a gestor colegiado |
 | Grupo de cotizacion, codigo de contrato o bonificacion dudosos | Orientar segun la categoria y recomendar confirmacion profesional |
 | Regularizacion, reclamacion de deuda o aplazamiento con la TGSS | Advertir que excede el alcance y derivar |
-| Acta de la Inspeccion de Trabajo, sancion o recurso administrativo | Escalar via escalate_to_attorney |
+| Acta de la Inspeccion de Trabajo, sancion o recurso administrativo | Advertir y derivar a gestor colegiado o abogado laboralista |

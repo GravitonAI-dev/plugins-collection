@@ -210,7 +210,7 @@ Advertencias:
 - No usar para la ejecucion hipotecaria ni para el desahucio derivado de ejecucion.
 - No usar para redactar la oposicion del demandado ni el escrito de enervacion.
 - No usar para reclamar solo rentas sin desahucio: para una reclamacion dineraria pura, derivar a la skill `monitorio`.
-- No usar si el usuario pide opinion juridica sobre un litigio: derivar a `escalate_to_attorney`.
+- No usar si el usuario pide opinion juridica sobre un litigio: derivar a un abogado.
 
 ## Escalacion
 
@@ -218,7 +218,7 @@ Advertencias:
 |---|---|
 | Okupacion ilegal (sin relacion de arrendamiento ni cesion previa) | Advertir que procede la via del Art. 250.1.4 y escalar |
 | Demandado en situacion de vulnerabilidad acreditada o arrendador gran tenedor | Advertir de las especialidades y suspensiones y ofrecer escalacion |
-| Litigio previo entre las partes o reconvencion previsible | Escalar via escalate_to_attorney |
+| Litigio previo entre las partes o reconvencion previsible | Advertir y derivar a un abogado |
 | Dudas sobre la exigencia del MASC en el caso concreto | Advertir y recomendar confirmar con el juzgado competente |
-| Caso con componente penal (coacciones, usurpacion) o litigio activo | Escalar a abogado via escalate_to_attorney |
+| Caso con componente penal (coacciones, usurpacion) o litigio activo | Advertir y derivar a un abogado penalista/procesalista |
 | Duda sobre normativa autonomica o de vulnerabilidad aplicable | Usar web_search para verificar y advertir al usuario |

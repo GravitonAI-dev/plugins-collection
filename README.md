@@ -111,8 +111,8 @@ Cómo viaja una solicitud del usuario a través del sistema, end to end:
    │              Output                      │
    │  10. Memo de triage (markdown)           │
    │  11. Si verdict == ROJO:                 │
-   │      gate → confirmar → escalate_to_     │
-   │      attorney tool                       │
+   │      gate → confirmar → derivar a        │
+   │      abogado / especialista              │
    └──────────────────────────────────────────┘
 ```
 
@@ -428,7 +428,7 @@ Mientras no exista `validate.py`, la validación cruzada se hace con un script a
 ```
 === ERRORS ===   (none)
 === WARNINGS === (none)
-=== OK (8) ===
+=== OK (7) ===
   + [commercial-legal] source dir exists: ./commercial-legal
   + [commercial-legal] manifest name matches
   + [commercial-legal] skill 'nda-review' -> SKILL.md exists
@@ -436,7 +436,6 @@ Mientras no exista `validate.py`, la validación cruzada se hace con un script a
   + [commercial-legal] MCP ref 'io.gravitonai.gdrive' -> found
   + [commercial-legal] tool ref 'io.gravitonai.tools.read_document' -> found
   + [commercial-legal] tool ref 'io.gravitonai.tools.draft_markdown' -> found
-  + [commercial-legal] tool ref 'io.gravitonai.tools.escalate_to_attorney' -> found
 ```
 
 Cuando agregues un plugin o skill, el flujo mínimo de validación es:
@@ -544,7 +543,7 @@ Plugin de ejemplo. Cubre flujos legales transaccionales comerciales: revisión d
 - `nda-review`: triage de NDAs entrantes con output VERDE/AMARILLO/ROJO + memo para abogado.
 
 **MCP servers referenciados**: `io.gravitonai.courtlistener` (opcional), `io.gravitonai.gdrive` (requerido).
-**Tools referenciadas**: `io.gravitonai.tools.read_document`, `io.gravitonai.tools.draft_markdown`, `io.gravitonai.tools.escalate_to_attorney`.
+**Tools referenciadas**: `io.gravitonai.tools.read_document`, `io.gravitonai.tools.draft_markdown`.
 
 Ver `commercial-legal/README.md` para detalle completo.
 

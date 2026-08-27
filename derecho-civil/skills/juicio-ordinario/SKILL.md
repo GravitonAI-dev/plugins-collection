@@ -198,7 +198,7 @@ Advertencias:
 - No usar para el desahucio ni la reclamacion de rentas: derivar a la skill `desahucio` (o `monitorio` para deuda dineraria liquida).
 - No usar para procesos especiales: capacidad, filiacion, matrimonio y menores, division judicial de patrimonios, particion de herencia contenciosa, monitorio, cambiario.
 - No usar para redactar la contestacion a la demanda, la reconvencion ni los recursos del demandado.
-- No usar si el usuario pide opinion juridica sobre la viabilidad o la estrategia del litigio: derivar a `escalate_to_attorney`.
+- No usar si el usuario pide opinion juridica sobre la viabilidad o la estrategia del litigio: derivar a un abogado procesalista.
 
 ## Escalacion
 
@@ -207,6 +207,6 @@ Advertencias:
 | Asunto de cuantia igual o inferior a 15.000 euros o de materia del Art. 250.1 | Advertir que procede juicio verbal y derivar a la skill correspondiente |
 | Materia atribuida a proceso especial (familia, sucesiones contenciosas, division de patrimonios) | Advertir que no procede el ordinario y escalar |
 | Duda sobre la exigencia del MASC en el caso concreto | Advertir y recomendar confirmar el criterio del partido judicial competente |
-| Duda sobre la clase de juicio, la competencia o la determinacion de la cuantia | Usar web_search para verificar y, si persiste, escalar via escalate_to_attorney |
-| Litisconsorcio necesario, acumulacion compleja o reconvencion previsible | Escalar via escalate_to_attorney |
-| Caso con componente penal, medidas cautelares urgentes o litigio conexo activo | Escalar a abogado via escalate_to_attorney |
+| Duda sobre la clase de juicio, la competencia o la determinacion de la cuantia | Usar web_search para verificar y, si persiste, advertir y derivar a un abogado |
+| Litisconsorcio necesario, acumulacion compleja o reconvencion previsible | Advertir y derivar a un abogado |
+| Caso con componente penal, medidas cautelares urgentes o litigio conexo activo | Advertir y derivar a un abogado especialista |

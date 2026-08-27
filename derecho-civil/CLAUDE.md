@@ -31,7 +31,7 @@ España — Código Civil, Ley de Enjuiciamiento Civil (LEC) y normativas auton�
 
 ## Matriz de Escalación Universal
 
-En los siguientes escenarios, detén la generación, advierte de los riesgos y sugiere la escalación (derivación) a un abogado senior o especialista (vía `escalate_to_attorney` si aplica):
+En los siguientes escenarios, detén la generación, advierte de los riesgos y sugiere la derivación a un abogado senior o especialista:
 
 | Situación Detectada | Acción |
 | :--- | :--- |

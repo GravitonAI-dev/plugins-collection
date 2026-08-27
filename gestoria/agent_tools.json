@@ -14,11 +14,6 @@
       "id": "io.gravitonai.tools.draft_markdown",
       "required": true,
       "purpose": "Generacion en markdown de la solicitud o escrito, la hoja de datos para el formulario oficial y el checklist de documentos y tasas, desde la plantilla correspondiente a cada tramite."
-    },
-    {
-      "id": "io.gravitonai.tools.escalate_to_attorney",
-      "required": false,
-      "purpose": "Derivacion a un profesional (gestor colegiado o abogado) en casos complejos: situaciones con litigio, sanciones, denegaciones, o tramites que excedan el alcance del plugin."
     }
   ]
 }

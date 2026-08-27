@@ -263,9 +263,8 @@ Si el procedimiento es muy largo, podemos partirlo en pasos y sub-pasos.`
 `Cuando debe escalar la skill y a donde?
 
   - "Ninguna" — la skill no escala.
-  - "Interna" — escala via `io.gravitonai.tools.escalate_to_attorney` u otra tool.
-  - "A otro plugin" — derivar (ej: derivar a commercial-legal si la consulta es de contratos).
-  - "A humano" — flujo de aprobacion humana (gate obligatorio).`
+  - "A profesional / humano" — derivar a un profesional o flujo de aprobacion humana (gate obligatorio).
+  - "A otro plugin" — derivar (ej: derivar a commercial-legal si la consulta es de contratos).`
 
 **Pregunta 11 — Header DRAFT.**
 `El output de esta skill toca temas legales, regulatorios, fiscales o de privacidad? Si "si", el SKILL.md llevara header `DRAFT — para revision por un abogado. No constituye asesoria legal.` y todos los assets tambien.`
@@ -770,16 +769,13 @@ El plugin necesitara tools? Te listo las disponibles:
 
   - `io.gravitonai.tools.read_document` — Lee contenido de un documento por path o URL
   - `io.gravitonai.tools.draft_markdown` — Genera un markdown desde esquema o prompt
-  - `io.gravitonai.tools.search_corpus` — Busqueda semantica en un corpus indexado
   - `io.gravitonai.tools.web_search` — Busqueda en la web abierta
-  - `io.gravitonai.tools.escalate_to_attorney` — Crea ticket de escalacion a abogado
-  - `io.gravitonai.tools.redline_extract` — Extrae texto base y cambios de un documento con redline
 
 ¿Cuales quieres incluir?
 
-<Usuario>: read_document, draft_markdown y escalate_to_attorney. ¿Todos son requeridos? El BAAs los leemos si o si, los memos los generamos si o si, y los RED siempre escalan.
+<Usuario>: read_document y draft_markdown. ¿Ambos son requeridos? Los BAAs los leemos si o si y los memos los generamos si o si.
 
-<Builder>: Entendido: los tres como requeridos.
+<Builder>: Entendido: ambos como requeridos.
 Que skills tendra el plugin? Al menos una.
 
 <Usuario>: Una sola: baa-review, triage de BAAs entrantes.
@@ -798,7 +794,7 @@ Que skills tendra el plugin? Al menos una.
 4. `healthcare-legal/.mcp.json`
    - servers: [gdrive required, courtlistener optional]
 5. `healthcare-legal/agent_tools.json`
-   - tools: [read_document, draft_markdown, escalate_to_attorney, todos requeridos]
+   - tools: [read_document, draft_markdown, ambos requeridos]
 6. `healthcare-legal/skills/baa-review/SKILL.md`
    - Frontmatter + guardrails + procedimiento + formato + escalacion + como NO se usa
 7. `.claude-plugin/marketplace.json` (modificar)

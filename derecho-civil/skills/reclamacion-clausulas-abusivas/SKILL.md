@@ -199,7 +199,7 @@ Advertencias:
 - No usar para clausulas negociadas individualmente ni para el objeto principal del contrato cuando sea claro y comprensible (salvo falta de transparencia).
 - No usar para revisar o redactar el contrato de prestamo o de servicio en si (eso es otra skill: generacion o revision contractual).
 - No usar para reclamaciones de consumo ajenas a clausulas abusivas (garantias de producto, viajes combinados, etc.) sin adaptacion.
-- No usar para emitir un dictamen sobre las probabilidades de exito de un litigio concreto: derivar a `escalate_to_attorney`.
+- No usar para emitir un dictamen sobre las probabilidades de exito de un litigio concreto: derivar a un abogado.
 
 ## Escalacion
 
@@ -209,5 +209,5 @@ Advertencias:
 | Clausula negociada individualmente o duda seria sobre su caracter de condicion general | Advertir de la limitacion del control de contenido y ofrecer escalacion |
 | Jurisprudencia del tipo de clausula contradictoria o no verificable | Marcar `[verificar]`, adoptar posicion conservadora y recomendar confirmacion por abogado |
 | Cuantia elevada, allanamiento improbable u oposicion tecnica previsible de la entidad | Advertir del riesgo procesal y ofrecer escalacion |
-| Concurrencia de accion colectiva o de cesacion (Arts. 12 LCGC, 53-56 TRLGDCU) | Escalar via escalate_to_attorney |
+| Concurrencia de accion colectiva o de cesacion (Arts. 12 LCGC, 53-56 TRLGDCU) | Advertir y derivar a un abogado especializado |
 | Posible usura (tarjeta revolving) con marco distinto (Ley de 23 de julio de 1908) | Advertir del doble encuadre (abusividad y usura) y escalar para valoracion |

@@ -204,14 +204,14 @@ Advertencias:
 - No usar para donaciones en vida (modelo 651) ni para seguros de vida liquidados de forma independiente por otro modelo.
 - No usar para calcular ni presentar la plusvalia municipal: la skill solo avisa de su existencia y plazo.
 - No usar para dar la cuota como definitiva ni para sustituir la revision de un gestor o asesor fiscal.
-- No usar para herencias con litigio, comprobacion de valores en curso, sancion o aplazamiento controvertido: derivar via `escalate_to_attorney`.
+- No usar para herencias con litigio, comprobacion de valores en curso, sancion o aplazamiento controvertido: derivar a un gestor o asesor fiscal colegiado.
 
 ## Escalacion
 
 | Situacion | Accion |
 |---|---|
 | Herencia con litigio sucesorio o desacuerdo entre herederos | Advertir de que primero debe resolverse el reparto (`particion-herencia`) y ofrecer escalacion |
-| Comprobacion de valores o liquidacion complementaria de la administracion | Advertir y derivar a gestor o asesor fiscal (escalate_to_attorney) |
+| Comprobacion de valores o liquidacion complementaria de la administracion | Advertir y derivar a gestor o asesor fiscal |
 | Bonificacion autonomica dudosa o cambio normativo reciente en la CCAA | Verificar con web_search, marcar [verificar] y advertir |
 | Solicitud de aplazamiento, fraccionamiento o prorroga del pago | Indicar la via ante la Hacienda autonomica y ofrecer escalacion |
 | Empresa familiar o participaciones con requisitos de exencion dudosos | Advertir de la complejidad del Art. 20.2.c y escalar |

@@ -132,12 +132,6 @@ Este plugin cubre documentos JURIDICOS de derecho civil (contratos, demandas, re
 | `io.gravitonai.tools.web_search` | Fallback normativo y consulta de normativa autonomica |
 | `io.gravitonai.tools.draft_markdown` | Generacion del contrato desde plantilla |
 
-### Tools opcionales
-
-| ID | Uso |
-|---|---|
-| `io.gravitonai.tools.escalate_to_attorney` | Escalacion a abogado en casos complejos |
-
 ### Servidores MCP
 
 Ninguno.

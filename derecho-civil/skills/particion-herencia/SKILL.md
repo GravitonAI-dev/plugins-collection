@@ -178,16 +178,16 @@ Advertencias:
 - No usar para redactar testamentos ni codicilos (es un generador de documentos particionales, no de disposiciones de ultima voluntad).
 - No usar para tramitar el acta notarial de declaracion de herederos (paso previo en la sucesion intestada).
 - No usar para liquidar el Impuesto de Sucesiones ni la plusvalia municipal: la skill advierte de los plazos, no presenta autoliquidaciones.
-- No usar para litigios sucesorios contenciosos (accion de peticion de herencia, impugnacion de particion, reduccion de donaciones inoficiosas por via judicial): derivar a `escalate_to_attorney`.
+- No usar para litigios sucesorios contenciosos (accion de peticion de herencia, impugnacion de particion, reduccion de donaciones inoficiosas por via judicial): derivar a un abogado especialista en derecho sucesorio.
 - No usar para herencias sujetas a derecho foral o autonomico especial (Cataluna, Aragon, Navarra, Pais Vasco, Baleares, Galicia) sin verificar antes la normativa civil propia con web_search y advertir al usuario.
 
 ## Escalacion
 
 | Situacion | Accion |
 |---|---|
-| Disposicion que perjudica la legitima de un heredero forzoso | Advertir, recalcular y, si el usuario insiste, escalar via escalate_to_attorney |
+| Disposicion que perjudica la legitima de un heredero forzoso | Advertir, recalcular y, si el usuario insiste, derivar a un abogado |
 | Desacuerdo entre herederos sobre bienes, valores o adjudicaciones | Advertir de la via de particion judicial o contador-partidor y ofrecer escalacion |
 | Sucesion sujeta a derecho foral o autonomico especial | Advertir, verificar con web_search y escalar si excede el Codigo Civil comun |
 | Heredero menor o con discapacidad sin representacion clara | Advertir de la necesidad de defensor judicial o aprobacion, y escalar |
-| Impugnacion de testamento, preterision o desheredacion controvertida | Escalar via escalate_to_attorney |
+| Impugnacion de testamento, preterision o desheredacion controvertida | Advertir y derivar a un abogado |
 | Deudas de la herencia superiores al activo (herencia dudosa) | Recomendar aceptacion a beneficio de inventario y ofrecer escalacion |
