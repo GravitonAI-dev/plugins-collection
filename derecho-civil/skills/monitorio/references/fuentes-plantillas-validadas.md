@@ -33,7 +33,7 @@ Articulos relevantes de la LEC para esta skill: 812 a 818 (proceso monitorio) y 
 | PDF oficial | https://www.poderjudicial.es/stfls/CGPJ/ATENCION%20CIUDADANA/FICHERO/20160204%20Modelo%20Normalizado%20de%20Proceso%20Monitorio%20Civil.pdf |
 | Acuerdo en BOE | https://www.boe.es/buscar/doc.php?id=BOE-A-2016-783 |
 
-El asset `assets/peticion-inicial-monitorio.md` se basa en la estructura de este modelo normalizado. En cada lanzamiento, la skill re-verifica el modelo del CGPJ; si el CGPJ publica una version posterior, actualiza el asset.
+El asset `assets/template-peticion-inicial-monitorio.md` se basa en la estructura de este modelo normalizado. En cada lanzamiento, la skill re-verifica el modelo del CGPJ; si el CGPJ publica una version posterior, actualiza el asset.
 
 ---
 

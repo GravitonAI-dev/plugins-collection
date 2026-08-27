@@ -34,8 +34,8 @@ references:
   - references/fuentes-y-plazos.md
   - references/estilo-redaccion-escritos.md
 assets:
-  - assets/hoja-datos-solicitud-ex.md
-  - assets/escrito-solicitud-residencia.md
+  - assets/template-hoja-datos-solicitud-ex.md
+  - assets/template-escrito-solicitud-residencia.md
 ---
 
 # Preparar Solicitud de NIE o Autorizacion de Residencia (Extranjeria)
@@ -57,7 +57,7 @@ assets:
 
 ### Paso 1 — Verificacion normativa
 
-**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-y-plazos.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt (TIENES ESTRICTAMENTE PROHIBIDO usar la herramienta `read_file` para leer references o assets) y anotar la version registrada de la LOEX, del Reglamento (RD 1155/2024) y de los formularios EX y la tasa.
+**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-y-plazos.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt y anotar la version registrada de la LOEX, del Reglamento (RD 1155/2024) y de los formularios EX y la tasa.
 
 **1.2 — Consultar la fuente oficial vigente en vivo.** Invocar:
 ```
@@ -122,9 +122,9 @@ e) **Discrecionalidad y plazos.** Recordar que la resolucion es discrecional, in
 
 ### Paso 4 — Generacion de los documentos
 
-Tomar las plantillas correspondientes directamente desde el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas):
+Tomar las plantillas correspondientes directamente desde el bloque `<document kind="assets-collection">` de tu system prompt:
 
-Generar siempre la hoja de datos y el checklist con la plantilla `hoja-datos-solicitud-ex.md` invocando `create_file`:
+Generar siempre la hoja de datos y el checklist con la plantilla `template-hoja-datos-solicitud-ex.md` invocando `create_file`:
 ```
 create_file(
   relative_file_path: "hoja_datos_solicitud_ex.md",
@@ -132,7 +132,7 @@ create_file(
 )
 ```
 
-Si el tramite es una autorizacion de residencia (no lucrativa, arraigo, reagrupacion) y el usuario pide tambien un escrito de solicitud o alegaciones, generar ademas con la plantilla `escrito-solicitud-residencia.md` (tomada de `<document kind="assets-collection">` sin usar `read_file`):
+Si el tramite es una autorizacion de residencia (no lucrativa, arraigo, reagrupacion) y el usuario pide tambien un escrito de solicitud o alegaciones, generar ademas con la plantilla `template-escrito-solicitud-residencia.md`:
 ```
 create_file(
   relative_file_path: "escrito_solicitud_residencia.md",

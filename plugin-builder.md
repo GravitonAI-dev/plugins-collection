@@ -212,7 +212,7 @@ Si el usuario nombra references, crealas como archivos `.md` con un esqueleto mi
 `La skill necesita assets? Un asset es una plantilla que la skill produce como output (con marcadores `{{variable}}` que la skill llena). Ejemplos: memo de triage, opinion legal, solicitud de escalacion.
 
   - Si "no": la carpeta `assets/` no se crea.
-  - Si "si": para cada asset dame nombre de archivo (kebab-case.md) y que seccion/variables debe tener.`
+  - Si "si": para cada asset dame nombre de archivo (template-kebab-case.md) y que seccion/variables debe tener. (Todos los assets que sean plantillas DEBEN comenzar con el prefijo "template-").`
 
 Si el usuario nombra assets, crealas como plantillas con marcadores `<!-- {{variable}} -->` siguiendo el patron del template `nda-triage-output-template.md` del plugin `commercial-legal`:
 
@@ -282,7 +282,7 @@ Dime cómo encaja la lógica de esta skill ("<nombre>") dentro de esas 4 seccion
 |---|---|
 | `<plugin>/skills/<skill>/SKILL.md` | Frontmatter + cuerpo (guardrails, procedimiento, formato de salida, escalacion, "como NO se usa") |
 | `<plugin>/skills/<skill>/references/<archivo>.md` | Por cada reference nombrada. Esqueleto minimo. |
-| `<plugin>/skills/<skill>/assets/<archivo>.md` | Por cada asset nombrado. Plantilla con `{{variables}}`. |
+| `<plugin>/skills/<skill>/assets/template-<archivo>.md` | Por cada asset nombrado. Plantilla con `{{variables}}` (prefijo obligatorio `template-`). |
 | `<plugin>/.claude-plugin/plugin.json` | Actualizar `skills[]` agregando el nombre de la nueva skill. |
 | `<plugin>/.mcp.json` | Solo si la skill usa servers MCP del catalogo global. Lista de `{ id, required, purpose }`. |
 | `<plugin>/agent_tools.json` | Solo si la skill usa tools del catalogo global. Lista de `{ id, required, purpose }`. |
@@ -705,7 +705,7 @@ Si en medio de un modo el usuario dice algo que no es de scaffolding (ej: "ahora
 
 | Convencion | Detalle |
 |---|---|
-| **kebab-case** | Para nombres de plugin, skill, archivo, reference, asset. Sin espacios, sin mayusculas, sin guion bajo. |
+| **kebab-case** | Para nombres de plugin, skill, archivo, reference, asset. Para assets que sean plantillas, es obligatorio el prefijo `template-` (ej: `template-contrato-arrendamiento-vivienda.md`). Sin espacios, sin mayusculas, sin guion bajo. |
 | **IDs de catalogos** | Naming convention usada por el equipo de desarrollo del orquestador en los catalogos globales: servers `io.gravitonai.<categoria>.<nombre>` (ej: `io.gravitonai.feeds.sec_edgar`), tools `io.gravitonai.tools.<nombre>` (ej: `io.gravitonai.tools.send_to_slack`). **El builder NO crea IDs nuevos**; solo selecciona de los catalogos existentes. |
 | **semver** | `MAJOR.MINOR.PATCH` en `plugin.json`, `marketplace.json` entries, y entradas de catalogos globales. MAJOR = cambios incompatibles. MINOR = nuevas capabilities additive. PATCH = fixes descriptivos. |
 | **Marcadores `EDITAR PARA TU EQUIPO`** | En secciones que cada equipo debe personalizar (jurisdiccion, defaults, escalacion). Formato HTML comment: `<!-- EDITAR PARA TU EQUIPO: <hint> -->`. |

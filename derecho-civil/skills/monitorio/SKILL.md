@@ -33,9 +33,9 @@ references:
   - references/fuentes-plantillas-validadas.md
   - references/estilo-redaccion-escritos.md
 assets:
-  - assets/peticion-inicial-monitorio.md
-  - assets/peticion-inicial-monitorio-rentas.md
-  - assets/burofax-requerimiento-previo-masc.md
+  - assets/template-peticion-inicial-monitorio.md
+  - assets/template-peticion-inicial-monitorio-rentas.md
+  - assets/template-burofax-requerimiento-previo-masc.md
 ---
 
 # Generar Peticion de Proceso Monitorio
@@ -57,7 +57,7 @@ assets:
 
 ### Paso 1 — Verificacion normativa
 
-**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-plantillas-validadas.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt (TIENES ESTRICTAMENTE PROHIBIDO usar la herramienta `read_file` para leer references o assets) y anotar la "Version registrada" de la LEC y del modelo del CGPJ.
+**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-plantillas-validadas.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt y anotar la "Version registrada" de la LEC y del modelo del CGPJ.
 
 **1.2 — Consultar la fuente oficial vigente en vivo.** Invocar:
 ```
@@ -124,9 +124,9 @@ e) **Cuantia y via posterior:** informar de que, si el deudor se opone, el asunt
 
 ### Paso 4 — Generacion de los documentos
 
-Tomar la plantilla correspondiente directamente desde el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas):
-- Rentas de arrendamiento: `peticion-inicial-monitorio-rentas.md`
-- Otra deuda: `peticion-inicial-monitorio.md`
+Tomar la plantilla correspondiente directamente desde el bloque `<document kind="assets-collection">` de tu system prompt:
+- Rentas de arrendamiento: `template-peticion-inicial-monitorio-rentas.md`
+- Otra deuda: `template-peticion-inicial-monitorio.md`
 
 Generar la peticion inicial en el workspace invocando `create_file`:
 ```
@@ -136,7 +136,7 @@ create_file(
 )
 ```
 
-Si el usuario ha pedido tambien el burofax (Bloque A opcion 2), generar ademas con la plantilla `burofax-requerimiento-previo-masc.md` (tomada directamente de `<document kind="assets-collection">` del prompt sin usar `read_file`):
+Si el usuario ha pedido tambien el burofax (Bloque A opcion 2), generar ademas con la plantilla `template-burofax-requerimiento-previo-masc.md`:
 ```
 create_file(
   relative_file_path: "burofax_requerimiento_previo_masc.md",

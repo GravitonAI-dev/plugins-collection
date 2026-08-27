@@ -69,7 +69,7 @@ Practicadas las pruebas, las partes formulan **oralmente sus conclusiones** sobr
 
 Formuladas las conclusiones, el tribunal declara el juicio visto para sentencia (Art. 434). La sentencia se dicta en el plazo legal.
 
-> Aunque el Art. 433 preve conclusiones **orales**, es practica habitual preparar un guion o minuta escrita de apoyo. El asset `escrito-de-conclusiones.md` sirve como esa minuta de apoyo del letrado; no sustituye la intervencion oral en la vista.
+> Aunque el Art. 433 preve conclusiones **orales**, es practica habitual preparar un guion o minuta escrita de apoyo. El asset `template-escrito-de-conclusiones.md` sirve como esa minuta de apoyo del letrado; no sustituye la intervencion oral en la vista.
 
 ---
 

@@ -59,7 +59,7 @@ Cuestiones que esta parte plantea o a las que debe responder:
 
 ## 4. Anticipo de la proposicion de prueba (Art. 429 LEC)
 
-Medios de prueba que esta parte propondra (detalle en el asset `proposicion-de-prueba.md`):
+Medios de prueba que esta parte propondra (detalle en el asset `template-proposicion-de-prueba.md`):
 <!-- {{anticipo_prueba}} -->
 
 ---

@@ -48,11 +48,11 @@ El umbral se elevo de 6.000 a 15.000 euros por el RDL 6/2023, con efecto desde e
 
 | Asset | Fase |
 |---|---|
-| `assets/checklist-admisibilidad.md` | Fase 2 — admisibilidad, competencia, postulacion, cuantia y MASC |
-| `assets/demanda-juicio-ordinario.md` | Fase 3 — demanda (Art. 399 LEC) |
-| `assets/guion-audiencia-previa.md` | Fase 4 — audiencia previa (Arts. 414-430) |
-| `assets/proposicion-de-prueba.md` | Fase 5 — proposicion de prueba (Art. 429 y 281-386) |
-| `assets/escrito-de-conclusiones.md` | Fase 6 — conclusiones (Art. 433) |
+| `assets/template-checklist-admisibilidad.md` | Fase 2 — admisibilidad, competencia, postulacion, cuantia y MASC |
+| `assets/template-demanda-juicio-ordinario.md` | Fase 3 — demanda (Art. 399 LEC) |
+| `assets/template-guion-audiencia-previa.md` | Fase 4 — audiencia previa (Arts. 414-430) |
+| `assets/template-proposicion-de-prueba.md` | Fase 5 — proposicion de prueba (Art. 429 y 281-386) |
+| `assets/template-escrito-de-conclusiones.md` | Fase 6 — conclusiones (Art. 433) |
 
 Las plantillas siguen la estructura AL JUZGADO / HECHOS / FUNDAMENTOS DE DERECHO / SUPLICO cuando procede. En cada lanzamiento, si cambian los tramites procesales o los umbrales, la skill actualiza los assets.
 

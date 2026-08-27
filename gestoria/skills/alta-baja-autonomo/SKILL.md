@@ -42,10 +42,10 @@ references:
   - references/fuentes-y-plazos.md
   - references/estilo-redaccion-escritos.md
 assets:
-  - assets/hoja-datos-alta-censal-036.md
-  - assets/hoja-datos-alta-reta.md
-  - assets/hoja-datos-baja-censal-036.md
-  - assets/hoja-datos-baja-reta.md
+  - assets/template-hoja-datos-alta-censal-036.md
+  - assets/template-hoja-datos-alta-reta.md
+  - assets/template-hoja-datos-baja-censal-036.md
+  - assets/template-hoja-datos-baja-reta.md
 ---
 
 # Preparar el Alta o la Baja de Trabajador Autonomo (Censal AEAT + RETA)
@@ -69,7 +69,7 @@ assets:
 
 ### Paso 1 — Verificacion normativa
 
-**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-y-plazos.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt (TIENES ESTRICTAMENTE PROHIBIDO usar la herramienta `read_file` para leer references o assets) y anotar la "Version registrada" de la Ley 20/2007, del RD-ley 13/2022, del modelo censal 036 y del ejercicio de las cuotas del RETA, y los plazos de alta y de baja.
+**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-y-plazos.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt y anotar la "Version registrada" de la Ley 20/2007, del RD-ley 13/2022, del modelo censal 036 y del ejercicio de las cuotas del RETA, y los plazos de alta y de baja.
 
 **1.2 — Consultar la fuente oficial vigente en vivo.** Invocar:
 ```
@@ -177,9 +177,9 @@ e) **Obligaciones fiscales pendientes:** identificar las ultimas declaraciones a
 
 ### Paso 4 — Generacion de las hojas de datos
 
-Tomar las plantillas correspondientes directamente desde el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas):
+Tomar las plantillas correspondientes directamente desde el bloque `<document kind="assets-collection">` de tu system prompt:
 
-**Rama A — ALTA.** Generar las dos hojas de datos del alta con las plantillas `hoja-datos-alta-censal-036.md` y `hoja-datos-alta-reta.md` invocando `create_file`:
+**Rama A — ALTA.** Generar las dos hojas de datos del alta con las plantillas `template-hoja-datos-alta-censal-036.md` y `template-hoja-datos-alta-reta.md` invocando `create_file`:
 ```
 create_file(
   relative_file_path: "hoja_datos_alta_censal_036.md",
@@ -191,7 +191,7 @@ create_file(
 )
 ```
 
-**Rama B — BAJA.** Generar las dos hojas de datos de la baja con las plantillas `hoja-datos-baja-censal-036.md` y `hoja-datos-baja-reta.md` invocando `create_file`:
+**Rama B — BAJA.** Generar las dos hojas de datos de la baja con las plantillas `template-hoja-datos-baja-censal-036.md` y `template-hoja-datos-baja-reta.md` invocando `create_file`:
 ```
 create_file(
   relative_file_path: "hoja_datos_baja_censal_036.md",

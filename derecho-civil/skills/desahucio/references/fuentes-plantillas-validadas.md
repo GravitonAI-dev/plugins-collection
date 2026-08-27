@@ -32,9 +32,9 @@ Articulos relevantes de la LAU: 27 (resolucion por impago) y 35 (resolucion en u
 
 | Asset | Supuesto |
 |---|---|
-| `assets/demanda-desahucio-falta-pago.md` | Falta de pago de rentas (con bloque condicional para acumular la reclamacion de rentas, Art. 437.3 LEC) |
-| `assets/demanda-desahucio-expiracion-plazo.md` | Expiracion del plazo contractual o legal |
-| `assets/demanda-desahucio-precario.md` | Precario (ocupacion gratuita sin titulo) |
+| `assets/template-demanda-desahucio-falta-pago.md` | Falta de pago de rentas (con bloque condicional para acumular la reclamacion de rentas, Art. 437.3 LEC) |
+| `assets/template-demanda-desahucio-expiracion-plazo.md` | Expiracion del plazo contractual o legal |
+| `assets/template-demanda-desahucio-precario.md` | Precario (ocupacion gratuita sin titulo) |
 
 Las plantillas siguen la estructura AL JUZGADO / HECHOS / FUNDAMENTOS DE DERECHO / SUPLICO. En cada lanzamiento, si cambian los tramites procesales (plazos del requerimiento, señalamiento del lanzamiento, requisito de MASC), la skill actualiza los assets.
 

@@ -156,4 +156,4 @@ Ninguno.
 
 - Jurisdiccion por defecto: en `CLAUDE.md`, campo "Jurisdiccion por defecto".
 - Clausulas adicionales habituales del despacho: agregar en `skills/arrendamiento-urbano/references/` como nuevo archivo de referencia y referenciar desde `SKILL.md`.
-- Plantillas personalizadas: editar `skills/arrendamiento-urbano/assets/contrato-arrendamiento-vivienda.md` y `contrato-arrendamiento-local.md`.
+- Plantillas personalizadas: editar `skills/arrendamiento-urbano/assets/template-contrato-arrendamiento-vivienda.md` y `template-contrato-arrendamiento-local.md`.

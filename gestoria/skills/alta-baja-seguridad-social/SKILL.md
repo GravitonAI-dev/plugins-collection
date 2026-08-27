@@ -35,9 +35,9 @@ references:
   - references/plazos-y-sedes.md
   - references/estilo-redaccion-escritos.md
 assets:
-  - assets/hoja-datos-afiliacion-ta1.md
-  - assets/hoja-datos-alta-baja-trabajador.md
-  - assets/hoja-datos-inscripcion-empresa-ccc.md
+  - assets/template-hoja-datos-afiliacion-ta1.md
+  - assets/template-hoja-datos-alta-baja-trabajador.md
+  - assets/template-hoja-datos-inscripcion-empresa-ccc.md
 ---
 
 # Preparar Altas y Bajas en la Seguridad Social (Regimen General y Empleador)
@@ -59,7 +59,7 @@ assets:
 
 ### Paso 1 — Verificacion normativa
 
-**1.1 — Consultar la version registrada en references.** Consultar el archivo `plazos-y-sedes.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt (TIENES ESTRICTAMENTE PROHIBIDO usar la herramienta `read_file` para leer references o assets) y anotar la "Version registrada" del texto refundido de la LGSS, del RD 84/1996 y de los modelos TA, y los plazos registrados.
+**1.1 — Consultar la version registrada en references.** Consultar el archivo `plazos-y-sedes.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt y anotar la "Version registrada" del texto refundido de la LGSS, del RD 84/1996 y de los modelos TA, y los plazos registrados.
 
 **1.2 — Consultar la fuente oficial vigente en vivo.** Invocar:
 ```
@@ -127,10 +127,10 @@ e) **Grupo de cotizacion y contrato.** En el alta de un trabajador, confirmar el
 
 ### Paso 4 — Generacion de la hoja de datos
 
-Tomar la plantilla correspondiente directamente desde el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas):
-- Afiliacion inicial / NUSS: `hoja-datos-afiliacion-ta1.md`
-- Inscripcion de empresa / CCC (y variaciones o baja): `hoja-datos-inscripcion-empresa-ccc.md`
-- Alta o baja de trabajador del Regimen General o de empleada de hogar: `hoja-datos-alta-baja-trabajador.md`
+Tomar la plantilla correspondiente directamente desde el bloque `<document kind="assets-collection">` de tu system prompt:
+- Afiliacion inicial / NUSS: `template-hoja-datos-afiliacion-ta1.md`
+- Inscripcion de empresa / CCC (y variaciones o baja): `template-hoja-datos-inscripcion-empresa-ccc.md`
+- Alta o baja de trabajador del Regimen General o de empleada de hogar: `template-hoja-datos-alta-baja-trabajador.md`
 
 Generar la hoja de datos en el workspace invocando `create_file`:
 ```

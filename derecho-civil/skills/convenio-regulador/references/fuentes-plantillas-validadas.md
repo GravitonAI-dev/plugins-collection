@@ -34,7 +34,7 @@ Articulos relevantes:
 | Estructura de la demanda de mutuo acuerdo | Art. 777 LEC: demanda conjunta + propuesta de convenio + certificaciones de matrimonio y nacimiento |
 | Orientacion practica de convenios | Guias de los Colegios de la Abogacia y del Ministerio de Justicia sobre separacion y divorcio de mutuo acuerdo |
 
-Los assets `assets/convenio-regulador.md` y `assets/demanda-divorcio-mutuo-acuerdo.md` reflejan esta estructura. En cada lanzamiento, la skill re-verifica los articulos citados en el BOE; si detecta una redaccion posterior, actualiza el asset y las references afectadas.
+Los assets `assets/template-convenio-regulador.md` y `assets/template-demanda-divorcio-mutuo-acuerdo.md` reflejan esta estructura. En cada lanzamiento, la skill re-verifica los articulos citados en el BOE; si detecta una redaccion posterior, actualiza el asset y las references afectadas.
 
 ---
 

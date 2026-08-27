@@ -34,8 +34,8 @@ references:
   - references/fuentes-plantillas-validadas.md
   - references/estilo-redaccion-escritos.md
 assets:
-  - assets/reclamacion-extrajudicial-clausula-abusiva.md
-  - assets/demanda-nulidad-clausula-abusiva.md
+  - assets/template-reclamacion-extrajudicial-clausula-abusiva.md
+  - assets/template-demanda-nulidad-clausula-abusiva.md
 ---
 
 # Reclamacion de Clausulas Abusivas en Contratos con Consumidores
@@ -57,7 +57,7 @@ assets:
 
 ### Paso 1 — Verificacion normativa y jurisprudencial
 
-**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-plantillas-validadas.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt (TIENES ESTRICTAMENTE PROHIBIDO usar la herramienta `read_file` para leer references o assets) y anotar la "Version registrada" del TRLGDCU, de la LCGC y de la LEC.
+**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-plantillas-validadas.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt y anotar la "Version registrada" del TRLGDCU, de la LCGC y de la LEC.
 
 **1.2 — Consultar la fuente oficial vigente en vivo.** Invocar:
 ```
@@ -129,9 +129,9 @@ f) **Restitucion:** si la clausula es nula, precisar el efecto restitutorio (Art
 
 ### Paso 4 — Generacion de los documentos
 
-Tomar la plantilla correspondiente directamente desde el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas):
-- Reclamacion previa: `reclamacion-extrajudicial-clausula-abusiva.md`
-- Demanda: `demanda-nulidad-clausula-abusiva.md`
+Tomar la plantilla correspondiente directamente desde el bloque `<document kind="assets-collection">` de tu system prompt:
+- Reclamacion previa: `template-reclamacion-extrajudicial-clausula-abusiva.md`
+- Demanda: `template-demanda-nulidad-clausula-abusiva.md`
 
 Generar el escrito en el workspace invocando `create_file`:
 ```

@@ -1,125 +1,306 @@
 ---
 name: arrendamiento-urbano
 description: >
-  Genera un contrato de arrendamiento urbano completo (vivienda habitual o local de negocio)
-  entre arrendador y arrendatario, aplicando la Ley 29/1994 de Arrendamientos Urbanos (LAU)
-  en su version consolidada vigente verificada en el BOE. Adapta las clausulas segun la
-  naturaleza de las partes (persona fisica o juridica) y la ubicacion del inmueble.
-  NO usar para arrendamientos de finca rustica, viviendas turisticas, contratos de temporada,
-  viviendas militares, ni viviendas de porteros o guardas.
+  Genera y adapta contratos de arrendamiento urbano completos (vivienda habitual o local de negocio)
+  conforme a la Ley 29/1994 de Arrendamientos Urbanos (LAU) en su versión consolidada vigente verificada
+  en el BOE y la Ley 12/2023 por el derecho a la vivienda. Implementa un flujo estructurado con clasificación
+  inicial de vectores de estado mediante formulario interactivo, propuesta de plan de acción legal y negociación
+  de plantillas vía chat, creación del documento base en workspace y edición incremental cláusula a cláusula.
+  NO usar para arrendamientos rústicos, viviendas turísticas reguladas por CCAA, contratos de temporada,
+  viviendas militares ni cesiones gratuitas o precario.
 when_to_use: |
-  - El usuario quiere redactar un contrato de alquiler de vivienda o local.
-  - El usuario proporciona datos de arrendador, arrendatario e inmueble.
-  - El usuario pide que el contrato cumpla con la LAU.
+  - El usuario desea redactar o personalizar un contrato de alquiler de vivienda habitual o local comercial.
+  - El usuario necesita un contrato formal conforme a la LAU y normativa de vivienda vigente.
+  - El usuario desea utilizar la plantilla oficial del sistema o aportar su propia minuta para su adaptación.
 inputs:
-  - tipo_inmueble: vivienda habitual o local de negocio / uso distinto de vivienda
-  - naturaleza_arrendador: persona fisica o persona juridica
-  - naturaleza_arrendatario: persona fisica o persona juridica
-  - datos_arrendador: nombre o razon social, NIF o CIF, domicilio
-  - datos_arrendatario: nombre o razon social, NIF o CIF, domicilio
-  - datos_inmueble: direccion completa, referencia catastral, descripcion, comunidad autonoma, municipio
-  - renta_mensual: importe en euros
-  - duracion: anos pactados o "minimo legal"
-  - fianza: mensualidades o "segun ley"
-  - fecha_inicio: fecha de inicio del contrato
-  - clausulas_adicionales: opcionales, a peticion del usuario
+  - destino_inmueble: vivienda habitual / local comercial / temporada / turístico (V1)
+  - tipo_inmueble: vivienda / local (V2)
+  - naturaleza_arrendador: persona física / persona jurídica (V3)
+  - naturaleza_arrendatario: persona física / persona jurídica (V4)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - datos_arrendador: nombre o razón social, NIF o CIF, domicilio para notificaciones, representación
+  - datos_arrendatario: nombre o razón social, NIF o CIF, domicilio actual, representación
+  - datos_inmueble: dirección completa, referencia catastral, superficie útil, anejos (garaje, trastero), inventario
+  - duracion: plazo pactado en años, fecha de inicio, prórrogas
+  - renta_mensual: importe en euros, medio de pago, cuenta IBAN, límites de zona tensionada
+  - actualizacion_renta: índice pactado (IGC / tope IPC según art. 18 LAU)
+  - fianza_garantias: fianza legal obligatoria, organismo autonómico de depósito, garantías adicionales
+  - gastos_suministros: distribución de IBI y comunidad, suministros individualizados
+  - pactos_opcionales: renuncia a tanteo y retracto, notificaciones electrónicas, mediación/arbitraje, mascotas
 outputs:
-  - contrato_arrendamiento: contrato completo en markdown, DRAFT, con todas las clausulas LAU
+  - contrato_arrendamiento: contrato completo de arrendamiento urbano en markdown, DRAFT, conforme a la LAU
 references:
   - references/lau-vivienda-plazos-renta-fianza.md
   - references/lau-derechos-obligaciones-partes.md
   - references/lau-arrendamiento-local-negocio.md
 assets:
-  - assets/contrato-arrendamiento-vivienda.md
-  - assets/contrato-arrendamiento-local.md
+  - assets/template-contrato-arrendamiento-vivienda.md
+  - assets/template-contrato-arrendamiento-local.md
 ---
 
-# Generar Contrato de Arrendamiento
+# Generar Contrato de Arrendamiento Urbano
 
-**DIRECTIVA DE INVISIBILIDAD (Chat Limpio):**
-Toda la lógica descrita en este documento (la clasificación de vectores V1-V4, las secuencias numeradas, la verificación normativa y la creación del documento base) es un flujo de ejecución ESTRICTAMENTE INTERNO.
-Tienes PROHIBIDO mencionar en el chat:
-- Nombres de vectores (ej. "V1", "V2").
-- Resúmenes de validación con checks (ej. "Finalidad: ✔").
-- En qué fase de la instrucción te encuentras (ej. "Ahora pasaremos al punto 4", "Voy a proceder a crear el documento").
-- Preámbulos conversacionales antes de hacer las preguntas de clasificación. Si es tu turno de preguntar, **emite únicamente la pregunta exacta y nada más**.
-
-## 1. CLASIFICACIÓN DINÁMICA (Vectores de Estado)
-
-Tu primer objetivo es resolver 4 vectores de clasificación de manera SILENCIOSA. 
-Aplica la Escucha Activa Global para extraer estos datos de cualquier mensaje. 
-**IMPORTANTE (Invisibilidad):** Los nombres de estos vectores (`V1`, `V2`, etc.) y el hecho de que estás validándolos son de uso estrictamente interno. **NUNCA los menciones en el chat.** No imprimas listas de validación ni resúmenes con "checks" (✔). Si extraes un dato con éxito, simplemente regístralo en tu memoria en silencio.
-
-- **V1 (Finalidad):** Habitual (incluye: permanente, vivir, residencia) / Negocio estable / Temporada (vacacional) / Turístico.
-- **V2 (Tipo Inmueble):** Vivienda (incluye: piso, casa, apartamento, chalet) / Local (incluye: nave, comercial).
-- **V3 (Naturaleza Arrendador):** Física / Jurídica.
-- **V4 (Naturaleza Arrendatario):** Física / Jurídica.
-
-**REGLA ESTRICTA DE PREGUNTAS (Protocolo Predecible):**
-Si, tras analizar el contexto, te falta resolver uno o más vectores, **TIENES PROHIBIDO inventar la redacción de la pregunta**. Debes formular **UNA SOLA PREGUNTA por turno**, utilizando EXACTAMENTE el texto que corresponda al vector faltante, en este orden estricto, **sin añadir preámbulos ni resúmenes de lo que ya sabes**:
-
-*   **Para V1 (Finalidad):** "¿El uso previsto del inmueble es permanente en el tiempo, o es de temporada (vacacional, de verano, por trabajo temporal) o se trata de una vivienda turística gestionada como alojamiento?"
-*   **Para V2 (Tipo Inmueble):** "¿El inmueble que se va a arrendar es una vivienda (cualquier tipo: piso, casa, chalet, apartamento) o un local de negocio / espacio para uso distinto de vivienda?"
-*   **Para V3 (Naturaleza Arrendador):** "¿El arrendador es persona física o persona jurídica (empresa, sociedad)?"
-*   **Para V4 (Naturaleza Arrendatario):** "¿Y el arrendatario, es persona física o persona jurídica?"
-
-*(Si el usuario ya proporcionó la respuesta a un vector, OMITE la pregunta exacta correspondiente y evalúa el siguiente).*
-
-### Enrutamiento de Estado (Routing)
-Una vez resueltos los 4 vectores (V1 a V4), evalúa:
-- Si [V1 = Temporada o Turístico] -> Detén el proceso (fuera de alcance LAU). No crees documento.
-- Si [V1 = Habitual] Y [V2 = Vivienda] -> Plantilla a usar: `assets/contrato-arrendamiento-vivienda.md` (Fianza mínima: 1 mensualidad).
-- Si [V1 = Habitual] Y [V2 = Local] -> Plantilla a usar: `assets/contrato-arrendamiento-local.md` (Fianza mínima: 2 mensualidades).
+> DRAFT — para revisión por un abogado colegiado antes de su firma. No constituye asesoramiento jurídico definitivo.
 
 ---
 
-## 2. VERIFICACIÓN NORMATIVA BOE (Interno)
+## Directivas Operacionales y Vectores de Estado Internos
 
-Una vez completado el Enrutamiento (Punto 1), no hagas más preguntas al usuario. Ejecuta de inmediato:
-1. Consulta la información en `lau-vivienda-plazos-renta-fianza.md` y `lau-derechos-obligaciones-partes.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt (TIENES ESTRICTAMENTE PROHIBIDO usar la herramienta `read_file` para leer references o assets).
-2. Consulta en vivo mediante `web_search("Ley 29/1994 arrendamientos urbanos texto consolidado BOE")` la última modificación vigente del BOE.
-3. Si hay cambios normativos relevantes, aplícalos a tu memoria. Si falla la búsqueda, usa las referencias cargadas en el prompt como respaldo e informa al usuario.
+Esta skill guía al usuario de manera consultiva, rigurosa y transparente a través de un procedimiento estructurado en 5 fases secuenciales.
 
----
+### Vectores de Estado (Uso Estrictamente Interno):
+Para garantizar un enrutamiento determinista y el cumplimiento riguroso de las normas imperativas de la LAU, el asistente resuelve y mantiene internamente en memoria los siguientes vectores de estado:
+- **V1 (Destino / Finalidad):** `vivienda_habitual` (residencia permanente) | `local_comercial` (negocio estable) | `temporada` | `turistico`.
+- **V2 (Tipo Inmueble):** `vivienda` (piso, casa, chalet) | `local` (nave, oficina, local comercial). *(Inferido de V1: si V1=`vivienda_habitual` $\rightarrow$ V2=`vivienda`; si V1=`local_comercial` $\rightarrow$ V2=`local`)*.
+- **V3 (Naturaleza Arrendador):** `persona_fisica` (particular) | `persona_juridica` (sociedad, entidad).
+- **V4 (Naturaleza Arrendatario):** `persona_fisica` (particular) | `persona_juridica` (sociedad, empresa).
+- **V5 (Origen Plantilla / Asset):** `plantilla_sistema` | `plantilla_usuario`.
 
-## 3. CREACIÓN DEL DOCUMENTO BASE (Cero Vacíos)
-
-Inmediatamente después de la verificación normativa (Punto 2), estás OBLIGADO a crear el documento en disco.
-1. Toma el texto íntegro de la plantilla seleccionada (`contrato-arrendamiento-vivienda.md` o `contrato-arrendamiento-local.md`), ubicada directamente en el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas).
-2. Reemplaza en memoria las variables de clasificación y CUALQUIER OTRO DATO que ya poseas gracias a la escucha activa inicial (nombres, dirección, etc.).
-3. Utiliza `create_file` para guardar el archivo completo en disco del workspace. Los datos faltantes deben quedar intactos como `{{DATO_FALTANTE}}`.
-4. (Regla Global): Ejecuta `read_file` exclusivamente sobre el archivo creado en disco para validar y confirma la ruta absoluta en el chat al usuario. Inmediatamente después, en la misma respuesta, formula la primera pregunta de la edición incremental (Punto 4, sección 1: Ubicación y Zona Tensionada) para iniciar el ajuste detallado.
+> **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
+> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`) y los resúmenes de validación con marcas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural ("Dado que el arrendador es una empresa...", "Al tratarse de una vivienda habitual...").
 
 ---
 
-## 4. EDICIÓN INCREMENTAL DE CLÁUSULAS
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
 
-Ahora, recorre secuencialmente la siguiente lista de cláusulas. Por cada cláusula de la que falten datos, aplica el Ciclo de Edición Incremental del sistema global (Formular Pregunta -> Mostrar Vista Previa en texto plano -> Pedir Confirmación -> Tras confirmación, usar `edit_file` en disco):
+Tu primer objetivo es resolver los vectores de estado de clasificación **V1, V2, V3 y V4**.
 
-1. **Ubicación y Zona Tensionada:** Comunidad autónoma, municipio. ¿Es zona tensionada? (Si no lo sabe, búscalo).
-2. **Partes:** Nombre/Razón social, NIF/CIF, domicilio para notificaciones.
-3. **Objeto:** Dirección completa, referencia catastral, m2, anexos (garaje, trastero).
-4. **Duración:** Duración en años o "mínimo legal", fecha de inicio.
-5. **Renta:** Importe mensual en euros, forma de pago, IBAN.
-6. **Actualización:** Índice pactado o "según ley" (IGC).
-7. **Fianza y Garantías:** Meses de fianza (verificar mínimo legal), garantías adicionales.
-8. **Gastos y Suministros:** Quién paga IBI, comunidad (por defecto arrendador; suministros a cargo del inquilino).
-9. **Pactos Opcionales:** Renuncia a adquisición preferente, correos electrónicos para notificaciones, mediación, cláusulas extra.
+### 1.1 Escucha Activa Previa
+Antes de invocar el formulario, evalúa el mensaje inicial y el historial de la conversación:
+- Si el usuario **ya proporcionó de forma inequívoca** los datos para resolver `V1`, `V3` y `V4` (ej: *"Quiero redactar un contrato de alquiler de vivienda habitual de particular a particular"* $\rightarrow$ V1=`vivienda_habitual`, V2=`vivienda`, V3=`persona_fisica`, V4=`persona_fisica`), registra los vectores en silencio y avanza directamente a la **Fase 2**.
+- Si falta resolver alguno de los vectores de clasificación o existe ambigüedad, invoca de inmediato la herramienta `restricted_human_in_the_loop_request` para formular el árbol de decisión interactivo.
 
-### Límites Legales (Guardrails de Dominio)
-- **Duración:** Si V3 (Arrendador) = Física -> mínimo 5 años. Si V3 = Jurídica -> mínimo 7 años. (Art. 9.1 LAU).
-- **Gastos:** Gastos de gestión/formalización siempre a cargo del arrendador (Art. 20.1 LAU).
-- **Zonas Tensionadas:** Aplicar límites de renta Arts. 17.6 y 17.7 LAU si aplica.
+### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
+Invoca la herramienta con las preguntas necesarias para completar la resolución de los vectores pendientes:
+
+```json
+{
+  "form_data": [
+    {
+      "id": "destino_inmueble",
+      "rationale": "Resolver V1 (Destino) y V2 (Tipo Inmueble) para determinar el régimen legal aplicable (LAU Título II Vivienda vs Título III Uso distinto).",
+      "question": "¿Cuál es el destino o uso previsto del inmueble a arrendar?",
+      "options": [
+        {"id": "vivienda_habitual", "label": "Vivienda habitual y permanente (residencia permanente del inquilino)"},
+        {"id": "local_comercial", "label": "Local de negocio / Comercial / Uso distinto de vivienda"},
+        {"id": "temporada", "label": "Arrendamiento de temporada (vacacional, estudios, estancia temporal)"},
+        {"id": "turistico", "label": "Vivienda turística (alojamiento turístico regulado por CCAA)"}
+      ]
+    },
+    {
+      "id": "naturaleza_arrendador",
+      "rationale": "Resolver V3 (Naturaleza Arrendador) para fijar el plazo legal mínimo obligatorio (5 años si es física, 7 si es jurídica) e imputación de gastos según Art. 9 y 20 LAU.",
+      "question": "¿Cuál es la condición jurídica de la parte ARRENDADORA (propietario)?",
+      "options": [
+        {"id": "persona_fisica", "label": "Persona física (particular)"},
+        {"id": "persona_juridica", "label": "Persona jurídica (empresa, sociedad, entidad)"}
+      ]
+    },
+    {
+      "id": "naturaleza_arrendatario",
+      "rationale": "Resolver V4 (Naturaleza Arrendatario) para fijar la estructura de partes y facultades de representación.",
+      "question": "¿Cuál es la condición jurídica de la parte ARRENDATARIA (inquilino)?",
+      "options": [
+        {"id": "persona_fisica", "label": "Persona física (particular)"},
+        {"id": "persona_juridica", "label": "Persona jurídica (empresa, sociedad)"}
+      ]
+    }
+  ]
+}
+```
+
+### 1.3 Enrutamiento de Estado (Routing por Vectores)
+
+Una vez fijados `V1`, `V2`, `V3` y `V4`, evalúa la rama de ejecución:
+* **Si `[V1 = temporada]` O `[V1 = turistico]` $\rightarrow$ Detener proceso (Fuera de Alcance LAU):**
+  - Informa en el chat de que los arrendamientos de temporada o turísticos se rigen por normativas sectoriales autonómicas o Código Civil especial, quedando excluidos de las garantías del arrendamiento de vivienda habitual de la LAU.
+  - Ofrece derivar el caso a un abogado especialista. No crees documento.
+* **Si `[V1 = vivienda_habitual]` (y `[V2 = vivienda]`):**
+  - Régimen: Título II de la Ley 29/1994 (LAU) y Ley 12/2023 por el derecho a la vivienda.
+  - Plantilla del sistema propuesta: `assets/template-contrato-arrendamiento-vivienda.md`.
+  - Fianza legal obligatoria: 1 mensualidad de renta (Art. 36.1 LAU).
+  - Duración mínima legal imperativa:
+    - Si `[V3 = persona_fisica]` $\rightarrow$ Mínimo 5 años (Art. 9.1 LAU).
+    - Si `[V3 = persona_juridica]` $\rightarrow$ Mínimo 7 años (Art. 9.1 LAU).
+  - Proceder a la **Fase 2**.
+* **Si `[V1 = local_comercial]` (y `[V2 = local]`):**
+  - Régimen: Título III de la Ley 29/1994 (LAU) y primacía de los pactos de las partes.
+  - Plantilla del sistema propuesta: `assets/template-contrato-arrendamiento-local.md`.
+  - Fianza legal obligatoria: 2 mensualidades de renta (Art. 36.1 LAU).
+  - Proceder a la **Fase 2**.
 
 ---
 
-## BUCLE DE REALIMENTACIÓN FINAL
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
 
-Tras completar el Punto 4, muestra el siguiente menú y espera instrucciones (aplicando `edit_file` según corresponda):
-1. Ajustar una cláusula existente.
-2. Añadir una cláusula adicional.
+En esta fase interactúas **directamente a través del chat (en texto plano conversacional, SIN formularios)** para compartir el plan de trabajo y acordar la plantilla base con el usuario.
+
+### 2.1 Verificación Normativa Interna
+1. Consulta las referencias en tu system prompt: `lau-vivienda-plazos-renta-fianza.md`, `lau-derechos-obligaciones-partes.md` y `lau-arrendamiento-local-negocio.md`.
+2. Opcionalmente verifica en vivo con `web_search("Ley 29/1994 arrendamientos urbanos texto consolidado BOE")` si se requieren confirmar índices o modificaciones normativas recientes.
+
+### 2.2 Mensaje de Plan de Acción y Consulta de Assets
+Envía un mensaje estructurado y cordial que contenga:
+1. **Marco Legal Aplicable:**
+   - Cita la **Ley 29/1994 de Arrendamientos Urbanos (LAU)** y la **Ley 12/2023 por el derecho a la vivienda**.
+   - Explica con claridad el impacto legal de la clasificación obtenida (`V1-V4`):
+     - Duración mínima obligatoria (5 años si `V3=persona_fisica` / 7 años si `V3=persona_juridica`).
+     - Fianza legal preceptiva (1 mensualidad si `V1=vivienda_habitual` / 2 mensualidades si `V1=local_comercial`).
+     - Prohibición legal de imputar gastos de gestión inmobiliaria y formalización al arrendatario (Art. 20.1 LAU).
+     - Límites de renta y prórrogas extraordinarias si la finca radica en zona tensionada.
+2. **Propuesta de Plantilla Oficial del Sistema:**
+   - Detalla que dispones de la plantilla oficial adaptada (`assets/template-contrato-arrendamiento-vivienda.md` o `assets/template-contrato-arrendamiento-local.md`), con una estructura jurídica completa y equilibrada.
+3. **Pregunta Explícita al Usuario (Vía Chat):**
+   Formula exactamente la siguiente consulta en el chat:
+   > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
+
+### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
+* **Si `[V5 = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
+  Toma el texto íntegro de la plantilla correspondiente directamente desde el bloque `<document kind="assets-collection">` de tu system prompt y procede de inmediato a la **Fase 3**.
+* **Si `[V5 = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
+  1. **Acceso al Contenido del Adjunto:**
+     - Si el usuario adjunta un archivo (PDF, DOCX, TXT, MD, etc.), su contenido está disponible en el bloque `# ATTACHED DOCUMENTS` / `<attached_documents>` del contexto.
+     - Si el usuario pegó el texto directamente en el chat, tómalo del bloque `# USER MESSAGE` / `<user_message>`.
+  2. **Guardrail de Verificación (Art. 6 LAU):**
+     - Analiza el contenido de la plantilla aportada. Si contiene estipulaciones que contravengan normas imperativas del Título II de la LAU en perjuicio del arrendatario (ej. renuncia a la duración mínima legal de 5/7 años, fianza legal obligatoria superior a 1 mes, o atribución indebida de gastos de gestión inmobiliaria al inquilino):
+       - Advierte expresamente al usuario en el chat sobre la nulidad de pleno derecho de dichas cláusulas.
+       - Propón la redacción legalmente válida y ajustada a la LAU.
+  3. **Adopción de la Plantilla:**
+     - Adopta el texto íntegro de la plantilla del usuario como base y avanza a la **Fase 3** (donde se creará el archivo en el workspace mediante `create_file`).
+
+---
+
+## FASE 3 — CREACIÓN DEL DOCUMENTO BASE EN DISCO (Zero Vacíos)
+
+1. **Escritura del Documento (`create_file`):**
+   - Vuelca íntegramente la plantilla acordada (`V5`: ya sea el asset del catálogo desde `<document kind="assets-collection">` o la plantilla adjunta por el usuario desde `<attached_documents>` / `<user_message>`) en el archivo del workspace (ej: `contrato_arrendamiento.md` o `contrato_arrendamiento_vivienda.md`).
+   - Aplica el principio **Zero-Omission**:
+     - Sustituye todos los datos ya resueltos a través de los vectores `V1-V4` y la escucha activa inicial.
+     - Todos los datos o campos pendientes deben permanecer explícitamente como marcadores `{{DATO_FALTANTE}}` en mayúsculas entre dobles llaves.
+     - PROHIBIDO dejar archivos en blanco, sólo con títulos o crear resúmenes.
+2. **Validación de Disco (`read_file`):**
+   - Ejecuta `read_file` sobre el archivo recién creado para validar que el contenido en disco es exacto y completo.
+3. **Confirmación en Chat:**
+   - Emite un mensaje indicando la ruta absoluta del archivo creado (ej: *"He creado el documento base en `/ruta/workspace/contrato_arrendamiento.md`"*).
+   - En la misma respuesta, sin detener la marcha, introduce la primera sección de la Fase 4 para iniciar la edición incremental.
+
+---
+
+## FASE 4 — EDICIÓN INCREMENTAL CLÁUSULA A CLÁUSULA
+
+Recorre de forma secuencial los siguientes bloques del contrato. Por cada sección que contenga placeholders `{{...}}` o requiera pacto entre las partes, ejecuta el **Ciclo de Edición Incremental**:
+
+```
+[Pregunta / Discusión en Chat] ──> [Vista Previa en texto plano] ──> [¿Confirmamos esta cláusula?] ──> [edit_file + read_file]
+```
+
+### Protocolo Obligatorio por Sección:
+1. **Pregunta y Diálogo:** Plantea las preguntas necesarias para completar la sección, asesorando sobre las opciones legales disponibles.
+2. **Vista Previa (Preview):** Muestra en el chat el texto exacto redactado de la cláusula en texto plano (sin backticks de código).
+3. **Petición de Confirmación:** Pregunta literalmente: `¿Confirmamos esta cláusula?`
+4. **Edición en Disco:** Tras el "sí" o confirmación del usuario, aplica `edit_file` sustituyendo con exactitud milimétrica el texto antiguo por el nuevo.
+5. **Verificación:** Ejecuta `read_file` sobre el archivo para comprobar la modificación antes de continuar con la siguiente sección.
+
+---
+
+### Hoja de Ruta de Cláusulas a Tratar:
+
+#### 1. Encabezamiento y Partes Comparecientes
+- Nombres completos o razones sociales, NIF/CIF, domicilios para notificaciones.
+- En caso de personas jurídicas (`V3=persona_juridica` o `V4=persona_juridica`): datos de la escritura de apoderamiento, representante legal y NIF del apoderado.
+
+#### 2. Objeto del Arrendamiento e Inmueble
+- Dirección completa (calle, número, piso/puerta, código postal, municipio, provincia).
+- Referencia catastral (20 caracteres) y superficie útil en m².
+- Elementos accesorios: plaza de garaje, trastero, zonas comunes.
+- Anexo I: ¿Se arrienda amueblado? (Prever inventario de mobiliario y estado de conservación).
+
+#### 3. Destino y Uso
+- Si `[V1 = vivienda_habitual]`: exclusividad residencial permanente, prohibición expresa de cesión turística o subarriendo inconsentido (Art. 8 LAU).
+- Si `[V1 = local_comercial]`: actividad económica o comercial concreta permitida y licencias administrativas necesarias.
+
+#### 4. Duración, Entrada en Vigor y Prórrogas
+- Fecha de inicio y entrega de llaves.
+- Duración pactada inicial.
+- **Garantía de prórroga obligatoria:**
+  - Si `[V1 = vivienda_habitual]` Y `[V3 = persona_fisica]` $\rightarrow$ Mínimo 5 años (Art. 9.1 LAU).
+  - Si `[V1 = vivienda_habitual]` Y `[V3 = persona_juridica]` $\rightarrow$ Mínimo 7 años (Art. 9.1 LAU).
+- Prórroga tácita por periodos anuales hasta 3 años adicionales (Art. 10.1 LAU).
+- *Si aplica zona tensionada:* Prórroga extraordinaria de hasta 3 años a solicitud del inquilino (Art. 10.3 LAU).
+
+#### 5. Renta y Régimen de Pago
+- Cuantía mensual de la renta en euros (cifra y letras).
+- Plazo de abono (primeros 7 días de cada mes) y medio de pago (transferencia/domiciliación con IBAN).
+- Emisión de recibo o justificante bancario acreditativo.
+- *Si zona tensionada:* Verificar si el inmueble estuvo arrendado en los últimos 5 años y verificar límites del Art. 17.6 LAU o del índice de contención.
+
+#### 6. Actualización Anual de la Renta
+- Periodicidad anual en la fecha de vencimiento de cada anualidad (Art. 18 LAU).
+- Mecanismo pactado: Índice de Garantía de Competitividad (IGC) o nuevo índice de referencia oficial (límite máximo de variación del IPC).
+
+#### 7. Fianza Legal y Garantías Complementarias
+- **Fianza obligatoria en metálico:**
+  - Si `[V1 = vivienda_habitual]` $\rightarrow$ 1 mensualidad de renta (Art. 36.1 LAU).
+  - Si `[V1 = local_comercial]` $\rightarrow$ 2 mensualidades de renta (Art. 36.1 LAU).
+- Organismo autonómico de depósito (IVIMA en Madrid, INCASÒL en Cataluña, AVRA en Andalucía, etc.) y compromiso de depósito en plazo legal.
+- **Garantías adicionales:** Aval bancario, fianza personal o depósito adicional (Si `V1=vivienda_habitual`: máximo legal de 2 mensualidades adicionales de renta según Art. 36.5 LAU).
+
+#### 8. Gastos Generales, Tributos y Suministros
+- Gastos de formalización y gestión inmobiliaria: **SIEMPRE a cargo del arrendador** si `V1=vivienda_habitual` (Art. 20.1 LAU).
+- Gastos de comunidad e IBI: a cargo del arrendador por defecto, salvo pacto expreso por escrito con indicación del importe anual a la fecha del contrato.
+- Suministros individualizados (electricidad, gas, agua, telecomunicaciones): a cargo del arrendatario con obligación de mantener o cambiar la titularidad.
+
+#### 9. Conservación, Reparaciones y Obras
+- Obligación del arrendador de realizar reparaciones de habitabilidad sin elevación de renta (Art. 21.1 LAU).
+- Pequeñas reparaciones por desgaste ordinario a cargo del arrendatario (Art. 21.4 LAU).
+- Prohibición de obras no autorizadas expresamente por escrito (Art. 23 LAU).
+
+#### 10. Cesión, Subarriendo y Derecho de Adquisición Preferente
+- Prohibición total de cesión y subarriendo inconsentido (Art. 8 LAU).
+- Derecho de tanteo y retracto (Art. 25 LAU): opción de mantener el derecho o pactar renuncia expresa por el arrendatario.
+
+#### 11. Notificaciones y Fuero Judicial
+- Domicilios y direcciones de correo electrónico para comunicaciones fehacientes (Art. 4.6 LAU).
+- Sumisión imperativa a los Juzgados y Tribunales del lugar donde radica la finca (Art. 38 LAU y Art. 52.1.7º LEC).
+- Cláusula facultativa de mediación o arbitraje previo.
+
+#### 12. Pactos Especiales y Cláusulas a Medida
+- Cláusulas adicionales solicitadas por las partes (mascotas, no fumadores, seguros de hogar/impago, etc.).
+
+---
+
+## FASE 5 — BUCLE DE REALIMENTACIÓN FINAL Y CIERRE
+
+Una vez completadas todas las cláusulas, muestra en el chat el siguiente menú interactivo de opciones finales:
+
+```markdown
+El borrador completo del contrato de arrendamiento ha sido redactado y actualizado en disco.
+
+Seleccione una opción si desea realizar ajustes adicionales:
+1. Ajustar o modificar una cláusula existente.
+2. Añadir una cláusula adicional a medida.
 3. Eliminar una cláusula opcional.
-4. Corregir un dato.
-5. Cerrar y dar el contrato por bueno.
+4. Corregir datos de las partes o del inmueble.
+5. Dar el contrato por finalizado y cerrar la sesión.
+```
 
-*(Al cerrar, emite las advertencias estándar: DRAFT, necesidad de revisión por abogado colegiado, depósito autonómico de fianza y registro de la propiedad).*
+### Advertencias Obligatorias al Cerrar:
+Cuando el usuario seleccione finalizar el contrato, emite las advertencias legales preceptivas:
+1. **Carácter de Borrador (DRAFT):** El documento generado es una propuesta sujeta a revisión por un abogado colegiado antes de su firma.
+2. **Depósito Autonómico Obligatorio de Fianza:** Recordar que el arrendador tiene la obligación legal de depositar el importe de la fianza ante el organismo público autonómico competente dentro del plazo legalmente establecido (su omisión acarrea sanciones económicas y recargos).
+3. **Registro de la Propiedad:** Recordar la conveniencia de elevar el contrato a escritura pública e inscribirlo en el Registro de la Propiedad para su plena oponibilidad frente a terceros adquirientes (Art. 37 LAU).
+
+---
+
+## Límites Legales y Guardrails de Dominio (Gobernados por Vectores)
+
+1. **Nulidad de Cláusulas Perjudiciales (Art. 6 LAU):** Si `[V1 = vivienda_habitual]`, son nulas de pleno derecho y se tendrán por no puestas las estipulaciones que modifiquen en perjuicio del arrendatario las normas imperativas del Título II de la LAU. Si el usuario solicita una cláusula ilegal (ej. contrato de vivienda por 1 año sin prórrogas, fianza legal de 3 meses, o que el inquilino pague la comisión de la inmobiliaria), **rechaza la redacción, cita el artículo correspondiente de la LAU y formula la alternativa legal válida**.
+2. **Duración Mínima Imperativa (Art. 9.1 LAU):**
+   - Si `[V1 = vivienda_habitual]` Y `[V3 = persona_fisica]` $\rightarrow$ Mínimo 5 años.
+   - Si `[V1 = vivienda_habitual]` Y `[V3 = persona_juridica]` $\rightarrow$ Mínimo 7 años.
+3. **Gastos Inmobiliarios (Art. 20.1 LAU):** Si `[V1 = vivienda_habitual]`, los gastos de gestión inmobiliaria y los de formalización del contrato serán siempre a cargo del arrendador.
+4. **Garantías Adicionales (Art. 36.5 LAU):** Si `[V1 = vivienda_habitual]`, en contratos de hasta 5 o 7 años el valor de las garantías adicionales a la fianza no podrá superar dos mensualidades de renta.
+5. **Fuero Imperativo (Art. 38 LAU y Art. 52.1.7º LEC):** Las controversias se sustancian obligatoriamente ante los juzgados de la demarcación donde radique la finca. Queda prohibida la sumisión a fueros distintos.
+6. **Cero Invención de Datos y Leyes:** Todos los datos reales no aportados deben quedar como `{{DATO_FALTANTE}}`. Nunca inventes números de DNI, referencias catastrales, importes o artículos normativos.
+
+

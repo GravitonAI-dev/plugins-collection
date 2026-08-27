@@ -35,8 +35,8 @@ references:
   - references/fuentes-y-plazos.md
   - references/estilo-redaccion-escritos.md
 assets:
-  - assets/borrador-autoliquidacion-650.md
-  - assets/checklist-documentacion-sucesiones.md
+  - assets/template-borrador-autoliquidacion-650.md
+  - assets/template-checklist-documentacion-sucesiones.md
 ---
 
 # Preparar la Autoliquidacion del Impuesto de Sucesiones (Modelo 650)
@@ -58,7 +58,7 @@ assets:
 
 ### Paso 1 — Verificacion normativa
 
-**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-y-plazos.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt (TIENES ESTRICTAMENTE PROHIBIDO usar la herramienta `read_file` para leer references o assets) y anotar la "Version registrada" de la Ley 29/1987, del RD 1629/1991, del modelo 650 y del TR de la Ley Reguladora de las Haciendas Locales (plusvalia).
+**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-y-plazos.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt y anotar la "Version registrada" de la Ley 29/1987, del RD 1629/1991, del modelo 650 y del TR de la Ley Reguladora de las Haciendas Locales (plusvalia).
 
 **1.2 — Consultar la fuente oficial estatal vigente en vivo.** Invocar:
 ```
@@ -139,9 +139,9 @@ Advertir de forma expresa que el resultado es una estimacion orientativa, no la 
 
 ### Paso 4 — Generacion de los documentos
 
-Tomar las plantillas correspondientes directamente desde el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas):
+Tomar las plantillas correspondientes directamente desde el bloque `<document kind="assets-collection">` de tu system prompt:
 
-Generar el borrador de autoliquidacion y el checklist con las plantillas `borrador-autoliquidacion-650.md` y `checklist-documentacion-sucesiones.md` invocando `create_file`:
+Generar el borrador de autoliquidacion y el checklist con las plantillas `template-borrador-autoliquidacion-650.md` y `template-checklist-documentacion-sucesiones.md` invocando `create_file`:
 ```
 create_file(
   relative_file_path: "borrador_autoliquidacion_650.md",

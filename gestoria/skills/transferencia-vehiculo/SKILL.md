@@ -33,9 +33,9 @@ references:
   - references/fuentes-y-tasas.md
   - references/estilo-redaccion-escritos.md
 assets:
-  - assets/contrato-compraventa-vehiculo.md
-  - assets/solicitud-cambio-titularidad-dgt.md
-  - assets/notificacion-venta-dgt.md
+  - assets/template-contrato-compraventa-vehiculo.md
+  - assets/template-solicitud-cambio-titularidad-dgt.md
+  - assets/template-notificacion-venta-dgt.md
 ---
 
 # Preparar el Cambio de Titularidad de un Vehiculo (DGT)
@@ -57,7 +57,7 @@ assets:
 
 ### Paso 1 — Verificacion normativa y de tasas
 
-**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-y-tasas.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt (TIENES ESTRICTAMENTE PROHIBIDO usar la herramienta `read_file` para leer references o assets) y anotar la "Version registrada" del Reglamento General de Vehiculos, del procedimiento de cambio de titularidad y de las tasas de la DGT.
+**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-y-tasas.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt y anotar la "Version registrada" del Reglamento General de Vehiculos, del procedimiento de cambio de titularidad y de las tasas de la DGT.
 
 **1.2 — Consultar la fuente oficial vigente en vivo.** Invocar:
 ```
@@ -118,10 +118,10 @@ d) **Plazos.** Recordar que el comprador dispone de 30 dias naturales desde la t
 
 ### Paso 4 — Generacion de los documentos
 
-Tomar las plantillas correspondientes directamente desde el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas):
-- Contrato de compraventa: `contrato-compraventa-vehiculo.md`
-- Solicitud de cambio de titularidad (hoja de datos + checklist + organismo + tasa): `solicitud-cambio-titularidad-dgt.md`
-- Notificacion de venta del vendedor: `notificacion-venta-dgt.md`
+Tomar las plantillas correspondientes directamente desde el bloque `<document kind="assets-collection">` de tu system prompt:
+- Contrato de compraventa: `template-contrato-compraventa-vehiculo.md`
+- Solicitud de cambio de titularidad (hoja de datos + checklist + organismo + tasa): `template-solicitud-cambio-titularidad-dgt.md`
+- Notificacion de venta del vendedor: `template-notificacion-venta-dgt.md`
 
 Generar en el workspace invocando `create_file` por cada documento pedido:
 ```

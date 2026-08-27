@@ -37,8 +37,8 @@ references:
   - references/fuentes-plantillas-validadas.md
   - references/estilo-redaccion-escritos.md
 assets:
-  - assets/convenio-regulador.md
-  - assets/demanda-divorcio-mutuo-acuerdo.md
+  - assets/template-convenio-regulador.md
+  - assets/template-demanda-divorcio-mutuo-acuerdo.md
 ---
 
 # Generar Convenio Regulador y Demanda de Mutuo Acuerdo
@@ -61,7 +61,7 @@ assets:
 
 ### Paso 1 — Verificacion normativa
 
-**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-plantillas-validadas.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt (TIENES ESTRICTAMENTE PROHIBIDO usar la herramienta `read_file` para leer references o assets) y anotar la "Version registrada" del Codigo Civil, de la LEC y de la Ley 15/2015.
+**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-plantillas-validadas.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt y anotar la "Version registrada" del Codigo Civil, de la LEC y de la Ley 15/2015.
 
 **1.2 — Consultar la fuente oficial vigente en vivo.** Invocar:
 ```
@@ -135,7 +135,7 @@ e) **Competencia (via judicial):** identificar el Juzgado de Primera Instancia d
 
 ### Paso 4 — Generacion de los documentos
 
-Tomar las plantillas `convenio-regulador.md` y (si procede) `demanda-divorcio-mutuo-acuerdo.md` directamente desde el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas).
+Tomar las plantillas `template-convenio-regulador.md` y (si procede) `template-demanda-divorcio-mutuo-acuerdo.md` directamente desde el bloque `<document kind="assets-collection">` de tu system prompt.
 
 Generar siempre el convenio regulador invocando `create_file`:
 ```

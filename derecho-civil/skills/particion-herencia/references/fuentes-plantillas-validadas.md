@@ -27,8 +27,8 @@ Articulos relevantes del Codigo Civil para esta skill: 657 y ss. (apertura de la
 
 | Asset | Base |
 |---|---|
-| `assets/cuaderno-particional.md` | Estructura estandar de escritura de aceptacion y particion de herencia: comparecencia, exposicion (titulo sucesorio), inventario y avaluo, liquidacion del haber, formacion de lotes y adjudicaciones (Arts. 1058, 1061-1062, 1068 CC) |
-| `assets/aceptacion-herencia.md` | Documento de aceptacion pura y simple o a beneficio de inventario, con opcion de renuncia (Arts. 988, 998, 1003, 1008-1034 CC) |
+| `assets/template-cuaderno-particional.md` | Estructura estandar de escritura de aceptacion y particion de herencia: comparecencia, exposicion (titulo sucesorio), inventario y avaluo, liquidacion del haber, formacion de lotes y adjudicaciones (Arts. 1058, 1061-1062, 1068 CC) |
+| `assets/template-aceptacion-herencia.md` | Documento de aceptacion pura y simple o a beneficio de inventario, con opcion de renuncia (Arts. 988, 998, 1003, 1008-1034 CC) |
 
 Los assets no reproducen un modelo notarial oficial unico (no existe un formulario normalizado estatal para la particion, a diferencia del monitorio del CGPJ): se construyen sobre la estructura que exige el Codigo Civil y la practica notarial. En cada lanzamiento la skill re-verifica los articulos del CC; si su redaccion cambia, actualiza el asset afectado.
 

@@ -72,7 +72,7 @@ outputs:
 references:
   - references/[archivo_contexto].md
 assets:
-  - assets/[plantilla_base].md
+  - assets/template-[plantilla_base].md
 ---
 ```
 
@@ -100,21 +100,21 @@ Si te falta resolver uno o más vectores, TIENES PROHIBIDO inventar la redacció
 
 ### Enrutamiento de Estado (Routing)
 Una vez resueltos todos los vectores, evalúa:
-- Si [V1 = X] -> Plantilla a usar: `assets/asset_x.md`.
+- Si [V1 = X] -> Plantilla a usar: `assets/template-[asset_x].md`.
 - Si [V2 = Y] -> Detener proceso (fuera de alcance). No crees documento.
 
 ## 2. VERIFICACIÓN DE CONTEXTO (Interno)
 *(Esta sección es opcional. Úsala si la skill debe consultar internet, normativas, APIs o archivos de referencia antes de redactar).*
-1. Consulta la información en [nombre-archivo-reference.md] directamente desde el bloque `<document kind="references-collection">` de tu system prompt (TIENES ESTRICTAMENTE PROHIBIDO usar la herramienta `read_file` para leer references o assets).
+1. Consulta la información en [nombre-archivo-reference.md] directamente desde el bloque `<document kind="references-collection">` de tu system prompt.
 2. Si requieres verificar fuentes oficiales externas en vivo, usa `web_search`.
 3. Si hay cambios normativos, aplícalos a tu memoria.
 
 ## 3. CREACIÓN DEL DOCUMENTO BASE (Cero Vacíos)
 Inmediatamente tras el paso anterior, estás OBLIGADO a crear el documento:
-1. Toma el texto íntegro de la plantilla [nombre-archivo-asset.md], disponible directamente en el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas).
+1. Toma el texto íntegro de la plantilla `template-[nombre-archivo-asset].md`, disponible directamente en el bloque `<document kind="assets-collection">` de tu system prompt.
 2. Reemplaza en memoria TODOS los datos que ya poseas (gracias a los vectores, escucha activa e investigación). Los faltantes quedan como `{{DATO_FALTANTE}}`.
 3. Utiliza `create_file` para guardar el archivo en disco del workspace.
-4. (Regla Global): Ejecuta `read_file` exclusivamente sobre el archivo creado en disco para validar y confirma la ruta absoluta en el chat al usuario. Inmediatamente después, en la misma respuesta, formula la primera pregunta de la edición incremental (Punto 4) para no detener la conversación.
+4. Ejecuta `read_file` sobre el archivo creado en disco para validar y confirma la ruta absoluta en el chat al usuario. Inmediatamente después, en la misma respuesta, formula la primera pregunta de la edición incremental (Punto 4) para no detener la conversación.
 
 ## 4. EDICIÓN INCREMENTAL DE CLÁUSULAS / SECCIONES
 Recorre secuencialmente la siguiente lista. Por cada sección incompleta, aplica el Ciclo de Edición Incremental Global (Formular Pregunta -> Mostrar Vista Previa en texto plano -> Pedir Confirmación -> Tras confirmación, usar `edit_file` en disco):

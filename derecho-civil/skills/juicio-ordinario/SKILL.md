@@ -45,11 +45,11 @@ references:
   - references/fuentes-plantillas-validadas.md
   - references/estilo-redaccion-escritos.md
 assets:
-  - assets/checklist-admisibilidad.md
-  - assets/demanda-juicio-ordinario.md
-  - assets/guion-audiencia-previa.md
-  - assets/proposicion-de-prueba.md
-  - assets/escrito-de-conclusiones.md
+  - assets/template-checklist-admisibilidad.md
+  - assets/template-demanda-juicio-ordinario.md
+  - assets/template-guion-audiencia-previa.md
+  - assets/template-proposicion-de-prueba.md
+  - assets/template-escrito-de-conclusiones.md
 ---
 
 # Preparar un Juicio Ordinario Civil (ciclo completo)
@@ -74,7 +74,7 @@ El procedimiento recorre el ciclo completo del juicio ordinario en seis fases. E
 
 ### Paso 1 — Verificacion normativa
 
-**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-plantillas-validadas.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt (TIENES ESTRICTAMENTE PROHIBIDO usar la herramienta `read_file` para leer references o assets) y anotar la "Version registrada" de la LEC, el umbral de cuantia registrado (15.000 euros) y el estado de la LO 1/2025.
+**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-plantillas-validadas.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt y anotar la "Version registrada" de la LEC, el umbral de cuantia registrado (15.000 euros) y el estado de la LO 1/2025.
 
 **1.2 — Consultar la fuente oficial vigente en vivo.** Invocar:
 ```
@@ -120,7 +120,7 @@ Para las fases de audiencia previa, prueba y conclusiones, recoger ademas los **
 
 ### Paso 3 — FASE 2: ADMISIBILIDAD y preparacion previa
 
-Antes de redactar la demanda, completar la comprobacion de admisibilidad (asset `checklist-admisibilidad.md`) validando:
+Antes de redactar la demanda, completar la comprobacion de admisibilidad (asset `template-checklist-admisibilidad.md`) validando:
 
 a) **Clase de juicio (Art. 249):** confirmar que procede el ordinario, por la materia (Art. 249.1) o por cuantia superior a 15.000 euros o interes incalculable (Art. 249.2). Si corresponde al verbal, no procede esta skill: advertir y derivar (para reclamaciones de renta o desahucio, derivar a `desahucio`; para deuda dineraria liquida por monitorio, a `monitorio`).
 
@@ -136,7 +136,7 @@ f) **Documentos (Arts. 264-266, 336) y preclusion (Art. 269):** verificar que se
 
 ### Paso 4 — FASE 3: DEMANDA de juicio ordinario (Art. 399)
 
-Tomar la plantilla `demanda-juicio-ordinario.md` directamente desde el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas).
+Tomar la plantilla `template-demanda-juicio-ordinario.md` directamente desde el bloque `<document kind="assets-collection">` de tu system prompt.
 
 Generar la demanda en el workspace invocando `create_file`:
 ```
@@ -153,15 +153,15 @@ Tras guardar el archivo en disco del workspace, invocar `read_file` exclusivamen
 
 ### Paso 5 — FASE 4: AUDIENCIA PREVIA (Arts. 414-430)
 
-Cuando el usuario lo pida (proceso ya trabado con contestacion), generar el guion con la plantilla `guion-audiencia-previa.md` (tomada directamente de `<document kind="assets-collection">` del prompt sin usar `read_file`). El guion ordena, en el orden legal: (i) posicion ante un eventual acuerdo o transaccion (Art. 415); (ii) cuestiones procesales a plantear o a las que responder —capacidad, litisconsorcio, cosa juzgada, inadecuacion de procedimiento, defecto legal— (Arts. 416-425); (iii) alegaciones complementarias y aclaratorias sin alterar la pretension (Art. 426) y fijacion de hechos controvertidos (Arts. 427-428); (iv) anticipo de la prueba a proponer (Art. 429). Advertir de la prohibicion de mutatio libelli.
+Cuando el usuario lo pida (proceso ya trabado con contestacion), generar el guion con la plantilla `template-guion-audiencia-previa.md`. El guion ordena, en el orden legal: (i) posicion ante un eventual acuerdo o transaccion (Art. 415); (ii) cuestiones procesales a plantear o a las que responder —capacidad, litisconsorcio, cosa juzgada, inadecuacion de procedimiento, defecto legal— (Arts. 416-425); (iii) alegaciones complementarias y aclaratorias sin alterar la pretension (Art. 426) y fijacion de hechos controvertidos (Arts. 427-428); (iv) anticipo de la prueba a proponer (Art. 429). Advertir de la prohibicion de mutatio libelli.
 
 ### Paso 6 — FASE 5: PROPOSICION DE PRUEBA (Art. 429 y 281-386)
 
-Generar la proposicion con la plantilla `proposicion-de-prueba.md` (tomada directamente de `<document kind="assets-collection">` del prompt sin usar `read_file`), ordenando los medios de prueba (Art. 299): interrogatorio de partes, documental, testifical, pericial, reconocimiento judicial y medios de reproduccion. Para cada medio, justificar su pertinencia y utilidad respecto de los hechos controvertidos y precisar lo necesario (identidad de testigos, objeto de la pericial, documentos). Recordar la regla de carga de la prueba (Art. 217).
+Generar la proposicion con la plantilla `template-proposicion-de-prueba.md`, ordenando los medios de prueba (Art. 299): interrogatorio de partes, documental, testifical, pericial, reconocimiento judicial y medios de reproduccion. Para cada medio, justificar su pertinencia y utilidad respecto de los hechos controvertidos y precisar lo necesario (identidad de testigos, objeto de la pericial, documentos). Recordar la regla de carga de la prueba (Art. 217).
 
 ### Paso 7 — FASE 6: ESCRITO DE CONCLUSIONES (Art. 433)
 
-Tras la practica de la prueba, generar la minuta con la plantilla `escrito-de-conclusiones.md` (tomada directamente de `<document kind="assets-collection">` del prompt sin usar `read_file`), que enlaza cada hecho controvertido con la prueba practicada, aplica la carga de la prueba (Art. 217) a los hechos dudosos y resume los fundamentos juridicos sin alterar la causa de pedir. Advertir de que el Art. 433 preve conclusiones orales; la minuta es material de apoyo del letrado en la vista.
+Tras la practica de la prueba, generar la minuta con la plantilla `template-escrito-de-conclusiones.md`, que enlaza cada hecho controvertido con la prueba practicada, aplica la carga de la prueba (Art. 217) a los hechos dudosos y resume los fundamentos juridicos sin alterar la causa de pedir. Advertir de que el Art. 433 preve conclusiones orales; la minuta es material de apoyo del letrado en la vista.
 
 ### Paso 8 — Revision final y advertencias
 

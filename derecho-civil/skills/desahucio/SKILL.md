@@ -41,9 +41,9 @@ references:
   - references/fuentes-plantillas-validadas.md
   - references/estilo-redaccion-escritos.md
 assets:
-  - assets/demanda-desahucio-falta-pago.md
-  - assets/demanda-desahucio-expiracion-plazo.md
-  - assets/demanda-desahucio-precario.md
+  - assets/template-demanda-desahucio-falta-pago.md
+  - assets/template-demanda-desahucio-expiracion-plazo.md
+  - assets/template-demanda-desahucio-precario.md
 ---
 
 # Generar Demanda de Juicio de Desahucio
@@ -66,7 +66,7 @@ assets:
 
 ### Paso 1 — Verificacion normativa
 
-**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-plantillas-validadas.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt (TIENES ESTRICTAMENTE PROHIBIDO usar la herramienta `read_file` para leer references o assets) y anotar la "Version registrada" de la LEC, de la LAU, de la LO 1/2025 y de la normativa de vulnerabilidad.
+**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-plantillas-validadas.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt y anotar la "Version registrada" de la LEC, de la LAU, de la LO 1/2025 y de la normativa de vulnerabilidad.
 
 **1.2 — Consultar la fuente oficial vigente en vivo.** Invocar:
 ```
@@ -143,10 +143,10 @@ g) **Vulnerabilidad:** en desahucio de vivienda, advertir del posible traslado a
 
 ### Paso 4 — Generacion del documento
 
-Tomar la plantilla correspondiente directamente desde el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas):
-- Falta de pago: `demanda-desahucio-falta-pago.md` (activar el bloque condicional de acumulacion de rentas si el usuario lo pidio).
-- Expiracion del plazo: `demanda-desahucio-expiracion-plazo.md`
-- Precario: `demanda-desahucio-precario.md`
+Tomar la plantilla correspondiente directamente desde el bloque `<document kind="assets-collection">` de tu system prompt:
+- Falta de pago: `template-demanda-desahucio-falta-pago.md` (activar el bloque condicional de acumulacion de rentas si el usuario lo pidio).
+- Expiracion del plazo: `template-demanda-desahucio-expiracion-plazo.md`
+- Precario: `template-demanda-desahucio-precario.md`
 
 Generar el documento en el workspace invocando `create_file`:
 ```

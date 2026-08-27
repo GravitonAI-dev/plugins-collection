@@ -35,8 +35,8 @@ references:
   - references/fuentes-plantillas-validadas.md
   - references/estilo-redaccion-escritos.md
 assets:
-  - assets/cuaderno-particional.md
-  - assets/aceptacion-herencia.md
+  - assets/template-cuaderno-particional.md
+  - assets/template-aceptacion-herencia.md
 ---
 
 # Generar Documentos de Particion de Herencia
@@ -58,7 +58,7 @@ assets:
 
 ### Paso 1 — Verificacion normativa
 
-**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-plantillas-validadas.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt (TIENES ESTRICTAMENTE PROHIBIDO usar la herramienta `read_file` para leer references o assets) y anotar la "Version registrada" del Codigo Civil.
+**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-plantillas-validadas.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt y anotar la "Version registrada" del Codigo Civil.
 
 **1.2 — Consultar la fuente oficial vigente en vivo.** Invocar:
 ```
@@ -123,9 +123,9 @@ e) **Acreedores de la herencia (Arts. 1082-1083 CC).** Advertir de que los acree
 
 ### Paso 4 — Generacion de los documentos
 
-Tomar la plantilla correspondiente directamente desde el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas):
-- Cuaderno particional: `cuaderno-particional.md`
-- Aceptacion de herencia: `aceptacion-herencia.md`
+Tomar la plantilla correspondiente directamente desde el bloque `<document kind="assets-collection">` de tu system prompt:
+- Cuaderno particional: `template-cuaderno-particional.md`
+- Aceptacion de herencia: `template-aceptacion-herencia.md`
 
 Generar el documento en el workspace invocando `create_file`:
 ```
