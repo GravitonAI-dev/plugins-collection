@@ -771,7 +771,10 @@ El plugin necesitara tools? Te listo las disponibles:
   - `io.gravitonai.tools.read_file` — Lee contenido UTF-8 de un archivo del workspace por ruta relativa
   - `io.gravitonai.tools.create_file` — Crea un archivo nuevo en el workspace con su contenido UTF-8
   - `io.gravitonai.tools.edit_file` — Edita un archivo existente en el workspace reemplazando ocurrencias de texto
-  - `io.gravitonai.tools.web_search` — Busqueda en la web abierta
+  - `io.gravitonai.tools.web_search` — Búsqueda en la web abierta
+  - `io.gravitonai.tools.human_in_the_loop_request` — Formulario interactivo para captura de datos con opciones (single/multi-select) y texto libre
+  - `io.gravitonai.tools.restricted_human_in_the_loop_request` — Formulario de opciones cerradas predefinidas para confirmaciones y enrutamiento
+  - `io.gravitonai.tools.slot_filling_request` — Formulario de captura de datos en lotes (*batch slot-filling*) con campos de texto libre agrupados
 
 ¿Cuales quieres incluir?
 

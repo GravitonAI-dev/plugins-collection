@@ -146,6 +146,215 @@
       },
       "tags": ["retrieval", "web", "research"],
       "side_effects": false
+    },
+    {
+      "id": "io.gravitonai.tools.human_in_the_loop_request",
+      "name": "human_in_the_loop_request",
+      "description": "Solicita información al usuario a través de un formulario interactivo.\n\nESTRUCTURA — dos campos anidados, NO confundirlos:\n- Cada pregunta tiene 'selection_type': 'single_select' | 'multi_select'.\n- Cada opción tiene únicamente 'id' y 'label' (el sistema añade automáticamente una opción de texto libre y establece option_type='predefined' de forma automática).\n\nCRÍTICO: cada elemento de 'options' DEBE ser un objeto PLANO con las claves 'id', 'label'. NO envolver las opciones dentro de una clave 'item' anidada — cada opción es hermana, nunca hija.\n\nEJEMPLO:\n{\n  \"form_data\": [\n    {\n      \"id\": \"tipo_inmueble\",\n      \"rationale\": \"Necesito saber qué tipo de propiedad para incluir cláusulas específicas.\",\n      \"selection_type\": \"single_select\",\n      \"question\": \"¿Qué tipo de inmueble vas a arrendar?\",\n      \"options\": [\n        {\"id\": \"casa\",        \"label\": \"Casa / Habitación\"},\n        {\"id\": \"apartamento\", \"label\": \"Apartamento\"},\n        {\"id\": \"local\",       \"label\": \"Local comercial\"}\n      ]\n    },\n    {\n      \"id\": \"info_basica\",\n      \"rationale\": \"Datos necesarios para redactar el contrato.\",\n      \"selection_type\": \"multi_select\",\n      \"question\": \"Selecciona los datos que ya tengas disponibles:\",\n      \"options\": [\n        {\"id\": \"nombre\",  \"label\": \"Nombre completo\"},\n        {\"id\": \"cedula\",  \"label\": \"Número de cédula\"},\n        {\"id\": \"direccion\", \"label\": \"Dirección del inmueble\"}\n      ]\n    }\n  ]\n}",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "form_data": {
+            "type": "array",
+            "minItems": 1,
+            "description": "Lista de preguntas que componen el formulario.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Identificador único de la pregunta dentro del formulario."
+                },
+                "rationale": {
+                  "type": "string",
+                  "description": "Explicación interna de por qué es estrictamente necesario hacer esta pregunta al usuario."
+                },
+                "selection_type": {
+                  "type": "string",
+                  "enum": ["single_select", "multi_select"],
+                  "description": "single_select = una opción; multi_select = se pueden elegir múltiples opciones."
+                },
+                "question": {
+                  "type": "string",
+                  "description": "Texto de la pregunta mostrado al usuario."
+                },
+                "options": {
+                  "type": "array",
+                  "minItems": 1,
+                  "description": "Lista de opciones de respuesta predefinidas. El sistema añade automáticamente una opción de texto libre. No incluir opciones de texto libre en esta lista.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "Identificador único de la opción (ej. 'opt_1', 'opt_2')."
+                      },
+                      "label": {
+                        "type": "string",
+                        "description": "Etiqueta visible de la opción."
+                      }
+                    },
+                    "required": ["id", "label"],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": ["id", "rationale", "selection_type", "question", "options"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": ["form_data"],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "form_data": {
+            "type": "array",
+            "description": "Respuestas del usuario al formulario."
+          }
+        }
+      },
+      "tags": ["interaction", "hitl", "form", "selection"],
+      "side_effects": false
+    },
+    {
+      "id": "io.gravitonai.tools.restricted_human_in_the_loop_request",
+      "name": "restricted_human_in_the_loop_request",
+      "description": "Solicita información al usuario a través de un formulario de opciones cerradas (sin texto libre).\n\nESTRUCTURA — cada pregunta define 'id', 'rationale', 'question' y 'options'. El sistema establece automáticamente selection_type='single_select' y option_type='predefined' en cada elemento.\n\nCRÍTICO: cada elemento de 'options' DEBE ser un objeto PLANO con las claves 'id', 'label'. NO envolver las opciones dentro de una clave 'item' anidada — cada opción es hermana, nunca hija.\n\nEJEMPLO:\n{\n  \"form_data\": [\n    {\n      \"id\": \"q_scope\",\n      \"rationale\": \"Necesito que confirmes el alcance antes de proceder.\",\n      \"question\": \"¿Qué alcance debe tener la operación?\",\n      \"options\": [\n        {\"id\": \"opt_full\",    \"label\": \"Operación completa\"},\n        {\"id\": \"opt_partial\", \"label\": \"Operación parcial\"},\n        {\"id\": \"opt_cancel\",  \"label\": \"Cancelar\"}\n      ]\n    }\n  ]\n}",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "form_data": {
+            "type": "array",
+            "minItems": 1,
+            "description": "Lista de preguntas del formulario (únicamente opciones predefinidas cerradas).",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Identificador único de la pregunta dentro del formulario."
+                },
+                "rationale": {
+                  "type": "string",
+                  "description": "Explicación interna de por qué es estrictamente necesario hacer esta pregunta al usuario."
+                },
+                "question": {
+                  "type": "string",
+                  "description": "Texto de la pregunta mostrado al usuario."
+                },
+                "options": {
+                  "type": "array",
+                  "minItems": 1,
+                  "description": "Lista de opciones cerradas predefinidas (selección única).",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "Identificador único de la opción (ej. 'opt_1', 'opt_2')."
+                      },
+                      "label": {
+                        "type": "string",
+                        "description": "Etiqueta visible de la opción."
+                      }
+                    },
+                    "required": ["id", "label"],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": ["id", "rationale", "question", "options"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": ["form_data"],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "form_data": {
+            "type": "array",
+            "description": "Respuestas del usuario con las opciones seleccionadas."
+          }
+        }
+      },
+      "tags": ["interaction", "hitl", "form", "restricted"],
+      "side_effects": false
+    },
+    {
+      "id": "io.gravitonai.tools.slot_filling_request",
+      "name": "slot_filling_request",
+      "description": "Solicita datos estructurados de llenado de campos (slot-filling) al usuario a través de un formulario compuesto íntegramente por campos de entrada de texto libre.\n\nCUÁNDO USAR:\n- Usa esta herramienta siempre que requieras que el usuario proporcione datos específicos, variables, información personal, direcciones, importes, fechas o rellene múltiples campos/slots faltantes.\n- PETICIONES POR LOTES (BATCH): Prefiere SIEMPRE solicitar datos en LOTES — solicita la MÁXIMA cantidad de información necesaria en un único bloque de invocación en lugar de preguntar de forma incremental uno por uno.\n\nESTRUCTURA:\n- 'form_data' es una lista de grupos de preguntas.\n- Cada grupo de preguntas tiene 'id', 'rationale', 'question' (título del grupo) y 'options'.\n- Cada elemento de 'options' representa un slot de texto libre con 'id' y 'label'.\n- 'label' DEBE ser un texto descriptivo tipo placeholder (ej. 'Nombre completo del arrendador', 'DNI / NIE', 'Dirección del inmueble'), SIEMPRE en el idioma del usuario.\n\nEJEMPLO:\n{\n  \"form_data\": [\n    {\n      \"id\": \"datos_arrendador\",\n      \"rationale\": \"Datos necesarios para identificar a la parte arrendadora en el contrato.\",\n      \"question\": \"Datos de la parte arrendadora:\",\n      \"options\": [\n        {\"id\": \"nombre_arrendador\", \"label\": \"Nombre completo del arrendador\"},\n        {\"id\": \"dni_arrendador\", \"label\": \"DNI / NIE del arrendador\"},\n        {\"id\": \"domicilio_arrendador\", \"label\": \"Domicilio a efectos de notificaciones\"}\n      ]\n    },\n    {\n      \"id\": \"datos_inmueble\",\n      \"rationale\": \"Identificación de la vivienda objeto del contrato.\",\n      \"question\": \"Información del inmueble:\",\n      \"options\": [\n        {\"id\": \"direccion_vivienda\", \"label\": \"Dirección completa de la vivienda\"},\n        {\"id\": \"renta_mensual\", \"label\": \"Importe de la renta mensual (€)\"}\n      ]\n    }\n  ]\n}",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "form_data": {
+            "type": "array",
+            "minItems": 1,
+            "description": "Lista de grupos de campos de slot-filling (únicamente campos de texto libre).",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Identificador único de la pregunta o grupo de campos (ej. 'owner_data', 'property_info')."
+                },
+                "rationale": {
+                  "type": "string",
+                  "description": "Explicación interna de por qué se necesitan estos campos/slots específicos."
+                },
+                "question": {
+                  "type": "string",
+                  "description": "Título del grupo o encabezado de sección mostrado al usuario (ej. 'Datos del arrendador', 'Información del inmueble')."
+                },
+                "options": {
+                  "type": "array",
+                  "minItems": 1,
+                  "description": "Lista de campos de entrada de texto libre (slots) a ser rellenados por el usuario. Cada opción define un 'id' y un 'label' estilo placeholder.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "Identificador único del campo (ej. 'owner_name', 'owner_dni', 'property_address')."
+                      },
+                      "label": {
+                        "type": "string",
+                        "description": "Placeholder o etiqueta descriptiva para el campo de texto (ej. 'Nombre del propietario', 'DNI / NIF del propietario', 'Dirección completa'). Debe estar en el idioma del usuario."
+                      }
+                    },
+                    "required": ["id", "label"],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": ["id", "rationale", "question", "options"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": ["form_data"],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "form_data": {
+            "type": "array",
+            "description": "Respuestas del usuario con los valores de texto introducidos para cada slot."
+          }
+        }
+      },
+      "tags": ["interaction", "hitl", "form", "slots"],
+      "side_effects": false
     }
   ]
 }
