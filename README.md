@@ -100,7 +100,7 @@ Cómo viaja una solicitud del usuario a través del sistema, end to end:
    │     - Llena assets/nda-triage-           │
    │       output-template.md                 │
    │  8. Si la skill lo requiere:             │
-   │     - Invoca tools (read_document, etc.) │
+   │     - Invoca tools (read_file, etc.)     │
    │     - Conecta MCP servers (CourtListener)│
    │     - Ejecuta scripts (futuro)           │
    │  9. Aplica guardrails en cada paso       │
@@ -434,7 +434,7 @@ Mientras no exista `validate.py`, la validación cruzada se hace con un script a
   + [commercial-legal] skill 'nda-review' -> SKILL.md exists
   + [commercial-legal] MCP ref 'io.gravitonai.courtlistener' -> found
   + [commercial-legal] MCP ref 'io.gravitonai.gdrive' -> found
-  + [commercial-legal] tool ref 'io.gravitonai.tools.read_document' -> found
+  + [commercial-legal] tool ref 'io.gravitonai.tools.read_file' -> found
   + [commercial-legal] tool ref 'io.gravitonai.tools.draft_markdown' -> found
 ```
 
@@ -458,7 +458,7 @@ Regla de oro: **definir una vez, referenciar por id**.
 
 **Convención de IDs**:
 - Servidores: `io.gravitonai.<categoría>.<nombre>` → `io.gravitonai.courtlistener`.
-- Tools: `io.gravitonai.tools.<nombre>` → `io.gravitonai.tools.read_document`.
+- Tools: `io.gravitonai.tools.<nombre>` → `io.gravitonai.tools.read_file`.
 
 ---
 
@@ -543,7 +543,7 @@ Plugin de ejemplo. Cubre flujos legales transaccionales comerciales: revisión d
 - `nda-review`: triage de NDAs entrantes con output VERDE/AMARILLO/ROJO + memo para abogado.
 
 **MCP servers referenciados**: `io.gravitonai.courtlistener` (opcional), `io.gravitonai.gdrive` (requerido).
-**Tools referenciadas**: `io.gravitonai.tools.read_document`, `io.gravitonai.tools.draft_markdown`.
+**Tools referenciadas**: `io.gravitonai.tools.read_file`, `io.gravitonai.tools.draft_markdown`.
 
 Ver `commercial-legal/README.md` para detalle completo.
 

@@ -84,9 +84,9 @@ Output: hoja de datos del formulario EX (con checklist, organismo y tasa 790) y 
 
 | ID | Uso |
 |---|---|
-| `io.gravitonai.tools.read_document` | Lectura en el BOE de la normativa de cada tramite (verificacion) |
-| `io.gravitonai.tools.web_search` | Fallback normativo, tasas vigentes, modelos actualizados y especialidades autonomicas |
-| `io.gravitonai.tools.draft_markdown` | Generacion de la solicitud, hoja de datos y checklist desde plantilla |
+| `io.gravitonai.tools.read_file` | Lectura y verificación de documentos en el workspace |
+| `io.gravitonai.tools.web_search` | Verificación normativa en el BOE, tasas y modelos oficiales |
+| `io.gravitonai.tools.draft_markdown` | Generación de la solicitud, hoja de datos y checklist desde plantilla |
 
 ### Servidores MCP
 

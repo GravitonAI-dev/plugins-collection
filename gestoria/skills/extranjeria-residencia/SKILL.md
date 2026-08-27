@@ -55,49 +55,28 @@ assets:
 
 ## Procedimiento
 
-### Paso 1 — Verificacion y AUTO-ACTUALIZACION normativa (OBLIGATORIO, antes de cualquier otra accion)
+### Paso 1 — Verificacion normativa
 
-La skill se actualiza a si misma en cada lanzamiento: comprueba las fuentes oficiales y, si detecta una version posterior, reescribe sus propios archivos (references y assets) antes de preparar el tramite. Ejecutar SIEMPRE esta secuencia:
+**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-y-plazos.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt (TIENES ESTRICTAMENTE PROHIBIDO usar la herramienta `read_file` para leer references o assets) y anotar la version registrada de la LOEX, del Reglamento (RD 1155/2024) y de los formularios EX y la tasa.
 
-**1.1 — Leer la version registrada localmente.** Abrir `references/fuentes-y-plazos.md` y anotar la version registrada de la LOEX, del Reglamento (RD 1155/2024) y de los formularios EX y la tasa.
-
-**1.2 — Consultar la fuente oficial vigente.** Invocar:
+**1.2 — Consultar la fuente oficial vigente en vivo.** Invocar:
 ```
-read_document(
-  path: "https://www.boe.es/buscar/act.php?id=BOE-A-2000-544",
-  format: "text"
-)
-```
-Extraer la fecha del texto consolidado vigente de la LOEX. Consultar tambien el Reglamento:
-```
-read_document(
-  path: "https://www.boe.es/buscar/act.php?id=BOE-A-2024-24099",
-  format: "text"
-)
+web_search("BOE-A-2000-544 Ley Organica 4/2000 derechos libertades extranjeros Espana texto consolidado")
+web_search("BOE-A-2024-24099 Real Decreto 1155/2024 Reglamento Extranjeria texto consolidado")
 ```
 Y comprobar el catalogo de formularios EX y la tasa en la sede del organismo:
 ```
-read_document(
-  path: "https://www.inclusion.gob.es/web/migraciones/modelos-generales",
-  format: "text"
-)
+web_search("modelos generales extranjeria formularios EX tasa 790 codigo 012 052 Ministerio Inclusion")
 ```
 
-**1.3 — Comparar.** Contrastar la version oficial (LOEX, Reglamento, formularios, tasa) con la registrada localmente y con el texto de las references.
+**1.3 — Comparar.** Contrastar la version oficial (LOEX, Reglamento, formularios, tasa) con la registrada en `fuentes-y-plazos.md` y con las referencias del prompt (`loex-y-reglamento.md`, `formularios-ex-y-tasas.md`, `documentacion-por-tramite.md`).
 
-**1.4 — Auto-actualizar los archivos del plugin (OBLIGATORIO si hay cambios).** Si la version oficial es posterior o el texto ha cambiado, usar las herramientas de escritura (Write/Edit) para:
-- Actualizar el contenido afectado en `references/loex-y-reglamento.md`, `references/formularios-ex-y-tasas.md` y/o `references/documentacion-por-tramite.md`.
-- Actualizar la tabla de version registrada y las fechas en `references/fuentes-y-plazos.md`.
+**1.4 — Aplicar cambios normativos.** Si la version oficial es posterior o el texto ha cambiado:
+- Aplicar en memoria la normativa, formularios y tasas vigentes para adaptar los documentos.
 - Informar brevemente al usuario de que se detecto y aplico una version mas reciente (norma, formulario o tasa, y fecha).
 
-No preparar ningun documento hasta haber completado esta actualizacion. Nunca usar una version desactualizada.
-
-**1.5 — Fallback si la fuente no es accesible.** Si `read_document` falla (error HTTP, timeout):
-```
-web_search("Reglamento de Extranjeria RD 1155/2024 formularios EX tasa 790 BOE texto vigente")
-```
-Si tambien falla: usar las references locales como respaldo y notificar al usuario:
-"No se pudo verificar la version vigente de la normativa de extranjeria en el BOE. El tramite se prepara con la version de referencia. Verificar manualmente el formulario y la tasa antes de presentar."
+**1.5 — Fallback si la busqueda no es accesible.** Si la busqueda web falla: usar las references cargadas en el prompt como respaldo y notificar al usuario:
+"No se pudo verificar en vivo la version vigente de la normativa de extranjeria en el BOE. El tramite se prepara con la version de referencia. Verificar manualmente el formulario y la tasa antes de presentar."
 
 ### Paso 2 — Preguntas al usuario (una pregunta por bloque si no las ha proporcionado)
 
@@ -143,7 +122,9 @@ e) **Discrecionalidad y plazos.** Recordar que la resolucion es discrecional, in
 
 ### Paso 4 — Generacion de los documentos
 
-Generar siempre la hoja de datos y el checklist:
+Tomar las plantillas correspondientes directamente desde el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas):
+
+Generar siempre la hoja de datos y el checklist con la plantilla `hoja-datos-solicitud-ex.md`:
 ```
 draft_markdown(
   template_id: "hoja-datos-solicitud-ex",
@@ -154,7 +135,7 @@ draft_markdown(
 )
 ```
 
-Si el tramite es una autorizacion de residencia (no lucrativa, arraigo, reagrupacion) y el usuario pide tambien un escrito de solicitud o alegaciones, generar ademas:
+Si el tramite es una autorizacion de residencia (no lucrativa, arraigo, reagrupacion) y el usuario pide tambien un escrito de solicitud o alegaciones, generar ademas con la plantilla `escrito-solicitud-residencia.md` (tomada de `<document kind="assets-collection">` sin usar `read_file`):
 ```
 draft_markdown(
   template_id: "escrito-solicitud-residencia",
@@ -164,7 +145,9 @@ draft_markdown(
 
 Para un NIE simple no suele hacer falta escrito de alegaciones: basta la hoja de datos del EX-15 y el checklist.
 
-Rellenar todos los campos con los datos reales. Los campos que el usuario no haya proporcionado quedan con el marcador del asset. Aplicar el estilo de `references/estilo-redaccion-escritos.md`: lenguaje administrativo claro, estructura EXPONE / SOLICITA, una idea por parrafo, sin formulas grandilocuentes.
+Rellenar todos los campos con los datos reales. Los campos que el usuario no haya proporcionado quedan como campo pendiente de completar. Aplicar las directivas de `estilo-redaccion-escritos.md` (disponible directamente en `<document kind="references-collection">` del prompt): lenguaje administrativo claro, estructura EXPONE / SOLICITA, una idea por parrafo, sin formulas grandilocuentes.
+
+Tras guardar los archivos en disco del workspace, invocar `read_file` exclusivamente sobre las rutas del workspace para verificar la integridad de los documentos escritos.
 
 ### Paso 5 — Revision final y advertencias
 

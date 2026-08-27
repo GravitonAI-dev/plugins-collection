@@ -57,25 +57,14 @@ assets:
 
 ## Procedimiento
 
-### Paso 1 — Verificacion y AUTO-ACTUALIZACION normativa (OBLIGATORIO, antes de cualquier otra accion)
+### Paso 1 — Verificacion normativa
 
-La skill se actualiza a si misma en cada lanzamiento: comprueba las fuentes oficiales y, si detecta una version posterior, reescribe sus propios archivos (references y assets) antes de preparar el tramite. Ejecutar SIEMPRE esta secuencia:
+**1.1 — Consultar la version registrada en references.** Consultar el archivo `plazos-y-sedes.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt (TIENES ESTRICTAMENTE PROHIBIDO usar la herramienta `read_file` para leer references o assets) y anotar la "Version registrada" del texto refundido de la LGSS, del RD 84/1996 y de los modelos TA, y los plazos registrados.
 
-**1.1 — Leer la version registrada localmente.** Abrir `references/plazos-y-sedes.md` y anotar la "Version registrada" del texto refundido de la LGSS, del RD 84/1996 y de los modelos TA, y los plazos registrados.
-
-**1.2 — Consultar la fuente oficial vigente.** Invocar:
+**1.2 — Consultar la fuente oficial vigente en vivo.** Invocar:
 ```
-read_document(
-  path: "https://www.boe.es/buscar/act.php?id=BOE-A-2015-11724",
-  format: "text"
-)
-```
-Extraer la redaccion vigente del texto refundido de la LGSS (RD-legislativo 8/2015), en especial los arts. 138 a 146 (inscripcion de empresas, afiliacion, altas, bajas y variaciones) y el regimen del Sistema Especial de Empleados de Hogar. Consultar tambien el Reglamento general:
-```
-read_document(
-  path: "https://www.boe.es/buscar/act.php?id=BOE-A-1996-4396",
-  format: "text"
-)
+web_search("BOE-A-2015-11724 Real Decreto Legislativo 8/2015 LGSS texto refundido afiliacion altas bajas")
+web_search("BOE-A-1996-4396 Real Decreto 84/1996 Reglamento General inscripcion empresas afiliacion")
 ```
 Y verificar los modelos TA, la via y los plazos vigentes con:
 ```
@@ -84,22 +73,14 @@ web_search("alta baja trabajador Regimen General Sistema RED Import@ss plazo alt
 web_search("alta baja empleada de hogar Sistema Especial Regimen General Import@ss plazos vigente")
 ```
 
-**1.3 — Comparar.** Contrastar la version oficial, los modelos y los plazos vigentes con los registrados localmente y con el texto de las references.
+**1.3 — Comparar.** Contrastar la version oficial, los modelos y los plazos vigentes con los registrados en `plazos-y-sedes.md` y con las referencias del prompt (`lgss-y-reglamento-afiliacion.md`, `tramites-tgss-modelos-ta.md`).
 
-**1.4 — Auto-actualizar los archivos del plugin (OBLIGATORIO si hay cambios).** Si la version oficial es posterior o los modelos o plazos han cambiado, usar las herramientas de escritura (Write/Edit) para:
-- Actualizar `references/lgss-y-reglamento-afiliacion.md` con la redaccion vigente de la LGSS y del RD 84/1996.
-- Actualizar `references/tramites-tgss-modelos-ta.md` si un modelo TA, la via o el circuito del Sistema RED / Import@ss han cambiado.
-- Actualizar los plazos y las sedes en `references/plazos-y-sedes.md` y su tabla "Version registrada".
+**1.4 — Aplicar cambios normativos.** Si la version oficial es posterior o los modelos o plazos han cambiado:
+- Aplicar en memoria la redaccion y circuitos vigentes para adaptar las hojas de datos.
 - Informar brevemente al usuario de que se detecto y aplico una version mas reciente (norma, modelo o plazo, y fecha).
 
-No preparar ninguna hoja de datos hasta haber completado esta actualizacion. Nunca usar una version desactualizada.
-
-**1.5 — Fallback si la fuente no es accesible.** Si `read_document` falla (error HTTP, timeout):
-```
-web_search("texto refundido Ley General Seguridad Social RD legislativo 8/2015 consolidado BOE")
-```
-Si tambien falla: usar las references locales como respaldo y notificar al usuario:
-"No se pudo verificar la version vigente de la LGSS en el BOE ni los modelos TA. La hoja de datos se genera con la version de referencia. Verificar el modelo y los plazos manualmente antes de presentar."
+**1.5 — Fallback si la busqueda no es accesible.** Si la busqueda web falla: usar las references cargadas en el prompt como respaldo y notificar al usuario:
+"No se pudo verificar en vivo la version vigente de la LGSS en el BOE ni los modelos TA. La hoja de datos se genera con la version de referencia. Verificar el modelo y los plazos manualmente antes de presentar."
 
 ### Paso 2 — Preguntas al usuario (una pregunta por bloque si no las ha proporcionado)
 
@@ -146,10 +127,10 @@ e) **Grupo de cotizacion y contrato.** En el alta de un trabajador, confirmar el
 
 ### Paso 4 — Generacion de la hoja de datos
 
-Seleccionar la plantilla segun el sujeto:
-- Afiliacion inicial / NUSS: `assets/hoja-datos-afiliacion-ta1.md`
-- Inscripcion de empresa / CCC (y variaciones o baja): `assets/hoja-datos-inscripcion-empresa-ccc.md`
-- Alta o baja de trabajador del Regimen General o de empleada de hogar: `assets/hoja-datos-alta-baja-trabajador.md`
+Tomar la plantilla correspondiente directamente desde el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas):
+- Afiliacion inicial / NUSS: `hoja-datos-afiliacion-ta1.md`
+- Inscripcion de empresa / CCC (y variaciones o baja): `hoja-datos-inscripcion-empresa-ccc.md`
+- Alta o baja de trabajador del Regimen General o de empleada de hogar: `hoja-datos-alta-baja-trabajador.md`
 
 Invocar:
 ```
@@ -163,7 +144,9 @@ draft_markdown(
 
 Rellenar todos los campos con los datos reales. Los campos que el usuario no haya proporcionado quedan como campo pendiente de completar. En la hoja de alta o baja de trabajador, resolver los bloques condicionales segun el `tipo_operacion` (alta o baja) y el sujeto (trabajador o empleada de hogar).
 
-Aplicar el estilo de `references/estilo-redaccion-escritos.md`: hoja de datos clara, con los campos ordenados como en el modelo TA oficial, y checklist accionable.
+Aplicar las directivas de `estilo-redaccion-escritos.md` (disponible directamente en `<document kind="references-collection">` del prompt): hoja de datos clara, con los campos ordenados como en el modelo TA oficial, y checklist accionable.
+
+Tras guardar el archivo en disco del workspace, invocar `read_file` exclusivamente sobre la ruta del workspace para verificar la integridad del documento escrito.
 
 ### Paso 5 — Revision final y advertencias
 

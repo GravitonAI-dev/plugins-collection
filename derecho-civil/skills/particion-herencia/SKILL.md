@@ -56,36 +56,24 @@ assets:
 
 ## Procedimiento
 
-### Paso 1 — Verificacion y AUTO-ACTUALIZACION normativa (OBLIGATORIO, antes de cualquier otra accion)
+### Paso 1 — Verificacion normativa
 
-La skill se actualiza a si misma en cada lanzamiento: comprueba las fuentes oficiales y, si detecta una version posterior, reescribe sus propios archivos (references y assets) antes de redactar. Ejecutar SIEMPRE esta secuencia:
+**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-plantillas-validadas.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt (TIENES ESTRICTAMENTE PROHIBIDO usar la herramienta `read_file` para leer references o assets) y anotar la "Version registrada" del Codigo Civil.
 
-**1.1 — Leer la fecha/version registrada localmente.** Abrir `references/fuentes-plantillas-validadas.md` y anotar la "Version registrada" del Codigo Civil.
-
-**1.2 — Consultar la fuente oficial vigente.** Invocar:
+**1.2 — Consultar la fuente oficial vigente en vivo.** Invocar:
 ```
-read_document(
-  path: "https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763",
-  format: "text"
-)
+web_search("BOE-A-1889-4763 Codigo Civil sucesiones legitima particion herencia articulos 806 808 1035 1087 texto consolidado")
 ```
 Extraer: fecha del texto consolidado vigente del Codigo Civil; redaccion actual de los arts. 657 y ss. (apertura de la sucesion), 806 a 808 (legitima), 834 y ss. (derechos del conyuge viudo), 912 y ss. (ordenes de la sucesion intestada) y 1035 a 1087 (colacion y particion).
 
-**1.3 — Comparar.** Contrastar la version oficial con la registrada localmente y con el texto de las references.
+**1.3 — Comparar.** Contrastar la version oficial con la registrada en `fuentes-plantillas-validadas.md` y con las referencias del prompt (`cc-sucesiones-y-legitima.md`, `cc-particion-herencia.md`).
 
-**1.4 — Auto-actualizar los archivos del plugin (OBLIGATORIO si hay cambios).** Si la version oficial es posterior o el texto de los articulos ha cambiado, usar las herramientas de escritura (Write/Edit) para:
-- Actualizar el contenido afectado en `references/cc-sucesiones-y-legitima.md` y/o `references/cc-particion-herencia.md` con la redaccion vigente.
-- Actualizar la tabla "Version registrada" y las fechas en `references/fuentes-plantillas-validadas.md`.
+**1.4 — Aplicar cambios normativos.** Si la version oficial es posterior o el texto de los articulos ha cambiado:
+- Aplicar en memoria la redaccion vigente para adaptar el computo de legitimas y las clausulas particionales.
 - Informar brevemente al usuario de que se detecto y aplico una version mas reciente (norma y fecha).
 
-No redactar ningun documento hasta haber completado esta actualizacion. Nunca usar una version desactualizada.
-
-**1.5 — Fallback si la fuente no es accesible.** Si `read_document` falla (error HTTP, timeout):
-```
-web_search("Codigo Civil sucesiones legitima particion herencia articulos 806 808 1035 1087 texto consolidado BOE")
-```
-Si tambien falla: usar las references locales como respaldo y notificar al usuario:
-"No se pudo verificar la version vigente del Codigo Civil en el BOE. Los documentos se generan con la version de referencia. Verificar manualmente antes de firmar."
+**1.5 — Fallback si la busqueda no es accesible.** Si la busqueda web falla: usar las references cargadas en el prompt como respaldo y notificar al usuario:
+"No se pudo verificar en vivo la version vigente del Codigo Civil en el BOE. Los documentos se generan con la version de referencia. Verificar manualmente antes de firmar."
 
 ### Paso 2 — Preguntas al usuario (una pregunta por bloque si no las ha proporcionado)
 
@@ -135,9 +123,9 @@ e) **Acreedores de la herencia (Arts. 1082-1083 CC).** Advertir de que los acree
 
 ### Paso 4 — Generacion de los documentos
 
-Seleccionar la plantilla segun lo pedido en el Bloque A:
-- Cuaderno particional: `assets/cuaderno-particional.md`
-- Aceptacion de herencia: `assets/aceptacion-herencia.md`
+Tomar la plantilla correspondiente directamente desde el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas):
+- Cuaderno particional: `cuaderno-particional.md`
+- Aceptacion de herencia: `aceptacion-herencia.md`
 
 Invocar:
 ```
@@ -151,7 +139,9 @@ draft_markdown(
 
 Rellenar todos los campos con los datos reales. Los campos que el usuario no haya proporcionado quedan como `[DATO — PENDIENTE DE COMPLETAR]`.
 
-Aplicar el estilo de `references/estilo-redaccion-escritos.md`: estructura de documento notarial/particional (comparecencia, exposicion, inventario y avaluo, liquidacion del haber, adjudicaciones, otorgamiento), clausulas numeradas, una idea por apartado, sin latinismos innecesarios, cifras en numero y letra.
+Aplicar las directivas de `estilo-redaccion-escritos.md` (disponible directamente en `<document kind="references-collection">` del prompt): estructura de documento notarial/particional (comparecencia, exposicion, inventario y avaluo, liquidacion del haber, adjudicaciones, otorgamiento), clausulas numeradas, una idea por apartado, sin latinismos innecesarios, cifras en numero y letra.
+
+Tras guardar el archivo en disco del workspace, invocar `read_file` exclusivamente sobre la ruta del workspace para verificar la integridad del documento escrito.
 
 ### Paso 5 — Revision final y advertencias
 

@@ -128,9 +128,9 @@ Este plugin cubre documentos JURIDICOS de derecho civil (contratos, demandas, re
 
 | ID | Uso |
 |---|---|
-| `io.gravitonai.tools.read_document` | Lectura directa de la LAU en el BOE (verificacion normativa) |
-| `io.gravitonai.tools.web_search` | Fallback normativo y consulta de normativa autonomica |
-| `io.gravitonai.tools.draft_markdown` | Generacion del contrato desde plantilla |
+| `io.gravitonai.tools.read_file` | Lectura y verificación de documentos en el workspace |
+| `io.gravitonai.tools.web_search` | Verificación normativa en el BOE y consulta autonómica |
+| `io.gravitonai.tools.draft_markdown` | Generación del contrato desde plantilla |
 
 ### Servidores MCP
 

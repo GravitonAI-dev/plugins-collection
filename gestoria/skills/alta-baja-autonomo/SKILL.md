@@ -67,25 +67,14 @@ assets:
 
 ## Procedimiento
 
-### Paso 1 — Verificacion y AUTO-ACTUALIZACION normativa (OBLIGATORIO, antes de cualquier otra accion)
+### Paso 1 — Verificacion normativa
 
-La skill se actualiza a si misma en cada lanzamiento: comprueba las fuentes oficiales y, si detecta una version posterior, reescribe sus propios archivos (references y assets) antes de preparar el tramite. Ejecutar SIEMPRE esta secuencia:
+**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-y-plazos.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt (TIENES ESTRICTAMENTE PROHIBIDO usar la herramienta `read_file` para leer references o assets) y anotar la "Version registrada" de la Ley 20/2007, del RD-ley 13/2022, del modelo censal 036 y del ejercicio de las cuotas del RETA, y los plazos de alta y de baja.
 
-**1.1 — Leer la version registrada localmente.** Abrir `references/fuentes-y-plazos.md` y anotar la "Version registrada" de la Ley 20/2007, del RD-ley 13/2022, del modelo censal 036 y del ejercicio de las cuotas del RETA, y los plazos de alta y de baja.
-
-**1.2 — Consultar la fuente oficial vigente.** Invocar:
+**1.2 — Consultar la fuente oficial vigente en vivo.** Invocar:
 ```
-read_document(
-  path: "https://www.boe.es/buscar/act.php?id=BOE-A-2007-13409",
-  format: "text"
-)
-```
-Extraer la redaccion vigente de la Ley 20/2007 (Estatuto del Trabajo Autonomo), en especial los arts. 30 a 38 bis (cotizacion). Consultar tambien el RD-ley 13/2022:
-```
-read_document(
-  path: "https://www.boe.es/buscar/act.php?id=BOE-A-2022-12482",
-  format: "text"
-)
+web_search("BOE-A-2007-13409 Ley 20/2007 Estatuto del Trabajo Autonomo texto consolidado cotizacion")
+web_search("BOE-A-2022-12482 Real Decreto-ley 13/2022 sistema cotizacion autonomos rendimientos reales")
 ```
 Y verificar los tramos, cuotas y tarifa plana del ejercicio en curso, el modelo censal vigente y los plazos de alta y de baja, con:
 ```
@@ -95,22 +84,14 @@ web_search("tarifa plana autonomos cuota reducida inicio actividad requisitos ej
 web_search("baja autonomo RETA plazo 3 dias naturales cese efectos cuota mes completo Import@ss")
 ```
 
-**1.3 — Comparar.** Contrastar la version oficial, las cuotas y los plazos vigentes con los registrados localmente y con el texto de las references.
+**1.3 — Comparar.** Contrastar la version oficial, las cuotas y los plazos vigentes con los registrados en `fuentes-y-plazos.md` y con las referencias del prompt (`censo-036-037-aeat.md`, `reta-cotizacion-ingresos-reales.md`).
 
-**1.4 — Auto-actualizar los archivos del plugin (OBLIGATORIO si hay cambios).** Si la version oficial es posterior o los importes o plazos han cambiado, usar las herramientas de escritura (Write/Edit) para:
-- Actualizar `references/censo-036-037-aeat.md` si el modelo censal, los regimenes o el procedimiento de baja censal han cambiado (por ejemplo, la supresion del modelo 037 y su integracion en el 036, o las casillas de baja).
-- Actualizar `references/reta-cotizacion-ingresos-reales.md` con la tabla de tramos, cuotas, tarifa plana y reglas de efectos de la baja del ejercicio en curso, manteniendo los importes marcados como `[verificar]`.
-- Actualizar la tabla "Version registrada", los plazos de alta y de baja y las fechas en `references/fuentes-y-plazos.md`.
+**1.4 — Aplicar cambios normativos.** Si la version oficial es posterior o los importes o plazos han cambiado:
+- Aplicar en memoria la redaccion y tablas vigentes para adaptar las hojas de datos.
 - Informar brevemente al usuario de que se detecto y aplico una version mas reciente (norma, importes, plazos y fecha).
 
-No preparar ninguna hoja de datos hasta haber completado esta actualizacion. Nunca usar una version desactualizada.
-
-**1.5 — Fallback si la fuente no es accesible.** Si `read_document` falla (error HTTP, timeout):
-```
-web_search("Ley 20/2007 Estatuto del Trabajo Autonomo texto consolidado BOE")
-```
-Si tambien falla: usar las references locales como respaldo y notificar al usuario:
-"No se pudo verificar la version vigente en el BOE ni las cuotas y plazos del RETA. La hoja de datos se genera con la version de referencia. Verificar los importes, el modelo y los plazos manualmente antes de presentar."
+**1.5 — Fallback si la busqueda no es accesible.** Si la busqueda web falla: usar las references cargadas en el prompt como respaldo y notificar al usuario:
+"No se pudo verificar en vivo la version vigente en el BOE ni las cuotas y plazos del RETA. La hoja de datos se genera con la version de referencia. Verificar los importes, el modelo y los plazos manualmente antes de presentar."
 
 ### Paso 2 — Preguntas al usuario (una pregunta por bloque si no las ha proporcionado)
 
@@ -196,7 +177,9 @@ e) **Obligaciones fiscales pendientes:** identificar las ultimas declaraciones a
 
 ### Paso 4 — Generacion de las hojas de datos
 
-**Rama A — ALTA.** Generar las dos hojas de datos del alta:
+Tomar las plantillas correspondientes directamente desde el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas):
+
+**Rama A — ALTA.** Generar las dos hojas de datos del alta con las plantillas `hoja-datos-alta-censal-036.md` y `hoja-datos-alta-reta.md`:
 ```
 draft_markdown(
   template_id: "hoja-datos-alta-censal-036",
@@ -208,7 +191,7 @@ draft_markdown(
 )
 ```
 
-**Rama B — BAJA.** Generar las dos hojas de datos de la baja:
+**Rama B — BAJA.** Generar las dos hojas de datos de la baja con las plantillas `hoja-datos-baja-censal-036.md` y `hoja-datos-baja-reta.md`:
 ```
 draft_markdown(
   template_id: "hoja-datos-baja-censal-036",
@@ -220,7 +203,9 @@ draft_markdown(
 )
 ```
 
-Rellenar todos los campos con los datos reales. Los campos que el usuario no haya proporcionado quedan como campo pendiente de completar. Aplicar el estilo de `references/estilo-redaccion-escritos.md`: hoja de datos clara, con los campos ordenados como en el formulario oficial, y checklist accionable.
+Rellenar todos los campos con los datos reales. Los campos que el usuario no haya proporcionado quedan como campo pendiente de completar. Aplicar las directivas de `estilo-redaccion-escritos.md` (disponible directamente en `<document kind="references-collection">` del prompt): hoja de datos clara, con los campos ordenados como en el formulario oficial, y checklist accionable.
+
+Tras guardar los archivos en disco del workspace, invocar `read_file` exclusivamente sobre las rutas del workspace para verificar la integridad de los documentos escritos.
 
 ### Paso 5 — Revision final y advertencias
 

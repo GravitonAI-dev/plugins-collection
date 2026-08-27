@@ -768,13 +768,13 @@ Quien es la audiencia objetivo?
 <Builder>: Anotado.
 El plugin necesitara tools? Te listo las disponibles:
 
-  - `io.gravitonai.tools.read_document` — Lee contenido de un documento por path o URL
+  - `io.gravitonai.tools.read_file` — Lee contenido UTF-8 de un archivo del workspace por ruta relativa
   - `io.gravitonai.tools.draft_markdown` — Genera un markdown desde esquema o prompt
   - `io.gravitonai.tools.web_search` — Busqueda en la web abierta
 
 ¿Cuales quieres incluir?
 
-<Usuario>: read_document y draft_markdown. ¿Ambos son requeridos? Los BAAs los leemos si o si y los memos los generamos si o si.
+<Usuario>: read_file y draft_markdown. ¿Ambos son requeridos? Los BAAs los leemos si o si y los memos los generamos si o si.
 
 <Builder>: Entendido: ambos como requeridos.
 Que skills tendra el plugin? Al menos una.
@@ -795,7 +795,7 @@ Que skills tendra el plugin? Al menos una.
 4. `healthcare-legal/.mcp.json`
    - servers: [gdrive required, courtlistener optional]
 5. `healthcare-legal/agent_tools.json`
-   - tools: [read_document, draft_markdown, ambos requeridos]
+   - tools: [read_file, draft_markdown, ambos requeridos]
 6. `healthcare-legal/skills/baa-review/SKILL.md`
    - Frontmatter + guardrails + procedimiento + formato + escalacion + como NO se usa
 7. `.claude-plugin/marketplace.json` (modificar)

@@ -1,14 +1,14 @@
 {
   "tools": [
     {
-      "id": "io.gravitonai.tools.read_document",
+      "id": "io.gravitonai.tools.read_file",
       "required": true,
-      "purpose": "Lectura directa en el BOE de la norma aplicable para verificar la version consolidada vigente antes de redactar: LAU (BOE-A-1994-26003) para arrendamiento-urbano; LEC (BOE-A-2000-323, arts. 812-818 y 264) y el modelo normalizado del CGPJ para monitorio. Si detecta una version posterior, actualiza los archivos del plugin."
+      "purpose": "Lectura e inspección del contenido de documentos creados o modificados en el espacio de trabajo (workspace) para verificar su integridad en disco."
     },
     {
       "id": "io.gravitonai.tools.web_search",
       "required": true,
-      "purpose": "Fallback normativo si read_document falla. Tambien para consultar normativa autonomica o especial (deposito de fianza, indices de referencia, zona tensionada; especialidades del proceso monitorio o deudas de comunidad de propietarios)."
+      "purpose": "Búsqueda y verificación directa en el BOE de la normativa aplicable (LAU, LEC, Código Civil, etc.) en su versión consolidada vigente, legislación autonómica e índices de referencia."
     },
     {
       "id": "io.gravitonai.tools.draft_markdown",

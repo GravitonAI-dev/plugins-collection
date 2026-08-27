@@ -55,46 +55,29 @@ assets:
 
 ## Procedimiento
 
-### Paso 1 — Verificacion y AUTO-ACTUALIZACION normativa (OBLIGATORIO, antes de cualquier otra accion)
+### Paso 1 — Verificacion normativa y de tasas
 
-La skill se actualiza a si misma en cada lanzamiento: comprueba las fuentes oficiales y, si detecta una version posterior, reescribe sus propios archivos (references y assets) antes de redactar. Ejecutar SIEMPRE esta secuencia:
+**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-y-tasas.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt (TIENES ESTRICTAMENTE PROHIBIDO usar la herramienta `read_file` para leer references o assets) y anotar la "Version registrada" del Reglamento General de Vehiculos, del procedimiento de cambio de titularidad y de las tasas de la DGT.
 
-**1.1 — Leer la fecha/version registrada localmente.** Abrir `references/fuentes-y-tasas.md` y anotar la "Version registrada" del Reglamento General de Vehiculos, del procedimiento de cambio de titularidad y de las tasas de la DGT.
-
-**1.2 — Consultar la fuente oficial vigente.** Invocar:
+**1.2 — Consultar la fuente oficial vigente en vivo.** Invocar:
 ```
-read_document(
-  path: "https://www.boe.es/buscar/act.php?id=BOE-A-1999-1826",
-  format: "text"
-)
+web_search("BOE-A-1999-1826 Reglamento General Vehiculos cambio titularidad transmision articulos 32 33 texto consolidado")
 ```
 Extraer: fecha del texto consolidado vigente del Reglamento General de Vehiculos; redaccion actual de los arts. 32 y 33 (transmision de la titularidad y plazos del comprador y del vendedor).
 
 Consultar tambien el procedimiento y las tasas vigentes en la sede de la DGT:
 ```
-read_document(
-  path: "https://sede.dgt.gob.es/es/vehiculos/transferencias-de-vehiculos/",
-  format: "text"
-)
+web_search("tasas DGT cambio titularidad transferencia vehiculo importe vigente sede electronica")
 ```
 
-**1.3 — Comparar.** Contrastar la version oficial con la registrada localmente y con el texto de las references. Comprobar en particular el importe vigente de la tasa de transferencia (turismo y ciclomotor) y de la tasa de notificacion de venta.
+**1.3 — Comparar.** Contrastar la version oficial con la registrada en `fuentes-y-tasas.md` y con las referencias del prompt (`dgt-cambio-titularidad.md`, `itp-vehiculos-usados.md`). Comprobar en particular el importe vigente de la tasa de transferencia (turismo y ciclomotor) y de la tasa de notificacion de venta.
 
-**1.4 — Auto-actualizar los archivos del plugin (OBLIGATORIO si hay cambios).** Si la version oficial es posterior o el texto/importe ha cambiado, usar las herramientas de escritura (Write/Edit) para:
-- Actualizar el contenido afectado en `references/dgt-cambio-titularidad.md` (procedimiento, documentos, plazos) y en `references/fuentes-y-tasas.md` (IDs BOE, importes de tasa, fechas).
-- Si cambia la fiscalidad del vehiculo usado (Orden anual de precios medios, tipos autonomicos), actualizar `references/itp-vehiculos-usados.md`.
-- Si cambia el formulario oficial o el modelo del tramite, actualizar la estructura de `assets/solicitud-cambio-titularidad-dgt.md`.
-- Actualizar la tabla "Version registrada" y las fechas en `references/fuentes-y-tasas.md`.
+**1.4 — Aplicar cambios normativos.** Si la version oficial o tasas han cambiado:
+- Aplicar en memoria la normativa e importes de tasa vigentes para adaptar los documentos.
 - Informar brevemente al usuario de que se detecto y aplico una version mas reciente (norma o tasa, y fecha).
 
-No preparar ningun documento hasta haber completado esta actualizacion.
-
-**1.5 — Fallback si la fuente no es accesible.** Si `read_document` falla (error HTTP, timeout):
-```
-web_search("cambio de titularidad vehiculo DGT tasa transferencia importe vigente sede electronica")
-```
-Si tambien falla: usar las references locales como respaldo y notificar al usuario:
-"No se pudo verificar la version vigente de la normativa/tasas de la DGT. El tramite se prepara con la version de referencia. Verificar el importe de la tasa y el procedimiento antes de presentar."
+**1.5 — Fallback si la busqueda no es accesible.** Si la busqueda web falla: usar las references cargadas en el prompt como respaldo y notificar al usuario:
+"No se pudo verificar en vivo la version vigente de la normativa/tasas de la DGT. El tramite se prepara con la version de referencia. Verificar el importe de la tasa y el procedimiento antes de presentar."
 
 ### Paso 2 — Preguntas al usuario (una pregunta por bloque si no las ha proporcionado)
 
@@ -135,10 +118,10 @@ d) **Plazos.** Recordar que el comprador dispone de 30 dias naturales desde la t
 
 ### Paso 4 — Generacion de los documentos
 
-Seleccionar los assets segun el alcance del Bloque A:
-- Contrato de compraventa: `assets/contrato-compraventa-vehiculo.md`
-- Solicitud de cambio de titularidad (hoja de datos + checklist + organismo + tasa): `assets/solicitud-cambio-titularidad-dgt.md`
-- Notificacion de venta del vendedor: `assets/notificacion-venta-dgt.md`
+Tomar las plantillas correspondientes directamente desde el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas):
+- Contrato de compraventa: `contrato-compraventa-vehiculo.md`
+- Solicitud de cambio de titularidad (hoja de datos + checklist + organismo + tasa): `solicitud-cambio-titularidad-dgt.md`
+- Notificacion de venta del vendedor: `notificacion-venta-dgt.md`
 
 Invocar por cada documento pedido:
 ```
@@ -152,7 +135,9 @@ draft_markdown(
 
 Rellenar todos los campos con los datos reales. Los campos que el usuario no haya proporcionado quedan con el marcador del asset, sin inventar valores.
 
-Aplicar el estilo de `references/estilo-redaccion-escritos.md`: escrito administrativo breve, datos en tablas, encabezamiento al organismo, expone y solicita, sin formulas grandilocuentes.
+Aplicar las directivas de `estilo-redaccion-escritos.md` (disponible directamente en `<document kind="references-collection">` del prompt): escrito administrativo breve, datos en tablas, encabezamiento al organismo, expone y solicita, sin formulas grandilocuentes.
+
+Tras guardar los archivos en disco del workspace, invocar `read_file` exclusivamente sobre las rutas del workspace para verificar la integridad de los documentos escritos.
 
 ### Paso 5 — Revision final y advertencias
 

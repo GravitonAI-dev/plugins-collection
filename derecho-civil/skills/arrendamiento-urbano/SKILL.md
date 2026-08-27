@@ -76,19 +76,19 @@ Una vez resueltos los 4 vectores (V1 a V4), evalúa:
 ## 2. VERIFICACIÓN NORMATIVA BOE (Interno)
 
 Una vez completado el Enrutamiento (Punto 1), no hagas más preguntas al usuario. Ejecuta de inmediato:
-1. Lee `references/` para saber la última modificación conocida (ej. 25/05/2023).
-2. Consulta (vía WebSearch o lectura de URL) el BOE de la Ley 29/1994 (Arrendamientos Urbanos) texto consolidado.
-3. Si hay cambios, actualiza los archivos en `references/` usando `Edit`. Si falla la consulta, usa las referencias existentes como respaldo e informa al usuario.
+1. Consulta la información en `lau-vivienda-plazos-renta-fianza.md` y `lau-derechos-obligaciones-partes.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt (TIENES ESTRICTAMENTE PROHIBIDO usar la herramienta `read_file` para leer references o assets).
+2. Consulta en vivo mediante `web_search("Ley 29/1994 arrendamientos urbanos texto consolidado BOE")` la última modificación vigente del BOE.
+3. Si hay cambios normativos relevantes, aplícalos a tu memoria. Si falla la búsqueda, usa las referencias cargadas en el prompt como respaldo e informa al usuario.
 
 ---
 
 ## 3. CREACIÓN DEL DOCUMENTO BASE (Cero Vacíos)
 
 Inmediatamente después de la verificación normativa (Punto 2), estás OBLIGADO a crear el documento en disco.
-1. Utiliza `Read` para leer la plantilla seleccionada en el Punto 1 (`vivienda` o `local`).
+1. Toma el texto íntegro de la plantilla seleccionada (`contrato-arrendamiento-vivienda.md` o `contrato-arrendamiento-local.md`), ubicada directamente en el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas).
 2. Reemplaza en memoria las variables de clasificación y CUALQUIER OTRO DATO que ya poseas gracias a la escucha activa inicial (nombres, dirección, etc.).
-3. Utiliza `Write` para guardar el archivo completo en disco. Los datos faltantes deben quedar intactos como `{{DATO_FALTANTE}}`.
-4. (Regla Global): Ejecuta `Read` para validar y confirma la ruta absoluta en el chat al usuario. Inmediatamente después, en la misma respuesta, formula la primera pregunta de la edición incremental (Punto 4, sección 1: Ubicación y Zona Tensionada) para iniciar el ajuste detallado.
+3. Utiliza `Write` (o `create_file`) para guardar el archivo completo en disco del workspace. Los datos faltantes deben quedar intactos como `{{DATO_FALTANTE}}`.
+4. (Regla Global): Ejecuta `read_file` exclusivamente sobre el archivo creado en disco para validar y confirma la ruta absoluta en el chat al usuario. Inmediatamente después, en la misma respuesta, formula la primera pregunta de la edición incremental (Punto 4, sección 1: Ubicación y Zona Tensionada) para iniciar el ajuste detallado.
 
 ---
 

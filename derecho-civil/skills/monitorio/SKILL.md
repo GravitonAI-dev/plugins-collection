@@ -55,45 +55,29 @@ assets:
 
 ## Procedimiento
 
-### Paso 1 — Verificacion y AUTO-ACTUALIZACION normativa (OBLIGATORIO, antes de cualquier otra accion)
+### Paso 1 — Verificacion normativa
 
-La skill se actualiza a si misma en cada lanzamiento: comprueba las fuentes oficiales y, si detecta una version posterior, reescribe sus propios archivos (references y assets) antes de redactar. Ejecutar SIEMPRE esta secuencia:
+**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-plantillas-validadas.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt (TIENES ESTRICTAMENTE PROHIBIDO usar la herramienta `read_file` para leer references o assets) y anotar la "Version registrada" de la LEC y del modelo del CGPJ.
 
-**1.1 — Leer la fecha/version registrada localmente.** Abrir `references/fuentes-plantillas-validadas.md` y anotar la "Version registrada" de la LEC y del modelo del CGPJ.
-
-**1.2 — Consultar la fuente oficial vigente.** Invocar:
+**1.2 — Consultar la fuente oficial vigente en vivo.** Invocar:
 ```
-read_document(
-  path: "https://www.boe.es/buscar/act.php?id=BOE-A-2000-323",
-  format: "text"
-)
+web_search("BOE-A-2000-323 Ley Enjuiciamiento Civil proceso monitorio articulos 812 818 texto consolidado")
 ```
 Extraer: fecha del texto consolidado vigente de la LEC; redaccion actual de los arts. 812 a 818 y del art. 264 (acreditacion del intento de MASC); estado de aplicacion de la LO 1/2025 (BOE-A-2025-76).
 
 Consultar tambien el modelo normalizado del CGPJ:
 ```
-read_document(
-  path: "https://www.poderjudicial.es/cgpj/es/Servicios/Atencion-Ciudadana/Modelos-normalizados/El-proceso-monitorio",
-  format: "text"
-)
+web_search("CGPJ modelos normalizados proceso monitorio atencion ciudadana")
 ```
 
-**1.3 — Comparar.** Contrastar la version oficial con la registrada localmente y con el texto de las references.
+**1.3 — Comparar.** Contrastar la version oficial con la registrada en `fuentes-plantillas-validadas.md` y con las referencias del prompt (`lec-proceso-monitorio-812-818.md`, `lec-documentos-acreditativos-deuda.md`, `masc-requisito-procedibilidad-lo1-2025.md`).
 
-**1.4 — Auto-actualizar los archivos del plugin (OBLIGATORIO si hay cambios).** Si la version oficial es posterior o el texto de los articulos ha cambiado, usar las herramientas de escritura (Write/Edit) para:
-- Actualizar el contenido afectado en `references/lec-proceso-monitorio-812-818.md`, `references/lec-documentos-acreditativos-deuda.md` y/o `references/masc-requisito-procedibilidad-lo1-2025.md` con la redaccion vigente.
-- Si el CGPJ publica un modelo posterior, actualizar la estructura de `assets/peticion-inicial-monitorio.md` (y la variante de rentas si procede).
-- Actualizar la tabla "Version registrada" y las fechas en `references/fuentes-plantillas-validadas.md`.
+**1.4 — Aplicar cambios normativos.** Si la version oficial es posterior o el texto de los articulos ha cambiado:
+- Aplicar en memoria la redaccion vigente para adaptar la fundamentacion y estructura de la peticion inicial.
 - Informar brevemente al usuario de que se detecto y aplico una version mas reciente (norma y fecha).
 
-No redactar ningun documento hasta haber completado esta actualizacion. Nunca usar una version desactualizada.
-
-**1.5 — Fallback si la fuente no es accesible.** Si `read_document` falla (error HTTP, timeout):
-```
-web_search("Ley Enjuiciamiento Civil proceso monitorio articulos 812 818 texto consolidado BOE")
-```
-Si tambien falla: usar las references locales como respaldo y notificar al usuario:
-"No se pudo verificar la version vigente de la LEC en el BOE. La peticion se genera con la version de referencia. Verificar manualmente antes de presentar."
+**1.5 — Fallback si la busqueda no es accesible.** Si la busqueda web falla: usar las references cargadas en el prompt como respaldo y notificar al usuario:
+"No se pudo verificar en vivo la version vigente de la LEC en el BOE. La peticion se genera con la version de referencia. Verificar manualmente antes de presentar."
 
 ### Paso 2 — Preguntas al usuario (una pregunta por bloque si no las ha proporcionado)
 
@@ -140,9 +124,9 @@ e) **Cuantia y via posterior:** informar de que, si el deudor se opone, el asunt
 
 ### Paso 4 — Generacion de los documentos
 
-Seleccionar la plantilla segun el tipo de deuda:
-- Rentas de arrendamiento: `assets/peticion-inicial-monitorio-rentas.md`
-- Otra deuda: `assets/peticion-inicial-monitorio.md`
+Tomar la plantilla correspondiente directamente desde el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas):
+- Rentas de arrendamiento: `peticion-inicial-monitorio-rentas.md`
+- Otra deuda: `peticion-inicial-monitorio.md`
 
 Invocar:
 ```
@@ -154,7 +138,7 @@ draft_markdown(
 )
 ```
 
-Si el usuario ha pedido tambien el burofax (Bloque A opcion 2), generar ademas:
+Si el usuario ha pedido tambien el burofax (Bloque A opcion 2), generar ademas con la plantilla `burofax-requerimiento-previo-masc.md` (tomada directamente de `<document kind="assets-collection">` del prompt sin usar `read_file`):
 ```
 draft_markdown(
   template_id: "burofax-requerimiento-previo-masc",
@@ -164,7 +148,9 @@ draft_markdown(
 
 Rellenar todos los campos con los datos reales. Los campos que el usuario no haya proporcionado quedan como `[DATO — PENDIENTE DE COMPLETAR]`.
 
-Aplicar el estilo de `references/estilo-redaccion-escritos.md`: escrito breve y directo (una peticion de monitorio es un asunto sencillo, no mas de unos folios), HECHOS numerados con una idea por apartado, documentos relacionados y numerados, voz activa, sin latinismos ni citas largas, y SUPLICO ajustado a lo estrictamente pedido.
+Aplicar las directivas de `estilo-redaccion-escritos.md` (disponible directamente en `<document kind="references-collection">` del prompt): escrito breve y directo, HECHOS numerados con una idea por apartado, documentos relacionados y numerados, voz activa, sin latinismos ni citas largas, y SUPLICO ajustado a lo estrictamente pedido.
+
+Tras guardar el archivo en disco del workspace, invocar `read_file` exclusivamente sobre la ruta del workspace para verificar la integridad del documento escrito.
 
 ### Paso 5 — Revision final y advertencias
 

@@ -72,41 +72,29 @@ assets:
 
 El procedimiento recorre el ciclo completo del juicio ordinario en seis fases. El usuario puede pedir el ciclo entero o solo la fase que necesite; en todo caso, el Paso 1 (verificacion normativa) se ejecuta SIEMPRE antes de generar cualquier documento.
 
-### Paso 1 — Verificacion y AUTO-ACTUALIZACION normativa (OBLIGATORIO, antes de cualquier otra accion)
+### Paso 1 — Verificacion normativa
 
-La skill se actualiza a si misma en cada lanzamiento: comprueba las fuentes oficiales y, si detecta una version posterior, reescribe sus propios archivos (references y assets) antes de redactar. Ejecutar SIEMPRE esta secuencia:
+**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-plantillas-validadas.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt (TIENES ESTRICTAMENTE PROHIBIDO usar la herramienta `read_file` para leer references o assets) y anotar la "Version registrada" de la LEC, el umbral de cuantia registrado (15.000 euros) y el estado de la LO 1/2025.
 
-**1.1 — Leer la fecha/version registrada localmente.** Abrir `references/fuentes-plantillas-validadas.md` y anotar la "Version registrada" de la LEC, el umbral de cuantia registrado (15.000 euros) y el estado de la LO 1/2025.
-
-**1.2 — Consultar la fuente oficial vigente.** Invocar:
+**1.2 — Consultar la fuente oficial vigente en vivo.** Invocar:
 ```
-read_document(
-  path: "https://www.boe.es/buscar/act.php?id=BOE-A-2000-323",
-  format: "text"
-)
+web_search("BOE-A-2000-323 Ley Enjuiciamiento Civil juicio ordinario articulo 249 399 audiencia previa 414 texto consolidado")
 ```
 Extraer: fecha del texto consolidado vigente de la LEC; redaccion actual de los arts. 248-255 (ambito y cuantia), 23 y 31 (postulacion), 45 y 50-52 (competencia), 399 y 264-266, 269-270, 336 (demanda y documentos), 414-430 (audiencia previa), 217 y 281-386, 429 (prueba) y 433 (conclusiones); el umbral vigente de cuantia entre juicio verbal y ordinario; y el estado de aplicacion de la LO 1/2025 (BOE-A-2025-76) sobre el requisito de MASC (arts. 403.2, 264.4 y 399.3).
 
-**1.3 — Comparar.** Contrastar la version oficial con la registrada localmente y con el texto de las references. Prestar especial atencion a: (i) el importe del umbral de cuantia del Art. 249.2; (ii) la vigencia y el alcance del requisito de MASC; (iii) la redaccion de los ordinales del Art. 249.1.
+Consultar tambien sobre MASC:
+```
+web_search("BOE-A-2025-76 LO 1/2025 MASC requisito procedibilidad articulo 403 264 399 LEC texto consolidado")
+```
 
-**1.4 — Auto-actualizar los archivos del plugin (OBLIGATORIO si hay cambios).** Si la version oficial es posterior o el texto de los articulos ha cambiado, usar las herramientas de escritura (Write/Edit) para:
-- Actualizar el contenido afectado en `references/lec-ambito-y-cuantia.md`, `references/admisibilidad-competencia-postulacion-masc.md`, `references/lec-demanda-y-documentos.md`, `references/lec-audiencia-previa.md` y/o `references/lec-prueba-y-conclusiones.md` con la redaccion vigente.
-- Ajustar la estructura de los assets si cambian los tramites (p. ej. plazos, fases de la audiencia previa, forma de proponer la prueba, umbral de cuantia).
-- Actualizar la tabla "Version registrada" y el umbral de cuantia en `references/fuentes-plantillas-validadas.md`.
+**1.3 — Comparar.** Contrastar la version oficial con la registrada en `fuentes-plantillas-validadas.md` y con las referencias del prompt (`lec-ambito-y-cuantia.md`, `admisibilidad-competencia-postulacion-masc.md`, `lec-demanda-y-documentos.md`, `lec-audiencia-previa.md`, `lec-prueba-y-conclusiones.md`). Prestar especial atencion al umbral de cuantia del Art. 249.2 y al requisito de MASC.
+
+**1.4 — Aplicar cambios normativos.** Si la version oficial es posterior o el texto de los articulos ha cambiado:
+- Aplicar en memoria la redaccion vigente para adaptar los tramites, fases procesales y fundamentacion de los escritos.
 - Informar brevemente al usuario de que se detecto y aplico una version mas reciente (norma y fecha).
 
-No redactar ningun documento hasta haber completado esta actualizacion. Nunca usar una version desactualizada.
-
-**1.5 — Fallback si la fuente no es accesible.** Si `read_document` falla (error HTTP, timeout):
-```
-web_search("Ley Enjuiciamiento Civil juicio ordinario articulo 249 399 audiencia previa 414 texto consolidado BOE")
-```
-y
-```
-web_search("LO 1/2025 MASC requisito procedibilidad articulo 403 264 399 LEC texto consolidado")
-```
-Si tambien falla: usar las references locales como respaldo y notificar al usuario:
-"No se pudo verificar la version vigente de la LEC en el BOE. Los documentos se generan con la version de referencia. Verificar manualmente antes de presentar."
+**1.5 — Fallback si la busqueda no es accesible.** Si la busqueda web falla: usar las references cargadas en el prompt como respaldo y notificar al usuario:
+"No se pudo verificar en vivo la version vigente de la LEC en el BOE. Los documentos se generan con la version de referencia. Verificar manualmente antes de presentar."
 
 ### Paso 2 — FASE 1: INTAKE del caso (una pregunta por bloque si no las ha proporcionado)
 
@@ -148,28 +136,32 @@ f) **Documentos (Arts. 264-266, 336) y preclusion (Art. 269):** verificar que se
 
 ### Paso 4 — FASE 3: DEMANDA de juicio ordinario (Art. 399)
 
-Generar la demanda con el asset `demanda-juicio-ordinario.md`. Invocar:
+Tomar la plantilla `demanda-juicio-ordinario.md` directamente desde el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas).
+
+Invocar:
 ```
 draft_markdown(
   template_id: "demanda-juicio-ordinario",
   variables: { todos los datos recogidos en las fases 1 y 2 }
 )
 ```
-La demanda debe: identificar a las partes y la postulacion; exponer los HECHOS numerados y separados, relacionando cada documento (Documento nº 1, nº 2, ...); ordenar los FUNDAMENTOS DE DERECHO procesales (competencia, procedimiento, cuantia, postulacion, procedibilidad-MASC) y de fondo (la accion); fijar expresamente la CUANTIA; formular un SUPLICO concreto; y anadir los OTROSIES (recibimiento a prueba, designacion de domicilios). Aplicar el estilo de `references/estilo-redaccion-escritos.md`.
+La demanda debe: identificar a las partes y la postulacion; exponer los HECHOS numerados y separados, relacionando cada documento (Documento nº 1, nº 2, ...); ordenar los FUNDAMENTOS DE DERECHO procesales (competencia, procedimiento, cuantia, postulacion, procedibilidad-MASC) y de fondo (la accion); fijar expresamente la CUANTIA; formular un SUPLICO concreto; y anadir los OTROSIES (recibimiento a prueba, designacion de domicilios). Aplicar las directivas de `estilo-redaccion-escritos.md` (disponible directamente en `<document kind="references-collection">` del prompt).
 
 Los campos que el usuario no haya proporcionado quedan como `[DATO — PENDIENTE DE COMPLETAR]`.
 
+Tras guardar el archivo en disco del workspace, invocar `read_file` exclusivamente sobre la ruta del workspace para verificar la integridad del documento escrito.
+
 ### Paso 5 — FASE 4: AUDIENCIA PREVIA (Arts. 414-430)
 
-Cuando el usuario lo pida (proceso ya trabado con contestacion), generar el guion con el asset `guion-audiencia-previa.md`. El guion ordena, en el orden legal: (i) posicion ante un eventual acuerdo o transaccion (Art. 415); (ii) cuestiones procesales a plantear o a las que responder —capacidad, litisconsorcio, cosa juzgada, inadecuacion de procedimiento, defecto legal— (Arts. 416-425); (iii) alegaciones complementarias y aclaratorias sin alterar la pretension (Art. 426) y fijacion de hechos controvertidos (Arts. 427-428); (iv) anticipo de la prueba a proponer (Art. 429). Advertir de la prohibicion de mutatio libelli.
+Cuando el usuario lo pida (proceso ya trabado con contestacion), generar el guion con la plantilla `guion-audiencia-previa.md` (tomada directamente de `<document kind="assets-collection">` del prompt sin usar `read_file`). El guion ordena, en el orden legal: (i) posicion ante un eventual acuerdo o transaccion (Art. 415); (ii) cuestiones procesales a plantear o a las que responder —capacidad, litisconsorcio, cosa juzgada, inadecuacion de procedimiento, defecto legal— (Arts. 416-425); (iii) alegaciones complementarias y aclaratorias sin alterar la pretension (Art. 426) y fijacion de hechos controvertidos (Arts. 427-428); (iv) anticipo de la prueba a proponer (Art. 429). Advertir de la prohibicion de mutatio libelli.
 
 ### Paso 6 — FASE 5: PROPOSICION DE PRUEBA (Art. 429 y 281-386)
 
-Generar la proposicion con el asset `proposicion-de-prueba.md`, ordenando los medios de prueba (Art. 299): interrogatorio de partes, documental, testifical, pericial, reconocimiento judicial y medios de reproduccion. Para cada medio, justificar su pertinencia y utilidad respecto de los hechos controvertidos y precisar lo necesario (identidad de testigos, objeto de la pericial, documentos). Recordar la regla de carga de la prueba (Art. 217).
+Generar la proposicion con la plantilla `proposicion-de-prueba.md` (tomada directamente de `<document kind="assets-collection">` del prompt sin usar `read_file`), ordenando los medios de prueba (Art. 299): interrogatorio de partes, documental, testifical, pericial, reconocimiento judicial y medios de reproduccion. Para cada medio, justificar su pertinencia y utilidad respecto de los hechos controvertidos y precisar lo necesario (identidad de testigos, objeto de la pericial, documentos). Recordar la regla de carga de la prueba (Art. 217).
 
 ### Paso 7 — FASE 6: ESCRITO DE CONCLUSIONES (Art. 433)
 
-Tras la practica de la prueba, generar la minuta con el asset `escrito-de-conclusiones.md`, que enlaza cada hecho controvertido con la prueba practicada, aplica la carga de la prueba (Art. 217) a los hechos dudosos y resume los fundamentos juridicos sin alterar la causa de pedir. Advertir de que el Art. 433 preve conclusiones orales; la minuta es material de apoyo del letrado en la vista.
+Tras la practica de la prueba, generar la minuta con la plantilla `escrito-de-conclusiones.md` (tomada directamente de `<document kind="assets-collection">` del prompt sin usar `read_file`), que enlaza cada hecho controvertido con la prueba practicada, aplica la carga de la prueba (Art. 217) a los hechos dudosos y resume los fundamentos juridicos sin alterar la causa de pedir. Advertir de que el Art. 433 preve conclusiones orales; la minuta es material de apoyo del letrado en la vista.
 
 ### Paso 8 — Revision final y advertencias
 

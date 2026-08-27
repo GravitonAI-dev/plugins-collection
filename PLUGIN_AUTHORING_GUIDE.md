@@ -104,16 +104,17 @@ Una vez resueltos todos los vectores, evalúa:
 - Si [V2 = Y] -> Detener proceso (fuera de alcance). No crees documento.
 
 ## 2. VERIFICACIÓN DE CONTEXTO (Interno)
-*(Esta sección es opcional. Úsala si la skill debe consultar internet, normativas, APIs o archivos locales antes de redactar).*
-1. Consulta (vía WebSearch o referencias) la información actual de [Tema].
-2. Si hay cambios, aplícalos a tu memoria.
+*(Esta sección es opcional. Úsala si la skill debe consultar internet, normativas, APIs o archivos de referencia antes de redactar).*
+1. Consulta la información en [nombre-archivo-reference.md] directamente desde el bloque `<document kind="references-collection">` de tu system prompt (TIENES ESTRICTAMENTE PROHIBIDO usar la herramienta `read_file` para leer references o assets).
+2. Si requieres verificar fuentes oficiales externas en vivo, usa `web_search`.
+3. Si hay cambios normativos, aplícalos a tu memoria.
 
 ## 3. CREACIÓN DEL DOCUMENTO BASE (Cero Vacíos)
 Inmediatamente tras el paso anterior, estás OBLIGADO a crear el documento:
-1. Utiliza `Read` para leer la plantilla seleccionada.
+1. Toma el texto íntegro de la plantilla [nombre-archivo-asset.md], disponible directamente en el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas).
 2. Reemplaza en memoria TODOS los datos que ya poseas (gracias a los vectores, escucha activa e investigación). Los faltantes quedan como `{{DATO_FALTANTE}}`.
-3. Utiliza `Write` para guardar el archivo en disco.
-4. (Regla Global): Ejecuta `Read` para validar y confirma la ruta absoluta en el chat al usuario. Inmediatamente después, en la misma respuesta, formula la primera pregunta de la edición incremental (Punto 4) para no detener la conversación.
+3. Utiliza `Write` (o `create_file`) para guardar el archivo en disco del workspace.
+4. (Regla Global): Ejecuta `Read` (o `read_file`) exclusivamente sobre el archivo creado en disco para validar y confirma la ruta absoluta en el chat al usuario. Inmediatamente después, en la misma respuesta, formula la primera pregunta de la edición incremental (Punto 4) para no detener la conversación.
 
 ## 4. EDICIÓN INCREMENTAL DE CLÁUSULAS / SECCIONES
 Recorre secuencialmente la siguiente lista. Por cada sección incompleta, aplica el Ciclo de Edición Incremental Global (Formular Pregunta -> Mostrar Vista Previa en texto plano -> Pedir Confirmación -> Usar `Edit` en disco):

@@ -55,58 +55,34 @@ assets:
 
 ## Procedimiento
 
-### Paso 1 — Verificacion y AUTO-ACTUALIZACION normativa (OBLIGATORIO, antes de cualquier otra accion)
+### Paso 1 — Verificacion normativa y jurisprudencial
 
-La skill se actualiza a si misma en cada lanzamiento: comprueba las fuentes oficiales y, si detecta una version posterior, reescribe sus propios archivos (references y assets) antes de redactar. En esta materia, ademas, verifica la jurisprudencia reciente porque es determinante y cambia con frecuencia. Ejecutar SIEMPRE esta secuencia:
+**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-plantillas-validadas.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt (TIENES ESTRICTAMENTE PROHIBIDO usar la herramienta `read_file` para leer references o assets) y anotar la "Version registrada" del TRLGDCU, de la LCGC y de la LEC.
 
-**1.1 — Leer la fecha/version registrada localmente.** Abrir `references/fuentes-plantillas-validadas.md` y anotar la "Version registrada" del TRLGDCU, de la LCGC y de la LEC.
-
-**1.2 — Consultar la fuente oficial vigente.** Invocar:
+**1.2 — Consultar la fuente oficial vigente en vivo.** Invocar:
 ```
-read_document(
-  path: "https://www.boe.es/buscar/act.php?id=BOE-A-2007-20555",
-  format: "text"
-)
+web_search("BOE-A-2007-20555 Real Decreto Legislativo 1/2007 TRLGDCU clausulas abusivas articulos 80 82 83 texto consolidado")
 ```
 Extraer: fecha del texto consolidado vigente del TRLGDCU; redaccion actual de los arts. 80 a 91 (control de incorporacion, concepto de clausula abusiva, nulidad y no integracion, lista de clausulas abusivas).
 
 Consultar tambien la LCGC:
 ```
-read_document(
-  path: "https://www.boe.es/buscar/act.php?id=BOE-A-1998-8789",
-  format: "text"
-)
+web_search("BOE-A-1998-8789 Ley 7/1998 Condiciones Generales Contratacion texto consolidado")
 ```
 Extraer: redaccion vigente sobre control de incorporacion (Arts. 5 y 7), nulidad (Arts. 8 y 9), Registro de Condiciones Generales y accion de cesacion (Arts. 11 y 12).
 
-Y la LEC para la demanda (competencia, procedimiento y control de oficio):
-```
-read_document(
-  path: "https://www.boe.es/buscar/act.php?id=BOE-A-2000-323",
-  format: "text"
-)
-```
-
-**1.3 — Verificar la JURISPRUDENCIA RECIENTE del tipo de clausula (OBLIGATORIO en esta materia).** La doctrina del TJUE y del Tribunal Supremo cambia con frecuencia y determina el resultado. Antes de redactar, invocar web_search especifica para el tipo de clausula reclamado, por ejemplo:
+**1.3 — Verificar la JURISPRUDENCIA RECIENTE del tipo de clausula (OBLIGATORIO en esta materia).** La doctrina del TJUE y del Tribunal Supremo cambia con frecuencia y determina el resultado. Antes de redactar, invocar `web_search` especifica para el tipo de clausula reclamado, por ejemplo:
 ```
 web_search("TJUE Tribunal Supremo clausula <tipo> jurisprudencia reciente <ano actual> nulidad restitucion")
 ```
-Ejemplos de terminos por tipo: "gastos hipotecarios distribucion notaria registro gestoria", "clausula suelo transparencia retroactividad", "IRPH control transparencia", "comision de apertura", "interes de demora abusivo prestamo personal", "tarjeta revolving usura TAE". Anotar solo los criterios verificados; si una sentencia no se puede confirmar, no citarla y marcar `[verificar]`.
+Anotar solo los criterios verificados; si una sentencia no se puede confirmar, no citarla y marcar `[verificar]`.
 
-**1.4 — Auto-actualizar los archivos del plugin (OBLIGATORIO si hay cambios).** Si la version oficial es posterior, el texto de los articulos ha cambiado, o la jurisprudencia verificada difiere de la registrada, usar las herramientas de escritura (Write/Edit) para:
-- Actualizar el contenido afectado en `references/trlgdcu-clausulas-abusivas.md` y/o `references/lcgc-condiciones-generales.md` con la redaccion vigente.
-- Actualizar los criterios jurisprudenciales verificados en `references/jurisprudencia-tjue-ts-clausulas.md`, conservando la advertencia de que son cambiantes y deben re-verificarse.
-- Actualizar la tabla "Version registrada" y las fechas en `references/fuentes-plantillas-validadas.md`.
+**1.4 — Comparar y aplicar cambios.** Contrastar la version oficial y jurisprudencia con la registrada en `fuentes-plantillas-validadas.md` y con las referencias del prompt (`trlgdcu-clausulas-abusivas.md`, `lcgc-condiciones-generales.md`, `jurisprudencia-tjue-ts-clausulas.md`). Si hay modificaciones:
+- Aplicar en memoria la redaccion y doctrina vigente para adaptar la fundamentacion del escrito.
 - Informar brevemente al usuario de que se detecto y aplico una version o doctrina mas reciente (norma/sentencia y fecha).
 
-No redactar ningun documento hasta haber completado esta actualizacion. Nunca usar una version desactualizada.
-
-**1.5 — Fallback si la fuente no es accesible.** Si `read_document` falla (error HTTP, timeout):
-```
-web_search("texto refundido Ley General Defensa Consumidores Usuarios clausulas abusivas articulos 80 82 83 BOE consolidado")
-```
-Si tambien falla: usar las references locales como respaldo y notificar al usuario:
-"No se pudo verificar la version vigente del TRLGDCU/LCGC en el BOE. El escrito se genera con la version de referencia y con la advertencia de jurisprudencia no verificada. Verificar manualmente antes de presentar."
+**1.5 — Fallback si la busqueda no es accesible.** Si la busqueda web falla: usar las references cargadas en el prompt como respaldo y notificar al usuario:
+"No se pudo verificar en vivo la version vigente del TRLGDCU/LCGC en el BOE. El escrito se genera con la version de referencia y con la advertencia de jurisprudencia no verificada. Verificar manualmente antes de presentar."
 
 ### Paso 2 — Preguntas al usuario (una pregunta por bloque si no las ha proporcionado)
 
@@ -153,9 +129,9 @@ f) **Restitucion:** si la clausula es nula, precisar el efecto restitutorio (Art
 
 ### Paso 4 — Generacion de los documentos
 
-Seleccionar la plantilla segun el alcance:
-- Reclamacion previa: `assets/reclamacion-extrajudicial-clausula-abusiva.md`
-- Demanda: `assets/demanda-nulidad-clausula-abusiva.md`
+Tomar la plantilla correspondiente directamente desde el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas):
+- Reclamacion previa: `reclamacion-extrajudicial-clausula-abusiva.md`
+- Demanda: `demanda-nulidad-clausula-abusiva.md`
 
 Invocar:
 ```
@@ -171,7 +147,9 @@ draft_markdown(
 
 Rellenar todos los campos con los datos reales. Los campos que el usuario no haya proporcionado quedan como `[DATO — PENDIENTE DE COMPLETAR]`. Los claims factuales o jurisprudenciales no verificados se marcan `[verificar]`.
 
-Aplicar el estilo de `references/estilo-redaccion-escritos.md`: escrito claro y ordenado, HECHOS numerados con una idea por apartado, documentos relacionados y numerados, voz activa, sin latinismos ni citas largas, y SUPLICO ajustado a la nulidad y la restitucion pedidas.
+Aplicar las directivas de `estilo-redaccion-escritos.md` (disponible directamente en `<document kind="references-collection">` del prompt): escrito claro y ordenado, HECHOS numerados con una idea por apartado, documentos relacionados y numerados, voz activa, sin latinismos ni citas largas, y SUPLICO ajustado a la nulidad y la restitucion pedidas.
+
+Tras guardar el archivo en disco del workspace, invocar `read_file` exclusivamente sobre la ruta del workspace para verificar la integridad del documento escrito.
 
 ### Paso 5 — Revision final y advertencias
 

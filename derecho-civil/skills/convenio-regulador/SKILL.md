@@ -59,46 +59,30 @@ assets:
 
 ## Procedimiento
 
-### Paso 1 — Verificacion y AUTO-ACTUALIZACION normativa (OBLIGATORIO, antes de cualquier otra accion)
+### Paso 1 — Verificacion normativa
 
-La skill se actualiza a si misma en cada lanzamiento: comprueba las fuentes oficiales y, si detecta una version posterior, reescribe sus propios archivos (references y assets) antes de redactar. Ejecutar SIEMPRE esta secuencia:
+**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-plantillas-validadas.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt (TIENES ESTRICTAMENTE PROHIBIDO usar la herramienta `read_file` para leer references o assets) y anotar la "Version registrada" del Codigo Civil, de la LEC y de la Ley 15/2015.
 
-**1.1 — Leer la fecha/version registrada localmente.** Abrir `references/fuentes-plantillas-validadas.md` y anotar la "Version registrada" del Codigo Civil, de la LEC y de la Ley 15/2015.
-
-**1.2 — Consultar la fuente oficial vigente.** Invocar:
+**1.2 — Consultar la fuente oficial vigente en vivo.** Invocar:
 ```
-read_document(
-  path: "https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763",
-  format: "text"
-)
+web_search("BOE-A-1889-4763 Codigo Civil texto consolidado vigencia articulos 81 82 86 90 92 97")
 ```
 Extraer: fecha del texto consolidado vigente del Codigo Civil; redaccion actual de los arts. 81, 82, 86, 87 (via judicial vs notarial y plazo de tres meses), 90 (contenido del convenio), 92 a 97 (guarda y custodia, alimentos, visitas, efectos economicos, vivienda, pension compensatoria).
 
 Consultar tambien la LEC:
 ```
-read_document(
-  path: "https://www.boe.es/buscar/act.php?id=BOE-A-2000-323",
-  format: "text"
-)
+web_search("BOE-A-2000-323 Ley Enjuiciamiento Civil texto consolidado articulo 777 mutuo acuerdo")
 ```
 Extraer: redaccion vigente del art. 777 (separacion o divorcio de mutuo acuerdo: documentos, ratificacion, Ministerio Fiscal, sentencia).
 
-**1.3 — Comparar.** Contrastar la version oficial con la registrada localmente y con el texto de las references.
+**1.3 — Comparar.** Contrastar la version oficial con la registrada en `fuentes-plantillas-validadas.md` y con las referencias del prompt (`cc-convenio-regulador-art90.md`, `cc-divorcio-separacion-art81-87.md`, `lec-proceso-mutuo-acuerdo-art777.md`).
 
-**1.4 — Auto-actualizar los archivos del plugin (OBLIGATORIO si hay cambios).** Si la version oficial es posterior o el texto de los articulos ha cambiado, usar las herramientas de escritura (Write/Edit) para:
-- Actualizar el contenido afectado en `references/cc-convenio-regulador-art90.md`, `references/cc-divorcio-separacion-art81-87.md` y/o `references/lec-proceso-mutuo-acuerdo-art777.md` con la redaccion vigente.
-- Si cambia la estructura legal del convenio o de la demanda, actualizar `assets/convenio-regulador.md` y/o `assets/demanda-divorcio-mutuo-acuerdo.md`.
-- Actualizar la tabla "Version registrada" y las fechas en `references/fuentes-plantillas-validadas.md`.
+**1.4 — Aplicar cambios normativos.** Si la version oficial es posterior o el texto de los articulos ha cambiado:
+- Aplicar en memoria la redaccion vigente para adaptar las clausulas del convenio y la demanda.
 - Informar brevemente al usuario de que se detecto y aplico una version mas reciente (norma y fecha).
 
-No redactar ningun documento hasta haber completado esta actualizacion. Nunca usar una version desactualizada.
-
-**1.5 — Fallback si la fuente no es accesible.** Si `read_document` falla (error HTTP, timeout):
-```
-web_search("Codigo Civil articulo 90 convenio regulador LEC articulo 777 mutuo acuerdo texto consolidado BOE")
-```
-Si tambien falla: usar las references locales como respaldo y notificar al usuario:
-"No se pudo verificar la version vigente del Codigo Civil / LEC en el BOE. Los documentos se generan con la version de referencia. Verificar manualmente antes de presentar o firmar."
+**1.5 — Fallback si la busqueda no es accesible.** Si la busqueda web falla: usar las referencias cargadas en el prompt como respaldo y notificar al usuario:
+"No se pudo verificar en vivo la version vigente del Codigo Civil / LEC en el BOE. Los documentos se generan con la version de referencia. Verificar manualmente antes de presentar o firmar."
 
 ### Paso 2 — Preguntas al usuario (una pregunta por bloque si no las ha proporcionado)
 
@@ -151,6 +135,8 @@ e) **Competencia (via judicial):** identificar el Juzgado de Primera Instancia d
 
 ### Paso 4 — Generacion de los documentos
 
+Tomar las plantillas `convenio-regulador.md` y (si procede) `demanda-divorcio-mutuo-acuerdo.md` directamente desde el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas).
+
 Generar siempre el convenio regulador:
 ```
 draft_markdown(
@@ -171,7 +157,9 @@ draft_markdown(
 
 Activar o desactivar los bloques condicionales del asset segun el caso: con hijos menores / sin hijos; gananciales / separacion de bienes; con pension compensatoria / con renuncia. Rellenar todos los campos con los datos reales. Los que el usuario no haya proporcionado quedan como `[DATO — PENDIENTE DE COMPLETAR]`.
 
-Aplicar el estilo de `references/estilo-redaccion-escritos.md`: clausulas numeradas por materia del Art. 90, importes en numero y letra con sistema de actualizacion expreso, demanda breve remitida al convenio, voz activa y sin latinismos.
+Aplicar las directivas de `estilo-redaccion-escritos.md` (disponible directamente en `<document kind="references-collection">` del prompt): clausulas numeradas por materia del Art. 90, importes en numero y letra con sistema de actualizacion expreso, demanda breve remitida al convenio, voz activa y sin latinismos.
+
+Tras guardar el archivo en disco del workspace, invocar `read_file` exclusivamente sobre la ruta del workspace para verificar la integridad del documento escrito.
 
 ### Paso 5 — Revision final y advertencias
 

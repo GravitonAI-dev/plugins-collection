@@ -64,50 +64,30 @@ assets:
 
 ## Procedimiento
 
-### Paso 1 — Verificacion y AUTO-ACTUALIZACION normativa (OBLIGATORIO, antes de cualquier otra accion)
+### Paso 1 — Verificacion normativa
 
-La skill se actualiza a si misma en cada lanzamiento: comprueba las fuentes oficiales y, si detecta una version posterior, reescribe sus propios archivos (references y assets) antes de redactar. Ejecutar SIEMPRE esta secuencia:
+**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-plantillas-validadas.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt (TIENES ESTRICTAMENTE PROHIBIDO usar la herramienta `read_file` para leer references o assets) y anotar la "Version registrada" de la LEC, de la LAU, de la LO 1/2025 y de la normativa de vulnerabilidad.
 
-**1.1 — Leer la fecha/version registrada localmente.** Abrir `references/fuentes-plantillas-validadas.md` y anotar la "Version registrada" de la LEC, de la LAU, de la LO 1/2025 y de la normativa de vulnerabilidad.
-
-**1.2 — Consultar la fuente oficial vigente.** Invocar:
+**1.2 — Consultar la fuente oficial vigente en vivo.** Invocar:
 ```
-read_document(
-  path: "https://www.boe.es/buscar/act.php?id=BOE-A-2000-323",
-  format: "text"
-)
+web_search("BOE-A-2000-323 Ley Enjuiciamiento Civil juicio verbal desahucio articulo 250 437 440 texto consolidado")
 ```
 Extraer: fecha del texto consolidado vigente de la LEC; redaccion actual de los arts. 250.1, 437, 438, 440, 22.4, 447.2 (desahucio y acumulacion) y del art. 403.2 y 264.4 (requisito y acreditacion del MASC).
 
 Consultar tambien la LAU:
 ```
-read_document(
-  path: "https://www.boe.es/buscar/act.php?id=BOE-A-1994-26003",
-  format: "text"
-)
+web_search("BOE-A-1994-26003 Ley 29/1994 Arrendamientos Urbanos articulo 27 resolucion impago texto consolidado")
 ```
 Extraer: fecha del texto consolidado vigente de la LAU y redaccion actual del art. 27 (resolucion por impago).
 
-**1.3 — Comparar.** Contrastar la version oficial con la registrada localmente y con el texto de las references.
+**1.3 — Comparar.** Contrastar la version oficial con la registrada en `fuentes-plantillas-validadas.md` y con las referencias del prompt (`lec-juicio-desahucio.md`, `lau-resolucion-por-impago.md`, `enervacion-y-vulnerabilidad.md`).
 
-**1.4 — Auto-actualizar los archivos del plugin (OBLIGATORIO si hay cambios).** Si la version oficial es posterior o el texto de los articulos ha cambiado, usar las herramientas de escritura (Write/Edit) para:
-- Actualizar el contenido afectado en `references/lec-juicio-desahucio.md`, `references/lau-resolucion-por-impago.md` y/o `references/enervacion-y-vulnerabilidad.md` con la redaccion vigente.
-- Ajustar la estructura de los assets (`assets/demanda-desahucio-*.md`) si cambian los tramites (p. ej. plazos del requerimiento o del señalamiento del lanzamiento).
-- Actualizar la tabla "Version registrada" y las fechas en `references/fuentes-plantillas-validadas.md`.
+**1.4 — Aplicar cambios normativos.** Si la version oficial es posterior o el texto de los articulos ha cambiado:
+- Aplicar en memoria la redaccion vigente para adaptar los tramites y fundamentacion de la demanda.
 - Informar brevemente al usuario de que se detecto y aplico una version mas reciente (norma y fecha).
 
-No redactar ningun documento hasta haber completado esta actualizacion. Nunca usar una version desactualizada.
-
-**1.5 — Fallback si la fuente no es accesible.** Si `read_document` falla (error HTTP, timeout):
-```
-web_search("Ley Enjuiciamiento Civil juicio verbal desahucio articulo 250 437 440 texto consolidado BOE")
-```
-y
-```
-web_search("Ley 29/1994 Arrendamientos Urbanos articulo 27 resolucion impago texto consolidado BOE")
-```
-Si tambien falla: usar las references locales como respaldo y notificar al usuario:
-"No se pudo verificar la version vigente de la LEC/LAU en el BOE. La demanda se genera con la version de referencia. Verificar manualmente antes de presentar."
+**1.5 — Fallback si la busqueda no es accesible.** Si la busqueda web falla: usar las references cargadas en el prompt como respaldo y notificar al usuario:
+"No se pudo verificar en vivo la version vigente de la LEC/LAU en el BOE. La demanda se genera con la version de referencia. Verificar manualmente antes de presentar."
 
 ### Paso 2 — Preguntas al usuario (una pregunta por bloque si no las ha proporcionado)
 
@@ -163,10 +143,10 @@ g) **Vulnerabilidad:** en desahucio de vivienda, advertir del posible traslado a
 
 ### Paso 4 — Generacion del documento
 
-Seleccionar la plantilla segun el supuesto:
-- Falta de pago: `assets/demanda-desahucio-falta-pago.md` (activar el bloque condicional de acumulacion de rentas si el usuario lo pidio).
-- Expiracion del plazo: `assets/demanda-desahucio-expiracion-plazo.md`
-- Precario: `assets/demanda-desahucio-precario.md`
+Tomar la plantilla correspondiente directamente desde el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas):
+- Falta de pago: `demanda-desahucio-falta-pago.md` (activar el bloque condicional de acumulacion de rentas si el usuario lo pidio).
+- Expiracion del plazo: `demanda-desahucio-expiracion-plazo.md`
+- Precario: `demanda-desahucio-precario.md`
 
 Invocar:
 ```
@@ -180,7 +160,9 @@ draft_markdown(
 
 Rellenar todos los campos con los datos reales. Los campos que el usuario no haya proporcionado quedan como `[DATO — PENDIENTE DE COMPLETAR]`.
 
-Aplicar el estilo de `references/estilo-redaccion-escritos.md`: escrito breve y directo, HECHOS numerados con una idea por apartado, documentos relacionados y numerados, voz activa, sin latinismos ni citas largas, y SUPLICO ajustado a lo estrictamente pedido (recuperacion de la posesion; en falta de pago con acumulacion, tambien la condena al pago de las rentas).
+Aplicar las directivas de `estilo-redaccion-escritos.md` (disponible directamente en `<document kind="references-collection">` del prompt): escrito breve y directo, HECHOS numerados con una idea por apartado, documentos relacionados y numerados, voz activa, sin latinismos ni citas largas, y SUPLICO ajustado a lo estrictamente pedido.
+
+Tras guardar el archivo en disco del workspace, invocar `read_file` exclusivamente sobre la ruta del workspace para verificar la integridad del documento escrito.
 
 ### Paso 5 — Revision final y advertencias
 

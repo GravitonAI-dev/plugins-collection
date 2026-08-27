@@ -7,26 +7,31 @@
   },
   "tools": [
     {
-      "id": "io.gravitonai.tools.read_document",
-      "name": "read_document",
-      "description": "Lee el contenido de un documento por ruta local o URL",
+      "id": "io.gravitonai.tools.read_file",
+      "name": "read_file",
+      "description": "Lee el contenido UTF-8 de un archivo existente en el espacio de trabajo de la conversación a partir de una ruta relativa al directorio raíz del workspace. Path traversal bloqueado.\n\nREGLAS CRÍTICAS DE ALCANCE:\n- Usar esta herramienta ÚNICAMENTE para inspeccionar documentos creados o almacenados en el espacio de trabajo actual de la conversación (ver '# WORKSPACE ACTIVE DOCUMENTS').\n- NO usar esta herramienta para leer assets, references, scripts o skills de plugins (e.g., rutas que comiencen por 'plugins-collection/', 'assets/', 'references/'). Todos los recursos de plugins ya están cargados en el prompt dentro del bloque XML <documents> y deben leerse directamente de allí.",
       "version": "1.0.0",
       "input_schema": {
         "type": "object",
         "properties": {
-          "path": { "type": "string", "description": "Ruta local absoluta o URL" },
-          "format": { "type": "string", "enum": ["text", "markdown", "json"], "default": "text" }
+          "relative_file_path": {
+            "type": "string",
+            "description": "Ruta estilo POSIX (barras inclinadas '/') relativa al directorio raíz del espacio de trabajo de la conversación activa (ej: 'documento.md', 'informes/resumen.md'). Se rechazan segmentos '..' y rutas absolutas. El archivo ya debe existir en el espacio de trabajo."
+          }
         },
-        "required": ["path"]
+        "required": ["relative_file_path"],
+        "additionalProperties": false
       },
       "output_schema": {
         "type": "object",
         "properties": {
-          "text": { "type": "string" },
-          "metadata": { "type": "object" }
+          "content": {
+            "type": "string",
+            "description": "Contenido completo en texto UTF-8 del archivo o mensaje informativo de guía."
+          }
         }
       },
-      "tags": ["io", "documents"],
+      "tags": ["io", "workspace", "files"],
       "side_effects": false
     },
     {

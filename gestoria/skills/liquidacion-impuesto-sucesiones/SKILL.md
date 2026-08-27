@@ -56,57 +56,34 @@ assets:
 
 ## Procedimiento
 
-### Paso 1 — Verificacion y AUTO-ACTUALIZACION normativa (OBLIGATORIO, antes de cualquier otra accion)
+### Paso 1 — Verificacion normativa
 
-La skill se actualiza a si misma en cada lanzamiento: comprueba las fuentes oficiales y, si detecta una version posterior, reescribe sus propios archivos (references y assets) antes de preparar el tramite. Ejecutar SIEMPRE esta secuencia:
+**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-y-plazos.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt (TIENES ESTRICTAMENTE PROHIBIDO usar la herramienta `read_file` para leer references o assets) y anotar la "Version registrada" de la Ley 29/1987, del RD 1629/1991, del modelo 650 y del TR de la Ley Reguladora de las Haciendas Locales (plusvalia).
 
-**1.1 — Leer la fecha/version registrada localmente.** Abrir `references/fuentes-y-plazos.md` y anotar la "Version registrada" de la Ley 29/1987, del RD 1629/1991, del modelo 650 y del TR de la Ley Reguladora de las Haciendas Locales (plusvalia).
-
-**1.2 — Consultar la fuente oficial estatal vigente.** Invocar:
+**1.2 — Consultar la fuente oficial estatal vigente en vivo.** Invocar:
 ```
-read_document(
-  path: "https://www.boe.es/buscar/act.php?id=BOE-A-1987-28141",
-  format: "text"
-)
+web_search("BOE-A-1987-28141 Ley 29/1987 Impuesto Sucesiones Donaciones texto consolidado")
+web_search("BOE-A-1991-27678 Real Decreto 1629/1991 Reglamento Impuesto Sucesiones")
 ```
 Extraer: fecha del texto consolidado vigente de la Ley 29/1987; redaccion actual del hecho imponible (Arts. 3 y 5-8), la base imponible y el ajuar (Arts. 9 y 15), las reducciones estatales y los grupos de parentesco (Art. 20), y la tarifa y coeficientes multiplicadores (Arts. 21-22).
 
-Consultar tambien el Reglamento (RD 1629/1991):
-```
-read_document(
-  path: "https://www.boe.es/buscar/act.php?id=BOE-A-1991-27678",
-  format: "text"
-)
-```
-
 **1.3 — Verificar la NORMATIVA AUTONOMICA vigente (OBLIGATORIO).** El importe del impuesto depende sobre todo de la CCAA. Una vez conocida la comunidad autonoma competente (Paso 2, Bloque A), invocar:
 ```
-web_search("Impuesto Sucesiones [comunidad autonoma] reducciones bonificaciones vigentes 2026 grupo parentesco cuota")
+web_search("Impuesto Sucesiones [comunidad autonoma] reducciones bonificaciones vigentes grupo parentesco cuota")
 ```
 Extraer: reducciones autonomicas propias o mejoradas, bonificaciones de la cuota (muchas CCAA aplican bonificaciones cercanas al 99% para Grupos I y II), tarifa y coeficientes autonomicos si los hubiera, y el modelo y la sede de presentacion de esa CCAA. Anotar estos datos como [verificar].
 
 Verificar tambien la plusvalia municipal si hay inmuebles urbanos:
 ```
-read_document(
-  path: "https://www.boe.es/buscar/act.php?id=BOE-A-2004-4214",
-  format: "text"
-)
+web_search("BOE-A-2004-4214 Real Decreto Legislativo 2/2004 Haciendas Locales plusvalia mortis causa texto consolidado")
 ```
 
-**1.4 — Auto-actualizar los archivos del plugin (OBLIGATORIO si hay cambios).** Si la version oficial es posterior o el texto ha cambiado, usar las herramientas de escritura (Write/Edit) para:
-- Actualizar el contenido afectado en `references/isd-ley-29-1987.md` (reducciones estatales, grupos, tarifa) y/o `references/plusvalia-municipal.md`.
-- Actualizar `references/isd-normativa-autonomica.md` con lo verificado para la CCAA concreta (dejando el resto de la tabla como ejemplo marcado [verificar]).
-- Actualizar la tabla "Version registrada" y las fechas en `references/fuentes-y-plazos.md`.
+**1.4 — Comparar y aplicar cambios.** Contrastar la version oficial con la registrada en `fuentes-y-plazos.md` y con las referencias del prompt (`isd-ley-29-1987.md`, `isd-normativa-autonomica.md`, `plusvalia-municipal.md`). Si hay modificaciones:
+- Aplicar en memoria la redaccion estatal y autonomica vigente para adaptar el borrador.
 - Informar brevemente al usuario de que se detecto y aplico una version mas reciente (norma y fecha).
 
-No preparar ningun tramite hasta haber completado esta actualizacion. Nunca usar una version desactualizada.
-
-**1.5 — Fallback si la fuente no es accesible.** Si `read_document` falla (error HTTP, timeout):
-```
-web_search("Ley 29/1987 Impuesto sobre Sucesiones y Donaciones texto consolidado BOE reducciones articulo 20")
-```
-Si tambien falla: usar las references locales como respaldo y notificar al usuario:
-"No se pudo verificar la version vigente de la normativa del Impuesto de Sucesiones. El borrador se genera con la version de referencia y con importes marcados [verificar]. Verificar manualmente antes de presentar."
+**1.5 — Fallback si la busqueda no es accesible.** Si la busqueda web falla: usar las references cargadas en el prompt como respaldo y notificar al usuario:
+"No se pudo verificar en vivo la version vigente de la normativa del Impuesto de Sucesiones. El borrador se genera con la version de referencia y con importes marcados [verificar]. Verificar manualmente antes de presentar."
 
 ### Paso 2 — Preguntas al usuario (una pregunta por bloque si no las ha proporcionado)
 
@@ -162,7 +139,9 @@ Advertir de forma expresa que el resultado es una estimacion orientativa, no la 
 
 ### Paso 4 — Generacion de los documentos
 
-Generar el borrador de autoliquidacion y el checklist:
+Tomar las plantillas correspondientes directamente desde el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas):
+
+Generar el borrador de autoliquidacion y el checklist con las plantillas `borrador-autoliquidacion-650.md` y `checklist-documentacion-sucesiones.md`:
 ```
 draft_markdown(
   template_id: "borrador-autoliquidacion-650",
@@ -176,7 +155,9 @@ draft_markdown(
 )
 ```
 
-Rellenar los campos con los datos reales. Los campos que el usuario no haya proporcionado quedan como campo pendiente de completar. Aplicar el estilo de `references/estilo-redaccion-escritos.md`: lenguaje administrativo claro, cifras en numero, una idea por apartado, sin formulas grandilocuentes.
+Rellenar los campos con los datos reales. Los campos que el usuario no haya proporcionado quedan como campo pendiente de completar. Aplicar las directivas de `estilo-redaccion-escritos.md` (disponible directamente en `<document kind="references-collection">` del prompt): lenguaje administrativo claro, cifras en numero, una idea por apartado, sin formulas grandilocuentes.
+
+Tras guardar los archivos en disco del workspace, invocar `read_file` exclusivamente sobre las rutas del workspace para verificar la integridad de los documentos escritos.
 
 ### Paso 5 — Revision final y advertencias
 
