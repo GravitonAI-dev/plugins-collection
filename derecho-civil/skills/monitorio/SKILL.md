@@ -128,21 +128,19 @@ Tomar la plantilla correspondiente directamente desde el bloque `<document kind=
 - Rentas de arrendamiento: `peticion-inicial-monitorio-rentas.md`
 - Otra deuda: `peticion-inicial-monitorio.md`
 
-Invocar:
+Generar la peticion inicial en el workspace invocando `create_file`:
 ```
-draft_markdown(
-  template_id: "peticion-inicial-monitorio" | "peticion-inicial-monitorio-rentas",
-  variables: {
-    todos los datos recogidos en los bloques A-F
-  }
+create_file(
+  relative_file_path: "peticion_inicial_monitorio.md",
+  file_content: "... contenido completo redactado a partir de la plantilla y los datos recogidos en los bloques A-F ..."
 )
 ```
 
 Si el usuario ha pedido tambien el burofax (Bloque A opcion 2), generar ademas con la plantilla `burofax-requerimiento-previo-masc.md` (tomada directamente de `<document kind="assets-collection">` del prompt sin usar `read_file`):
 ```
-draft_markdown(
-  template_id: "burofax-requerimiento-previo-masc",
-  variables: { datos del acreedor, deudor, origen y cuantia de la deuda }
+create_file(
+  relative_file_path: "burofax_requerimiento_previo_masc.md",
+  file_content: "... contenido completo redactado para requerimiento previo con datos de acreedor, deudor, origen y cuantia ..."
 )
 ```
 

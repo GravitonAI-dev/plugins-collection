@@ -127,13 +127,11 @@ Tomar la plantilla correspondiente directamente desde el bloque `<document kind=
 - Cuaderno particional: `cuaderno-particional.md`
 - Aceptacion de herencia: `aceptacion-herencia.md`
 
-Invocar:
+Generar el documento en el workspace invocando `create_file`:
 ```
-draft_markdown(
-  template_id: "cuaderno-particional" | "aceptacion-herencia",
-  variables: {
-    todos los datos recogidos en los bloques A-G
-  }
+create_file(
+  relative_file_path: "cuaderno_particional.md" | "aceptacion_herencia.md",
+  file_content: "... contenido completo redactado a partir de la plantilla y los datos recogidos en los bloques A-G ..."
 )
 ```
 

@@ -11,9 +11,9 @@
       "purpose": "Consulta y verificación en el BOE y sedes oficiales de la normativa vigente de cada trámite (DGT, AEAT, Seguridad Social, extranjería), tasas actualizadas y modelos de formulario."
     },
     {
-      "id": "io.gravitonai.tools.draft_markdown",
+      "id": "io.gravitonai.tools.create_file",
       "required": true,
-      "purpose": "Generacion en markdown de la solicitud o escrito, la hoja de datos para el formulario oficial y el checklist de documentos y tasas, desde la plantilla correspondiente a cada tramite."
+      "purpose": "Creación en disco dentro del workspace de la solicitud, escrito, hoja de datos para el formulario oficial y checklist de documentos y tasas."
     }
   ]
 }

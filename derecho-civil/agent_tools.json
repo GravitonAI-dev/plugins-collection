@@ -11,9 +11,9 @@
       "purpose": "Búsqueda y verificación directa en el BOE de la normativa aplicable (LAU, LEC, Código Civil, etc.) en su versión consolidada vigente, legislación autonómica e índices de referencia."
     },
     {
-      "id": "io.gravitonai.tools.draft_markdown",
+      "id": "io.gravitonai.tools.create_file",
       "required": true,
-      "purpose": "Generacion del documento en markdown desde la plantilla correspondiente (contrato de arrendamiento; peticion inicial de monitorio o burofax de requerimiento previo) con los datos recogidos del usuario."
+      "purpose": "Creación inicial del documento en disco dentro del espacio de trabajo (workspace) a partir de la plantilla seleccionada y los datos recopilados."
     }
   ]
 }

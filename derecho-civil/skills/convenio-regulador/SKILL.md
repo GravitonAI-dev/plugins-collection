@@ -137,21 +137,19 @@ e) **Competencia (via judicial):** identificar el Juzgado de Primera Instancia d
 
 Tomar las plantillas `convenio-regulador.md` y (si procede) `demanda-divorcio-mutuo-acuerdo.md` directamente desde el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas).
 
-Generar siempre el convenio regulador:
+Generar siempre el convenio regulador invocando `create_file`:
 ```
-draft_markdown(
-  template_id: "convenio-regulador",
-  variables: {
-    todos los datos recogidos en los bloques A-G
-  }
+create_file(
+  relative_file_path: "convenio_regulador.md",
+  file_content: "... contenido completo redactado a partir de la plantilla y los datos recogidos en los bloques A-G ..."
 )
 ```
 
 Si el usuario ha pedido tambien la demanda (via judicial, o eleccion en Bloque A), generar ademas:
 ```
-draft_markdown(
-  template_id: "demanda-divorcio-mutuo-acuerdo",
-  variables: { datos de los conyuges, matrimonio, hijos, partido judicial, relacion de documentos }
+create_file(
+  relative_file_path: "demanda_divorcio_mutuo_acuerdo.md",
+  file_content: "... contenido completo redactado a partir de la plantilla y los datos de conyuges, matrimonio, hijos y juzgado ..."
 )
 ```
 

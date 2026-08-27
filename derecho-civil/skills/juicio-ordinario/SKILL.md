@@ -138,11 +138,11 @@ f) **Documentos (Arts. 264-266, 336) y preclusion (Art. 269):** verificar que se
 
 Tomar la plantilla `demanda-juicio-ordinario.md` directamente desde el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas).
 
-Invocar:
+Generar la demanda en el workspace invocando `create_file`:
 ```
-draft_markdown(
-  template_id: "demanda-juicio-ordinario",
-  variables: { todos los datos recogidos en las fases 1 y 2 }
+create_file(
+  relative_file_path: "demanda_juicio_ordinario.md",
+  file_content: "... contenido completo redactado a partir de la plantilla y los datos recogidos en las fases 1 y 2 ..."
 )
 ```
 La demanda debe: identificar a las partes y la postulacion; exponer los HECHOS numerados y separados, relacionando cada documento (Documento nº 1, nº 2, ...); ordenar los FUNDAMENTOS DE DERECHO procesales (competencia, procedimiento, cuantia, postulacion, procedibilidad-MASC) y de fondo (la accion); fijar expresamente la CUANTIA; formular un SUPLICO concreto; y anadir los OTROSIES (recibimiento a prueba, designacion de domicilios). Aplicar las directivas de `estilo-redaccion-escritos.md` (disponible directamente en `<document kind="references-collection">` del prompt).

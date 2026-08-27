@@ -435,7 +435,7 @@ Mientras no exista `validate.py`, la validación cruzada se hace con un script a
   + [commercial-legal] MCP ref 'io.gravitonai.courtlistener' -> found
   + [commercial-legal] MCP ref 'io.gravitonai.gdrive' -> found
   + [commercial-legal] tool ref 'io.gravitonai.tools.read_file' -> found
-  + [commercial-legal] tool ref 'io.gravitonai.tools.draft_markdown' -> found
+  + [commercial-legal] tool ref 'io.gravitonai.tools.create_file' -> found
 ```
 
 Cuando agregues un plugin o skill, el flujo mínimo de validación es:
@@ -543,7 +543,7 @@ Plugin de ejemplo. Cubre flujos legales transaccionales comerciales: revisión d
 - `nda-review`: triage de NDAs entrantes con output VERDE/AMARILLO/ROJO + memo para abogado.
 
 **MCP servers referenciados**: `io.gravitonai.courtlistener` (opcional), `io.gravitonai.gdrive` (requerido).
-**Tools referenciadas**: `io.gravitonai.tools.read_file`, `io.gravitonai.tools.draft_markdown`.
+**Tools referenciadas**: `io.gravitonai.tools.read_file`, `io.gravitonai.tools.create_file`.
 
 Ver `commercial-legal/README.md` para detalle completo.
 

@@ -179,27 +179,27 @@ e) **Obligaciones fiscales pendientes:** identificar las ultimas declaraciones a
 
 Tomar las plantillas correspondientes directamente desde el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas):
 
-**Rama A — ALTA.** Generar las dos hojas de datos del alta con las plantillas `hoja-datos-alta-censal-036.md` y `hoja-datos-alta-reta.md`:
+**Rama A — ALTA.** Generar las dos hojas de datos del alta con las plantillas `hoja-datos-alta-censal-036.md` y `hoja-datos-alta-reta.md` invocando `create_file`:
 ```
-draft_markdown(
-  template_id: "hoja-datos-alta-censal-036",
-  variables: { datos del Bloque A1, actividad y epigrafe del Bloque A2, fecha del Bloque A3, regimenes del Bloque A5 }
+create_file(
+  relative_file_path: "hoja_datos_alta_censal_036.md",
+  file_content: "... contenido completo con datos del Bloque A1, actividad y epigrafe A2, fecha A3 y regimenes A5 ..."
 )
-draft_markdown(
-  template_id: "hoja-datos-alta-reta",
-  variables: { datos del Bloque A1, fecha del Bloque A3, rendimientos y tramo del Bloque A4, tarifa plana del Bloque A6 }
+create_file(
+  relative_file_path: "hoja_datos_alta_reta.md",
+  file_content: "... contenido completo con datos del Bloque A1, fecha A3, rendimientos y tramo A4 y tarifa plana A6 ..."
 )
 ```
 
-**Rama B — BAJA.** Generar las dos hojas de datos de la baja con las plantillas `hoja-datos-baja-censal-036.md` y `hoja-datos-baja-reta.md`:
+**Rama B — BAJA.** Generar las dos hojas de datos de la baja con las plantillas `hoja-datos-baja-censal-036.md` y `hoja-datos-baja-reta.md` invocando `create_file`:
 ```
-draft_markdown(
-  template_id: "hoja-datos-baja-censal-036",
-  variables: { datos del Bloque B1, actividad y epigrafe del Bloque B2, fecha de cese del Bloque B3, regimenes de origen del Bloque B4, obligaciones del Bloque B5 }
+create_file(
+  relative_file_path: "hoja_datos_baja_censal_036.md",
+  file_content: "... contenido completo con datos del Bloque B1, actividad B2, fecha cese B3, regimenes B4 y obligaciones B5 ..."
 )
-draft_markdown(
-  template_id: "hoja-datos-baja-reta",
-  variables: { datos del Bloque B1, fecha de cese del Bloque B3, efectos en la cuota del Paso 3 }
+create_file(
+  relative_file_path: "hoja_datos_baja_reta.md",
+  file_content: "... contenido completo con datos del Bloque B1, fecha de cese B3 y efectos en cuota ..."
 )
 ```
 

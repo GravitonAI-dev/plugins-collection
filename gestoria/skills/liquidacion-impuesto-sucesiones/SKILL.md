@@ -141,17 +141,17 @@ Advertir de forma expresa que el resultado es una estimacion orientativa, no la 
 
 Tomar las plantillas correspondientes directamente desde el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas):
 
-Generar el borrador de autoliquidacion y el checklist con las plantillas `borrador-autoliquidacion-650.md` y `checklist-documentacion-sucesiones.md`:
+Generar el borrador de autoliquidacion y el checklist con las plantillas `borrador-autoliquidacion-650.md` y `checklist-documentacion-sucesiones.md` invocando `create_file`:
 ```
-draft_markdown(
-  template_id: "borrador-autoliquidacion-650",
-  variables: { todos los datos recogidos en los bloques A-G y la estimacion del Paso 3 }
+create_file(
+  relative_file_path: "borrador_autoliquidacion_650.md",
+  file_content: "... contenido completo adaptado para autoliquidacion con datos de bloques A-G y calculos del Paso 3 ..."
 )
 ```
 ```
-draft_markdown(
-  template_id: "checklist-documentacion-sucesiones",
-  variables: { comunidad_autonoma, organismo, plazo, si hay inmuebles urbanos }
+create_file(
+  relative_file_path: "checklist_documentacion_sucesiones.md",
+  file_content: "... contenido completo del checklist de documentacion, plazos y plusvalia municipal ..."
 )
 ```
 

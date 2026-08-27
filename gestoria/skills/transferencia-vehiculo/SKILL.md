@@ -123,13 +123,11 @@ Tomar las plantillas correspondientes directamente desde el bloque `<document ki
 - Solicitud de cambio de titularidad (hoja de datos + checklist + organismo + tasa): `solicitud-cambio-titularidad-dgt.md`
 - Notificacion de venta del vendedor: `notificacion-venta-dgt.md`
 
-Invocar por cada documento pedido:
+Generar en el workspace invocando `create_file` por cada documento pedido:
 ```
-draft_markdown(
-  template_id: "contrato-compraventa-vehiculo" | "solicitud-cambio-titularidad-dgt" | "notificacion-venta-dgt",
-  variables: {
-    todos los datos recogidos en los bloques A-F
-  }
+create_file(
+  relative_file_path: "contrato_compraventa_vehiculo.md" | "solicitud_cambio_titularidad_dgt.md" | "notificacion_venta_dgt.md",
+  file_content: "... contenido completo adaptado a partir de la plantilla y los datos recogidos en los bloques A-F ..."
 )
 ```
 

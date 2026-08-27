@@ -124,22 +124,19 @@ e) **Discrecionalidad y plazos.** Recordar que la resolucion es discrecional, in
 
 Tomar las plantillas correspondientes directamente desde el bloque `<document kind="assets-collection">` de tu system prompt (NO uses la herramienta `read_file` para leer plantillas):
 
-Generar siempre la hoja de datos y el checklist con la plantilla `hoja-datos-solicitud-ex.md`:
+Generar siempre la hoja de datos y el checklist con la plantilla `hoja-datos-solicitud-ex.md` invocando `create_file`:
 ```
-draft_markdown(
-  template_id: "hoja-datos-solicitud-ex",
-  variables: {
-    todos los datos recogidos en los bloques A-F,
-    formulario_ex, codigo_tasa, importe_tasa_aprox, organismo, sede, plazo
-  }
+create_file(
+  relative_file_path: "hoja_datos_solicitud_ex.md",
+  file_content: "... contenido completo adaptado para formulario EX, tasa 790, checklist y datos de bloques A-F ..."
 )
 ```
 
 Si el tramite es una autorizacion de residencia (no lucrativa, arraigo, reagrupacion) y el usuario pide tambien un escrito de solicitud o alegaciones, generar ademas con la plantilla `escrito-solicitud-residencia.md` (tomada de `<document kind="assets-collection">` sin usar `read_file`):
 ```
-draft_markdown(
-  template_id: "escrito-solicitud-residencia",
-  variables: { datos del interesado, representante, tipo de residencia, motivo y fundamentos }
+create_file(
+  relative_file_path: "escrito_solicitud_residencia.md",
+  file_content: "... contenido completo con datos de interesado, tipo de residencia, motivo y fundamentos ..."
 )
 ```
 

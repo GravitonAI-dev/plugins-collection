@@ -132,13 +132,11 @@ Tomar la plantilla correspondiente directamente desde el bloque `<document kind=
 - Inscripcion de empresa / CCC (y variaciones o baja): `hoja-datos-inscripcion-empresa-ccc.md`
 - Alta o baja de trabajador del Regimen General o de empleada de hogar: `hoja-datos-alta-baja-trabajador.md`
 
-Invocar:
+Generar la hoja de datos en el workspace invocando `create_file`:
 ```
-draft_markdown(
-  template_id: "hoja-datos-afiliacion-ta1" | "hoja-datos-inscripcion-empresa-ccc" | "hoja-datos-alta-baja-trabajador",
-  variables: {
-    todos los datos recogidos en los bloques A-F
-  }
+create_file(
+  relative_file_path: "hoja_datos_seguridad_social.md",
+  file_content: "... contenido completo adaptado segun modelo TA y datos recogidos en los bloques A-F ..."
 )
 ```
 

@@ -133,15 +133,11 @@ Tomar la plantilla correspondiente directamente desde el bloque `<document kind=
 - Reclamacion previa: `reclamacion-extrajudicial-clausula-abusiva.md`
 - Demanda: `demanda-nulidad-clausula-abusiva.md`
 
-Invocar:
+Generar el escrito en el workspace invocando `create_file`:
 ```
-draft_markdown(
-  template_id: "reclamacion-extrajudicial-clausula-abusiva" | "demanda-nulidad-clausula-abusiva",
-  variables: {
-    todos los datos recogidos en los bloques A-F,
-    tipo_clausula, criterios jurisprudenciales verificados en el Paso 1.3,
-    fecha_verificacion_normativa
-  }
+create_file(
+  relative_file_path: "reclamacion_extrajudicial_clausula_abusiva.md" | "demanda_nulidad_clausula_abusiva.md",
+  file_content: "... contenido completo redactado a partir de la plantilla, datos de los bloques A-F y jurisprudencia verificada ..."
 )
 ```
 
