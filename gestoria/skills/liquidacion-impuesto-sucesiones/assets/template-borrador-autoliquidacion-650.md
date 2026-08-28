@@ -86,9 +86,6 @@ Regimen autonomico aplicado (fuente verificada): {{fuente_normativa_autonomica}}
 
 ## 6. Plusvalia municipal (IIVTNU)
 
-<!-- Si hay inmuebles urbanos: La herencia incluye inmueble(s) urbano(s). Ademas del Impuesto de Sucesiones, debe liquidarse la plusvalia municipal (IIVTNU) en el ayuntamiento de {{municipio_inmueble}}, en el plazo de 6 meses desde el fallecimiento (prorrogable). Es un tributo distinto: la skill no calcula su cuota. [verificar ordenanza municipal] -->
-<!-- Si no hay inmuebles urbanos: La herencia no incluye inmuebles urbanos: no procede plusvalia municipal. -->
-
 ---
 
 > **Advertencias:**

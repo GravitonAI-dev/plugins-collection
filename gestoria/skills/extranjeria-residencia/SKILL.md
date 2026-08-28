@@ -140,9 +140,21 @@ create_file(
 )
 ```
 
-Para un NIE simple no suele hacer falta escrito de alegaciones: basta la hoja de datos del EX-15 y el checklist.
+### Reglas de Adaptación y Cláusulas Condicionales:
 
-Rellenar todos los campos con los datos reales. Los campos que el usuario no haya proporcionado quedan como campo pendiente de completar. Aplicar las directivas de `estilo-redaccion-escritos.md` (disponible directamente en `<document kind="references-collection">` del prompt): lenguaje administrativo claro, estructura EXPONE / SOLICITA, una idea por parrafo, sin formulas grandilocuentes.
+1. **Representación:**
+   - *Si actúa representante:* Indicar en el encabezamiento: `Actúa en su nombre {{nombre_representante}}, en calidad de {{condicion_representante}} (gestor administrativo / abogado / familiar), cuya representación se acredita mediante {{acreditacion_representacion}}.`
+   - *Si actúa por sí mismo:* Consignar la actuación a nombre propio del solicitante.
+
+2. **Modalidad de Residencia y Justificación Material:**
+   - *Residencia No Lucrativa:* Exponer y justificar medios económicos suficientes (`{{medios_economicos}}` - % IPREM) y seguro médico privado con cobertura completa en España (`{{seguro_medico}}`).
+   - *Residencia Temporal por Arraigo:* Precisar modalidad (`{{tipo_arraigo}}`: social, sociolaboral, socioformativo, familiar o segunda oportunidad), tiempo de permanencia continuada (`{{tiempo_permanencia}}`) y vínculos o contrato/compromiso formativo (`{{datos_arraigo}}`).
+   - *Reagrupación Familiar:* Identificar al reagrupante (`{{reagrupante}}`), título de residencia, acreditar parentesco/vínculo legalizado y traducido (`{{vinculo}}`), y disponibilidad de vivienda adecuada y medios económicos suficientes (`{{vivienda_medios}}`).
+
+3. **Checklist Documental Específico según Trámite:**
+   - Adaptar la lista de verificación documental de `hoja_datos_solicitud_ex.md` seleccionando los requisitos de `references/documentacion-por-tramite.md` aplicables exclusivamente al trámite (NIE, Arraigo, No Lucrativa, Reagrupación).
+
+Rellenar todos los campos con los datos reales. Los campos que el usuario no haya proporcionado quedan como `[DATO — PENDIENTE DE COMPLETAR]`. Aplicar las directivas de `estilo-redaccion-escritos.md` (disponible directamente en `<document kind="references-collection">` del prompt): lenguaje administrativo claro, estructura EXPONE / SOLICITA, una idea por parrafo, sin formulas grandilocuentes.
 
 Tras guardar los archivos en disco del workspace, invocar `read_file` exclusivamente sobre las rutas del workspace para verificar la integridad de los documentos escritos.
 

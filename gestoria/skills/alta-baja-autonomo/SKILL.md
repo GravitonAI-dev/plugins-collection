@@ -195,17 +195,34 @@ create_file(
 ```
 create_file(
   relative_file_path: "hoja_datos_baja_censal_036.md",
-  file_content: "... contenido completo con datos del Bloque B1, actividad B2, fecha cese B3, regimenes B4 y obligaciones B5 ..."
+  file_content: "... contenido completo con datos del Bloque B1, actividad B2 (especificar si es baja total o cese parcial), fecha cese B3, regimenes B4 y obligaciones B5 (relacion de liquidaciones {{obligaciones_pendientes}})..."
 )
 create_file(
   relative_file_path: "hoja_datos_baja_reta.md",
-  file_content: "... contenido completo con datos del Bloque B1, fecha de cese B3 y efectos en cuota ..."
+  file_content: "... contenido completo con datos del Bloque B1, fecha cese B3, regularizacion B4 (efectos: 3 primeras bajas del ano al dia de cese, a partir de la 4a mes completo) y advertencias..."
 )
 ```
 
-Rellenar todos los campos con los datos reales. Los campos que el usuario no haya proporcionado quedan como campo pendiente de completar. Aplicar las directivas de `estilo-redaccion-escritos.md` (disponible directamente en `<document kind="references-collection">` del prompt): hoja de datos clara, con los campos ordenados como en el formulario oficial, y checklist accionable.
+### Reglas de Adaptación y Cláusulas Condicionales:
 
-Tras guardar los archivos en disco del workspace, invocar `read_file` exclusivamente sobre las rutas del workspace para verificar la integridad de los documentos escritos.
+1. **Actividades Múltiples (en Alta Censal 036):**
+   - *Si ejerce varias actividades:* Incluir en la sección de actividad económica: `Actividades adicionales / epígrafes secundarios: {{epigrafes_adicionales}} (con su respectivo IAE y régimen de IVA/IRPF).`
+
+2. **Régimen de Tarifa Plana (en Alta RETA):**
+   - *Si aplica Tarifa Plana (cuota reducida inicial):* Especificar: `TARIFA PLANA: Cuota reducida de inicio de {{cuota_tarifa_plana}} euros/mes durante los primeros 12 meses, prorrogable por 12 meses adicionales si los rendimientos netos no superan el SMI.`
+   - *Si NO aplica Tarifa Plana:* Indicar: `No se aplica tarifa plana: cotización calculada según tramo de rendimientos netos previstos.`
+
+3. **Alcance de la Baja (Total vs Cese Parcial de Epígrafe en Baja 036):**
+   - *Si es baja total de actividad:* Tramitar baja censal 036 y correlativa baja en el RETA.
+   - *Si solo cesa un epígrafe manteniendo otra actividad:* Hacer constar que se trata de una modificación censal en el modelo 036 sin baja en el RETA.
+   - *Obligaciones tributarias pendientes:* Relacionar las liquidaciones pendientes a presentar (`{{obligaciones_pendientes}}`).
+
+4. **Efectos de la Baja en el RETA:**
+   - Hacer constar que las 3 primeras bajas del año natural surten efectos desde el día de cese real (cotización por días); a partir de la 4ª baja, se cotiza el mes completo. Fuera de plazo de 3 días, surte efectos desde la fecha de presentación.
+
+Rellenar todos los campos con los datos reales. Los campos que el usuario no haya proporcionado quedan como `[DATO — PENDIENTE DE COMPLETAR]`.
+
+Tras guardar cada archivo en disco del workspace, invocar `read_file` exclusivamente sobre la ruta del workspace para verificar la integridad del documento escrito.
 
 ### Paso 5 — Revision final y advertencias
 

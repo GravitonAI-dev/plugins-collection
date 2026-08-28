@@ -40,11 +40,9 @@
 
 ## 5. Plusvalia municipal (IIVTNU) — solo si hay inmuebles urbanos
 
-<!-- Si hay inmuebles urbanos: -->
 - [ ] Liquidacion de la plusvalia municipal en el ayuntamiento de {{municipio_inmueble}}.
 - [ ] Plazo de 6 meses desde el fallecimiento (prorrogable) [verificar ordenanza municipal].
 - [ ] Comprobar el metodo de calculo (objetivo o real) mas favorable tras el RDL 26/2021.
-<!-- Si no hay inmuebles urbanos: no procede plusvalia municipal. -->
 
 ---
 
@@ -54,4 +52,3 @@
 > 3. Plazo general de presentacion: 6 meses desde el fallecimiento, prorrogable por otros 6.
 > 4. Si hay inmuebles urbanos, la plusvalia municipal se presenta aparte, en el ayuntamiento.
 
-<!-- EDITAR PARA TU EQUIPO: ajustar la lista de documentos y las sedes a los requisitos de las Haciendas autonomicas donde el equipo tramita con mas frecuencia. -->

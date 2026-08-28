@@ -16,7 +16,7 @@ Nombre / Razon social: {{nombre_demandante}}
 NIF / CIF: {{nif_demandante}}
 Domicilio a efectos de notificaciones: {{domicilio_demandante}}
 Naturaleza: {{naturaleza_demandante: persona fisica / persona juridica}}
-<!-- Si persona juridica: Representada por: {{nombre_representante}}, con NIF {{nif_representante}}, en calidad de {{cargo_representante}} -->
+
 Representado por el Procurador {{nombre_procurador}} y asistido por el Letrado {{nombre_letrado}}.
 
 ## DATOS DEL DEMANDADO (OCUPANTE)
@@ -51,8 +51,6 @@ El demandante revoco la tolerancia y requirio al demandado la restitucion de la 
 **CUARTO — Ausencia de titulo.**
 El demandado carece de titulo que ampare su posesion, por lo que procede el desahucio y la recuperacion de la plena posesion por el propietario.
 
-<!-- Si masc_intentado: QUINTO — Intento de solucion previa. Con caracter previo se intento la solucion extrajudicial de la controversia mediante {{tipo_masc}} de fecha {{fecha_masc}}, conforme a los articulos 403.2 y 264.4 de la LEC, sin resultado. Se acompana el justificante como documento. -->
-
 ## FUNDAMENTOS DE DERECHO
 
 **I. Competencia.** Es competente ese Juzgado por corresponder al lugar en que esta sita la finca, conforme al articulo 52.1.7 de la LEC.
@@ -63,7 +61,7 @@ El demandado carece de titulo que ampare su posesion, por lo que procede el desa
 
 **IV. Fondo.** La posesion del demandado es en precario, sin titulo ni pago que la justifique, por lo que el propietario tiene derecho a recuperar la posesion. No cabe enervacion de la accion, propia solo del desahucio por falta de pago (Art. 22.4 LEC).
 
-**V. Requisito de procedibilidad.** <!-- Si masc_intentado: Se ha intentado la solucion extrajudicial previa conforme al articulo 403.2 de la LEC, segun se acredita. --><!-- Si NO masc_intentado: Se hace constar la cuestion del requisito de MASC del articulo 403.2 de la LEC, introducido por la LO 1/2025, cuya exigencia debe verificarse. -->
+**V. Requisito de procedibilidad.**
 
 **VI. Costas.** Conforme al articulo 394 de la LEC.
 

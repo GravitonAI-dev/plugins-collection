@@ -155,7 +155,13 @@ create_file(
 )
 ```
 
-Rellenar los campos con los datos reales. Los campos que el usuario no haya proporcionado quedan como campo pendiente de completar. Aplicar las directivas de `estilo-redaccion-escritos.md` (disponible directamente en `<document kind="references-collection">` del prompt): lenguaje administrativo claro, cifras en numero, una idea por apartado, sin formulas grandilocuentes.
+### Reglas de Adaptación y Cláusulas Condicionales:
+
+1. **Inmuebles Urbanos y Plusvalía Municipal (IIVTNU):**
+   - *Si el caudal relicto incluye inmuebles de naturaleza urbana:* Incluir en el borrador de autoliquidación y checklist la advertencia expresa: `La herencia incluye inmueble(s) urbano(s). Además del Impuesto de Sucesiones, debe liquidarse el Impuesto sobre el Incremento de Valor de los Terrenos de Naturaleza Urbana (IIVTNU / Plusvalía Municipal) en el Ayuntamiento de {{municipio_inmueble}}, en el plazo de 6 meses desde el fallecimiento (prorrogable).`
+   - *Si NO incluye inmuebles urbanos (solo rústicos, cuentas o vehículos):* Hacer constar: `La herencia no incluye inmuebles urbanos: no procede la liquidación del IIVTNU.`
+
+Rellenar los campos con los datos reales. Los campos que el usuario no haya proporcionado quedan como `[DATO — PENDIENTE DE COMPLETAR]`. Aplicar las directivas de `estilo-redaccion-escritos.md` (disponible directamente en `<document kind="references-collection">` del prompt): lenguaje administrativo claro, cifras en numero, una idea por apartado, sin formulas grandilocuentes.
 
 Tras guardar los archivos en disco del workspace, invocar `read_file` exclusivamente sobre las rutas del workspace para verificar la integridad de los documentos escritos.
 

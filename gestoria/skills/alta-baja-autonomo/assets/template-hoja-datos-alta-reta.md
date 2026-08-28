@@ -38,9 +38,6 @@
 | Base de cotizacion elegida | {{base_cotizacion}} euros/mes |
 | Cuota mensual estimada | {{cuota_estimada}} euros/mes (ORIENTATIVA) [verificar] |
 
-<!-- Si aplica tarifa plana: TARIFA PLANA (cuota reducida de inicio): {{cuota_tarifa_plana}} euros/mes durante los primeros 12 meses. Prorroga por 12 meses mas si los rendimientos netos no superan el SMI. -->
-<!-- Si NO aplica tarifa plana: No se aplica tarifa plana: el interesado no cumple los requisitos o no se ha confirmado. Cuota segun tramo. -->
-
 ---
 
 ## CHECKLIST DE DOCUMENTOS Y PRESENTACION

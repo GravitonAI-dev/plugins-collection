@@ -144,6 +144,19 @@ create_file(
 )
 ```
 
+### Reglas de Adaptación y Cláusulas Condicionales:
+
+1. **Postulación y Representación Procesal (Art. 814.2 LEC):**
+   - *Si el acreedor comparece por sí mismo (por defecto, no preceptivo):* Encabezar con los datos del acreedor directamente y firma del propio acreedor.
+   - *Si actúa con procurador y abogado:* Hacer constar en el encabezamiento: `Representado por el Procurador {{nombre_procurador}} y asistido por el Letrado {{nombre_letrado}}, según poder que se acompaña.` e incluir la firma de ambos profesionales.
+
+2. **Intereses de Demora:**
+   - *Si se reclaman intereses pactados o legales devengados:* Añadir a la cuantía principal: `, más {{intereses}} euros en concepto de intereses de demora devengados desde la fecha de vencimiento ({{fecha_vencimiento}}), lo que hace un total reclamado de {{cuantia_total}} euros.`
+   - *Si solo se reclama el principal:* Limitar la cuantía al importe nominal adeudado.
+
+3. **Intento Previo de Solución Extrajudicial / MASC (LO 1/2025):**
+   - *Si se remitió burofax / requerimiento previo:* Añadir en los Hechos el Hecho numerado relativo al requerimiento fehaciente previo de fecha `{{fecha_burofax}}`, aportando acuse de recibo como documento, y fundamentar la procedibilidad.
+
 Rellenar todos los campos con los datos reales. Los campos que el usuario no haya proporcionado quedan como `[DATO — PENDIENTE DE COMPLETAR]`.
 
 Aplicar las directivas de `estilo-redaccion-escritos.md` (disponible directamente en `<document kind="references-collection">` del prompt): escrito breve y directo, HECHOS numerados con una idea por apartado, documentos relacionados y numerados, voz activa, sin latinismos ni citas largas, y SUPLICO ajustado a lo estrictamente pedido.

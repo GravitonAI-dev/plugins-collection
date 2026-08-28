@@ -141,6 +141,22 @@ create_file(
 )
 ```
 
+### Reglas de Adaptación y Cláusulas Condicionales:
+
+1. **Postulación Procesal (en Demanda Judicial):**
+   - *Si actúa con procurador y abogado:* Redactar en el encabezamiento: `Don/Doña {{nombre_procurador}}, Procurador de los Tribunales, en nombre y representación de {{nombre_demandante}}, según se acredita con la escritura de poder que se acompaña, bajo la dirección letrada de {{nombre_letrado}}, ante el Juzgado comparezco y como mejor proceda en Derecho DIGO:` y añadir las firmas de Letrado y Procurador al pie.
+   - *Si no consta representación técnica (juicio verbal hasta 2.000 € sin preceptividad):* Encabezar con los datos y firma directa del consumidor demandante.
+
+2. **Forma del Contrato (Escritura Notarial vs Contrato Privado):**
+   - *Si el contrato se formalizó en escritura pública (préstamos hipotecarios):* Añadir en los Hechos: `, formalizado en escritura ante la Notaría de {{notaria}}, número de protocolo {{protocolo}} (Documento nº 1).`
+
+3. **Reclamación Previa Extrajudicial:**
+   - *Si hubo reclamación previa desatendida por la entidad:* Añadir Hecho numerado: `Reclamación previa desatendida. Con carácter previo se remitió a la demandada reclamación extrajudicial de fecha {{fecha_reclamacion_previa}}, que no fue atendida (Documento correspondiente).`
+
+4. **Cita de Jurisprudencia del TJUE y Tribunal Supremo:**
+   - *Si la jurisprudencia fue verificada en el Paso 1.3:* Citar la doctrina y resoluciones verificadas (`{{referencia_jurisprudencia_verificada}}`).
+   - *Si no se pudo verificar doctrina consolidada:* Indicar expresamente la mención `[verificar]` y no inventar números de sentencias.
+
 Rellenar todos los campos con los datos reales. Los campos que el usuario no haya proporcionado quedan como `[DATO — PENDIENTE DE COMPLETAR]`. Los claims factuales o jurisprudenciales no verificados se marcan `[verificar]`.
 
 Aplicar las directivas de `estilo-redaccion-escritos.md` (disponible directamente en `<document kind="references-collection">` del prompt): escrito claro y ordenado, HECHOS numerados con una idea por apartado, documentos relacionados y numerados, voz activa, sin latinismos ni citas largas, y SUPLICO ajustado a la nulidad y la restitucion pedidas.

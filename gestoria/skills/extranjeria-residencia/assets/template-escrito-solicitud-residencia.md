@@ -18,21 +18,16 @@ Numero de pasaporte: {{numero_pasaporte}}
 NIE (si lo tiene): {{nie_previo}}
 Domicilio a efectos de notificaciones: {{domicilio_espana}}
 
-<!-- Si actua representante: Actua en su nombre {{nombre_representante}}, en calidad de {{condicion_representante: gestor / abogado / familiar}}, cuya representacion se acredita mediante {{acreditacion_representacion}}. -->
-
 ---
 
 ## EXPONE
 
-**PRIMERO.** Que el interesado solicita autorizacion de {{tipo_residencia: residencia temporal no lucrativa / residencia por arraigo / reagrupacion familiar}}<!-- Si es arraigo: , en la modalidad de arraigo {{tipo_arraigo: social / sociolaboral / socioformativo / familiar / segunda oportunidad}} -->, al amparo de la Ley Organica 4/2000 y de su Reglamento aprobado por el Real Decreto 1155/2024.
+**PRIMERO.** Que el interesado solicita autorizacion de {{tipo_residencia: residencia temporal no lucrativa / residencia por arraigo / reagrupacion familiar}}, al amparo de la Ley Organica 4/2000 y de su Reglamento aprobado por el Real Decreto 1155/2024.
 
 **SEGUNDO.** Que concurren las circunstancias que motivan la solicitud:
 {{fundamento_motivo: descripcion de los hechos y del motivo, un hecho por parrafo}}
 
 **TERCERO.** Que el interesado acredita el cumplimiento de los requisitos exigidos para el tramite, mediante la documentacion que se acompana.
-<!-- Si es residencia no lucrativa: En particular, acredita medios economicos suficientes ({{medios_economicos}}) y seguro medico con cobertura en Espana ({{seguro_medico}}). -->
-<!-- Si es arraigo: En particular, acredita la permanencia continuada en Espana ({{tiempo_permanencia}}) y {{datos_arraigo}}. -->
-<!-- Si es reagrupacion familiar: En particular, acredita el vinculo con el reagrupante {{reagrupante}} ({{vinculo}}) y la disponibilidad de vivienda y medios ({{vivienda_medios}}). -->
 
 ## DOCUMENTOS QUE SE ACOMPANAN
 

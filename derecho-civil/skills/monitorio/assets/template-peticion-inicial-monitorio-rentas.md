@@ -16,7 +16,6 @@ Nombre / Razon social: {{nombre_acreedor}}
 NIF / CIF: {{nif_acreedor}}
 Domicilio a efectos de notificaciones: {{domicilio_acreedor}}
 Naturaleza: {{naturaleza_acreedor: persona fisica / persona juridica}}
-<!-- Si persona juridica: Representada por: {{nombre_representante}}, con NIF {{nif_representante}}, en calidad de {{cargo_representante}} -->
 
 ## DATOS DEL DEUDOR (ARRENDATARIO)
 
@@ -36,10 +35,10 @@ Que formula PETICION INICIAL DE PROCESO MONITORIO, conforme a los articulos 812 
 El peticionario y el deudor suscribieron contrato de arrendamiento de {{tipo_inmueble: vivienda / local de negocio}} sobre el inmueble sito en {{direccion_inmueble}}, con fecha {{fecha_contrato}} y renta mensual de {{renta_mensual}} euros. Se acompana copia del contrato como documento.
 
 **SEGUNDO — Rentas impagadas.**
-El arrendatario ha dejado de abonar las siguientes mensualidades de renta<!-- y cantidades asimiladas (gastos repercutibles): -->:
+El arrendatario ha dejado de abonar las siguientes mensualidades de renta:
 {{relacion_mensualidades_impagadas: mes/ano - importe; mes/ano - importe}}
 
-El total adeudado por rentas asciende a {{principal}} euros<!-- Si hay intereses: , mas {{intereses}} euros de intereses de demora desde el vencimiento de cada mensualidad -->.
+El total adeudado por rentas asciende a {{principal}} euros.
 
 **TERCERO — Vencimiento y exigibilidad.**
 Las rentas reclamadas estan vencidas, son liquidas y exigibles conforme al contrato y al articulo 17 de la Ley 29/1994 de Arrendamientos Urbanos, sin que el deudor las haya satisfecho.
@@ -47,8 +46,6 @@ Las rentas reclamadas estan vencidas, son liquidas y exigibles conforme al contr
 **CUARTO — Documentos que acreditan la deuda.**
 Se acompanan, de los previstos en el articulo 812 de la LEC:
 {{relacion_documentos: Documento nº 1 - contrato de arrendamiento; Documento nº 2 - recibos o certificacion de rentas impagadas; Documento nº 3 - burofax de requerimiento}}
-
-<!-- Si se intento MASC: QUINTO — Requerimiento previo. Se remitio al deudor requerimiento de pago mediante burofax de fecha {{fecha_burofax}}, cuyo justificante y acuse de recibo se acompanan, sin resultado. -->
 
 ## FUNDAMENTOS DE DERECHO
 
@@ -59,8 +56,6 @@ Se acompanan, de los previstos en el articulo 812 de la LEC:
 **III. Fondo.** Contrato de arrendamiento y obligacion de pago de la renta (Art. 17 LAU 29/1994) y articulos 1088, 1091 y 1124 del Codigo Civil.
 
 **IV. Acreditacion documental.** La deuda se acredita con los documentos acompanados (Art. 812 LEC).
-
-<!-- Si aplica MASC: V. Requisito de procedibilidad. Se ha intentado la solucion extrajudicial previa conforme a la LO 1/2025. -->
 
 ## SUPLICO AL JUZGADO
 

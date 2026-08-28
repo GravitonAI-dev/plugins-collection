@@ -16,7 +16,7 @@ Nombre / Razon social: {{nombre_demandante}}
 NIF / CIF: {{nif_demandante}}
 Domicilio a efectos de notificaciones: {{domicilio_demandante}}
 Naturaleza: {{naturaleza_demandante: persona fisica / persona juridica}}
-<!-- Si persona juridica: Representada por: {{nombre_representante}}, con NIF {{nif_representante}}, en calidad de {{cargo_representante}} -->
+
 Representado por el Procurador {{nombre_procurador}} y asistido por el Letrado {{nombre_letrado}}.
 
 ## DATOS DEL DEMANDADO (ARRENDATARIO)
@@ -46,13 +46,9 @@ El demandante es {{titulo_demandante: propietario / arrendador}} del inmueble de
 El contrato y, en su caso, sus prorrogas legales expiraron el {{fecha_expiracion}}, sin que proceda nueva prorroga conforme a los articulos 9 y 10 de la LAU.
 
 **TERCERO — Notificacion de no renovacion.**
-<!-- Si se notifico: El demandante comunico al arrendatario su voluntad de no renovar el contrato mediante {{medio_notificacion}} de fecha {{fecha_notificacion}}, con la antelacion legalmente exigida. Se acompana como Documento nº 2. -->
-<!-- Si no se notifico o no era exigible: Llegado el vencimiento, y no habiendo lugar a prorroga obligatoria ni tacita, el demandante requirio al arrendatario la restitucion de la posesion, sin resultado. -->
 
 **CUARTO — Falta de restitucion.**
 Pese a la expiracion del plazo, el demandado continua en la posesion del inmueble sin titulo que la ampare, por lo que procede el desahucio y la recuperacion de la posesion.
-
-<!-- Si masc_intentado: QUINTO — Intento de solucion previa. Con caracter previo se intento la solucion extrajudicial de la controversia mediante {{tipo_masc}} de fecha {{fecha_masc}}, conforme a los articulos 403.2 y 264.4 de la LEC, sin resultado. Se acompana el justificante como documento. -->
 
 ## FUNDAMENTOS DE DERECHO
 
@@ -64,7 +60,7 @@ Pese a la expiracion del plazo, el demandado continua en la posesion del inmuebl
 
 **IV. Fondo.** Resultan de aplicacion los articulos 9 y 10 de la LAU (duracion y prorroga) y el articulo 27 (extincion y resolucion). Extinguido el plazo, cesa el titulo posesorio del arrendatario. No cabe enervacion de la accion, propia solo del desahucio por falta de pago (Art. 22.4 LEC).
 
-**V. Requisito de procedibilidad.** <!-- Si masc_intentado: Se ha intentado la solucion extrajudicial previa conforme al articulo 403.2 de la LEC, segun se acredita. --><!-- Si NO masc_intentado: Se hace constar la cuestion del requisito de MASC del articulo 403.2 de la LEC, introducido por la LO 1/2025, cuya exigencia debe verificarse. -->
+**V. Requisito de procedibilidad.**
 
 **VI. Costas.** Conforme al articulo 394 de la LEC.
 

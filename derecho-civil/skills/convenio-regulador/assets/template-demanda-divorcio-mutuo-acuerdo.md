@@ -17,9 +17,6 @@ Que por medio del presente escrito formula, en nombre de ambos conyuges y de com
 **PRIMERO — Matrimonio.**
 Ambos conyuges contrajeron matrimonio el dia {{fecha_matrimonio}} en {{lugar_matrimonio}}, inscrito en el Registro Civil de {{registro_civil}}. Se acompana certificacion literal de matrimonio como **Documento nº 1**.
 
-<!-- Si hay hijos menores: **SEGUNDO — Hijos.** Del matrimonio han nacido los siguientes hijos menores no emancipados: {{relacion_hijos}}. Se acompanan las certificaciones literales de nacimiento como **Documento nº 2**. -->
-<!-- Si no hay hijos menores: **SEGUNDO — Inexistencia de hijos menores.** Del matrimonio no existen hijos menores no emancipados ni con discapacidad que dependan de los conyuges. -->
-
 **TERCERO — Cese de la convivencia y voluntad comun.**
 Habiendo transcurrido mas de tres meses desde la celebracion del matrimonio, es voluntad comun e inequivoca de ambos conyuges poner fin a su matrimonio mediante la {{tipo_ruptura: separacion / divorcio}} de mutuo acuerdo.
 
@@ -36,11 +33,9 @@ Los conyuges han suscrito un convenio regulador que ordena la totalidad de los e
 
 **IV. Convenio regulador.** El convenio que se acompana cumple el contenido minimo del articulo 90 del Codigo Civil y no contiene clausulas daninas para los hijos ni gravemente perjudiciales para ninguno de los conyuges.
 
-<!-- Si hay hijos menores: **V. Ministerio Fiscal.** Habiendo hijos menores, procede recabar el informe del Ministerio Fiscal sobre las medidas del convenio que les afectan, conforme al articulo 777.5 de la LEC. -->
-
 ## SUPLICO AL JUZGADO
 
-Que tenga por presentado este escrito con los documentos que se acompanan, admita a tramite la presente demanda de {{tipo_ruptura: separacion / divorcio}} de mutuo acuerdo, cite a ambos conyuges para su ratificacion, <!-- Si hay hijos menores: recabe el informe del Ministerio Fiscal sobre las medidas relativas a los hijos, --> y, previos los tramites legales, dicte sentencia por la que se acuerde la {{tipo_ruptura: separacion / divorcio}} del matrimonio y se apruebe el convenio regulador acompanado.
+Que tenga por presentado este escrito con los documentos que se acompanan, admita a tramite la presente demanda de {{tipo_ruptura: separacion / divorcio}} de mutuo acuerdo, cite a ambos conyuges para su ratificacion,  y, previos los tramites legales, dicte sentencia por la que se acuerde la {{tipo_ruptura: separacion / divorcio}} del matrimonio y se apruebe el convenio regulador acompanado.
 
 Es justicia que pido en {{lugar}}, a {{fecha_demanda}}.
 

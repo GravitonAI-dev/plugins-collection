@@ -131,7 +131,20 @@ create_file(
 )
 ```
 
-Rellenar todos los campos con los datos reales. Los campos que el usuario no haya proporcionado quedan con el marcador del asset, sin inventar valores.
+### Reglas de Adaptación y Cláusulas Condicionales (en Contrato de Compraventa):
+
+1. **Forma de Pago del Precio:**
+   - *Pago al Contado:* Expresar la entrega del precio íntegro en el acto de la firma sirviendo el contrato de recibo y carta de pago.
+   - *Pago Aplazado / Financiado:* Detallar el calendario de pagos: `, abonándose en la forma siguiente: {{forma_pago}} (con vencimientos e importes pactados).`
+
+2. **Inspección Técnica de Vehículos (ITV):**
+   - *Si el vehículo cuenta con ITV en vigor:* Consignar expresamente: `El vehículo cuenta con la inspección técnica de vehículos (ITV) en vigor hasta {{fecha_caducidad_itv}}.`
+   - *Si la ITV está caducada o no es exigible por antigüedad:* Hacer constar su situación administrativa y advertencia para la obtención del permiso de circulación definitivo.
+
+3. **Declaración de Kilometraje:**
+   - *Si las partes pactan reflejar el odómetro:* Incluir la manifestación: `El vendedor declara que el vehículo cuenta con un kilometraje aproximado de {{kilometraje}} km en el momento de la entrega.`
+
+Rellenar todos los campos con los datos reales. Los campos que el usuario no haya proporcionado quedan como `[DATO — PENDIENTE DE COMPLETAR]`.
 
 Aplicar las directivas de `estilo-redaccion-escritos.md` (disponible directamente en `<document kind="references-collection">` del prompt): escrito administrativo breve, datos en tablas, encabezamiento al organismo, expone y solicita, sin formulas grandilocuentes.
 

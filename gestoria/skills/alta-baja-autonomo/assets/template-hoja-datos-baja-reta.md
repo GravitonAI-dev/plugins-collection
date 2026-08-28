@@ -37,8 +37,6 @@
 | Numero de baja en el ano natural | {{numero_baja_ano: 1a a 3a / 4a o posterior}} |
 | Cotizacion del mes del cese | {{cotizacion_mes: por dias trabajados (1a a 3a baja del ano) / mes completo (4a o posterior)}} [verificar] |
 
-<!-- Regla [verificar]: las tres primeras bajas de cada ano natural surten efecto desde el dia del cese (cotizacion por dias); a partir de la cuarta, se cotiza el mes completo. Fuera del plazo de 3 dias, la baja surte efecto la fecha de presentacion. -->
-
 ---
 
 ## CHECKLIST DE DOCUMENTOS Y PRESENTACION

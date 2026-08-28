@@ -135,6 +135,25 @@ create_file(
 )
 ```
 
+### Reglas de Adaptación y Cláusulas Condicionales:
+
+1. **Título Sucesorio (Testada vs Intestada):**
+   - *Si la sucesión es testada:* Consignar en los Antecedentes: `Que el causante falleció bajo testamento {{tipo_testamento}} otorgado ante el Notario de {{plaza_notario}}, don/doña {{nombre_notario}}, el día {{fecha_testamento}}, protocolo {{numero_protocolo}}, en el que se contienen las disposiciones testamentarias siguientes: {{disposiciones_testamentarias}}.`
+   - *Si la sucesión es intestada (Abintestato):* Consignar: `Que el causante falleció sin testamento, constando la declaración de herederos abintestato mediante acta autorizada por el Notario de {{plaza_notario}}, don/doña {{nombre_notario}}, el día {{fecha_acta}}, protocolo {{numero_protocolo}}, conforme a los Arts. 912 y ss. del Código Civil, resultando herederos: {{herederos_declarados}}.`
+
+2. **Modalidad de Aceptación o Renuncia (en Aceptación de Herencia):**
+   - *Aceptación Pura y Simple (Arts. 998 y 1003 CC):* El heredero acepta respondiendo de las cargas con los bienes de la herencia y con los suyos propios.
+   - *Aceptación a Beneficio de Inventario (Arts. 998 y 1010 CC):* El heredero responde solo hasta donde alcance el caudal relicto; adjuntar inventario fiel y exacto de activo y pasivo.
+   - *Renuncia / Repudiación (Arts. 988 y 1008 CC):* Declaración formal de renuncia pura, simple y gratuita otorgada en instrumento público notarial.
+
+3. **Intervención del Cónyuge Viudo y Liquidación de Gananciales (en Cuaderno Particional):**
+   - *Si hay cónyuge viudo:* Interviene para su cuota usufructuaria legal (Arts. 834 y ss. CC) y para la previa liquidación de la sociedad de gananciales (adjudicándose la mitad de los gananciales al cónyuge y la otra mitad a la masa hereditaria).
+   - *Si rige separación de bienes o causante soltero/viudo:* Hacer constar que no procede liquidación previa de sociedad conyugal.
+
+4. **Bienes Colacionables y Excesos de Adjudicación (Arts. 1035 y 1062 CC):**
+   - *Si existen donaciones colacionables:* Adicionar al cómputo de la masa partible los bienes donados en vida a herederos forzosos (`{{bienes_colacionables}}`).
+   - *Si hay adjudicación de bienes indivisibles con exceso:* Incluir estipulación de compensación económica en dinero del heredero adjudicatario al resto de coherederos (Art. 1062 CC).
+
 Rellenar todos los campos con los datos reales. Los campos que el usuario no haya proporcionado quedan como `[DATO — PENDIENTE DE COMPLETAR]`.
 
 Aplicar las directivas de `estilo-redaccion-escritos.md` (disponible directamente en `<document kind="references-collection">` del prompt): estructura de documento notarial/particional (comparecencia, exposicion, inventario y avaluo, liquidacion del haber, adjudicaciones, otorgamiento), clausulas numeradas, una idea por apartado, sin latinismos innecesarios, cifras en numero y letra.

@@ -41,7 +41,6 @@
 
 ## DATOS DE LA OPERACION
 
-<!-- Si tipo_operacion es alta: -->
 | Campo | Valor |
 |---|---|
 | Fecha de inicio (efectos del alta) | {{fecha_efectos}} |
@@ -49,9 +48,7 @@
 | Modalidad de contrato | {{modalidad_contrato: indefinido / temporal / fijo-discontinuo}} |
 | Tipo de jornada | {{tipo_jornada: completa / parcial}} |
 | Coeficiente de parcialidad (si parcial) | {{coeficiente_parcialidad}} |
-<!-- Si sujeto es empleada de hogar: Retribucion mensual pactada {{retribucion}} y numero de horas semanales {{horas_semanales}} (determinan la base y la cotizacion del Sistema Especial). -->
 
-<!-- Si tipo_operacion es baja: -->
 | Campo | Valor |
 |---|---|
 | Fecha de cese (efectos de la baja) | {{fecha_efectos}} |
@@ -61,10 +58,6 @@
 
 ## PLAZO APLICABLE
 
-<!-- Si tipo_operacion es alta: El alta debe presentarse con caracter PREVIO al inicio (hasta 60 dias naturales antes) y surte efecto desde la fecha de inicio real. -->
-<!-- Si tipo_operacion es baja y sujeto es Regimen General: La baja se comunica en los 3 dias naturales siguientes al cese. -->
-<!-- Si tipo_operacion es baja y sujeto es empleada de hogar: La baja se comunica en los 6 dias naturales siguientes al cese (Import@ss admite tramitarla en 3). -->
-
 ---
 
 ## CHECKLIST DE DOCUMENTOS Y PRESENTACION
@@ -73,10 +66,10 @@
 - [ ] NUSS del trabajador (si no lo tiene, afiliacion previa con el modelo TA.1).
 - [ ] Documento de identidad del trabajador en vigor.
 - [ ] Acceso a la via de presentacion (autorizacion del Sistema RED o certificado / Cl@ve para Import@ss).
-<!-- Si tipo_operacion es alta: -->
+
 - [ ] Contrato de trabajo o datos de la relacion laboral (modalidad, jornada, grupo de cotizacion).
 - [ ] Alta transmitida ANTES del inicio de la actividad.
-<!-- Si tipo_operacion es baja: -->
+
 - [ ] Fecha y causa de cese confirmadas.
 - [ ] Baja comunicada dentro del plazo aplicable.
 

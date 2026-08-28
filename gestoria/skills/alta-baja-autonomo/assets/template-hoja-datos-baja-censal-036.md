@@ -41,8 +41,6 @@
 | Fecha de cese de la actividad | {{fecha_cese}} |
 | Alcance de la baja | {{alcance_baja: baja total como autonomo / baja de un epigrafe (modificacion censal)}} |
 
-<!-- Si solo cesa un epigrafe manteniendo otra actividad: se trata de una modificacion censal, no de una baja total; en tal caso NO procede la baja en el RETA. -->
-
 ---
 
 ## REGIMENES FISCALES DE ORIGEN Y CIERRE
@@ -63,8 +61,6 @@
 - [ ] Declaracion anual de la renta (IRPF) del ejercicio del cese.
 - [ ] Resumen anual de retenciones (modelo 190 / 180), si procedia.
 - [ ] Comprobacion de deudas pendientes con la AEAT.
-
-<!-- Obligaciones pendientes indicadas por el interesado: {{obligaciones_pendientes}} -->
 
 ---
 

@@ -28,8 +28,6 @@
 | Nacionalidad | {{nacionalidad}} |
 | Domicilio | {{domicilio_trabajador}} |
 
-<!-- Si ya tiene NUSS: El trabajador ya dispone de numero de la Seguridad Social ({{nuss}}); no procede una nueva afiliacion, sino en su caso variacion de datos. -->
-
 ---
 
 ## DATOS DEL EMPLEADOR (si la afiliacion la solicita la empresa)

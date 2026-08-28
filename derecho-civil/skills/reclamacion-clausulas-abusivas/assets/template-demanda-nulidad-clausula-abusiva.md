@@ -8,15 +8,12 @@
 
 ## AL JUZGADO DE PRIMERA INSTANCIA DE {{partido_judicial_consumidor}}
 
-<!-- Si actua con procurador y abogado: Don/Dona {{nombre_procurador}}, Procurador de los Tribunales, en nombre y representacion de {{nombre_demandante}}, segun se acredita con la escritura de poder que se acompana, bajo la direccion letrada de {{nombre_letrado}}, ante el Juzgado comparezco y como mejor proceda en Derecho DIGO: -->
-<!-- Si no consta representacion: {{nombre_demandante}}, mayor de edad, con NIF {{nif_demandante}} y domicilio en {{domicilio_demandante}}, ante el Juzgado comparezco y DIGO: -->
-
 Que por medio del presente escrito formulo DEMANDA DE JUICIO {{tipo_juicio: verbal / ordinario}} en ejercicio de accion de nulidad de condicion general abusiva y de reclamacion de cantidad, contra {{nombre_demandado}}, con CIF {{cif_demandado}} y domicilio en {{domicilio_demandado}}, con base en los siguientes
 
 ## HECHOS
 
 **PRIMERO — Condicion de consumidor y contrato.**
-El demandante suscribio con la demandada, en su condicion de consumidor (art. 3 TRLGDCU), el contrato de {{tipo_contrato}} de fecha {{fecha_contrato}}, numero {{numero_contrato}}<!-- Si es escritura publica: , formalizado en escritura ante la Notaria de {{notaria}}, numero de protocolo {{protocolo}} -->. Se acompana como **Documento nº 1**.
+El demandante suscribio con la demandada, en su condicion de consumidor (art. 3 TRLGDCU), el contrato de {{tipo_contrato}} de fecha {{fecha_contrato}}, numero {{numero_contrato}}. Se acompana como **Documento nº 1**.
 
 **SEGUNDO — Clausula impugnada.**
 El contrato incorpora, como condicion general no negociada individualmente relativa a {{tipo_clausula}}, la siguiente estipulacion:
@@ -30,8 +27,6 @@ En aplicacion de la clausula, el demandante abono las siguientes cantidades, que
 {{desglose_cantidades: concepto - importe - documento}}
 Se acompanan como **Documentos nº 2 y siguientes**. Importe total: {{importe_total}} euros.
 
-<!-- Si hubo reclamacion previa: QUINTO — Reclamacion previa desatendida. Con caracter previo se remitio a la demandada reclamacion de fecha {{fecha_reclamacion_previa}}, que no fue atendida. Se acompana con su justificante como Documento correspondiente. -->
-
 ## FUNDAMENTOS DE DERECHO
 
 **I. Competencia y procedimiento.** Es competente ese Juzgado por corresponder, a eleccion del consumidor, a su domicilio (art. 52.3 LEC). El procedimiento es el juicio {{tipo_juicio: verbal / ordinario}} por razon de la cuantia (arts. 249 y 250 LEC). El juzgador puede apreciar de oficio el caracter abusivo de la clausula.
@@ -41,10 +36,8 @@ Se acompanan como **Documentos nº 2 y siguientes**. Importe total: {{importe_to
 **III. Fondo — control de incorporacion y transparencia.** La clausula no supera el control de incorporacion (arts. 5 y 7 LCGC) ni el de transparencia material (art. 80 TRLGDCU; Directiva 93/13/CEE), pues no permitio al demandante comprender su carga economica y juridica.
 
 **IV. Fondo — caracter abusivo.** La clausula causa, en contra de la buena fe, un desequilibrio importante en perjuicio del consumidor (arts. 82 y 85-90 TRLGDCU), por lo que es nula de pleno derecho y se tiene por no puesta, sin que proceda su moderacion ni integracion (art. 83 TRLGDCU; jurisprudencia del TJUE sobre la Directiva 93/13/CEE).
-<!-- Si hay jurisprudencia verificada: En este sentido, {{referencia_jurisprudencia_verificada}}. -->
-<!-- Si NO se ha verificado: [verificar] la jurisprudencia del tipo de clausula antes de citarla. -->
 
-**V. Efecto restitutorio.** Declarada la nulidad, procede restituir al demandante las cantidades cobradas en aplicacion de la clausula, con sus intereses (art. 83 TRLGDCU y jurisprudencia aplicable). {{nota_restitucion_prescripcion}} <!-- [verificar el regimen de prescripcion de la accion restitutoria vigente] -->
+**V. Efecto restitutorio.** Declarada la nulidad, procede restituir al demandante las cantidades cobradas en aplicacion de la clausula, con sus intereses (art. 83 TRLGDCU y jurisprudencia aplicable). {{nota_restitucion_prescripcion}}
 
 **VI. Intereses y costas.** Proceden los intereses legales de las cantidades a restituir y la condena en costas a la demandada (art. 394 LEC).
 
@@ -58,9 +51,6 @@ Que teniendo por presentado este escrito con los documentos que se acompanan, ad
 Es justicia que pido en {{lugar}}, a {{fecha_demanda}}.
 
 ---
-
-<!-- Si actua con procurador: Firma del Letrado: ___________________  Firma del Procurador: ___________________ -->
-<!-- Si no consta representacion: Fdo.: {{nombre_demandante}} -->
 
 ---
 

@@ -145,9 +145,26 @@ create_file(
   file_content: "... contenido completo redactado a partir de la plantilla y los datos recogidos en las fases 1 y 2 ..."
 )
 ```
-La demanda debe: identificar a las partes y la postulacion; exponer los HECHOS numerados y separados, relacionando cada documento (Documento nº 1, nº 2, ...); ordenar los FUNDAMENTOS DE DERECHO procesales (competencia, procedimiento, cuantia, postulacion, procedibilidad-MASC) y de fondo (la accion); fijar expresamente la CUANTIA; formular un SUPLICO concreto; y anadir los OTROSIES (recibimiento a prueba, designacion de domicilios). Aplicar las directivas de `estilo-redaccion-escritos.md` (disponible directamente en `<document kind="references-collection">` del prompt).
+### Reglas de Adaptación y Cláusulas Condicionales:
 
-Los campos que el usuario no haya proporcionado quedan como `[DATO — PENDIENTE DE COMPLETAR]`.
+1. **Órgano Judicial Competente:**
+   - *Si la materia es competencia mercantil (Art. 86 ter LOPJ - sociedades, patentes, marcas, transporte, competencia):* Dirigir a: `AL JUZGADO DE LO MERCANTIL DE {{partido_judicial}}`.
+   - *Si la materia es civil general:* Dirigir a: `AL JUZGADO DE PRIMERA INSTANCIA DE {{partido_judicial}}`.
+
+2. **Fijación de la Cuantía (Arts. 251 y 253 LEC):**
+   - *Si la cuantía es determinada:* Expresar el importe exacto en número y letra (superando el umbral del juicio ordinario de 15.000 euros, Art. 249.2 LEC).
+   - *Si el interés económico es incalculable:* Indicar y motivar expresamente en el Fundamento de Cuantía: `La cuantía de la demanda se fija como indeterminada / de interés económico inestimable, de conformidad con los artículos 249.2 y 253.3 de la LEC.`
+
+3. **Requisito Previo de MASC (Arts. 403.2 y 264.4 LEC, LO 1/2025):**
+   - *Si se intentó MASC:* Redactar Hecho específico sobre el intento de solución extrajudicial previa (`{{tipo_masc}}` en fecha `{{fecha_masc}}`), aportando justificante como Documento procesal, y fundamentar el cumplimiento del requisito de procedibilidad.
+   - *Si NO se intentó:* Hacer constar la advertencia sobre la preclusión y posible inadmisión por falta de acreditación de MASC.
+
+4. **Medios de Prueba y Escrito de Conclusiones:**
+   - Adaptar las secciones de `template-proposicion-de-prueba.md`, `template-guion-audiencia-previa.md` y `template-escrito-de-conclusiones.md` suprimiendo los medios o filas que no apliquen al caso e incluyendo los hechos controvertidos y periciales realmente fijados.
+
+Rellenar todos los campos con los datos reales. Los campos que el usuario no haya proporcionado quedan como `[DATO — PENDIENTE DE COMPLETAR]`.
+
+Aplicar las directivas de `estilo-redaccion-escritos.md` (disponible directamente en `<document kind="references-collection">` del prompt).
 
 Tras guardar el archivo en disco del workspace, invocar `read_file` exclusivamente sobre la ruta del workspace para verificar la integridad del documento escrito.
 

@@ -15,12 +15,10 @@
 | Cuantia (si aplica Art. 249.2) | {{cuantia}} euros (superior a {{umbral_cuantia}}) |
 | Descartado que sea juicio verbal (Art. 250.1 / cuantia igual o inferior al umbral) | {{descartado_verbal: si / no}} |
 
-<!-- Si no procede el ordinario: ADVERTENCIA — el asunto corresponde al juicio verbal o a un proceso especial. No continuar con esta skill; derivar. -->
-
 ## 2. Determinacion de la cuantia (Arts. 251-253 LEC)
 
 - Regla de calculo aplicada: {{regla_cuantia_251}}
-- Interes economico de la demanda: {{cuantia}} euros<!-- Si incalculable: (interes economico imposible de calcular, se justifica en la demanda) -->
+- Interes economico de la demanda: {{cuantia}} euros
 - Justificacion: {{justificacion_cuantia}}
 
 ## 3. Competencia (Arts. 45, 50-52 LEC)
@@ -50,8 +48,6 @@
 | Documento acreditativo o declaracion responsable | {{acreditacion_masc}} |
 | Concurre excepcion legal al requisito | {{excepcion_masc: si / no}} |
 
-<!-- Si NO masc_intentado y no concurre excepcion: ADVERTENCIA — sin acreditar el intento de MASC, la demanda puede ser inadmitida (Art. 403.2 LEC). Recomendado realizarlo antes de presentar. -->
-
 ## 6. Documentos a acompanar con la demanda (Arts. 264-266, 336 LEC)
 
 | Documento | Base | Disponible |
@@ -62,8 +58,6 @@
 | Documentos fundamentales de la accion | Art. 265.1 | {{doc_fundamentales}} |
 | Certificaciones y notas registrales | Art. 265.3 | {{doc_registrales: si / no / no aplica}} |
 | Dictamenes periciales | Art. 265.4 y 336 | {{doc_periciales: si / no / no aplica}} |
-
-<!-- ADVERTENCIA — los documentos fundamentales y los dictamenes periciales deben acompanarse con la demanda; rige la preclusion del Art. 269 LEC. -->
 
 ---
 

@@ -38,10 +38,6 @@
 | Regimen | Regimen General {{sistema_especial: (indicar Sistema Especial si aplica)}} |
 | Fecha de efectos | {{fecha_efectos}} |
 
-<!-- Si tipo_operacion es inscripcion de empresa: Se solicita la inscripcion y la apertura del primer CCC, previa al inicio de la actividad con trabajadores. -->
-<!-- Si tipo_operacion es variacion de datos del CCC: Se comunica la variacion sobre el CCC {{ccc}}: {{detalle_variacion}}. -->
-<!-- Si tipo_operacion es baja del CCC: Se solicita la baja del CCC {{ccc}} con efectos {{fecha_efectos}}, tras haber tramitado la baja de todos los trabajadores. -->
-
 ---
 
 ## CHECKLIST DE DOCUMENTOS Y PRESENTACION

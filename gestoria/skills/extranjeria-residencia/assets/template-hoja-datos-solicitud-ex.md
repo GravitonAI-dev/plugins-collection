@@ -15,8 +15,6 @@
 | Formulario oficial | {{formulario_ex: EX-15 / EX-01 / EX-10 / EX-11}} |
 | Lugar de presentacion | {{lugar_presentacion: en Espana (Oficina de Extranjeria) / desde el extranjero (consulado)}} |
 
-<!-- Si lugar_presentacion es desde el extranjero: Nota: el visado se solicita en el consulado y no forma parte de este tramite. -->
-
 ## 2. Datos del extranjero (interesado)
 
 | Campo | Valor |
@@ -33,20 +31,11 @@
 
 {{motivo}}
 
-<!-- Si es residencia no lucrativa: Datos de apoyo: medios economicos acreditados ({{medios_economicos}}) y seguro medico ({{seguro_medico}}). -->
-<!-- Si es arraigo: Datos de apoyo: tiempo de permanencia en Espana ({{tiempo_permanencia}}) y documentacion del vinculo o integracion ({{datos_arraigo}}). -->
-<!-- Si es reagrupacion familiar: Datos de apoyo: familiar reagrupante ({{reagrupante}}), vinculo ({{vinculo}}) y acreditacion de vivienda y medios ({{vivienda_medios}}). -->
-
 ## 4. Representante (si aplica)
-
-<!-- Si actua representante: Nombre: {{nombre_representante}} — Condicion: {{condicion_representante: gestor / abogado / familiar}} — Acreditacion de la representacion: {{acreditacion_representacion}}. -->
-<!-- Si no hay representante: El interesado actua en su propio nombre. -->
 
 ---
 
 ## 5. Checklist de documentos
-
-<!-- La skill construye esta lista a partir de references/documentacion-por-tramite.md segun el tramite -->
 
 Comun a todo tramite:
 - [ ] Formulario {{formulario_ex}} cumplimentado y firmado
@@ -54,11 +43,6 @@ Comun a todo tramite:
 - [ ] Justificante del pago de la tasa (modelo 790)
 - [ ] Justificante de cita previa
 - [ ] Acreditacion de la representacion (si actua representante)
-
-<!-- Si es NIE: - [ ] Documento que acredite el motivo (contrato, escritura, herencia, comunicacion de la empresa) -->
-<!-- Si es residencia no lucrativa: - [ ] Acreditacion de medios economicos ({{porcentaje_iprem}} del IPREM) / - [ ] Seguro medico con cobertura en Espana / - [ ] Certificado de antecedentes penales legalizado y traducido / - [ ] Certificado medico -->
-<!-- Si es arraigo: - [ ] Acreditacion de permanencia continuada / - [ ] Certificado de antecedentes penales (Espana y pais de origen) / - [ ] Documentacion del tipo de arraigo ({{datos_arraigo}}) -->
-<!-- Si es reagrupacion familiar: - [ ] Autorizacion de residencia en vigor del reagrupante / - [ ] Documento del vinculo familiar legalizado y traducido / - [ ] Informe de vivienda y acreditacion de medios -->
 
 ---
 

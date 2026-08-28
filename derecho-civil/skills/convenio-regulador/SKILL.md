@@ -153,7 +153,28 @@ create_file(
 )
 ```
 
-Activar o desactivar los bloques condicionales del asset segun el caso: con hijos menores / sin hijos; gananciales / separacion de bienes; con pension compensatoria / con renuncia. Rellenar todos los campos con los datos reales. Los que el usuario no haya proporcionado quedan como `[DATO — PENDIENTE DE COMPLETAR]`.
+### Reglas de Adaptación y Cláusulas Condicionales (en Convenio y Demanda):
+
+1. **Hijos menores de edad o dependientes vs Sin hijos menores:**
+   - *Si hay hijos menores:* Desarrollar las estipulaciones de patria potestad compartida (Art. 154 y 156 CC), guarda y custodia (compartida o exclusiva), régimen de visitas/estancias detallado, pensión de alimentos por hijo con actualización anual (IPC) y distribución al 50% (o porcentaje acordado) de gastos extraordinarios necesarios y no necesarios. En la demanda, reflejar la intervención preceptiva del Ministerio Fiscal (Art. 777 LEC).
+   - *Si NO hay hijos menores:* Sustituir las cláusulas de menores por la estipulación expresa: `Al no existir hijos menores de edad ni con discapacidad dependientes, no procede adoptar medidas relativas a patria potestad, guarda y custodia, régimen de visitas ni pensión de alimentos.`
+
+2. **Atribución del uso de la vivienda y ajuar familiar (Art. 90.1.c y 96 CC):**
+   - *Opción A (Atribución a un cónyuge o a los hijos):* Detallar la atribución exclusiva del uso de la vivienda sita en `{{direccion_vivienda_familiar}}` y ajuar doméstico, con fijación de gastos ordinarios de uso a cargo del usuario y cargas del inmueble según titularidad.
+   - *Opción B (Sin vivienda común / Venta a terceros / Atribución temporal):* Estipular el régimen de desocupación, liquidación o venta acordada entre los cónyuges.
+
+3. **Pensión compensatoria (Art. 97 CC):**
+   - *Si concurre desequilibrio y se pacta pensión:* Redactar importe mensual (`{{importe_pension_compensatoria}}`), periodicidad, actualización anual y carácter temporal o por tiempo indefinido.
+   - *Si NO concurre desequilibrio (Renuncia expresa):* Redactar: `Ambos cónyuges reconocen que la ruptura matrimonial no produce desequilibrio patrimonial en ninguno de ellos en relación con la posición del otro y renuncian de forma expresa e irrevocable a cualquier pensión compensatoria del artículo 97 del Código Civil.`
+
+4. **Liquidación del Régimen Económico Matrimonial (Art. 90.1.e CC):**
+   - *Si se liquida la sociedad de gananciales:* Redactar el inventario detallado de activo y pasivo, tasación y adjudicación de lotes a cada cónyuge, con compensación de excesos si procede.
+   - *Si rige separación de bienes o no se liquida en este acto:* Hacer constar que no existen bienes comunes que liquidar o que se difiere la liquidación.
+
+5. **Representación Procesal Conjunta (en Demanda):**
+   - *Si actúan con un solo procurador y letrado:* Hacer constar la comparecencia y representación procesal común en el encabezamiento y suplico.
+
+Rellenar todos los campos con los datos reales. Los que el usuario no haya proporcionado quedan como `[DATO — PENDIENTE DE COMPLETAR]`.
 
 Aplicar las directivas de `estilo-redaccion-escritos.md` (disponible directamente en `<document kind="references-collection">` del prompt): clausulas numeradas por materia del Art. 90, importes en numero y letra con sistema de actualizacion expreso, demanda breve remitida al convenio, voz activa y sin latinismos.
 

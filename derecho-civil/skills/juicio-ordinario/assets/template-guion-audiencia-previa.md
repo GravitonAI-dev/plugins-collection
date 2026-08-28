@@ -36,8 +36,6 @@ Cuestiones que esta parte plantea o a las que debe responder:
 | Defecto legal en el modo de proponer la demanda | Art. 424 | {{defecto_legal}} |
 | Otras excepciones procesales | Art. 425 | {{otras_procesales}} |
 
-<!-- Anadir solo las cuestiones que realmente concurran; suprimir las filas que no apliquen. -->
-
 ## 3. Alegaciones complementarias y fijacion de hechos (Arts. 426-428 LEC)
 
 **Alegaciones complementarias / aclaratorias (Art. 426), sin alterar la pretension:**
@@ -54,8 +52,6 @@ Cuestiones que esta parte plantea o a las que debe responder:
 
 **Hechos sobre los que hay conformidad:**
 {{hechos_conformes}}
-
-<!-- Si el pleito queda reducido a una cuestion de derecho: solicitar que se dicte sentencia sin necesidad de prueba (Art. 428.3 LEC). -->
 
 ## 4. Anticipo de la proposicion de prueba (Art. 429 LEC)
 

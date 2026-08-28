@@ -20,7 +20,7 @@ Me dirijo a usted en relacion con la deuda que mantiene pendiente de pago, cuyo 
 
 **Origen de la deuda:** {{descripcion_origen_deuda}}
 
-**Importe adeudado:** {{principal}} euros de principal<!-- Si hay intereses: , mas {{intereses}} euros de intereses de demora devengados desde el vencimiento ({{fecha_vencimiento}}) -->, lo que asciende a un total de {{cuantia_total}} euros.
+**Importe adeudado:** {{principal}} euros de principal, lo que asciende a un total de {{cuantia_total}} euros.
 
 **Vencimiento:** la cantidad vencio el {{fecha_vencimiento}} y es liquida, vencida y exigible.
 

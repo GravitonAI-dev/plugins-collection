@@ -21,8 +21,6 @@ Al amparo del articulo 429 de la LEC, esta parte propone los siguientes medios d
 - Parte a interrogar: {{interrogatorio_parte}}
 - Hechos sobre los que versara: {{interrogatorio_hechos}}
 
-<!-- Suprimir el apartado si no se propone este medio. -->
-
 ## 2. Prueba documental (Arts. 317-334 LEC)
 
 - Documentos aportados con la demanda/contestacion que se dan por reproducidos: {{documental_reproducida}}
@@ -35,8 +33,6 @@ Al amparo del articulo 429 de la LEC, esta parte propone los siguientes medios d
 | {{testigo_1}} | {{testigo_1_relacion}} | {{testigo_1_hechos}} |
 | {{testigo_2}} | {{testigo_2_relacion}} | {{testigo_2_hechos}} |
 
-<!-- Anadir tantos testigos como se propongan; suprimir el apartado si no procede. -->
-
 ## 4. Prueba pericial (Arts. 335-352 LEC)
 
 - Dictamen pericial de parte aportado (Art. 336): {{pericial_parte}}
@@ -48,8 +44,6 @@ Al amparo del articulo 429 de la LEC, esta parte propone los siguientes medios d
 
 - Objeto, lugar o persona a reconocer: {{reconocimiento_objeto}}
 - Justificacion de su pertinencia: {{reconocimiento_justificacion}}
-
-<!-- Suprimir el apartado si no se propone este medio. -->
 
 ## 6. Medios de reproduccion e instrumentos (Arts. 382-384 LEC)
 

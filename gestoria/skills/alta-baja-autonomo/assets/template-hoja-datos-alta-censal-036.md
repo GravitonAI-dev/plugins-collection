@@ -41,8 +41,6 @@
 | Fecha de inicio de la actividad | {{fecha_inicio}} |
 | Lugar de la actividad | {{domicilio_actividad}} |
 
-<!-- Si ejerce varias actividades: Actividades adicionales / epigrafes: {{epigrafes_adicionales}} -->
-
 ---
 
 ## REGIMENES FISCALES

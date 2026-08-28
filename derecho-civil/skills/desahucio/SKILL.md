@@ -156,6 +156,23 @@ create_file(
 )
 ```
 
+### Reglas de Adaptación y Cláusulas Condicionales:
+
+1. **Acumulación de Rentas (solo en Falta de Pago, Art. 437.3 LEC):**
+   - *Si el demandante acumula rentas (`acumular_rentas = si`):* Añadir en los Hechos el desglose de mensualidades y cantidades asimiladas adeudadas, en los Fundamentos la cita del Art. 437.3 LEC, y en el Suplico el pedimento: `Condene al demandado al pago de {{cuantia_total_adeudada}} euros por las rentas y cantidades asimiladas debidas y no pagadas, más las que se devenguen hasta la efectiva entrega de la posesión, con sus intereses legales y costas.`
+   - *Si NO acumula rentas:* Limitar el objeto y suplico estrictamente a la resolución del contrato y lanzamiento.
+
+2. **Representación de Persona Jurídica (Demandante o Demandado):**
+   - *Si es persona jurídica:* Insertar en el encabezamiento de partes: `Representada por: {{nombre_representante}}, con NIF {{nif_representante}}, en calidad de {{cargo_representante}} según poder que se acompaña.`
+
+3. **Notificación de No Renovación (en Expiración del Plazo):**
+   - *Si se notificó la voluntad de no renovar:* Detallar en los Hechos la comunicación fehaciente remitida con la antelación legalmente exigida (Documento nº 2).
+   - *Si no fue necesaria o no hubo respuesta:* Reflejar que, llegado el vencimiento y sin derecho a prórroga legal ni tácita, se requirió la restitución de la posesión sin resultado.
+
+4. **Requisito de MASC (Ley Orgánica 1/2025 y Art. 403.2 LEC):**
+   - *Si se intentó MASC previo:* Incorporar en los Hechos el Hecho numerado relativo al intento de solución previa (`{{tipo_masc}}` de fecha `{{fecha_masc}}`), acompañando justificante como documento, y en los Fundamentos de Derecho el cumplimiento del requisito de procedibilidad (Arts. 403.2 y 264.4 LEC).
+   - *Si NO se intentó MASC previo:* Hacer constar la cuestión procesal y advertencia sobre el requisito de admisibilidad del Art. 403.2 LEC.
+
 Rellenar todos los campos con los datos reales. Los campos que el usuario no haya proporcionado quedan como `[DATO — PENDIENTE DE COMPLETAR]`.
 
 Aplicar las directivas de `estilo-redaccion-escritos.md` (disponible directamente en `<document kind="references-collection">` del prompt): escrito breve y directo, HECHOS numerados con una idea por apartado, documentos relacionados y numerados, voz activa, sin latinismos ni citas largas, y SUPLICO ajustado a lo estrictamente pedido.

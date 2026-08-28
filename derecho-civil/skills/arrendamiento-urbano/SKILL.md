@@ -206,66 +206,66 @@ Recorre de forma secuencial los siguientes bloques del contrato. Por cada secci�
 ### Hoja de Ruta de Cláusulas a Tratar:
 
 #### 1. Encabezamiento y Partes Comparecientes
-- Nombres completos o razones sociales, NIF/CIF, domicilios para notificaciones.
-- En caso de personas jurídicas (`V3=persona_juridica` o `V4=persona_juridica`): datos de la escritura de apoderamiento, representante legal y NIF del apoderado.
+- Nombres completos o razones sociales, NIF/CIF, domicilios para notificaciones y naturaleza jurídica.
+- **Condicional Persona Jurídica:**
+  - *Si el arrendador es persona jurídica (`V3 = persona_juridica`):* Insertar en su comparecencia: `Representado por: {{nombre_representante}}, con NIF {{nif_representante}}, en calidad de {{cargo_representante}} según escritura de poder.`
+  - *Si el arrendatario es persona jurídica (`V4 = persona_juridica`):* Insertar en su comparecencia: `Representado por: {{nombre_representante_arrendatario}}, con NIF {{nif_representante_arrendatario}}, en calidad de {{cargo_representante_arrendatario}} según escritura de poder.`
 
 #### 2. Objeto del Arrendamiento e Inmueble
-- Dirección completa (calle, número, piso/puerta, código postal, municipio, provincia).
-- Referencia catastral (20 caracteres) y superficie útil en m².
-- Elementos accesorios: plaza de garaje, trastero, zonas comunes.
-- Anexo I: ¿Se arrienda amueblado? (Prever inventario de mobiliario y estado de conservación).
+- Dirección completa (calle, número, piso/puerta, código postal, municipio, provincia), referencia catastral (20 caracteres) y superficie útil en m².
+- **Condicional Elementos Accesorios:**
+  - *Si incluye anejos (garaje, trastero, mobiliario):* Insertar en la Cláusula Primera: `Se incluyen en el arrendamiento los siguientes elementos accesorios: {{elementos_accesorios}} (plaza de garaje nº X, trastero nº X, mobiliario según inventario anexo).`
+  - *Si se arrienda amueblado:* Incluir al final el **Anexo I (Inventario de Mobiliario y Enseres)** con la tabla detallada de bienes y estado de conservación.
 
 #### 3. Destino y Uso
-- Si `[V1 = vivienda_habitual]`: exclusividad residencial permanente, prohibición expresa de cesión turística o subarriendo inconsentido (Art. 8 LAU).
-- Si `[V1 = local_comercial]`: actividad económica o comercial concreta permitida y licencias administrativas necesarias.
+- **Condicional Destino:**
+  - *Si `[V1 = vivienda_habitual]`:* Exclusividad residencial permanente, prohibición expresa de cesión turística o subarriendo inconsentido (Art. 8 LAU). Si conviven terceros, añadir: `y de las siguientes personas: {{personas_convivientes}}.`
+  - *Si `[V1 = local_comercial]`:* Actividad económica o comercial concreta permitida (`{{actividad_arrendatario}}`), licencias administrativas y régimen de obras (restitución al estado inicial vs conservación de mejoras sin indemnización).
 
 #### 4. Duración, Entrada en Vigor y Prórrogas
-- Fecha de inicio y entrega de llaves.
-- Duración pactada inicial.
-- **Garantía de prórroga obligatoria:**
-  - Si `[V1 = vivienda_habitual]` Y `[V3 = persona_fisica]` $\rightarrow$ Mínimo 5 años (Art. 9.1 LAU).
-  - Si `[V1 = vivienda_habitual]` Y `[V3 = persona_juridica]` $\rightarrow$ Mínimo 7 años (Art. 9.1 LAU).
-- Prórroga tácita por periodos anuales hasta 3 años adicionales (Art. 10.1 LAU).
-- *Si aplica zona tensionada:* Prórroga extraordinaria de hasta 3 años a solicitud del inquilino (Art. 10.3 LAU).
+- Fecha de inicio, entrega de llaves y duración pactada inicial.
+- **Garantía de prórroga obligatoria (Art. 9.1 LAU):**
+  - *Si la duración pactada es inferior al mínimo legal (5 años si `V3=persona_fisica`, 7 años si `V3=persona_juridica`):* Redactar e insertar: `De conformidad con el artículo 9.1 de la LAU, al ser la duración pactada inferior a {{plazo_minimo}} años, el contrato se prorrogará obligatoriamente por plazos anuales hasta alcanzar dicho plazo mínimo, salvo que el ARRENDATARIO manifieste su voluntad de no renovarlo con al menos 30 días de antelación a cada vencimiento.`
+- **Condicional Zona Tensionada:**
+  - *Si el inmueble radica en zona de mercado residencial tensionado:* Insertar la estipulación: `CLÁUSULA ESPECIAL — ZONA DE MERCADO RESIDENCIAL TENSIONADO. El inmueble se ubica en {{municipio_inmueble}}, declarado zona de mercado residencial tensionado conforme a la Ley 12/2023. La prórroga extraordinaria de hasta 3 años prevista en el artículo 10.3 de la LAU será de aplicación a solicitud del ARRENDATARIO.`
 
 #### 5. Renta y Régimen de Pago
-- Cuantía mensual de la renta en euros (cifra y letras).
-- Plazo de abono (primeros 7 días de cada mes) y medio de pago (transferencia/domiciliación con IBAN).
-- Emisión de recibo o justificante bancario acreditativo.
-- *Si zona tensionada:* Verificar si el inmueble estuvo arrendado en los últimos 5 años y verificar límites del Art. 17.6 LAU o del índice de contención.
+- Cuantía mensual de la renta en euros (cifra y letras), plazo de abono (primeros 7 días) y cuenta IBAN.
+- **Condicional Zona Tensionada:**
+  - *Si radica en zona tensionada:* Añadir la manifestación: `La renta pactada cumple con los límites establecidos en el artículo 17.6 de la LAU, no superando la última renta del contrato anterior en la misma vivienda en los últimos 5 años ({{ultima_renta_anterior}} euros/mes), con la actualización aplicable.`
 
 #### 6. Actualización Anual de la Renta
-- Periodicidad anual en la fecha de vencimiento de cada anualidad (Art. 18 LAU).
-- Mecanismo pactado: Índice de Garantía de Competitividad (IGC) o nuevo índice de referencia oficial (límite máximo de variación del IPC).
+- Periodicidad anual conforme al índice pactado (IGC o nuevo índice de referencia oficial, con el límite máximo imperativo de variación del IPC, Art. 18 LAU).
 
 #### 7. Fianza Legal y Garantías Complementarias
-- **Fianza obligatoria en metálico:**
-  - Si `[V1 = vivienda_habitual]` $\rightarrow$ 1 mensualidad de renta (Art. 36.1 LAU).
-  - Si `[V1 = local_comercial]` $\rightarrow$ 2 mensualidades de renta (Art. 36.1 LAU).
-- Organismo autonómico de depósito (IVIMA en Madrid, INCASÒL en Cataluña, AVRA en Andalucía, etc.) y compromiso de depósito en plazo legal.
-- **Garantías adicionales:** Aval bancario, fianza personal o depósito adicional (Si `V1=vivienda_habitual`: máximo legal de 2 mensualidades adicionales de renta según Art. 36.5 LAU).
+- **Fianza obligatoria en metálico (Art. 36.1 LAU):** 1 mensualidad si `V1=vivienda_habitual` / 2 mensualidades si `V1=local_comercial`, e indicación del organismo autonómico de depósito (IVIMA, INCASÒL, AVRA, etc.).
+- **Condicional Garantías Adicionales:**
+  - *Si se pactan garantías adicionales a la fianza:* Redactar e insertar: `GARANTÍA ADICIONAL: las partes acuerdan además {{tipo_garantia_adicional}} (aval bancario / seguro de impago / depósito adicional) por importe de {{importe_garantia_adicional}} euros (máximo legal de 2 mensualidades de renta en vivienda habitual, Art. 36.5 LAU).`
 
 #### 8. Gastos Generales, Tributos y Suministros
 - Gastos de formalización y gestión inmobiliaria: **SIEMPRE a cargo del arrendador** si `V1=vivienda_habitual` (Art. 20.1 LAU).
-- Gastos de comunidad e IBI: a cargo del arrendador por defecto, salvo pacto expreso por escrito con indicación del importe anual a la fecha del contrato.
-- Suministros individualizados (electricidad, gas, agua, telecomunicaciones): a cargo del arrendatario con obligación de mantener o cambiar la titularidad.
+- **Condicional Distribución de Gastos Generales (Comunidad e IBI):**
+  - *Opción A (Gastos generales a cargo del arrendatario):* Insertar pacto expreso por escrito: `Las partes acuerdan que los gastos generales del inmueble (cuota de comunidad de propietarios e IBI) sean a cargo del ARRENDATARIO. A la fecha de firma, dichos gastos ascienden a un total de {{importe_gastos_generales_anuales}} euros anuales.`
+  - *Opción B (Gastos generales a cargo del arrendador - por defecto):* `Los gastos generales del inmueble (cuota de comunidad, IBI y seguro) son a cargo del ARRENDADOR.`
+- Suministros individualizados (agua, luz, gas): a cargo del arrendatario con obligación de cambio de titularidad en plazo de `{{plazo_cambio_titularidad_suministros}}` días.
 
 #### 9. Conservación, Reparaciones y Obras
-- Obligación del arrendador de realizar reparaciones de habitabilidad sin elevación de renta (Art. 21.1 LAU).
-- Pequeñas reparaciones por desgaste ordinario a cargo del arrendatario (Art. 21.4 LAU).
-- Prohibición de obras no autorizadas expresamente por escrito (Art. 23 LAU).
+- Reparaciones de habitabilidad a cargo del arrendador sin elevación de renta (Art. 21.1 LAU). Pequeñas reparaciones ordinarias a cargo del inquilino (Art. 21.4 LAU). Prohibición de obras no consentidas (Art. 23 LAU).
 
 #### 10. Cesión, Subarriendo y Derecho de Adquisición Preferente
 - Prohibición total de cesión y subarriendo inconsentido (Art. 8 LAU).
-- Derecho de tanteo y retracto (Art. 25 LAU): opción de mantener el derecho o pactar renuncia expresa por el arrendatario.
+- **Condicional Tanteo y Retracto (Art. 25 LAU):**
+  - *Opción A (Sin renuncia):* Mantener derecho de tanteo y retracto legal según Art. 25 LAU.
+  - *Opción B (Renuncia expresa pactada):* Redactar e insertar: `El ARRENDATARIO renuncia expresamente al derecho de adquisición preferente establecido en el artículo 25 de la LAU. En caso de venta, el ARRENDADOR comunicará al ARRENDATARIO su intención de vender con al menos 30 días de antelación.`
 
 #### 11. Notificaciones y Fuero Judicial
-- Domicilios y direcciones de correo electrónico para comunicaciones fehacientes (Art. 4.6 LAU).
-- Sumisión imperativa a los Juzgados y Tribunales del lugar donde radica la finca (Art. 38 LAU y Art. 52.1.7º LEC).
-- Cláusula facultativa de mediación o arbitraje previo.
+- Domicilios y direcciones de correo electrónico para notificaciones fehacientes (Art. 4.6 LAU).
+- Sumisión obligatoria e imperativa a los Juzgados del lugar de la finca (Art. 38 LAU y Art. 52.1.7º LEC).
+- **Condicional Mediación/Arbitraje:**
+  - *Si se pacta mediación o arbitraje previo:* Insertar: `Las partes podrán someter sus controversias a mediación o arbitraje conforme al artículo 4.5 de la LAU antes de acudir a la vía judicial.`
 
 #### 12. Pactos Especiales y Cláusulas a Medida
-- Cláusulas adicionales solicitadas por las partes (mascotas, no fumadores, seguros de hogar/impago, etc.).
+- Insertar cláusulas adicionales pactadas (admisión o prohibición de mascotas, prohibición de fumar, póliza de seguro de hogar, etc.).
 
 ---
 

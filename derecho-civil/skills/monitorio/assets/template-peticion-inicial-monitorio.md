@@ -16,8 +16,6 @@ Nombre / Razon social: {{nombre_acreedor}}
 NIF / CIF: {{nif_acreedor}}
 Domicilio a efectos de notificaciones: {{domicilio_acreedor}}
 Naturaleza: {{naturaleza_acreedor: persona fisica / persona juridica}}
-<!-- Si persona juridica: Representada por: {{nombre_representante}}, con NIF {{nif_representante}}, en calidad de {{cargo_representante}} -->
-<!-- Si actua con abogado y procurador (no preceptivo, Art. 814.2): Representado por el Procurador {{nombre_procurador}} y asistido por el Letrado {{nombre_letrado}} -->
 
 ## DATOS DEL DEUDOR
 
@@ -37,7 +35,7 @@ Que por medio del presente escrito formula PETICION INICIAL DE PROCESO MONITORIO
 {{descripcion_origen_deuda: contrato, relacion comercial, prestamo, servicios prestados, etc.}}
 
 **SEGUNDO — Cuantia.**
-El importe adeudado asciende a {{principal}} euros de principal<!-- Si hay intereses: , mas {{intereses}} euros en concepto de intereses de demora devengados desde la fecha de vencimiento ({{fecha_vencimiento}}) --><!-- , lo que hace un total de {{cuantia_total}} euros -->.
+El importe adeudado asciende a {{principal}} euros de principal.
 
 **TERCERO — Vencimiento y exigibilidad.**
 La deuda venció el {{fecha_vencimiento}} y es liquida, determinada, vencida y exigible, sin que el deudor la haya satisfecho pese a haber sido requerido de pago.
@@ -45,8 +43,6 @@ La deuda venció el {{fecha_vencimiento}} y es liquida, determinada, vencida y e
 **CUARTO — Documentos que acreditan la deuda.**
 Se acompanan a la presente peticion los siguientes documentos, de los previstos en el articulo 812 de la LEC:
 {{relacion_documentos: Documento nº 1 - ...; Documento nº 2 - ...}}
-
-<!-- Si se intento MASC: QUINTO — Intento de solucion previa. Con caracter previo se remitio al deudor requerimiento de pago mediante burofax de fecha {{fecha_burofax}}, cuyo justificante y acuse de recibo se acompanan como documento, sin que se haya obtenido el pago ni respuesta. -->
 
 ## FUNDAMENTOS DE DERECHO
 
@@ -57,8 +53,6 @@ Se acompanan a la presente peticion los siguientes documentos, de los previstos 
 **III. Legitimacion.** El peticionario esta legitimado activamente como titular del credito reclamado; el deudor, pasivamente, como obligado al pago.
 
 **IV. Acreditacion documental.** La deuda se acredita mediante los documentos acompanados, de los previstos en el articulo 812 de la LEC.
-
-<!-- Si aplica MASC: V. Requisito de procedibilidad. Se ha intentado la solucion extrajudicial previa conforme a la Ley Organica 1/2025, segun se acredita con el documento acompanado. -->
 
 ## SUPLICO AL JUZGADO
 
@@ -72,7 +66,6 @@ Firma del peticionario / representante:
 
 ___________________________
 {{nombre_acreedor}}
-<!-- Si actua con procurador: Firma del Procurador: ___________________________ -->
 
 ---
 

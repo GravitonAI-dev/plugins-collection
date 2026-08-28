@@ -357,7 +357,7 @@ assets:
 
 **Rol en el flujo**: plantillas que la skill **produce** como output. Se referencian desde `SKILL.md` por path relativo. La skill las llena con los datos del caso.
 
-**Convención**: cada plantilla lleva marcadores `{{variable}}` que `SKILL.md` indica cómo llenar.
+**Convención**: cada plantilla lleva marcadores `{{variable}}` que `SKILL.md` indica cómo llenar. Las plantillas son limpias y no contienen comentarios condicionales (`<!-- Si ... -->`); toda la lógica condicional y redacciones alternativas residen en `SKILL.md`.
 
 ### 8.4 `scripts/` (estructural, no usado aún)
 

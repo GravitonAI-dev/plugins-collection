@@ -48,13 +48,13 @@ Que la parte vendedora es titular del vehiculo que se describe y que ambas parte
 La parte vendedora vende y transmite a la parte compradora, que compra y adquiere, el vehiculo descrito, libre de cargas y gravamenes salvo lo que se indique expresamente.
 
 **SEGUNDA — Precio.**
-El precio de la compraventa se fija en {{precio_venta}} euros, que la parte compradora abona a la parte vendedora en este acto<!-- Si el pago no es al contado: , en la forma siguiente: {{forma_pago}} -->, sirviendo el presente documento como recibo.
+El precio de la compraventa se fija en {{precio_venta}} euros, que la parte compradora abona a la parte vendedora en este acto, sirviendo el presente documento como recibo.
 
 **TERCERA — Entrega.**
 La parte vendedora entrega en este acto el vehiculo, el permiso de circulacion y la ficha tecnica (tarjeta de ITV), asumiendo la parte compradora la posesion a partir de la fecha de este contrato.
 
 **CUARTA — Estado del vehiculo.**
-La parte compradora declara conocer y aceptar el estado del vehiculo, que examina a su satisfaccion. <!-- Si hay ITV vigente: El vehiculo cuenta con la inspeccion tecnica en vigor hasta {{fecha_caducidad_itv}}. --><!-- Si procede indicar kilometraje: El vehiculo tiene un kilometraje de {{kilometraje}} km. -->
+La parte compradora declara conocer y aceptar el estado del vehiculo, que examina a su satisfaccion.
 
 **QUINTA — Cambio de titularidad y notificacion.**
 La parte compradora se obliga a solicitar el cambio de titularidad ante la DGT en el plazo de 30 dias naturales desde esta fecha, y a asumir la tasa correspondiente y el ITP. La parte vendedora podra notificar la venta a la DGT en el plazo de 10 dias.

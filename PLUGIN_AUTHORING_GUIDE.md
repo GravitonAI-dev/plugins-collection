@@ -11,7 +11,8 @@ Para maximizar la precisión de los agentes operacionales y evitar colisiones co
 
 *   **CAPA GLOBAL (Raíz `/CLAUDE.md`):** Ya maneja toda la mecánica del sistema: sincronización obligatoria con `Read`, reglas "Zero-Omission", sintaxis global de placeholders `{{DATO}}`, prohibición de invenciones de formato e identificadores de privacidad (ej. `[PERSON_1]`). **No generes estas reglas en los CLAUDE.md de los nuevos plugins.**
 *   **CAPA PLUGIN (`[plugin]/CLAUDE.md`):** Controla EXCLUSIVAMENTE el *Dominio de Negocio* (Reglas de la industria, tono experto, límites legales/técnicos, y matriz de escalación).
-*   **CAPA SKILL (`[plugin]/skills/[nombre]/SKILL.md`):** Controla EXCLUSIVAMENTE la *Maquinaria de Ejecución* (Vectores de estado, enrutamiento, preguntas predecibles y ciclo de edición incremental).
+*   **CAPA ASSETS (`[plugin]/skills/[nombre]/assets/*.md`):** Son EXCLUSIVAMENTE *Plantillas Base Limpias*. Contienen la estructura estandarizada en Markdown con marcadores `{{variable}}`. **Tienen ESTRICTAMENTE PROHIBIDO contener comentarios HTML con condicionales (ej. `<!-- Si ... -->`), opciones alternativas (`<!-- Opcion A ... -->`) o directivas procedimentales.**
+*   **CAPA SKILL (`[plugin]/skills/[nombre]/SKILL.md`):** Controla EXCLUSIVAMENTE la *Maquinaria de Ejecución* (Vectores de estado, enrutamiento, preguntas predecibles, resolución de condicionales y ciclo de edición incremental). **Toda la lógica condicional, variantes de redacción, cláusulas opcionales e instrucciones de sustitución dinámica residen ÚNICA y EXCLUSIVAMENTE en este archivo.**
 
 ---
 
@@ -116,10 +117,12 @@ Inmediatamente tras el paso anterior, estás OBLIGADO a crear el documento:
 3. Utiliza `create_file` para guardar el archivo en disco del workspace.
 4. Ejecuta `read_file` sobre el archivo creado en disco para validar y confirma la ruta absoluta en el chat al usuario. Inmediatamente después, en la misma respuesta, formula la primera pregunta de la edición incremental (Punto 4) para no detener la conversación.
 
-## 4. EDICIÓN INCREMENTAL DE CLÁUSULAS / SECCIONES
-Recorre secuencialmente la siguiente lista. Por cada sección incompleta, aplica el Ciclo de Edición Incremental Global (Formular Pregunta -> Mostrar Vista Previa en texto plano -> Pedir Confirmación -> Tras confirmación, usar `edit_file` en disco):
-1. **[Sección 1]:** [Qué datos faltan, instrucciones específicas].
-2. **[Sección 2]:** [Qué datos faltan, instrucciones específicas].
+## 4. EDICIÓN INCREMENTAL DE CLÁUSULAS / SECCIONES Y CONDICIONALES
+Recorre secuencialmente la siguiente lista. Por cada sección incompleta o que dependa de condiciones del usuario o vectores de estado, aplica el Ciclo de Edición Incremental Global (Formular Pregunta -> Mostrar Vista Previa en texto plano -> Pedir Confirmación -> Tras confirmación, usar `edit_file` en disco):
+1. **[Sección 1]:** [Qué datos faltan, opciones aplicables].
+   - *Si [Condición A]:* Redactar e insertar: "[Texto exacto de la cláusula para Opción A]".
+   - *Si [Condición B]:* Redactar e insertar: "[Texto exacto de la cláusula para Opción B]".
+2. **[Sección 2]:** [Qué datos faltan, instrucciones específicas y cláusulas condicionales].
 
 ## BUCLE DE REALIMENTACIÓN FINAL
 Tras completar el Punto 4, muestra el siguiente menú y espera instrucciones (aplicando `edit_file` según corresponda):

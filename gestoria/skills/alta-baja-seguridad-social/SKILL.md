@@ -140,7 +140,22 @@ create_file(
 )
 ```
 
-Rellenar todos los campos con los datos reales. Los campos que el usuario no haya proporcionado quedan como campo pendiente de completar. En la hoja de alta o baja de trabajador, resolver los bloques condicionales segun el `tipo_operacion` (alta o baja) y el sujeto (trabajador o empleada de hogar).
+### Reglas de Adaptación y Cláusulas Condicionales:
+
+1. **Afiliación Previa y NUSS (en TA.1):**
+   - *Si el trabajador ya dispone de NUSS (`{{nuss}}`):* Hacer constar que no procede nueva afiliación inicial, sino en su caso variación de datos censales.
+
+2. **Tipo de Operación y Régimen (en Alta/Baja de Trabajador):**
+   - *Si la operación es un ALTA:* Indicar los datos contractuales (tipo de contrato, CNO, grupo de cotización, coeficiente de jornada) y recordar el plazo preceptivo previo (hasta 60 días antes del inicio real).
+   - *Si el sujeto es empleada de hogar:* Especificar la retribución mensual pactada (`{{retribucion}}`) y número de horas semanales (`{{horas_semanales}}`), determinantes de la base de cotización en el Sistema Especial de Empleados de Hogar.
+   - *Si la operación es una BAJA:* Indicar la causa de baja (fin de contrato, despido, baja voluntaria) y el plazo reglamentario: 3 días naturales siguientes al cese para Régimen General, y 6 días naturales para empleadas de hogar.
+
+3. **Operaciones sobre Código de Cuenta de Cotización (en TA.6 / TA.7):**
+   - *Inscripción de Empresa / Primer CCC:* Apertura previa al inicio con trabajadores.
+   - *Variación de Datos:* Detallar la modificación requerida sobre el CCC (`{{ccc}}`: `{{detalle_variacion}}`).
+   - *Baja de CCC:* Solicitar baja del CCC (`{{ccc}}`) con efectos `{{fecha_efectos}}` tras tramitar la baja de la totalidad de la plantilla.
+
+Rellenar todos los campos con los datos reales. Los campos que el usuario no haya proporcionado quedan como `[DATO — PENDIENTE DE COMPLETAR]`.
 
 Aplicar las directivas de `estilo-redaccion-escritos.md` (disponible directamente en `<document kind="references-collection">` del prompt): hoja de datos clara, con los campos ordenados como en el modelo TA oficial, y checklist accionable.
 

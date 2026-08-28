@@ -24,8 +24,6 @@ Practicada la prueba, esta parte formula sus conclusiones conforme al articulo 4
 | {{hecho_2}} | {{hecho_2_resultado}} | {{hecho_2_prueba}} |
 | {{hecho_3}} | {{hecho_3_resultado}} | {{hecho_3_prueba}} |
 
-<!-- Anadir tantos hechos controvertidos como se hayan fijado en la audiencia previa. -->
-
 Resumen de la valoracion de la prueba practicada:
 {{valoracion_prueba}}
 
@@ -41,7 +39,7 @@ Sin alterar la causa de pedir, esta parte sostiene:
 
 ## 4. Peticion final
 
-En coherencia con lo expuesto en la demanda<!-- Si es demandado: en la contestacion -->, esta parte solicita que se dicte sentencia por la que {{peticion_final}}, con expresa imposicion de costas a la parte contraria (Art. 394 LEC).
+En coherencia con lo expuesto en la demanda, esta parte solicita que se dicte sentencia por la que {{peticion_final}}, con expresa imposicion de costas a la parte contraria (Art. 394 LEC).
 
 ---
 

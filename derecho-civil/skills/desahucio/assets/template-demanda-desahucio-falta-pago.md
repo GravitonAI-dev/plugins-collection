@@ -16,7 +16,7 @@ Nombre / Razon social: {{nombre_demandante}}
 NIF / CIF: {{nif_demandante}}
 Domicilio a efectos de notificaciones: {{domicilio_demandante}}
 Naturaleza: {{naturaleza_demandante: persona fisica / persona juridica}}
-<!-- Si persona juridica: Representada por: {{nombre_representante}}, con NIF {{nif_representante}}, en calidad de {{cargo_representante}} -->
+
 Representado por el Procurador {{nombre_procurador}} y asistido por el Letrado {{nombre_letrado}}.
 
 ## DATOS DEL DEMANDADO (ARRENDATARIO)
@@ -35,7 +35,7 @@ Tipo: {{tipo_inmueble: vivienda habitual / local de negocio o uso distinto de vi
 
 ## EXPONE
 
-Que por medio del presente escrito formula DEMANDA DE JUICIO VERBAL DE DESAHUCIO POR FALTA DE PAGO, conforme al articulo 250.1.1 de la Ley 1/2000, de Enjuiciamiento Civil, y al articulo 27 de la Ley 29/1994, de Arrendamientos Urbanos<!-- Si acumular_rentas: , acumulando la accion de reclamacion de las rentas y cantidades debidas conforme al articulo 437.3 de la LEC -->, con base en los siguientes
+Que por medio del presente escrito formula DEMANDA DE JUICIO VERBAL DE DESAHUCIO POR FALTA DE PAGO, conforme al articulo 250.1.1 de la Ley 1/2000, de Enjuiciamiento Civil, y al articulo 27 de la Ley 29/1994, de Arrendamientos Urbanos, con base en los siguientes
 
 ## HECHOS
 
@@ -46,13 +46,9 @@ El demandante es {{titulo_demandante: propietario / arrendador}} del inmueble de
 El demandado ha dejado de abonar las rentas correspondientes a los periodos {{periodos_impagados}}, adeudando un total de {{cuantia_total_adeudada}} euros por rentas y cantidades asimiladas vencidas e impagadas. Se acompana la liquidacion y los justificantes como Documento nº 2.
 
 **TERCERO — Requerimiento previo.**
-<!-- Si requerimiento_previo: Con caracter previo se requirio de pago al demandado de forma fehaciente mediante {{medio_requerimiento}} de fecha {{fecha_requerimiento}}, con mas de treinta dias de antelacion a esta demanda, sin que haya atendido el pago; por lo que, conforme al articulo 22.4 de la LEC, no procede la enervacion de la accion. Se acompana el requerimiento y su acuse como Documento nº 3. -->
-<!-- Si NO requerimiento_previo: No se ha practicado requerimiento fehaciente de pago con treinta dias de antelacion, por lo que el demandado podra enervar la accion abonando o consignando lo debido en los terminos del articulo 22.4 de la LEC. -->
 
 **CUARTO — Resolucion del contrato.**
 El impago de la renta es causa de resolucion del arrendamiento conforme al articulo 27.2.a) de la LAU, procediendo la recuperacion de la posesion del inmueble.
-
-<!-- Si masc_intentado: QUINTO — Intento de solucion previa. Con caracter previo se intento la solucion extrajudicial de la controversia mediante {{tipo_masc}} de fecha {{fecha_masc}}, conforme a los articulos 403.2 y 264.4 de la LEC, sin resultado. Se acompana el justificante como documento. -->
 
 ## FUNDAMENTOS DE DERECHO
 
@@ -62,9 +58,9 @@ El impago de la renta es causa de resolucion del arrendamiento conforme al artic
 
 **III. Legitimacion.** El demandante esta legitimado activamente como arrendador; el demandado, pasivamente, como arrendatario obligado al pago.
 
-**IV. Fondo.** Resultan de aplicacion el articulo 27 de la LAU (resolucion por impago)<!-- Si acumular_rentas: y el articulo 437.3 de la LEC (acumulacion de la reclamacion de rentas), con el efecto de cosa juzgada del articulo 447.2 de la LEC -->.
+**IV. Fondo.** Resultan de aplicacion el articulo 27 de la LAU (resolucion por impago).
 
-**V. Requisito de procedibilidad.** <!-- Si masc_intentado: Se ha intentado la solucion extrajudicial previa conforme al articulo 403.2 de la LEC, segun se acredita. --><!-- Si NO masc_intentado: Se hace constar la cuestion del requisito de MASC del articulo 403.2 de la LEC, introducido por la LO 1/2025, cuya exigencia debe verificarse. -->
+**V. Requisito de procedibilidad.**
 
 **VI. Costas.** Conforme al articulo 394 de la LEC.
 
@@ -74,7 +70,7 @@ Que tenga por presentada esta demanda de juicio verbal de desahucio por falta de
 
 1. Declare resuelto el contrato de arrendamiento por falta de pago de la renta (Art. 27.2.a LAU).
 2. Condene al demandado {{nombre_demandado}} al desahucio y a dejar libre y a disposicion del demandante el inmueble descrito, con apercibimiento de lanzamiento en el dia y hora que se señalen conforme al articulo 440 de la LEC si no lo desaloja voluntariamente.
-<!-- Si acumular_rentas: 3. Condene al demandado al pago de {{cuantia_total_adeudada}} euros por las rentas y cantidades debidas y no pagadas, mas las que se devenguen hasta la efectiva entrega de la posesion, con sus intereses. -->
+
 4. Imponga las costas al demandado.
 
 Es justicia que pido en {{lugar}}, a {{fecha_demanda}}.
