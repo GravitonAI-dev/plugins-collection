@@ -1,0 +1,13 @@
+{
+  "name": "gestion-plantillas",
+  "version": "0.1.0",
+  "description": "Herramientas y skills para la creacion, parametrizacion y asignacion de plantillas personalizadas (assets) para las skills del sistema mediante set_skill_template.",
+  "author": {
+    "name": "GravitonAI"
+  },
+  "skills": [
+    "personalizar-plantilla-skill"
+  ],
+  "agents": [],
+  "hooks": []
+}

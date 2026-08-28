@@ -27,7 +27,7 @@ Este repo es un **punto de partida**. Contiene la estructura completa y un plugi
 |---|---|---|
 | Marketplace | `.claude-plugin/marketplace.json` con registry de plugins | Instalador propio (se usa el de Claude Code) |
 | Catálogo de MCP servers | `mcp_servers.json` con 5 servers declarados | Cliente MCP que los conecte y ejecute |
-| Catálogo de tools | `agent_tools.json` con 7 tools declarados (input/output schema) | Runtime que los invoque |
+| Catálogo de tools | `agent_tools.json` con 8 tools declarados (input/output schema) | Runtime que los invoque |
 | Plugin manifest | `plugin.json` con metadatos y lista de skills | Sistema de versionado / firma de plugins |
 | Playbook | `CLAUDE.md` raíz y por plugin | Sistema que cargue perfiles desde `~/.claude/...` |
 | Skills | `SKILL.md` con frontmatter y procedimiento | Mecanismo de auto-invocación por contexto |

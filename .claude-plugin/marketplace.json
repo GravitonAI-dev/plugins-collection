@@ -26,6 +26,16 @@
       "author": {
         "name": "GravitonAI"
       }
+    },
+    {
+      "name": "gestion-plantillas",
+      "displayName": "Gestion de Plantillas",
+      "source": "./gestion-plantillas",
+      "version": "0.1.0",
+      "description": "Creacion, parametrizacion y registro de plantillas personalizadas (assets) para las skills especializadas de GravitonAI mediante set_skill_template a partir de minutas y documentos de ejemplo adjuntos.",
+      "author": {
+        "name": "GravitonAI"
+      }
     }
   ]
 }

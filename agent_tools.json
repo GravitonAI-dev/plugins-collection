@@ -354,6 +354,41 @@
       },
       "tags": ["interaction", "hitl", "form", "slots"],
       "side_effects": false
+    },
+    {
+      "id": "io.gravitonai.tools.set_skill_template",
+      "name": "set_skill_template",
+      "description": "Establece el contenido de la plantilla para un asset específico perteneciente a una skill del sistema. El parámetro `asset_name` debe coincidir exactamente con el nombre de uno de los assets existentes declarados en la `skill_name` especificada (ej. 'template-contrato-arrendamiento-vivienda.md').",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "skill_name": {
+            "type": "string",
+            "description": "Nombre de la skill objetivo cuyo asset de plantilla se está configurando o actualizando."
+          },
+          "asset_name": {
+            "type": "string",
+            "description": "Nombre de archivo exacto de uno de los assets existentes declarados en la skill (ej. 'template-contrato-arrendamiento-vivienda.md'). Debe coincidir con uno de los assets de la skill."
+          },
+          "template_content": {
+            "type": "string",
+            "description": "El contenido completo de la plantilla parametrizada en formato Markdown a asignar al asset especificado."
+          }
+        },
+        "required": ["skill_name", "asset_name", "template_content"],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "skill_name": { "type": "string" },
+          "asset_name": { "type": "string" },
+          "template_content": { "type": "string" }
+        }
+      },
+      "tags": ["templates", "configuration", "assets", "skills"],
+      "side_effects": true
     }
   ]
 }
