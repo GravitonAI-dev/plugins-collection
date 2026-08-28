@@ -1,18 +1,18 @@
-# ACEPTACION DE HERENCIA DE <!-- {{nombre_causante}} -->
+# ACEPTACION DE HERENCIA DE {{nombre_causante}}
 
 > **DRAFT — para revision por un abogado y elevacion a escritura publica notarial antes de su firma. No constituye asesoramiento juridico ni fiscal.**
-> Version del Codigo Civil verificada en el BOE: <!-- {{fecha_verificacion_cc}} -->
+> Version del Codigo Civil verificada en el BOE: {{fecha_verificacion_cc}}
 
 ---
 
 ## COMPARECE
 
-En <!-- {{lugar}} -->, a <!-- {{fecha_aceptacion}} -->, don/dona <!-- {{nombre_heredero}} -->, con NIF <!-- {{nif_heredero}} -->, domiciliado en <!-- {{domicilio_heredero}} -->, en su condicion de heredero de don/dona <!-- {{nombre_causante}} -->.
+En {{lugar}}, a {{fecha_aceptacion}}, don/dona {{nombre_heredero}}, con NIF {{nif_heredero}}, domiciliado en {{domicilio_heredero}}, en su condicion de heredero de don/dona {{nombre_causante}}.
 
 ## EXPONE
 
 **PRIMERO — Fallecimiento del causante.**
-Que don/dona <!-- {{nombre_causante}} -->, con NIF <!-- {{nif_causante}} -->, fallecio en <!-- {{lugar_fallecimiento}} --> el dia <!-- {{fecha_fallecimiento}} -->.
+Que don/dona {{nombre_causante}}, con NIF {{nif_causante}}, fallecio en {{lugar_fallecimiento}} el dia {{fecha_fallecimiento}}.
 
 **SEGUNDO — Titulo sucesorio y llamamiento.**
 <!-- Si testada: Que el compareciente ha sido instituido heredero en el testamento otorgado por el causante ante el Notario de {{plaza_notario}}, don/dona {{nombre_notario}}, el dia {{fecha_testamento}}, protocolo {{numero_protocolo}}. -->
@@ -23,7 +23,7 @@ Que, conforme al Art. 988 del Codigo Civil, la aceptacion de la herencia es un a
 
 ## MANIFIESTA Y ACEPTA
 
-<!-- {{modo_aceptacion: pura y simple / a beneficio de inventario}} -->
+{{modo_aceptacion: pura y simple / a beneficio de inventario}}
 
 <!-- Si pura y simple: Que ACEPTA PURA Y SIMPLEMENTE la herencia de don/dona {{nombre_causante}}, quedando subrogado en los derechos y obligaciones del causante y respondiendo de las cargas de la herencia no solo con los bienes de esta, sino tambien con los suyos propios (Arts. 998 y 1003 del Codigo Civil). -->
 
@@ -44,13 +44,13 @@ Y en prueba de conformidad con cuanto antecede, firma el compareciente en el lug
 Firma:
 
 ___________________________
-<!-- {{nombre_heredero}} -->
+{{nombre_heredero}}
 
 ---
 
 > **Advertencias:**
 > 1. Este documento es un DRAFT generado automaticamente. Debe ser revisado por un abogado y elevado a escritura publica notarial (la aceptacion a beneficio de inventario y la renuncia exigen instrumento publico y plazos concretos, Arts. 1008 y 1010 y ss. CC).
-> 2. Version del Codigo Civil verificada: <!-- {{fecha_verificacion_cc}} -->.
+> 2. Version del Codigo Civil verificada: {{fecha_verificacion_cc}}.
 > 3. Aceptar pura y simplemente implica responder de las deudas de la herencia con el propio patrimonio (Art. 1003 CC). Si el pasivo puede superar al activo, valorar la aceptacion a beneficio de inventario.
 > 4. La aceptacion a beneficio de inventario y la renuncia estan sujetas a plazos legales; verificar su cumplimiento antes de otorgar.
-> 5. Impuesto de Sucesiones y Donaciones: tributo AUTONOMICO, plazo general de 6 meses desde el fallecimiento (prorrogable). Verificar la normativa de la comunidad autonoma <!-- {{comunidad_autonoma}} -->.
+> 5. Impuesto de Sucesiones y Donaciones: tributo AUTONOMICO, plazo general de 6 meses desde el fallecimiento (prorrogable). Verificar la normativa de la comunidad autonoma {{comunidad_autonoma}}.

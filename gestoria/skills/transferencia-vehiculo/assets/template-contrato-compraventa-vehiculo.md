@@ -1,11 +1,11 @@
-# CONTRATO DE COMPRAVENTA DE VEHICULO — <!-- {{marca_vehiculo}} --> <!-- {{modelo_vehiculo}} --> (<!-- {{matricula}} -->)
+# CONTRATO DE COMPRAVENTA DE VEHICULO — {{marca_vehiculo}} {{modelo_vehiculo}} ({{matricula}})
 
 > **DRAFT — para revision por un gestor o profesional antes de su firma. No constituye asesoramiento juridico ni fiscal.**
-> Normativa de referencia verificada: <!-- {{fecha_verificacion}} --> (RGV, RD 2822/1998).
+> Normativa de referencia verificada: {{fecha_verificacion}} (RGV, RD 2822/1998).
 
 ---
 
-En <!-- {{lugar}} -->, a <!-- {{fecha_transmision}} -->
+En {{lugar}}, a {{fecha_transmision}}
 
 ## REUNIDOS
 
@@ -13,17 +13,17 @@ En <!-- {{lugar}} -->, a <!-- {{fecha_transmision}} -->
 
 | Campo | Dato |
 |---|---|
-| Nombre / Razon social | <!-- {{nombre_vendedor}} --> |
-| NIF / CIF | <!-- {{nif_vendedor}} --> |
-| Domicilio | <!-- {{domicilio_vendedor}} --> |
+| Nombre / Razon social | {{nombre_vendedor}} |
+| NIF / CIF | {{nif_vendedor}} |
+| Domicilio | {{domicilio_vendedor}} |
 
 **Parte compradora**
 
 | Campo | Dato |
 |---|---|
-| Nombre / Razon social | <!-- {{nombre_comprador}} --> |
-| NIF / CIF | <!-- {{nif_comprador}} --> |
-| Domicilio | <!-- {{domicilio_comprador}} --> |
+| Nombre / Razon social | {{nombre_comprador}} |
+| NIF / CIF | {{nif_comprador}} |
+| Domicilio | {{domicilio_comprador}} |
 
 Ambas partes se reconocen capacidad suficiente para contratar y
 
@@ -35,12 +35,12 @@ Que la parte vendedora es titular del vehiculo que se describe y que ambas parte
 
 | Campo | Dato |
 |---|---|
-| Marca | <!-- {{marca_vehiculo}} --> |
-| Modelo | <!-- {{modelo_vehiculo}} --> |
-| Matricula | <!-- {{matricula}} --> |
-| Numero de bastidor (VIN) | <!-- {{numero_bastidor}} --> |
-| Fecha de primera matriculacion | <!-- {{fecha_primera_matriculacion}} --> |
-| Tipo de vehiculo | <!-- {{tipo_vehiculo: turismo / ciclomotor / motocicleta / otro}} --> |
+| Marca | {{marca_vehiculo}} |
+| Modelo | {{modelo_vehiculo}} |
+| Matricula | {{matricula}} |
+| Numero de bastidor (VIN) | {{numero_bastidor}} |
+| Fecha de primera matriculacion | {{fecha_primera_matriculacion}} |
+| Tipo de vehiculo | {{tipo_vehiculo: turismo / ciclomotor / motocicleta / otro}} |
 
 ## CLAUSULAS
 
@@ -48,7 +48,7 @@ Que la parte vendedora es titular del vehiculo que se describe y que ambas parte
 La parte vendedora vende y transmite a la parte compradora, que compra y adquiere, el vehiculo descrito, libre de cargas y gravamenes salvo lo que se indique expresamente.
 
 **SEGUNDA — Precio.**
-El precio de la compraventa se fija en <!-- {{precio_venta}} --> euros, que la parte compradora abona a la parte vendedora en este acto<!-- Si el pago no es al contado: , en la forma siguiente: {{forma_pago}} -->, sirviendo el presente documento como recibo.
+El precio de la compraventa se fija en {{precio_venta}} euros, que la parte compradora abona a la parte vendedora en este acto<!-- Si el pago no es al contado: , en la forma siguiente: {{forma_pago}} -->, sirviendo el presente documento como recibo.
 
 **TERCERA — Entrega.**
 La parte vendedora entrega en este acto el vehiculo, el permiso de circulacion y la ficha tecnica (tarjeta de ITV), asumiendo la parte compradora la posesion a partir de la fecha de este contrato.
@@ -72,7 +72,7 @@ Y en prueba de conformidad, ambas partes firman el presente contrato por duplica
 Parte vendedora:                          Parte compradora:
 
 ___________________________               ___________________________
-<!-- {{nombre_vendedor}} -->               <!-- {{nombre_comprador}} -->
+{{nombre_vendedor}}               {{nombre_comprador}}
 
 ---
 

@@ -1,7 +1,7 @@
-# HOJA DE DATOS — INSCRIPCION DE EMPRESA Y CODIGO DE CUENTA DE COTIZACION (MODELO TA.6) — <!-- {{nombre_empleador}} -->
+# HOJA DE DATOS — INSCRIPCION DE EMPRESA Y CODIGO DE CUENTA DE COTIZACION (MODELO TA.6) — {{nombre_empleador}}
 
 > **DRAFT — para revision por un gestor o asesor laboral antes de su presentacion. No constituye asesoramiento laboral.**
-> Modelo y plazos verificados en la TGSS: <!-- {{fecha_verificacion}} -->
+> Modelo y plazos verificados en la TGSS: {{fecha_verificacion}}
 > Tramite previo: sin CCC no puede darse de alta a ningun trabajador.
 
 ---
@@ -11,10 +11,10 @@
 | Campo | Valor |
 |---|---|
 | Organismo | Tesoreria General de la Seguridad Social (TGSS) |
-| Tramite | <!-- {{tipo_operacion: inscripcion de empresa / variacion de datos del CCC / baja del CCC}} --> |
+| Tramite | {{tipo_operacion: inscripcion de empresa / variacion de datos del CCC / baja del CCC}} |
 | Modelo | TA.6 (inscripcion de empresa / apertura de cuenta de cotizacion) |
-| Via | <!-- {{via_presentacion: Sede electronica de la TGSS / Sistema RED}} --> |
-| Identificacion | <!-- {{medio_identificacion: certificado digital / Cl@ve}} --> |
+| Via | {{via_presentacion: Sede electronica de la TGSS / Sistema RED}} |
+| Identificacion | {{medio_identificacion: certificado digital / Cl@ve}} |
 
 ---
 
@@ -22,12 +22,12 @@
 
 | Campo | Valor |
 |---|---|
-| Razon social o nombre y apellidos | <!-- {{nombre_empleador}} --> |
-| CIF / NIF | <!-- {{cif_empleador}} --> |
-| Domicilio de la empresa | <!-- {{domicilio_empleador}} --> |
-| Actividad economica (CNAE) | <!-- {{cnae}} --> |
-| Mutua de accidentes de trabajo | <!-- {{mutua}} --> |
-| CCC ya asignado (si es variacion o baja) | <!-- {{ccc}} --> |
+| Razon social o nombre y apellidos | {{nombre_empleador}} |
+| CIF / NIF | {{cif_empleador}} |
+| Domicilio de la empresa | {{domicilio_empleador}} |
+| Actividad economica (CNAE) | {{cnae}} |
+| Mutua de accidentes de trabajo | {{mutua}} |
+| CCC ya asignado (si es variacion o baja) | {{ccc}} |
 
 ---
 
@@ -35,8 +35,8 @@
 
 | Campo | Valor |
 |---|---|
-| Regimen | Regimen General <!-- {{sistema_especial: (indicar Sistema Especial si aplica)}} --> |
-| Fecha de efectos | <!-- {{fecha_efectos}} --> |
+| Regimen | Regimen General {{sistema_especial: (indicar Sistema Especial si aplica)}} |
+| Fecha de efectos | {{fecha_efectos}} |
 
 <!-- Si tipo_operacion es inscripcion de empresa: Se solicita la inscripcion y la apertura del primer CCC, previa al inicio de la actividad con trabajadores. -->
 <!-- Si tipo_operacion es variacion de datos del CCC: Se comunica la variacion sobre el CCC {{ccc}}: {{detalle_variacion}}. -->
@@ -57,6 +57,6 @@
 
 > **Advertencias:**
 > 1. Esta hoja de datos es un DRAFT. Debe revisarse por un gestor o asesor laboral antes de tramitar la inscripcion.
-> 2. Modelo y plazos verificados: <!-- {{fecha_verificacion}} -->.
+> 2. Modelo y plazos verificados: {{fecha_verificacion}}.
 > 3. La inscripcion y la apertura del CCC son previas al alta de trabajadores: sin CCC no puede darse de alta a nadie.
 > 4. La baja del CCC exige haber tramitado antes la baja de todos los trabajadores de ese codigo.

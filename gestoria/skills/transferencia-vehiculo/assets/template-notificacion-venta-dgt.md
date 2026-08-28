@@ -1,11 +1,11 @@
-# NOTIFICACION DE VENTA DE VEHICULO — <!-- {{matricula}} -->
+# NOTIFICACION DE VENTA DE VEHICULO — {{matricula}}
 
 > **DRAFT — para revision por un gestor o profesional antes de su presentacion. No constituye asesoramiento juridico ni fiscal.**
-> Normativa y tasas verificadas: <!-- {{fecha_verificacion}} --> (RGV, RD 2822/1998; tasas Sede DGT).
+> Normativa y tasas verificadas: {{fecha_verificacion}} (RGV, RD 2822/1998; tasas Sede DGT).
 
 ---
 
-## A LA JEFATURA PROVINCIAL DE TRAFICO DE <!-- {{provincia_vendedor}} -->
+## A LA JEFATURA PROVINCIAL DE TRAFICO DE {{provincia_vendedor}}
 
 ## 1. Hoja de datos
 
@@ -13,35 +13,35 @@
 
 | Campo | Dato |
 |---|---|
-| Nombre / Razon social | <!-- {{nombre_vendedor}} --> |
-| NIF / CIF | <!-- {{nif_vendedor}} --> |
-| Domicilio | <!-- {{domicilio_vendedor}} --> |
+| Nombre / Razon social | {{nombre_vendedor}} |
+| NIF / CIF | {{nif_vendedor}} |
+| Domicilio | {{domicilio_vendedor}} |
 
 **Adquirente (comprador)**
 
 | Campo | Dato |
 |---|---|
-| Nombre / Razon social | <!-- {{nombre_comprador}} --> |
-| NIF / CIF | <!-- {{nif_comprador}} --> |
-| Domicilio | <!-- {{domicilio_comprador}} --> |
+| Nombre / Razon social | {{nombre_comprador}} |
+| NIF / CIF | {{nif_comprador}} |
+| Domicilio | {{domicilio_comprador}} |
 
 **Vehiculo**
 
 | Campo | Dato |
 |---|---|
-| Marca | <!-- {{marca_vehiculo}} --> |
-| Modelo | <!-- {{modelo_vehiculo}} --> |
-| Matricula | <!-- {{matricula}} --> |
-| Numero de bastidor (VIN) | <!-- {{numero_bastidor}} --> |
-| Fecha de la transmision | <!-- {{fecha_transmision}} --> |
+| Marca | {{marca_vehiculo}} |
+| Modelo | {{modelo_vehiculo}} |
+| Matricula | {{matricula}} |
+| Numero de bastidor (VIN) | {{numero_bastidor}} |
+| Fecha de la transmision | {{fecha_transmision}} |
 
 ## 2. EXPONE
 
-Que en fecha <!-- {{fecha_transmision}} --> ha transmitido el vehiculo descrito a <!-- {{nombre_comprador}} -->, segun contrato de compraventa que se acompana, y que formula la presente notificacion de venta dentro del plazo de 10 dias previsto en el art. 32 del Reglamento General de Vehiculos.
+Que en fecha {{fecha_transmision}} ha transmitido el vehiculo descrito a {{nombre_comprador}}, segun contrato de compraventa que se acompana, y que formula la presente notificacion de venta dentro del plazo de 10 dias previsto en el art. 32 del Reglamento General de Vehiculos.
 
 ## 3. SOLICITA
 
-Que se tenga por notificada la transmision del vehiculo de matricula <!-- {{matricula}} -->, haciendo constar la venta a los efectos de que el transmitente deje de figurar como titular y no responda de las sanciones, tributos y responsabilidades devengados con posterioridad a la fecha de la transmision.
+Que se tenga por notificada la transmision del vehiculo de matricula {{matricula}}, haciendo constar la venta a los efectos de que el transmitente deje de figurar como titular y no responda de las sanciones, tributos y responsabilidades devengados con posterioridad a la fecha de la transmision.
 
 ## 4. Checklist de documentos a acompanar
 
@@ -56,18 +56,18 @@ Que se tenga por notificada la transmision del vehiculo de matricula <!-- {{matr
 |---|---|
 | Organismo | Direccion General de Trafico (DGT) |
 | Sede electronica | https://sede.dgt.gob.es — con certificado digital, DNI electronico o Cl@ve |
-| Presentacion presencial | Jefatura Provincial de Trafico de <!-- {{provincia_vendedor}} --> con cita previa |
+| Presentacion presencial | Jefatura Provincial de Trafico de {{provincia_vendedor}} con cita previa |
 | Tasa aplicable | 4.1 — 8,67 EUR (notificacion de venta) |
 | Plazo del vendedor | 10 dias desde la transmision |
 
 ---
 
-Lugar y fecha: <!-- {{lugar}} -->, <!-- {{fecha_notificacion}} -->
+Lugar y fecha: {{lugar}}, {{fecha_notificacion}}
 
 Firma del interesado:
 
 ___________________________
-<!-- {{nombre_vendedor}} -->
+{{nombre_vendedor}}
 
 ---
 
