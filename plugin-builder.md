@@ -214,10 +214,10 @@ Si el usuario nombra references, crealas como archivos `.md` con un esqueleto mi
   - Si "no": la carpeta `assets/` no se crea.
   - Si "si": para cada asset dame nombre de archivo (template-kebab-case.md) y que seccion/variables debe tener. (Todos los assets que sean plantillas DEBEN comenzar con el prefijo "template-").`
 
-Si el usuario nombra assets, crealas como plantillas con marcadores `<!-- {{variable}} -->` siguiendo el patron del template `nda-triage-output-template.md` del plugin `commercial-legal`:
+Si el usuario nombra assets, crealas como plantillas con marcadores `{{variable}}` siguiendo el patron del template `nda-triage-output-template.md` del plugin `commercial-legal`:
 
 ```
-# <titulo del output> — <{{subtitulo}}>
+# <titulo del output> — {{subtitulo}}
 
 > **DRAFT — para revision por un abogado. No constituye asesoria legal.**
 > (Solo si el output es legal/regulatorio/fiscal/privacidad)
@@ -228,7 +228,7 @@ Si el usuario nombra assets, crealas como plantillas con marcadores `<!-- {{vari
 |---|---|
 | Plugin / version | <plugin-name> v<version> |
 | Skill | `<skill-name>` |
-| Fecha | <!-- {{fecha_actual}} --> |
+| Fecha | {{fecha_actual}} |
 | ... | ... |
 
 ## <Seccion principal>
@@ -696,7 +696,7 @@ Si en medio de un modo el usuario dice algo que no es de scaffolding (ej: "ahora
 | Archivo | Cuando incluirlo | Contenido |
 |---|---|---|
 | `<plugin>/skills/<skill>/references/*.md` | Cuando la skill necesita consultar material de contexto (no va al output) | Checklists, matrices, glosarios, jurisprudencia indexada. kebab-case, una concern por archivo. |
-| `<plugin>/skills/<skill>/assets/*.md` | Cuando la skill produce output estructurado a partir de una plantilla | Plantilla con marcadores `<!-- {{variable}} -->` que la skill llena con datos del caso |
+| `<plugin>/skills/<skill>/assets/*.md` | Cuando la skill produce output estructurado a partir de una plantilla | Plantilla con marcadores `{{variable}}` que la skill llena con datos del caso |
 | `<plugin>/skills/<skill>/scripts/` | Cuando la skill necesita ejecutar codigo (extraccion de texto de PDFs, validacion de estructura, transformaciones) | Scripts `.sh` o `.py`. **Aun no usado en plugins de ejemplo.** |
 
 ---
