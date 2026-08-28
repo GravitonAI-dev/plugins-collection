@@ -284,7 +284,7 @@ Los arrays `agents` y `hooks` están **vacíos** en este punto (no implementados
 
 **Secciones típicas**:
 - Propósito y audiencia.
-- Jurisdicción por defecto (con marcadores `EDITAR PARA TU EQUIPO`).
+- Jurisdicción por defecto.
 - Tono y estilo de output.
 - Defaults: qué se asume si el usuario no lo dice.
 - Matriz de escalación: qué casos van a abogado, cuáles se resuelven solos.
@@ -469,7 +469,6 @@ Regla de oro: **definir una vez, referenciar por id**.
 - **Tono**: profesional, claro, sin jerga innecesaria. Cero emojis salvo que el usuario los pida.
 - **Nombres**: kebab-case para archivos y skills (`nda-review`, `nda-clause-checklist.md`).
 - **Sin secretos en el repo**: nunca. `.env`, `*.local.md`, `drafts/`, `private/`.
-- **Marcadores de edición**: `<!-- EDITAR PARA TU EQUIPO: ... -->` en secciones que cada equipo debe personalizar.
 - **DRAFT por defecto**: cualquier output que toque temas legales / regulatorios / fiscales / privacidad lleva el header `> DRAFT — para revisión por un abogado. No constituye asesoría legal.`
 
 ---

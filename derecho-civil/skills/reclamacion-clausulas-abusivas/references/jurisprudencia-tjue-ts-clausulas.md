@@ -51,6 +51,4 @@ Esta es la reference mas volatil del plugin. La doctrina del TJUE y del Tribunal
 
 ## Nota de mantenimiento
 
-<!-- EDITAR PARA TU EQUIPO: revisar tras cada sentencia relevante del TJUE o del Pleno de la Sala Primera del TS -->
-
 Cuando el Paso 1.3 detecte doctrina mas reciente que la reflejada aqui, actualizar la tabla de encuadre conservando este aviso y la disciplina de no citar sentencias sin verificar. No acumular versiones antiguas: sustituir el criterio superado.

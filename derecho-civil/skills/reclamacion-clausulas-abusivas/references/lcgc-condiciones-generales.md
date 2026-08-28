@@ -65,6 +65,4 @@ Estan legitimadas, entre otras, asociaciones de consumidores, el Ministerio Fisc
 
 ## Relacion con la Directiva 93/13/CEE
 
-<!-- EDITAR PARA TU EQUIPO: ajustar segun evolucion de la trasposicion y de la jurisprudencia del TJUE -->
-
 La LCGC y el TRLGDCU deben interpretarse conforme a la Directiva 93/13/CEE del Consejo, de 5 de abril de 1993, sobre clausulas abusivas en los contratos celebrados con consumidores, y a la jurisprudencia del TJUE, que impone entre otros el control de oficio de la abusividad por el juez nacional y la prohibicion de integrar la clausula nula. Ver `jurisprudencia-tjue-ts-clausulas.md`.

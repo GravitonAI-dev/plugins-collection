@@ -45,8 +45,6 @@ En muchos tramites de residencia se pagan ambas: primero la 052 al solicitar, y 
 
 `[verificar]` Los importes cambian por orden ministerial y se actualizan cada ano. NUNCA indicar un importe como definitivo: el importe correcto lo calcula el propio modelo 790 oficial al seleccionar el tramite. Remitir siempre al modelo oficial para el pago.
 
-<!-- EDITAR PARA TU EQUIPO: fijar los importes de tasa vigentes segun la ultima orden ministerial y la practica de vuestra provincia -->
-
 ---
 
 ## Como se rellena y paga el modelo 790

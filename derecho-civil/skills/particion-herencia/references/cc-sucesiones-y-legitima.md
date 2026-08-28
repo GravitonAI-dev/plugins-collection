@@ -77,4 +77,3 @@ El conyuge viudo conserva, en todo caso, su cuota usufructuaria (Arts. 834 y ss.
 
 Los herederos forzosos que concurran a la sucesion deben, salvo dispensa, traer a la masa los bienes recibidos del causante en vida por titulo lucrativo (Art. 1035). Ver la reference `cc-particion-herencia.md`.
 
-<!-- EDITAR PARA TU EQUIPO: si operas en una comunidad con derecho civil foral propio (Cataluna, Aragon, Navarra, Pais Vasco, Baleares, Galicia), sustituir o completar estos articulos por la normativa foral aplicable a la legitima y a los ordenes de sucesion. -->

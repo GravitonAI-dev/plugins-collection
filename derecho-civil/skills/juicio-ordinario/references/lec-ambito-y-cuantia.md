@@ -27,8 +27,6 @@ Se deciden en juicio ordinario, con independencia de su cuantia, entre otras, la
 | 7 | Retracto (segun redaccion vigente; verificar) |
 | 8 | Propiedad horizontal (asuntos que no versen exclusivamente sobre reclamaciones de cantidad) |
 
-<!-- EDITAR PARA TU EQUIPO: la numeracion y el contenido de los ordinales del Art. 249.1 han sido objeto de reformas; verificar la redaccion vigente en el BOE antes de aplicar -->
-
 En estas materias, la cuantia es irrelevante para elegir la clase de juicio: siempre es ordinario.
 
 ---

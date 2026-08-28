@@ -57,8 +57,6 @@ Ademas de lo anterior, cuando la deuda proceda de gastos comunes de comunidades 
 
 ## Checklist antes de presentar
 
-<!-- EDITAR PARA TU EQUIPO: adaptar a los tipos de deuda mas frecuentes del despacho -->
-
 - [ ] La deuda es dineraria, liquida, determinada, vencida y exigible.
 - [ ] Existe al menos un documento del Art. 812 que la acredite.
 - [ ] El importe reclamado coincide con el que resulta de los documentos.

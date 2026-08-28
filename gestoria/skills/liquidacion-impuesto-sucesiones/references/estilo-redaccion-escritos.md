@@ -40,8 +40,6 @@
 
 ## Formato (recomendado)
 
-<!-- EDITAR PARA TU EQUIPO: ajustar a los criterios de presentacion de la Hacienda autonomica o del despacho. -->
-
 - Titulos de seccion sobrios; tablas para datos numericos.
 - Un espacio entre bloques; numeracion de apartados.
 

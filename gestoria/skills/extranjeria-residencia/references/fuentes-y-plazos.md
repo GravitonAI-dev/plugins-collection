@@ -57,4 +57,3 @@ La cita previa es habitualmente obligatoria y suele gestionarse por la sede elec
 
 `[verificar]` Los plazos y el sentido del silencio administrativo se confirman en el Reglamento vigente y en la resolucion del tramite. La skill no garantiza la concesion: la resolucion es discrecional de la Administracion.
 
-<!-- EDITAR PARA TU EQUIPO: fijar los plazos y sentido del silencio segun el tramite y la practica de vuestra Oficina de Extranjeria -->

@@ -50,8 +50,6 @@ La LO 1/2025 modifica la tramitacion del juicio verbal:
 
 En el desahucio por falta de pago, el Letrado de la Administracion de Justicia requiere al demandado para que, en el plazo de **diez dias**, desaloje el inmueble, pague al actor, enerve la accion (si procede) o comparezca y alegue las razones por las que, a su entender, no debe la cantidad reclamada (Art. 438.5, antes Art. 440.3).
 
-<!-- EDITAR PARA TU EQUIPO: la numeracion de los apartados del Art. 438/440 fue reordenada por la LO 1/2025; confirmar la numeracion vigente en el BOE en el Paso 1 -->
-
 ---
 
 ## Señalamiento del lanzamiento (Art. 440.3 y 440.4)

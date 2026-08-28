@@ -31,8 +31,6 @@ El valor de mercado se obtiene de la Orden anual del Ministerio de Hacienda de p
 | Entre 5 y 6 anos | 43% |
 | Mas de 12 anos | 10% |
 
-<!-- EDITAR PARA TU EQUIPO: la tabla completa de coeficientes se publica en la Orden anual; actualizar segun la Orden vigente verificada en el Paso 1 -->
-
 ---
 
 ## Tipo de gravamen (varia por comunidad autonoma)
@@ -43,8 +41,6 @@ El ITP esta cedido a las comunidades autonomas, que fijan el tipo aplicable a la
 |---|---|
 | Tipo general estatal supletorio para bienes muebles | 4% |
 | Rango habitual entre comunidades autonomas | 4% - 8% |
-
-<!-- EDITAR PARA TU EQUIPO: confirmar el tipo exacto de la comunidad autonoma del comprador antes de estimar; algunas CCAA aplican reducciones o cuotas fijas para vehiculos antiguos o de baja potencia -->
 
 Cuota estimada = base imponible (mayor valor) x tipo autonomico. La skill ofrece una estimacion; el importe definitivo se fija en la autoliquidacion.
 
@@ -67,8 +63,6 @@ Cuota estimada = base imponible (mayor valor) x tipo autonomico. La skill ofrece
 - Transmision por empresario o profesional en su actividad: tributa por IVA, no por ITP (factura con IVA).
 - Algunas comunidades autonomas contemplan exenciones o cuotas reducidas para vehiculos de mas de determinada antiguedad o de baja cilindrada.
 - La transmision entre familiares no esta, por si sola, exenta de ITP salvo prevision autonomica expresa.
-
-<!-- EDITAR PARA TU EQUIPO: revisar las exenciones y reducciones especificas de la comunidad autonoma del comprador -->
 
 ---
 

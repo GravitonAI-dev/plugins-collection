@@ -52,8 +52,6 @@ Una solicitud dirigida a la Oficina de Extranjeria sigue el esquema clasico del 
 
 ## Formato (recomendado)
 
-<!-- EDITAR PARA TU EQUIPO: ajustar al formato que exija la Oficina de Extranjeria de vuestra provincia -->
-
 - Tipo de letra legible, interlineado sencillo o 1,5.
 - Un espacio entre apartados; encabezados sobrios.
 - Numeracion de paginas si el escrito supera una hoja.

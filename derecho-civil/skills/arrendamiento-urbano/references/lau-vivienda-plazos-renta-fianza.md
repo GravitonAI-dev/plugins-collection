@@ -121,8 +121,6 @@ Tras 5 anos de contrato (7 si arrendador persona juridica), el arrendador que re
 
 ## Deposito de fianza por comunidad autonoma
 
-<!-- EDITAR PARA TU EQUIPO: completar con los organismos de las CCAA en las que opera el despacho -->
-
 | Comunidad Autonoma | Organismo | Plazo deposito |
 |---|---|---|
 | Madrid | Agencia de Vivienda Social (AVS) | 1 mes desde firma |

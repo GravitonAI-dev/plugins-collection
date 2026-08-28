@@ -66,8 +66,6 @@ Una demanda de mutuo acuerdo es un asunto sencillo: debe ser breve y remitir al 
 
 ## Formato (recomendado)
 
-<!-- EDITAR PARA TU EQUIPO: ajustar a los criterios del juzgado o del despacho -->
-
 - Tipo de letra legible (p. ej. Times New Roman 12 o Arial 11), interlineado 1,5.
 - Margenes suficientes; numeracion de paginas.
 - Un espacio entre clausulas; encabezados de clausula destacados de forma sobria.

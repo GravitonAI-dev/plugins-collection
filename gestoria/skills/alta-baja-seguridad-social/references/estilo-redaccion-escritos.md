@@ -40,8 +40,6 @@
 
 ## Formato (recomendado)
 
-<!-- EDITAR PARA TU EQUIPO: ajustar a los criterios de vuestra gestoria o al formato de vuestro cliente -->
-
 - Tipo de letra legible; interlineado comodo.
 - Un espacio entre bloques; encabezados sobrios.
 - Tablas para los datos que van a volcarse casilla a casilla en el modelo oficial o en el Sistema RED.

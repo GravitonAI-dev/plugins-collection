@@ -58,4 +58,3 @@ La skill nunca calcula la cuota del ISD ni de la plusvalia. Al entregar los docu
 2. Que si hay inmuebles urbanos hay que liquidar tambien la plusvalia municipal, tambien en 6 meses.
 3. Que la normativa autonomica del ISD debe verificarse con `web_search` para la comunidad autonoma del causante.
 
-<!-- EDITAR PARA TU EQUIPO: fijar aqui las CCAA en las que opera habitualmente el despacho y enlazar sus portales tributarios autonomicos para agilizar la verificacion. -->

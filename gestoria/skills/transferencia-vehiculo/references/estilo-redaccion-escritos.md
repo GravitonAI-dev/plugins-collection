@@ -43,8 +43,6 @@ Para el contrato de compraventa: estructura de contrato civil (partes, expositiv
 
 ## Formato (recomendado)
 
-<!-- EDITAR PARA TU EQUIPO: ajustar a los criterios del organismo o de la gestoria -->
-
 - Tipo de letra legible (p. ej. Arial 11 o Times New Roman 12), interlineado sencillo o 1,5.
 - Datos del vehiculo siempre completos: matricula y numero de bastidor (VIN).
 - Importes en euros con dos decimales; fechas en formato dia/mes/ano.

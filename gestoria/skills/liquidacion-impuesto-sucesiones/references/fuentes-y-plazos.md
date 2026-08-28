@@ -38,8 +38,6 @@ Articulos relevantes de la Ley 29/1987 para esta skill: 1, 3, 5-8 (hecho imponib
 | Instrucciones AEAT | https://sede.agenciatributaria.gob.es/Sede/procedimientoini/G702.shtml |
 | Sede de presentacion | Hacienda autonomica de la CCAA de residencia habitual del causante. Muchas CCAA usan su propio modelo y su propia sede electronica [verificar por CCAA] |
 
-<!-- EDITAR PARA TU EQUIPO: enlazar aqui las sedes electronicas de las Haciendas autonomicas donde el despacho presenta con mas frecuencia y su modelo autonomico equivalente al 650. -->
-
 ---
 
 ## Plazos

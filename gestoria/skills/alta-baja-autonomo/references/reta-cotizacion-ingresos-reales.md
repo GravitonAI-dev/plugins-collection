@@ -106,4 +106,3 @@ Marcar estas reglas como `[verificar]` y confirmarlas en el Paso 1, ya que depen
 
 ---
 
-<!-- EDITAR PARA TU EQUIPO: al inicio de cada ejercicio, actualizar la tabla de tramos, cuotas, tipo y tarifa plana con los importes oficiales publicados -->

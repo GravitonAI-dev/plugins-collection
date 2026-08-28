@@ -39,8 +39,6 @@ La notificacion de venta permite al vendedor dejar de figurar como titular y no 
 | Justificante de pago de la tasa DGT | Tasa de transferencia abonada (ver tabla de tasas) |
 | Justificante del IVTM al corriente | Recibo del Impuesto sobre Vehiculos de Traccion Mecanica del ejercicio |
 
-<!-- EDITAR PARA TU EQUIPO: ajustar la lista si el organismo exige documentacion adicional segun el caso (representacion, vehiculos importados, etc.) -->
-
 ---
 
 ## Documentos para la notificacion de venta (vendedor)
@@ -61,8 +59,6 @@ La notificacion de venta permite al vendedor dejar de figurar como titular y no 
 | Transferencia de vehiculo (turismo y demas vehiculos) | 1.5 | 55,70 EUR |
 | Transferencia de ciclomotores y vehiculos ligeros asimilados | 1.2 | 27,85 EUR |
 | Notificacion de venta / custodia | 4.1 | 8,67 EUR |
-
-<!-- EDITAR PARA TU EQUIPO: los importes se verifican en la sede de la DGT en cada lanzamiento (Paso 1); actualizar aqui si cambian -->
 
 La tasa se abona en la propia Sede Electronica al realizar el tramite, o previamente, indicando despues el numero de tasa que figura en el justificante de compra.
 

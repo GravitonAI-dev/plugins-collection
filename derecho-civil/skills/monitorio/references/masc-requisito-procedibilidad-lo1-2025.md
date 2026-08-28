@@ -50,8 +50,6 @@ No se exige el intento de MASC, entre otros, en:
 
 ## El burofax como acreditacion del intento
 
-<!-- EDITAR PARA TU EQUIPO: ajustar al criterio del juzgado o de la practica del despacho -->
-
 Un burofax con acuse de recibo y certificacion de texto dirigido al deudor, requiriendo el pago y ofreciendo negociar, sirve habitualmente para:
 - Constituir en mora al deudor (Art. 1100 CC) y devengar intereses.
 - Acreditar un intento de solucion extrajudicial.

@@ -22,8 +22,6 @@ La enervacion es la facultad del arrendatario demandado por falta de pago de dej
 
 Si el arrendador quiere excluir la enervacion, debe practicar el requerimiento fehaciente de pago (burofax con acuse de recibo o requerimiento notarial) con 30 dias de antelacion y hacerlo constar en la demanda, acompanando el justificante.
 
-<!-- EDITAR PARA TU EQUIPO: incorporar el modelo de requerimiento fehaciente de pago que use el despacho -->
-
 ---
 
 ## Requisito de MASC en el desahucio (Art. 403.2 LEC)
@@ -47,8 +45,6 @@ Cuando el desahucio afecta a la vivienda habitual del demandado, aplican garanti
 - **Identificacion de la vulnerabilidad:** en determinados supuestos (en particular cuando el arrendador es gran tenedor), la demanda debe pronunciarse sobre si el demandado puede encontrarse en situacion de vulnerabilidad economica y sobre si se ha acudido a los procedimientos de conciliacion o intermediacion previstos por la normativa de vivienda.
 - **Traslado a servicios sociales:** si el demandado alega vulnerabilidad economica, ello implica el consentimiento para que se de traslado a los servicios sociales, que pueden actuar y emitir informe.
 - **Suspension extraordinaria del lanzamiento:** la normativa de emergencia habitacional preve, por periodos determinados, la posibilidad de instar la suspension del lanzamiento por vulnerabilidad economica sin alternativa habitacional. Estos plazos se prorrogan y modifican periodicamente.
-
-<!-- EDITAR PARA TU EQUIPO: confirmar en el BOE el periodo de vigencia y las condiciones de la suspension extraordinaria por vulnerabilidad aplicable a la fecha del caso -->
 
 ### Marca de verificacion
 

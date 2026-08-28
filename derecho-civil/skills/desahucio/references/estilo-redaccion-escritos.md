@@ -56,8 +56,6 @@ Una demanda de desahucio es, por regla general, un asunto sencillo o de compleji
 
 ## Formato (recomendado)
 
-<!-- EDITAR PARA TU EQUIPO: ajustar a los criterios del juzgado o del despacho -->
-
 - Tipo de letra legible (p. ej. Times New Roman 12 o Arial 11), interlineado 1,5.
 - Margenes suficientes; numeracion de paginas.
 - Un espacio entre apartados; encabezados destacados de forma sobria.

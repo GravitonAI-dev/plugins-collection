@@ -62,8 +62,6 @@ Los requisitos economicos se expresan como porcentaje del IPREM (Indicador Publi
 
 `[verificar]` Los porcentajes y el IPREM se confirman con la fuente oficial antes de aplicar.
 
-<!-- EDITAR PARA TU EQUIPO: ajustar los porcentajes de medios economicos y el IPREM al ano vigente y a la practica de la Oficina de Extranjeria de vuestra provincia -->
-
 ---
 
 ## Lo que NO cubre esta reference

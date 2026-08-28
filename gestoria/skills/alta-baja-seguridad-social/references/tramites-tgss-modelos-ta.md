@@ -55,4 +55,3 @@ Nota: la denominacion exacta del modelo o su codigo puede variar; verificar en e
 
 ---
 
-<!-- EDITAR PARA TU EQUIPO: si trabajais habitualmente con un modulo RED concreto (RED Directo o SILTRA) o con un procedimiento interno de recogida de datos, documentarlo aqui -->

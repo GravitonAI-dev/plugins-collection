@@ -26,8 +26,6 @@
 - Tras la STC 182/2021 y el RDL 26/2021, no hay sujecion si no existe incremento real de valor del terreno. Conviene comparar el metodo objetivo y el metodo de calculo real y elegir el mas favorable. [verificar]
 - El calculo y las bonificaciones (por ejemplo, por vivienda habitual del causante) dependen de la ORDENANZA de cada ayuntamiento. [verificar]
 
-<!-- EDITAR PARA TU EQUIPO: anotar aqui los ayuntamientos donde el despacho tramita con mas frecuencia y el enlace a su ordenanza fiscal del IIVTNU. -->
-
 ---
 
 ## Regla para la skill

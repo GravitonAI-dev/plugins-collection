@@ -74,8 +74,6 @@ Declarada la nulidad, procede reponer la situacion al momento anterior a la apli
 
 ## Que NO cubre este regimen
 
-<!-- EDITAR PARA TU EQUIPO: ajustar a la practica del despacho y a la normativa autonomica de consumo -->
-
 - Contratos entre empresarios o profesionales (rige el control de la LCGC en cuanto a incorporacion, pero no el control de contenido del consumo).
 - Clausulas negociadas individualmente.
 - Materias de consumo distintas (garantias del producto, viajes combinados, servicios financieros no referidos a clausulas abusivas), que exigen encuadre propio.

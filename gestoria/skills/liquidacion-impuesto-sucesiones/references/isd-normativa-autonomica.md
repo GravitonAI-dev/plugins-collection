@@ -42,8 +42,6 @@ Consecuencia: una misma herencia puede tributar de forma muy distinta segun dond
 
 Los datos anteriores cambian con frecuencia y pueden estar desactualizados. Sirven solo para orientar la busqueda, nunca como cuota.
 
-<!-- EDITAR PARA TU EQUIPO: sustituir esta tabla por las CCAA reales del equipo, con enlaces a sus portales tributarios autonomicos y la fecha de ultima verificacion. -->
-
 ---
 
 ## Como verificar (OBLIGATORIO en el Paso 1.3)

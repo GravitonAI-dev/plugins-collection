@@ -71,4 +71,3 @@ La colacion no es una obligacion de restituir, sino una operacion contable: se c
 6. **Calculo de las legitimas** sobre el haber liquido (ver `cc-sucesiones-y-legitima.md`).
 7. **Formacion de lotes y adjudicaciones** guardando la igualdad (Art. 1061) y compensando en metalico los excesos de adjudicacion (Art. 1062).
 
-<!-- EDITAR PARA TU EQUIPO: si el causante estaba casado en gananciales, liquidar primero la sociedad de gananciales (arts. 1392 y ss. CC) y llevar al caudal hereditario solo la mitad del causante mas sus bienes privativos. -->

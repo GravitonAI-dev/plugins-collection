@@ -60,4 +60,3 @@ El incumplimiento (falta de alta, alta o baja fuera de plazo) puede dar lugar a 
 
 ---
 
-<!-- EDITAR PARA TU EQUIPO: si operais con especialidades autonomicas, convenios especiales o colectivos con reglas propias (agrario, mar, artistas), anadir aqui las particularidades aplicables -->

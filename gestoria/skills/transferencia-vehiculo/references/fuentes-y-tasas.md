@@ -39,8 +39,6 @@ Articulos relevantes del RGV para esta skill: 32 (transmision entre personas que
 | Transferencia de ciclomotores y ligeros | 1.2 | 27,85 EUR |
 | Notificacion de venta / custodia | 4.1 | 8,67 EUR |
 
-<!-- EDITAR PARA TU EQUIPO: verificar los importes de tasa en la sede de la DGT en cada lanzamiento; actualizar esta tabla y la de dgt-cambio-titularidad.md si cambian -->
-
 ---
 
 ## Fiscalidad autonomica (ITP)

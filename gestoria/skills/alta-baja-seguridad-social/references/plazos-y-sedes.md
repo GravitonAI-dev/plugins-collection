@@ -60,4 +60,3 @@ Portales: Import@ss (portal.seg-social.gob.es) y app Importass; sede electronica
 
 ---
 
-<!-- EDITAR PARA TU EQUIPO: al detectar un cambio de plazo o de modelo TA, actualizar esta tabla y la fila "Version registrada" con la fecha de verificacion -->

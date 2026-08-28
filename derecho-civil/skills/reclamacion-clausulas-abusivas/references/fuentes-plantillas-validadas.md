@@ -50,6 +50,4 @@ Principios aplicados en los assets: estructura clara con HECHOS y FUNDAMENTOS DE
 
 ## Verificacion de normativa autonomica o especial
 
-<!-- EDITAR PARA TU EQUIPO: anadir el organismo de consumo de vuestra comunidad autonoma -->
-
 Para la via administrativa de consumo (hojas de reclamaciones, arbitraje de consumo) y para especialidades autonomicas, verificar con `web_search` la normativa vigente de la comunidad autonoma del consumidor antes de orientar sobre esa via. Para la tarjeta revolving, verificar ademas el encuadre de usura (Ley de 23 de julio de 1908, de Represion de la Usura).

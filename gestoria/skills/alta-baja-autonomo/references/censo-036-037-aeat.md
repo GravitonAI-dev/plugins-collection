@@ -105,4 +105,3 @@ Advertir de que la baja NO exime de presentar estas declaraciones ni de saldar d
 
 ---
 
-<!-- EDITAR PARA TU EQUIPO: ajustar los epigrafes IAE y regimenes mas frecuentes de vuestra cartera de clientes -->

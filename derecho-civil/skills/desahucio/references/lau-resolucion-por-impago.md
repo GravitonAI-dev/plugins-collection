@@ -48,4 +48,3 @@ En los arrendamientos para uso distinto del de vivienda, el incumplimiento por e
 
 La accion de desahucio por falta de pago (Art. 250.1.1 LEC) tiene su fundamento sustantivo en el Art. 27.2.a) LAU: el impago de la renta o cantidades asimiladas habilita la resolucion del contrato y la recuperacion de la posesion. La demanda debe invocar ambos preceptos: el sustantivo (Art. 27 LAU) y el procesal (Art. 250.1.1 y concordantes LEC).
 
-<!-- EDITAR PARA TU EQUIPO: revisar si existe normativa autonomica complementaria sobre resolucion y desahucio en la comunidad autonoma del inmueble -->

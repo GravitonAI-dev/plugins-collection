@@ -24,8 +24,6 @@ Articulos relevantes de la LEC para esta skill: 250.1.1 y 250.1.2 (supuestos de 
 
 Articulos relevantes de la LAU: 27 (resolucion por impago) y 35 (resolucion en uso distinto de vivienda).
 
-<!-- EDITAR PARA TU EQUIPO: la vigencia de la suspension extraordinaria del lanzamiento por vulnerabilidad (RDL 2/2026) es temporal; confirmar en el BOE su periodo vigente en la fecha del caso -->
-
 ---
 
 ## Plantillas de la skill

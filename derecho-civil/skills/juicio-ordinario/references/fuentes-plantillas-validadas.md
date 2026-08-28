@@ -19,8 +19,6 @@ Cada vez que se lanza la skill, en el Paso 1 se comprueban las fuentes de esta t
 | RDL 6/2023 (que elevo a 15.000 euros el umbral del juicio verbal / ordinario) | BOE-A-2023-25652 | 20/12/2023 (en vigor 20/03/2024) | https://www.boe.es/buscar/act.php?id=BOE-A-2023-25652 |
 | LO 1/2025 de eficiencia del Servicio Publico de Justicia | BOE-A-2025-76 | 02/01/2025 (en vigor 03/04/2025) | https://www.boe.es/buscar/act.php?id=BOE-A-2025-76 |
 
-<!-- EDITAR PARA TU EQUIPO: el umbral de cuantia entre juicio verbal y ordinario (15.000 euros desde el 20/03/2024) puede variar; confirmar en el BOE el importe vigente en la fecha del caso -->
-
 Articulos relevantes de la LEC para esta skill:
 - Ambito y cuantia: 248, 249.1 (por razon de la materia), 249.2 (por cuantia superior a 15.000 euros), 250 (juicio verbal, por contraste), 251-255 (determinacion de la cuantia).
 - Admisibilidad y postulacion: 23 y 31 (abogado y procurador), 45, 50-52 (competencia objetiva y territorial).

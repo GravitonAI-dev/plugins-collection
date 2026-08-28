@@ -23,8 +23,6 @@ No cabe seguir el juicio ordinario sin ambos profesionales (a diferencia del mon
 
 Corresponde a los Juzgados de Primera Instancia el conocimiento, en primera instancia, de todos los asuntos civiles que por disposicion legal no esten atribuidos a otros tribunales. El juicio ordinario, salvo atribucion especial (p. ej. Juzgados de lo Mercantil en ciertas materias del Art. 249.1), se conoce por el Juzgado de Primera Instancia.
 
-<!-- EDITAR PARA TU EQUIPO: algunas materias del Art. 249.1 (competencia desleal, propiedad industrial e intelectual, condiciones generales, impugnacion de acuerdos sociales) pueden corresponder a los Juzgados de lo Mercantil; verificar la atribucion vigente -->
-
 ---
 
 ## Competencia territorial (Arts. 50-52) y sumision
@@ -63,8 +61,6 @@ La Ley Organica 1/2025, de 2 de enero, de medidas en materia de eficiencia del S
 **Excepciones (verificar en la LO 1/2025).** No se exige el intento previo, entre otros supuestos, en la tutela de derechos fundamentales, en procesos con medidas cautelares, en la tutela sumaria de la posesion, en materia de menores o familia con determinadas especialidades, y en la ejecucion. Verificar el listado vigente antes de decidir.
 
 **Efecto en costas.** La participacion o negativa injustificada a participar en el MASC puede ser valorada por el tribunal a efectos de imposicion y tasacion de costas.
-
-<!-- EDITAR PARA TU EQUIPO: la aplicacion practica del requisito de MASC y sus excepciones ha generado criterios divergentes entre juzgados; confirmar el criterio del partido judicial competente -->
 
 ---
 

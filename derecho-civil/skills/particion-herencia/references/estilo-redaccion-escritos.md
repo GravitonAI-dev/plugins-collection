@@ -53,8 +53,6 @@ Un cuaderno particional / escritura de aceptacion y particion sigue este orden:
 
 ## Formato (recomendado)
 
-<!-- EDITAR PARA TU EQUIPO: ajustar a los criterios del despacho o de la notaria donde se elevara a publico -->
-
 - Tipo de letra legible (p. ej. Times New Roman 12 o Arial 11), interlineado 1,5.
 - Margenes suficientes; numeracion de paginas.
 - Encabezados sobrios de cada apartado (INVENTARIO, LIQUIDACION, ADJUDICACIONES).

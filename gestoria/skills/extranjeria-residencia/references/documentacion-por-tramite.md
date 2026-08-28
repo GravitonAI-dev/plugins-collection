@@ -81,4 +81,3 @@ Solicitud desde el extranjero: la autorizacion se acompana del visado de residen
 - Los documentos publicos extranjeros deben estar legalizados o apostillados (Convenio de La Haya) segun el pais.
 - Los documentos en otro idioma deben acompanarse de traduccion oficial al espanol.
 
-<!-- EDITAR PARA TU EQUIPO: ajustar la documentacion exigida a la practica de la Oficina de Extranjeria de vuestra provincia y a las instrucciones vigentes -->
