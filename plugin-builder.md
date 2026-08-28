@@ -253,15 +253,16 @@ Si no, responde "no".`
 
 Verifica cada id contra los catalogos raiz. Si alguno no esta, rechaza y pide elegir otro: `El id "X" no esta en el catalogo global. Solo puedes elegir de los disponibles. Te listo las opciones: <lista>.`
 
-**Pregunta 9 — Diseño Estructural de la Skill (Basado en la Guía).**
-`Antes de detallar el procedimiento de esta skill, DEBES leer el archivo `PLUGIN_AUTHORING_GUIDE.md` de la raíz del repo. 
-El flujo de toda skill debe encajar en los 4 pasos obligatorios definidos allí:
-1. Vectores de Estado (¿qué datos dinámicos extraemos en silencio?).
-2. Verificación (¿qué consultamos antes de escribir?).
-3. Creación Base (Zero Vacíos).
-4. Edición Incremental de Cláusulas/Secciones.
+**Pregunta 9 — Diseño Estructural de la Skill (Estándar Canónico de 5 Fases).**
+`Antes de detallar el procedimiento de esta skill, DEBES leer la sección 3 del archivo `PLUGIN_AUTHORING_GUIDE.md` de la raíz del repo (referencia canónica: skill "arrendamiento-urbano").
+El flujo de toda skill debe estructurarse obligatoriamente en las 5 fases secuenciales:
+1. Fase 1: Clasificación Inicial (Escucha Activa + Formulario HITL `restricted_human_in_the_loop_request` para resolver vectores V1-V4 + Enrutamiento de Estado).
+2. Fase 2: Plan de Acción, Marco Legal/Técnico y Negociación de Assets (En texto plano conversacional en chat, sin formularios + propuesta de plantilla oficial del sistema + resolución de V5: plantilla_sistema vs plantilla_usuario con guardrail de verificación de cláusulas nulas).
+3. Fase 3: Creación del Documento Base en Disco (Escritura `create_file` con Zero-Omission `{{DATO_FALTANTE}}` + verificación `read_file` + confirmación de ruta en chat encadenando de inmediato la Fase 4).
+4. Fase 4: Edición Incremental Cláusula a Cláusula / Sección a Sección (Ciclo estricto: Pregunta en Chat -> Vista previa en texto plano -> "¿Confirmamos esta cláusula?" -> `edit_file` + `read_file` + Hoja de Ruta con condicionales).
+5. Fase 5: Bucle de Realimentación Final y Cierre (Menú interactivo de 5 opciones + Advertencias preceptivas de cierre).
 
-Dime cómo encaja la lógica de esta skill ("<nombre>") dentro de esas 4 secciones obligatorias, para que yo arme el esqueleto de tu SKILL.md. Si alguna sección (como Verificación) no aplica, dímelo.`
+Dime cómo encaja la lógica de esta skill ("<nombre>") dentro de estas 5 fases obligatorias y qué límites/guardrails gobernados por vectores aplican, para que yo arme el esqueleto canónico de tu SKILL.md.`
 
 **Pregunta 10 — Escalacion.**
 `Cuando debe escalar la skill y a donde?
@@ -691,7 +692,7 @@ Si en medio de un modo el usuario dice algo que no es de scaffolding (ej: "ahora
 
 | Archivo | Rol | Contenido |
 |---|---|---|
-| `<plugin>/skills/<skill>/SKILL.md` | Corazón de la skill. Lo lee el agente para saber qué pasos seguir | **ESTRICTAMENTE la estructura definida en la sección 3 de `PLUGIN_AUTHORING_GUIDE.md`.** (Invisibilidad, Vectores de Estado, Enrutamiento, Creación y Edición Incremental). |
+| `<plugin>/skills/<skill>/SKILL.md` | Corazón de la skill. Lo lee el agente para saber qué pasos seguir | **ESTRICTAMENTE la estructura definida en la sección 3 de `PLUGIN_AUTHORING_GUIDE.md` (Estándar Canónico de 5 Fases, referencia: `arrendamiento-urbano`).** (Invisibilidad, Clasificación HITL V1-V4, Plan y Negociación V5 en Chat, Creación Base Zero-Omission, Edición Incremental Cláusula a Cláusula con ciclo Pregunta/Preview/Confirmación/edit_file, Menú Final y Guardrails de Dominio). |
 
 ### 13.5 Skill — opcionales
 
