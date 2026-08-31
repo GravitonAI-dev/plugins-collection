@@ -58,11 +58,17 @@ Antes de formular preguntas o abrir formularios, evalúa el mensaje del usuario 
   - Avanza directamente a la **Fase 2**.
 - Si falta determinar la skill objetivo, el asset específico o no se ha adjuntado documento, formula la consulta correspondiente.
 
-### 1.2 Formulario o Consulta de Selección
-Si la skill o el asset no están definidos, formula una pregunta clara en el chat o invoca `restricted_human_in_the_loop_request` para que el usuario precise:
-1. ¿Para qué skill del sistema desea registrar su plantilla personalizada?
-2. ¿Qué plantilla o documento específico de esa skill desea sustituir? (ej. contrato de vivienda, contrato de local, demanda por falta de pago, etc.).
-3. Si aún no ha adjuntado el documento de ejemplo, solicitarle que lo adjunte o pegue su contenido en el chat.
+### 1.2 Selección Jerárquica y Consulta Interactiva (Plugin -> Skill -> Asset)
+Si la skill o el asset no están completamente definidos, guía al usuario a través del **orden jerárquico de selección**:
+1. **Paso 1 — Selección de Plugin (Área temática):** Identificar el plugin o área de trabajo (ej. `derecho-civil`, `laboral`, `fiscal`, etc.).
+2. **Paso 2 — Selección de Skill (`V1`):** Identificar la skill especializada dentro del plugin seleccionado (ej. `arrendamiento-urbano`, `desahucio`, `convenio-regulador`, etc.).
+3. **Paso 3 — Selección de Asset (`V2`):** Identificar el asset o plantilla específica declarada en esa skill a ser reemplazada (ej. `template-contrato-arrendamiento-vivienda.md`, `template-contrato-arrendamiento-local.md`, etc.).
+
+**Disponibilidad y Uso del Catálogo Oficial:**
+- **Catálogo en Contexto:** Dispones del inventario jerárquico oficial en el bloque de documento `<document id="catalog:plugins-skills-assets">` del prompt.
+- **Herramienta de Catálogo:** Si requieres filtrar o consultar dinámicamente, invoca la tool `list_skills_and_assets(plugin_name=..., skill_name=...)`.
+- **Formularios Precisos:** Al invocar `restricted_human_in_the_loop_request`, construye las opciones (`id`, `label`) a partir de los datos exactos del catálogo para garantizar que `V1` y `V2` sean 100% válidos.
+- Si aún no se ha adjuntado el documento de ejemplo, solicitarle que lo adjunte o pegue su contenido en el chat.
 
 ### 1.3 Validación de Parámetros de Destino
 Una vez identificados `V1` y `V2`:
