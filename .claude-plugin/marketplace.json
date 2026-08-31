@@ -1,5 +1,4 @@
 {
-  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "plugins-collection",
   "description": "Marketplace de plugins de Claude de GravitonAI. Colección de referencia con skills, agentes, MCP servers y tools para flujos legales y otros verticales. Todo el contenido está en español.",
   "owner": {
@@ -33,6 +32,16 @@
       "source": "./gestion-plantillas",
       "version": "0.1.0",
       "description": "Creacion, parametrizacion y registro de plantillas personalizadas (assets) para las skills especializadas de GravitonAI mediante set_skill_template a partir de minutas y documentos de ejemplo adjuntos.",
+      "author": {
+        "name": "GravitonAI"
+      }
+    },
+    {
+      "name": "asistente-general",
+      "displayName": "Asistente General",
+      "source": "./asistente-general",
+      "version": "0.1.0",
+      "description": "Asistente universal de primera linea y fallback para consultas generales, orientacion juridica y administrativa multidisciplinar, busquedas web, analisis de hechos y generacion bajo demanda de informes y memorandums tecnicos.",
       "author": {
         "name": "GravitonAI"
       }

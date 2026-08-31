@@ -1,0 +1,14 @@
+{
+  "name": "asistente-general",
+  "displayName": "Asistente General",
+  "version": "0.1.0",
+  "description": "Asistente universal de primera linea y fallback para consultas generales, orientacion juridica y administrativa multidisciplinar, busquedas web, analisis de hechos y generacion bajo demanda de informes y memorandums tecnicos.",
+  "author": {
+    "name": "GravitonAI"
+  },
+  "skills": [
+    "./skills/consulta-general"
+  ],
+  "agents": [],
+  "hooks": []
+}

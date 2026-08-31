@@ -1,0 +1,475 @@
+{
+  "version": "1.0",
+  "description": "Herramientas que el plugin asistente-general puede invocar. Sigue el formato de declaración de tools de MCP (input_schema / output_schema en JSON Schema) con las definiciones exactas del catálogo global.",
+  "owner": {
+    "name": "GravitonAI"
+  },
+  "tools": [
+    {
+      "id": "io.gravitonai.tools.read_file",
+      "name": "read_file",
+      "description": "Lee el contenido UTF-8 de un archivo existente en el espacio de trabajo de la conversación a partir de una ruta relativa al directorio raíz del workspace. Path traversal bloqueado.\n\nREGLAS CRÍTICAS DE ALCANCE:\n- Usar esta herramienta ÚNICAMENTE para inspeccionar documentos creados o almacenados en el espacio de trabajo actual de la conversación (ver '# WORKSPACE ACTIVE DOCUMENTS').\n- NO usar esta herramienta para leer assets, references, scripts o skills de plugins (e.g., rutas que comiencen por 'plugins-collection/', 'assets/', 'references/'). Todos los recursos de plugins ya están cargados en el prompt dentro del bloque XML <documents> y deben leerse directamente de allí.",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "relative_file_path": {
+            "type": "string",
+            "description": "Ruta estilo POSIX (barras inclinadas '/') relativa al directorio raíz del espacio de trabajo de la conversación activa (ej: 'documento.md', 'informes/resumen.md'). Se rechazan segmentos '..' y rutas absolutas. El archivo ya debe existir en el espacio de trabajo."
+          }
+        },
+        "required": [
+          "relative_file_path"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "description": "Contenido completo en texto UTF-8 del archivo o mensaje informativo de guía."
+          }
+        }
+      },
+      "tags": [
+        "io",
+        "workspace",
+        "files"
+      ],
+      "side_effects": false
+    },
+    {
+      "id": "io.gravitonai.tools.create_file",
+      "name": "create_file",
+      "description": "Crea un nuevo archivo en el espacio de trabajo de la conversación en una ruta relativa al directorio raíz del workspace, creando directorios padre automáticamente según sea necesario.\n\nREGLAS CRÍTICAS:\n- Nunca escribir marcadores de sincronización (como '[Contenido sincronizado...]'). DEBES escribir el contenido completo e íntegro del documento.\n- NUNCA usar esta herramienta para crear copias versionadas (ej. `archivo_v2.md`, `archivo_actualizado.md`) de un documento existente en el workspace; usar `edit_file` para modificar archivos existentes.\n- Se rechazan segmentos '..' y rutas absolutas en relative_file_path.\nDevuelve {\"success\": bool, \"data\": <ruta_absoluta>} en caso de éxito o {\"success\": false, \"error\": \"...\"} en caso de fallo.",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "relative_file_path": {
+            "type": "string",
+            "description": "Ruta estilo POSIX (barras inclinadas '/') relativa al directorio raíz del espacio de trabajo. Se rechazan '..' y rutas absolutas. Los directorios padre se crean automáticamente."
+          },
+          "file_content": {
+            "type": "string",
+            "description": "Contenido UTF-8 a escribir en el archivo. Debe ser el texto completo. Los marcadores de sincronización están estrictamente prohibidos."
+          }
+        },
+        "required": [
+          "relative_file_path",
+          "file_content"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "string",
+            "description": "Ruta absoluta del archivo creado"
+          },
+          "error": {
+            "type": "string",
+            "description": "Mensaje de error si la creación falla"
+          }
+        }
+      },
+      "tags": [
+        "io",
+        "workspace",
+        "files",
+        "creation"
+      ],
+      "side_effects": true
+    },
+    {
+      "id": "io.gravitonai.tools.edit_file",
+      "name": "edit_file",
+      "description": "Edita un archivo existente en el espacio de trabajo de la conversación reemplazando ocurrencias de `old_string` con `new_string`. Usa esta herramienta para modificar, mejorar, expandir o corregir archivos existentes en el workspace en lugar de crear nuevos archivos versionados.\n\nREGLAS CRÍTICAS:\n- Consultar el contenido auténtico en '# WORKSPACE ACTIVE DOCUMENTS' para identificar el texto exacto de `old_string`.\n- Nunca usar marcadores de sincronización (ej. '[Contenido sincronizado...]') como `old_string` o `new_string`.\n- Si `replace_all` es false (por defecto), `old_string` debe aparecer EXACTAMENTE una vez en el archivo; de lo contrario la llamada falla.\n- Si `replace_all` es true, se reemplaza cada ocurrencia.\n- La coincidencia es exacta a nivel de bytes primero, y luego tolerante a diferencias de finales de línea, secuencias de espacios en blanco y escapes de barra invertida en markdown. Si no coincide nada, el error incluye la región más cercana del archivo en disco: copiar `old_string` textualmente de ese fragmento en lugar de reintentar el mismo texto.\n- El archivo ya debe existir en el espacio de trabajo. Path traversal bloqueado.\nDevuelve {\"success\": bool, \"data\": <ruta_absoluta>} en caso de éxito o {\"success\": false, \"error\": \"...\"} en caso de fallo.",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "relative_file_path": {
+            "type": "string",
+            "description": "Ruta estilo POSIX (barras inclinadas '/') relativa al directorio raíz del espacio de trabajo. Se rechazan '..' y rutas absolutas."
+          },
+          "old_string": {
+            "type": "string",
+            "description": "La subcadena a buscar en el archivo existente. No debe estar vacía y debe ser única en el archivo a menos que replace_all sea true."
+          },
+          "new_string": {
+            "type": "string",
+            "description": "La subcadena de reemplazo. Puede estar vacía (elimina el texto coincidente) o ser igual a old_string (operación no-op). Los marcadores de sincronización están estrictamente prohibidos."
+          },
+          "replace_all": {
+            "type": "boolean",
+            "default": false,
+            "description": "Si es true, reemplaza cada ocurrencia de old_string. Si es false (por defecto), old_string debe aparecer exactamente una vez."
+          }
+        },
+        "required": [
+          "relative_file_path",
+          "old_string",
+          "new_string"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "string",
+            "description": "Ruta absoluta del archivo editado"
+          },
+          "error": {
+            "type": "string",
+            "description": "Mensaje de error si la edición falla"
+          }
+        }
+      },
+      "tags": [
+        "io",
+        "workspace",
+        "files",
+        "editing"
+      ],
+      "side_effects": true
+    },
+    {
+      "id": "io.gravitonai.tools.web_search",
+      "name": "web_search",
+      "description": "Realiza una búsqueda en la web abierta y devuelve hasta N resultados con título, URL, fragmento (snippet) y un breve extracto de contenido (~800 caracteres por resultado). Cada resultado es un objeto con las claves: title (str), url (str), snippet (str), content (str).\n\nREGLAS DE USO — ESTRICTAMENTE OBLIGATORIAS:\n- DEBES EVITAR usar esta herramienta a menos que sea ESTRICTAMENTE necesario.\n- PRIMERO, determina si puedes responder a la consulta del usuario utilizando tus propios conocimientos sin búsqueda web. La búsqueda web es una operación costosa, úsala ÚNICAMENTE si es estrictamente necesaria.\n- Realiza como máximo entre 1 y 4 llamadas a web_search por turno. NUNCA emitas 5 o más llamadas con temas superpuestos.\n- Cada llamada DEBE tener un ID único y un par (query, num_results) único. Las llamadas duplicadas se descartan silenciosamente y devuelven resultados vacíos.\n- `query` es OBLIGATORIO y DEBE ser una cadena no vacía. Las llamadas con query vacía o ausente se descartan silenciosamente.\n- Usa `num_results` entre 3 y 5. Solicita hasta 10 ÚNICAMENTE cuando el tema sea amplio y realmente necesites mayor cobertura.\n- Cada resultado ya incluye título, url, snippet y un extracto de contenido breve. NO vuelvas a llamar a web_search para obtener la misma página completa; cita las URLs en su lugar.\n- Si necesitas información sobre varios aspectos, prefiere UNA consulta específica por llamada en lugar de muchas llamadas paralelas similares.\n- Por defecto, los resultados NO están restringidos por fecha. Establece `recency` ÚNICAMENTE para temas sensibles al tiempo (noticias de última hora, precios, lanzamientos recientes, 'esta semana/hoy'). Para temas permanentes/atemporales (leyes, definiciones, historia, hechos consolidados), OMITE `recency` — restringir el rango de fechas en estos casos perjudica la calidad de los resultados.\n\nÚtil para jurisprudencia, regulación, hechos actuales o cualquier información que requiera datos públicos en tiempo real.",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Consulta de búsqueda en lenguaje natural. El texto debe llegar ya anonimizado (sin PIIs)."
+          },
+          "num_results": {
+            "type": "integer",
+            "default": 3,
+            "description": "Número de resultados a devolver (1-10). Por defecto 3. Usar 3–5 para la mayoría de consultas."
+          },
+          "recency": {
+            "type": "string",
+            "enum": [
+              "day",
+              "week",
+              "month",
+              "year"
+            ],
+            "description": "Filtro opcional de antigüedad temporal. Restringe los resultados al último día/semana/mes/año ('day', 'week', 'month', 'year'). OMITIR para temas atemporales (leyes, definiciones, jurisprudencia consolidada); establecer únicamente cuando la frescura sea determinante (noticias, precios, lanzamientos)."
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Título de la página web."
+            },
+            "url": {
+              "type": "string",
+              "description": "URL pública de la fuente."
+            },
+            "snippet": {
+              "type": "string",
+              "description": "Fragmento descriptivo o resumen corto."
+            },
+            "content": {
+              "type": "string",
+              "description": "Extracto textual representativo extraído de la página (~800 caracteres)."
+            }
+          },
+          "required": [
+            "title",
+            "url",
+            "snippet",
+            "content"
+          ]
+        }
+      },
+      "tags": [
+        "retrieval",
+        "web",
+        "research"
+      ],
+      "side_effects": false
+    },
+    {
+      "id": "io.gravitonai.tools.human_in_the_loop_request",
+      "name": "human_in_the_loop_request",
+      "description": "Solicita información al usuario a través de un formulario interactivo.\n\nESTRUCTURA — dos campos anidados, NO confundirlos:\n- Cada pregunta tiene 'selection_type': 'single_select' | 'multi_select'.\n- Cada opción tiene únicamente 'id' y 'label' (el sistema añade automáticamente una opción de texto libre y establece option_type='predefined' de forma automática).\n\nCRÍTICO: cada elemento de 'options' DEBE ser un objeto PLANO con las claves 'id', 'label'. NO envolver las opciones dentro de una clave 'item' anidada — cada opción es hermana, nunca hija.\n\nEJEMPLO:\n{\n  \"form_data\": [\n    {\n      \"id\": \"tipo_inmueble\",\n      \"rationale\": \"Necesito saber qué tipo de propiedad para incluir cláusulas específicas.\",\n      \"selection_type\": \"single_select\",\n      \"question\": \"¿Qué tipo de inmueble vas a arrendar?\",\n      \"options\": [\n        {\"id\": \"casa\",        \"label\": \"Casa / Habitación\"},\n        {\"id\": \"apartamento\", \"label\": \"Apartamento\"},\n        {\"id\": \"local\",       \"label\": \"Local comercial\"}\n      ]\n    },\n    {\n      \"id\": \"info_basica\",\n      \"rationale\": \"Datos necesarios para redactar el contrato.\",\n      \"selection_type\": \"multi_select\",\n      \"question\": \"Selecciona los datos que ya tengas disponibles:\",\n      \"options\": [\n        {\"id\": \"nombre\",  \"label\": \"Nombre completo\"},\n        {\"id\": \"cedula\",  \"label\": \"Número de cédula\"},\n        {\"id\": \"direccion\", \"label\": \"Dirección del inmueble\"}\n      ]\n    }\n  ]\n}",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "form_data": {
+            "type": "array",
+            "minItems": 1,
+            "description": "Lista de preguntas que componen el formulario.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Identificador único de la pregunta dentro del formulario."
+                },
+                "rationale": {
+                  "type": "string",
+                  "description": "Explicación interna de por qué es estrictamente necesario hacer esta pregunta al usuario."
+                },
+                "selection_type": {
+                  "type": "string",
+                  "enum": [
+                    "single_select",
+                    "multi_select"
+                  ],
+                  "description": "single_select = una opción; multi_select = se pueden elegir múltiples opciones."
+                },
+                "question": {
+                  "type": "string",
+                  "description": "Texto de la pregunta mostrado al usuario."
+                },
+                "options": {
+                  "type": "array",
+                  "minItems": 1,
+                  "description": "Lista de opciones de respuesta predefinidas. El sistema añade automáticamente una opción de texto libre. No incluir opciones de texto libre en esta lista.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "Identificador único de la opción (ej. 'opt_1', 'opt_2')."
+                      },
+                      "label": {
+                        "type": "string",
+                        "description": "Etiqueta visible de la opción."
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "label"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "rationale",
+                "selection_type",
+                "question",
+                "options"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "form_data"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "form_data": {
+            "type": "array",
+            "description": "Respuestas del usuario al formulario."
+          }
+        }
+      },
+      "tags": [
+        "interaction",
+        "hitl",
+        "form",
+        "selection"
+      ],
+      "side_effects": false
+    },
+    {
+      "id": "io.gravitonai.tools.restricted_human_in_the_loop_request",
+      "name": "restricted_human_in_the_loop_request",
+      "description": "Solicita información al usuario a través de un formulario de opciones cerradas (sin texto libre).\n\nESTRUCTURA — cada pregunta define 'id', 'rationale', 'question' y 'options'. El sistema establece automáticamente selection_type='single_select' y option_type='predefined' en cada elemento.\n\nCRÍTICO: cada elemento de 'options' DEBE ser un objeto PLANO con las claves 'id', 'label'. NO envolver las opciones dentro de una clave 'item' anidada — cada opción es hermana, nunca hija.\n\nEJEMPLO:\n{\n  \"form_data\": [\n    {\n      \"id\": \"q_scope\",\n      \"rationale\": \"Necesito que confirmes el alcance antes de proceder.\",\n      \"question\": \"¿Qué alcance debe tener la operación?\",\n      \"options\": [\n        {\"id\": \"opt_full\",    \"label\": \"Operación completa\"},\n        {\"id\": \"opt_partial\", \"label\": \"Operación parcial\"},\n        {\"id\": \"opt_cancel\",  \"label\": \"Cancelar\"}\n      ]\n    }\n  ]\n}",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "form_data": {
+            "type": "array",
+            "minItems": 1,
+            "description": "Lista de preguntas del formulario (únicamente opciones predefinidas cerradas).",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Identificador único de la pregunta dentro del formulario."
+                },
+                "rationale": {
+                  "type": "string",
+                  "description": "Explicación interna de por qué es estrictamente necesario hacer esta pregunta al usuario."
+                },
+                "question": {
+                  "type": "string",
+                  "description": "Texto de la pregunta mostrado al usuario."
+                },
+                "options": {
+                  "type": "array",
+                  "minItems": 1,
+                  "description": "Lista de opciones cerradas predefinidas (selección única).",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "Identificador único de la opción (ej. 'opt_1', 'opt_2')."
+                      },
+                      "label": {
+                        "type": "string",
+                        "description": "Etiqueta visible de la opción."
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "label"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "rationale",
+                "question",
+                "options"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "form_data"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "form_data": {
+            "type": "array",
+            "description": "Respuestas del usuario con las opciones seleccionadas."
+          }
+        }
+      },
+      "tags": [
+        "interaction",
+        "hitl",
+        "form",
+        "restricted"
+      ],
+      "side_effects": false
+    },
+    {
+      "id": "io.gravitonai.tools.slot_filling_request",
+      "name": "slot_filling_request",
+      "description": "Solicita datos estructurados de llenado de campos (slot-filling) al usuario a través de un formulario compuesto íntegramente por campos de entrada de texto libre.\n\nCUÁNDO USAR:\n- Usa esta herramienta siempre que requieras que el usuario proporcione datos específicos, variables, información personal, direcciones, importes, fechas o rellene múltiples campos/slots faltantes.\n- PETICIONES POR LOTES (BATCH): Prefiere SIEMPRE solicitar datos en LOTES — solicita la MÁXIMA cantidad de información necesaria en un único bloque de invocación en lugar de preguntar de forma incremental uno por uno.\n\nESTRUCTURA:\n- 'form_data' es una lista de grupos de preguntas.\n- Cada grupo de preguntas tiene 'id', 'rationale', 'question' (título del grupo) y 'options'.\n- Cada elemento de 'options' representa un slot de texto libre con 'id' y 'label'.\n- 'label' DEBE ser un texto descriptivo tipo placeholder (ej. 'Nombre completo del arrendador', 'DNI / NIE', 'Dirección del inmueble'), SIEMPRE en el idioma del usuario.\n\nEJEMPLO:\n{\n  \"form_data\": [\n    {\n      \"id\": \"datos_arrendador\",\n      \"rationale\": \"Datos necesarios para identificar a la parte arrendadora en el contrato.\",\n      \"question\": \"Datos de la parte arrendadora:\",\n      \"options\": [\n        {\"id\": \"nombre_arrendador\", \"label\": \"Nombre completo del arrendador\"},\n        {\"id\": \"dni_arrendador\", \"label\": \"DNI / NIE del arrendador\"},\n        {\"id\": \"domicilio_arrendador\", \"label\": \"Domicilio a efectos de notificaciones\"}\n      ]\n    },\n    {\n      \"id\": \"datos_inmueble\",\n      \"rationale\": \"Identificación de la vivienda objeto del contrato.\",\n      \"question\": \"Información del inmueble:\",\n      \"options\": [\n        {\"id\": \"direccion_vivienda\", \"label\": \"Dirección completa de la vivienda\"},\n        {\"id\": \"renta_mensual\", \"label\": \"Importe de la renta mensual (€)\"}\n      ]\n    }\n  ]\n}",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "form_data": {
+            "type": "array",
+            "minItems": 1,
+            "description": "Lista de grupos de campos de slot-filling (únicamente campos de texto libre).",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "Identificador único de la pregunta o grupo de campos (ej. 'owner_data', 'property_info')."
+                },
+                "rationale": {
+                  "type": "string",
+                  "description": "Explicación interna de por qué se necesitan estos campos/slots específicos."
+                },
+                "question": {
+                  "type": "string",
+                  "description": "Título del grupo o encabezado de sección mostrado al usuario (ej. 'Datos del arrendador', 'Información del inmueble')."
+                },
+                "options": {
+                  "type": "array",
+                  "minItems": 1,
+                  "description": "Lista de campos de entrada de texto libre (slots) a ser rellenados por el usuario. Cada opción define un 'id' y un 'label' estilo placeholder.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "Identificador único del campo (ej. 'owner_name', 'owner_dni', 'property_address')."
+                      },
+                      "label": {
+                        "type": "string",
+                        "description": "Placeholder o etiqueta descriptiva para el campo de texto (ej. 'Nombre del propietario', 'DNI / NIF del propietario', 'Dirección completa'). Debe estar en el idioma del usuario."
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "label"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "rationale",
+                "question",
+                "options"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "form_data"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "form_data": {
+            "type": "array",
+            "description": "Respuestas del usuario con los valores de texto introducidos para cada slot."
+          }
+        }
+      },
+      "tags": [
+        "interaction",
+        "hitl",
+        "form",
+        "slots"
+      ],
+      "side_effects": false
+    }
+  ]
+}

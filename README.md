@@ -535,25 +535,29 @@ Aplican a **todos** los plugins y skills. Viven en `CLAUDE.md` raíz y se resume
 
 ## 17. Plugins incluidos
 
-### `commercial-legal` (v0.1.0)
+### `derecho-civil` (v0.6.0)
+Generación de documentos de derecho civil español conforme a normativa consolidada del BOE (LAU, LEC, Código Civil).
+**Skills**: `arrendamiento-urbano`, `monitorio`, `desahucio`, `juicio-ordinario`, `convenio-regulador`, `particion-herencia`, `reclamacion-clausulas-abusivas`.
 
-Plugin de ejemplo. Cubre flujos legales transaccionales comerciales: revisión de NDAs, MSAs, SaaS, escalación a abogado. Triage automático VERDE/AMARILLO/ROJO contra el playbook del equipo.
+### `gestoria` (v0.2.1)
+Generación de solicitudes y checklists para trámites administrativos en España (DGT, AEAT, Seguridad Social, Sucesiones, Extranjería).
+**Skills**: `transferencia-vehiculo`, `alta-baja-autonomo`, `alta-baja-seguridad-social`, `liquidacion-impuesto-sucesiones`, `extranjeria-residencia`.
 
-**Skills incluidas**:
-- `nda-review`: triage de NDAs entrantes con output VERDE/AMARILLO/ROJO + memo para abogado.
+### `gestion-plantillas` (v0.1.0)
+Creación, parametrización y registro de plantillas personalizadas (assets) mediante `set_skill_template`.
+**Skills**: `registrar-plantillas`.
 
-**MCP servers referenciados**: `io.gravitonai.courtlistener` (opcional), `io.gravitonai.gdrive` (requerido).
-**Tools referenciadas**: `io.gravitonai.tools.read_file`, `io.gravitonai.tools.create_file`, `io.gravitonai.tools.edit_file`.
-
-Ver `commercial-legal/README.md` para detalle completo.
+### `asistente-general` (v0.1.0)
+Asistente universal de primera línea y fallback para consultas no catalogadas, orientación multidisciplinar, búsquedas web e informes bajo demanda.
+**Skills**: `consulta-general`.
 
 ---
 
 ## 18. Estado y roadmap
 
 **Estado actual**:
-- 1 plugin (`commercial-legal`), 1 skill (`nda-review`).
-- Catálogos globales poblados con 5 servers y 5 tools de ejemplo (no exhaustivos).
+- 4 plugins (`derecho-civil`, `gestoria`, `gestion-plantillas`, `asistente-general`).
+- Catálogos globales poblados con 5 servers y 8 tools con schemas JSON Schema completos.
 - Validación manual cruzada (ver §10). Sin `validate.py` automatizado todavía.
 - Sin CI workflows, sin `LICENSE`, sin `CONTRIBUTING.md`, sin `QUICKSTART.md` — no son necesarios en esta fase.
 - Sin `scripts/`, `agents/`, `hooks/`, comandos formales, ni subagentes — la estructura los reserva, no los implementa.
