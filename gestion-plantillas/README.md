@@ -9,7 +9,7 @@ Plugin de GravitonAI para la creación, parametrización y registro de plantilla
 - Registra la plantilla en el backend de LangGraph invocando la herramienta `set_skill_template(skill_name, asset_name, template_content)`.
 
 ## Skills incluidas
-- `personalizar-plantilla-skill`: Flujo guiado en 5 fases para procesar un documento de ejemplo, parametrizarlo y asignarlo como asset de una skill objetivo.
+- `registrar-plantillas`: Flujo guiado en 5 fases para procesar un documento de ejemplo, parametrizarlo y asignarlo como asset de una skill objetivo.
 
 ## Herramientas requeridas
 - `io.gravitonai.tools.set_skill_template`: Persistencia de la plantilla personalizada en el orquestador.

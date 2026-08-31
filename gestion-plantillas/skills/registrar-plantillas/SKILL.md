@@ -1,5 +1,5 @@
 ---
-name: personalizar-plantilla-skill
+name: registrar-plantillas
 description: >
   Permite al usuario crear, parametrizar y registrar sus propias plantillas de documentos (assets)
   asociadas a cualquier skill especializada de GravitonAI a partir de minutas o contratos de ejemplo adjuntos.
@@ -21,7 +21,7 @@ outputs:
 references:
   - references/reglas-parametrizacion-plantillas.md
 assets:
-  - assets/template-resumen-asignacion-plantilla.md
+  - assets/resumen-asignacion-plantilla.md
 ---
 
 # Personalizar y Asignar Plantilla a una Skill
@@ -148,7 +148,7 @@ Recorre la validación de la plantilla junto al usuario y procede a su registro 
    }
    ```
 4. **Generación del Reporte de Asignación (`create_file`):**
-   - Genera el reporte final en el workspace (`reporte_asignacion_plantilla.md`) usando la plantilla `assets/template-resumen-asignacion-plantilla.md`, rellenando los datos de la skill, asset, fecha y variables parametrizadas.
+   - Genera el reporte final en el workspace (`reporte_asignacion_plantilla.md`) usando el asset `assets/resumen-asignacion-plantilla.md`, rellenando los datos de la skill, asset, fecha y variables parametrizadas.
    - Ejecuta `read_file` para validar la escritura.
 
 ---

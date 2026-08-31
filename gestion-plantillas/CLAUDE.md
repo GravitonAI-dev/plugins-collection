@@ -24,7 +24,7 @@ Explícitamente NO cubre la redacción final de contratos sustantivos ni la tram
 ## Guardrails y Límites del Dominio
 1. **Cero PII en Plantillas Registradas:** Todos los datos personales reales (nombres de personas físicas, DNI/NIF/CIF, direcciones específicas, números de teléfono, cuentas bancarias, importes o fechas concretas del caso de ejemplo) DEBEN ser sustituidos por marcadores `{{variable}}`. Queda estrictamente prohibido registrar plantillas que contengan datos reales de casos particulares.
 2. **Formato de Assets Limpios:** Las plantillas asignadas a skills no deben contener comentarios HTML condicionales (ej. `<!-- Si ... -->`). Las cláusulas deben estructurarse de forma modular y limpia.
-3. **Nombre de Asset Válido:** El `asset_name` debe comenzar obligatoriamente con el prefijo `template-` y terminar en `.md`.
+3. **Nombre de Asset de Plantilla Válido:** Para assets que correspondan a plantillas documentales a registrar mediante `set_skill_template`, el `asset_name` debe comenzar obligatoriamente con el prefijo `template-` y terminar en `.md`.
 4. **Confirmación Previa Obligatoria:** La herramienta `set_skill_template` NUNCA debe ejecutarse sin previa presentación de la vista previa de la plantilla y confirmación explícita del usuario.
 
 ## Matriz de Escalación Universal

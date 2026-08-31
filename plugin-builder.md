@@ -210,12 +210,12 @@ Si el usuario nombra references, crealas como archivos `.md` con un esqueleto mi
 ```
 
 **Pregunta 7 — Assets.**
-`La skill necesita assets? Un asset es una plantilla que la skill produce como output (con marcadores `{{variable}}` que la skill llena). Ejemplos: memo de triage, opinion legal, solicitud de escalacion.
+`La skill necesita assets? Un asset es un archivo base o plantilla que la skill produce o utiliza (ej. plantillas con marcadores `{{variable}}`, reportes o esquemas).
 
   - Si "no": la carpeta `assets/` no se crea.
-  - Si "si": para cada asset dame nombre de archivo (template-kebab-case.md) y que seccion/variables debe tener. (Todos los assets que sean plantillas DEBEN comenzar con el prefijo "template-").
+  - Si "si": para cada asset dame nombre de archivo y contenido/estructura. (Solo los assets que sean plantillas estrictas DEBEN comenzar con el prefijo "template-", ej: `template-kebab-case.md`. Otros assets no plantillas usan `kebab-case.md`).
 
-REGLA OBLIGATORIA: Los assets son plantillas limpias con marcadores `{{variable}}`. Queda estrictamente PROHIBIDO incluir comentarios HTML condicionales (ej. `<!-- Si ... -->`). Todas las clausulas opcionales, variantes o condicionales deben documentarse en el `SKILL.md` correspondiente.`
+REGLA OBLIGATORIA: Los assets son archivos base limpios (sin comentarios HTML condicionales `<!-- Si ... -->`). Para assets que sean plantillas, contienen marcadores `{{variable}}`. Todas las clausulas opcionales, variantes o condicionales deben documentarse en el `SKILL.md` correspondiente.`
 
 Si el usuario nombra assets, crealas como plantillas limpias con marcadores `{{variable}}` (sin condicionales ni comentarios) siguiendo el patron del template `nda-triage-output-template.md` del plugin `commercial-legal`:
 
@@ -286,7 +286,7 @@ Dime cómo encaja la lógica de esta skill ("<nombre>") dentro de estas 5 fases 
 |---|---|
 | `<plugin>/skills/<skill>/SKILL.md` | Frontmatter + cuerpo (guardrails, procedimiento, formato de salida, escalacion, "como NO se usa") |
 | `<plugin>/skills/<skill>/references/<archivo>.md` | Por cada reference nombrada. Esqueleto minimo. |
-| `<plugin>/skills/<skill>/assets/template-<archivo>.md` | Por cada asset nombrado. Plantilla con `{{variables}}` (prefijo obligatorio `template-`). |
+| `<plugin>/skills/<skill>/assets/<archivo>.md` | Por cada asset nombrado. Si es plantilla documental estricta, lleva prefijo obligatorio `template-` y marcadores `{{variables}}`. |
 | `<plugin>/.claude-plugin/plugin.json` | Actualizar `skills[]` agregando el nombre de la nueva skill. |
 | `<plugin>/.mcp.json` | Solo si la skill usa servers MCP del catalogo global. Lista de `{ id, required, purpose }`. |
 | `<plugin>/agent_tools.json` | Solo si la skill usa tools del catalogo global. Lista de `{ id, required, purpose }`. |
@@ -708,8 +708,8 @@ Si en medio de un modo el usuario dice algo que no es de scaffolding (ej: "ahora
 
 | Convencion | Detalle |
 |---|---|
-| **kebab-case** | Para nombres de plugin, skill, archivo, reference, asset. Para assets que sean plantillas, es obligatorio el prefijo `template-` (ej: `template-contrato-arrendamiento-vivienda.md`). Sin espacios, sin mayusculas, sin guion bajo. |
-| **Assets limpios sin condicionales** | Los assets son plantillas base limpias con marcadores `{{variable}}`. Queda estrictamente prohibido incluir comentarios condicionales (`<!-- Si ... -->`). Toda variante, bifurcación o cláusula opcional debe documentarse en `SKILL.md`. |
+| **kebab-case** | Para nombres de plugin, skill, archivo, reference, asset. Para assets que sean plantillas documentales estrictas, es obligatorio el prefijo `template-` (ej: `template-contrato-arrendamiento-vivienda.md`). Los demás assets no plantillas se nombran en kebab-case sin prefijo. Sin espacios, sin mayusculas, sin guion bajo. |
+| **Assets limpios sin condicionales** | Los assets son archivos base limpios y, si son plantillas, con marcadores `{{variable}}`. Queda estrictamente prohibido incluir comentarios condicionales (`<!-- Si ... -->`). Toda variante, bifurcación o cláusula opcional debe documentarse en `SKILL.md`. |
 | **IDs de catalogos** | Naming convention usada por el equipo de desarrollo del orquestador en los catalogos globales: servers `io.gravitonai.<categoria>.<nombre>` (ej: `io.gravitonai.feeds.sec_edgar`), tools `io.gravitonai.tools.<nombre>` (ej: `io.gravitonai.tools.send_to_slack`). **El builder NO crea IDs nuevos**; solo selecciona de los catalogos existentes. |
 | **semver** | `MAJOR.MINOR.PATCH` en `plugin.json`, `marketplace.json` entries, y entradas de catalogos globales. MAJOR = cambios incompatibles. MINOR = nuevas capabilities additive. PATCH = fixes descriptivos. |
 | **Header DRAFT** | En todo SKILL.md y asset cuyo output sea legal / regulatorio / fiscal / privacidad. Texto canonico: `> DRAFT — para revision por un abogado. No constituye asesoria legal.` |

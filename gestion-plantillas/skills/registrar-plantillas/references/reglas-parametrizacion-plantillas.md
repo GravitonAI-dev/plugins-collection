@@ -1,6 +1,6 @@
 # Reglas de Parametrización y Abstracción de Plantillas (Assets)
 
-> Material de referencia para la skill `personalizar-plantilla-skill`. Define las pautas metodológicas para convertir documentos o minutas de ejemplo en plantillas estandarizadas limpias con marcadores `{{variable}}`.
+> Material de referencia para la skill `registrar-plantillas`. Define las pautas metodológicas para convertir documentos o minutas de ejemplo en plantillas estandarizadas limpias con marcadores `{{variable}}`.
 
 ---
 
