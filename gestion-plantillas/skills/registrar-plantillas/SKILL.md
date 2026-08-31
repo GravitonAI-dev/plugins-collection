@@ -2,37 +2,36 @@
 name: registrar-plantillas
 description: >
   Permite al usuario crear, parametrizar y registrar sus propias plantillas de documentos (assets)
-  asociadas a cualquier skill especializada de GravitonAI a partir de minutas o contratos de ejemplo adjuntos.
-  Implementa un flujo de 5 fases estructurado con identificación de skill y asset objetivo, lectura y
-  abstracción de datos reales a marcadores {{variable}} en Markdown limpio, guardado de borrador en workspace,
-  vista previa y confirmación interactiva, y persistencia en el backend mediante la herramienta set_skill_template().
-  NO usar para la redacción final de contratos sustantivos de clientes ni para la tramitación de expedientes legales.
+  asociadas a cualquier skill especializada de GravitonAI a partir de minutas o contratos de ejemplo aportados.
+  Implementa un flujo consultivo de 5 fases con selección jerárquica de skill y asset objetivo, lectura y
+  abstracción de datos reales a marcadores {{variable}} en Markdown limpio, previsualización en chat,
+  y persistencia directa en el backend mediante la herramienta set_skill_template().
+  NO crea archivos en el workspace ni debe usarse para la redacción final de contratos de clientes.
 when_to_use: |
-  - El usuario desea utilizar su propia minuta o modelo de contrato en una skill específica en lugar de la plantilla por defecto.
+  - El usuario desea registrar o actualizar su propia minuta o modelo de contrato como plantilla oficial para una skill.
   - El usuario adjunta un documento real de ejemplo y solicita convertirlo en plantilla reutilizable para una skill.
-  - El usuario desea redefinir o actualizar el asset de plantilla asignado a una skill del sistema.
+  - El usuario desea redefinir o personalizar el asset de plantilla asignado a una skill del sistema.
 inputs:
   - skill_destino: nombre de la skill objetivo a la que se asignará la plantilla (V1)
   - asset_destino: nombre exacto del archivo asset con prefijo template- (V2)
   - origen_documento: documento adjunto / texto pegado en el chat (V3)
   - documento_ejemplo: contenido textual del documento o minuta aportada por el usuario
 outputs:
-  - resumen_asignacion_plantilla: reporte markdown de confirmación de asignación y registro de la plantilla
+  - confirmacion_registro: mensaje de confirmación de registro de la plantilla en el backend
 references:
   - references/reglas-parametrizacion-plantillas.md
-assets:
-  - assets/resumen-asignacion-plantilla.md
 ---
 
-# Personalizar y Asignar Plantilla a una Skill
-
-> REPORTE DE CONFIGURACIÓN — Plantilla personalizada registrada en el sistema.
+# Registrar Plantilla Personalizada en el Sistema
 
 ---
 
 ## Directivas Operacionales y Vectores de Estado Internos
 
-Esta skill guía al usuario de manera consultiva, rigurosa y transparente a través de un procedimiento estructurado en 5 fases secuenciales para transformar minutas reales en plantillas oficiales de usuario.
+Esta skill guía al usuario de manera consultiva, rigurosa y transparente a través de un procedimiento estructurado en 5 fases secuenciales para transformar minutas reales en plantillas oficiales registradas en el backend.
+
+### REGLA FUNDAMENTAL DE ALCANCE:
+> **CERO ARCHIVOS EN WORKSPACE:** Esta skill **NO** crea archivos en el workspace de la conversación (`create_file` está expresamente deshabilitado). Todo el intercambio y la previsualización se realizan a través del chat, y la persistencia se realiza **exclusivamente** mediante la herramienta `set_skill_template()`.
 
 ### Vectores de Estado (Uso Estrictamente Interno):
 Para garantizar un enrutamiento determinista y la correcta ejecución de `set_skill_template`, el asistente resuelve y mantiene internamente en memoria los siguientes vectores de estado:
@@ -45,7 +44,7 @@ Para garantizar un enrutamiento determinista y la correcta ejecución de `set_sk
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL Y SELECCIÓN DE SKILL Y ASSET DESTINO
+## FASE 1 — CLASIFICACIÓN INICIAL Y SELECCIÓN JERÁRQUICA
 
 Tu primer objetivo es identificar con precisión la skill (`V1`) y el asset (`V2`) que el usuario desea personalizar, así como verificar la disponibilidad del documento de ejemplo (`V3`).
 
@@ -56,19 +55,18 @@ Antes de formular preguntas o abrir formularios, evalúa el mensaje del usuario 
   - Fija `V2` = `template-contrato-arrendamiento-vivienda.md`.
   - Fija `V3` = `documento_adjunto`.
   - Avanza directamente a la **Fase 2**.
-- Si falta determinar la skill objetivo, el asset específico o no se ha adjuntado documento, formula la consulta correspondiente.
+- Si falta determinar la skill objetivo, el asset específico o no se ha adjuntado documento, guía al usuario.
 
-### 1.2 Selección Jerárquica y Consulta Interactiva (Plugin -> Skill -> Asset)
+### 1.2 Selección Jerárquica (Plugin -> Skill -> Asset)
 Si la skill o el asset no están completamente definidos, guía al usuario a través del **orden jerárquico de selección**:
 1. **Paso 1 — Selección de Plugin (Área temática):** Identificar el plugin o área de trabajo (ej. `derecho-civil`, `laboral`, `fiscal`, etc.).
 2. **Paso 2 — Selección de Skill (`V1`):** Identificar la skill especializada dentro del plugin seleccionado (ej. `arrendamiento-urbano`, `desahucio`, `convenio-regulador`, etc.).
 3. **Paso 3 — Selección de Asset (`V2`):** Identificar el asset o plantilla específica declarada en esa skill a ser reemplazada (ej. `template-contrato-arrendamiento-vivienda.md`, `template-contrato-arrendamiento-local.md`, etc.).
 
-**Disponibilidad y Uso del Catálogo Oficial:**
-- **Catálogo en Contexto:** Dispones del inventario jerárquico oficial en el bloque de documento `<document id="catalog:plugins-skills-assets">` del prompt.
-- **Herramienta de Catálogo:** Si requieres filtrar o consultar dinámicamente, invoca la tool `list_skills_and_assets(plugin_name=..., skill_name=...)`.
-- **Formularios Precisos:** Al invocar `restricted_human_in_the_loop_request`, construye las opciones (`id`, `label`) a partir de los datos exactos del catálogo para garantizar que `V1` y `V2` sean 100% válidos.
-- Si aún no se ha adjuntado el documento de ejemplo, solicitarle que lo adjunte o pegue su contenido en el chat.
+**Disponibilidad del Catálogo Oficial:**
+- Dispones del catálogo jerárquico oficial en el bloque contextual `<document id="catalog:plugins-skills-assets">` del prompt.
+- Si requieres consultar o filtrar dinámicamente, invoca la herramienta `list_skills_and_assets(plugin_name=..., skill_name=...)`.
+- Si invocas `restricted_human_in_the_loop_request`, utiliza los identificadores y etiquetas extraídos del catálogo oficial.
 
 ### 1.3 Validación de Parámetros de Destino
 Una vez identificados `V1` y `V2`:
@@ -77,14 +75,13 @@ Una vez identificados `V1` y `V2`:
 
 ---
 
-## FASE 2 — ANÁLISIS DEL DOCUMENTO EJEMPLO Y PARAMETRIZACIÓN (Vía Chat)
+## FASE 2 — ANÁLISIS DEL DOCUMENTO EJEMPLO Y PARAMETRIZACIÓN
 
-En esta fase interactúas **directamente a través del chat (en texto plano conversacional, SIN formularios)** para presentar el análisis de la minuta y acordar el inventario de variables.
+En esta fase procesas la minuta aportada y generas la plantilla abstracta parametrizada en memoria.
 
 ### 2.1 Lectura e Inspección de la Minuta Aportada
-1. **Acceso a Documentos Adjuntos en el Contexto:**
-   Cuando el usuario sube o adjunta archivos (PDF, DOCX, TXT, MD, etc.), su contenido ya procesado se proporciona íntegramente en el prompt de contexto bajo la sección:
-
+1. **Acceso a Documentos Adjuntos:**
+   Cuando el usuario sube o adjunta archivos (PDF, DOCX, TXT, MD, etc.), su contenido textual se proporciona íntegramente en el prompt de contexto bajo la sección:
    ```xml
    # ATTACHED DOCUMENTS
    <attached_documents>
@@ -93,59 +90,38 @@ En esta fase interactúas **directamente a través del chat (en texto plano conv
        </attached_document>
    </attached_documents>
    ```
-
-   - **Extracción de la Minuta:** Lee e inspecciona directamente el contenido dentro de la etiqueta `<attached_document name="...">` para obtener el texto original de la minuta de ejemplo.
-   - **Múltiples Adjuntos:** Si hay varios documentos adjuntos, selecciona el que corresponda al modelo o contrato a parametrizar según el atributo `name` y las indicaciones del usuario.
-   - **Texto en Chat:** Si el usuario no adjuntó archivo pero pegó el texto directamente en la conversación, tómalo del bloque `# USER MESSAGE` / `<user_message>`.
-2. Si no se detecta ningún documento en `<attached_documents>` ni texto en `<user_message>`, solicita amablemente al usuario que adjunte el archivo o proporcione el texto del documento para poder continuar.
+   Lee e inspecciona directamente el contenido dentro de `<attached_document name="...">`.
+2. **Texto en Chat:** Si el usuario pegó el texto directamente en la conversación, tómalo del bloque `<user_message>`.
+3. Si no se detecta ningún documento en `<attached_documents>` ni texto en `<user_message>`, solicita amablemente al usuario que adjunte el archivo o proporcione el texto del documento para poder continuar.
 
 ### 2.2 Proceso de Abstracción y Parametrización
-Consulta las directivas de `references/reglas-parametrizacion-plantillas.md` y aplica las siguientes transformaciones:
-1. **Anonimización y Sustitución de Datos Concretos:**
+Consulta las directivas de `references/reglas-parametrizacion-plantillas.md` y aplica:
+1. **Anonimización y Sustitución de Datos Particulares:**
    - Detectar todos los nombres de partes, números de identificación fiscal (NIF/CIF/DNI/NIE), domicilios, municipios, fechas, importes en euros, porcentajes, cuentas bancarias (IBAN) y referencias notariales/registrales del caso real.
    - Sustituirlos por marcadores en dobles llaves y snake_case: `{{nombre_arrendador}}`, `{{nif_arrendatario}}`, `{{domicilio_inmueble}}`, `{{renta_mensual}}`, `{{fecha_contrato}}`, etc.
 2. **Garantía de Assets Limpios:**
    - Eliminar cualquier comentario HTML condicional (ej. `<!-- Si ... -->`).
-   - Conservar íntegramente la redacción de las cláusulas, títulos (`#`, `##`), estructura numerada y tablas de datos en Markdown limpio.
+   - Conservar íntegramente la redacción de las cláusulas, títulos (`#`, `##`), estructura numerada y tablas en Markdown limpio.
 3. **Mapeo de Variables:**
    - Elaborar una lista ordenada con todas las variables creadas y su significado.
 
-### 2.3 Mensaje de Plan de Acción al Usuario
-Envía un mensaje cordial en el chat que contenga:
-1. Confirmación de la skill (`V1`) y asset (`V2`) a los que se vinculará la plantilla.
-2. Resumen de las cláusulas y estructura identificadas en el documento adjunto.
-3. Tabla o lista de las principales variables parametrizadas (ej: `{{nombre_arrendador}}`, `{{renta_mensual}}`, etc.).
-4. Anuncio de que se va a generar el archivo borrador en el espacio de trabajo para su revisión.
+---
+
+## FASE 3 — PROPUESTA Y PREVISUALIZACIÓN EN CHAT
+
+Presenta al usuario en el chat (en texto conversacional limpio):
+1. **Confirmación de Destino:** Indicar claramente la skill (`V1`) y el asset (`V2`) a los que se asignará la plantilla.
+2. **Inventario de Variables:** Mostrar una tabla o lista clara con las variables `{{...}}` identificadas y parametrizadas.
+3. **Vista Previa de la Plantilla:** Mostrar el contenido íntegro o los bloques principales de la plantilla parametrizada propuesta.
+4. **Pregunta de Confirmación:** Preguntar al usuario si está de acuerdo con las variables y la estructura para proceder al guardado oficial en el sistema.
 
 ---
 
-## FASE 3 — CREACIÓN DEL DOCUMENTO BASE EN DISCO (Zero Vacíos)
+## FASE 4 — ASIGNACIÓN Y GUARDADO CON `set_skill_template`
 
-1. **Escritura de la Plantilla en Workspace (`create_file`):**
-   - Vuelca íntegramente el contenido de la plantilla parametrizada generada en el workspace bajo el nombre `plantilla_personalizada_{V1}.md` (ej: `plantilla_personalizada_arrendamiento_urbano.md`).
-   - Aplica el principio **Zero-Omission**: el archivo debe contener la plantilla completa de principio a fin, sin resúmenes ni marcadores de omisión.
-2. **Validación de Disco (`read_file`):**
-   - Ejecuta `read_file` sobre el archivo recién creado para verificar que el contenido en disco es íntegro y correcto.
-3. **Confirmación en Chat:**
-   - Emite un mensaje indicando la ruta del archivo generado en el workspace.
-   - En la misma respuesta, sin detener la marcha, pasa de inmediato a la **Fase 4** para mostrar la vista previa y pedir confirmación de asignación.
-
----
-
-## FASE 4 — REVISIÓN INCREMENTAL Y ASIGNACIÓN CON `set_skill_template`
-
-Recorre la validación de la plantilla junto al usuario y procede a su registro oficial:
-
-```
-[Vista Previa en texto plano] ──> [¿Confirmamos esta plantilla?] ──> [Tool: set_skill_template()]
-```
-
-### Protocolo de Asignación:
-1. **Vista Previa (Preview):** Muestra en el chat el texto íntegro o los bloques principales de la plantilla parametrizada en texto plano (sin bloques de código con backticks).
-2. **Petición de Confirmación Obligatoria:** Pregunta literalmente:
-   > *"¿Confirmamos la asignación de esta plantilla personalizada como asset `{{V2}}` para la skill `{{V1}}`?"*
-3. **Ejecución de la Tool (`set_skill_template`):**
-   - Tras el "sí" o confirmación explícita del usuario, invoca la herramienta:
+Cuando el usuario confirme (o si ya proporcionó confirmación explícita):
+1. **Invocación Inmediata de la Herramienta:**
+   Invoca la herramienta especializada `set_skill_template`:
    ```json
    {
      "skill_name": "<valor_de_V1>",
@@ -153,37 +129,15 @@ Recorre la validación de la plantilla junto al usuario y procede a su registro 
      "template_content": "<contenido_completo_en_markdown_de_la_plantilla_parametrizada>"
    }
    ```
-4. **Generación del Reporte de Asignación (`create_file`):**
-   - Genera el reporte final en el workspace (`reporte_asignacion_plantilla.md`) usando el asset `assets/resumen-asignacion-plantilla.md`, rellenando los datos de la skill, asset, fecha y variables parametrizadas.
-   - Ejecuta `read_file` para validar la escritura.
+2. **Validación de Respuesta:**
+   - Si la herramienta devuelve `{"success": true, ...}`, la plantilla ha quedado guardada en la base de datos del sistema.
+   - Si la herramienta devuelve un error, analiza el mensaje de error y corrige los parámetros.
 
 ---
 
-## FASE 5 — BUCLE DE REALIMENTACIÓN FINAL Y CIERRE
+## FASE 5 — CONFIRMACIÓN DE PERSISTENCIA Y CIERRE
 
-Una vez ejecutada la herramienta `set_skill_template` y generado el reporte, muestra en el chat el siguiente menú interactivo de opciones finales:
-
-```markdown
-La plantilla personalizada ha sido asignada y registrada exitosamente para la skill "{{skill_name}}".
-
-Seleccione una opción si desea realizar alguna gestión adicional:
-1. Ajustar o modificar nombres de variables en la plantilla.
-2. Añadir una cláusula adicional a la plantilla registrada.
-3. Personalizar otra plantilla (asset) para esta u otra skill.
-4. Ver el inventario completo de variables que requerirá esta plantilla.
-5. Dar la configuración por finalizada y cerrar la sesión.
-```
-
-### Mensaje de Confirmación al Cerrar:
-Cuando el usuario seleccione finalizar la sesión, emite la confirmación:
-1. **Persistencia Activa:** Confirmar que, en las siguientes conversaciones en las que el usuario active la skill `{{skill_name}}`, el sistema utilizará de manera preferente su plantilla personalizada recién registrada.
-2. **Reversibilidad:** Recordar que si en cualquier momento desea actualizar la minuta o restablecer otra plantilla, podrá volver a invocar esta skill de personalización.
-
----
-
-## Límites Legales y Guardrails de Dominio (Gobernados por Vectores)
-
-1. **Cero Datos Sensibles (PII):** Queda estrictamente prohibido persistir plantillas en `set_skill_template` que contengan nombres reales, documentos de identidad, números de teléfono o importes específicos pertenecientes a personas o casos particulares. Toda la información contingente debe estar parametrizada con `{{variable}}`.
-2. **Formato Obligatorio de Asset:** El nombre `asset_name` debe coincidir con la convención `template-*.md`.
-3. **No Invención de Contenido:** La plantilla debe reflejar fielmente la estructura y cláusulas del documento original aportado por el usuario, sin omitir estipulaciones pactadas ni agregar cláusulas no solicitadas salvo la parametrización de variables.
-4. **Invocación Condicionada:** `set_skill_template` se ejecuta ÚNICAMENTE tras la confirmación afirmativa del usuario en la Fase 4.
+Una vez ejecutada exitosamente la herramienta `set_skill_template`, informa al usuario:
+1. **Confirmación Exitosa:** Notificar que la plantilla personalizada ha sido registrada y guardada en el backend para la skill indicada.
+2. **Efecto en Futuras Conversaciones:** Explicar que, en todas las siguientes conversaciones en las que el usuario utilice esa skill, el sistema cargará automáticamente su plantilla personalizada en lugar de la plantilla por defecto.
+3. **Opciones Finales:** Ofrecer la posibilidad de registrar otra plantilla o dar por concluida la configuración.

@@ -389,6 +389,35 @@
       },
       "tags": ["templates", "configuration", "assets", "skills"],
       "side_effects": true
+    },
+    {
+      "id": "io.gravitonai.tools.list_skills_and_assets",
+      "name": "list_skills_and_assets",
+      "description": "Retrieves the hierarchical catalog of plugins, their skills, and declared template assets. Follows the selection hierarchy: Plugin -> Skill -> Asset. Use this tool to discover available plugins, choose a skill, and view its declared assets for building interactive user selection forms (restricted_human_in_the_loop_request) or validating parameters.",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "plugin_name": {
+            "type": "string",
+            "description": "Optional plugin name to filter results to a specific plugin."
+          },
+          "skill_name": {
+            "type": "string",
+            "description": "Optional skill name to filter results to a specific skill."
+          }
+        },
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "type": "array" }
+        }
+      },
+      "tags": ["introspection", "catalog", "skills", "assets"],
+      "side_effects": false
     }
   ]
 }
