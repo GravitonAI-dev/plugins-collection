@@ -231,7 +231,7 @@ Inmediatamente después de la Confirmación (Punto 3), estás OBLIGADO a crear e
 1. Utiliza `Read` para leer el documento base decidido en el Punto 3 (la plantilla del Punto 1, o el documento que adjuntó el usuario).
 2. Reemplaza en memoria las variables de clasificación y CUALQUIER OTRO DATO que ya poseas gracias a la escucha activa inicial (nombres, dirección, etc.).
 3. Utiliza `Write` para guardar el archivo completo en disco. Los datos faltantes deben quedar intactos como `{{DATO_FALTANTE}}`.
-4. (Regla Global): Ejecuta `Read` para validar y confirma la ruta absoluta en el chat al usuario. Inmediatamente después, en la misma respuesta, pregunta si desea comenzar a completar los datos del documento. Solo tras la confirmación, añade el anuncio fijo de la primera sección de su ruta (ver Punto 5) y formula, en el mismo mensaje, la primera pregunta de la edición incremental.
+4. (Regla Global): Ejecuta `Read` para validar y confirma la ruta absoluta en el chat al usuario. En esa MISMA respuesta, sin turno intermedio y sin preguntar si desea empezar, emite el anuncio fijo de la primera seccion y formula ya su primera pregunta, para que el flujo no se detenga (regla del `CLAUDE.md` raiz, seccion 6.1, punto 5, y coherencia con el Punto 0: la skill esta en ejecucion desde que se carga).
 
 ---
 

@@ -144,11 +144,14 @@ Para la resolucion de cualquier controversia, las partes se someten a los Juzgad
 
 El presente contrato se rige por lo pactado en el mismo, y en su defecto, por el Titulo III de la Ley 29/1994 de Arrendamientos Urbanos y, supletoriamente, por el Codigo Civil.
 
+<!-- Si el usuario ha solicitado clausulas adicionales, insertar este bloque completo, separador y cabecera incluidos; si no ha solicitado ninguna, omitirlo entero:
+
 ---
 
 ## CLAUSULAS ADICIONALES
 
 {{clausulas_adicionales_solicitadas_por_el_usuario}}
+-->
 
 ---
 

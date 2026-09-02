@@ -107,11 +107,14 @@ Para la resolucion de cualquier controversia derivada del presente contrato, las
 
 El presente contrato se rige por lo pactado en el mismo y, supletoriamente, por el Codigo Civil (articulos 1542 y siguientes).
 
+<!-- Si el usuario ha solicitado clausulas adicionales, insertar este bloque completo, separador y cabecera incluidos; si no ha solicitado ninguna, omitirlo entero:
+
 ---
 
 ## CLAUSULAS ADICIONALES
 
 {{clausulas_adicionales_solicitadas_por_el_usuario}}
+-->
 
 ---
 

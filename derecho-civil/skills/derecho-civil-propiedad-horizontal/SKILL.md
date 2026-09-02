@@ -217,7 +217,7 @@ Inmediatamente tras la Confirmacion (Punto 3), estas OBLIGADO a crear el documen
 1. Utiliza `Read` para leer el documento base decidido (el asset de la hoja, o el que adjunto el usuario).
 2. Reemplaza en memoria TODOS los datos que ya poseas (vectores, escucha activa e investigacion: incluida `fecha_verificacion_normativa` del Punto 2). Los faltantes conservan el nombre propio del placeholder del asset; usa un marcador generico solo para un hueco suelto sin placeholder propio, y nunca repitas el mismo marcador generico dos veces en el mismo documento (`Edit` necesita un `oldString` unico).
 3. Utiliza `Write` para guardar el archivo en disco (nombre en `snake_case.md`, ej. `certificacion_deuda_comunidad_a.md`, `peticion_monitorio_cuotas_comunidad_a.md`, `demanda_impugnacion_acuerdos_propietario_a.md`, `requerimiento_cesacion_actividad_infractor_a.md`).
-4. (Regla Global): Ejecuta `Read` para validar y confirma la ruta absoluta en el chat al usuario. Inmediatamente despues, en la misma respuesta, pregunta si desea empezar a completar los datos del documento. Solo tras la confirmacion, formula la primera pregunta de la edicion incremental (Punto 5).
+4. (Regla Global): Ejecuta `Read` para validar y confirma la ruta absoluta en el chat al usuario. En esa MISMA respuesta, sin turno intermedio y sin preguntar si desea empezar, emite el anuncio fijo de la primera seccion y formula ya su primera pregunta, para que el flujo no se detenga (regla del `CLAUDE.md` raiz, seccion 6.1, punto 5, y coherencia con el Punto 0: la skill esta en ejecucion desde que se carga).
 
 ## 5. EDICION INCREMENTAL DE SECCIONES
 

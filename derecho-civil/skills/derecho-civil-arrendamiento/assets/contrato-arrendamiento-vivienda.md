@@ -148,11 +148,14 @@ El presente contrato se rige por la Ley 29/1994, de 24 de noviembre, de Arrendam
 
 <!-- Si se pacta mediacion o arbitraje: Las partes podran someter sus controversias a mediacion o arbitraje conforme al articulo 4.5 de la LAU antes de acudir a la via judicial. -->
 
+<!-- Si el usuario ha solicitado clausulas adicionales, insertar este bloque completo, separador y cabecera incluidos; si no ha solicitado ninguna, omitirlo entero:
+
 ---
 
 ## CLAUSULAS ADICIONALES
 
 {{clausulas_adicionales_solicitadas_por_el_usuario}}
+-->
 
 ---
 

@@ -189,7 +189,7 @@ Inmediatamente despues de la Confirmacion (Punto 3), estas OBLIGADO a crear el d
 1. Utiliza `Read` para leer el documento base decidido en el Punto 3.
 2. Reemplaza en memoria las variables de clasificacion (incluidos los bloques testada/intestada segun V1 y el modo de aceptacion segun V2-b) y CUALQUIER OTRO DATO que ya poseas por escucha activa, mas la fecha de verificacion normativa del Punto 2. Resuelve los comentarios condicionales de la rama elegida y omite por completo los de las ramas no elegidas (incluido el bloque RENUNCIA del asset de aceptacion).
 3. Utiliza `Write` para guardar el archivo completo en disco. Los datos faltantes conservan el nombre del placeholder del asset (ver Guardrail 9); no los sustituyas todos por el mismo `{{DATO_FALTANTE}}` generico.
-4. (Regla Global): Ejecuta `Read` para validar y confirma la ruta absoluta en el chat. Inmediatamente despues, en la misma respuesta, pregunta si desea comenzar a completar los datos del documento. Solo tras la confirmacion, añade el anuncio fijo de la seccion 1 (Punto 5) y formula, en el mismo mensaje, la primera pregunta de la edicion incremental.
+4. (Regla Global): Ejecuta `Read` para validar y confirma la ruta absoluta en el chat al usuario. En esa MISMA respuesta, sin turno intermedio y sin preguntar si desea empezar, emite el anuncio fijo de la primera seccion y formula ya su primera pregunta, para que el flujo no se detenga (regla del `CLAUDE.md` raiz, seccion 6.1, punto 5, y coherencia con el Punto 0: la skill esta en ejecucion desde que se carga).
 
 ---
 
