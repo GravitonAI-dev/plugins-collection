@@ -10,7 +10,7 @@
 |---|---|---|---|
 | commercial-legal | 1 | EE.UU. | 0.1.0 |
 | general-assistant | 1 | agnostica | 0.1.0 |
-| derecho-civil | 11 | Espana (LAU, LEC, CC, LPH, LO 1/2025) | 0.7.0 |
+| derecho-civil | 19 | Espana (CC, LEC, LAU, LPH, LO 1/2025, Ley 8/2021, TRLRCSCVM) | 0.8.0 |
 | gestoria | 5 | Espana (AEAT, TGSS, DGT, ISD, extranjeria) | 0.2.1 |
 | historical-drafting | 1 | agnostica (historia) | 0.1.0 |
 | contrato-alquiler (test-local) | 1 | Espana (LAU) | 0.1.0 |
@@ -45,8 +45,8 @@ Asistente de proposito general para consultas con informacion publica o verifica
 - Assets: answer-output-template.md.
 - Estado: **Parcial** (frontmatter reducido; DRAFT/auto-BOE N/A).
 
-## derecho-civil (v0.7.0)
-Generacion de documentos de derecho civil espanol verificados en el BOE. Las 8 skills marcadas **QA en vivo** pasaron un control de calidad ejecutado de verdad (no solo revision del `SKILL.md`): un agente sin contexto previo jugo el papel del LLM operativo sobre un caso sintetico, con `Write`/`Read`/`Edit` reales y verificacion normativa contra el BOE en vivo. El proceso encontro y corrigio defectos reales en las 8. Detalle completo en `test-local/tests/test-derecho-civil-<skill>.md`, seccion "Verificacion en vivo + calidad LLM".
+## derecho-civil (v0.8.0)
+Generacion de documentos de derecho civil espanol verificados en el BOE. Las **16 skills marcadas "QA en vivo"** pasaron un control de calidad ejecutado de verdad, no una revision del `SKILL.md` sobre el papel: un agente sin contexto previo juega el papel del LLM operativo sobre un caso sintetico disenado para provocar el error mas probable de esa skill, con verificacion normativa en vivo contra la API del BOE y con `Write`, `Read` y `Edit` reales sobre el documento. **Encontro defectos reales en las 16.** Detalle por skill, con extractos literales de las conversaciones generadas, en `test-local/tests/test-derecho-civil-<skill>.md`.
 
 ### derecho-civil-reclamacion-cantidad  (QA en vivo)
 - Proposito: elige la via de reclamacion de una deuda dineraria (monitorio / verbal / ordinario segun documentacion, cuantia y oposicion) y genera peticion, demanda u oposicion.
@@ -126,11 +126,71 @@ Generacion de documentos de derecho civil espanol verificados en el BOE. Las 8 s
 - Assets: 2.
 - Estado: **Completa**.
 
-### Bugs transversales encontrados y corregidos en las 11 skills (01/09/2026)
+
+### derecho-civil-responsabilidad-civil  (QA en vivo)
+- Proposito: reclamacion de danos, contractual o extracontractual (trafico, VMP/patinete, caida, vicio constructivo, negligencia profesional), con filtro de prescripcion bloqueante.
+- Outputs: reclamacion_extrajudicial_danos, demanda_responsabilidad_civil, respuesta_oferta_motivada (DRAFT).
+- Jurisdiccion: Espana (CC, TRLRCSCVM con la reforma de la Ley 5/2025, LCS).
+- Assets: 3.
+- Estado: **Completa**. QA en vivo: 5 defectos corregidos, el mas grave declarar prescrita una reclamacion viva por no preguntar antes por la comunicacion de la aseguradora (Art. 7.1 TRLRCSCVM). Las cuantias del baremo se verifican en cada lanzamiento; registrada la pagina estable de la DGSFP porque la URL del PDF lleva el ano y caduca.
+
+### derecho-civil-compraventa-inmueble  (QA en vivo)
+- Proposito: contrato de arras, contrato privado de compraventa de vivienda y requerimiento por incumplimiento.
+- Outputs: contrato_arras, contrato_compraventa_vivienda, requerimiento_cumplimiento (DRAFT).
+- Jurisdiccion: Espana (CC, LAU arts. 25 y 31, LOE).
+- Assets: 3.
+- Estado: **Completa**. QA en vivo: contrato que se contradecia a si mismo (obligaba a entregar "libre de arrendatarios" describiendo un alquiler vigente) y un bloque condicional que el SKILL prometia y el asset no tenia. La clasificacion de las arras se presenta como jurisprudencial, nunca como categoria legal del Art. 1454.
+
+### derecho-civil-liquidacion-gananciales  (QA en vivo)
+- Proposito: liquidacion de la sociedad de gananciales, con acuerdo (convenio) o sin el (formacion judicial de inventario).
+- Outputs: propuesta_inventario, convenio_liquidacion, solicitud_formacion_inventario (DRAFT).
+- Jurisdiccion: Espana (CC 1344-1410; LEC 806-811, con los arts. 807, 808 y 810 reformados en 2022).
+- Assets: 3.
+- Estado: **Completa**. QA en vivo: defecto material corregido — el lote se valoraba en bruto en vez de neto de la deuda asumida, casi duplicando la compensacion debida en el escenario mas frecuente.
+
+### derecho-civil-medidas-hijos-no-matrimoniales  (QA en vivo)
+- Proposito: primera fijacion de custodia, estancias, alimentos y uso de la vivienda respecto de hijos de progenitores no casados.
+- Outputs: pacto_relaciones_familiares, demanda_medidas_paternofiliales (DRAFT).
+- Jurisdiccion: Espana (CC 92-96 y 142-156; LEC 748.4, 769.3, 770, 777).
+- Assets: 2.
+- Estado: **Completa**. QA en vivo: 5 defectos corregidos, entre ellos que el fundamento de la vivienda la atribuia "por la titularidad del inmueble", que era del demandado, en vez de por el interes de la menor. Registrado que los arts. 770 y 777 LEC se cenian al matrimonio y que el apoyo real esta en los arts. 748.4 y 769.3.
+
+### derecho-civil-pareja-de-hecho  (QA en vivo)
+- Proposito: constitucion, pacto de convivencia y pacto de ruptura de la pareja de hecho.
+- Outputs: pacto_convivencia, pacto_ruptura, checklist_inscripcion_registro (DRAFT).
+- Jurisdiccion: Espana (sin ley estatal: 17 regimenes autonomicos, verificados en cada lanzamiento; CC para los pactos; art. 221 LGSS).
+- Assets: 3.
+- Estado: **Completa**. QA en vivo: 8 defectos corregidos. Destaca una trampa de fuente — los portales autonomicos anuncian equiparacion "en sucesiones" refiriendose al impuesto, no al derecho a heredar — y que la respuesta al malentendido central ("¿quedamos como casados?") llegaba diez turnos tarde.
+
+### derecho-civil-testamento-planificacion  (QA en vivo)
+- Proposito: minuta de testamento abierto y checklist de planificacion sucesoria (institucion de herederos, mejora, legados, sustituciones, cautela socini, desheredacion). Solo derecho comun.
+- Outputs: minuta_testamento_abierto, checklist_planificacion_sucesoria (DRAFT).
+- Jurisdiccion: Espana, derecho comun (CC 662-882, con el art. 808 en redaccion Ley 8/2021). Vecindad foral o desconocida: detiene y escala.
+- Assets: 2.
+- Estado: **Completa**. QA en vivo: 6 defectos corregidos, el mas grave que en la rama de planificacion nunca se preguntaba a quien se instituye heredero, siendo la clausula obligatoria de la minuta y siendo esa la rama por la que pasa toda desheredacion.
+
+### derecho-civil-contratos-particulares  (QA en vivo)
+- Proposito: contratos entre particulares — prestamo, reconocimiento de deuda, comodato y compraventa de bien mueble.
+- Outputs: contrato_prestamo, reconocimiento_deuda, contrato_comodato, contrato_compraventa_mueble (DRAFT).
+- Jurisdiccion: Espana (CC 1088-1289, 1445-1501, 1740-1757; Ley Azcarate de 1908, verificada vigente).
+- Assets: 4.
+- Estado: **Completa**. QA en vivo: 5 defectos corregidos. Destaca que con un interes en franja intermedia el guardrail de usura no se disparaba y la skill no estaba obligada a decir nada: ese silencio se lee como aprobacion. Ninguna cifra de interes legal escrita fija (no hay PGE de 2026).
+
+### derecho-civil-medidas-apoyo-discapacidad  (QA en vivo)
+- Proposito: medidas de apoyo de la Ley 8/2021 — poder preventivo, autorizacion judicial en guarda de hecho y curatela, esta ultima subsidiaria.
+- Outputs: minuta_poder_preventivo, solicitud_autorizacion_guarda_hecho, demanda_curatela (DRAFT).
+- Jurisdiccion: Espana (CC 249-298 en redaccion Ley 8/2021; LEC 756-763; LJV).
+- Assets: 3.
+- Estado: **Completa**. QA en vivo: el SKILL mandaba activar un bloque que no existia en el asset, y el escrito salia diciendo "no ha sido posible determinar su voluntad" e inmediatamente despues "esta voluntad se ha recabado del siguiente modo". Corregido. La correccion terminologica del vocabulario derogado se emite una sola vez y sin reproche.
+
+### Bugs transversales encontrados y corregidos en las 19 skills (01-03/09/2026)
 
 1. **Placeholder generico duplicado**: un `SKILL.md` que instruia sustituir cualquier dato faltante por un token generico repetido (`{{DATO_FALTANTE}}` o `[DATO]`) rompia el `Edit` posterior en cuanto habia dos huecos iguales en el mismo documento (`oldString` deja de ser unico). Corregido: cada dato faltante conserva el nombre propio del placeholder del asset.
 2. **Corchete simple en colision con privacidad**: `reclamacion-clausulas-abusivas` usaba `[verificar]`/`[DATO]` visibles en el documento final, en violacion de la regla raiz que prohibe corchetes simples (colision con `[PERSON_1]`). Corregido a `{{VERIFICAR}}` y placeholders con nombre propio.
 3. **Placeholders con texto de ayuda embebido**: 176 casos en 9 de las 11 skills (`{{naturaleza: persona fisica / persona juridica}}` en vez de `{{naturaleza}}`), incluidas 2 llaves anidadas rotas en `herencia` y `juicio-ordinario`. Corregidos todos; verificado por grep en cero casos restantes en todo el catalogo.
+4. **Turno muerto tras crear el documento**: 12 skills preguntaban "¿desea empezar a completar los datos?" despues del `Write`, contradiciendo la regla del `CLAUDE.md` raiz (seccion 6.1, punto 5) de encadenar la primera pregunta en la misma respuesta, y el Punto 0 de arranque inmediato. Corregido en las 12 y en la guia.
+5. **Seccion opcional con placeholder crudo**: "CLAUSULAS ADICIONALES" llegaba al contrato firmado con el placeholder sin resolver cuando el cliente no pedia ninguna. Corregido en los 10 assets afectados envolviendo el bloque completo, cabecera incluida, en el comentario condicional.
+6. **Desincronizacion entre `SKILL.md` y asset**: el `SKILL.md` mandaba activar bloques condicionales que el asset no tenia escritos (detectado en `compraventa-inmueble`, `medidas-apoyo-discapacidad` y, en forma de clausula obligatoria ausente, en `testamento-planificacion`). Obliga al agente operacional a improvisar texto fuera de plantilla. Anadida como regla 5 de la seccion 4 de `PLUGIN_AUTHORING_GUIDE.md`.
 
 Las tres reglas quedaron escritas en `PLUGIN_AUTHORING_GUIDE.md` (seccion 2 y seccion 4) para toda skill futura del marketplace.
 
@@ -199,8 +259,8 @@ Skill de prueba generada con el builder: contrato de alquiler con arbol de decis
 
 | Estado | Skills |
 |---|---|
-| Completa | 17 |
+| Completa | 25 |
 | Parcial (frontmatter reducido) | 3 (nda-review, general-query, venezuela-history) |
-| Total | 20 |
+| Total | 28 |
 
 Todos los assets del marketplace usan la convencion `{{placeholder}}`; no hay datos reales incrustados.

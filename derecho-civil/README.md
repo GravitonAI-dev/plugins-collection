@@ -1,6 +1,6 @@
 # Derecho Civil
 
-Plugin de GravitonAI para la generacion de documentos de derecho civil espanol, verificando siempre la version consolidada vigente en el BOE antes de redactar. Cubre reclamacion de cantidad (monitorio/verbal/ordinario), ejecucion de titulos, arrendamiento, desahucio, propiedad horizontal, divorcio y modificacion de medidas, herencia, y clausulas abusivas de consumo.
+Plugin de GravitonAI para la generacion de documentos de derecho civil espanol, verificando siempre la version consolidada vigente en el BOE antes de redactar. **19 skills** que cubren reclamacion de cantidad y ejecucion de titulos, contratos entre particulares, arrendamiento, desahucio, compraventa de inmuebles y propiedad horizontal, familia (divorcio, medidas sobre hijos, modificacion de medidas, gananciales y pareja de hecho), sucesiones (herencia y planificacion testamentaria), clausulas abusivas de consumo, responsabilidad civil y medidas de apoyo a personas con discapacidad.
 
 ---
 
@@ -15,7 +15,14 @@ Plugin de GravitonAI para la generacion de documentos de derecho civil espanol, 
 - Cubre el ciclo completo de la herencia: aceptacion, renuncia, interpelacion al heredero silente, cuaderno particional y division judicial.
 - Prepara el juicio ordinario civil de principio a fin (admisibilidad, demanda, audiencia previa, prueba y conclusiones).
 - Genera la reclamacion extrajudicial y la demanda de nulidad de clausulas abusivas de consumo.
-- Toda skill se auto-actualiza en cada lanzamiento: verifica la version vigente de su norma en el BOE antes de redactar y reescribe sus propias references/assets si detecta cambios.
+- Reclama danos por responsabilidad civil, incluidos los accidentes con vehiculos personales ligeros (patinetes), con seguro obligatorio desde la Ley 5/2025, y responde a la oferta motivada de la aseguradora.
+- Genera contratos de arras y de compraventa de vivienda, con advertencia del tanteo y retracto del arrendatario si el inmueble esta alquilado.
+- Liquida la sociedad de gananciales, con acuerdo o por via judicial, y fija por primera vez las medidas sobre hijos de progenitores no casados.
+- Constituye parejas de hecho y pacta su convivencia o su ruptura, verificando en cada lanzamiento la normativa y el registro de la comunidad autonoma.
+- Prepara la minuta del testamento y el checklist de planificacion sucesoria (legitimas, mejora, sustituciones, desheredacion), solo en derecho comun.
+- Redacta contratos entre particulares (prestamo, reconocimiento de deuda, comodato, compraventa de mueble) con control de usura.
+- Prepara las medidas de apoyo a personas con discapacidad de la Ley 8/2021, tratando la curatela como subsidiaria de la guarda de hecho y de las medidas voluntarias.
+- Toda skill se auto-actualiza en cada lanzamiento: verifica la version vigente de su norma en el BOE antes de redactar y reescribe sus propias references/assets si detecta cambios. Las magnitudes que cambian solas (baremo de trafico, IRAV, SMI, interes legal) se consultan en el momento y nunca quedan escritas fijas en la plantilla.
 
 ## Que NO hace
 
@@ -124,6 +131,70 @@ Invocacion: `/derecho-civil:derecho-civil-reclamacion-clausulas-abusivas`
 
 Output: reclamacion extrajudicial y/o demanda de nulidad con restitucion, en markdown, DRAFT.
 
+### `derecho-civil-responsabilidad-civil`
+
+Reclama los danos sufridos por culpa de otro, contractual o extracontractual: accidente de trafico con vehiculo a motor o con vehiculo personal ligero (patinete, con seguro obligatorio desde la Ley 5/2025), caida en establecimiento o via publica, vicio constructivo y negligencia profesional. Aplica un filtro de prescripcion bloqueante (un ano en la extracontractual, cinco en la contractual) y verifica en cada lanzamiento las cuantias del baremo del ejercicio en curso, que nunca quedan escritas fijas.
+
+Invocacion: `/derecho-civil:derecho-civil-responsabilidad-civil`
+
+Output: reclamacion extrajudicial de danos, demanda de responsabilidad civil o respuesta a la oferta motivada de la aseguradora, en markdown, DRAFT.
+
+### `derecho-civil-compraventa-inmueble`
+
+Genera el contrato de arras o senal, el contrato privado de compraventa de vivienda y el requerimiento por incumplimiento. Exige pactar expresamente la clase de arras, porque el silencio juega en contra de quien quiere desistir, y advierte del derecho de tanteo y retracto del arrendatario si el inmueble esta alquilado.
+
+Invocacion: `/derecho-civil:derecho-civil-compraventa-inmueble`
+
+Output: contrato de arras, contrato de compraventa o requerimiento de cumplimiento, en markdown, DRAFT.
+
+### `derecho-civil-liquidacion-gananciales`
+
+Liquida la sociedad de gananciales, con acuerdo (convenio) o sin el (solicitud judicial de formacion de inventario). Explica la presuncion de ganancialidad, los reintegros entre masas y, sobre todo, que adjudicar la vivienda a un conyuge no libera al otro frente al banco.
+
+Invocacion: `/derecho-civil:derecho-civil-liquidacion-gananciales`
+
+Output: propuesta de inventario, convenio de liquidacion o solicitud de formacion de inventario, en markdown, DRAFT.
+
+### `derecho-civil-medidas-hijos-no-matrimoniales`
+
+Fija por primera vez la custodia, el regimen de estancias, los alimentos y el uso de la vivienda respecto de hijos de progenitores no casados, de mutuo acuerdo o por via contenciosa. Comprueba antes que la filiacion este determinada respecto de ambos.
+
+Invocacion: `/derecho-civil:derecho-civil-medidas-hijos-no-matrimoniales`
+
+Output: pacto de relaciones familiares o demanda de medidas paternofiliales, en markdown, DRAFT.
+
+### `derecho-civil-pareja-de-hecho`
+
+Constituye la pareja de hecho, pacta la convivencia o regula la ruptura. Como no existe ley estatal, pregunta la comunidad autonoma y **verifica su normativa y su registro en cada lanzamiento** en lugar de darlos por sabidos. Deja claro que la inscripcion no equipara al matrimonio y que el conviviente no hereda sin testamento.
+
+Invocacion: `/derecho-civil:derecho-civil-pareja-de-hecho`
+
+Output: pacto de convivencia, pacto de ruptura o checklist de inscripcion en el registro autonomico, en markdown, DRAFT.
+
+### `derecho-civil-testamento-planificacion`
+
+Prepara la minuta del testamento abierto y el checklist de planificacion sucesoria: institucion de herederos, mejora, legados, sustituciones, usufructo universal al conyuge con cautela socini y desheredacion. Solo derecho comun: si la vecindad civil es foral, o el cliente no la conoce con seguridad, detiene y escala.
+
+Invocacion: `/derecho-civil:derecho-civil-testamento-planificacion`
+
+Output: minuta de testamento abierto para llevar al notario y/o checklist de planificacion sucesoria, en markdown, DRAFT.
+
+### `derecho-civil-contratos-particulares`
+
+Redacta contratos entre particulares: prestamo de dinero, reconocimiento de deuda, comodato y compraventa de bien mueble. Controla la usura (cuya consecuencia es la nulidad del prestamo, no una rebaja del interes) y explica la diferencia entre documento privado y escritura publica en fecha cierta, fuerza ejecutiva y coste.
+
+Invocacion: `/derecho-civil:derecho-civil-contratos-particulares`
+
+Output: contrato de prestamo, reconocimiento de deuda, comodato o compraventa de mueble, en markdown, DRAFT.
+
+### `derecho-civil-medidas-apoyo-discapacidad`
+
+Prepara las medidas de apoyo de la Ley 8/2021: poder preventivo, autorizacion judicial puntual dentro de una guarda de hecho, y curatela. La curatela es **subsidiaria**: solo procede cuando no existe otra medida de apoyo suficiente, asi que la skill filtra antes de enrutar a ella. Corrige el vocabulario derogado ("incapacitar", "el incapaz") una sola vez y sin reproche.
+
+Invocacion: `/derecho-civil:derecho-civil-medidas-apoyo-discapacidad`
+
+Output: minuta de poder preventivo, solicitud de autorizacion judicial en guarda de hecho o demanda de curatela, en markdown, DRAFT.
+
 ---
 
 ## Alcance del plugin
@@ -174,4 +245,16 @@ Ninguno.
 
 ## Estado de calidad
 
-Las 8 skills creadas o ampliadas en la ultima iteracion (`derecho-civil-reclamacion-cantidad`, `derecho-civil-arrendamiento`, `derecho-civil-divorcio`, `derecho-civil-herencia`, `derecho-civil-desahucio`, `derecho-civil-propiedad-horizontal`, `derecho-civil-modificacion-medidas`, `derecho-civil-ejecucion-titulos`) pasaron un control de calidad en vivo: ejecucion real del procedimiento (no solo revision del `SKILL.md`), verificacion normativa contra el BOE en vivo, y generacion real de documentos con `Write`/`Read`/`Edit`. El proceso encontro y corrigio defectos reales en las 8 skills (ver `test-local/tests/test-derecho-civil-*.md`, seccion "Verificacion en vivo + calidad LLM" de cada una) y tres bugs transversales ya corregidos en las 11 skills del plugin: placeholders genericos duplicados que rompian `Edit`, placeholders con corchete simple en colision con los identificadores de privacidad, y placeholders con texto de ayuda embebido en las llaves. Detalle en `test-local/CATALOGO.md`.
+Las **19 skills** del plugin pasaron un control de calidad ejecutado de verdad, no una revision del `SKILL.md` sobre el papel: un agente sin contexto previo juega el papel del LLM operativo sobre un caso sintetico disenado para provocar el error mas probable de esa skill, con verificacion normativa en vivo contra la API del BOE y con `Write`, `Read` y `Edit` reales sobre el documento.
+
+**El proceso encontro defectos reales en las 16 skills sometidas a el.** Ninguno se habria visto leyendo la skill. Los mas graves, por familias:
+
+- **Documentos que se contradecian a si mismos**: un contrato de compraventa obligaba a entregar el piso "libre de arrendatarios" mientras otra clausula describia un alquiler vigente; una solicitud de apoyos decia "no ha sido posible determinar su voluntad" y dos parrafos despues "esta voluntad se ha recabado del siguiente modo".
+- **Errores que perjudicaban al cliente**: se declaraba prescrita una reclamacion viva por no preguntar antes si la aseguradora se habia comunicado; se valoraba un lote de gananciales en bruto en vez de neto de la deuda asumida, casi duplicando la compensacion debida.
+- **La clausula central ausente**: en la planificacion sucesoria nunca se preguntaba a quien se instituye heredero, y como toda desheredacion pasa por esa rama, el caso mas delicado era justo el que perdia la clausula obligatoria.
+- **Silencios que se leen como aprobacion**: con un interes del 12 % el guardrail de usura no saltaba y la skill no estaba obligada a decir nada.
+- **Contenido correcto en el momento equivocado**: la respuesta al malentendido central de las parejas de hecho llegaba diez turnos tarde, cuando el cliente ya estaba decidiendo.
+
+Tres defectos transversales, corregidos en todo el catalogo: placeholders genericos duplicados que rompian el `Edit` al perder el `oldString` unico; corchetes simples en colision con los identificadores de privacidad; y un turno muerto tras crear el documento que contradecia la regla del `CLAUDE.md` raiz de encadenar la primera pregunta en la misma respuesta.
+
+El detalle por skill, con extractos literales de las conversaciones generadas, esta en `test-local/tests/test-derecho-civil-*.md`, seccion "QA en vivo". Los documentos generados en las pruebas quedan en `test-local/output/` como fixtures, con datos sinteticos.

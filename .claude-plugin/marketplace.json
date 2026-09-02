@@ -20,8 +20,8 @@
       "name": "derecho-civil",
       "displayName": "Derecho Civil",
       "source": "./derecho-civil",
-      "version": "0.7.0",
-      "description": "Generacion de documentos de derecho civil espanol, siempre en su version consolidada vigente verificada en el BOE: arrendamiento, reclamacion de cantidad (monitorio/verbal/ordinario), ejecucion de titulos, desahucios, propiedad horizontal, divorcio y modificacion de medidas, particion de herencia y reclamacion de clausulas abusivas de consumo.",
+      "version": "0.8.0",
+      "description": "Generacion de documentos de derecho civil espanol, siempre en su version consolidada vigente verificada en el BOE: reclamacion de cantidad y ejecucion de titulos, contratos entre particulares, arrendamiento, desahucio, compraventa de inmuebles y propiedad horizontal, familia (divorcio, medidas sobre hijos, modificacion de medidas, gananciales y pareja de hecho), sucesiones (herencia y planificacion testamentaria), clausulas abusivas de consumo, responsabilidad civil y medidas de apoyo a personas con discapacidad.",
       "author": {
         "name": "GravitonAI"
       }
