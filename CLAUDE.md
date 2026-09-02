@@ -148,8 +148,9 @@ Work happens on disk. **Never** emit the full deliverable in chat.
 
 1. **`Write`** — dump the template in full. Forbidden: empty files or title-only files. Forbidden: conversational text inside the file.
 2. **Zero-omission** — in that same dump, replace **every** placeholder whose value you already know: user-supplied data (active listening) and data you obtained or computed yourself (system dates, consulted statute versions, search results). Placeholders whose value does not yet exist **stay as `{{DATUM}}`** and are resolved by the incremental editing cycle. Zero-omission never invents content ahead of time; it only fills what is already known.
-3. **`Read`** — mandatory verification on the exact path written.
-4. **Confirmation** — a chat message that **must** contain the absolute path (e.g. *"I created the document at /absolute/path/file.md"*) and, in the same reply, the first question of the incremental edit, so the flow never stalls.
+3. **Comment resolution (zero HTML comments in the output)** — templates may contain HTML comments (`<!-- Si X: ... -->`) as internal instructions: conditional blocks and drafting notes addressed to you, never to the reader. The written document must contain **no** `<!-- ... -->` at all: if the condition already holds, insert the content as its own line **without** the comment wrapper (keeping the placeholders it contains); if it does not hold or is still unknown, omit the comment entirely — when the missing datum arrives during the incremental editing cycle, re-read the template asset and insert the block then, again without the wrapper. The GUI renders the document as rich text — a leaked comment shows up as literal garbage to the client. Placeholders are always written bare (`{{DATUM}}`), never wrapped in comments.
+4. **`Read`** — mandatory verification on the exact path written.
+5. **Confirmation** — a chat message that **must** contain the absolute path (e.g. *"I created the document at /absolute/path/file.md"*) and, in the same reply, the first question of the incremental edit, so the flow never stalls.
 
 ### 6.2 Incremental editing cycle
 
