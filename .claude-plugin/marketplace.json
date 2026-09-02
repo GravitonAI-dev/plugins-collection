@@ -20,8 +20,8 @@
       "name": "derecho-civil",
       "displayName": "Derecho Civil",
       "source": "./derecho-civil",
-      "version": "0.6.0",
-      "description": "Generacion de documentos de derecho civil espanol, siempre en su version consolidada vigente verificada en el BOE: arrendamiento urbano (LAU), proceso monitorio y juicio ordinario (LEC), desahucios, convenio regulador de divorcio de mutuo acuerdo, particion de herencia y reclamacion de clausulas abusivas de consumo.",
+      "version": "0.7.0",
+      "description": "Generacion de documentos de derecho civil espanol, siempre en su version consolidada vigente verificada en el BOE: arrendamiento, reclamacion de cantidad (monitorio/verbal/ordinario), ejecucion de titulos, desahucios, propiedad horizontal, divorcio y modificacion de medidas, particion de herencia y reclamacion de clausulas abusivas de consumo.",
       "author": {
         "name": "GravitonAI"
       }

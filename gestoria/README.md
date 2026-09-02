@@ -58,7 +58,7 @@ Output: hoja de datos del modelo TA correspondiente, checklist de documentos, or
 
 ### `liquidacion-impuesto-sucesiones`
 
-Prepara la autoliquidacion del Impuesto de Sucesiones (modelo 650, mortis causa) de un heredero (Ley 29/1987 y normativa autonomica). Complementa a `particion-herencia` de derecho-civil (el cuaderno juridico); esta hace la liquidacion fiscal.
+Prepara la autoliquidacion del Impuesto de Sucesiones (modelo 650, mortis causa) de un heredero (Ley 29/1987 y normativa autonomica). Complementa a `derecho-civil-herencia` de derecho-civil (el cuaderno juridico); esta hace la liquidacion fiscal.
 
 Invocacion: `/gestoria:liquidacion-impuesto-sucesiones`
 

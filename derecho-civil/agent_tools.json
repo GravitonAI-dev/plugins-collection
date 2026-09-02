@@ -3,7 +3,7 @@
     {
       "id": "io.gravitonai.tools.read_document",
       "required": true,
-      "purpose": "Lectura directa en el BOE de la norma aplicable para verificar la version consolidada vigente antes de redactar: LAU (BOE-A-1994-26003) para arrendamiento-urbano; LEC (BOE-A-2000-323, arts. 812-818 y 264) y el modelo normalizado del CGPJ para monitorio. Si detecta una version posterior, actualiza los archivos del plugin."
+      "purpose": "Lectura directa en el BOE de la norma aplicable para verificar la version consolidada vigente antes de redactar: LAU (BOE-A-1994-26003) para derecho-civil-arrendamiento; LEC (BOE-A-2000-323, arts. 812-818 y 264) y el modelo normalizado del CGPJ para derecho-civil-monitorio. Si detecta una version posterior, actualiza los archivos del plugin."
     },
     {
       "id": "io.gravitonai.tools.web_search",

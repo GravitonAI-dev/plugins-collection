@@ -8,7 +8,7 @@ description: >
   CCAA). Genera una hoja de datos y borrador del modelo 650 con la base y una estimacion de la cuota
   marcada [verificar], el checklist de documentos, el organismo y plazo de presentacion (6 meses,
   prorrogable) y el aviso de la plusvalia municipal por inmuebles urbanos. NO usar para el reparto
-  juridico de la herencia (eso lo hace la skill particion-herencia de derecho-civil), para donaciones o
+  juridico de la herencia (eso lo hace la skill derecho-civil-herencia de derecho-civil), para donaciones o
   seguros liquidados de forma independiente por otro modelo, ni para dar la cuota como definitiva.
 when_to_use: |
   - El usuario ya sabe que heredero es y que recibe, y necesita preparar la autoliquidacion del Impuesto de Sucesiones (modelo 650).
@@ -126,7 +126,7 @@ El agente no prepara nada hasta recoger estos datos:
 
 **Bloque D — Caudal hereditario (inventario y valores):**
 - Relacion de bienes y derechos con su valor: inmuebles (con referencia catastral y valor de referencia/mercado), cuentas y depositos, valores, vehiculos, otros.
-- Si existe cuaderno particional (skill `particion-herencia`), tomar de ahi el inventario y el avaluo, y la parte que corresponde a ESTE heredero.
+- Si existe cuaderno particional (skill `derecho-civil-herencia`), tomar de ahi el inventario y el avaluo, y la parte que corresponde a ESTE heredero.
 - Ajuar domestico: valor declarado o, en su defecto, el 3% del caudal relicto (Art. 15), salvo prueba en contrario.
 
 **Bloque E — Cargas, deudas y gastos deducibles:**
@@ -200,7 +200,7 @@ Advertencias:
 
 ## Como NO se usa esta skill
 
-- No usar para el reparto juridico de la herencia (inventario, avaluo, legitima, adjudicaciones): eso lo hace la skill `particion-herencia` del plugin `derecho-civil`. Esta skill parte de ese reparto para preparar la liquidacion fiscal.
+- No usar para el reparto juridico de la herencia (inventario, avaluo, legitima, adjudicaciones): eso lo hace la skill `derecho-civil-herencia` del plugin `derecho-civil`. Esta skill parte de ese reparto para preparar la liquidacion fiscal.
 - No usar para donaciones en vida (modelo 651) ni para seguros de vida liquidados de forma independiente por otro modelo.
 - No usar para calcular ni presentar la plusvalia municipal: la skill solo avisa de su existencia y plazo.
 - No usar para dar la cuota como definitiva ni para sustituir la revision de un gestor o asesor fiscal.
@@ -210,7 +210,7 @@ Advertencias:
 
 | Situacion | Accion |
 |---|---|
-| Herencia con litigio sucesorio o desacuerdo entre herederos | Advertir de que primero debe resolverse el reparto (`particion-herencia`) y ofrecer escalacion |
+| Herencia con litigio sucesorio o desacuerdo entre herederos | Advertir de que primero debe resolverse el reparto (`derecho-civil-herencia`) y ofrecer escalacion |
 | Comprobacion de valores o liquidacion complementaria de la administracion | Advertir y derivar a gestor o asesor fiscal (escalate_to_attorney) |
 | Bonificacion autonomica dudosa o cambio normativo reciente en la CCAA | Verificar con web_search, marcar [verificar] y advertir |
 | Solicitud de aplazamiento, fraccionamiento o prorroga del pago | Indicar la via ante la Hacienda autonomica y ofrecer escalacion |
