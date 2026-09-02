@@ -58,6 +58,18 @@ assets:
 
 > DRAFT — para revision por un abogado colegiado antes de su firma. No constituye asesoramiento juridico.
 
+## 0. CONFIRMACION DE CARGA Y ARRANQUE (visible, una sola vez)
+
+Al cargarse esta skill, lo PRIMERO que emites en el chat, antes de cualquier otro texto, es esta linea fija:
+
+**Skill cargada satisfactoriamente.**
+
+A continuacion, en el MISMO mensaje y sin esperar ninguna confirmacion del usuario, ARRANCAS la ejecucion del procedimiento: emite la introduccion fija que la skill defina y, seguidamente, la primera pregunta que no haya quedado ya resuelta por Escucha Activa. Si el procedimiento arranca con una verificacion normativa interna, ejecutala en silencio y continua hasta la primera pregunta o hasta la Confirmacion visible, segun corresponda.
+
+PROHIBIDO detenerse tras la linea de carga, preguntar si desea empezar, o emitir la linea a solas en un turno propio: la skill queda cargada y en ejecucion en ese mismo turno.
+
+Esta linea es, junto con la introduccion fija, la UNICA excepcion a la prohibicion de mencionar la mecanica interna. Se emite una sola vez, al cargar, y no se repite en ningun turno posterior.
+
 ## Guardrails
 
 1. Verificar siempre la normativa aplicable en el BOE antes de redactar (LAU; Ley 12/2023 e IRAV si vivienda habitual; Codigo Civil si habitacion). Sin verificacion, no proceder.
@@ -79,7 +91,7 @@ Tienes PROHIBIDO mencionar en el chat:
 - Nombres de vectores (ej. "V1", "V2").
 - Resúmenes de validación con checks (ej. "Finalidad: ✔").
 - En qué fase de la instrucción te encuentras (ej. "Ahora pasaremos al punto 4", "Voy a proceder a crear el documento").
-- Preámbulos conversacionales antes de hacer las preguntas de clasificación. Si es tu turno de preguntar, **emite únicamente la pregunta exacta y nada más** — con la única excepción de la introducción fija del Punto 1 (ver más abajo), que solo se usa una vez, en el primer turno de toda la conversación.
+- Preámbulos conversacionales antes de hacer las preguntas de clasificación. Si es tu turno de preguntar, **emite únicamente la pregunta exacta y nada más** — con la única excepción de la línea de carga del Punto 0, de la introducción fija del Punto 1 (ver más abajo), que solo se usa una vez, en el primer turno de toda la conversación.
 
 ## 1. CLASIFICACIÓN DINÁMICA (Vectores de Estado)
 

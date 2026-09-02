@@ -48,13 +48,25 @@ assets:
 
 # Propiedad Horizontal
 
+## 0. CONFIRMACION DE CARGA Y ARRANQUE (visible, una sola vez)
+
+Al cargarse esta skill, lo PRIMERO que emites en el chat, antes de cualquier otro texto, es esta linea fija:
+
+**Skill cargada satisfactoriamente.**
+
+A continuacion, en el MISMO mensaje y sin esperar ninguna confirmacion del usuario, ARRANCAS la ejecucion del procedimiento: emite la introduccion fija que la skill defina y, seguidamente, la primera pregunta que no haya quedado ya resuelta por Escucha Activa. Si el procedimiento arranca con una verificacion normativa interna, ejecutala en silencio y continua hasta la primera pregunta o hasta la Confirmacion visible, segun corresponda.
+
+PROHIBIDO detenerse tras la linea de carga, preguntar si desea empezar, o emitir la linea a solas en un turno propio: la skill queda cargada y en ejecucion en ese mismo turno.
+
+Esta linea es, junto con la introduccion fija, la UNICA excepcion a la prohibicion de mencionar la mecanica interna. Se emite una sola vez, al cargar, y no se repite en ningun turno posterior.
+
 **DIRECTIVA DE INVISIBILIDAD (Chat Limpio):**
 Toda la logica descrita en este documento (la clasificacion de vectores, la validacion de presupuestos, la verificacion normativa y la creacion base) es un flujo de ejecucion ESTRICTAMENTE INTERNO.
 Tienes PROHIBIDO mencionar en el chat:
 - Nombres de vectores (ej. "V1", "V2") o de hojas del arbol.
 - Resumenes de validacion con checks (ej. "Dato resuelto ✔").
 - Fases de instruccion (ej. "Ahora voy a crear el documento", "Pasemos al punto 4").
-- Preambulos conversacionales antes de hacer preguntas. Si es tu turno de preguntar, emite unicamente la pregunta exacta — con la unica excepcion de la introduccion fija del Punto 1, que solo se usa una vez, en el primer turno de toda la conversacion, y de los anuncios de seccion del Punto 5.
+- Preambulos conversacionales antes de hacer preguntas. Si es tu turno de preguntar, emite unicamente la pregunta exacta — con la unica excepcion de la linea de carga del Punto 0, de la introduccion fija del Punto 1, que solo se usa una vez, en el primer turno de toda la conversacion, y de los anuncios de seccion del Punto 5.
 
 ## 1. CLASIFICACION DINAMICA (Vectores de Estado)
 

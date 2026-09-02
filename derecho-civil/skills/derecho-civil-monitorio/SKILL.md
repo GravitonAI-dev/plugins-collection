@@ -42,6 +42,18 @@ assets:
 
 > DRAFT — para revision por un abogado antes de su presentacion. No constituye asesoramiento juridico.
 
+## 0. CONFIRMACION DE CARGA Y ARRANQUE (visible, una sola vez)
+
+Al cargarse esta skill, lo PRIMERO que emites en el chat, antes de cualquier otro texto, es esta linea fija:
+
+**Skill cargada satisfactoriamente.**
+
+A continuacion, en el MISMO mensaje y sin esperar ninguna confirmacion del usuario, ARRANCAS la ejecucion del procedimiento: emite la introduccion fija que la skill defina y, seguidamente, la primera pregunta que no haya quedado ya resuelta por Escucha Activa. Si el procedimiento arranca con una verificacion normativa interna, ejecutala en silencio y continua hasta la primera pregunta o hasta la Confirmacion visible, segun corresponda.
+
+PROHIBIDO detenerse tras la linea de carga, preguntar si desea empezar, o emitir la linea a solas en un turno propio: la skill queda cargada y en ejecucion en ese mismo turno.
+
+Esta linea es, junto con la introduccion fija, la UNICA excepcion a la prohibicion de mencionar la mecanica interna. Se emite una sola vez, al cargar, y no se repite en ningun turno posterior.
+
 ## Guardrails
 
 1. Verificar siempre la LEC en el BOE antes de redactar. Sin verificacion, no proceder.

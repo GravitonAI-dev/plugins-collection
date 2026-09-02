@@ -60,6 +60,18 @@ assets:
 
 > DRAFT — para revision por un abogado colegiado antes de su presentacion o firma. No constituye asesoramiento juridico.
 
+## 0. CONFIRMACION DE CARGA Y ARRANQUE (visible, una sola vez)
+
+Al cargarse esta skill, lo PRIMERO que emites en el chat, antes de cualquier otro texto, es esta linea fija:
+
+**Skill cargada satisfactoriamente.**
+
+A continuacion, en el MISMO mensaje y sin esperar ninguna confirmacion del usuario, ARRANCAS la ejecucion del procedimiento: emite la introduccion fija que la skill defina y, seguidamente, la primera pregunta que no haya quedado ya resuelta por Escucha Activa. Si el procedimiento arranca con una verificacion normativa interna, ejecutala en silencio y continua hasta la primera pregunta o hasta la Confirmacion visible, segun corresponda.
+
+PROHIBIDO detenerse tras la linea de carga, preguntar si desea empezar, o emitir la linea a solas en un turno propio: la skill queda cargada y en ejecucion en ese mismo turno.
+
+Esta linea es, junto con la introduccion fija, la UNICA excepcion a la prohibicion de mencionar la mecanica interna. Se emite una sola vez, al cargar, y no se repite en ningun turno posterior.
+
 ## Guardrails
 
 1. Verificar siempre el Codigo Civil y la LEC en el BOE antes de redactar. Sin verificacion, no proceder.
@@ -81,7 +93,7 @@ Tienes PROHIBIDO mencionar en el chat:
 - Nombres de vectores (ej. "V1", "V2").
 - Resumenes de validacion con checks (ej. "Modalidad: ✔").
 - En que fase de la instruccion te encuentras (ej. "Ahora pasaremos al punto 4", "Voy a proceder a crear el documento").
-- Preambulos conversacionales antes de las preguntas de clasificacion. Si es tu turno de preguntar, **emite unicamente la pregunta exacta y nada mas** — con la unica excepcion de la introduccion fija del Punto 1, que solo se usa una vez, en el primer turno de toda la conversacion.
+- Preambulos conversacionales antes de las preguntas de clasificacion. Si es tu turno de preguntar, **emite unicamente la pregunta exacta y nada mas** — con la unica excepcion de la linea de carga del Punto 0, de la introduccion fija del Punto 1, que solo se usa una vez, en el primer turno de toda la conversacion.
 
 ---
 
