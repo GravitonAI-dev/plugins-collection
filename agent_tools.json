@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "description": "Catálogo global de herramientas que los plugins pueden invocar. Sigue el formato de declaración de tools de MCP (input_schema / output_schema en JSON Schema). Los plugins referencian tools por su `id` desde su propio `agent_tools.json`.",
+  "description": "Catálogo global de herramientas que los plugins pueden invocar. Los plugins referencian tools por su `id` desde su propio `agent_tools.json`.",
   "owner": {
     "name": "GravitonAI"
   },

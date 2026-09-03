@@ -91,7 +91,7 @@ Anota la respuesta con el marcador `
 **Pregunta 5 — Tools.**
 `El plugin necesitara tools? Una tool es una funcion estructurada que el agente invoca directamente (leer un documento, generar un draft, crear un ticket, etc.).
 
-**Quien lee este archivo**: el archivo `agent_tools.json` del plugin **SI lo lee el LLM** al ejecutar cualquier skill del plugin. Es la "interfaz de tools" que el LLM conoce y puede invocar.
+**Quien lee este archivo**: el archivo `agent_tools.json` del plugin **SI lo lee el LLM** al ejecutar cualquier skill del plugin. Es la "interfaz de tools" que el LLM conoce y puede invocar. Sigue el formato minimalista `{"tools": [{"id": "<id>"}]}` referenciando las herramientas por ID sin duplicar sus esquemas JSON Schema (los esquemas residen únicamente en el `agent_tools.json` raíz del catálogo global).
 
 **Regla**: tu nunca defines tools nuevas. Solo puedes elegir de las que ya estan definidas en `agent_tools.json` raiz (catalogo global).
 
@@ -126,7 +126,7 @@ Antes de escribir nada, presenta el plan global.
 | `<plugin>/.claude-plugin/plugin.json` | Manifest con name, version (0.1.0), description, author, skills[] (las que se crearon en esta sesion), agents[], hooks[] |
 | `<plugin>/CLAUDE.md` | Playbook: proposito, audiencia, jurisdiccion por defecto, tono y estilo, defaults, matriz de escalacion, guardrails adicionales. **(DEBE seguir EXACTAMENTE la Plantilla Obligatoria definida en `PLUGIN_AUTHORING_GUIDE.md`, sin repetir directivas operacionales globales).** |
 | `<plugin>/README.md` | Documentacion humana: que hace, que NO hace, skills, dependencias (tools del agente), instalacion, tuning |
-| `<plugin>/agent_tools.json` | Herramientas que el plugin usa (de base incluye las 7 tools nativas). Subconjunto con las mismas definiciones completas (input_schema/output_schema) del `agent_tools.json` global. **Lo lee el LLM.** |
+| `<plugin>/agent_tools.json` | Herramientas que el plugin usa (de base incluye las 7 tools nativas). Formato minimalista `{"tools": [{"id": "<id>"}]}` referenciadas por ID desde el `agent_tools.json` raíz sin duplicar schemas. **Lo lee el LLM.** |
 | `<plugin>/skills/<skill>/SKILL.md` | Por cada skill nombrada en Pregunta 6. Ver Modo B. |
 | `.claude-plugin/marketplace.json` raiz | Agregar entrada al array `plugins[]` |
 
@@ -266,7 +266,7 @@ Dime cómo encaja la lógica de esta skill ("<nombre>") dentro de estas 5 fases 
 | `<plugin>/skills/<skill>/references/<archivo>.md` | Por cada reference nombrada. Esqueleto minimo. |
 | `<plugin>/skills/<skill>/assets/<archivo>.md` | Por cada asset nombrado. Si es plantilla documental estricta, lleva prefijo obligatorio `template-` y marcadores `{{variables}}`. |
 | `<plugin>/.claude-plugin/plugin.json` | Actualizar `skills[]` agregando el nombre de la nueva skill. |
-| `<plugin>/agent_tools.json` | Solo si la skill usa tools del catalogo global. Lista de `{ id, required, purpose }`. |
+| `<plugin>/agent_tools.json` | Solo si la skill requiere tools adicionales del catalogo global. Actualizar o crear con formato `{"tools": [{"id": "<id>"}]}` sin duplicar esquemas. |
 
 ---
 
@@ -634,11 +634,20 @@ Si en medio de un modo el usuario dice algo que no es de scaffolding (ej: "ahora
 
 ### 13.2 Plugin — catalogo y subconjunto de tools
 
-- `agent_tools.json`: Subconjunto de herramientas habilitadas para el plugin con las mismas definiciones completas (`$schema`, `name`, `description`, `input_schema`, `output_schema`, etc.) copiadas idénticas de `agent_tools.json` raíz. De base, todo plugin incluye las 7 herramientas nativas.
+- `agent_tools.json`: Subconjunto de herramientas habilitadas para el plugin. Se referencian exclusivamente por su `id` desde el catálogo global `agent_tools.json` de la raíz, siguiendo un formato minimalista sin duplicar esquemas:
+  ```json
+  {
+    "tools": [
+      { "id": "io.gravitonai.tools.read_file" },
+      { "id": "io.gravitonai.tools.create_file" }
+    ]
+  }
+  ```
+  De base, todo plugin de documentos incluye las 7 herramientas nativas. Los esquemas técnicos completos (`input_schema`, `output_schema`, descripciones completas, etc.) residen exclusivamente en `agent_tools.json` de la raíz (fuente única de verdad).
 
 | Archivo | Quien lo lee | Cuando incluirlo | Contenido |
 |---|---|---|---|
-| `<plugin>/agent_tools.json` | **El LLM** al ejecutar cualquier skill del plugin. Define las herramientas completas que el LLM conoce y puede invocar (function calling). | Siempre (todo plugin incluye de base las 7 tools nativas). | Archivo JSON con la lista `tools[]` que contiene las definiciones completas e idénticas a `agent_tools.json` global. |
+| `<plugin>/agent_tools.json` | **El LLM** y el orquestador al ejecutar skills del plugin. Define qué herramientas tiene habilitadas el agente. | Siempre (todo plugin incluye de base las tools necesarias). | Archivo JSON con formato minimalista `{"tools": [{"id": "<tool_id>"}]}` referenciadas por ID sin duplicar esquemas. |
 
 **Regla fundamental**: el usuario del builder nunca define IDs nuevos en el catalogo global `agent_tools.json`. Solo selecciona de los existentes. Si necesita una tool que no existe, queda como pendiente para que el equipo de desarrollo del orquestador la agregue al catalogo raiz fuera de esta sesion.
 
@@ -748,7 +757,7 @@ Que skills tendra el plugin? Al menos una.
 3. `healthcare-legal/README.md`
    - Que hace / que NO hace, skill incluida, dependencias, instalacion, tuning
 4. `healthcare-legal/agent_tools.json`
-   - tools: [read_file, create_file, ambos requeridos]
+   - tools: [read_file, create_file (referenciadas por id sin duplicar schema)]
 5. `healthcare-legal/skills/baa-review/SKILL.md`
    - Frontmatter + guardrails + procedimiento + formato + escalacion + como NO se usa
 6. `.claude-plugin/marketplace.json` (modificar)

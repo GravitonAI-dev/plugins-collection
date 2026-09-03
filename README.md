@@ -142,7 +142,7 @@ plugins-collection/                       ← raíz del marketplace
     │   └── plugin.json                   ← manifest del plugin
     │
     ├── .mcp.json                         ← qué servers globales usa este plugin
-    ├── agent_tools.json                  ← qué tools globales usa este plugin
+    ├── agent_tools.json                  ← qué tools globales usa este plugin (referencias por id)
     │
     ├── CLAUDE.md                         ← playbook del plugin (comportamiento)
     ├── README.md                         ← docs del plugin
@@ -167,7 +167,7 @@ plugins-collection/                       ← raíz del marketplace
 | System prompt global | `CLAUDE.md` raíz | Agente | Guardrails, idioma, tono, convenciones |
 | Plugin manifest | `<plugin>/.claude-plugin/plugin.json` | Orquestador | Identidad, skills listadas, autor |
 | Plugin MCP ref | `<plugin>/.mcp.json` | Orquestador | Qué servers necesita este plugin |
-| Plugin tools ref | `<plugin>/agent_tools.json` | Orquestador | Qué tools necesita este plugin |
+| Plugin tools ref | `<plugin>/agent_tools.json` | Orquestador | Qué tools necesita este plugin (referencias por id) |
 | Plugin playbook | `<plugin>/CLAUDE.md` | Agente | Comportamiento específico del dominio |
 | Plugin docs | `<plugin>/README.md` | Humanos | Qué hace, qué no hace, cómo tunear |
 | Skill procedure | `<plugin>/skills/<skill>/SKILL.md` | Agente | Procedimiento paso a paso de la skill |
@@ -270,7 +270,19 @@ Los arrays `agents` y `hooks` están **vacíos** en este punto (no implementados
 
 ### 7.3 `agent_tools.json`
 
-**Rol en el flujo**: subconjunto de herramientas que el plugin expone para que el LLM pueda invocarlas. A diferencia de `.mcp.json` (que solo guarda referencias), `agent_tools.json` del plugin contiene las **definiciones completas e idénticas** (esquemas `input_schema` y `output_schema`, descripción, tags, etc.) copiadas del catálogo global `agent_tools.json` raíz. De base, todos los plugins incorporan las 7 herramientas nativas.
+**Rol en el flujo**: subconjunto de herramientas que el plugin expone para que el LLM pueda invocarlas. Para garantizar el principio de Fuente Única de Verdad (SSOT) y evitar la duplicación de código, los plugins **no duplican los esquemas** (`input_schema`, `output_schema`, descripciones completas, etc.): referencian directamente las herramientas por su `id` desde el catálogo global `agent_tools.json` de la raíz.
+
+**Estructura minimalista**:
+```json
+{
+  "tools": [
+    { "id": "io.gravitonai.tools.read_file" },
+    { "id": "io.gravitonai.tools.create_file" }
+  ]
+}
+```
+
+El orquestador resuelve los esquemas técnicos completos directamente desde `agent_tools.json` raíz al inicializar el agente. De base, los plugins documentales incorporan las 7 herramientas nativas del catálogo.
 
 ### 7.4 `CLAUDE.md` del plugin
 
@@ -447,7 +459,7 @@ Regla de oro: **definir una vez, referenciar por id**.
 | Cosa | Dónde se define | Dónde se referencia |
 |---|---|---|
 | Servidor MCP | `mcp_servers.json` (raíz) | `<plugin>/.mcp.json` |
-| Tool | `agent_tools.json` (raíz) | `<plugin>/agent_tools.json` (subconjunto con definición completa) |
+| Tool | `agent_tools.json` (raíz) | `<plugin>/agent_tools.json` (referencias por id: `{"tools": [{"id": "..."}]}`) |
 
 **Por qué**: si dos plugins necesitan el mismo servidor MCP (ej: CourtListener), solo se define una vez. Cambiar la URL o el método de auth es un solo cambio. Si un plugin necesita un server que no existe, primero se agrega al catálogo y luego se referencia.
 
