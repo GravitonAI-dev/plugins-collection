@@ -26,7 +26,7 @@ Este repo es un **punto de partida**. Contiene la estructura completa y un plugi
 | Capa | Qué existe | Qué **no** existe todavía |
 |---|---|---|
 | Marketplace | `.claude-plugin/marketplace.json` con registry de plugins | Instalador propio (se usa el de Claude Code) |
-| Catálogo de MCP servers | `mcp_servers.json` con 5 servers declarados | Cliente MCP que los conecte y ejecute |
+| Catálogo de MCP servers | `mcp_servers.json` vacío (`servers: []`) | Manejador/runtime de servers MCP en el orquestador |
 | Catálogo de tools | `agent_tools.json` con 9 tools declarados (input/output schema) | Runtime que los invoque |
 | Plugin manifest | `plugin.json` con metadatos y lista de skills | Sistema de versionado / firma de plugins |
 | Playbook | `CLAUDE.md` raíz y por plugin | Sistema que cargue perfiles desde `~/.claude/...` |
@@ -203,7 +203,7 @@ plugins-collection/                       ← raíz del marketplace
 
 **Cuándo se usa**: cuando la skill necesita datos externos en vivo (dockets de CourtListener, registros de Ironclad, archivos de Google Drive).
 
-**Estado actual**: existen 5 servers declarados como ejemplo. El cliente MCP que los conecte y ejecute lo trae el orquestador, no este repo.
+**Estado actual**: el catálogo permanece vacío (`servers: []`) dado que el orquestador no dispone actualmente de un manejador/runtime de servidores MCP. Cuando se implemente el soporte de cliente MCP en el sistema, los servidores disponibles se registrarán formalmente en este archivo.
 
 ### 6.3 `agent_tools.json`
 
@@ -261,15 +261,12 @@ Los arrays `agents` y `hooks` están **vacíos** en este punto (no implementados
 **Estructura**:
 ```json
 {
-  "servers": [
-    { "id": "io.gravitonai.gdrive", "required": true },
-    { "id": "io.gravitonai.courtlistener", "required": false }
-  ]
+  "servers": []
 }
 ```
 
-- `required: true` → el plugin no funciona sin este server.
-- `required: false` → opcional; la skill degrada con gracia si no está configurado.
+- Actualmente, todos los plugins del catálogo tienen `"servers": []` debido a que el orquestador no cuenta por ahora con un manejador de servidores MCP.
+- En el diseño previsto para cuando se implemente el manejador, los servidores se referenciarán como `{ "id": "<id_del_catalogo>", "required": true|false }` (`required: true` para servidores imprescindibles y `required: false` para dependencias opcionales que degradan con gracia).
 
 ### 7.3 `agent_tools.json`
 
@@ -427,15 +424,13 @@ Mientras no exista `validate.py`, la validación cruzada se hace con un script a
 ```
 === ERRORS ===   (none)
 === WARNINGS === (none)
-=== OK (7) ===
-  + [commercial-legal] source dir exists: ./commercial-legal
-  + [commercial-legal] manifest name matches
-  + [commercial-legal] skill 'nda-review' -> SKILL.md exists
-  + [commercial-legal] MCP ref 'io.gravitonai.courtlistener' -> found
-  + [commercial-legal] MCP ref 'io.gravitonai.gdrive' -> found
-  + [commercial-legal] tool ref 'io.gravitonai.tools.read_file' -> found
-  + [commercial-legal] tool ref 'io.gravitonai.tools.create_file' -> found
-  + [commercial-legal] tool ref 'io.gravitonai.tools.edit_file' -> found
+=== OK (4 plugins, 26 skills, 83 assets) ===
+  + [derecho-civil] 16 skills validadas, .mcp.json (servers: []), agent_tools sincronizado
+  + [gestoria] 5 skills validadas, .mcp.json (servers: []), agent_tools sincronizado
+  + [gestion-plantillas] 1 skill validada, .mcp.json (servers: []), agent_tools sincronizado
+  + [asistente-general] 4 skills validadas, .mcp.json (servers: []), agent_tools sincronizado
+  + mcp_servers.json -> servers: [] (sin manejador MCP activo en el orquestador)
+  + agent_tools.json -> 9 tools estándar verificados
 ```
 
 Cuando agregues un plugin o skill, el flujo mínimo de validación es:

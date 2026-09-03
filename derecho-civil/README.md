@@ -257,9 +257,9 @@ Tres defectos transversales, corregidos en todo el catalogo: placeholders generi
 
 El proceso de control de calidad auditó cada flujo conversacional, validando la interacción interactiva, la consulta de assets, la persistencia en disco y el ciclo de edición incremental.
 
-## Herramientas MCP Nativas
+## Herramientas Nativas de Agente (Agent Tools)
 
-El plugin opera exclusivamente con las 7 herramientas nativas de Model Context Protocol (MCP):
+El plugin opera exclusivamente con las 7 herramientas nativas del catálogo de agente (agent_tools.json):
 
 1. `read_file`: Inspección y verificación de integridad de documentos creados en el workspace.
 2. `create_file`: Creación del borrador base completo con principio Zero-Omission (`{{DATO_FALTANTE}}`).
