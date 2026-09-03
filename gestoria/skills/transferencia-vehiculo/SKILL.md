@@ -1,23 +1,27 @@
 ---
 name: transferencia-vehiculo
 description: >
-  Prepara el tramite de cambio de titularidad (transferencia) de un vehiculo usado ante la DGT y,
-  en su caso, la notificacion de venta por el vendedor, conforme al Reglamento General de Vehiculos
-  (RD 2822/1998, texto consolidado verificado en el BOE) y a la normativa de tasas vigente de la DGT.
-  Genera el contrato de compraventa del vehiculo, la hoja de datos para la solicitud de cambio de
-  titularidad, la notificacion de venta y el checklist de documentos, tasas y organismo, con aviso del
-  ITP autonomico del vehiculo usado. NO usar para altas de vehiculo nuevo, matriculaciones, bajas,
-  duplicados de permiso, transmisiones por herencia con adjudicacion pendiente, ni para vehiculos de
-  compraventa profesional en regimen de existencias.
+  Prepara el tramite administrativo de cambio de titularidad (transferencia) de un vehiculo usado ante
+  la DGT y, en su caso, la notificacion de venta por el vendedor, conforme al Reglamento General de
+  Vehiculos (RD 2822/1998, texto consolidado verificado en el BOE) y a la normativa de tasas de la DGT.
+  Opera bajo el flujo de 5 fases canonicas con clasificacion HITL, consulta de assets, creacion zero-vacios
+  en workspace y edicion incremental seccion a seccion. Genera el contrato de compraventa, la hoja de datos
+  para la solicitud en la DGT, la notificacion de venta y el checklist de documentos, tasas y liquidacion
+  del ITP autonomico (modelo 620/621). NO usar para vehiculos nuevos, matriculaciones iniciales, bajas
+  definitivas por desguace, duplicados de permiso, ni para transmisiones en compraventa profesional en
+  regimen de existencias.
 when_to_use: |
   - Un particular compra o vende un vehiculo usado y necesita cambiar la titularidad en la DGT.
   - El usuario quiere el contrato de compraventa del vehiculo y la hoja de datos del tramite.
   - El vendedor quiere notificar la venta a la DGT para dejar de figurar como titular.
   - El usuario pide el checklist de documentos, tasas y organismo para presentar la transferencia.
 inputs:
-  - rol_usuario: comprador que transfiere / vendedor que notifica venta / ambas partes
-  - alcance: contrato + solicitud de cambio de titularidad / solo notificacion de venta / todo
-  - datos_vehiculo: matricula, numero de bastidor (VIN), marca, modelo, fecha de primera matriculacion, tipo (turismo / ciclomotor / motocicleta / otro)
+  - tipo_tramite_dgt: cambio_titularidad / notificacion_venta / ambos_tramites (V1)
+  - tipo_vehiculo: turismo / motocicleta / ciclomotor / vehiculo_comercial (V2)
+  - naturaleza_vendedor: persona_fisica / persona_juridica (V3)
+  - naturaleza_comprador: persona_fisica / persona_juridica (V4)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - datos_vehiculo: matricula, numero de bastidor (VIN), marca, modelo, fecha de primera matriculacion
   - datos_vendedor: nombre o razon social, NIF o CIF, domicilio
   - datos_comprador: nombre o razon social, NIF o CIF, domicilio
   - precio: precio de venta pactado en euros y fecha de la transmision
@@ -38,151 +42,178 @@ assets:
   - assets/template-notificacion-venta-dgt.md
 ---
 
-# Preparar el Cambio de Titularidad de un Vehiculo (DGT)
+# Preparar el Cambio de Titularidad de un Vehículo (DGT)
 
-> DRAFT — para revision por un gestor o profesional antes de su presentacion. No constituye asesoramiento juridico ni fiscal.
+> DRAFT — para revisión por un gestor administrativo o profesional habilitado antes de su presentación telemática o presencial. No constituye asesoramiento legal vinculante ni sustituye la tramitación oficial ante la DGT ni la Agencia Tributaria autonómica.
 
-## Guardrails
+---
 
-1. Verificar siempre en el BOE el Reglamento General de Vehiculos (RD 2822/1998) y en la sede de la DGT las tasas vigentes antes de preparar el tramite. Sin verificacion, no proceder.
-2. Si se detecta en el BOE o en la sede de la DGT una version del reglamento, del procedimiento o de las tasas posterior a la registrada en las references, actualizar los archivos del plugin antes de redactar (ver Paso 1). No usar una version desactualizada.
-3. El cambio de titularidad exige que el vehiculo tenga la ITV en vigor (cuando le sea exigible) y que este al corriente del Impuesto sobre Vehiculos de Traccion Mecanica (IVTM). Si falta la ITV o hay recibos de IVTM impagados, advertir de que la DGT puede denegar el tramite.
-4. La liquidacion previa del ITP (modelo 620) del vehiculo usado es requisito para la transferencia entre particulares. Nunca omitir el aviso del ITP ni afirmar que no aplica sin confirmar la comunidad autonoma y la existencia de exencion.
-5. Indicar siempre el organismo (Sede Electronica DGT u oficina de Trafico, y Hacienda autonomica para el ITP), la tasa y los plazos aplicables.
-6. Marcar todos los campos a rellenar segun el patron del asset. Nunca inventar matricula, bastidor, NIF, precio, fechas ni importes de tasa o impuesto.
-7. Recordar al vendedor su obligacion de notificar la venta en plazo para dejar de figurar como titular y evitar responsabilidad por sanciones e impuestos posteriores.
-8. El DRAFT no sustituye la revision por un gestor colegiado ni la presentacion ante el organismo competente.
+## Directivas Operacionales y Vectores de Estado Internos
 
-## Procedimiento
+Esta skill guía al usuario de manera consultiva, rigurosa y transparente a través de un procedimiento estructurado en 5 fases secuenciales para preparar la transmisión de vehículos usados, el contrato de compraventa y los formularios de la Dirección General de Tráfico (DGT).
 
-### Paso 1 — Verificacion normativa y de tasas
+### Vectores de Estado (Uso Estrictamente Interno):
+Para garantizar un enrutamiento determinista y el cumplimiento de la normativa de tráfico y tributaria, el asistente resuelve y mantiene internamente en memoria los siguientes vectores de estado:
+- **V1 (Tipo de Trámite DGT):** `cambio_titularidad` | `notificacion_venta` | `ambos_tramites`.
+- **V2 (Tipo de Vehículo):** `turismo` | `motocicleta` | `ciclomotor` *(tasa reducida)* | `vehiculo_comercial`.
+- **V3 (Naturaleza del Vendedor):** `persona_fisica` | `persona_juridica`.
+- **V4 (Naturaleza del Comprador):** `persona_fisica` | `persona_juridica`.
+- **V5 (Origen Plantilla / Asset):** `plantilla_sistema` | `plantilla_usuario`.
 
-**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-y-tasas.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt y anotar la "Version registrada" del Reglamento General de Vehiculos, del procedimiento de cambio de titularidad y de las tasas de la DGT.
+> **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
+> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`) y los resúmenes de validación con marcas técnicas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial, claro y profesional.
 
-**1.2 — Consultar la fuente oficial vigente en vivo.** Invocar:
-```
-web_search("BOE-A-1999-1826 Reglamento General Vehiculos cambio titularidad transmision articulos 32 33 texto consolidado")
-```
-Extraer: fecha del texto consolidado vigente del Reglamento General de Vehiculos; redaccion actual de los arts. 32 y 33 (transmision de la titularidad y plazos del comprador y del vendedor).
+---
 
-Consultar tambien el procedimiento y las tasas vigentes en la sede de la DGT:
-```
-web_search("tasas DGT cambio titularidad transferencia vehiculo importe vigente sede electronica")
-```
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
 
-**1.3 — Comparar.** Contrastar la version oficial con la registrada en `fuentes-y-tasas.md` y con las referencias del prompt (`dgt-cambio-titularidad.md`, `itp-vehiculos-usados.md`). Comprobar en particular el importe vigente de la tasa de transferencia (turismo y ciclomotor) y de la tasa de notificacion de venta.
+Tu primer objetivo es identificar el alcance del encargo (cambio de titularidad por el comprador, notificación de venta por el vendedor o ambos) y el tipo de vehículo.
 
-**1.4 — Aplicar cambios normativos.** Si la version oficial o tasas han cambiado:
-- Aplicar en memoria la normativa e importes de tasa vigentes para adaptar los documentos.
-- Informar brevemente al usuario de que se detecto y aplico una version mas reciente (norma o tasa, y fecha).
+### 1.1 Escucha Activa Previa
+Antes de invocar formularios, evalúa el mensaje inicial del usuario:
+- Si el usuario ya precisó el tipo de vehículo y si actúa como comprador o vendedor requiriendo contrato y solicitud, registra los vectores y avanza a la **Fase 2**.
+- Si falta delimitar el alcance del trámite (`V1`) o el tipo de vehículo (`V2`), invoca de inmediato la herramienta `restricted_human_in_the_loop_request`.
 
-**1.5 — Fallback si la busqueda no es accesible.** Si la busqueda web falla: usar las references cargadas en el prompt como respaldo y notificar al usuario:
-"No se pudo verificar en vivo la version vigente de la normativa/tasas de la DGT. El tramite se prepara con la version de referencia. Verificar el importe de la tasa y el procedimiento antes de presentar."
+### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
+Invoca la herramienta con las opciones de triaje:
 
-### Paso 2 — Preguntas al usuario (una pregunta por bloque si no las ha proporcionado)
-
-El agente no prepara nada hasta recoger estos datos:
-
-**Bloque A — Rol y alcance:**
-"Actua como (1) comprador que transfiere el vehiculo a su nombre, (2) vendedor que quiere notificar la venta, o (3) ambas partes? Desea generar el contrato de compraventa, la solicitud de cambio de titularidad, la notificacion de venta, o todo?"
-
-**Bloque B — Datos del vehiculo:**
-- Matricula, numero de bastidor (VIN), marca, modelo y fecha de primera matriculacion.
-- Tipo de vehiculo (turismo / ciclomotor / motocicleta / otro), a efectos de la tasa aplicable.
-
-**Bloque C — Datos del vendedor:**
-- Nombre completo o razon social, NIF/CIF y domicilio.
-
-**Bloque D — Datos del comprador:**
-- Nombre completo o razon social, NIF/CIF y domicilio.
-- Comunidad autonoma del comprador (a efectos del ITP).
-
-**Bloque E — Precio y fecha:**
-- Precio de venta pactado en euros y fecha de la transmision.
-
-**Bloque F — Estado del vehiculo:**
-- ITV en vigor (si / no / no aplica).
-- Situacion del IVTM (al corriente / desconocido).
-
-### Paso 3 — Validacion de requisitos
-
-Antes de preparar los documentos, validar:
-
-a) **Titularidad transmisible.** Que el vehiculo no consta con reserva de dominio, precinto, embargo o baja. Si el usuario indica cargas, advertir de que pueden impedir la transferencia y ofrecer escalacion.
-
-b) **ITV e IVTM.** Que la ITV este en vigor (cuando le sea exigible) y que el IVTM del ejercicio este pagado. Si falta cualquiera, advertir del riesgo de denegacion.
-
-c) **ITP.** Confirmar la comunidad autonoma del comprador y advertir de que debe autoliquidarse el ITP (modelo 620) sobre el mayor valor entre el precio pactado y el valor de mercado del vehiculo, salvo exencion. Ver `references/itp-vehiculos-usados.md`.
-
-d) **Plazos.** Recordar que el comprador dispone de 30 dias naturales desde la transmision para solicitar el cambio de titularidad, y el vendedor de 10 dias para notificar la venta (arts. 32-33 RGV).
-
-### Paso 4 — Generacion de los documentos
-
-Tomar las plantillas correspondientes directamente desde el bloque `<document kind="assets-collection">` de tu system prompt:
-- Contrato de compraventa: `template-contrato-compraventa-vehiculo.md`
-- Solicitud de cambio de titularidad (hoja de datos + checklist + organismo + tasa): `template-solicitud-cambio-titularidad-dgt.md`
-- Notificacion de venta del vendedor: `template-notificacion-venta-dgt.md`
-
-Generar en el workspace invocando `create_file` por cada documento pedido:
-```
-create_file(
-  relative_file_path: "contrato_compraventa_vehiculo.md" | "solicitud_cambio_titularidad_dgt.md" | "notificacion_venta_dgt.md",
-  file_content: "... contenido completo adaptado a partir de la plantilla y los datos recogidos en los bloques A-F ..."
-)
+```json
+{
+  "form_data": [
+    {
+      "id": "tipo_tramite_dgt",
+      "rationale": "Resolver V1 para determinar qué documentos de la DGT y contractuales deben generarse.",
+      "question": "¿Qué trámite desea preparar ante la DGT?",
+      "options": [
+        {"id": "ambos_tramites", "label": "Trámite completo: contrato de compraventa y solicitud de cambio de titularidad"},
+        {"id": "cambio_titularidad", "label": "Solo solicitud de cambio de titularidad (el comprador transfiere a su nombre)"},
+        {"id": "notificacion_venta", "label": "Notificación de venta en DGT (el vendedor notifica la entrega del vehículo)"}
+      ]
+    },
+    {
+      "id": "tipo_vehiculo",
+      "rationale": "Resolver V2 para aplicar la tasa oficial correcta de la DGT.",
+      "question": "¿Qué tipo de vehículo se transmite?",
+      "options": [
+        {"id": "turismo", "label": "Turismo, furgoneta o vehículo comercial (Tasa ordinaria 4.1)"},
+        {"id": "motocicleta", "label": "Motocicleta (Tasa ordinaria 4.1)"},
+        {"id": "ciclomotor", "label": "Ciclomotor (Tasa reducida 4.4)"}
+      ]
+    }
+  ]
+}
 ```
 
-### Reglas de Adaptación y Cláusulas Condicionales (en Contrato de Compraventa):
+### 1.3 Enrutamiento de Estado (Routing por Vectores)
+- Plantillas del sistema propuestas:
+  - Si `V1 = ambos_tramites`: `template-contrato-compraventa-vehiculo.md`, `template-solicitud-cambio-titularidad-dgt.md` y `template-notificacion-venta-dgt.md`.
+  - Si `V1 = cambio_titularidad`: `template-contrato-compraventa-vehiculo.md` y `template-solicitud-cambio-titularidad-dgt.md`.
+  - Si `V1 = notificacion_venta`: `template-notificacion-venta-dgt.md`.
+- Proceder a la **Fase 2**.
 
-1. **Forma de Pago del Precio:**
-   - *Pago al Contado:* Expresar la entrega del precio íntegro en el acto de la firma sirviendo el contrato de recibo y carta de pago.
-   - *Pago Aplazado / Financiado:* Detallar el calendario de pagos: `, abonándose en la forma siguiente: {{forma_pago}} (con vencimientos e importes pactados).`
+---
 
-2. **Inspección Técnica de Vehículos (ITV):**
-   - *Si el vehículo cuenta con ITV en vigor:* Consignar expresamente: `El vehículo cuenta con la inspección técnica de vehículos (ITV) en vigor hasta {{fecha_caducidad_itv}}.`
-   - *Si la ITV está caducada o no es exigible por antigüedad:* Hacer constar su situación administrativa y advertencia para la obtención del permiso de circulación definitivo.
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
 
-3. **Declaración de Kilometraje:**
-   - *Si las partes pactan reflejar el odómetro:* Incluir la manifestación: `El vendedor declara que el vehículo cuenta con un kilometraje aproximado de {{kilometraje}} km en el momento de la entrega.`
+Interacción directa en texto plano conversacional en el chat (sin formularios).
 
-Rellenar todos los campos con los datos reales. Los campos que el usuario no haya proporcionado quedan como `[DATO — PENDIENTE DE COMPLETAR]`.
+### 2.1 Verificación Normativa Interna
+1. Consulta las referencias internas: `dgt-cambio-titularidad.md`, `itp-vehiculos-usados.md`, `fuentes-y-tasas.md` y `estilo-redaccion-escritos.md`.
+2. Opcionalmente verifica mediante `web_search` las tasas vigentes de la DGT (Tasa 4.1 para vehículos en general o Tasa 4.4 para ciclomotores, y Tasa 4.1 para notificación de venta). Si detectas variaciones, aplica directamente las tasas vigentes sobre los documentos del workspace del usuario sin alterar los assets locales.
 
-Aplicar las directivas de `estilo-redaccion-escritos.md` (disponible directamente en `<document kind="references-collection">` del prompt): escrito administrativo breve, datos en tablas, encabezamiento al organismo, expone y solicita, sin formulas grandilocuentes.
+### 2.2 Mensaje de Plan de Acción y Consulta de Assets
+Envía un mensaje estructurado y pedagógico:
+1. **Marco Normativo y Requisitos Previos (DGT y Fiscales):**
+   - Citar el Reglamento General de Vehículos (RD 2822/1998, arts. 32 y 33).
+   - Requisitos habilitantes imperativos: El vehículo debe estar al corriente del Impuesto sobre Vehículos de Tracción Mecánica (IVTM del año anterior pagado en el municipio), no tener reservas de dominio (financieras), precintos judiciales ni embargos inscritos en el Registro de Bienes Muebles, y contar con ITV en vigor para expedir el permiso definitivo.
+   - Liquidación obligatoria del Impuesto sobre Transmisiones Patrimoniales (ITP - Modelo 620 o 621 telemático) ante la Comunidad Autónoma del comprador antes de la DGT.
+2. **Propuesta de Plantilla Oficial del Sistema:**
+   - Presentar los modelos oficiales seleccionados.
+3. **Pregunta Explícita al Usuario (Vía Chat):**
+   Formula exactamente la siguiente consulta en el chat:
+   > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-Tras guardar los archivos en disco del workspace, invocar `read_file` exclusivamente sobre las rutas del workspace para verificar la integridad de los documentos escritos.
+### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
+- **Si `V5 = plantilla_sistema`:** Utiliza los assets oficiales seleccionados y avanza a la **Fase 3**.
+- **Si `V5 = plantilla_usuario`:** Adopta la minuta del usuario desde `<attached_documents>` o `<user_message>`, valida la observancia de las cláusulas legales imperativas y avanza a la **Fase 3**.
 
-### Paso 5 — Revision final y advertencias
+---
 
-Verificar que cada documento generado:
-- Tiene el header DRAFT.
-- Incluye la fecha de verificacion normativa (del Paso 1).
-- Identifica correctamente el vehiculo (matricula y bastidor), al vendedor y al comprador.
-- Indica el organismo, la tasa aplicable y los plazos.
+## FASE 3 — CREACIÓN DEL DOCUMENTO BASE EN DISCO (Zero Vacíos)
 
-Entregar los documentos y anadir al final:
+1. **Escritura de los Documentos (`create_file`):**
+   - Vuelca íntegramente las plantillas acordadas en el workspace del usuario:
+     - `contrato_compraventa_vehiculo.md`.
+     - `solicitud_cambio_titularidad_dgt.md` (y `notificacion_venta_dgt.md` si procede).
+   - Aplica el principio **Zero-Omission**:
+     - Sustituye los datos ya conocidos de la clasificación (tipo de trámite, tasas aplicables).
+     - Todos los campos pendientes deben permanecer como marcadores `{{DATO_FALTANTE}}` en mayúsculas y dobles llaves.
+     - PROHIBIDO dejar archivos en blanco o con resúmenes.
+2. **Validación de Disco (`read_file`):**
+   - Comprueba la integridad del archivo recién creado en el workspace.
+3. **Confirmación en Chat:**
+   - Comunica las rutas de los archivos generados en disco e introduce de inmediato la primera sección de la **Fase 4**.
+
+---
+
+## FASE 4 — EDICIÓN INCREMENTAL CLÁUSULA A CLÁUSULA / SECCIÓN A SECCIÓN
+
+Recorre de forma secuencial los bloques del trámite aplicando el ciclo interactivo:
 ```
-Advertencias:
-1. Este documento es un DRAFT generado automaticamente. Debe ser revisado por un gestor o profesional antes de su presentacion.
-2. Version del Reglamento General de Vehiculos y tasas verificada: [fecha extraida en Paso 1].
-3. El comprador dispone de 30 dias naturales desde la transmision para solicitar el cambio de titularidad; el vendedor de 10 dias para notificar la venta (arts. 32-33 RGV).
-4. Antes de la transferencia debe autoliquidarse el ITP (modelo 620) en la Hacienda autonomica del comprador, salvo exencion.
-5. El vehiculo debe tener la ITV en vigor (cuando le sea exigible) y el IVTM del ejercicio pagado.
-6. Tasa DGT de transferencia y organismo: ver la hoja de datos generada. La presentacion se realiza en la Sede Electronica de la DGT o en oficina de Trafico con cita previa.
+[Pregunta al Usuario] ──> [Vista Previa en texto plano] ──> [¿Confirmamos esta sección?] ──> [edit_file + read_file]
 ```
 
-## Como NO se usa esta skill
+### Protocolo Obligatorio por Sección:
+1. **Pregunta en Chat:** Solicita los datos específicos del bloque orientando sobre las comprobaciones necesarias.
+2. **Vista Previa (Preview):** Muestra el bloque redactado en texto plano.
+3. **Confirmación:** Pregunta literalmente: `¿Confirmamos esta sección?`.
+4. **Persistencia en Disco:** Aplica `edit_file` con coincidencia exacta y valida inmediatamente con `read_file`.
 
-- No usar para matriculacion de vehiculo nuevo, baja definitiva o temporal, ni duplicado de permiso de circulacion.
-- No usar para transmisiones por herencia mientras la adjudicacion no este resuelta (procede antes la particion; derivar a la skill de sucesiones o a un profesional).
-- No usar para vehiculos de compraventa profesional en regimen de existencias (transmision a compraventa autorizada, art. 33 RGV): advertir y derivar.
-- No usar para calcular con caracter definitivo el ITP: la skill avisa y estima, pero el importe debe verificarse en la Hacienda autonomica.
-- No usar para recurrir una denegacion o una sancion asociada al vehiculo: derivar a un gestor colegiado o abogado.
+### Hoja de Ruta de Secciones:
 
-## Escalacion
+1. **Identificación de Vendedor y Comprador** *(confirmación agrupada)*:
+   - Nombre completo o razón social, NIF/CIF, domicilio completo a efectos de notificaciones y condición de persona física o jurídica (con facultades de representación).
+2. **Datos Identificativos del Vehículo** *(confirmación agrupada)*:
+   - Matrícula, número de bastidor (VIN de 17 caracteres), marca, modelo exacto, kilometraje real declarado y fecha de primera matriculación.
+3. **Condiciones Económicas y Pago del Precio**:
+   - Precio pactado de compraventa en euros.
+   - Medio de pago (transferencia bancaria, cheque o efectivo dentro del límite legal).
+   - Advertencia sobre tablas mínimas de valoración de Hacienda para la autoliquidación del ITP.
+4. **Estado Técnico, Cargas y Garantías**:
+   - Estado de la ITV (favorable en vigor o no apto).
+   - Manifestación expresa del vendedor de estar al corriente del pago del IVTM y de que el vehículo se encuentra libre de cargas, embargos o reservas de dominio.
+   - Régimen de vicios ocultos (garantía de 6 meses entre particulares conforme al Código Civil).
+5. **Entrega del Vehículo, Documentación y Plazos**:
+   - Fecha, hora y lugar exactos de la entrega del vehículo, llaves y permiso de circulación original.
 
-| Situacion | Accion |
-|---|---|
-| Vehiculo con embargo, reserva de dominio, precinto o baja | Advertir que puede impedir la transferencia y ofrecer escalacion |
-| ITV caducada o IVTM impagado | Advertir del riesgo de denegacion y recomendar regularizar antes |
-| Transmision por herencia o con varios titulares en disputa | Derivar a la particion / a un profesional |
-| Duda sobre el tipo de ITP o exencion en la comunidad autonoma | Verificar con web_search y advertir; no fijar el importe como definitivo |
-| Denegacion previa del tramite o sancion asociada | Advertir y derivar a un gestor colegiado |
+---
+
+## FASE 5 — BUCLE DE REALIMENTACIÓN FINAL Y CIERRE
+
+Una vez completadas todas las secciones de los documentos, presenta al usuario el menú interactivo:
+```markdown
+El contrato de compraventa y los expedientes de tramitación ante la DGT han sido generados y actualizados en disco.
+
+Seleccione una opción si desea realizar ajustes adicionales:
+1. Modificar datos de partes (comprador o vendedor).
+2. Modificar datos del vehículo (matrícula, bastidor o kilometraje).
+3. Modificar estipulaciones de precio, garantías o fecha/hora de entrega.
+4. Revisar la coherencia global y el checklist documental para Tráfico.
+5. Dar los documentos por finalizados y cerrar la sesión.
+```
+
+### Advertencias Preceptivas al Finalizar:
+Al dar por concluido el trámite, emite siempre las siguientes advertencias:
+1. **Carácter DRAFT:** Los documentos generados son propuestas preparatorias que deben ser revisadas por un gestor administrativo o profesional habilitado antes de su firma y presentación oficial.
+2. **Plazo de 30 Días para el Comprador:** El adquirente dispone de un plazo preceptivo de **30 días desde la firma del contrato** para liquidar el ITP y solicitar el cambio de titularidad en la DGT.
+3. **Notificación de Venta por el Vendedor:** Se recomienda encarecidamente al vendedor tramitar la Notificación de Venta en la DGT dentro de los 10 días siguientes a la entrega si no tramita el cambio con gestoría, a fin de eximirse de multas de tráfico e IVTM futuros.
+4. **Acreditación Previa del ITP:** La DGT no expedirá el permiso de circulación a nombre del nuevo titular sin la justificación previa del pago o exención del ITP (modelo 620 o código electrónico 621) ante la Hacienda autonómica competente.
+
+---
+
+## Límites Legales y Guardrails de Dominio (Gobernados por Vectores)
+
+1. **ITV e IVTM Preceptivos:** Advertir expresamente de que si el vehículo no tiene la ITV en vigor, la DGT tramitará el cambio pero retendrá el permiso de circulación definitivo emitiendo únicamente una notificación de transferencia provisional.
+2. **Cero Invención de Datos:** No inventar matrículas, números de bastidor ni NIFs. Todo dato pendiente debe permanecer como `{{DATO_FALTANTE}}`.
+3. **Inmutabilidad del Plugin en Disco:** Aplicar cualquier variación en tasas o modelos DGT directamente en el workspace del usuario; nunca modificar los archivos internos del plugin.
+4. **Límites de Alcance:** No tramitar vehículos adquiridos en subastas judiciales, vehículos diplomáticos, ni matriculaciones ordinarias o de importación, que deben remitirse a gestorías administrativas especializadas.

@@ -299,7 +299,7 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 
 ## Límites Legales y Guardrails de Dominio (Gobernados por Vectores)
 
-1. Verificar siempre el Codigo Civil en el BOE antes de redactar (Punto 2). Sin verificacion, no proceder. Si se detecta una version posterior a la registrada en las references, actualizar los archivos del plugin antes de redactar.
+1. Verificar siempre el Codigo Civil en el BOE antes de redactar (Punto 2). Sin verificacion, no proceder. Si se detecta una version posterior a la registrada en las references, aplicar la redacción vigente directamente sobre el documento a redactar en el workspace del usuario.
 2. **La vecindad civil es el filtro de alcance.** Si es foral o especial, o el testador no la conoce con seguridad, detener de inmediato y escalar (Arts. 14 y 16 CC). No redactar, no adaptar, no estimar legitimas. Esta skill solo cubre derecho civil comun.
 3. **La legitima es intangible** (Arts. 806, 808 y 813 CC). Nunca redactar una clausula que la reduzca, la condicione, la someta a plazo o la grave, fuera de las excepciones expresas de los Arts. 782, 808 y del usufructo del viudo. Si el usuario lo pide, rechazar la instruccion, explicar que la clausula se tendria por no puesta y proponer la alternativa valida.
 4. **Nulidad de la renuncia anticipada** (Art. 816 CC). Nunca documentar la renuncia de un legitimario a su legitima futura ni un pacto sobre ella con el causante en vida.

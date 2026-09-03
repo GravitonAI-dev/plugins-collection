@@ -169,10 +169,31 @@ Recorre de forma secuencial los 5 bloques del documento aplicando el ciclo de ed
 
 ---
 
-## FASE 5 — ENTREGA FINAL DRAFT Y CIERRE
+## FASE 5 — BUCLE DE REALIMENTACIÓN FINAL Y CIERRE
 
 1. **Lectura Final de Verificación (`read_file`):**
    - Comprueba que el archivo final en disco no conserve placeholders sin resolver y mantenga la coherencia íntegra.
-2. **Mensaje de Cierre:**
-   - Informa al usuario de la finalización del informe en el workspace.
-   - Recuerda la necesidad de validación por un letrado o profesional colegiado antes de adoptar decisiones formales o presentar escritos judiciales.
+2. **Menú Interactivo de Cierre:**
+   Presenta en el chat las opciones finales de revisión:
+   ```markdown
+   El informe de orientación y consulta ha sido generado y verificado en disco.
+   
+   Seleccione una opción si desea realizar ajustes adicionales:
+   1. Ajustar o ampliar antecedentes de hecho o fundamentación jurídica.
+   2. Añadir nuevas cuestiones o preguntas al análisis.
+   3. Revisar la valoración de viabilidad o la hoja de ruta operativa.
+   4. Derivar a una skill especializada del catálogo para la redacción de contratos o demandas.
+   5. Dar el informe por finalizado y cerrar la sesión.
+   ```
+3. **Advertencias Obligatorias al Cerrar:**
+   - Recordar que el informe es un DRAFT preliminar sujeto a validación letrada colegiada antes de adoptar decisiones formales o procesales.
+   - Advertir expresamente sobre la preclusión de plazos en curso (recursos administrativos, demandas por despido o prescripción de acciones).
+
+---
+
+## Límites Legales y Guardrails de Dominio
+
+1. **No Sustitución de Asesoría Letrada:** El informe tiene valor meramente orientativo y preparatorio; no constituye dictamen pericial vinculante ni garantiza resultados procesales.
+2. **Cero Invención de Leyes o Hechos:** Queda estrictamente prohibido citar preceptos legales derogados o inventar jurisprudencia. Toda fundamentación debe verificarse en el BOE o fuentes oficiales.
+3. **Inmutabilidad del Plugin en Disco:** Cualquier adaptación de criterios o modelos se realiza directamente sobre el documento en el workspace del usuario; nunca modificar los archivos locales del plugin.
+4. **Derivación Imperativa:** Ante trámites tipificados con skill vertical propia en el catálogo (arrendamientos, monitorios, desahucios, trámites de gestoría), sugerir la activación de la skill correspondiente.

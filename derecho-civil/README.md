@@ -255,8 +255,7 @@ Las **19 skills** del plugin pasaron un control de calidad ejecutado de verdad, 
 
 Tres defectos transversales, corregidos en todo el catalogo: placeholders genericos duplicados que rompian el `Edit` al perder el `oldString` unico; corchetes simples en colision con los identificadores de privacidad; y un turno muerto tras crear el documento que contradecia la regla del `CLAUDE.md` raiz de encadenar la primera pregunta en la misma respuesta.
 
-El detalle por skill, con extractos literales de las conversaciones generadas, esta en `test-local/tests/test-derecho-civil-*.md`, seccion "QA en vivo". Los documentos generados en las pruebas quedan en `test-local/output/` como fixtures, con datos sinteticos.
-
+El proceso de control de calidad auditó cada flujo conversacional, validando la interacción interactiva, la consulta de assets, la persistencia en disco y el ciclo de edición incremental.
 
 ## Herramientas MCP Nativas
 

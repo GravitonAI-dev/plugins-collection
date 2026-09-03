@@ -217,7 +217,7 @@ Si el usuario nombra references, crealas como archivos `.md` con un esqueleto mi
 
 REGLA OBLIGATORIA: Los assets son archivos base limpios (sin comentarios HTML condicionales `<!-- Si ... -->`). Para assets que sean plantillas, contienen marcadores `{{variable}}`. Todas las clausulas opcionales, variantes o condicionales deben documentarse en el `SKILL.md` correspondiente.`
 
-Si el usuario nombra assets, crealas como plantillas limpias con marcadores `{{variable}}` (sin condicionales ni comentarios) siguiendo el patron del template `nda-triage-output-template.md` del plugin `commercial-legal`:
+Si el usuario nombra assets, crealas como plantillas limpias con marcadores `{{variable}}` (sin condicionales ni comentarios) siguiendo el patron del template `template-contrato-arrendamiento-vivienda.md` del plugin `derecho-civil`:
 
 ```
 # <titulo del output> — {{subtitulo}}
@@ -269,7 +269,7 @@ Dime cómo encaja la lógica de esta skill ("<nombre>") dentro de estas 5 fases 
 
   - "Ninguna" — la skill no escala.
   - "A profesional / humano" — derivar a un profesional o flujo de aprobacion humana (gate obligatorio).
-  - "A otro plugin" — derivar (ej: derivar a commercial-legal si la consulta es de contratos).`
+  - "A otro plugin" — derivar (ej: derivar a derecho-civil si la consulta es de contratos o arrendamientos).`
 
 **Pregunta 11 — Header DRAFT.**
 `El output de esta skill toca temas legales, regulatorios, fiscales o de privacidad? Si "si", el SKILL.md llevara header `DRAFT — para revision por un abogado. No constituye asesoria legal.` y todos los assets tambien.`
@@ -363,7 +363,7 @@ Para archivos a modificar: write con confirmacion previa.
 ### 6.1 Discovery
 
 **Pregunta 1 — Plugin y skill objetivo.**
-`A que plugin pertenece la skill y cual es? Responde en formato "<plugin>/<skill>", ej: "commercial-legal/nda-review".`
+`A que plugin pertenece la skill y cual es? Responde en formato "<plugin>/<skill>", ej: "derecho-civil/arrendamiento-urbano".`
 
 Lee `<plugin>/skills/<skill>/SKILL.md` y lista los archivos en `references/` y `assets/` si existen.
 
@@ -609,7 +609,7 @@ El usuario **nunca** define IDs nuevos desde el builder. Si el usuario pide un i
 Si en medio de un modo el usuario dice algo que no es de scaffolding (ej: "ahora revisa este NDA que te paso"):
 
 1. Completa o pausa el flujo de scaffolding actual.
-2. Indica: `Eso no es trabajo del builder. Para revisar NDAs, el plugin es commercial-legal. ¿Quieres que derive a ese flujo o seguimos con el scaffolding que teniamos pendiente?`
+2. Indica: `Eso no es trabajo del builder. Para redactar o revisar contratos, el plugin es derecho-civil. ¿Quieres que derive a ese flujo o seguimos con el scaffolding que teniamos pendiente?`
 
 **El usuario quiere parar**:
 

@@ -12,8 +12,7 @@ Salida en DRAFT markdown para revision profesional en el editor. La presentacion
 - Prepara el alta y la baja de autonomo (censo AEAT 036 y RETA de la Seguridad Social).
 - Prepara altas y bajas en la Seguridad Social (afiliacion/NUSS, empresa y CCC, trabajadores del Regimen General, empleadas de hogar).
 - Prepara la autoliquidacion del Impuesto de Sucesiones (modelo 650) y avisa de la plusvalia municipal.
-- Prepara la solicitud de NIE o de autorizacion de residencia (formularios EX, tasa 790).
-- Verifica la normativa, los modelos y las tasas vigentes en el BOE y auto-actualiza sus references si detecta una version posterior.
+- Verifica la normativa, los modelos y las tasas vigentes en el BOE y sedes oficiales, aplicando la redacción vigente directamente al borrador del workspace.
 
 ## Que NO hace
 

@@ -285,7 +285,7 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 ## Límites Legales y Guardrails de Dominio (Gobernados por Vectores)
 
 1. Verificar siempre la LEC, la LAU y la LO 1/2025 en el BOE antes de redactar (Punto 2). Sin verificacion, no proceder.
-2. Si se detecta una version posterior a la registrada en las references, actualizar los archivos del plugin antes de redactar. No usar una version desactualizada.
+2. Si se detecta una version posterior a la registrada en las references, aplicar la redacción vigente directamente sobre el documento a redactar en el workspace del usuario. No usar una version desactualizada.
 3. Las menciones del Art. 439.6.a) y b) de la LEC (destino del inmueble y condicion de gran tenedor de la parte actora) son obligatorias en toda demanda que pretenda recuperar la posesion de una finca por las vias del Art. 250.1.1º, 2º, 4º y 7º. Su omision determina la inadmision. Nunca redactar una demanda sin ellas.
 4. Las letras c) del apartado 6 y el apartado 7 del Art. 439 de la LEC fueron declarados inconstitucionales y nulos por la STC 26/2025, de 29 de enero. No exigir al usuario acreditar la vulnerabilidad de la parte demandada ni acudir a conciliacion o intermediacion previa por ser gran tenedor, ni incluir esas menciones en la demanda.
 5. En el desahucio por falta de pago, la demanda debe pronunciarse sobre las circunstancias que permiten o impiden la enervacion (Art. 439.3 LEC). Nunca omitir ese pronunciamiento.

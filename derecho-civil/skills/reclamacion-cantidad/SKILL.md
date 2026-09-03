@@ -252,7 +252,7 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 ## Límites Legales y Guardrails de Dominio (Gobernados por Vectores)
 
 1. Verificar siempre la LEC en el BOE antes de redactar (Punto 2). Sin verificacion, no proceder.
-2. Si se detecta una version de la LEC o un modelo del CGPJ posterior al registrado en las references, actualizar los archivos del plugin antes de redactar. No usar una version desactualizada.
+2. Si se detecta una version de la LEC o un modelo del CGPJ posterior al registrado en las references, aplicar la redacción vigente directamente sobre el documento a redactar en el workspace del usuario. No usar una version desactualizada.
 3. El monitorio solo procede con deuda dineraria, liquida, determinada, vencida y exigible acreditada con documento (Art. 812). Si falla cualquier requisito, enrutar al declarativo o detener; nunca forzar la via.
 4. El umbral entre verbal y ordinario es 15.000 euros (Arts. 249.2 y 250.2); las rentas de arrendamiento van a verbal cualquiera que sea la cuantia (Art. 250.1.1º). No admitir elecciones de via contrarias a estos articulos aunque el usuario las pida.
 5. Competencia del monitorio: exclusiva del Juzgado de Primera Instancia del domicilio del deudor (Art. 813). No admitir sumision a otro fuero.

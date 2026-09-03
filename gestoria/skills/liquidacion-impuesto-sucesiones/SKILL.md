@@ -2,20 +2,25 @@
 name: liquidacion-impuesto-sucesiones
 description: >
   Prepara la autoliquidacion del Impuesto sobre Sucesiones y Donaciones (modelo 650, adquisiciones
-  mortis causa) de un heredero conforme a la Ley 29/1987 (BOE-A-1987-28141) y su Reglamento (RD 1629/1991)
-  en su version consolidada vigente verificada en el BOE, y con la normativa autonomica vigente de la
-  comunidad autonoma competente verificada con web_search (reducciones y bonificaciones varian mucho por
-  CCAA). Genera una hoja de datos y borrador del modelo 650 con la base y una estimacion de la cuota
-  marcada [verificar], el checklist de documentos, el organismo y plazo de presentacion (6 meses,
-  prorrogable) y el aviso de la plusvalia municipal por inmuebles urbanos. NO usar para el reparto
-  juridico de la herencia (eso lo hace la skill herencia de derecho-civil), para donaciones o
-  seguros liquidados de forma independiente por otro modelo, ni para dar la cuota como definitiva.
+  mortis causa) de un heredero conforme a la Ley 29/1987 (LISD) y a su Reglamento (RD 1629/1991)
+  en su version consolidada vigente verificada en el BOE, combinada con la normativa autonomica vigente
+  de la comunidad autonoma competente verificada en vivo. Opera bajo el flujo de 5 fases canonicas con
+  clasificacion HITL, consulta de assets, creacion zero-vacios en workspace y edicion incremental seccion
+  a seccion. Genera el borrador de autoliquidacion del modelo 650 con inventario, reducciones autonómicas
+  y cuota estimada debidamente senalada con advertencia de verificacion, checklist documental, organismo
+  competente y aviso imperativo de plusvalia municipal (IIVTNU). NO usar para la particion juridica de la
+  herencia (usar la skill herencia de derecho-civil), para donaciones inter vivos ni para fijar la cuota
+  tributaria con caracter definitivo vinculante.
 when_to_use: |
   - El usuario ya sabe que heredero es y que recibe, y necesita preparar la autoliquidacion del Impuesto de Sucesiones (modelo 650).
   - El usuario dispone del inventario y los valores de la herencia (propios o del cuaderno particional) y quiere saber base, estimacion de cuota, plazo y organismo.
   - El usuario pide el checklist de documentos y tasas para presentar el Impuesto de Sucesiones y saber donde se presenta.
 inputs:
-  - comunidad_autonoma: "CCAA de residencia habitual del causante (clave: determina bonificaciones y organismo)"
+  - modalidad_transmision: adquisicion_mortis_causa_modelo_650 (V1)
+  - grupo_parentesco: grupo_i / grupo_ii / grupo_iii / grupo_iv (V2)
+  - naturaleza_causahabiente: persona_fisica (V3)
+  - comunidad_autonoma: CCAA de residencia habitual del causante (clave de bonificaciones) (V4)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
   - datos_causante: nombre, NIF, fecha y lugar de fallecimiento, ultimo domicilio, CCAA de residencia habitual
   - datos_heredero: nombre, NIF, domicilio, parentesco con el causante y grupo (I a IV)
   - caudal_hereditario: inventario de bienes y sus valores (del cuaderno particional si existe)
@@ -26,8 +31,8 @@ inputs:
   - empresa_familiar: si se adquiere empresa individual, negocio o participaciones (reduccion Art. 20.2.c)
   - discapacidad: grado de discapacidad del heredero, si procede reduccion
 outputs:
-  - borrador_autoliquidacion_650: hoja de datos y borrador del modelo 650 con base, reducciones y cuota estimada [verificar], en markdown, DRAFT
-  - checklist_documentacion: checklist de documentos, tasas, organismo y plazo para la presentacion, en markdown, DRAFT
+  - borrador_autoliquidacion_650: hoja de datos y borrador del modelo 650 con base, reducciones y cuota estimada en markdown, DRAFT
+  - checklist_documentacion: checklist de documentos, tasas, organismo y plazo para la presentacion en markdown, DRAFT
 references:
   - references/isd-ley-29-1987.md
   - references/isd-normativa-autonomica.md
@@ -39,167 +44,184 @@ assets:
   - assets/template-checklist-documentacion-sucesiones.md
 ---
 
-# Preparar la Autoliquidacion del Impuesto de Sucesiones (Modelo 650)
+# Preparar la Autoliquidación del Impuesto de Sucesiones (Modelo 650)
 
-> DRAFT — para revision por un gestor o asesor fiscal antes de su presentacion. No constituye asesoramiento fiscal ni juridico.
+> DRAFT — para revisión por un gestor administrativo o asesor fiscal colegiado antes de su presentación telemática o presencial. No constituye liquidación tributaria definitiva ni dictamen pericial vinculante.
 
-## Guardrails
+---
 
-1. Verificar siempre la Ley 29/1987 y su Reglamento en el BOE antes de preparar el tramite. Sin verificacion, no proceder.
-2. Si se detecta en el BOE una version posterior a la registrada en las references, actualizar los archivos del plugin antes de preparar (ver Paso 1). No usar una version desactualizada.
-3. El ISD es un tributo CEDIDO a las comunidades autonomas. Las reducciones y bonificaciones varian de forma drastica por CCAA. Es OBLIGATORIO verificar con web_search la normativa autonomica vigente de la comunidad autonoma competente antes de estimar la cuota. Nunca aplicar las reducciones estatales como si fueran definitivas cuando la CCAA mejora el regimen.
-4. La cuota es siempre una ESTIMACION marcada [verificar]. Nunca presentar la cuota como definitiva: la determinacion final corresponde al gestor o asesor fiscal y a la validacion de valores de la administracion.
-5. Marcar con [verificar] todos los importes, reducciones, bonificaciones, tarifas y coeficientes: dependen de la CCAA y del ejercicio, y cambian con frecuencia.
-6. Indicar siempre el organismo competente (Hacienda autonomica de la residencia habitual del causante), el plazo (6 meses desde el fallecimiento, prorrogable) y el modelo aplicable.
-7. Nunca omitir el aviso de la plusvalia municipal (IIVTNU) cuando la herencia incluya inmuebles urbanos: es un tributo distinto, del ayuntamiento, con su propio plazo.
-8. No inventar NIF, valores, fechas, referencias catastrales ni cuotas. Los datos que falten quedan como campo pendiente de completar.
+## Directivas Operacionales y Vectores de Estado Internos
 
-## Procedimiento
+Esta skill guía al usuario de manera consultiva, rigurosa y transparente a través de un procedimiento estructurado en 5 fases secuenciales para preparar la autoliquidación del Impuesto sobre Sucesiones (Modelo 650) del caudal hereditario atribuido a un heredero o legatario.
 
-### Paso 1 — Verificacion normativa
+### Vectores de Estado (Uso Estrictamente Interno):
+Para garantizar un enrutamiento determinista y el correcto cálculo tributario cedido a las Comunidades Autónomas, el asistente resuelve y mantiene internamente en memoria los siguientes vectores de estado:
+- **V1 (Modalidad Tributaria):** `adquisicion_mortis_causa_modelo_650`.
+- **V2 (Grupo de Parentesco):** `grupo_i` (descendientes menores de 21) | `grupo_ii` (descendientes de 21 o más, cónyuges, ascendientes) | `grupo_iii` (colaterales de 2º y 3º grado, afines) | `grupo_iv` (colaterales de 4º grado o más, extraños).
+- **V3 (Naturaleza del Causahabiente):** `persona_fisica` (heredero o legatario individual).
+- **V4 (Comunidad Autónoma Competente):** CCAA donde el causante tuvo su residencia habitual durante el mayor número de días de los últimos 5 años anteriores al fallecimiento.
+- **V5 (Origen Plantilla / Asset):** `plantilla_sistema` | `plantilla_usuario`.
 
-**1.1 — Consultar la version registrada en references.** Consultar el archivo `fuentes-y-plazos.md` directamente desde el bloque `<document kind="references-collection">` de tu system prompt y anotar la "Version registrada" de la Ley 29/1987, del RD 1629/1991, del modelo 650 y del TR de la Ley Reguladora de las Haciendas Locales (plusvalia).
+> **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
+> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`) y los resúmenes de validación con marcas técnicas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial, claro y profesional.
 
-**1.2 — Consultar la fuente oficial estatal vigente en vivo.** Invocar:
-```
-web_search("BOE-A-1987-28141 Ley 29/1987 Impuesto Sucesiones Donaciones texto consolidado")
-web_search("BOE-A-1991-27678 Real Decreto 1629/1991 Reglamento Impuesto Sucesiones")
-```
-Extraer: fecha del texto consolidado vigente de la Ley 29/1987; redaccion actual del hecho imponible (Arts. 3 y 5-8), la base imponible y el ajuar (Arts. 9 y 15), las reducciones estatales y los grupos de parentesco (Art. 20), y la tarifa y coeficientes multiplicadores (Arts. 21-22).
+---
 
-**1.3 — Verificar la NORMATIVA AUTONOMICA vigente (OBLIGATORIO).** El importe del impuesto depende sobre todo de la CCAA. Una vez conocida la comunidad autonoma competente (Paso 2, Bloque A), invocar:
-```
-web_search("Impuesto Sucesiones [comunidad autonoma] reducciones bonificaciones vigentes grupo parentesco cuota")
-```
-Extraer: reducciones autonomicas propias o mejoradas, bonificaciones de la cuota (muchas CCAA aplican bonificaciones cercanas al 99% para Grupos I y II), tarifa y coeficientes autonomicos si los hubiera, y el modelo y la sede de presentacion de esa CCAA. Anotar estos datos como [verificar].
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
 
-Verificar tambien la plusvalia municipal si hay inmuebles urbanos:
-```
-web_search("BOE-A-2004-4214 Real Decreto Legislativo 2/2004 Haciendas Locales plusvalia mortis causa texto consolidado")
-```
+Tu primer objetivo es fijar la Comunidad Autónoma competente y el grado de parentesco del heredero, que determinan las reducciones y bonificaciones aplicables.
 
-**1.4 — Comparar y aplicar cambios.** Contrastar la version oficial con la registrada en `fuentes-y-plazos.md` y con las referencias del prompt (`isd-ley-29-1987.md`, `isd-normativa-autonomica.md`, `plusvalia-municipal.md`). Si hay modificaciones:
-- Aplicar en memoria la redaccion estatal y autonomica vigente para adaptar el borrador.
-- Informar brevemente al usuario de que se detecto y aplico una version mas reciente (norma y fecha).
+### 1.1 Escucha Activa Previa
+Antes de invocar formularios, evalúa el mensaje inicial del usuario:
+- Si el usuario ya precisó la CCAA de residencia del fallecido y su grado de parentesco exacto, registra los vectores y avanza a la **Fase 2**.
+- Si falta delimitar la CCAA competente (`V4`) o el grupo de parentesco (`V2`), invoca de inmediato la herramienta `restricted_human_in_the_loop_request`.
 
-**1.5 — Fallback si la busqueda no es accesible.** Si la busqueda web falla: usar las references cargadas en el prompt como respaldo y notificar al usuario:
-"No se pudo verificar en vivo la version vigente de la normativa del Impuesto de Sucesiones. El borrador se genera con la version de referencia y con importes marcados [verificar]. Verificar manualmente antes de presentar."
+### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
+Invoca la herramienta con las preguntas de conexión territorial y parentesco:
 
-### Paso 2 — Preguntas al usuario (una pregunta por bloque si no las ha proporcionado)
-
-El agente no prepara nada hasta recoger estos datos:
-
-**Bloque A — Comunidad autonoma competente (CRITICO):**
-"En que comunidad autonoma tenia su residencia habitual el causante en los ultimos anos? Es la clave del tramite: determina las bonificaciones aplicables y el organismo (Hacienda autonomica) donde se presenta. Como regla general se atiende a la CCAA donde el causante residio mas dias de los ultimos cinco anos."
-
-**Bloque B — Datos del causante:**
-- Nombre completo, NIF, fecha y lugar de fallecimiento, ultimo domicilio.
-- Confirmar la CCAA de residencia habitual (para puntos de conexion).
-
-**Bloque C — Datos y parentesco del heredero:**
-- Nombre completo, NIF y domicilio del heredero para el que se prepara la autoliquidacion.
-- Parentesco con el causante, para asignar el GRUPO (I a IV; ver `references/isd-ley-29-1987.md`), del que dependen las reducciones y los coeficientes.
-- Patrimonio preexistente del heredero solo si la CCAA lo exige para el coeficiente multiplicador (indicarlo como [verificar]).
-
-**Bloque D — Caudal hereditario (inventario y valores):**
-- Relacion de bienes y derechos con su valor: inmuebles (con referencia catastral y valor de referencia/mercado), cuentas y depositos, valores, vehiculos, otros.
-- Si existe cuaderno particional (skill `herencia`), tomar de ahi el inventario y el avaluo, y la parte que corresponde a ESTE heredero.
-- Ajuar domestico: valor declarado o, en su defecto, el 3% del caudal relicto (Art. 15), salvo prueba en contrario.
-
-**Bloque E — Cargas, deudas y gastos deducibles:**
-- Cargas y gravamenes que disminuyen el valor de los bienes (Art. 12).
-- Deudas deducibles del causante (Art. 13).
-- Gastos deducibles: ultima enfermedad, entierro y funeral (Art. 14).
-
-**Bloque F — Seguros de vida:**
-"El heredero es beneficiario de algun seguro de vida por el fallecimiento? Los seguros de vida tienen su propia reduccion (Art. 20.2.b) y se acumulan a la porcion hereditaria del beneficiario."
-
-**Bloque G — Reducciones aplicables:**
-- Vivienda habitual del causante: si el heredero (conyuge, descendiente, ascendiente o colateral mayor de 65 conviviente) la adquiere, reduccion del 95% con limite y permanencia (Art. 20.2.c), mejorable por la CCAA.
-- Empresa familiar, negocio o participaciones: reduccion del 95% (Art. 20.2.c), mejorable por la CCAA.
-- Discapacidad del heredero: reduccion adicional segun grado.
-
-### Paso 3 — Calculo estimado (todo marcado [verificar])
-
-Antes de generar el borrador, componer la estimacion siguiendo el esquema del ISD (ver `references/isd-ley-29-1987.md`), aplicando primero el regimen autonomico verificado en el Paso 1.3:
-
-a) **Masa hereditaria neta.** Caudal relicto (bienes + ajuar) - cargas, deudas y gastos deducibles.
-
-b) **Porcion individual del heredero.** La parte que le corresponde segun su cuota o adjudicacion, mas los seguros de vida de los que sea beneficiario.
-
-c) **Base liquidable.** Porcion individual - reducciones aplicables (parentesco por grupo, seguros, vivienda habitual, empresa familiar, discapacidad), aplicando el importe autonomico cuando mejore al estatal. Marcar cada reduccion [verificar].
-
-d) **Cuota integra.** Aplicar la tarifa (estatal o autonomica) a la base liquidable. Marcar [verificar].
-
-e) **Cuota tributaria.** Aplicar el coeficiente multiplicador segun grupo y, en su caso, patrimonio preexistente. Marcar [verificar].
-
-f) **Cuota a ingresar.** Aplicar las bonificaciones de la cuota de la CCAA (frecuentes al 99% para Grupos I y II). Marcar [verificar].
-
-Advertir de forma expresa que el resultado es una estimacion orientativa, no la cuota definitiva.
-
-### Paso 4 — Generacion de los documentos
-
-Tomar las plantillas correspondientes directamente desde el bloque `<document kind="assets-collection">` de tu system prompt:
-
-Generar el borrador de autoliquidacion y el checklist con las plantillas `template-borrador-autoliquidacion-650.md` y `template-checklist-documentacion-sucesiones.md` invocando `create_file`:
-```
-create_file(
-  relative_file_path: "borrador_autoliquidacion_650.md",
-  file_content: "... contenido completo adaptado para autoliquidacion con datos de bloques A-G y calculos del Paso 3 ..."
-)
-```
-```
-create_file(
-  relative_file_path: "checklist_documentacion_sucesiones.md",
-  file_content: "... contenido completo del checklist de documentacion, plazos y plusvalia municipal ..."
-)
+```json
+{
+  "form_data": [
+    {
+      "id": "comunidad_autonoma",
+      "rationale": "Resolver V4 para fijar la normativa fiscal autonómica y el organismo tributario gestor.",
+      "question": "¿En qué Comunidad Autónoma residió habitualmente el causante durante los últimos 5 años?",
+      "options": [
+        {"id": "madrid", "label": "Comunidad de Madrid"},
+        {"id": "andalucia", "label": "Andalucía"},
+        {"id": "cataluna", "label": "Cataluña"},
+        {"id": "comunidad_valenciana", "label": "Comunidad Valenciana"},
+        {"id": "galicia", "label": "Galicia"},
+        {"id": "otra_ccaa", "label": "Otra Comunidad Autónoma de régimen común"}
+      ]
+    },
+    {
+      "id": "grupo_parentesco",
+      "rationale": "Resolver V2 para aplicar las reducciones de la base y bonificaciones de cuota.",
+      "question": "¿Qué relación de parentesco tenía el heredero con el fallecido?",
+      "options": [
+        {"id": "grupo_i", "label": "Hijo/a o descendiente menor de 21 años (Grupo I)"},
+        {"id": "grupo_ii", "label": "Hijo/a de 21 años o más, cónyuge, padre o madre (Grupo II)"},
+        {"id": "grupo_iii", "label": "Hermano/a, sobrino/a, tío/a, suegro/a o cuñado/a (Grupo III)"},
+        {"id": "grupo_iv", "label": "Primo/a, parientes más lejanos o persona sin vínculo de sangre (Grupo IV)"}
+      ]
+    }
+  ]
+}
 ```
 
-### Reglas de Adaptación y Cláusulas Condicionales:
+### 1.3 Enrutamiento de Estado (Routing por Vectores)
+- Plantillas del sistema propuestas: `assets/template-borrador-autoliquidacion-650.md` y `assets/template-checklist-documentacion-sucesiones.md`.
+- Proceder de inmediato a la **Fase 2**.
 
-1. **Inmuebles Urbanos y Plusvalía Municipal (IIVTNU):**
-   - *Si el caudal relicto incluye inmuebles de naturaleza urbana:* Incluir en el borrador de autoliquidación y checklist la advertencia expresa: `La herencia incluye inmueble(s) urbano(s). Además del Impuesto de Sucesiones, debe liquidarse el Impuesto sobre el Incremento de Valor de los Terrenos de Naturaleza Urbana (IIVTNU / Plusvalía Municipal) en el Ayuntamiento de {{municipio_inmueble}}, en el plazo de 6 meses desde el fallecimiento (prorrogable).`
-   - *Si NO incluye inmuebles urbanos (solo rústicos, cuentas o vehículos):* Hacer constar: `La herencia no incluye inmuebles urbanos: no procede la liquidación del IIVTNU.`
+---
 
-Rellenar los campos con los datos reales. Los campos que el usuario no haya proporcionado quedan como `[DATO — PENDIENTE DE COMPLETAR]`. Aplicar las directivas de `estilo-redaccion-escritos.md` (disponible directamente en `<document kind="references-collection">` del prompt): lenguaje administrativo claro, cifras en numero, una idea por apartado, sin formulas grandilocuentes.
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
 
-Tras guardar los archivos en disco del workspace, invocar `read_file` exclusivamente sobre las rutas del workspace para verificar la integridad de los documentos escritos.
+Interacción directa en texto plano conversacional en el chat (sin formularios).
 
-### Paso 5 — Revision final y advertencias
+### 2.1 Verificación Normativa Interna
+1. Consulta las referencias internas: `isd-ley-29-1987.md`, `isd-normativa-autonomica.md`, `plusvalia-municipal.md` y `fuentes-y-plazos.md`.
+2. Realiza consulta en vivo mediante `web_search` de la normativa autonómica específica de la CCAA competente para confirmar bonificaciones vigentes (ej. bonificación del 99% en cuota para Grupos I y II en Madrid o Andalucía, reducciones por adquisición de vivienda habitual, etc.). Si detectas modificaciones de baremos, aplica la normativa vigente en el workspace sin alterar los assets locales.
 
-Verificar que cada documento generado:
-- Tiene el header DRAFT.
-- Incluye la fecha de verificacion normativa (del Paso 1) y la CCAA competente.
-- Identifica al causante y al heredero, con el grupo de parentesco.
-- Expresa la base, las reducciones aplicadas y la cuota estimada, todo marcado [verificar].
-- Indica organismo, sede, modelo y plazo, y el aviso de la plusvalia municipal si hay inmuebles urbanos.
+### 2.2 Mensaje de Plan de Acción y Consulta de Assets
+Envía un mensaje estructurado y pedagógico:
+1. **Marco Legal y Régimen de la CCAA Competente:**
+   - Citar la Ley 29/1987 estatal y la ley autonómica aplicable.
+   - Explicar las reducciones por parentesco del Grupo respectivo y la bonificación sobre cuota aplicable en esa CCAA.
+   - Recordar el plazo legal imperativo de **6 meses desde el fallecimiento** para presentar la autoliquidación (con posibilidad de solicitar prórroga por otros 6 meses dentro de los primeros 5 meses).
+2. **Propuesta de Plantilla Oficial del Sistema:**
+   - Detallar que dispones de las plantillas oficiales adaptadas: borrador del modelo 650 y checklist documental integral.
+3. **Pregunta Explícita al Usuario (Vía Chat):**
+   Formula exactamente la siguiente consulta en el chat:
+   > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-Entregar los documentos y anadir al final:
+### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
+- **Si `V5 = plantilla_sistema`:** Toma los assets oficiales seleccionados y avanza a la **Fase 3**.
+- **Si `V5 = plantilla_usuario`:** Adopta la minuta del usuario desde `<attached_documents>` o `<user_message>`, valida la observancia de la normativa fiscal imperativa y avanza a la **Fase 3**.
+
+---
+
+## FASE 3 — CREACIÓN DEL DOCUMENTO BASE EN DISCO (Zero Vacíos)
+
+1. **Escritura de los Documentos (`create_file`):**
+   - Vuelca íntegramente las plantillas acordadas en el workspace del usuario:
+     - `borrador_autoliquidacion_modelo_650.md`.
+     - `checklist_documentacion_sucesiones.md`.
+   - Aplica el principio **Zero-Omission**:
+     - Sustituye los datos ya conocidos de la clasificación (CCAA, grupo de parentesco, coeficientes).
+     - Todos los datos económicos o identificativos pendientes deben permanecer como marcadores `{{DATO_FALTANTE}}` en mayúsculas y dobles llaves.
+     - PROHIBIDO dejar archivos en blanco o con resúmenes informales.
+2. **Validación de Disco (`read_file`):**
+   - Comprueba la integridad del archivo recién creado en el workspace.
+3. **Confirmación en Chat:**
+   - Comunica las rutas de los archivos generados en disco e introduce de inmediato la primera sección de la **Fase 4**.
+
+---
+
+## FASE 4 — EDICIÓN INCREMENTAL CLÁUSULA A CLÁUSULA / SECCIÓN A SECCIÓN
+
+Recorre de forma secuencial los bloques de la autoliquidación aplicando el ciclo interactivo:
 ```
-Advertencias:
-1. Este documento es un DRAFT generado automaticamente. Debe ser revisado por un gestor o asesor fiscal antes de su presentacion.
-2. La cuota es una ESTIMACION [verificar], no la cuota definitiva. Los importes, reducciones y bonificaciones dependen de la CCAA [CCAA] y del ejercicio, y deben verificarse.
-3. Version de la Ley 29/1987 verificada: [fecha extraida en Paso 1].
-4. Plazo de autoliquidacion: 6 meses desde el fallecimiento, prorrogable por otros 6 si se solicita dentro de los 5 primeros meses.
-5. Organismo competente: Hacienda autonomica de la comunidad de residencia habitual del causante [CCAA]. Modelo: 650 (o el modelo autonomico equivalente [verificar]).
-6. Plusvalia municipal (IIVTNU): si la herencia incluye inmuebles urbanos, hay que liquidarla ademas en el ayuntamiento correspondiente, con su propio plazo.
+[Pregunta al Usuario] ──> [Vista Previa en texto plano] ──> [¿Confirmamos esta sección?] ──> [edit_file + read_file]
 ```
 
-## Como NO se usa esta skill
+### Protocolo Obligatorio por Sección:
+1. **Pregunta en Chat:** Solicita los datos específicos del bloque orientando sobre la valoración fiscal (valor de referencia catastral, saldos bancarios a fecha de fallecimiento).
+2. **Vista Previa (Preview):** Muestra el bloque redactado en texto plano.
+3. **Confirmación:** Pregunta literalmente: `¿Confirmamos esta sección?`.
+4. **Persistencia en Disco:** Tras el consentimiento, aplica `edit_file` y valida inmediatamente con `read_file`.
 
-- No usar para el reparto juridico de la herencia (inventario, avaluo, legitima, adjudicaciones): eso lo hace la skill `herencia` del plugin `derecho-civil`. Esta skill parte de ese reparto para preparar la liquidacion fiscal.
-- No usar para donaciones en vida (modelo 651) ni para seguros de vida liquidados de forma independiente por otro modelo.
-- No usar para calcular ni presentar la plusvalia municipal: la skill solo avisa de su existencia y plazo.
-- No usar para dar la cuota como definitiva ni para sustituir la revision de un gestor o asesor fiscal.
-- No usar para herencias con litigio, comprobacion de valores en curso, sancion o aplazamiento controvertido: derivar a un gestor o asesor fiscal colegiado.
+### Hoja de Ruta de Secciones:
 
-## Escalacion
+1. **Datos del Causante y Punto de Conexión Territorial** *(confirmación agrupada)*:
+   - Nombre completo, NIF, fecha y lugar de defunción, y domicilio habitual en los 5 años previos.
+2. **Datos del Heredero o Sujeto Pasivo** *(confirmación agrupada)*:
+   - Nombre completo, NIF, domicilio a efectos de notificaciones y patrimonio preexistente (si excede de 400.000 € a efectos de coeficientes multiplicadores).
+3. **Inventario del Caudal Relicto y Bienes Adjudicados**:
+   - Inmuebles: Identificación, referencia catastral y valor fiscal (mayor entre valor de referencia catastral del Catastro y valor declarado).
+   - Dinero en cuentas corrientes, depósitos y fondos de inversión a fecha de defunción.
+   - Vehículos a motor (según tablas del Ministerio de Hacienda).
+   - Seguros de vida con designación expresa de beneficiario.
+   - Presunción legal del Ajuar Doméstico (3% del caudal relicto, art. 15 LISD, descontando inmuebles no residenciales).
+4. **Pasivo Deducible y Gastos de Sepelio**:
+   - Deudas del causante debidamente justificadas documentalmente.
+   - Gastos de última enfermedad, entierro y funeral sufragados por el heredero.
+5. **Cálculo de la Liquidación Estimada**:
+   - Determinación de la Base Imponible y Base Liquidable.
+   - Aplicación de reducciones autonómicas por parentesco, discapacidad o adquisición de vivienda habitual del causante.
+   - Cuota íntegra según tarifa aplicable y aplicación de bonificaciones autonómicas de cuota (marcada siempre con indicación de estimación sujeta a confirmación).
+6. **Aviso Obligatorio de Plusvalía Municipal (IIVTNU)**:
+   - Alerta expresa sobre la obligación independiente de liquidar el Impuesto sobre el Incremento de Valor de los Terrenos de Naturaleza Urbana ante el Ayuntamiento en el plazo de 6 meses si se heredan inmuebles urbanos.
 
-| Situacion | Accion |
-|---|---|
-| Herencia con litigio sucesorio o desacuerdo entre herederos | Advertir de que primero debe resolverse el reparto (`herencia`) y ofrecer escalacion |
-| Comprobacion de valores o liquidacion complementaria de la administracion | Advertir y derivar a gestor o asesor fiscal (escalate_to_attorney) |
-| Bonificacion autonomica dudosa o cambio normativo reciente en la CCAA | Verificar con web_search, marcar [verificar] y advertir |
-| Solicitud de aplazamiento, fraccionamiento o prorroga del pago | Indicar la via ante la Hacienda autonomica y ofrecer escalacion |
-| Empresa familiar o participaciones con requisitos de exencion dudosos | Advertir de la complejidad del Art. 20.2.c y escalar |
-| Causante o heredero no residente, o bienes en el extranjero | Advertir de las reglas de competencia (AEAT vs. CCAA) y escalar |
+---
+
+## FASE 5 — BUCLE DE REALIMENTACIÓN FINAL Y CIERRE
+
+Una vez completadas todas las secciones del borrador, presenta al usuario el menú interactivo:
+```markdown
+El borrador de autoliquidación del Modelo 650 y el checklist documental han sido generados y actualizados en disco.
+
+Seleccione una opción si desea realizar ajustes adicionales:
+1. Modificar valores de bienes inmuebles, cuentas o deudas deducibles.
+2. Revisar la aplicación de reducciones autonómicas (vivienda habitual o empresa familiar).
+3. Modificar datos del causante o del heredero.
+4. Realizar control de calidad global del cálculo fiscal estimado.
+5. Dar el borrador por finalizado y cerrar la sesión.
+```
+
+### Advertencias Preceptivas al Finalizar:
+Al cerrar el procedimiento, emite siempre las siguientes advertencias:
+1. **Carácter Estimado y DRAFT:** La liquidación generada es una estimación técnica orientativa sujeta a revisión profesional por un gestor administrativo o asesor fiscal colegiado antes de su ingreso o presentación telemática.
+2. **Plazo Fatal de 6 Meses:** El plazo para presentar la autoliquidación y abonar el tributo es de **6 meses desde el fallecimiento**. La solicitud de prórroga por 6 meses adicionales debe presentarse de forma obligatoria dentro de los primeros 5 meses del plazo.
+3. **Comprobación de Valores:** Los valores declarados (especialmente en inmuebles) están sujetos a comprobación de valores por la Administración Tributaria autonómica conforme al valor de referencia del Catastro.
+4. **Plusvalía Municipal (IIVTNU):** Recuerda que si la masa hereditaria incluye inmuebles urbanos, debe presentarse de forma obligatoria la autoliquidación o declaración del impuesto de plusvalía municipal ante el Ayuntamiento correspondiente en el mismo plazo de 6 meses.
+
+---
+
+## Límites Legales y Guardrails de Dominio (Gobernados por Vectores)
+
+1. **Carácter Provisional de la Cuota:** Queda prohibido presentar la cuota tributaria como definitiva o garantizada; debe consignarse expresamente la advertencia de comprobación administrativa.
+2. **Cero Invención de Datos:** No inventar referencias catastrales, importes de tasación ni datos fiscales. Todo dato pendiente debe permanecer como `{{DATO_FALTANTE}}`.
+3. **Inmutabilidad del Plugin en Disco:** Aplicar cualquier variación en bonificaciones autonómicas directamente en el workspace del usuario; nunca modificar los archivos internos del plugin.
+4. **Límites de Alcance:** Esta skill no realiza la partición formal del caudal relicto (adjudicación jurídica de lotes), la cual debe realizarse mediante la skill `derecho-civil:herencia` y formalizarse ante Notario público.

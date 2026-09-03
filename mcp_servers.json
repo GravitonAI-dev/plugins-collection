@@ -1,5 +1,4 @@
 {
-  "$schema": "https://anthropic.com/mcp/registry.schema.json",
   "version": "1.0",
   "description": "Catálogo global de servidores MCP disponibles para los plugins de plugins-collection. Los plugins NO duplican el schema: referencian servidores por su `id` desde su propio `.mcp.json`.",
   "owner": {
@@ -21,8 +20,7 @@
         "type": "optional_api_key",
         "env_var": "COURTLISTENER_API_KEY"
       },
-      "tags": ["legal-research", "us-federal", "public"],
-      "used_by": ["commercial-legal", "ip-legal", "litigation-legal"]
+      "used_by": ["*"]
     },
     {
       "id": "io.gravitonai.slack",
@@ -58,7 +56,7 @@
         "env_var": "IRONCLAD_API_KEY"
       },
       "tags": ["clm", "contracts", "commercial"],
-      "used_by": ["commercial-legal"]
+      "used_by": ["*"]
     },
     {
       "id": "io.gravitonai.docusign",
@@ -69,7 +67,7 @@
       "transport": { "type": "http" },
       "auth": { "type": "oauth2" },
       "tags": ["clm", "esign", "commercial"],
-      "used_by": ["commercial-legal"]
+      "used_by": ["*"]
     }
   ]
 }

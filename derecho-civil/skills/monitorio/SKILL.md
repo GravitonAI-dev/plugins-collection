@@ -212,7 +212,7 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 ## Límites Legales y Guardrails de Dominio (Gobernados por Vectores)
 
 1. Verificar siempre la LEC en el BOE antes de redactar. Sin verificacion, no proceder.
-2. Si se detecta en el BOE una version de la LEC posterior a la registrada en las references, actualizar los archivos del plugin antes de redactar (ver Paso 1). No usar una version desactualizada.
+2. Si se detecta en el BOE una version de la LEC posterior a la registrada en las references, aplicar la redacción vigente directamente sobre el documento a redactar en el workspace del usuario. No usar una version desactualizada.
 3. Solo procede el monitorio si la deuda es dineraria, liquida, determinada, vencida y exigible (Art. 812). Si no lo es, no redactar la peticion: advertir y ofrecer alternativa (juicio declarativo) o escalacion.
 4. Debe existir al menos un documento que acredite la deuda (Art. 812). Sin documento acreditativo, no procede.
 5. Competencia exclusiva del Juzgado de Primera Instancia del domicilio o residencia del deudor (Art. 813). No admitir sumision a otro fuero.

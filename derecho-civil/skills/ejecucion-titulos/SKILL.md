@@ -278,7 +278,7 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 ## Límites Legales y Guardrails de Dominio (Gobernados por Vectores)
 
 1. Verificar siempre la LEC, la LO 1/2025 y el TRLC en el BOE antes de redactar (Punto 2). Sin verificacion, no proceder.
-2. Si se detecta una version posterior a la registrada en las references, actualizar los archivos del plugin antes de redactar. No usar una version desactualizada, y nunca calcular un tramo de embargo de sueldo con un SMI de un ejercicio anterior sin verificarlo.
+2. Si se detecta una version posterior a la registrada en las references, aplicar la redacción vigente directamente sobre el documento a redactar en el workspace del usuario. No usar una version desactualizada, y nunca calcular un tramo de embargo de sueldo con un SMI de un ejercicio anterior sin verificarlo.
 3. La accion ejecutiva de titulos judiciales, laudos y acuerdos de mediacion caduca a los cinco anos desde la firmeza (Art. 518 LEC). Si el plazo esta agotado, no redactar la demanda: advertir y ofrecer escalacion. Este plazo NO se aplica a la escritura publica notarial.
 4. No se despachara ejecucion de titulos judiciales, laudos o acuerdos de mediacion dentro de los veinte dias posteriores a la firmeza o notificacion (Art. 548 LEC). Advertir siempre de esta espera; no aplica a los demas titulos no judiciales.
 5. Solo cabe despachar ejecucion frente a quien figure como deudor en el titulo o se encuentre en los supuestos tasados de los Arts. 538 a 544 LEC. Nunca dirigir la ejecucion contra un tercero no amparado por el titulo: genera responsabilidad por danos y perjuicios (Art. 538.4).

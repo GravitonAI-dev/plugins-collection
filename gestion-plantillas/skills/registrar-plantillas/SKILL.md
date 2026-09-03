@@ -139,7 +139,19 @@ Cuando el usuario confirme (o si ya proporcionó confirmación explícita):
 
 ## FASE 5 — CONFIRMACIÓN DE PERSISTENCIA Y CIERRE
 
-Una vez ejecutada exitosamente la herramienta `set_skill_template`, informa al usuario:
-1. **Confirmación Exitosa:** Notificar que la plantilla personalizada ha sido registrada y guardada en el backend para la skill indicada.
-2. **Efecto en Futuras Conversaciones:** Explicar que, en todas las siguientes conversaciones en las que el usuario utilice esa skill, el sistema cargará automáticamente su plantilla personalizada en lugar de la plantilla por defecto.
-3. **Opciones Finales:** Ofrecer la posibilidad de registrar otra plantilla o dar por concluida la configuración.
+Una vez ejecutada exitosamente la herramienta `set_skill_template`:
+1. **Presentación del Reporte de Configuración:** Emite en el chat un reporte estructurado y profesional en Markdown utilizando como base el formato de `assets/resumen-asignacion-plantilla.md`, rellenando los datos de la sesión:
+   - Skill y asset objetivo actualizados.
+   - Fecha y estado de asignación en el orquestador.
+   - Inventario de variables parametrizadas con su descripción.
+2. **Efecto en Futuras Conversaciones:** Explica que, en todas las siguientes conversaciones en las que el usuario active esa skill, el orquestador cargará automáticamente su minuta personalizada en lugar de la plantilla por defecto.
+3. **Opciones Finales:** Ofrece la posibilidad de registrar otra plantilla o dar por concluida la sesión de configuración.
+
+---
+
+## Límites Legales y Guardrails de Dominio
+
+1. **Cero Datos Personales en Plantillas:** Queda estrictamente prohibido persistir plantillas que contengan PII o datos reales de partes concretas; todo dato particular debe abstraerse como variable `{{variable}}`.
+2. **Assets Limpios:** Las plantillas registradas mediante `set_skill_template` no deben contener comentarios HTML condicionales ni lógica procedimental.
+3. **Cero Archivos en Workspace:** Esta skill no crea archivos en el workspace de la conversación; su persistencia se realiza exclusivamente mediante la herramienta backend `set_skill_template()`.
+4. **Confirmación Previa:** Jamás invocar `set_skill_template()` sin previa vista previa y confirmación explícita del usuario.

@@ -266,7 +266,7 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 ## Límites Legales y Guardrails de Dominio (Gobernados por Vectores)
 
 1. Verificar siempre la LPH y la LEC en el BOE antes de redactar (Punto 2). Sin verificacion, no proceder.
-2. Si se detecta una version del texto consolidado posterior a la registrada en las references, actualizar los archivos del plugin antes de redactar. No usar una version desactualizada.
+2. Si se detecta una version del texto consolidado posterior a la registrada en las references, aplicar la redacción vigente directamente sobre el documento a redactar en el workspace del usuario. No usar una version desactualizada.
 3. La reclamacion de cuotas exige acuerdo previo de la junta que apruebe la liquidacion y autorice la reclamacion (articulos 21.1 y 21.2). Sin ese acuerdo no se genera la peticion inicial, por mucho que el usuario insista.
 4. La certificacion debe expresar el importe adeudado Y SU DESGLOSE (articulo 21.3). Nunca emitir una certificacion con un importe global.
 5. El visto bueno del presidente solo puede omitirse en el supuesto tasado del articulo 21.3 (secretario-administrador con cualificacion profesional legalmente reconocida que no vaya a intervenir profesionalmente en la reclamacion). No admitir otras excepciones.

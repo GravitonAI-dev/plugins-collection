@@ -303,7 +303,7 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 ## Límites Legales y Guardrails de Dominio (Gobernados por Vectores)
 
 1. Verificar siempre el Codigo Civil y la LEC en el BOE antes de redactar (Punto 2). Sin verificacion, no proceder. **Los arts. 807, 808 y 810 LEC estan en la redaccion de la LO 2/2022 (vigencia 23/03/2022) y su verificacion en cada lanzamiento es obligatoria.**
-2. Si se detecta una version posterior a la registrada en las references, actualizar los archivos del plugin antes de redactar. No usar una version desactualizada.
+2. Si se detecta una version posterior a la registrada en las references, aplicar la redacción vigente directamente sobre el documento a redactar en el workspace del usuario. No usar una version desactualizada.
 3. **Separacion de bienes → DETENER.** En el regimen de separacion de bienes no hay masa comun y no hay sociedad que liquidar (Arts. 1435 CC y 806 LEC). Explicarlo, informar de que el reparto de bienes en proindiviso es una division de cosa comun (Arts. 400 y ss. CC) y no crear documento de liquidacion.
 4. **Regimen de participacion → DETENER.** Se liquida por el Art. 811 LEC, con propuesta de estimacion de patrimonio inicial y final de cada conyuge. Los assets de esta skill no sirven. Advertir y escalar.
 5. **Derecho civil propio o foral → DETENER.** Cataluna, Aragon, Navarra, Baleares, Pais Vasco y Galicia tienen regimenes economicos matrimoniales propios con reglas de composicion y liquidacion distintas. Verificar la norma autonomica y escalar. Nunca aplicar los Arts. 1344 a 1410 CC a un matrimonio sujeto a derecho civil propio.
