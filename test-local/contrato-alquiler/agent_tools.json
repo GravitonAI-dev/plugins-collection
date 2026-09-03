@@ -1,8 +1,0 @@
-{
-  "tools": [
-    { "id": "io.gravitonai.tools.read_document", "required": true, "purpose": "Leer el texto consolidado de la LAU en el BOE para verificar la version vigente." },
-    { "id": "io.gravitonai.tools.draft_markdown", "required": true, "purpose": "Rellenar la plantilla del contrato con los datos recogidos en el arbol de decision." },
-    { "id": "io.gravitonai.tools.web_search", "required": false, "purpose": "Fallback de verificacion normativa y consulta de normativa autonomica (zona tensionada, deposito de fianza)." },
-    { "id": "io.gravitonai.tools.escalate_to_attorney", "required": false, "purpose": "Escalar cuando hay litigio o clausulas no resolubles con la LAU." }
-  ]
-}

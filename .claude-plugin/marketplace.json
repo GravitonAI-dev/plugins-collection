@@ -1,5 +1,4 @@
 {
-  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "plugins-collection",
   "description": "Marketplace de plugins de Claude de GravitonAI. Colección de referencia con skills, agentes, MCP servers y tools para flujos legales y otros verticales. Todo el contenido está en español.",
   "owner": {
@@ -7,21 +6,11 @@
   },
   "plugins": [
     {
-      "name": "general-assistant",
-      "displayName": "General Assistant",
-      "source": "./general-assistant",
-      "version": "0.1.0",
-      "description": "Asistente de proposito general para consultas que requieren informacion publica, hechos actuales, contexto externo o verificacion. Cubre el caso 'no se que plugin usar'. Invoca io.gravitonai.tools.web_search cuando la consulta lo amerita.",
-      "author": {
-        "name": "GravitonAI"
-      }
-    },
-    {
       "name": "derecho-civil",
       "displayName": "Derecho Civil",
       "source": "./derecho-civil",
       "version": "0.8.0",
-      "description": "Generacion de documentos de derecho civil espanol, siempre en su version consolidada vigente verificada en el BOE: reclamacion de cantidad y ejecucion de titulos, contratos entre particulares, arrendamiento, desahucio, compraventa de inmuebles y propiedad horizontal, familia (divorcio, medidas sobre hijos, modificacion de medidas, gananciales y pareja de hecho), sucesiones (herencia y planificacion testamentaria), clausulas abusivas de consumo, responsabilidad civil y medidas de apoyo a personas con discapacidad.",
+      "description": "Generacion de documentos de derecho civil espanol, siempre en su version consolidada vigente verificada en el BOE: arrendamiento urbano, compraventa de inmuebles, contratos entre particulares, propiedad horizontal, desahucios, ejecucion de titulos, reclamacion de cantidad, monitorio y juicio ordinario, familia (divorcio, medidas sobre hijos no matrimoniales, modificacion de medidas, liquidacion de gananciales y parejas de hecho), sucesiones (herencia y planificacion testamentaria), clausulas abusivas de consumo, responsabilidad civil y medidas de apoyo a personas con discapacidad.",
       "author": {
         "name": "GravitonAI"
       }
@@ -32,6 +21,26 @@
       "source": "./gestoria",
       "version": "0.2.1",
       "description": "Generacion de documentos y solicitudes para tramites administrativos de gestoria en Espana (trafico y DGT, alta y baja de autonomo, altas y bajas en la Seguridad Social, impuesto de sucesiones, extranjeria), con verificacion de la normativa vigente en el BOE, checklist de documentos y organismo de presentacion. Salida DRAFT en markdown para revision profesional.",
+      "author": {
+        "name": "GravitonAI"
+      }
+    },
+    {
+      "name": "gestion-plantillas",
+      "displayName": "Gestion de Plantillas",
+      "source": "./gestion-plantillas",
+      "version": "0.1.0",
+      "description": "Creacion, parametrizacion y registro de plantillas personalizadas (assets) para las skills especializadas de GravitonAI mediante set_skill_template a partir de minutas y documentos de ejemplo adjuntos.",
+      "author": {
+        "name": "GravitonAI"
+      }
+    },
+    {
+      "name": "asistente-general",
+      "displayName": "Asistente General",
+      "source": "./asistente-general",
+      "version": "0.1.0",
+      "description": "Asistente universal de primera linea y fallback para consultas generales, orientacion juridica y administrativa multidisciplinar, busquedas web, analisis de hechos y generacion bajo demanda de informes y memorandums tecnicos.",
       "author": {
         "name": "GravitonAI"
       }

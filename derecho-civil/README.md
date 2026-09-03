@@ -37,161 +37,161 @@ Plugin de GravitonAI para la generacion de documentos de derecho civil espanol, 
 
 ## Skills
 
-### `derecho-civil-reclamacion-cantidad`
+### `reclamacion-cantidad`
 
 Elige la via de reclamacion de una deuda dineraria (monitorio, verbal u ordinario segun documentacion, cuantia y oposicion) y genera la peticion, demanda u oposicion correspondiente, con burofax previo.
 
-Invocacion: `/derecho-civil:derecho-civil-reclamacion-cantidad`
+Invocacion: `/derecho-civil:reclamacion-cantidad`
 
 Output: peticion de monitorio, burofax, demanda de verbal u ordinario, u oposicion al monitorio, en markdown, DRAFT.
 
-### `derecho-civil-ejecucion-titulos`
+### `ejecucion-titulos`
 
 Ejecuta forzosamente un titulo dinerario: judicial (sentencia, decreto, incluido monitorio firme), no judicial (escritura, laudo, acuerdo de mediacion) o de familia (pensiones), y genera por separado el escrito de embargo/investigacion patrimonial cuando la ejecucion ya esta despachada.
 
-Invocacion: `/derecho-civil:derecho-civil-ejecucion-titulos`
+Invocacion: `/derecho-civil:ejecucion-titulos`
 
 Output: demanda de ejecucion de titulo judicial, no judicial o de familia, o solicitud de embargo/averiguacion patrimonial, en markdown, DRAFT.
 
 Que NO hace: no cubre la ejecucion hipotecaria, la ejecucion provisional ni la oposicion del ejecutado.
 
-### `derecho-civil-arrendamiento`
+### `arrendamiento-urbano`
 
 Genera un contrato de arrendamiento urbano (vivienda habitual, temporada, local o habitacion) y las comunicaciones asociadas al contrato vigente.
 
-Invocacion: `/derecho-civil:derecho-civil-arrendamiento`
+Invocacion: `/derecho-civil:arrendamiento-urbano`
 
 Output: contrato de arrendamiento o comunicacion (actualizacion de renta, no renovacion, devolucion de fianza), en markdown, DRAFT.
 
-### `derecho-civil-desahucio`
+### `desahucio`
 
 Genera la demanda de juicio verbal de desahucio (falta de pago con acumulacion de rentas, expiracion del plazo o precario) o el acuerdo extrajudicial de condonacion de rentas a cambio de la entrega de llaves.
 
-Invocacion: `/derecho-civil:derecho-civil-desahucio`
+Invocacion: `/derecho-civil:desahucio`
 
 Output: demanda de desahucio segun el supuesto, o acuerdo de condonacion, en markdown, DRAFT.
 
 Que NO hace: no cubre la tutela sumaria frente a ocupacion ilegal (Art. 250.1.4 LEC), finca rustica ni ejecucion hipotecaria; no redacta la oposicion del demandado.
 
-### `derecho-civil-propiedad-horizontal`
+### `propiedad-horizontal`
 
 Genera la certificacion del acuerdo de liquidacion de deuda y la peticion de monitorio especial de cuotas de comunidad, la demanda de impugnacion de acuerdos de junta y el requerimiento de cesacion de actividad molesta.
 
-Invocacion: `/derecho-civil:derecho-civil-propiedad-horizontal`
+Invocacion: `/derecho-civil:propiedad-horizontal`
 
 Output: certificacion + peticion de monitorio, demanda de impugnacion, o requerimiento de cesacion, en markdown, DRAFT.
 
-### `derecho-civil-juicio-ordinario`
+### `juicio-ordinario`
 
 Prepara de principio a fin un juicio ordinario civil (cuantia superior a 15.000 euros o materia del Art. 249.1 LEC): checklist de admisibilidad, demanda, guion de audiencia previa, proposicion de prueba y minuta de conclusiones.
 
-Invocacion: `/derecho-civil:derecho-civil-juicio-ordinario`
+Invocacion: `/derecho-civil:juicio-ordinario`
 
 Output: segun la fase, checklist de admisibilidad, demanda, guion de audiencia previa, proposicion de prueba y/o minuta de conclusiones, en markdown, DRAFT.
 
-### `derecho-civil-monitorio`
+### `monitorio`
 
 Genera la peticion inicial de proceso monitorio para reclamar una deuda dineraria liquida, vencida y exigible (arts. 812-818 LEC), con opcion de burofax de requerimiento previo.
 
-Invocacion: `/derecho-civil:derecho-civil-monitorio`
+Invocacion: `/derecho-civil:monitorio`
 
 Output: peticion inicial de monitorio en markdown, DRAFT (y, opcionalmente, burofax de requerimiento previo).
 
-### `derecho-civil-divorcio`
+### `divorcio`
 
 Genera el convenio regulador de separacion o divorcio de mutuo acuerdo (Art. 90 CC), la demanda conjunta (Art. 777 LEC) o la demanda contenciosa (Art. 770 LEC), y ofrece la via notarial cuando no hay hijos menores ni dependientes.
 
-Invocacion: `/derecho-civil:derecho-civil-divorcio`
+Invocacion: `/derecho-civil:divorcio`
 
 Output: convenio regulador, demanda de mutuo acuerdo o demanda contenciosa, en markdown, DRAFT.
 
-### `derecho-civil-modificacion-medidas`
+### `modificacion-medidas`
 
 Genera la demanda de modificacion de medidas definitivas ya fijadas (custodia, alimentos, compensatoria, vivienda), consensuada o contenciosa, y la solicitud de extincion de la pension de alimentos, con filtro previo de viabilidad de la alteracion sustancial alegada.
 
-Invocacion: `/derecho-civil:derecho-civil-modificacion-medidas`
+Invocacion: `/derecho-civil:modificacion-medidas`
 
 Output: demanda de modificacion de medidas o solicitud de extincion de alimentos, en markdown, DRAFT.
 
 Que NO hace: no fija medidas por primera vez; no cubre la ejecucion de pensiones impagadas.
 
-### `derecho-civil-herencia`
+### `herencia`
 
 Cubre el ciclo completo de la herencia, para sucesion testada o intestada: aceptacion (pura y simple o a beneficio de inventario), renuncia (minuta para escritura notarial, Art. 1008 CC), interpelacion notarial al heredero que no se pronuncia (Art. 1005 CC), cuaderno particional (inventario, avaluo, liquidacion y adjudicaciones, con respeto de la legitima) y solicitud de division judicial a falta de acuerdo (Arts. 782 y ss. LEC). Advierte del Impuesto de Sucesiones (autonomico) y la plusvalia municipal.
 
-Invocacion: `/derecho-civil:derecho-civil-herencia`
+Invocacion: `/derecho-civil:herencia`
 
 Output: segun el caso, aceptacion, renuncia, requerimiento del Art. 1005 CC, cuaderno particional o solicitud de division judicial, en markdown, DRAFT.
 
-### `derecho-civil-reclamacion-clausulas-abusivas`
+### `reclamacion-clausulas-abusivas`
 
 Genera la reclamacion extrajudicial y/o la demanda de nulidad de clausula abusiva con restitucion de cantidades, en contratos con consumidores (TRLGDCU, LCGC, Directiva 93/13). Verifica la jurisprudencia reciente del TJUE y del Tribunal Supremo.
 
-Invocacion: `/derecho-civil:derecho-civil-reclamacion-clausulas-abusivas`
+Invocacion: `/derecho-civil:reclamacion-clausulas-abusivas`
 
 Output: reclamacion extrajudicial y/o demanda de nulidad con restitucion, en markdown, DRAFT.
 
-### `derecho-civil-responsabilidad-civil`
+### `responsabilidad-civil`
 
 Reclama los danos sufridos por culpa de otro, contractual o extracontractual: accidente de trafico con vehiculo a motor o con vehiculo personal ligero (patinete, con seguro obligatorio desde la Ley 5/2025), caida en establecimiento o via publica, vicio constructivo y negligencia profesional. Aplica un filtro de prescripcion bloqueante (un ano en la extracontractual, cinco en la contractual) y verifica en cada lanzamiento las cuantias del baremo del ejercicio en curso, que nunca quedan escritas fijas.
 
-Invocacion: `/derecho-civil:derecho-civil-responsabilidad-civil`
+Invocacion: `/derecho-civil:responsabilidad-civil`
 
 Output: reclamacion extrajudicial de danos, demanda de responsabilidad civil o respuesta a la oferta motivada de la aseguradora, en markdown, DRAFT.
 
-### `derecho-civil-compraventa-inmueble`
+### `compraventa-inmueble`
 
 Genera el contrato de arras o senal, el contrato privado de compraventa de vivienda y el requerimiento por incumplimiento. Exige pactar expresamente la clase de arras, porque el silencio juega en contra de quien quiere desistir, y advierte del derecho de tanteo y retracto del arrendatario si el inmueble esta alquilado.
 
-Invocacion: `/derecho-civil:derecho-civil-compraventa-inmueble`
+Invocacion: `/derecho-civil:compraventa-inmueble`
 
 Output: contrato de arras, contrato de compraventa o requerimiento de cumplimiento, en markdown, DRAFT.
 
-### `derecho-civil-liquidacion-gananciales`
+### `liquidacion-gananciales`
 
 Liquida la sociedad de gananciales, con acuerdo (convenio) o sin el (solicitud judicial de formacion de inventario). Explica la presuncion de ganancialidad, los reintegros entre masas y, sobre todo, que adjudicar la vivienda a un conyuge no libera al otro frente al banco.
 
-Invocacion: `/derecho-civil:derecho-civil-liquidacion-gananciales`
+Invocacion: `/derecho-civil:liquidacion-gananciales`
 
 Output: propuesta de inventario, convenio de liquidacion o solicitud de formacion de inventario, en markdown, DRAFT.
 
-### `derecho-civil-medidas-hijos-no-matrimoniales`
+### `medidas-hijos-no-matrimoniales`
 
 Fija por primera vez la custodia, el regimen de estancias, los alimentos y el uso de la vivienda respecto de hijos de progenitores no casados, de mutuo acuerdo o por via contenciosa. Comprueba antes que la filiacion este determinada respecto de ambos.
 
-Invocacion: `/derecho-civil:derecho-civil-medidas-hijos-no-matrimoniales`
+Invocacion: `/derecho-civil:medidas-hijos-no-matrimoniales`
 
 Output: pacto de relaciones familiares o demanda de medidas paternofiliales, en markdown, DRAFT.
 
-### `derecho-civil-pareja-de-hecho`
+### `pareja-de-hecho`
 
 Constituye la pareja de hecho, pacta la convivencia o regula la ruptura. Como no existe ley estatal, pregunta la comunidad autonoma y **verifica su normativa y su registro en cada lanzamiento** en lugar de darlos por sabidos. Deja claro que la inscripcion no equipara al matrimonio y que el conviviente no hereda sin testamento.
 
-Invocacion: `/derecho-civil:derecho-civil-pareja-de-hecho`
+Invocacion: `/derecho-civil:pareja-de-hecho`
 
 Output: pacto de convivencia, pacto de ruptura o checklist de inscripcion en el registro autonomico, en markdown, DRAFT.
 
-### `derecho-civil-testamento-planificacion`
+### `testamento-planificacion`
 
 Prepara la minuta del testamento abierto y el checklist de planificacion sucesoria: institucion de herederos, mejora, legados, sustituciones, usufructo universal al conyuge con cautela socini y desheredacion. Solo derecho comun: si la vecindad civil es foral, o el cliente no la conoce con seguridad, detiene y escala.
 
-Invocacion: `/derecho-civil:derecho-civil-testamento-planificacion`
+Invocacion: `/derecho-civil:testamento-planificacion`
 
 Output: minuta de testamento abierto para llevar al notario y/o checklist de planificacion sucesoria, en markdown, DRAFT.
 
-### `derecho-civil-contratos-particulares`
+### `contratos-particulares`
 
 Redacta contratos entre particulares: prestamo de dinero, reconocimiento de deuda, comodato y compraventa de bien mueble. Controla la usura (cuya consecuencia es la nulidad del prestamo, no una rebaja del interes) y explica la diferencia entre documento privado y escritura publica en fecha cierta, fuerza ejecutiva y coste.
 
-Invocacion: `/derecho-civil:derecho-civil-contratos-particulares`
+Invocacion: `/derecho-civil:contratos-particulares`
 
 Output: contrato de prestamo, reconocimiento de deuda, comodato o compraventa de mueble, en markdown, DRAFT.
 
-### `derecho-civil-medidas-apoyo-discapacidad`
+### `medidas-apoyo-discapacidad`
 
 Prepara las medidas de apoyo de la Ley 8/2021: poder preventivo, autorizacion judicial puntual dentro de una guarda de hecho, y curatela. La curatela es **subsidiaria**: solo procede cuando no existe otra medida de apoyo suficiente, asi que la skill filtra antes de enrutar a ella. Corrige el vocabulario derogado ("incapacitar", "el incapaz") una sola vez y sin reproche.
 
-Invocacion: `/derecho-civil:derecho-civil-medidas-apoyo-discapacidad`
+Invocacion: `/derecho-civil:medidas-apoyo-discapacidad`
 
 Output: minuta de poder preventivo, solicitud de autorizacion judicial en guarda de hecho o demanda de curatela, en markdown, DRAFT.
 
@@ -258,3 +258,31 @@ Las **19 skills** del plugin pasaron un control de calidad ejecutado de verdad, 
 Tres defectos transversales, corregidos en todo el catalogo: placeholders genericos duplicados que rompian el `Edit` al perder el `oldString` unico; corchetes simples en colision con los identificadores de privacidad; y un turno muerto tras crear el documento que contradecia la regla del `CLAUDE.md` raiz de encadenar la primera pregunta en la misma respuesta.
 
 El detalle por skill, con extractos literales de las conversaciones generadas, esta en `test-local/tests/test-derecho-civil-*.md`, seccion "QA en vivo". Los documentos generados en las pruebas quedan en `test-local/output/` como fixtures, con datos sinteticos.
+
+
+## Herramientas MCP Nativas
+
+El plugin opera exclusivamente con las 7 herramientas nativas de Model Context Protocol (MCP):
+
+1. `read_file`: Inspección y verificación de integridad de documentos creados en el workspace.
+2. `create_file`: Creación del borrador base completo con principio Zero-Omission (`{{DATO_FALTANTE}}`).
+3. `edit_file`: Edición incremental y sustitución quirúrgica cláusula a cláusula.
+4. `web_search`: Consulta opcional en vivo del texto consolidado de normas y baremos en el BOE.
+5. `restricted_human_in_the_loop_request`: Presentación de formularios estructurados de clasificación de vectores en Fase 1.
+6. `human_in_the_loop_request`: Consulta interactiva abierta en decisiones de diseño o confirmaciones críticas.
+7. `slot_filling_request`: Recogida estructurada de parámetros complementarios.
+
+---
+
+## Instalación y Uso
+
+Para instalar el plugin en GravitonAI:
+
+```bash
+/plugin marketplace add ./derecho-civil
+```
+
+Invocación directa de cualquier skill mediante comando de barra:
+```bash
+/derecho-civil:<nombre-skill>
+```

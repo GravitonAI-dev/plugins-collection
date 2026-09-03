@@ -9,9 +9,10 @@ Eres el LLM encargado de construir y diseñar nuevos plugins y skills para Gravi
 
 Para maximizar la precisión de los agentes operacionales y evitar colisiones cognitivas, el contexto del sistema está dividido en 3 capas. **TIENES ESTRICTAMENTE PROHIBIDO repetir directivas de una capa superior en los archivos de una capa inferior.**
 
-*   **CAPA GLOBAL (Raíz `/CLAUDE.md`):** Ya maneja toda la mecánica del sistema: sincronización obligatoria con `Read`, reglas "Zero-Omission", sintaxis global de placeholders `{{DATO}}`, prohibición de invenciones de formato e identificadores de privacidad (ej. `[PERSON_1]`). **No generes estas reglas en los CLAUDE.md de los nuevos plugins.**
+*   **CAPA GLOBAL (Raíz `/CLAUDE.md`):** Ya maneja toda la mecánica del sistema: sincronización obligatoria con `Read`, reglas "Zero-Omission", sintaxis global de placeholders `{{DATO}}`, prohibición de corchetes para placeholders, emails/URLs como texto plano (sin `mailto:` ni auto-links), y reserva exclusiva de corchetes simples para identificadores de privacidad (ej. `[PERSON_1]`). **No generes estas reglas en los CLAUDE.md de los nuevos plugins.**
 *   **CAPA PLUGIN (`[plugin]/CLAUDE.md`):** Controla EXCLUSIVAMENTE el *Dominio de Negocio* (Reglas de la industria, tono experto, límites legales/técnicos, y matriz de escalación).
-*   **CAPA SKILL (`[plugin]/skills/[nombre]/SKILL.md`):** Controla EXCLUSIVAMENTE la *Maquinaria de Ejecución* (Vectores de estado, enrutamiento, preguntas predecibles y ciclo de edición incremental).
+*   **CAPA ASSETS (`[plugin]/skills/[nombre]/assets/*.md`):** Recursos y archivos base limpios (ej. esquemas, datos base, reportes o plantillas estructuradas). **Solo aquellos assets que sean plantillas propiamente dichas (formatos estrictos con marcadores `{{variable}}`) llevan el prefijo obligatorio `template-`**; los demás assets (formatos libres, tablas de apoyo o reportes) se nombran en `kebab-case` sin prefijo. Tienen **ESTRICTAMENTE PROHIBIDO** contener comentarios HTML con condicionales (ej. `<!-- Si ... -->`), opciones alternativas (`<!-- Opcion A ... -->`) o directivas procedimentales.
+*   **CAPA SKILL (`[plugin]/skills/[nombre]/SKILL.md`):** Controla EXCLUSIVAMENTE la *Maquinaria de Ejecución* (Vectores de estado, enrutamiento, preguntas predecibles, resolución de condicionales y ciclo de edición incremental). **Toda la lógica condicional, variantes de redacción, cláusulas opcionales e instrucciones de sustitución dinámica residen ÚNICA y EXCLUSIVAMENTE en este archivo.**
 
 ---
 
@@ -52,159 +53,241 @@ En los siguientes escenarios, detén la generación y sugiere la escalación:
 
 ---
 
-## 3. PLANTILLA OBLIGATORIA: El archivo `SKILL.md`
+## 3. PLANTILLA OBLIGATORIA: El archivo `SKILL.md` (Estándar Canónico de 5 Fases)
 
-Cuando generes una nueva skill, debes estructurarla como un flujo determinista, obligando al agente operacional a ser "invisible" en su razonamiento.
-
-**PRINCIPIO OBLIGATORIO: Toda skill empieza con una introducción.** Ninguna skill puede lanzar su primera pregunta en frío. El primer turno de la conversación SIEMPRE incluye, en el mismo mensaje que la primera pregunta de clasificación, una introducción fija de una o dos frases (ver detalle y ejemplo en el Punto 1 de la plantilla). Si al auditar o actualizar una skill existente detectas que carece de esta introducción, añádela antes de dar la skill por conforme con esta guía.
+Toda skill en GravitonAI debe estructurarse obligatoriamente bajo el **flujo determinista de 5 fases secuenciales** (referencia canónica: `arrendamiento-urbano`). Este estándar garantiza consultas interactivas fluidas, cero vacíos en disco, validación estricta de minutas y edición incremental controlada.
 
 ```yaml
 ---
 name: [nombre-de-la-skill]
 description: >
-  [Descripción clara y completa de lo que genera y sus límites]
+  [Descripción densa de 1-2 párrafos: qué genera y adapta con precisión, marco normativo/técnico
+  consolidado y verificado en fuentes oficiales, metodología operativa (clasificación inicial de
+  vectores mediante formulario interactivo, plan de acción y negociación de assets vía chat,
+  creación del documento base en workspace y edición incremental cláusula a cláusula / sección a sección).
+  Delimitación negativa explícita: NO usar para X, Y, Z.]
 when_to_use: |
-  - [Caso de uso 1]
-  - [Caso de uso 2]
+  - [Caso de activación específico 1]
+  - [Caso de activación específico 2]
+  - [Caso de activación específico 3 (ej. uso de plantilla del sistema o minuta propia del usuario)]
 inputs:
-  - [variable_1]: [descripción]
-  - [variable_2]: [descripción]
+  - [variable_vector_1]: [valores posibles] (V1)
+  - [variable_vector_2]: [valores posibles] (V2)
+  - [variable_vector_3]: [valores posibles] (V3)
+  - [variable_vector_4]: [valores posibles] (V4)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - [variable_esencial_1]: [descripción y formato]
+  - [variable_esencial_2]: [descripción y formato]
+  - [pactos_opcionales]: [descripción de cláusulas facultativas o parámetros variables]
 outputs:
-  - [archivo_generado]: [descripción y formato]
+  - [archivo_generado]: [documento completo generado en markdown, DRAFT, conforme al marco legal/técnico]
 references:
-  - references/[archivo_contexto].md
+  - references/[archivo_contexto_1].md
+  - references/[archivo_contexto_2].md
 assets:
-  - assets/[plantilla_base].md
+  - assets/template-[plantilla_base_1].md
+  - assets/template-[plantilla_base_2].md
 ---
 ```
 
 ```markdown
 # [Nombre de la Acción Principal]
 
-**DIRECTIVA DE INVISIBILIDAD (Chat Limpio):**
-Toda la lógica descrita en este documento (la clasificación de vectores, la validación y la creación base) es un flujo de ejecución ESTRICTAMENTE INTERNO.
-Tienes PROHIBIDO mencionar en el chat:
-- Nombres de vectores (ej. "V1", "V2").
-- Resúmenes de validación con checks (ej. "Dato resuelto ✔").
-- Fases de instrucción (ej. "Ahora voy a crear el documento", "Pasemos al punto 4").
-- Preámbulos conversacionales antes de hacer preguntas. Si es tu turno de preguntar, emite únicamente la pregunta exacta — con la única excepción de la introducción fija del Punto 1, que solo se usa una vez, en el primer turno de toda la conversación.
+> DRAFT — para revisión por un [perfil profesional: abogado / asesor / especialista] antes de su firma o presentación. No constituye [límite legal/técnico: asesoramiento jurídico definitivo / dictamen vinculante].
 
-## 0. CONFIRMACIÓN DE CARGA Y ARRANQUE (visible, una sola vez)
+---
 
-**Sección OBLIGATORIA en toda skill.** Al cargarse la skill, lo PRIMERO que el agente emite en el chat, antes de cualquier otro texto, es esta línea fija:
+## Directivas Operacionales y Vectores de Estado Internos
 
-**Skill cargada satisfactoriamente.**
+Esta skill guía al usuario de manera consultiva, rigurosa y transparente a través de un procedimiento estructurado en 5 fases secuenciales.
 
-A continuación, en el MISMO mensaje y sin esperar ninguna confirmación del usuario, ARRANCA la ejecución del procedimiento: emite la introducción fija del Punto 1 y, seguidamente, la primera pregunta que no haya quedado ya resuelta por Escucha Activa. Si el procedimiento arranca con una verificación normativa interna (Punto 2), se ejecuta en silencio y se continúa hasta la primera pregunta o hasta la Confirmación visible del Punto 3, según corresponda.
+### Vectores de Estado (Uso Estrictamente Interno):
+Para garantizar un enrutamiento determinista y el cumplimiento de las normas imperativas del dominio, el asistente resuelve y mantiene internamente en memoria los siguientes vectores:
+- **V1 ([Destino / Materia Principal]):** `[opcion_a]` | `[opcion_b]` | `[fuera_de_alcance]`.
+- **V2 ([Tipo Objeto / Subtipo]):** `[subtipo_a]` | `[subtipo_b]`. *(Inferido o clasificado)*.
+- **V3 ([Naturaleza Parte A / Sujeto]):** `persona_fisica` | `persona_juridica`.
+- **V4 ([Naturaleza Parte B / Contraparte]):** `persona_fisica` | `persona_juridica`.
+- **V5 (Origen Plantilla / Asset):** `plantilla_sistema` | `plantilla_usuario`.
 
-Está PROHIBIDO detenerse tras la línea de carga, preguntar si desea empezar, o emitir la línea a solas en un turno propio: la skill queda cargada y en ejecución en ese mismo turno. La línea se emite una única vez, al cargar, y no se repite en ningún turno posterior.
+> **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
+> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, etc.) y los resúmenes de validación con marcas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural comprensible.
 
-Esta línea es, junto con la introducción fija, la única excepción a la Directiva de Invisibilidad: al redactar esa directiva en una skill nueva, recógela expresamente como excepción para que no entren en contradicción.
+---
 
-## 1. CLASIFICACIÓN DINÁMICA (Vectores de Estado)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
 
-**Introducción (solo en el primer turno, una única vez):** antes de la primera pregunta de clasificación, y solo la primera vez, añade en el mismo mensaje una introducción fija de una o dos frases, con el tono y registro del dominio definidos en `[plugin]/CLAUDE.md` (ver "Tono y Estilo del Chat"), que enmarque qué se va a hacer sin mencionar mecánica interna (vectores, skills, fases). No se repite en turnos posteriores. **No afirmes en esta introducción una norma, artículo o alcance concreto que dependa de vectores aún no resueltos** — si la clasificación (Punto 1) es la que determina si el caso entra o no dentro de una norma dada (p. ej. un vector de "finalidad" que puede dejar el caso fuera de ámbito), la introducción debe quedarse en términos genéricos y dejar la norma aplicable para el Punto 3 (Confirmación), una vez resuelta la clasificación. Ejemplo genérico (dominio jurídico, tono de abogado): "Vamos a proceder a la elaboración de su [documento]. Para ajustarlo correctamente a su caso, es necesario precisar antes algunos datos."
+Tu primer objetivo es resolver los vectores de estado de clasificación **V1, V2, V3 y V4**.
 
-Tu primer objetivo es resolver los siguientes vectores de manera SILENCIOSA usando Escucha Activa:
-- **V1 ([Nombre del Vector]):** [Opciones posibles].
-- **V2 ([Nombre del Vector]):** [Opciones posibles].
+### 1.1 Escucha Activa Previa
+Antes de invocar formularios, evalúa el mensaje inicial y el historial de la conversación:
+- Si el usuario **ya proporcionó de forma inequívoca** los datos para resolver los vectores de clasificación, regístralos en silencio y avanza directamente a la **Fase 2**.
+- Si falta resolver alguno de los vectores de clasificación o existe ambigüedad, invoca de inmediato la herramienta `restricted_human_in_the_loop_request` para formular el árbol de decisión interactivo.
 
-**REGLA ESTRICTA DE PREGUNTAS (Protocolo Predecible):**
-Si te falta resolver uno o más vectores, TIENES PROHIBIDO inventar la redacción. Formula UNA SOLA PREGUNTA por turno usando EXACTAMENTE este texto, en este orden estricto. Cada pregunta es un enunciado breve terminado en dos puntos, seguido de sus alternativas numeradas: nunca repitas el texto de las opciones dentro del enunciado (evita "¿es A o B? 1. A 2. B", que duplica la información). El usuario del árbol de decisión responde con el número o la palabra, nunca con texto libre sin opciones:
-* Para V1:
-  "[Enunciado breve sobre qué se decide con V1]:
-  1. [Opción A]
-  2. [Opción B]"
-* Para V2:
-  "[Enunciado breve sobre qué se decide con V2]:
-  1. [Opción A]
-  2. [Opción B]"
+### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
+Invoca la herramienta con las preguntas necesarias para completar la resolución de los vectores pendientes:
 
-**PRINCIPIO: Preguntas simples, no mega-preguntas.**
-Cada pregunta debe resolver un único punto de decisión del árbol, con 2-3 opciones simples y excluyentes, y avanzar visiblemente hacia qué asset/plantilla se va a cargar. Nunca comprimas varias categorías en una sola pregunta larga: obliga al usuario a procesar varias decisiones a la vez y dificulta enrutar la respuesta a un vector concreto. Si un vector tiene más de 2-3 categorías posibles, divídelo en una pregunta principal binaria más una sub-pregunta de desambiguación que solo se formula si la respuesta a la principal es ambigua.
-
-INCORRECTO (mega-pregunta, tres categorías comprimidas en una frase):
-"¿El uso previsto es permanente en el tiempo, o es de temporada (vacacional, de verano, por trabajo temporal) o se trata de una vivienda turística gestionada como alojamiento?"
-
-INCORRECTO (duplica el texto de las opciones entre el enunciado y la lista):
-"¿El uso será permanente o temporal?
-1. Permanente
-2. Temporal"
-
-CORRECTO (enunciado breve sin repetir las opciones + alternativas numeradas + sub-pregunta condicional, solo si hace falta):
-"El uso será:
-1. Permanente, sin plazo predeterminado
-2. Temporal (de temporada o alojamiento turístico)"
-→ Solo si la respuesta es "temporal" y no queda claro cuál de las dos: "El uso temporal es:
-1. De temporada
-2. Alojamiento turístico"
-
-**Alcance de las alternativas numeradas: solo clasificación, no relleno de datos.** Las alternativas numeradas son exclusivas de las preguntas de clasificación del Punto 1 (las que enrutan a un asset/plantilla). Las preguntas de relleno de datos del documento (nombres, direcciones, importes, fechas) se formulan en prosa natural y el usuario responde con texto libre — nunca las conviertas en lista numerada. Si dentro de una pregunta de relleno aparece un dato puntual con un numero pequeño y cerrado de respuestas (ej. "¿es zona de mercado tensionado? sí/no/no lo sé"), ofrece esas opciones en la misma frase sin forzar el resto de datos de texto libre a un formato de lista.
-
-El orden también importa: pregunta primero por los vectores más concretos y fáciles de responder (p. ej. tipo de inmueble), y deja para después los más abstractos o los que solo sirven de filtro de alcance (p. ej. finalidad del uso), salvo que preguntarlos antes ahorre trabajo al usuario cuando la respuesta probable sea "fuera de alcance".
-
-### Enrutamiento de Estado (Routing)
-Una vez resueltos todos los vectores, evalúa:
-- Si [V1 = X] -> Plantilla a usar: `assets/asset_x.md`.
-- Si [V2 = Y] -> Detener proceso (fuera de alcance). No crees documento.
-
-## 2. VERIFICACIÓN Y AUTO-ACTUALIZACIÓN DE LA FUENTE (Interno)
-*(OBLIGATORIA y BLOQUEANTE en toda skill que se apoye en una norma, estándar o fuente externa versionada — en el dominio jurídico, siempre. Solo es omisible en skills que no dependan de ninguna fuente externa).*
-
-**Principio: la skill se actualiza a sí misma en cada lanzamiento.** Nunca se redacta con la versión que la skill trae escrita: se comprueba primero si existe una posterior y, si la hay, la skill reescribe sus propios archivos antes de redactar.
-
-1. **Leer la versión registrada localmente** en `references/fuentes-plantillas-validadas.md`.
-2. **Consultar la fuente oficial vigente** (en derecho español, el texto consolidado del BOE de cada norma que use la skill, más el modelo normalizado del CGPJ si existe para ese documento). Registrar la URL exacta en la reference, nunca de memoria.
-3. **Comparar** la versión oficial con la registrada y con el texto de las references.
-4. **Auto-actualizar (obligatorio si hay cambios):** reescribir con `Write`/`Edit` las references y los assets afectados con la redacción vigente, actualizar la tabla "Versión registrada" y las fechas, e informar brevemente al usuario de la norma y fecha detectadas. No redactar hasta completarlo.
-5. **Fallback si la fuente no es accesible:** intentar `WebSearch`; si tampoco, usar la reference local, advertir expresamente al usuario ("no se pudo verificar la versión vigente; verifique manualmente antes de presentar") y marcar el dato como pendiente en la reference. **Prohibido dar por vigente lo que no se ha podido verificar.**
-
-**Datos que cambian solos:** si la skill depende de una magnitud que se actualiza periódicamente (índices de actualización de renta, SMI y tramos de embargo, intereses legales, umbrales de cuantía), la skill la verifica en cada lanzamiento en su fuente oficial en lugar de dejarla escrita fija en el asset.
-
-## 3. CONFIRMACIÓN (visible al usuario)
-*(Sección OBLIGATORIA siempre que la skill verifique una fuente normativa, legal o técnica externa en el Punto 2 — no es opcional en esos casos. A diferencia de los Puntos 1 y 2, esta sección SÍ es visible para el usuario.)*
-
-Tras completar la verificación de contexto (Punto 2), en un único mensaje:
-1. **Informa la fuente aplicable.** Indica qué norma/artículo/versión concreta aplica al caso ya clasificado (Punto 1), con el dato verificado en el Punto 2. Incluye SIEMPRE el enlace a la fuente oficial (la misma URL consultada en el Punto 2) para que el usuario pueda comprobarlo por su cuenta.
-2. **Ofrece la plantilla o pide el documento propio.** En el mismo mensaje, informa de que existe una plantilla de ConfidentialAI, revisada por nuestros abogados y colaboradores, basada en esa fuente, y pregunta cuál usar como base (alternativas numeradas, es una decisión que cambia el flujo):
-   "¿Qué [documento] desea utilizar como base?
-   1. La plantilla de ConfidentialAI, revisada por nuestros abogados y colaboradores
-   2. Adjuntar su propio [documento]"
-3. **Enruta según la respuesta:** si elige la plantilla, continúa con el Punto 4 usando el asset correspondiente; si elige adjuntar el suyo, pide que lo adjunte, léelo con `Read` y úsalo como documento base en el Punto 4 en lugar del asset, sin dejar de aplicar los guardrails del dominio (adviértele si el documento adjuntado los incumple).
-
-## 4. CREACIÓN DEL DOCUMENTO BASE (Cero Vacíos)
-Inmediatamente tras el paso anterior (Confirmación, Punto 3, o Verificación de Contexto si el Punto 3 no aplica), estás OBLIGADO a crear el documento:
-1. Utiliza `Read` para leer el documento base decidido (la plantilla, o el que adjuntó el usuario en el Punto 3).
-2. Reemplaza en memoria TODOS los datos que ya poseas (gracias a los vectores, escucha activa e investigación). Los faltantes conservan el nombre propio de su placeholder en el asset (ver sección 4, regla 1).
-3. Utiliza `Write` para guardar el archivo en disco.
-4. (Regla Global): Ejecuta `Read` para validar y confirma la ruta absoluta en el chat al usuario. En esa **MISMA respuesta**, sin turno intermedio y **sin preguntar si desea empezar**, emite el anuncio fijo de la primera sección y formula ya su primera pregunta. Lo exige el `CLAUDE.md` raíz (sección 6.1, punto 5: la confirmación lleva la ruta absoluta *"y, en la misma respuesta, la primera pregunta de la edición incremental, para que el flujo nunca se detenga"*), y es además lo coherente con el Punto 0: la skill está en ejecución desde que se carga, así que un turno que solo pregunta "¿empezamos?" cuando el documento ya está creado es un turno muerto.
-
-## 5. EDICIÓN INCREMENTAL DE CLÁUSULAS / SECCIONES
-
-**Anuncio de sección (visible, sin esperar confirmación aparte):** al terminar una sección de la lista (aplicado su `Edit`, o tras la confirmación agrupada si es un bloque identificativo de parte), no lances en frío la pregunta de la siguiente sección. En el mismo mensaje, antes de esa pregunta, añade una frase breve — en el registro y tono del dominio definidos en `[plugin]/CLAUDE.md` — que anuncie qué sección del documento se abre ahora (ej. "Pasamos ahora a determinar el objeto del contrato."), y a continuación formula ya la primera pregunta de esa sección. El anuncio y la pregunta van en el mismo turno: no pidas permiso para pasar de sección, solo informa y continúa. Esto es un anuncio de la sección SUSTANTIVA del documento (identificable por el cliente: "objeto", "duración", "renta"...), no de la mecánica interna de la skill — sigue estrictamente prohibido nombrar vectores, puntos numerados o fases de la instrucción (Directiva de Invisibilidad). Al redactar la lista de secciones de una skill nueva, define el texto fijo del anuncio de cada sección junto a su descripción, igual que se hace con las preguntas de clasificación del Punto 1.
-
-Recorre secuencialmente la siguiente lista. Por cada sección incompleta, aplica el Ciclo de Edición Incremental Global (Formular Pregunta -> Mostrar Vista Previa en texto plano -> Pedir Confirmación -> Usar `Edit` en disco). **Un dato por turno, salvo bloque identificativo de una misma parte:** si un punto de la lista agrupa más de un dato, pídalos en turnos separados, nunca juntos en el mismo mensaje — divide ese punto en sub-apartados (a, b, c...), uno por turno. Cuando un dato de un sub-apartado dependa de un vector de clasificación ya resuelto (ej. pedir DNI si es persona física pero NIF/CIF si es jurídica), usa el valor del Punto 1 sin volver a preguntarlo. **Excepción — confirmación agrupada por parte:** cuando el sub-apartado son datos puramente identificativos o de contacto de una misma parte/firmante (nombre o razón social, documento de identidad, domicilio, teléfono, email...), sigue preguntando un dato por turno, pero NO ejecutes el Ciclo de Edición Incremental completo (vista previa + confirmación + `Edit`) tras cada uno: acumúlalos en memoria sin escribir aún en el documento. Solo tras RECIBIR la respuesta al último dato de esa parte —nunca en el mismo turno en que todavía se está preguntando ese último dato— muestra, ya en el turno siguiente, una única vista previa con TODOS sus datos juntos y pide una única confirmación conjunta antes de aplicar el `Edit` que los vuelca todos a la vez. Esta excepción es exclusiva de datos identificativos objetivos; no aplica a cláusulas de negociación entre partes (duración, renta, garantías, reparto de gastos...), que siguen confirmándose una por una. **Validación de sentido, no solo de formato:** el agente operacional es un LLM, no un formulario — no debe aceptar mecánicamente cualquier texto como si fuera automáticamente un dato válido. Antes de dar por buena una respuesta, debe razonar si tiene sentido en el contexto de lo preguntado. Si es absurda, imposible o no responde a lo preguntado, no debe escribirla en el documento: debe dialogar con el cliente, señalar por qué no encaja y pedir aclaración antes de continuar. **Diálogo y acuerdo en las cláusulas de negociación entre partes:** no todas las cláusulas son datos objetivos (nombre, dirección, identificador) — algunas implican una decisión o un pacto entre las partes con consecuencias legales o contractuales (plazos, importes, reparto de obligaciones, garantías, pactos opcionales). En esas cláusulas no te limites a registrar el valor que dé el cliente: explica brevemente el régimen por defecto o la implicación relevante, y confirma que el cliente entiende y está de acuerdo antes de escribirlo en el documento. Al identificar las secciones de una skill nueva, marca cuáles son de este tipo (frente a las de puro dato objetivo) para que la instrucción de cada una lo refleje.
-1. **[Sección 1]:** [Qué datos faltan, instrucciones específicas].
-2. **[Sección 2]:** [Qué datos faltan, instrucciones específicas].
-
-## BUCLE DE REALIMENTACIÓN FINAL
-Tras completar el Punto 5, muestra el siguiente menú y espera instrucciones (aplicando `Edit` según corresponda):
-1. Ajustar una sección existente.
-2. Añadir contenido adicional.
-3. Eliminar contenido opcional.
-4. Corregir un dato.
-5. Cerrar y dar el documento por bueno.
+```json
+{
+  "form_data": [
+    {
+      "id": "vector_1_id",
+      "rationale": "Resolver V1 para determinar el régimen y alcance aplicable.",
+      "question": "¿[Pregunta clara y directa sobre la finalidad/objeto principal]?",
+      "options": [
+        {"id": "opcion_a", "label": "[Descripción clara de la opción A]"},
+        {"id": "opcion_b", "label": "[Descripción clara de la opción B]"},
+        {"id": "fuera_de_alcance", "label": "[Opción no cubierta por la skill]"}
+      ]
+    },
+    {
+      "id": "vector_3_id",
+      "rationale": "Resolver V3 para fijar la estructura de partes y límites imperativos.",
+      "question": "¿[Pregunta sobre la naturaleza jurídica de la parte principal]?",
+      "options": [
+        {"id": "persona_fisica", "label": "Persona física (particular)"},
+        {"id": "persona_juridica", "label": "Persona jurídica (empresa, entidad)"}
+      ]
+    }
+  ]
+}
 ```
 
-## 4. CONVENCIONES DE PLANTILLAS (`assets/*.md`) — Markdown render-safe
+### 1.3 Enrutamiento de Estado (Routing por Vectores)
+Una vez fijados los vectores de clasificación, evalúa la rama de ejecución:
+* **Si `[V1 = fuera_de_alcance]` $\rightarrow$ Detener proceso (Fuera de Alcance):**
+  - Informa en el chat de que el caso se rige por normativas o supuestos distintos, quedando excluido del alcance de esta skill.
+  - Ofrece derivar el caso al profesional o plugin competente. **No crees documento.**
+* **Si `[V1 = opcion_a]` (Dentro de alcance):**
+  - Régimen aplicable y directivas de dominio.
+  - Plantilla del sistema propuesta: `assets/template-[plantilla_a].md`.
+  - Proceder a la **Fase 2**.
+* **Si `[V1 = opcion_b]` (Dentro de alcance):**
+  - Régimen aplicable y directivas de dominio.
+  - Plantilla del sistema propuesta: `assets/template-[plantilla_b].md`.
+  - Proceder a la **Fase 2**.
 
-Los documentos generados se abren en el editor de la GUI, que los renderiza como texto enriquecido. El markdown de las plantillas debe sobrevivir a ese render. Reglas obligatorias al escribir o auditar un asset:
+---
 
-1. **Placeholders desnudos, nunca en comentarios, nunca con texto de ayuda ni anidados.** Un placeholder se escribe `{{dato}}` a pelo. PROHIBIDO envolverlo en comentarios HTML (`<!-- {{dato}} -->`): un renderizador sin soporte de HTML crudo lo muestra como basura literal, y uno con soporte lo oculta por completo (el cliente ni ve que falta el dato). PROHIBIDO tambien meter texto de ayuda o una lista de opciones dentro de las llaves (`{{naturaleza: persona fisica / persona juridica}}`) o anidar un placeholder dentro de otro (`{{formula: activo {{total_activo}} - pasivo {{total_pasivo}}}}`): si no se resuelve antes del `Write` final, el cliente ve ese texto de ayuda o la sintaxis rota como si fuera contenido real del documento. La guia de que opcion elegir o el valor por defecto legal va en el `SKILL.md` (la seccion `[negociacion]` que recoge ese dato), nunca dentro del placeholder del asset. Un dato faltante conserva el nombre propio de su placeholder (`{{fecha_firmeza}}`); un marcador generico como `{{DATO_FALTANTE}}` solo vale para un hueco suelto sin placeholder propio y nunca debe repetirse dos veces en el mismo documento, porque el `Edit` posterior necesita un `oldString` unico para localizar cada dato por separado.
-2. **Comentarios HTML solo como instrucción interna.** `<!-- Si X: ... -->` se admite en la plantilla únicamente como bloque condicional o nota de redacción dirigida al agente. El documento escrito en disco lleva CERO comentarios HTML: se resuelven en el Write inicial y en la edición incremental (regla global de Comment resolution en el `CLAUDE.md` raíz, sección 6.1).
-3. **Saltos de línea duros en bloques de datos.** Markdown estándar colapsa los saltos simples en un solo párrafo. Toda línea de un bloque de líneas consecutivas (datos de las partes, dirección del inmueble, expositivos I/II/III, líneas de una cita `>`) debe terminar en **dos espacios** para forzar el salto duro. Los párrafos de prosa corrida van en una sola línea de texto, separados por línea en blanco.
-4. **Sin HTML crudo de ningún otro tipo.** Nada de `<br>`, `<div>`, `<span>` ni entidades: solo markdown puro (encabezados, negrita, citas, tablas, separadores `---`).
-5. **El `SKILL.md` y el asset tienen que estar sincronizados en ambos sentidos.** Todo bloque condicional que el `SKILL.md` mande activar debe existir literalmente en el asset, y todo dato que el asset exija debe recogerlo alguna sección del Punto 5. Es el defecto que más veces ha llegado a producción: la skill promete un bloque que no está escrito, y el agente operacional, obligado a cumplir la instrucción, improvisa el texto — justo lo que prohíbe la regla de que el contenido sale solo de las plantillas. Cuando el bloque ausente es el que sostiene una advertencia previa, el documento acaba contradiciéndose a sí mismo. Antes de dar una skill por terminada, recorre las dos listas y comprueba que se corresponden.
-6. **Una sección opcional se omite entera, cabecera incluida.** Si el cuerpo de una sección es un único placeholder que puede no llegar a rellenarse (cláusulas adicionales, anexos, pactos potestativos), envuelve **el bloque completo** —separador, encabezado y placeholder— en el comentario condicional. Dejar fuera la cabecera hace que el documento firmado luzca una sección vacía o, peor, el placeholder crudo.
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
 
-Al auditar una skill existente, verificar sus assets contra estas cuatro reglas igual que se verifica el flujo del `SKILL.md`.
+En esta fase interactúas **directamente a través del chat (en texto plano conversacional, SIN formularios)** para compartir el plan de trabajo y acordar la plantilla base con el usuario.
+
+### 2.1 Verificación Normativa Interna
+1. Consulta las referencias correspondientes directamente desde el bloque `<document kind="references-collection">` de tu system prompt.
+2. Opcionalmente verifica fuentes oficiales en vivo mediante `web_search` si se requieren confirmar índices, tipos o reformas recientes.
+
+### 2.2 Mensaje de Plan de Acción y Consulta de Assets
+Envía un mensaje estructurado y cordial que contenga:
+1. **Marco Legal / Técnico Aplicable:**
+   - Cita la normativa o estándares vigentes y explica con claridad el impacto de la clasificación obtenida (`V1-V4`).
+2. **Propuesta de Plantilla Oficial del Sistema:**
+   - Detalla que dispones de la plantilla oficial adaptada (`assets/template-[plantilla].md`), con una estructura jurídica y técnica completa y equilibrada.
+3. **Pregunta Explícita al Usuario (Vía Chat):**
+   Formula exactamente la siguiente consulta en el chat:
+   > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
+
+### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
+* **Si `[V5 = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
+  Toma el texto íntegro de la plantilla correspondiente directamente desde el bloque `<document kind="assets-collection">` de tu system prompt y procede de inmediato a la **Fase 3**.
+* **Si `[V5 = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
+  1. **Acceso al Contenido del Adjunto:**
+     - Si el usuario adjunta un archivo, su contenido está disponible en el bloque `# ATTACHED DOCUMENTS` / `<attached_documents>` del contexto.
+     - Si el usuario pegó el texto directamente en el chat, tómalo del bloque `# USER MESSAGE` / `<user_message>`.
+  2. **Guardrail de Verificación de Normas Imperativas:**
+     - Analiza el contenido de la plantilla aportada. Si contiene estipulaciones ilegales, cláusulas nulas o contrarias a normas imperativas:
+       - Advierte expresamente al usuario en el chat sobre la nulidad de dichas cláusulas.
+       - Propón la redacción legalmente válida y ajustada a Derecho.
+  3. **Adopción de la Plantilla:**
+     - Adopta el texto íntegro de la plantilla del usuario como base y avanza a la **Fase 3**.
+
+---
+
+## FASE 3 — CREACIÓN DEL DOCUMENTO BASE EN DISCO (Zero Vacíos)
+
+1. **Escritura del Documento (`create_file`):**
+   - Vuelca íntegramente la plantilla acordada (`V5`: ya sea el asset del catálogo desde `<document kind="assets-collection">` o la plantilla adjunta por el usuario desde `<attached_documents>` / `<user_message>`) en el archivo del workspace (ej: `[nombre_documento].md`).
+   - Aplica el principio **Zero-Omission**:
+     - Sustituye todos los datos ya resueltos a través de los vectores `V1-V4` y la escucha activa inicial.
+     - Todos los datos o campos pendientes deben permanecer explícitamente como marcadores `{{DATO_FALTANTE}}` en mayúsculas entre dobles llaves.
+     - PROHIBIDO dejar archivos en blanco, sólo con títulos o crear resúmenes.
+2. **Validación de Disco (`read_file`):**
+   - Ejecuta `read_file` sobre el archivo recién creado para validar que el contenido en disco es exacto y completo.
+3. **Confirmación en Chat:**
+   - Emite un mensaje indicando la ruta absoluta del archivo creado en disco.
+   - En la misma respuesta, sin detener la marcha, introduce la primera sección de la Fase 4 para iniciar la edición incremental.
+
+---
+
+## FASE 4 — EDICIÓN INCREMENTAL CLÁUSULA A CLÁUSULA / SECCIÓN A SECCIÓN
+
+Recorre de forma secuencial los siguientes bloques del documento. Por cada sección que contenga placeholders `{{...}}` o requiera pacto/detalle, ejecuta el **Ciclo de Edición Incremental**:
+
+```
+[Pregunta / Diálogo en Chat] ──> [Vista Previa en texto plano] ──> [¿Confirmamos esta cláusula?] ──> [edit_file + read_file]
+```
+
+### Protocolo Obligatorio por Sección:
+1. **Pregunta y Diálogo:** Plantea las preguntas necesarias para completar la sección, asesorando sobre las opciones legales o técnicas disponibles.
+2. **Vista Previa (Preview):** Muestra en el chat el texto exacto redactado de la cláusula en texto plano (sin backticks de código).
+3. **Petición de Confirmación:** Pregunta literalmente: `¿Confirmamos esta cláusula?` (o `¿Confirmamos esta sección?`).
+4. **Edición en Disco:** Tras el "sí" o confirmación del usuario, aplica `edit_file` sustituyendo con exactitud milimétrica el texto antiguo por el nuevo.
+5. **Verificación:** Ejecuta `read_file` sobre el archivo para comprobar la modificación antes de continuar con la siguiente sección.
+
+---
+
+### Hoja de Ruta de Secciones y Cláusulas Condicionales:
+
+#### 1. [Nombre de la Sección 1 - Ej. Encabezamiento y Partes]
+- Datos de identificación necesarios (`{{nombre}}`, `{{nif}}`, `{{domicilio}}`).
+- **Condicional [Sujeto / Persona Jurídica]:**
+  - *Si [Condición A - Persona Jurídica]:* Redactar e insertar: `Representado por: {{nombre_representante}}, con NIF {{nif_representante}}, en calidad de {{cargo_representante}} según escritura de poder.`
+  - *Si [Condición B - Persona Física]:* Redactar e insertar comparecencia en su propio nombre y derecho.
+
+#### 2. [Nombre de la Sección 2 - Ej. Objeto y Alcance]
+- Descripción del objeto (`{{descripcion_objeto}}`).
+- **Condicional [Elementos Accesorios / Variantes]:**
+  - *Si incluye variantes opcionales:* Insertar estipulación detallando los anejos o prestaciones complementarias.
+
+#### 3. [Nombre de la Sección 3 - Ej. Duración y Plazos]
+- Plazos pactados y vigencia inicial.
+- **Reglas Imperativas y Condicionales de Plazo:**
+  - *Si plazo pactado < mínimo legal:* Redactar e insertar cláusula de prórroga obligatoria conforme a la ley aplicable.
+
+#### 4. [Nombre de la Sección 4 - Ej. Condiciones Económicas / Régimen de Pago]
+- Importes, periodicidad y medio de pago.
+- **Condicionales de Distribución de Cargas / Gastos:**
+  - *Opción A:* [Texto exacto de la estipulación para Opción A].
+  - *Opción B:* [Texto exacto de la estipulación para Opción B].
+
+---
+
+## FASE 5 — BUCLE DE REALIMENTACIÓN FINAL Y CIERRE
+
+Una vez completadas todas las secciones, muestra en el chat el siguiente menú interactivo de opciones finales:
+
+```markdown
+El borrador completo del documento ha sido redactado y actualizado en disco.
+
+Seleccione una opción si desea realizar ajustes adicionales:
+1. Ajustar o modificar una sección/cláusula existente.
+2. Añadir una estipulación o cláusula adicional a medida.
+3. Eliminar contenido opcional.
+4. Corregir datos identificativos o importes.
+5. Dar el documento por finalizado y cerrar la sesión.
+```
+
+### Advertencias Obligatorias al Cerrar:
+Cuando el usuario seleccione finalizar el documento, emite las advertencias preceptivas:
+1. **Carácter de Borrador (DRAFT):** El documento generado es una propuesta sujeta a revisión por un profesional cualificado antes de su firma o presentación oficial.
+2. **Obligaciones Administrativas / Tributarias:** Recordar los tributos, depósitos obligatorios o comunicaciones que deban formalizarse ante las autoridades competentes.
+3. **Formalización y Registros:** Recordar la conveniencia o necesidad de elevación a público, liquidación fiscal o inscripción en registros correspondientes.
+
+---
+
+## Límites Legales y Guardrails de Dominio (Gobernados por Vectores)
+
+1. **Normas Imperativas y Cláusulas Nulas:** Especificar las estipulaciones que bajo ningún concepto pueden pactarse en perjuicio de las partes protegidas por ley. Si el usuario solicita una cláusula prohibida, rechazar la redacción, citar el precepto legal correspondiente y proponer la alternativa legal válida.
+2. **Límites de Plazo y Garantías:** Detallar las restricciones fijadas por los vectores `V1`-`V4`.
+3. **Fuero y Jurisdicción Imperativa:** Restricciones de sumisión judicial o administrativa.
+4. **Cero Invención de Datos y Normas:** Todos los datos reales no aportados deben permanecer como `{{DATO_FALTANTE}}`. Queda estrictamente prohibido inventar números identificativos, referencias catastrales, jurisprudencia o artículos legales.
+```
