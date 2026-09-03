@@ -6,7 +6,7 @@
     "name": "GravitonAI"
   },
   "skills": [
-    "registrar-plantillas"
+    "./skills/registrar-plantillas"
   ],
   "agents": [],
   "hooks": []

@@ -24,7 +24,7 @@ when_to_use: |
     terminologia, aplica el filtro de subsidiariedad y encamina el caso a la medida que corresponda.
 inputs:
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
-- finalidad: prevision voluntaria / autorizacion al guardador de hecho / curatela
+  - finalidad: prevision voluntaria / autorizacion al guardador de hecho / curatela
   - existe_guarda_hecho: si / no, y si constituye apoyo suficiente
   - existe_medida_voluntaria: si / no, y su alcance
   - tipo_curatela: asistencial / representativa para actos concretos
@@ -38,7 +38,7 @@ inputs:
   - dictamen_pericial: autor, fecha y contenido del dictamen social y sanitario
   - interesados: conyuge o pareja, descendientes, ascendientes y hermanos que deben ser citados
 outputs:
-- minuta_poder_preventivo: minuta de escritura de medidas de apoyo voluntarias y poder preventivo en markdown, DRAFT
+  - minuta_poder_preventivo: minuta de escritura de medidas de apoyo voluntarias y poder preventivo en markdown, DRAFT
   - solicitud_autorizacion_guarda_hecho: solicitud de autorizacion judicial al guardador de hecho en markdown, DRAFT
   - demanda_curatela: solicitud de provision judicial de medidas de apoyo con constitucion de curatela en markdown, DRAFT
 references:
@@ -189,7 +189,7 @@ Tras completar la verificacion (Punto 2), en un unico mensaje:
    - En la hoja CURATELA, anadir ademas: "Las medidas que se acuerden se revisaran en un plazo maximo de tres anos, y en todo caso ante cualquier cambio en su situacion (articulo 268 del Codigo Civil)."
 2. **Ofrece la plantilla o pide el documento propio.** En el mismo mensaje:
    "¿Que documento desea utilizar como base?
-   1. La plantilla de ConfidentialAI, revisada por nuestros abogados y colaboradores
+   1. La plantilla del sistema, revisada por nuestros abogados y colaboradores
    2. Adjuntar su propio documento"
 3. **Enruta segun la respuesta:** si elige la plantilla, continua con el Punto 4 usando el asset de la hoja; si elige adjuntar el suyo, pide que lo adjunte, leelo con `Read` y usalo como documento base en el Punto 4 en lugar del asset, sin dejar de aplicar los guardrails del dominio. Si el documento adjuntado emplea la terminologia derogada o pide una privacion de derechos, adviertelo antes de trabajar sobre el.
 3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-demanda-curatela.md`).

@@ -17,7 +17,7 @@ when_to_use: |
   - El usuario necesita el burofax de requerimiento previo (intento de MASC) antes de reclamar.
 inputs:
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
-- rol: el cliente reclama una cantidad (acreedor) / ha recibido un requerimiento de monitorio (deudor)
+  - rol: el cliente reclama una cantidad (acreedor) / ha recibido un requerimiento de monitorio (deudor)
   - estado_reclamacion: sin reclamacion judicial iniciada / monitorio propio con oposicion del deudor
   - deuda_documentada: existen documentos que acreditan la deuda (si / no)
   - deuda_vencida_liquida: la cantidad esta vencida y su importe es fijo o calculable (si / no; si no, subclasificar en discutida o no vencida)
@@ -33,7 +33,7 @@ inputs:
   - datos_monitorio_previo: juzgado, numero de autos y cuantia (solo oposicion o demanda del Art. 818.2)
   - motivos_oposicion: alcance (total / parcial) y razones fundadas (solo oposicion)
 outputs:
-- peticion_monitorio: peticion inicial de proceso monitorio en markdown, DRAFT
+  - peticion_monitorio: peticion inicial de proceso monitorio en markdown, DRAFT
   - demanda_juicio_verbal: demanda de juicio verbal de reclamacion de cantidad en markdown, DRAFT
   - demanda_juicio_ordinario: demanda de juicio ordinario de reclamacion de cantidad en markdown, DRAFT
   - oposicion_monitorio: escrito de oposicion a proceso monitorio en markdown, DRAFT
@@ -160,7 +160,7 @@ Tras completar la verificacion (Punto 2), en un unico mensaje:
    - Si la hoja incluye burofax previo (V6 = no), anadir: "Con caracter previo se preparara un burofax de requerimiento de pago, que acredita el intento de solucion extrajudicial exigido por la Ley Organica 1/2025 (articulos 264 y 403.2 de la Ley de Enjuiciamiento Civil). Tenga en cuenta que la demanda no debe presentarse hasta disponer del justificante del envio del burofax y haber dejado un plazo razonable de respuesta."
 2. **Ofrece la plantilla o pide el documento propio.** En el mismo mensaje:
    "¿Que documento desea utilizar como base?
-   1. La plantilla de ConfidentialAI, revisada por nuestros abogados y colaboradores
+   1. La plantilla del sistema, revisada por nuestros abogados y colaboradores
    2. Adjuntar su propio documento"
 3. **Enruta segun la respuesta:** si elige la plantilla, continua con el Punto 4 usando el asset de la hoja; si elige adjuntar el suyo, pide que lo adjunte, leelo con `Read` y usalo como documento base en el Punto 4 en lugar del asset, sin dejar de aplicar los guardrails del dominio (advierte si el documento adjuntado los incumple).
 3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-burofax-masc-reclamacion.md`).

@@ -21,7 +21,7 @@ when_to_use: |
   - El usuario quiere revisar o sustituir un testamento que ya otorgo.
 inputs:
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
-- vecindad_civil: comun / foral (Cataluna, Aragon, Navarra, Baleares, Pais Vasco, Galicia) / desconocida
+  - vecindad_civil: comun / foral (Cataluna, Aragon, Navarra, Baleares, Pais Vasco, Galicia) / desconocida
   - alcance: testamento simple (institucion de heredero y poco mas) / testamento con planificacion
   - datos_testador: nombre, DNI o NIE, fecha y lugar de nacimiento, filiacion, estado civil, domicilio
   - datos_conyuge: nombre, DNI o NIE, regimen economico matrimonial, situacion de separacion legal o de hecho
@@ -32,7 +32,7 @@ inputs:
   - datos_notaria: notaria designada, poblacion, fecha prevista de otorgamiento
   - comunidad_autonoma_residencia: para la advertencia del Impuesto sobre Sucesiones
 outputs:
-- minuta_testamento_abierto: minuta de testamento abierto para llevar a la notaria, markdown, DRAFT
+  - minuta_testamento_abierto: minuta de testamento abierto para llevar a la notaria, markdown, DRAFT
   - checklist_planificacion_sucesoria: checklist de documentacion, decisiones y avisos fiscales, markdown, DRAFT
 references:
   - references/cc-desheredacion-causas-tasadas.md
@@ -157,7 +157,7 @@ Tras completar la verificacion (Punto 2), en un unico mensaje:
    - Si V3d = 1, anadir ademas: "Al encontrarse uno de sus legitimarios en situacion de discapacidad, dispone usted de un margen de planificacion mas amplio del ordinario, conforme a los articulos 808 y 822 del Codigo Civil en la redaccion dada por la Ley 8/2021."
 2. **Ofrece la plantilla o pide el documento propio.** En el mismo mensaje:
    "¿Que documento desea utilizar como base?
-   1. La plantilla de ConfidentialAI, revisada por nuestros abogados y colaboradores
+   1. La plantilla del sistema, revisada por nuestros abogados y colaboradores
    2. Adjuntar su propio documento"
 3. **Enruta segun la respuesta:** si elige la plantilla, continua con el Punto 4 usando el asset de la hoja; si elige adjuntar el suyo, pide que lo adjunte, leelo con `Read` y usalo como documento base en el Punto 4 en lugar del asset, sin dejar de aplicar los guardrails del dominio (si el documento adjuntado los incumple — por ejemplo, condiciona la legitima o deshereda sin expresar causa legal —, adviertelo antes de continuar).
 3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-checklist-planificacion-sucesoria.md`).

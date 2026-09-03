@@ -20,7 +20,7 @@ when_to_use: |
   - El usuario pide una demanda de desahucio de finca urbana.
 inputs:
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
-- relacion_ocupante: arrendamiento con renta / cesion gratuita sin renta / entrada sin permiso ni contrato
+  - relacion_ocupante: arrendamiento con renta / cesion gratuita sin renta / entrada sin permiso ni contrato
   - causa: falta de pago de rentas / expiracion del plazo contractual o legal
   - via: demanda judicial / acuerdo extrajudicial de salida pactada
   - destino_inmueble: vivienda habitual de la parte ocupante / uso distinto del de vivienda (Art. 439.6.a LEC)
@@ -37,7 +37,7 @@ inputs:
   - acumular_rentas: acumular o no la reclamacion de las rentas debidas (si / no)
   - condonacion: alcance de la condonacion pactada (total / parcial) y renuncia reciproca de acciones
 outputs:
-- demanda_desahucio_falta_pago: demanda de juicio verbal de desahucio por falta de pago en markdown, DRAFT
+  - demanda_desahucio_falta_pago: demanda de juicio verbal de desahucio por falta de pago en markdown, DRAFT
   - demanda_desahucio_expiracion: demanda de juicio verbal de desahucio por expiracion del plazo en markdown, DRAFT
   - demanda_desahucio_precario: demanda de juicio verbal de desahucio por precario en markdown, DRAFT
   - acuerdo_condonacion: acuerdo de condonacion de rentas y entrega de llaves en markdown, DRAFT
@@ -177,7 +177,7 @@ Tras completar la verificacion (Punto 2), en un unico mensaje:
    - En las tres hojas de demanda, anadir: "En el desahucio son preceptivos abogado y procurador, porque la clase de juicio viene determinada por la materia y no por la cuantia."
 2. **Ofrece la plantilla o pide el documento propio.** En el mismo mensaje:
    "¿Que documento desea utilizar como base?
-   1. La plantilla de ConfidentialAI, revisada por nuestros abogados y colaboradores
+   1. La plantilla del sistema, revisada por nuestros abogados y colaboradores
    2. Adjuntar su propio documento"
 3. **Enruta segun la respuesta:** si elige la plantilla, continua con el Punto 4 usando el asset de la hoja; si elige adjuntar el suyo, pide que lo adjunte, leelo con `Read` y usalo como documento base en el Punto 4 en lugar del asset, sin dejar de aplicar los guardrails del dominio (advierte si el documento adjuntado los incumple, en especial las menciones obligatorias del Art. 439.3 y 439.6 LEC).
 3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-acuerdo-condonacion-entrega-llaves.md`).

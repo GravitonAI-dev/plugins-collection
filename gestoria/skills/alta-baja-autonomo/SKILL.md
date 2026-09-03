@@ -20,16 +20,16 @@ when_to_use: |
 inputs:
   - tipo_operacion: tipo de tramite (alta / baja)
   - datos_interesado: nombre y apellidos, NIF, domicilio fiscal, telefono y correo de contacto
-  - actividad: descripcion de la actividad economica (alta: que va a ejercer; baja: que cesa)
+  - actividad: "descripcion de la actividad economica (alta: que va a ejercer; baja: que cesa)"
   - epigrafe_iae: epigrafe del IAE si lo conoce (empresarial o profesional)
   - fecha_inicio: fecha prevista de inicio de la actividad (solo para el alta)
   - fecha_cese: fecha de cese de la actividad (solo para la baja)
-  - rendimientos_previstos: rendimientos netos mensuales previstos en euros (alta: para el tramo de cotizacion)
+  - rendimientos_previstos: "rendimientos netos mensuales previstos en euros (alta: para el tramo de cotizacion)"
   - regimen_iva: regimen de IVA aplicable (general / recargo de equivalencia / exento) si lo conoce
   - regimen_irpf: metodo de estimacion de IRPF (directa simplificada / directa normal / objetiva-modulos)
   - tarifa_plana: si cumple los requisitos de la cuota reducida de inicio de actividad (si / no / desconocido)
   - domicilio_actividad: lugar donde ejerce la actividad, si difiere del domicilio fiscal
-  - obligaciones_pendientes: declaraciones o cuotas del periodo aun no presentadas (baja: para el aviso de cierre fiscal)
+  - obligaciones_pendientes: "declaraciones o cuotas del periodo aun no presentadas (baja: para el aviso de cierre fiscal)"
 outputs:
   - hoja_datos_alta_censal: hoja de datos para el alta en el modelo 036 con epigrafe IAE y regimenes, DRAFT
   - hoja_datos_alta_reta: hoja de datos para el alta en RETA con tramo y cuota estimada, DRAFT

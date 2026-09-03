@@ -16,7 +16,7 @@ when_to_use: |
   - El presidente o el administrador pregunta que pasos previos exige la LPH antes de reclamar o de demandar.
 inputs:
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
-- rol_cliente: la comunidad de propietarios (o su presidente, secretario o administrador) / un propietario a titulo individual
+  - rol_cliente: la comunidad de propietarios (o su presidente, secretario o administrador) / un propietario a titulo individual
   - asunto_comunidad: impago de cuotas / actividad prohibida o molesta
   - asunto_propietario: impugnacion de un acuerdo de junta / otra cuestion
   - acuerdo_liquidacion: la junta ha aprobado ya la liquidacion de la deuda y autorizado la reclamacion (si / no)
@@ -31,7 +31,7 @@ inputs:
   - descripcion_actividad: hechos verificables (fechas, horarios, mediciones, denuncias) y medios de acreditacion
   - requerimiento_previo: el presidente ha requerido ya fehacientemente la cesacion (no / si, sin acreditacion / si, acreditado)
 outputs:
-- certificacion_deuda: certificacion del acuerdo de liquidacion de deuda en markdown, DRAFT
+  - certificacion_deuda: certificacion del acuerdo de liquidacion de deuda en markdown, DRAFT
   - peticion_monitorio_lph: peticion inicial del monitorio especial de cuotas en markdown, DRAFT
   - demanda_impugnacion: demanda de juicio ordinario de impugnacion de acuerdos en markdown, DRAFT
   - requerimiento_cesacion: requerimiento del presidente al infractor en markdown, DRAFT
@@ -155,7 +155,7 @@ Tras completar la verificacion (Punto 2), en un unico mensaje:
    - En IMPUGNACION, anadir siempre: "Antes de presentar la demanda debera acreditarse el intento de solucion extrajudicial exigido por la Ley Organica 1/2025 (articulos 264 y 403.2 de la Ley de Enjuiciamiento Civil). La solicitud de negociacion suspende el plazo de caducidad, pero no conviene apurarlo."
 2. **Ofrece la plantilla o pide el documento propio.** En el mismo mensaje:
    "¿Que documento desea utilizar como base?
-   1. La plantilla de ConfidentialAI, revisada por nuestros abogados y colaboradores
+   1. La plantilla del sistema, revisada por nuestros abogados y colaboradores
    2. Adjuntar su propio documento"
 3. **Enruta segun la respuesta:** si elige la plantilla, continua con el Punto 4 usando el asset de la hoja; si elige adjuntar el suyo, pide que lo adjunte, leelo con `Read` y usalo como documento base en el Punto 4 en lugar del asset, sin dejar de aplicar los guardrails del dominio (advierte si el documento adjuntado los incumple, en particular si la certificacion carece de desglose o de las firmas exigidas por el articulo 21.3).
 3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-certificacion-deuda-comunidad.md`).

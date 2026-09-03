@@ -24,7 +24,7 @@ when_to_use: |
     que el juzgado investigue el patrimonio del ejecutado.
 inputs:
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
-- momento: demanda ejecutiva inicial / escrito posterior en ejecucion ya despachada
+  - momento: demanda ejecutiva inicial / escrito posterior en ejecucion ya despachada
   - tipo_titulo: judicial (sentencia, decreto, auto, incluido monitorio firme) / no judicial (escritura, laudo, acuerdo MASC) / familia (pensiones y medidas)
   - subtipo_no_judicial: escritura publica notarial / laudo arbitral / acuerdo de mediacion u otro MASC elevado a publico
   - datos_ejecutante: nombre o razon social, NIF/CIF, domicilio, procurador y letrado si proceden
@@ -36,7 +36,7 @@ inputs:
   - destinatarios_averiguacion: entidades u organismos a los que se pide oficio, y razon de cada uno
   - datos_familia: concepto (alimentos / compensatoria / mixto), relacion de mensualidades impagadas, si hay gastos extraordinarios no previstos
 outputs:
-- demanda_ejecucion_titulo_judicial: demanda ejecutiva de titulo judicial o de familia en markdown, DRAFT
+  - demanda_ejecucion_titulo_judicial: demanda ejecutiva de titulo judicial o de familia en markdown, DRAFT
   - demanda_ejecucion_titulo_no_judicial: demanda ejecutiva de titulo no judicial en markdown, DRAFT
   - solicitud_embargo_averiguacion: escrito de designacion de bienes y averiguacion patrimonial en markdown, DRAFT
 references:
@@ -164,7 +164,7 @@ Tras completar la verificacion (Punto 2), en un unico mensaje:
    - En las tres hojas de demanda, anadir: "No es necesario acreditar el intento de una solucion extrajudicial previa para presentar una demanda ejecutiva (articulo 5.3 de la Ley Organica 1/2025)."
 2. **Ofrece la plantilla o pide el documento propio.** En el mismo mensaje:
    "¿Que documento desea utilizar como base?
-   1. La plantilla de ConfidentialAI, revisada por nuestros abogados y colaboradores
+   1. La plantilla del sistema, revisada por nuestros abogados y colaboradores
    2. Adjuntar su propio documento"
 3. **Enruta segun la respuesta:** si elige la plantilla, continua con el Punto 4 usando el asset de la hoja; si elige adjuntar el suyo, pide que lo adjunte, leelo con `Read` y usalo como documento base en el Punto 4 en lugar del asset, sin dejar de aplicar los guardrails del dominio.
 3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-demanda-ejecucion-titulo-judicial.md`).

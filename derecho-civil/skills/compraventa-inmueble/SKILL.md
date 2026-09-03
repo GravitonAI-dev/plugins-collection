@@ -22,7 +22,7 @@ when_to_use: |
   - El usuario compra o vende una vivienda que esta arrendada.
 inputs:
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
-- documento: contrato de arras / contrato privado de compraventa / requerimiento de cumplimiento
+  - documento: contrato de arras / contrato privado de compraventa / requerimiento de cumplimiento
   - posicion_cliente: comprador / vendedor
   - financiacion_pendiente: si / no
   - inmueble_arrendado: si / no / no lo se
@@ -37,7 +37,7 @@ inputs:
   - plazo_escritura: fecha limite de otorgamiento, notario y quien lo designa
   - datos_incumplimiento: obligacion incumplida, fecha de vencimiento, importe pendiente, requerimientos previos
 outputs:
-- contrato_arras: contrato de arras o senal sobre bien inmueble en markdown, DRAFT
+  - contrato_arras: contrato de arras o senal sobre bien inmueble en markdown, DRAFT
   - contrato_compraventa_vivienda: contrato privado de compraventa de vivienda en markdown, DRAFT
   - requerimiento_cumplimiento: requerimiento extrajudicial de cumplimiento en markdown, DRAFT
 references:
@@ -178,7 +178,7 @@ Tras completar la verificacion (Punto 2), en un unico mensaje:
    - En la hoja COMPRAVENTA, si la vivienda es de obra nueva ya recibida, anadir: "Al tratarse de obra nueva, resultan ademas de aplicacion las garantias por vicios y defectos de la construccion del articulo 17 de la Ley 38/1999, de 5 de noviembre, de Ordenacion de la Edificacion, con plazos de diez, tres y un ano desde la recepcion de la obra. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-1999-21567"
 2. **Ofrece la plantilla o pide el documento propio.** En el mismo mensaje:
    "¿Que documento desea utilizar como base?
-   1. La plantilla de ConfidentialAI, revisada por nuestros abogados y colaboradores
+   1. La plantilla del sistema, revisada por nuestros abogados y colaboradores
    2. Adjuntar su propio documento"
 3. **Enruta segun la respuesta:** si elige la plantilla, continua con el Punto 4 usando el asset de la hoja; si elige adjuntar el suyo, pide que lo adjunte, leelo con `Read` y usalo como documento base en el Punto 4 en lugar del asset, sin dejar de aplicar los guardrails del dominio. Si el documento adjuntado los incumple —por ejemplo, si dice "arras" sin decir de que clase, si afirma que el inmueble esta libre de cargas sin comprobacion, o si no menciona la notificacion al arrendatario en una vivienda arrendada—, adviertelo expresamente antes de trabajar sobre el.
 3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-contrato-arras.md`).

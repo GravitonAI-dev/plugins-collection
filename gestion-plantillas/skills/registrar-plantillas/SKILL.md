@@ -6,7 +6,7 @@ description: >
   Implementa un flujo consultivo de 5 fases con selección jerárquica de skill y asset objetivo, lectura y
   abstracción de datos reales a marcadores {{variable}} en Markdown limpio, previsualización en chat,
   y persistencia directa en el backend mediante la herramienta set_skill_template().
-  NO crea archivos en el workspace ni debe usarse para la redacción final de contratos de clientes.
+  NO usar para la redacción final de contratos de clientes ni para crear documentos en el workspace.
 when_to_use: |
   - El usuario desea registrar o actualizar su propia minuta o modelo de contrato como plantilla oficial para una skill.
   - El usuario adjunta un documento real de ejemplo y solicita convertirlo en plantilla reutilizable para una skill.
@@ -20,6 +20,8 @@ outputs:
   - confirmacion_registro: mensaje de confirmación de registro de la plantilla en el backend
 references:
   - references/reglas-parametrizacion-plantillas.md
+assets:
+  - assets/resumen-asignacion-plantilla.md
 ---
 
 # Registrar Plantilla Personalizada en el Sistema
@@ -35,7 +37,7 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 
 ### Vectores de Estado (Uso Estrictamente Interno):
 Para garantizar un enrutamiento determinista y la correcta ejecución de `set_skill_template`, el asistente resuelve y mantiene internamente en memoria los siguientes vectores de estado:
-- **V1 (Skill Destino):** Nombre de la skill objetivo del sistema (ej: `arrendamiento-urbano`, `desahucio`, `convenio-regulador`, `alta-baja-autonomo`, `transferencia-vehiculo`, etc.).
+- **V1 (Skill Destino):** Nombre de la skill objetivo del sistema (ej: `arrendamiento-urbano`, `desahucio`, `divorcio`, `alta-baja-autonomo`, `transferencia-vehiculo`, etc.).
 - **V2 (Asset Destino):** Nombre de archivo exacto del asset declarado en la skill de destino (ej: `template-contrato-arrendamiento-vivienda.md`, `template-demanda-desahucio-falta-pago.md`, etc.). *(Debe llevar obligatoriamente el prefijo `template-` y extensión `.md`)*.
 - **V3 (Origen Documento):** `documento_adjunto` (disponible en `<attached_documents>`) | `texto_pegado_chat` (disponible en `<user_message>`).
 
@@ -60,7 +62,7 @@ Antes de formular preguntas o abrir formularios, evalúa el mensaje del usuario 
 ### 1.2 Selección Jerárquica (Plugin -> Skill -> Asset)
 Si la skill o el asset no están completamente definidos, guía al usuario a través del **orden jerárquico de selección**:
 1. **Paso 1 — Selección de Plugin (Área temática):** Identificar el plugin o área de trabajo (ej. `derecho-civil`, `laboral`, `fiscal`, etc.).
-2. **Paso 2 — Selección de Skill (`V1`):** Identificar la skill especializada dentro del plugin seleccionado (ej. `arrendamiento-urbano`, `desahucio`, `convenio-regulador`, etc.).
+2. **Paso 2 — Selección de Skill (`V1`):** Identificar la skill especializada dentro del plugin seleccionado (ej. `arrendamiento-urbano`, `desahucio`, `divorcio`, etc.).
 3. **Paso 3 — Selección de Asset (`V2`):** Identificar el asset o plantilla específica declarada en esa skill a ser reemplazada (ej. `template-contrato-arrendamiento-vivienda.md`, `template-contrato-arrendamiento-local.md`, etc.).
 
 **Disponibilidad del Catálogo Oficial:**

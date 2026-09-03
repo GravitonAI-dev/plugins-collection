@@ -15,7 +15,7 @@ when_to_use: |
   - El usuario dispone del inventario y los valores de la herencia (propios o del cuaderno particional) y quiere saber base, estimacion de cuota, plazo y organismo.
   - El usuario pide el checklist de documentos y tasas para presentar el Impuesto de Sucesiones y saber donde se presenta.
 inputs:
-  - comunidad_autonoma: CCAA de residencia habitual del causante (clave: determina bonificaciones y organismo)
+  - comunidad_autonoma: "CCAA de residencia habitual del causante (clave: determina bonificaciones y organismo)"
   - datos_causante: nombre, NIF, fecha y lugar de fallecimiento, ultimo domicilio, CCAA de residencia habitual
   - datos_heredero: nombre, NIF, domicilio, parentesco con el causante y grupo (I a IV)
   - caudal_hereditario: inventario de bienes y sus valores (del cuaderno particional si existe)

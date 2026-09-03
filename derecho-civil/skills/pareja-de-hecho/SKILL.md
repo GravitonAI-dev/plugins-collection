@@ -28,7 +28,7 @@ when_to_use: |
     si tendra derecho a una compensacion si se separan.
 inputs:
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
-- finalidad: constituir e inscribir la pareja / regular la convivencia mediante pacto / regular la ruptura
+  - finalidad: constituir e inscribir la pareja / regular la convivencia mediante pacto / regular la ruptura
   - comunidad_autonoma: comunidad de residencia de la pareja (vector obligatorio en todas las ramas)
   - hijos_comunes: si / no (determina la derivacion a la skill de medidas de hijos no matrimoniales)
   - bienes_o_desequilibrio: hay bienes adquiridos en comun o desequilibrio economico entre ellos / no
@@ -41,8 +41,8 @@ inputs:
   - dedicacion: dedicacion de uno a la familia o al negocio del otro y compensacion que se pacte
   - liquidacion: acuerdo de adjudicacion, venta o compensacion de cuotas (solo ruptura)
 outputs:
-- checklist_inscripcion_registro: checklist de requisitos, documentacion y tramite del registro
-    autonomico, en markdown, DRAFT, con la fecha de verificacion de la normativa autonomica
+  - checklist_inscripcion_registro: >
+      checklist de requisitos, documentacion y tramite del registro autonomico, en markdown, DRAFT, con la fecha de verificacion de la normativa autonomica
   - pacto_convivencia: pacto de convivencia en markdown, DRAFT
   - pacto_ruptura_pareja_hecho: pacto de extincion de la convivencia y liquidacion en markdown, DRAFT
 references:
@@ -163,7 +163,7 @@ Tras completar la verificacion (Punto 2), en un unico mensaje:
    - Si V1 = 3 y V3 = 1 (hay hijos comunes), anade en el mismo mensaje: "Le adelanto que todo lo relativo a sus hijos — guarda y custodia, regimen de estancias y pension de alimentos — no puede regularse en este pacto: tiene un cauce propio, exige la intervencion del Ministerio Fiscal y no produce efecto sin aprobacion judicial. Lo trataremos en un documento aparte cuando cerremos este."
 2. **Ofrece la plantilla o pide el documento propio.** En el mismo mensaje:
    "¿Que documento desea utilizar como base?
-   1. La plantilla de ConfidentialAI, revisada por nuestros abogados y colaboradores
+   1. La plantilla del sistema, revisada por nuestros abogados y colaboradores
    2. Adjuntar su propio documento"
 3. **Enruta segun la respuesta:** si elige la plantilla, continua con el Punto 4 usando el asset de la hoja; si elige adjuntar el suyo, pide que lo adjunte, leelo con `Read` y usalo como documento base en el Punto 4 en lugar del asset, sin dejar de aplicar los guardrails del dominio (adviertele si el documento adjuntado los incumple, y en particular si contiene clausulas que presupongan un regimen economico inexistente o que regulen medidas sobre los hijos).
 3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-checklist-inscripcion-registro.md`).

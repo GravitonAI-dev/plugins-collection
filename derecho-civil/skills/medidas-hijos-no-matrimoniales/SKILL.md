@@ -28,7 +28,7 @@ when_to_use: |
     sometiendolo a la aprobacion del Juzgado.
 inputs:
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
-- filiacion: determinada respecto de ambos progenitores / no determinada respecto del otro / se desconoce
+  - filiacion: determinada respecto de ambos progenitores / no determinada respecto del otro / se desconoce
   - acuerdo: existe acuerdo con el otro progenitor / no existe acuerdo
   - medidas: guarda y custodia con regimen de estancias / pension de alimentos / ambas
   - vivienda: se solicita la atribucion del uso de la vivienda en que residen los hijos (si / no)
@@ -46,9 +46,9 @@ inputs:
   - medidas_provisionales: en la via contenciosa, si se interesan
   - partido_judicial: competencia del art. 769.3 LEC
 outputs:
-- pacto_relaciones_familiares: pacto de relaciones familiares en markdown, DRAFT
-  - demanda_medidas_paternofiliales: demanda conjunta de mutuo acuerdo o demanda contenciosa de medidas
-    paternofiliales en markdown, DRAFT (un mismo asset con dos variantes condicionales)
+  - pacto_relaciones_familiares: pacto de relaciones familiares en markdown, DRAFT
+  - demanda_medidas_paternofiliales: >
+      demanda conjunta de mutuo acuerdo o demanda contenciosa de medidas paternofiliales en markdown, DRAFT (un mismo asset con dos variantes condicionales)
 references:
   - references/cc-medidas-hijos-no-matrimoniales.md
   - references/estilo-redaccion-escritos.md
@@ -171,7 +171,7 @@ Tras completar la verificacion (Punto 2), en un unico mensaje:
    - **En ambas hojas, anadir:** "Le confirmo que el hecho de que ustedes no hayan estado casados no altera en nada los derechos de sus hijos ni los deberes de ambos progenitores: se fija exactamente lo mismo que se fijaria en un divorcio en cuanto a los hijos. Lo unico que no existe aqui es el vinculo matrimonial y, con el, ni regimen economico matrimonial que liquidar ni pension compensatoria."
 2. **Ofrece la plantilla o pide el documento propio.** En el mismo mensaje:
    "¿Que documento desea utilizar como base?
-   1. La plantilla de ConfidentialAI, revisada por nuestros abogados y colaboradores
+   1. La plantilla del sistema, revisada por nuestros abogados y colaboradores
    2. Adjuntar su propio documento"
 3. **Enruta segun la respuesta:** si elige la plantilla, continua con el Punto 4 usando el asset de la hoja; si elige adjuntar el suyo, pide que lo adjunte, leelo con `Read` y usalo como documento base en el Punto 4 en lugar del asset, sin dejar de aplicar los guardrails del dominio. Si el documento adjuntado contiene clausulas de contenido matrimonial (liquidacion de gananciales, pension compensatoria, cargas del matrimonio), advierteselo expresamente: es sintoma de que se ha reutilizado un convenio regulador de divorcio y esas clausulas no proceden.
 3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-demanda-medidas-paternofiliales.md`).

@@ -20,7 +20,7 @@ when_to_use: |
   - El usuario pregunta si le conviene firmar un contrato privado o ir al notario, y necesita el documento.
 inputs:
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
-- tipo_contrato: prestamo de dinero / reconocimiento de deuda / comodato / compraventa de bien mueble
+  - tipo_contrato: prestamo de dinero / reconocimiento de deuda / comodato / compraventa de bien mueble
   - datos_parte_acreedora: nombre o razon social, documento de identidad, domicilio, telefono, email
   - datos_parte_deudora: nombre o razon social, documento de identidad, domicilio, telefono, email
   - objeto: importe del prestamo o de la deuda, descripcion e identificacion del bien, o precio de venta
@@ -31,7 +31,7 @@ inputs:
   - datos_fiador: nombre, documento de identidad, domicilio, telefono, email
   - forma: documento privado, documento privado con compromiso de elevacion, o escritura publica
 outputs:
-- contrato_prestamo_particulares: contrato de prestamo entre particulares en markdown, DRAFT
+  - contrato_prestamo_particulares: contrato de prestamo entre particulares en markdown, DRAFT
   - reconocimiento_deuda: reconocimiento de deuda y compromiso de pago en markdown, DRAFT
   - contrato_comodato: contrato de comodato o prestamo de uso en markdown, DRAFT
   - contrato_compraventa_mueble: contrato de compraventa de bien mueble en markdown, DRAFT
@@ -177,7 +177,7 @@ Tras completar la verificacion (Punto 2), en un unico mensaje:
    - **Añadir en la HOJA PRESTAMO si V2 = no se pacta interes:** "Conforme al articulo 1.755 del Codigo Civil, no se deberan intereses sino cuando expresamente se hubiesen pactado, de modo que su prestamo sera gratuito."
 2. **Ofrece la plantilla o pide el documento propio.** En el mismo mensaje:
    "¿Que documento desea utilizar como base?
-   1. La plantilla de ConfidentialAI, revisada por nuestros abogados y colaboradores
+   1. La plantilla del sistema, revisada por nuestros abogados y colaboradores
    2. Adjuntar su propio documento"
 3. **Enruta segun la respuesta:** si elige la plantilla, continua con el Punto 4 usando el asset de la hoja; si elige adjuntar el suyo, pide que lo adjunte, leelo con `Read` y usalo como documento base en el Punto 4 en lugar del asset, sin dejar de aplicar los guardrails del dominio (adviertele si el documento adjuntado los incumple, en particular si contiene un interes potencialmente usurario o una clausula nula).
 3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-contrato-comodato.md`).

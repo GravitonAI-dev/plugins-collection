@@ -23,7 +23,7 @@ when_to_use: |
   - El usuario quiere quedarse la vivienda familiar hipotecada, o que se la quede el otro conyuge.
 inputs:
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
-- regimen: sociedad de gananciales / separacion de bienes / participacion / desconocido
+  - regimen: sociedad de gananciales / separacion de bienes / participacion / desconocido
   - acuerdo: existe acuerdo sobre el inventario y el reparto / no existe acuerdo
   - momento: liquidacion unida a un proceso matrimonial en curso / posterior a una resolucion ya firme
   - vivienda_hipotecada: existe vivienda familiar con prestamo hipotecario pendiente (si / no)
@@ -40,7 +40,7 @@ inputs:
   - documentos: documentos justificativos de cada partida del inventario
   - postulacion: procurador y letrado, en la via judicial
 outputs:
-- convenio_liquidacion_gananciales: convenio de liquidacion en markdown, DRAFT
+  - convenio_liquidacion_gananciales: convenio de liquidacion en markdown, DRAFT
   - propuesta_inventario: propuesta de inventario del Art. 808.2 LEC en markdown, DRAFT
   - solicitud_formacion_inventario: solicitud judicial de formacion de inventario en markdown, DRAFT
 references:
@@ -176,7 +176,7 @@ Tras completar la verificacion (Punto 2), en un unico mensaje:
    - **Texto fijo de DETENCION por regimen de participacion** (V4 = participacion): "El regimen de participacion no se liquida mediante el inventario de una masa comun, porque no existe tal masa: en el, cada conyuge conserva su propio patrimonio y lo que se liquida es un derecho de credito a participar en las ganancias del otro, conforme al articulo 1411 del Codigo Civil. Su liquidacion se rige por el articulo 811 de la Ley de Enjuiciamiento Civil y exige una propuesta con la estimacion del patrimonio inicial y final de cada conyuge, de contenido distinto al de las plantillas de que disponemos. Le recomiendo la intervencion de un abogado especializado. Fuentes consultadas: https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763 y https://www.boe.es/buscar/act.php?id=BOE-A-2000-323"
 2. **Ofrece la plantilla o pide el documento propio.** Solo si la hoja no es de detencion. En el mismo mensaje:
    "¿Que documento desea utilizar como base?
-   1. La plantilla de ConfidentialAI, revisada por nuestros abogados y colaboradores
+   1. La plantilla del sistema, revisada por nuestros abogados y colaboradores
    2. Adjuntar su propio documento"
 3. **Enruta segun la respuesta:** si elige la plantilla, continua con el Punto 4 usando el asset de la hoja; si elige adjuntar el suyo, pide que lo adjunte, leelo con `Read` y usalo como documento base en el Punto 4 en lugar del asset, sin dejar de aplicar los guardrails del dominio. Si el documento adjuntado contiene una clausula que afirma la liberacion de un conyuge frente a la entidad acreedora, o un reparto distinto de la mitad sin compensacion, adviertelo expresamente antes de continuar.
 

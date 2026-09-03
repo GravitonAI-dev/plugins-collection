@@ -27,7 +27,7 @@ Este repo es un **punto de partida**. Contiene la estructura completa y un plugi
 |---|---|---|
 | Marketplace | `.claude-plugin/marketplace.json` con registry de plugins | Instalador propio (se usa el de Claude Code) |
 | Catálogo de MCP servers | `mcp_servers.json` con 5 servers declarados | Cliente MCP que los conecte y ejecute |
-| Catálogo de tools | `agent_tools.json` con 8 tools declarados (input/output schema) | Runtime que los invoque |
+| Catálogo de tools | `agent_tools.json` con 9 tools declarados (input/output schema) | Runtime que los invoque |
 | Plugin manifest | `plugin.json` con metadatos y lista de skills | Sistema de versionado / firma de plugins |
 | Playbook | `CLAUDE.md` raíz y por plugin | Sistema que cargue perfiles desde `~/.claude/...` |
 | Skills | `SKILL.md` con frontmatter y procedimiento | Mecanismo de auto-invocación por contexto |
@@ -71,48 +71,47 @@ La estructura no favorece a ninguno. Si mañana cambias de Claude a LangGraph, *
 Cómo viaja una solicitud del usuario a través del sistema, end to end:
 
 ```
-   ┌──────────────────┐
-   │      Usuario     │
-   │  "/commercial-   │
-   │  legal:nda-review"│
-   └────────┬─────────┘
-            │
-            ▼
+   ┌────────────────────────┐
+   │        Usuario         │
+   │  "/derecho-civil:      │
+   │  arrendamiento-urbano" │
+   └───────────┬────────────┘
+               │
+               ▼
    ┌──────────────────────────────────────────┐
    │              Orquestador                 │  (Claude Code, LangGraph, custom)
    │  1. Lee marketplace.json                 │
-   │  2. Resuelve plugin: commercial-legal    │
+   │  2. Resuelve plugin: derecho-civil       │
    │  3. Carga CLAUDE.md (raíz + plugin)      │
    │     → guardrails, idioma, tono           │
    │  4. Lee plugin.json → skills[]           │
    │  5. Resuelve: .mcp.json y agent_tools.   │
    │     json contra catálogos globales       │
-   │  6. Carga skills/nda-review/SKILL.md     │
-   └────────┬─────────────────────────────────┘
-            │
-            ▼
+   │  6. Carga skills/arrendamiento-urbano/   │
+   │     SKILL.md                             │
+   └───────────┬──────────────────────────────┘
+               │
+               ▼
    ┌──────────────────────────────────────────┐
    │            Agente (LLM)                  │
-   │  7. SKILL.md dicta el procedimiento:     │
-   │     - Lee references/nda-clause-         │
-   │       checklist.md (contexto)            │
-   │     - Aplica triage GREEN/YELLOW/RED     │
-   │     - Llena assets/nda-triage-           │
-   │       output-template.md                 │
+   │  7. SKILL.md dicta las 5 fases:          │
+   │     - Fase 1: Clasificación inicial      │
+   │     - Fase 2: Plan de acción y marco BOE │
+   │     - Fase 3: Creación documento base    │
+   │     - Fase 4: Edición incremental        │
+   │     - Fase 5: Feedback y cierre DRAFT    │
    │  8. Si la skill lo requiere:             │
-   │     - Invoca tools (read_file, etc.)     │
-   │     - Conecta MCP servers (CourtListener)│
-   │     - Ejecuta scripts (futuro)           │
-   │  9. Aplica guardrails en cada paso       │
-   └────────┬─────────────────────────────────┘
-            │
-            ▼
+   │     - Invoca tools (create_file, etc.)   │
+   │     - Conecta MCP servers o web_search   │
+   │  9. Aplica guardrails en cada fase       │
+   └───────────┬──────────────────────────────┘
+               │
+               ▼
    ┌──────────────────────────────────────────┐
    │              Output                      │
-   │  10. Memo de triage (markdown)           │
-   │  11. Si verdict == ROJO:                 │
-   │      gate → confirmar → derivar a        │
-   │      abogado / especialista              │
+   │  10. Contrato / documento DRAFT en       │
+   │      el workspace del usuario            │
+   │  11. Advertencias legales preceptivas    │
    └──────────────────────────────────────────┘
 ```
 
@@ -537,7 +536,7 @@ Aplican a **todos** los plugins y skills. Viven en `CLAUDE.md` raíz y se resume
 
 ### `derecho-civil` (v0.6.0)
 Generación de documentos de derecho civil español conforme a normativa consolidada del BOE (LAU, LEC, Código Civil).
-**Skills**: `arrendamiento-urbano`, `monitorio`, `desahucio`, `juicio-ordinario`, `convenio-regulador`, `particion-herencia`, `reclamacion-clausulas-abusivas`.
+**Skills** (19): `arrendamiento-urbano`, `compraventa-inmueble`, `contratos-particulares`, `desahucio`, `divorcio`, `ejecucion-titulos`, `herencia`, `juicio-ordinario`, `liquidacion-gananciales`, `medidas-apoyo-discapacidad`, `medidas-hijos-no-matrimoniales`, `modificacion-medidas`, `monitorio`, `pareja-de-hecho`, `propiedad-horizontal`, `reclamacion-cantidad`, `reclamacion-clausulas-abusivas`, `responsabilidad-civil`, `testamento-planificacion`.
 
 ### `gestoria` (v0.2.1)
 Generación de solicitudes y checklists para trámites administrativos en España (DGT, AEAT, Seguridad Social, Sucesiones, Extranjería).
@@ -557,16 +556,16 @@ Asistente universal de primera línea y fallback para consultas no catalogadas, 
 
 **Estado actual**:
 - 4 plugins (`derecho-civil`, `gestoria`, `gestion-plantillas`, `asistente-general`).
-- Catálogos globales poblados con 5 servers y 8 tools con schemas JSON Schema completos.
+- Catálogos globales poblados con 5 servers y 9 tools con schemas JSON Schema completos.
 - Validación manual cruzada (ver §10). Sin `validate.py` automatizado todavía.
-- Sin CI workflows, sin `LICENSE`, sin `CONTRIBUTING.md`, sin `QUICKSTART.md` — no son necesarios en esta fase.
+- Sin CI workflows, sin `LICENSE`, sin `CONTRIBUTING.md` — no son necesarios en esta fase.
 - Sin `scripts/`, `agents/`, `hooks/`, comandos formales, ni subagentes — la estructura los reserva, no los implementa.
 
 **Próximos pasos naturales** (no comprometidos):
 1. **Validación automatizada**: agregar `scripts/validate.py` con la lógica de §10.
 2. **CI mínimo**: un workflow en `.github/workflows/` que corra el validador en cada PR.
-3. **Más skills en `commercial-legal`**: `msa-review`, `saas-subscription-review`, `amendment-tracer` (cada una con su SKILL.md + references + assets).
-4. **Más plugins verticales**: `privacy-legal`, `ip-legal`, `litigation-legal`, copiando el shape de `commercial-legal/`.
+3. **Más skills en los plugins existentes**: ampliar el catálogo conforme a nuevas necesidades.
+4. **Más plugins verticales**: `laboral`, `penal`, `mercantil`, etc.
 5. **Catálogos más completos**: llenar `mcp_servers.json` y `agent_tools.json` con todos los servers y tools que el equipo usa en producción.
 6. **Agents programados**: decidir dónde y cómo viven los watchers / monitors. Probablemente en `<plugin>/agents/` con frontmatter de schedule.
 7. **Hooks**: decidir qué eventos necesitan hooks (pre-tool para redacción de PII, post-tool para logging).

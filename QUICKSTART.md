@@ -58,7 +58,7 @@ El builder **nunca** escribe un archivo sin tu confirmacion previa.
 - **Commitear, pushear, abrir PR.** Esas acciones quedan fuera del builder.
 - **Definir servidores MCP ni tools nuevos.** Solo puedes elegir de los catalogos globales (`mcp_servers.json` y `agent_tools.json` en la raiz del repo). Si necesitas un id nuevo, queda como pendiente para que el equipo de desarrollo del orquestador lo agregue al catalogo fuera de esta sesion.
 - **Implementar `agents/` programados ni `hooks/`.** Esos elementos quedan vacios en esta fase y no se consultan.
-- **Dar opinion legal, fiscal, medica o financiera.** Para eso usa el plugin correspondiente (`commercial-legal`, `general-assistant`, etc.).
+- **Dar opinion legal, fiscal, medica o financiera.** Para eso usa el plugin especializado correspondiente (`derecho-civil`, `gestoria`, etc.).
 
 ---
 
@@ -81,7 +81,7 @@ El builder **nunca** escribe un archivo sin tu confirmacion previa.
 | `plugin-builder.md` | System prompt completo del builder. Lo lee el LLM al arrancar la sesion. |
 | `README.md` | Estructura completa del repo, todas las convenciones, como agregar plugins y skills a mano. |
 | `.claude-plugin/marketplace.json` | El registro de plugins disponibles. |
-| `commercial-legal/` y `general-assistant/` | Plugins de ejemplo para ver la estructura en uso. |
+| `derecho-civil/`, `gestoria/`, `asistente-general/` y `gestion-plantillas/` | Plugins del repositorio para ver la estructura en uso. |
 
 ---
 

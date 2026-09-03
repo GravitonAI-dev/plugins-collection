@@ -33,7 +33,7 @@ when_to_use: |
   - El usuario quiere saber si su reclamacion esta todavia en plazo y como interrumpir la prescripcion.
 inputs:
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
-- ambito_hecho: accidente de circulacion / otro suceso
+  - ambito_hecho: accidente de circulacion / otro suceso
   - tipo_vehiculo_causante: vehiculo a motor / vehiculo personal ligero o patinete
   - supuesto_no_circulatorio: caida en establecimiento o via publica / defecto o vicio constructivo / negligencia profesional
   - naturaleza_vinculo: contractual / extracontractual
@@ -49,7 +49,7 @@ inputs:
   - cuantificacion: importe por partida y su fuente (tabla del baremo del ejercicio o informe pericial)
   - datos_oferta_motivada: tipo de comunicacion, fecha de notificacion, importe ofertado, requisitos cumplidos
 outputs:
-- reclamacion_extrajudicial_danos: reclamacion extrajudicial fehaciente de danos en markdown, DRAFT
+  - reclamacion_extrajudicial_danos: reclamacion extrajudicial fehaciente de danos en markdown, DRAFT
   - demanda_responsabilidad_civil: demanda de juicio ordinario o verbal de responsabilidad civil en markdown, DRAFT
   - respuesta_oferta_motivada: escrito de aceptacion, aceptacion a cuenta o rechazo de la oferta o respuesta motivada en markdown, DRAFT
 references:
@@ -186,7 +186,7 @@ Tras completar la verificacion (Punto 2), en un unico mensaje:
    - En la HOJA OFERTA, si V1 = 1, anadir: "La aseguradora esta obligada a presentar oferta motivada de indemnizacion en el plazo de tres meses desde su reclamacion, o respuesta motivada si no puede ofertar (articulo 7.2 del texto refundido citado). La notificacion fehaciente de una u otra inicia un nuevo plazo de prescripcion de un ano, cuyo vencimiento en su caso es el {{fecha_vencimiento_nuevo_plazo}}."
 2. **Ofrece la plantilla o pide el documento propio.** En el mismo mensaje:
    "¿Que documento desea utilizar como base?
-   1. La plantilla de ConfidentialAI, revisada por nuestros abogados y colaboradores
+   1. La plantilla del sistema, revisada por nuestros abogados y colaboradores
    2. Adjuntar su propio documento"
 3. **Enruta segun la respuesta:** si elige la plantilla, continua con el Punto 4 usando el asset de la hoja; si elige adjuntar el suyo, pide que lo adjunte, leelo con `Read` y usalo como documento base en el Punto 4 en lugar del asset, sin dejar de aplicar los guardrails del dominio.
 3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-demanda-responsabilidad-civil.md`).
