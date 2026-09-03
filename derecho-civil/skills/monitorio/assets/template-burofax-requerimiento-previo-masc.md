@@ -1,7 +1,7 @@
 # BUROFAX DE REQUERIMIENTO PREVIO DE PAGO — {{nombre_acreedor}} a {{nombre_deudor}}
 
-> **DRAFT — para revision por un abogado antes de su envio. No constituye asesoramiento juridico.**
-> Documento de requerimiento extrajudicial que sirve para constituir en mora al deudor (Art. 1100 CC)
+> **DRAFT — para revision por un abogado antes de su envio. No constituye asesoramiento juridico.**  
+> Documento de requerimiento extrajudicial que sirve para constituir en mora al deudor (Art. 1100 CC)  
 > y acreditar el intento de solucion previa (MASC, LO 1/2025). Enviar por burofax con acuse de recibo y certificacion de texto.
 
 ---
@@ -20,13 +20,14 @@ Me dirijo a usted en relacion con la deuda que mantiene pendiente de pago, cuyo 
 
 **Origen de la deuda:** {{descripcion_origen_deuda}}
 
-**Importe adeudado:** {{principal}} euros de principal, lo que asciende a un total de {{cuantia_total}} euros.
+**Importe adeudado:** {{principal}} euros de principal
+, lo que asciende a un total de {{cuantia_total}} euros.
 
 **Vencimiento:** la cantidad vencio el {{fecha_vencimiento}} y es liquida, vencida y exigible.
 
-Por medio del presente le REQUIERO formalmente para que, en el plazo de {{plazo_pago: 10 dias habiles}} desde la recepcion de esta comunicacion, abone la cantidad indicada mediante {{medio_de_pago: transferencia a la cuenta IBAN XXXX}}.
+Por medio del presente le REQUIERO formalmente para que, en el plazo de {{plazo_pago}} desde la recepcion de esta comunicacion, abone la cantidad indicada mediante {{medio_de_pago}}.
 
-Le comunico asimismo mi disposicion a alcanzar una solucion extrajudicial del asunto (pago aplazado, negociacion o mediacion), a fin de evitar el procedimiento judicial. Puede contactar en {{via_contacto: telefono / correo electronico}} para acordar una formula de pago.
+Le comunico asimismo mi disposicion a alcanzar una solucion extrajudicial del asunto (pago aplazado, negociacion o mediacion), a fin de evitar el procedimiento judicial. Puede contactar en {{via_contacto}} para acordar una formula de pago.
 
 Le advierto que, de no atender este requerimiento en el plazo indicado, me vere obligado a reclamar la deuda por via judicial mediante el proceso monitorio (articulos 812 y siguientes de la Ley de Enjuiciamiento Civil), con reclamacion de los intereses y costas que procedan.
 
@@ -34,13 +35,13 @@ Conservo copia certificada de esta comunicacion y de su acuse de recibo a los ef
 
 Atentamente,
 
-___________________________
+___________________________  
 {{nombre_acreedor}}
 
 ---
 
-> **Advertencias:**
-> 1. Este documento es un DRAFT generado automaticamente. Debe ser revisado por un abogado antes de su envio.
-> 2. Enviar por burofax con acuse de recibo y certificacion de contenido; conservar todos los justificantes.
-> 3. El requerimiento constituye en mora al deudor (Art. 1100 CC) y sirve como intento de solucion previa (MASC).
+> **Advertencias:**  
+> 1. Este documento es un DRAFT generado automaticamente. Debe ser revisado por un abogado antes de su envio.  
+> 2. Enviar por burofax con acuse de recibo y certificacion de contenido; conservar todos los justificantes.  
+> 3. El requerimiento constituye en mora al deudor (Art. 1100 CC) y sirve como intento de solucion previa (MASC).  
 > 4. Ajustar el plazo de pago y el medio de pago a la practica del despacho y al caso concreto.
