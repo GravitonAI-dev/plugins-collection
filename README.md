@@ -27,7 +27,7 @@ Este repo es un **punto de partida**. Contiene la estructura completa y un plugi
 |---|---|---|
 | Marketplace | `.claude-plugin/marketplace.json` con registry de plugins | Instalador propio (se usa el de Claude Code) |
 | Catálogo de MCP servers | `mcp_servers.json` con 5 servers declarados | Cliente MCP que los conecte y ejecute |
-| Catálogo de tools | `agent_tools.json` con 5 tools declarados (input/output schema) | Runtime que los invoque |
+| Catálogo de tools | `agent_tools.json` con 8 tools declarados (input/output schema) | Runtime que los invoque |
 | Plugin manifest | `plugin.json` con metadatos y lista de skills | Sistema de versionado / firma de plugins |
 | Playbook | `CLAUDE.md` raíz y por plugin | Sistema que cargue perfiles desde `~/.claude/...` |
 | Skills | `SKILL.md` con frontmatter y procedimiento | Mecanismo de auto-invocación por contexto |
@@ -100,7 +100,7 @@ Cómo viaja una solicitud del usuario a través del sistema, end to end:
    │     - Llena assets/nda-triage-           │
    │       output-template.md                 │
    │  8. Si la skill lo requiere:             │
-   │     - Invoca tools (read_document, etc.) │
+   │     - Invoca tools (read_file, etc.)     │
    │     - Conecta MCP servers (CourtListener)│
    │     - Ejecuta scripts (futuro)           │
    │  9. Aplica guardrails en cada paso       │
@@ -111,8 +111,8 @@ Cómo viaja una solicitud del usuario a través del sistema, end to end:
    │              Output                      │
    │  10. Memo de triage (markdown)           │
    │  11. Si verdict == ROJO:                 │
-   │      gate → confirmar → escalate_to_     │
-   │      attorney tool                       │
+   │      gate → confirmar → derivar a        │
+   │      abogado / especialista              │
    └──────────────────────────────────────────┘
 ```
 
@@ -274,7 +274,7 @@ Los arrays `agents` y `hooks` están **vacíos** en este punto (no implementados
 
 ### 7.3 `agent_tools.json`
 
-**Rol en el flujo**: análogo a `.mcp.json` pero para tools. El orquestador sabe qué tools tiene que tener disponibles antes de ejecutar cualquier skill de este plugin.
+**Rol en el flujo**: subconjunto de herramientas que el plugin expone para que el LLM pueda invocarlas. A diferencia de `.mcp.json` (que solo guarda referencias), `agent_tools.json` del plugin contiene las **definiciones completas e idénticas** (esquemas `input_schema` y `output_schema`, descripción, tags, etc.) copiadas del catálogo global `agent_tools.json` raíz. De base, todos los plugins incorporan las 7 herramientas nativas.
 
 ### 7.4 `CLAUDE.md` del plugin
 
@@ -284,7 +284,7 @@ Los arrays `agents` y `hooks` están **vacíos** en este punto (no implementados
 
 **Secciones típicas**:
 - Propósito y audiencia.
-- Jurisdicción por defecto (con marcadores `EDITAR PARA TU EQUIPO`).
+- Jurisdicción por defecto.
 - Tono y estilo de output.
 - Defaults: qué se asume si el usuario no lo dice.
 - Matriz de escalación: qué casos van a abogado, cuáles se resuelven solos.
@@ -357,7 +357,7 @@ assets:
 
 **Rol en el flujo**: plantillas que la skill **produce** como output. Se referencian desde `SKILL.md` por path relativo. La skill las llena con los datos del caso.
 
-**Convención**: cada plantilla lleva marcadores `<!-- {{variable}} -->` o `{{variable}}` que `SKILL.md` indica cómo llenar.
+**Convención**: cada plantilla lleva marcadores `{{variable}}` que `SKILL.md` indica cómo llenar. Las plantillas son limpias y no contienen comentarios condicionales (`<!-- Si ... -->`); toda la lógica condicional y redacciones alternativas residen en `SKILL.md`.
 
 ### 8.4 `scripts/` (estructural, no usado aún)
 
@@ -428,15 +428,15 @@ Mientras no exista `validate.py`, la validación cruzada se hace con un script a
 ```
 === ERRORS ===   (none)
 === WARNINGS === (none)
-=== OK (8) ===
+=== OK (7) ===
   + [commercial-legal] source dir exists: ./commercial-legal
   + [commercial-legal] manifest name matches
   + [commercial-legal] skill 'nda-review' -> SKILL.md exists
   + [commercial-legal] MCP ref 'io.gravitonai.courtlistener' -> found
   + [commercial-legal] MCP ref 'io.gravitonai.gdrive' -> found
-  + [commercial-legal] tool ref 'io.gravitonai.tools.read_document' -> found
-  + [commercial-legal] tool ref 'io.gravitonai.tools.draft_markdown' -> found
-  + [commercial-legal] tool ref 'io.gravitonai.tools.escalate_to_attorney' -> found
+  + [commercial-legal] tool ref 'io.gravitonai.tools.read_file' -> found
+  + [commercial-legal] tool ref 'io.gravitonai.tools.create_file' -> found
+  + [commercial-legal] tool ref 'io.gravitonai.tools.edit_file' -> found
 ```
 
 Cuando agregues un plugin o skill, el flujo mínimo de validación es:
@@ -453,13 +453,13 @@ Regla de oro: **definir una vez, referenciar por id**.
 | Cosa | Dónde se define | Dónde se referencia |
 |---|---|---|
 | Servidor MCP | `mcp_servers.json` (raíz) | `<plugin>/.mcp.json` |
-| Tool | `agent_tools.json` (raíz) | `<plugin>/agent_tools.json` |
+| Tool | `agent_tools.json` (raíz) | `<plugin>/agent_tools.json` (subconjunto con definición completa) |
 
 **Por qué**: si dos plugins necesitan el mismo servidor MCP (ej: CourtListener), solo se define una vez. Cambiar la URL o el método de auth es un solo cambio. Si un plugin necesita un server que no existe, primero se agrega al catálogo y luego se referencia.
 
 **Convención de IDs**:
 - Servidores: `io.gravitonai.<categoría>.<nombre>` → `io.gravitonai.courtlistener`.
-- Tools: `io.gravitonai.tools.<nombre>` → `io.gravitonai.tools.read_document`.
+- Tools: `io.gravitonai.tools.<nombre>` → `io.gravitonai.tools.read_file`.
 
 ---
 
@@ -469,7 +469,6 @@ Regla de oro: **definir una vez, referenciar por id**.
 - **Tono**: profesional, claro, sin jerga innecesaria. Cero emojis salvo que el usuario los pida.
 - **Nombres**: kebab-case para archivos y skills (`nda-review`, `nda-clause-checklist.md`).
 - **Sin secretos en el repo**: nunca. `.env`, `*.local.md`, `drafts/`, `private/`.
-- **Marcadores de edición**: `<!-- EDITAR PARA TU EQUIPO: ... -->` en secciones que cada equipo debe personalizar.
 - **DRAFT por defecto**: cualquier output que toque temas legales / regulatorios / fiscales / privacidad lleva el header `> DRAFT — para revisión por un abogado. No constituye asesoría legal.`
 
 ---
@@ -536,25 +535,29 @@ Aplican a **todos** los plugins y skills. Viven en `CLAUDE.md` raíz y se resume
 
 ## 17. Plugins incluidos
 
-### `commercial-legal` (v0.1.0)
+### `derecho-civil` (v0.6.0)
+Generación de documentos de derecho civil español conforme a normativa consolidada del BOE (LAU, LEC, Código Civil).
+**Skills**: `arrendamiento-urbano`, `monitorio`, `desahucio`, `juicio-ordinario`, `convenio-regulador`, `particion-herencia`, `reclamacion-clausulas-abusivas`.
 
-Plugin de ejemplo. Cubre flujos legales transaccionales comerciales: revisión de NDAs, MSAs, SaaS, escalación a abogado. Triage automático VERDE/AMARILLO/ROJO contra el playbook del equipo.
+### `gestoria` (v0.2.1)
+Generación de solicitudes y checklists para trámites administrativos en España (DGT, AEAT, Seguridad Social, Sucesiones, Extranjería).
+**Skills**: `transferencia-vehiculo`, `alta-baja-autonomo`, `alta-baja-seguridad-social`, `liquidacion-impuesto-sucesiones`, `extranjeria-residencia`.
 
-**Skills incluidas**:
-- `nda-review`: triage de NDAs entrantes con output VERDE/AMARILLO/ROJO + memo para abogado.
+### `gestion-plantillas` (v0.1.0)
+Creación, parametrización y registro de plantillas personalizadas (assets) mediante `set_skill_template`.
+**Skills**: `registrar-plantillas`.
 
-**MCP servers referenciados**: `io.gravitonai.courtlistener` (opcional), `io.gravitonai.gdrive` (requerido).
-**Tools referenciadas**: `io.gravitonai.tools.read_document`, `io.gravitonai.tools.draft_markdown`, `io.gravitonai.tools.escalate_to_attorney`.
-
-Ver `commercial-legal/README.md` para detalle completo.
+### `asistente-general` (v0.1.0)
+Asistente universal de primera línea y fallback para consultas no catalogadas, orientación multidisciplinar, búsquedas web e informes bajo demanda.
+**Skills**: `consulta-general`.
 
 ---
 
 ## 18. Estado y roadmap
 
 **Estado actual**:
-- 1 plugin (`commercial-legal`), 1 skill (`nda-review`).
-- Catálogos globales poblados con 5 servers y 5 tools de ejemplo (no exhaustivos).
+- 4 plugins (`derecho-civil`, `gestoria`, `gestion-plantillas`, `asistente-general`).
+- Catálogos globales poblados con 5 servers y 8 tools con schemas JSON Schema completos.
 - Validación manual cruzada (ver §10). Sin `validate.py` automatizado todavía.
 - Sin CI workflows, sin `LICENSE`, sin `CONTRIBUTING.md`, sin `QUICKSTART.md` — no son necesarios en esta fase.
 - Sin `scripts/`, `agents/`, `hooks/`, comandos formales, ni subagentes — la estructura los reserva, no los implementa.

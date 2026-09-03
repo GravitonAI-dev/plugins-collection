@@ -1,19 +1,31 @@
 {
   "name": "derecho-civil",
   "displayName": "Derecho Civil",
-  "version": "0.6.0",
-  "description": "Generacion de documentos de derecho civil espanol, siempre en su version consolidada vigente verificada en el BOE: arrendamiento urbano (LAU), proceso monitorio y juicio ordinario (LEC), desahucios, convenio regulador de divorcio de mutuo acuerdo, particion de herencia y reclamacion de clausulas abusivas de consumo.",
+  "version": "0.8.0",
+  "description": "Generación de documentos de derecho civil español, siempre en su versión consolidada vigente verificada en el BOE: arrendamiento urbano, compraventa de inmuebles, contratos entre particulares, propiedad horizontal, desahucios, ejecución de títulos, reclamación de cantidad, monitorio y juicio ordinario, familia (divorcio, medidas sobre hijos no matrimoniales, modificación de medidas, liquidación de gananciales y parejas de hecho), sucesiones (herencia y planificación testamentaria), cláusulas abusivas de consumo, responsabilidad civil y medidas de apoyo a personas con discapacidad.",
   "author": {
     "name": "GravitonAI"
   },
   "skills": [
     "./skills/arrendamiento-urbano",
-    "./skills/monitorio",
+    "./skills/compraventa-inmueble",
+    "./skills/contratos-particulares",
     "./skills/desahucio",
+    "./skills/divorcio",
+    "./skills/ejecucion-titulos",
+    "./skills/herencia",
     "./skills/juicio-ordinario",
-    "./skills/convenio-regulador",
-    "./skills/particion-herencia",
-    "./skills/reclamacion-clausulas-abusivas"
+    "./skills/liquidacion-gananciales",
+    "./skills/medidas-apoyo-discapacidad",
+    "./skills/medidas-hijos-no-matrimoniales",
+    "./skills/modificacion-medidas",
+    "./skills/monitorio",
+    "./skills/pareja-de-hecho",
+    "./skills/propiedad-horizontal",
+    "./skills/reclamacion-cantidad",
+    "./skills/reclamacion-clausulas-abusivas",
+    "./skills/responsabilidad-civil",
+    "./skills/testamento-planificacion"
   ],
   "agents": [],
   "hooks": []

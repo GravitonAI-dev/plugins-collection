@@ -12,7 +12,7 @@
 Esta es la reference mas volatil del plugin. La doctrina del TJUE y del Tribunal Supremo sobre clausulas abusivas **cambia con frecuencia** y puede alterar por completo el resultado de una reclamacion (gastos, suelo, IRPH, comision de apertura, interes de demora, tarjeta revolving). Por ello:
 
 1. **Nunca redactar sin ejecutar antes el Paso 1.3 del `SKILL.md`** (web_search del tipo de clausula concreto y del ano en curso).
-2. **Nunca citar una sentencia, numero de resolucion o fecha que no se haya confirmado** en esa verificacion. Si no se confirma, no se cita y se marca `[verificar]`.
+2. **Nunca citar una sentencia, numero de resolucion o fecha que no se haya confirmado** en esa verificacion. Si no se confirma, no se cita y se marca `{{VERIFICAR}}`.
 3. **Posicion conservadora:** no afirmar nulidad automatica ni generalizada. La abusividad se aprecia caso por caso mediante el control de incorporacion, de transparencia y de contenido.
 4. Los criterios de abajo son una orientacion de encuadre, NO una cita cerrada. Actualizar esta tabla en el Paso 1.4 cuando la verificacion arroje doctrina mas reciente.
 

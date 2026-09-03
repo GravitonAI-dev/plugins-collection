@@ -1,6 +1,6 @@
 # LAU — Vivienda: Plazos, Renta y Fianza
 
-> Material de referencia para la skill `arrendamiento-urbano`. Basado en la LAU 29/1994,
+> Material de referencia para la skill `derecho-civil-arrendamiento`. Basado en la LAU 29/1994,
 > texto consolidado (ultima modificacion conocida: 25/05/2023, Ley 12/2023).
 > La skill verifica siempre la version vigente en el BOE antes de aplicar estos datos.
 
@@ -86,10 +86,10 @@ Si el arrendador es gran tenedor (Ley 12/2023), la renta ademas no puede superar
 
 ### Actualizacion (Art. 18)
 
-- Solo se actualiza si hay pacto expreso en el contrato.
-- En defecto de pacto sobre el indice: se aplica el Indice de Garantia de Competitividad (IGC).
-- En todo caso, el incremento anual no puede superar el IPC.
-- La actualizacion se notifica por escrito a la otra parte indicando el porcentaje aplicado.
+- Solo se actualiza si hay pacto expreso en el contrato. Sin pacto, no hay actualizacion.
+- **Contratos de vivienda celebrados desde el 26/05/2023:** el incremento anual no puede superar el IRAV (Indice de Referencia para la Actualizacion de los Arrendamientos de Vivienda), publicado mensualmente por el INE y aplicable desde el 01/01/2025 (Resolucion INE de 18/12/2024, BOE-A-2024-26685, por mandato de la Ley 12/2023). El IRAV es el minimo entre la variacion anual del IPC, la del IPC subyacente y una tasa media ajustada.
+- Contratos anteriores al 26/05/2023: rige lo pactado; en defecto de pacto sobre el indice, el Indice de Garantia de Competitividad (IGC), con tope en el IPC.
+- La actualizacion se notifica por escrito a la otra parte expresando el porcentaje aplicado; la renta actualizada es exigible a partir del mes siguiente a la notificacion (Art. 18.2).
 
 ### Elevacion por mejoras del arrendador (Art. 19)
 
