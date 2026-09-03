@@ -33,22 +33,22 @@
 
 ## 4. Presentacion
 
-- [ ] Modelo 650 cumplimentado (o el modelo autonomico equivalente {{modelo_autonomico}} [verificar]).
-- [ ] Presentacion ante la Hacienda autonomica de {{comunidad_autonoma}} — sede: {{sede_presentacion}} [verificar].
+- [ ] Modelo 650 cumplimentado (o el modelo autonomico equivalente {{modelo_autonomico}} (a verificar)).
+- [ ] Presentacion ante la Hacienda autonomica de {{comunidad_autonoma}} — sede: {{sede_presentacion}} (a verificar).
 - [ ] Acceso con Cl@ve o certificado digital, o presentacion por gestor habilitado.
-- [ ] Justificante de ingreso o de cuota cero (segun la bonificacion autonomica aplicable) [verificar].
+- [ ] Justificante de ingreso o de cuota cero (segun la bonificacion autonomica aplicable) (a verificar).
 
 ## 5. Plusvalia municipal (IIVTNU) — solo si hay inmuebles urbanos
 
 - [ ] Liquidacion de la plusvalia municipal en el ayuntamiento de {{municipio_inmueble}}.
-- [ ] Plazo de 6 meses desde el fallecimiento (prorrogable) [verificar ordenanza municipal].
+- [ ] Plazo de 6 meses desde el fallecimiento (prorrogable) (a verificar segun ordenanza municipal).
 - [ ] Comprobar el metodo de calculo (objetivo o real) mas favorable tras el RDL 26/2021.
 
 ---
 
 > **Advertencias:**
 > 1. Documento DRAFT. Debe revisarlo un gestor o asesor fiscal antes de la presentacion.
-> 2. La lista de documentos y el modelo pueden variar segun la Hacienda autonomica de {{comunidad_autonoma}} [verificar].
+> 2. La lista de documentos y el modelo pueden variar segun la Hacienda autonomica de {{comunidad_autonoma}} (a verificar).
 > 3. Plazo general de presentacion: 6 meses desde el fallecimiento, prorrogable por otros 6.
 > 4. Si hay inmuebles urbanos, la plusvalia municipal se presenta aparte, en el ayuntamiento.
 

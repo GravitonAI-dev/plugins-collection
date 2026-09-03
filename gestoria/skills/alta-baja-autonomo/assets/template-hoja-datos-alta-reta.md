@@ -36,7 +36,7 @@
 | Rendimientos netos mensuales previstos | {{rendimientos_previstos}} euros |
 | Tramo de cotizacion | {{tramo}} |
 | Base de cotizacion elegida | {{base_cotizacion}} euros/mes |
-| Cuota mensual estimada | {{cuota_estimada}} euros/mes (ORIENTATIVA) [verificar] |
+| Cuota mensual estimada | {{cuota_estimada}} euros/mes (ORIENTATIVA) |
 
 ---
 

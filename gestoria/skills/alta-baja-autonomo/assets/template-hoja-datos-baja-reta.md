@@ -35,7 +35,7 @@
 |---|---|
 | Fecha de efecto de la baja | {{fecha_efecto_baja: fecha del cese si se comunica en plazo}} |
 | Numero de baja en el ano natural | {{numero_baja_ano: 1a a 3a / 4a o posterior}} |
-| Cotizacion del mes del cese | {{cotizacion_mes: por dias trabajados (1a a 3a baja del ano) / mes completo (4a o posterior)}} [verificar] |
+| Cotizacion del mes del cese | {{cotizacion_mes: por dias trabajados (1a a 3a baja del ano) / mes completo (4a o posterior)}} |
 
 ---
 
