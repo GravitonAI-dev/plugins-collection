@@ -36,6 +36,7 @@ Cuando una consulta planteada por el usuario corresponda de forma directa y espe
 | Burofax de reclamación de salarios y papeleta de conciliación por despido, cantidad o sanción | `conciliacion-previa` | `derecho-laboral` |
 | Demanda ante el Juzgado de lo Social por despido, cantidad, sanción, modificación sustancial o tutela de derechos fundamentales | `demanda-social` | `derecho-laboral` |
 | Reclamación previa al INSS o al SEPE, disconformidad con alta médica, revisión de grado de incapacidad y demanda de prestaciones | `reclamacion-seguridad-social` | `derecho-laboral` |
+| Reclamación de consumo a una empresa, hoja oficial de reclamaciones, arbitraje de consumo y escrito ante la administración de consumo | `reclamacion-consumo` | `derecho-consumo` |
 | Alta o baja de autónomo en Hacienda (modelo 036) y en la Seguridad Social (RETA) | `alta-baja-autonomo` | `gestoria` |
 | Afiliación, alta y baja de trabajadores por cuenta ajena y empleados de hogar (TGSS) | `alta-baja-seguridad-social` | `gestoria` |
 | Cambio de titularidad de vehículos y notificación de venta ante la DGT | `transferencia-vehiculo` | `gestoria` |

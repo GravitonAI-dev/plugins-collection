@@ -7,11 +7,11 @@
     "name": "GravitonAI"
   },
   "skills": [
-    "./skills/transferencia-vehiculo",
     "./skills/alta-baja-autonomo",
     "./skills/alta-baja-seguridad-social",
+    "./skills/extranjeria-residencia",
     "./skills/liquidacion-impuesto-sucesiones",
-    "./skills/extranjeria-residencia"
+    "./skills/transferencia-vehiculo"
   ],
   "agents": [],
   "hooks": []

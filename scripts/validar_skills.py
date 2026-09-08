@@ -142,6 +142,30 @@ for f in sorted(glob.glob('*/skills/*/SKILL.md')):
         if not os.path.exists(os.path.join(os.path.dirname(f),a)):
             print(f"  FALLO asset inexistente: {nombre} {a}"); FALLOS+=1
 
+# ---------------------------------------------------------------- registro de plugins y skills
+import os as _os
+_market='.claude-plugin/marketplace.json'
+_reg=set()
+if _os.path.exists(_market):
+    _m=json.load(open(_market,encoding='utf-8'))
+    _reg={p['name'] for p in _m.get('plugins',[])}
+for _pj in sorted(glob.glob('*/.claude-plugin/plugin.json')):
+    _p=_pj.split('/')[0]
+    _d=json.load(open(_pj,encoding='utf-8'))
+    _listadas=[s.split('/')[-1] for s in _d.get('skills',[])]
+    _reales=sorted(_os.path.basename(x.rstrip('/')) for x in glob.glob(f'{_p}/skills/*/'))
+    _falta=[s for s in _reales if s not in _listadas]
+    _sobra=[s for s in _listadas if s not in _reales]
+    if _falta: print(f"  FALLO skills en disco que {_p}/plugin.json no carga: {_falta}"); FALLOS+=1
+    if _sobra: print(f"  FALLO skills listadas en {_p}/plugin.json que no existen: {_sobra}"); FALLOS+=1
+    if _p not in _reg: print(f"  FALLO plugin sin registrar en marketplace.json: {_p}"); FALLOS+=1
+    if _d.get('version')!=[x for x in _m.get('plugins',[]) if x['name']==_p][0].get('version') if _p in _reg else False:
+        print(f"  FALLO version distinta entre {_p}/plugin.json y marketplace.json"); FALLOS+=1
+for _s in sorted(glob.glob('*/skills/*/SKILL.md')):
+    _fm=open(_s,encoding='utf-8').read().split('\n---\n')[0]
+    if not re.search(r'^description:', _fm, re.M):
+        print(f"  FALLO skill sin description: {_s}"); FALLOS+=1
+
 if TH or TC: FALLOS+=1
 print(("\nOK — catalogo coherente" if not FALLOS else f"\n{FALLOS} comprobaciones fallidas"))
 raise SystemExit(1 if FALLOS else 0)
