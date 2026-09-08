@@ -41,7 +41,8 @@ Cuando una consulta planteada por el usuario corresponda de forma directa y espe
 | Afiliación, alta y baja de trabajadores por cuenta ajena y empleados de hogar (TGSS) | `alta-baja-seguridad-social` | `gestoria` |
 | Cambio de titularidad de vehículos y notificación de venta ante la DGT | `transferencia-vehiculo` | `gestoria` |
 | Liquidación y autoliquidación del Impuesto de Sucesiones (modelo 650) | `liquidacion-impuesto-sucesiones` | `gestoria` |
-| Solicitud de NIE y autorizaciones de residencia / extranjería (modelos EX) | `extranjeria-residencia` | `gestoria` |
+| Solicitud de NIE y autorizaciones de residencia por arraigo, no lucrativa o reagrupación familiar (modelos EX) | `extranjeria-residencia` | `extranjeria` |
+| Solicitud de nacionalidad española por residencia, subsanación del expediente y alegaciones a propuesta desestimatoria | `extranjeria-nacionalidad-espanola` | `extranjeria` |
 | Hoja de encargo profesional, presupuesto de honorarios y comunicación de fin de encargo | `hoja-encargo` | `despacho` |
 | Minuta de honorarios, requerimiento de pago y jura de cuentas del artículo 35 de la LEC | `minuta-jura-cuentas` | `despacho` |
 | Poder general para pleitos, poder especial, apud acta y autorización de representación administrativa | `poder-representacion` | `despacho` |
