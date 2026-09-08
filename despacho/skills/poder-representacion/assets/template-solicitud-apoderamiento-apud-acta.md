@@ -4,21 +4,21 @@
 
 ---
 
-**AL JUZGADO {{organo_judicial}}**  
-{{bloque_identificacion_autos}}
+**AL JUZGADO {{organo_judicial: denominación del órgano judicial}}**  
+{{bloque_identificacion_autos: bloque condicional que inserta la skill}}
 
 ## PARTE OTORGANTE
 
-{{bloque_identificacion_otorgante}}
+{{bloque_identificacion_otorgante: bloque condicional que inserta la skill}}
 
-{{bloque_titulo_representante_organico}}
+{{bloque_titulo_representante_organico: bloque condicional que inserta la skill}}
 
 ## PROFESIONALES A LOS QUE SE APODERA
 
 | Apoderado | Documento | Condición | Colegiado n.º | Colegio |
 |---|---|---|---|---|
-| {{nombre_apoderado_1}} | {{documento_apoderado_1}} | {{condicion_apoderado_1}} | {{colegiado_apoderado_1}} | {{colegio_apoderado_1}} |
-| {{nombre_apoderado_2}} | {{documento_apoderado_2}} | {{condicion_apoderado_2}} | {{colegiado_apoderado_2}} | {{colegio_apoderado_2}} |
+| {{nombre_apoderado_1: nombre y apellidos}} | {{documento_apoderado_1: DNI/NIE}} | {{condicion_apoderado_1: condición: abogado, procurador o graduado social}} | {{colegiado_apoderado_1: número de colegiado}} | {{colegio_apoderado_1: colegio}} |
+| {{nombre_apoderado_2: nombre y apellidos}} | {{documento_apoderado_2: DNI/NIE}} | {{condicion_apoderado_2: condición: abogado, procurador o graduado social}} | {{colegiado_apoderado_2: número de colegiado}} | {{colegio_apoderado_2: colegio}} |
 
 Que comparece y, como mejor proceda en Derecho,
 
@@ -30,13 +30,13 @@ Que, siendo mi voluntad conferir mi representación procesal a los profesionales
 
 ## SEGUNDO — Ámbito del apoderamiento
 
-{{delimitacion_ambito_apoderamiento}}
+{{delimitacion_ambito_apoderamiento: texto libre}}
 
 ## TERCERO — Facultades que se confieren
 
 Se confieren a los apoderados las facultades ordinarias de representación procesal necesarias para la tramitación del asunto, y en particular:
 
-{{relacion_facultades_ordinarias}}
+{{relacion_facultades_ordinarias: lista, un elemento por línea}}
 
 ## CUARTO — Facultades que requieren mención especial
 
@@ -44,16 +44,16 @@ Conforme al artículo 25.2 de la Ley 1/2000 de Enjuiciamiento Civil, el otorgant
 
 | Facultad | ¿Se confiere? |
 |---|---|
-| Renunciar a la acción o al derecho | {{facultad_renuncia}} |
-| Transigir y suscribir acuerdos transaccionales | {{facultad_transaccion}} |
-| Desistir del procedimiento o del recurso | {{facultad_desistimiento}} |
-| Allanarse a la pretensión de la contraria | {{facultad_allanamiento}} |
-| Someter la controversia a arbitraje o a mediación | {{facultad_arbitraje}} |
-| Manifestaciones que puedan comportar sobreseimiento por satisfacción extraprocesal o carencia sobrevenida de objeto | {{facultad_sobreseimiento}} |
+| Renunciar a la acción o al derecho | {{facultad_renuncia: sí / no}} |
+| Transigir y suscribir acuerdos transaccionales | {{facultad_transaccion: sí / no}} |
+| Desistir del procedimiento o del recurso | {{facultad_desistimiento: sí / no}} |
+| Allanarse a la pretensión de la contraria | {{facultad_allanamiento: sí / no}} |
+| Someter la controversia a arbitraje o a mediación | {{facultad_arbitraje: sí / no}} |
+| Manifestaciones que puedan comportar sobreseimiento por satisfacción extraprocesal o carencia sobrevenida de objeto | {{facultad_sobreseimiento: sí / no}} |
 
 ## QUINTO — Sustitución y duración
 
-{{bloque_sustitucion_y_duracion}}
+{{bloque_sustitucion_y_duracion: bloque condicional que inserta la skill}}
 
 ---
 
@@ -61,15 +61,15 @@ Conforme al artículo 25.2 de la Ley 1/2000 de Enjuiciamiento Civil, el otorgant
 
 **SOLICITO AL JUZGADO** que, teniendo por presentado este escrito, se sirva admitirlo, tener por conferido el apoderamiento apud acta en favor de los profesionales identificados y con las facultades indicadas, dejando constancia de él en las actuaciones y en el registro electrónico de apoderamientos que corresponda, y teniendo por parte a esta representación en lo sucesivo, entendiéndose con ella todas las diligencias del procedimiento.
 
-En {{lugar_presentacion}}, a {{fecha_escrito}}
+En {{lugar_presentacion: localidad}}, a {{fecha_escrito: fecha (DD/MM/AAAA)}}
 
 **EL OTORGANTE**  
-Fdo.: {{nombre_otorgante}}  
-{{documento_otorgante}}
+Fdo.: {{nombre_otorgante: nombre y apellidos}}  
+{{documento_otorgante: DNI/NIE}}
 
 **LOS APODERADOS, que aceptan el poder**  
-Fdo.: {{nombre_apoderado_1}}  
-Colegiado n.º {{colegiado_apoderado_1}} — {{colegio_apoderado_1}}
+Fdo.: {{nombre_apoderado_1: nombre y apellidos}}  
+Colegiado n.º {{colegiado_apoderado_1: número de colegiado}} — {{colegio_apoderado_1: denominación del colegio}}
 
 ---
 

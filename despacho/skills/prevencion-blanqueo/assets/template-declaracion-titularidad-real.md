@@ -5,11 +5,11 @@
 ---
 
 **SUJETO OBLIGADO ANTE EL QUE SE DECLARA**  
-{{denominacion_despacho}} — NIF {{nif_despacho}}  
-Expediente: {{referencia_expediente}}
+{{denominacion_despacho: razón social}} — NIF {{nif_despacho: CIF/NIF}}  
+Expediente: {{referencia_expediente: referencia alfanumérica}}
 
 **DECLARANTE**  
-{{nombre_declarante}}, con documento {{documento_declarante}}, actuando en su condición de {{cargo_declarante}} de la entidad que se identifica a continuación, con facultades suficientes para efectuar la presente declaración.
+{{nombre_declarante: nombre y apellidos}}, con documento {{documento_declarante: DNI/NIE}}, actuando en su condición de {{cargo_declarante: cargo del declarante}} de la entidad que se identifica a continuación, con facultades suficientes para efectuar la presente declaración.
 
 ---
 
@@ -17,14 +17,14 @@ Expediente: {{referencia_expediente}}
 
 | Dato | Contenido |
 |---|---|
-| Denominación social completa | {{denominacion_entidad}} |
-| Forma jurídica | {{forma_juridica}} |
-| NIF o número de identificación | {{nif_entidad}} |
-| Domicilio social | {{domicilio_entidad}} |
-| País de constitución | {{pais_constitucion}} |
-| Datos de inscripción registral | {{datos_registrales}} |
-| Actividad real | {{actividad_real}} |
-| Capital social y su composición | {{capital_social}} |
+| Denominación social completa | {{denominacion_entidad: denominación social completa}} |
+| Forma jurídica | {{forma_juridica: forma jurídica}} |
+| NIF o número de identificación | {{nif_entidad: CIF/NIF}} |
+| Domicilio social | {{domicilio_entidad: domicilio completo}} |
+| País de constitución | {{pais_constitucion: país de constitución}} |
+| Datos de inscripción registral | {{datos_registrales: datos de inscripción registral}} |
+| Actividad real | {{actividad_real: actividad real}} |
+| Capital social y su composición | {{capital_social: importe en euros}} |
 
 ## 2. Titulares reales por participación en el capital o en los derechos de voto
 
@@ -32,9 +32,9 @@ Se declaran como personas físicas que, en último término, poseen o controlan 
 
 | Nombre y apellidos | Documento de identidad | Nacionalidad | Domicilio | Porcentaje | Directa o indirecta |
 |---|---|---|---|---|---|
-| {{titular_1_nombre}} | {{titular_1_documento}} | {{titular_1_nacionalidad}} | {{titular_1_domicilio}} | {{titular_1_porcentaje}} | {{titular_1_via}} |
-| {{titular_2_nombre}} | {{titular_2_documento}} | {{titular_2_nacionalidad}} | {{titular_2_domicilio}} | {{titular_2_porcentaje}} | {{titular_2_via}} |
-| {{titular_3_nombre}} | {{titular_3_documento}} | {{titular_3_nacionalidad}} | {{titular_3_domicilio}} | {{titular_3_porcentaje}} | {{titular_3_via}} |
+| {{titular_1_nombre: nombre y apellidos}} | {{titular_1_documento: documento de identidad}} | {{titular_1_nacionalidad: nacionalidad}} | {{titular_1_domicilio: domicilio}} | {{titular_1_porcentaje: porcentaje}} | {{titular_1_via: directa o indirecta}} |
+| {{titular_2_nombre: nombre y apellidos}} | {{titular_2_documento: documento de identidad}} | {{titular_2_nacionalidad: nacionalidad}} | {{titular_2_domicilio: domicilio}} | {{titular_2_porcentaje: porcentaje}} | {{titular_2_via: directa o indirecta}} |
+| {{titular_3_nombre: nombre y apellidos}} | {{titular_3_documento: documento de identidad}} | {{titular_3_nacionalidad: nacionalidad}} | {{titular_3_domicilio: domicilio}} | {{titular_3_porcentaje: porcentaje}} | {{titular_3_via: directa o indirecta}} |
 
 ## 3. Titulares reales por otros medios de control
 
@@ -42,28 +42,28 @@ Se declaran como personas físicas que ejercen el control de la entidad por medi
 
 | Nombre y apellidos | Documento | Medio de control | Observaciones |
 |---|---|---|---|
-| {{control_1_nombre}} | {{control_1_documento}} | {{control_1_medio}} | {{control_1_obs}} |
-| {{control_2_nombre}} | {{control_2_documento}} | {{control_2_medio}} | {{control_2_obs}} |
+| {{control_1_nombre: nombre y apellidos}} | {{control_1_documento: documento aportado}} | {{control_1_medio: medio de control}} | {{control_1_obs: texto breve}} |
+| {{control_2_nombre: nombre y apellidos}} | {{control_2_documento: documento aportado}} | {{control_2_medio: medio de control}} | {{control_2_obs: texto breve}} |
 
 ## 4. Estructura de propiedad y control
 
 Se describe la cadena de titularidad completa, incluidos los niveles intermedios, hasta llegar a las personas físicas declaradas:
 
-{{descripcion_cadena_titularidad}}
+{{descripcion_cadena_titularidad: texto libre, uno o varios párrafos}}
 
-{{bloque_ausencia_titular_por_participacion}}
+{{bloque_ausencia_titular_por_participacion: bloque condicional que inserta la skill}}
 
 ## 5. Personas con responsabilidad pública
 
 | Pregunta | Respuesta |
 |---|---|
-| ¿Alguna de las personas declaradas desempeña o ha desempeñado funciones públicas importantes? | {{respuesta_prp}} |
-| ¿Alguna es familiar o allegado de una persona en tal situación? | {{respuesta_prp_allegados}} |
-| Detalle, en caso afirmativo | {{detalle_prp}} |
+| ¿Alguna de las personas declaradas desempeña o ha desempeñado funciones públicas importantes? | {{respuesta_prp: sí / no}} |
+| ¿Alguna es familiar o allegado de una persona en tal situación? | {{respuesta_prp_allegados: sí / no}} |
+| Detalle, en caso afirmativo | {{detalle_prp: detalle del cálculo}} |
 
 ## 6. Origen de los fondos y del patrimonio
 
-{{bloque_origen_fondos_patrimonio}}
+{{bloque_origen_fondos_patrimonio: bloque condicional que inserta la skill}}
 
 ## 7. Declaración y compromiso
 
@@ -77,19 +77,19 @@ El declarante manifiesta que:
 
 ## 8. Documentación acreditativa aportada
 
-{{relacion_documentacion_aportada}}
+{{relacion_documentacion_aportada: lista, un elemento por línea}}
 
 ---
 
-En {{lugar_firma}}, a {{fecha_declaracion}}
+En {{lugar_firma: localidad}}, a {{fecha_declaracion: fecha (DD/MM/AAAA)}}
 
 **EL DECLARANTE**  
-Fdo.: {{nombre_declarante}}  
-{{documento_declarante}} — {{cargo_declarante}}
+Fdo.: {{nombre_declarante: nombre y apellidos}}  
+{{documento_declarante: DNI/NIE}} — {{cargo_declarante: cargo del declarante}}
 
 **RECIBIDO POR EL SUJETO OBLIGADO**  
-Fdo.: {{nombre_profesional_responsable}}  
-Colegiado n.º {{numero_colegiado}} — {{colegio_adscripcion}}
+Fdo.: {{nombre_profesional_responsable: nombre y apellidos}}  
+Colegiado n.º {{numero_colegiado: número de colegiado}} — {{colegio_adscripcion: denominación del colegio}}
 
 ---
 

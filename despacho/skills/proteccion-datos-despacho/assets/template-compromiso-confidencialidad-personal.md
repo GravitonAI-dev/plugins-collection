@@ -2,15 +2,15 @@
 
 > **DRAFT — para revisión por el profesional responsable antes de su firma. No constituye asesoramiento jurídico definitivo.**
 
-En {{lugar_firma}}, a {{fecha_firma}}
+En {{lugar_firma: localidad}}, a {{fecha_firma: fecha (DD/MM/AAAA)}}
 
 ---
 
 ## COMPARECIENTES
 
-**EL DESPACHO:** {{denominacion_despacho}}, con NIF {{nif_despacho}} y domicilio profesional en {{domicilio_despacho}}, representado por {{nombre_representante_despacho}}, en su condición de {{cargo_representante_despacho}}.
+**EL DESPACHO:** {{denominacion_despacho: razón social}}, con NIF {{nif_despacho: CIF/NIF}} y domicilio profesional en {{domicilio_despacho: domicilio completo}}, representado por {{nombre_representante_despacho: nombre y apellidos}}, en su condición de {{cargo_representante_despacho: cargo del firmante}}.
 
-**LA PERSONA OBLIGADA:** {{nombre_persona_obligada}}, con documento {{documento_persona_obligada}} y domicilio en {{domicilio_persona_obligada}}, que presta servicios para el despacho en calidad de **{{condicion_persona_obligada}}** desde {{fecha_inicio_relacion}}.
+**LA PERSONA OBLIGADA:** {{nombre_persona_obligada: nombre y apellidos}}, con documento {{documento_persona_obligada: DNI/NIE}} y domicilio en {{domicilio_persona_obligada: domicilio completo}}, que presta servicios para el despacho en calidad de **{{condicion_persona_obligada: condición: personal laboral, colaborador, becario o proveedor}}** desde {{fecha_inicio_relacion: fecha (DD/MM/AAAA)}}.
 
 ## EXPONEN
 
@@ -59,29 +59,29 @@ Las obligaciones asumidas en el presente compromiso, y en particular el deber de
 
 ### QUINTA — Consecuencias del incumplimiento
 
-{{bloque_consecuencias_incumplimiento}}
+{{bloque_consecuencias_incumplimiento: bloque condicional que inserta la skill}}
 
 ### SEXTA — Información sobre el tratamiento de sus propios datos
 
-{{bloque_informacion_datos_persona_obligada}}
+{{bloque_informacion_datos_persona_obligada: bloque condicional que inserta la skill}}
 
 ### SÉPTIMA — Entrega de normativa interna
 
-La persona obligada declara haber recibido, leído y comprendido {{relacion_documentacion_entregada}}, y se compromete a su cumplimiento.
+La persona obligada declara haber recibido, leído y comprendido {{relacion_documentacion_entregada: lista, un elemento por línea}}, y se compromete a su cumplimiento.
 
-{{clausulas_adicionales_pactadas}}
+{{clausulas_adicionales_pactadas: bloque condicional que inserta la skill}}
 
 ---
 
 Y en prueba de conformidad, ambas partes firman el presente compromiso por duplicado y a un solo efecto, entregándose un ejemplar a la persona obligada.
 
 **POR EL DESPACHO**  
-Fdo.: {{nombre_representante_despacho}}  
-{{cargo_representante_despacho}}
+Fdo.: {{nombre_representante_despacho: nombre y apellidos}}  
+{{cargo_representante_despacho: cargo del firmante}}
 
 **LA PERSONA OBLIGADA**  
-Fdo.: {{nombre_persona_obligada}}  
-{{documento_persona_obligada}}
+Fdo.: {{nombre_persona_obligada: nombre y apellidos}}  
+{{documento_persona_obligada: DNI/NIE}}
 
 ---
 

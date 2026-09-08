@@ -1,51 +1,51 @@
-# MINUTA DE HONORARIOS PROFESIONALES N.º {{numero_minuta}}
+# MINUTA DE HONORARIOS PROFESIONALES N.º {{numero_minuta: referencia alfanumérica}}
 
 > **DRAFT — para revisión por el profesional responsable antes de su emisión y entrega. Debe adaptarse a la normativa deontológica del colegio de adscripción.**
 
 ---
 
 **EMISOR**  
-{{denominacion_despacho}}  
-NIF {{nif_despacho}}  
-{{domicilio_despacho}}  
-Profesional responsable: {{nombre_profesional_responsable}}, colegiado n.º {{numero_colegiado}} del {{colegio_adscripcion}}
+{{denominacion_despacho: razón social}}  
+NIF {{nif_despacho: CIF/NIF}}  
+{{domicilio_despacho: domicilio completo}}  
+Profesional responsable: {{nombre_profesional_responsable: nombre y apellidos}}, colegiado n.º {{numero_colegiado: número de colegiado}} del {{colegio_adscripcion: denominación del colegio}}
 
 **DESTINATARIO**  
-{{nombre_cliente}}  
-{{tipo_documento_cliente}} {{documento_cliente}}  
-{{domicilio_cliente}}
+{{nombre_cliente: nombre y apellidos}}  
+{{tipo_documento_cliente: tipo de documento: DNI, NIE o CIF}} {{documento_cliente: DNI/NIE}}  
+{{domicilio_cliente: domicilio completo}}
 
-**Número de minuta:** {{numero_minuta}}  
-**Fecha de emisión:** {{fecha_minuta}}  
-**Referencia del expediente:** {{referencia_expediente}}
+**Número de minuta:** {{numero_minuta: referencia alfanumérica}}  
+**Fecha de emisión:** {{fecha_minuta: fecha (DD/MM/AAAA)}}  
+**Referencia del expediente:** {{referencia_expediente: referencia alfanumérica}}
 
 ---
 
 ## 1. Asunto
 
-{{descripcion_asunto}}
+{{descripcion_asunto: texto libre, uno o varios párrafos}}
 
-{{bloque_identificacion_procedimiento_judicial}}
+{{bloque_identificacion_procedimiento_judicial: bloque condicional que inserta la skill}}
 
-**Título del encargo:** {{titulo_encargo}}
+**Título del encargo:** {{titulo_encargo: título del encargo: hoja de encargo o encargo verbal}}
 
-**Periodo de actuación minutado:** desde {{fecha_inicio_actuacion}} hasta {{fecha_fin_actuacion}}
+**Periodo de actuación minutado:** desde {{fecha_inicio_actuacion: fecha (DD/MM/AAAA)}} hasta {{fecha_fin_actuacion: fecha (DD/MM/AAAA)}}
 
 ## 2. Relación de actuaciones profesionales realizadas
 
-| Fecha | Actuación | {{columna_tiempo_o_hito}} |
+| Fecha | Actuación | Tiempo o hito |
 |---|---|---|
-| {{fecha_act_1}} | {{descripcion_act_1}} | {{medida_act_1}} |
-| {{fecha_act_2}} | {{descripcion_act_2}} | {{medida_act_2}} |
-| {{fecha_act_3}} | {{descripcion_act_3}} | {{medida_act_3}} |
-| {{fecha_act_4}} | {{descripcion_act_4}} | {{medida_act_4}} |
-| {{fecha_act_5}} | {{descripcion_act_5}} | {{medida_act_5}} |
-| {{fecha_act_6}} | {{descripcion_act_6}} | {{medida_act_6}} |
-| **Total** | | **{{total_medida}}** |
+| {{fecha_act_1: fecha (DD/MM/AAAA)}} | {{descripcion_act_1: descripción de la actuación}} | {{medida_act_1: tiempo dedicado en horas o hito de facturación}} |
+| {{fecha_act_2: fecha (DD/MM/AAAA)}} | {{descripcion_act_2: descripción de la actuación}} | {{medida_act_2: tiempo dedicado en horas o hito de facturación}} |
+| {{fecha_act_3: fecha (DD/MM/AAAA)}} | {{descripcion_act_3: descripción de la actuación}} | {{medida_act_3: tiempo dedicado en horas o hito de facturación}} |
+| {{fecha_act_4: fecha (DD/MM/AAAA)}} | {{descripcion_act_4: descripción de la actuación}} | {{medida_act_4: tiempo dedicado en horas o hito de facturación}} |
+| {{fecha_act_5: fecha (DD/MM/AAAA)}} | {{descripcion_act_5: descripción de la actuación}} | {{medida_act_5: tiempo dedicado en horas o hito de facturación}} |
+| {{fecha_act_6: fecha (DD/MM/AAAA)}} | {{descripcion_act_6: descripción de la actuación}} | {{medida_act_6: tiempo dedicado en horas o hito de facturación}} |
+| **Total** | | **{{total_medida: total de horas o de hitos}}** |
 
 ## 3. Fundamento de los honorarios
 
-{{fundamento_honorarios}}
+{{fundamento_honorarios: texto libre, uno o varios párrafos}}
 
 ## 4. Desglose económico
 
@@ -53,15 +53,15 @@ Profesional responsable: {{nombre_profesional_responsable}}, colegiado n.º {{nu
 
 | Concepto | Importe |
 |---|---|
-| {{concepto_honorario_1}} | {{importe_honorario_1}} € |
-| {{concepto_honorario_2}} | {{importe_honorario_2}} € |
-| {{concepto_honorario_3}} | {{importe_honorario_3}} € |
-| **Base de honorarios** | **{{base_honorarios}} €** |
-| Impuesto sobre el valor añadido ({{tipo_iva}} %) | {{importe_iva}} € |
-| Retención a cuenta del IRPF ({{tipo_retencion}} %) | -{{importe_retencion}} € |
-| **Subtotal honorarios** | **{{subtotal_honorarios}} €** |
+| {{concepto_honorario_1: concepto de honorario}} | {{importe_honorario_1: importe en euros}} € |
+| {{concepto_honorario_2: concepto de honorario}} | {{importe_honorario_2: importe en euros}} € |
+| {{concepto_honorario_3: concepto de honorario}} | {{importe_honorario_3: importe en euros}} € |
+| **Base de honorarios** | **{{base_honorarios: importe en euros}} €** |
+| Impuesto sobre el valor añadido ({{tipo_iva: porcentaje}} %) | {{importe_iva: importe en euros}} € |
+| Retención a cuenta del IRPF ({{tipo_retencion: porcentaje}} %) | -{{importe_retencion: importe en euros}} € |
+| **Subtotal honorarios** | **{{subtotal_honorarios: importe en euros}} €** |
 
-{{parrafo_retencion_solo_si_cliente_obligado}}
+{{parrafo_retencion_solo_si_cliente_obligado: bloque condicional que inserta la skill}}
 
 ### 4.2 Suplidos y gastos justificados
 
@@ -69,44 +69,44 @@ Cantidades abonadas por cuenta del cliente a terceros, que se repercuten sin rec
 
 | Concepto | Perceptor | Justificante | Importe |
 |---|---|---|---|
-| {{suplido_1}} | {{perceptor_suplido_1}} | {{justificante_suplido_1}} | {{importe_suplido_1}} € |
-| {{suplido_2}} | {{perceptor_suplido_2}} | {{justificante_suplido_2}} | {{importe_suplido_2}} € |
-| {{suplido_3}} | {{perceptor_suplido_3}} | {{justificante_suplido_3}} | {{importe_suplido_3}} € |
-| **Total suplidos** | | | **{{total_suplidos}} €** |
+| {{suplido_1: concepto del suplido}} | {{perceptor_suplido_1: perceptor}} | {{justificante_suplido_1: justificante}} | {{importe_suplido_1: importe en euros}} € |
+| {{suplido_2: concepto del suplido}} | {{perceptor_suplido_2: perceptor}} | {{justificante_suplido_2: justificante}} | {{importe_suplido_2: importe en euros}} € |
+| {{suplido_3: concepto del suplido}} | {{perceptor_suplido_3: perceptor}} | {{justificante_suplido_3: justificante}} | {{importe_suplido_3: importe en euros}} € |
+| **Total suplidos** | | | **{{total_suplidos: importe en euros}} €** |
 
 ### 4.3 Liquidación
 
 | Concepto | Importe |
 |---|---|
-| Subtotal honorarios | {{subtotal_honorarios}} € |
-| Total suplidos | {{total_suplidos}} € |
-| **Total minuta** | **{{total_minuta}} €** |
-| Provisión de fondos recibida el {{fecha_provision}} | -{{provision_recibida}} € |
-| Cantidades ya abonadas a cuenta | -{{cantidades_abonadas}} € |
-| **{{concepto_saldo}}** | **{{importe_saldo}} €** |
+| Subtotal honorarios | {{subtotal_honorarios: importe en euros}} € |
+| Total suplidos | {{total_suplidos: importe en euros}} € |
+| **Total minuta** | **{{total_minuta: importe en euros}} €** |
+| Provisión de fondos recibida el {{fecha_provision: fecha (DD/MM/AAAA)}} | -{{provision_recibida: importe en euros}} € |
+| Cantidades ya abonadas a cuenta | -{{cantidades_abonadas: importe en euros}} € |
+| **{{concepto_saldo: concepto del saldo: a favor del despacho o del cliente}}** | **{{importe_saldo: importe en euros}} €** |
 
 ## 5. Forma y plazo de pago
 
-{{forma_y_plazo_pago}}
+{{forma_y_plazo_pago: forma y plazo de pago}}
 
-Mediante transferencia a la cuenta {{iban_despacho}}, indicando en el concepto el número de la presente minuta.
+Mediante transferencia a la cuenta {{iban_despacho: IBAN}}, indicando en el concepto el número de la presente minuta.
 
-{{parrafo_devolucion_saldo_favorable_cliente}}
+{{parrafo_devolucion_saldo_favorable_cliente: bloque condicional que inserta la skill}}
 
 ---
 
-{{denominacion_despacho}}  
-Fdo.: {{nombre_profesional_responsable}}  
-Colegiado n.º {{numero_colegiado}} — {{colegio_adscripcion}}
+{{denominacion_despacho: razón social}}  
+Fdo.: {{nombre_profesional_responsable: nombre y apellidos}}  
+Colegiado n.º {{numero_colegiado: número de colegiado}} — {{colegio_adscripcion: denominación del colegio}}
 
 ---
 
 **RECIBÍ**
 
-Recibida la presente minuta y sus justificantes en fecha {{fecha_recibi}}.
+Recibida la presente minuta y sus justificantes en fecha {{fecha_recibi: fecha (DD/MM/AAAA)}}.
 
-Fdo.: {{nombre_cliente}}  
-{{tipo_documento_cliente}} {{documento_cliente}}
+Fdo.: {{nombre_cliente: nombre y apellidos}}  
+{{tipo_documento_cliente: tipo de documento: DNI, NIE o CIF}} {{documento_cliente: DNI/NIE}}
 
 ---
 

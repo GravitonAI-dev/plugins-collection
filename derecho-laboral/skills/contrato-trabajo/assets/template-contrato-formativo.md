@@ -1,28 +1,28 @@
-# CONTRATO DE TRABAJO FORMATIVO — {{razon_social_empresa}} y {{nombre_trabajador}}
+# CONTRATO DE TRABAJO FORMATIVO — {{razon_social_empresa: razón social}} y {{nombre_trabajador: nombre y apellidos}}
 
 > **DRAFT — para revisión por un abogado o graduado social colegiado antes de su firma y formalización. No constituye asesoramiento jurídico definitivo.**  
-> Convenio colectivo aplicable: {{denominacion_convenio}} (código {{codigo_convenio}})  
-> Submodalidad: {{submodalidad_formativa}}
+> Convenio colectivo aplicable: {{denominacion_convenio: denominación y ámbito del convenio colectivo}} (código {{codigo_convenio: código de convenio}})  
+> Submodalidad: {{submodalidad_formativa: submodalidad del contrato formativo}}
 
-En {{lugar_firma}}, a {{fecha_firma}}
+En {{lugar_firma: localidad}}, a {{fecha_firma: fecha (DD/MM/AAAA)}}
 
 ---
 
 ## REUNIDOS
 
-**DE UNA PARTE**, {{razon_social_empresa}}, con CIF {{cif_empresa}}, domicilio social en {{domicilio_empresa}}, código de cuenta de cotización {{ccc_empresa}} y actividad de {{actividad_empresa}}, representada en este acto por {{nombre_representante}}, con NIF {{nif_representante}}, en su condición de {{cargo_representante}} (en adelante, la EMPRESA).
+**DE UNA PARTE**, {{razon_social_empresa: razón social}}, con CIF {{cif_empresa: CIF/NIF}}, domicilio social en {{domicilio_empresa: domicilio completo}}, código de cuenta de cotización {{ccc_empresa: código de cuenta de cotización}} y actividad de {{actividad_empresa: actividad de la empresa}}, representada en este acto por {{nombre_representante: nombre y apellidos}}, con NIF {{nif_representante: CIF/NIF}}, en su condición de {{cargo_representante: cargo del firmante}} (en adelante, la EMPRESA).
 
-**DE OTRA PARTE**, {{nombre_trabajador}}, con DNI/NIE {{dni_trabajador}}, número de afiliación a la Seguridad Social {{naf_trabajador}}, nacido el {{fecha_nacimiento_trabajador}} y domicilio en {{domicilio_trabajador}} (en adelante, la persona TRABAJADORA).
+**DE OTRA PARTE**, {{nombre_trabajador: nombre y apellidos}}, con DNI/NIE {{dni_trabajador: DNI/NIE}}, número de afiliación a la Seguridad Social {{naf_trabajador: número de afiliación a la Seguridad Social}}, nacido el {{fecha_nacimiento_trabajador: fecha (DD/MM/AAAA)}} y domicilio en {{domicilio_trabajador: domicilio completo}} (en adelante, la persona TRABAJADORA).
 
 Ambas partes se reconocen mutuamente capacidad legal suficiente para contratar y obligarse, y a tal efecto
 
 ## EXPONEN
 
-**I.** Que la persona TRABAJADORA acredita la siguiente situación formativa o titulación: {{acreditacion_formativa_trabajador}}.
+**I.** Que la persona TRABAJADORA acredita la siguiente situación formativa o titulación: {{acreditacion_formativa_trabajador: texto libre, uno o varios párrafos}}.
 
-**II.** Que concurren los requisitos exigidos por el artículo 11 del texto refundido de la Ley del Estatuto de los Trabajadores, aprobado por Real Decreto Legislativo 2/2015, de 23 de octubre, para la celebración de un contrato formativo en la submodalidad de {{submodalidad_formativa}}, según se detalla:
+**II.** Que concurren los requisitos exigidos por el artículo 11 del texto refundido de la Ley del Estatuto de los Trabajadores, aprobado por Real Decreto Legislativo 2/2015, de 23 de octubre, para la celebración de un contrato formativo en la submodalidad de {{submodalidad_formativa: submodalidad del contrato formativo}}, según se detalla:
 
-{{acreditacion_requisitos_submodalidad}}
+{{acreditacion_requisitos_submodalidad: texto libre, uno o varios párrafos}}
 
 **III.** Que ambas partes convienen en formalizar el presente contrato con sujeción a las siguientes
 
@@ -30,29 +30,29 @@ Ambas partes se reconocen mutuamente capacidad legal suficiente para contratar y
 
 ### PRIMERA — Objeto y puesto formativo
 
-La persona TRABAJADORA prestará sus servicios como {{denominacion_puesto}}, quedando encuadrada en el grupo profesional {{grupo_profesional}}, nivel retributivo {{nivel_retributivo}}, del {{denominacion_convenio}}.
+La persona TRABAJADORA prestará sus servicios como {{denominacion_puesto: denominación del puesto}}, quedando encuadrada en el grupo profesional {{grupo_profesional: grupo profesional del convenio}}, nivel retributivo {{nivel_retributivo: nivel retributivo del convenio}}, del {{denominacion_convenio: denominación y ámbito del convenio colectivo}}.
 
 El puesto ofrecido permite la adquisición de la práctica profesional o el desempeño de la actividad laboral vinculada a la formación, en los siguientes términos:
 
-{{descripcion_funciones_formativas}}
+{{descripcion_funciones_formativas: texto libre, uno o varios párrafos}}
 
 ### SEGUNDA — Duración
 
-El presente contrato se concierta desde el día {{fecha_inicio}} hasta el día {{fecha_fin}}, ambos inclusive, dentro de los límites de duración legalmente previstos para la submodalidad contratada.
+El presente contrato se concierta desde el día {{fecha_inicio: fecha (DD/MM/AAAA)}} hasta el día {{fecha_fin: fecha (DD/MM/AAAA)}}, ambos inclusive, dentro de los límites de duración legalmente previstos para la submodalidad contratada.
 
 ### TERCERA — Plan formativo individual y tutoría
 
-{{parrafo_plan_formativo_y_centro}}
+{{parrafo_plan_formativo_y_centro: bloque condicional que inserta la skill}}
 
-La EMPRESA designa como **persona tutora** a {{nombre_tutor}}, con la formación y experiencia adecuadas, encargada del seguimiento del plan formativo individual y de la elaboración del informe final sobre el desempeño.
+La EMPRESA designa como **persona tutora** a {{nombre_tutor: nombre y apellidos}}, con la formación y experiencia adecuadas, encargada del seguimiento del plan formativo individual y de la elaboración del informe final sobre el desempeño.
 
-{{parrafo_tutor_centro_formativo}}
+{{parrafo_tutor_centro_formativo: bloque condicional que inserta la skill}}
 
 ### CUARTA — Jornada y tiempo de trabajo efectivo
 
-La jornada será {{tipo_jornada}}, con una duración de {{jornada_semanal}} horas semanales, distribuidas conforme al siguiente horario: {{distribucion_horaria}}.
+La jornada será {{tipo_jornada: jornada: completa o parcial}}, con una duración de {{jornada_semanal: número de horas semanales}} horas semanales, distribuidas conforme al siguiente horario: {{distribucion_horaria: horario y distribución de la jornada}}.
 
-{{parrafo_limite_jornada_alternancia}}
+{{parrafo_limite_jornada_alternancia: bloque condicional que inserta la skill}}
 
 No podrán realizarse **horas complementarias ni horas extraordinarias**, salvo el supuesto de fuerza mayor previsto legalmente, ni **trabajo nocturno ni a turnos**, salvo las excepciones legalmente admitidas cuando la actividad formativa no pueda desarrollarse en otros periodos.
 
@@ -60,21 +60,21 @@ La EMPRESA llevará el registro diario de jornada exigido por el artículo 34.9 
 
 ### QUINTA — Lugar de prestación de servicios
 
-Los servicios se prestarán en el centro de trabajo sito en {{centro_trabajo}}.
+Los servicios se prestarán en el centro de trabajo sito en {{centro_trabajo: dirección del centro de trabajo}}.
 
 ### SEXTA — Retribución
 
-La persona TRABAJADORA percibirá una retribución bruta de {{salario_bruto_mensual}} euros mensuales, determinada conforme a lo establecido en el artículo {{articulo_convenio_retribucion_formativos}} del convenio colectivo de aplicación y respetando en todo caso los mínimos previstos en el artículo 11 del Estatuto de los Trabajadores.
+La persona TRABAJADORA percibirá una retribución bruta de {{salario_bruto_mensual: importe en euros}} euros mensuales, determinada conforme a lo establecido en el artículo {{articulo_convenio_retribucion_formativos: número de artículo}} del convenio colectivo de aplicación y respetando en todo caso los mínimos previstos en el artículo 11 del Estatuto de los Trabajadores.
 
 En ningún caso la retribución será inferior al **salario mínimo interprofesional** en proporción al tiempo de trabajo efectivo.
 
-Desglose: {{desglose_retribucion}}
+Desglose: {{desglose_retribucion: detalle del cálculo}}
 
-El abono se realizará por meses vencidos mediante transferencia bancaria a la cuenta {{iban_trabajador}}.
+El abono se realizará por meses vencidos mediante transferencia bancaria a la cuenta {{iban_trabajador: IBAN}}.
 
 ### SÉPTIMA — Periodo de prueba
 
-{{parrafo_periodo_prueba_formativo}}
+{{parrafo_periodo_prueba_formativo: bloque condicional que inserta la skill}}
 
 ### OCTAVA — Vacaciones
 
@@ -86,7 +86,7 @@ A la finalización del contrato, la EMPRESA entregará a la persona TRABAJADORA 
 
 ### DÉCIMA — Convenio colectivo aplicable
 
-La presente relación laboral se regirá por lo pactado en este contrato, por el {{denominacion_convenio}} y, en lo no previsto, por el Estatuto de los Trabajadores y demás normativa laboral vigente.
+La presente relación laboral se regirá por lo pactado en este contrato, por el {{denominacion_convenio: denominación y ámbito del convenio colectivo}} y, en lo no previsto, por el Estatuto de los Trabajadores y demás normativa laboral vigente.
 
 ### UNDÉCIMA — Confidencialidad y protección de datos
 
@@ -96,19 +96,19 @@ La persona TRABAJADORA se obliga a guardar secreto sobre la información reserva
 
 La EMPRESA facilitará, con carácter previo al inicio efectivo de la prestación, la información y formación en materia de prevención de riesgos laborales correspondientes al puesto, así como los equipos de protección necesarios, con especial atención a la condición de persona trabajadora en formación.
 
-{{clausulas_adicionales_pactadas}}
+{{clausulas_adicionales_pactadas: bloque condicional que inserta la skill}}
 
 ---
 
 Y en prueba de conformidad, ambas partes firman el presente contrato por duplicado y a un solo efecto, en el lugar y fecha indicados en el encabezamiento.
 
 **POR LA EMPRESA**  
-Fdo.: {{nombre_representante}}  
-{{cargo_representante}}
+Fdo.: {{nombre_representante: nombre y apellidos}}  
+{{cargo_representante: cargo del firmante}}
 
 **LA PERSONA TRABAJADORA**  
-Fdo.: {{nombre_trabajador}}  
-DNI/NIE {{dni_trabajador}}
+Fdo.: {{nombre_trabajador: nombre y apellidos}}  
+DNI/NIE {{dni_trabajador: DNI/NIE}}
 
 ---
 

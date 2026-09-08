@@ -1,84 +1,84 @@
 # SOLICITUD DE REVISIÓN DEL GRADO DE INCAPACIDAD PERMANENTE
 
 > **DRAFT — para revisión por un abogado o graduado social colegiado antes de su firma y presentación. No constituye asesoramiento jurídico definitivo.**  
-> Grado reconocido: {{grado_reconocido}} — Resolución de {{fecha_resolucion_reconocimiento}}  
-> Plazo de revisión fijado en la resolución: {{plazo_revision_fijado}}
+> Grado reconocido: {{grado_reconocido: grado de incapacidad reconocido}} — Resolución de {{fecha_resolucion_reconocimiento: fecha (DD/MM/AAAA)}}  
+> Plazo de revisión fijado en la resolución: {{plazo_revision_fijado: plazo o número}}
 
 ---
 
-**A LA {{organo_destinatario}}**  
-{{direccion_provincial}}
+**A LA {{organo_destinatario: denominación del órgano destinatario}}**  
+{{direccion_provincial: dirección provincial de la entidad gestora}}
 
 ## DATOS DEL INTERESADO
 
 | Dato | Valor |
 |---|---|
-| Nombre y apellidos | {{nombre_interesado}} |
-| DNI/NIE | {{dni_interesado}} |
-| Número de afiliación a la Seguridad Social | {{naf_interesado}} |
-| Domicilio a efectos de notificaciones | {{domicilio_interesado}} |
-| Teléfono | {{telefono_interesado}} |
-| Correo electrónico | {{email_interesado}} |
-| Representado por | {{representante_interesado}} |
+| Nombre y apellidos | {{nombre_interesado: nombre y apellidos}} |
+| DNI/NIE | {{dni_interesado: DNI/NIE}} |
+| Número de afiliación a la Seguridad Social | {{naf_interesado: número de afiliación a la Seguridad Social}} |
+| Domicilio a efectos de notificaciones | {{domicilio_interesado: domicilio completo}} |
+| Teléfono | {{telefono_interesado: teléfono}} |
+| Correo electrónico | {{email_interesado: correo electrónico}} |
+| Representado por | {{representante_interesado: representado por}} |
 
 ## SITUACIÓN RECONOCIDA
 
 | Dato | Valor |
 |---|---|
-| Número de expediente | {{numero_expediente}} |
-| Grado de incapacidad reconocido | {{grado_reconocido}} |
-| Fecha de la resolución de reconocimiento | {{fecha_resolucion_reconocimiento}} |
-| Contingencia | {{contingencia}} |
-| Base reguladora | {{base_reguladora}} |
-| Porcentaje aplicado | {{porcentaje_aplicado}} |
-| Plazo de revisión fijado | {{plazo_revision_fijado}} |
-| Profesión habitual considerada | {{profesion_habitual}} |
+| Número de expediente | {{numero_expediente: número de expediente}} |
+| Grado de incapacidad reconocido | {{grado_reconocido: grado de incapacidad reconocido}} |
+| Fecha de la resolución de reconocimiento | {{fecha_resolucion_reconocimiento: fecha (DD/MM/AAAA)}} |
+| Contingencia | {{contingencia: contingencia}} |
+| Base reguladora | {{base_reguladora: base reguladora}} |
+| Porcentaje aplicado | {{porcentaje_aplicado: porcentaje}} |
+| Plazo de revisión fijado | {{plazo_revision_fijado: plazo de revisión fijado}} |
+| Profesión habitual considerada | {{profesion_habitual: profesión habitual considerada}} |
 
-Que por medio del presente escrito **SOLICITO LA REVISIÓN** del grado de incapacidad permanente reconocido, por **{{causa_revision}}**, con base en los siguientes
+Que por medio del presente escrito **SOLICITO LA REVISIÓN** del grado de incapacidad permanente reconocido, por **{{causa_revision: causa de la revisión: agravación o mejoría}}**, con base en los siguientes
 
 ## HECHOS
 
 ### PRIMERO — Situación reconocida
 
-{{relato_situacion_reconocida}}
+{{relato_situacion_reconocida: texto libre, uno o varios párrafos}}
 
 ### SEGUNDO — Concurrencia de la causa de revisión
 
-{{acreditacion_causa_revision}}
+{{acreditacion_causa_revision: texto libre, uno o varios párrafos}}
 
 ### TERCERO — Evolución del cuadro clínico desde el reconocimiento
 
 | Fecha | Facultativo y servicio | Contenido relevante y evolución |
 |---|---|---|
-| {{fecha_informe_1}} | {{facultativo_1}} | {{contenido_informe_1}} |
-| {{fecha_informe_2}} | {{facultativo_2}} | {{contenido_informe_2}} |
-| {{fecha_informe_3}} | {{facultativo_3}} | {{contenido_informe_3}} |
+| {{fecha_informe_1: fecha (DD/MM/AAAA)}} | {{facultativo_1: facultativo y servicio}} | {{contenido_informe_1: contenido relevante y evolución}} |
+| {{fecha_informe_2: fecha (DD/MM/AAAA)}} | {{facultativo_2: facultativo y servicio}} | {{contenido_informe_2: contenido relevante y evolución}} |
+| {{fecha_informe_3: fecha (DD/MM/AAAA)}} | {{facultativo_3: facultativo y servicio}} | {{contenido_informe_3: contenido relevante y evolución}} |
 
 ### CUARTO — Limitaciones funcionales actuales
 
-{{relacion_limitaciones_funcionales_actuales}}
+{{relacion_limitaciones_funcionales_actuales: lista, un elemento por línea}}
 
 ### QUINTO — Comparación con las limitaciones valoradas en el reconocimiento inicial
 
-{{comparativa_limitaciones}}
+{{comparativa_limitaciones: texto libre, uno o varios párrafos}}
 
 ### SEXTO — Incidencia sobre la profesión habitual y sobre cualquier actividad laboral
 
-{{analisis_incidencia_limitaciones}}
+{{analisis_incidencia_limitaciones: texto libre, uno o varios párrafos}}
 
 ## FUNDAMENTOS
 
 ### I. Cauce y plazo
 
-La presente solicitud se formula al amparo de la normativa reguladora de la revisión de la incapacidad permanente contenida en el texto refundido de la Ley General de la Seguridad Social, aprobado por Real Decreto Legislativo 8/2015, de 30 de octubre, {{fundamento_plazo_revision}}.
+La presente solicitud se formula al amparo de la normativa reguladora de la revisión de la incapacidad permanente contenida en el texto refundido de la Ley General de la Seguridad Social, aprobado por Real Decreto Legislativo 8/2015, de 30 de octubre, {{fundamento_plazo_revision: texto libre, uno o varios párrafos}}.
 
 ### II. Normativa aplicable y grados
 
-{{normativa_aplicable_verificada}}
+{{normativa_aplicable_verificada: normativa aplicable verificada en el BOE}}
 
 ### III. Motivos de la solicitud
 
-{{motivos_desarrollados}}
+{{motivos_desarrollados: texto libre, uno o varios párrafos}}
 
 ### IV. Solicitud de aportación del expediente
 
@@ -90,20 +90,20 @@ Se interesa expresamente que se una a la presente solicitud el **expediente admi
 
 **SOLICITO** que se tenga por presentada esta solicitud de revisión, se una al expediente de referencia, se practiquen los reconocimientos médicos que procedan, y previos los trámites oportunos se dicte resolución por la que se acuerde:
 
-{{pretension_concreta}}
+{{pretension_concreta: pretensión concreta que se solicita}}
 
-Con efectos económicos desde {{fecha_efectos_pretendida}}.
+Con efectos económicos desde {{fecha_efectos_pretendida: fecha (DD/MM/AAAA)}}.
 
-En {{lugar_presentacion}}, a {{fecha_escrito}}
+En {{lugar_presentacion: localidad}}, a {{fecha_escrito: fecha (DD/MM/AAAA)}}
 
-Fdo.: {{nombre_interesado}}  
-DNI/NIE {{dni_interesado}}
+Fdo.: {{nombre_interesado: nombre y apellidos}}  
+DNI/NIE {{dni_interesado: DNI/NIE}}
 
 ---
 
 ## DOCUMENTACIÓN QUE SE ACOMPAÑA
 
-{{relacion_documentacion_aportada}}
+{{relacion_documentacion_aportada: lista, un elemento por línea}}
 
 ---
 

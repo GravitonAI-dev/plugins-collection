@@ -5,62 +5,62 @@
 ---
 
 **DESPACHO**  
-{{denominacion_despacho}}  
-NIF {{nif_despacho}}  
-{{domicilio_despacho}}  
-Profesional responsable: {{nombre_profesional_responsable}}, colegiado n.º {{numero_colegiado}} del {{colegio_adscripcion}}  
-Contacto: {{telefono_despacho}} — {{email_despacho}}
+{{denominacion_despacho: razón social}}  
+NIF {{nif_despacho: CIF/NIF}}  
+{{domicilio_despacho: domicilio completo}}  
+Profesional responsable: {{nombre_profesional_responsable: nombre y apellidos}}, colegiado n.º {{numero_colegiado: número de colegiado}} del {{colegio_adscripcion: denominación del colegio}}  
+Contacto: {{telefono_despacho: teléfono}} — {{email_despacho: correo electrónico}}
 
 **DESTINATARIO**  
-{{nombre_cliente}}  
-{{tipo_documento_cliente}} {{documento_cliente}}  
-{{domicilio_cliente}}
+{{nombre_cliente: nombre y apellidos}}  
+{{tipo_documento_cliente: tipo de documento: DNI, NIE o CIF}} {{documento_cliente: DNI/NIE}}  
+{{domicilio_cliente: domicilio completo}}
 
-**Referencia:** {{referencia_presupuesto}}  
-**Fecha de emisión:** {{fecha_presupuesto}}  
-**Validez del presupuesto:** {{plazo_validez}}
+**Referencia:** {{referencia_presupuesto: referencia alfanumérica}}  
+**Fecha de emisión:** {{fecha_presupuesto: fecha (DD/MM/AAAA)}}  
+**Validez del presupuesto:** {{plazo_validez: plazo de validez en días}}
 
 ---
 
 ## 1. Asunto sobre el que se emite el presupuesto
 
-{{descripcion_asunto}}
+{{descripcion_asunto: texto libre, uno o varios párrafos}}
 
 **Documentación e información facilitada por el destinatario para su elaboración:**
 
-{{documentacion_examinada}}
+{{documentacion_examinada: documentación examinada}}
 
 Este presupuesto se emite sobre la base de la información indicada. Cualquier dato o circunstancia relevante no comunicada que altere la complejidad o el alcance del asunto podrá modificar la valoración, en cuyo caso se emitirá un presupuesto revisado con carácter previo a cualquier actuación.
 
 ## 2. Actuaciones incluidas en el presupuesto
 
-{{relacion_actuaciones_incluidas}}
+{{relacion_actuaciones_incluidas: lista, un elemento por línea}}
 
 ## 3. Actuaciones no incluidas
 
-{{relacion_actuaciones_excluidas}}
+{{relacion_actuaciones_excluidas: lista, un elemento por línea}}
 
 ## 4. Honorarios propuestos
 
-{{bloque_honorarios_por_modalidad}}
+{{bloque_honorarios_por_modalidad: bloque condicional que inserta la skill}}
 
 | Concepto | Importe |
 |---|---|
-| Base de honorarios | {{base_honorarios}} € |
-| Impuesto sobre el valor añadido ({{tipo_iva}} %) | {{importe_iva}} € |
-| **Total con impuestos** | **{{total_con_impuestos}} €** |
-| Retención a cuenta del IRPF ({{tipo_retencion}} %), si el destinatario está obligado a practicarla | {{importe_retencion}} € |
-| **Total a percibir por el DESPACHO** | **{{total_a_percibir}} €** |
+| Base de honorarios | {{base_honorarios: importe en euros}} € |
+| Impuesto sobre el valor añadido ({{tipo_iva: porcentaje}} %) | {{importe_iva: importe en euros}} € |
+| **Total con impuestos** | **{{total_con_impuestos: importe en euros}} €** |
+| Retención a cuenta del IRPF ({{tipo_retencion: porcentaje}} %), si el destinatario está obligado a practicarla | {{importe_retencion: importe en euros}} € |
+| **Total a percibir por el DESPACHO** | **{{total_a_percibir: importe en euros}} €** |
 
 **Hitos de facturación propuestos:**
 
 | Hito | Actuación que lo genera | Importe |
 |---|---|---|
-| {{hito_1}} | {{actuacion_hito_1}} | {{importe_hito_1}} € |
-| {{hito_2}} | {{actuacion_hito_2}} | {{importe_hito_2}} € |
-| {{hito_3}} | {{actuacion_hito_3}} | {{importe_hito_3}} € |
+| {{hito_1: hito}} | {{actuacion_hito_1: actuación que lo genera}} | {{importe_hito_1: importe en euros}} € |
+| {{hito_2: hito}} | {{actuacion_hito_2: actuación que lo genera}} | {{importe_hito_2: importe en euros}} € |
+| {{hito_3: hito}} | {{actuacion_hito_3: actuación que lo genera}} | {{importe_hito_3: importe en euros}} € |
 
-{{parrafo_estimacion_maxima_por_horas}}
+{{parrafo_estimacion_maxima_por_horas: bloque condicional que inserta la skill}}
 
 ## 5. Gastos y suplidos no incluidos en los honorarios
 
@@ -68,15 +68,15 @@ Los siguientes conceptos son ajenos a los honorarios profesionales y serán de c
 
 | Concepto | Importe estimado | Observaciones |
 |---|---|---|
-| {{gasto_1}} | {{importe_gasto_1}} € | {{observaciones_gasto_1}} |
-| {{gasto_2}} | {{importe_gasto_2}} € | {{observaciones_gasto_2}} |
-| {{gasto_3}} | {{importe_gasto_3}} € | {{observaciones_gasto_3}} |
+| {{gasto_1: concepto del gasto}} | {{importe_gasto_1: importe en euros}} € | {{observaciones_gasto_1: texto breve}} |
+| {{gasto_2: concepto del gasto}} | {{importe_gasto_2: importe en euros}} € | {{observaciones_gasto_2: texto breve}} |
+| {{gasto_3: concepto del gasto}} | {{importe_gasto_3: importe en euros}} € | {{observaciones_gasto_3: texto breve}} |
 
-**Provisión de fondos propuesta:** {{importe_provision}} euros.
+**Provisión de fondos propuesta:** {{importe_provision: importe en euros}} euros.
 
 ## 6. Plazos estimados
 
-{{plazos_estimados_actuaciones}}
+{{plazos_estimados_actuaciones: plazo o número}}
 
 Los plazos indicados son estimativos y dependen de circunstancias ajenas al DESPACHO, señaladamente de los tiempos de tramitación de los organismos y órganos judiciales intervinientes, y de la disponibilidad de la documentación a aportar por el destinatario.
 
@@ -84,21 +84,21 @@ Los plazos indicados son estimativos y dependen de circunstancias ajenas al DESP
 
 La obligación que asumiría el DESPACHO sería una **obligación de medios y no de resultado**. No se asume ni puede asumirse compromiso alguno sobre el resultado del asunto.
 
-{{bloque_advertencia_costas}}
+{{bloque_advertencia_costas: bloque condicional que inserta la skill}}
 
 ## 8. Formalización
 
 La aceptación de este presupuesto **no sustituye a la hoja de encargo profesional**. Aceptada la propuesta, se formalizará la correspondiente hoja de encargo, que se firmará con carácter previo al inicio de cualquier actuación y en la que se recogerán íntegramente las condiciones del encargo.
 
-{{parrafo_diligencia_debida_blanqueo}}
+{{parrafo_diligencia_debida_blanqueo: bloque condicional que inserta la skill}}
 
 ---
 
-**Validez:** este presupuesto tiene una validez de {{plazo_validez}} desde su fecha de emisión. Transcurrido dicho plazo sin aceptación, quedará sin efecto.
+**Validez:** este presupuesto tiene una validez de {{plazo_validez: plazo de validez en días}} desde su fecha de emisión. Transcurrido dicho plazo sin aceptación, quedará sin efecto.
 
-{{denominacion_despacho}}  
-Fdo.: {{nombre_profesional_responsable}}  
-Colegiado n.º {{numero_colegiado}} — {{colegio_adscripcion}}
+{{denominacion_despacho: razón social}}  
+Fdo.: {{nombre_profesional_responsable: nombre y apellidos}}  
+Colegiado n.º {{numero_colegiado: número de colegiado}} — {{colegio_adscripcion: denominación del colegio}}
 
 ---
 
@@ -106,9 +106,9 @@ Colegiado n.º {{numero_colegiado}} — {{colegio_adscripcion}}
 
 Acepto el presupuesto que antecede en todos sus términos y solicito la formalización de la correspondiente hoja de encargo profesional.
 
-Fdo.: {{nombre_cliente}}  
-{{tipo_documento_cliente}} {{documento_cliente}}  
-Fecha: {{fecha_aceptacion}}
+Fdo.: {{nombre_cliente: nombre y apellidos}}  
+{{tipo_documento_cliente: tipo de documento: DNI, NIE o CIF}} {{documento_cliente: DNI/NIE}}  
+Fecha: {{fecha_aceptacion: fecha (DD/MM/AAAA)}}
 
 ---
 

@@ -1,21 +1,21 @@
-# ACUERDO DE TRABAJO A DISTANCIA — {{razon_social_empresa}} y {{nombre_trabajador}}
+# ACUERDO DE TRABAJO A DISTANCIA — {{razon_social_empresa: razón social}} y {{nombre_trabajador: nombre y apellidos}}
 
 > **DRAFT — para revisión por un abogado o graduado social colegiado antes de su firma. No constituye asesoramiento jurídico definitivo.**  
-> Convenio colectivo aplicable: {{denominacion_convenio}} (código {{codigo_convenio}})
+> Convenio colectivo aplicable: {{denominacion_convenio: denominación y ámbito del convenio colectivo}} (código {{codigo_convenio: código de convenio}})
 
-En {{lugar_firma}}, a {{fecha_firma}}
+En {{lugar_firma: localidad}}, a {{fecha_firma: fecha (DD/MM/AAAA)}}
 
 ---
 
 ## REUNIDOS
 
-**DE UNA PARTE**, {{razon_social_empresa}}, con CIF {{cif_empresa}}, domicilio social en {{domicilio_empresa}}, representada en este acto por {{nombre_representante}}, con NIF {{nif_representante}}, en su condición de {{cargo_representante}} (en adelante, la EMPRESA).
+**DE UNA PARTE**, {{razon_social_empresa: razón social}}, con CIF {{cif_empresa: CIF/NIF}}, domicilio social en {{domicilio_empresa: domicilio completo}}, representada en este acto por {{nombre_representante: nombre y apellidos}}, con NIF {{nif_representante: CIF/NIF}}, en su condición de {{cargo_representante: cargo del firmante}} (en adelante, la EMPRESA).
 
-**DE OTRA PARTE**, {{nombre_trabajador}}, con DNI/NIE {{dni_trabajador}} y domicilio en {{domicilio_trabajador}} (en adelante, la persona TRABAJADORA).
+**DE OTRA PARTE**, {{nombre_trabajador: nombre y apellidos}}, con DNI/NIE {{dni_trabajador: DNI/NIE}} y domicilio en {{domicilio_trabajador: domicilio completo}} (en adelante, la persona TRABAJADORA).
 
 ## EXPONEN
 
-**I.** Que ambas partes están vinculadas por contrato de trabajo de fecha {{fecha_contrato}}, en virtud del cual la persona TRABAJADORA presta servicios como {{denominacion_puesto}}.
+**I.** Que ambas partes están vinculadas por contrato de trabajo de fecha {{fecha_contrato: fecha (DD/MM/AAAA)}}, en virtud del cual la persona TRABAJADORA presta servicios como {{denominacion_puesto: denominación del puesto}}.
 
 **II.** Que ambas partes acuerdan, de forma **voluntaria** y sin que ello suponga modificación de las restantes condiciones de la relación laboral, que la prestación de servicios se desarrolle parcialmente a distancia, al amparo de la Ley 10/2021, de 9 de julio, de trabajo a distancia.
 
@@ -29,13 +29,13 @@ El trabajo a distancia es **voluntario** para ambas partes y **reversible** para
 
 La negativa de la persona TRABAJADORA a trabajar a distancia, el ejercicio de la reversibilidad y las dificultades para el desarrollo adecuado de la actividad a distancia que estén exclusivamente relacionadas con el cambio de una prestación presencial a otra que incluya trabajo a distancia **no constituyen causa justificativa de la extinción de la relación laboral ni de la modificación sustancial de las condiciones de trabajo**.
 
-El plazo de preaviso para el ejercicio de la reversibilidad será de {{plazo_preaviso_reversibilidad}}.
+El plazo de preaviso para el ejercicio de la reversibilidad será de {{plazo_preaviso_reversibilidad: plazo de preaviso en días}}.
 
 ### SEGUNDA — Inventario de medios, equipos y herramientas
 
 La EMPRESA pone a disposición de la persona TRABAJADORA los siguientes medios, equipos y herramientas, incluidos los consumibles y los elementos muebles, con detalle de su vida útil o periodo máximo para su renovación:
 
-{{inventario_medios_equipos}}
+{{inventario_medios_equipos: inventario de medios, equipos y herramientas con su vida útil}}
 
 La persona TRABAJADORA se obliga a su custodia, uso conforme a las instrucciones recibidas y devolución a la finalización del presente acuerdo o de la relación laboral.
 
@@ -45,55 +45,55 @@ El desarrollo del trabajo a distancia **no supondrá la asunción por la persona
 
 La enumeración de gastos y la cuantía, forma y momento de su compensación son las siguientes, conforme a lo previsto en el convenio colectivo aplicable:
 
-{{detalle_gastos_y_compensacion}}
+{{detalle_gastos_y_compensacion: detalle del cálculo}}
 
 ### CUARTA — Horario de trabajo, disponibilidad y reglas de flexibilidad
 
 El horario de trabajo de la persona TRABAJADORA será el siguiente, con indicación de las reglas de disponibilidad y de los márgenes de flexibilidad acordados:
 
-{{horario_y_flexibilidad}}
+{{horario_y_flexibilidad: horario y márgenes de flexibilidad}}
 
 ### QUINTA — Porcentaje y distribución del trabajo presencial y a distancia
 
-La distribución entre trabajo presencial y trabajo a distancia será la siguiente: {{distribucion_presencial_distancia}}.
+La distribución entre trabajo presencial y trabajo a distancia será la siguiente: {{distribucion_presencial_distancia: porcentaje y distribución presencial y a distancia}}.
 
-El centro de trabajo al que queda adscrita la persona TRABAJADORA es el sito en {{centro_trabajo}}.
+El centro de trabajo al que queda adscrita la persona TRABAJADORA es el sito en {{centro_trabajo: dirección del centro de trabajo}}.
 
 ### SEXTA — Lugar de trabajo a distancia elegido
 
-La persona TRABAJADORA desarrollará el trabajo a distancia en {{lugar_trabajo_distancia}}, lugar que declara reunir las condiciones adecuadas para el desempeño de su actividad.
+La persona TRABAJADORA desarrollará el trabajo a distancia en {{lugar_trabajo_distancia: dirección del lugar de trabajo a distancia}}, lugar que declara reunir las condiciones adecuadas para el desempeño de su actividad.
 
 ### SÉPTIMA — Registro horario y sistema de control
 
 Será de aplicación el sistema de registro horario de la EMPRESA, que reflejará fielmente el tiempo de trabajo y el momento de inicio y finalización de la jornada, conforme al artículo 34.9 del Estatuto de los Trabajadores.
 
-La EMPRESA podrá adoptar las medidas de vigilancia y control que estime más oportunas para verificar el cumplimiento de las obligaciones laborales, guardando en su adopción y aplicación la consideración debida a la dignidad de la persona TRABAJADORA y respetando la normativa de protección de datos. Los medios de control acordados son los siguientes: {{medios_control_acordados}}.
+La EMPRESA podrá adoptar las medidas de vigilancia y control que estime más oportunas para verificar el cumplimiento de las obligaciones laborales, guardando en su adopción y aplicación la consideración debida a la dignidad de la persona TRABAJADORA y respetando la normativa de protección de datos. Los medios de control acordados son los siguientes: {{medios_control_acordados: medios de control empresarial acordados}}.
 
 ### OCTAVA — Instrucciones sobre protección de datos y seguridad de la información
 
-La persona TRABAJADORA se obliga a cumplir las instrucciones de la EMPRESA en materia de protección de datos y de seguridad de la información, que se le entregan en este acto y que comprenden: {{instrucciones_seguridad_informacion}}.
+La persona TRABAJADORA se obliga a cumplir las instrucciones de la EMPRESA en materia de protección de datos y de seguridad de la información, que se le entregan en este acto y que comprenden: {{instrucciones_seguridad_informacion: instrucciones de seguridad de la información}}.
 
 ### NOVENA — Duración del acuerdo
 
-El presente acuerdo tendrá una duración de {{duracion_acuerdo}}, sin perjuicio del derecho de reversibilidad de la cláusula primera.
+El presente acuerdo tendrá una duración de {{duracion_acuerdo: plazo o número}}, sin perjuicio del derecho de reversibilidad de la cláusula primera.
 
 ### DÉCIMA — Derechos de la persona trabajadora a distancia
 
 La persona TRABAJADORA tiene derecho a la **desconexión digital** fuera de su horario de trabajo, a la formación, a la promoción profesional, a la protección eficaz en materia de seguridad y salud en el trabajo con evaluación de riesgos del puesto a distancia, y a los derechos colectivos en los mismos términos que el personal presencial, sin que el trabajo a distancia pueda suponer menoscabo alguno de sus condiciones.
 
-{{clausulas_adicionales_pactadas}}
+{{clausulas_adicionales_pactadas: bloque condicional que inserta la skill}}
 
 ---
 
 Y en prueba de conformidad, ambas partes firman el presente acuerdo por duplicado y a un solo efecto, en el lugar y fecha indicados en el encabezamiento.
 
 **POR LA EMPRESA**  
-Fdo.: {{nombre_representante}}  
-{{cargo_representante}}
+Fdo.: {{nombre_representante: nombre y apellidos}}  
+{{cargo_representante: cargo del firmante}}
 
 **LA PERSONA TRABAJADORA**  
-Fdo.: {{nombre_trabajador}}  
-DNI/NIE {{dni_trabajador}}
+Fdo.: {{nombre_trabajador: nombre y apellidos}}  
+DNI/NIE {{dni_trabajador: DNI/NIE}}
 
 ---
 

@@ -8,18 +8,18 @@
 
 | Dato | Contenido |
 |---|---|
-| Denominación | {{denominacion_despacho}} |
-| NIF | {{nif_despacho}} |
-| Domicilio | {{domicilio_despacho}} |
-| Contacto en materia de protección de datos | {{contacto_proteccion_datos}} |
-| Delegado de protección de datos | {{datos_dpd}} |
-| ¿Comunicada su designación a la autoridad de control? | {{comunicacion_dpd}} |
-| Fecha de elaboración de este registro | {{fecha_elaboracion}} |
-| Fecha de la última actualización | {{fecha_actualizacion}} |
-| Fecha de la próxima revisión prevista | {{fecha_proxima_revision}} |
-| Responsable del mantenimiento del registro | {{responsable_registro}} |
+| Denominación | {{denominacion_despacho: denominación}} |
+| NIF | {{nif_despacho: CIF/NIF}} |
+| Domicilio | {{domicilio_despacho: domicilio completo}} |
+| Contacto en materia de protección de datos | {{contacto_proteccion_datos: contacto en materia de protección de datos}} |
+| Delegado de protección de datos | {{datos_dpd: delegado de protección de datos}} |
+| ¿Comunicada su designación a la autoridad de control? | {{comunicacion_dpd: sí / no}} |
+| Fecha de elaboración de este registro | {{fecha_elaboracion: fecha (DD/MM/AAAA)}} |
+| Fecha de la última actualización | {{fecha_actualizacion: fecha (DD/MM/AAAA)}} |
+| Fecha de la próxima revisión prevista | {{fecha_proxima_revision: fecha (DD/MM/AAAA)}} |
+| Responsable del mantenimiento del registro | {{responsable_registro: responsable del mantenimiento del registro}} |
 
-{{bloque_corresponsables_tratamiento}}
+{{bloque_corresponsables_tratamiento: bloque condicional que inserta la skill}}
 
 ---
 
@@ -29,33 +29,33 @@
 
 | Elemento | Contenido |
 |---|---|
-| Finalidad | {{finalidad_clientes}} |
-| Base jurídica | {{base_juridica_clientes}} |
-| Categorías de interesados | {{interesados_clientes}} |
-| Categorías de datos | {{datos_clientes}} |
-| ¿Categorías especiales de datos? | {{especiales_clientes}} |
-| Destinatarios de cesiones | {{destinatarios_clientes}} |
-| Encargados de tratamiento | {{encargados_clientes}} |
-| Transferencias internacionales | {{transferencias_clientes}} |
-| Plazo de conservación | {{conservacion_clientes}} |
-| Medidas de seguridad | {{seguridad_clientes}} |
+| Finalidad | {{finalidad_clientes: finalidad}} |
+| Base jurídica | {{base_juridica_clientes: base jurídica}} |
+| Categorías de interesados | {{interesados_clientes: categorías de interesados}} |
+| Categorías de datos | {{datos_clientes: categorías de datos}} |
+| ¿Categorías especiales de datos? | {{especiales_clientes: sí / no, con su detalle}} |
+| Destinatarios de cesiones | {{destinatarios_clientes: destinatarios de cesiones}} |
+| Encargados de tratamiento | {{encargados_clientes: encargados de tratamiento}} |
+| Transferencias internacionales | {{transferencias_clientes: transferencias internacionales}} |
+| Plazo de conservación | {{conservacion_clientes: plazo de conservación}} |
+| Medidas de seguridad | {{seguridad_clientes: medidas de seguridad}} |
 
 ### 2.2 Dirección y tramitación de asuntos
 
 | Elemento | Contenido |
 |---|---|
-| Finalidad | {{finalidad_asuntos}} |
-| Base jurídica | {{base_juridica_asuntos}} |
-| Categorías de interesados | {{interesados_asuntos}} |
-| Categorías de datos | {{datos_asuntos}} |
-| ¿Categorías especiales de datos y datos relativos a condenas e infracciones penales? | {{especiales_asuntos}} |
-| Base jurídica específica de las categorías especiales y de los datos penales | {{base_especiales_asuntos}} |
-| Destinatarios de cesiones | {{destinatarios_asuntos}} |
-| Encargados de tratamiento | {{encargados_asuntos}} |
-| Transferencias internacionales | {{transferencias_asuntos}} |
-| Plazo de conservación | {{conservacion_asuntos}} |
-| Medidas de seguridad | {{seguridad_asuntos}} |
-| Observaciones sobre secreto profesional | {{secreto_asuntos}} |
+| Finalidad | {{finalidad_asuntos: finalidad}} |
+| Base jurídica | {{base_juridica_asuntos: base jurídica}} |
+| Categorías de interesados | {{interesados_asuntos: categorías de interesados}} |
+| Categorías de datos | {{datos_asuntos: categorías de datos}} |
+| ¿Categorías especiales de datos y datos relativos a condenas e infracciones penales? | {{especiales_asuntos: sí / no, con su detalle}} |
+| Base jurídica específica de las categorías especiales y de los datos penales | {{base_especiales_asuntos: base jurídica específica de las categorías especiales y de los datos penales}} |
+| Destinatarios de cesiones | {{destinatarios_asuntos: destinatarios de cesiones}} |
+| Encargados de tratamiento | {{encargados_asuntos: encargados de tratamiento}} |
+| Transferencias internacionales | {{transferencias_asuntos: transferencias internacionales}} |
+| Plazo de conservación | {{conservacion_asuntos: plazo de conservación}} |
+| Medidas de seguridad | {{seguridad_asuntos: medidas de seguridad}} |
+| Observaciones sobre secreto profesional | {{secreto_asuntos: observaciones sobre secreto profesional}} |
 
 ### 2.3 Diligencia debida en prevención del blanqueo de capitales
 
@@ -63,79 +63,79 @@
 |---|---|
 | Finalidad | Cumplimiento de las obligaciones de diligencia debida, conservación y, en su caso, comunicación, previstas en la normativa de prevención del blanqueo de capitales y de la financiación del terrorismo |
 | Base jurídica | Cumplimiento de una obligación legal |
-| Categorías de interesados | {{interesados_blanqueo}} |
-| Categorías de datos | {{datos_blanqueo}} |
-| Destinatarios de cesiones | {{destinatarios_blanqueo}} |
-| Encargados de tratamiento | {{encargados_blanqueo}} |
-| Plazo de conservación | {{conservacion_blanqueo}} |
-| Medidas de seguridad | {{seguridad_blanqueo}} |
+| Categorías de interesados | {{interesados_blanqueo: categorías de interesados}} |
+| Categorías de datos | {{datos_blanqueo: categorías de datos}} |
+| Destinatarios de cesiones | {{destinatarios_blanqueo: destinatarios de cesiones}} |
+| Encargados de tratamiento | {{encargados_blanqueo: encargados de tratamiento}} |
+| Plazo de conservación | {{conservacion_blanqueo: plazo de conservación}} |
+| Medidas de seguridad | {{seguridad_blanqueo: medidas de seguridad}} |
 | Limitación de finalidad | Los datos recabados para esta finalidad no se emplean para ninguna otra |
-| Observaciones | {{observaciones_blanqueo}} |
+| Observaciones | {{observaciones_blanqueo: texto breve}} |
 
 ### 2.4 Gestión de recursos humanos
 
 | Elemento | Contenido |
 |---|---|
-| Finalidad | {{finalidad_rrhh}} |
-| Base jurídica | {{base_juridica_rrhh}} |
-| Categorías de interesados | {{interesados_rrhh}} |
-| Categorías de datos | {{datos_rrhh}} |
-| ¿Categorías especiales de datos? | {{especiales_rrhh}} |
-| Destinatarios de cesiones | {{destinatarios_rrhh}} |
-| Encargados de tratamiento | {{encargados_rrhh}} |
-| Plazo de conservación | {{conservacion_rrhh}} |
-| Medidas de seguridad | {{seguridad_rrhh}} |
+| Finalidad | {{finalidad_rrhh: finalidad}} |
+| Base jurídica | {{base_juridica_rrhh: base jurídica}} |
+| Categorías de interesados | {{interesados_rrhh: categorías de interesados}} |
+| Categorías de datos | {{datos_rrhh: categorías de datos}} |
+| ¿Categorías especiales de datos? | {{especiales_rrhh: sí / no, con su detalle}} |
+| Destinatarios de cesiones | {{destinatarios_rrhh: destinatarios de cesiones}} |
+| Encargados de tratamiento | {{encargados_rrhh: encargados de tratamiento}} |
+| Plazo de conservación | {{conservacion_rrhh: plazo de conservación}} |
+| Medidas de seguridad | {{seguridad_rrhh: medidas de seguridad}} |
 
 ### 2.5 Selección de personal
 
 | Elemento | Contenido |
 |---|---|
-| Finalidad | {{finalidad_seleccion}} |
-| Base jurídica | {{base_juridica_seleccion}} |
-| Categorías de interesados | {{interesados_seleccion}} |
-| Categorías de datos | {{datos_seleccion}} |
-| Plazo de conservación | {{conservacion_seleccion}} |
-| Medidas de seguridad | {{seguridad_seleccion}} |
+| Finalidad | {{finalidad_seleccion: finalidad}} |
+| Base jurídica | {{base_juridica_seleccion: base jurídica}} |
+| Categorías de interesados | {{interesados_seleccion: categorías de interesados}} |
+| Categorías de datos | {{datos_seleccion: categorías de datos}} |
+| Plazo de conservación | {{conservacion_seleccion: plazo de conservación}} |
+| Medidas de seguridad | {{seguridad_seleccion: medidas de seguridad}} |
 
 ### 2.6 Gestión de proveedores
 
 | Elemento | Contenido |
 |---|---|
-| Finalidad | {{finalidad_proveedores}} |
-| Base jurídica | {{base_juridica_proveedores}} |
-| Categorías de interesados | {{interesados_proveedores}} |
-| Categorías de datos | {{datos_proveedores}} |
-| Plazo de conservación | {{conservacion_proveedores}} |
-| Medidas de seguridad | {{seguridad_proveedores}} |
+| Finalidad | {{finalidad_proveedores: finalidad}} |
+| Base jurídica | {{base_juridica_proveedores: base jurídica}} |
+| Categorías de interesados | {{interesados_proveedores: categorías de interesados}} |
+| Categorías de datos | {{datos_proveedores: categorías de datos}} |
+| Plazo de conservación | {{conservacion_proveedores: plazo de conservación}} |
+| Medidas de seguridad | {{seguridad_proveedores: medidas de seguridad}} |
 
 ### 2.7 Comunicaciones informativas y comerciales
 
 | Elemento | Contenido |
 |---|---|
-| Finalidad | {{finalidad_comunicaciones}} |
-| Base jurídica | {{base_juridica_comunicaciones}} |
-| Categorías de interesados | {{interesados_comunicaciones}} |
-| Categorías de datos | {{datos_comunicaciones}} |
-| Encargados de tratamiento | {{encargados_comunicaciones}} |
-| Transferencias internacionales | {{transferencias_comunicaciones}} |
-| Plazo de conservación | {{conservacion_comunicaciones}} |
-| Mecanismo de oposición y baja | {{baja_comunicaciones}} |
+| Finalidad | {{finalidad_comunicaciones: finalidad}} |
+| Base jurídica | {{base_juridica_comunicaciones: base jurídica}} |
+| Categorías de interesados | {{interesados_comunicaciones: categorías de interesados}} |
+| Categorías de datos | {{datos_comunicaciones: categorías de datos}} |
+| Encargados de tratamiento | {{encargados_comunicaciones: encargados de tratamiento}} |
+| Transferencias internacionales | {{transferencias_comunicaciones: transferencias internacionales}} |
+| Plazo de conservación | {{conservacion_comunicaciones: plazo de conservación}} |
+| Mecanismo de oposición y baja | {{baja_comunicaciones: mecanismo de oposición y baja}} |
 
 ### 2.8 Sitio web, formularios y cookies
 
 | Elemento | Contenido |
 |---|---|
-| Finalidad | {{finalidad_web}} |
-| Base jurídica | {{base_juridica_web}} |
-| Categorías de interesados | {{interesados_web}} |
-| Categorías de datos | {{datos_web}} |
-| Encargados de tratamiento | {{encargados_web}} |
-| Transferencias internacionales | {{transferencias_web}} |
-| Plazo de conservación | {{conservacion_web}} |
+| Finalidad | {{finalidad_web: finalidad}} |
+| Base jurídica | {{base_juridica_web: base jurídica}} |
+| Categorías de interesados | {{interesados_web: categorías de interesados}} |
+| Categorías de datos | {{datos_web: categorías de datos}} |
+| Encargados de tratamiento | {{encargados_web: encargados de tratamiento}} |
+| Transferencias internacionales | {{transferencias_web: transferencias internacionales}} |
+| Plazo de conservación | {{conservacion_web: plazo de conservación}} |
 
-{{bloque_actividad_videovigilancia}}
+{{bloque_actividad_videovigilancia: bloque condicional que inserta la skill}}
 
-{{bloque_actividades_adicionales}}
+{{bloque_actividades_adicionales: bloque condicional que inserta la skill}}
 
 ---
 
@@ -143,16 +143,16 @@
 
 | Encargado | Servicio prestado | ¿Contrato del artículo 28 firmado? | Fecha | Ubicación del tratamiento | Transferencia internacional y garantía |
 |---|---|---|---|---|---|
-| {{encargado_1}} | {{servicio_1}} | {{contrato_1}} | {{fecha_contrato_1}} | {{ubicacion_1}} | {{transferencia_1}} |
-| {{encargado_2}} | {{servicio_2}} | {{contrato_2}} | {{fecha_contrato_2}} | {{ubicacion_2}} | {{transferencia_2}} |
-| {{encargado_3}} | {{servicio_3}} | {{contrato_3}} | {{fecha_contrato_3}} | {{ubicacion_3}} | {{transferencia_3}} |
-| {{encargado_4}} | {{servicio_4}} | {{contrato_4}} | {{fecha_contrato_4}} | {{ubicacion_4}} | {{transferencia_4}} |
+| {{encargado_1: encargado}} | {{servicio_1: servicio prestado}} | {{contrato_1: sí / no}} | {{fecha_contrato_1: fecha (DD/MM/AAAA)}} | {{ubicacion_1: ubicación del tratamiento}} | {{transferencia_1: transferencia internacional y garantía}} |
+| {{encargado_2: encargado}} | {{servicio_2: servicio prestado}} | {{contrato_2: sí / no}} | {{fecha_contrato_2: fecha (DD/MM/AAAA)}} | {{ubicacion_2: ubicación del tratamiento}} | {{transferencia_2: transferencia internacional y garantía}} |
+| {{encargado_3: encargado}} | {{servicio_3: servicio prestado}} | {{contrato_3: sí / no}} | {{fecha_contrato_3: fecha (DD/MM/AAAA)}} | {{ubicacion_3: ubicación del tratamiento}} | {{transferencia_3: transferencia internacional y garantía}} |
+| {{encargado_4: encargado}} | {{servicio_4: servicio prestado}} | {{contrato_4: sí / no}} | {{fecha_contrato_4: fecha (DD/MM/AAAA)}} | {{ubicacion_4: ubicación del tratamiento}} | {{transferencia_4: transferencia internacional y garantía}} |
 
 ---
 
 ## 4. Medidas técnicas y organizativas de seguridad implantadas
 
-{{relacion_medidas_seguridad_implantadas}}
+{{relacion_medidas_seguridad_implantadas: lista, un elemento por línea}}
 
 ---
 
@@ -160,24 +160,24 @@
 
 | Procedimiento | Estado | Responsable | Observaciones |
 |---|---|---|---|
-| Atención de los derechos de los interesados | {{estado_derechos}} | {{responsable_derechos}} | {{obs_derechos}} |
-| Gestión de brechas de seguridad | {{estado_brechas}} | {{responsable_brechas}} | {{obs_brechas}} |
-| Evaluación de impacto, si procede | {{estado_eipd}} | {{responsable_eipd}} | {{obs_eipd}} |
-| Formación del personal | {{estado_formacion}} | {{responsable_formacion}} | {{obs_formacion}} |
-| Revisión de contratos de encargado | {{estado_contratos}} | {{responsable_contratos}} | {{obs_contratos}} |
-| Compromisos de confidencialidad del personal | {{estado_confidencialidad}} | {{responsable_confidencialidad}} | {{obs_confidencialidad}} |
+| Atención de los derechos de los interesados | {{estado_derechos: estado}} | {{responsable_derechos: responsable}} | {{obs_derechos: texto breve}} |
+| Gestión de brechas de seguridad | {{estado_brechas: estado}} | {{responsable_brechas: responsable}} | {{obs_brechas: texto breve}} |
+| Evaluación de impacto, si procede | {{estado_eipd: estado}} | {{responsable_eipd: responsable}} | {{obs_eipd: texto breve}} |
+| Formación del personal | {{estado_formacion: estado}} | {{responsable_formacion: responsable}} | {{obs_formacion: texto breve}} |
+| Revisión de contratos de encargado | {{estado_contratos: estado}} | {{responsable_contratos: responsable}} | {{obs_contratos: texto breve}} |
+| Compromisos de confidencialidad del personal | {{estado_confidencialidad: estado}} | {{responsable_confidencialidad: responsable}} | {{obs_confidencialidad: texto breve}} |
 
 ---
 
 ## 6. Interacción con el secreto profesional
 
-{{bloque_interaccion_secreto_profesional}}
+{{bloque_interaccion_secreto_profesional: bloque condicional que inserta la skill}}
 
 ---
 
-Elaborado por: {{nombre_elaborador}}  
-Revisado por: {{nombre_revisor}}  
-Fecha: {{fecha_elaboracion}}
+Elaborado por: {{nombre_elaborador: nombre y apellidos}}  
+Revisado por: {{nombre_revisor: nombre y apellidos}}  
+Fecha: {{fecha_elaboracion: fecha (DD/MM/AAAA)}}
 
 ---
 

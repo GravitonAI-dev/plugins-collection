@@ -1,24 +1,24 @@
-# COMUNICACIÓN DE BAJA VOLUNTARIA — {{nombre_trabajador}} a {{razon_social_empresa}}
+# COMUNICACIÓN DE BAJA VOLUNTARIA — {{nombre_trabajador: nombre y apellidos}} a {{razon_social_empresa: razón social}}
 
 > **DRAFT — para revisión por un abogado o graduado social colegiado antes de su firma y entrega. No constituye asesoramiento jurídico definitivo.**  
-> Convenio colectivo aplicable: {{denominacion_convenio}} (código {{codigo_convenio}})
+> Convenio colectivo aplicable: {{denominacion_convenio: denominación y ámbito del convenio colectivo}} (código {{codigo_convenio: código de convenio}})
 
 ---
 
 **REMITENTE (PERSONA TRABAJADORA)**  
-{{nombre_trabajador}}  
-DNI/NIE {{dni_trabajador}}  
-{{domicilio_trabajador}}  
-Categoría o grupo profesional: {{categoria_profesional}}  
-Antigüedad: {{fecha_antiguedad}}
+{{nombre_trabajador: nombre y apellidos}}  
+DNI/NIE {{dni_trabajador: DNI/NIE}}  
+{{domicilio_trabajador: domicilio completo}}  
+Categoría o grupo profesional: {{categoria_profesional: categoría profesional del convenio}}  
+Antigüedad: {{fecha_antiguedad: fecha (DD/MM/AAAA)}}
 
 **DESTINATARIO (EMPRESA)**  
-{{razon_social_empresa}}  
-CIF {{cif_empresa}}  
-{{domicilio_empresa}}  
-A la atención de {{nombre_receptor_empresa}}, {{cargo_receptor_empresa}}
+{{razon_social_empresa: razón social}}  
+CIF {{cif_empresa: CIF/NIF}}  
+{{domicilio_empresa: domicilio completo}}  
+A la atención de {{nombre_receptor_empresa: nombre y apellidos}}, {{cargo_receptor_empresa: cargo de quien recibe}}
 
-En {{lugar_emision}}, a {{fecha_comunicacion}}
+En {{lugar_emision: localidad}}, a {{fecha_comunicacion: fecha (DD/MM/AAAA)}}
 
 Muy Sres. míos:
 
@@ -26,7 +26,7 @@ Por medio de la presente les comunico mi decisión de **extinguir voluntariament
 
 ## PRIMERO — Fecha de efectos y preaviso
 
-La extinción surtirá efectos el día {{fecha_extincion}}, quedando cumplido el plazo de preaviso de {{plazo_preaviso}} establecido en el artículo {{articulo_convenio_preaviso}} del convenio colectivo de aplicación, contado desde la fecha de la presente comunicación.
+La extinción surtirá efectos el día {{fecha_extincion: fecha (DD/MM/AAAA)}}, quedando cumplido el plazo de preaviso de {{plazo_preaviso: plazo de preaviso en días}} establecido en el artículo {{articulo_convenio_preaviso: número de artículo}} del convenio colectivo de aplicación, contado desde la fecha de la presente comunicación.
 
 ## SEGUNDO — Prestación de servicios durante el preaviso
 
@@ -36,23 +36,23 @@ Continuaré prestando servicios con normalidad hasta la fecha de efectos indicad
 
 Ruego procedan a la liquidación de las partes proporcionales devengadas y no percibidas —salario del mes en curso, partes proporcionales de pagas extraordinarias y vacaciones devengadas y no disfrutadas—, así como a la entrega del recibo de finiquito con su desglose, del certificado de empresa y del certificado de retenciones e ingresos a cuenta del ejercicio en curso.
 
-{{parrafo_conceptos_pendientes_reclamados}}
+{{parrafo_conceptos_pendientes_reclamados: bloque condicional que inserta la skill}}
 
 Ruego acusen recibo de la presente comunicación.
 
 Atentamente,
 
-Fdo.: {{nombre_trabajador}}  
-DNI/NIE {{dni_trabajador}}
+Fdo.: {{nombre_trabajador: nombre y apellidos}}  
+DNI/NIE {{dni_trabajador: DNI/NIE}}
 
 ---
 
 **RECIBÍ (EMPRESA)**
 
-Recibida la presente comunicación en fecha {{fecha_recibi}}.
+Recibida la presente comunicación en fecha {{fecha_recibi: fecha (DD/MM/AAAA)}}.
 
-Fdo.: {{nombre_receptor_empresa}}  
-{{cargo_receptor_empresa}}
+Fdo.: {{nombre_receptor_empresa: nombre y apellidos}}  
+{{cargo_receptor_empresa: cargo de quien recibe}}
 
 ---
 

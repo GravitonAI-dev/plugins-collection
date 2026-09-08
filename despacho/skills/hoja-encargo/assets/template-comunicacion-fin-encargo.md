@@ -1,69 +1,69 @@
-# COMUNICACIÓN DE FINALIZACIÓN DEL ENCARGO PROFESIONAL — {{denominacion_despacho}} a {{nombre_cliente}}
+# COMUNICACIÓN DE FINALIZACIÓN DEL ENCARGO PROFESIONAL — {{denominacion_despacho: razón social}} a {{nombre_cliente: nombre y apellidos}}
 
 > **DRAFT — para revisión por el profesional responsable antes de su firma y envío. Debe adaptarse a la normativa deontológica del colegio de adscripción.**
 
 ---
 
 **DESPACHO**  
-{{denominacion_despacho}}  
-NIF {{nif_despacho}}  
-{{domicilio_despacho}}  
-Profesional responsable: {{nombre_profesional_responsable}}, colegiado n.º {{numero_colegiado}} del {{colegio_adscripcion}}
+{{denominacion_despacho: razón social}}  
+NIF {{nif_despacho: CIF/NIF}}  
+{{domicilio_despacho: domicilio completo}}  
+Profesional responsable: {{nombre_profesional_responsable: nombre y apellidos}}, colegiado n.º {{numero_colegiado: número de colegiado}} del {{colegio_adscripcion: denominación del colegio}}
 
 **CLIENTE**  
-{{nombre_cliente}}  
-{{tipo_documento_cliente}} {{documento_cliente}}  
-{{domicilio_cliente}}
+{{nombre_cliente: nombre y apellidos}}  
+{{tipo_documento_cliente: tipo de documento: DNI, NIE o CIF}} {{documento_cliente: DNI/NIE}}  
+{{domicilio_cliente: domicilio completo}}
 
-**Referencia del expediente:** {{referencia_expediente}}  
-En {{lugar_emision}}, a {{fecha_comunicacion}}
+**Referencia del expediente:** {{referencia_expediente: referencia alfanumérica}}  
+En {{lugar_emision: localidad}}, a {{fecha_comunicacion: fecha (DD/MM/AAAA)}}
 
 Muy Sr./Sra. nuestro/a:
 
 ## PRIMERO — Encargo de referencia
 
-Con fecha {{fecha_hoja_encargo}} suscribimos con usted hoja de encargo profesional para {{descripcion_asunto}}, tramitado en este despacho con la referencia {{referencia_expediente}}.
+Con fecha {{fecha_hoja_encargo: fecha (DD/MM/AAAA)}} suscribimos con usted hoja de encargo profesional para {{descripcion_asunto: texto libre, uno o varios párrafos}}, tramitado en este despacho con la referencia {{referencia_expediente: referencia alfanumérica}}.
 
 ## SEGUNDO — Causa de la finalización
 
-{{bloque_causa_finalizacion}}
+{{bloque_causa_finalizacion: bloque condicional que inserta la skill}}
 
 ## TERCERO — Estado actual del asunto
 
 A la fecha de la presente, el estado del asunto es el siguiente:
 
-{{descripcion_estado_asunto}}
+{{descripcion_estado_asunto: texto libre, uno o varios párrafos}}
 
 **Actuaciones realizadas:**
 
-{{relacion_actuaciones_realizadas}}
+{{relacion_actuaciones_realizadas: lista, un elemento por línea}}
 
 ## CUARTO — Plazos y actuaciones pendientes
 
-{{bloque_plazos_vivos_y_advertencia}}
+{{bloque_plazos_vivos_y_advertencia: bloque condicional que inserta la skill}}
 
 ## QUINTO — Liquidación económica
 
 | Concepto | Importe |
 |---|---|
-| Honorarios devengados por las actuaciones realizadas | {{honorarios_devengados}} € |
-| Impuesto sobre el valor añadido ({{tipo_iva}} %) | {{importe_iva}} € |
-| Gastos y suplidos justificados | {{gastos_suplidos}} € |
-| Provisión de fondos recibida | -{{provision_recibida}} € |
-| Cantidades ya abonadas | -{{cantidades_abonadas}} € |
-| **{{concepto_saldo}}** | **{{importe_saldo}} €** |
+| Honorarios devengados por las actuaciones realizadas | {{honorarios_devengados: importe en euros}} € |
+| Impuesto sobre el valor añadido ({{tipo_iva: porcentaje}} %) | {{importe_iva: importe en euros}} € |
+| Gastos y suplidos justificados | {{gastos_suplidos: importe en euros}} € |
+| Provisión de fondos recibida | -{{provision_recibida: importe en euros}} € |
+| Cantidades ya abonadas | -{{cantidades_abonadas: importe en euros}} € |
+| **{{concepto_saldo: concepto del saldo: a favor del despacho o del cliente}}** | **{{importe_saldo: importe en euros}} €** |
 
-{{parrafo_devolucion_o_reclamacion_saldo}}
+{{parrafo_devolucion_o_reclamacion_saldo: bloque condicional que inserta la skill}}
 
 Se acompaña la minuta detallada de las actuaciones realizadas y la justificación documental de los gastos y suplidos aplicados.
 
 ## SEXTO — Puesta a disposición de la documentación
 
-Queda a su disposición en este despacho la documentación original que nos aportó, así como copia de las actuaciones practicadas en el asunto, que podrá recoger en horario de {{horario_recogida}} previa cita en el teléfono {{telefono_despacho}}, o que le remitiremos por el medio que nos indique.
+Queda a su disposición en este despacho la documentación original que nos aportó, así como copia de las actuaciones practicadas en el asunto, que podrá recoger en horario de {{horario_recogida: franja horaria}} previa cita en el teléfono {{telefono_despacho: teléfono}}, o que le remitiremos por el medio que nos indique.
 
 Este despacho conservará copia del expediente durante el plazo legalmente exigible, con el deber de secreto profesional que subsiste indefinidamente tras la terminación del encargo.
 
-{{parrafo_traspaso_a_nuevo_letrado}}
+{{parrafo_traspaso_a_nuevo_letrado: bloque condicional que inserta la skill}}
 
 ## SÉPTIMO — Deber de secreto
 
@@ -73,18 +73,18 @@ Quedamos a su disposición para cuantas aclaraciones precise.
 
 Atentamente,
 
-Fdo.: {{nombre_profesional_responsable}}  
-Colegiado n.º {{numero_colegiado}} — {{colegio_adscripcion}}  
-{{denominacion_despacho}}
+Fdo.: {{nombre_profesional_responsable: nombre y apellidos}}  
+Colegiado n.º {{numero_colegiado: número de colegiado}} — {{colegio_adscripcion: denominación del colegio}}  
+{{denominacion_despacho: razón social}}
 
 ---
 
 **RECIBÍ**
 
-Recibida la presente comunicación y, en su caso, la documentación puesta a mi disposición, en fecha {{fecha_recibi}}.
+Recibida la presente comunicación y, en su caso, la documentación puesta a mi disposición, en fecha {{fecha_recibi: fecha (DD/MM/AAAA)}}.
 
-Fdo.: {{nombre_cliente}}  
-{{tipo_documento_cliente}} {{documento_cliente}}
+Fdo.: {{nombre_cliente: nombre y apellidos}}  
+{{tipo_documento_cliente: tipo de documento: DNI, NIE o CIF}} {{documento_cliente: DNI/NIE}}
 
 ---
 

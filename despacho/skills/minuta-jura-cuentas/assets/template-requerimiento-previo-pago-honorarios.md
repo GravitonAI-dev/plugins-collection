@@ -1,35 +1,35 @@
-# REQUERIMIENTO DE PAGO DE HONORARIOS PROFESIONALES — {{denominacion_despacho}} a {{nombre_cliente}}
+# REQUERIMIENTO DE PAGO DE HONORARIOS PROFESIONALES — {{denominacion_despacho: razón social}} a {{nombre_cliente: nombre y apellidos}}
 
 > **DRAFT — para revisión por el profesional responsable antes de su firma y envío. Debe adaptarse a la normativa deontológica del colegio de adscripción.**
 
 ---
 
 **REMITENTE**  
-{{denominacion_despacho}}  
-NIF {{nif_despacho}}  
-{{domicilio_despacho}}  
-Profesional responsable: {{nombre_profesional_responsable}}, colegiado n.º {{numero_colegiado}} del {{colegio_adscripcion}}
+{{denominacion_despacho: razón social}}  
+NIF {{nif_despacho: CIF/NIF}}  
+{{domicilio_despacho: domicilio completo}}  
+Profesional responsable: {{nombre_profesional_responsable: nombre y apellidos}}, colegiado n.º {{numero_colegiado: número de colegiado}} del {{colegio_adscripcion: denominación del colegio}}
 
 **DESTINATARIO**  
-{{nombre_cliente}}  
-{{tipo_documento_cliente}} {{documento_cliente}}  
-{{domicilio_cliente}}
+{{nombre_cliente: nombre y apellidos}}  
+{{tipo_documento_cliente: tipo de documento: DNI, NIE o CIF}} {{documento_cliente: DNI/NIE}}  
+{{domicilio_cliente: domicilio completo}}
 
-En {{lugar_emision}}, a {{fecha_requerimiento}}
+En {{lugar_emision: localidad}}, a {{fecha_requerimiento: fecha (DD/MM/AAAA)}}
 
-Asunto: requerimiento de pago de la minuta de honorarios n.º {{numero_minuta}}
+Asunto: requerimiento de pago de la minuta de honorarios n.º {{numero_minuta: referencia alfanumérica}}
 
 Muy Sr./Sra. nuestro/a:
 
 ## PRIMERO — Encargo profesional
 
-{{descripcion_titulo_encargo}}
+{{descripcion_titulo_encargo: texto libre, uno o varios párrafos}}
 
 ## SEGUNDO — Actuación realizada
 
-En cumplimiento del referido encargo, este despacho realizó las actuaciones profesionales que se detallan en la minuta n.º {{numero_minuta}}, de fecha {{fecha_minuta}}, que le fue entregada el día {{fecha_entrega_minuta}} y de la que se acompaña nueva copia con sus justificantes.
+En cumplimiento del referido encargo, este despacho realizó las actuaciones profesionales que se detallan en la minuta n.º {{numero_minuta: referencia alfanumérica}}, de fecha {{fecha_minuta: fecha (DD/MM/AAAA)}}, que le fue entregada el día {{fecha_entrega_minuta: fecha (DD/MM/AAAA)}} y de la que se acompaña nueva copia con sus justificantes.
 
-{{parrafo_resultado_o_estado_asunto}}
+{{parrafo_resultado_o_estado_asunto: bloque condicional que inserta la skill}}
 
 ## TERCERO — Cantidad adeudada
 
@@ -37,25 +37,25 @@ A la fecha de la presente, la cantidad pendiente de abono es la siguiente:
 
 | Concepto | Importe |
 |---|---|
-| Total minuta n.º {{numero_minuta}} | {{total_minuta}} € |
-| Cantidades percibidas a cuenta | -{{cantidades_abonadas}} € |
-| **Principal adeudado** | **{{principal_adeudado}} €** |
-| {{concepto_intereses}} | {{importe_intereses}} € |
-| **Total adeudado** | **{{total_adeudado}} €** |
+| Total minuta n.º {{numero_minuta: referencia alfanumérica}} | {{total_minuta: importe en euros}} € |
+| Cantidades percibidas a cuenta | -{{cantidades_abonadas: importe en euros}} € |
+| **Principal adeudado** | **{{principal_adeudado: importe en euros}} €** |
+| {{concepto_intereses: concepto de los intereses reclamados}} | {{importe_intereses: importe en euros}} € |
+| **Total adeudado** | **{{total_adeudado: importe en euros}} €** |
 
-{{parrafo_fundamento_intereses}}
+{{parrafo_fundamento_intereses: bloque condicional que inserta la skill}}
 
 ## CUARTO — Requerimiento
 
-Por medio de la presente le **requerimos formalmente** para que proceda al abono de la cantidad de **{{total_adeudado}} euros**, mediante transferencia a la cuenta {{iban_despacho}}, en el plazo improrrogable de **{{plazo_pago}}** desde la recepción de este escrito.
+Por medio de la presente le **requerimos formalmente** para que proceda al abono de la cantidad de **{{total_adeudado: importe en euros}} euros**, mediante transferencia a la cuenta {{iban_despacho: IBAN}}, en el plazo improrrogable de **{{plazo_pago: plazo de pago en días}}** desde la recepción de este escrito.
 
-{{parrafo_ofrecimiento_fraccionamiento}}
+{{parrafo_ofrecimiento_fraccionamiento: bloque condicional que inserta la skill}}
 
 ## QUINTO — Advertencia de acciones
 
 De no atenderse el presente requerimiento en el plazo indicado, este despacho se verá en la necesidad de iniciar las acciones legales que le asisten para el cobro de la cantidad debida, con reclamación del principal, los intereses devengados y las costas que en su caso procedan.
 
-{{bloque_via_de_reclamacion_anunciada}}
+{{bloque_via_de_reclamacion_anunciada: bloque condicional que inserta la skill}}
 
 ## SEXTO — Interrupción de la prescripción
 
@@ -69,9 +69,9 @@ Quedamos a su disposición para aclarar cualquier concepto de la minuta o para a
 
 Atentamente,
 
-Fdo.: {{nombre_profesional_responsable}}  
-Colegiado n.º {{numero_colegiado}} — {{colegio_adscripcion}}  
-{{denominacion_despacho}}
+Fdo.: {{nombre_profesional_responsable: nombre y apellidos}}  
+Colegiado n.º {{numero_colegiado: número de colegiado}} — {{colegio_adscripcion: denominación del colegio}}  
+{{denominacion_despacho: razón social}}
 
 ---
 

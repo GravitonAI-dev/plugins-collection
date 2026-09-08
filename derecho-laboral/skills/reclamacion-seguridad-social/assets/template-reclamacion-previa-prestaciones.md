@@ -1,35 +1,35 @@
 # RECLAMACIÓN ADMINISTRATIVA PREVIA EN MATERIA DE PRESTACIONES DE SEGURIDAD SOCIAL
 
 > **DRAFT — para revisión por un abogado o graduado social colegiado antes de su firma y presentación. No constituye asesoramiento jurídico definitivo.**  
-> Plazo: 30 días desde la notificación de la resolución, producida el {{fecha_notificacion}} — fecha límite calculada: {{fecha_limite_reclamacion}}  
+> Plazo: 30 días desde la notificación de la resolución, producida el {{fecha_notificacion: fecha (DD/MM/AAAA)}} — fecha límite calculada: {{fecha_limite_reclamacion: fecha (DD/MM/AAAA)}}  
 > Requisito **inexcusable** para poder formular demanda ante el Juzgado de lo Social (artículo 71 de la Ley 36/2011)
 
 ---
 
-**A LA {{organo_destinatario}}**  
-{{direccion_provincial}}
+**A LA {{organo_destinatario: denominación del órgano destinatario}}**  
+{{direccion_provincial: dirección provincial de la entidad gestora}}
 
 ## DATOS DEL INTERESADO
 
 | Dato | Valor |
 |---|---|
-| Nombre y apellidos | {{nombre_interesado}} |
-| DNI/NIE | {{dni_interesado}} |
-| Número de afiliación a la Seguridad Social | {{naf_interesado}} |
-| Domicilio a efectos de notificaciones | {{domicilio_interesado}} |
-| Teléfono | {{telefono_interesado}} |
-| Correo electrónico | {{email_interesado}} |
-| Representado por | {{representante_interesado}} |
+| Nombre y apellidos | {{nombre_interesado: nombre y apellidos}} |
+| DNI/NIE | {{dni_interesado: DNI/NIE}} |
+| Número de afiliación a la Seguridad Social | {{naf_interesado: número de afiliación a la Seguridad Social}} |
+| Domicilio a efectos de notificaciones | {{domicilio_interesado: domicilio completo}} |
+| Teléfono | {{telefono_interesado: teléfono}} |
+| Correo electrónico | {{email_interesado: correo electrónico}} |
+| Representado por | {{representante_interesado: representado por}} |
 
 ## EXPEDIENTE DE REFERENCIA
 
 | Dato | Valor |
 |---|---|
-| Número de expediente | {{numero_expediente}} |
-| Prestación solicitada | {{prestacion_solicitada}} |
-| Fecha de la resolución | {{fecha_resolucion}} |
-| **Fecha de notificación** | **{{fecha_notificacion}}** |
-| Contenido de la resolución | {{contenido_resolucion}} |
+| Número de expediente | {{numero_expediente: número de expediente}} |
+| Prestación solicitada | {{prestacion_solicitada: prestación solicitada}} |
+| Fecha de la resolución | {{fecha_resolucion: fecha (DD/MM/AAAA)}} |
+| **Fecha de notificación** | **{{fecha_notificacion: fecha (DD/MM/AAAA)}}** |
+| Contenido de la resolución | {{contenido_resolucion: contenido de la resolución}} |
 
 Que por medio del presente escrito, y dentro del plazo legalmente establecido, formulo **RECLAMACIÓN ADMINISTRATIVA PREVIA** contra la resolución identificada, al amparo del artículo 71 de la Ley 36/2011, reguladora de la Jurisdicción Social, con base en los siguientes
 
@@ -37,31 +37,31 @@ Que por medio del presente escrito, y dentro del plazo legalmente establecido, f
 
 ### PRIMERO — Solicitud y resolución
 
-{{relato_solicitud_y_resolucion}}
+{{relato_solicitud_y_resolucion: texto libre, uno o varios párrafos}}
 
 ### SEGUNDO — Profesión habitual y condiciones reales del puesto de trabajo
 
-La profesión habitual del interesado es la de **{{profesion_habitual}}**, encuadrada en {{categoria_profesional}}, actividad que viene desarrollando desde {{fecha_inicio_profesion}} y que comporta los siguientes requerimientos y condiciones reales de trabajo:
+La profesión habitual del interesado es la de **{{profesion_habitual: profesión habitual}}**, encuadrada en {{categoria_profesional: categoría profesional del convenio}}, actividad que viene desarrollando desde {{fecha_inicio_profesion: fecha (DD/MM/AAAA)}} y que comporta los siguientes requerimientos y condiciones reales de trabajo:
 
-{{descripcion_tareas_y_requerimientos}}
+{{descripcion_tareas_y_requerimientos: texto libre, uno o varios párrafos}}
 
 ### TERCERO — Cuadro clínico acreditado
 
 El interesado presenta las siguientes dolencias, según consta en los informes médicos que se acompañan:
 
-{{relacion_dolencias_con_informes}}
+{{relacion_dolencias_con_informes: lista, un elemento por línea}}
 
 ### CUARTO — Limitaciones funcionales
 
 De las dolencias descritas resultan acreditadas las siguientes limitaciones funcionales:
 
-{{relacion_limitaciones_funcionales}}
+{{relacion_limitaciones_funcionales: lista, un elemento por línea}}
 
 ### QUINTO — Incidencia de las limitaciones sobre la profesión habitual
 
-{{analisis_incidencia_limitaciones_profesion}}
+{{analisis_incidencia_limitaciones_profesion: texto libre, uno o varios párrafos}}
 
-{{bloque_datos_economicos_base_reguladora}}
+{{bloque_datos_economicos_base_reguladora: bloque condicional que inserta la skill}}
 
 ## FUNDAMENTOS
 
@@ -71,11 +71,11 @@ El presente escrito se formula al amparo del artículo 71 de la Ley 36/2011, reg
 
 ### II. Normativa aplicable
 
-{{normativa_aplicable_verificada}}
+{{normativa_aplicable_verificada: normativa aplicable verificada en el BOE}}
 
 ### III. Motivos de la impugnación
 
-{{motivos_impugnacion_desarrollados}}
+{{motivos_impugnacion_desarrollados: texto libre, uno o varios párrafos}}
 
 ### IV. Solicitud de aportación del expediente
 
@@ -87,20 +87,20 @@ Se interesa expresamente que se una a la presente reclamación el **expediente a
 
 **SOLICITO** que se tenga por presentada esta reclamación administrativa previa, se una al expediente de referencia, y previos los trámites oportunos se dicte resolución por la que, estimando la presente reclamación, se revoque la resolución impugnada y en su lugar se acuerde:
 
-{{pretension_concreta}}
+{{pretension_concreta: pretensión concreta que se solicita}}
 
-Con efectos económicos desde {{fecha_efectos_pretendida}}.
+Con efectos económicos desde {{fecha_efectos_pretendida: fecha (DD/MM/AAAA)}}.
 
-En {{lugar_presentacion}}, a {{fecha_escrito}}
+En {{lugar_presentacion: localidad}}, a {{fecha_escrito: fecha (DD/MM/AAAA)}}
 
-Fdo.: {{nombre_interesado}}  
-DNI/NIE {{dni_interesado}}
+Fdo.: {{nombre_interesado: nombre y apellidos}}  
+DNI/NIE {{dni_interesado: DNI/NIE}}
 
 ---
 
 ## DOCUMENTACIÓN QUE SE ACOMPAÑA
 
-{{relacion_documentacion_aportada}}
+{{relacion_documentacion_aportada: lista, un elemento por línea}}
 
 ---
 

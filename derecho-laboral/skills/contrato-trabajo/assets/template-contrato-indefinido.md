@@ -1,23 +1,23 @@
-# CONTRATO DE TRABAJO INDEFINIDO — {{razon_social_empresa}} y {{nombre_trabajador}}
+# CONTRATO DE TRABAJO INDEFINIDO — {{razon_social_empresa: razón social}} y {{nombre_trabajador: nombre y apellidos}}
 
 > **DRAFT — para revisión por un abogado o graduado social colegiado antes de su firma y formalización. No constituye asesoramiento jurídico definitivo.**  
-> Convenio colectivo aplicable: {{denominacion_convenio}} (código {{codigo_convenio}})
+> Convenio colectivo aplicable: {{denominacion_convenio: denominación y ámbito del convenio colectivo}} (código {{codigo_convenio: código de convenio}})
 
-En {{lugar_firma}}, a {{fecha_firma}}
+En {{lugar_firma: localidad}}, a {{fecha_firma: fecha (DD/MM/AAAA)}}
 
 ---
 
 ## REUNIDOS
 
-**DE UNA PARTE**, {{razon_social_empresa}}, con CIF {{cif_empresa}}, domicilio social en {{domicilio_empresa}}, código de cuenta de cotización {{ccc_empresa}} y actividad de {{actividad_empresa}}, representada en este acto por {{nombre_representante}}, con NIF {{nif_representante}}, en su condición de {{cargo_representante}} (en adelante, la EMPRESA).
+**DE UNA PARTE**, {{razon_social_empresa: razón social}}, con CIF {{cif_empresa: CIF/NIF}}, domicilio social en {{domicilio_empresa: domicilio completo}}, código de cuenta de cotización {{ccc_empresa: código de cuenta de cotización}} y actividad de {{actividad_empresa: actividad de la empresa}}, representada en este acto por {{nombre_representante: nombre y apellidos}}, con NIF {{nif_representante: CIF/NIF}}, en su condición de {{cargo_representante: cargo del firmante}} (en adelante, la EMPRESA).
 
-**DE OTRA PARTE**, {{nombre_trabajador}}, mayor de edad, con DNI/NIE {{dni_trabajador}}, número de afiliación a la Seguridad Social {{naf_trabajador}}, y domicilio en {{domicilio_trabajador}} (en adelante, la persona TRABAJADORA).
+**DE OTRA PARTE**, {{nombre_trabajador: nombre y apellidos}}, mayor de edad, con DNI/NIE {{dni_trabajador: DNI/NIE}}, número de afiliación a la Seguridad Social {{naf_trabajador: número de afiliación a la Seguridad Social}}, y domicilio en {{domicilio_trabajador: domicilio completo}} (en adelante, la persona TRABAJADORA).
 
 Ambas partes se reconocen mutuamente capacidad legal suficiente para contratar y obligarse, y a tal efecto
 
 ## EXPONEN
 
-**I.** Que la EMPRESA precisa cubrir de forma permanente el puesto de {{denominacion_puesto}} en su centro de trabajo sito en {{centro_trabajo}}.
+**I.** Que la EMPRESA precisa cubrir de forma permanente el puesto de {{denominacion_puesto: denominación del puesto}} en su centro de trabajo sito en {{centro_trabajo: dirección del centro de trabajo}}.
 
 **II.** Que la persona TRABAJADORA reúne los requisitos de titulación, capacitación y experiencia exigidos para el desempeño de dicho puesto.
 
@@ -27,51 +27,51 @@ Ambas partes se reconocen mutuamente capacidad legal suficiente para contratar y
 
 ### PRIMERA — Objeto y clasificación profesional
 
-La persona TRABAJADORA prestará sus servicios como {{denominacion_puesto}}, quedando encuadrada en el grupo profesional {{grupo_profesional}}, nivel retributivo {{nivel_retributivo}}, del {{denominacion_convenio}}.
+La persona TRABAJADORA prestará sus servicios como {{denominacion_puesto: denominación del puesto}}, quedando encuadrada en el grupo profesional {{grupo_profesional: grupo profesional del convenio}}, nivel retributivo {{nivel_retributivo: nivel retributivo del convenio}}, del {{denominacion_convenio: denominación y ámbito del convenio colectivo}}.
 
 Las funciones a desarrollar serán las siguientes:
 
-{{descripcion_funciones}}
+{{descripcion_funciones: texto libre, uno o varios párrafos}}
 
 Sin perjuicio de lo anterior, la persona TRABAJADORA podrá desempeñar las restantes funciones propias de su grupo profesional, conforme al artículo 39 del Estatuto de los Trabajadores.
 
 ### SEGUNDA — Duración
 
-El presente contrato se concierta por **tiempo indefinido**, con efectos desde el día {{fecha_inicio}}.
+El presente contrato se concierta por **tiempo indefinido**, con efectos desde el día {{fecha_inicio: fecha (DD/MM/AAAA)}}.
 
 ### TERCERA — Lugar de prestación de servicios
 
-Los servicios se prestarán en el centro de trabajo sito en {{centro_trabajo}}, bajo la modalidad {{modalidad_prestacion}}.
+Los servicios se prestarán en el centro de trabajo sito en {{centro_trabajo: dirección del centro de trabajo}}, bajo la modalidad {{modalidad_prestacion: modalidad: presencial, híbrida o a distancia}}.
 
-{{parrafo_remision_acuerdo_distancia}}
+{{parrafo_remision_acuerdo_distancia: bloque condicional que inserta la skill}}
 
 ### CUARTA — Jornada y distribución
 
-La jornada de trabajo será {{tipo_jornada}}, con una duración de {{jornada_semanal}} horas semanales y {{jornada_anual}} horas anuales, distribuidas conforme al siguiente horario: {{distribucion_horaria}}.
+La jornada de trabajo será {{tipo_jornada: jornada: completa o parcial}}, con una duración de {{jornada_semanal: número de horas semanales}} horas semanales y {{jornada_anual: número de horas anuales}} horas anuales, distribuidas conforme al siguiente horario: {{distribucion_horaria: horario y distribución de la jornada}}.
 
-{{parrafo_horas_ordinarias_tiempo_parcial}}
+{{parrafo_horas_ordinarias_tiempo_parcial: bloque condicional que inserta la skill}}
 
 Los descansos serán los establecidos legal y convencionalmente. La EMPRESA llevará el registro diario de jornada exigido por el artículo 34.9 del Estatuto de los Trabajadores.
 
 ### QUINTA — Retribución
 
-La persona TRABAJADORA percibirá una retribución bruta anual de {{salario_bruto_anual}} euros, distribuida en {{numero_pagas}} pagas, con el siguiente desglose:
+La persona TRABAJADORA percibirá una retribución bruta anual de {{salario_bruto_anual: importe en euros}} euros, distribuida en {{numero_pagas: plazo o número}} pagas, con el siguiente desglose:
 
-{{desglose_retribucion}}
+{{desglose_retribucion: detalle del cálculo}}
 
-El abono se realizará por meses vencidos, mediante transferencia bancaria a la cuenta {{iban_trabajador}}, dentro de los {{dias_pago}} primeros días del mes siguiente al de devengo.
+El abono se realizará por meses vencidos, mediante transferencia bancaria a la cuenta {{iban_trabajador: IBAN}}, dentro de los {{dias_pago: número de días}} primeros días del mes siguiente al de devengo.
 
 ### SEXTA — Periodo de prueba
 
-Se establece un periodo de prueba de {{duracion_periodo_prueba}}, conforme al artículo {{articulo_convenio_periodo_prueba}} del convenio colectivo de aplicación y al artículo 14 del Estatuto de los Trabajadores. Durante dicho periodo cualquiera de las partes podrá resolver la relación laboral sin necesidad de preaviso ni de alegación de causa, y sin derecho a indemnización.
+Se establece un periodo de prueba de {{duracion_periodo_prueba: duración del periodo de prueba}}, conforme al artículo {{articulo_convenio_periodo_prueba: número de artículo}} del convenio colectivo de aplicación y al artículo 14 del Estatuto de los Trabajadores. Durante dicho periodo cualquiera de las partes podrá resolver la relación laboral sin necesidad de preaviso ni de alegación de causa, y sin derecho a indemnización.
 
 ### SÉPTIMA — Vacaciones
 
-La persona TRABAJADORA disfrutará de {{dias_vacaciones}} días de vacaciones anuales retribuidas, cuyo disfrute se fijará de común acuerdo conforme al artículo 38 del Estatuto de los Trabajadores y al convenio colectivo aplicable.
+La persona TRABAJADORA disfrutará de {{dias_vacaciones: número de días}} días de vacaciones anuales retribuidas, cuyo disfrute se fijará de común acuerdo conforme al artículo 38 del Estatuto de los Trabajadores y al convenio colectivo aplicable.
 
 ### OCTAVA — Convenio colectivo aplicable
 
-La presente relación laboral se regirá por lo pactado en este contrato, por el {{denominacion_convenio}} y, en lo no previsto, por el texto refundido de la Ley del Estatuto de los Trabajadores y demás normativa laboral vigente.
+La presente relación laboral se regirá por lo pactado en este contrato, por el {{denominacion_convenio: denominación y ámbito del convenio colectivo}} y, en lo no previsto, por el texto refundido de la Ley del Estatuto de los Trabajadores y demás normativa laboral vigente.
 
 ### NOVENA — Confidencialidad
 
@@ -85,19 +85,19 @@ La EMPRESA informa a la persona TRABAJADORA del tratamiento de sus datos persona
 
 La EMPRESA facilitará a la persona TRABAJADORA, con carácter previo al inicio efectivo de la prestación, la información y la formación en materia de prevención de riesgos laborales correspondientes a su puesto, así como los equipos de protección que resulten necesarios.
 
-{{clausulas_adicionales_pactadas}}
+{{clausulas_adicionales_pactadas: bloque condicional que inserta la skill}}
 
 ---
 
 Y en prueba de conformidad, ambas partes firman el presente contrato por duplicado y a un solo efecto, en el lugar y fecha indicados en el encabezamiento.
 
 **POR LA EMPRESA**  
-Fdo.: {{nombre_representante}}  
-{{cargo_representante}}
+Fdo.: {{nombre_representante: nombre y apellidos}}  
+{{cargo_representante: cargo del firmante}}
 
 **LA PERSONA TRABAJADORA**  
-Fdo.: {{nombre_trabajador}}  
-DNI/NIE {{dni_trabajador}}
+Fdo.: {{nombre_trabajador: nombre y apellidos}}  
+DNI/NIE {{dni_trabajador: DNI/NIE}}
 
 ---
 

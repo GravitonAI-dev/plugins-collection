@@ -6,9 +6,9 @@
 
 ## OTORGANTE
 
-{{bloque_identificacion_otorgante}}
+{{bloque_identificacion_otorgante: bloque condicional que inserta la skill}}
 
-{{bloque_titulo_representante_organico}}
+{{bloque_titulo_representante_organico: bloque condicional que inserta la skill}}
 
 ## APODERADOS
 
@@ -16,17 +16,17 @@ Confiere poder, tan amplio y bastante como en derecho se requiera y sea necesari
 
 | Apoderado | Documento | Colegiado n.º | Colegio |
 |---|---|---|---|
-| {{nombre_apoderado_1}} | {{documento_apoderado_1}} | {{colegiado_apoderado_1}} | {{colegio_apoderado_1}} |
-| {{nombre_apoderado_2}} | {{documento_apoderado_2}} | {{colegiado_apoderado_2}} | {{colegio_apoderado_2}} |
-| {{nombre_apoderado_3}} | {{documento_apoderado_3}} | {{colegiado_apoderado_3}} | {{colegio_apoderado_3}} |
+| {{nombre_apoderado_1: nombre y apellidos}} | {{documento_apoderado_1: DNI/NIE}} | {{colegiado_apoderado_1: número de colegiado}} | {{colegio_apoderado_1: colegio}} |
+| {{nombre_apoderado_2: nombre y apellidos}} | {{documento_apoderado_2: DNI/NIE}} | {{colegiado_apoderado_2: número de colegiado}} | {{colegio_apoderado_2: colegio}} |
+| {{nombre_apoderado_3: nombre y apellidos}} | {{documento_apoderado_3: DNI/NIE}} | {{colegiado_apoderado_3: número de colegiado}} | {{colegio_apoderado_3: colegio}} |
 
-{{bloque_apoderamiento_procuradores}}
+{{bloque_apoderamiento_procuradores: bloque condicional que inserta la skill}}
 
-Los apoderados podrán ejercitar las facultades conferidas de forma **{{regimen_ejercicio_facultades}}**.
+Los apoderados podrán ejercitar las facultades conferidas de forma **{{regimen_ejercicio_facultades: régimen: solidario o mancomunado}}**.
 
 ## ÁMBITO DEL PODER
 
-{{delimitacion_ambito_poder}}
+{{delimitacion_ambito_poder: texto libre}}
 
 ## FACULTADES QUE SE CONFIEREN
 
@@ -52,29 +52,29 @@ El otorgante se pronuncia expresamente sobre cada una de las siguientes facultad
 
 | Facultad | ¿Se confiere? |
 |---|---|
-| Renunciar a la acción o al derecho | {{facultad_renuncia}} |
-| Transigir, en juicio o fuera de él, y suscribir acuerdos transaccionales | {{facultad_transaccion}} |
-| Desistir del procedimiento o del recurso | {{facultad_desistimiento}} |
-| Allanarse total o parcialmente a la pretensión de la contraria | {{facultad_allanamiento}} |
-| Someter la controversia a arbitraje o a mediación, y suscribir el convenio correspondiente | {{facultad_arbitraje}} |
-| Formular manifestaciones que puedan comportar el sobreseimiento del proceso por satisfacción extraprocesal o carencia sobrevenida de objeto | {{facultad_sobreseimiento}} |
-| {{facultad_adicional_1}} | {{concesion_facultad_adicional_1}} |
+| Renunciar a la acción o al derecho | {{facultad_renuncia: sí / no}} |
+| Transigir, en juicio o fuera de él, y suscribir acuerdos transaccionales | {{facultad_transaccion: sí / no}} |
+| Desistir del procedimiento o del recurso | {{facultad_desistimiento: sí / no}} |
+| Allanarse total o parcialmente a la pretensión de la contraria | {{facultad_allanamiento: sí / no}} |
+| Someter la controversia a arbitraje o a mediación, y suscribir el convenio correspondiente | {{facultad_arbitraje: sí / no}} |
+| Formular manifestaciones que puedan comportar el sobreseimiento del proceso por satisfacción extraprocesal o carencia sobrevenida de objeto | {{facultad_sobreseimiento: sí / no}} |
+| {{facultad_adicional_1: facultad}} | {{concesion_facultad_adicional_1: sí / no}} |
 
 ### III. Facultades de cobro y percepción
 
-{{bloque_facultades_cobro}}
+{{bloque_facultades_cobro: bloque condicional que inserta la skill}}
 
 ### IV. Sustitución
 
-{{bloque_sustitucion}}
+{{bloque_sustitucion: bloque condicional que inserta la skill}}
 
 ## DURACIÓN Y REVOCACIÓN
 
-{{bloque_duracion_y_revocacion}}
+{{bloque_duracion_y_revocacion: bloque condicional que inserta la skill}}
 
 ## ACEPTACIÓN
 
-{{bloque_aceptacion_apoderados}}
+{{bloque_aceptacion_apoderados: bloque condicional que inserta la skill}}
 
 ---
 

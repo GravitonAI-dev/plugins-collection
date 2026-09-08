@@ -1,72 +1,72 @@
 # PAPELETA DE CONCILIACIÓN POR RECLAMACIÓN DE CANTIDAD
 
 > **DRAFT — para revisión por un abogado o graduado social colegiado antes de su firma y presentación. No constituye asesoramiento jurídico definitivo.**  
-> Organismo de presentación: {{organismo_conciliacion}}  
-> Plazo de prescripción: 1 año desde el devengo de cada concepto — fecha límite calculada para el concepto más antiguo: {{fecha_limite_prescripcion}}
+> Organismo de presentación: {{organismo_conciliacion: denominación exacta del servicio de conciliación competente}}  
+> Plazo de prescripción: 1 año desde el devengo de cada concepto — fecha límite calculada para el concepto más antiguo: {{fecha_limite_prescripcion: fecha (DD/MM/AAAA)}}
 
 ---
 
-**AL {{organismo_conciliacion}}**
+**AL {{organismo_conciliacion: denominación exacta del servicio de conciliación competente}}**
 
 ## DATOS DEL SOLICITANTE
 
 | Dato | Valor |
 |---|---|
-| Nombre y apellidos | {{nombre_solicitante}} |
-| DNI/NIE | {{dni_solicitante}} |
-| Domicilio a efectos de notificaciones | {{domicilio_solicitante}} |
-| Teléfono | {{telefono_solicitante}} |
-| Correo electrónico | {{email_solicitante}} |
-| Representado por | {{representante_solicitante}} |
+| Nombre y apellidos | {{nombre_solicitante: nombre y apellidos}} |
+| DNI/NIE | {{dni_solicitante: DNI/NIE}} |
+| Domicilio a efectos de notificaciones | {{domicilio_solicitante: domicilio completo}} |
+| Teléfono | {{telefono_solicitante: teléfono}} |
+| Correo electrónico | {{email_solicitante: correo electrónico}} |
+| Representado por | {{representante_solicitante: representado por}} |
 
 ## DATOS DE LA PARTE FRENTE A LA QUE SE SOLICITA LA CONCILIACIÓN
 
 | Dato | Valor |
 |---|---|
-| Razón social o nombre | {{razon_social_demandado}} |
-| CIF/NIF | {{cif_demandado}} |
-| Domicilio social | {{domicilio_social_demandado}} |
-| Domicilio del centro de trabajo | {{domicilio_centro_trabajo}} |
+| Razón social o nombre | {{razon_social_demandado: razón social}} |
+| CIF/NIF | {{cif_demandado: CIF/NIF}} |
+| Domicilio social | {{domicilio_social_demandado: domicilio completo}} |
+| Domicilio del centro de trabajo | {{domicilio_centro_trabajo: domicilio completo}} |
 
-{{bloque_codemandados_responsabilidad_solidaria}}
+{{bloque_codemandados_responsabilidad_solidaria: bloque condicional que inserta la skill}}
 
 ## DATOS DE LA RELACIÓN LABORAL
 
 | Dato | Valor |
 |---|---|
-| Fecha de antigüedad | {{fecha_antiguedad}} |
-| Situación actual | {{situacion_relacion_laboral}} |
-| Categoría o grupo profesional | {{categoria_profesional}} |
-| Jornada | {{tipo_jornada}} |
-| Salario bruto pactado | {{salario_bruto_pactado}} |
-| Convenio colectivo aplicable | {{denominacion_convenio}} |
+| Fecha de antigüedad | {{fecha_antiguedad: fecha (DD/MM/AAAA)}} |
+| Situación actual | {{situacion_relacion_laboral: situación: relación vigente o extinguida}} |
+| Categoría o grupo profesional | {{categoria_profesional: categoría o grupo profesional}} |
+| Jornada | {{tipo_jornada: jornada: completa o parcial}} |
+| Salario bruto pactado | {{salario_bruto_pactado: importe en euros}} |
+| Convenio colectivo aplicable | {{denominacion_convenio: convenio colectivo aplicable}} |
 
 ## HECHOS
 
-{{relato_hechos}}
+{{relato_hechos: texto libre, uno o varios párrafos}}
 
 ## CANTIDADES RECLAMADAS
 
 | Concepto | Periodo de devengo | Detalle del cálculo | Importe |
 |---|---|---|---|
-| {{concepto_1}} | {{periodo_1}} | {{calculo_1}} | {{importe_1}} € |
-| {{concepto_2}} | {{periodo_2}} | {{calculo_2}} | {{importe_2}} € |
-| {{concepto_3}} | {{periodo_3}} | {{calculo_3}} | {{importe_3}} € |
-| {{concepto_4}} | {{periodo_4}} | {{calculo_4}} | {{importe_4}} € |
-| **TOTAL RECLAMADO** | | | **{{total_reclamado}} €** |
+| {{concepto_1: concepto reclamado}} | {{periodo_1: periodo de devengo}} | {{calculo_1: detalle del cálculo}} | {{importe_1: importe en euros}} € |
+| {{concepto_2: concepto reclamado}} | {{periodo_2: periodo de devengo}} | {{calculo_2: detalle del cálculo}} | {{importe_2: importe en euros}} € |
+| {{concepto_3: concepto reclamado}} | {{periodo_3: periodo de devengo}} | {{calculo_3: detalle del cálculo}} | {{importe_3: importe en euros}} € |
+| {{concepto_4: concepto reclamado}} | {{periodo_4: periodo de devengo}} | {{calculo_4: detalle del cálculo}} | {{importe_4: importe en euros}} € |
+| **TOTAL RECLAMADO** | | | **{{total_reclamado: importe en euros}} €** |
 
 Se reclama además el **interés por mora del diez por ciento anual** sobre las cantidades salariales adeudadas, conforme al artículo 29.3 del texto refundido de la Ley del Estatuto de los Trabajadores.
 
 ## PRETENSIÓN
 
-Que se tenga por presentada la presente papeleta de conciliación y, previos los trámites oportunos, se celebre el acto de conciliación entre las partes, interesando el solicitante que la empresa reconozca adeudarle la cantidad de **{{total_reclamado}} euros** por los conceptos y periodos detallados, más el interés por mora del artículo 29.3 del Estatuto de los Trabajadores, y se avenga a su abono.
+Que se tenga por presentada la presente papeleta de conciliación y, previos los trámites oportunos, se celebre el acto de conciliación entre las partes, interesando el solicitante que la empresa reconozca adeudarle la cantidad de **{{total_reclamado: importe en euros}} euros** por los conceptos y periodos detallados, más el interés por mora del artículo 29.3 del Estatuto de los Trabajadores, y se avenga a su abono.
 
 ---
 
-En {{lugar_presentacion}}, a {{fecha_presentacion}}
+En {{lugar_presentacion: localidad}}, a {{fecha_presentacion: fecha (DD/MM/AAAA)}}
 
-Fdo.: {{nombre_solicitante}}  
-DNI/NIE {{dni_solicitante}}
+Fdo.: {{nombre_solicitante: nombre y apellidos}}  
+DNI/NIE {{dni_solicitante: DNI/NIE}}
 
 ---
 

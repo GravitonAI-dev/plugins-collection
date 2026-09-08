@@ -1,53 +1,53 @@
 # RESOLUCIÓN DE EXPEDIENTE CONTRADICTORIO
 
 > **DRAFT — para revisión por un abogado o graduado social colegiado antes de su firma y entrega. No constituye asesoramiento jurídico definitivo.**  
-> Convenio colectivo aplicable: {{denominacion_convenio}} (código {{codigo_convenio}})
+> Convenio colectivo aplicable: {{denominacion_convenio: denominación y ámbito del convenio colectivo}} (código {{codigo_convenio: código de convenio}})
 
 ---
 
 **EMPRESA INSTRUCTORA**  
-{{razon_social_empresa}}  
-CIF {{cif_empresa}}  
-{{domicilio_empresa}}  
-Representada por {{nombre_representante}}, con NIF {{nif_representante}}, en su condición de {{cargo_representante}}
+{{razon_social_empresa: razón social}}  
+CIF {{cif_empresa: CIF/NIF}}  
+{{domicilio_empresa: domicilio completo}}  
+Representada por {{nombre_representante: nombre y apellidos}}, con NIF {{nif_representante: CIF/NIF}}, en su condición de {{cargo_representante: cargo del firmante}}
 
 **TRABAJADOR EXPEDIENTADO**  
-{{nombre_trabajador}}  
-DNI/NIE {{dni_trabajador}}  
-{{domicilio_trabajador}}  
-Categoría profesional: {{categoria_profesional}}
+{{nombre_trabajador: nombre y apellidos}}  
+DNI/NIE {{dni_trabajador: DNI/NIE}}  
+{{domicilio_trabajador: domicilio completo}}  
+Categoría profesional: {{categoria_profesional: categoría profesional del convenio}}
 
-En {{lugar_emision}}, a {{fecha_resolucion}}
+En {{lugar_emision: localidad}}, a {{fecha_resolucion: fecha (DD/MM/AAAA)}}
 
 ## ANTECEDENTES
 
-**Primero.** Con fecha {{fecha_pliego}} se le notificó pliego de cargos por el que se acordaba la apertura de expediente contradictorio, imputándole los hechos allí relacionados y calificándolos provisionalmente como falta {{gravedad_falta}} del artículo {{articulo_convenio_faltas}} del convenio colectivo de aplicación.
+**Primero.** Con fecha {{fecha_pliego: fecha (DD/MM/AAAA)}} se le notificó pliego de cargos por el que se acordaba la apertura de expediente contradictorio, imputándole los hechos allí relacionados y calificándolos provisionalmente como falta {{gravedad_falta: gravedad: leve, grave o muy grave}} del artículo {{articulo_convenio_faltas: número de artículo}} del convenio colectivo de aplicación.
 
-**Segundo.** {{parrafo_pliego_descargos}}
+**Segundo.** {{parrafo_pliego_descargos: bloque condicional que inserta la skill}}
 
-**Tercero.** {{parrafo_alegaciones_representacion}}
+**Tercero.** {{parrafo_alegaciones_representacion: bloque condicional que inserta la skill}}
 
-**Cuarto.** {{parrafo_prueba_practicada}}
+**Cuarto.** {{parrafo_prueba_practicada: bloque condicional que inserta la skill}}
 
 ## HECHOS PROBADOS
 
 A la vista de las actuaciones practicadas, se declaran acreditados los siguientes hechos:
 
-{{relato_hechos_probados}}
+{{relato_hechos_probados: texto libre, uno o varios párrafos}}
 
 ## VALORACIÓN
 
-{{valoracion_alegaciones_y_prueba}}
+{{valoracion_alegaciones_y_prueba: texto libre, uno o varios párrafos}}
 
 ## CALIFICACIÓN DEFINITIVA
 
-Los hechos declarados probados constituyen una falta {{gravedad_falta_definitiva}}, tipificada en el artículo {{articulo_convenio_faltas}} del {{denominacion_convenio}}, relativo a {{descripcion_falta_convenio}}.
+Los hechos declarados probados constituyen una falta {{gravedad_falta_definitiva: gravedad definitiva: leve, grave o muy grave}}, tipificada en el artículo {{articulo_convenio_faltas: número de artículo}} del {{denominacion_convenio: denominación y ámbito del convenio colectivo}}, relativo a {{descripcion_falta_convenio: definición de la falta según el convenio}}.
 
 ## RESOLUCIÓN
 
-En atención a lo expuesto, y en aplicación del cuadro de sanciones del artículo {{articulo_convenio_sanciones}} del convenio colectivo, esta empresa **RESUELVE**:
+En atención a lo expuesto, y en aplicación del cuadro de sanciones del artículo {{articulo_convenio_sanciones: número de artículo}} del convenio colectivo, esta empresa **RESUELVE**:
 
-{{parte_dispositiva_resolucion}}
+{{parte_dispositiva_resolucion: parte dispositiva de la resolución}}
 
 ## NOTIFICACIÓN Y RECURSOS
 
@@ -55,18 +55,18 @@ La presente resolución se notifica al trabajador expedientado y a la representa
 
 Se hace constar que el trabajador dispone de un plazo de **veinte días hábiles**, a contar desde el día siguiente a la notificación de la presente, para impugnar la sanción ante el Juzgado de lo Social competente, previa presentación de papeleta de conciliación ante el servicio administrativo correspondiente, conforme a los artículos 63 y 114 de la Ley 36/2011, reguladora de la Jurisdicción Social.
 
-Fdo.: {{nombre_representante}}  
-{{cargo_representante}}  
-{{razon_social_empresa}}
+Fdo.: {{nombre_representante: nombre y apellidos}}  
+{{cargo_representante: cargo del firmante}}  
+{{razon_social_empresa: razón social}}
 
 ---
 
 **RECIBÍ**
 
-Recibo copia de la presente resolución en fecha {{fecha_recibi}}, a los solos efectos de acreditar su recepción y sin que ello implique conformidad con su contenido.
+Recibo copia de la presente resolución en fecha {{fecha_recibi: fecha (DD/MM/AAAA)}}, a los solos efectos de acreditar su recepción y sin que ello implique conformidad con su contenido.
 
-Fdo.: {{nombre_trabajador}}  
-DNI/NIE {{dni_trabajador}}
+Fdo.: {{nombre_trabajador: nombre y apellidos}}  
+DNI/NIE {{dni_trabajador: DNI/NIE}}
 
 ---
 

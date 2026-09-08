@@ -1,41 +1,41 @@
 # PLIEGO DE CARGOS — APERTURA DE EXPEDIENTE CONTRADICTORIO
 
 > **DRAFT — para revisión por un abogado o graduado social colegiado antes de su firma y entrega. No constituye asesoramiento jurídico definitivo.**  
-> Convenio colectivo aplicable: {{denominacion_convenio}} (código {{codigo_convenio}})
+> Convenio colectivo aplicable: {{denominacion_convenio: denominación y ámbito del convenio colectivo}} (código {{codigo_convenio: código de convenio}})
 
 ---
 
 **EMPRESA INSTRUCTORA**  
-{{razon_social_empresa}}  
-CIF {{cif_empresa}}  
-{{domicilio_empresa}}  
-Representada por {{nombre_representante}}, con NIF {{nif_representante}}, en su condición de {{cargo_representante}}
+{{razon_social_empresa: razón social}}  
+CIF {{cif_empresa: CIF/NIF}}  
+{{domicilio_empresa: domicilio completo}}  
+Representada por {{nombre_representante: nombre y apellidos}}, con NIF {{nif_representante: CIF/NIF}}, en su condición de {{cargo_representante: cargo del firmante}}
 
 **TRABAJADOR EXPEDIENTADO**  
-{{nombre_trabajador}}  
-DNI/NIE {{dni_trabajador}}  
-{{domicilio_trabajador}}  
-Categoría profesional: {{categoria_profesional}}  
-Condición: {{condicion_representativa_trabajador}}
+{{nombre_trabajador: nombre y apellidos}}  
+DNI/NIE {{dni_trabajador: DNI/NIE}}  
+{{domicilio_trabajador: domicilio completo}}  
+Categoría profesional: {{categoria_profesional: categoría profesional del convenio}}  
+Condición: {{condicion_representativa_trabajador: condición representativa del trabajador}}
 
 **INSTRUCTOR DESIGNADO**  
-{{nombre_instructor}}, con NIF {{nif_instructor}}, en su condición de {{cargo_instructor}}
+{{nombre_instructor: nombre y apellidos}}, con NIF {{nif_instructor: CIF/NIF}}, en su condición de {{cargo_instructor: cargo del instructor}}
 
-En {{lugar_emision}}, a {{fecha_pliego}}
+En {{lugar_emision: localidad}}, a {{fecha_pliego: fecha (DD/MM/AAAA)}}
 
 Muy Sr./Sra. nuestro/a:
 
-Por medio del presente escrito se le comunica la **apertura de expediente contradictorio** por los hechos que a continuación se detallan, en cumplimiento de lo dispuesto en el artículo 68.a) del texto refundido de la Ley del Estatuto de los Trabajadores, aprobado por Real Decreto Legislativo 2/2015, de 23 de octubre, {{cita_lolsindical_si_delegado}} y en el artículo {{articulo_convenio_expediente}} del convenio colectivo de aplicación.
+Por medio del presente escrito se le comunica la **apertura de expediente contradictorio** por los hechos que a continuación se detallan, en cumplimiento de lo dispuesto en el artículo 68.a) del texto refundido de la Ley del Estatuto de los Trabajadores, aprobado por Real Decreto Legislativo 2/2015, de 23 de octubre, {{cita_lolsindical_si_delegado: cita de la Ley Orgánica de Libertad Sindical, solo si es delegado sindical}} y en el artículo {{articulo_convenio_expediente: número de artículo}} del convenio colectivo de aplicación.
 
 ## PRIMERO — Hechos imputados
 
 Se le imputan los siguientes hechos, que se relacionan de forma separada y numerada:
 
-{{relato_hechos_imputados}}
+{{relato_hechos_imputados: texto libre, uno o varios párrafos}}
 
 ## SEGUNDO — Calificación provisional
 
-Los hechos descritos podrían ser constitutivos de una falta {{gravedad_falta}}, tipificada en el artículo {{articulo_convenio_faltas}} del {{denominacion_convenio}}, relativo a {{descripcion_falta_convenio}}, sancionable conforme al artículo {{articulo_convenio_sanciones}} del mismo texto con {{sancion_prevista_convenio}}.
+Los hechos descritos podrían ser constitutivos de una falta {{gravedad_falta: gravedad: leve, grave o muy grave}}, tipificada en el artículo {{articulo_convenio_faltas: número de artículo}} del {{denominacion_convenio: denominación y ámbito del convenio colectivo}}, relativo a {{descripcion_falta_convenio: definición de la falta según el convenio}}, sancionable conforme al artículo {{articulo_convenio_sanciones: número de artículo}} del mismo texto con {{sancion_prevista_convenio: sanción prevista en el convenio}}.
 
 Esta calificación tiene carácter estrictamente **provisional** y podrá modificarse a la vista de las alegaciones y pruebas que se practiquen en el presente expediente.
 
@@ -43,11 +43,11 @@ Esta calificación tiene carácter estrictamente **provisional** y podrá modifi
 
 Se acompañan al presente pliego los siguientes documentos y medios de acreditación de los hechos imputados:
 
-{{relacion_medios_acreditacion}}
+{{relacion_medios_acreditacion: lista, un elemento por línea}}
 
 ## CUARTO — Trámite de audiencia
 
-Se le concede un plazo de **{{plazo_descargos}}** hábiles, a contar desde el día siguiente a la recepción del presente pliego, para que formule por escrito el pliego de descargos que estime conveniente en defensa de sus intereses, aporte los documentos que considere oportunos y proponga las pruebas de que intente valerse.
+Se le concede un plazo de **{{plazo_descargos: plazo de descargos en días}}** hábiles, a contar desde el día siguiente a la recepción del presente pliego, para que formule por escrito el pliego de descargos que estime conveniente en defensa de sus intereses, aporte los documentos que considere oportunos y proponga las pruebas de que intente valerse.
 
 Podrá comparecer asistido de la persona que designe. Durante la tramitación del expediente tendrá acceso a la documentación que lo integra.
 
@@ -55,7 +55,7 @@ Podrá comparecer asistido de la persona que designe. Durante la tramitación de
 
 De conformidad con lo dispuesto en el artículo 68.a) del Estatuto de los Trabajadores, se da traslado simultáneo del presente pliego a los restantes miembros de la representación legal de los trabajadores, a los efectos de que puedan formular las alegaciones que estimen procedentes en el mismo plazo.
 
-{{parrafo_audiencia_delegado_sindical}}
+{{parrafo_audiencia_delegado_sindical: bloque condicional que inserta la skill}}
 
 ## SEXTO — Efectos
 
@@ -65,17 +65,17 @@ Rogamos firme el duplicado del presente a los solos efectos de acreditar su rece
 
 Atentamente,
 
-Fdo.: {{nombre_instructor}}  
+Fdo.: {{nombre_instructor: nombre y apellidos}}  
 Instructor del expediente
 
 ---
 
 **RECIBÍ**
 
-Recibo copia del presente pliego de cargos en fecha {{fecha_recibi}}, a los solos efectos de acreditar su recepción y sin que ello implique conformidad con su contenido.
+Recibo copia del presente pliego de cargos en fecha {{fecha_recibi: fecha (DD/MM/AAAA)}}, a los solos efectos de acreditar su recepción y sin que ello implique conformidad con su contenido.
 
-Fdo.: {{nombre_trabajador}}  
-DNI/NIE {{dni_trabajador}}
+Fdo.: {{nombre_trabajador: nombre y apellidos}}  
+DNI/NIE {{dni_trabajador: DNI/NIE}}
 
 ---
 

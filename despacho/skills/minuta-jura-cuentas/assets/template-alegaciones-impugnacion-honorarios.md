@@ -4,23 +4,23 @@
 
 ---
 
-**AL JUZGADO {{organo_judicial}}**  
-**Autos:** {{clase_procedimiento}} n.º {{numero_autos}}  
+**AL JUZGADO {{organo_judicial: denominación del órgano judicial}}**  
+**Autos:** {{clase_procedimiento: clase de procedimiento judicial}} n.º {{numero_autos: referencia alfanumérica}}  
 **Pieza de reclamación de honorarios del artículo 35 de la Ley de Enjuiciamiento Civil**
 
-{{nombre_profesional_responsable}}, abogado colegiado n.º {{numero_colegiado}} del {{colegio_adscripcion}}, con domicilio profesional en {{domicilio_despacho}}, en la pieza de reclamación de honorarios de referencia, ante el Juzgado comparezco y como mejor proceda en Derecho
+{{nombre_profesional_responsable: nombre y apellidos}}, abogado colegiado n.º {{numero_colegiado: número de colegiado}} del {{colegio_adscripcion: denominación del colegio}}, con domicilio profesional en {{domicilio_despacho: domicilio completo}}, en la pieza de reclamación de honorarios de referencia, ante el Juzgado comparezco y como mejor proceda en Derecho
 
 **DIGO**
 
-Que se me ha dado traslado del escrito de impugnación de la minuta presentado por {{nombre_cliente}}, y dentro del plazo conferido formulo las siguientes **ALEGACIONES**:
+Que se me ha dado traslado del escrito de impugnación de la minuta presentado por {{nombre_cliente: nombre y apellidos}}, y dentro del plazo conferido formulo las siguientes **ALEGACIONES**:
 
 ## PRIMERO — Naturaleza de la impugnación formulada
 
-{{caracterizacion_impugnacion}}
+{{caracterizacion_impugnacion: texto libre}}
 
 ## SEGUNDO — Título del encargo y honorarios pactados
 
-{{bloque_titulo_encargo_y_pacto}}
+{{bloque_titulo_encargo_y_pacto: bloque condicional que inserta la skill}}
 
 ## TERCERO — Realidad de las actuaciones profesionales
 
@@ -28,43 +28,43 @@ Frente a lo alegado de contrario, las actuaciones minutadas fueron efectivamente
 
 | Actuación minutada | Acreditación en autos o documental |
 |---|---|
-| {{actuacion_1}} | {{acreditacion_1}} |
-| {{actuacion_2}} | {{acreditacion_2}} |
-| {{actuacion_3}} | {{acreditacion_3}} |
-| {{actuacion_4}} | {{acreditacion_4}} |
-| {{actuacion_5}} | {{acreditacion_5}} |
+| {{actuacion_1: actuación minutada}} | {{acreditacion_1: texto breve}} |
+| {{actuacion_2: actuación minutada}} | {{acreditacion_2: texto breve}} |
+| {{actuacion_3: actuación minutada}} | {{acreditacion_3: texto breve}} |
+| {{actuacion_4: actuación minutada}} | {{acreditacion_4: texto breve}} |
+| {{actuacion_5: actuación minutada}} | {{acreditacion_5: texto breve}} |
 
 ## CUARTO — Contestación a los motivos de impugnación
 
-{{contestacion_motivos_impugnacion}}
+{{contestacion_motivos_impugnacion: texto libre, uno o varios párrafos}}
 
 ## QUINTO — Adecuación de la cuantía
 
-{{bloque_adecuacion_cuantia}}
+{{bloque_adecuacion_cuantia: bloque condicional que inserta la skill}}
 
 ## SEXTO — Suplidos justificados
 
-{{bloque_suplidos_justificados}}
+{{bloque_suplidos_justificados: bloque condicional que inserta la skill}}
 
 ## SÉPTIMO — Cantidades percibidas
 
-{{bloque_cantidades_percibidas}}
+{{bloque_cantidades_percibidas: bloque condicional que inserta la skill}}
 
 ## OCTAVO — Deber de secreto profesional
 
 Las presentes alegaciones se formulan con estricta observancia del deber de secreto profesional, describiendo las actuaciones realizadas sin revelar el contenido de la estrategia del asunto ni las confidencias recibidas del cliente, y sin perjuicio de que las actuaciones minutadas constan en los propios autos.
 
-{{parrafo_reserva_secreto}}
+{{parrafo_reserva_secreto: bloque condicional que inserta la skill}}
 
 ## FUNDAMENTOS DE DERECHO
 
 **I. Cauce y trámite.** Artículo 35 de la Ley 1/2000, de 7 de enero, de Enjuiciamiento Civil, y su remisión al régimen de tramitación aplicable según la naturaleza de la impugnación formulada.
 
-**II. Realidad y devengo de los honorarios.** {{fundamentos_realidad_devengo}}
+**II. Realidad y devengo de los honorarios.** {{fundamentos_realidad_devengo: texto libre, uno o varios párrafos}}
 
-**III. Adecuación de la cuantía.** {{fundamentos_cuantia}}
+**III. Adecuación de la cuantía.** {{fundamentos_cuantia: texto libre, uno o varios párrafos}}
 
-{{bloque_fundamento_criterios_orientativos}}
+{{bloque_fundamento_criterios_orientativos: bloque condicional que inserta la skill}}
 
 **IV. Suplidos.** Los suplidos repercutidos son cantidades abonadas por cuenta del cliente a terceros, justificadas documentalmente y repercutidas sin recargo, ajenas por su naturaleza al concepto de honorarios profesionales.
 
@@ -72,21 +72,21 @@ Las presentes alegaciones se formulan con estricta observancia del deber de secr
 
 **Por lo expuesto,**
 
-**SUPLICO AL JUZGADO** que, teniendo por presentado este escrito, se sirva admitirlo, tener por formuladas las presentes alegaciones frente a la impugnación de la minuta, y previos los trámites legales que correspondan según la naturaleza de la impugnación, dictar decreto por el que se determine como cantidad debida la de **{{cantidad_que_se_sostiene}} euros**, con apercibimiento de apremio, y con imposición de las costas causadas a la parte impugnante si procediere.
+**SUPLICO AL JUZGADO** que, teniendo por presentado este escrito, se sirva admitirlo, tener por formuladas las presentes alegaciones frente a la impugnación de la minuta, y previos los trámites legales que correspondan según la naturaleza de la impugnación, dictar decreto por el que se determine como cantidad debida la de **{{cantidad_que_se_sostiene: importe en euros}} euros**, con apercibimiento de apremio, y con imposición de las costas causadas a la parte impugnante si procediere.
 
-Es Justicia que pido en {{lugar_presentacion}}, a {{fecha_escrito}}.
+Es Justicia que pido en {{lugar_presentacion: localidad}}, a {{fecha_escrito: fecha (DD/MM/AAAA)}}.
 
-Fdo.: {{nombre_profesional_responsable}}  
-Abogado — Colegiado n.º {{numero_colegiado}} del {{colegio_adscripcion}}
+Fdo.: {{nombre_profesional_responsable: nombre y apellidos}}  
+Abogado — Colegiado n.º {{numero_colegiado: número de colegiado}} del {{colegio_adscripcion: denominación del colegio}}
 
 ---
 
 ## DOCUMENTOS QUE SE ACOMPAÑAN
 
-1. {{documento_1}}
-2. {{documento_2}}
-3. {{documento_3}}
-4. {{documento_4}}
+1. {{documento_1: documento aportado}}
+2. {{documento_2: documento aportado}}
+3. {{documento_3: documento aportado}}
+4. {{documento_4: documento aportado}}
 
 ---
 

@@ -1,83 +1,83 @@
 # ESCRITO DE DISCONFORMIDAD CON EL ALTA MÉDICA
 
 > **DRAFT — para revisión por un abogado o graduado social colegiado antes de su firma y presentación. No constituye asesoramiento jurídico definitivo.**  
-> **PLAZO BREVÍSIMO Y CONTADO EN DÍAS NATURALES.** Alta notificada el {{fecha_notificacion_alta}} — fecha límite calculada: {{fecha_limite_disconformidad}}. Verificar el plazo vigente antes de presentar.
+> **PLAZO BREVÍSIMO Y CONTADO EN DÍAS NATURALES.** Alta notificada el {{fecha_notificacion_alta: fecha (DD/MM/AAAA)}} — fecha límite calculada: {{fecha_limite_disconformidad: fecha (DD/MM/AAAA)}}. Verificar el plazo vigente antes de presentar.
 
 ---
 
-**A LA {{organo_destinatario}}**  
-{{direccion_organo}}
+**A LA {{organo_destinatario: denominación del órgano destinatario}}**  
+{{direccion_organo: dirección del órgano}}
 
 ## DATOS DEL INTERESADO
 
 | Dato | Valor |
 |---|---|
-| Nombre y apellidos | {{nombre_interesado}} |
-| DNI/NIE | {{dni_interesado}} |
-| Número de afiliación a la Seguridad Social | {{naf_interesado}} |
-| Domicilio a efectos de notificaciones | {{domicilio_interesado}} |
-| Teléfono | {{telefono_interesado}} |
-| Correo electrónico | {{email_interesado}} |
-| Empresa y actividad | {{empresa_y_actividad}} |
-| Profesión habitual | {{profesion_habitual}} |
+| Nombre y apellidos | {{nombre_interesado: nombre y apellidos}} |
+| DNI/NIE | {{dni_interesado: DNI/NIE}} |
+| Número de afiliación a la Seguridad Social | {{naf_interesado: número de afiliación a la Seguridad Social}} |
+| Domicilio a efectos de notificaciones | {{domicilio_interesado: domicilio completo}} |
+| Teléfono | {{telefono_interesado: teléfono}} |
+| Correo electrónico | {{email_interesado: correo electrónico}} |
+| Empresa y actividad | {{empresa_y_actividad: empresa y actividad}} |
+| Profesión habitual | {{profesion_habitual: profesión habitual}} |
 
 ## DATOS DEL PROCESO DE INCAPACIDAD TEMPORAL
 
 | Dato | Valor |
 |---|---|
-| Fecha de la baja médica | {{fecha_baja_medica}} |
-| Contingencia declarada | {{contingencia_declarada}} |
-| Diagnóstico que motivó la baja | {{diagnostico_baja}} |
-| Órgano que emite el alta | {{organo_emisor_alta}} |
-| Fecha del parte de alta | {{fecha_parte_alta}} |
-| **Fecha de notificación del alta** | **{{fecha_notificacion_alta}}** |
-| Fecha de efectos del alta | {{fecha_efectos_alta}} |
-| Motivo del alta consignado | {{motivo_alta}} |
+| Fecha de la baja médica | {{fecha_baja_medica: fecha (DD/MM/AAAA)}} |
+| Contingencia declarada | {{contingencia_declarada: contingencia declarada}} |
+| Diagnóstico que motivó la baja | {{diagnostico_baja: diagnóstico que motivó la baja}} |
+| Órgano que emite el alta | {{organo_emisor_alta: órgano que emite el alta}} |
+| Fecha del parte de alta | {{fecha_parte_alta: fecha (DD/MM/AAAA)}} |
+| **Fecha de notificación del alta** | **{{fecha_notificacion_alta: fecha (DD/MM/AAAA)}}** |
+| Fecha de efectos del alta | {{fecha_efectos_alta: fecha (DD/MM/AAAA)}} |
+| Motivo del alta consignado | {{motivo_alta: motivo del alta consignado}} |
 
 Que por medio del presente escrito, y dentro del plazo legalmente establecido, manifiesto mi **DISCONFORMIDAD** con el alta médica de referencia, con base en lo siguiente:
 
 ## PRIMERO — Persistencia del cuadro clínico incapacitante
 
-{{descripcion_persistencia_dolencias}}
+{{descripcion_persistencia_dolencias: texto libre, uno o varios párrafos}}
 
 ## SEGUNDO — Informes médicos que acreditan la persistencia
 
 | Fecha | Facultativo y servicio | Contenido relevante |
 |---|---|---|
-| {{fecha_informe_1}} | {{facultativo_1}} | {{contenido_informe_1}} |
-| {{fecha_informe_2}} | {{facultativo_2}} | {{contenido_informe_2}} |
-| {{fecha_informe_3}} | {{facultativo_3}} | {{contenido_informe_3}} |
+| {{fecha_informe_1: fecha (DD/MM/AAAA)}} | {{facultativo_1: facultativo y servicio}} | {{contenido_informe_1: contenido relevante}} |
+| {{fecha_informe_2: fecha (DD/MM/AAAA)}} | {{facultativo_2: facultativo y servicio}} | {{contenido_informe_2: contenido relevante}} |
+| {{fecha_informe_3: fecha (DD/MM/AAAA)}} | {{facultativo_3: facultativo y servicio}} | {{contenido_informe_3: contenido relevante}} |
 
 ## TERCERO — Tratamiento y pruebas pendientes
 
-{{tratamiento_y_pruebas_pendientes}}
+{{tratamiento_y_pruebas_pendientes: texto libre}}
 
 ## CUARTO — Limitaciones funcionales subsistentes y su incidencia sobre el puesto
 
 Las limitaciones funcionales que subsisten son las siguientes:
 
-{{relacion_limitaciones_funcionales}}
+{{relacion_limitaciones_funcionales: lista, un elemento por línea}}
 
 Dichas limitaciones resultan incompatibles con los requerimientos reales del puesto de trabajo, que son los siguientes:
 
-{{descripcion_tareas_y_requerimientos}}
+{{descripcion_tareas_y_requerimientos: texto libre, uno o varios párrafos}}
 
 ---
 
 **Por lo expuesto,**
 
-**SOLICITO** que se tenga por presentada en plazo la presente manifestación de disconformidad con el alta médica, se admita la documentación médica que se acompaña, se practiquen los reconocimientos y actuaciones que resulten procedentes, y se acuerde dejar sin efecto el alta médica emitida, con continuación del proceso de incapacidad temporal, {{pretension_adicional}}.
+**SOLICITO** que se tenga por presentada en plazo la presente manifestación de disconformidad con el alta médica, se admita la documentación médica que se acompaña, se practiquen los reconocimientos y actuaciones que resulten procedentes, y se acuerde dejar sin efecto el alta médica emitida, con continuación del proceso de incapacidad temporal, {{pretension_adicional: pretensión adicional, si procede}}.
 
-En {{lugar_presentacion}}, a {{fecha_escrito}}
+En {{lugar_presentacion: localidad}}, a {{fecha_escrito: fecha (DD/MM/AAAA)}}
 
-Fdo.: {{nombre_interesado}}  
-DNI/NIE {{dni_interesado}}
+Fdo.: {{nombre_interesado: nombre y apellidos}}  
+DNI/NIE {{dni_interesado: DNI/NIE}}
 
 ---
 
 ## DOCUMENTACIÓN QUE SE ACOMPAÑA
 
-{{relacion_documentacion_aportada}}
+{{relacion_documentacion_aportada: lista, un elemento por línea}}
 
 ---
 
