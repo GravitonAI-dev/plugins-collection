@@ -192,8 +192,8 @@ Envía un mensaje formal que contenga:
 
 ### Protocolo Obligatorio de Edición
 ```
-[slot_filling_request (grupos) / Chat (bases jurídicas y riesgo)] ──> [Vista previa en texto plano]
-      ──> [«¿Confirmamos esta sección?»] ──> [edit_file + read_file]
+[slot_filling_request (grupos) / Chat (bases jurídicas y riesgo)] --> [Vista previa en texto plano]
+      --> [«¿Confirmamos esta sección?»] --> [edit_file + read_file]
 ```
 
 - **Datos estructurados agrupados (`slot_filling_request`, MANDATORIO):** datos del despacho, del proveedor o cliente, y de cada actividad de tratamiento se piden en bloque.

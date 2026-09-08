@@ -212,8 +212,8 @@ Envía un mensaje formal que contenga:
 
 ### Protocolo Obligatorio de Edición
 ```
-[slot_filling_request (grupos) / Chat (historial y decisiones)] ──> [Vista previa en texto plano]
-      ──> [«¿Confirmamos esta sección?»] ──> [edit_file + read_file]
+[slot_filling_request (grupos) / Chat (historial y decisiones)] --> [Vista previa en texto plano]
+      --> [«¿Confirmamos esta sección?»] --> [edit_file + read_file]
 ```
 
 - **Datos estructurados agrupados (`slot_filling_request`, MANDATORIO):** los datos del solicitante, los de filiación y los del historial de residencia se piden en bloque.

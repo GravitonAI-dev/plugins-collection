@@ -66,7 +66,7 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 Para garantizar un enrutamiento determinista y el cumplimiento normativo riguroso, el asistente resuelve y mantiene internamente en memoria los vectores de estado de la operación —cuyo catálogo y su correspondencia con las respuestas del formulario figuran en la Fase 1.2— y el origen de la plantilla (`origen_plantilla`).
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
-> Los identificadores técnicos de los vectores y los resúmenes de validación con marcas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial y profesional.
+> Los identificadores técnicos de los vectores y los resúmenes de validación con marcas (por ejemplo, anotar un vector como resuelto) son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial y profesional.
 
 ---
 
@@ -238,7 +238,7 @@ Envía un mensaje estructurado y formal que contenga:
 ### Protocolo Obligatorio de Edición
 Para cada cláusula o bloque temático del documento, ejecuta estrictamente el siguiente ciclo interactivo:
 ```
-[Recogida: slot_filling_request (grupos de datos) / Chat (negociación)] ──> [Vista Previa en texto plano en CHAT] ──> [¿Confirmamos en CHAT?] ──> [edit_file + read_file]
+[Recogida: slot_filling_request (grupos de datos) / Chat (negociación)] --> [Vista Previa en texto plano en CHAT] --> [¿Confirmamos en CHAT?] --> [edit_file + read_file]
 ```
 1. **Recogida de datos / Diálogo:**
    - **Grupos de datos estructurados (MANDATORIO con `slot_filling_request`):** Para todo bloque que recopile datos personales/identificativos (reclamante, deudor, representante, procurador, letrado; o datos del procedimiento previo: juzgado, autos, cuantia, acreedor), **DEBES invocar `slot_filling_request`** pidiendo todo el grupo de datos a la vez en lote. Queda **ESTRICTAMENTE PROHIBIDO** pedir estos datos uno por uno en turnos sucesivos de chat.

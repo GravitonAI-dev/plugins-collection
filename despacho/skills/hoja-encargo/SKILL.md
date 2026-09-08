@@ -179,8 +179,8 @@ Envía un mensaje formal que contenga:
 
 ### Protocolo Obligatorio de Edición
 ```
-[slot_filling_request (grupos) / Chat (negociación económica)] ──> [Vista previa en texto plano]
-      ──> [«¿Confirmamos esta cláusula?»] ──> [edit_file + read_file]
+[slot_filling_request (grupos) / Chat (negociación económica)] --> [Vista previa en texto plano]
+      --> [«¿Confirmamos esta cláusula?»] --> [edit_file + read_file]
 ```
 
 - **Datos estructurados agrupados (`slot_filling_request`, MANDATORIO):** despacho, cliente, datos económicos y datos bancarios se piden en bloque.

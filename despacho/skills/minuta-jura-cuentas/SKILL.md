@@ -188,8 +188,8 @@ Envía un mensaje formal que contenga:
 
 ### Protocolo Obligatorio de Edición
 ```
-[slot_filling_request (grupos) / Chat (relación de actuaciones)] ──> [Vista previa en texto plano]
-      ──> [«¿Confirmamos esta sección?»] ──> [edit_file + read_file]
+[slot_filling_request (grupos) / Chat (relación de actuaciones)] --> [Vista previa en texto plano]
+      --> [«¿Confirmamos esta sección?»] --> [edit_file + read_file]
 ```
 
 - **Datos estructurados agrupados (`slot_filling_request`, MANDATORIO):** despacho, cliente, datos del asunto e importes se piden en bloque.

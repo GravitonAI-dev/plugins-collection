@@ -55,7 +55,7 @@ Para garantizar un análisis riguroso y una correcta estructuración del razonam
 - **origen_plantilla (origen de la plantilla):** `plantilla_sistema` (`template-informe-consulta-general.md` / `template-memo-orientacion-rapida.md`) | `plantilla_usuario`.
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
-> Los identificadores técnicos de los vectores y los resúmenes de validación con marcas técnicas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural, claro y fluido.
+> Los identificadores técnicos de los vectores y los resúmenes de validación con marcas técnicas (por ejemplo, anotar un vector como resuelto) son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural, claro y fluido.
 
 ---
 
@@ -134,7 +134,7 @@ Envía un mensaje en lenguaje natural detallando:
 Recorre de forma secuencial los 5 bloques del documento aplicando el ciclo de edición incremental:
 
 ```
-[Pregunta / Diálogo en Chat] ──> [Vista Previa en texto plano] ──> [¿Confirmamos esta sección?] ──> [edit_file + read_file]
+[Pregunta / Diálogo en Chat] --> [Vista Previa en texto plano] --> [¿Confirmamos esta sección?] --> [edit_file + read_file]
 ```
 
 ### Protocolo Obligatorio por Sección:

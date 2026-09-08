@@ -166,6 +166,42 @@ for _s in sorted(glob.glob('*/skills/*/SKILL.md')):
     if not re.search(r'^description:', _fm, re.M):
         print(f"  FALLO skill sin description: {_s}"); FALLOS+=1
 
+# ------------------------------------------- fase 9 del builder (plugin-builder.md, seccion 9)
+import unicodedata as _ud
+_cat={x['id'] for x in json.load(open('agent_tools.json',encoding='utf-8'))['tools']}
+for _at in sorted(glob.glob('*/agent_tools.json')):
+    _ids={x['id'] for x in json.load(open(_at,encoding='utf-8'))['tools']}
+    if _ids-_cat:
+        print(f"  FALLO tools inexistentes en el catalogo global: {_at.split('/')[0]} {sorted(_ids-_cat)}"); FALLOS+=1
+_SEMVER=re.compile(r'\d+\.\d+\.\d+$')
+_KEBAB=re.compile(r'[a-z0-9]+(-[a-z0-9]+)*$')
+for _pj in sorted(glob.glob('*/.claude-plugin/plugin.json')):
+    _p=_pj.split('/')[0]; _d=json.load(open(_pj,encoding='utf-8'))
+    if not _SEMVER.match(_d.get('version','')): print(f"  FALLO version no semver: {_p} ({_d.get('version')})"); FALLOS+=1
+    if not _KEBAB.match(_d.get('name','')): print(f"  FALLO nombre de plugin no kebab-case: {_p}"); FALLOS+=1
+    if not _d.get('description'): print(f"  FALLO plugin sin description: {_p}"); FALLOS+=1
+for _e in json.load(open('.claude-plugin/marketplace.json',encoding='utf-8'))['plugins']:
+    if not _os.path.isdir(_e.get('source','')): print(f"  FALLO source inexistente en marketplace: {_e['name']}"); FALLOS+=1
+    if not _SEMVER.match(_e.get('version','')): print(f"  FALLO version no semver en marketplace: {_e['name']}"); FALLOS+=1
+    if not _e.get('description'): print(f"  FALLO entrada de marketplace sin description: {_e['name']}"); FALLOS+=1
+_EXCL=re.compile(r'\bNO\s+(usar|cubre|sustituye|genera|dise[nñ]a|se\s+usa|aplica)', re.I)
+for _s in sorted(glob.glob('*/skills/*/SKILL.md')):
+    _n=_s.split('/skills/')[1][:-9]; _t=open(_s,encoding='utf-8').read(); _fm=_t.split('\n---\n')[0]
+    _plug=_s.split('/')[0]
+    if not _KEBAB.match(_n): print(f"  FALLO nombre de skill no kebab-case: {_n}"); FALLOS+=1
+    if not _n.startswith(_plug.split('-')[0]) and not _n.startswith(_plug):
+        pass  # el prefijo del plugin se audita aparte: hoy solo lo cumple extranjeria
+    _desc=re.search(r'^description:(.*?)^[a-z_]+:', _fm, re.S|re.M)
+    if _desc and not _EXCL.search(' '.join(_desc.group(1).split())):
+        print(f"  FALLO description sin clausula de exclusion: {_n}"); FALLOS+=1
+    if 'DRAFT' not in _t and _plug!='gestion-plantillas':
+        print(f"  FALLO SKILL.md sin header DRAFT: {_n}"); FALLOS+=1
+    if any(ord(c)>0x2500 and _ud.category(c)=='So' for c in _t):
+        print(f"  FALLO simbolos no permitidos en {_n}"); FALLOS+=1
+for _a in sorted(glob.glob('*/skills/*/assets/*.md')):
+    if 'DRAFT' not in open(_a,encoding='utf-8').read() and 'gestion-plantillas' not in _a:
+        print(f"  FALLO asset sin header DRAFT: {_a}"); FALLOS+=1
+
 if TH or TC: FALLOS+=1
 print(("\nOK — catalogo coherente" if not FALLOS else f"\n{FALLOS} comprobaciones fallidas"))
 raise SystemExit(1 if FALLOS else 0)

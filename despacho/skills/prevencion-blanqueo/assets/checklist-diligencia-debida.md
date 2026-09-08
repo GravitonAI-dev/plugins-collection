@@ -1,3 +1,5 @@
+> DRAFT — para revisión por el responsable de cumplimiento del despacho antes de incorporarlo al expediente. No constituye asesoramiento jurídico definitivo.
+
 # Lista de Comprobación de Diligencia Debida por Expediente
 
 > Asset de apoyo para la skill `prevencion-blanqueo`. Documento de uso interno del despacho.

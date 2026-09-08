@@ -184,14 +184,14 @@ Envía un mensaje formal que contenga:
 ### Protocolo Obligatorio de Edición
 ```
 [Recogida de datos: slot_filling_request (grupos) / Chat (negociación)]
-                          │
-                          ▼
+                          |
+                          v
             [Vista previa en texto plano en CHAT]
-                          │
-                          ▼
+                          |
+                          v
           [Confirmación en CHAT: "¿Confirmamos esta sección?"]
-                          │
-                          ▼
+                          |
+                          v
                 [edit_file + read_file en DISCO]
 ```
 
