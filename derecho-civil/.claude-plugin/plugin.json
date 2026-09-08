@@ -2,7 +2,7 @@
   "name": "derecho-civil",
   "displayName": "Derecho Civil",
   "version": "0.9.0",
-  "description": "Generación de documentos de derecho civil español, siempre en su versión consolidada vigente verificada en el BOE: arrendamiento urbano, compraventa de inmuebles, contratos entre particulares, propiedad horizontal, desahucios, ejecución de títulos, reclamación de cantidad, monitorio y juicio ordinario, familia (divorcio, medidas sobre hijos no matrimoniales, modificación de medidas, liquidación de gananciales y parejas de hecho), sucesiones (herencia y planificación testamentaria), cláusulas abusivas de consumo, responsabilidad civil y medidas de apoyo a personas con discapacidad.",
+  "description": "Generacion de documentos de derecho civil espanol, siempre en su version consolidada vigente verificada en el BOE: arrendamiento urbano, compraventa de inmuebles, contratos entre particulares, propiedad horizontal, desahucios, ejecucion de titulos, reclamacion de cantidad, monitorio y juicio ordinario, familia (divorcio, medidas sobre hijos no matrimoniales, modificacion de medidas, liquidacion de gananciales y parejas de hecho), sucesiones (herencia y planificacion testamentaria), clausulas abusivas de consumo, responsabilidad civil y medidas de apoyo a personas con discapacidad. Incluye la produccion de los documentos del medio adecuado de solucion de controversias exigido por la Ley Organica 1/2025.",
   "author": {
     "name": "GravitonAI"
   },

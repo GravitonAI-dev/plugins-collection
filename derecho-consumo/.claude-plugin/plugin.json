@@ -2,7 +2,7 @@
   "name": "derecho-consumo",
   "displayName": "Derecho de Consumo",
   "version": "0.1.0",
-  "description": "Generación de documentos de reclamación de consumo en España, siempre en su versión consolidada vigente verificada en el BOE: hoja oficial de reclamaciones y escrito ante la administración de consumo, solicitud de arbitraje de consumo, reclamación bancaria ante el servicio de atención al cliente y el Banco de España, reclamación de suministros de electricidad, gas y agua, reclamación de servicios de telecomunicaciones ante la oficina de atención al usuario, y reclamación a compañías aéreas por cancelación, gran retraso, denegación de embarque y equipaje al amparo del Reglamento (CE) 261/2004. Cubre el itinerario extrajudicial completo, desde la reclamación a la empresa hasta el organismo sectorial competente, y deriva a la vía judicial cuando esta procede.",
+  "description": "Generación de documentos de reclamación de consumo en España, siempre en su versión consolidada vigente verificada en el BOE y contrastada con la normativa autonómica de consumo, que fija el modelo de hoja y el organismo competente: reclamación previa dirigida a la empresa, hoja oficial de quejas y reclamaciones, escrito ante la administración autonómica o municipal de consumo y solicitud de arbitraje conforme al Reglamento aprobado por Real Decreto 713/2024. Cubre el itinerario extrajudicial e identifica, para los cuatro sectores con supervisor propio (banca y seguros, telecomunicaciones, suministros y transporte aéreo), la vía específica que precede a la administración general de consumo. Deriva a la vía judicial cuando esta procede.",
   "author": {
     "name": "GravitonAI"
   },

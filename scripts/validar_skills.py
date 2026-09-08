@@ -202,6 +202,15 @@ for _a in sorted(glob.glob('*/skills/*/assets/*.md')):
     if 'DRAFT' not in open(_a,encoding='utf-8').read() and 'gestion-plantillas' not in _a:
         print(f"  FALLO asset sin header DRAFT: {_a}"); FALLOS+=1
 
+_mkd={e['name']:e for e in json.load(open('.claude-plugin/marketplace.json',encoding='utf-8'))['plugins']}
+for _pj in sorted(glob.glob('*/.claude-plugin/plugin.json')):
+    _d=json.load(open(_pj,encoding='utf-8')); _e=_mkd.get(_d['name'])
+    if not _e: continue
+    if _e.get('description')!=_d.get('description'):
+        print(f"  FALLO description distinta entre plugin.json y marketplace: {_d['name']}"); FALLOS+=1
+    if _e.get('version')!=_d.get('version'):
+        print(f"  FALLO version distinta entre plugin.json y marketplace: {_d['name']}"); FALLOS+=1
+
 if TH or TC: FALLOS+=1
 print(("\nOK — catalogo coherente" if not FALLOS else f"\n{FALLOS} comprobaciones fallidas"))
 raise SystemExit(1 if FALLOS else 0)
