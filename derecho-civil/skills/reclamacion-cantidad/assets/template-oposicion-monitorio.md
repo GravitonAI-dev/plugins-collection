@@ -1,28 +1,28 @@
-# ESCRITO DE OPOSICION A PROCESO MONITORIO — {{nombre_deudor}}
+# ESCRITO DE OPOSICION A PROCESO MONITORIO — {{NOMBRE_DEUDOR}}
 
 > **DRAFT — para revision por un abogado colegiado antes de su firma. No constituye asesoramiento juridico definitivo.**  
-> Version de la LEC verificada en el BOE: {{fecha_verificacion_lec}}  
+> Version de la LEC verificada en el BOE: {{FECHA_VERIFICACION_LEC}}  
 > Fundamento procesal: Arts. 815.1 y 818 LEC. Plazo: VEINTE DIAS desde el requerimiento de pago.
 
 ---
 
-## AL JUZGADO DE PRIMERA INSTANCIA Nº {{numero_juzgado}} DE {{partido_judicial}}
+## AL JUZGADO DE PRIMERA INSTANCIA Nº {{NUMERO_JUZGADO}} DE {{PARTIDO_JUDICIAL}}
 
-**Proceso Monitorio nº {{numero_autos}}**
+**Proceso Monitorio nº {{NUMERO_AUTOS}}**
 
-Que, habiendo sido requerido/a de pago en el proceso monitorio arriba referenciado, instado por {{nombre_acreedor}} en reclamacion de {{cuantia_reclamada}} euros, dentro del plazo legal de veinte dias formulo OPOSICION, de forma fundada y motivada conforme al articulo 815.1 de la Ley 1/2000, de 7 de enero, de Enjuiciamiento Civil, con base en las siguientes
+Que, habiendo sido requerido/a de pago en el proceso monitorio arriba referenciado, instado por {{NOMBRE_ACREEDOR}} en reclamacion de {{CUANTIA_RECLAMADA}} euros, dentro del plazo legal de veinte dias formulo OPOSICION, de forma fundada y motivada conforme al articulo 815.1 de la Ley 1/2000, de 7 de enero, de Enjuiciamiento Civil, con base en las siguientes
 
 ## ALEGACIONES
 
 **PRIMERA — Alcance de la oposicion.**  
-Esta parte se opone {{alcance_oposicion}} a la cantidad reclamada.
+Esta parte se opone {{ALCANCE_OPOSICION}} a la cantidad reclamada.
 
 **SEGUNDA — Motivos de la oposicion.**  
-{{motivos_oposicion}}
+{{MOTIVOS_OPOSICION}}
 
 **TERCERA — Documentos.**  
 En apoyo de esta oposicion se acompanan los siguientes documentos:  
-{{relacion_documentos_oposicion}}
+{{RELACION_DOCUMENTOS_OPOSICION}}
 
 ## FUNDAMENTOS DE DERECHO
 
@@ -30,25 +30,25 @@ En apoyo de esta oposicion se acompanan los siguientes documentos:
 
 **II. Efectos de la oposicion.** Conforme al articulo 818 de la LEC, formulada la oposicion en plazo, el asunto se resolvera definitivamente en el juicio que corresponda por razon de la cuantia.
 
-**III. Fondo.** {{fundamentos_fondo_oposicion}}
+**III. Fondo.** {{FUNDAMENTOS_FONDO_OPOSICION}}
 
 ## SUPLICO AL JUZGADO
 
-Que tenga por presentado este escrito en tiempo y forma, por formulada OPOSICION a la peticion inicial del proceso monitorio nº {{numero_autos}}, y acuerde dar al procedimiento el curso previsto en el articulo 818 de la LEC, con lo demas que en Derecho proceda.
+Que tenga por presentado este escrito en tiempo y forma, por formulada OPOSICION a la peticion inicial del proceso monitorio nº {{NUMERO_AUTOS}}, y acuerde dar al procedimiento el curso previsto en el articulo 818 de la LEC, con lo demas que en Derecho proceda.
 
-Es justicia que pido en {{lugar}}, a {{fecha_oposicion}}.
+Es justicia que pido en {{LUGAR}}, a {{FECHA_OPOSICION}}.
 
 ---
 
 Firma:
 
 ___________________________  
-{{nombre_deudor}}  
+{{NOMBRE_DEUDOR}}  
 ---
 
 > **Advertencias:**  
 > 1. Este documento es un DRAFT generado automaticamente. Debe ser revisado por un abogado antes de su presentacion.  
-> 2. Version de la LEC verificada: {{fecha_verificacion_lec}}.  
+> 2. Version de la LEC verificada: {{FECHA_VERIFICACION_LEC}}.  
 > 3. El plazo de oposicion es de VEINTE DIAS desde el requerimiento de pago; presentada fuera de plazo, se despachara ejecucion (Art. 816 LEC).  
 > 4. La oposicion debe ser fundada y motivada (Art. 815.1 LEC): una negativa generica puede ser rechazada.  
 > 5. Si la cuantia reclamada excede de 2.000 euros, la oposicion requiere abogado y procurador (Arts. 23 y 31 LEC).  

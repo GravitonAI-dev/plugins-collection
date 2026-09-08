@@ -9,8 +9,18 @@
       "name": "derecho-civil",
       "displayName": "Derecho Civil",
       "source": "./derecho-civil",
-      "version": "0.8.0",
-      "description": "Generacion de documentos de derecho civil espanol, siempre en su version consolidada vigente verificada en el BOE: arrendamiento urbano, compraventa de inmuebles, contratos entre particulares, propiedad horizontal, desahucios, ejecucion de titulos, reclamacion de cantidad, monitorio y juicio ordinario, familia (divorcio, medidas sobre hijos no matrimoniales, modificacion de medidas, liquidacion de gananciales y parejas de hecho), sucesiones (herencia y planificacion testamentaria), clausulas abusivas de consumo, responsabilidad civil y medidas de apoyo a personas con discapacidad.",
+      "version": "0.9.0",
+      "description": "Generacion de documentos de derecho civil espanol, siempre en su version consolidada vigente verificada en el BOE: arrendamiento urbano, compraventa de inmuebles, contratos entre particulares, propiedad horizontal, desahucios, ejecucion de titulos, reclamacion de cantidad, monitorio y juicio ordinario, familia (divorcio, medidas sobre hijos no matrimoniales, modificacion de medidas, liquidacion de gananciales y parejas de hecho), sucesiones (herencia y planificacion testamentaria), clausulas abusivas de consumo, responsabilidad civil y medidas de apoyo a personas con discapacidad. Incluye la produccion de los documentos del medio adecuado de solucion de controversias exigido por la Ley Organica 1/2025.",
+      "author": {
+        "name": "GravitonAI"
+      }
+    },
+    {
+      "name": "derecho-laboral",
+      "displayName": "Derecho Laboral",
+      "source": "./derecho-laboral",
+      "version": "0.1.0",
+      "description": "Generación de documentos del ciclo completo de la relación laboral española, siempre en su versión consolidada vigente verificada en el BOE y contrastada con el convenio colectivo aplicable: contratos de trabajo y acuerdos de trabajo a distancia, modificación sustancial de condiciones y movilidad geográfica, sanciones disciplinarias y expediente contradictorio, cartas de despido (disciplinario, objetivo, periodo de prueba y fin de contrato temporal), recibo de finiquito y liquidación, burofax de reclamación y papeleta de conciliación previa, demanda ante el Juzgado de lo Social (despido, cantidad, sanción y modificación sustancial) y reclamación previa y demanda en materia de prestaciones de Seguridad Social.",
       "author": {
         "name": "GravitonAI"
       }
@@ -21,6 +31,16 @@
       "source": "./gestoria",
       "version": "0.2.1",
       "description": "Generacion de documentos y solicitudes para tramites administrativos de gestoria en Espana (trafico y DGT, alta y baja de autonomo, altas y bajas en la Seguridad Social, impuesto de sucesiones, extranjeria), con verificacion de la normativa vigente en el BOE, checklist de documentos y organismo de presentacion. Salida DRAFT en markdown para revision profesional.",
+      "author": {
+        "name": "GravitonAI"
+      }
+    },
+    {
+      "name": "despacho",
+      "displayName": "Gestión del Despacho",
+      "source": "./despacho",
+      "version": "0.1.0",
+      "description": "Generación de los documentos que el propio despacho profesional necesita para sí mismo, con la normativa vigente verificada en el BOE: hoja de encargo profesional con presupuesto de honorarios y su comunicación de finalización, minuta de honorarios, requerimiento previo de pago y solicitud de jura de cuentas del artículo 35 de la Ley de Enjuiciamiento Civil, minuta de poder general para pleitos y designación de representación, expediente de diligencia debida en prevención del blanqueo de capitales conforme a la Ley 10/2010, y paquete de protección de datos del despacho (registro de actividades de tratamiento, contrato de encargado, cláusula informativa, deber de secreto y registro de brechas de seguridad).",
       "author": {
         "name": "GravitonAI"
       }

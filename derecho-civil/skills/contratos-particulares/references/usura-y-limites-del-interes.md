@@ -43,7 +43,7 @@ Estado verificado el 03/09/2026 (detalle en `references/fuentes-plantillas-valid
 
 **Regla de la skill:**
 
-1. Los assets se remiten al "interes legal del dinero vigente en cada momento" y, cuando se necesite la cifra, usan el placeholder `{{tipo_interes_legal_vigente}}`.
+1. Los assets se remiten al "interes legal del dinero vigente en cada momento" y, cuando se necesite la cifra, usan el placeholder `{{TIPO_INTERES_LEGAL_VIGENTE}}`.
 2. La cifra se verifica **en cada lanzamiento**, no se hereda de la reference.
 3. Si no se puede verificar, se deja el placeholder, se advierte al usuario y se marca como pendiente de verificacion manual. **Prohibido dar por vigente una cifra no comprobada.**
 

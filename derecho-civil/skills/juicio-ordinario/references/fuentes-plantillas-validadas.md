@@ -1,13 +1,13 @@
 # Fuentes Oficiales y Plantillas Validadas
 
 > Material de referencia para la skill `juicio-ordinario`. Registra las fuentes normativas y las plantillas
-> validadas que la skill verifica y, si detecta una version posterior, ACTUALIZA en el plugin en cada lanzamiento.
+> validadas que la skill verifica en cada lanzamiento para aplicar la redaccion vigente al documento que redacta.
 
 ---
 
-## Regla de actualizacion permanente (OBLIGATORIA)
+## Regla de verificacion permanente (OBLIGATORIA)
 
-Cada vez que se lanza la skill, en el Paso 1 se comprueban las fuentes de esta tabla. **Si se detecta una version posterior a la registrada, la skill actualiza el archivo correspondiente del plugin (reference o asset) antes de redactar** y anota la nueva fecha/version verificada. Si la fuente no es accesible, se usa la version local y se informa al usuario.
+Cada vez que se lanza la skill, en la Fase 2.1 se comprueban las fuentes de esta tabla. **Si se detecta una version posterior a la registrada, la skill aplica la redaccion vigente al documento que redacta en el workspace del usuario** e informa del cambio en el chat. La skill nunca modifica sus propios archivos de plugin. Si la fuente no es accesible, se usa la version local y se informa al usuario.
 
 ---
 
@@ -38,7 +38,7 @@ Articulos relevantes de la LEC para esta skill:
 | Superior a 15.000 euros, o interes economico incalculable | Juicio ordinario (Art. 249.2) |
 | Materias del Art. 249.1 | Juicio ordinario con independencia de la cuantia |
 
-El umbral se elevo de 6.000 a 15.000 euros por el RDL 6/2023, con efecto desde el 20/03/2024. La skill re-verifica este importe en cada lanzamiento; si el BOE registra otro, actualiza esta tabla y `references/lec-ambito-y-cuantia.md`.
+El umbral se elevo de 6.000 a 15.000 euros por el RDL 6/2023, con efecto desde el 20/03/2024. La skill re-verifica este importe en cada lanzamiento; si el BOE registra otro, aplica el vigente al documento que redacta e informa del cambio en el chat, sin modificar esta tabla ni `references/lec-ambito-y-cuantia.md`.
 
 ---
 
@@ -46,13 +46,13 @@ El umbral se elevo de 6.000 a 15.000 euros por el RDL 6/2023, con efecto desde e
 
 | Asset | Fase |
 |---|---|
-| `assets/template-checklist-admisibilidad.md` | Fase 2 — admisibilidad, competencia, postulacion, cuantia y MASC |
-| `assets/template-demanda-juicio-ordinario.md` | Fase 3 — demanda (Art. 399 LEC) |
-| `assets/template-guion-audiencia-previa.md` | Fase 4 — audiencia previa (Arts. 414-430) |
-| `assets/template-proposicion-de-prueba.md` | Fase 5 — proposicion de prueba (Art. 429 y 281-386) |
-| `assets/template-escrito-de-conclusiones.md` | Fase 6 — conclusiones (Art. 433) |
+| `assets/template-checklist-admisibilidad.md` | Etapa procesal 1 — admisibilidad, competencia, postulacion, cuantia y MASC |
+| `assets/template-demanda-juicio-ordinario.md` | Etapa procesal 2 — demanda (Art. 399 LEC) |
+| `assets/template-guion-audiencia-previa.md` | Etapa procesal 3 — audiencia previa (Arts. 414-430) |
+| `assets/template-proposicion-de-prueba.md` | Etapa procesal 4 — proposicion de prueba (Art. 429 y 281-386) |
+| `assets/template-escrito-de-conclusiones.md` | Etapa procesal 5 — conclusiones (Art. 433) |
 
-Las plantillas siguen la estructura AL JUZGADO / HECHOS / FUNDAMENTOS DE DERECHO / SUPLICO cuando procede. En cada lanzamiento, si cambian los tramites procesales o los umbrales, la skill actualiza los assets.
+Las plantillas siguen la estructura AL JUZGADO / HECHOS / FUNDAMENTOS DE DERECHO / SUPLICO cuando procede. En cada lanzamiento, si cambian los tramites procesales o los umbrales, la skill aplica la redaccion vigente al documento que redacta, sin modificar los assets del plugin.
 
 ---
 

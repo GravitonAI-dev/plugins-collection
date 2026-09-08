@@ -27,7 +27,7 @@ when_to_use: |
     o convive maritalmente con otra persona.
   - Ambas partes estan de acuerdo en cambiar lo pactado y necesitan formalizarlo ante el Juzgado.
 inputs:
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - ambito: medidas sobre los hijos / medidas entre los excomyuges / ambas
   - medida_concreta: custodia y estancias / pension de alimentos / pension compensatoria / vivienda
   - sentido: aumentar / reducir / extinguir (en pension de alimentos y compensatoria)
@@ -69,14 +69,14 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 
 ### Vectores de Estado (Uso Estrictamente Interno):
 
-Para garantizar un enrutamiento determinista y el cumplimiento normativo riguroso, el asistente resuelve y mantiene internamente en memoria los vectores de estado de la operación (V1 a V4) y el origen de la plantilla (V5).
+Para garantizar un enrutamiento determinista y el cumplimiento normativo riguroso, el asistente resuelve y mantiene internamente en memoria los vectores de estado de la operación —cuyo catálogo y su correspondencia con las respuestas del formulario figuran en la Fase 1.2— y el origen de la plantilla (`origen_plantilla`).
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
-> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`) y los resúmenes de validación con marcas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial y profesional.
+> Los identificadores técnicos de los vectores y los resúmenes de validación con marcas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial y profesional.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 Tu primer objetivo es clasificar con precisión la naturaleza del caso y fijar los vectores deterministas de estado.
 
@@ -86,54 +86,68 @@ Antes de abrir formularios interactivos o hacer preguntas, analiza el mensaje in
 - Si restan vectores por definir, no formules preguntas abiertas en turnos sucesivos: presenta el formulario estructurado interactivo mediante la herramienta `restricted_human_in_the_loop_request`.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
-Presenta al usuario las opciones estructuradas para resolver los vectores pendientes:
+Invoca la herramienta con las opciones de triaje:
+
 ```json
 {
-  "type": "object",
-  "properties": {
-    "ambito_modificacion": {
-      "type": "string",
-      "description": "\u00c1mbito de las medidas a modificar (V1)",
-      "enum": [
-        "custodia_visitas",
-        "pension_alimentos",
-        "extincion_alimentos",
-        "pension_compensatoria"
+  "form_data": [
+    {
+      "id": "medida_concreta",
+      "rationale": "Resolver V1: determina el asset aplicable, ya que la extinción de la pensión de alimentos tiene escrito propio.",
+      "question": "¿Qué medida se pretende modificar?",
+      "options": [
+        {"id": "custodia_estancias", "label": "Guarda y custodia o régimen de estancias"},
+        {"id": "pension_alimentos", "label": "Pensión de alimentos"},
+        {"id": "pension_compensatoria", "label": "Pensión compensatoria"},
+        {"id": "vivienda", "label": "Uso de la vivienda familiar"},
+        {"id": "varias", "label": "Varias medidas a la vez"}
       ]
     },
-    "modalidad_tramitacion": {
-      "type": "string",
-      "description": "Modalidad procesal (V2)",
-      "enum": [
-        "consensuada",
-        "contenciosa"
+    {
+      "id": "sentido",
+      "rationale": "Resolver V2: la extinción de la pensión de alimentos enruta a su propio asset; el aumento y la reducción usan la demanda de modificación.",
+      "question": "En las pensiones, ¿en qué sentido se pretende la modificación?",
+      "options": [
+        {"id": "aumentar", "label": "Aumentar su importe"},
+        {"id": "reducir", "label": "Reducir su importe"},
+        {"id": "extinguir", "label": "Extinguirla"},
+        {"id": "no_aplica", "label": "No se trata de una pensión"}
+      ]
+    },
+    {
+      "id": "modalidad",
+      "rationale": "Resolver V3: activa la variante de mutuo acuerdo o la contenciosa, con su régimen procesal y su acreditación del intento de MASC.",
+      "question": "¿Hay acuerdo con la otra parte sobre la modificación?",
+      "options": [
+        {"id": "consensuada", "label": "Sí, la modificación es consensuada"},
+        {"id": "contenciosa", "label": "No hay acuerdo: vía contenciosa"}
       ]
     }
-  },
-  "required": [
-    "ambito_modificacion",
-    "modalidad_tramitacion"
   ]
 }
 ```
 
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — `medida_concreta`
+- `V2` — `sentido`
+- `V3` — `modalidad`
+
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores necesarios y superado el filtro de viabilidad, evalua:
 
-- Si [V1b = Extinguir] y la pension es de **alimentos** -> Plantilla a usar: `assets/template-solicitud-extincion-pension-alimentos.md`.
+- Si [V1 = pension_alimentos] y [V2 = extinguir] -> Plantilla a usar: `assets/template-solicitud-extincion-pension-alimentos.md`.
 - En **todos los demas casos** (custodia y estancias, aumento o reduccion de alimentos, modificacion o extincion de la pension compensatoria, uso de la vivienda, o varias medidas a la vez) -> Plantilla a usar: `assets/template-demanda-modificacion-medidas.md`.
-- Si [V2 = Consensuada] -> activar en el asset la variante de **mutuo acuerdo** (Art. 775.2 in fine en relacion con el Art. 777 LEC): comparecencia conjunta o con consentimiento del otro, hecho del acuerdo, propuesta de nuevo convenio regulador como documento. **No** se activan los bloques de MASC, ni el OTROSI de prueba, ni el OTROSI de modificacion provisional.
-- Si [V2 = Contenciosa] -> activar en el asset la variante **contenciosa** (Art. 775.2 en relacion con el Art. 770 LEC, juicio verbal): bloque de acreditacion del MASC, OTROSI de prueba y, si se interesa, OTROSI de modificacion provisional. **No** se activa ningun bloque de acuerdo ni de propuesta de convenio.
-- Si [V1 = 3 (ambas)] o se modifican varias medidas -> un unico escrito con `assets/template-demanda-modificacion-medidas.md`, activando el bloque de medida adicional. **Excepcion:** si una de las pretensiones es la extincion de la pension de alimentos y las demas no, crea DOS documentos: primero la demanda de modificacion, y despues la solicitud de extincion, reutilizando sin volver a preguntar todos los datos ya recogidos. Advierte al cliente de que, si ambas pretensiones se dirigen contra la misma parte y ante el mismo Juzgado, su abogado valorara acumularlas en un unico escrito.
+- Si [V3 = consensuada] -> activar en el asset la variante de **mutuo acuerdo** (Art. 775.2 in fine en relacion con el Art. 777 LEC): comparecencia conjunta o con consentimiento del otro, hecho del acuerdo, propuesta de nuevo convenio regulador como documento. **No** se activan los bloques de MASC, ni el OTROSI de prueba, ni el OTROSI de modificacion provisional.
+- Si [V3 = contenciosa] -> activar en el asset la variante **contenciosa** (Art. 775.2 en relacion con el Art. 770 LEC, juicio verbal): bloque de acreditacion del MASC, OTROSI de prueba y, si se interesa, OTROSI de modificacion provisional. **No** se activa ningun bloque de acuerdo ni de propuesta de convenio.
+- Si [V1 = varias] o se modifican varias medidas -> un unico escrito con `assets/template-demanda-modificacion-medidas.md`, activando el bloque de medida adicional. **Excepcion:** si una de las pretensiones es la extincion de la pension de alimentos y las demas no, crea DOS documentos: primero la demanda de modificacion, y despues la solicitud de extincion, reutilizando sin volver a preguntar todos los datos ya recogidos. Advierte al cliente de que, si ambas pretensiones se dirigen contra la misma parte y ante el mismo Juzgado, su abogado valorara acumularlas en un unico escrito.
 - Si no existe resolucion o convenio previo -> Deten el proceso (Guardrail 4) y deriva a `divorcio`. No crees documento.
 - Si lo que se pretende es cobrar pensiones impagadas -> Deten el proceso (Guardrail 5) y deriva o escala. No crees documento.
 - Si en cualquier momento hay indicios de violencia de genero o domestica -> Deten el proceso (Guardrail 3). No crees documento.
+- **Requisito de procedibilidad (Ley Organica 1/2025).** Si el intento previo de un medio adecuado de solucion de controversias no esta acreditado y esta skill no genera por si misma el documento que lo acredita, **deriva a `masc-acuerdos`**, que produce el requerimiento de negociacion, el acta del intento, la oferta vinculante, el acuerdo transaccional y la declaracion responsable de imposibilidad. Ofrece encadenar con ella antes de continuar, y advierte de que sin ese documento la demanda no se admite a tramite.
 
 ---
 
----
-
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 En esta fase interactúas **directamente a través del chat (en texto plano conversacional, SIN formularios)** para compartir el plan de trabajo, el fundamento normativo y acordar la plantilla base con el usuario.
 
@@ -145,9 +159,8 @@ En esta fase interactúas **directamente a través del chat (en texto plano conv
 Envía un mensaje estructurado y formal que contenga:
 1. **Marco Legal Aplicable:** Artículo 775 de la Ley de Enjuiciamiento Civil (LEC, requisito de alteración sustancial y sobrevenida de circunstancias), Arts. 90.3, 91, 100, 101 y 152 del Código Civil (extinción y modificación de alimentos y compensatoria).
 2. **Orientación Legal del Caso:**
-A diferencia de los Puntos 1, 1.B y 2, esta seccion **es visible** para el usuario. Tras completar la verificacion normativa (Punto 2), en un unico mensaje:
 
-**3.1 — Informa la norma aplicable y las consecuencias de la ruta.** Con registro formal (usted, tono de abogado), indica que ley y que articulos concretos aplican al caso ya clasificado, con la version vigente verificada, e incluye SIEMPRE el enlace al BOE consultado. Ademas, segun la ruta:
+**Informa la norma aplicable y las consecuencias de la ruta.** Con registro formal (usted, tono de abogado), indica que ley y que articulos concretos aplican al caso ya clasificado, con la version vigente verificada, e incluye SIEMPRE el enlace al BOE consultado. Ademas, segun la ruta:
 - **Siempre:** que la competencia corresponde al Juzgado que acordo las medidas definitivas (Ley 1/2000, de Enjuiciamiento Civil, articulo 775.1), y que la modificacion no produce efectos hasta que sea acordada por resolucion judicial, siguiendo la medida vigente plenamente exigible hasta entonces (Codigo Civil, articulo 148).
 - **Consensuada:** que el procedimiento es el del articulo 777 de la Ley de Enjuiciamiento Civil y que es imprescindible acompanar una propuesta de nuevo convenio regulador; con hijos menores o con discapacidad dependientes, que el Ministerio Fiscal informara (Ley 1/2000, articulos 749.2 y 777.5) y que un acuerdo danoso para los hijos no sera aprobado (Codigo Civil, articulo 90.2).
 - **Contenciosa:** que el procedimiento es el del articulo 770 de la Ley de Enjuiciamiento Civil, que se sustancia por los tramites del juicio verbal; que debe acreditarse el intento previo de un medio adecuado de solucion de controversias (Ley Organica 1/2025, articulo 5) porque sin el la demanda puede ser inadmitida (Ley 1/2000, articulo 264.4.º); y que la otra parte puede formular reconvencion con su contestacion y solicitar medidas distintas o contrarias a las pedidas (Ley 1/2000, articulo 770, regla 2.ª, letra d).
@@ -156,25 +169,14 @@ A diferencia de los Puntos 1, 1.B y 2, esta seccion **es visible** para el usuar
 
 Ejemplo (ruta contenciosa, reduccion de alimentos): "Al presente caso le resulta de aplicacion la Ley 1/2000, de Enjuiciamiento Civil, articulo 775, que atribuye la modificacion al Juzgado que acordo las medidas definitivas y exige que las circunstancias hayan variado sustancialmente, y el Codigo Civil, articulos 90.3, 91, 93 y 146, en su version consolidada vigente verificada hoy. Al no existir acuerdo, el procedimiento sera el del articulo 770 de la Ley de Enjuiciamiento Civil, por los tramites del juicio verbal, y debera acreditarse el intento previo de un medio adecuado de solucion de controversias (Ley Organica 1/2025, articulo 5). Debe usted saber que la parte contraria podra formular reconvencion y solicitar medidas distintas de las que pedimos. Puede consultar los textos oficiales en: https://www.boe.es/buscar/act.php?id=BOE-A-2000-323 y https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763"
 
-**3.2 — Ofrece la plantilla o pide el documento propio.** En el mismo mensaje, informa de que se dispone de una plantilla del sistema, revisada por nuestros abogados y colaboradores, basada en esa normativa, y pregunta cual usar como base (alternativas numeradas):
-
-"¿Que documento desea utilizar como base?
-1. La plantilla del sistema, revisada por nuestros abogados y colaboradores
-2. Adjuntar su propio documento"
-
-**3.3 — Enrutamiento segun la respuesta:**
-- Si elige la plantilla del sistema -> continuar con el Punto 4 usando el asset del Punto 1.
-- Si elige adjuntar su propio documento -> pedirle que lo adjunte o pegue su contenido, leerlo con `Read`, y usarlo como documento base en el Punto 4 en lugar del asset. Se le siguen aplicando los mismos guardrails (alteracion sustancial acreditada, no retroactividad, MASC en contencioso, indisponibilidad de los alimentos de menores): si el documento adjuntado los incumple, adviertelo antes de continuar.
-
----
-3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-demanda-modificacion-medidas.md`).
+3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** y nombrala por su ruta. Si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la seccion de assets.
 4. **Pregunta Explícita al Usuario (Vía Chat):** Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
-* **Si `[V5 = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+* **Si `[origen_plantilla = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
   Toma el texto íntegro de la plantilla correspondiente directamente desde el catálogo del prompt y procede de inmediato a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
+* **Si `[origen_plantilla = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
   1. Accede al contenido del adjunto desde `<attached_documents>` o el mensaje del usuario.
   2. **Guardrail de Verificación Legal:** Analiza el texto aportado. Si contiene cláusulas nulas, contrarias a normas imperativas o de imposible cumplimiento, adviértelo expresamente en el chat y propón la redacción legalmente válida.
   3. Adopta la minuta revisada como base y avanza a la **Fase 3**.
@@ -225,7 +227,7 @@ Anuncios fijos y secciones:
 
 1. **Parte solicitante (dato objetivo, recogida con `slot_filling_request`, confirmación en chat).** Anuncio de apertura: "Procedemos a la identificacion de la parte que solicita la modificacion." Solicita en bloque vía `slot_filling_request`: (a) nombre completo; (b) DNI o NIE; (c) domicilio actual. Tras recibir los datos, muestra vista previa en el chat y pide confirmación antes de `edit_file` + `read_file`.
 2. **Otra parte (dato objetivo, recogida con `slot_filling_request`, confirmación en chat).** Anuncio: "Identificada la parte solicitante, pasamos a la otra parte del procedimiento." Solicita en bloque vía `slot_filling_request`: (a) nombre completo; (b) DNI o NIE; (c) domicilio actual. Si se desconoce el domicilio y la via es contenciosa, queda con su propio placeholder de domicilio (no el generico `{{DATO_FALTANTE}}`) y habilita la declaracion responsable del Art. 264.4.º LEC en la seccion de MASC. Vista previa y confirmación en chat.
-3. **Resolucion o convenio de origen (dato objetivo, recogida con `slot_filling_request`, confirmación en chat).** Anuncio: "Pasamos ahora a identificar la resolucion que fijo las medidas vigentes, que es el punto de partida del escrito." Solicita en lote vía `slot_filling_request`: (a) tipo de resolucion y fecha (sentencia / decreto / auto); (b) Juzgado que la dicto y numero de procedimiento; (c) si las medidas se fijaron aprobando un convenio regulador o en defecto de acuerdo; (d) **transcripcion literal del pronunciamiento que se quiere modificar** (o placeholder `{{transcripcion_medida_vigente}}` si no lo tiene a mano). Vista previa y confirmación en chat antes de `edit_file`.
+3. **Resolucion o convenio de origen (dato objetivo, recogida con `slot_filling_request`, confirmación en chat).** Anuncio: "Pasamos ahora a identificar la resolucion que fijo las medidas vigentes, que es el punto de partida del escrito." Solicita en lote vía `slot_filling_request`: (a) tipo de resolucion y fecha (sentencia / decreto / auto); (b) Juzgado que la dicto y numero de procedimiento; (c) si las medidas se fijaron aprobando un convenio regulador o en defecto de acuerdo; (d) **transcripcion literal del pronunciamiento que se quiere modificar** (o placeholder `{{TRANSCRIPCION_MEDIDA_VIGENTE}}` si no lo tiene a mano). Vista previa y confirmación en chat antes de `edit_file`.
 4. **Hijos afectados (solo si los hay; dato objetivo, recogida en lote con `slot_filling_request`, confirmación en chat).** Anuncio: "Corresponde ahora identificar a los hijos a los que afectan las medidas." Solicita de una vez vía `slot_filling_request` el nombre y fecha de nacimiento de cada hijo. Pide SOLO los datos imprescindibles; no recabes datos adicionales de menores. Vista previa y confirmación en el chat.
 5. **La alteracion de circunstancias (NEGOCIACION).** Anuncio: "Pasamos al nucleo del escrito: la alteracion de circunstancias que justifica la modificacion." Ya conoces el cambio, la fecha y la prueba por el filtro de viabilidad: **no los vuelvas a preguntar**. Explica antes de continuar que la alteracion debe ser sustancial, sobrevenida, acreditada, no imputable a quien la alega y con vocacion de permanencia, y que el escrito debe emparejar cada cambio con su documento. Despues, en turnos separados: (a) muestra la redaccion propuesta del hecho de la alteracion, con la fecha, y pide confirmacion o correccion; (b) la relacion concreta de documentos que se acompanaran para acreditarla, orientando con la tabla de prueba tipica si el cliente duda.
 6. **Documentacion economica (dato objetivo, solo si la medida es de caracter patrimonial).** Anuncio: "Corresponde relacionar la documentacion economica que se acompanara al escrito." Explica la regla 1.ª del Art. 770 LEC (ambas partes deben aportar documentacion economica, y debe acreditarse la resolucion o acuerdo del que resulta el uso de la vivienda familiar si existe) y pregunta que documentos aportara.
@@ -249,8 +251,6 @@ Anuncios fijos y secciones:
 9. **Fecha de efectos solicitada (NEGOCIACION).** Anuncio: "Corresponde determinar desde que fecha se solicita la extincion." Explica antes de preguntar: por regla general la extincion no rige hacia atras de la interposicion de la demanda (Art. 148 CC); la practica de las Audiencias no es uniforme sobre si opera desde la demanda o desde la sentencia, por lo que conviene solicitarla desde la fecha en que se produjo la causa y, subsidiariamente, desde la interposicion; y hasta que haya resolucion la pension se sigue debiendo integramente. Despues pregunta la fecha de efectos que desea interesar.
 10. **Subsistencia del resto de medidas (dato objetivo).** Anuncio: "Corresponde precisar que medidas se mantienen inalteradas." Pregunta si existen otros hijos con pension o si subsisten otras medidas que no se ven afectadas, para activar los bloques correspondientes. Si hay otros hijos menores con pension, deja constancia expresa de que la extincion no les alcanza.
 11. **Prueba, Juzgado, representacion y cierre (dato objetivo; representacion con `slot_filling_request`).** Anuncio: "Cerramos con la prueba, el Juzgado competente, la representacion procesal y la firma." (a) prueba adicional que se propondra (solo en via contenciosa; explicar la utilidad del oficio a la Tesoreria General de la Seguridad Social para acreditar la vida laboral del hijo); (b) confirmar el Juzgado y partido judicial (Art. 775.1 LEC); (c) representación procesal vía `slot_filling_request` (nombre del procurador y del letrado); (d) lugar y fecha. Vista previa y confirmación en chat.
-
----
 
 ---
 
@@ -279,10 +279,10 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 3. **Violencia de genero o domestica → DETENER SIEMPRE.** Si en cualquier momento del flujo aparecen indicios de violencia de genero o domestica entre las partes o hacia los hijos, detener la generacion de inmediato, advertir y escalar via derivación formal: la competencia pasa a la Seccion de Violencia sobre la Mujer, que conoce expresamente de la modificacion de medidas (Art. 89.6.a) y 89.6.c) LOPJ, redaccion LO 1/2025; Art. 89.7 competencia exclusiva y excluyente; Art. 44 LO 1/2004), y esta vedada la utilizacion de los MASC y de la mediacion (Art. 89.9 LOPJ). No citar el antiguo Art. 87 ter LOPJ: fue suprimido por la LO 1/2025.
 4. **Debe existir una resolucion o convenio previo.** Esta skill modifica medidas YA fijadas. Si no hay sentencia, decreto o convenio regulador aprobado anterior, no procede modificacion: es un primer establecimiento de medidas y corresponde a `divorcio`. Verificarlo antes de crear ningun documento.
 5. **Impago no es modificacion.** Reclamar pensiones impagadas es ejecucion forzosa (Art. 776 LEC), no modificacion. Si lo que el cliente quiere es cobrar atrasos, esta skill no es la via: derivar o escalar. La unica pasarela es el Art. 776, regla 3.ª LEC (el incumplimiento reiterado del regimen de visitas puede fundamentar la modificacion del regimen de guarda y visitas). Un mismo caso puede necesitar ambas cosas: advertirlo y separarlas, nunca mezclarlas en un solo escrito.
-6. **Filtro de imputabilidad (Punto 1.B), obligatorio antes de redactar.** Si el cambio alegado es voluntario o imputable al propio solicitante (baja voluntaria en el empleo, reduccion de jornada sin causa, cese de actividad por decision propia, asuncion voluntaria de nuevas cargas), advertir formalmente del riesgo de desestimacion ANTES de continuar, con base en `references/requisitos-alteracion-sustancial.md`. Solo continuar si el cliente lo confirma expresamente, y dejar el riesgo reflejado en el escrito y en las advertencias finales.
+6. **Filtro de imputabilidad (Fase 1.B), obligatorio antes de redactar.** Si el cambio alegado es voluntario o imputable al propio solicitante (baja voluntaria en el empleo, reduccion de jornada sin causa, cese de actividad por decision propia, asuncion voluntaria de nuevas cargas), advertir formalmente del riesgo de desestimacion ANTES de continuar, con base en `references/requisitos-alteracion-sustancial.md`. Solo continuar si el cliente lo confirma expresamente, y dejar el riesgo reflejado en el escrito y en las advertencias finales.
 7. **La mayoria de edad no extingue los alimentos.** El hijo mayor de edad que convive en el domicilio familiar y carece de ingresos propios conserva el derecho (Art. 93, parrafo segundo, CC), y los alimentos alcanzan a la formacion no terminada por causa no imputable al hijo (Art. 142 CC). Si el cliente pide extinguir por el mero cumplimiento de los dieciocho anos, corregirlo y explicar los presupuestos antes de redactar.
 8. **Efectos no retroactivos: advertirlo siempre.** La modificacion no despliega efectos hacia atras de la interposicion de la demanda (Art. 148 CC), y lo devengado conforme a la resolucion anterior sigue siendo exigible y ejecutable. Advertir expresamente que **dejar de pagar por cuenta propia mientras se tramita el procedimiento genera una deuda ejecutable (Art. 776 LEC) y puede tener consecuencias penales**. La practica de las Audiencias no es uniforme sobre si la modificacion rige desde la demanda o desde la sentencia: no zanjar ese punto como si fuera pacifico.
 9. **Riesgo de reconvencion: advertirlo antes de que el cliente decida presentar.** En la via contenciosa, la otra parte puede pedir con su contestacion medidas distintas o contrarias a las solicitadas (Art. 770, regla 2.ª, letra d) LEC).
 10. La pension de alimentos de los hijos menores no es renunciable ni negociable a la baja hasta hacerla irrisoria. En la via consensuada, un nuevo convenio danoso para los hijos no sera aprobado (Art. 90.2 CC): advertir y proponer alternativa valida.
-11. Los datos faltantes conservan el nombre propio del placeholder del asset (p. ej. `{{transcripcion_medida_vigente}}`, `{{domicilio_otra_parte}}`); usa el marcador generico `{{DATO_FALTANTE}}` solo para un hueco suelto dentro de una frase ya redactada que no tenga placeholder propio. Nunca generes dos `{{DATO_FALTANTE}}` en el mismo documento: al repetirse el mismo texto literal, `Edit` ya no puede localizar uno sin el otro por `oldString` unico. **Nunca inventar** datos, importes, fechas, el contenido del pronunciamiento de origen, ni jurisprudencia. La transcripcion literal de la medida vigente se toma de lo que aporte el cliente: si no la tiene delante, queda con su propio placeholder y se le pide que la copie de su resolucion. Nunca afirmar que la modificacion esta concedida: solo la concede el juez por sentencia.
+11. Los datos faltantes conservan el nombre propio del placeholder del asset (p. ej. `{{TRANSCRIPCION_MEDIDA_VIGENTE}}`, `{{DOMICILIO_OTRA_PARTE}}`); usa el marcador generico `{{DATO_FALTANTE}}` solo para un hueco suelto dentro de una frase ya redactada que no tenga placeholder propio. Nunca generes dos `{{DATO_FALTANTE}}` en el mismo documento: al repetirse el mismo texto literal, `edit_file` ya no puede localizar uno sin el otro por `oldString` unico. **Nunca inventar** datos, importes, fechas, el contenido del pronunciamiento de origen, ni jurisprudencia. La transcripcion literal de la medida vigente se toma de lo que aporte el cliente: si no la tiene delante, queda con su propio placeholder y se le pide que la copie de su resolucion. Nunca afirmar que la modificacion esta concedida: solo la concede el juez por sentencia.
 12. **Prohibido citar sentencias.** Los requisitos de la alteracion sustancial se enuncian como criterio general con base en los Arts. 775.1 LEC, 90.3 y 91 in fine CC. No citar resoluciones del Tribunal Supremo ni de Audiencias Provinciales sin haberlas verificado en CENDOJ en la misma sesion.

@@ -22,7 +22,7 @@ Plugin de GravitonAI para la generacion de documentos de derecho civil espanol, 
 - Prepara la minuta del testamento y el checklist de planificacion sucesoria (legitimas, mejora, sustituciones, desheredacion), solo en derecho comun.
 - Redacta contratos entre particulares (prestamo, reconocimiento de deuda, comodato, compraventa de mueble) con control de usura.
 - Prepara las medidas de apoyo a personas con discapacidad de la Ley 8/2021, tratando la curatela como subsidiaria de la guarda de hecho y de las medidas voluntarias.
-- Toda skill se auto-actualiza en cada lanzamiento: verifica la version vigente de su norma en el BOE antes de redactar y reescribe sus propias references/assets si detecta cambios. Las magnitudes que cambian solas (baremo de trafico, IRAV, SMI, interes legal) se consultan en el momento y nunca quedan escritas fijas en la plantilla.
+- Toda skill verifica en cada lanzamiento la version vigente de su norma en el BOE antes de redactar y, si detecta cambios, aplica la redaccion vigente al documento que genera en el workspace, sin modificar los archivos del plugin. Las magnitudes que cambian solas (baremo de trafico, IRAV, SMI, interes legal) se consultan en el momento y nunca quedan escritas fijas en la plantilla.
 
 ## Que NO hace
 
@@ -243,7 +243,7 @@ Ninguno.
 
 ## Estado de calidad
 
-Las **19 skills** del plugin pasaron un control de calidad ejecutado de verdad, no una revision del `SKILL.md` sobre el papel: un agente sin contexto previo juega el papel del LLM operativo sobre un caso sintetico disenado para provocar el error mas probable de esa skill, con verificacion normativa en vivo contra la API del BOE y con `Write`, `Read` y `Edit` reales sobre el documento.
+Las **19 skills** del plugin pasaron un control de calidad ejecutado de verdad, no una revision del `SKILL.md` sobre el papel: un agente sin contexto previo juega el papel del LLM operativo sobre un caso sintetico disenado para provocar el error mas probable de esa skill, con verificacion normativa en vivo contra la API del BOE y con `create_file`, `read_file` y `edit_file` reales sobre el documento.
 
 **El proceso encontro defectos reales en las 16 skills sometidas a el.** Ninguno se habria visto leyendo la skill. Los mas graves, por familias:
 
@@ -253,7 +253,7 @@ Las **19 skills** del plugin pasaron un control de calidad ejecutado de verdad, 
 - **Silencios que se leen como aprobacion**: con un interes del 12 % el guardrail de usura no saltaba y la skill no estaba obligada a decir nada.
 - **Contenido correcto en el momento equivocado**: la respuesta al malentendido central de las parejas de hecho llegaba diez turnos tarde, cuando el cliente ya estaba decidiendo.
 
-Tres defectos transversales, corregidos en todo el catalogo: placeholders genericos duplicados que rompian el `Edit` al perder el `oldString` unico; corchetes simples en colision con los identificadores de privacidad; y un turno muerto tras crear el documento que contradecia la regla del `CLAUDE.md` raiz de encadenar la primera pregunta en la misma respuesta.
+Tres defectos transversales, corregidos en todo el catalogo: placeholders genericos duplicados que rompian el `edit_file` al perder el `oldString` unico; corchetes simples en colision con los identificadores de privacidad; y un turno muerto tras crear el documento que contradecia la regla del `CLAUDE.md` raiz de encadenar la primera pregunta en la misma respuesta.
 
 El proceso de control de calidad auditó cada flujo conversacional, validando la interacción interactiva, la consulta de assets, la persistencia en disco y el ciclo de edición incremental.
 

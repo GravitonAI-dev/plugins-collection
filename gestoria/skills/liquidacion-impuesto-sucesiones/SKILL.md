@@ -20,7 +20,7 @@ inputs:
   - grupo_parentesco: grupo_i / grupo_ii / grupo_iii / grupo_iv (V2)
   - naturaleza_causahabiente: persona_fisica (V3)
   - comunidad_autonoma: CCAA de residencia habitual del causante (clave de bonificaciones) (V4)
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - datos_causante: nombre, NIF, fecha y lugar de fallecimiento, ultimo domicilio, CCAA de residencia habitual
   - datos_heredero: nombre, NIF, domicilio, parentesco con el causante y grupo (I a IV)
   - caudal_hereditario: inventario de bienes y sus valores (del cuaderno particional si existe)
@@ -60,14 +60,14 @@ Para garantizar un enrutamiento determinista y el correcto cálculo tributario c
 - **V2 (Grupo de Parentesco):** `grupo_i` (descendientes menores de 21) | `grupo_ii` (descendientes de 21 o más, cónyuges, ascendientes) | `grupo_iii` (colaterales de 2º y 3º grado, afines) | `grupo_iv` (colaterales de 4º grado o más, extraños).
 - **V3 (Naturaleza del Causahabiente):** `persona_fisica` (heredero o legatario individual).
 - **V4 (Comunidad Autónoma Competente):** CCAA donde el causante tuvo su residencia habitual durante el mayor número de días de los últimos 5 años anteriores al fallecimiento.
-- **V5 (Origen Plantilla / Asset):** `plantilla_sistema` | `plantilla_usuario`.
+- **origen_plantilla (origen de la plantilla):** `plantilla_sistema` | `plantilla_usuario`.
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
-> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`) y los resúmenes de validación con marcas técnicas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial, claro y profesional.
+> Los identificadores técnicos de los vectores y los resúmenes de validación con marcas técnicas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial, claro y profesional.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 Tu primer objetivo es fijar la Comunidad Autónoma competente y el grado de parentesco del heredero, que determinan las reducciones y bonificaciones aplicables.
 
@@ -110,13 +110,19 @@ Invoca la herramienta con las preguntas de conexión territorial y parentesco:
 }
 ```
 
+**Correspondencia con el enrutamiento.** Los vectores de esta skill se nombran con los identificadores siguientes; cada uno se resuelve con la respuesta indicada. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — `modalidad_transmision`
+- `V2` — `grupo_parentesco`
+- `V3` — naturaleza del causahabiente: no se pregunta, es siempre persona fisica
+- `V4` — `comunidad_autonoma`, clave de las bonificaciones autonomicas
+
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 - Plantillas del sistema propuestas: `assets/template-borrador-autoliquidacion-650.md` y `assets/template-checklist-documentacion-sucesiones.md`.
 - Proceder de inmediato a la **Fase 2**.
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 Interacción directa en texto plano conversacional en el chat (sin formularios).
 
@@ -132,13 +138,14 @@ Envía un mensaje estructurado y pedagógico:
    - Recordar el plazo legal imperativo de **6 meses desde el fallecimiento** para presentar la autoliquidación (con posibilidad de solicitar prórroga por otros 6 meses dentro de los primeros 5 meses).
 2. **Propuesta de Plantilla Oficial del Sistema:**
    - Detallar que dispones de las plantillas oficiales adaptadas: borrador del modelo 650 y checklist documental integral.
+   - Nombra por su ruta la hoja **que ha resuelto el enrutamiento de la Fase 1.3**; si el enrutamiento asigno varias, nombralas todas y en el orden en que se van a rellenar. **No propongas una hoja distinta de la enrutada.**
 3. **Pregunta Explícita al Usuario (Vía Chat):**
    Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
-- **Si `V5 = plantilla_sistema`:** Toma los assets oficiales seleccionados y avanza a la **Fase 3**.
-- **Si `V5 = plantilla_usuario`:** Adopta la minuta del usuario desde `<attached_documents>` o `<user_message>`, valida la observancia de la normativa fiscal imperativa y avanza a la **Fase 3**.
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+- **Si `origen_plantilla = plantilla_sistema`:** Toma los assets oficiales seleccionados y avanza a la **Fase 3**.
+- **Si `origen_plantilla = plantilla_usuario`:** Adopta la minuta del usuario desde `<attached_documents>` o `<user_message>`, valida la observancia de la normativa fiscal imperativa y avanza a la **Fase 3**.
 
 ---
 
@@ -171,6 +178,10 @@ Recorre de forma secuencial los bloques de la autoliquidación aplicando el cicl
 2. **Vista Previa (Preview):** Muestra el bloque redactado en texto plano.
 3. **Confirmación:** Pregunta literalmente: `¿Confirmamos esta sección?`.
 4. **Persistencia en Disco:** Tras el consentimiento, aplica `edit_file` y valida inmediatamente con `read_file`.
+
+**Petición de grupos de datos mediante `slot_filling_request` y confirmaciones en el chat:**
+- **Datos estructurados agrupados mediante `slot_filling_request`:** para cualquier grupo de datos objetivos o identificativos (datos del causante y de cada sujeto pasivo, inventario de bienes con su valor, y datos de domicilio y parentesco), **NO pregunte dato por dato en el chat**. Invoque la herramienta `slot_filling_request` agrupando todos los campos del bloque de una sola vez.
+- **Validación de sentido, no solo de formato:** razone si la respuesta tiene sentido en el contexto de lo preguntado. Si es absurda, imposible o incongruente, dialogue en el chat, señale el motivo y pida aclaración antes de volcarla al documento.
 
 ### Hoja de Ruta de Secciones:
 

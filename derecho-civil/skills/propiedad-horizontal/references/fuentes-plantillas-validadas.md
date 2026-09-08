@@ -1,13 +1,13 @@
 # Fuentes Oficiales y Plantillas Validadas
 
 > Material de referencia para la skill `derecho-civil-propiedad-horizontal`. Registra las fuentes normativas y las plantillas
-> validadas que la skill verifica y, si detecta una version posterior, ACTUALIZA en el plugin en cada lanzamiento.
+> validadas que la skill verifica en cada lanzamiento para aplicar la redaccion vigente al documento que redacta.
 
 ---
 
-## Regla de actualizacion permanente (OBLIGATORIA)
+## Regla de verificacion permanente (OBLIGATORIA)
 
-Cada vez que se lanza la skill, en el Paso de verificacion se comprueban las fuentes de esta tabla. **Si se detecta una version posterior a la registrada, la skill actualiza el archivo correspondiente del plugin (reference o asset) antes de redactar** y anota la nueva fecha/version verificada. Si la fuente no es accesible, se usa la version local y se informa al usuario.
+Cada vez que se lanza la skill, en la Fase 2.1 se comprueban las fuentes de esta tabla. **Si se detecta una version posterior a la registrada, la skill aplica la redaccion vigente al documento que redacta en el workspace del usuario** e informa del cambio en el chat. La skill nunca modifica sus propios archivos de plugin. Si la fuente no es accesible, se usa la version local y se informa al usuario.
 
 ---
 

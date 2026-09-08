@@ -32,7 +32,7 @@ when_to_use: |
     quiere contestarla, aceptarla a cuenta o rechazarla.
   - El usuario quiere saber si su reclamacion esta todavia en plazo y como interrumpir la prescripcion.
 inputs:
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - ambito_hecho: accidente de circulacion / otro suceso
   - tipo_vehiculo_causante: vehiculo a motor / vehiculo personal ligero o patinete
   - supuesto_no_circulatorio: caida en establecimiento o via publica / defecto o vicio constructivo / negligencia profesional
@@ -76,14 +76,14 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 
 ### Vectores de Estado (Uso Estrictamente Interno):
 
-Para garantizar un enrutamiento determinista y el cumplimiento normativo riguroso, el asistente resuelve y mantiene internamente en memoria los vectores de estado de la operación (V1 a V4) y el origen de la plantilla (V5).
+Para garantizar un enrutamiento determinista y el cumplimiento normativo riguroso, el asistente resuelve y mantiene internamente en memoria los vectores de estado de la operación —cuyo catálogo y su correspondencia con las respuestas del formulario figuran en la Fase 1.2— y el origen de la plantilla (`origen_plantilla`).
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
-> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`) y los resúmenes de validación con marcas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial y profesional.
+> Los identificadores técnicos de los vectores y los resúmenes de validación con marcas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial y profesional.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 Tu primer objetivo es clasificar con precisión la naturaleza del caso y fijar los vectores deterministas de estado.
 
@@ -93,64 +93,97 @@ Antes de abrir formularios interactivos o hacer preguntas, analiza el mensaje in
 - Si restan vectores por definir, no formules preguntas abiertas en turnos sucesivos: presenta el formulario estructurado interactivo mediante la herramienta `restricted_human_in_the_loop_request`.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
-Presenta al usuario las opciones estructuradas para resolver los vectores pendientes:
+Invoca la herramienta con las opciones de triaje:
+
 ```json
 {
-  "type": "object",
-  "properties": {
-    "ambito_suceso": {
-      "type": "string",
-      "description": "\u00c1mbito del suceso da\u00f1oso (V1)",
-      "enum": [
-        "accidente_trafico",
-        "caida_establecimiento",
-        "contractual_profesional",
-        "extracontractual_general"
+  "form_data": [
+    {
+      "id": "momento_documento",
+      "rationale": "Resolver V1: cada momento de la reclamación tiene su propio asset y su propia validación de procedibilidad.",
+      "question": "¿Qué documento necesita?",
+      "options": [
+        {"id": "reclamacion_extrajudicial", "label": "Primera reclamación extrajudicial de los daños"},
+        {"id": "respuesta_oferta", "label": "Contestación a una oferta o respuesta motivada de la aseguradora"},
+        {"id": "demanda", "label": "Demanda judicial de reclamación de daños"}
       ]
     },
-    "fase_reclamacion": {
-      "type": "string",
-      "description": "Fase de la reclamaci\u00f3n indemnizatoria (V3)",
-      "enum": [
-        "extrajudicial_previa",
-        "respuesta_oferta",
-        "demanda_judicial"
+    {
+      "id": "ambito_hecho",
+      "rationale": "Resolver V2: el accidente de circulación se rige por el texto refundido de la Ley de responsabilidad civil y seguro en la circulación de vehículos a motor y por su baremo; fuera de la circulación el régimen es el del Código Civil.",
+      "question": "¿Cómo se produjo el daño?",
+      "options": [
+        {"id": "circulacion", "label": "En un accidente de circulación"},
+        {"id": "otro_suceso", "label": "En otro tipo de suceso"}
+      ]
+    },
+    {
+      "id": "supuesto_no_circulatorio",
+      "rationale": "Resolver V3: determina el régimen de responsabilidad aplicable y la carga de la prueba fuera de la circulación.",
+      "question": "Si no fue un accidente de circulación, ¿de qué supuesto se trata?",
+      "options": [
+        {"id": "caida", "label": "Caída en establecimiento o en vía pública"},
+        {"id": "vicio_constructivo", "label": "Defecto o vicio de la construcción"},
+        {"id": "negligencia_profesional", "label": "Negligencia profesional"},
+        {"id": "otro", "label": "Otro supuesto"}
+      ]
+    },
+    {
+      "id": "aseguradora_identificada",
+      "rationale": "Resolver V4: la reclamación previa al asegurador es requisito de procedibilidad de la demanda en el ámbito de la circulación.",
+      "question": "¿Está identificada la aseguradora del causante del daño?",
+      "options": [
+        {"id": "si", "label": "Sí"},
+        {"id": "no", "label": "No, o se desconoce"}
+      ]
+    },
+    {
+      "id": "tipo_vehiculo",
+      "rationale": "Resolver V5: el seguro obligatorio de los vehiculos personales ligeros no existia antes del 02/01/2026 y, despues, depende de los tres requisitos acumulativos de la disposicion adicional primera de la Ley 5/2025. Preguntar unicamente si V2 = circulacion.",
+      "question": "¿Qué clase de vehículo causó el daño?",
+      "options": [
+        {"id": "turismo_o_similar", "label": "Turismo, motocicleta, furgoneta o camión"},
+        {"id": "vehiculo_personal_ligero", "label": "Patinete o vehículo de movilidad personal"}
       ]
     }
-  },
-  "required": [
-    "ambito_suceso",
-    "fase_reclamacion"
   ]
 }
 ```
 
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — `momento_documento`
+- `V2` — `ambito_hecho`
+- `V3` — `supuesto_no_circulatorio`
+- `V4` — `aseguradora_identificada`
+- `V5` — `tipo_vehiculo`
+
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores aplicables y superado el filtro de prescripcion, evalua en este orden:
 
-- Si V5 = 1 → **HOJA RECLAMACION**: `assets/template-reclamacion-extrajudicial-danos.md`.
-- Si V5 = 2 → **HOJA OFERTA**: `assets/template-respuesta-oferta-motivada.md`.
-- Si V5 = 3 → **HOJA DEMANDA**: `assets/template-demanda-responsabilidad-civil.md`, con la validacion de procedibilidad del apartado siguiente.
-- Si V5 = 3, V1 = 1 y **no consta reclamacion previa al asegurador** → **NO crear la demanda**. Explicar que el Art. 7.8 TRLRCSCVM, en relacion con el Art. 403 LEC, impide admitir a tramite las demandas que no acompanen la oferta o la respuesta motivada o, en su defecto, la reclamacion previa al asegurador. Redirigir a la HOJA RECLAMACION y ofrecer preparar la demanda despues.
-- Si V5 = 3, V1 = 2 y **no consta ninguna actividad negociadora previa** → **NO crear la demanda**. Explicar el requisito de procedibilidad del Art. 5 LO 1/2025 y del Art. 264.4.º LEC. Redirigir a la HOJA RECLAMACION. Excepcion: si el cliente **desconoce el domicilio del demandado o el medio por el que puede requerirle**, el Art. 264.4.º LEC admite en su lugar una declaracion responsable de la imposibilidad de llevar a cabo la actividad negociadora previa; en ese caso continuar con la HOJA DEMANDA y advertir de que debera aportarse esa declaracion.
-- Si V5 = 2 y V1 = 2 → usar la HOJA OFERTA, **desactivando todos los bloques que invocan el Art. 7 TRLRCSCVM**: fuera de la circulacion la aseguradora no esta sujeta al procedimiento de oferta y respuesta motivada, y lo recibido es una oferta contractual ordinaria regida por los Arts. 18 y 20 LCS. Decirselo al cliente expresamente.
-- Si V1 = 1, V2 = 2 y el hecho es **anterior al 02/01/2026** → el seguro obligatorio de vehiculos personales ligeros **no estaba en vigor**. No afirmar que existe. Reconducir al Art. 1902 CC con culpa probada frente al patrimonio del causante, preguntar si el causante tenia algun seguro voluntario de responsabilidad civil (a menudo el del hogar) y advertir de que el baremo del Anexo pasa a ser solo orientativo.
-- Si V1 = 1, V2 = 2 y el hecho es **posterior al 02/01/2026** → antes de afirmar que hay seguro obligatorio, comprobar los tres requisitos acumulativos del apartado 1 de la disposicion adicional primera de la Ley 5/2025: certificado de circulacion, inscripcion en el Registro de Vehiculos de la DGT y etiqueta identificativa con el numero de inscripcion o matricula. Si no concurren, aplicar el mismo tratamiento que en el caso anterior.
+- Si V1 = reclamacion_extrajudicial → **HOJA RECLAMACION**: `assets/template-reclamacion-extrajudicial-danos.md`.
+- Si V1 = respuesta_oferta → **HOJA OFERTA**: `assets/template-respuesta-oferta-motivada.md`.
+- Si V1 = demanda → **HOJA DEMANDA**: `assets/template-demanda-responsabilidad-civil.md`, con la validacion de procedibilidad del apartado siguiente.
+- Si V1 = demanda, V2 = circulacion y **no consta reclamacion previa al asegurador** → **NO crear la demanda**. Explicar que el Art. 7.8 TRLRCSCVM, en relacion con el Art. 403 LEC, impide admitir a tramite las demandas que no acompanen la oferta o la respuesta motivada o, en su defecto, la reclamacion previa al asegurador. Redirigir a la HOJA RECLAMACION y ofrecer preparar la demanda despues.
+- Si V1 = demanda, V2 = otro_suceso y **no consta ninguna actividad negociadora previa** → **NO crear la demanda**. Explicar el requisito de procedibilidad del Art. 5 LO 1/2025 y del Art. 264.4.º LEC. Redirigir a la HOJA RECLAMACION. Excepcion: si el cliente **desconoce el domicilio del demandado o el medio por el que puede requerirle**, el Art. 264.4.º LEC admite en su lugar una declaracion responsable de la imposibilidad de llevar a cabo la actividad negociadora previa; en ese caso continuar con la HOJA DEMANDA y advertir de que debera aportarse esa declaracion.
+- Si V1 = respuesta_oferta y V2 = otro_suceso → usar la HOJA OFERTA, **desactivando todos los bloques que invocan el Art. 7 TRLRCSCVM**: fuera de la circulacion la aseguradora no esta sujeta al procedimiento de oferta y respuesta motivada, y lo recibido es una oferta contractual ordinaria regida por los Arts. 18 y 20 LCS. Decirselo al cliente expresamente.
+- Si V2 = circulacion, V5 = vehiculo_personal_ligero y el hecho es **anterior al 02/01/2026** → el seguro obligatorio de vehiculos personales ligeros **no estaba en vigor**. No afirmar que existe. Reconducir al Art. 1902 CC con culpa probada frente al patrimonio del causante, preguntar si el causante tenia algun seguro voluntario de responsabilidad civil (a menudo el del hogar) y advertir de que el baremo del Anexo pasa a ser solo orientativo.
+- Si V2 = circulacion, V5 = vehiculo_personal_ligero y el hecho es **posterior al 02/01/2026** → antes de afirmar que hay seguro obligatorio, comprobar los tres requisitos acumulativos del apartado 1 de la disposicion adicional primera de la Ley 5/2025: certificado de circulacion, inscripcion en el Registro de Vehiculos de la DGT y etiqueta identificativa con el numero de inscripcion o matricula. Si no concurren, aplicar el mismo tratamiento que en el caso anterior.
 - Si el vehiculo causante **circulaba sin seguro, no esta identificado o su aseguradora esta en liquidacion** → advertir de que la reclamacion corresponde al Consorcio de Compensacion de Seguros por el procedimiento propio del Art. 11 TRLRCSCVM y **escalar**: fuera de alcance. Puede prepararse la reclamacion extrajudicial frente al causante identificado, si lo hay.
 - Si el hecho ocurrio **en la via publica o en una instalacion de titularidad publica**, o la asistencia sanitaria se presto en la **sanidad publica** → **DETENER**: es responsabilidad patrimonial de la Administracion, que se tramita por el procedimiento administrativo y, en su caso, ante la jurisdiccion contencioso-administrativa. Advertir, explicar la via correcta y escalar. No crear documento.
 - Si el dano se sufrio **en el trabajo o con ocasion del trabajo** → **DETENER**: jurisdiccion social, con regimen propio. Advertir y escalar. No crear documento.
 - Si hay o puede haber **proceso penal** por los mismos hechos, o el cliente pide denuncia, querella o la reclamacion de la responsabilidad civil dentro del proceso penal → **DETENER**: fuera de alcance. Advertir y escalar a especialista en penal.
 - Si hubo **fallecimiento del perjudicado o gran invalidez / gran lesionado** → **ESCALAR antes de cifrar nada**. Puede prepararse la reclamacion extrajudicial para interrumpir la prescripcion, dejando la cuantificacion abierta, pero la valoracion se deriva a especialista.
-- Si V3 = 3 y es **negligencia sanitaria** → advertir de que sin informe medico pericial que acredite la desviacion de la *lex artis* y el nexo causal la reclamacion no es viable, indicar que el primer paso material es obtener la historia clinica completa, y **escalar**.
+- Si V3 = negligencia_profesional y es **sanitaria** → advertir de que sin informe medico pericial que acredite la desviacion de la *lex artis* y el nexo causal la reclamacion no es viable, indicar que el primer paso material es obtener la historia clinica completa, y **escalar**.
 - Si el dano deriva de un **producto defectuoso** → advertir de que el regimen es el del texto refundido de la Ley General para la Defensa de los Consumidores y Usuarios, no verificado por esta skill, y escalar.
+- **Requisito de procedibilidad (Ley Organica 1/2025).** Si el intento previo de un medio adecuado de solucion de controversias no esta acreditado y esta skill no genera por si misma el documento que lo acredita, **deriva a `masc-acuerdos`**, que produce el requerimiento de negociacion, el acta del intento, la oferta vinculante, el acuerdo transaccional y la declaracion responsable de imposibilidad. Ofrece encadenar con ella antes de continuar, y advierte de que sin ese documento la demanda no se admite a tramite.
 
-### Validacion de presupuestos (interno, antes del Punto 3)
+### 1.4 Validacion de presupuestos (interno, antes de la Fase 3)
 
 - **TODAS LAS HOJAS:** confirmar que existe un **dano real y acreditable**, no una molestia ni un riesgo de dano. Si el cliente no puede describir un menoscabo concreto ni el documento que lo soporta, decirlo antes de redactar: no hay reclamacion.
 - **TODAS LAS HOJAS:** confirmar que existe **soporte documental de cada partida** que se va a reclamar. Una partida sin soporte no se abarata: se elimina. Ver `references/estilo-redaccion-escritos.md`, apartado de prueba.
-- **HOJA DEMANDA:** determinar el procedimiento por la cuantia (Art. 253 LEC). **Juicio verbal si la cuantia no excede de 15.000 euros (Art. 250.2 LEC); juicio ordinario si excede de esa cifra (Art. 249.2 LEC), y tambien si el interes economico resulta imposible de calcular.** Verificar el umbral en el Punto 2 antes de fijarlo.
+- **HOJA DEMANDA:** determinar el procedimiento por la cuantia (Art. 253 LEC). **Juicio verbal si la cuantia no excede de 15.000 euros (Art. 250.2 LEC); juicio ordinario si excede de esa cifra (Art. 249.2 LEC), y tambien si el interes economico resulta imposible de calcular.** Verificar el umbral en la Fase 2 antes de fijarlo.
 - **HOJA DEMANDA:** verificar que se demanda a quien responde. Si se ejercita la accion directa, la aseguradora es demandada por derecho propio (Art. 76 LCS), no un tercero llamado al proceso.
-- **HOJA DEMANDA y HOJA RECLAMACION, si V6 = 2:** antes de dar por inexistente el seguro, incluir en la reclamacion el requerimiento del ultimo inciso del Art. 76 LCS (el asegurado esta obligado a manifestar al perjudicado la existencia del contrato de seguro y su contenido). En circulacion, indicar ademas la consulta del fichero de vehiculos asegurados del Consorcio de Compensacion de Seguros (Art. 2.2 TRLRCSCVM).
+- **HOJA DEMANDA y HOJA RECLAMACION, si V4 = no:** antes de dar por inexistente el seguro, incluir en la reclamacion el requerimiento del ultimo inciso del Art. 76 LCS (el asegurado esta obligado a manifestar al perjudicado la existencia del contrato de seguro y su contenido). En circulacion, indicar ademas la consulta del fichero de vehiculos asegurados del Consorcio de Compensacion de Seguros (Art. 2.2 TRLRCSCVM).
 - **HOJA OFERTA:** calcular el **nuevo plazo de prescripcion de un ano** que se inicio con la notificacion fehaciente de la oferta o respuesta motivada (Art. 7.1 TRLRCSCVM) y comunicarlo. Es el plazo que mas casos hace perder, porque el cliente cree que sigue interrumpido mientras negocia.
 - **HOJA OFERTA:** comprobar si la comunicacion recibida **cumple los requisitos del Art. 7.3** (oferta) o del **Art. 7.4** (respuesta). Si no los cumple, no concurre la causa de exoneracion de intereses del Art. 9.a) TRLRCSCVM: hacerlo constar en el escrito.
 - **HOJA RECLAMACION, en circulacion:** recordar que la reclamacion del Art. 7.1 TRLRCSCVM **no requiere estar cuantificada**. Si el proceso curativo no ha terminado, **no retrasar el envio para cuantificar**: se remite con la cuantificacion abierta y reserva expresa de la diferencia.
@@ -159,7 +192,7 @@ Una vez resueltos los vectores aplicables y superado el filtro de prescripcion, 
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 En esta fase interactúas **directamente a través del chat (en texto plano conversacional, SIN formularios)** para compartir el plan de trabajo, el fundamento normativo y acordar la plantilla base con el usuario.
 
@@ -171,10 +204,9 @@ En esta fase interactúas **directamente a través del chat (en texto plano conv
 Envía un mensaje estructurado y formal que contenga:
 1. **Marco Legal Aplicable:** Artículos 1.902 y 1.903 del Código Civil (responsabilidad extracontractual con prescripción anual Art. 1968.2 CC); Art. 1.101 CC (responsabilidad contractual); Texto Refundido de la Ley sobre Responsabilidad Civil y Seguro en la Circulación de Vehículos a Motor (TRLRCSCVM, Art. 7 sobre oferta motivada preceptiva y baremo legal).
 2. **Orientación Legal del Caso:**
-Tras completar la verificacion (Punto 2), en un unico mensaje:
 
-1. **Informa la via, el plazo y la fuente aplicable.** Textos fijos por hoja, a los que se anade siempre el plazo calculado en el filtro de prescripcion:
-   - CIRCULACION CON VEHICULO A MOTOR: "A su caso corresponde el regimen de responsabilidad civil por los danos causados con motivo de la circulacion de vehiculos a motor, conforme al articulo 1 del texto refundido de la Ley sobre responsabilidad civil y seguro en la circulacion de vehiculos a motor, aprobado por Real Decreto Legislativo 8/2004. Los danos personales se cuantifican obligatoriamente con el sistema de valoracion de su Anexo, en las cuantias del ejercicio {{ejercicio_baremo}}. La accion prescribe al ano (articulo 1968.2.º del Codigo Civil y articulo 7.1 del citado texto refundido). Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-2004-18911"
+**Informa la via, el plazo y la fuente aplicable.** Textos fijos por hoja, a los que se anade siempre el plazo calculado en el filtro de prescripcion:
+   - CIRCULACION CON VEHICULO A MOTOR: "A su caso corresponde el regimen de responsabilidad civil por los danos causados con motivo de la circulacion de vehiculos a motor, conforme al articulo 1 del texto refundido de la Ley sobre responsabilidad civil y seguro en la circulacion de vehiculos a motor, aprobado por Real Decreto Legislativo 8/2004. Los danos personales se cuantifican obligatoriamente con el sistema de valoracion de su Anexo, en las cuantias del ejercicio {{EJERCICIO_BAREMO}}. La accion prescribe al ano (articulo 1968.2.º del Codigo Civil y articulo 7.1 del citado texto refundido). Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-2004-18911"
    - CIRCULACION CON VEHICULO PERSONAL LIGERO: "A su caso corresponde el regimen de responsabilidad civil y seguro del texto refundido de la Ley sobre responsabilidad civil y seguro en la circulacion de vehiculos a motor, aplicable a los vehiculos personales ligeros por remision del apartado 6 de la disposicion adicional primera de la Ley 5/2025, de 24 de julio, vigente desde el 2 de enero de 2026. La cobertura minima del seguro obligatorio es de 6.450.000 euros por siniestro en danos a las personas y 1.300.000 euros en danos a los bienes. La accion prescribe al ano. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-2025-15424"
    - CAIDA O SUCESO EN ESTABLECIMIENTO: "A su caso corresponde la responsabilidad civil extracontractual del articulo 1902 del Codigo Civil, y en su caso la del articulo 1903 si el dano lo causo un dependiente en el ejercicio de sus funciones. Debera acreditarse la omision del deber de cuidado imputable al titular: la caida, por si sola, no genera responsabilidad. La accion prescribe al ano desde que usted conocio el dano (articulo 1968.2.º del Codigo Civil). Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763"
    - VICIO CONSTRUCTIVO: "A su caso corresponde el regimen de responsabilidad de los agentes de la edificacion del articulo 17 de la Ley 38/1999, de Ordenacion de la Edificacion, con plazos de garantia de diez, tres o un ano desde la recepcion de la obra segun el tipo de defecto, y un plazo de prescripcion de dos anos desde que se producen los danos (articulo 18.1 de la misma Ley). Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-1999-21567"
@@ -182,21 +214,17 @@ Tras completar la verificacion (Punto 2), en un unico mensaje:
    - DANO CONTRACTUAL: "A su caso corresponde la responsabilidad contractual de los articulos 1101 y 1103 del Codigo Civil, con un plazo de prescripcion de cinco anos desde que pudo exigirse el cumplimiento (articulo 1964.2 del Codigo Civil). Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763"
    - En la HOJA RECLAMACION, anadir: "La reclamacion extrajudicial fehaciente interrumpe el plazo de prescripcion, que vuelve a contarse de cero desde su recepcion (articulo 1973 del Codigo Civil), y constituye la actividad negociadora previa que la ley exige antes de demandar (articulo 5 de la Ley Organica 1/2025)."
    - En la HOJA DEMANDA, anadir: "Para presentar esta demanda es requisito de procedibilidad haber intentado previamente una solucion negociada, cuyo documento acreditativo debe acompanarse (articulo 5 de la Ley Organica 1/2025 y articulo 264.4.º de la Ley de Enjuiciamiento Civil)."
-   - En la HOJA DEMANDA, si V1 = 1, anadir ademas: "Ademas, en un accidente de circulacion la demanda no se admite a tramite si no se acompana la oferta o la respuesta motivada de la aseguradora o, en su defecto, la reclamacion previa que se le dirigio (articulo 7.8 del texto refundido citado, en relacion con el articulo 403 de la Ley de Enjuiciamiento Civil)."
-   - En la HOJA OFERTA, si V1 = 1, anadir: "La aseguradora esta obligada a presentar oferta motivada de indemnizacion en el plazo de tres meses desde su reclamacion, o respuesta motivada si no puede ofertar (articulo 7.2 del texto refundido citado). La notificacion fehaciente de una u otra inicia un nuevo plazo de prescripcion de un ano, cuyo vencimiento en su caso es el {{fecha_vencimiento_nuevo_plazo}}."
-2. **Ofrece la plantilla o pide el documento propio.** En el mismo mensaje:
-   "¿Que documento desea utilizar como base?
-   1. La plantilla del sistema, revisada por nuestros abogados y colaboradores
-   2. Adjuntar su propio documento"
-3. **Enruta segun la respuesta:** si elige la plantilla, continua con el Punto 4 usando el asset de la hoja; si elige adjuntar el suyo, pide que lo adjunte, leelo con `Read` y usalo como documento base en el Punto 4 en lugar del asset, sin dejar de aplicar los guardrails del dominio.
-3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-demanda-responsabilidad-civil.md`).
+   - En la HOJA DEMANDA, si V2 = circulacion, anadir ademas: "Ademas, en un accidente de circulacion la demanda no se admite a tramite si no se acompana la oferta o la respuesta motivada de la aseguradora o, en su defecto, la reclamacion previa que se le dirigio (articulo 7.8 del texto refundido citado, en relacion con el articulo 403 de la Ley de Enjuiciamiento Civil)."
+   - En la HOJA OFERTA, si V2 = circulacion, anadir: "La aseguradora esta obligada a presentar oferta motivada de indemnizacion en el plazo de tres meses desde su reclamacion, o respuesta motivada si no puede ofertar (articulo 7.2 del texto refundido citado). La notificacion fehaciente de una u otra inicia un nuevo plazo de prescripcion de un ano, cuyo vencimiento en su caso es el {{FECHA_VENCIMIENTO_NUEVO_PLAZO}}."
+
+3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** y nombrala por su ruta. Si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la seccion de assets.
 4. **Pregunta Explícita al Usuario (Vía Chat):** Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
-* **Si `[V5 = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+* **Si `[origen_plantilla = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
   Toma el texto íntegro de la plantilla correspondiente directamente desde el catálogo del prompt y procede de inmediato a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
+* **Si `[origen_plantilla = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
   1. Accede al contenido del adjunto desde `<attached_documents>` o el mensaje del usuario.
   2. **Guardrail de Verificación Legal:** Analiza el texto aportado. Si contiene cláusulas nulas, contrarias a normas imperativas o de imposible cumplimiento, adviértelo expresamente en el chat y propón la redacción legalmente válida.
   3. Adopta la minuta revisada como base y avanza a la **Fase 3**.
@@ -240,11 +268,11 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 ### Secciones — HOJA RECLAMACION
 
 1. **Datos del perjudicado** *(dato objetivo — recogida en lote con `slot_filling_request`, confirmación en chat)*. Anuncio fijo: "Comenzamos por sus datos identificativos." Solicita en bloque vía `slot_filling_request`: a) nombre y apellidos o razon social; b) DNI, NIE o CIF segun corresponda; c) domicilio a efectos de notificaciones; d) telefono y correo electronico de contacto; e) si interviene letrado, su nombre y numero de colegiado. Muestra vista previa única en el chat y pide confirmación antes del `edit_file` + `read_file`.
-2. **Contra quien se dirige la reclamacion** *(negociacion — explicar antes de decidir)*. Anuncio fijo: "Determinamos ahora a quien debe dirigirse la reclamacion." **Explica antes de preguntar**, apoyandote en `references/regimenes-de-responsabilidad-por-supuesto.md`, apartado 6: dirigirla solo al causante obliga a cobrar contra su patrimonio, con riesgo de insolvencia; dirigirla a la aseguradora por la accion directa del Art. 76 LCS aporta solvencia y, sobre todo, **inmunidad frente a las excepciones que el asegurador tenga contra su asegurado** (impago de prima, incumplimiento de deberes de la poliza), aunque el asegurador si puede oponer la culpa exclusiva del perjudicado; y dirigirla a **ambos** cubre el exceso sobre el limite de la poliza y evita quedar sin nada si se discute la vigencia del seguro. **Recomienda por defecto dirigirla a ambos** cuando V6 = 1, y explica por que. Pregunta despues la decision y confirmala.
-3. **Datos del destinatario o destinatarios** *(dato objetivo — recogida en lote con `slot_filling_request`, confirmación en chat)*. Anuncio fijo: "Pasamos a los datos de la parte a la que se dirige la reclamacion." Por cada destinatario, solicita en bloque vía `slot_filling_request`: a) nombre o razon social; b) documento de identidad o CIF; c) domicilio. Si es aseguradora, ademas: numero de poliza y referencia del siniestro, si se conocen. Confirmacion agrupada por cada destinatario tras vista previa en chat. **Si V6 = 2**, explica que se incluira el requerimiento del ultimo inciso del Art. 76 LCS para que el causante manifieste la existencia y el contenido de su seguro, y en circulacion menciona el fichero de vehiculos asegurados del Consorcio (Art. 2.2 TRLRCSCVM).
+2. **Contra quien se dirige la reclamacion** *(negociacion — explicar antes de decidir)*. Anuncio fijo: "Determinamos ahora a quien debe dirigirse la reclamacion." **Explica antes de preguntar**, apoyandote en `references/regimenes-de-responsabilidad-por-supuesto.md`, apartado 6: dirigirla solo al causante obliga a cobrar contra su patrimonio, con riesgo de insolvencia; dirigirla a la aseguradora por la accion directa del Art. 76 LCS aporta solvencia y, sobre todo, **inmunidad frente a las excepciones que el asegurador tenga contra su asegurado** (impago de prima, incumplimiento de deberes de la poliza), aunque el asegurador si puede oponer la culpa exclusiva del perjudicado; y dirigirla a **ambos** cubre el exceso sobre el limite de la poliza y evita quedar sin nada si se discute la vigencia del seguro. **Recomienda por defecto dirigirla a ambos** cuando V4 = si, y explica por que. Pregunta despues la decision y confirmala.
+3. **Datos del destinatario o destinatarios** *(dato objetivo — recogida en lote con `slot_filling_request`, confirmación en chat)*. Anuncio fijo: "Pasamos a los datos de la parte a la que se dirige la reclamacion." Por cada destinatario, solicita en bloque vía `slot_filling_request`: a) nombre o razon social; b) documento de identidad o CIF; c) domicilio. Si es aseguradora, ademas: numero de poliza y referencia del siniestro, si se conocen. Confirmacion agrupada por cada destinatario tras vista previa en chat. **Si V4 = no**, explica que se incluira el requerimiento del ultimo inciso del Art. 76 LCS para que el causante manifieste la existencia y el contenido de su seguro, y en circulacion menciona el fichero de vehiculos asegurados del Consorcio (Art. 2.2 TRLRCSCVM).
 4. **El hecho danoso** *(dato objetivo con validacion — recogida con `slot_filling_request`, confirmación en chat)*. Anuncio fijo: "Describimos ahora el hecho que le causo el dano." La fecha y hora ya son conocidas por el filtro de prescripcion: **no la vuelvas a preguntar**. Solicita vía `slot_filling_request`: a) lugar exacto; b) descripcion de lo ocurrido, en sus propias palabras; c) circunstancias relevantes para la imputacion (senalizacion, estado del pavimento, maniobra del vehiculo, identidad del conductor o del dependiente); d) si existe atestado, informe policial, parte de incidencia o denuncia, su referencia y organismo. **En circulacion, informa de que las Fuerzas y Cuerpos de Seguridad de trafico facilitan gratuitamente copia del atestado a peticion del perjudicado (Art. 7.1 TRLRCSCVM)** y ofrece dejarlo solicitado en el escrito. **Si el supuesto es una caida en establecimiento, advierte en este mismo turno y con caracter urgente de que las grabaciones de videovigilancia se sobreescriben en dias** y de que el escrito incluira el requerimiento de conservacion de las imagenes. Vista previa y confirmación en chat.
 5. **Los danos sufridos** *(dato objetivo con validacion)*. Anuncio fijo: "Concretamos los danos que ha sufrido y como se acreditan." Partidas a concretar, omitiendo las que no apliquen: a) dano personal: lesiones, centro asistencial, si el proceso curativo ha terminado y con que documentacion se acredita; b) dano material: bienes danados, importe de reparacion o reposicion y su justificante; c) lucro cesante: ingresos dejados de obtener y su soporte documental. **Por cada partida, pregunta expresamente con que documento se acredita.** Si no hay documento, dilo: la partida no se incluye, y explica que una partida sin soporte debilita todo el escrito. Vista previa y confirmación en chat.
-6. **Cuantificacion de la indemnizacion** *(negociacion — explicar antes de decidir)*. Anuncio fijo: "Pasamos a cuantificar la indemnizacion que se reclama." **Explica antes de pedir cifras**, siguiendo el guion del apartado 7 de `references/cuantificacion-danos-y-baremo.md`: que partidas existen y que cada una necesita su soporte; si el baremo es obligatorio (circulacion, Art. 1.4 TRLRCSCVM) u **orientativo** (todo lo demas, donde hacen falta informes periciales); que las cuantias son las del ejercicio verificado en el Punto 2, citando la resolucion concreta; que una partida sin soporte se elimina, no se abarata; y que la culpa concurrente reduce todas las partidas, hasta el 75 % en circulacion. Pide despues, en turnos separados y con confirmacion propia de cada uno: a) importe del dano personal, con la tabla o el informe en que se apoya; b) importe del dano material; c) importe del lucro cesante. **Si el proceso curativo no ha terminado**, explica que la reclamacion del Art. 7.1 TRLRCSCVM **no requiere estar cuantificada**, que no conviene retrasar el envio para cuantificar, y activa el bloque de reserva expresa de la diferencia.
+6. **Cuantificacion de la indemnizacion** *(negociacion — explicar antes de decidir)*. Anuncio fijo: "Pasamos a cuantificar la indemnizacion que se reclama." **Explica antes de pedir cifras**, siguiendo el guion del apartado 7 de `references/cuantificacion-danos-y-baremo.md`: que partidas existen y que cada una necesita su soporte; si el baremo es obligatorio (circulacion, Art. 1.4 TRLRCSCVM) u **orientativo** (todo lo demas, donde hacen falta informes periciales); que las cuantias son las del ejercicio verificado en la Fase 2, citando la resolucion concreta; que una partida sin soporte se elimina, no se abarata; y que la culpa concurrente reduce todas las partidas, hasta el 75 % en circulacion. Pide despues, en turnos separados y con confirmacion propia de cada uno: a) importe del dano personal, con la tabla o el informe en que se apoya; b) importe del dano material; c) importe del lucro cesante. **Si el proceso curativo no ha terminado**, explica que la reclamacion del Art. 7.1 TRLRCSCVM **no requiere estar cuantificada**, que no conviene retrasar el envio para cuantificar, y activa el bloque de reserva expresa de la diferencia.
 7. **Requerimiento y propuesta** *(negociacion — explicar antes de decidir)*. Anuncio fijo: "Determinamos el requerimiento con que se cierra la reclamacion." **Explica antes de preguntar**: el escrito debe contener una propuesta concreta y un plazo de respuesta, porque de ello depende que sirva como actividad negociadora del Art. 5 LO 1/2025 y que el Art. 7.1 de la misma Ley reinicie el computo si no hay respuesta en treinta dias naturales. **En circulacion, explica ademas que la aseguradora esta obligada a responder con oferta motivada en tres meses (Art. 7.2 TRLRCSCVM) y que su silencio devenga los intereses de demora del Art. 9, en relacion con el Art. 20 LCS: el interes legal incrementado en el 50 %, con un minimo del 20 % anual pasados dos anos del siniestro.** Pide despues: a) plazo de respuesta que se concede (**propon 30 dias naturales por defecto**, coherente con el Art. 7.1 LO 1/2025, y pregunta si desea otro); b) cuenta bancaria para el pago, si desea indicarla.
 8. **Medio de envio, documentos y cierre** *(dato objetivo)*. Anuncio fijo: "Cerramos con la documentacion que se acompana y el medio de envio." Sub-apartados: a) relacion numerada de los documentos que se adjuntan; b) medio de envio. **Sobre el medio de envio, advierte siempre y no aceptes un medio no fehaciente sin decirlo:** un correo electronico sin acuse o una llamada no acreditan la interrupcion de la prescripcion; hace falta burofax con certificacion de contenido y acuse de recibo, o notificacion notarial, y conservar el justificante; c) lugar de firma y fecha (la del dia, salvo indicacion en contrario).
 
@@ -253,7 +281,7 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 1. **Datos del perjudicado** *(dato objetivo — recogida en lote con `slot_filling_request`, confirmación en chat)*. Anuncio fijo: "Comenzamos por sus datos identificativos." Igual estructura que en la HOJA RECLAMACION vía `slot_filling_request`.
 2. **Datos de la aseguradora y del expediente** *(dato objetivo — recogida en lote con `slot_filling_request`, confirmación en chat)*. Anuncio fijo: "Pasamos a los datos de la aseguradora y del expediente del siniestro." Solicita en bloque vía `slot_filling_request`: a) denominacion y CIF de la aseguradora; b) domicilio al que se dirige el escrito; c) numero de poliza; d) referencia del siniestro o del expediente. Vista previa y confirmación en chat.
 3. **La comunicacion recibida** *(dato objetivo con validacion)*. Anuncio fijo: "Examinamos ahora la comunicacion que ha recibido de la aseguradora." Sub-apartados: a) si usted remitio reclamacion previa a la aseguradora y, en tal caso, su fecha y el medio empleado — **no des por supuesto que la hubo: es frecuente que sea la aseguradora la que abra el expediente a partir del parte de su asegurado o del atestado y oferte sin reclamacion del perjudicado.** Si no la hubo, pregunta a partir de que se abrio el expediente y como tuvo usted noticia de el, activa en el asset el bloque de apertura sin reclamacion previa en lugar del de reclamacion previa, y hazle saber que el plazo de tres meses del Art. 7.2 TRLRCSCVM se cuenta desde la reclamacion del perjudicado, de modo que en su caso aun no ha empezado a correr; b) fecha en que recibio la comunicacion de la aseguradora (ya conocida por el filtro de prescripcion: **no la vuelvas a preguntar**); c) si se trata de una oferta motivada (propone una indemnizacion) o de una respuesta motivada (explica por que no la propone) — **explica la diferencia antes de preguntarla**, porque el cliente rara vez la conoce; d) importe ofertado, si lo hay; e) que documentacion e informes le entregaron con ella. **Con la respuesta a e), comprueba tu mismo si se cumplen los requisitos del Art. 7.3 (oferta) o del Art. 7.4 (respuesta) TRLRCSCVM** e informa del resultado: si falta la entrega desglosada de los documentos, incluido el informe medico pericial definitivo, ese incumplimiento impide a la aseguradora aportarlos despues en juicio (Art. 7.3.c) y **elimina la exoneracion de intereses del Art. 9.a)**. Vista previa y confirmación en chat.
-4. **Computo del nuevo plazo** *(dato objetivo con validacion bloqueante)*. Anuncio fijo: "Verificamos el plazo del que dispone desde esa comunicacion." Con la fecha de la letra b) de la seccion anterior, calcula tu mismo el vencimiento del nuevo plazo de un ano del Art. 7.1 TRLRCSCVM e informalo con la fecha exacta. **Si ese plazo ya esta agotado, detente**: aplica el filtro de prescripcion del Punto 1 con su regla de detencion. **Si quedan menos de 60 dias, advierte con prioridad** y explica que este escrito interrumpe de nuevo la prescripcion (Art. 1973 CC) y que la solicitud de informes periciales complementarios del Art. 7.5 mantiene el plazo interrumpido.
+4. **Computo del nuevo plazo** *(dato objetivo con validacion bloqueante)*. Anuncio fijo: "Verificamos el plazo del que dispone desde esa comunicacion." Con la fecha de la letra b) de la seccion anterior, calcula tu mismo el vencimiento del nuevo plazo de un ano del Art. 7.1 TRLRCSCVM e informalo con la fecha exacta. **Si ese plazo ya esta agotado, detente**: aplica el filtro de prescripcion de la Fase 1 con su regla de detencion. **Si quedan menos de 60 dias, advierte con prioridad** y explica que este escrito interrumpe de nuevo la prescripcion (Art. 1973 CC) y que la solicitud de informes periciales complementarios del Art. 7.5 mantiene el plazo interrumpido.
 5. **Posicion frente a la oferta** *(negociacion — explicar antes de decidir; la decision central de esta hoja)*. Anuncio fijo: "Determinamos la posicion que va a adoptar frente a la oferta recibida." **Explica antes de preguntar, sin omitir ninguno de estos cuatro puntos:**
    - **Aceptar no obliga a renunciar a nada.** El Art. 7.3.d) TRLRCSCVM impide condicionar el pago a la renuncia del perjudicado al ejercicio de futuras acciones. Si el documento que le proponen firmar contiene un finiquito o una renuncia total, **no debe firmarlo sin revision**.
    - **Se puede aceptar a cuenta.** Cabe cobrar ya el importe ofertado como pago a cuenta, sin conformidad con el total y sin renunciar a reclamar la diferencia. Es la opcion conservadora cuando la valoracion se discute pero el importe ofrecido no se cuestiona como minimo.
@@ -263,16 +291,16 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
    1. Aceptarla en su integridad
    2. Aceptar el importe a cuenta, sin conformidad con el total y sin renunciar a la diferencia
    3. Rechazarla y mantener su reclamacion"
-   Confirma la decision en el chat antes del `Edit` y activa el bloque correspondiente del asset.
-6. **Motivos de disconformidad** *(negociacion — solo si la posicion es 2 o 3)*. Anuncio fijo: "Concretamos los motivos de disconformidad, partida por partida." **Se discute partida por partida en el chat, nunca en bloque.** Sub-apartados, omitiendo los que no apliquen: a) partidas del baremo cuya cuantia no se corresponde con las tablas del ejercicio verificado; b) dias de perjuicio temporal o puntos de secuela no reconocidos, con la documentacion medica que los acredita; c) partidas de dano material o lucro cesante omitidas en la oferta, con su soporte; d) culpa concurrente imputada por la aseguradora que usted no acepta, y las razones. **En la letra d), si el lesionado es menor de catorce anos o carece de capacidad de culpa civil, informale de que el parrafo segundo del Art. 1.2 TRLRCSCVM impide que su culpa reduzca la indemnizacion por secuelas y lesiones temporales**, y activa el bloque correspondiente. **En la letra a), comprueba tu mismo si la aseguradora aplico las cuantias del ejercicio del accidente o las de un ejercicio anterior**: es una de las discrepancias mas frecuentes y la deteccion es automatica con el dato del Punto 2.
+   Confirma la decision en el chat antes del `edit_file` y activa el bloque correspondiente del asset.
+6. **Motivos de disconformidad** *(negociacion — solo si la posicion es 2 o 3)*. Anuncio fijo: "Concretamos los motivos de disconformidad, partida por partida." **Se discute partida por partida en el chat, nunca en bloque.** Sub-apartados, omitiendo los que no apliquen: a) partidas del baremo cuya cuantia no se corresponde con las tablas del ejercicio verificado; b) dias de perjuicio temporal o puntos de secuela no reconocidos, con la documentacion medica que los acredita; c) partidas de dano material o lucro cesante omitidas en la oferta, con su soporte; d) culpa concurrente imputada por la aseguradora que usted no acepta, y las razones. **En la letra d), si el lesionado es menor de catorce anos o carece de capacidad de culpa civil, informale de que el parrafo segundo del Art. 1.2 TRLRCSCVM impide que su culpa reduzca la indemnizacion por secuelas y lesiones temporales**, y activa el bloque correspondiente. **En la letra a), comprueba tu mismo si la aseguradora aplico las cuantias del ejercicio del accidente o las de un ejercicio anterior**: es una de las discrepancias mas frecuentes y la deteccion es automatica con el dato de la Fase 2.
 7. **Solicitudes** *(negociacion — explicar antes de decidir)*. Anuncio fijo: "Determinamos las solicitudes que se dirigen a la aseguradora." **Explica cada opcion antes de preguntar si la desea**, y preguntalas en turnos separados: a) **informe pericial complementario del Art. 7.5**: puede pedirse al Instituto de Medicina Legal y Ciencias Forenses **con cargo a la aseguradora aun sin su acuerdo**, obliga a esta a una nueva oferta motivada en un mes desde su entrega y mantiene interrumpido el plazo de prescripcion; el lesionado debe ser reconocido en tres meses y el informe emitirse en uno (Art. 7.6); b) **pago a cuenta** de los perjuicios ya consolidados, con el deber de la aseguradora de informar de la situacion del siniestro cada dos meses (Art. 7.4.a).1.º); c) **entrega de la documentacion no aportada** (Arts. 7.3.c) y 7.4.b)); d) **acudir a un medio adecuado de solucion de controversias** con profesional especializado (Art. 14 TRLRCSCVM); e) **anuncio de la via judicial** con un plazo de respuesta, si el cliente lo desea.
 8. **Medio de envio, documentos y cierre** *(dato objetivo)*. Anuncio fijo: "Cerramos con la documentacion que se acompana y el medio de envio." Igual estructura y misma advertencia sobre la fehaciencia que en la HOJA RECLAMACION.
 
 ### Secciones — HOJA DEMANDA
 
-1. **Requisito de procedibilidad** *(dato objetivo con validacion bloqueante — va PRIMERO)*. Anuncio fijo: "Comenzamos verificando que se cumple el requisito previo para presentar la demanda." Solicita en bloque vía `slot_filling_request`: a) fecha, medio y destinatario de la actividad negociadora previa, y el justificante de envio y recepcion de que dispone; b) resultado (sin respuesta, respuesta negativa, acuerdo parcial). **Si no hay ninguna actividad negociadora acreditada, aplica el enrutamiento del Punto 1: no continues con la demanda.** Si el cliente desconoce el domicilio del demandado o el medio por el que requerirle, informa de la declaracion responsable que admite el Art. 264.4.º LEC y continua. Vista previa y confirmación en chat.
+1. **Requisito de procedibilidad** *(dato objetivo con validacion bloqueante — va PRIMERO)*. Anuncio fijo: "Comenzamos verificando que se cumple el requisito previo para presentar la demanda." Solicita en bloque vía `slot_filling_request`: a) fecha, medio y destinatario de la actividad negociadora previa, y el justificante de envio y recepcion de que dispone; b) resultado (sin respuesta, respuesta negativa, acuerdo parcial). **Si no hay ninguna actividad negociadora acreditada, aplica el enrutamiento de la Fase 1: no continues con la demanda.** Si el cliente desconoce el domicilio del demandado o el medio por el que requerirle, informa de la declaracion responsable que admite el Art. 264.4.º LEC y continua. Vista previa y confirmación en chat.
 2. **Parte demandante** *(dato objetivo — recogida en lote con `slot_filling_request`, confirmación en chat)*. Anuncio fijo: "Pasamos a la identificacion de la parte demandante." Solicita en bloque vía `slot_filling_request`: a) nombre y apellidos o razon social; b) DNI, NIE o CIF; c) domicilio; d) nombre del procurador y del letrado. **Abogado y procurador son preceptivos en el juicio ordinario; en el juicio verbal no lo son si la cuantia no excede de 2.000 euros (Arts. 23 y 31 LEC)**: si la cuantia esta por debajo de esa cifra, preguntale si va a comparecer por si mismo y adapta el encabezamiento. Vista previa y confirmación en chat.
-3. **Parte demandada** *(negociacion para la eleccion + dato objetivo para los datos)*. Anuncio fijo: "Determinamos ahora contra quien se dirige la demanda." **Misma explicacion que en la seccion 2 de la HOJA RECLAMACION**, con el enfasis puesto en que la accion directa del Art. 76 LCS convierte a la aseguradora en demandada por derecho propio y es inmune a las excepciones que el asegurador tenga contra su asegurado. **Recomienda por defecto demandar a ambos solidariamente** cuando V6 = 1. Tras confirmar la eleccion, pide los datos de cada demandado vía `slot_filling_request`, con confirmacion en chat por cada uno.
+3. **Parte demandada** *(negociacion para la eleccion + dato objetivo para los datos)*. Anuncio fijo: "Determinamos ahora contra quien se dirige la demanda." **Misma explicacion que en la seccion 2 de la HOJA RECLAMACION**, con el enfasis puesto en que la accion directa del Art. 76 LCS convierte a la aseguradora en demandada por derecho propio y es inmune a las excepciones que el asegurador tenga contra su asegurado. **Recomienda por defecto demandar a ambos solidariamente** cuando V4 = si. Tras confirmar la eleccion, pide los datos de cada demandado vía `slot_filling_request`, con confirmacion en chat por cada uno.
 4. **El hecho danoso** *(dato objetivo con validacion)*. Anuncio fijo: "Describimos el hecho que fundamenta la demanda." Igual estructura que en la HOJA RECLAMACION, seccion 4, anadiendo el numero de documento con que se acredita cada elemento.
 5. **La imputacion de la responsabilidad** *(dato objetivo con explicacion)*. Anuncio fijo: "Concretamos el titulo por el que responde la parte demandada." Redacta el fundamento con el regimen que corresponda a la rama, tomandolo de `references/regimenes-de-responsabilidad-por-supuesto.md`, y **explicale al cliente que tendra que probar**: en circulacion, la responsabilidad es por el riesgo creado y es el demandado quien debe probar la culpa exclusiva de la victima o la fuerza mayor; fuera de ella, es el demandante quien debe probar la culpa o negligencia, y en negligencia profesional la desviacion de la *lex artis*. Pide el dato concreto que falte segun la rama: la omision del deber de cuidado, la obligacion contractual incumplida, el apartado del Art. 17.1 LOE en que encaja el defecto y la fecha de recepcion de la obra, o la desviacion del estandar profesional.
 6. **Los danos y perjuicios** *(dato objetivo con validacion)*. Anuncio fijo: "Concretamos los danos y su acreditacion." Igual estructura que en la HOJA RECLAMACION, seccion 5, con un nivel de detalle mayor en el dano personal: dias de perjuicio temporal desglosados en muy grave, grave, moderado y basico; intervenciones quirurgicas; relacion de secuelas y puntos. **Numera cada documento y relacionalo en el hecho correspondiente.**
@@ -324,7 +352,7 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 14. **Advertir siempre de la culpa concurrente cuando los hechos la sugieran**, antes de fijar la cuantia. En circulacion reduce todas las partidas hasta el 75 % (Art. 1.2 TRLRCSCVM), con la excepcion del parrafo segundo para menores de catorce anos y personas sin capacidad de culpa civil.
 15. **Sin dictamen pericial no hay reclamacion viable en vicio constructivo ni en negligencia profesional.** No redactar dando por acreditado un nexo causal tecnico que solo un perito puede establecer.
 16. **En caida en establecimiento, advertir de inmediato de la conservacion de las grabaciones de videovigilancia.** Se sobreescriben en dias y su perdida suele ser irreversible para el caso.
-17. Nunca inventar datos, cuantias, fechas, numeros de poliza, referencias de siniestro ni jurisprudencia. Los campos no proporcionados quedan como `{{dato}}`.
+17. Nunca inventar datos, cuantias, fechas, numeros de poliza, referencias de siniestro ni jurisprudencia. Los campos no proporcionados quedan como `{{DATO}}`.
 18. Ante la duda sobre la naturaleza contractual o extracontractual del vinculo, **computar el plazo mas corto** y advertir de la conveniencia de interrumpir la prescripcion de inmediato. Nunca asegurar al cliente que dispone de cinco anos porque "podria ser contractual".
 
 ### Supuestos Fuera de Alcance (Cómo NO usar esta skill)

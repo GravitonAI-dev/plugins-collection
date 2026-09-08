@@ -45,15 +45,15 @@ Fuente valida: la sede electronica o el portal oficial de la comunidad autonoma.
 
 | Dato | Uso en el documento |
 |---|---|
-| Denominacion exacta y completa de la ley, con fecha | `{{denominacion_ley_autonomica}}` |
-| Enlace al texto oficial consultado | `{{enlace_ley_autonomica}}` |
+| Denominacion exacta y completa de la ley, con fecha | `{{DENOMINACION_LEY_AUTONOMICA}}` |
+| Enlace al texto oficial consultado | `{{ENLACE_LEY_AUTONOMICA}}` |
 | Preceptos anulados o modificados que afecten al caso | Se advierte al cliente; no se cita un articulo anulado |
-| Denominacion oficial del registro y enlace a su sede | `{{denominacion_registro}}`, `{{enlace_registro}}` |
+| Denominacion oficial del registro y enlace a su sede | `{{DENOMINACION_REGISTRO}}`, `{{ENLACE_REGISTRO}}` |
 | Caracter de la inscripcion: constitutiva o declarativa | Determina como se explica al cliente que efecto tiene inscribirse |
 | Requisitos de constitucion: edad, ausencia de vinculo, tiempo minimo de convivencia previa, empadronamiento conjunto, residencia o vecindad | Tabla de requisitos del checklist |
 | Documentacion exigida, forma de solicitud, tasa y plazos | Apartados de documentacion y tramite del checklist |
 | Efectos que la propia ley atribuye a la inscripcion, y en particular si reconoce derechos sucesorios | Apartado de efectos; determina el tono de la advertencia sucesoria |
-| Fecha en que se ha hecho la verificacion | `{{fecha_verificacion_normativa_autonomica}}` |
+| Fecha en que se ha hecho la verificacion | `{{FECHA_VERIFICACION_NORMATIVA_AUTONOMICA}}` |
 
 **2.4 — Registrar y informar.** La fecha de verificacion, la denominacion de la ley y el enlace se vuelcan al documento generado y se comunican al cliente en la Confirmacion visible. No se actualiza esta reference con los requisitos obtenidos (ver la advertencia del encabezamiento); si lo que cambia es una fuente **estatal**, entonces si se actualiza `fuentes-plantillas-validadas.md`.
 
@@ -64,7 +64,7 @@ Fuente valida: la sede electronica o el portal oficial de la comunidad autonoma.
 Fallo es tanto el error tecnico (sin resultados, timeout, fuente caida) como el resultado dudoso: fuentes que se contradicen, o solo fuentes no oficiales.
 
 1. **No afirmar nada.** Ningun requisito, ningun plazo, ninguna denominacion de registro.
-2. **Decirselo al cliente, con estas palabras o equivalentes:** "No he podido verificar en fuente oficial la normativa de parejas de hecho de {{comunidad_autonoma}} ni los requisitos de su registro. No voy a afirmarle unos requisitos que no he comprobado. Continuo con el documento dejando ese punto expresamente pendiente, y debera confirmarlo en la sede del registro antes de presentar la solicitud."
+2. **Decirselo al cliente, con estas palabras o equivalentes:** "No he podido verificar en fuente oficial la normativa de parejas de hecho de {{COMUNIDAD_AUTONOMA}} ni los requisitos de su registro. No voy a afirmarle unos requisitos que no he comprobado. Continuo con el documento dejando ese punto expresamente pendiente, y debera confirmarlo en la sede del registro antes de presentar la solicitud."
 3. **Dejar constancia en el documento.** Los placeholders de la ley, del registro y de los requisitos permanecen sin resolver, y el bloque de advertencia de verificacion pendiente se activa.
 4. **Seguir adelante con lo que si es derecho comun.** El pacto de convivencia y el pacto de ruptura se apoyan en el Codigo Civil y pueden redactarse igualmente; lo unico que queda pendiente es la parte autonomica.
 5. **En la rama de inscripcion, advertir con mas fuerza:** ese checklist es precisamente la parte autonomica. Sin verificacion, se entrega el esqueleto del tramite con los requisitos marcados como pendientes, y se dice con claridad que no sustituye a la comprobacion en la sede del registro.

@@ -27,7 +27,7 @@ when_to_use: |
   - El usuario pregunta que derechos le da inscribirse como pareja de hecho, si hereda de su pareja o
     si tendra derecho a una compensacion si se separan.
 inputs:
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - finalidad: constituir e inscribir la pareja / regular la convivencia mediante pacto / regular la ruptura
   - comunidad_autonoma: comunidad de residencia de la pareja (vector obligatorio en todas las ramas)
   - hijos_comunes: si / no (determina la derivacion a la skill de medidas de hijos no matrimoniales)
@@ -68,14 +68,14 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 
 ### Vectores de Estado (Uso Estrictamente Interno):
 
-Para garantizar un enrutamiento determinista y el cumplimiento normativo riguroso, el asistente resuelve y mantiene internamente en memoria los vectores de estado de la operación (V1 a V4) y el origen de la plantilla (V5).
+Para garantizar un enrutamiento determinista y el cumplimiento normativo riguroso, el asistente resuelve y mantiene internamente en memoria los vectores de estado de la operación —cuyo catálogo y su correspondencia con las respuestas del formulario figuran en la Fase 1.2— y el origen de la plantilla (`origen_plantilla`).
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
-> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`) y los resúmenes de validación con marcas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial y profesional.
+> Los identificadores técnicos de los vectores y los resúmenes de validación con marcas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial y profesional.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 Tu primer objetivo es clasificar con precisión la naturaleza del caso y fijar los vectores deterministas de estado.
 
@@ -85,62 +85,71 @@ Antes de abrir formularios interactivos o hacer preguntas, analiza el mensaje in
 - Si restan vectores por definir, no formules preguntas abiertas en turnos sucesivos: presenta el formulario estructurado interactivo mediante la herramienta `restricted_human_in_the_loop_request`.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
-Presenta al usuario las opciones estructuradas para resolver los vectores pendientes:
+Invoca la herramienta con las opciones de triaje:
+
 ```json
 {
-  "type": "object",
-  "properties": {
-    "finalidad_pareja": {
-      "type": "string",
-      "description": "Finalidad de la documentaci\u00f3n (V1)",
-      "enum": [
-        "registro_constitucion",
-        "pacto_convivencia",
-        "pacto_ruptura"
+  "form_data": [
+    {
+      "id": "finalidad",
+      "rationale": "Resolver V1: cada finalidad tiene su propio asset, y no existe ley estatal de parejas de hecho.",
+      "question": "¿Qué necesita preparar?",
+      "options": [
+        {"id": "constituir_inscribir", "label": "Constituir la pareja de hecho e inscribirla en el registro"},
+        {"id": "pacto_convivencia", "label": "Regular la convivencia mediante un pacto entre los convivientes"},
+        {"id": "pacto_ruptura", "label": "Regular los efectos de la ruptura de la pareja"}
       ]
     },
-    "comunidad_autonoma": {
-      "type": "string",
-      "description": "Comunidad Aut\u00f3noma de residencia habitual (V2)",
-      "enum": [
-        "madrid",
-        "cataluna",
-        "andalucia",
-        "valencia",
-        "otras_ccaa"
+    {
+      "id": "hijos_comunes",
+      "rationale": "Resolver V2: la existencia de hijos comunes obliga a derivar todo lo relativo a custodia, estancias y alimentos a la skill de medidas sobre hijos no matrimoniales.",
+      "question": "¿Hay hijos comunes de la pareja?",
+      "options": [
+        {"id": "si", "label": "Sí"},
+        {"id": "no", "label": "No"}
+      ]
+    },
+    {
+      "id": "bienes_o_desequilibrio",
+      "rationale": "Resolver V3: activa los bloques de bienes comunes, aportaciones desiguales y compensación económica.",
+      "question": "¿Hay bienes adquiridos en común, o desequilibrio económico entre los convivientes?",
+      "options": [
+        {"id": "si", "label": "Sí"},
+        {"id": "no", "label": "No"}
       ]
     }
-  },
-  "required": [
-    "finalidad_pareja",
-    "comunidad_autonoma"
   ]
 }
 ```
 
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — `finalidad`
+- `V2` — `hijos_comunes`
+- `V3` — `bienes_o_desequilibrio`
+
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores aplicables, evalua en este orden:
 
-- Si V1 = 1 → **HOJA INSCRIPCION**: `assets/template-checklist-inscripcion-registro.md`. V3 y V4 no se preguntan como vectores; la existencia de hijos comunes se recaba en la seccion de pension de viudedad porque altera sus requisitos.
-- Si V1 = 2 → **HOJA CONVIVENCIA**: `assets/template-pacto-convivencia.md`. V4 determina si se activan los bloques de bienes comunes, aportaciones desiguales y compensacion pactada.
-- Si V1 = 3 → **HOJA RUPTURA**: `assets/template-pacto-ruptura-pareja-hecho.md`. V3 activa el bloque de remision sobre hijos comunes y dispara la derivacion; V4 determina los bloques de liquidacion y compensacion.
-- Si V1 = 3 y V3 = 1 → ademas de la HOJA RUPTURA, **DERIVAR** expresamente para todo lo relativo a los hijos: custodia, regimen de estancias y visitas, y alimentos se regulan en `medidas-hijos-no-matrimoniales`, exigen la intervencion del Ministerio Fiscal y no producen efecto sin aprobacion judicial. **Esta skill no los regula ni los incluye en el pacto**: activa el bloque de remision del asset y ofrece continuar con esa skill al cerrar el documento.
+- Si V1 = constituir_inscribir → **HOJA INSCRIPCION**: `assets/template-checklist-inscripcion-registro.md`. En esta hoja V2 y V3 no eligen asset; la existencia de hijos comunes se recaba en la seccion de pension de viudedad porque altera sus requisitos.
+- Si V1 = pacto_convivencia → **HOJA CONVIVENCIA**: `assets/template-pacto-convivencia.md`. V3 determina si se activan los bloques de bienes comunes, aportaciones desiguales y compensacion pactada.
+- Si V1 = pacto_ruptura → **HOJA RUPTURA**: `assets/template-pacto-ruptura-pareja-hecho.md`. V2 activa el bloque de remision sobre hijos comunes y dispara la derivacion; V3 determina los bloques de liquidacion y compensacion.
+- Si V1 = pacto_ruptura y V2 = si → ademas de la HOJA RUPTURA, **DERIVAR** expresamente para todo lo relativo a los hijos: custodia, regimen de estancias y visitas, y alimentos se regulan en `medidas-hijos-no-matrimoniales`, exigen la intervencion del Ministerio Fiscal y no producen efecto sin aprobacion judicial. **Esta skill no los regula ni los incluye en el pacto**: activa el bloque de remision del asset y ofrece continuar con esa skill al cerrar el documento.
 - Si lo que se pretende es un matrimonio, una separacion o un divorcio, o la liquidacion de un regimen economico matrimonial → **DETENER**: fuera de alcance. Derivar a `divorcio` o a `liquidacion-gananciales` segun corresponda.
 - Si lo que se pretende es tramitar la inscripcion ante el registro, o presentar la solicitud en nombre del cliente → **DETENER** esa pretension concreta: la skill prepara la documentacion y el checklist, pero la solicitud la presenta la propia pareja. Continuar con la HOJA INSCRIPCION advirtiendolo.
 - Si aparecen indicios de violencia entre los convivientes → **DETENER de inmediato**, en el mismo turno, sin crear ni continuar ningun documento. Advertir y escalar a asistencia juridica especializada.
 
-### Validacion de presupuestos (interno, antes del Punto 3)
+### 1.4 Validacion de presupuestos (interno, antes de la Fase 3)
 
 - **TODAS LAS HOJAS:** ninguno de los convivientes puede estar unido por vinculo matrimonial con otra persona ni tener otra pareja de hecho constituida. Si consta que si, advertir de que la constitucion de la pareja no es posible y de que un pacto entre ellos puede afectar a derechos de terceros; detener la rama de inscripcion y escalar.
 - **TODAS LAS HOJAS:** si los convivientes residen en comunidades autonomas distintas, tienen vecindad civil distinta, o concurre elemento internacional (residencia fuera de Espana, pareja constituida en el extranjero) → advertir de que la determinacion de la ley aplicable y del registro competente excede de lo que puede resolverse aqui, y escalar. En la rama de inscripcion, no continuar sin esa aclaracion.
-- **HOJA INSCRIPCION:** si de la verificacion del Punto 2 resulta un requisito temporal (tiempo minimo de convivencia previa o de empadronamiento conjunto) que la pareja aun no cumple, **no dar por presentable la solicitud**: hacerlo constar en el checklist, indicar desde cuando podra presentarse y advertir de que la presentacion anticipada conduce a la denegacion o al archivo.
-- **HOJA RUPTURA:** si existe un pacto de convivencia previo, pedirlo y leerlo con `Read` antes de redactar la liquidacion: sus previsiones para el cese son ley entre las partes y el pacto de ruptura las desarrolla o las sustituye expresamente, nunca las contradice en silencio.
+- **HOJA INSCRIPCION:** si de la verificacion de la Fase 2 resulta un requisito temporal (tiempo minimo de convivencia previa o de empadronamiento conjunto) que la pareja aun no cumple, **no dar por presentable la solicitud**: hacerlo constar en el checklist, indicar desde cuando podra presentarse y advertir de que la presentacion anticipada conduce a la denegacion o al archivo.
+- **HOJA RUPTURA:** si existe un pacto de convivencia previo, pedirlo y leerlo con `read_file` antes de redactar la liquidacion: sus previsiones para el cese son ley entre las partes y el pacto de ruptura las desarrolla o las sustituye expresamente, nunca las contradice en silencio.
 - **HOJA RUPTURA:** si el cliente pide que el pacto incluya medidas sobre los hijos, rechazarlo y explicar por que (cauce propio, Ministerio Fiscal, aprobacion judicial). Recoger la remision, no la medida.
 - **HOJA CONVIVENCIA y HOJA RUPTURA:** si el cliente pide una clausula que pretenda crear entre ellos una sociedad de gananciales, unas capitulaciones matrimoniales o un convenio regulador, rechazarla: son instituciones privativas del matrimonio. Explicar la alternativa valida (comunidad de bienes pactada sobre bienes concretos, o el propio pacto) y ofrecerla.
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 En esta fase interactúas **directamente a través del chat (en texto plano conversacional, SIN formularios)** para compartir el plan de trabajo, el fundamento normativo y acordar la plantilla base con el usuario.
 
@@ -152,28 +161,23 @@ En esta fase interactúas **directamente a través del chat (en texto plano conv
 Envía un mensaje estructurado y formal que contenga:
 1. **Marco Legal Aplicable:** Leyes autonómicas reguladoras de parejas de hecho en la CCAA de residencia; Art. 1.255 del Código Civil (autonomía de la voluntad en pactos privados); doctrina del Tribunal Constitucional (STC 93/2013 y concordantes sobre inexistencia de equiparación matrimonial automática); y Art. 174 TRLGSS (pensión de viudedad).
 2. **Orientación Legal del Caso:**
-Tras completar la verificacion (Punto 2), en un unico mensaje:
 
-1. **Informa la normativa aplicable, ya verificada.** Empieza siempre por la advertencia de ausencia de ley estatal, sigue con la ley autonomica concreta verificada en este lanzamiento y su enlace, y cierra con la base de derecho comun del documento. Textos fijos por hoja:
-   - INSCRIPCION: "No existe una ley estatal de parejas de hecho ni un registro estatal: la materia la regula cada comunidad autonoma. A su caso le resulta de aplicacion {{denominacion_ley_autonomica}}, que he verificado hoy en su fuente oficial: {{enlace_ley_autonomica}}. El registro competente es el {{denominacion_registro}}: {{enlace_registro}}."
-   - CONVIVENCIA: "No existe una ley estatal de parejas de hecho, y la convivencia no crea entre ustedes ningun regimen economico. El pacto que vamos a preparar se otorga al amparo del articulo 1255 del Codigo Civil, y a los bienes que hayan adquirido conjuntamente les resultan de aplicacion los articulos 392 y siguientes del mismo cuerpo legal, sobre la comunidad de bienes. Puede consultar el texto oficial en https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763. En cuanto a su comunidad autonoma, he verificado hoy {{denominacion_ley_autonomica}}: {{enlace_ley_autonomica}}."
-   - RUPTURA: "Al no haber existido matrimonio entre ustedes, no hay regimen economico matrimonial que liquidar ni cabe un convenio regulador. Lo que vamos a preparar es un pacto otorgado al amparo del articulo 1255 del Codigo Civil, que liquida la comunidad de bienes sobre lo adquirido conjuntamente conforme a los articulos 392 y siguientes. Puede consultar el texto oficial en https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763. En cuanto a su comunidad autonoma, he verificado hoy {{denominacion_ley_autonomica}}: {{enlace_ley_autonomica}}."
-   - Si la verificacion autonomica fallo, sustituye la parte autonomica por el texto del Punto 2.6. **Nunca inventes una denominacion de ley ni un enlace.**
-   - **Correccion inmediata del malentendido, si el cliente ya lo ha planteado.** Si en sus mensajes ha preguntado o dado por supuesto que inscribirse equipara al matrimonio, que crea gananciales, que da derecho a heredar o que garantiza una compensacion, **respondele aqui, en este mismo mensaje**, sin esperar a la seccion de la edicion incremental que trate esa materia. Diez turnos despues es tarde: el cliente esta tomando su decision ahora. Di con todas las letras que no, y por que: la inscripcion no crea ningun regimen economico, lo adquirido en comun se rige por los articulos 392 y siguientes del Codigo Civil segun la titularidad, y **el conviviente no hereda sin testamento** salvo lo que prevea la normativa civil aplicable que hayas verificado. Si ha preguntado por heredar, anade que la unica via es otorgar testamento ante notario, con el limite de las legitimas, y ofrece continuar despues con `testamento-planificacion`. Esta correccion no sustituye a la seccion correspondiente del Punto 5: la anticipa.
-   - Si V1 = 3 y V3 = 1 (hay hijos comunes), anade en el mismo mensaje: "Le adelanto que todo lo relativo a sus hijos — guarda y custodia, regimen de estancias y pension de alimentos — no puede regularse en este pacto: tiene un cauce propio, exige la intervencion del Ministerio Fiscal y no produce efecto sin aprobacion judicial. Lo trataremos en un documento aparte cuando cerremos este."
-2. **Ofrece la plantilla o pide el documento propio.** En el mismo mensaje:
-   "¿Que documento desea utilizar como base?
-   1. La plantilla del sistema, revisada por nuestros abogados y colaboradores
-   2. Adjuntar su propio documento"
-3. **Enruta segun la respuesta:** si elige la plantilla, continua con el Punto 4 usando el asset de la hoja; si elige adjuntar el suyo, pide que lo adjunte, leelo con `Read` y usalo como documento base en el Punto 4 en lugar del asset, sin dejar de aplicar los guardrails del dominio (adviertele si el documento adjuntado los incumple, y en particular si contiene clausulas que presupongan un regimen economico inexistente o que regulen medidas sobre los hijos).
-3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-checklist-inscripcion-registro.md`).
+**Informa la normativa aplicable, ya verificada.** Empieza siempre por la advertencia de ausencia de ley estatal, sigue con la ley autonomica concreta verificada en este lanzamiento y su enlace, y cierra con la base de derecho comun del documento. Textos fijos por hoja:
+   - INSCRIPCION: "No existe una ley estatal de parejas de hecho ni un registro estatal: la materia la regula cada comunidad autonoma. A su caso le resulta de aplicacion {{DENOMINACION_LEY_AUTONOMICA}}, que he verificado hoy en su fuente oficial: {{ENLACE_LEY_AUTONOMICA}}. El registro competente es el {{DENOMINACION_REGISTRO}}: {{ENLACE_REGISTRO}}."
+   - CONVIVENCIA: "No existe una ley estatal de parejas de hecho, y la convivencia no crea entre ustedes ningun regimen economico. El pacto que vamos a preparar se otorga al amparo del articulo 1255 del Codigo Civil, y a los bienes que hayan adquirido conjuntamente les resultan de aplicacion los articulos 392 y siguientes del mismo cuerpo legal, sobre la comunidad de bienes. Puede consultar el texto oficial en https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763. En cuanto a su comunidad autonoma, he verificado hoy {{DENOMINACION_LEY_AUTONOMICA}}: {{ENLACE_LEY_AUTONOMICA}}."
+   - RUPTURA: "Al no haber existido matrimonio entre ustedes, no hay regimen economico matrimonial que liquidar ni cabe un convenio regulador. Lo que vamos a preparar es un pacto otorgado al amparo del articulo 1255 del Codigo Civil, que liquida la comunidad de bienes sobre lo adquirido conjuntamente conforme a los articulos 392 y siguientes. Puede consultar el texto oficial en https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763. En cuanto a su comunidad autonoma, he verificado hoy {{DENOMINACION_LEY_AUTONOMICA}}: {{ENLACE_LEY_AUTONOMICA}}."
+   - Si la verificacion autonomica fallo, no cites ley autonomica alguna: advierte expresamente de que no se ha podido verificar la normativa de la comunidad autonoma y de que el punto queda pendiente de verificacion manual. **Nunca inventes una denominacion de ley ni un enlace.**
+   - **Correccion inmediata del malentendido, si el cliente ya lo ha planteado.** Si en sus mensajes ha preguntado o dado por supuesto que inscribirse equipara al matrimonio, que crea gananciales, que da derecho a heredar o que garantiza una compensacion, **respondele aqui, en este mismo mensaje**, sin esperar a la seccion de la edicion incremental que trate esa materia. Diez turnos despues es tarde: el cliente esta tomando su decision ahora. Di con todas las letras que no, y por que: la inscripcion no crea ningun regimen economico, lo adquirido en comun se rige por los articulos 392 y siguientes del Codigo Civil segun la titularidad, y **el conviviente no hereda sin testamento** salvo lo que prevea la normativa civil aplicable que hayas verificado. Si ha preguntado por heredar, anade que la unica via es otorgar testamento ante notario, con el limite de las legitimas, y ofrece continuar despues con `testamento-planificacion`. Esta correccion no sustituye a la seccion correspondiente de la Fase 4: la anticipa.
+   - Si V1 = pacto_ruptura y V2 = si (hay hijos comunes), anade en el mismo mensaje: "Le adelanto que todo lo relativo a sus hijos — guarda y custodia, regimen de estancias y pension de alimentos — no puede regularse en este pacto: tiene un cauce propio, exige la intervencion del Ministerio Fiscal y no produce efecto sin aprobacion judicial. Lo trataremos en un documento aparte cuando cerremos este."
+
+3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** y nombrala por su ruta. Si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la seccion de assets.
 4. **Pregunta Explícita al Usuario (Vía Chat):** Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
-* **Si `[V5 = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+* **Si `[origen_plantilla = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
   Toma el texto íntegro de la plantilla correspondiente directamente desde el catálogo del prompt y procede de inmediato a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
+* **Si `[origen_plantilla = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
   1. Accede al contenido del adjunto desde `<attached_documents>` o el mensaje del usuario.
   2. **Guardrail de Verificación Legal:** Analiza el texto aportado. Si contiene cláusulas nulas, contrarias a normas imperativas o de imposible cumplimiento, adviértelo expresamente en el chat y propón la redacción legalmente válida.
   3. Adopta la minuta revisada como base y avanza a la **Fase 3**.
@@ -234,8 +238,8 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 ### Secciones — HOJA RUPTURA
 
 1. **Datos de cada conviviente** *(dato objetivo — recogida en lote con `slot_filling_request`, confirmación en chat)*. Anuncio fijo: "Comenzamos por la identificacion de ambos convivientes." Igual estructura mediante `slot_filling_request` que en la HOJA CONVIVENCIA.
-2. **La convivencia, su cese y la situacion registral** *(dato objetivo — recogida en lote con `slot_filling_request`, confirmación en chat)*. Anuncio fijo: "Concretamos ahora las fechas de la convivencia y su situacion registral." Solicita en bloque mediante `slot_filling_request`: a) fecha de inicio; b) fecha de cese; c) si la pareja estaba inscrita y, en tal caso, fecha de inscripcion y plazo en que se comprometen a solicitar la cancelacion; d) si existe un pacto de convivencia previo (si lo hay, pedirlo y leerlo con `Read` antes de continuar). Vista previa en chat, confirmación en chat y `edit_file` + `read_file`. Explica al tratar la cancelacion que, mientras no se practique, la inscripcion sigue produciendo sus efectos.
-3. **Hijos comunes** *(informativo con derivacion — condicional, se trata pronto a proposito)*. Anuncio fijo: "Antes de entrar en lo economico, una precision sobre sus hijos." Solo si V3 = 1. Explica que la guarda y custodia, el regimen de estancias y la pension de alimentos no se regulan en este pacto porque tienen cauce propio, exigen la intervencion del Ministerio Fiscal y no producen efecto sin aprobacion judicial; que ninguna clausula economica de este documento puede condicionar ni compensar los derechos de los hijos; y que al cerrar este pacto se puede continuar con `medidas-hijos-no-matrimoniales`. Activa el bloque de remision del asset. **No recabes ningun dato de los hijos**: nombres, edades o cualquier otro dato corresponden a la otra skill.
+2. **La convivencia, su cese y la situacion registral** *(dato objetivo — recogida en lote con `slot_filling_request`, confirmación en chat)*. Anuncio fijo: "Concretamos ahora las fechas de la convivencia y su situacion registral." Solicita en bloque mediante `slot_filling_request`: a) fecha de inicio; b) fecha de cese; c) si la pareja estaba inscrita y, en tal caso, fecha de inscripcion y plazo en que se comprometen a solicitar la cancelacion; d) si existe un pacto de convivencia previo (si lo hay, pedirlo y leerlo con `read_file` antes de continuar). Vista previa en chat, confirmación en chat y `edit_file` + `read_file`. Explica al tratar la cancelacion que, mientras no se practique, la inscripcion sigue produciendo sus efectos.
+3. **Hijos comunes** *(informativo con derivacion — condicional, se trata pronto a proposito)*. Anuncio fijo: "Antes de entrar en lo economico, una precision sobre sus hijos." Solo si V2 = si. Explica que la guarda y custodia, el regimen de estancias y la pension de alimentos no se regulan en este pacto porque tienen cauce propio, exigen la intervencion del Ministerio Fiscal y no producen efecto sin aprobacion judicial; que ninguna clausula economica de este documento puede condicionar ni compensar los derechos de los hijos; y que al cerrar este pacto se puede continuar con `medidas-hijos-no-matrimoniales`. Activa el bloque de remision del asset. **No recabes ningun dato de los hijos**: nombres, edades o cualquier otro dato corresponden a la otra skill.
 4. **Liquidacion de los bienes adquiridos en comun** *(negociacion)*. Anuncio fijo: "Pasamos a liquidar los bienes que adquirieron conjuntamente." Explica antes: no hay regimen economico matrimonial que liquidar, solo la comunidad de bienes sobre lo que figure a nombre de ambos; por defecto, si no hay acuerdo, cualquiera puede pedir la division y, si el bien es indivisible, se vende y se reparte el precio (articulos 400 y 404). Sub-apartados: a) relacion de bienes comunes y titularidad; b) para cada bien, si se adjudica a uno compensando al otro, si se vende, o si no hay acuerdo. Confirmacion por cada bien en chat.
 5. **Aportaciones desiguales** *(negociacion — condicional)*. Anuncio fijo: "Verificamos si las aportaciones a esos bienes fueron desiguales." Explica la presuncion de cuotas iguales del articulo 393 y la carga de la prueba. Pregunta cuanto aporto cada uno realmente y, si hubo desigualdad, si reconocen un credito, por que importe y con que forma de pago. Redacta el reconocimiento **expresando su causa**. Confirmación en chat.
 6. **Vivienda y prestamo hipotecario** *(negociacion)*. Anuncio fijo: "Determinamos ahora el destino de la vivienda que fue su domicilio." Sub-apartados: a) situacion juridica y titularidad; b) a quien se atribuye el uso y en que fecha desaloja el otro; c) reparto de los gastos a partir del cese; d) si hay prestamo hipotecario, capital pendiente, reparto de cuotas y hasta que hito. Explica siempre que el reparto **no vincula a la entidad prestamista** y que la liberacion de un prestatario exige su consentimiento expreso, que no esta obligada a dar. Si la vivienda es arrendada, trata la posicion arrendaticia y la fianza, advirtiendo de que puede requerir el consentimiento del arrendador. Confirmación en chat.
@@ -249,11 +253,11 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 ### Secciones — HOJA INSCRIPCION
 
 1. **Datos de cada conviviente** *(dato objetivo — recogida en lote con `slot_filling_request`, confirmación en chat)*. Anuncio fijo: "Comenzamos por la identificacion de ambos convivientes." Igual estructura que en las otras hojas.
-2. **Situacion de la pareja frente a los requisitos verificados** *(dato objetivo con validacion bloqueante)*. Anuncio fijo: "Contrastamos ahora su situacion con los requisitos que exige el registro." Recorre uno por uno **solo los requisitos que la verificacion del Punto 2.3 haya devuelto**, preguntando por cada uno la situacion de la pareja: edad, ausencia de vinculo, parentesco, tiempo de convivencia previa, empadronamiento conjunto, residencia. **Prohibido preguntar por un requisito que no conste en la verificacion, y prohibido dar por exigido uno que no se haya verificado.** Poda la tabla del asset conforme a la regla de tres situaciones del Punto 4: elimina entera la fila de requisito adicional si la verificacion no devolvio ninguno, y al cerrar la seccion ninguna fila puede quedar con un placeholder a la vista. **Un requisito que la verificacion devuelve como NO exigido no se borra: se conserva diciendo que no se exige.** Que la comunidad no imponga tiempo minimo de convivencia previa o empadronamiento conjunto es informacion que el cliente necesita — suele creer lo contrario — y borrar la fila se la oculta. Si algun requisito temporal no se cumple todavia, calcula desde cuando podra presentarse la solicitud, hazlo constar y advierte de que presentarla antes conduce a la denegacion o al archivo.
+2. **Situacion de la pareja frente a los requisitos verificados** *(dato objetivo con validacion bloqueante)*. Anuncio fijo: "Contrastamos ahora su situacion con los requisitos que exige el registro." Recorre uno por uno **solo los requisitos que la verificacion de la Fase 2.3 haya devuelto**, preguntando por cada uno la situacion de la pareja: edad, ausencia de vinculo, parentesco, tiempo de convivencia previa, empadronamiento conjunto, residencia. **Prohibido preguntar por un requisito que no conste en la verificacion, y prohibido dar por exigido uno que no se haya verificado.** Poda la tabla del asset conforme a la regla de tres situaciones de la Fase 4: elimina entera la fila de requisito adicional si la verificacion no devolvio ninguno, y al cerrar la seccion ninguna fila puede quedar con un placeholder a la vista. **Un requisito que la verificacion devuelve como NO exigido no se borra: se conserva diciendo que no se exige.** Que la comunidad no imponga tiempo minimo de convivencia previa o empadronamiento conjunto es informacion que el cliente necesita — suele creer lo contrario — y borrar la fila se la oculta. Si algun requisito temporal no se cumple todavia, calcula desde cuando podra presentarse la solicitud, hazlo constar y advierte de que presentarla antes conduce a la denegacion o al archivo.
 3. **Documentacion y tramite** *(dato objetivo)*. Anuncio fijo: "Relacionamos la documentacion y el tramite." Vuelca la documentacion, la forma de presentacion, el organo competente, la tasa y los plazos tal como los haya devuelto la verificacion. Pregunta el municipio de residencia y comprueba si existe ademas registro municipal; si lo hay, activa ese bloque y advierte de que los efectos de uno y otro pueden no coincidir.
 4. **Que produce y que no produce la inscripcion** *(negociacion — es el nucleo pedagogico del documento)*. Anuncio fijo: "Le explico ahora que efectos tiene realmente la inscripcion." Explica los cuatro puntos, sin suavizarlos: no equipara la pareja al matrimonio, no crea ningun regimen economico, no genera derecho automatico a compensacion en caso de ruptura, y no convierte al conviviente en heredero. Explica tambien lo que si aporta: prueba de la existencia y de la fecha de la pareja, que es justo lo que despues exigen otras normas. Pregunta si desea que se incluyan en el documento los efectos que la ley autonomica verificada atribuye a la inscripcion.
 
-**Trampa al volcar `{{efectos_inscripcion}}`: "sucesiones" casi nunca significa heredar.** Los portales autonomicos suelen listar la equiparacion al matrimonio "en materia de sucesiones", y se refieren al **Impuesto sobre Sucesiones y Donaciones**, que es un tributo cedido, no a los derechos sucesorios civiles. Copiar esa frase tal cual convierte el documento en autocontradictorio: afirmaria en este apartado lo que niega en el apartado de sucesion, y sobre el punto que mas le importa al cliente. Al volcar los efectos, **separa siempre lo fiscal de lo civil** y di expresamente si la comunidad tiene o no derecho civil propio que reconozca derechos sucesorios al conviviente. Si no lo has verificado, no lo afirmes en ninguno de los dos sentidos.
+**Trampa al volcar `{{EFECTOS_INSCRIPCION}}`: "sucesiones" casi nunca significa heredar.** Los portales autonomicos suelen listar la equiparacion al matrimonio "en materia de sucesiones", y se refieren al **Impuesto sobre Sucesiones y Donaciones**, que es un tributo cedido, no a los derechos sucesorios civiles. Copiar esa frase tal cual convierte el documento en autocontradictorio: afirmaria en este apartado lo que niega en el apartado de sucesion, y sobre el punto que mas le importa al cliente. Al volcar los efectos, **separa siempre lo fiscal de lo civil** y di expresamente si la comunidad tiene o no derecho civil propio que reconozca derechos sucesorios al conviviente. Si no lo has verificado, no lo afirmes en ninguno de los dos sentidos.
 5. **Pension de viudedad** *(informativo con derivacion)*. Anuncio fijo: "Le informo de los requisitos propios de la pension de viudedad, que no son los del registro." Explica los cuatro requisitos del articulo 221 de la Ley General de la Seguridad Social, y en particular las dos consecuencias practicas: la antelacion minima de dos anos de la inscripcion respecto del fallecimiento, y que los cinco anos de convivencia se acreditan con el empadronamiento conjunto y no con la inscripcion. Pregunta si tienen hijos en comun, porque exime del requisito de los cinco anos, y activa el bloque correspondiente. Advierte de que la skill informa pero **no tramita ni valora** el derecho a la pension, y deriva al Instituto Nacional de la Seguridad Social o a un especialista.
 6. **Sucesion y testamento** *(informativo)*. Anuncio fijo: "Un punto que suele pasarse por alto: la sucesion." Explica que el conviviente no hereda sin testamento salvo lo que prevea la normativa civil aplicable, y que la unica via de proteccion mutua es otorgar testamento ante notario, con el limite de las legitimas. Ofrece continuar despues con `testamento-planificacion`, advirtiendo de que esa skill cubre unicamente derecho civil comun y no vecindad civil foral, y de que el testamento se otorga siempre ante notario.
 7. **Recomendacion de pacto de convivencia** *(negociacion)*. Anuncio fijo: "Por ultimo, le recomiendo valorar un pacto de convivencia." Explica que la inscripcion prueba que la pareja existe pero no regula nada entre ellos, y que todo lo economico solo queda regulado si se pacta. Ofrece preparar el pacto de convivencia a continuacion; si acepta, al cerrar este documento reinicia el flujo por la HOJA CONVIVENCIA reutilizando los datos ya recabados, **sin volver a preguntarlos**.
@@ -282,7 +286,7 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 
 ## Límites Legales y Guardrails de Dominio (Gobernados por Vectores)
 
-1. **Nunca afirmar un requisito, un registro, un plazo o un efecto autonomico que no se haya verificado en este mismo lanzamiento** (Punto 2.3). No existe ley estatal de parejas de hecho: cualquier afirmacion autonomica no verificada es una invencion. Si la verificacion falla, decirlo con las palabras del Punto 2.6, dejar el punto pendiente en el documento y no afirmarlo.
+1. **Nunca afirmar un requisito, un registro, un plazo o un efecto autonomico que no se haya verificado en este mismo lanzamiento** (Fase 2.1). No existe ley estatal de parejas de hecho: cualquier afirmacion autonomica no verificada es una invencion. Si la verificacion falla, advertir expresamente de que no se ha podido verificar la normativa autonomica, dejar el punto pendiente en el documento y no afirmarlo.
 2. **Nunca dar a entender que la pareja registrada equivale al matrimonio.** No hay equiparacion general: cada efecto tiene su propia norma y sus propios requisitos. Corregir activamente el malentendido cuando aparezca, aunque el cliente no pregunte.
 3. **Nunca decir que la convivencia crea un regimen economico.** No nacen gananciales ni ningun otro regimen; cada uno conserva lo suyo y lo comun se rige por la comunidad de bienes segun la titularidad. Nadie queda sometido a un regimen por el mero hecho de convivir.
 4. **Nunca prometer una compensacion economica como si fuera automatica.** Las normas del matrimonio, incluida la compensacion por trabajo domestico del articulo 1438 del Codigo Civil, **no se aplican por analogia** a la pareja de hecho. La via del enriquecimiento injusto existe solo en defecto de pacto, exige prueba de sus requisitos y tiene resultado incierto. Explicar que lo que da certeza es el pacto, y que el pacto crea el derecho, no lo reconoce.
@@ -293,7 +297,7 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 9. **Nunca redactar clausulas que presupongan instituciones matrimoniales** (gananciales, capitulaciones, convenio regulador, pension compensatoria del articulo 97 del Codigo Civil): son privativas del matrimonio y una clausula asi seria ineficaz. Rechazar, explicar y ofrecer la alternativa valida.
 10. **Nunca afirmar efectos frente a terceros que el pacto no puede producir.** El reparto de cuotas hipotecarias o de deudas no vincula al acreedor; la subrogacion arrendaticia puede requerir el consentimiento del arrendador; los efectos fiscales dependen de normativa que la skill no verifica y se derivan a asesor fiscal.
 11. **Violencia entre los convivientes: detener y escalar de inmediato**, en el mismo turno y sin crear ni continuar documento alguno.
-12. **Nunca inventar datos, importes, fechas, denominaciones de registro ni enlaces.** Los campos no proporcionados quedan como `{{dato}}` con su nombre propio. Un enlace inventado a una sede electronica es especialmente grave: el cliente lo seguira.
+12. **Nunca inventar datos, importes, fechas, denominaciones de registro ni enlaces.** Los campos no proporcionados quedan como `{{DATO}}` con su nombre propio. Un enlace inventado a una sede electronica es especialmente grave: el cliente lo seguira.
 13. **Documento escrito sin comentarios HTML y con numeracion correlativa.** Resolver todos los bloques condicionales y renumerar las clausulas tras insertar o descartar cualquiera de ellos.
 
 ### Supuestos Fuera de Alcance (Cómo NO usar esta skill)

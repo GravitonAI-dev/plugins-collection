@@ -2,15 +2,15 @@
 
 > Material de referencia para la skill `liquidacion-impuesto-sucesiones`. Registra las fuentes normativas,
 > los organismos de presentacion y los plazos que la skill verifica y, si detecta una version posterior,
-> ACTUALIZA en el plugin en cada lanzamiento (Paso 1). Lo lee el agente; no forma parte del output.
+> aplica la redaccion vigente al tramite que prepara (Fase 1). Lo lee el agente; no forma parte del output.
 
 ---
 
-## Regla de actualizacion permanente (OBLIGATORIA)
+## Regla de verificacion permanente (OBLIGATORIA)
 
-Cada vez que se lanza la skill, en el Paso 1 se comprueban las fuentes de esta tabla y la normativa
+Cada vez que se lanza la skill, en la Fase 2.1 se comprueban las fuentes de esta tabla y la normativa
 autonomica de la CCAA competente. **Si se detecta una version posterior a la registrada, la skill
-actualiza el archivo correspondiente del plugin (reference o asset) antes de preparar el tramite** y anota
+aplica la redaccion vigente al tramite que prepara en el workspace del usuario** e informa del cambio en el chat. La skill nunca modifica sus propios archivos de plugin. Antes se anotaba
 la nueva fecha/version verificada. Si la fuente no es accesible, se usa la version local, se marca
 [verificar] y se informa al usuario.
 

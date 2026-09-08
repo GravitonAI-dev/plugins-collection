@@ -21,7 +21,7 @@ when_to_use: |
     prestamo.
   - El usuario compra o vende una vivienda que esta arrendada.
 inputs:
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - documento: contrato de arras / contrato privado de compraventa / requerimiento de cumplimiento
   - posicion_cliente: comprador / vendedor
   - financiacion_pendiente: si / no
@@ -62,14 +62,14 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 
 ### Vectores de Estado (Uso Estrictamente Interno):
 
-Para garantizar un enrutamiento determinista y el cumplimiento normativo riguroso, el asistente resuelve y mantiene internamente en memoria los vectores de estado de la operación (V1 a V4) y el origen de la plantilla (V5).
+Para garantizar un enrutamiento determinista y el cumplimiento normativo riguroso, el asistente resuelve y mantiene internamente en memoria los vectores de estado de la operación —cuyo catálogo y su correspondencia con las respuestas del formulario figuran en la Fase 1.2— y el origen de la plantilla (`origen_plantilla`).
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
-> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`) y los resúmenes de validación con marcas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial y profesional.
+> Los identificadores técnicos de los vectores y los resúmenes de validación con marcas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial y profesional.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 Tu primer objetivo es clasificar con precisión la naturaleza del caso y fijar los vectores deterministas de estado.
 
@@ -79,66 +79,72 @@ Antes de abrir formularios interactivos o hacer preguntas, analiza el mensaje in
 - Si restan vectores por definir, no formules preguntas abiertas en turnos sucesivos: presenta el formulario estructurado interactivo mediante la herramienta `restricted_human_in_the_loop_request`.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
-Presenta al usuario las opciones estructuradas para resolver los vectores pendientes:
+Invoca la herramienta con las opciones de triaje:
+
 ```json
 {
-  "type": "object",
-  "properties": {
-    "documento_necesario": {
-      "type": "string",
-      "description": "Tipo de documento requerido (V1)",
-      "enum": [
-        "arras",
-        "compraventa_privada",
-        "requerimiento_cumplimiento"
+  "form_data": [
+    {
+      "id": "documento",
+      "rationale": "Resolver V1: cada documento tiene su propio asset y su propio régimen legal.",
+      "question": "¿Qué documento necesita?",
+      "options": [
+        {"id": "arras", "label": "Contrato de arras o señal, previo a la compraventa"},
+        {"id": "compraventa", "label": "Contrato privado de compraventa de vivienda"},
+        {"id": "requerimiento", "label": "Requerimiento de cumplimiento por incumplimiento de la otra parte"}
       ]
     },
-    "posicion_cliente": {
-      "type": "string",
-      "description": "Posici\u00f3n del cliente en la operaci\u00f3n (V2)",
-      "enum": [
-        "comprador",
-        "vendedor"
+    {
+      "id": "posicion_cliente",
+      "rationale": "Resolver V2: orienta la redacción de las garantías y de las consecuencias del desistimiento a favor de la parte a la que se asiste.",
+      "question": "¿A qué parte asiste usted?",
+      "options": [
+        {"id": "comprador", "label": "Al comprador"},
+        {"id": "vendedor", "label": "Al vendedor"}
       ]
     },
-    "estado_arrendaticio": {
-      "type": "string",
-      "description": "Situaci\u00f3n posesoria y arrendaticia del inmueble (V4)",
-      "enum": [
-        "libre",
-        "arrendado_vivienda",
-        "no_sabe"
+    {
+      "id": "inmueble_arrendado",
+      "rationale": "Resolver V4: si el inmueble está arrendado como vivienda, nace el derecho de tanteo y retracto del artículo 25 LAU y hay que notificar al arrendatario.",
+      "question": "¿Está el inmueble arrendado en este momento?",
+      "options": [
+        {"id": "no", "label": "No, está libre de arrendatarios y de ocupantes"},
+        {"id": "si_vivienda", "label": "Sí, arrendado como vivienda"},
+        {"id": "no_lo_se", "label": "No lo sé con certeza"}
       ]
     },
-    "financiacion_pendiente": {
-      "type": "string",
-      "description": "Financiaci\u00f3n bancaria pendiente (V3 - solo para arras o compraventa)",
-      "enum": [
-        "sin_financiacion",
-        "con_hipoteca"
+    {
+      "id": "financiacion_pendiente",
+      "rationale": "Resolver V3: la financiación hipotecaria pendiente condiciona la condición suspensiva y los plazos del contrato.",
+      "question": "¿Depende la operación de una financiación hipotecaria todavía no concedida?",
+      "options": [
+        {"id": "no", "label": "No"},
+        {"id": "si", "label": "Sí"}
       ]
     }
-  },
-  "required": [
-    "documento_necesario",
-    "posicion_cliente"
   ]
 }
 ```
 
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — respuesta a `documento`
+- `V2` — respuesta a `posicion_cliente`
+- `V3` — respuesta a `financiacion_pendiente`
+- `V4` — respuesta a `inmueble_arrendado`
+
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores aplicables, evalua en este orden:
 
-- Si V1 = 1 → **HOJA ARRAS**: `assets/template-contrato-arras.md`.
-- Si V1 = 2 → **HOJA COMPRAVENTA**: `assets/template-contrato-compraventa-vivienda.md`.
-- Si V1 = 3 → **HOJA REQUERIMIENTO**: `assets/template-requerimiento-cumplimiento.md`. V3 no se pregunta; V4 solo se usa para advertir del riesgo de retracto si el contrato ya firmado afecta a un inmueble arrendado sin notificar.
-- Si V4 = 2 y el sub-vector es arrendamiento de local o para uso distinto de vivienda → **DETENER**: la compraventa de local esta fuera de alcance. Antes de escalar, advierte de que el articulo 31 de la Ley 29/1994 aplica al arrendamiento para uso distinto de vivienda el mismo regimen de tanteo y retracto del articulo 25, por lo que el riesgo de retracto tambien existe. Escalar. No crear documento.
+- Si V1 = arras → **HOJA ARRAS**: `assets/template-contrato-arras.md`.
+- Si V1 = compraventa → **HOJA COMPRAVENTA**: `assets/template-contrato-compraventa-vivienda.md`.
+- Si V1 = requerimiento → **HOJA REQUERIMIENTO**: `assets/template-requerimiento-cumplimiento.md`. V3 no se pregunta; V4 solo se usa para advertir del riesgo de retracto si el contrato ya firmado afecta a un inmueble arrendado sin notificar.
+- Si V4 = si vivienda y el sub-vector es arrendamiento de local o para uso distinto de vivienda → **DETENER**: la compraventa de local esta fuera de alcance. Antes de escalar, advierte de que el articulo 31 de la Ley 29/1994 aplica al arrendamiento para uso distinto de vivienda el mismo regimen de tanteo y retracto del articulo 25, por lo que el riesgo de retracto tambien existe. Escalar. No crear documento.
 - Si lo que se pretende es la compraventa de obra nueva **sobre plano con entregas a cuenta** del precio antes de la terminacion → **DETENER**: la disposicion adicional primera de la Ley 38/1999 exige garantizar la devolucion de las cantidades anticipadas mediante aval solidario de entidad de credito o seguro de caucion individualizado desde la obtencion de la licencia de edificacion, percibirlas en cuenta especial separada, y hacer constar en el contrato la obligacion de devolucion, la entidad garante y la cuenta. Advertir de esos requisitos y escalar. No crear documento.
 - Si lo que se pretende es la transmision de un inmueble por herencia, legado, donacion, aportacion a sociedad, permuta, dacion en pago o adjudicacion en liquidacion de gananciales → **DETENER**: fuera de alcance. Derivar a `herencia` cuando sea sucesorio, o escalar en los demas casos.
 - Si el inmueble es un local comercial, una nave, un solar, una finca rustica o una plaza de garaje que se transmite de forma independiente → **DETENER**: los assets estan construidos para vivienda. Advertir y escalar.
 - Si el caso se rige por derecho civil foral o especial (vecindad civil catalana, navarra, aragonesa, balear, gallega o vizcaina, o inmueble sujeto a esa legislacion) → **DETENER**: los assets se construyen sobre el Codigo Civil comun y Cataluna, entre otros territorios, regula la compraventa con reglas propias. Advertir y escalar.
 
-### Validacion de presupuestos (interno, antes del Punto 3)
+### 1.4 Validacion de presupuestos (interno, antes de la Fase 3)
 
 - **TODAS LAS HOJAS — legitimacion y titularidad.** Confirmar que el cliente es parte del contrato (o va a serlo) y, si es el vendedor, que es titular del inmueble. Si el inmueble pertenece a **varios cotitulares**, todos deben consentir la venta: pedir su relacion y advertir de que la firma de uno solo no vincula a los demas. Si el inmueble es la **vivienda habitual del matrimonio del vendedor**, advertir de que la disposicion requiere el consentimiento del otro conyuge y activar el bloque de comparecencia correspondiente.
 - **TODAS LAS HOJAS — V4 arrendado, PARADA BLOQUEANTE (Art. 25 de la Ley 29/1994).** Si el inmueble esta arrendado como vivienda, **antes de continuar** informa del derecho de tanteo y retracto y pregunta si ya se ha notificado fehacientemente al arrendatario la decision de vender, el precio y las demas condiciones esenciales, y en que fecha. Tres salidas:
@@ -156,7 +162,7 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 En esta fase interactúas **directamente a través del chat (en texto plano conversacional, SIN formularios)** para compartir el plan de trabajo, el fundamento normativo y acordar la plantilla base con el usuario.
 
@@ -168,27 +174,22 @@ En esta fase interactúas **directamente a través del chat (en texto plano conv
 Envía un mensaje estructurado y formal que contenga:
 1. **Marco Legal Aplicable:** Artículos 1.445 y siguientes del Código Civil (compraventa), Art. 1.454 CC (arras o señal y desistimiento), Art. 1.504 CC (resolución por impago e imperatividad de requerimiento notarial o judicial), y Art. 25 de la Ley 29/1994 (LAU, tanteo y retracto si la vivienda está arrendada).
 2. **Orientación Legal del Caso:**
-Tras completar la verificacion (Punto 2), en un unico mensaje:
 
-1. **Informa la via y la fuente aplicable.** Textos fijos por hoja:
+**Informa la via y la fuente aplicable.** Textos fijos por hoja:
    - ARRAS: "A su caso corresponde un contrato de arras o senal previo a la compraventa, regido por el Codigo Civil y, en cuanto a las arras entregadas, por su articulo 1.454. Debe saber que ese articulo solo contempla el desistimiento perdiendo las arras o devolviendolas duplicadas: la distincion entre arras confirmatorias, penales y penitenciales no figura en el Codigo, la ha construido la jurisprudencia, y por ello es imprescindible pactar expresamente en el contrato de que clase son y que ocurre si una parte se retira. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763"
    - COMPRAVENTA: "A su caso corresponde un contrato privado de compraventa de vivienda, regido por los articulos 1.445 y siguientes del Codigo Civil. Debe saber que este documento obliga a ambas partes, pero no transmite la propiedad frente a terceros ni permite inscribir la vivienda a su nombre en el Registro de la Propiedad: para ello es necesaria la escritura publica notarial, conforme al articulo 1.280.1.º del Codigo Civil. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763"
    - REQUERIMIENTO: "A su caso corresponde un requerimiento extrajudicial de cumplimiento, con fundamento en el articulo 1.124 del Codigo Civil, que le permite optar entre exigir el cumplimiento o resolver el contrato, con resarcimiento de danos e intereses en ambos casos. Tratandose de venta de bien inmueble, el articulo 1.504 del mismo Codigo permite al comprador pagar el precio aun despues de vencido el plazo mientras no haya sido requerido judicialmente o por acta notarial. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763"
    - En las hojas ARRAS y COMPRAVENTA, si el inmueble esta arrendado como vivienda, anadir: "Al estar el inmueble arrendado, resulta ademas de aplicacion el derecho de tanteo y retracto del arrendatario, previsto en el articulo 25 de la Ley 29/1994, de 24 de noviembre, de Arrendamientos Urbanos. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-1994-26003"
    - En la hoja COMPRAVENTA, si la vivienda es de obra nueva ya recibida, anadir: "Al tratarse de obra nueva, resultan ademas de aplicacion las garantias por vicios y defectos de la construccion del articulo 17 de la Ley 38/1999, de 5 de noviembre, de Ordenacion de la Edificacion, con plazos de diez, tres y un ano desde la recepcion de la obra. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-1999-21567"
-2. **Ofrece la plantilla o pide el documento propio.** En el mismo mensaje:
-   "¿Que documento desea utilizar como base?
-   1. La plantilla del sistema, revisada por nuestros abogados y colaboradores
-   2. Adjuntar su propio documento"
-3. **Enruta segun la respuesta:** si elige la plantilla, continua con el Punto 4 usando el asset de la hoja; si elige adjuntar el suyo, pide que lo adjunte, leelo con `Read` y usalo como documento base en el Punto 4 en lugar del asset, sin dejar de aplicar los guardrails del dominio. Si el documento adjuntado los incumple —por ejemplo, si dice "arras" sin decir de que clase, si afirma que el inmueble esta libre de cargas sin comprobacion, o si no menciona la notificacion al arrendatario en una vivienda arrendada—, adviertelo expresamente antes de trabajar sobre el.
-3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-contrato-arras.md`).
+
+3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** y nombrala por su ruta. Si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la seccion de assets.
 4. **Pregunta Explícita al Usuario (Vía Chat):** Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
-* **Si `[V5 = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+* **Si `[origen_plantilla = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
   Toma el texto íntegro de la plantilla correspondiente directamente desde el catálogo del prompt y procede de inmediato a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
+* **Si `[origen_plantilla = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
   1. Accede al contenido del adjunto desde `<attached_documents>` o el mensaje del usuario.
   2. **Guardrail de Verificación Legal:** Analiza el texto aportado. Si contiene cláusulas nulas, contrarias a normas imperativas o de imposible cumplimiento, adviértelo expresamente en el chat y propón la redacción legalmente válida.
   3. Adopta la minuta revisada como base y avanza a la **Fase 3**.
@@ -225,7 +226,6 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 
 **Petición de grupos de datos mediante `slot_filling_request` y confirmaciones en el chat:**
 - **Datos estructurados agrupados mediante `slot_filling_request`:** Para cualquier grupo de datos objetivos o identificativos (partes vendedora, compradora, requirente o requerida; datos del inmueble, etc.), **NO pregunte dato por dato en el chat**. Invoque la tool `slot_filling_request` agrupando todos los campos del bloque de una sola vez.
-- **Confirmación obligatoria en el chat:** Una vez que la tool retorne los valores completados, muestre la vista previa en texto plano en el chat y pida la confirmación explícita (`¿Confirmamos estos datos...?` / `¿Confirmamos esta cláusula?`). Solo tras la confirmación afirmativa en el chat ejecute el `edit_file` en disco y verifique con `read_file`.
 - **Anuncio de sección (visible, sin esperar confirmación aparte):** al terminar una sección, no lances en frío la solicitud de la siguiente. En el mismo mensaje, emite el anuncio fijo de la sección que se abre y, a continuación, procede con la herramienta o pregunta.
 
 **En los puntos marcados `[negociacion]`, explica antes de pedir la decision.** No registres el valor que dé el cliente sin haberle expuesto el regimen por defecto y la consecuencia de cada opcion, y sin confirmar que lo entiende y lo acepta. El material sustantivo de esas explicaciones esta en `references/arras-cargas-fiscalidad-y-retracto.md`. **Orienta la explicacion segun V2:** un mismo punto se explica distinto al comprador y al vendedor, porque el riesgo es distinto para cada uno.
@@ -234,9 +234,9 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 
 ### Secciones — HOJA ARRAS
 
-1. **Parte vendedora** *[dato objetivo — `slot_filling_request` con confirmacion en el chat]*. Anuncio fijo: "Comenzamos por la identificacion de la parte vendedora." Solicita en bloque mediante `slot_filling_request`: a) nombre completo o razon social; b) NIF o CIF; c) domicilio a efectos de notificaciones; d) estado civil y regimen economico matrimonial; e) titulo por el que adquirio el inmueble. Si es persona juridica, pedir en su lugar los datos del representante y su titulo de representacion. Si hay varios cotitulares, pedir su relacion y advertir de que todos deben firmar. Al recibir la respuesta de la tool, muestra en el chat una unica vista previa y pide una sola confirmacion ("¿Confirmamos estos datos de la parte vendedora?") antes del `Edit`.
-2. **Parte compradora** *[dato objetivo — `slot_filling_request` con confirmacion en el chat]*. Anuncio fijo: "Pasamos a la identificacion de la parte compradora." Solicita en bloque mediante `slot_filling_request`: a) nombre o razon social; b) NIF o CIF; c) domicilio; d) estado civil y regimen economico matrimonial. Al recibir la respuesta, muestra vista previa en el chat, pide confirmación y aplica el `Edit`.
-3. **El inmueble** *[dato objetivo con validacion — `slot_filling_request` con confirmacion en el chat]*. Anuncio fijo: "Describimos ahora el inmueble objeto de la operacion." Solicita en bloque mediante `slot_filling_request`: a) direccion completa, municipio, provincia y codigo postal; b) superficie construida y descripcion; c) referencia catastral; d) datos registrales (Registro, tomo, libro, folio y finca); e) anejos que se incluyen, si los hay. Los datos que el cliente no tenga quedan como placeholder (`{{DATO_FALTANTE}}`) y se advierte de que deben completarse antes de firmar: **no se inventan**. Muestra vista previa en el chat, pide confirmación y aplica el `Edit`.
+1. **Parte vendedora** *[dato objetivo — `slot_filling_request` con confirmacion en el chat]*. Anuncio fijo: "Comenzamos por la identificacion de la parte vendedora." Solicita en bloque mediante `slot_filling_request`: a) nombre completo o razon social; b) NIF o CIF; c) domicilio a efectos de notificaciones; d) estado civil y regimen economico matrimonial; e) titulo por el que adquirio el inmueble. Si es persona juridica, pedir en su lugar los datos del representante y su titulo de representacion. Si hay varios cotitulares, pedir su relacion y advertir de que todos deben firmar. Al recibir la respuesta de la tool, muestra en el chat una unica vista previa y pide una sola confirmacion ("¿Confirmamos estos datos de la parte vendedora?") antes del `edit_file`.
+2. **Parte compradora** *[dato objetivo — `slot_filling_request` con confirmacion en el chat]*. Anuncio fijo: "Pasamos a la identificacion de la parte compradora." Solicita en bloque mediante `slot_filling_request`: a) nombre o razon social; b) NIF o CIF; c) domicilio; d) estado civil y regimen economico matrimonial. Al recibir la respuesta, muestra vista previa en el chat, pide confirmación y aplica el `edit_file`.
+3. **El inmueble** *[dato objetivo con validacion — `slot_filling_request` con confirmacion en el chat]*. Anuncio fijo: "Describimos ahora el inmueble objeto de la operacion." Solicita en bloque mediante `slot_filling_request`: a) direccion completa, municipio, provincia y codigo postal; b) superficie construida y descripcion; c) referencia catastral; d) datos registrales (Registro, tomo, libro, folio y finca); e) anejos que se incluyen, si los hay. Los datos que el cliente no tenga quedan como placeholder (`{{DATO_FALTANTE}}`) y se advierte de que deben completarse antes de firmar: **no se inventan**. Muestra vista previa en el chat, pide confirmación y aplica el `edit_file`.
 4. **Precio y forma de pago** *[negociacion]*. Anuncio fijo: "Pasamos a determinar el precio y la forma de pago." Explica antes de pedir cifras: el precio debe expresarse en cifra y en letra, prevaleciendo la letra en caso de discordancia, y la forma de pago debe desglosarse por partidas, fechas y medios de pago, porque el otorgamiento de la escritura exigira acreditar cada medio de pago. Pide despues, en turnos separados: a) precio total; b) importe que quedara pendiente para el otorgamiento; c) medio de pago de cada partida y cuenta de destino.
 5. **Importe de las arras** *[negociacion]*. Anuncio fijo: "Concretamos el importe de la senal." Explica que no hay importe legal y que en la practica se mueve entre el 5 % y el 10 % del precio; que un importe bajo apenas disuade de retirarse y uno alto expone al comprador a una perdida grave. Pide el importe y el medio de entrega.
 6. **Clase de arras y su consecuencia** *[negociacion — punto critico de la skill]*. Anuncio fijo: "Determinamos ahora la clase de arras y sus consecuencias, que es el punto mas relevante de este contrato." Antes de pedir la decision, explica los tres puntos siguientes, siempre en este orden:
@@ -248,7 +248,7 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 8. **Cargas del inmueble** *[negociacion]*. Anuncio fijo: "Abordamos la situacion de cargas del inmueble." Explica que la hipoteca sigue a la finca y solo se extingue con su cancelacion registral; que las deudas de comunidad y el IBI afectan al propio inmueble frente al nuevo adquirente; y que las cargas o servidumbres no aparentes no mencionadas dan al comprador, conforme al articulo 1.483 del Codigo Civil, un plazo de solo un ano desde el otorgamiento de la escritura para pedir la rescision o la indemnizacion. Recomienda nota simple registral, certificado de la comunidad con el visto bueno del presidente y ultimo recibo del IBI. Pide: a) si dispone de nota simple y que refleja; b) si hay hipoteca pendiente, su entidad e importe, y si se cancela con retencion del precio o se pretende subrogacion, advirtiendo de que la subrogacion exige el consentimiento de la entidad y no puede darse por hecha.
 9. **Estado posesorio y arrendatarios** *[negociacion]*. Anuncio fijo: "Determinamos el estado posesorio del inmueble." El valor de V4 ya esta resuelto y la parada bloqueante de la validacion de presupuestos ya se ha aplicado. Si esta arrendado: recoge la fecha del contrato de arrendamiento, su fecha de vencimiento, el nombre del arrendatario, la fecha y el medio de la notificacion, y activa el bloque que corresponda (notificacion practicada, renuncia comprobada, o condicion de eficacia). Si esta libre: pide la manifestacion del vendedor y, si hay ocupantes que deban salir, la fecha de desalojo y la consecuencia del retraso.
    **El valor de V4 gobierna ademas otras dos clausulas del asset, y hay que resolverlas en coherencia con esta:** la clausula quinta (entrega de llaves si esta libre, entrega de la documentacion del arrendamiento si esta arrendado) y la clausula sexta (obligacion de entregar libre de arrendatarios y ocupantes solo si esta libre; si esta arrendado, el inmueble se transmite con el arrendamiento subsistente y el comprador se subroga conforme al articulo 14 de la Ley 29/1994). Cada una ofrece dos bloques alternativos: inserta uno solo y el mismo en las tres. **Un contrato que en la clausula sexta obligue a entregar libre de arrendatarios y en la septima describa un arrendamiento vigente es un contrato contradictorio: no puede cerrarse asi.**
-10. **Financiacion** *[negociacion — condicional, solo si V3 = 2]*. Anuncio fijo: "Valoramos como protegerle si la financiacion no llega a concederse." Explica que sin esta clausula la denegacion del prestamo convierte al comprador en incumplidor, con perdida de las arras o algo peor si son confirmatorias o penales, y que la condicion suspensiva convierte la denegacion en un supuesto previsto y no culpable. Pide, en turnos separados, los cuatro elementos: a) importe minimo de financiacion y fecha limite; b) destino de las arras si no se concede, ofreciendo por defecto la devolucion integra; c) como se acredita la denegacion (denegacion escrita, numero minimo de entidades y plazo), advirtiendo de que sin acreditacion documental el comprador que se retira alegando denegacion queda en una posicion muy debil; d) que ocurre si el plazo vence sin respuesta del banco. Orienta segun V2: al comprador, plazo amplio y devolucion integra; al vendedor, plazo corto y exigencia de acreditar diligencia. Si V3 = 1, activa el bloque de que no hay condicion suspensiva y **no formules las preguntas de esta seccion**.
+10. **Financiacion** *[negociacion — condicional, solo si V3 = si]*. Anuncio fijo: "Valoramos como protegerle si la financiacion no llega a concederse." Explica que sin esta clausula la denegacion del prestamo convierte al comprador en incumplidor, con perdida de las arras o algo peor si son confirmatorias o penales, y que la condicion suspensiva convierte la denegacion en un supuesto previsto y no culpable. Pide, en turnos separados, los cuatro elementos: a) importe minimo de financiacion y fecha limite; b) destino de las arras si no se concede, ofreciendo por defecto la devolucion integra; c) como se acredita la denegacion (denegacion escrita, numero minimo de entidades y plazo), advirtiendo de que sin acreditacion documental el comprador que se retira alegando denegacion queda en una posicion muy debil; d) que ocurre si el plazo vence sin respuesta del banco. Orienta segun V2: al comprador, plazo amplio y devolucion integra; al vendedor, plazo corto y exigencia de acreditar diligencia. Si V3 = no, activa el bloque de que no hay condicion suspensiva y **no formules las preguntas de esta seccion**.
 11. **Impuestos y gastos** *[negociacion]*. Anuncio fijo: "Pasamos al reparto de impuestos y gastos." Explica el reparto legal: el ITP a cargo del comprador (articulo 8.a) del Real Decreto Legislativo 1/1993, "cualesquiera que sean las estipulaciones establecidas por las partes en contrario"); la plusvalia municipal a cargo del vendedor (articulo 106.1.b) del Real Decreto Legislativo 2/2004); los gastos de otorgamiento de la escritura a cargo del vendedor y los de la primera copia e inscripcion a cargo del comprador (articulo 1.455 del Codigo Civil); y la cancelacion de cargas a cargo del vendedor. Advierte de que **el pacto en contra vincula a las partes pero no a la Administracion**, que seguira exigiendo cada impuesto a su sujeto pasivo legal (articulo 17.5 de la Ley 58/2003), de modo que el pacto crea una accion de reembolso, no un cambio de contribuyente. No calcules cuotas: el tipo del ITP lo fija cada Comunidad Autonoma y la plusvalia depende de la ordenanza municipal. Pregunta si se mantiene el reparto legal o se pacta otro distinto y, en este ultimo caso, activa el bloque con la advertencia incorporada al documento.
 12. **Notificaciones** *[dato objetivo]*. Anuncio fijo: "Cerramos las vias de comunicacion entre las partes." Pide los correos electronicos de cada parte y recuerda que las comunicaciones con efecto resolutorio o de desistimiento deben practicarse por medio que acredite contenido y recepcion.
 13. **Lugar, fecha y ejemplares** *[dato objetivo]*. Anuncio fijo: "Cerramos con el lugar, la fecha y el numero de ejemplares." Municipio y fecha de firma (fecha del dia salvo indicacion en contrario) y numero de ejemplares.
@@ -264,7 +264,7 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 7. **Estado posesorio y derecho de adquisicion preferente** *[negociacion]*. Igual que la seccion 9 de la HOJA ARRAS. Si esta arrendado y ya se notifico, anade la obligacion del **comprador** de notificar despues al arrendatario las condiciones esenciales en que se efectuo la compraventa, con copia de la escritura, a los efectos del computo del plazo de retracto del articulo 25.3.
 8. **Otorgamiento de la escritura publica** *[negociacion]*. Anuncio fijo: "Fijamos el otorgamiento de la escritura publica." Igual que la seccion 7 de la HOJA ARRAS, anadiendo que cualquiera de las partes puede compeler a la otra al otorgamiento desde la perfeccion del contrato (articulo 1.279 del Codigo Civil).
 9. **Entrega de la posesion** *[negociacion]*. Anuncio fijo: "Determinamos cuando se entrega la posesion de la vivienda." Explica que el otorgamiento de la escritura publica equivale a la entrega salvo pacto en contrario (articulo 1.462 del Codigo Civil), y que los frutos y gastos ordinarios se imputan al comprador desde la entrega (articulo 1.468). Pregunta si la posesion se entrega en el otorgamiento o antes; si se entrega antes, advierte de que la propiedad no se transmite hasta la escritura y activa el bloque de ocupacion en precario.
-10. **Financiacion** *[negociacion — condicional, solo si V3 = 2]*. Igual que la seccion 10 de la HOJA ARRAS.
+10. **Financiacion** *[negociacion — condicional, solo si V3 = si]*. Igual que la seccion 10 de la HOJA ARRAS.
 11. **Impuestos y gastos** *[negociacion]*. Igual que la seccion 11 de la HOJA ARRAS. Si la transmision es primera entrega de edificacion, activa el bloque de IVA y AJD en lugar del ITP.
 12. **Estado de la vivienda y saneamiento** *[negociacion]*. Anuncio fijo: "Abordamos el estado de la vivienda y la responsabilidad por vicios ocultos." Explica: el vendedor responde de la posesion legal y pacifica y de los vicios o defectos ocultos (articulo 1.474), **aunque los ignorase** (articulo 1.485), pero **no** de los defectos manifiestos o que estuvieren a la vista, ni de los que no lo estuvieran si el comprador es un perito que por su oficio debia conocerlos (articulo 1.484); ante el vicio oculto el comprador puede desistir con abono de gastos o pedir rebaja proporcional del precio, y ademas danos y perjuicios si el vendedor lo conocia y no lo manifesto (articulo 1.486); y las acciones de saneamiento **se extinguen a los seis meses desde la entrega** (articulo 1.490). Orienta segun V2: al **comprador**, recomiendale hacer constar por escrito los defectos que ya conoce y no aceptar una exoneracion generica de saneamiento; al **vendedor**, recomiendale declarar los defectos que conoce, porque ocultarlos sabiendolos abre la puerta a la indemnizacion de danos del articulo 1.486. Pide la relacion de defectos que el vendedor declara y pregunta si se pacta alguna modulacion de la responsabilidad por eviccion (articulo 1.475, que permite aumentarla, disminuirla o suprimirla).
 13. **Obra nueva** *[negociacion — condicional, solo si la vivienda es de obra nueva ya recibida]*. Anuncio fijo: "Concretamos las garantias aplicables por tratarse de obra nueva." Explica los plazos del articulo 17 de la Ley 38/1999 contados desde la recepcion de la obra sin reservas o desde la subsanacion de estas: diez anos por danos en elementos estructurales que comprometan la resistencia y la estabilidad, tres anos por vicios que incumplan los requisitos de habitabilidad, y un ano por vicios de ejecucion en elementos de terminacion o acabado; y que el promotor responde solidariamente frente a los adquirentes. Pide la fecha de recepcion de la obra y confirma que se entregan copia de las polizas del articulo 19 y la licencia de primera ocupacion.
@@ -275,10 +275,10 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 
 ### Secciones — HOJA REQUERIMIENTO
 
-1. **Parte requirente** *[dato objetivo — `slot_filling_request` con confirmacion en el chat]*. Anuncio fijo: "Comenzamos por la identificacion de quien practica el requerimiento." Solicita en bloque mediante `slot_filling_request`: a) nombre o razon social; b) NIF o CIF; c) domicilio; d) via de contacto para el cumplimiento voluntario. Su condicion en el contrato (comprador o vendedor) ya esta resuelta por V2: no la preguntes de nuevo. Vista previa en el chat, confirmación explícita y `Edit`.
-2. **Parte requerida** *[dato objetivo — `slot_filling_request` con confirmacion en el chat]*. Anuncio fijo: "Pasamos a la identificacion del destinatario del requerimiento." Solicita en bloque mediante `slot_filling_request`: a) nombre o razon social; b) NIF o CIF; c) domicilio al que se dirigira la comunicacion. Vista previa en el chat, confirmación explícita y `Edit`.
-3. **El contrato y el inmueble** *[dato objetivo con validacion — `slot_filling_request` con confirmacion en el chat]*. Anuncio fijo: "Describimos el contrato incumplido y el inmueble al que se refiere." Solicita en bloque mediante `slot_filling_request`: a) tipo y fecha del contrato firmado; b) direccion, referencia catastral y datos registrales del inmueble; c) precio total pactado. Vista previa en el chat, confirmación y `Edit`.
-4. **La obligacion incumplida** *[dato objetivo con validacion]*. Anuncio fijo: "Concretamos la obligacion incumplida y su vencimiento." Recoge: a) que obligacion se pacto y con que vencimiento; b) en que consiste el incumplimiento; c) importe pendiente, si es dinerario; d) convocatorias o requerimientos previos, con su fecha y medio. Aplica aqui las validaciones de prescripcion (articulo 1.964.2) y, si lo reclamado son vicios ocultos, del plazo de seis meses del articulo 1.490. Muestra vista previa en el chat, pide confirmación y aplica el `Edit`.
+1. **Parte requirente** *[dato objetivo — `slot_filling_request` con confirmacion en el chat]*. Anuncio fijo: "Comenzamos por la identificacion de quien practica el requerimiento." Solicita en bloque mediante `slot_filling_request`: a) nombre o razon social; b) NIF o CIF; c) domicilio; d) via de contacto para el cumplimiento voluntario. Su condicion en el contrato (comprador o vendedor) ya esta resuelta por V2: no la preguntes de nuevo. Vista previa en el chat, confirmación explícita y `edit_file`.
+2. **Parte requerida** *[dato objetivo — `slot_filling_request` con confirmacion en el chat]*. Anuncio fijo: "Pasamos a la identificacion del destinatario del requerimiento." Solicita en bloque mediante `slot_filling_request`: a) nombre o razon social; b) NIF o CIF; c) domicilio al que se dirigira la comunicacion. Vista previa en el chat, confirmación explícita y `edit_file`.
+3. **El contrato y el inmueble** *[dato objetivo con validacion — `slot_filling_request` con confirmacion en el chat]*. Anuncio fijo: "Describimos el contrato incumplido y el inmueble al que se refiere." Solicita en bloque mediante `slot_filling_request`: a) tipo y fecha del contrato firmado; b) direccion, referencia catastral y datos registrales del inmueble; c) precio total pactado. Vista previa en el chat, confirmación y `edit_file`.
+4. **La obligacion incumplida** *[dato objetivo con validacion]*. Anuncio fijo: "Concretamos la obligacion incumplida y su vencimiento." Recoge: a) que obligacion se pacto y con que vencimiento; b) en que consiste el incumplimiento; c) importe pendiente, si es dinerario; d) convocatorias o requerimientos previos, con su fecha y medio. Aplica aqui las validaciones de prescripcion (articulo 1.964.2) y, si lo reclamado son vicios ocultos, del plazo de seis meses del articulo 1.490. Muestra vista previa en el chat, pide confirmación y aplica el `edit_file`.
 5. **Via del requerimiento** *[negociacion — critica si el requirente es el vendedor]*. Anuncio fijo: "Determinamos por que via debe practicarse el requerimiento." Explica la diferencia con precision: un **burofax** con acuse de recibo y certificacion de texto constituye en mora, fija la fecha e interrumpe la prescripcion (articulo 1.973), y es suficiente si lo que se busca es exigir el cumplimiento; un **acta notarial** (o el requerimiento judicial) es lo que exige el articulo 1.504 del Codigo Civil para **cerrar la facultad del comprador de pagar tardiamente** en la venta de inmuebles. Si V2 = vendedor y el incumplimiento es el impago del precio, recomienda expresamente el acta notarial y advierte de que con burofax el comprador podra pagar despues del plazo y evitar la resolucion. Pregunta que via se va a emplear y activa el bloque correspondiente del asset.
 6. **Conducta exigida y plazo** *[negociacion]*. Anuncio fijo: "Fijamos que se exige y en que plazo." Explica que el requerimiento debe pedir una conducta concreta, con plazo y forma de cumplimiento, y que un requerimiento generico pierde eficacia. Pide, en turnos separados: a) conducta exigida (pago del precio, otorgamiento de la escritura, entrega de la posesion, cancelacion de una carga no declarada); b) plazo de cumplimiento; c) si es pago, medio y cuenta; si es otorgamiento, notario, direccion, dia y hora, y documentacion a aportar.
 7. **Opcion del articulo 1.124** *[negociacion]*. Anuncio fijo: "Determinamos que accion se anuncia si el requerimiento no se atiende." Explica que el articulo 1.124 permite optar entre exigir el cumplimiento y resolver el contrato, con resarcimiento de danos e intereses en ambos casos, y que puede pedirse la resolucion aun despues de haber optado por el cumplimiento cuando este resulte imposible. Orienta segun V2 y segun el interes real del cliente: quien quiere la vivienda pide el cumplimiento; quien quiere desvincularse pide la resolucion. Si V2 = comprador y la obligacion incumplida es el otorgamiento de la escritura, informa de que puede compeler al vendedor conforme al articulo 1.279. Pide la opcion y confirma que entiende su consecuencia.
@@ -310,7 +310,7 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 
 ## Límites Legales y Guardrails de Dominio (Gobernados por Vectores)
 
-1. Verificar siempre el Codigo Civil, la LAU, la LOE y las normas fiscales en el BOE antes de redactar (Punto 2). Sin verificacion, no proceder. Recordar que la version vigente es la ULTIMA `<version>` de cada bloque de la API.
+1. Verificar siempre el Codigo Civil, la LAU, la LOE y las normas fiscales en el BOE antes de redactar (Fase 2). Sin verificacion, no proceder. Recordar que la version vigente es la ULTIMA `<version>` de cada bloque de la API.
 2. **El contrato privado no transmite la propiedad frente a terceros ni permite inscribir en el Registro de la Propiedad: hace falta escritura publica notarial (Art. 1280.1.º CC).** Advertirlo siempre, en el chat y en el propio documento. Nunca dar a entender al cliente que con el contrato privado la vivienda ya es suya a todos los efectos, ni que puede obtener hipoteca sobre ella (la hipoteca solo queda validamente constituida con su inscripcion, Art. 1875 CC).
 3. **La clasificacion de las arras en confirmatorias, penales y penitenciales es jurisprudencial, no legal.** El Art. 1454 CC solo contempla el desistimiento. Prohibido presentar los tres tipos como categorias del Codigo Civil o citar el Art. 1454 como fundamento de las confirmatorias o penales. El documento debe pactar **expresamente** la clase y su consecuencia: del silencio la jurisprudencia tiende a presumir el caracter confirmatorio, que no permite desistir.
 4. **Nunca redactar una compraventa sin comprobar las cargas del inmueble**, ni escribir que esta libre de cargas sobre la sola afirmacion verbal del vendedor. Recomendar siempre nota simple o certificacion registral, certificado de la comunidad de propietarios y ultimo recibo del IBI.
@@ -321,7 +321,7 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 9. Las **acciones de saneamiento por vicios ocultos se extinguen a los seis meses desde la entrega** (Art. 1490 CC) y las derivadas de cargas o servidumbres no aparentes al ano desde el otorgamiento de la escritura (Art. 1483 CC). Comprobar el plazo antes de anunciar una reclamacion; no dar falsas expectativas.
 10. Nunca redactar clausulas que exoneren al vendedor del saneamiento de forma generica cuando conoce los vicios: el Art. 1485 solo excluye la responsabilidad si se estipulo lo contrario **y** el vendedor los ignoraba, y el Art. 1486 impone indemnizacion de danos al vendedor que los conocia y no los manifesto.
 11. Si el inmueble tiene **varios cotitulares**, la firma de uno solo no vincula a los demas. Si es la **vivienda habitual del matrimonio**, la disposicion requiere el consentimiento del otro conyuge. Advertirlo y recoger las comparecencias necesarias.
-12. Nunca inventar datos, cuantias, fechas, referencias catastrales, datos registrales, numeros de protocolo ni jurisprudencia. **Esta skill no cita sentencias**: si el usuario necesita apoyo jurisprudencial concreto, se escala. Los campos no proporcionados quedan como `{{dato}}` con su nombre propio.
+12. Nunca inventar datos, cuantias, fechas, referencias catastrales, datos registrales, numeros de protocolo ni jurisprudencia. **Esta skill no cita sentencias**: si el usuario necesita apoyo jurisprudencial concreto, se escala. Los campos no proporcionados quedan como `{{DATO}}` con su nombre propio.
 13. Los assets se construyen sobre el **Codigo Civil comun**. Si el caso se rige por derecho civil foral o especial —Cataluna regula la compraventa en el Llibre sise del Codi civil de Catalunya, y hay derecho propio en Navarra, Aragon, Baleares, Galicia y Pais Vasco—, detener y escalar.
 14. No existe modelo oficial normalizado de contrato de compraventa ni de arras (verificado: ni Consejo General del Notariado, ni Colegio de Registradores, ni CGPJ). No afirmar al usuario que el documento reproduce un modelo oficial.
 

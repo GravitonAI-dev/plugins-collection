@@ -21,7 +21,7 @@ inputs:
   - tipo_requerimiento: analisis_viabilidad / orientacion_procedimental / revision_documental / duda_normativa_factual (V2)
   - perfil_consultante: persona_fisica / persona_juridica (V3)
   - situacion_urgencia: extrajudicial_preventivo / conflicto_abierto / plazo_notificacion_en_curso (V4)
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - hechos_consulta: descripción de la situación, antecedentes y cuestiones planteadas
   - documentacion_aportada: textos, contratos, minutas o comunicaciones adjuntas por el usuario
 outputs:
@@ -52,16 +52,22 @@ Para garantizar un análisis riguroso y una correcta estructuración del razonam
 - **V2 (Tipo y Alcance del Requerimiento):** `analisis_viabilidad` (analizar pros, contras y viabilidad) | `orientacion_procedimental` (pasos a dar, plazos y vías de actuación) | `revision_documental` (analizar un texto o contrato genérico adjunto) | `duda_normativa_factual` (preguntas conceptuales, explicaciones, datos de mercado o workspace).
 - **V3 (Perfil del Consultante):** `persona_fisica` (particular, consumidor) | `persona_juridica` (empresa, profesional, entidad).
 - **V4 (Situación Procesal / Nivel de Urgencia):** `extrajudicial_preventivo` | `conflicto_abierto` | `plazo_notificacion_en_curso` (urgente).
-- **V5 (Origen Plantilla / Asset):** `plantilla_sistema` (`template-informe-consulta-general.md` / `template-memo-orientacion-rapida.md`) | `plantilla_usuario`.
+- **origen_plantilla (origen de la plantilla):** `plantilla_sistema` (`template-informe-consulta-general.md` / `template-memo-orientacion-rapida.md`) | `plantilla_usuario`.
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
-> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`) y los resúmenes de validación con marcas técnicas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural, claro y fluido.
+> Los identificadores técnicos de los vectores y los resúmenes de validación con marcas técnicas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural, claro y fluido.
 
 ---
 
 ## FASE 1 — CLASIFICACIÓN INICIAL Y TRIAJE ADAPTATIVO
 
 Tu primer objetivo es evaluar la consulta mediante **escucha activa** y determinar la modalidad de atención.
+
+**Correspondencia con el enrutamiento.** Los vectores de esta skill se nombran con los identificadores siguientes; cada uno se resuelve con la respuesta indicada. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — naturaleza de la consulta, resuelta en el triaje de la seccion 1.1
+- `V2` — materia o area tematica implicada
+- `V3` — necesidad o no de documento formal en el workspace
+- `V4` — existencia de una skill vertical del catalogo a la que derivar
 
 ### 1.1 Evaluación del Tipo de Consulta (Escucha Activa)
 
@@ -84,7 +90,7 @@ Tu primer objetivo es evaluar la consulta mediante **escucha activa** y determin
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 Cuando se va a generar un documento formal en el workspace:
 
@@ -101,9 +107,9 @@ Envía un mensaje en lenguaje natural detallando:
 3. **Pregunta Explícita al Usuario (Vía Chat):**
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla)
-* **Si `[V5 = plantilla_sistema]`:** Toma el texto íntegro de la plantilla seleccionada del catálogo y avanza a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]`:** Toma el texto aportado en `# ATTACHED DOCUMENTS` o `# USER MESSAGE`, comprueba que no contenga cláusulas nulas de orden público y avanza a la **Fase 3**.
+### 2.3 Fijación del origen de la plantilla
+* **Si `[origen_plantilla = plantilla_sistema]`:** Toma el texto íntegro de la plantilla seleccionada del catálogo y avanza a la **Fase 3**.
+* **Si `[origen_plantilla = plantilla_usuario]`:** Toma el texto aportado en `# ATTACHED DOCUMENTS` o `# USER MESSAGE`, comprueba que no contenga cláusulas nulas de orden público y avanza a la **Fase 3**.
 
 ---
 
@@ -160,7 +166,7 @@ Recorre de forma secuencial los 5 bloques del documento aplicando el ciclo de ed
 
 #### 4. Conclusiones y Hoja de Ruta Operativa
 - Dictamen sintético y claro.
-- Pasos secuenciales recomendados (Paso 1: requerimiento extrajudicial fehaciente / burofax; Paso 2: intento conciliatorio; Paso 3: acción procesal / administrativa).
+- Pasos secuenciales recomendados (Paso 1: requerimiento extrajudicial fehaciente o burofax; Paso 2: intento conciliatorio; Paso 3: acción procesal o administrativa).
 
 #### 5. Documentación Complementaria y Advertencias Legales
 - Checklist de documentos y pruebas a recopilar (contratos, extractos bancarios, correos, burofaxes, testigos).

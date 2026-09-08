@@ -1,7 +1,7 @@
 # Arras, Cargas, Fiscalidad y Adquisicion Preferente
 
 > Material de referencia para la skill `derecho-civil-compraventa-inmueble`. Contenido sustantivo de los cinco puntos de
-> negociacion del Punto 5 del `SKILL.md`. La skill usa este material para EXPLICAR al cliente antes de pedirle la decision;
+> negociacion de la Fase 4 del `SKILL.md`. La skill usa este material para EXPLICAR al cliente antes de pedirle la decision;
 > no se volca al documento tal cual. Todas las citas normativas estan verificadas en `fuentes-plantillas-validadas.md`.
 
 ---

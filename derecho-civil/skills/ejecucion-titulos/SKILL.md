@@ -23,7 +23,7 @@ when_to_use: |
   - El usuario ya tiene una ejecucion despachada y quiere designar bienes, pedir el embargo o solicitar
     que el juzgado investigue el patrimonio del ejecutado.
 inputs:
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - momento: demanda ejecutiva inicial / escrito posterior en ejecucion ya despachada
   - tipo_titulo: judicial (sentencia, decreto, auto, incluido monitorio firme) / no judicial (escritura, laudo, acuerdo MASC) / familia (pensiones y medidas)
   - subtipo_no_judicial: escritura publica notarial / laudo arbitral / acuerdo de mediacion u otro MASC elevado a publico
@@ -63,14 +63,14 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 
 ### Vectores de Estado (Uso Estrictamente Interno):
 
-Para garantizar un enrutamiento determinista y el cumplimiento normativo riguroso, el asistente resuelve y mantiene internamente en memoria los vectores de estado de la operación (V1 a V4) y el origen de la plantilla (V5).
+Para garantizar un enrutamiento determinista y el cumplimiento normativo riguroso, el asistente resuelve y mantiene internamente en memoria los vectores de estado de la operación —cuyo catálogo y su correspondencia con las respuestas del formulario figuran en la Fase 1.2— y el origen de la plantilla (`origen_plantilla`).
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
-> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`) y los resúmenes de validación con marcas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial y profesional.
+> Los identificadores técnicos de los vectores y los resúmenes de validación con marcas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial y profesional.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 Tu primer objetivo es clasificar con precisión la naturaleza del caso y fijar los vectores deterministas de estado.
 
@@ -80,56 +80,63 @@ Antes de abrir formularios interactivos o hacer preguntas, analiza el mensaje in
 - Si restan vectores por definir, no formules preguntas abiertas en turnos sucesivos: presenta el formulario estructurado interactivo mediante la herramienta `restricted_human_in_the_loop_request`.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
-Presenta al usuario las opciones estructuradas para resolver los vectores pendientes:
+Invoca la herramienta con las opciones de triaje:
+
 ```json
 {
-  "type": "object",
-  "properties": {
-    "tipo_titulo": {
-      "type": "string",
-      "description": "Naturaleza del t\u00edtulo ejecutivo (V2)",
-      "enum": [
-        "titulo_judicial",
-        "titulo_no_judicial",
-        "familia_pensiones"
+  "form_data": [
+    {
+      "id": "momento",
+      "rationale": "Resolver V1: separa la demanda ejecutiva inicial del escrito posterior en una ejecución ya despachada, que usan assets distintos.",
+      "question": "¿En qué momento se encuentra la ejecución?",
+      "options": [
+        {"id": "demanda_inicial", "label": "Todavía no se ha instado: hay que presentar la demanda ejecutiva"},
+        {"id": "escrito_posterior", "label": "La ejecución ya está despachada y hace falta un escrito de embargo o de averiguación patrimonial"}
       ]
     },
-    "momento_procesal": {
-      "type": "string",
-      "description": "Momento procesal del escrito (V1)",
-      "enum": [
-        "demanda_inicial",
-        "mejora_embargo"
+    {
+      "id": "tipo_titulo",
+      "rationale": "Resolver V2: el título determina el asset, el plazo de caducidad de la acción ejecutiva y los bloques condicionales aplicables.",
+      "question": "¿Qué título se pretende ejecutar?",
+      "options": [
+        {"id": "judicial", "label": "Judicial: sentencia, decreto o auto, incluido el monitorio firme"},
+        {"id": "no_judicial", "label": "No judicial: escritura pública, laudo arbitral o acuerdo de mediación"},
+        {"id": "familia", "label": "De familia: pensiones de alimentos o compensatoria y demás medidas económicas"}
       ]
     },
-    "bienes_conocidos": {
-      "type": "string",
-      "description": "Bienes del ejecutado conocidos (V4)",
-      "enum": [
-        "con_bienes",
-        "sin_bienes"
+    {
+      "id": "subtipo_no_judicial",
+      "rationale": "Resolver V3: activa el bloque condicional correspondiente al tipo de título no judicial.",
+      "question": "Si el título no es judicial, ¿de qué clase es?",
+      "options": [
+        {"id": "escritura_publica", "label": "Escritura pública notarial"},
+        {"id": "laudo_arbitral", "label": "Laudo arbitral"},
+        {"id": "acuerdo_mediacion", "label": "Acuerdo de mediación u otro medio adecuado de solución de controversias elevado a público"}
       ]
     }
-  },
-  "required": [
-    "tipo_titulo",
-    "momento_procesal"
   ]
 }
 ```
 
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — respuesta a `momento`
+- `V2` — respuesta a `tipo_titulo`
+- `V3` — respuesta a `subtipo_no_judicial`
+- `V4` — bienes conocidos del ejecutado: no se pregunta en el formulario, se recoge en la Fase 4
+
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores aplicables, evalua en este orden:
 
-- Si V1 = 2 → **HOJA AVERIGUACION**: `assets/template-solicitud-embargo-averiguacion-patrimonial.md`. V2, V3 y V4 no se preguntan como vectores: los datos del titulo y de los bienes se recogen en prosa en la Seccion 5 de esta hoja.
-- Si V1 = 1 y V2 = 1 → **HOJA JUDICIAL**: `assets/template-demanda-ejecucion-titulo-judicial.md`, con los bloques condicionales de familia DESACTIVADOS.
-- Si V1 = 1 y V2 = 3 → **HOJA FAMILIA**: el mismo asset `assets/template-demanda-ejecucion-titulo-judicial.md`, con los bloques condicionales de familia ACTIVADOS (relacion de mensualidades, especialidades del Art. 776, Art. 608 si son alimentos o compensatoria).
-- Si V1 = 1 y V2 = 2 → **HOJA NO-JUDICIAL**: `assets/template-demanda-ejecucion-titulo-no-judicial.md`, activando segun V3 el bloque de escritura publica, laudo o acuerdo de MASC elevado a publico.
-- Si V1 = 1 y V2 = 2 y el titulo alegado es un titulo al portador o un certificado de anotaciones en cuenta (Art. 517.2.6º y 7º LEC) → estos supuestos no tienen bloque propio en el asset: recoger la descripcion en prosa, advertir de que es un supuesto poco frecuente y ofrecer escalacion si el usuario no esta seguro de que el documento lleve aparejada ejecucion.
+- Si V1 = escrito posterior → **HOJA AVERIGUACION**: `assets/template-solicitud-embargo-averiguacion-patrimonial.md`. V2, V3 y V4 no se preguntan como vectores: los datos del titulo y de los bienes se recogen en prosa en la Seccion 5 de esta hoja.
+- Si V1 = demanda inicial y V2 = judicial → **HOJA JUDICIAL**: `assets/template-demanda-ejecucion-titulo-judicial.md`, con los bloques condicionales de familia DESACTIVADOS.
+- Si V1 = demanda inicial y V2 = familia → **HOJA FAMILIA**: el mismo asset `assets/template-demanda-ejecucion-titulo-judicial.md`, con los bloques condicionales de familia ACTIVADOS (relacion de mensualidades, especialidades del Art. 776, Art. 608 si son alimentos o compensatoria).
+- Si V1 = demanda inicial y V2 = no judicial → **HOJA NO-JUDICIAL**: `assets/template-demanda-ejecucion-titulo-no-judicial.md`, activando segun V3 el bloque de escritura publica, laudo o acuerdo de MASC elevado a publico.
+- Si V1 = demanda inicial y V2 = no judicial y el titulo alegado es un titulo al portador o un certificado de anotaciones en cuenta (Art. 517.2.6º y 7º LEC) → estos supuestos no tienen bloque propio en el asset: recoger la descripcion en prosa, advertir de que es un supuesto poco frecuente y ofrecer escalacion si el usuario no esta seguro de que el documento lleve aparejada ejecucion.
 - Si en cualquier momento consta o se sospecha que el ejecutado esta en concurso de acreedores → **DETENER**: no pueden iniciarse ejecuciones singulares contra la masa activa y las que estuvieran en curso quedan en suspenso y son nulas las actuaciones posteriores a la declaracion (Arts. 142 y 143 TRLC). Advertir y escalar a concursal. No crear documento.
 - Si lo que se pretende es la ejecucion hipotecaria, la ejecucion provisional de una resolucion no firme, o redactar la oposicion del ejecutado → **DETENER**: fuera de alcance. Advertir y escalar.
+- **Requisito de procedibilidad (Ley Organica 1/2025).** Si el intento previo de un medio adecuado de solucion de controversias no esta acreditado y esta skill no genera por si misma el documento que lo acredita, **deriva a `masc-acuerdos`**, que produce el requerimiento de negociacion, el acta del intento, la oferta vinculante, el acuerdo transaccional y la declaracion responsable de imposibilidad. Ofrece encadenar con ella antes de continuar, y advierte de que sin ese documento la demanda no se admite a tramite.
 
-### Validacion de presupuestos (interno, antes del Punto 3)
+### 1.4 Validacion de presupuestos (interno, antes de la Fase 3)
 
 - **HOJA JUDICIAL y HOJA FAMILIA (Art. 518 LEC):** confirmar la fecha de firmeza y calcular si han transcurrido menos de cinco anos. Si el plazo esta agotado, **detener y advertir**: no crear el documento. En pensiones periodicas, cada mensualidad tiene su propio vencimiento: la caducidad puede afectar solo a las mensualidades mas antiguas; en caso de duda sobre mensualidades concretas, escalar.
 - **HOJA JUDICIAL y HOJA FAMILIA (Art. 548 LEC):** confirmar que han transcurrido veinte dias desde la firmeza (o desde la notificacion de la aprobacion del convenio). Si no han transcurrido, advertir de que el juzgado no despachara la ejecucion todavia y ofrecer esperar. En familia, aplicar la misma regla de forma conservadora (ver `references/especialidades-familia-776.md`, apartado 6, y la nota de verificacion manual de `references/fuentes-plantillas-validadas.md`): no afirmar que el plazo no aplica a las pensiones sin haberlo verificado.
@@ -142,7 +149,7 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 En esta fase interactúas **directamente a través del chat (en texto plano conversacional, SIN formularios)** para compartir el plan de trabajo, el fundamento normativo y acordar la plantilla base con el usuario.
 
@@ -154,27 +161,22 @@ En esta fase interactúas **directamente a través del chat (en texto plano conv
 Envía un mensaje estructurado y formal que contenga:
 1. **Marco Legal Aplicable:** Artículos 517 a 592 de la Ley de Enjuiciamiento Civil (LEC): Art. 517 (títulos ejecutivos), Art. 548 (plazo de espera de cortesía de 20 días en resoluciones judiciales), Art. 572-574 (títulos no judiciales), Art. 589-591 (manifestación e investigación judicial de bienes) y Art. 607 (escala de inembargabilidad de salarios).
 2. **Orientación Legal del Caso:**
-Tras completar la verificacion (Punto 2), en un unico mensaje:
 
-1. **Informa la via y la fuente aplicable.** Textos fijos por hoja:
+**Informa la via y la fuente aplicable.** Textos fijos por hoja:
    - JUDICIAL: "A su caso corresponde la ejecucion de un titulo judicial, conforme a los articulos 517.2 y 549 de la Ley 1/2000, de Enjuiciamiento Civil. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-2000-323"
    - NO-JUDICIAL: "A su caso corresponde la ejecucion de un titulo no judicial, conforme a los articulos 517.2, 520 y 549 de la Ley 1/2000, de Enjuiciamiento Civil. Solo procede si la cantidad reclamada excede de 300 euros. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-2000-323"
    - FAMILIA: "A su caso corresponde la ejecucion de pensiones o medidas de familia, que se tramita conforme al Libro III de la Ley 1/2000, de Enjuiciamiento Civil, con las especialidades de su articulo 776. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-2000-323"
    - AVERIGUACION: "Corresponde un escrito de designacion de bienes y de solicitud de investigacion patrimonial dentro de la ejecucion ya despachada, conforme a los articulos 589, 590 y 592 de la Ley 1/2000, de Enjuiciamiento Civil. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-2000-323"
    - En las tres hojas de demanda, anadir: "No es necesario acreditar el intento de una solucion extrajudicial previa para presentar una demanda ejecutiva (articulo 5.3 de la Ley Organica 1/2025)."
-2. **Ofrece la plantilla o pide el documento propio.** En el mismo mensaje:
-   "¿Que documento desea utilizar como base?
-   1. La plantilla del sistema, revisada por nuestros abogados y colaboradores
-   2. Adjuntar su propio documento"
-3. **Enruta segun la respuesta:** si elige la plantilla, continua con el Punto 4 usando el asset de la hoja; si elige adjuntar el suyo, pide que lo adjunte, leelo con `Read` y usalo como documento base en el Punto 4 en lugar del asset, sin dejar de aplicar los guardrails del dominio.
-3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-demanda-ejecucion-titulo-judicial.md`).
+
+3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** y nombrala por su ruta. Si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la seccion de assets.
 4. **Pregunta Explícita al Usuario (Vía Chat):** Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
-* **Si `[V5 = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+* **Si `[origen_plantilla = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
   Toma el texto íntegro de la plantilla correspondiente directamente desde el catálogo del prompt y procede de inmediato a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
+* **Si `[origen_plantilla = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
   1. Accede al contenido del adjunto desde `<attached_documents>` o el mensaje del usuario.
   2. **Guardrail de Verificación Legal:** Analiza el texto aportado. Si contiene cláusulas nulas, contrarias a normas imperativas o de imposible cumplimiento, adviértelo expresamente en el chat y propón la redacción legalmente válida.
   3. Adopta la minuta revisada como base y avanza a la **Fase 3**.
@@ -211,14 +213,13 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 
 **Petición de grupos de datos mediante `slot_filling_request` y confirmaciones en el chat:**
 - **Datos estructurados agrupados mediante `slot_filling_request`:** Para cualquier grupo de datos objetivos o identificativos (ejecutante, ejecutada, título ejecutivo, datos de ejecución en curso, etc.), **NO pregunte dato por dato en el chat**. Invoque la tool `slot_filling_request` agrupando todos los campos del bloque de una sola vez.
-- **Confirmación obligatoria en el chat:** Una vez que la tool retorne los valores completados, muestre la vista previa en texto plano en el chat y pida la confirmación explícita (`¿Confirmamos estos datos...?` / `¿Confirmamos esta cláusula?`). Solo tras la confirmación afirmativa en el chat ejecute el `edit_file` en disco y verifique con `read_file`.
-- **Anuncio de sección (visible, sin esperar confirmación aparte):** al terminar una sección, emite en el mismo mensaje el anuncio fijo de la sección que se abre y procede con la herramienta o pregunta. Las cláusulas de negociación se explican y debaten en el chat; tras acordarse, se muestra vista previa y se confirma en el chat antes del `Edit`.
+- **Anuncio de sección (visible, sin esperar confirmación aparte):** al terminar una sección, emite en el mismo mensaje el anuncio fijo de la sección que se abre y procede con la herramienta o pregunta. Las cláusulas de negociación se explican y debaten en el chat; tras acordarse, se muestra vista previa y se confirma en el chat antes del `edit_file`.
 
 ### Secciones — HOJA JUDICIAL y HOJA FAMILIA
 
-1. **Parte ejecutante** *(dato objetivo — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Comenzamos por la identificacion de la parte ejecutante." Pregunta antes si intervenían abogado y procurador. Solicita en bloque mediante `slot_filling_request`: a) nombre completo o razon social; b) NIF o CIF; c) domicilio a efectos de notificaciones; d) nombre del procurador y del letrado si intervienen. Vista previa única en el chat, confirmación y `Edit`.
-2. **Parte ejecutada** *(dato objetivo — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Pasamos a la identificacion de la parte ejecutada." Solicita en bloque mediante `slot_filling_request`: a) nombre o razon social; b) NIF o CIF; c) domicilio. Vista previa en chat, confirmación y `Edit`.
-3. **El titulo ejecutivo** *(dato objetivo con validacion — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Describimos ahora el titulo en que se funda la ejecucion." Solicita en bloque mediante `slot_filling_request`: a) tipo de resolucion y organo que la dicto; b) numero de autos del procedimiento; c) contenido de la condena del fallo; d) fecha de firmeza (o del decreto en monitorio sin oposición). Vista previa en chat, confirmación y `Edit`.
+1. **Parte ejecutante** *(dato objetivo — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Comenzamos por la identificacion de la parte ejecutante." Pregunta antes si intervenían abogado y procurador. Solicita en bloque mediante `slot_filling_request`: a) nombre completo o razon social; b) NIF o CIF; c) domicilio a efectos de notificaciones; d) nombre del procurador y del letrado si intervienen. Vista previa única en el chat, confirmación y `edit_file`.
+2. **Parte ejecutada** *(dato objetivo — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Pasamos a la identificacion de la parte ejecutada." Solicita en bloque mediante `slot_filling_request`: a) nombre o razon social; b) NIF o CIF; c) domicilio. Vista previa en chat, confirmación y `edit_file`.
+3. **El titulo ejecutivo** *(dato objetivo con validacion — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Describimos ahora el titulo en que se funda la ejecucion." Solicita en bloque mediante `slot_filling_request`: a) tipo de resolucion y organo que la dicto; b) numero de autos del procedimiento; c) contenido de la condena del fallo; d) fecha de firmeza (o del decreto en monitorio sin oposición). Vista previa en chat, confirmación y `edit_file`.
 4. **Plazos** *(dato objetivo con validacion bloqueante)*. Anuncio fijo: "Verificamos ahora los plazos de la ejecucion." Con la fecha de firmeza ya conocida, calcula tu mismo si han transcurrido los veinte dias del Art. 548 y si no han pasado los cinco anos del Art. 518. Si el primero no se ha cumplido, informa de la fecha en que se cumplira y pregunta si desea continuar preparando el escrito para presentarlo entonces. Si el segundo esta agotado, aplica el guardrail correspondiente y detente.
 5. **Cantidad reclamada** *(clausula de negociacion — explicar antes de decidir)*. Anuncio fijo: "Pasamos a determinar la cantidad por la que se despachara la ejecucion." Explica antes de pedir cifras: se reclama el principal, los intereses ya vencidos y una cantidad presupuestada para intereses de la ejecucion y costas que no puede superar el 30 % de lo anterior (Art. 575 LEC), salvo justificacion excepcional; si el bien a ejecutar es la vivienda habitual del ejecutado, las costas exigibles no pueden superar el 5 %. En HOJA FAMILIA, sustituye la pregunta de principal por la relacion mensualidad a mensualidad (mes e importe) siguiendo `references/especialidades-familia-776.md`, apartado 3, y pregunta si el titulo prevee actualizacion periodica antes de aplicarla. Pide despues, en turnos separados: a) principal (o relacion de mensualidades); b) intereses vencidos y su fundamento de calculo; c) porcentaje presupuestado para intereses y costas (por defecto, ofrece el 30 %, o el 5 % si es vivienda habitual, y pregunta si desea un porcentaje menor). Confirmacion propia de cada uno.
 6. **Gastos extraordinarios de familia** *(clausula de negociacion — solo HOJA FAMILIA, condicional)*. Anuncio fijo: "Concretamos si existen gastos extraordinarios que reclamar." Explica antes de preguntar: solo pueden incluirse en esta demanda los gastos extraordinarios que el titulo ya prevea con su reparto; los demas exigen una declaracion judicial previa (Art. 776.4ª LEC) y no pueden mezclarse en este escrito. Pregunta si hay gastos extraordinarios y, para cada uno, si figura en el titulo con su reparto. Los que no lo esten, apartalos, adviertelo expresamente y no los incluyas en el desglose.
@@ -232,9 +233,9 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 
 ### Secciones — HOJA NO-JUDICIAL
 
-1. **Parte ejecutante** *(dato objetivo — `slot_filling_request` con confirmación en el chat)*. Igual que en la HOJA JUDICIAL, pero la pregunta de postulacion se formula solo si V3 = laudo o acuerdo de mediacion.
+1. **Parte ejecutante** *(dato objetivo — `slot_filling_request` con confirmación en el chat)*. Igual que en la HOJA JUDICIAL, pero la pregunta de postulacion se formula solo si V3 = laudo_arbitral o acuerdo de mediacion.
 2. **Parte ejecutada** *(dato objetivo — `slot_filling_request` con confirmación en el chat)*. Igual que en la HOJA JUDICIAL.
-3. **El titulo no judicial** *(dato objetivo con validacion, segun V3 — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Describimos ahora el titulo en que se funda la ejecucion." Solicita en bloque mediante `slot_filling_request` los datos identificativos del título (notario, fecha, protocolo o árbitro/institución o MASC). Vista previa en chat, confirmación y `Edit`.
+3. **El titulo no judicial** *(dato objetivo con validacion, segun V3 — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Describimos ahora el titulo en que se funda la ejecucion." Solicita en bloque mediante `slot_filling_request` los datos identificativos del título (notario, fecha, protocolo o árbitro/institución o MASC). Vista previa en chat, confirmación y `edit_file`.
 4. **Obligacion y vencimiento** *(dato objetivo)*. Anuncio fijo: "Pasamos a la obligacion documentada y a su vencimiento." Sub-apartados: a) descripcion de la obligacion; b) fecha de vencimiento. Verifica que la cantidad supera los 300 euros (Art. 520 LEC); si no, aplica la validacion de presupuestos ya descrita.
 5. **Liquidacion por saldo** *(clausula de negociacion — solo si el titulo pacto liquidacion unilateral, Art. 572.2 LEC)*. Anuncio fijo: "Abordamos la liquidacion del saldo prevista en el titulo." Explica los requisitos acumulativos: notificacion previa al ejecutado y al fiador, y los tres documentos del Art. 573.1. Pregunta la clausula que lo pacta, el saldo resultante y si se acredita la notificacion. Si el interes es variable, pide ademas las operaciones de calculo del Art. 574.
 6. **Cantidad reclamada** *(clausula de negociacion — explicar antes de decidir)*. Igual estructura que en la HOJA JUDICIAL (principal, intereses, porcentaje presupuestado con el limite del 30 %).
@@ -246,12 +247,12 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 
 ### Secciones — HOJA AVERIGUACION
 
-1. **Datos de la ejecucion en curso** *(dato objetivo — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Comenzamos por identificar la ejecucion ya despachada." Solicita en bloque mediante `slot_filling_request`: a) juzgado y numero de autos; b) fecha del auto de despacho; c) cantidad total por la que se despacho; d) estado del cobro. Vista previa en chat, confirmación y `Edit`.
+1. **Datos de la ejecucion en curso** *(dato objetivo — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Comenzamos por identificar la ejecucion ya despachada." Solicita en bloque mediante `slot_filling_request`: a) juzgado y numero de autos; b) fecha del auto de despacho; c) cantidad total por la que se despacho; d) estado del cobro. Vista previa en chat, confirmación y `edit_file`.
 2. **Parte ejecutante** *(dato objetivo — `slot_filling_request` con confirmacion en el chat)*. Igual estructura que en las otras hojas.
 3. **Bienes designados** *(clausula de negociacion — explicar antes de decidir)*. Anuncio fijo: "Determinamos los bienes que se designan para el embargo." Igual explicacion del orden del Art. 592 LEC. Si no hay bienes que designar, pide una breve descripcion de las gestiones ya realizadas para localizarlos.
 4. **Insuficiencia y peticion de investigacion** *(dato objetivo con validacion)*. Anuncio fijo: "Justificamos ahora por que es necesaria la investigacion patrimonial." Recuerda que el requerimiento del Art. 589 solo se acuerda si el ejecutante no ha senalado bienes suficientes: si los designados en la seccion anterior ya cubren la cantidad, adviertelo y desactiva esta seccion.
-5. **Destinatarios de los oficios** *(dato objetivo con validacion de sentido — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Relacionamos los destinatarios de los oficios de investigacion y la razon de cada uno." Solicita los destinatarios y sus motivos concretos (usa `references/embargo-averiguacion-inembargabilidad.md`, apartado 3). Rechaza razones genéricas. Vista previa en el chat, confirmación y `Edit`.
-6. **Limites de inembargabilidad** *(informativo, con excepcion condicional)*. Anuncio fijo: "Le informo de los limites de inembargabilidad aplicables." Si la ejecucion es de alimentos o de compensatoria con necesidad acreditada, aplica la excepcion del Art. 608 y explica que es el tribunal quien fija la cantidad embargable; en los demas casos, recuerda la escala del Art. 607 sobre el SMI vigente verificado en el Punto 2. No requiere mas dato salvo, en compensatoria, la acreditacion de la necesidad economica.
+5. **Destinatarios de los oficios** *(dato objetivo con validacion de sentido — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Relacionamos los destinatarios de los oficios de investigacion y la razon de cada uno." Solicita los destinatarios y sus motivos concretos (usa `references/embargo-averiguacion-inembargabilidad.md`, apartado 3). Rechaza razones genéricas. Vista previa en el chat, confirmación y `edit_file`.
+6. **Limites de inembargabilidad** *(informativo, con excepcion condicional)*. Anuncio fijo: "Le informo de los limites de inembargabilidad aplicables." Si la ejecucion es de alimentos o de compensatoria con necesidad acreditada, aplica la excepcion del Art. 608 y explica que es el tribunal quien fija la cantidad embargable; en los demas casos, recuerda la escala del Art. 607 sobre el SMI vigente verificado en la Fase 2. No requiere mas dato salvo, en compensatoria, la acreditacion de la necesidad economica.
 7. **Multas coercitivas por incumplimiento del Art. 589** *(clausula de negociacion — condicional, solo si el ejecutado ya fue requerido y no respondio)*. Anuncio fijo: "Valoramos si procede pedir multas coercitivas por no haber manifestado bienes." Pregunta la fecha del requerimiento anterior y el detalle del incumplimiento.
 8. **Ampliacion de la ejecucion por nuevos vencimientos** *(clausula de negociacion — condicional)*. Anuncio fijo: "Valoramos si han vencido nuevos plazos que ampliar." Si la obligacion es de tracto sucesivo y han vencido nuevos plazos desde el despacho, pregunta su importe y detalle.
 9. **Juzgado, lugar y fecha** *(dato objetivo)*. Anuncio fijo: "Cerramos con el lugar y la fecha del escrito."
@@ -280,7 +281,7 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 
 ## Límites Legales y Guardrails de Dominio (Gobernados por Vectores)
 
-1. Verificar siempre la LEC, la LO 1/2025 y el TRLC en el BOE antes de redactar (Punto 2). Sin verificacion, no proceder.
+1. Verificar siempre la LEC, la LO 1/2025 y el TRLC en el BOE antes de redactar (Fase 2). Sin verificacion, no proceder.
 2. Si se detecta una version posterior a la registrada en las references, aplicar la redacción vigente directamente sobre el documento a redactar en el workspace del usuario. No usar una version desactualizada, y nunca calcular un tramo de embargo de sueldo con un SMI de un ejercicio anterior sin verificarlo.
 3. La accion ejecutiva de titulos judiciales, laudos y acuerdos de mediacion caduca a los cinco anos desde la firmeza (Art. 518 LEC). Si el plazo esta agotado, no redactar la demanda: advertir y ofrecer escalacion. Este plazo NO se aplica a la escritura publica notarial.
 4. No se despachara ejecucion de titulos judiciales, laudos o acuerdos de mediacion dentro de los veinte dias posteriores a la firmeza o notificacion (Art. 548 LEC). Advertir siempre de esta espera; no aplica a los demas titulos no judiciales.
@@ -291,7 +292,7 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 9. En alimentos, el limite del Art. 607 no se aplica por ministerio de la ley (Art. 608). En pension compensatoria, esa exclusion es rogada y exige acreditar necesidad economica: nunca aplicarla sin que el cliente la acredite.
 10. Si consta o se sospecha que el ejecutado esta en concurso de acreedores, detener de inmediato: no pueden iniciarse ejecuciones singulares contra la masa activa (Arts. 142 y 143 TRLC).
 11. No es exigible acreditar el intento de un medio adecuado de solucion de controversias para presentar una demanda ejecutiva (Art. 5.3 LO 1/2025). Nunca pedir ese dato en esta skill.
-12. Nunca inventar datos, cuantias, fechas, numeros de protocolo ni jurisprudencia. Los campos no proporcionados quedan como `{{dato}}`.
+12. Nunca inventar datos, cuantias, fechas, numeros de protocolo ni jurisprudencia. Los campos no proporcionados quedan como `{{DATO}}`.
 13. Cuando el impago de pensiones de familia alcance dos meses consecutivos o cuatro no consecutivos, informar de que la conducta puede tener relevancia penal (Art. 227 del Codigo Penal) y ofrecer escalacion a un especialista en penal. Nunca redactar denuncia ni querella: excede el alcance de esta skill.
 
 ### Supuestos Fuera de Alcance (Cómo NO usar esta skill)

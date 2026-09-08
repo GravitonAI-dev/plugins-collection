@@ -1,7 +1,7 @@
-# HOJA DE DATOS — {{tipo_operacion: ALTA / BAJA}} DE TRABAJADOR EN LA SEGURIDAD SOCIAL — {{nombre_trabajador}}
+# HOJA DE DATOS — {{TIPO_OPERACION: ALTA / BAJA}} DE TRABAJADOR EN LA SEGURIDAD SOCIAL — {{NOMBRE_TRABAJADOR}}
 
 > **DRAFT — para revision por un gestor o asesor laboral antes de su presentacion. No constituye asesoramiento laboral.**
-> Modelo y plazos verificados en la TGSS: {{fecha_verificacion}}
+> Modelo y plazos verificados en la TGSS: {{FECHA_VERIFICACION}}
 
 ---
 
@@ -10,11 +10,11 @@
 | Campo | Valor |
 |---|---|
 | Organismo | Tesoreria General de la Seguridad Social (TGSS) |
-| Operacion | {{tipo_operacion: alta / baja}} |
-| Regimen | {{sujeto: Regimen General / Sistema Especial de Empleados de Hogar}} |
-| Modelo / tramite | {{modelo: alta-baja Regimen General (TA.2/S, via RED) / empleada de hogar (TA.2/S-0138)}} |
-| Via | {{via_presentacion: Sistema RED / Import@ss}} |
-| Identificacion | {{medio_identificacion: autorizacion RED / certificado digital / DNI-e / Cl@ve}} |
+| Operacion | {{TIPO_OPERACION: alta / baja}} |
+| Regimen | {{SUJETO: Regimen General / Sistema Especial de Empleados de Hogar}} |
+| Modelo / tramite | {{MODELO: alta-baja Regimen General (TA.2/S, via RED) / empleada de hogar (TA.2/S-0138)}} |
+| Via | {{VIA_PRESENTACION: Sistema RED / Import@ss}} |
+| Identificacion | {{MEDIO_IDENTIFICACION: autorizacion RED / certificado digital / DNI-e / Cl@ve}} |
 
 ---
 
@@ -22,9 +22,9 @@
 
 | Campo | Valor |
 |---|---|
-| Razon social o nombre | {{nombre_empleador}} |
-| CIF / NIF | {{cif_empleador}} |
-| Codigo de Cuenta de Cotizacion (CCC) | {{ccc}} |
+| Razon social o nombre | {{NOMBRE_EMPLEADOR}} |
+| CIF / NIF | {{CIF_EMPLEADOR}} |
+| Codigo de Cuenta de Cotizacion (CCC) | {{CCC}} |
 
 ---
 
@@ -32,10 +32,10 @@
 
 | Campo | Valor |
 |---|---|
-| Nombre y apellidos | {{nombre_trabajador}} |
-| NIF / NIE | {{nif_trabajador}} |
-| Numero de la Seguridad Social (NUSS) | {{nuss}} |
-| Grupo de cotizacion | {{grupo_cotizacion}} |
+| Nombre y apellidos | {{NOMBRE_TRABAJADOR}} |
+| NIF / NIE | {{NIF_TRABAJADOR}} |
+| Numero de la Seguridad Social (NUSS) | {{NUSS}} |
+| Grupo de cotizacion | {{GRUPO_COTIZACION}} |
 
 ---
 
@@ -43,16 +43,16 @@
 
 | Campo | Valor |
 |---|---|
-| Fecha de inicio (efectos del alta) | {{fecha_efectos}} |
-| Codigo de contrato | {{codigo_contrato}} |
-| Modalidad de contrato | {{modalidad_contrato: indefinido / temporal / fijo-discontinuo}} |
-| Tipo de jornada | {{tipo_jornada: completa / parcial}} |
-| Coeficiente de parcialidad (si parcial) | {{coeficiente_parcialidad}} |
+| Fecha de inicio (efectos del alta) | {{FECHA_EFECTOS}} |
+| Codigo de contrato | {{CODIGO_CONTRATO}} |
+| Modalidad de contrato | {{MODALIDAD_CONTRATO: indefinido / temporal / fijo-discontinuo}} |
+| Tipo de jornada | {{TIPO_JORNADA: completa / parcial}} |
+| Coeficiente de parcialidad (si parcial) | {{COEFICIENTE_PARCIALIDAD}} |
 
 | Campo | Valor |
 |---|---|
-| Fecha de cese (efectos de la baja) | {{fecha_efectos}} |
-| Causa de la baja | {{causa_baja: fin de contrato / despido / baja voluntaria / otra}} |
+| Fecha de cese (efectos de la baja) | {{FECHA_EFECTOS}} |
+| Causa de la baja | {{CAUSA_BAJA: fin de contrato / despido / baja voluntaria / otra}} |
 
 ---
 
@@ -77,7 +77,7 @@
 
 > **Advertencias:**
 > 1. Esta hoja de datos es un DRAFT. Debe revisarse por un gestor o asesor laboral antes de tramitar la operacion.
-> 2. Modelo y plazos verificados: {{fecha_verificacion}}.
+> 2. Modelo y plazos verificados: {{FECHA_VERIFICACION}}.
 > 3. El alta debe ser PREVIA al inicio de la actividad; la baja se comunica en plazo (3 dias naturales en el Regimen General; 6 en empleadas de hogar, admitiendo Import@ss 3).
 > 4. El alta o la baja fuera de plazo puede conllevar recargos, responsabilidad en prestaciones y sanciones.
 > 5. Las empresas del Regimen General transmiten por el Sistema RED; el empleador de hogar por Import@ss.

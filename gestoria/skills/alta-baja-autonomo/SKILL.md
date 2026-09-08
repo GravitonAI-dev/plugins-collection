@@ -22,7 +22,7 @@ inputs:
   - tipo_actividad: empresarial / profesional / artistica (V2)
   - naturaleza_titular: persona_fisica (V3)
   - regimen_cotizacion: reta_general / reta_tarifa_plana / reta_societario_colaborador (V4)
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - datos_interesado: nombre y apellidos, NIF, domicilio fiscal, telefono y correo de contacto
   - actividad: descripcion de la actividad economica (alta que va a ejercer; baja que cesa)
   - epigrafe_iae: epigrafe del IAE si lo conoce (empresarial o profesional)
@@ -68,14 +68,14 @@ Para garantizar un enrutamiento determinista y el cumplimiento de las normas tri
 - **V2 (Tipo de Actividad):** `empresarial` | `profesional` | `artistica`.
 - **V3 (Naturaleza del Titular):** `persona_fisica` (autónomo individual).
 - **V4 (Régimen de Cotización / Bonificación):** `reta_general` | `reta_tarifa_plana` | `reta_societario_colaborador` *(fuera de alcance directo / advertencia)*.
-- **V5 (Origen Plantilla / Asset):** `plantilla_sistema` | `plantilla_usuario`.
+- **origen_plantilla (origen de la plantilla):** `plantilla_sistema` | `plantilla_usuario`.
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
-> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`) y los resúmenes de validación con marcas técnicas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial, claro y profesional.
+> Los identificadores técnicos de los vectores y los resúmenes de validación con marcas técnicas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial, claro y profesional.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 Tu primer objetivo es determinar el tipo de trámite y el encuadre operativo.
 
@@ -122,6 +122,12 @@ Invoca la herramienta con las preguntas de triaje:
 }
 ```
 
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — `tipo_operacion`
+- `V2` — `tipo_actividad`
+- `V4` — `regimen_cotizacion`
+- `V3` — naturaleza del titular: no se pregunta en el formulario de clasificación; se resuelve durante el propio flujo
+
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 - **Si `V4 = reta_societario_colaborador`:**
   - Informar de que los autónomos societarios (administradores de SL/SA) y colaboradores tienen reglas de cotización, bases mínimas y trámites censales específicos que requieren revisión personalizada de escrituras y estatutos. Ofrecer derivar a gestor colegiado o continuar con las advertencias preceptivas.
@@ -129,10 +135,11 @@ Invoca la herramienta con las preguntas de triaje:
   - Hojas de datos propuestas del sistema: `assets/template-hoja-datos-alta-censal-036.md` y `assets/template-hoja-datos-alta-reta.md`. Proceder a la **Fase 2**.
 - **Si `V1 = baja`:**
   - Hojas de datos propuestas del sistema: `assets/template-hoja-datos-baja-censal-036.md` y `assets/template-hoja-datos-baja-reta.md`. Proceder a la **Fase 2**.
+- `V2` no elige hoja: delimita la naturaleza del epigrafe del IAE y el regimen de retenciones de IRPF que se consignan.
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 Interacción directa en texto plano conversacional en el chat (sin formularios).
 
@@ -147,13 +154,14 @@ Envía un mensaje estructurado y pedagógico:
    - Para BAJA: Explicar que la baja en el RETA debe comunicarse en Import@ss en los **3 días naturales** siguientes al cese, y la baja censal en la AEAT en el plazo de **1 mes**.
 2. **Propuesta de Plantilla Oficial del Sistema:**
    - Detallar que dispones de las hojas de datos estructuradas oficiales para volcar la información requerida por la Sede Electrónica de la AEAT y el portal Import@ss de la Seguridad Social.
+   - Nombra por su ruta la hoja **que ha resuelto el enrutamiento de la Fase 1.3**; si el enrutamiento asigno varias, nombralas todas y en el orden en que se van a rellenar. **No propongas una hoja distinta de la enrutada.**
 3. **Pregunta Explícita al Usuario (Vía Chat):**
    Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
-- **Si `V5 = plantilla_sistema`:** Utiliza los assets oficiales correspondientes y avanza a la **Fase 3**.
-- **Si `V5 = plantilla_usuario`:** Toma la plantilla adjunta en `<attached_documents>` o el texto pegado en `<user_message>`, valida que cumpla las normas tributarias y laborales imperativas, y avanza a la **Fase 3**.
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+- **Si `origen_plantilla = plantilla_sistema`:** Utiliza los assets oficiales correspondientes y avanza a la **Fase 3**.
+- **Si `origen_plantilla = plantilla_usuario`:** Toma la plantilla adjunta en `<attached_documents>` o el texto pegado en `<user_message>`, valida que cumpla las normas tributarias y laborales imperativas, y avanza a la **Fase 3**.
 
 ---
 
@@ -186,6 +194,10 @@ Recorre de forma secuencial los bloques de datos. Para cada bloque, ejecuta estr
 2. **Vista Previa (Preview):** Muestra el texto redactado en texto plano (sin backticks de código).
 3. **Confirmación:** Pregunta literalmente: `¿Confirmamos esta sección?`.
 4. **Persistencia en Disco:** Tras la confirmación, aplica `edit_file` con coincidencia exacta y verifica inmediatamente con `read_file`.
+
+**Petición de grupos de datos mediante `slot_filling_request` y confirmaciones en el chat:**
+- **Datos estructurados agrupados mediante `slot_filling_request`:** para cualquier grupo de datos objetivos o identificativos (datos identificativos del interesado, domicilio fiscal y de la actividad, epígrafes y datos de cotización), **NO pregunte dato por dato en el chat**. Invoque la herramienta `slot_filling_request` agrupando todos los campos del bloque de una sola vez.
+- **Validación de sentido, no solo de formato:** razone si la respuesta tiene sentido en el contexto de lo preguntado. Si es absurda, imposible o incongruente, dialogue en el chat, señale el motivo y pida aclaración antes de volcarla al documento.
 
 ### Hoja de Ruta de Secciones — RAMA ALTA:
 

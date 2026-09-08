@@ -6,20 +6,20 @@
 
 | Parámetro | Valor Asignado |
 |---|---|
-| Tipo de Plantilla | {{tipo_plantilla}} (Skill / Global) |
-| Skill Objetivo | {{skill_name}} |
-| Nombre / Título | {{nombre_plantilla}} |
-| Identificador de Asset | `{{asset_name}}` |
-| Herramienta Utilizada | `{{herramienta_usada}}` (`set_skill_template` / `update_user_template` / `save_user_template`) |
-| Canal de Origen | {{canal_origen}} (Texto en el chat / Archivo en el editor / Creación asistida) |
-| Fecha de Registro | {{fecha_registro}} |
-| Estado en Orquestador | {{estado_asignacion}} |
+| Tipo de Plantilla | {{TIPO_PLANTILLA}} (Skill / Global) |
+| Skill Objetivo | {{SKILL_NAME}} |
+| Nombre / Título | {{NOMBRE_PLANTILLA}} |
+| Identificador de Asset | `{{ASSET_NAME}}` |
+| Herramienta Utilizada | `{{HERRAMIENTA_USADA}}` (`set_skill_template` / `update_user_template` / `save_user_template`) |
+| Canal de Origen | {{CANAL_ORIGEN}} (Texto en el chat / Archivo en el editor / Creación asistida) |
+| Fecha de Registro | {{FECHA_REGISTRO}} |
+| Estado en Orquestador | {{ESTADO_ASIGNACION}} |
 
 ---
 
 ## 2. Descripción y Propósito
 
-{{descripcion_plantilla}}
+{{DESCRIPCION_PLANTILLA}}
 
 ---
 
@@ -29,14 +29,14 @@ A continuación se detallan los marcadores identificados y abstraídos en la pla
 
 | Variable | Tipo de Dato / Descripción |
 |---|---|
-| `{{variable_1}}` | {{descripcion_variable_1}} |
-| `{{variable_2}}` | {{descripcion_variable_2}} |
-| `{{variable_3}}` | {{descripcion_variable_3}} |
+| `{{VARIABLE_1}}` | {{DESCRIPCION_VARIABLE_1}} |
+| `{{VARIABLE_2}}` | {{DESCRIPCION_VARIABLE_2}} |
+| `{{VARIABLE_3}}` | {{DESCRIPCION_VARIABLE_3}} |
 
 ---
 
 ## 4. Instrucciones de Uso y Activación
 
-{{instrucciones_activacion}}
-- **Si es Plantilla de Skill (`set_skill_template`):** En todas las siguientes conversaciones en las que actives la skill `{{skill_name}}`, el orquestador utilizará automáticamente esta plantilla personalizada como base para redactar tus documentos.
-- **Si es Plantilla Global (`save_user_template` / `update_user_template`):** La plantilla queda registrada en el catálogo de plantillas generales del usuario (`{{asset_name}}`), disponible para ser reutilizada o actualizada en cualquier momento.
+{{INSTRUCCIONES_ACTIVACION}}
+- **Si es Plantilla de Skill (`set_skill_template`):** En todas las siguientes conversaciones en las que actives la skill `{{SKILL_NAME}}`, el orquestador utilizará automáticamente esta plantilla personalizada como base para redactar tus documentos.
+- **Si es Plantilla Global (`save_user_template` / `update_user_template`):** La plantilla queda registrada en el catálogo de plantillas generales del usuario (`{{ASSET_NAME}}`), disponible para ser reutilizada o actualizada en cualquier momento.

@@ -23,7 +23,7 @@ when_to_use: |
   - El usuario pide "incapacitar" o "modificar la capacidad" de un familiar: la skill corrige la
     terminologia, aplica el filtro de subsidiariedad y encamina el caso a la medida que corresponda.
 inputs:
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - finalidad: prevision voluntaria / autorizacion al guardador de hecho / curatela
   - existe_guarda_hecho: si / no, y si constituye apoyo suficiente
   - existe_medida_voluntaria: si / no, y su alcance
@@ -64,14 +64,14 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 
 ### Vectores de Estado (Uso Estrictamente Interno):
 
-Para garantizar un enrutamiento determinista y el cumplimiento normativo riguroso, el asistente resuelve y mantiene internamente en memoria los vectores de estado de la operación (V1 a V4) y el origen de la plantilla (V5).
+Para garantizar un enrutamiento determinista y el cumplimiento normativo riguroso, el asistente resuelve y mantiene internamente en memoria los vectores de estado de la operación —cuyo catálogo y su correspondencia con las respuestas del formulario figuran en la Fase 1.2— y el origen de la plantilla (`origen_plantilla`).
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
-> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`) y los resúmenes de validación con marcas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial y profesional.
+> Los identificadores técnicos de los vectores y los resúmenes de validación con marcas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial y profesional.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 Tu primer objetivo es clasificar con precisión la naturaleza del caso y fijar los vectores deterministas de estado.
 
@@ -81,62 +81,96 @@ Antes de abrir formularios interactivos o hacer preguntas, analiza el mensaje in
 - Si restan vectores por definir, no formules preguntas abiertas en turnos sucesivos: presenta el formulario estructurado interactivo mediante la herramienta `restricted_human_in_the_loop_request`.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
-Presenta al usuario las opciones estructuradas para resolver los vectores pendientes:
+Invoca la herramienta con las opciones de triaje:
+
 ```json
 {
-  "type": "object",
-  "properties": {
-    "finalidad_apoyo": {
-      "type": "string",
-      "description": "Finalidad de la medida de provisi\u00f3n de apoyos (V1)",
-      "enum": [
-        "poder_preventivo",
-        "guarda_hecho",
-        "curatela"
+  "form_data": [
+    {
+      "id": "finalidad",
+      "rationale": "Resolver V1: la curatela es subsidiaria de las medidas voluntarias y de la guarda de hecho, y cada finalidad tiene su propio asset.",
+      "question": "¿Qué medida de apoyo se pretende?",
+      "options": [
+        {"id": "prevision_voluntaria", "label": "Una previsión voluntaria de la propia persona: poder preventivo o autocuratela"},
+        {"id": "autorizacion_guarda", "label": "Una autorización judicial puntual a quien ya ejerce la guarda de hecho"},
+        {"id": "curatela", "label": "La constitución judicial de una curatela"}
       ]
     },
-    "tipo_curatela": {
-      "type": "string",
-      "description": "Modalidad de la curatela (V3 - solo si procede demanda judicial)",
-      "enum": [
-        "asistencial",
-        "representativa"
+    {
+      "id": "expresion_voluntad",
+      "rationale": "Resolver V4: determina si cabe la curatela representativa y si la persona puede otorgar por sí misma medidas voluntarias.",
+      "question": "¿Puede la persona expresar su voluntad, deseos y preferencias?",
+      "options": [
+        {"id": "puede_expresar", "label": "Sí, con los apoyos adecuados puede expresarlos"},
+        {"id": "no_puede_expresar", "label": "No, pese a haberse hecho un esfuerzo considerable"}
+      ]
+    },
+    {
+      "id": "tipo_curatela",
+      "rationale": "Resolver V3: activa o desactiva los bloques de facultades representativas, que deben justificarse acto por acto.",
+      "question": "Si se solicita curatela, ¿de qué tipo?",
+      "options": [
+        {"id": "asistencial", "label": "Asistencial: el curador acompaña y asiste en la toma de decisiones"},
+        {"id": "representativa", "label": "Representativa para actos concretos, que deberán enumerarse y justificarse"}
+      ]
+    },
+    {
+      "id": "existe_guarda_hecho",
+      "rationale": "Resolver V5: si la guarda de hecho funciona adecuadamente, la curatela no procede por su carácter subsidiario.",
+      "question": "¿Existe ya una guarda de hecho que preste apoyo suficiente?",
+      "options": [
+        {"id": "si_suficiente", "label": "Sí, y funciona adecuadamente"},
+        {"id": "si_insuficiente", "label": "Sí, pero resulta insuficiente"},
+        {"id": "no", "label": "No existe"}
+      ]
+    },
+    {
+      "id": "existe_medida_voluntaria",
+      "rationale": "Resolver V2.b: la existencia de un poder preventivo o de una autocuratela otorgados con anterioridad hace subsidiaria la curatela.",
+      "question": "¿Otorgó la persona con anterioridad un poder preventivo o una autocuratela?",
+      "options": [
+        {"id": "si", "label": "Sí"},
+        {"id": "no", "label": "No"},
+        {"id": "no_lo_se", "label": "No lo sé"}
       ]
     }
-  },
-  "required": [
-    "finalidad_apoyo",
-    "tipo_curatela"
   ]
 }
 ```
 
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — respuesta a `finalidad`
+- `V2.b` — respuesta a `existe_medida_voluntaria`
+- `V3` — respuesta a `tipo_curatela`
+- `V4` — respuesta a `expresion_voluntad`
+- `V5` — respuesta a `existe_guarda_hecho`
+
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores aplicables, evalua en este orden:
 
-- Si V1 = 1 → **HOJA VOLUNTARIA**: `assets/template-minuta-poder-preventivo.md`.
-- Si V1 = 2 → **HOJA GUARDA**: `assets/template-solicitud-autorizacion-guarda-hecho.md`, previa la validacion de "acto concreto" descrita mas abajo.
-- Si V1 = 3 → **aplicar primero el FILTRO DE SUBSIDIARIEDAD** (seccion siguiente). Solo si lo supera:
-  - V3 = 1 → **HOJA CURATELA**, `assets/template-demanda-curatela.md`, con los bloques de facultades representativas DESACTIVADOS.
-  - V3 = 2 → **HOJA CURATELA**, el mismo asset, con los bloques de facultades representativas ACTIVADOS y justificados acto por acto.
-- **Sub-pregunta de via procesal (solo en la HOJA CURATELA, antes del Punto 3).** El expediente de jurisdiccion voluntaria es la via ordinaria; el proceso contencioso solo procede si un expediente previo termino por oposicion o no pudo resolverse (Art. 756.1 LEC). Formula:
+- Si V1 = prevision_voluntaria → **HOJA VOLUNTARIA**: `assets/template-minuta-poder-preventivo.md`.
+- Si V1 = autorizacion_guarda → **HOJA GUARDA**: `assets/template-solicitud-autorizacion-guarda-hecho.md`, previa la validacion de "acto concreto" descrita mas abajo.
+- Si V1 = curatela → **aplicar primero el FILTRO DE SUBSIDIARIEDAD** (seccion siguiente). Solo si lo supera:
+  - V3 = asistencial → **HOJA CURATELA**, `assets/template-demanda-curatela.md`, con los bloques de facultades representativas DESACTIVADOS.
+  - V3 = representativa → **HOJA CURATELA**: `assets/template-demanda-curatela.md`, el mismo asset, con los bloques de facultades representativas ACTIVADOS y justificados acto por acto.
+- **Sub-pregunta de via procesal (solo en la HOJA CURATELA, antes de la Fase 3).** El expediente de jurisdiccion voluntaria es la via ordinaria; el proceso contencioso solo procede si un expediente previo termino por oposicion o no pudo resolverse (Art. 756.1 LEC). Formula:
   "Sobre actuaciones judiciales anteriores por este mismo asunto:
   1. No se ha iniciado ninguna
   2. Se inicio un expediente que termino porque alguien se opuso, o que no pudo resolverse"
   Respuesta 1 → variante de jurisdiccion voluntaria del asset. Respuesta 2 → activar el bloque condicional de la variante contenciosa (Arts. 756 a 761 LEC) y ajustar los fundamentos de tramite y prueba (Art. 759 LEC en lugar del Art. 42 bis b) LJV).
 - Si en cualquier momento consta que la persona es **menor de edad** → **DETENER**: fuera de alcance (patria potestad o tutela de menores). Advertir y escalar. No crear documento. Unica excepcion informativa: si es mayor de dieciseis anos y se preve que precisara apoyo al alcanzar la mayoria de edad, informar del Art. 254 CC y de que **el propio menor puede hacer sus propias previsiones**, y escalar.
 - Si lo que se pretende es un **internamiento no voluntario** (Art. 763 LEC) → **DETENER SIEMPRE**: fuera de alcance, con independencia de lo urgente que parezca. Advertir y escalar de inmediato.
-- Si lo que se pretende es una **incapacitacion** o una **modificacion de la capacidad** → no es un supuesto de "fuera de alcance" sino de institucion inexistente: aplicar la correccion terminologica del Punto 1 y reconducir el caso por V1, sin detener el flujo.
+- Si lo que se pretende es una **incapacitacion** o una **modificacion de la capacidad** → no es un supuesto de "fuera de alcance" sino de institucion inexistente: aplicar la correccion terminologica de la Fase 1 y reconducir el caso por V1, sin detener el flujo.
 - Si lo que se pretende es constituir o administrar un **patrimonio protegido** de la Ley 41/2003 → **DETENER**: fuera de alcance. Advertir y escalar.
 - Si la persona tiene **vecindad civil foral** (Cataluna, Aragon, Navarra, Galicia, Baleares) → **DETENER**: esta skill se apoya en el Codigo Civil estatal y no ha verificado la normativa autonomica. Advertir y escalar.
 
-### FILTRO DE SUBSIDIARIEDAD (interno, BLOQUEANTE, solo si V1 = 3)
+### FILTRO DE SUBSIDIARIEDAD (interno, BLOQUEANTE, solo si V1 = curatela)
 
 Es el nucleo de esta skill. El Art. 269 del Codigo Civil solo permite constituir la curatela **cuando no exista otra medida de apoyo suficiente**, y el Art. 255 in fine anade que la autoridad judicial solo puede adoptar medidas supletorias "en defecto o por insuficiencia de las voluntarias, y a falta de guarda de hecho que suponga apoyo suficiente". Ver `references/sistema-apoyos-ley-8-2021.md`, apartado 6.
 
-**Regla: si V2.a = 1 o V2.b = 1, NO enrutes a la HOJA CURATELA todavia.** En su lugar, emite en un unico mensaje, en el registro formal del plugin:
+**Regla: si V5 = si_suficiente, o V2.b = si o no_lo_se, NO enrutes a la HOJA CURATELA todavia.** En su lugar, emite en un unico mensaje, en el registro formal del plugin:
 
-1. **La explicacion del regimen.** Que la ley considera la guarda de hecho una medida de apoyo con el mismo rango que las demas (Art. 250 CC), que quien viene ejerciendola adecuadamente continua en su funcion (Art. 263 CC), y que la curatela solo se constituye cuando no existe otra medida de apoyo suficiente (Art. 269 CC). Si V2.b = 1, anadir que el poder otorgado en su dia puede seguir siendo operativo y que conviene leerlo antes de descartarlo (Arts. 256 a 259 CC).
+1. **La explicacion del regimen.** Que la ley considera la guarda de hecho una medida de apoyo con el mismo rango que las demas (Art. 250 CC), que quien viene ejerciendola adecuadamente continua en su funcion (Art. 263 CC), y que la curatela solo se constituye cuando no existe otra medida de apoyo suficiente (Art. 269 CC). Si V2.b = si, anadir que el poder otorgado en su dia puede seguir siendo operativo y que conviene leerlo antes de descartarlo (Arts. 256 a 259 CC).
 2. **La alternativa concreta.** Que si el problema es un acto puntual que exige actuar en nombre de la persona, la via es la autorizacion judicial del Art. 264 del Codigo Civil, mas breve, mas barata y sin necesidad de abogado ni procurador si el valor del acto no supera los 6.000 euros (Art. 62.3 LJV).
 3. **La pregunta de salida**, con alternativas numeradas:
    "A la vista de lo anterior:
@@ -146,11 +180,11 @@ Es el nucleo de esta skill. El Art. 269 del Codigo Civil solo permite constituir
 - Respuesta 1 → **HOJA GUARDA**. Continua por esa rama.
 - Respuesta 2 → el filtro queda superado por confirmacion expresa del cliente. **Antes de seguir, pide la razon concreta por la que el apoyo actual no basta** (pregunta en prosa) y registrala: es el contenido del hecho de subsidiariedad del escrito, y sin el la solicitud es rechazable. Despues continua con V3.
 
-**Si V2.a = 2 y V2.b = 2**, el filtro queda superado sin necesidad de esta pregunta. Continua con V3.
+**Si V5 = no y V2.b = no**, el filtro queda superado sin necesidad de esta pregunta. Continua con V3. **Si V5 = si_insuficiente**, el filtro queda superado por manifestacion expresa del cliente, pero antes de seguir pide igualmente la razon concreta por la que el apoyo actual no basta y registrala: es el contenido del hecho de la demanda que acredita la insuficiencia.
 
 **Aplica ademas, en ambos casos, el filtro de la necesidad ocasional:** si de lo relatado resulta que el apoyo se necesita solo de vez en cuando, aunque sea de forma recurrente, la medida proporcionada es el **defensor judicial** (Arts. 250 y 295.5.º CC), no la curatela. Adviertelo, explica la diferencia y ofrece escalacion: esta skill no genera la solicitud de defensor judicial.
 
-### Validacion de presupuestos (interno, antes del Punto 3)
+### 1.4 Validacion de presupuestos (interno, antes de la Fase 3)
 
 - **HOJA VOLUNTARIA (Arts. 255 y 260 CC):** las medidas voluntarias exigen que el otorgante **comprenda el alcance del acto en el momento de la firma**, y ese juicio corresponde al Notario. Si de lo relatado resulta que la persona ya no esta en condiciones de otorgar, **adviertelo con claridad y reconduce**: la via ya no es la voluntaria, sino la guarda de hecho o la curatela. No prepares una minuta que el notario no vaya a poder autorizar.
 - **HOJA VOLUNTARIA (Art. 259 CC):** si el poder va a comprender todos los negocios del otorgante, adviertelo antes de redactarlo: el apoderado quedara sujeto a las reglas de la curatela en todo lo no previsto, incluidas las autorizaciones judiciales del Art. 287. Ofrece acotar las facultades.
@@ -166,7 +200,7 @@ Es el nucleo de esta skill. El Art. 269 del Codigo Civil solo permite constituir
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 En esta fase interactúas **directamente a través del chat (en texto plano conversacional, SIN formularios)** para compartir el plan de trabajo, el fundamento normativo y acordar la plantilla base con el usuario.
 
@@ -178,28 +212,23 @@ En esta fase interactúas **directamente a través del chat (en texto plano conv
 Envía un mensaje estructurado y formal que contenga:
 1. **Marco Legal Aplicable:** Ley 8/2021, de 2 de junio, por la que se reforma la legislación civil y procesal para el apoyo a las personas con discapacidad; Arts. 249 a 294 del Código Civil; y Ley 15/2015 de la Jurisdicción Voluntaria.
 2. **Orientación Legal del Caso:**
-Tras completar la verificacion (Punto 2), en un unico mensaje:
 
-1. **Informa la via y la fuente aplicable.** Textos fijos por hoja:
+**Informa la via y la fuente aplicable.** Textos fijos por hoja:
    - VOLUNTARIA: "A su caso corresponden unas medidas de apoyo de naturaleza voluntaria, que se otorgan en escritura publica conforme a los articulos 255 y siguientes del Codigo Civil, en la redaccion de la Ley 8/2021. El poder preventivo se regula en sus articulos 256 a 262 y la autocuratela en el 271. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763"
    - GUARDA: "A su caso corresponde una solicitud de autorizacion judicial al guardador de hecho, conforme al articulo 264 del Codigo Civil, que se tramita por el expediente de jurisdiccion voluntaria de los articulos 61 a 63 de la Ley 15/2015, de Jurisdiccion Voluntaria. Fuentes consultadas: https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763 y https://www.boe.es/buscar/act.php?id=BOE-A-2015-7391"
    - CURATELA (via de jurisdiccion voluntaria): "A su caso corresponde una solicitud de provision judicial de medidas de apoyo, conforme al articulo 269 del Codigo Civil, que se tramita por el expediente de jurisdiccion voluntaria del articulo 42 bis a) de la Ley 15/2015, de Jurisdiccion Voluntaria. Fuentes consultadas: https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763 y https://www.boe.es/buscar/act.php?id=BOE-A-2015-7391"
    - CURATELA (via contenciosa): "A su caso corresponde una demanda de adopcion de medidas judiciales de apoyo, conforme al articulo 269 del Codigo Civil y a los articulos 756 y siguientes de la Ley 1/2000, de Enjuiciamiento Civil, aplicables por haber terminado el expediente previo sin resolucion. Fuentes consultadas: https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763 y https://www.boe.es/buscar/act.php?id=BOE-A-2000-323"
    - En las hojas GUARDA y CURATELA, anadir: "No existe modelo normalizado del Consejo General del Poder Judicial especifico para este documento; se sigue la estructura de su modelo generico de solicitud de expediente de jurisdiccion voluntaria."
    - En la hoja CURATELA, anadir ademas: "Las medidas que se acuerden se revisaran en un plazo maximo de tres anos, y en todo caso ante cualquier cambio en su situacion (articulo 268 del Codigo Civil)."
-2. **Ofrece la plantilla o pide el documento propio.** En el mismo mensaje:
-   "¿Que documento desea utilizar como base?
-   1. La plantilla del sistema, revisada por nuestros abogados y colaboradores
-   2. Adjuntar su propio documento"
-3. **Enruta segun la respuesta:** si elige la plantilla, continua con el Punto 4 usando el asset de la hoja; si elige adjuntar el suyo, pide que lo adjunte, leelo con `Read` y usalo como documento base en el Punto 4 en lugar del asset, sin dejar de aplicar los guardrails del dominio. Si el documento adjuntado emplea la terminologia derogada o pide una privacion de derechos, adviertelo antes de trabajar sobre el.
-3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-demanda-curatela.md`).
+
+3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** y nombrala por su ruta. Si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la seccion de assets.
 4. **Pregunta Explícita al Usuario (Vía Chat):** Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
-* **Si `[V5 = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+* **Si `[origen_plantilla = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
   Toma el texto íntegro de la plantilla correspondiente directamente desde el catálogo del prompt y procede de inmediato a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
+* **Si `[origen_plantilla = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
   1. Accede al contenido del adjunto desde `<attached_documents>` o el mensaje del usuario.
   2. **Guardrail de Verificación Legal:** Analiza el texto aportado. Si contiene cláusulas nulas, contrarias a normas imperativas o de imposible cumplimiento, adviértelo expresamente en el chat y propón la redacción legalmente válida.
   3. Adopta la minuta revisada como base y avanza a la **Fase 3**.
@@ -236,53 +265,52 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 
 **Petición de grupos de datos mediante `slot_filling_request` y confirmaciones en el chat:**
 - **Datos estructurados agrupados mediante `slot_filling_request`:** Para cualquier grupo de datos objetivos o identificativos (otorgante, persona apoyada, guardador, promotor, interesados, etc.), **NO pregunte dato por dato en el chat**. Invoque la tool `slot_filling_request` agrupando todos los campos del bloque de una sola vez.
-- **Confirmación obligatoria en el chat:** Una vez que la tool retorne los valores completados, muestre la vista previa en texto plano en el chat y pida la confirmación explícita (`¿Confirmamos estos datos...?` / `¿Confirmamos esta cláusula?`). Solo tras la confirmación afirmativa en el chat ejecute el `edit_file` en disco y verifique con `read_file`.
-- **Anuncio de sección (visible, sin esperar confirmación aparte):** al terminar una sección, emite en el mismo mensaje el anuncio fijo de la sección que se abre y procede con la herramienta o pregunta. Las cláusulas de negociación se explican y debaten en el chat; tras acordarse, se muestra vista previa y se confirma en el chat antes del `Edit`.
+- **Anuncio de sección (visible, sin esperar confirmación aparte):** al terminar una sección, emite en el mismo mensaje el anuncio fijo de la sección que se abre y procede con la herramienta o pregunta. Las cláusulas de negociación se explican y debaten en el chat; tras acordarse, se muestra vista previa y se confirma en el chat antes del `edit_file`.
 
 **Regla propia de esta skill para las secciones `[negociacion]`:** aqui la decision no se negocia entre dos partes contrapuestas, sino que se toma **sobre la vida de una tercera persona**. Antes de pedir la decision, explica siempre: que dice la ley por defecto, que consecuencia practica tiene cada opcion, y — cuando proceda — que dice o que preferiria la propia persona con discapacidad. Si la decision del cliente contradice lo que la persona ha manifestado, hazlo notar antes de escribirla.
 
 ### Secciones — HOJA VOLUNTARIA
 
-1. **Otorgante** *(dato objetivo — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Comenzamos por los datos de quien otorga las medidas de apoyo." Solicita en bloque mediante `slot_filling_request`: a) nombre y apellidos; b) DNI o NIE; c) estado civil; d) domicilio, telefono y correo electronico; e) vecindad civil. En la vecindad civil, si la respuesta es una comunidad con derecho civil propio, aplica el guardrail de vecindad foral y detente. Vista previa en chat, confirmación y `Edit`.
+1. **Otorgante** *(dato objetivo — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Comenzamos por los datos de quien otorga las medidas de apoyo." Solicita en bloque mediante `slot_filling_request`: a) nombre y apellidos; b) DNI o NIE; c) estado civil; d) domicilio, telefono y correo electronico; e) vecindad civil. En la vecindad civil, si la respuesta es una comunidad con derecho civil propio, aplica el guardrail de vecindad foral y detente. Vista previa en chat, confirmación y `edit_file`.
 2. **Finalidad y motivo del otorgamiento** *(dato objetivo con validacion de sentido)*. Anuncio fijo: "Recogemos ahora por que decide otorgar estas medidas." Pide el motivo en prosa. Si de la respuesta resulta que el otorgante ya no comprende el acto, aplica la validacion de presupuestos y reconduce.
 3. **Modalidad del poder** *(negociacion — explicar antes de decidir)*. Anuncio fijo: "Determinamos ahora desde cuando debe operar el apoyo." Explica antes de preguntar la diferencia entre el poder con clausula de subsistencia del articulo 256, que opera ya y continua despues, y el poder otorgado solo para el futuro del articulo 257, que exige acreditar que ha llegado la situacion de necesidad, en su caso mediante acta notarial con informe pericial. Di cual es la consecuencia practica de cada uno: el primero da agilidad y exige mas confianza; el segundo da control y anade un tramite. Pregunta y confirma.
-4. **Persona o personas designadas** *(dato objetivo — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Pasamos a identificar a quien prestara el apoyo." Solicita en bloque mediante `slot_filling_request`: a) nombre y apellidos; b) DNI o NIE; c) domicilio; d) relacion con el otorgante. Verifica y advierte de la prohibicion del ultimo parrafo del articulo 250: no puede ser quien preste servicios asistenciales o residenciales por contrato. Vista previa en chat, confirmación y `Edit`. Repite el bloque para sustitutos si se desean.
+4. **Persona o personas designadas** *(dato objetivo — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Pasamos a identificar a quien prestara el apoyo." Solicita en bloque mediante `slot_filling_request`: a) nombre y apellidos; b) DNI o NIE; c) domicilio; d) relacion con el otorgante. Verifica y advierte de la prohibicion del ultimo parrafo del articulo 250: no puede ser quien preste servicios asistenciales o residenciales por contrato. Vista previa en chat, confirmación y `edit_file`. Repite el bloque para sustitutos si se desean.
 5. **Facultades conferidas** *(negociacion — explicar antes de decidir)*. Anuncio fijo: "Concretamos las facultades que se confieren." Explica primero el articulo 259: si el poder comprende todos los negocios del otorgante, el apoderado quedara sujeto a las reglas de la curatela en lo no previsto, con autorizaciones judiciales y rendicion de cuentas. Recomienda acotar. Pide despues, en turnos separados: a) facultades de contenido personal; b) facultades de contenido patrimonial. Recuerda que las facultades de proteccion de la persona no son delegables (articulo 261). Confirmacion propia de cada bloque.
 6. **Salvaguardas, control y revision** *(negociacion — explicar antes de decidir)*. Anuncio fijo: "Establecemos ahora las salvaguardas del apoyo." Explica que un poder preventivo sin salvaguardas es un cheque en blanco y que los articulos 255 y 258 permiten fijar organos de control, rendicion de cuentas a un tercero, instrucciones de ejercicio, plazos de revision y causas propias de extincion. Pide, en turnos separados: a) organo o persona de control; b) regimen de rendicion de cuentas; c) plazo de revision; d) instrucciones y condiciones; e) causas de extincion. Si el apoderado es el conyuge o la pareja, informa de la extincion automatica por cese de la convivencia (articulo 258) y pregunta si desea disponer otra cosa.
 7. **Prohibiciones del articulo 251** *(negociacion — explicar antes de decidir)*. Anuncio fijo: "Valoramos el regimen de las prohibiciones legales del apoderado." Explica las tres prohibiciones (recibir liberalidades, autocontratar con conflicto de intereses, adquirir bienes del otorgante) y que en las medidas voluntarias, y solo en ellas, pueden excluirse expresamente. Explica ambas caras: excluirlas facilita la gestion familiar del patrimonio y elimina una garantia. Por defecto, ofrece mantenerlas. Si el cliente decide excluir alguna, pide la razon y refuerza las salvaguardas de la seccion anterior.
-8. **Autocuratela** *(negociacion — explicar antes de decidir; condicional)*. Anuncio fijo: "Valoramos si conviene dejar designado tambien quien seria su curador." Explica que poder preventivo y autocuratela no son alternativos: cubren escenarios distintos, y que la propuesta del articulo 271 **vincula a la autoridad judicial** (articulo 272), lo que la convierte en el instrumento mas potente de todo el sistema. Pregunta si desea incluirla. Si es que si, pide en turnos separados: a) persona propuesta como curador y sus datos; b) sustitutos y su orden; c) personas a las que desea excluir expresamente; d) disposiciones sobre el cuidado de su persona; e) reglas de administracion y disposicion de bienes; f) retribucion del curador; g) inventario o su dispensa; h) medidas de vigilancia y control. Activa entonces el bloque condicional del asset y resuelve `{{ordinal_clausula_autocuratela}}`.
-9. **Voluntad, deseos y preferencias del otorgante** *(dato objetivo con redaccion cuidada — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Recogemos sus preferencias personales, que quien le apoye debera respetar." Solicita en bloque mediante `slot_filling_request`: a) lugar de residencia y forma de vida; b) atencion personal y sanitaria; c) administracion del patrimonio; d) otras instrucciones. Redactalas en primera persona del otorgante y sin interpretarlas. Vista previa en chat, confirmación y `Edit`.
-10. **Instrucciones al notario** *(dato objetivo)*. Anuncio fijo: "Cerramos con las instrucciones para la notaria." Sub-apartados: a) numero de copias autorizadas y sus destinatarios; b) documentacion que se aportara en la firma; c) lugar y fecha del documento. Resuelve `{{ordinal_clausula_instrucciones_notario}}`.
+8. **Autocuratela** *(negociacion — explicar antes de decidir; condicional)*. Anuncio fijo: "Valoramos si conviene dejar designado tambien quien seria su curador." Explica que poder preventivo y autocuratela no son alternativos: cubren escenarios distintos, y que la propuesta del articulo 271 **vincula a la autoridad judicial** (articulo 272), lo que la convierte en el instrumento mas potente de todo el sistema. Pregunta si desea incluirla. Si es que si, pide en turnos separados: a) persona propuesta como curador y sus datos; b) sustitutos y su orden; c) personas a las que desea excluir expresamente; d) disposiciones sobre el cuidado de su persona; e) reglas de administracion y disposicion de bienes; f) retribucion del curador; g) inventario o su dispensa; h) medidas de vigilancia y control. Activa entonces el bloque condicional del asset y resuelve `{{ORDINAL_CLAUSULA_AUTOCURATELA}}`.
+9. **Voluntad, deseos y preferencias del otorgante** *(dato objetivo con redaccion cuidada — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Recogemos sus preferencias personales, que quien le apoye debera respetar." Solicita en bloque mediante `slot_filling_request`: a) lugar de residencia y forma de vida; b) atencion personal y sanitaria; c) administracion del patrimonio; d) otras instrucciones. Redactalas en primera persona del otorgante y sin interpretarlas. Vista previa en chat, confirmación y `edit_file`.
+10. **Instrucciones al notario** *(dato objetivo)*. Anuncio fijo: "Cerramos con las instrucciones para la notaria." Sub-apartados: a) numero de copias autorizadas y sus destinatarios; b) documentacion que se aportara en la firma; c) lugar y fecha del documento. Resuelve `{{ORDINAL_CLAUSULA_INSTRUCCIONES_NOTARIO}}`.
 
 ### Secciones — HOJA GUARDA
 
-1. **Guardador solicitante** *(dato objetivo — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Comenzamos por sus datos como persona que presta el apoyo." Solicita en bloque mediante `slot_filling_request`: a) nombre y apellidos; b) DNI o NIE; c) domicilio, telefono y correo electronico; d) relacion con la persona a la que apoya. Vista previa en chat, confirmación y `Edit`.
-2. **La persona a la que se presta apoyo** *(dato objetivo — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Pasamos a los datos de la persona a la que usted apoya." Solicita en bloque mediante `slot_filling_request`: a) nombre y apellidos; b) DNI o NIE; c) domicilio de residencia; d) situacion de apoyo (necesidades observables). Vista previa en chat, confirmación y `Edit`.
-3. **La guarda de hecho** *(dato objetivo con validacion — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Describimos ahora la situacion de guarda de hecho." Solicita en bloque mediante `slot_filling_request`: a) desde cuando viene ocupandose de ella; b) en que consiste el apoyo; c) si conviven o no; d) si existen otras medidas de apoyo y si se aplican eficazmente. Vista previa en chat, confirmación y `Edit`.
+1. **Guardador solicitante** *(dato objetivo — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Comenzamos por sus datos como persona que presta el apoyo." Solicita en bloque mediante `slot_filling_request`: a) nombre y apellidos; b) DNI o NIE; c) domicilio, telefono y correo electronico; d) relacion con la persona a la que apoya. Vista previa en chat, confirmación y `edit_file`.
+2. **La persona a la que se presta apoyo** *(dato objetivo — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Pasamos a los datos de la persona a la que usted apoya." Solicita en bloque mediante `slot_filling_request`: a) nombre y apellidos; b) DNI o NIE; c) domicilio de residencia; d) situacion de apoyo (necesidades observables). Vista previa en chat, confirmación y `edit_file`.
+3. **La guarda de hecho** *(dato objetivo con validacion — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Describimos ahora la situacion de guarda de hecho." Solicita en bloque mediante `slot_filling_request`: a) desde cuando viene ocupandose de ella; b) en que consiste el apoyo; c) si conviven o no; d) si existen otras medidas de apoyo y si se aplican eficazmente. Vista previa en chat, confirmación y `edit_file`.
 4. **Otros familiares e interesados** *(dato objetivo)*. Anuncio fijo: "Relacionamos a las demas personas allegadas." Pide conyuge o pareja, descendientes, ascendientes y hermanos, con sus domicilios: el Tribunal puede citarlos. Registralos tanto en el hecho de familiares como en la relacion de interesados.
-5. **El acto para el que se pide autorizacion** *(negociacion — explicar antes de decidir)*. Anuncio fijo: "Concretamos el acto para el que se solicita la autorizacion." Explica antes de pedir datos: que la autorizacion se pide para actos determinados y no en abstracto; que el articulo 63 de la Ley de Jurisdiccion Voluntaria exige expresar el motivo, razonar la necesidad o conveniencia, identificar con precision el bien y decir a que se destinara el dinero; y que pedir mas de lo necesario retrasa o frustra el expediente. Pide despues, en turnos separados: a) descripcion del acto; b) identificacion precisa del bien o derecho; c) motivo; d) justificacion de la necesidad, utilidad o conveniencia **para la persona apoyada**, no para la familia; e) destino de la suma que se obtenga; f) valor economico del acto. Redacta ademas `{{fundamento_necesidad_autorizacion}}` con la razon **factica** por la que el acto exige actuar en nombre de la persona; es un dato distinto del bloque del articulo 287, que aporta la cita legal y se activa aparte. Comprueba si el acto figura en el articulo 287 y registra su ordinal. Confirmacion propia de cada dato.
+5. **El acto para el que se pide autorizacion** *(negociacion — explicar antes de decidir)*. Anuncio fijo: "Concretamos el acto para el que se solicita la autorizacion." Explica antes de pedir datos: que la autorizacion se pide para actos determinados y no en abstracto; que el articulo 63 de la Ley de Jurisdiccion Voluntaria exige expresar el motivo, razonar la necesidad o conveniencia, identificar con precision el bien y decir a que se destinara el dinero; y que pedir mas de lo necesario retrasa o frustra el expediente. Pide despues, en turnos separados: a) descripcion del acto; b) identificacion precisa del bien o derecho; c) motivo; d) justificacion de la necesidad, utilidad o conveniencia **para la persona apoyada**, no para la familia; e) destino de la suma que se obtenga; f) valor economico del acto. Redacta ademas `{{FUNDAMENTO_NECESIDAD_AUTORIZACION}}` con la razon **factica** por la que el acto exige actuar en nombre de la persona; es un dato distinto del bloque del articulo 287, que aporta la cita legal y se activa aparte. Comprueba si el acto figura en el articulo 287 y registra su ordinal. Confirmacion propia de cada dato.
 6. **Venta directa o subasta** *(negociacion — condicional, solo si el acto es de disposicion)*. Anuncio fijo: "Valoramos si conviene pedir que la autorizacion se extienda a la venta directa." Explica que el articulo 287.2.º preve la venta directa salvo que el Tribunal considere necesaria la subasta, y que el articulo 63.3 de la Ley de Jurisdiccion Voluntaria permite pedirla acompanando dictamen pericial de valoracion del precio de mercado. Pregunta si dispone de esa valoracion y cual es el precio minimo. Si no dispone de ella, advierte de que sin dictamen es dificil que se conceda.
-7. **Voluntad, deseos y preferencias de la persona apoyada** *(negociacion — explicar antes de decidir)*. Anuncio fijo: "Recogemos lo que la propia persona quiere y prefiere sobre este acto." El valor de V4 ya esta resuelto. Si puede expresarse: pide que relate que ha manifestado y como se le ha consultado, y recuerda que la autorizacion debera ejercitarse conforme a esa voluntad (articulo 264). Si su respuesta contradice el acto que se pretende, hazlo notar antes de continuar y ofrece escalacion. Si no puede expresarse: pide en que ha consistido el esfuerzo por averiguarlo y que se conoce de su trayectoria vital, creencias y valores (articulo 249, parrafo tercero). El hecho QUINTO del asset tiene **dos bloques condicionales excluyentes**, uno por cada valor de V4: activa exactamente uno, nunca los dos ni ninguno. Con V4 = 2 esta prohibido escribir "esta voluntad se ha recabado del siguiente modo" ni afirmar que la autorizacion se ejercitara conforme a una voluntad que no ha podido determinarse: el criterio que se invoca es el del articulo 249, parrafo tercero.
+7. **Voluntad, deseos y preferencias de la persona apoyada** *(negociacion — explicar antes de decidir)*. Anuncio fijo: "Recogemos lo que la propia persona quiere y prefiere sobre este acto." El valor de V4 ya esta resuelto. Si puede expresarse: pide que relate que ha manifestado y como se le ha consultado, y recuerda que la autorizacion debera ejercitarse conforme a esa voluntad (articulo 264). Si su respuesta contradice el acto que se pretende, hazlo notar antes de continuar y ofrece escalacion. Si no puede expresarse: pide en que ha consistido el esfuerzo por averiguarlo y que se conoce de su trayectoria vital, creencias y valores (articulo 249, parrafo tercero). El hecho QUINTO del asset tiene **dos bloques condicionales excluyentes**, uno por cada valor de V4: activa exactamente uno, nunca los dos ni ninguno. Con V4 = no_puede_expresar esta prohibido escribir "esta voluntad se ha recabado del siguiente modo" ni afirmar que la autorizacion se ejercitara conforme a una voluntad que no ha podido determinarse: el criterio que se invoca es el del articulo 249, parrafo tercero.
 8. **Conflicto de intereses** *(negociacion — condicional)*. Anuncio fijo: "Verificamos si en este acto concurre algun interes contrapuesto." Pregunta si el guardador o un familiar directo tiene algun interes en el acto (por ejemplo, si es comprador, coheredero o beneficiario). Si lo hay, explica el articulo 295.2.º, activa el OTROSI de defensor judicial y, si el conflicto es intenso, escala.
 9. **Postulacion** *(dato objetivo con explicacion)*. Anuncio fijo: "Determinamos si es necesario intervenir con abogado y procurador." Con el valor del acto ya conocido, informa: si no supera los 6.000 euros no son preceptivos; si lo supera, la solicitud inicial puede presentarse igualmente sin ellos, aunque el Tribunal puede ordenar despues la actuacion por medio de abogado (articulo 62.3 de la Ley de Jurisdiccion Voluntaria). Pregunta si desea comparecer con representacion y activa el bloque que corresponda.
 10. **Documentos** *(dato objetivo)*. Anuncio fijo: "Relacionamos los documentos que se acompanaran." Pide que documentos se aportaran (acreditacion de la situacion de apoyo, documentacion del bien, valoracion pericial, poder si lo hay) y numeralos correlativamente con los hechos.
-11. **Organo, lugar y fecha** *(dato objetivo con validacion)*. Anuncio fijo: "Determinamos el organo competente y cerramos con el lugar y la fecha." El competente es el del **lugar de residencia de la persona con discapacidad** (articulo 62.1 de la Ley de Jurisdiccion Voluntaria), no el del domicilio del guardador: confirmalo expresamente si difieren. Pregunta la denominacion del organo en ese partido judicial y activa el bloque de "Juzgado de Primera Instancia" si el Tribunal de Instancia no esta aun constituido. Resuelve `{{ordinal_hecho_acto}}` y los demas ordinales dinamicos. Lugar de firma; fecha del dia salvo indicacion en contrario.
+11. **Organo, lugar y fecha** *(dato objetivo con validacion)*. Anuncio fijo: "Determinamos el organo competente y cerramos con el lugar y la fecha." El competente es el del **lugar de residencia de la persona con discapacidad** (articulo 62.1 de la Ley de Jurisdiccion Voluntaria), no el del domicilio del guardador: confirmalo expresamente si difieren. Pregunta la denominacion del organo en ese partido judicial y activa el bloque de "Juzgado de Primera Instancia" si el Tribunal de Instancia no esta aun constituido. Resuelve `{{ORDINAL_HECHO_ACTO}}` y los demas ordinales dinamicos. Lugar de firma; fecha del dia salvo indicacion en contrario.
 
 ### Secciones — HOJA CURATELA
 
-1. **Promotor de la solicitud** *(dato objetivo — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Comenzamos por sus datos como promotor de la solicitud." Solicita en bloque mediante `slot_filling_request`: a) nombre y apellidos; b) DNI o NIE; c) domicilio, telefono y correo electronico; d) relacion con la persona a la que se refiere la solicitud. Verifica legitimacion del art. 42 bis a).3 LJV. Vista previa en chat, confirmación y `Edit`.
-2. **La persona que precisa apoyo** *(dato objetivo — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Pasamos a los datos de la persona que precisa el apoyo." Solicita en bloque mediante `slot_filling_request`: a) nombre y apellidos; b) DNI o NIE; c) fecha de nacimiento; d) domicilio de residencia; e) situacion personal; f) situacion economica y patrimonial. Describe siempre necesidades observables. Vista previa en chat, confirmación y `Edit`.
+1. **Promotor de la solicitud** *(dato objetivo — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Comenzamos por sus datos como promotor de la solicitud." Solicita en bloque mediante `slot_filling_request`: a) nombre y apellidos; b) DNI o NIE; c) domicilio, telefono y correo electronico; d) relacion con la persona a la que se refiere la solicitud. Verifica legitimacion del art. 42 bis a).3 LJV. Vista previa en chat, confirmación y `edit_file`.
+2. **La persona que precisa apoyo** *(dato objetivo — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Pasamos a los datos de la persona que precisa el apoyo." Solicita en bloque mediante `slot_filling_request`: a) nombre y apellidos; b) DNI o NIE; c) fecha de nacimiento; d) domicilio de residencia; e) situacion personal; f) situacion economica y patrimonial. Describe siempre necesidades observables. Vista previa en chat, confirmación y `edit_file`.
 3. **Necesidades concretas de apoyo** *(negociacion — explicar antes de decidir)*. Anuncio fijo: "Concretamos en que ambitos necesita apoyo." Explica antes de preguntar que la resolucion debe fijar los actos **de manera precisa** (articulo 269) y que no cabe una curatela generica: en todo lo demas la persona conserva y ejerce su capacidad juridica sin apoyo. Pide, en turnos separados: a) ambitos concretos en que se necesita apoyo, uno a uno; b) por que ese apoyo se necesita de modo continuado y no solo de vez en cuando. Si la respuesta a b) revela una necesidad meramente ocasional, aplica el filtro del defensor judicial y detente.
 4. **Inexistencia de otra medida suficiente** *(negociacion — explicar antes de decidir)*. Anuncio fijo: "Justificamos ahora por que ninguna medida menos intensa resulta suficiente." Es el hecho decisivo del escrito. Pide, en turnos separados: a) situacion de las medidas voluntarias, y si existe algun poder, que dice y por que no basta; b) situacion de la guarda de hecho, y si alguien se ocupaba, por que ha dejado de ser suficiente; c) por que no basta un apoyo ocasional. Rechaza respuestas genericas del tipo "porque hace falta": pide el hecho concreto que lo demuestra, porque es lo que el articulo 269 exige motivar.
 5. **Actos para los que se precisa asistencia** *(negociacion — explicar antes de decidir)*. Anuncio fijo: "Determinamos los actos concretos para los que necesitara la asistencia del curador." Pide la relacion, acto por acto, en turnos sucesivos hasta que el cliente indique que no hay mas. Explica que cuanto mas amplia sea la peticion, mas probable es que el Tribunal la reduzca, y que lo no incluido queda en el ambito de decision libre de la persona.
-6. **Facultades representativas** *(negociacion — explicar antes de decidir; condicional, solo si V3 = 2)*. Anuncio fijo: "Valoramos para que actos resulta imprescindible que el curador actue en su nombre." Explica antes de pedir nada: que la representacion es excepcional (articulo 269, parrafo tercero), que exige resolucion motivada acto por acto, que solo procede cuando pese a un esfuerzo considerable no sea posible determinar la voluntad de la persona (articulo 249, parrafo tercero), y que el curador representativo debera hacer inventario en sesenta dias, pedir autorizacion judicial para cada acto del articulo 287 y rendir cuentas. Pide despues, acto por acto, la justificacion individual. Si el cliente no puede justificar alguno, no lo incluyas.
-7. **Voluntad, deseos y preferencias de la persona** *(negociacion — explicar antes de decidir)*. Anuncio fijo: "Recogemos lo que la propia persona quiere y prefiere." El valor de V4 ya esta resuelto. Si puede expresarse: pide que ha manifestado sobre el apoyo que necesita y sobre quien desea que se lo preste, y como se le ha consultado. Si no puede: pide en que consistio el esfuerzo por averiguarlo y que se conoce de su trayectoria vital, creencias y valores, y activa el bloque correspondiente. Resuelve `{{ordinal_hecho_voluntad}}`.
-8. **Persona propuesta como curador** *(negociacion — explicar antes de decidir)*. Anuncio fijo: "Pasamos a quien ejercera el apoyo." Explica antes: el orden del articulo 276, que la propuesta de la propia persona vincula al Tribunal (articulo 272), que discrepar sobre quien sea el curador **no** convierte el expediente en contencioso (articulo 42 bis b).5 de la Ley de Jurisdiccion Voluntaria), y las causas de exclusion del articulo 275 y del ultimo parrafo del articulo 250. Pide, en turnos separados: a) persona propuesta y sus datos identificativos; b) razones de idoneidad; c) que opina la persona apoyada sobre esa designacion; d) si existe escritura de autocuratela; e) sustitutos; f) si conviene separar el curador de la persona y el de los bienes (articulo 277) y por que. Verifica las causas de exclusion antes de escribir el nombre. Resuelve `{{ordinal_hecho_curador}}`.
-9. **Salvaguardas, control y revision** *(negociacion — explicar antes de decidir)*. Anuncio fijo: "Establecemos las salvaguardas y el plazo de revision." Explica los articulos 270 y 249: medidas de control, informes periodicos, y en su caso fianza (articulo 284) e inventario (articulo 285, obligatorio si hay representacion). Explica el articulo 268: revision en un maximo de tres anos, excepcional y motivadamente hasta seis, y en todo caso ante cualquier cambio. Pide, en turnos separados: a) salvaguardas que se proponen; b) plazo de revision. Resuelve `{{ordinal_hecho_salvaguardas}}`.
-10. **Dictamen pericial y prueba** *(dato objetivo con validacion bloqueante — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Concretamos el dictamen pericial que debe acompanar la solicitud." Solicita en bloque mediante `slot_filling_request`: a) si dispone de dictamen de profesionales especializados; b) autor y fecha; c) qué medidas aconseja. Si no dispone de él, advierte que la solicitud no puede presentarse sin él. Vista previa en chat, confirmación y `Edit`.
-11. **Interesados a citar** *(dato objetivo)*. Anuncio fijo: "Relacionamos a las personas que deben ser citadas a la comparecencia." Pide conyuge o pareja no separada, descendientes, ascendientes y hermanos, con nombre y domicilio de cada uno. Advierte de que la omision de alguno provoca subsanacion o nulidad. Resuelve `{{ordinal_hecho_interesados}}`.
+6. **Facultades representativas** *(negociacion — explicar antes de decidir; condicional, solo si V3 = representativa)*. Anuncio fijo: "Valoramos para que actos resulta imprescindible que el curador actue en su nombre." Explica antes de pedir nada: que la representacion es excepcional (articulo 269, parrafo tercero), que exige resolucion motivada acto por acto, que solo procede cuando pese a un esfuerzo considerable no sea posible determinar la voluntad de la persona (articulo 249, parrafo tercero), y que el curador representativo debera hacer inventario en sesenta dias, pedir autorizacion judicial para cada acto del articulo 287 y rendir cuentas. Pide despues, acto por acto, la justificacion individual. Si el cliente no puede justificar alguno, no lo incluyas.
+7. **Voluntad, deseos y preferencias de la persona** *(negociacion — explicar antes de decidir)*. Anuncio fijo: "Recogemos lo que la propia persona quiere y prefiere." El valor de V4 ya esta resuelto. Si puede expresarse: pide que ha manifestado sobre el apoyo que necesita y sobre quien desea que se lo preste, y como se le ha consultado. Si no puede: pide en que consistio el esfuerzo por averiguarlo y que se conoce de su trayectoria vital, creencias y valores, y activa el bloque correspondiente. Resuelve `{{ORDINAL_HECHO_VOLUNTAD}}`.
+8. **Persona propuesta como curador** *(negociacion — explicar antes de decidir)*. Anuncio fijo: "Pasamos a quien ejercera el apoyo." Explica antes: el orden del articulo 276, que la propuesta de la propia persona vincula al Tribunal (articulo 272), que discrepar sobre quien sea el curador **no** convierte el expediente en contencioso (articulo 42 bis b).5 de la Ley de Jurisdiccion Voluntaria), y las causas de exclusion del articulo 275 y del ultimo parrafo del articulo 250. Pide, en turnos separados: a) persona propuesta y sus datos identificativos; b) razones de idoneidad; c) que opina la persona apoyada sobre esa designacion; d) si existe escritura de autocuratela; e) sustitutos; f) si conviene separar el curador de la persona y el de los bienes (articulo 277) y por que. Verifica las causas de exclusion antes de escribir el nombre. Resuelve `{{ORDINAL_HECHO_CURADOR}}`.
+9. **Salvaguardas, control y revision** *(negociacion — explicar antes de decidir)*. Anuncio fijo: "Establecemos las salvaguardas y el plazo de revision." Explica los articulos 270 y 249: medidas de control, informes periodicos, y en su caso fianza (articulo 284) e inventario (articulo 285, obligatorio si hay representacion). Explica el articulo 268: revision en un maximo de tres anos, excepcional y motivadamente hasta seis, y en todo caso ante cualquier cambio. Pide, en turnos separados: a) salvaguardas que se proponen; b) plazo de revision. Resuelve `{{ORDINAL_HECHO_SALVAGUARDAS}}`.
+10. **Dictamen pericial y prueba** *(dato objetivo con validacion bloqueante — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Concretamos el dictamen pericial que debe acompanar la solicitud." Solicita en bloque mediante `slot_filling_request`: a) si dispone de dictamen de profesionales especializados; b) autor y fecha; c) qué medidas aconseja. Si no dispone de él, advierte que la solicitud no puede presentarse sin él. Vista previa en chat, confirmación y `edit_file`.
+11. **Interesados a citar** *(dato objetivo)*. Anuncio fijo: "Relacionamos a las personas que deben ser citadas a la comparecencia." Pide conyuge o pareja no separada, descendientes, ascendientes y hermanos, con nombre y domicilio de cada uno. Advierte de que la omision de alguno provoca subsanacion o nulidad. Resuelve `{{ORDINAL_HECHO_INTERESADOS}}`.
 12. **Medidas provisionales y otros otrosies** *(negociacion — condicional)*. Anuncio fijo: "Valoramos si conviene pedir alguna medida mientras se tramita el expediente." Pregunta si existe un riesgo actual para la persona o para su patrimonio. Si lo hay, activa el OTROSI de medidas provisionales (articulo 762 de la Ley de Enjuiciamiento Civil) y, si el riesgo es patrimonial, el de defensor judicial (articulo 295.4.º del Codigo Civil). Pregunta despues si desea que se recabe informe de la entidad publica o del tercer sector sobre alternativas de apoyo (articulo 42 bis b).2 de la Ley de Jurisdiccion Voluntaria), explicando que refuerza la solicitud precisamente porque acredita que se han explorado. Y pregunta si la persona necesita algun ajuste de accesibilidad para comprender el procedimiento (articulo 7 bis de la misma ley).
-13. **Postulacion y documentos** *(dato objetivo)*. Anuncio fijo: "Cerramos con la representacion y los documentos que se acompanaran." Sub-apartados: a) si comparece con abogado y procurador; b) si es previsible que la persona designe defensa propia o procede pedir defensor judicial (articulo 42 bis a).4 de la Ley de Jurisdiccion Voluntaria); c) relacion de documentos, numerados correlativamente con los hechos, con el dictamen pericial como documento propio. Resuelve `{{ordinal_fundamento_designacion}}`, `{{ordinal_fundamento_salvaguardas}}` y `{{ordinal_fundamento_tramite}}`.
+13. **Postulacion y documentos** *(dato objetivo)*. Anuncio fijo: "Cerramos con la representacion y los documentos que se acompanaran." Sub-apartados: a) si comparece con abogado y procurador; b) si es previsible que la persona designe defensa propia o procede pedir defensor judicial (articulo 42 bis a).4 de la Ley de Jurisdiccion Voluntaria); c) relacion de documentos, numerados correlativamente con los hechos, con el dictamen pericial como documento propio. Resuelve `{{ORDINAL_FUNDAMENTO_DESIGNACION}}`, `{{ORDINAL_FUNDAMENTO_SALVAGUARDAS}}` y `{{ORDINAL_FUNDAMENTO_TRAMITE}}`.
 14. **Organo, lugar y fecha** *(dato objetivo con validacion)*. Anuncio fijo: "Determinamos el organo competente y cerramos con el lugar y la fecha." El competente es el del **lugar de residencia de la persona con discapacidad** (articulo 42 bis a).2 de la Ley de Jurisdiccion Voluntaria), o el que conocio del expediente previo si la via es contenciosa (articulo 756.2 de la Ley de Enjuiciamiento Civil). Pregunta la denominacion del organo y si existe Seccion de Familia, Infancia y Capacidad; activa el bloque de "Juzgado de Primera Instancia" donde el Tribunal de Instancia no este constituido. Lugar de firma; fecha del dia salvo indicacion en contrario.
 
 Al rellenar cualquier hoja, aplica el estilo de `references/estilo-redaccion-escritos.md`: terminologia de la regla cero sin excepcion, necesidades de apoyo observables en lugar de diagnosticos, HECHOS numerados con una idea por apartado, documentos relacionados y numerados, actos individualizados uno por linea, voz activa, sin latinismos, y SUPLICO ajustado a lo estrictamente pedido.
@@ -310,7 +338,7 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 ## Límites Legales y Guardrails de Dominio (Gobernados por Vectores)
 
 1. **Terminologia.** Prohibido emplear, en el chat o en el documento, "incapaz", "incapacitado", "presunto incapaz", "incapacitacion", "modificacion de la capacidad", "tutela" o "tutor" referidos a una persona adulta, "someter a curatela", "el discapacitado" o "padece". La terminologia correcta es "persona con discapacidad", "medidas de apoyo", "provision de apoyos", "curatela" y "curador". Si el usuario emplea la antigua, corrigela una sola vez, sin reproche, y sigue con la correcta. Es el error mas frecuente y resulta ofensivo.
-2. **Verificacion previa.** Verificar siempre el Codigo Civil, la Ley 15/2015 y, si procede, la LEC en el BOE antes de redactar (Punto 2). Sin verificacion, no proceder. Si se detecta una version posterior a la registrada, aplicar la redacción vigente directamente sobre el documento a redactar en el workspace del usuario.
+2. **Verificacion previa.** Verificar siempre el Codigo Civil, la Ley 15/2015 y, si procede, la LEC en el BOE antes de redactar (Fase 2). Sin verificacion, no proceder. Si se detecta una version posterior a la registrada, aplicar la redacción vigente directamente sobre el documento a redactar en el workspace del usuario.
 3. **Subsidiariedad (Art. 269 CC).** Nunca enrutar a la curatela sin haber aplicado el filtro: la curatela solo procede cuando no existe otra medida de apoyo suficiente. La guarda de hecho que funciona **es** una medida de apoyo, no un vacio que haya que llenar.
 4. **Voluntad, deseos y preferencias (Art. 249 CC).** El criterio de actuacion no es el "interes superior" ni el "beneficio" de la persona segun el juicio de la familia, sino su voluntad, deseos y preferencias. Nunca redactes un documento que las contradiga sin haberlo hecho notar expresamente al cliente.
 5. **Representacion excepcional (Arts. 249 y 269 CC).** Las facultades representativas se piden solo para los actos en que resulten imprescindibles, y se justifican una a una. Nunca redactar una peticion de curatela representativa en bloque.
@@ -322,7 +350,7 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 11. **La skill no valora la capacidad de nadie.** No emite juicios clinicos ni sustituye el dictamen pericial ni el juicio notarial. Si el usuario pide una valoracion de si la persona "esta capacitada", declinar y derivar.
 12. **Internamiento no voluntario (Art. 763 LEC).** Fuera de alcance en todo caso. Detener y escalar de inmediato, incluso si se plantea como urgente.
 13. **Menores de edad.** Fuera de alcance: se rigen por la patria potestad o la tutela de menores. Detener y escalar.
-14. **Cero invenciones.** Nunca inventar datos, fechas, diagnosticos, numeros de protocolo ni jurisprudencia. Los campos no proporcionados quedan como `{{dato}}`.
+14. **Cero invenciones.** Nunca inventar datos, fechas, diagnosticos, numeros de protocolo ni jurisprudencia. Los campos no proporcionados quedan como `{{DATO}}`.
 15. **Revision periodica.** Informar siempre, en la hoja CURATELA, de que las medidas se revisaran en un plazo maximo de tres anos y en todo caso ante cualquier cambio en la situacion de la persona (Art. 268 CC). No presentarla como una situacion definitiva.
 
 ### Supuestos Fuera de Alcance (Cómo NO usar esta skill)
