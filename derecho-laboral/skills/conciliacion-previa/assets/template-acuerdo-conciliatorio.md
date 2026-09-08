@@ -32,14 +32,14 @@
 
 ### TERCERA — Cantidad acordada
 
-La empresa abonará a la parte solicitante la cantidad bruta de **{{importe_acordado: importe en euros}} euros**, con el siguiente desglose:
+La empresa abonará a la parte solicitante la cantidad bruta de **{{importe_acordado: importe en euros — calculado, suma de los conceptos del acuerdo}} euros**, con el siguiente desglose:
 
 | Concepto | Importe bruto | Tratamiento fiscal |
 |---|---|---|
 | Indemnización por despido improcedente | {{importe_indemnizacion: importe en euros}} € | {{tratamiento_fiscal_indemnizacion: tratamiento fiscal}} |
 | Liquidación de partes proporcionales | {{importe_finiquito: importe en euros}} € | Rendimiento del trabajo, sujeto a retención |
-| {{concepto_adicional: concepto adicional}} | {{importe_adicional: importe en euros}} € | {{tratamiento_fiscal_adicional: tratamiento fiscal}} |
-| **TOTAL** | **{{importe_acordado: importe en euros}} €** | |
+| {{concepto_adicional: concepto del cargo adicional}} | {{importe_adicional: importe en euros}} € | {{tratamiento_fiscal_adicional: tratamiento fiscal}} |
+| **TOTAL** | **{{importe_acordado: importe en euros — calculado, suma de los conceptos del acuerdo}} €** | |
 
 ### CUARTA — Forma y plazo de pago
 

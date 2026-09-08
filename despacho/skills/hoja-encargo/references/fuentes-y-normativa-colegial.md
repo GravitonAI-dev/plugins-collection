@@ -2,6 +2,8 @@
 
 > Material de referencia para la skill `hoja-encargo`.
 
+> **Nota de mantenimiento:** la tabla de fuentes, la doctrina de las tres capas colegiales, los criterios orientativos de honorarios y las magnitudes fiscales de este archivo son las mismas que en `../minuta-jura-cuentas/references/fuentes-y-normativa-colegial.md`. Cada skill carga solo sus propias references, por lo que la duplicación es necesaria: **todo cambio en esas cuatro secciones debe aplicarse en los dos archivos.**
+
 ---
 
 ## Regla de verificación permanente (OBLIGATORIA)

@@ -40,7 +40,7 @@ Redactado por: {{nombre_redactor: nombre y apellidos}}
 | Naturaleza de la operación | {{naturaleza_operacion: naturaleza de la operación}} |
 | Importe | {{importe_operacion: importe en euros}} |
 | Medios de pago empleados o previstos | {{medios_pago: medios de pago empleados o previstos}} |
-| Intervinientes | {{intervinientes: intervinientes}} |
+| Intervinientes | {{intervinientes: personas y entidades intervinientes}} |
 | Fechas relevantes | {{fechas_relevantes: fecha (DD/MM/AAAA)}} |
 | Jurisdicciones implicadas | {{jurisdicciones: jurisdicciones implicadas}} |
 | Estado de ejecución de la operación | {{estado_ejecucion: estado de ejecución de la operación}} |

@@ -131,7 +131,7 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
 - Si lo que el usuario quiere es un **testamento olografo, cerrado o mancomunado**, o un **pacto sucesorio** → **DETENER**: fuera de alcance. El mancomunado es ademas nulo en derecho comun (Art. 669 CC). Advertir y escalar.
 - Si el causante **ya ha fallecido** y lo que se pretende es aceptar, repudiar o partir la herencia → **DETENER**: esta skill cubre la fase previa, en vida. Derivar a `herencia`.
 
-### Validacion de presupuestos (interno, antes de la Fase 3)
+### 1.4 Validacion de presupuestos (interno, antes de la Fase 3)
 
 - **Capacidad para testar (Arts. 662, 663 y 665 CC):** si el testador es **menor de catorce anos**, detener: no puede testar (Art. 663.1.º). Si el testador no puede conformar o expresar su voluntad ni aun con ayuda de medios o apoyos, detener y escalar (Art. 663.2.º). Si el cliente plantea dudas sobre la capacidad del testador, **no la valores**: el juicio de capacidad corresponde al Notario (Arts. 665, 685 y 696 CC), que la aprecia atendiendo al estado en que se halle al tiempo del otorgamiento (Art. 666). Advierte, recomienda anticipar la cuestion con la notaria y ofrece escalacion. Tras la Ley 8/2021 ya no se exige el dictamen previo de dos facultativos.
 - **Renuncia anticipada a la legitima (Art. 816 CC):** si el cliente propone que un hijo renuncie ahora a su legitima, o pactar con el su importe, **rechazar**: toda renuncia o transaccion sobre la legitima futura es nula. Explicarlo y no recogerlo en ningun documento.

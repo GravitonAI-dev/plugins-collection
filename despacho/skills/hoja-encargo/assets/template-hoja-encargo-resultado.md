@@ -59,8 +59,8 @@ Obtenido el resultado en los términos definidos en la estipulación anterior, e
 | Concepto | Importe |
 |---|---|
 | Base de la retribución variable | {{base_variable: importe en euros}} € |
-| Impuesto sobre el valor añadido ({{tipo_iva: porcentaje}} %) | {{importe_iva_variable: importe en euros}} € |
-| **Total** | **{{total_variable: importe en euros}} €** |
+| Impuesto sobre el valor añadido ({{tipo_iva: porcentaje}} %) | {{importe_iva_variable: importe en euros — calculado, base por el tipo de IVA}} € |
+| **Total** | **{{total_variable: importe en euros — calculado, base variable más IVA}} €** |
 
 {{parrafo_limite_maximo_variable: bloque condicional que inserta la skill}}
 

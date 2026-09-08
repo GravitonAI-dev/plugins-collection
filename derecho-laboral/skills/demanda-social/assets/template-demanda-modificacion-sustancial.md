@@ -6,7 +6,7 @@
 
 ---
 
-**AL JUZGADO DE LO SOCIAL DE {{partido_judicial: partido judicial}}**
+**AL JUZGADO DE LO SOCIAL DE {{partido_judicial: localidad del juzgado}}**
 
 {{nombre_representante_procesal: nombre y apellidos}}, {{condicion_representante_procesal: condición: abogado, procurador o graduado social}}, con número de colegiado {{numero_colegiado: número de colegiado}} y domicilio a efectos de notificaciones en {{domicilio_notificaciones: domicilio completo}}, en nombre y representación de **{{nombre_demandante: nombre y apellidos}}**, mayor de edad, con DNI/NIE {{dni_demandante: DNI/NIE}} y domicilio en {{domicilio_demandante: domicilio completo}}, según acredito mediante {{titulo_representacion: título que acredita la representación}}, ante el Juzgado comparezco y como mejor proceda en Derecho
 

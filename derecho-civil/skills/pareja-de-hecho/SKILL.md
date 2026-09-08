@@ -133,7 +133,7 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
 - Si lo que se pretende es tramitar la inscripcion ante el registro, o presentar la solicitud en nombre del cliente → **DETENER** esa pretension concreta: la skill prepara la documentacion y el checklist, pero la solicitud la presenta la propia pareja. Continuar con la HOJA INSCRIPCION advirtiendolo.
 - Si aparecen indicios de violencia entre los convivientes → **DETENER de inmediato**, en el mismo turno, sin crear ni continuar ningun documento. Advertir y escalar a asistencia juridica especializada.
 
-### Validacion de presupuestos (interno, antes de la Fase 3)
+### 1.4 Validacion de presupuestos (interno, antes de la Fase 3)
 
 - **TODAS LAS HOJAS:** ninguno de los convivientes puede estar unido por vinculo matrimonial con otra persona ni tener otra pareja de hecho constituida. Si consta que si, advertir de que la constitucion de la pareja no es posible y de que un pacto entre ellos puede afectar a derechos de terceros; detener la rama de inscripcion y escalar.
 - **TODAS LAS HOJAS:** si los convivientes residen en comunidades autonomas distintas, tienen vecindad civil distinta, o concurre elemento internacional (residencia fuera de Espana, pareja constituida en el extranjero) → advertir de que la determinacion de la ley aplicable y del registro competente excede de lo que puede resolverse aqui, y escalar. En la rama de inscripcion, no continuar sin esa aclaracion.

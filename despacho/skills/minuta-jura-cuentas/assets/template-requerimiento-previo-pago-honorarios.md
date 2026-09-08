@@ -37,17 +37,17 @@ A la fecha de la presente, la cantidad pendiente de abono es la siguiente:
 
 | Concepto | Importe |
 |---|---|
-| Total minuta n.º {{numero_minuta: referencia alfanumérica}} | {{total_minuta: importe en euros}} € |
+| Total minuta n.º {{numero_minuta: referencia alfanumérica}} | {{total_minuta: importe en euros — calculado, subtotal de honorarios más suplidos}} € |
 | Cantidades percibidas a cuenta | -{{cantidades_abonadas: importe en euros}} € |
-| **Principal adeudado** | **{{principal_adeudado: importe en euros}} €** |
+| **Principal adeudado** | **{{principal_adeudado: importe en euros — calculado, total minuta menos lo percibido}} €** |
 | {{concepto_intereses: concepto de los intereses reclamados}} | {{importe_intereses: importe en euros}} € |
-| **Total adeudado** | **{{total_adeudado: importe en euros}} €** |
+| **Total adeudado** | **{{total_adeudado: importe en euros — calculado, principal más intereses}} €** |
 
 {{parrafo_fundamento_intereses: bloque condicional que inserta la skill}}
 
 ## CUARTO — Requerimiento
 
-Por medio de la presente le **requerimos formalmente** para que proceda al abono de la cantidad de **{{total_adeudado: importe en euros}} euros**, mediante transferencia a la cuenta {{iban_despacho: IBAN}}, en el plazo improrrogable de **{{plazo_pago: plazo de pago en días}}** desde la recepción de este escrito.
+Por medio de la presente le **requerimos formalmente** para que proceda al abono de la cantidad de **{{total_adeudado: importe en euros — calculado, principal más intereses}} euros**, mediante transferencia a la cuenta {{iban_despacho: IBAN}}, en el plazo improrrogable de **{{plazo_pago: plazo de pago en días}}** desde la recepción de este escrito.
 
 {{parrafo_ofrecimiento_fraccionamiento: bloque condicional que inserta la skill}}
 

@@ -143,7 +143,7 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
 - Si V1 = 2 pero el cliente manifiesta que aun no ha intentado el acuerdo → antes de enrutar a la HOJA JUDICIAL, aplica la explicacion de la seccion de dialogo previo descrita mas abajo: no se le impone el acuerdo, pero se le informa del coste real de la via judicial. Si tras la explicacion decide intentar el acuerdo, reenruta a la HOJA CONVENIO.
 - Si el usuario pide unicamente la propuesta de inventario como documento de trabajo para remitirsela a su conyuge o a su abogado, sin escrito judicial → generar solo `assets/template-propuesta-inventario.md`, sin la solicitud.
 
-### Validacion de presupuestos (interno, antes de la Fase 3)
+### 1.4 Validacion de presupuestos (interno, antes de la Fase 3)
 
 - **Estado de la disolucion (Art. 1392 CC), en las dos hojas — distinguir tres situaciones y NO confundirlas.** La causa de disolucion es la disolucion del matrimonio, la declaracion de nulidad, la separacion legal o el pacto de otro regimen en capitulaciones.
   1. **Sociedad ya disuelta** (resolucion matrimonial firme, o capitulaciones ya otorgadas): confirmar la fecha y la causa, y activar en el asset los bloques de disolucion ya producida y de fecha de corte.

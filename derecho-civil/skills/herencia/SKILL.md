@@ -129,8 +129,6 @@ Una vez resueltos los vectores necesarios, evalua:
 
 ---
 
----
-
 ## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
 
 En esta fase interactúas **directamente a través del chat (en texto plano conversacional, SIN formularios)** para compartir el plan de trabajo, el fundamento normativo y acordar la plantilla base con el usuario.
@@ -248,8 +246,6 @@ Recorre secuencialmente las secciones de la hoja enrutada. Por cada seccion inco
 8. **MASC (NEGOCIACION — requisito de procedibilidad).** Anuncio: "Debemos acreditar la actividad negociadora previa que exige la ley." Explica que la Ley Organica 1/2025 (articulo 5) exige el intento previo de un medio adecuado de solucion de controversias tambien en este procedimiento, y que sin justificante la solicitud puede inadmitirse (articulo 403.2 de la LEC). Pregunta que actividad se intento (tipo y fecha). Si no se intento ninguna, recomienda realizarla antes de presentar (p. ej. requerimiento fehaciente con propuesta de particion, mediacion o conciliacion) y ofrece dejar el hecho SEXTO con `{{DATO_FALTANTE}}` mientras tanto.
 9. **Juzgado y postulacion (dato objetivo).** Anuncio: "Determinamos el Juzgado competente y la postulacion procesal." El partido judicial se deriva del ultimo domicilio del causante ya recogido (Art. 52.1.4 LEC): proponlo en la vista previa sin volver a preguntarlo y confirma. Pide: a) nombre del Procurador; b) nombre del Letrado. Si aun no estan designados, quedan como `{{DATO_FALTANTE}}`. Pregunta si desea solicitar la intervencion del caudal y la formacion de inventario (Art. 783.1 LEC, si/no) y, en su caso, el motivo (bloque OTROSI).
 10. **Cierre (dato objetivo).** Anuncio: "Por ultimo, fijamos el lugar y la fecha del escrito." a) lugar; b) fecha.
-
----
 
 ---
 

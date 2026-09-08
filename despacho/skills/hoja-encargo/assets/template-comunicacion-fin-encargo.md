@@ -47,11 +47,11 @@ A la fecha de la presente, el estado del asunto es el siguiente:
 | Concepto | Importe |
 |---|---|
 | Honorarios devengados por las actuaciones realizadas | {{honorarios_devengados: importe en euros}} € |
-| Impuesto sobre el valor añadido ({{tipo_iva: porcentaje}} %) | {{importe_iva: importe en euros}} € |
+| Impuesto sobre el valor añadido ({{tipo_iva: porcentaje}} %) | {{importe_iva: importe en euros — calculado, base por el tipo de IVA}} € |
 | Gastos y suplidos justificados | {{gastos_suplidos: importe en euros}} € |
 | Provisión de fondos recibida | -{{provision_recibida: importe en euros}} € |
 | Cantidades ya abonadas | -{{cantidades_abonadas: importe en euros}} € |
-| **{{concepto_saldo: concepto del saldo: a favor del despacho o del cliente}}** | **{{importe_saldo: importe en euros}} €** |
+| **{{concepto_saldo: concepto del saldo: a favor del despacho o del cliente}}** | **{{importe_saldo: importe en euros — calculado, total menos provisión y cantidades abonadas}} €** |
 
 {{parrafo_devolucion_o_reclamacion_saldo: bloque condicional que inserta la skill}}
 

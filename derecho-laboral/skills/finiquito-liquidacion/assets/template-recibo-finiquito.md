@@ -40,7 +40,7 @@ En cumplimiento de lo dispuesto en el artículo 49.2 del texto refundido de la L
 | Vacaciones devengadas y no disfrutadas ({{dias_vacaciones_pendientes: número de días}} días) | {{calculo_vacaciones: detalle del cálculo}} | {{importe_vacaciones: importe en euros}} € |
 | {{concepto_adicional_1: concepto adicional}} | {{calculo_concepto_adicional_1: detalle del cálculo}} | {{importe_concepto_adicional_1: importe en euros}} € |
 | {{concepto_adicional_2: concepto adicional}} | {{calculo_concepto_adicional_2: detalle del cálculo}} | {{importe_concepto_adicional_2: importe en euros}} € |
-| **TOTAL DEVENGOS** | | **{{total_devengos: importe en euros}} €** |
+| **TOTAL DEVENGOS** | | **{{total_devengos: importe en euros — calculado, suma de los devengos}} €** |
 
 ### Deducciones
 
@@ -49,11 +49,11 @@ En cumplimiento de lo dispuesto en el artículo 49.2 del texto refundido de la L
 | Cotización a la Seguridad Social a cargo de la persona trabajadora | {{calculo_cotizacion_trabajador: detalle del cálculo}} | {{importe_cotizacion_trabajador: importe en euros}} € |
 | Retención a cuenta del Impuesto sobre la Renta de las Personas Físicas ({{tipo_retencion: porcentaje}} %) | {{calculo_retencion_irpf: detalle del cálculo}} | {{importe_retencion_irpf: importe en euros}} € |
 | {{concepto_deduccion_1: concepto de la deducción}} | {{detalle_deduccion_1: detalle del cálculo}} | {{importe_deduccion_1: importe en euros}} € |
-| **TOTAL DEDUCCIONES** | | **{{total_deducciones: importe en euros}} €** |
+| **TOTAL DEDUCCIONES** | | **{{total_deducciones: importe en euros — calculado, suma de las deducciones}} €** |
 
 ### Líquido a percibir
 
-**{{liquido_percibir: importe en euros}} euros**
+**{{liquido_percibir: importe en euros — calculado, devengos menos deducciones}} euros**
 
 {{parrafo_indemnizacion_extincion: bloque condicional que inserta la skill}}
 
@@ -71,7 +71,7 @@ A tal efecto se hace constar: {{constancia_presencia_representante: constancia s
 
 ## RECIBÍ
 
-Recibo de {{razon_social_empresa: razón social}} la cantidad líquida de {{liquido_percibir: importe en euros}} euros, por los conceptos que se detallan en la liquidación que antecede, correspondientes a la extinción de mi contrato de trabajo con efectos del día {{fecha_extincion: fecha (DD/MM/AAAA)}}.
+Recibo de {{razon_social_empresa: razón social}} la cantidad líquida de {{liquido_percibir: importe en euros — calculado, devengos menos deducciones}} euros, por los conceptos que se detallan en la liquidación que antecede, correspondientes a la extinción de mi contrato de trabajo con efectos del día {{fecha_extincion: fecha (DD/MM/AAAA)}}.
 
 {{formula_salvedad_firma: detalle del cálculo}}
 

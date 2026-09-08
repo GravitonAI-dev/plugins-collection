@@ -5,7 +5,7 @@
 
 ---
 
-**AL JUZGADO DE LO SOCIAL DE {{partido_judicial: partido judicial}}**
+**AL JUZGADO DE LO SOCIAL DE {{partido_judicial: localidad del juzgado}}**
 
 {{nombre_representante_procesal: nombre y apellidos}}, {{condicion_representante_procesal: condición: abogado, procurador o graduado social}}, con número de colegiado {{numero_colegiado: número de colegiado}} y domicilio a efectos de notificaciones en {{domicilio_notificaciones: domicilio completo}}, en nombre y representación de **{{nombre_demandante: nombre y apellidos}}**, mayor de edad, con DNI/NIE {{dni_demandante: DNI/NIE}} y domicilio en {{domicilio_demandante: domicilio completo}}, según acredito mediante {{titulo_representacion: título que acredita la representación}}, ante el Juzgado comparezco y como mejor proceda en Derecho
 
@@ -37,7 +37,7 @@ La parte actora {{situacion_relacion_laboral: situación: relación vigente o ex
 | {{concepto_2: concepto reclamado}} | {{periodo_2: periodo de devengo}} | {{calculo_2: detalle del cálculo}} | {{importe_2: importe en euros}} € |
 | {{concepto_3: concepto reclamado}} | {{periodo_3: periodo de devengo}} | {{calculo_3: detalle del cálculo}} | {{importe_3: importe en euros}} € |
 | {{concepto_4: concepto reclamado}} | {{periodo_4: periodo de devengo}} | {{calculo_4: detalle del cálculo}} | {{importe_4: importe en euros}} € |
-| **TOTAL PRINCIPAL** | | | **{{total_principal: importe en euros}} €** |
+| **TOTAL PRINCIPAL** | | | **{{total_principal: importe en euros — calculado, suma de los conceptos}} €** |
 
 Todos los conceptos reclamados se encuentran dentro del plazo de prescripción de un año del artículo 59 del texto refundido de la Ley del Estatuto de los Trabajadores, {{referencia_interrupcion_prescripcion: referencia al acto que interrumpió la prescripción}}.
 
@@ -69,7 +69,7 @@ Con fecha {{fecha_papeleta: fecha (DD/MM/AAAA)}} se presentó papeleta de concil
 
 **Por lo expuesto,**
 
-**SUPLICO AL JUZGADO** que, teniendo por presentado este escrito con sus documentos y copias, se sirva admitirlo, tener por formulada demanda de reclamación de cantidad contra las demandadas indicadas, dar traslado a las partes, señalar día y hora para los actos de conciliación y juicio, y en su día dictar sentencia por la que se condene a la parte demandada a abonar a la actora la cantidad de **{{total_principal: importe en euros}} euros** de principal, más el interés por mora del diez por ciento anual previsto en el artículo 29.3 del texto refundido de la Ley del Estatuto de los Trabajadores, con expresa imposición de costas si procediere.
+**SUPLICO AL JUZGADO** que, teniendo por presentado este escrito con sus documentos y copias, se sirva admitirlo, tener por formulada demanda de reclamación de cantidad contra las demandadas indicadas, dar traslado a las partes, señalar día y hora para los actos de conciliación y juicio, y en su día dictar sentencia por la que se condene a la parte demandada a abonar a la actora la cantidad de **{{total_principal: importe en euros — calculado, suma de los conceptos}} euros** de principal, más el interés por mora del diez por ciento anual previsto en el artículo 29.3 del texto refundido de la Ley del Estatuto de los Trabajadores, con expresa imposición de costas si procediere.
 
 Es Justicia que pido en {{lugar_presentacion: localidad}}, a {{fecha_demanda: fecha (DD/MM/AAAA)}}.
 

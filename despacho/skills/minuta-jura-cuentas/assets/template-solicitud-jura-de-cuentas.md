@@ -45,12 +45,12 @@ Se acompaña como documento número 1 la **minuta detallada** de honorarios n.º
 
 | Concepto | Importe |
 |---|---|
-| Base de honorarios | {{base_honorarios: importe en euros}} € |
-| Impuesto sobre el valor añadido ({{tipo_iva: porcentaje}} %) | {{importe_iva: importe en euros}} € |
-| Suplidos justificados | {{total_suplidos: importe en euros}} € |
-| **Total minuta** | **{{total_minuta: importe en euros}} €** |
+| Base de honorarios | {{base_honorarios: importe en euros — calculado, suma de los conceptos de honorario}} € |
+| Impuesto sobre el valor añadido ({{tipo_iva: porcentaje}} %) | {{importe_iva: importe en euros — calculado, base por el tipo de IVA}} € |
+| Suplidos justificados | {{total_suplidos: importe en euros — calculado, suma de los suplidos}} € |
+| **Total minuta** | **{{total_minuta: importe en euros — calculado, subtotal de honorarios más suplidos}} €** |
 | Cantidades percibidas a cuenta | -{{cantidades_abonadas: importe en euros}} € |
-| **Principal reclamado** | **{{principal_reclamado: importe en euros}} €** |
+| **Principal reclamado** | **{{principal_reclamado: importe en euros — calculado, total minuta menos lo percibido}} €** |
 
 ### QUINTO — Fundamento de la cuantía de los honorarios
 
@@ -78,7 +78,7 @@ A los efectos exigidos por el artículo 35.1 de la Ley de Enjuiciamiento Civil, 
 
 **Por lo expuesto,**
 
-**SUPLICO AL JUZGADO** que, teniendo por presentado este escrito con la minuta detallada y los documentos que se acompañan, se sirva admitirlo, tener por formulada reclamación de honorarios profesionales al amparo del artículo 35 de la Ley de Enjuiciamiento Civil frente a {{nombre_cliente: nombre y apellidos}}, y acordar requerir al deudor para que abone la cantidad de **{{principal_reclamado: importe en euros}} euros**, más las costas que se causen, o impugne la cuenta en el plazo legalmente previsto, bajo apercibimiento de apremio si no pagare ni formulare impugnación; y, en su caso, previos los trámites legales, dictar decreto determinando la cantidad que haya de satisfacerse, con apercibimiento de apremio.
+**SUPLICO AL JUZGADO** que, teniendo por presentado este escrito con la minuta detallada y los documentos que se acompañan, se sirva admitirlo, tener por formulada reclamación de honorarios profesionales al amparo del artículo 35 de la Ley de Enjuiciamiento Civil frente a {{nombre_cliente: nombre y apellidos}}, y acordar requerir al deudor para que abone la cantidad de **{{principal_reclamado: importe en euros — calculado, total minuta menos lo percibido}} euros**, más las costas que se causen, o impugne la cuenta en el plazo legalmente previsto, bajo apercibimiento de apremio si no pagare ni formulare impugnación; y, en su caso, previos los trámites legales, dictar decreto determinando la cantidad que haya de satisfacerse, con apercibimiento de apremio.
 
 Es Justicia que pido en {{lugar_presentacion: localidad}}, a {{fecha_escrito: fecha (DD/MM/AAAA)}}.
 

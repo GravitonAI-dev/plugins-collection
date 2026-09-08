@@ -4,7 +4,7 @@
 
 ---
 
-**AL JUZGADO DE LO SOCIAL DE {{partido_judicial: partido judicial}}**  
+**AL JUZGADO DE LO SOCIAL DE {{partido_judicial: localidad del juzgado}}**  
 {{bloque_identificacion_autos: bloque condicional que inserta la skill}}
 
 ## PARTE OTORGANTE

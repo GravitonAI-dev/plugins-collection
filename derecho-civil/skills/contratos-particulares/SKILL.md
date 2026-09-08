@@ -131,7 +131,7 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
 - Si el prestamo se garantiza con **hipoteca sobre un inmueble** → **DETENER**: puede entrar en el ambito de la Ley 5/2019 reguladora de los contratos de credito inmobiliario, con requisitos de transparencia y acta notarial previa que exceden el alcance de esta skill. Advertir y escalar.
 - Si **una de las partes es un consumidor y la otra actua como empresario o profesional** → **DETENER**: no es un contrato entre particulares. Se aplica la normativa de proteccion de consumidores (y, si es credito, la de credito al consumo), con controles de transparencia y abusividad propios. Advertir y escalar o derivar a `reclamacion-clausulas-abusivas` si lo que se pretende es impugnar una clausula ya firmada. No crear documento con estos assets.
 
-### Validacion de presupuestos (interno, antes de la Fase 3)
+### 1.4 Validacion de presupuestos (interno, antes de la Fase 3)
 
 - **TODAS LAS HOJAS (Art. 1261 CC):** confirmar que concurren consentimiento, objeto cierto y causa. Si el objeto no esta determinado ni es determinable sin nuevo acuerdo entre las partes (Art. 1273 CC), no redactar: pedir que se concrete.
 - **TODAS LAS HOJAS (Art. 1255 CC):** ningun pacto puede ser contrario a las leyes, a la moral ni al orden publico. Si el usuario pide un pacto que lo sea, rechazar la instruccion, explicar por que es nulo y proponer una alternativa valida.

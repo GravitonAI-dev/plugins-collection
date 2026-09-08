@@ -167,7 +167,7 @@ Es el nucleo de esta skill. El Art. 269 del Codigo Civil solo permite constituir
 
 **Aplica ademas, en ambos casos, el filtro de la necesidad ocasional:** si de lo relatado resulta que el apoyo se necesita solo de vez en cuando, aunque sea de forma recurrente, la medida proporcionada es el **defensor judicial** (Arts. 250 y 295.5.º CC), no la curatela. Adviertelo, explica la diferencia y ofrece escalacion: esta skill no genera la solicitud de defensor judicial.
 
-### Validacion de presupuestos (interno, antes de la Fase 3)
+### 1.4 Validacion de presupuestos (interno, antes de la Fase 3)
 
 - **HOJA VOLUNTARIA (Arts. 255 y 260 CC):** las medidas voluntarias exigen que el otorgante **comprenda el alcance del acto en el momento de la firma**, y ese juicio corresponde al Notario. Si de lo relatado resulta que la persona ya no esta en condiciones de otorgar, **adviertelo con claridad y reconduce**: la via ya no es la voluntaria, sino la guarda de hecho o la curatela. No prepares una minuta que el notario no vaya a poder autorizar.
 - **HOJA VOLUNTARIA (Art. 259 CC):** si el poder va a comprender todos los negocios del otorgante, adviertelo antes de redactarlo: el apoderado quedara sujeto a las reglas de la curatela en todo lo no previsto, incluidas las autorizaciones judiciales del Art. 287. Ofrece acotar las facultades.

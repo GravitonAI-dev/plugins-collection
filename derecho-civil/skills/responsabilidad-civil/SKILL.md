@@ -160,7 +160,7 @@ Una vez resueltos los vectores aplicables y superado el filtro de prescripcion, 
 - Si V3 = 3 y es **negligencia sanitaria** → advertir de que sin informe medico pericial que acredite la desviacion de la *lex artis* y el nexo causal la reclamacion no es viable, indicar que el primer paso material es obtener la historia clinica completa, y **escalar**.
 - Si el dano deriva de un **producto defectuoso** → advertir de que el regimen es el del texto refundido de la Ley General para la Defensa de los Consumidores y Usuarios, no verificado por esta skill, y escalar.
 
-### Validacion de presupuestos (interno, antes de la Fase 3)
+### 1.4 Validacion de presupuestos (interno, antes de la Fase 3)
 
 - **TODAS LAS HOJAS:** confirmar que existe un **dano real y acreditable**, no una molestia ni un riesgo de dano. Si el cliente no puede describir un menoscabo concreto ni el documento que lo soporta, decirlo antes de redactar: no hay reclamacion.
 - **TODAS LAS HOJAS:** confirmar que existe **soporte documental de cada partida** que se va a reclamar. Una partida sin soporte no se abarata: se elimina. Ver `references/estilo-redaccion-escritos.md`, apartado de prueba.

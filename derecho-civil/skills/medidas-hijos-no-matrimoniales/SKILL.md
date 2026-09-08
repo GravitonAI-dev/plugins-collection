@@ -159,7 +159,7 @@ Una vez resueltos los vectores aplicables, evalua **en este orden**:
 - Si lo que se reclama son **pensiones ya fijadas e impagadas** → **DETENER esta via** y derivar a `ejecucion-titulos`.
 - Si se pretende la **determinacion o impugnacion de la filiacion**, el **traslado internacional del menor** o medidas de proteccion frente a un **riesgo actual** para el menor → **DETENER** y escalar (ver tabla de Escalacion).
 
-### Validacion de presupuestos (interno, antes de la Fase 3)
+### 1.4 Validacion de presupuestos (interno, antes de la Fase 3)
 
 - **Minoria de edad de los hijos (art. 748.4.º LEC):** el proceso versa sobre hijos MENORES. Si todos los hijos son ya mayores de edad, esta via no procede: los alimentos del hijo mayor se reclaman por el cauce que corresponda y la guarda y custodia carece de objeto. Advertir y escalar. Si hay hijos menores y ademas hijos mayores sin ingresos que convivan, incluir solo a los menores en las medidas y advertir de que los alimentos del mayor tienen fundamento distinto (art. 93, parrafo 2.º, CC) y conviene revision por especialista.
 - **Objeto exclusivo (art. 748.4.º LEC):** el proceso debe versar **exclusivamente** sobre guarda, custodia y alimentos de los hijos menores. Si el usuario quiere acumular la division de un inmueble comun, una reclamacion de cantidad entre los progenitores o cualquier pretension patrimonial entre ellos, separarla expresamente: advertir de que no cabe en este procedimiento y ofrecer la via propia o la escalacion. La atribucion del uso de la vivienda en que residen los hijos si se admite en la practica cuando se funda en el interes del menor: se recoge con la advertencia de la seccion correspondiente.

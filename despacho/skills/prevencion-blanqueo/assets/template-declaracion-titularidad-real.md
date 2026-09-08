@@ -23,7 +23,7 @@ Expediente: {{referencia_expediente: referencia alfanumérica}}
 | Domicilio social | {{domicilio_entidad: domicilio completo}} |
 | País de constitución | {{pais_constitucion: país de constitución}} |
 | Datos de inscripción registral | {{datos_registrales: datos de inscripción registral}} |
-| Actividad real | {{actividad_real: actividad real}} |
+| Actividad real | {{actividad_real: actividad económica real}} |
 | Capital social y su composición | {{capital_social: importe en euros}} |
 
 ## 2. Titulares reales por participación en el capital o en los derechos de voto

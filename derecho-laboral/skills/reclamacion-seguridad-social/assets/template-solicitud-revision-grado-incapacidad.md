@@ -28,8 +28,8 @@
 | Número de expediente | {{numero_expediente: número de expediente}} |
 | Grado de incapacidad reconocido | {{grado_reconocido: grado de incapacidad reconocido}} |
 | Fecha de la resolución de reconocimiento | {{fecha_resolucion_reconocimiento: fecha (DD/MM/AAAA)}} |
-| Contingencia | {{contingencia: contingencia}} |
-| Base reguladora | {{base_reguladora: base reguladora}} |
+| Contingencia | {{contingencia: común o profesional}} |
+| Base reguladora | {{base_reguladora: importe mensual en euros}} |
 | Porcentaje aplicado | {{porcentaje_aplicado: porcentaje}} |
 | Plazo de revisión fijado | {{plazo_revision_fijado: plazo de revisión fijado}} |
 | Profesión habitual considerada | {{profesion_habitual: profesión habitual considerada}} |

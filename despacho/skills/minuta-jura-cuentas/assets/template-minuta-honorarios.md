@@ -41,7 +41,7 @@ Profesional responsable: {{nombre_profesional_responsable: nombre y apellidos}},
 | {{fecha_act_4: fecha (DD/MM/AAAA)}} | {{descripcion_act_4: descripción de la actuación}} | {{medida_act_4: tiempo dedicado en horas o hito de facturación}} |
 | {{fecha_act_5: fecha (DD/MM/AAAA)}} | {{descripcion_act_5: descripción de la actuación}} | {{medida_act_5: tiempo dedicado en horas o hito de facturación}} |
 | {{fecha_act_6: fecha (DD/MM/AAAA)}} | {{descripcion_act_6: descripción de la actuación}} | {{medida_act_6: tiempo dedicado en horas o hito de facturación}} |
-| **Total** | | **{{total_medida: total de horas o de hitos}}** |
+| **Total** | | **{{total_medida: total de horas o de hitos — calculado, suma de la columna}}** |
 
 ## 3. Fundamento de los honorarios
 
@@ -56,10 +56,10 @@ Profesional responsable: {{nombre_profesional_responsable: nombre y apellidos}},
 | {{concepto_honorario_1: concepto de honorario}} | {{importe_honorario_1: importe en euros}} € |
 | {{concepto_honorario_2: concepto de honorario}} | {{importe_honorario_2: importe en euros}} € |
 | {{concepto_honorario_3: concepto de honorario}} | {{importe_honorario_3: importe en euros}} € |
-| **Base de honorarios** | **{{base_honorarios: importe en euros}} €** |
-| Impuesto sobre el valor añadido ({{tipo_iva: porcentaje}} %) | {{importe_iva: importe en euros}} € |
-| Retención a cuenta del IRPF ({{tipo_retencion: porcentaje}} %) | -{{importe_retencion: importe en euros}} € |
-| **Subtotal honorarios** | **{{subtotal_honorarios: importe en euros}} €** |
+| **Base de honorarios** | **{{base_honorarios: importe en euros — calculado, suma de los conceptos de honorario}} €** |
+| Impuesto sobre el valor añadido ({{tipo_iva: porcentaje}} %) | {{importe_iva: importe en euros — calculado, base por el tipo de IVA}} € |
+| Retención a cuenta del IRPF ({{tipo_retencion: porcentaje}} %) | -{{importe_retencion: importe en euros — calculado, base por el tipo de retención}} € |
+| **Subtotal honorarios** | **{{subtotal_honorarios: importe en euros — calculado, base más IVA menos retención}} €** |
 
 {{parrafo_retencion_solo_si_cliente_obligado: bloque condicional que inserta la skill}}
 
@@ -72,18 +72,18 @@ Cantidades abonadas por cuenta del cliente a terceros, que se repercuten sin rec
 | {{suplido_1: concepto del suplido}} | {{perceptor_suplido_1: perceptor}} | {{justificante_suplido_1: justificante}} | {{importe_suplido_1: importe en euros}} € |
 | {{suplido_2: concepto del suplido}} | {{perceptor_suplido_2: perceptor}} | {{justificante_suplido_2: justificante}} | {{importe_suplido_2: importe en euros}} € |
 | {{suplido_3: concepto del suplido}} | {{perceptor_suplido_3: perceptor}} | {{justificante_suplido_3: justificante}} | {{importe_suplido_3: importe en euros}} € |
-| **Total suplidos** | | | **{{total_suplidos: importe en euros}} €** |
+| **Total suplidos** | | | **{{total_suplidos: importe en euros — calculado, suma de los suplidos}} €** |
 
 ### 4.3 Liquidación
 
 | Concepto | Importe |
 |---|---|
-| Subtotal honorarios | {{subtotal_honorarios: importe en euros}} € |
-| Total suplidos | {{total_suplidos: importe en euros}} € |
-| **Total minuta** | **{{total_minuta: importe en euros}} €** |
+| Subtotal honorarios | {{subtotal_honorarios: importe en euros — calculado, base más IVA menos retención}} € |
+| Total suplidos | {{total_suplidos: importe en euros — calculado, suma de los suplidos}} € |
+| **Total minuta** | **{{total_minuta: importe en euros — calculado, subtotal de honorarios más suplidos}} €** |
 | Provisión de fondos recibida el {{fecha_provision: fecha (DD/MM/AAAA)}} | -{{provision_recibida: importe en euros}} € |
 | Cantidades ya abonadas a cuenta | -{{cantidades_abonadas: importe en euros}} € |
-| **{{concepto_saldo: concepto del saldo: a favor del despacho o del cliente}}** | **{{importe_saldo: importe en euros}} €** |
+| **{{concepto_saldo: concepto del saldo: a favor del despacho o del cliente}}** | **{{importe_saldo: importe en euros — calculado, total menos provisión y cantidades abonadas}} €** |
 
 ## 5. Forma y plazo de pago
 

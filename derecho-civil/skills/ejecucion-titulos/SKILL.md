@@ -129,7 +129,7 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
 - Si en cualquier momento consta o se sospecha que el ejecutado esta en concurso de acreedores → **DETENER**: no pueden iniciarse ejecuciones singulares contra la masa activa y las que estuvieran en curso quedan en suspenso y son nulas las actuaciones posteriores a la declaracion (Arts. 142 y 143 TRLC). Advertir y escalar a concursal. No crear documento.
 - Si lo que se pretende es la ejecucion hipotecaria, la ejecucion provisional de una resolucion no firme, o redactar la oposicion del ejecutado → **DETENER**: fuera de alcance. Advertir y escalar.
 
-### Validacion de presupuestos (interno, antes de la Fase 3)
+### 1.4 Validacion de presupuestos (interno, antes de la Fase 3)
 
 - **HOJA JUDICIAL y HOJA FAMILIA (Art. 518 LEC):** confirmar la fecha de firmeza y calcular si han transcurrido menos de cinco anos. Si el plazo esta agotado, **detener y advertir**: no crear el documento. En pensiones periodicas, cada mensualidad tiene su propio vencimiento: la caducidad puede afectar solo a las mensualidades mas antiguas; en caso de duda sobre mensualidades concretas, escalar.
 - **HOJA JUDICIAL y HOJA FAMILIA (Art. 548 LEC):** confirmar que han transcurrido veinte dias desde la firmeza (o desde la notificacion de la aprobacion del convenio). Si no han transcurrido, advertir de que el juzgado no despachara la ejecucion todavia y ofrecer esperar. En familia, aplicar la misma regla de forma conservadora (ver `references/especialidades-familia-776.md`, apartado 6, y la nota de verificacion manual de `references/fuentes-plantillas-validadas.md`): no afirmar que el plazo no aplica a las pensiones sin haberlo verificado.

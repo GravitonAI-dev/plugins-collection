@@ -150,7 +150,7 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
 - Si V4 = pendiente de vencer → **DETENER**: la deuda no es exigible todavia; no cabe reclamarla judicialmente. Advertir y no crear documento.
 - Si la pretension principal NO es el pago de una cantidad (materia del Art. 249.1 LEC, obligaciones de hacer, entrega de cosa) → **DETENER**: fuera de alcance; derivar a la skill correspondiente (`juicio-ordinario`) o a escalacion.
 
-### Validacion de procedibilidad (interno, antes de la Fase 3)
+### 1.4 Validacion de procedibilidad (interno, antes de la Fase 3)
 
 - **HOJA MONITORIO:** confirmar deuda dineraria, liquida, determinada, vencida y exigible con documento del Art. 812; competencia del Juzgado de Primera Instancia del domicilio del deudor (Art. 813, sin sumision); si el deudor es ilocalizable, advertir de la limitacion. Si la deuda se funda en contrato empresario-consumidor, anotar el control de oficio del Art. 815.4 para explicarlo en la Fase 5.
 - **HOJA VERBAL / ORDINARIO:** verificar que la cuantia se puede fijar (Arts. 251-253); en verbal <= 2.000 euros, informar de que no son preceptivos abogado ni procurador (Arts. 23.2.1º y 31.2.1º) y de que existe formulario normalizado del CGPJ; en ordinario, abogado y procurador preceptivos.

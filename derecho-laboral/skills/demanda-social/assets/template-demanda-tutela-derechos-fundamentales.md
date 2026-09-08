@@ -2,11 +2,11 @@
 
 > **DRAFT — para revisión por un abogado o graduado social colegiado antes de su firma y presentación. No constituye asesoramiento jurídico definitivo.**  
 > Proceso urgente y de tramitación preferente, **exceptuado del intento de conciliación previa** (artículo 64 de la Ley 36/2011). El Ministerio Fiscal será siempre parte.  
-> Derecho fundamental invocado: {{derecho_fundamental_invocado: derecho fundamental invocado}}
+> Derecho fundamental invocado: {{derecho_fundamental_invocado: derecho fundamental: igualdad, indemnidad, libertad sindical, intimidad}}
 
 ---
 
-**AL JUZGADO DE LO SOCIAL DE {{partido_judicial: partido judicial}}**
+**AL JUZGADO DE LO SOCIAL DE {{partido_judicial: localidad del juzgado}}**
 
 {{nombre_representante_procesal: nombre y apellidos}}, {{condicion_representante_procesal: condición: abogado, procurador o graduado social}}, con número de colegiado {{numero_colegiado: número de colegiado}} y domicilio a efectos de notificaciones en {{domicilio_notificaciones: domicilio completo}}, en nombre y representación de **{{nombre_demandante: nombre y apellidos}}**, mayor de edad, con DNI/NIE {{dni_demandante: DNI/NIE}} y domicilio en {{domicilio_demandante: domicilio completo}}, según acredito mediante {{titulo_representacion: título que acredita la representación}}, ante el Juzgado comparezco y como mejor proceda en Derecho
 

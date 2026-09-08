@@ -53,13 +53,13 @@
 | {{concepto_2: concepto reclamado}} | {{periodo_2: periodo de devengo}} | {{calculo_2: detalle del cálculo}} | {{importe_2: importe en euros}} € |
 | {{concepto_3: concepto reclamado}} | {{periodo_3: periodo de devengo}} | {{calculo_3: detalle del cálculo}} | {{importe_3: importe en euros}} € |
 | {{concepto_4: concepto reclamado}} | {{periodo_4: periodo de devengo}} | {{calculo_4: detalle del cálculo}} | {{importe_4: importe en euros}} € |
-| **TOTAL RECLAMADO** | | | **{{total_reclamado: importe en euros}} €** |
+| **TOTAL RECLAMADO** | | | **{{total_reclamado: importe en euros — calculado, suma de los conceptos reclamados}} €** |
 
 Se reclama además el **interés por mora del diez por ciento anual** sobre las cantidades salariales adeudadas, conforme al artículo 29.3 del texto refundido de la Ley del Estatuto de los Trabajadores.
 
 ## PRETENSIÓN
 
-Que se tenga por presentada la presente papeleta de conciliación y, previos los trámites oportunos, se celebre el acto de conciliación entre las partes, interesando el solicitante que la empresa reconozca adeudarle la cantidad de **{{total_reclamado: importe en euros}} euros** por los conceptos y periodos detallados, más el interés por mora del artículo 29.3 del Estatuto de los Trabajadores, y se avenga a su abono.
+Que se tenga por presentada la presente papeleta de conciliación y, previos los trámites oportunos, se celebre el acto de conciliación entre las partes, interesando el solicitante que la empresa reconozca adeudarle la cantidad de **{{total_reclamado: importe en euros — calculado, suma de los conceptos reclamados}} euros** por los conceptos y periodos detallados, más el interés por mora del artículo 29.3 del Estatuto de los Trabajadores, y se avenga a su abono.
 
 ---
 

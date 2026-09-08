@@ -147,8 +147,6 @@ Una vez resueltos los vectores necesarios, evalua:
 
 ---
 
----
-
 ## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
 
 En esta fase interactúas **directamente a través del chat (en texto plano conversacional, SIN formularios)** para compartir el plan de trabajo, el fundamento normativo y acordar la plantilla base con el usuario.
@@ -261,8 +259,6 @@ Al crearla, vuelca sin volver a preguntar todos los datos ya recogidos en 5-A (c
 9. **Medidas provisionales (NEGOCIACION).** Anuncio: "Procede decidir si se interesan medidas provisionales durante el proceso." Explica: pueden pedirse en la propia demanda (Art. 773 LEC) para que rijan custodia, alimentos, vivienda y cargas mientras se tramita el pleito. Pregunta si se interesan (si / no). Si si, se activa el OTROSI SEGUNDO en los mismos terminos de las medidas definitivas.
 10. **Documentacion economica (dato objetivo, solo si hay medidas patrimoniales).** Anuncio: "Corresponde relacionar la documentacion economica que se acompanara." Explica la regla 1.ª del Art. 770 LEC y pregunta que documentos aportara (declaraciones tributarias, nominas, certificaciones bancarias, titulos de propiedad).
 11. **Juzgado, representacion y cierre (dato objetivo; representacion con confirmacion agrupada).** Anuncio: "Cerramos con el Juzgado competente, la representacion procesal y la firma." (a) partido judicial (explicar Art. 769.1 LEC: domicilio conyugal; si residen en partidos distintos, ultimo domicilio del matrimonio o residencia del demandado, a eleccion); (b) nombre del procurador; (c) nombre del letrado -> confirmacion agrupada de la representacion; (d) prueba adicional para el OTROSI PRIMERO (testifical, pericial; si no hay, se deja la documental y el interrogatorio); (e) lugar y fecha.
-
----
 
 ---
 

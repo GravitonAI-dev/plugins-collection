@@ -16,7 +16,7 @@
 | Tiempo total de servicio | {{tiempo_servicio: tiempo total de servicio}} | Cálculo |
 | Categoría o grupo profesional | {{categoria_profesional: categoría o grupo profesional}} | Convenio |
 | Salario base mensual | {{salario_base_mensual: importe en euros}} € | Nómina y tabla de convenio |
-| Complementos mensuales | {{complementos_mensuales: complementos mensuales}} € | {{origen_complementos: origen}} |
+| Complementos mensuales | {{complementos_mensuales: importe en euros}} € | {{origen_complementos: origen}} |
 | Número de pagas extraordinarias | {{numero_pagas: número de pagas extraordinarias}} | Convenio, artículo {{articulo_convenio_pagas: origen}} |
 | Periodo de devengo de las pagas | {{periodo_devengo_pagas: periodo de devengo de las pagas}} | Convenio, artículo {{articulo_convenio_pagas: origen}} |
 | ¿Pagas prorrateadas en nómina? | {{pagas_prorrateadas: sí / no}} | Nómina |
@@ -112,11 +112,11 @@
 
 | Concepto | Importe |
 |---|---|
-| Total devengos salariales | {{total_devengos_salariales: importe en euros}} € |
+| Total devengos salariales | {{total_devengos_salariales: importe en euros — calculado, suma de los devengos salariales}} € |
 | Indemnización | {{importe_indemnizacion: importe en euros}} € |
-| **Total bruto** | **{{total_bruto: importe en euros}} €** |
-| Total deducciones | {{total_deducciones: importe en euros}} € |
-| **Líquido a percibir** | **{{liquido_percibir: importe en euros}} €** |
+| **Total bruto** | **{{total_bruto: importe en euros — calculado, devengos más indemnización}} €** |
+| Total deducciones | {{total_deducciones: importe en euros — calculado, suma de las deducciones}} € |
+| **Líquido a percibir** | **{{liquido_percibir: importe en euros — calculado, devengos menos deducciones}} €** |
 
 **Tratamiento fiscal:** la indemnización por despido está exenta de tributación en el Impuesto sobre la Renta de las Personas Físicas hasta el límite de la cuantía obligatoria legalmente establecida, con el tope máximo vigente. El exceso pactado tributa como rendimiento del trabajo con reducción, en su caso, por irregularidad. Verificar los límites vigentes antes de aplicar la retención.
 

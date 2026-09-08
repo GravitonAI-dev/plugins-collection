@@ -154,8 +154,6 @@ Una vez resueltos los vectores necesarios, evalúa:
 
 ---
 
----
-
 ## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
 
 En esta fase interactúas **directamente a través del chat (en texto plano conversacional, SIN formularios)** para compartir el plan de trabajo, el fundamento normativo y acordar la plantilla base con el usuario.
@@ -167,8 +165,8 @@ En esta fase interactúas **directamente a través del chat (en texto plano conv
 ### 2.2 Mensaje de Plan de Acción y Consulta de Assets
 Envía un mensaje estructurado y formal que contenga:
 1. **Marco Legal Aplicable:** Normativa civil y procesal aplicable consolidada y verificada en el BOE.
-3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-comunicacion-actualizacion-renta.md`).
-4. **Pregunta Explícita al Usuario (Vía Chat):** Formula exactamente la siguiente consulta en el chat:
+2. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-comunicacion-actualizacion-renta.md`).
+3. **Pregunta Explícita al Usuario (Vía Chat):** Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
 ### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
@@ -263,8 +261,6 @@ Anuncios fijos:
 4. **Emisión y envío [dato objetivo]:** lugar y fecha de emisión. En la vista previa final, recuerde la recomendación de envío por burofax con certificación de texto y acuse de recibo al domicilio de notificaciones del contrato.
 
 (Los límites legales de cada sección — duración, gastos, zonas tensionadas, IRAV, fianza, preavisos — están fijados en la sección Guardrails al inicio de este documento; no se redacta por fuera de esos límites.)
-
----
 
 ---
 

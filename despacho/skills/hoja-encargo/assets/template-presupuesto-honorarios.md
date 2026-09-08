@@ -46,11 +46,11 @@ Este presupuesto se emite sobre la base de la información indicada. Cualquier d
 
 | Concepto | Importe |
 |---|---|
-| Base de honorarios | {{base_honorarios: importe en euros}} € |
-| Impuesto sobre el valor añadido ({{tipo_iva: porcentaje}} %) | {{importe_iva: importe en euros}} € |
-| **Total con impuestos** | **{{total_con_impuestos: importe en euros}} €** |
-| Retención a cuenta del IRPF ({{tipo_retencion: porcentaje}} %), si el destinatario está obligado a practicarla | {{importe_retencion: importe en euros}} € |
-| **Total a percibir por el DESPACHO** | **{{total_a_percibir: importe en euros}} €** |
+| Base de honorarios | {{base_honorarios: importe en euros — calculado, suma de los conceptos de honorario}} € |
+| Impuesto sobre el valor añadido ({{tipo_iva: porcentaje}} %) | {{importe_iva: importe en euros — calculado, base por el tipo de IVA}} € |
+| **Total con impuestos** | **{{total_con_impuestos: importe en euros — calculado, base más IVA}} €** |
+| Retención a cuenta del IRPF ({{tipo_retencion: porcentaje}} %), si el destinatario está obligado a practicarla | {{importe_retencion: importe en euros — calculado, base por el tipo de retención}} € |
+| **Total a percibir por el DESPACHO** | **{{total_a_percibir: importe en euros — calculado, total con impuestos menos retención}} €** |
 
 **Hitos de facturación propuestos:**
 

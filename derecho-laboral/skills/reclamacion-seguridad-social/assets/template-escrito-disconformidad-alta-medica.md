@@ -18,7 +18,7 @@
 | Domicilio a efectos de notificaciones | {{domicilio_interesado: domicilio completo}} |
 | Teléfono | {{telefono_interesado: teléfono}} |
 | Correo electrónico | {{email_interesado: correo electrónico}} |
-| Empresa y actividad | {{empresa_y_actividad: empresa y actividad}} |
+| Empresa y actividad | {{empresa_y_actividad: razón social y actividad}} |
 | Profesión habitual | {{profesion_habitual: profesión habitual}} |
 
 ## DATOS DEL PROCESO DE INCAPACIDAD TEMPORAL
@@ -26,7 +26,7 @@
 | Dato | Valor |
 |---|---|
 | Fecha de la baja médica | {{fecha_baja_medica: fecha (DD/MM/AAAA)}} |
-| Contingencia declarada | {{contingencia_declarada: contingencia declarada}} |
+| Contingencia declarada | {{contingencia_declarada: común o profesional}} |
 | Diagnóstico que motivó la baja | {{diagnostico_baja: diagnóstico que motivó la baja}} |
 | Órgano que emite el alta | {{organo_emisor_alta: órgano que emite el alta}} |
 | Fecha del parte de alta | {{fecha_parte_alta: fecha (DD/MM/AAAA)}} |

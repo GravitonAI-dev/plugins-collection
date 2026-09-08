@@ -129,7 +129,7 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
 - Si el inmueble es un local comercial, una nave, un solar, una finca rustica o una plaza de garaje que se transmite de forma independiente → **DETENER**: los assets estan construidos para vivienda. Advertir y escalar.
 - Si el caso se rige por derecho civil foral o especial (vecindad civil catalana, navarra, aragonesa, balear, gallega o vizcaina, o inmueble sujeto a esa legislacion) → **DETENER**: los assets se construyen sobre el Codigo Civil comun y Cataluna, entre otros territorios, regula la compraventa con reglas propias. Advertir y escalar.
 
-### Validacion de presupuestos (interno, antes de la Fase 3)
+### 1.4 Validacion de presupuestos (interno, antes de la Fase 3)
 
 - **TODAS LAS HOJAS — legitimacion y titularidad.** Confirmar que el cliente es parte del contrato (o va a serlo) y, si es el vendedor, que es titular del inmueble. Si el inmueble pertenece a **varios cotitulares**, todos deben consentir la venta: pedir su relacion y advertir de que la firma de uno solo no vincula a los demas. Si el inmueble es la **vivienda habitual del matrimonio del vendedor**, advertir de que la disposicion requiere el consentimiento del otro conyuge y activar el bloque de comparecencia correspondiente.
 - **TODAS LAS HOJAS — V4 arrendado, PARADA BLOQUEANTE (Art. 25 de la Ley 29/1994).** Si el inmueble esta arrendado como vivienda, **antes de continuar** informa del derecho de tanteo y retracto y pregunta si ya se ha notificado fehacientemente al arrendatario la decision de vender, el precio y las demas condiciones esenciales, y en que fecha. Tres salidas:

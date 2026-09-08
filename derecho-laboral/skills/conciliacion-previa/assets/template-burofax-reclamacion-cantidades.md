@@ -36,13 +36,13 @@ A la fecha de la presente, esa empresa adeuda las siguientes cantidades:
 | {{concepto_1: concepto reclamado}} | {{periodo_1: periodo de devengo}} | {{calculo_1: detalle del cálculo}} | {{importe_1: importe en euros}} € |
 | {{concepto_2: concepto reclamado}} | {{periodo_2: periodo de devengo}} | {{calculo_2: detalle del cálculo}} | {{importe_2: importe en euros}} € |
 | {{concepto_3: concepto reclamado}} | {{periodo_3: periodo de devengo}} | {{calculo_3: detalle del cálculo}} | {{importe_3: importe en euros}} € |
-| **TOTAL ADEUDADO** | | | **{{total_adeudado: importe en euros}} €** |
+| **TOTAL ADEUDADO** | | | **{{total_adeudado: importe en euros — calculado, principal más intereses}} €** |
 
 {{parrafo_fundamento_devengo: bloque condicional que inserta la skill}}
 
 ## TERCERO — Requerimiento de pago
 
-Por medio de la presente les **requiero formalmente** para que procedan al abono de la cantidad de **{{total_adeudado: importe en euros}} euros**, mediante transferencia a la cuenta {{iban_remitente: IBAN}}, en el plazo improrrogable de **{{plazo_pago: plazo de pago en días}}** desde la recepción de este escrito.
+Por medio de la presente les **requiero formalmente** para que procedan al abono de la cantidad de **{{total_adeudado: importe en euros — calculado, principal más intereses}} euros**, mediante transferencia a la cuenta {{iban_remitente: IBAN}}, en el plazo improrrogable de **{{plazo_pago: plazo de pago en días}}** desde la recepción de este escrito.
 
 ## CUARTO — Interés por mora
 
