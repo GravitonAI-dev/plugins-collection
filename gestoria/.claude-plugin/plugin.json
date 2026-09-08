@@ -9,7 +9,6 @@
   "skills": [
     "./skills/alta-baja-autonomo",
     "./skills/alta-baja-seguridad-social",
-    "./skills/extranjeria-residencia",
     "./skills/liquidacion-impuesto-sucesiones",
     "./skills/transferencia-vehiculo"
   ],
