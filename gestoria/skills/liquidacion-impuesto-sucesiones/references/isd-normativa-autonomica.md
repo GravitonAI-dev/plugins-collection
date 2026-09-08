@@ -44,7 +44,7 @@ Los datos anteriores cambian con frecuencia y pueden estar desactualizados. Sirv
 
 ---
 
-## Como verificar (OBLIGATORIO en el Paso 1.3)
+## Como verificar (OBLIGATORIO en la Fase 2.1)
 
 Una vez conocida la CCAA competente, la skill ejecuta:
 ```

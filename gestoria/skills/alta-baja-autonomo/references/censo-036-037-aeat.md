@@ -19,9 +19,9 @@ Es el primer tramite del alta de autonomo y condiciona al segundo (el alta en el
 | Modelo | Uso |
 |---|---|
 | Modelo 036 | Declaracion censal universal. Obligatorio para sociedades, quienes operan en el ambito intracomunitario (ROI/VIES), regimenes especiales de IVA o quienes actuan por representante. Incluye una version simplificada para la mayoria de personas fisicas. |
-| Modelo 037 | Version simplificada para personas fisicas que cumplian requisitos estrictos. La AEAT lo integro en el 036; verificar en el Paso 1 si sigue disponible o si el tramite se realiza integramente con el 036. |
+| Modelo 037 | Version simplificada para personas fisicas que cumplian requisitos estrictos. La AEAT lo integro en el 036; verificar en la Fase 2.1 si sigue disponible o si el tramite se realiza integramente con el 036. |
 
-Marcar en el Paso 1 la vigencia del modelo 037, ya que su disponibilidad ha variado. [verificar]
+Marcar en la Fase 2.1 la vigencia del modelo 037, ya que su disponibilidad ha variado. [verificar]
 
 ---
 

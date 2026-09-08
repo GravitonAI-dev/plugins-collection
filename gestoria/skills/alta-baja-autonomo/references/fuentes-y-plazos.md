@@ -3,13 +3,13 @@
 > Material de referencia para la skill `alta-baja-autonomo`. Registra las fuentes normativas, las sedes de
 > presentacion y los plazos del alta y la baja censal (AEAT) y del alta y la baja en el RETA (Seguridad
 > Social). La skill verifica estas fuentes en cada lanzamiento y, si detecta una version posterior,
-> ACTUALIZA el archivo correspondiente del plugin antes de preparar el tramite.
+> aplica la redaccion vigente al tramite que prepara, sin modificar los archivos del plugin.
 
 ---
 
-## Regla de actualizacion permanente (OBLIGATORIA)
+## Regla de verificacion permanente (OBLIGATORIA)
 
-Cada vez que se lanza la skill, en el Paso 1 se comprueban las fuentes de esta tabla y las cuotas del ejercicio en curso. **Si se detecta una version posterior a la registrada, la skill actualiza el archivo correspondiente del plugin (reference o asset) antes de preparar el tramite** y anota la nueva fecha/version verificada. Si la fuente no es accesible, se usa la version local y se informa al usuario.
+Cada vez que se lanza la skill, en la Fase 2.1 se comprueban las fuentes de esta tabla y las cuotas del ejercicio en curso. **Si se detecta una version posterior a la registrada, la skill aplica la redaccion vigente al tramite que prepara en el workspace del usuario** e informa del cambio en el chat. La skill nunca modifica sus propios archivos de plugin. Si la fuente no es accesible, se usa la version local y se informa al usuario.
 
 ---
 
@@ -20,7 +20,7 @@ Cada vez que se lanza la skill, en el Paso 1 se comprueban las fuentes de esta t
 | Ley 20/2007, de 11 de julio, del Estatuto del Trabajo Autonomo | BOE-A-2007-13409 | texto consolidado a la fecha de verificacion | https://www.boe.es/buscar/act.php?id=BOE-A-2007-13409 |
 | RD-ley 13/2022, nuevo sistema de cotizacion de autonomos | BOE-A-2022-12482 | en vigor 01/01/2023 | https://www.boe.es/buscar/act.php?id=BOE-A-2022-12482 |
 
-Articulos relevantes de la Ley 20/2007 para esta skill: arts. 30 a 38 bis (cotizacion y beneficios en la cotizacion). La tabla de tramos y cuotas de cada ejercicio se fija en la Ley de Presupuestos Generales del Estado (o norma que la prorrogue): verificar el ejercicio en curso en el Paso 1. [verificar]
+Articulos relevantes de la Ley 20/2007 para esta skill: arts. 30 a 38 bis (cotizacion y beneficios en la cotizacion). La tabla de tramos y cuotas de cada ejercicio se fija en la Ley de Presupuestos Generales del Estado (o norma que la prorrogue): verificar el ejercicio en curso en la Fase 2.1. [verificar]
 
 ---
 

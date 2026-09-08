@@ -1,39 +1,39 @@
-# COMUNICACION DE ACTUALIZACION DE RENTA — {{nombre_remitente}} a {{nombre_destinatario}}
+# COMUNICACION DE ACTUALIZACION DE RENTA — {{NOMBRE_REMITENTE}} a {{NOMBRE_DESTINATARIO}}
 
 > **DRAFT — para revision por un abogado antes de su envio. No constituye asesoramiento juridico.**  
-> Version de la LAU verificada en el BOE: {{fecha_verificacion_lau}}
+> Version de la LAU verificada en el BOE: {{FECHA_VERIFICACION_LAU}}
 
 ---
 
-**REMITENTE ({{condicion_remitente}})**  
-{{nombre_remitente}}  
-{{nif_remitente}}  
-{{domicilio_remitente}}
+**REMITENTE ({{CONDICION_REMITENTE}})**  
+{{NOMBRE_REMITENTE}}  
+{{NIF_REMITENTE}}  
+{{DOMICILIO_REMITENTE}}
 
-**DESTINATARIO ({{condicion_destinatario}})**  
-{{nombre_destinatario}}  
-{{domicilio_notificaciones_destinatario}}
+**DESTINATARIO ({{CONDICION_DESTINATARIO}})**  
+{{NOMBRE_DESTINATARIO}}  
+{{DOMICILIO_NOTIFICACIONES_DESTINATARIO}}
 
-En {{lugar_emision}}, a {{fecha_comunicacion}}
+En {{LUGAR_EMISION}}, a {{FECHA_COMUNICACION}}
 
 Asunto: actualizacion anual de la renta del contrato de arrendamiento (articulo 18 de la Ley 29/1994, de Arrendamientos Urbanos)
 
 Muy Sr./Sra. mio/a:
 
-Me dirijo a usted en mi condicion de {{condicion_remitente}} del contrato de arrendamiento de {{tipo_contrato}} suscrito entre ambas partes en fecha {{fecha_contrato}}, sobre el inmueble sito en {{direccion_inmueble}}, {{municipio_inmueble}}.
+Me dirijo a usted en mi condicion de {{CONDICION_REMITENTE}} del contrato de arrendamiento de {{TIPO_CONTRATO}} suscrito entre ambas partes en fecha {{FECHA_CONTRATO}}, sobre el inmueble sito en {{DIRECCION_INMUEBLE}}, {{MUNICIPIO_INMUEBLE}}.
 
-De conformidad con la clausula {{clausula_actualizacion}} del contrato, que preve la actualizacion anual de la renta, y con el articulo 18 de la Ley 29/1994, de 24 de noviembre, de Arrendamientos Urbanos, le comunico la actualizacion de la renta con efectos desde la mensualidad siguiente a la recepcion de la presente, conforme al siguiente detalle:
+De conformidad con la clausula {{CLAUSULA_ACTUALIZACION}} del contrato, que preve la actualizacion anual de la renta, y con el articulo 18 de la Ley 29/1994, de 24 de noviembre, de Arrendamientos Urbanos, le comunico la actualizacion de la renta con efectos desde la mensualidad siguiente a la recepcion de la presente, conforme al siguiente detalle:
 
-Renta vigente: {{renta_vigente}} euros mensuales  
-Indice de actualizacion aplicado: {{indice_aplicado}}  
-Porcentaje de alteracion aplicado: {{porcentaje_actualizacion}} %  
-Renta actualizada resultante: {{renta_actualizada}} euros mensuales
-En consecuencia, a partir de la mensualidad de {{mes_primera_renta_actualizada}}, la renta exigible sera de {{renta_actualizada}} euros mensuales, conforme al articulo 18.2 de la citada ley.
+Renta vigente: {{RENTA_VIGENTE}} euros mensuales  
+Indice de actualizacion aplicado: {{INDICE_APLICADO}}  
+Porcentaje de alteracion aplicado: {{PORCENTAJE_ACTUALIZACION}} %  
+Renta actualizada resultante: {{RENTA_ACTUALIZADA}} euros mensuales
+En consecuencia, a partir de la mensualidad de {{MES_PRIMERA_RENTA_ACTUALIZADA}}, la renta exigible sera de {{RENTA_ACTUALIZADA}} euros mensuales, conforme al articulo 18.2 de la citada ley.
 
 Sin otro particular, reciba un cordial saludo.
 
-Fdo.: {{nombre_remitente}}  
-{{condicion_remitente}}
+Fdo.: {{NOMBRE_REMITENTE}}  
+{{CONDICION_REMITENTE}}
 
 ---
 

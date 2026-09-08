@@ -1,50 +1,50 @@
-# PETICION INICIAL DE PROCESO MONITORIO — {{nombre_acreedor}} contra {{nombre_deudor}}
+# PETICION INICIAL DE PROCESO MONITORIO — {{NOMBRE_ACREEDOR}} contra {{NOMBRE_DEUDOR}}
 
 > **DRAFT — para revision por un abogado antes de su presentacion. No constituye asesoramiento juridico.**  
-> Version de la LEC verificada en el BOE: {{fecha_verificacion_lec}}  
+> Version de la LEC verificada en el BOE: {{FECHA_VERIFICACION_LEC}}  
 > Basado en el Modelo Normalizado de Proceso Monitorio Civil del CGPJ (BOE-A-2016-783).
 
 ---
 
-## AL JUZGADO DE PRIMERA INSTANCIA DE {{partido_judicial_deudor}}
+## AL JUZGADO DE PRIMERA INSTANCIA DE {{PARTIDO_JUDICIAL_DEUDOR}}
 
-En {{lugar}}, a {{fecha_peticion}}
+En {{LUGAR}}, a {{FECHA_PETICION}}
 
 ## DATOS DEL PETICIONARIO (ACREEDOR)
 
-Nombre / Razon social: {{nombre_acreedor}}  
-NIF / CIF: {{nif_acreedor}}  
-Domicilio a efectos de notificaciones: {{domicilio_acreedor}}  
-Naturaleza: {{naturaleza_acreedor}}  
+Nombre / Razon social: {{NOMBRE_ACREEDOR}}  
+NIF / CIF: {{NIF_ACREEDOR}}  
+Domicilio a efectos de notificaciones: {{DOMICILIO_ACREEDOR}}  
+Naturaleza: {{NATURALEZA_ACREEDOR}}  
 
 ## DATOS DEL DEUDOR
 
-Nombre / Razon social: {{nombre_deudor}}  
-NIF / CIF: {{nif_deudor}}  
-Domicilio o lugar donde puede ser hallado: {{domicilio_deudor}}
+Nombre / Razon social: {{NOMBRE_DEUDOR}}  
+NIF / CIF: {{NIF_DEUDOR}}  
+Domicilio o lugar donde puede ser hallado: {{DOMICILIO_DEUDOR}}
 
 ---
 
 ## EXPONE
 
-Que por medio del presente escrito formula PETICION INICIAL DE PROCESO MONITORIO, conforme a los articulos 812 y siguientes de la Ley 1/2000, de 7 de enero, de Enjuiciamiento Civil, en reclamacion de la cantidad de {{cuantia_total}} euros ({{cuantia_en_letras}} euros), con base en los siguientes
+Que por medio del presente escrito formula PETICION INICIAL DE PROCESO MONITORIO, conforme a los articulos 812 y siguientes de la Ley 1/2000, de 7 de enero, de Enjuiciamiento Civil, en reclamacion de la cantidad de {{CUANTIA_TOTAL}} euros ({{CUANTIA_EN_LETRAS}} euros), con base en los siguientes
 
 ## HECHOS
 
 **PRIMERO — Origen de la deuda.**  
-{{descripcion_origen_deuda}}
+{{DESCRIPCION_ORIGEN_DEUDA}}
 
 **SEGUNDO — Cuantia.**  
-El importe adeudado asciende a {{principal}} euros de principal
+El importe adeudado asciende a {{PRINCIPAL}} euros de principal
 
 .
 
 **TERCERO — Vencimiento y exigibilidad.**  
-La deuda venció el {{fecha_vencimiento}} y es liquida, determinada, vencida y exigible, sin que el deudor la haya satisfecho pese a haber sido requerido de pago.
+La deuda venció el {{FECHA_VENCIMIENTO}} y es liquida, determinada, vencida y exigible, sin que el deudor la haya satisfecho pese a haber sido requerido de pago.
 
 **CUARTO — Documentos que acreditan la deuda.**  
 Se acompanan a la presente peticion los siguientes documentos, de los previstos en el articulo 812 de la LEC:  
-{{relacion_documentos}}
+{{RELACION_DOCUMENTOS}}
 ## FUNDAMENTOS DE DERECHO
 
 **I. Competencia.** Es competente ese Juzgado de Primera Instancia por corresponder al domicilio del deudor, conforme al articulo 813 de la LEC.
@@ -56,21 +56,21 @@ Se acompanan a la presente peticion los siguientes documentos, de los previstos 
 **IV. Acreditacion documental.** La deuda se acredita mediante los documentos acompanados, de los previstos en el articulo 812 de la LEC.
 ## SUPLICO AL JUZGADO
 
-Que tenga por presentado este escrito con los documentos que se acompanan, admita a tramite la peticion inicial de proceso monitorio y, previos los tramites legales, requiera al deudor {{nombre_deudor}} para que, en el plazo de veinte dias, pague al peticionario la cantidad de {{cuantia_total}} euros, o comparezca y alegue por escrito las razones por las que, a su entender, no debe en todo o en parte la cantidad reclamada; con el apercibimiento de que, de no pagar ni comparecer, se dictara decreto dando por terminado el proceso monitorio y se dara traslado al peticionario para instar el despacho de ejecucion, conforme al articulo 816 de la LEC.
+Que tenga por presentado este escrito con los documentos que se acompanan, admita a tramite la peticion inicial de proceso monitorio y, previos los tramites legales, requiera al deudor {{NOMBRE_DEUDOR}} para que, en el plazo de veinte dias, pague al peticionario la cantidad de {{CUANTIA_TOTAL}} euros, o comparezca y alegue por escrito las razones por las que, a su entender, no debe en todo o en parte la cantidad reclamada; con el apercibimiento de que, de no pagar ni comparecer, se dictara decreto dando por terminado el proceso monitorio y se dara traslado al peticionario para instar el despacho de ejecucion, conforme al articulo 816 de la LEC.
 
-Es justicia que pido en {{lugar}}, a {{fecha_peticion}}.
+Es justicia que pido en {{LUGAR}}, a {{FECHA_PETICION}}.
 
 ---
 
 Firma del peticionario / representante:
 
 ___________________________  
-{{nombre_acreedor}}  
+{{NOMBRE_ACREEDOR}}  
 ---
 
 > **Advertencias:**  
 > 1. Este documento es un DRAFT generado automaticamente. Debe ser revisado por un abogado antes de su presentacion.  
-> 2. Version de la LEC verificada: {{fecha_verificacion_lec}}.  
+> 2. Version de la LEC verificada: {{FECHA_VERIFICACION_LEC}}.  
 > 3. Deben acompanarse fisicamente los documentos relacionados en el hecho cuarto (Art. 812 LEC).  
 > 4. Competencia exclusiva del Juzgado de Primera Instancia del domicilio del deudor (Art. 813 LEC).  
 > 5. Si el deudor se opone en plazo, el asunto pasa a juicio verbal (hasta 15.000 euros) u ordinario (superior), Art. 818 LEC.  

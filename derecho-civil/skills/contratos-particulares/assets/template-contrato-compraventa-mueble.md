@@ -1,28 +1,28 @@
-# CONTRATO DE COMPRAVENTA DE BIEN MUEBLE — {{nombre_vendedor}} / {{nombre_comprador}}
+# CONTRATO DE COMPRAVENTA DE BIEN MUEBLE — {{NOMBRE_VENDEDOR}} / {{NOMBRE_COMPRADOR}}
 
 > **DRAFT — para revision por un abogado colegiado antes de su firma. No constituye asesoramiento juridico definitivo.**  
-> Version del Codigo Civil verificada en el BOE: {{fecha_verificacion_normativa}}
+> Version del Codigo Civil verificada en el BOE: {{FECHA_VERIFICACION_NORMATIVA}}
 
 ---
 
-En {{municipio_firma}}, a {{fecha_contrato}}
+En {{MUNICIPIO_FIRMA}}, a {{FECHA_CONTRATO}}
 
 ## REUNIDOS
 
 **De una parte, como VENDEDOR:**
 
-Nombre / Razon social: {{nombre_vendedor}}  
-DNI / NIE / CIF: {{documento_vendedor}}  
-Domicilio a efectos de notificaciones: {{domicilio_vendedor}}  
-Telefono: {{telefono_vendedor}}  
-Correo electronico: {{email_vendedor}}
+Nombre / Razon social: {{NOMBRE_VENDEDOR}}  
+DNI / NIE / CIF: {{DOCUMENTO_VENDEDOR}}  
+Domicilio a efectos de notificaciones: {{DOMICILIO_VENDEDOR}}  
+Telefono: {{TELEFONO_VENDEDOR}}  
+Correo electronico: {{EMAIL_VENDEDOR}}
 **De otra parte, como COMPRADOR:**
 
-Nombre / Razon social: {{nombre_comprador}}  
-DNI / NIE / CIF: {{documento_comprador}}  
-Domicilio a efectos de notificaciones: {{domicilio_comprador}}  
-Telefono: {{telefono_comprador}}  
-Correo electronico: {{email_comprador}}
+Nombre / Razon social: {{NOMBRE_COMPRADOR}}  
+DNI / NIE / CIF: {{DOCUMENTO_COMPRADOR}}  
+Domicilio a efectos de notificaciones: {{DOMICILIO_COMPRADOR}}  
+Telefono: {{TELEFONO_COMPRADOR}}  
+Correo electronico: {{EMAIL_COMPRADOR}}
 Las partes se reconocen mutuamente la capacidad legal necesaria para obligarse en los terminos de este contrato y, a tal fin,
 
 ## EXPONEN
@@ -40,15 +40,15 @@ IV. Que, reconociendose capacidad suficiente, formalizan el presente CONTRATO DE
 
 El VENDEDOR vende y transmite al COMPRADOR, que compra y adquiere, el siguiente bien mueble:
 
-Descripcion: {{descripcion_bien}}  
-Marca y modelo: {{marca_modelo_bien}}  
-Numero de serie o identificacion: {{numero_serie_bien}}  
-Año de fabricacion o adquisicion: {{anio_bien}}  
-Estado: {{estado_bien}}
+Descripcion: {{DESCRIPCION_BIEN}}  
+Marca y modelo: {{MARCA_MODELO_BIEN}}  
+Numero de serie o identificacion: {{NUMERO_SERIE_BIEN}}  
+Año de fabricacion o adquisicion: {{ANIO_BIEN}}  
+Estado: {{ESTADO_BIEN}}
 
 ### SEGUNDA — Precio
 
-El precio de la compraventa se fija en **{{precio_venta}} euros** ({{precio_venta_letras}} euros).
+El precio de la compraventa se fija en **{{PRECIO_VENTA}} euros** ({{PRECIO_VENTA_LETRAS}} euros).
 
 En caso de discordancia entre la cantidad expresada en cifra y la expresada en letra, prevalecera la expresada en letra.
 
@@ -57,7 +57,7 @@ En caso de discordancia entre la cantidad expresada en cifra y la expresada en l
 ### CUARTA — Entrega del bien y transmision de la propiedad
 
 Con la entrega del bien, la propiedad se transmite al COMPRADOR, que asume desde ese momento el riesgo de su perdida o deterioro.
-Los gastos de entrega y de transporte del bien seran de cargo de {{obligado_gastos_entrega}}.
+Los gastos de entrega y de transporte del bien seran de cargo de {{OBLIGADO_GASTOS_ENTREGA}}.
 
 ### QUINTA — Estado del bien y saneamiento
 
@@ -79,23 +79,23 @@ El VENDEDOR declara y garantiza que:
 2. El bien esta libre de cargas, gravamenes, embargos, reservas de dominio y prohibiciones de disponer, salvo las que expresamente se hagan constar en este contrato.
 3. No pesa sobre el bien ninguna reclamacion, litigio ni derecho de tercero.
 4. Se encuentra al corriente en el pago de los tributos y obligaciones que afecten al bien.
-### {{ordinal_impuestos_tramites}} — Impuestos y tramites
+### {{ORDINAL_IMPUESTOS_TRAMITES}} — Impuestos y tramites
 
 El Impuesto sobre Transmisiones Patrimoniales y Actos Juridicos Documentados que grave la presente compraventa sera de cargo del COMPRADOR, conforme a la normativa tributaria aplicable.
 
-Los demas gastos derivados de la formalizacion de este contrato se distribuiran del siguiente modo: {{reparto_gastos_formalizacion}}.
-### {{ordinal_incumplimiento}} — Incumplimiento
+Los demas gastos derivados de la formalizacion de este contrato se distribuiran del siguiente modo: {{REPARTO_GASTOS_FORMALIZACION}}.
+### {{ORDINAL_INCUMPLIMIENTO}} — Incumplimiento
 
 El incumplimiento por cualquiera de las partes de las obligaciones asumidas en este contrato facultara a la parte cumplidora para exigir su cumplimiento o para resolver el contrato, con resarcimiento de daños y abono de intereses en ambos casos, conforme al articulo 1.124 del Codigo Civil.
-### {{ordinal_forma}} — Forma del contrato
+### {{ORDINAL_FORMA}} — Forma del contrato
 
-### {{ordinal_notificaciones}} — Notificaciones
+### {{ORDINAL_NOTIFICACIONES}} — Notificaciones
 
 Las comunicaciones entre las partes se dirigiran a los domicilios y direcciones de correo electronico que constan en el encabezamiento de este contrato.
 
-Cualquier cambio de domicilio o de direccion electronica debera ser comunicado a la otra parte en el plazo de {{plazo_comunicacion_cambio_domicilio}}. En tanto no se comunique, las notificaciones dirigidas a los datos consignados en este contrato se tendran por validamente efectuadas.
+Cualquier cambio de domicilio o de direccion electronica debera ser comunicado a la otra parte en el plazo de {{PLAZO_COMUNICACION_CAMBIO_DOMICILIO}}. En tanto no se comunique, las notificaciones dirigidas a los datos consignados en este contrato se tendran por validamente efectuadas.
 
-### {{ordinal_ley_fuero}} — Ley aplicable y fuero
+### {{ORDINAL_LEY_FUERO}} — Ley aplicable y fuero
 
 El presente contrato se rige por los articulos 1.445 y siguientes del Codigo Civil y, supletoriamente, por las disposiciones generales sobre obligaciones y contratos del mismo cuerpo legal.
 
@@ -108,19 +108,19 @@ Leido el presente contrato por ambas partes, y encontrandolo conforme, lo firman
 
 **EL VENDEDOR**
 
-Nombre: {{nombre_vendedor}}  
+Nombre: {{NOMBRE_VENDEDOR}}  
 Firma: ___________________________
 
 **EL COMPRADOR**
 
-Nombre: {{nombre_comprador}}  
+Nombre: {{NOMBRE_COMPRADOR}}  
 Firma: ___________________________
 
 ---
 
 > **Advertencias:**  
 > 1. Este contrato es un DRAFT generado automaticamente. Debe ser revisado por un abogado colegiado antes de su firma.  
-> 2. Version del Codigo Civil verificada en el BOE: {{fecha_verificacion_normativa}}.  
+> 2. Version del Codigo Civil verificada en el BOE: {{FECHA_VERIFICACION_NORMATIVA}}.  
 > 3. El plazo para reclamar por vicios ocultos es de seis meses desde la entrega (articulo 1.490 del Codigo Civil). Es un plazo breve: revise el bien cuanto antes.  
 > 4. Este contrato presupone que ambas partes actuan como particulares. Si el vendedor actuase como empresario o profesional, se aplicaria la normativa de proteccion de los consumidores, con un regimen de garantia distinto y mas favorable al comprador.
 

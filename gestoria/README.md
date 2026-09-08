@@ -65,15 +65,15 @@ Inputs: comunidad autonoma; datos del causante y del heredero (grupo I-IV); caud
 
 Output: borrador del modelo 650 (base y cuota estimada, marcada para verificar) y checklist de documentacion, organismo y plazo (6 meses), en markdown, DRAFT. Avisa de la plusvalia municipal.
 
-### `extranjeria-residencia`
+### `extranjeria-residencia` — trasladada
 
-Prepara la solicitud de NIE o de autorizacion de residencia (no lucrativa, arraigo, reagrupacion) ante la Oficina de Extranjeria (LOEX 4/2000 y RD 1155/2024). La resolucion es discrecional de la Administracion.
+Esta skill ha pasado al plugin **`extranjeria`**, junto con la nueva `extranjeria-nacionalidad-espanola`.
 
-Invocacion: `/gestoria:extranjeria-residencia`
+Invocacion: `/extranjeria:extranjeria-residencia`
 
-Inputs: tipo de tramite; datos del extranjero (nombre, nacionalidad, pasaporte); NIE previo; motivo; domicilio en Espana; datos de apoyo (medios economicos, seguro, reagrupante); lugar de presentacion.
-
-Output: hoja de datos del formulario EX (con checklist, organismo y tasa 790) y escrito de solicitud, en markdown, DRAFT.
+Motivo del traslado: el marco cambio por completo el 20 de mayo de 2025 con la entrada en vigor del
+Reglamento aprobado por el Real Decreto 1155/2024, que derogo el Real Decreto 557/2011, y la materia
+acumula ya skills suficientes para constituir un vertical propio.
 
 ---
 

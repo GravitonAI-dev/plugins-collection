@@ -23,7 +23,7 @@ inputs:
   - tipo_sujeto_tramite: cuenta_ajena_regimen_general / empleada_hogar / afiliacion_nuss_ta1 / inscripcion_empresa_ccc_ta6 (V2)
   - naturaleza_empleador: persona_fisica / persona_juridica (V3)
   - naturaleza_trabajador: persona_fisica (V4)
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - datos_empleador: razon social o nombre, CIF o NIF, domicilio, CCC si ya existe
   - datos_trabajador: nombre y apellidos, NIF, NUSS si lo tiene, grupo de cotizacion
   - fecha_efectos: fecha de inicio de la relacion laboral (alta) o de cese (baja)
@@ -59,14 +59,14 @@ Para garantizar un enrutamiento determinista y el cumplimiento estricto de la no
 - **V2 (Tipo de Sujeto / Trámite):** `cuenta_ajena_regimen_general` | `empleada_hogar` | `afiliacion_nuss_ta1` | `inscripcion_empresa_ccc_ta6`.
 - **V3 (Naturaleza del Empleador):** `persona_fisica` | `persona_juridica`.
 - **V4 (Naturaleza del Trabajador):** `persona_fisica`.
-- **V5 (Origen Plantilla / Asset):** `plantilla_sistema` | `plantilla_usuario`.
+- **origen_plantilla (origen de la plantilla):** `plantilla_sistema` | `plantilla_usuario`.
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
-> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`) y los resúmenes de validación con marcas técnicas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial, claro y profesional.
+> Los identificadores técnicos de los vectores y los resúmenes de validación con marcas técnicas (por ejemplo, anotar un vector como resuelto) son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial, claro y profesional.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 Tu primer objetivo es determinar el sujeto pasivo del trámite y el modelo aplicable.
 
@@ -105,17 +105,24 @@ Invoca la herramienta con las preguntas de triaje:
 }
 ```
 
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — `tipo_operacion`
+- `V2` — `tipo_sujeto_tramite`
+- `V3` — naturaleza del empleador: no se pregunta en el formulario de clasificación; se resuelve durante el propio flujo
+- `V4` — naturaleza del trabajador: no se pregunta en el formulario de clasificación; se resuelve durante el propio flujo
+
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 - **Si `V2 = afiliacion_nuss_ta1`:**
   - Hoja de datos propuesta: `assets/template-hoja-datos-afiliacion-ta1.md`. Proceder a la **Fase 2**.
 - **Si `V2 = inscripcion_empresa_ccc_ta6`:**
   - Hoja de datos propuesta: `assets/template-hoja-datos-inscripcion-empresa-ccc.md`. Proceder a la **Fase 2**.
-- **Si `V2 = cuenta_ajena_regimen_general` o `empleada_hogar`:**
+- **Si `V2 = cuenta_ajena_regimen_general` o `V2 = empleada_hogar`:**
   - Hoja de datos propuesta: `assets/template-hoja-datos-alta-baja-trabajador.md`. Proceder a la **Fase 2**.
+- `V1` no elige hoja por si solo: determina si se preparan los tramites de alta y afiliacion o los de cese y baja.
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 Interacción directa en texto plano conversacional en el chat (sin formularios).
 
@@ -131,13 +138,14 @@ Envía un mensaje estructurado y pedagógico:
    - **Canal Telemático:** Explicar si el trámite se cursará a través del Sistema RED (empresas con autorización) o del portal Import@ss (empleadores de hogar y particulares).
 2. **Propuesta de Plantilla Oficial del Sistema:**
    - Presentar la hoja de datos oficial correspondiente (`template-hoja-datos-afiliacion-ta1.md`, `template-hoja-datos-alta-baja-trabajador.md` o `template-hoja-datos-inscripcion-empresa-ccc.md`).
+   - Nombra por su ruta la hoja **que ha resuelto el enrutamiento de la Fase 1.3**; si el enrutamiento asigno varias, nombralas todas y en el orden en que se van a rellenar. **No propongas una hoja distinta de la enrutada.**
 3. **Pregunta Explícita al Usuario (Vía Chat):**
    Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
-- **Si `V5 = plantilla_sistema`:** Toma el asset oficial seleccionado y avanza a la **Fase 3**.
-- **Si `V5 = plantilla_usuario`:** Adopta la minuta del usuario desde `<attached_documents>` o `<user_message>`, valida la observancia de normas laborales imperativas y avanza a la **Fase 3**.
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+- **Si `origen_plantilla = plantilla_sistema`:** Toma el asset oficial seleccionado y avanza a la **Fase 3**.
+- **Si `origen_plantilla = plantilla_usuario`:** Adopta la minuta del usuario desde `<attached_documents>` o `<user_message>`, valida la observancia de normas laborales imperativas y avanza a la **Fase 3**.
 
 ---
 
@@ -160,7 +168,7 @@ Envía un mensaje estructurado y pedagógico:
 
 Recorre de forma secuencial los bloques de datos aplicando el ciclo interactivo:
 ```
-[Pregunta al Usuario] ──> [Vista Previa en texto plano] ──> [¿Confirmamos esta sección?] ──> [edit_file + read_file]
+[Pregunta al Usuario] --> [Vista Previa en texto plano] --> [¿Confirmamos esta sección?] --> [edit_file + read_file]
 ```
 
 ### Protocolo Obligatorio por Sección:
@@ -168,6 +176,10 @@ Recorre de forma secuencial los bloques de datos aplicando el ciclo interactivo:
 2. **Vista Previa (Preview):** Muestra el bloque redactado en texto plano.
 3. **Confirmación:** Pregunta literalmente: `¿Confirmamos esta sección?`.
 4. **Persistencia en Disco:** Tras el consentimiento, ejecuta `edit_file` con precisión quirúrgica y valida con `read_file`.
+
+**Petición de grupos de datos mediante `slot_filling_request` y confirmaciones en el chat:**
+- **Datos estructurados agrupados mediante `slot_filling_request`:** para cualquier grupo de datos objetivos o identificativos (datos identificativos del empresario y del trabajador, código de cuenta de cotización y datos del contrato), **NO pregunte dato por dato en el chat**. Invoque la herramienta `slot_filling_request` agrupando todos los campos del bloque de una sola vez.
+- **Validación de sentido, no solo de formato:** razone si la respuesta tiene sentido en el contexto de lo preguntado. Si es absurda, imposible o incongruente, dialogue en el chat, señale el motivo y pida aclaración antes de volcarla al documento.
 
 ### Hoja de Ruta de Secciones — TRABAJADOR POR CUENTA AJENA / EMPLEADA DE HOGAR:
 

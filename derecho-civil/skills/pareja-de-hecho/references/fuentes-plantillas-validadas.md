@@ -1,13 +1,13 @@
 # Fuentes Oficiales y Plantillas Validadas
 
 > Material de referencia para la skill `derecho-civil-pareja-de-hecho`. Registra las fuentes normativas y las plantillas
-> validadas que la skill verifica y, si detecta una version posterior, ACTUALIZA en el plugin en cada lanzamiento.
+> validadas que la skill verifica en cada lanzamiento para aplicar la redaccion vigente al documento que redacta.
 
 ---
 
-## Regla de actualizacion permanente (OBLIGATORIA)
+## Regla de verificacion permanente (OBLIGATORIA)
 
-Cada vez que se lanza la skill, en el Paso de verificacion se comprueban las fuentes de esta tabla. **Si se detecta una version posterior a la registrada, la skill actualiza el archivo correspondiente del plugin (reference o asset) antes de redactar** y anota la nueva fecha/version verificada. Si la fuente no es accesible, se usa la version local y se informa al usuario.
+Cada vez que se lanza la skill, en la Fase 2.1 se comprueban las fuentes de esta tabla. **Si se detecta una version posterior a la registrada, la skill aplica la redaccion vigente al documento que redacta en el workspace del usuario** e informa del cambio en el chat. La skill nunca modifica sus propios archivos de plugin. Si la fuente no es accesible, se usa la version local y se informa al usuario.
 
 ---
 
@@ -19,7 +19,7 @@ Consecuencia operativa, sin excepciones:
 
 1. La comunidad autonoma es un **vector obligatorio** del arbol de decision en todas las ramas de la skill.
 2. La normativa autonomica y su registro **se verifican con `web_search` en CADA lanzamiento**, contra el boletin oficial de la comunidad autonoma o el texto consolidado del BOE de esa ley autonomica y contra la sede electronica del registro. **Esta reference NO almacena los requisitos de las 17 comunidades**: hacerlo invitaria a citarlos de memoria y quedarian obsoletos sin aviso.
-3. La fecha de la verificacion se hace constar en el documento generado (`{{fecha_verificacion_normativa_autonomica}}`) junto con la denominacion exacta de la ley y el enlace consultado.
+3. La fecha de la verificacion se hace constar en el documento generado (`{{FECHA_VERIFICACION_NORMATIVA_AUTONOMICA}}`) junto con la denominacion exacta de la ley y el enlace consultado.
 4. **Si la verificacion falla**, la skill lo dice expresamente, no afirma ningun requisito autonomico y marca el punto como pendiente de comprobacion en el propio documento. Prohibido rellenar el hueco con conocimiento previo del modelo.
 
 | Fuente | Que se verifica | Cuando |

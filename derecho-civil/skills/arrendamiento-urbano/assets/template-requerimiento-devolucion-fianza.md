@@ -1,38 +1,38 @@
-# REQUERIMIENTO DE DEVOLUCION DE FIANZA — {{nombre_remitente}} a {{nombre_destinatario}}
+# REQUERIMIENTO DE DEVOLUCION DE FIANZA — {{NOMBRE_REMITENTE}} a {{NOMBRE_DESTINATARIO}}
 
 > **DRAFT — para revision por un abogado antes de su envio. No constituye asesoramiento juridico.**  
-> Version de la LAU verificada en el BOE: {{fecha_verificacion_lau}}
+> Version de la LAU verificada en el BOE: {{FECHA_VERIFICACION_LAU}}
 
 ---
 
 **REMITENTE (ARRENDATARIO)**  
-{{nombre_remitente}}  
-{{nif_remitente}}  
-{{domicilio_remitente}}
+{{NOMBRE_REMITENTE}}  
+{{NIF_REMITENTE}}  
+{{DOMICILIO_REMITENTE}}
 
 **DESTINATARIO (ARRENDADOR)**  
-{{nombre_destinatario}}  
-{{domicilio_notificaciones_destinatario}}
+{{NOMBRE_DESTINATARIO}}  
+{{DOMICILIO_NOTIFICACIONES_DESTINATARIO}}
 
-En {{lugar_emision}}, a {{fecha_comunicacion}}
+En {{LUGAR_EMISION}}, a {{FECHA_COMUNICACION}}
 
 Asunto: requerimiento de devolucion de la fianza arrendaticia (articulo 36.4 de la Ley 29/1994, de Arrendamientos Urbanos)
 
 Muy Sr./Sra. mio/a:
 
-Me dirijo a usted en mi condicion de arrendatario del contrato de arrendamiento de {{tipo_contrato}} suscrito entre ambas partes en fecha {{fecha_contrato}}, sobre el inmueble sito en {{direccion_inmueble}}, {{municipio_inmueble}}, ya extinguido.
+Me dirijo a usted en mi condicion de arrendatario del contrato de arrendamiento de {{TIPO_CONTRATO}} suscrito entre ambas partes en fecha {{FECHA_CONTRATO}}, sobre el inmueble sito en {{DIRECCION_INMUEBLE}}, {{MUNICIPIO_INMUEBLE}}, ya extinguido.
 
-Como consta a esa parte, el contrato quedo extinguido en fecha {{fecha_extincion}} y las llaves del inmueble fueron entregadas el dia {{fecha_entrega_llaves}}, quedando el inmueble a su libre disposicion en correcto estado de conservacion, salvo el desgaste propio de un uso ordinario.
+Como consta a esa parte, el contrato quedo extinguido en fecha {{FECHA_EXTINCION}} y las llaves del inmueble fueron entregadas el dia {{FECHA_ENTREGA_LLAVES}}, quedando el inmueble a su libre disposicion en correcto estado de conservacion, salvo el desgaste propio de un uso ordinario.
 
-A la firma del contrato entregue en concepto de fianza la cantidad de {{importe_fianza}} euros, que a fecha de hoy no me ha sido restituida, pese a haber transcurrido el plazo de UN MES desde la entrega de llaves que establece el articulo 36.4 de la Ley 29/1994, de 24 de noviembre, de Arrendamientos Urbanos, sin que se me haya comunicado ni justificado deduccion alguna.
+A la firma del contrato entregue en concepto de fianza la cantidad de {{IMPORTE_FIANZA}} euros, que a fecha de hoy no me ha sido restituida, pese a haber transcurrido el plazo de UN MES desde la entrega de llaves que establece el articulo 36.4 de la Ley 29/1994, de 24 de noviembre, de Arrendamientos Urbanos, sin que se me haya comunicado ni justificado deduccion alguna.
 
-Por medio de la presente le REQUIERO para que, en el plazo maximo de {{plazo_atencion_requerimiento}} desde la recepcion de esta comunicacion, proceda a la devolucion integra de la fianza, por importe de {{importe_fianza}} euros, incrementada en el interes legal del dinero devengado desde el transcurso del mes desde la entrega de llaves, conforme al citado articulo 36.4, mediante ingreso en la cuenta {{iban_remitente}}, o bien me comunique de forma justificada y documentada las deducciones que, en su caso, pretenda aplicar.
+Por medio de la presente le REQUIERO para que, en el plazo maximo de {{PLAZO_ATENCION_REQUERIMIENTO}} desde la recepcion de esta comunicacion, proceda a la devolucion integra de la fianza, por importe de {{IMPORTE_FIANZA}} euros, incrementada en el interes legal del dinero devengado desde el transcurso del mes desde la entrega de llaves, conforme al citado articulo 36.4, mediante ingreso en la cuenta {{IBAN_REMITENTE}}, o bien me comunique de forma justificada y documentada las deducciones que, en su caso, pretenda aplicar.
 
 Le advierto de que, transcurrido dicho plazo sin atender el presente requerimiento, ejercitare las acciones judiciales que en derecho me correspondan para la reclamacion de la cantidad adeudada, sus intereses y las costas del procedimiento.
 
 Sin otro particular, reciba un cordial saludo.
 
-Fdo.: {{nombre_remitente}}  
+Fdo.: {{NOMBRE_REMITENTE}}  
 ARRENDATARIO
 
 ---

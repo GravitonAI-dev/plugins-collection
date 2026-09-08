@@ -9,8 +9,28 @@
       "name": "derecho-civil",
       "displayName": "Derecho Civil",
       "source": "./derecho-civil",
-      "version": "0.8.0",
-      "description": "Generacion de documentos de derecho civil espanol, siempre en su version consolidada vigente verificada en el BOE: arrendamiento urbano, compraventa de inmuebles, contratos entre particulares, propiedad horizontal, desahucios, ejecucion de titulos, reclamacion de cantidad, monitorio y juicio ordinario, familia (divorcio, medidas sobre hijos no matrimoniales, modificacion de medidas, liquidacion de gananciales y parejas de hecho), sucesiones (herencia y planificacion testamentaria), clausulas abusivas de consumo, responsabilidad civil y medidas de apoyo a personas con discapacidad.",
+      "version": "0.9.0",
+      "description": "Generacion de documentos de derecho civil espanol, siempre en su version consolidada vigente verificada en el BOE: arrendamiento urbano, compraventa de inmuebles, contratos entre particulares, propiedad horizontal, desahucios, ejecucion de titulos, reclamacion de cantidad, monitorio y juicio ordinario, familia (divorcio, medidas sobre hijos no matrimoniales, modificacion de medidas, liquidacion de gananciales y parejas de hecho), sucesiones (herencia y planificacion testamentaria), clausulas abusivas de consumo, responsabilidad civil y medidas de apoyo a personas con discapacidad. Incluye la produccion de los documentos del medio adecuado de solucion de controversias exigido por la Ley Organica 1/2025.",
+      "author": {
+        "name": "GravitonAI"
+      }
+    },
+    {
+      "name": "derecho-laboral",
+      "displayName": "Derecho Laboral",
+      "source": "./derecho-laboral",
+      "version": "0.1.0",
+      "description": "Generación de documentos del ciclo completo de la relación laboral española, siempre en su versión consolidada vigente verificada en el BOE y contrastada con el convenio colectivo aplicable: contratos de trabajo y acuerdos de trabajo a distancia, modificación sustancial de condiciones y movilidad geográfica, sanciones disciplinarias y expediente contradictorio, cartas de despido (disciplinario, objetivo, periodo de prueba y fin de contrato temporal), recibo de finiquito y liquidación, burofax de reclamación y papeleta de conciliación previa, demanda ante el Juzgado de lo Social (despido, cantidad, sanción y modificación sustancial) y reclamación previa y demanda en materia de prestaciones de Seguridad Social.",
+      "author": {
+        "name": "GravitonAI"
+      }
+    },
+    {
+      "name": "derecho-consumo",
+      "displayName": "Derecho de Consumo",
+      "source": "./derecho-consumo",
+      "version": "0.1.0",
+      "description": "Generación de documentos de reclamación de consumo en España, siempre en su versión consolidada vigente verificada en el BOE y contrastada con la normativa autonómica de consumo, que fija el modelo de hoja y el organismo competente: reclamación previa dirigida a la empresa, hoja oficial de quejas y reclamaciones, escrito ante la administración autonómica o municipal de consumo y solicitud de arbitraje conforme al Reglamento aprobado por Real Decreto 713/2024. Cubre el itinerario extrajudicial e identifica, para los cuatro sectores con supervisor propio (banca y seguros, telecomunicaciones, suministros y transporte aéreo), la vía específica que precede a la administración general de consumo. Deriva a la vía judicial cuando esta procede.",
       "author": {
         "name": "GravitonAI"
       }
@@ -20,7 +40,27 @@
       "displayName": "Gestoria",
       "source": "./gestoria",
       "version": "0.2.1",
-      "description": "Generacion de documentos y solicitudes para tramites administrativos de gestoria en Espana (trafico y DGT, alta y baja de autonomo, altas y bajas en la Seguridad Social, impuesto de sucesiones, extranjeria), con verificacion de la normativa vigente en el BOE, checklist de documentos y organismo de presentacion. Salida DRAFT en markdown para revision profesional.",
+      "description": "Generacion de documentos y solicitudes para tramites administrativos de gestoria en Espana (trafico y DGT, alta y baja de autonomo, altas y bajas en la Seguridad Social e impuesto de sucesiones), con verificacion de la normativa vigente en el BOE, checklist de documentos y organismo de presentacion. Los tramites de extranjeria y nacionalidad se han trasladado al plugin `extranjeria`. Salida DRAFT en markdown para revision profesional.",
+      "author": {
+        "name": "GravitonAI"
+      }
+    },
+    {
+      "name": "extranjeria",
+      "displayName": "Extranjería y Nacionalidad",
+      "source": "./extranjeria",
+      "version": "0.1.0",
+      "description": "Generación de documentos de extranjería y nacionalidad en España conforme a la Ley Orgánica 4/2000 y al Reglamento aprobado por Real Decreto 1155/2024, en vigor desde el 20 de mayo de 2025, que derogó el Real Decreto 557/2011: solicitud de número de identidad de extranjero, autorizaciones de residencia por arraigo en sus cinco modalidades, residencia no lucrativa, reagrupación familiar, y solicitud de nacionalidad española por residencia con su expediente completo, sus pruebas y su juramento. Cada skill verifica la versión consolidada vigente en el BOE y las instrucciones de la Secretaría de Estado de Migraciones antes de redactar.",
+      "author": {
+        "name": "GravitonAI"
+      }
+    },
+    {
+      "name": "despacho",
+      "displayName": "Gestión del Despacho",
+      "source": "./despacho",
+      "version": "0.1.0",
+      "description": "Generación de los documentos que el propio despacho profesional necesita para sí mismo, con la normativa vigente verificada en el BOE: hoja de encargo profesional con presupuesto de honorarios y su comunicación de finalización, minuta de honorarios, requerimiento previo de pago y solicitud de jura de cuentas del artículo 35 de la Ley de Enjuiciamiento Civil, minuta de poder general para pleitos y designación de representación, expediente de diligencia debida en prevención del blanqueo de capitales conforme a la Ley 10/2010, y paquete de protección de datos del despacho (registro de actividades de tratamiento, contrato de encargado, cláusula informativa, deber de secreto y registro de brechas de seguridad).",
       "author": {
         "name": "GravitonAI"
       }
@@ -30,7 +70,7 @@
       "displayName": "Gestion de Plantillas",
       "source": "./gestion-plantillas",
       "version": "0.2.0",
-      "description": "Creacion, parametrizacion, actualizacion y registro de plantillas personalizadas (assets) para skills del sistema o globales de usuario mediante set_skill_template, update_user_template y save_user_template.",
+      "description": "Herramientas y skills para la creacion, parametrizacion, actualizacion y registro de plantillas personalizadas (assets) para skills del sistema o de usuario global mediante set_skill_template, update_user_template y save_user_template.",
       "author": {
         "name": "GravitonAI"
       }

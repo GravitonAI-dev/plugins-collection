@@ -13,7 +13,7 @@ when_to_use: |
   - El usuario dispone de documentos que acreditan la deuda (facturas, contrato, reconocimiento, rentas).
   - El usuario pide una peticion de monitorio o un burofax previo de reclamacion de pago.
 inputs:
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - alcance: solo peticion inicial / peticion inicial + burofax previo
   - tipo_deuda: rentas de arrendamiento / otra (facturas, prestamo, servicios, comunidad de propietarios)
   - naturaleza_acreedor: persona fisica o persona juridica
@@ -51,14 +51,14 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 
 ### Vectores de Estado (Uso Estrictamente Interno):
 
-Para garantizar un enrutamiento determinista y el cumplimiento normativo riguroso, el asistente resuelve y mantiene internamente en memoria los vectores de estado de la operación (V1 a V4) y el origen de la plantilla (V5).
+Para garantizar un enrutamiento determinista y el cumplimiento normativo riguroso, el asistente resuelve y mantiene internamente en memoria los vectores de estado de la operación —cuyo catálogo y su correspondencia con las respuestas del formulario figuran en la Fase 1.2— y el origen de la plantilla (`origen_plantilla`).
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
-> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`) y los resúmenes de validación con marcas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial y profesional.
+> Los identificadores técnicos de los vectores y los resúmenes de validación con marcas (por ejemplo, anotar un vector como resuelto) son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial y profesional.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 Tu primer objetivo es clasificar con precisión la naturaleza del caso y fijar los vectores deterministas de estado.
 
@@ -68,86 +68,120 @@ Antes de abrir formularios interactivos o hacer preguntas, analiza el mensaje in
 - Si restan vectores por definir, no formules preguntas abiertas en turnos sucesivos: presenta el formulario estructurado interactivo mediante la herramienta `restricted_human_in_the_loop_request`.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
-Presenta al usuario las opciones estructuradas para resolver los vectores pendientes:
+Invoca la herramienta con las opciones de triaje:
+
 ```json
 {
-  "type": "object",
-  "properties": {
-    "tipo_deuda": {
-      "type": "string",
-      "description": "Naturaleza de la deuda dineraria (V1)",
-      "enum": [
-        "rentas_arrendamiento",
-        "deuda_comercial_general",
-        "comunidad_propietarios"
+  "form_data": [
+    {
+      "id": "alcance",
+      "rationale": "Resolver V1: determina si además de la petición inicial se genera el burofax de requerimiento previo, útil para acreditar el intento de solución previa.",
+      "question": "¿Qué alcance tiene el encargo?",
+      "options": [
+        {"id": "solo_peticion", "label": "Solo la petición inicial del proceso monitorio"},
+        {"id": "peticion_y_burofax", "label": "La petición inicial y, antes, el burofax de requerimiento previo de pago"}
       ]
     },
-    "alcance_escrito": {
-      "type": "string",
-      "description": "Documento o alcance solicitado (V2)",
-      "enum": [
-        "peticion_judicial",
-        "burofax_masc"
+    {
+      "id": "tipo_deuda",
+      "rationale": "Resolver V2: las rentas de arrendamiento tienen variante propia de petición inicial y régimen específico de acreditación.",
+      "question": "¿De dónde procede la deuda?",
+      "options": [
+        {"id": "rentas_arrendamiento", "label": "Rentas de arrendamiento impagadas"},
+        {"id": "otra_causa", "label": "Otra causa: facturas, préstamo, servicios o gastos de comunidad"}
+      ]
+    },
+    {
+      "id": "naturaleza_acreedor",
+      "rationale": "Resolver V3: fija la estructura de comparecencia y la acreditación de la representación en la petición inicial.",
+      "question": "¿Quién es el acreedor?",
+      "options": [
+        {"id": "persona_fisica", "label": "Persona física"},
+        {"id": "persona_juridica", "label": "Persona jurídica"}
+      ]
+    },
+    {
+      "id": "masc_intentado",
+      "rationale": "Resolver V4: el intento de un medio adecuado de solución de controversias condiciona la procedibilidad conforme a la Ley Orgánica 1/2025.",
+      "question": "¿Se ha intentado ya algún medio de solución previa: burofax, mediación o negociación?",
+      "options": [
+        {"id": "si", "label": "Sí"},
+        {"id": "no", "label": "No"}
       ]
     }
-  },
-  "required": [
-    "tipo_deuda",
-    "alcance_escrito"
   ]
 }
 ```
 
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — `alcance`
+- `V2` — `tipo_deuda`
+- `V3` — `naturaleza_acreedor`
+- `V4` — `masc_intentado`
+
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
-Asigna deterministamente la plantilla del sistema aplicable según la combinación de vectores resultante y valida los presupuestos legales antes de avanzar a la Fase 2.
+Una vez resueltos los vectores, evalua en este orden:
+
+- Si **V2 = rentas_arrendamiento** → **HOJA RENTAS**: `assets/template-peticion-inicial-monitorio-rentas.md` (Art. 812.2.2.º LEC, que admite acumular las rentas y cantidades debidas del arrendamiento).
+- Si **V2 = otra causa** → **HOJA GENERAL**: `assets/template-peticion-inicial-monitorio.md`.
+- Si **V1 = peticion_y_burofax**, o **V4 = no** → generar ademas, y **ANTES** de la peticion inicial, `assets/template-burofax-requerimiento-previo-masc.md`. El requerimiento fehaciente previo no es presupuesto de admision del monitorio, pero por defecto conservador se recomienda dejarlo acreditado: constituye en mora, fija la fecha de devengo de los intereses y evita la discusion sobre la procedibilidad. Explicaselo al cliente en esos terminos, sin presentarlo como obligatorio.
+- Si **V1 = solo_peticion** y **V4 = si** → no se genera el burofax; se hace constar en la peticion el intento ya practicado.
+- V3 no elige asset: determina la variante del encabezamiento de comparecencia y la acreditacion de la representacion (persona fisica, o persona juridica con su representante y el titulo del que resulta la representacion).
+- Si la deuda **no es dineraria, liquida, determinada, vencida y exigible** (Art. 812.1 LEC) → **DETENER**: el monitorio no es el cauce. Derivar a `reclamacion-cantidad` para que elija la via declarativa procedente. No crear documento.
+- Si lo que se pretende es **oponerse** a un monitorio ya notificado al cliente → **DETENER**: derivar a `reclamacion-cantidad`, que cubre el escrito de oposicion. No crear documento.
+- Si la deuda es de **cuotas de comunidad de propietarios** → **DETENER** y derivar a `propiedad-horizontal`, que exige la certificacion previa del acuerdo de la junta (articulos 21.1 a 21.3 de la Ley de Propiedad Horizontal) y tiene su propia peticion inicial.
+- **Requisito de procedibilidad (Ley Organica 1/2025).** Si el intento previo de un medio adecuado de solucion de controversias no esta acreditado y esta skill no genera por si misma el documento que lo acredita, **deriva a `masc-acuerdos`**, que produce el requerimiento de negociacion, el acta del intento, la oferta vinculante, el acuerdo transaccional y la declaracion responsable de imposibilidad. Ofrece encadenar con ella antes de continuar, y advierte de que sin ese documento la demanda no se admite a tramite.
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 En esta fase interactúas **directamente a través del chat (en texto plano conversacional, SIN formularios)** para compartir el plan de trabajo, el fundamento normativo y acordar la plantilla base con el usuario.
 
 ### 2.1 Verificación Normativa Interna
-1. Consulta las referencias jurídicas cargadas en tu contexto (carpeta `references/`).
-2. Opcionalmente verifica en vivo mediante `web_search` la legislación consolidada en el BOE si se requieren confirmar índices o modificaciones normativas recientes.
+Ejecuta esta secuencia completa; en esta materia la verificación no es opcional:
 
-### 2.2 Mensaje de Plan de Acción y Consulta de Assets
-Envía un mensaje estructurado y formal que contenga:
-1. **Marco Legal Aplicable:** Artículos 812 a 818 de la Ley de Enjuiciamiento Civil (LEC), modificados por RDL 6/2023 y LO 1/2025; Art. 21 de la Ley de Propiedad Horizontal; y Art. 813 LEC (competencia territorial improrrogable del domicilio del deudor).
-2. **Orientación Legal del Caso:**
-La skill se actualiza a si misma en cada lanzamiento: comprueba las fuentes oficiales y, si detecta una version posterior, reescribe sus propios archivos (references y assets) antes de redactar. Ejecutar SIEMPRE esta secuencia:
 
-**1.1 — Leer la fecha/version registrada localmente.** Abrir `references/fuentes-plantillas-validadas.md` y anotar la "Version registrada" de la LEC y del modelo del CGPJ.
+La skill verifica las fuentes oficiales en cada lanzamiento y, si detecta una version posterior, aplica la redaccion vigente al documento que redacta en el workspace del usuario, sin modificar sus propios archivos de plugin. Ejecutar SIEMPRE esta secuencia:
 
-**1.2 — Consultar la fuente oficial vigente.** Invocar:
+- **Leer la fecha/version registrada localmente.** Consultar `references/fuentes-plantillas-validadas.md`, que llega cargada en tu contexto, y anotar la "Version registrada" de la LEC y del modelo del CGPJ.
+
+- **Consultar la fuente oficial vigente.** Invocar:
 ```
-read_file(...) o web_search(...)
+web_search(...)
 ```
 Extraer: fecha del texto consolidado vigente de la LEC; redaccion actual de los arts. 812 a 818 y del art. 264 (acreditacion del intento de MASC); estado de aplicacion de la LO 1/2025 (BOE-A-2025-76).
 
 Consultar tambien el modelo normalizado del CGPJ:
 ```
-read_file(...) o web_search(...)
+web_search(...)
 ```
 
-**1.3 — Comparar.** Contrastar la version oficial con la registrada localmente y con el texto de las references.
+- **Comparar.** Contrastar la version oficial con la registrada localmente y con el texto de las references.
 
-**1.4 — Aplicación de la redacción vigente.** Si la versión oficial es posterior o el texto de los artículos ha cambiado, aplica la redacción vigente directamente sobre el documento a redactar en el workspace del usuario, sin usar versiones desactualizadas.
+- **Aplicación de la redacción vigente.** Si la versión oficial es posterior o el texto de los artículos ha cambiado, aplica la redacción vigente directamente sobre el documento a redactar en el workspace del usuario, sin usar versiones desactualizadas.
 
-**1.5 — Fallback si la fuente no es accesible.** Si `read_file` falla (error HTTP, timeout):
+- **Fallback si la fuente no es accesible.** Si `web_search` no devuelve la fuente oficial:
 ```
 web_search("Ley Enjuiciamiento Civil proceso monitorio articulos 812 818 texto consolidado BOE")
 ```
 Si tambien falla: usar las references locales como respaldo y notificar al usuario:
 "No se pudo verificar la version vigente de la LEC en el BOE. La peticion se genera con la version de referencia. Verificar manualmente antes de presentar."
-3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-burofax-requerimiento-previo-masc.md`).
+
+### 2.2 Mensaje de Plan de Acción y Consulta de Assets
+Envía un mensaje estructurado y formal que contenga:
+1. **Marco Legal Aplicable:** Artículos 812 a 818 de la Ley de Enjuiciamiento Civil (LEC), modificados por RDL 6/2023 y LO 1/2025; Art. 21 de la Ley de Propiedad Horizontal; y Art. 813 LEC (competencia territorial improrrogable del domicilio del deudor).
+2. **Orientación Legal del Caso:**
+   Informa al usuario, en registro formal, de la norma y los artículos aplicables a la ruta resuelta, con la versión vigente verificada en la Fase 2.1 y el enlace de la fuente consultada.
+
+3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** y nombrala por su ruta. Si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la seccion de assets.
 4. **Pregunta Explícita al Usuario (Vía Chat):** Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
-* **Si `[V5 = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+* **Si `[origen_plantilla = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
   Toma el texto íntegro de la plantilla correspondiente directamente desde el catálogo del prompt y procede de inmediato a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
+* **Si `[origen_plantilla = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
   1. Accede al contenido del adjunto desde `<attached_documents>` o el mensaje del usuario.
   2. **Guardrail de Verificación Legal:** Analiza el texto aportado. Si contiene cláusulas nulas, contrarias a normas imperativas o de imposible cumplimiento, adviértelo expresamente en el chat y propón la redacción legalmente válida.
   3. Adopta la minuta revisada como base y avanza a la **Fase 3**.
@@ -173,12 +207,16 @@ Si tambien falla: usar las references locales como respaldo y notificar al usuar
 ### Protocolo Obligatorio de Edición
 Para cada cláusula o bloque temático del documento, ejecuta estrictamente el siguiente ciclo interactivo:
 ```
-[Pregunta al Usuario] ──> [Vista Previa en texto plano] ──> [¿Confirmamos?] ──> [edit_file + read_file]
+[Pregunta al Usuario] --> [Vista Previa en texto plano] --> [¿Confirmamos?] --> [edit_file + read_file]
 ```
 1. **Pregunta en Chat:** Solicita los datos específicos de la sección.
 2. **Vista Previa:** Muestra el texto exacto redactado en texto plano en el chat.
 3. **Confirmación:** Consulta al usuario si está conforme o desea algún ajuste.
 4. **Persistencia en Disco:** Una vez confirmado, ejecuta `edit_file` con `old_string` y `new_string` exactos, y verifica con `read_file`.
+
+**Petición de grupos de datos mediante `slot_filling_request` y confirmaciones en el chat:**
+- **Datos estructurados agrupados mediante `slot_filling_request`:** para cualquier grupo de datos objetivos o identificativos (partes acreedora y deudora, origen y cuantía de la deuda, y documentos que la acreditan), **NO pregunte dato por dato en el chat**. Invoque la herramienta `slot_filling_request` agrupando todos los campos del bloque de una sola vez.
+- **Validación de sentido, no solo de formato:** razone si la respuesta tiene sentido en el contexto de lo preguntado. Si es absurda, imposible o incongruente, dialogue en el chat, señale el motivo y pida aclaración antes de volcarla al documento.
 
 ### Hoja de Ruta de Secciones y Cláusulas Condicionales
 
@@ -187,7 +225,7 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 3. **Origen de la deuda y documentos acreditativos**: origen de la deuda (rentas, facturas, contrato, préstamo), desglose de los documentos que la acreditan conforme al art. 812 LEC, fechas de vencimiento y exigibilidad.
 4. **Cuantía reclamada e intereses**: principal adeudado en euros e intereses solicitados (pactados o legal del dinero devengados desde el vencimiento).
 5. **Juzgado competente**: determinación formal del Juzgado de Primera Instancia del domicilio del deudor (art. 813 LEC).
-6. **Requerimiento previo MASC** *(solo si V4 = 2, burofax)*: plazo otorgado para el pago (10 días hábiles recomendados), cuenta IBAN de ingreso y medios de contacto para la solución negociada.
+6. **Requerimiento previo MASC** *(solo si V4 = no, burofax)*: plazo otorgado para el pago (10 días hábiles recomendados), cuenta IBAN de ingreso y medios de contacto para la solución negociada.
 
 ---
 
@@ -217,5 +255,5 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 4. Debe existir al menos un documento que acredite la deuda (Art. 812). Sin documento acreditativo, no procede.
 5. Competencia exclusiva del Juzgado de Primera Instancia del domicilio o residencia del deudor (Art. 813). No admitir sumision a otro fuero.
 6. Posicion conservadora sobre el MASC: ante la duda sobre si es exigible en el monitorio (LO 1/2025), recomendar e integrar el intento previo (burofax) y advertir de la cuestion.
-7. Los campos a rellenar usan el placeholder propio del asset en doble llave, p. ej. `{{cuantia_reclamada}}` (NUNCA corchete simple `[DATO]`: colisiona con los identificadores de privacidad `[PERSON_1]`). Si hace falta marcar un hueco suelto sin placeholder propio, usa `{{DATO_FALTANTE}}` una sola vez por documento: nunca lo repitas para dos datos distintos, porque el `Edit` posterior necesita un `oldString` unico. Nunca inventar datos, cuantias ni fechas.
+7. Los campos a rellenar usan el placeholder propio del asset en doble llave, p. ej. `{{CUANTIA_RECLAMADA}}` (NUNCA corchete simple `[DATO]`: colisiona con los identificadores de privacidad `[PERSON_1]`). Si hace falta marcar un hueco suelto sin placeholder propio, usa `{{DATO_FALTANTE}}` una sola vez por documento: nunca lo repitas para dos datos distintos, porque el `edit_file` posterior necesita un `oldString` unico. Nunca inventar datos, cuantias ni fechas.
 8. Nunca afirmar que la deuda es exigible o incontrovertida sin base documental. Nunca inventar jurisprudencia.

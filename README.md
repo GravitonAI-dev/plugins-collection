@@ -365,7 +365,7 @@ assets:
 
 **Rol en el flujo**: plantillas que la skill **produce** como output. Se referencian desde `SKILL.md` por path relativo. La skill las llena con los datos del caso.
 
-**Convención**: cada plantilla lleva marcadores `{{variable}}` que `SKILL.md` indica cómo llenar. Las plantillas son limpias y no contienen comentarios condicionales (`<!-- Si ... -->`); toda la lógica condicional y redacciones alternativas residen en `SKILL.md`.
+**Convención**: cada plantilla lleva marcadores `{{VARIABLE}}` que `SKILL.md` indica cómo llenar. Las plantillas son limpias y no contienen comentarios condicionales (`<!-- Si ... -->`); toda la lógica condicional y redacciones alternativas residen en `SKILL.md`.
 
 ### 8.4 `scripts/` (estructural, no usado aún)
 
@@ -541,7 +541,7 @@ Aplican a **todos** los plugins y skills. Viven en `CLAUDE.md` raíz y se resume
 
 ## 17. Plugins incluidos
 
-### `derecho-civil` (v0.6.0)
+### `derecho-civil`
 Generación de documentos de derecho civil español conforme a normativa consolidada del BOE (LAU, LEC, Código Civil).
 **Skills** (19): `arrendamiento-urbano`, `compraventa-inmueble`, `contratos-particulares`, `desahucio`, `divorcio`, `ejecucion-titulos`, `herencia`, `juicio-ordinario`, `liquidacion-gananciales`, `medidas-apoyo-discapacidad`, `medidas-hijos-no-matrimoniales`, `modificacion-medidas`, `monitorio`, `pareja-de-hecho`, `propiedad-horizontal`, `reclamacion-cantidad`, `reclamacion-clausulas-abusivas`, `responsabilidad-civil`, `testamento-planificacion`.
 
@@ -562,7 +562,7 @@ Asistente universal de primera línea y fallback para consultas no catalogadas, 
 ## 18. Estado y roadmap
 
 **Estado actual**:
-- 4 plugins (`derecho-civil`, `gestoria`, `gestion-plantillas`, `asistente-general`).
+- El censo de plugins y sus versiones viven **unicamente** en `.claude-plugin/marketplace.json`, que es el registro que consume la herramienta. Este README no los repite para no desincronizarse.
 - Catálogos globales poblados con 5 servers y 9 tools con schemas JSON Schema completos.
 - Validación manual cruzada (ver §10). Sin `validate.py` automatizado todavía.
 - Sin CI workflows, sin `LICENSE`, sin `CONTRIBUTING.md` — no son necesarios en esta fase.

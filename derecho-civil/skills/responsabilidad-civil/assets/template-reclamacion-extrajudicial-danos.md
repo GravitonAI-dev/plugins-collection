@@ -1,63 +1,63 @@
-# RECLAMACION EXTRAJUDICIAL DE DANOS Y PERJUICIOS — {{nombre_perjudicado}} frente a {{nombre_responsable}}
+# RECLAMACION EXTRAJUDICIAL DE DANOS Y PERJUICIOS — {{NOMBRE_PERJUDICADO}} frente a {{NOMBRE_RESPONSABLE}}
 
 > **DRAFT — para revision por un abogado colegiado antes de su firma. No constituye asesoramiento juridico definitivo.**  
-> Version de las normas verificada en el BOE: {{fecha_verificacion_normativa}}  
-> Fundamento: {{fundamento_sustantivo_reclamacion}}  
+> Version de las normas verificada en el BOE: {{FECHA_VERIFICACION_NORMATIVA}}  
+> Fundamento: {{FUNDAMENTO_SUSTANTIVO_RECLAMACION}}  
 > Triple funcion de este escrito: interrumpir la prescripcion (articulo 1973 del Codigo Civil), abrir la actividad negociadora previa exigida por el articulo 5 de la Ley Organica 1/2025 y, en su caso, constituir la reclamacion previa al asegurador.
 
 ---
 
 ## REMITENTE
 
-{{nombre_perjudicado}}  
-{{documento_identidad_perjudicado}}  
-{{domicilio_perjudicado}}  
-{{telefono_perjudicado}}  
-{{email_perjudicado}}  
-{{mencion_representacion_letrada}}
+{{NOMBRE_PERJUDICADO}}  
+{{DOCUMENTO_IDENTIDAD_PERJUDICADO}}  
+{{DOMICILIO_PERJUDICADO}}  
+{{TELEFONO_PERJUDICADO}}  
+{{EMAIL_PERJUDICADO}}  
+{{MENCION_REPRESENTACION_LETRADA}}
 
 ## DESTINATARIO
 
-{{nombre_destinatario}}  
-{{documento_identidad_destinatario}}  
-{{domicilio_destinatario}}
-**Medio de envio:** {{medio_envio_fehaciente}}  
-**Fecha:** {{fecha_escrito}}  
-**Asunto:** Reclamacion de indemnizacion por los danos y perjuicios sufridos el {{fecha_hecho}}. Requerimiento de respuesta.
+{{NOMBRE_DESTINATARIO}}  
+{{DOCUMENTO_IDENTIDAD_DESTINATARIO}}  
+{{DOMICILIO_DESTINATARIO}}
+**Medio de envio:** {{MEDIO_ENVIO_FEHACIENTE}}  
+**Fecha:** {{FECHA_ESCRITO}}  
+**Asunto:** Reclamacion de indemnizacion por los danos y perjuicios sufridos el {{FECHA_HECHO}}. Requerimiento de respuesta.
 
 ---
 
-Me dirijo a usted en {{concepto_en_que_se_dirige}}, en relacion con el hecho que se describe a continuacion, a fin de reclamar formalmente la indemnizacion de los danos y perjuicios sufridos.
+Me dirijo a usted en {{CONCEPTO_EN_QUE_SE_DIRIGE}}, en relacion con el hecho que se describe a continuacion, a fin de reclamar formalmente la indemnizacion de los danos y perjuicios sufridos.
 
 ## PRIMERO — El hecho danoso
 
-El {{fecha_hecho}}, a las {{hora_hecho}}, en {{lugar_hecho}}, {{descripcion_hecho}}
+El {{FECHA_HECHO}}, a las {{HORA_HECHO}}, en {{LUGAR_HECHO}}, {{DESCRIPCION_HECHO}}
 
-{{circunstancias_relevantes_hecho}}
+{{CIRCUNSTANCIAS_RELEVANTES_HECHO}}
 
 ## SEGUNDO — Su responsabilidad
 
-{{fundamento_imputacion}}
+{{FUNDAMENTO_IMPUTACION}}
 
 ## TERCERO — Los danos sufridos
 
-{{relacion_danos_sufridos}}
+{{RELACION_DANOS_SUFRIDOS}}
 
 ## CUARTO — Cuantificacion de la indemnizacion reclamada
 
-{{criterio_cuantificacion}}
+{{CRITERIO_CUANTIFICACION}}
 
 Desglose:  
-Dano personal: {{importe_dano_personal}} euros.  
-Dano material: {{importe_dano_material}} euros.  
-Lucro cesante: {{importe_lucro_cesante}} euros.  
-TOTAL RECLAMADO: {{importe_total_reclamado}} euros ({{importe_total_letras}} euros).
+Dano personal: {{IMPORTE_DANO_PERSONAL}} euros.  
+Dano material: {{IMPORTE_DANO_MATERIAL}} euros.  
+Lucro cesante: {{IMPORTE_LUCRO_CESANTE}} euros.  
+TOTAL RECLAMADO: {{IMPORTE_TOTAL_RECLAMADO}} euros ({{IMPORTE_TOTAL_LETRAS}} euros).
 
 ## QUINTO — Requerimiento y propuesta
 
-Por todo lo anterior, le REQUIERO formalmente para que, en el plazo de {{plazo_respuesta}} dias naturales a contar desde la recepcion de este escrito:
+Por todo lo anterior, le REQUIERO formalmente para que, en el plazo de {{PLAZO_RESPUESTA}} dias naturales a contar desde la recepcion de este escrito:
 
-1. Reconozca su responsabilidad por los hechos descritos y abone la cantidad de {{importe_total_reclamado}} euros, mediante transferencia a la cuenta {{iban_pago}}.
+1. Reconozca su responsabilidad por los hechos descritos y abone la cantidad de {{IMPORTE_TOTAL_RECLAMADO}} euros, mediante transferencia a la cuenta {{IBAN_PAGO}}.
 2. O bien formule por escrito una propuesta alternativa motivada, que esta parte valorara de buena fe.
 
 Le manifiesto expresamente la voluntad de esta parte de alcanzar un acuerdo por esta via y de participar en cualquier medio adecuado de solucion de controversias que resulte apropiado, evitando el litigio.
@@ -70,8 +70,8 @@ Le manifiesto expresamente la voluntad de esta parte de alcanzar un acuerdo por 
 
 Sin otro particular, queda a su disposicion para cuanto precise.
 
-{{nombre_firmante}}  
-{{lugar}}, a {{fecha_escrito}}
+{{NOMBRE_FIRMANTE}}  
+{{LUGAR}}, a {{FECHA_ESCRITO}}
 
 Firma: ___________________________
 
@@ -79,15 +79,15 @@ Firma: ___________________________
 
 ## DOCUMENTACION QUE SE ACOMPANA
 
-Documento n.º 1 — {{documento_1}}  
-Documento n.º 2 — {{documento_2}}  
-{{documentos_adicionales}}
+Documento n.º 1 — {{DOCUMENTO_1}}  
+Documento n.º 2 — {{DOCUMENTO_2}}  
+{{DOCUMENTOS_ADICIONALES}}
 
 ---
 
 > **Advertencias:**  
 > 1. Este documento es un DRAFT generado automaticamente. Debe ser revisado por un abogado antes de su envio.  
-> 2. Version de las normas verificada: {{fecha_verificacion_normativa}}.  
+> 2. Version de las normas verificada: {{FECHA_VERIFICACION_NORMATIVA}}.  
 > 3. **El envio debe ser fehaciente.** Un correo electronico sin acuse de recibo o una llamada telefonica no acreditan la interrupcion de la prescripcion. Utilice burofax con certificacion de contenido y acuse de recibo, o notificacion notarial, y conserve el justificante: es el documento que sostendra el fundamento de no prescripcion de una eventual demanda.  
 > 4. **Conserve tambien la falta de respuesta.** El articulo 9.1 de la Ley Organica 1/2025 excluye de la confidencialidad la informacion relativa a si las partes acudieron o no al intento de negociacion previa y al objeto de la controversia: eso es precisamente lo que habra que acreditar con la demanda (articulo 264.4.º de la Ley de Enjuiciamiento Civil).  
 > 5. **Si hay aseguradora identificada, conviene remitir el escrito tanto al causante como a la aseguradora.** La reclamacion dirigida solo a una de ellas puede no interrumpir la prescripcion frente a la otra.  

@@ -16,7 +16,7 @@ when_to_use: |
   - El cliente ha recibido un requerimiento de pago de un proceso monitorio y quiere oponerse.
   - El usuario necesita el burofax de requerimiento previo (intento de MASC) antes de reclamar.
 inputs:
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - rol: el cliente reclama una cantidad (acreedor) / ha recibido un requerimiento de monitorio (deudor)
   - estado_reclamacion: sin reclamacion judicial iniciada / monitorio propio con oposicion del deudor
   - deuda_documentada: existen documentos que acreditan la deuda (si / no)
@@ -63,14 +63,14 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 
 ### Vectores de Estado (Uso Estrictamente Interno):
 
-Para garantizar un enrutamiento determinista y el cumplimiento normativo riguroso, el asistente resuelve y mantiene internamente en memoria los vectores de estado de la operación (V1 a V4) y el origen de la plantilla (V5).
+Para garantizar un enrutamiento determinista y el cumplimiento normativo riguroso, el asistente resuelve y mantiene internamente en memoria los vectores de estado de la operación —cuyo catálogo y su correspondencia con las respuestas del formulario figuran en la Fase 1.2— y el origen de la plantilla (`origen_plantilla`).
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
-> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`) y los resúmenes de validación con marcas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial y profesional.
+> Los identificadores técnicos de los vectores y los resúmenes de validación con marcas (por ejemplo, anotar un vector como resuelto) son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial y profesional.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 Tu primer objetivo es clasificar con precisión la naturaleza del caso y fijar los vectores deterministas de estado.
 
@@ -80,37 +80,78 @@ Antes de abrir formularios interactivos o hacer preguntas, analiza el mensaje in
 - Si restan vectores por definir, no formules preguntas abiertas en turnos sucesivos: presenta el formulario estructurado interactivo mediante la herramienta `restricted_human_in_the_loop_request`.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
-Presenta al usuario las opciones estructuradas para resolver los vectores pendientes:
+Invoca la herramienta con las opciones de triaje:
+
 ```json
 {
-  "type": "object",
-  "properties": {
-    "posicion_cliente": {
-      "type": "string",
-      "description": "Posici\u00f3n del cliente (V1)",
-      "enum": [
-        "acreedor",
-        "deudor"
+  "form_data": [
+    {
+      "id": "rol",
+      "rationale": "Resolver V1: quien ha recibido un requerimiento de monitorio no reclama, se opone, y usa un asset distinto.",
+      "question": "¿En qué posición se encuentra el cliente?",
+      "options": [
+        {"id": "acreedor", "label": "Es acreedor y reclama una cantidad"},
+        {"id": "deudor_requerido", "label": "Ha recibido un requerimiento de pago de un proceso monitorio"}
       ]
     },
-    "via_procesal": {
-      "type": "string",
-      "description": "V\u00eda procesal id\u00f3nea (V2)",
-      "enum": [
-        "burofax_masc",
-        "monitorio",
-        "juicio_verbal",
-        "juicio_ordinario",
-        "oposicion_monitorio"
+    {
+      "id": "estado_reclamacion",
+      "rationale": "Resolver V2: si ya hay monitorio con oposición del deudor, el asunto continúa por el cauce del artículo 818 de la LEC.",
+      "question": "Si es acreedor, ¿en qué estado está la reclamación?",
+      "options": [
+        {"id": "sin_iniciar", "label": "Sin reclamación judicial iniciada"},
+        {"id": "monitorio_con_oposicion", "label": "Ya se presentó monitorio y el deudor se ha opuesto"}
+      ]
+    },
+    {
+      "id": "deuda_documentada",
+      "rationale": "Resolver V3: la existencia de documento acreditativo es presupuesto del proceso monitorio conforme al artículo 812 de la LEC.",
+      "question": "¿Existen documentos que acrediten la deuda: facturas, contrato, albaranes, reconocimiento?",
+      "options": [
+        {"id": "si", "label": "Sí"},
+        {"id": "no", "label": "No"}
+      ]
+    },
+    {
+      "id": "deuda_vencida_liquida",
+      "rationale": "Resolver V4: el monitorio exige deuda dineraria, líquida, determinada, vencida y exigible; si el importe se discute, procede la vía declarativa.",
+      "question": "¿Está la deuda vencida y su importe es fijo o calculable sin discusión?",
+      "options": [
+        {"id": "vencida_y_liquida", "label": "Sí, está vencida y el importe es cierto"},
+        {"id": "discutida", "label": "No, el importe está discutido por la otra parte"},
+        {"id": "por_determinar", "label": "No, el importe todavía debe determinarse"},
+        {"id": "pendiente_de_vencer", "label": "Todavía no ha vencido"}
+      ]
+    },
+    {
+      "id": "es_arrendamiento",
+      "rationale": "Resolver V5: las rentas de arrendamiento admiten la acumulación de la reclamación al desahucio y tienen especialidades procesales.",
+      "question": "¿Deriva la cantidad de rentas o cantidades debidas por arrendamiento de inmueble?",
+      "options": [
+        {"id": "si", "label": "Sí"},
+        {"id": "no", "label": "No"}
+      ]
+    },
+    {
+      "id": "masc_intentado",
+      "rationale": "Resolver V6: el intento previo de un medio adecuado de solucion de controversias es requisito de procedibilidad de la demanda declarativa (articulos 264 y 403.2 de la Ley de Enjuiciamiento Civil) y no se exige en la peticion inicial de monitorio.",
+      "question": "¿Se ha intentado previamente un medio adecuado de solución de controversias, o un requerimiento fehaciente de pago acreditable?",
+      "options": [
+        {"id": "si", "label": "Sí, y es acreditable"},
+        {"id": "no", "label": "No"}
       ]
     }
-  },
-  "required": [
-    "posicion_cliente",
-    "via_procesal"
   ]
 }
 ```
+
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — `rol`
+- `V2` — `estado_reclamacion`
+- `V3` — `deuda_documentada`
+- `V4` — `deuda_vencida_liquida`
+- `V5` — `es_arrendamiento`
+- `V6` — `masc_intentado`
 
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores aplicables, evalua en este orden:
@@ -119,17 +160,23 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
 - Si V1 = acreedor y V2 = monitorio con oposicion:
   - Cuantia > 15.000 euros → **HOJA ORDINARIO-818**: `assets/template-demanda-juicio-ordinario.md` (activar los bloques condicionales del Art. 818.2; V6 no aplica: la demanda trae causa del monitorio).
   - Cuantia <= 15.000 euros → **DETENER**: tras la oposicion, el asunto continua como juicio verbal dentro del mismo procedimiento (impugnacion de la oposicion en 10 dias, Art. 818.1 LEC); no procede una nueva demanda. Informar del cauce y del plazo, y ofrecer escalacion. No crear documento.
-- Si V1 = acreedor, V2 = sin iniciar, V3 = si y V4 = vencida y liquida → **HOJA MONITORIO**: `assets/template-peticion-monitorio.md` (cualquier cuantia). Si V6 = no → generar ademas ANTES `assets/template-burofax-masc-reclamacion.md`.
-- Si V1 = acreedor, V2 = sin iniciar y (V3 = no, o V4 = discutida/por determinar) → via declarativa:
-  - Cuantia <= 15.000 euros, o rentas/cantidades de arrendamiento de inmueble (cualquier cuantia, Art. 250.1.1º LEC) → **HOJA VERBAL**: `assets/template-demanda-juicio-verbal.md`.
-  - Cuantia > 15.000 euros (no arrendamiento) o interes economico imposible de calcular → **HOJA ORDINARIO**: `assets/template-demanda-juicio-ordinario.md`.
-  - En ambas, si V6 = no → generar ademas ANTES `assets/template-burofax-masc-reclamacion.md` (requisito de procedibilidad, Arts. 264 y 403.2 LEC).
-- Si V4 = pendiente de vencer → **DETENER**: la deuda no es exigible todavia; no cabe reclamarla judicialmente. Advertir y no crear documento.
+- Si V1 = acreedor, V2 = sin_iniciar, V3 = si y V4 = vencida_y_liquida → **HOJA MONITORIO**: `assets/template-peticion-monitorio.md` (cualquier cuantia). Si V6 = no → generar ademas ANTES `assets/template-burofax-masc-reclamacion.md`.
+- Si V4 = pendiente_de_vencer → **DETENER**: la deuda no es exigible todavia y no cabe reclamarla judicialmente. Esta rama tiene prioridad sobre todas las siguientes. Advertir y no crear documento.
+- **Via declarativa — puertas de entrada.** Basta con que se cumpla una de las tres:
+- Si V1 = acreedor, V2 = sin_iniciar y V3 = no, por no haber documento del Art. 812 → **RUTA DECLARATIVA**: `assets/template-demanda-juicio-verbal.md` o `assets/template-demanda-juicio-ordinario.md`, segun el desglose de cuantia que sigue.
+- Si V1 = acreedor, V2 = sin_iniciar y V4 = discutida → **RUTA DECLARATIVA**: las mismas dos hojas, segun el desglose de cuantia que sigue.
+- Si V1 = acreedor, V2 = sin_iniciar y V4 = por_determinar → **RUTA DECLARATIVA**: las mismas dos hojas, segun el desglose de cuantia que sigue.
+- **Desglose de la via declarativa.** La hoja la fija el interes economico, que no es un vector sino un dato del asunto:
+  - Si V5 = si (rentas y cantidades debidas del arrendamiento de un inmueble, cualquier cuantia, Art. 250.1.1º LEC) → **HOJA VERBAL**: `assets/template-demanda-juicio-verbal.md`.
+  - Si V5 = no y la cuantia es <= 15.000 euros → **HOJA VERBAL**: `assets/template-demanda-juicio-verbal.md`.
+  - Si V5 = no y la cuantia es > 15.000 euros, o el interes economico es imposible de calcular → **HOJA ORDINARIO**: `assets/template-demanda-juicio-ordinario.md`.
+  - En las tres, si V6 = no → generar ademas ANTES `assets/template-burofax-masc-reclamacion.md` (requisito de procedibilidad, Arts. 264 y 403.2 LEC).
 - Si la pretension principal NO es el pago de una cantidad (materia del Art. 249.1 LEC, obligaciones de hacer, entrega de cosa) → **DETENER**: fuera de alcance; derivar a la skill correspondiente (`juicio-ordinario`) o a escalacion.
+- **Requisito de procedibilidad (Ley Organica 1/2025).** Si el intento previo de un medio adecuado de solucion de controversias no esta acreditado y esta skill no genera por si misma el documento que lo acredita, **deriva a `masc-acuerdos`**, que produce el requerimiento de negociacion, el acta del intento, la oferta vinculante, el acuerdo transaccional y la declaracion responsable de imposibilidad. Ofrece encadenar con ella antes de continuar, y advierte de que sin ese documento la demanda no se admite a tramite.
 
-### Validacion de procedibilidad (interno, antes del Punto 3)
+### 1.4 Validacion de procedibilidad (interno, antes de la Fase 3)
 
-- **HOJA MONITORIO:** confirmar deuda dineraria, liquida, determinada, vencida y exigible con documento del Art. 812; competencia del Juzgado de Primera Instancia del domicilio del deudor (Art. 813, sin sumision); si el deudor es ilocalizable, advertir de la limitacion. Si la deuda se funda en contrato empresario-consumidor, anotar el control de oficio del Art. 815.4 para explicarlo en el Punto 5.
+- **HOJA MONITORIO:** confirmar deuda dineraria, liquida, determinada, vencida y exigible con documento del Art. 812; competencia del Juzgado de Primera Instancia del domicilio del deudor (Art. 813, sin sumision); si el deudor es ilocalizable, advertir de la limitacion. Si la deuda se funda en contrato empresario-consumidor, anotar el control de oficio del Art. 815.4 para explicarlo en la seccion correspondiente de la Fase 4.
 - **HOJA VERBAL / ORDINARIO:** verificar que la cuantia se puede fijar (Arts. 251-253); en verbal <= 2.000 euros, informar de que no son preceptivos abogado ni procurador (Arts. 23.2.1º y 31.2.1º) y de que existe formulario normalizado del CGPJ; en ordinario, abogado y procurador preceptivos.
 - **HOJA ORDINARIO-818:** verificar que esta dentro del plazo de UN MES desde el traslado del escrito de oposicion (Art. 818.2). Si el plazo esta vencido o proximo a vencer, advertirlo de inmediato.
 - **HOJA OPOSICION:** verificar que esta dentro del plazo de VEINTE DIAS desde el requerimiento (Art. 815.1). Si el plazo esta vencido, advertir del riesgo de despacho de ejecucion (Art. 816) y ofrecer escalacion. Si la cuantia reclamada excede de 2.000 euros, informar de que la oposicion requiere abogado y procurador.
@@ -137,7 +184,7 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 En esta fase interactúas **directamente a través del chat (en texto plano conversacional, SIN formularios)** para compartir el plan de trabajo, el fundamento normativo y acordar la plantilla base con el usuario.
 
@@ -149,28 +196,23 @@ En esta fase interactúas **directamente a través del chat (en texto plano conv
 Envía un mensaje estructurado y formal que contenga:
 1. **Marco Legal Aplicable:** Ley de Enjuiciamiento Civil (Arts. 249, 250, 437 y 812 a 818), Código Civil (Arts. 1.088, 1.091, 1.101, 1.108 y 1.124), y Ley Orgánica 1/2025 de medidas de eficiencia del servicio público de justicia.
 2. **Orientación Legal del Caso:**
-Tras completar la verificacion (Punto 2), en un unico mensaje:
 
-1. **Informa la via y la fuente aplicable.** Indica al usuario que via procesal corresponde a su caso y por que, citando la norma con nombre completo y articulo, con el enlace del BOE consultado. Textos fijos por hoja (adaptar solo el dato de cuantia):
+**Informa la via y la fuente aplicable.** Indica al usuario que via procesal corresponde a su caso y por que, citando la norma con nombre completo y articulo, con el enlace del BOE consultado. Textos fijos por hoja (adaptar solo el dato de cuantia):
    - MONITORIO: "A su caso corresponde el proceso monitorio, regulado en los articulos 812 y siguientes de la Ley 1/2000, de Enjuiciamiento Civil, al tratarse de una deuda dineraria, liquida, vencida y exigible acreditada documentalmente, cualquiera que sea su cuantia. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-2000-323"
    - VERBAL: "A su caso corresponde el juicio verbal, conforme al articulo 250 de la Ley 1/2000, de Enjuiciamiento Civil, por no exceder la cuantia de 15.000 euros [o: por tratarse de rentas o cantidades debidas por arrendamiento de inmueble, articulo 250.1.1º]. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-2000-323"
    - ORDINARIO: "A su caso corresponde el juicio ordinario, conforme al articulo 249.2 de la Ley 1/2000, de Enjuiciamiento Civil, por exceder la cuantia de 15.000 euros. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-2000-323"
    - ORDINARIO-818: anadir ademas "Al haberse opuesto el deudor en el proceso monitorio, la demanda debe interponerse en el plazo de un mes desde el traslado del escrito de oposicion, conforme al articulo 818 de la misma ley."
    - OPOSICION: "Su escrito se rige por los articulos 815 y 818 de la Ley 1/2000, de Enjuiciamiento Civil: dispone de veinte dias desde el requerimiento para formular una oposicion fundada y motivada. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-2000-323"
    - Si la hoja incluye burofax previo (V6 = no), anadir: "Con caracter previo se preparara un burofax de requerimiento de pago, que acredita el intento de solucion extrajudicial exigido por la Ley Organica 1/2025 (articulos 264 y 403.2 de la Ley de Enjuiciamiento Civil). Tenga en cuenta que la demanda no debe presentarse hasta disponer del justificante del envio del burofax y haber dejado un plazo razonable de respuesta."
-2. **Ofrece la plantilla o pide el documento propio.** En el mismo mensaje:
-   "¿Que documento desea utilizar como base?
-   1. La plantilla del sistema, revisada por nuestros abogados y colaboradores
-   2. Adjuntar su propio documento"
-3. **Enruta segun la respuesta:** si elige la plantilla, continua con el Punto 4 usando el asset de la hoja; si elige adjuntar el suyo, pide que lo adjunte, leelo con `Read` y usalo como documento base en el Punto 4 en lugar del asset, sin dejar de aplicar los guardrails del dominio (advierte si el documento adjuntado los incumple).
-3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-burofax-masc-reclamacion.md`).
+
+3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** y nombrala por su ruta. Si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la seccion de assets.
 4. **Pregunta Explícita al Usuario (Vía Chat):** Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
-* **Si `[V5 = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+* **Si `[origen_plantilla = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
   Toma el texto íntegro de la plantilla correspondiente directamente desde el catálogo del prompt y procede de inmediato a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
+* **Si `[origen_plantilla = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
   1. Accede al contenido del adjunto desde `<attached_documents>` o el mensaje del usuario.
   2. **Guardrail de Verificación Legal:** Analiza el texto aportado. Si contiene cláusulas nulas, contrarias a normas imperativas o de imposible cumplimiento, adviértelo expresamente en el chat y propón la redacción legalmente válida.
   3. Adopta la minuta revisada como base y avanza a la **Fase 3**.
@@ -196,7 +238,7 @@ Tras completar la verificacion (Punto 2), en un unico mensaje:
 ### Protocolo Obligatorio de Edición
 Para cada cláusula o bloque temático del documento, ejecuta estrictamente el siguiente ciclo interactivo:
 ```
-[Recogida: slot_filling_request (grupos de datos) / Chat (negociación)] ──> [Vista Previa en texto plano en CHAT] ──> [¿Confirmamos en CHAT?] ──> [edit_file + read_file]
+[Recogida: slot_filling_request (grupos de datos) / Chat (negociación)] --> [Vista Previa en texto plano en CHAT] --> [¿Confirmamos en CHAT?] --> [edit_file + read_file]
 ```
 1. **Recogida de datos / Diálogo:**
    - **Grupos de datos estructurados (MANDATORIO con `slot_filling_request`):** Para todo bloque que recopile datos personales/identificativos (reclamante, deudor, representante, procurador, letrado; o datos del procedimiento previo: juzgado, autos, cuantia, acreedor), **DEBES invocar `slot_filling_request`** pidiendo todo el grupo de datos a la vez en lote. Queda **ESTRICTAMENTE PROHIBIDO** pedir estos datos uno por uno en turnos sucesivos de chat.
@@ -209,13 +251,13 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 
 **Anuncio de seccion y encadenamiento:** al terminar una seccion y confirmar su edicion en disco, emite en ese mismo turno el anuncio fijo de la seccion que se abre y lanza de inmediato su formulario `slot_filling_request` (si es grupo de datos) o su planteamiento en chat (si es negociacion). No pidas permiso para pasar de seccion: informa y continua. Los anuncios nombran la seccion SUSTANTIVA del documento, nunca la mecanica interna. La vista previa y la confirmacion siempre van en el chat. Las clausulas de negociacion se explican y se confirman una a una en el chat.
 
-**Propagacion de un dato confirmado (regla global de Edit):** varios datos (nombre y NIF de cada parte, cuantia) aparecen repetidos literalmente en mas de un punto del asset (encabezamiento/titulo, bloque de datos, cuerpo del EXPONE/HECHOS, SUPLICO y firma). Al confirmar el dato, sustituyelo mediante `Edit` en TODAS sus apariciones del documento, no solo en el bloque de datos donde se pregunto; verifica con `Read` que no queden placeholders sueltos del mismo dato ya confirmado.
+**Propagacion de un dato confirmado (regla global de Edit):** varios datos (nombre y NIF de cada parte, cuantia) aparecen repetidos literalmente en mas de un punto del asset (encabezamiento/titulo, bloque de datos, cuerpo del EXPONE/HECHOS, SUPLICO y firma). Al confirmar el dato, sustituyelo mediante `edit_file` en TODAS sus apariciones del documento, no solo en el bloque de datos donde se pregunto; verifica con `read_file` que no queden placeholders sueltos del mismo dato ya confirmado.
 
 ### Secciones — HOJA MONITORIO / HOJA VERBAL / HOJA ORDINARIO / HOJA ORDINARIO-818
 
 1. **Parte reclamante** *(dato objetivo — recogida en lote con `slot_filling_request`, confirmación en chat)*. Anuncio fijo: "Comenzamos por la identificacion de la parte que reclama." Solicita en bloque vía `slot_filling_request`: a) nombre completo o razon social; b) NIF o CIF; c) domicilio a efectos de notificaciones; d) solo si es persona juridica: nombre, NIF y cargo del representante; e) solo en ORDINARIO y ORDINARIO-818 (y en VERBAL si la cuantia excede de 2.000 euros): nombre del procurador y del letrado. Muestra vista previa en el chat y pide confirmación antes del `edit_file` + `read_file`.
 2. **Parte deudora / demandada** *(dato objetivo — recogida en lote con `slot_filling_request`, confirmación en chat)*. Anuncio fijo: "Pasamos a la identificacion de la parte deudora." Solicita en bloque vía `slot_filling_request`: a) nombre o razon social; b) NIF o CIF si se conoce; c) domicilio o lugar donde pueda ser hallada. Vista previa y confirmación en chat antes de `edit_file`.
-3. **Origen de la deuda y prueba documental** *(clausula de negociacion — explicar antes de decidir)*. Anuncio fijo: "Abordamos ahora el origen de la deuda y su acreditacion documental." Antes de registrar la relacion de documentos, explica que documentos sirven para acreditar la deuda (en monitorio, los del articulo 812 de la LEC: firmados por el deudor, o facturas, albaranes y certificaciones habituales del trafico; en las demandas, los documentos fundamentales del articulo 265, con preclusion del 269) y confirma con el usuario cuales aportara y en que orden se numeraran. El origen y la fecha de vencimiento ya aportados en el mensaje inicial (escucha activa) no se vuelven a preguntar en bruto: se dan por confirmados y solo se solicitan los datos concretos que falten (numero e importe de cada documento, fecha exacta de cada vencimiento, fecha del contrato). Si hay mas de un documento con vencimientos distintos, recoge la fecha de cada uno y numeralos correlativamente en `{{relacion_documentos}}`; no fuerces una unica fecha de vencimiento cuando existan varias. Si no se desprende ya del origen descrito si el deudor actua como consumidor frente a un empresario, pregunta directamente: "¿El deudor contrato como consumidor particular o actuaba tambien como empresario o profesional?". Si la deuda se funda en un contrato entre empresario y consumidor, explica aqui el control de oficio de clausulas abusivas (articulo 815.4 LEC en el monitorio) y sus consecuencias antes de continuar.
+3. **Origen de la deuda y prueba documental** *(clausula de negociacion — explicar antes de decidir)*. Anuncio fijo: "Abordamos ahora el origen de la deuda y su acreditacion documental." Antes de registrar la relacion de documentos, explica que documentos sirven para acreditar la deuda (en monitorio, los del articulo 812 de la LEC: firmados por el deudor, o facturas, albaranes y certificaciones habituales del trafico; en las demandas, los documentos fundamentales del articulo 265, con preclusion del 269) y confirma con el usuario cuales aportara y en que orden se numeraran. El origen y la fecha de vencimiento ya aportados en el mensaje inicial (escucha activa) no se vuelven a preguntar en bruto: se dan por confirmados y solo se solicitan los datos concretos que falten (numero e importe de cada documento, fecha exacta de cada vencimiento, fecha del contrato). Si hay mas de un documento con vencimientos distintos, recoge la fecha de cada uno y numeralos correlativamente en `{{RELACION_DOCUMENTOS}}`; no fuerces una unica fecha de vencimiento cuando existan varias. Si no se desprende ya del origen descrito si el deudor actua como consumidor frente a un empresario, pregunta directamente: "¿El deudor contrato como consumidor particular o actuaba tambien como empresario o profesional?". Si la deuda se funda en un contrato entre empresario y consumidor, explica aqui el control de oficio de clausulas abusivas (articulo 815.4 LEC en el monitorio) y sus consecuencias antes de continuar.
 4. **Cuantia, intereses y costas** *(clausula de negociacion — explicar antes de decidir)*. Anuncio fijo: "Pasamos a la determinacion de la cuantia, los intereses y las costas." El principal ya resuelto en la clasificacion se reutiliza sin volver a preguntarlo. Explica la eleccion de intereses antes de pedir la decision: interes legal del dinero desde la constitucion en mora (articulos 1100 y 1108 del Codigo Civil, normalmente desde el requerimiento o el vencimiento) o interes pactado en el contrato si existe; y desde que fecha se devengan. Explica que las costas se solicitan conforme al articulo 394 de la LEC. En HOJA MONITORIO no incluyas una peticion expresa de costas en el SUPLICO: la peticion inicial no es todavia un procedimiento contencioso con sentencia; limitate a advertir de que, si el deudor se opone (paso a verbal u ordinario) o hay que instar la ejecucion, las costas de esas fases posteriores se rigen por sus normas especificas. Confirmacion una a una (intereses primero, costas despues).
 5. **Juzgado competente** *(dato objetivo con validacion)*. Anuncio fijo: "Determinamos ahora el juzgado competente." En MONITORIO: partido judicial del domicilio o residencia del deudor (articulo 813 LEC, sin sumision a otro fuero: si el usuario propone otro, advertir y corregir). En VERBAL y ORDINARIO: fuero general del domicilio del demandado (articulos 50 y 51 LEC) salvo fuero especial aplicable. En ORDINARIO-818: el mismo juzgado que conocio del monitorio.
 6. **Solucion previa (MASC)** *(solo si la hoja incluye burofax, clausula de negociacion)*. Anuncio fijo: "Concretamos por ultimo los terminos del requerimiento previo de pago." Sub-datos del burofax: plazo de pago que se concede (explicar que es practica habitual conceder 10 dias habiles), medio de pago (cuenta IBAN u otro) y via de contacto para negociar. Vista previa y confirmación en chat.
@@ -253,14 +295,14 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 
 ## Límites Legales y Guardrails de Dominio (Gobernados por Vectores)
 
-1. Verificar siempre la LEC en el BOE antes de redactar (Punto 2). Sin verificacion, no proceder.
+1. Verificar siempre la LEC en el BOE antes de redactar (Fase 2). Sin verificacion, no proceder.
 2. Si se detecta una version de la LEC o un modelo del CGPJ posterior al registrado en las references, aplicar la redacción vigente directamente sobre el documento a redactar en el workspace del usuario. No usar una version desactualizada.
 3. El monitorio solo procede con deuda dineraria, liquida, determinada, vencida y exigible acreditada con documento (Art. 812). Si falla cualquier requisito, enrutar al declarativo o detener; nunca forzar la via.
 4. El umbral entre verbal y ordinario es 15.000 euros (Arts. 249.2 y 250.2); las rentas de arrendamiento van a verbal cualquiera que sea la cuantia (Art. 250.1.1º). No admitir elecciones de via contrarias a estos articulos aunque el usuario las pida.
 5. Competencia del monitorio: exclusiva del Juzgado de Primera Instancia del domicilio del deudor (Art. 813). No admitir sumision a otro fuero.
 6. Posicion conservadora sobre el MASC: en todo escrito iniciador sin intento previo acreditado, recomendar e integrar el burofax y advertir de la cuestion (LO 1/2025).
 7. Plazos criticos: 20 dias para oponerse (Art. 815.1) y 1 mes para la demanda de ordinario tras la oposicion (Art. 818.2). Validarlos antes de redactar; si estan vencidos, advertir y no dar falsas expectativas.
-8. Nunca inventar datos, cuantias, fechas ni jurisprudencia. Los campos no proporcionados quedan como `{{dato}}`.
+8. Nunca inventar datos, cuantias, fechas ni jurisprudencia. Los campos no proporcionados quedan como `{{DATO}}`.
 9. Nunca afirmar que la deuda es exigible o incontrovertida sin base documental; nunca garantizar el resultado del procedimiento.
 10. Si el deudor es consumidor y la deuda nace de un contrato con un empresario, informar siempre del control de oficio de clausulas abusivas (Art. 815.4 LEC) antes de cerrar la cuantia.
 

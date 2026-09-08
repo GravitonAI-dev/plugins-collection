@@ -17,7 +17,7 @@
 | Alta o baja de trabajador por cuenta ajena | Trabajador (Regimen General) | Alta / baja del trabajador (modelo TA.2/S; en la practica se transmite por el Sistema RED) | Sistema RED (empresas y autorizados) |
 | Alta o baja de empleada de hogar | Empleada de hogar (Sistema Especial) | Solicitud de alta / baja del Sistema Especial de Empleados de Hogar (modelo TA.2/S-0138) | Import@ss (el empleador de hogar no requiere autorizacion RED) |
 
-Nota: la denominacion exacta del modelo o su codigo puede variar; verificar en el Paso 1 el modelo TA vigente antes de usarlo. Marcar `[verificar]` cualquier codigo no confirmado.
+Nota: la denominacion exacta del modelo o su codigo puede variar; verificar en la Fase 2.1 el modelo TA vigente antes de usarlo. Marcar `[verificar]` cualquier codigo no confirmado.
 
 ---
 

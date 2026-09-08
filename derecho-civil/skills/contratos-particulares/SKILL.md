@@ -19,7 +19,7 @@ when_to_use: |
     arte) a otro particular.
   - El usuario pregunta si le conviene firmar un contrato privado o ir al notario, y necesita el documento.
 inputs:
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - tipo_contrato: prestamo de dinero / reconocimiento de deuda / comodato / compraventa de bien mueble
   - datos_parte_acreedora: nombre o razon social, documento de identidad, domicilio, telefono, email
   - datos_parte_deudora: nombre o razon social, documento de identidad, domicilio, telefono, email
@@ -59,14 +59,14 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 
 ### Vectores de Estado (Uso Estrictamente Interno):
 
-Para garantizar un enrutamiento determinista y el cumplimiento normativo riguroso, el asistente resuelve y mantiene internamente en memoria los vectores de estado de la operación (V1 a V4) y el origen de la plantilla (V5).
+Para garantizar un enrutamiento determinista y el cumplimiento normativo riguroso, el asistente resuelve y mantiene internamente en memoria los vectores de estado de la operación —cuyo catálogo y su correspondencia con las respuestas del formulario figuran en la Fase 1.2— y el origen de la plantilla (`origen_plantilla`).
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
-> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`) y los resúmenes de validación con marcas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial y profesional.
+> Los identificadores técnicos de los vectores y los resúmenes de validación con marcas (por ejemplo, anotar un vector como resuelto) son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial y profesional.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 Tu primer objetivo es clasificar con precisión la naturaleza del caso y fijar los vectores deterministas de estado.
 
@@ -76,75 +76,84 @@ Antes de abrir formularios interactivos o hacer preguntas, analiza el mensaje in
 - Si restan vectores por definir, no formules preguntas abiertas en turnos sucesivos: presenta el formulario estructurado interactivo mediante la herramienta `restricted_human_in_the_loop_request`.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
-Presenta al usuario las opciones estructuradas para resolver los vectores pendientes:
+Invoca la herramienta con las opciones de triaje:
+
 ```json
 {
-  "type": "object",
-  "properties": {
-    "naturaleza_operacion": {
-      "type": "string",
-      "description": "Naturaleza de la operaci\u00f3n patrimonial (V1)",
-      "enum": [
-        "prestamo_dinero",
-        "reconocimiento_deuda",
-        "comodato",
-        "compraventa_mueble"
+  "form_data": [
+    {
+      "id": "tipo_contrato",
+      "rationale": "Resolver V1: cada figura tiene su propio asset y su propio régimen en el Código Civil, y el comodato exige gratuidad.",
+      "question": "¿Qué quiere documentar?",
+      "options": [
+        {"id": "prestamo_dinero", "label": "Un préstamo de dinero entre particulares"},
+        {"id": "comodato", "label": "La cesión gratuita del uso de una cosa, sin contraprestación alguna"},
+        {"id": "reconocimiento_deuda", "label": "El reconocimiento de una deuda ya existente y su forma de pago"},
+        {"id": "compraventa_mueble", "label": "La compraventa de un bien mueble"}
       ]
     },
-    "pacto_interes": {
-      "type": "string",
-      "description": "Pacto de intereses remuneratorios (V2)",
-      "enum": [
-        "gratuito",
-        "con_interes"
+    {
+      "id": "garantia",
+      "rationale": "Resolver V3: la garantía determina si hay que identificar fiador y si se incorporan las cláusulas de afianzamiento o de reserva de dominio.",
+      "question": "¿Se pacta alguna garantía del cumplimiento?",
+      "options": [
+        {"id": "ninguna", "label": "Ninguna"},
+        {"id": "fianza_solidaria", "label": "Fianza de un tercero, con renuncia a los beneficios de excusión y división"},
+        {"id": "fianza_simple", "label": "Fianza de un tercero, sin renuncia a esos beneficios"},
+        {"id": "reserva_dominio_o_prenda", "label": "Reserva de dominio o prenda sobre el bien"}
       ]
     },
-    "garantia": {
-      "type": "string",
-      "description": "Garant\u00edas del cumplimiento (V3)",
-      "enum": [
-        "sin_garantia",
-        "afianzamiento"
+    {
+      "id": "forma",
+      "rationale": "Resolver V4: determina si el documento incorpora el compromiso de elevación a escritura pública y la advertencia sobre la fuerza ejecutiva.",
+      "question": "¿Qué forma va a darse al documento?",
+      "options": [
+        {"id": "privado", "label": "Documento privado entre las partes"},
+        {"id": "privado_con_elevacion", "label": "Documento privado con compromiso de elevarlo a escritura pública"},
+        {"id": "escritura_publica", "label": "Directamente escritura pública ante notario"}
       ]
     },
-    "forma_documento": {
-      "type": "string",
-      "description": "Forma y formalizaci\u00f3n del documento (V4)",
-      "enum": [
-        "privado",
-        "publico"
+    {
+      "id": "interes",
+      "rationale": "Resolver V2: si se pacta interés, se activa el control de usura, que es bloqueante.",
+      "question": "¿Se pacta interés remuneratorio?",
+      "options": [
+        {"id": "si", "label": "Sí, se pacta interés"},
+        {"id": "no", "label": "No, sin interés"}
       ]
     }
-  },
-  "required": [
-    "naturaleza_operacion",
-    "pacto_interes"
   ]
 }
 ```
 
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — respuesta a `tipo_contrato`
+- `V2` — respuesta a `interes`
+- `V3` — respuesta a `garantia`
+- `V4` — respuesta a `forma`
+
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores aplicables, evalua en este orden:
 
-- Si V1 = 1 y V1b = 1 → **HOJA PRESTAMO**: `assets/template-contrato-prestamo-particulares.md`.
-- Si V1 = 1 y V1b = 2 → **HOJA COMODATO**: `assets/template-contrato-comodato.md`.
-- Si V1 = 2 → **HOJA RECONOCIMIENTO**: `assets/template-reconocimiento-deuda.md`.
-- Si V1 = 3 → **HOJA COMPRAVENTA**: `assets/template-contrato-compraventa-mueble.md`.
-- Si V1 = 1, V1b = 2 y **el cesionario debe pagar algo** por el uso de la cosa (renta, canon, cuota de gastos que exceda de los ordinarios, cualquier emolumento) → **NO es comodato**: el Art. 1741 CC dice que, si interviene emolumento, la convencion deja de ser comodato. Si la cosa es un inmueble urbano, derivar a `arrendamiento`. Si es otra cosa, advertir de que se trata de un arrendamiento y ofrecer escalacion. No crear documento de comodato.
+- Si V1 = prestamo_dinero → **HOJA PRESTAMO**: `assets/template-contrato-prestamo-particulares.md`.
+- Si V1 = comodato → **HOJA COMODATO**: `assets/template-contrato-comodato.md`.
+- Si V1 = reconocimiento_deuda → **HOJA RECONOCIMIENTO**: `assets/template-reconocimiento-deuda.md`.
+- Si V1 = compraventa_mueble → **HOJA COMPRAVENTA**: `assets/template-contrato-compraventa-mueble.md`.
+- Si V1 = comodato y **el cesionario debe pagar algo** por el uso de la cosa (renta, canon, cuota de gastos que exceda de los ordinarios, cualquier emolumento) → **NO es comodato**: el Art. 1741 CC dice que, si interviene emolumento, la convencion deja de ser comodato. Si la cosa es un inmueble urbano, derivar a `arrendamiento`. Si es otra cosa, advertir de que se trata de un arrendamiento y ofrecer escalacion. No crear documento de comodato.
 - Si lo que el usuario pretende es **cobrar una deuda que ya esta impagada** (no documentarla ni pactar su pago futuro) → derivar a `reclamacion-cantidad`. No crear documento.
 - Si ya existe un **titulo ejecutivo** (sentencia, escritura publica, laudo) y lo que se quiere es ejecutarlo → derivar a `ejecucion-titulos`. No crear documento.
 - Si el bien objeto de la operacion es un **inmueble** y la operacion es una compraventa → derivar a `compraventa-inmueble`. No crear documento.
 - Si el prestamo se garantiza con **hipoteca sobre un inmueble** → **DETENER**: puede entrar en el ambito de la Ley 5/2019 reguladora de los contratos de credito inmobiliario, con requisitos de transparencia y acta notarial previa que exceden el alcance de esta skill. Advertir y escalar.
 - Si **una de las partes es un consumidor y la otra actua como empresario o profesional** → **DETENER**: no es un contrato entre particulares. Se aplica la normativa de proteccion de consumidores (y, si es credito, la de credito al consumo), con controles de transparencia y abusividad propios. Advertir y escalar o derivar a `reclamacion-clausulas-abusivas` si lo que se pretende es impugnar una clausula ya firmada. No crear documento con estos assets.
 
-### Validacion de presupuestos (interno, antes del Punto 3)
+### 1.4 Validacion de presupuestos (interno, antes de la Fase 3)
 
 - **TODAS LAS HOJAS (Art. 1261 CC):** confirmar que concurren consentimiento, objeto cierto y causa. Si el objeto no esta determinado ni es determinable sin nuevo acuerdo entre las partes (Art. 1273 CC), no redactar: pedir que se concrete.
 - **TODAS LAS HOJAS (Art. 1255 CC):** ningun pacto puede ser contrario a las leyes, a la moral ni al orden publico. Si el usuario pide un pacto que lo sea, rechazar la instruccion, explicar por que es nulo y proponer una alternativa valida.
 - **TODAS LAS HOJAS — condicion de particulares:** verificar que ninguna de las partes actua como empresario o profesional en el marco de esa actividad. Si lo hace, aplicar la regla de enrutamiento correspondiente y detener.
-- **HOJA PRESTAMO (control de usura, BLOQUEANTE):** si V2 = se pacta interes, calcular el **coste real total** de la operacion tal como el usuario la plantea: no solo el tipo nominal, sino todo lo que el prestatario devolvera por encima del principal, incluidas comisiones, gastos y penalizaciones. Contrastarlo con el orden de magnitud del interes legal del dinero vigente verificado en el Punto 2 y con el coste normal de operaciones equivalentes. Si la desproporcion es manifiesta, **advertir expresamente ANTES de continuar**, con el texto del guardrail 3, explicando que la consecuencia es la **nulidad del prestamo** y no una rebaja del interes. No redactar la clausula de interes hasta que el usuario confirme que, conocida la advertencia, mantiene o modifica su decision. Si el usuario mantiene un interes que sigue siendo manifiestamente desproporcionado, ofrecer escalacion y dejar constancia de la advertencia en las advertencias finales del documento.
+- **HOJA PRESTAMO (control de usura, BLOQUEANTE):** si V2 = si, calcular el **coste real total** de la operacion tal como el usuario la plantea: no solo el tipo nominal, sino todo lo que el prestatario devolvera por encima del principal, incluidas comisiones, gastos y penalizaciones. Contrastarlo con el orden de magnitud del interes legal del dinero vigente verificado en la Fase 2 y con el coste normal de operaciones equivalentes. Si la desproporcion es manifiesta, **advertir expresamente ANTES de continuar**, con el texto del guardrail 3, explicando que la consecuencia es la **nulidad del prestamo** y no una rebaja del interes. No redactar la clausula de interes hasta que el usuario confirme que, conocida la advertencia, mantiene o modifica su decision. Si el usuario mantiene un interes que sigue siendo manifiestamente desproporcionado, ofrecer escalacion y dejar constancia de la advertencia en las advertencias finales del documento.
 - **HOJA PRESTAMO (Art. 1 parrafo 2.º de la Ley Azcarate, BLOQUEANTE):** si el importe que figuraria como prestado es superior al efectivamente entregado (por descuento del interes en el momento de la entrega o por cualquier otra via), **DETENER**: ese contrato es nulo por el propio precepto. Explicarlo, no redactarlo y ofrecer escalacion.
-- **HOJA PRESTAMO (Art. 1755 CC):** si V2 = no se pacta interes, recordar al usuario que sin pacto expreso no se deberan intereses, y que esa es la regla legal por defecto, no un olvido del documento.
+- **HOJA PRESTAMO (Art. 1755 CC):** si V2 = no, recordar al usuario que sin pacto expreso no se deberan intereses, y que esa es la regla legal por defecto, no un olvido del documento.
 - **HOJA RECONOCIMIENTO (Arts. 1275 y 1276 CC y Art. 9 de la Ley Azcarate, BLOQUEANTE):** si la causa real de la deuda reconocida es un prestamo con interes desproporcionado, un importe superior al realmente debido, o cualquier causa ilicita, **DETENER**: el reconocimiento no puede usarse como envoltorio. Explicar que la Ley Azcarate se aplica a toda operacion sustancialmente equivalente a un prestamo cualquiera que sea la forma del contrato, y que un contrato con causa ilicita no produce efecto alguno. No redactar y ofrecer escalacion.
 - **HOJA COMODATO (Arts. 1740 y 1741 CC):** confirmar que no hay contraprestacion alguna a cargo del comodatario. La asuncion de los gastos ordinarios de uso y conservacion (Art. 1743 CC) no es contraprestacion; el pago de una renta, canon o cuota por el uso, si. Si la hay, aplicar la regla de enrutamiento y detener.
 - **HOJA COMPRAVENTA (Art. 1445 CC):** confirmar que hay cosa determinada y precio cierto en dinero o signo que lo represente. Si la contraprestacion no es dineraria, es una permuta y no una compraventa: advertir y escalar.
@@ -154,7 +163,7 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 En esta fase interactúas **directamente a través del chat (en texto plano conversacional, SIN formularios)** para compartir el plan de trabajo, el fundamento normativo y acordar la plantilla base con el usuario.
 
@@ -166,28 +175,23 @@ En esta fase interactúas **directamente a través del chat (en texto plano conv
 Envía un mensaje estructurado y formal que contenga:
 1. **Marco Legal Aplicable:** Código Civil (Arts. 1.740-1.757 para préstamo y comodato; Arts. 1.445-1.537 para compraventa mueble; Arts. 1.156 y 1.255 para reconocimiento de deuda), Ley de 23 de julio de 1908 (represión de la usura) y Real Decreto Legislativo 1/1993 (ITPAJD, operaciones exentas con obligación de declaración).
 2. **Orientación Legal del Caso:**
-Tras completar la verificacion (Punto 2), en un unico mensaje:
 
-1. **Informa el tipo de contrato y la fuente aplicable.** Textos fijos por hoja:
+**Informa el tipo de contrato y la fuente aplicable.** Textos fijos por hoja:
    - PRESTAMO: "A su caso corresponde un contrato de prestamo entre particulares, de los denominados simple prestamo o mutuo, regulado en los articulos 1.740 y 1.753 a 1.757 del Codigo Civil. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763"
    - RECONOCIMIENTO: "A su caso corresponde un reconocimiento de deuda con compromiso de pago, que se ampara en la libertad de pacto del articulo 1.255 del Codigo Civil y se rige por sus normas generales sobre obligaciones y contratos. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763"
    - COMODATO: "A su caso corresponde un contrato de comodato o prestamo de uso, regulado en los articulos 1.740 a 1.752 del Codigo Civil. Se trata de un contrato esencialmente gratuito. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763"
    - COMPRAVENTA: "A su caso corresponde un contrato de compraventa de bien mueble entre particulares, regulado en los articulos 1.445 y siguientes del Codigo Civil. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763"
-   - **Añadir en la HOJA PRESTAMO si V2 = se pacta interes:** "Le informo ademas de que el interes pactado esta sujeto al control de la Ley de 23 de julio de 1908 sobre nulidad de los contratos de prestamos usurarios, que sigue vigente. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-1908-5579"
-   - **Añadir en la HOJA PRESTAMO si V2 = no se pacta interes:** "Conforme al articulo 1.755 del Codigo Civil, no se deberan intereses sino cuando expresamente se hubiesen pactado, de modo que su prestamo sera gratuito."
-2. **Ofrece la plantilla o pide el documento propio.** En el mismo mensaje:
-   "¿Que documento desea utilizar como base?
-   1. La plantilla del sistema, revisada por nuestros abogados y colaboradores
-   2. Adjuntar su propio documento"
-3. **Enruta segun la respuesta:** si elige la plantilla, continua con el Punto 4 usando el asset de la hoja; si elige adjuntar el suyo, pide que lo adjunte, leelo con `Read` y usalo como documento base en el Punto 4 en lugar del asset, sin dejar de aplicar los guardrails del dominio (adviertele si el documento adjuntado los incumple, en particular si contiene un interes potencialmente usurario o una clausula nula).
-3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-contrato-comodato.md`).
+   - **Añadir en la HOJA PRESTAMO si V2 = si:** "Le informo ademas de que el interes pactado esta sujeto al control de la Ley de 23 de julio de 1908 sobre nulidad de los contratos de prestamos usurarios, que sigue vigente. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-1908-5579"
+   - **Añadir en la HOJA PRESTAMO si V2 = no:** "Conforme al articulo 1.755 del Codigo Civil, no se deberan intereses sino cuando expresamente se hubiesen pactado, de modo que su prestamo sera gratuito."
+
+3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** y nombrala por su ruta. Si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la seccion de assets.
 4. **Pregunta Explícita al Usuario (Vía Chat):** Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
-* **Si `[V5 = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+* **Si `[origen_plantilla = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
   Toma el texto íntegro de la plantilla correspondiente directamente desde el catálogo del prompt y procede de inmediato a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
+* **Si `[origen_plantilla = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
   1. Accede al contenido del adjunto desde `<attached_documents>` o el mensaje del usuario.
   2. **Guardrail de Verificación Legal:** Analiza el texto aportado. Si contiene cláusulas nulas, contrarias a normas imperativas o de imposible cumplimiento, adviértelo expresamente en el chat y propón la redacción legalmente válida.
   3. Adopta la minuta revisada como base y avanza a la **Fase 3**.
@@ -213,7 +217,7 @@ Tras completar la verificacion (Punto 2), en un unico mensaje:
 ### Protocolo Obligatorio de Edición
 Para cada cláusula o bloque temático del documento, ejecuta estrictamente el siguiente ciclo interactivo:
 ```
-[Pregunta al Usuario] ──> [Vista Previa en texto plano] ──> [¿Confirmamos?] ──> [edit_file + read_file]
+[Pregunta al Usuario] --> [Vista Previa en texto plano] --> [¿Confirmamos?] --> [edit_file + read_file]
 ```
 1. **Pregunta en Chat:** Solicita los datos específicos de la sección.
 2. **Vista Previa:** Muestra el texto exacto redactado en texto plano en el chat.
@@ -224,7 +228,6 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 
 **Petición de grupos de datos mediante `slot_filling_request` y confirmaciones en el chat:**
 - **Datos estructurados agrupados mediante `slot_filling_request`:** Para cualquier grupo de datos objetivos o identificativos (partes contratantes, datos del bien, importe/entrega, notificaciones/cierre), **NO pregunte dato por dato en el chat**. Invoque la tool `slot_filling_request` agrupando todos los campos del bloque de una sola vez.
-- **Confirmación obligatoria en el chat:** Una vez que la tool retorne los valores completados, muestre la vista previa en texto plano en el chat y pida la confirmación explícita (`¿Confirmamos estos datos...?` / `¿Confirmamos esta cláusula?`). Solo tras la confirmación afirmativa en el chat ejecute el `edit_file` en disco y verifique con `read_file`.
 - **Anuncio de sección (visible, sin esperar confirmación aparte):** al terminar una sección, emite en el mismo mensaje el anuncio fijo de la sección que se abre y procede con la herramienta o pregunta correspondiente.
 
 **Marcas de tipo de seccion.** Cada seccion lleva una de estas dos marcas, que determina como se trata:
@@ -234,10 +237,10 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 
 ### Secciones — HOJA PRESTAMO
 
-1. **Parte prestamista** *(`[dato objetivo]` — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Comenzamos por la identificacion de quien entrega el dinero." Solicita en bloque mediante `slot_filling_request`: a) nombre completo o razon social; b) DNI, NIE o CIF; c) domicilio a efectos de notificaciones; d) telefono y correo electronico (si es persona jurídica, representante y cargo). Al recibir el resultado de la tool, muestra en el chat una única vista previa con todos ellos, pide confirmación ("¿Confirmamos estos datos de la parte prestamista?") y aplica el `Edit`.
-2. **Parte prestataria** *(`[dato objetivo]` — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Pasamos a la identificacion de quien recibe el prestamo." Mismos campos mediante `slot_filling_request`, vista previa en chat, confirmación y `Edit`.
-3. **Importe y entrega del capital** *(`[dato objetivo]` — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Determinamos ahora el importe del prestamo y la forma en que se entrega el dinero." Solicita en bloque mediante `slot_filling_request`: a) importe (en cifra y letra); b) finalidad del prestamo; c) si el dinero ya se entrego o se entrega con la firma, y fecha; d) medio de entrega y, si es transferencia, IBAN de destino (recomienda transferencia bancaria frente a efectivo y explica por qué). Vista previa en chat, confirmación y `Edit`.
-4. **Intereses remuneratorios** *(`[negociacion]` — control de usura BLOQUEANTE)*. Anuncio fijo: "Abordamos ahora los intereses del prestamo." **Explica antes de preguntar nada:** (i) conforme al articulo 1.755 del Codigo Civil, sin pacto expreso no se deben intereses, de modo que el prestamo es gratuito por defecto; (ii) si decide pactarlos, la Ley de 23 de julio de 1908 sobre nulidad de los contratos de prestamos usurarios sigue vigente y declara nulo el prestamo cuyo interes sea notablemente superior al normal del dinero y manifiestamente desproporcionado; (iii) **la consecuencia de la usura no es que un juez rebaje el interes: el contrato se anula, el prestatario devuelve solo el capital que recibio, el prestamista debe reintegrar lo que hubiera cobrado por encima de ese capital y carga con las costas** (articulos 1, 3 y 8 de esa ley); (iv) no existe un porcentaje legal seguro: lo aprecia el tribunal caso por caso. Solo despues pide el tipo. Recibido, ejecuta la validacion de usura del Punto 1 sobre el coste real total, no sobre el tipo nominal. Si es manifiestamente desproporcionado, aplica el guardrail 3 antes de escribir nada. **Si el tipo queda en la franja intermedia** — claramente por encima del interes legal del dinero verificado en el Punto 2, pero sin desproporcion manifiesta, que es donde cae la mayoria de los prestamos entre particulares —, **no guardes silencio: el silencio se lee como una validacion**. Dile expresamente que el tipo esta por encima del interes normal del dinero, que **eso no lo hace por si solo usurario** porque la ley no fija ningun umbral y la desproporcion se aprecia caso por caso atendiendo a las circunstancias de la operacion (articulo 2 de la Ley de 23 de julio de 1908), y que por esa misma razon tampoco puedes garantizarle que un tribunal lo respalde. Prohibido responder "ese tipo es correcto", "no hay problema" o cualquier formula equivalente de validacion, y prohibido igualmente presentarlo como usurario sin base. Comunicale ademas el coste total de la operacion que resulta de su tipo (capital, intereses totales y total a devolver), que es el dato que le permite juzgarla. Si no se pacta interes, inserta la Variante A y hazlo constar expresamente en el documento, no por omision.
+1. **Parte prestamista** *(`[dato objetivo]` — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Comenzamos por la identificacion de quien entrega el dinero." Solicita en bloque mediante `slot_filling_request`: a) nombre completo o razon social; b) DNI, NIE o CIF; c) domicilio a efectos de notificaciones; d) telefono y correo electronico (si es persona jurídica, representante y cargo). Al recibir el resultado de la tool, muestra en el chat una única vista previa con todos ellos, pide confirmación ("¿Confirmamos estos datos de la parte prestamista?") y aplica el `edit_file`.
+2. **Parte prestataria** *(`[dato objetivo]` — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Pasamos a la identificacion de quien recibe el prestamo." Mismos campos mediante `slot_filling_request`, vista previa en chat, confirmación y `edit_file`.
+3. **Importe y entrega del capital** *(`[dato objetivo]` — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Determinamos ahora el importe del prestamo y la forma en que se entrega el dinero." Solicita en bloque mediante `slot_filling_request`: a) importe (en cifra y letra); b) finalidad del prestamo; c) si el dinero ya se entrego o se entrega con la firma, y fecha; d) medio de entrega y, si es transferencia, IBAN de destino (recomienda transferencia bancaria frente a efectivo y explica por qué). Vista previa en chat, confirmación y `edit_file`.
+4. **Intereses remuneratorios** *(`[negociacion]` — control de usura BLOQUEANTE)*. Anuncio fijo: "Abordamos ahora los intereses del prestamo." **Explica antes de preguntar nada:** (i) conforme al articulo 1.755 del Codigo Civil, sin pacto expreso no se deben intereses, de modo que el prestamo es gratuito por defecto; (ii) si decide pactarlos, la Ley de 23 de julio de 1908 sobre nulidad de los contratos de prestamos usurarios sigue vigente y declara nulo el prestamo cuyo interes sea notablemente superior al normal del dinero y manifiestamente desproporcionado; (iii) **la consecuencia de la usura no es que un juez rebaje el interes: el contrato se anula, el prestatario devuelve solo el capital que recibio, el prestamista debe reintegrar lo que hubiera cobrado por encima de ese capital y carga con las costas** (articulos 1, 3 y 8 de esa ley); (iv) no existe un porcentaje legal seguro: lo aprecia el tribunal caso por caso. Solo despues pide el tipo. Recibido, ejecuta la validacion de usura de la Fase 1 sobre el coste real total, no sobre el tipo nominal. Si es manifiestamente desproporcionado, aplica el guardrail 3 antes de escribir nada. **Si el tipo queda en la franja intermedia** — claramente por encima del interes legal del dinero verificado en la Fase 2, pero sin desproporcion manifiesta, que es donde cae la mayoria de los prestamos entre particulares —, **no guardes silencio: el silencio se lee como una validacion**. Dile expresamente que el tipo esta por encima del interes normal del dinero, que **eso no lo hace por si solo usurario** porque la ley no fija ningun umbral y la desproporcion se aprecia caso por caso atendiendo a las circunstancias de la operacion (articulo 2 de la Ley de 23 de julio de 1908), y que por esa misma razon tampoco puedes garantizarle que un tribunal lo respalde. Prohibido responder "ese tipo es correcto", "no hay problema" o cualquier formula equivalente de validacion, y prohibido igualmente presentarlo como usurario sin base. Comunicale ademas el coste total de la operacion que resulta de su tipo (capital, intereses totales y total a devolver), que es el dato que le permite juzgarla. Si no se pacta interes, inserta la Variante A y hazlo constar expresamente en el documento, no por omision.
 5. **Plazo y forma de devolucion** *(`[negociacion]`)*. Anuncio fijo: "Pasamos a determinar el plazo y la forma en que se devolvera el dinero." Explica antes de preguntar la diferencia practica entre un vencimiento unico y un calendario de cuotas: el vencimiento unico es mas simple pero concentra todo el riesgo en una fecha; las cuotas permiten detectar el incumplimiento antes y activar el vencimiento anticipado. Pide despues, en turnos separados: a) pago unico o cuotas; b) si es pago unico, la fecha; si son cuotas, numero, periodicidad, importe y fecha de la primera; c) medio de pago e IBAN del prestamista. Con las cuotas, construye tu la tabla completa del calendario y muestrala en la vista previa.
 6. **Mora e intereses de demora** *(`[negociacion]`)*. Anuncio fijo: "Concretamos ahora que sucede si el prestatario no devuelve el dinero en la fecha pactada." Explica antes de preguntar: (i) por regla general la mora exige un requerimiento previo del acreedor (articulo 1.100 del Codigo Civil), pero puede pactarse que se produzca automaticamente al vencimiento, y eso es lo que hace el contrato; (ii) a falta de pacto, la cantidad impagada devenga el interes legal del dinero (articulo 1.108); (iii) puede pactarse un interes de demora superior, pero un interes de demora desproporcionado se valora dentro del juicio global de usura y esta expuesto a la moderacion judicial del articulo 1.154. Pregunta despues si desea el interes legal o un tipo pactado, y en este segundo caso cual.
 7. **Amortizacion anticipada** *(`[negociacion]` — condicional)*. Anuncio fijo: "Valoramos si el prestatario podra devolver el dinero antes de tiempo." Explica que, salvo pacto, no hay obligacion del prestamista de aceptar la devolucion anticipada, y que pactarla sin comision es lo habitual entre particulares. Pregunta si desea incluirla y con que preaviso. Si dice que no, descarta el bloque y renumera.
@@ -245,14 +248,14 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 9. **Garantias** *(`[negociacion]` — resuelve V3)*. Anuncio fijo: "Determinamos ahora si el prestamo contara con alguna garantia." Explica antes de preguntar: (i) **que aporta un fiador**: una persona mas que responde con todo su patrimonio si el prestatario no paga (articulos 1.822 y 1.911 del Codigo Civil); (ii) **la diferencia entre fianza simple y solidaria**: en la simple, el fiador goza del beneficio de excusion y no puede ser compelido a pagar sin que antes se hayan perseguido todos los bienes del prestatario (articulo 1.830); en la solidaria, el fiador renuncia a ese beneficio y el prestamista puede dirigirse directamente contra el, o contra ambos a la vez, sin reclamar antes al prestatario (articulo 1.831.1.º y 2.º) — la solidaria es sensiblemente mas protectora para el prestamista y sensiblemente mas gravosa para el fiador; (iii) **que aporta una prenda**: una cosa concreta queda afecta al pago, pero exige entregar su posesion al acreedor o a un tercero (articulo 1.863) y solo surte efecto frente a terceros si su fecha consta en documento publico (articulo 1.865). Pregunta despues, en turnos separados: a) si habra garantia y de que tipo; b) si es fianza, sus datos identificativos (sub-apartados con confirmacion agrupada como los de las demas partes) y si es simple o solidaria, informando al fiador del alcance de la renuncia; c) si es prenda, descripcion del bien y quien lo conservara. Inserta los bloques que correspondan y renumera.
 10. **Gastos e impuestos** *(`[dato objetivo]` con explicacion)*. Anuncio fijo: "Cerramos el reparto de los gastos de formalizacion y las obligaciones fiscales." Informa de que el prestamo entre particulares esta sujeto y exento del Impuesto sobre Transmisiones Patrimoniales y Actos Juridicos Documentados, pero que la autoliquidacion debe presentarse igualmente ante la Administracion tributaria competente. Pregunta a cargo de quien van los gastos de formalizacion y quien presentara la autoliquidacion.
 11. **Forma del contrato** *(`[negociacion]` — resuelve V4)*. Anuncio fijo: "Decidimos ahora la forma en que se documentara el prestamo." Aplica la explicacion completa de la seccion "Explicacion comun de la forma" mas abajo. Pregunta despues la opcion elegida e inserta la variante correspondiente.
-12. **Notificaciones y cierre** *(`[dato objetivo]` — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Cerramos con las comunicaciones entre las partes y con el lugar y la fecha de firma." Solicita en bloque mediante `slot_filling_request`: a) plazo para comunicar cambio de domicilio; b) lugar de firma; c) fecha; d) número de ejemplares. Vista previa en chat, confirmación y `Edit`.
+12. **Notificaciones y cierre** *(`[dato objetivo]` — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Cerramos con las comunicaciones entre las partes y con el lugar y la fecha de firma." Solicita en bloque mediante `slot_filling_request`: a) plazo para comunicar cambio de domicilio; b) lugar de firma; c) fecha; d) número de ejemplares. Vista previa en chat, confirmación y `edit_file`.
 
 ### Secciones — HOJA RECONOCIMIENTO
 
-1. **Parte acreedora** *(`[dato objetivo]` — `slot_filling_request` con confirmacion en el chat)*. Anuncio fijo: "Comenzamos por la identificacion de la parte acreedora." Mismos sub-apartados mediante `slot_filling_request`, vista previa en chat, confirmación y `Edit`.
-2. **Parte deudora** *(`[dato objetivo]` — `slot_filling_request` con confirmacion en el chat)*. Anuncio fijo: "Pasamos a la identificacion de la parte deudora." `slot_filling_request`, vista previa en chat, confirmación y `Edit`.
-3. **Importe de la deuda** *(`[dato objetivo]` — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Determinamos ahora el importe exacto de la deuda que se reconoce." Solicita en bloque mediante `slot_filling_request`: a) importe total; b) fecha a la que se determina ese importe; c) si procede de un solo concepto o desglose para la tabla. Valida coherencia, vista previa en chat, confirmación y `Edit`.
-4. **Causa de la deuda** *(`[negociacion]` — control de causa BLOQUEANTE)*. Anuncio fijo: "Abordamos ahora el origen de la deuda que se reconoce." **Explica antes de preguntar:** (i) este documento **no crea la deuda, la reconoce**: la obligacion nace de su origen real, y el reconocimiento la confirma y fija su importe; (ii) conforme al articulo 1.277 del Codigo Civil, aunque la causa no se exprese se presume que existe y que es licita mientras el deudor no pruebe lo contrario, de modo que un reconocimiento sin causa expresada es valido y traslada al deudor la carga de la prueba; (iii) **aun asi conviene expresarla**: si el deudor logra probar que no habia causa o que era ilicita, un reconocimiento abstracto cae entero (articulos 1.275 y 1.276), mientras que uno con causa veraz y licita expresada resiste y evita que se discuta despues de que venia la deuda. Pregunta despues si desea expresar la causa y, en caso afirmativo, cual es exactamente. **Ejecuta la validacion de causa del Punto 1 sobre la respuesta:** si la causa real es un prestamo con interes desproporcionado, un importe superior al realmente debido o cualquier causa ilicita, detente y aplica el guardrail 5.
+1. **Parte acreedora** *(`[dato objetivo]` — `slot_filling_request` con confirmacion en el chat)*. Anuncio fijo: "Comenzamos por la identificacion de la parte acreedora." Mismos sub-apartados mediante `slot_filling_request`, vista previa en chat, confirmación y `edit_file`.
+2. **Parte deudora** *(`[dato objetivo]` — `slot_filling_request` con confirmacion en el chat)*. Anuncio fijo: "Pasamos a la identificacion de la parte deudora." `slot_filling_request`, vista previa en chat, confirmación y `edit_file`.
+3. **Importe de la deuda** *(`[dato objetivo]` — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Determinamos ahora el importe exacto de la deuda que se reconoce." Solicita en bloque mediante `slot_filling_request`: a) importe total; b) fecha a la que se determina ese importe; c) si procede de un solo concepto o desglose para la tabla. Valida coherencia, vista previa en chat, confirmación y `edit_file`.
+4. **Causa de la deuda** *(`[negociacion]` — control de causa BLOQUEANTE)*. Anuncio fijo: "Abordamos ahora el origen de la deuda que se reconoce." **Explica antes de preguntar:** (i) este documento **no crea la deuda, la reconoce**: la obligacion nace de su origen real, y el reconocimiento la confirma y fija su importe; (ii) conforme al articulo 1.277 del Codigo Civil, aunque la causa no se exprese se presume que existe y que es licita mientras el deudor no pruebe lo contrario, de modo que un reconocimiento sin causa expresada es valido y traslada al deudor la carga de la prueba; (iii) **aun asi conviene expresarla**: si el deudor logra probar que no habia causa o que era ilicita, un reconocimiento abstracto cae entero (articulos 1.275 y 1.276), mientras que uno con causa veraz y licita expresada resiste y evita que se discuta despues de que venia la deuda. Pregunta despues si desea expresar la causa y, en caso afirmativo, cual es exactamente. **Ejecuta la validacion de causa de la Fase 1 sobre la respuesta:** si la causa real es un prestamo con interes desproporcionado, un importe superior al realmente debido o cualquier causa ilicita, detente y aplica el guardrail 5.
 5. **Naturaleza declarativa y prescripcion** *(informativo, sin dato)*. Anuncio fijo: "Le informo del efecto que la firma de este documento produce sobre los plazos." Informa de que el reconocimiento interrumpe la prescripcion (articulo 1.973 del Codigo Civil) y de que el plazo de las acciones personales, de cinco años (articulo 1.964.2), vuelve a contarse desde la fecha de la firma. Si quien encarga el documento es el deudor, adviertele expresamente de que esto le perjudica.
 6. **Forma y plazo de pago** *(`[negociacion]`)*. Anuncio fijo: "Pasamos a determinar como y cuando se pagara la deuda." Misma estructura y explicacion que la seccion 5 de la HOJA PRESTAMO (pago unico frente a calendario de cuotas, con tabla).
 7. **Mora e intereses** *(`[negociacion]`)*. Anuncio fijo: "Concretamos ahora que sucede si la deuda no se paga en las fechas pactadas." Misma explicacion que la seccion 6 de la HOJA PRESTAMO. Pregunta ademas si el aplazamiento concedido devengara un interes remuneratorio: si el usuario lo pacta, el conjunto vuelve a quedar sujeto al control de usura del guardrail 3, porque la Ley Azcarate se aplica a toda operacion sustancialmente equivalente a un prestamo (articulo 9).
@@ -260,33 +263,33 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 9. **Compensacion de creditos reciprocos** *(`[negociacion]` — condicional)*. Anuncio fijo: "Verificamos si existen deudas en sentido contrario que deban compensarse." Explica los cinco requisitos del articulo 1.196 del Codigo Civil (reciprocidad como obligados principales, homogeneidad, vencimiento, liquidez y exigibilidad, y ausencia de retencion o contienda de tercero). Pregunta si el acreedor adeuda a su vez algo al deudor y, en caso afirmativo, su importe y concepto. Si se compensa, deja claro en el documento que el importe reconocido ya es el neto.
 10. **Garantias** *(`[negociacion]` — resuelve V3)*. Anuncio fijo: "Determinamos ahora si el pago contara con alguna garantia." Misma explicacion de fianza simple frente a solidaria que en la seccion 9 de la HOJA PRESTAMO. La prenda no se ofrece por defecto en esta hoja: si el usuario la pide, usa el bloque de la HOJA PRESTAMO y adapta la denominacion de las partes.
 11. **Efectos del pago integro** *(`[negociacion]`)*. Anuncio fijo: "Determinamos que efectos tendra el pago completo de la deuda." Explica la diferencia entre la simple carta de pago (extingue la deuda reconocida) y el finiquito de la relacion (cierra ademas cualquier otra reclamacion derivada de esa misma relacion). Pregunta cual desea. Si el usuario es el acreedor, adviertele de que el finiquito le impide reclamar despues otros conceptos de la misma relacion.
-12. **Forma del documento** *(`[negociacion]` — resuelve V4)*. Anuncio fijo: "Decidimos ahora la forma en que se documentara el reconocimiento." Aplica la explicacion comun de la forma.
+12. **Forma del documento** *(`[negociacion]` — el valor ya quedo resuelto en la clasificacion de la Fase 1.2: **no lo vuelvas a preguntar**, explica sus consecuencias y confirma)*. Anuncio fijo: "Decidimos ahora la forma en que se documentara el reconocimiento." Aplica la explicacion comun de la forma.
 13. **Notificaciones y cierre** *(`[dato objetivo]`)*. Anuncio fijo: "Cerramos con las comunicaciones entre las partes y con el lugar y la fecha de firma." Igual que en la HOJA PRESTAMO.
 
 ### Secciones — HOJA COMODATO
 
-1. **Parte comodante** *(`[dato objetivo]` — `slot_filling_request` con confirmacion en el chat)*. Anuncio fijo: "Comenzamos por la identificacion de quien cede el uso de la cosa." Solicita datos en bloque mediante `slot_filling_request`, vista previa en chat, confirmación y `Edit`.
-2. **Parte comodataria** *(`[dato objetivo]` — `slot_filling_request` con confirmacion en el chat)*. Anuncio fijo: "Pasamos a la identificacion de quien recibe la cosa en uso." Mismos datos mediante `slot_filling_request`, vista previa en chat, confirmación y `Edit`.
-3. **El bien cedido** *(`[dato objetivo]` — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Describimos ahora la cosa cuyo uso se cede." Solicita en bloque mediante `slot_filling_request`: a) descripcion y datos de identificacion (inmueble, vehículo o mueble); b) titulo por el que puede cederlo; c) estado en el momento de entrega; d) accesorios, llaves o documentación. Recomienda fotografias. Vista previa en chat, confirmación y `Edit`.
-4. **Gratuidad** *(`[negociacion]` — validacion BLOQUEANTE)*. Anuncio fijo: "Confirmamos ahora el caracter gratuito de la cesion." **Explica antes de preguntar:** (i) el comodato es **esencialmente gratuito** por definicion legal (articulo 1.740, parrafo segundo, del Codigo Civil); (ii) si el cesionario debe pagar cualquier emolumento por el uso, **la convencion deja de ser comodato** (articulo 1.741) y pasa a regirse como arrendamiento, con un regimen completamente distinto de duracion, renta y proteccion del cesionario; (iii) que el comodatario asuma los gastos ordinarios de uso y conservacion **no es contraprestacion** y no rompe la gratuidad (articulo 1.743). Pregunta despues si el comodatario abonara alguna cantidad por el uso. Si la respuesta es afirmativa y se trata de una contraprestacion real, aplica el enrutamiento del Punto 1 y detente.
+1. **Parte comodante** *(`[dato objetivo]` — `slot_filling_request` con confirmacion en el chat)*. Anuncio fijo: "Comenzamos por la identificacion de quien cede el uso de la cosa." Solicita datos en bloque mediante `slot_filling_request`, vista previa en chat, confirmación y `edit_file`.
+2. **Parte comodataria** *(`[dato objetivo]` — `slot_filling_request` con confirmacion en el chat)*. Anuncio fijo: "Pasamos a la identificacion de quien recibe la cosa en uso." Mismos datos mediante `slot_filling_request`, vista previa en chat, confirmación y `edit_file`.
+3. **El bien cedido** *(`[dato objetivo]` — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Describimos ahora la cosa cuyo uso se cede." Solicita en bloque mediante `slot_filling_request`: a) descripcion y datos de identificacion (inmueble, vehículo o mueble); b) titulo por el que puede cederlo; c) estado en el momento de entrega; d) accesorios, llaves o documentación. Recomienda fotografias. Vista previa en chat, confirmación y `edit_file`.
+4. **Gratuidad** *(`[negociacion]` — validacion BLOQUEANTE)*. Anuncio fijo: "Confirmamos ahora el caracter gratuito de la cesion." **Explica antes de preguntar:** (i) el comodato es **esencialmente gratuito** por definicion legal (articulo 1.740, parrafo segundo, del Codigo Civil); (ii) si el cesionario debe pagar cualquier emolumento por el uso, **la convencion deja de ser comodato** (articulo 1.741) y pasa a regirse como arrendamiento, con un regimen completamente distinto de duracion, renta y proteccion del cesionario; (iii) que el comodatario asuma los gastos ordinarios de uso y conservacion **no es contraprestacion** y no rompe la gratuidad (articulo 1.743). Pregunta despues si el comodatario abonara alguna cantidad por el uso. Si la respuesta es afirmativa y se trata de una contraprestacion real, aplica el enrutamiento de la Fase 1 y detente.
 5. **Destino y duracion** *(`[negociacion]`)*. Anuncio fijo: "Determinamos ahora para que se usara la cosa y durante cuanto tiempo." **Explica antes de preguntar** las tres situaciones y sus consecuencias: (i) **con plazo pactado**, el comodante no puede reclamar la cosa antes de esa fecha, salvo que tenga urgente necesidad de ella y la justifique (articulo 1.749); (ii) **sin plazo pero con un uso concreto pactado**, el comodante no puede reclamarla hasta que concluya ese uso, con la misma excepcion de urgente necesidad; (iii) **sin plazo ni uso determinado**, el comodante puede reclamarla a su voluntad, en cualquier momento (articulo 1.750), lo que da maxima flexibilidad al comodante y minima seguridad al comodatario. Advierte ademas de que, si el bien es un inmueble, la tercera situacion se aproxima a la del precario y su recuperacion, si el ocupante se niega a devolverlo, exige acudir a la via judicial. Pregunta despues cual de las tres desea, el uso previsto y, segun el caso, las fechas o el preaviso.
 6. **Obligaciones y gastos** *(`[negociacion]`)*. Anuncio fijo: "Repartimos ahora los gastos y las obligaciones de conservacion de la cosa." Explica el reparto legal por defecto: los gastos ordinarios de uso y conservacion son del comodatario (articulo 1.743) y los extraordinarios de conservacion son del comodante siempre que se le avisen antes de hacerlos, salvo urgencia (articulo 1.751). Pregunta si desea mantener ese reparto legal o precisarlo, y si prohibe la cesion del uso a terceros.
 7. **Tasacion y seguro** *(`[negociacion]` — condicional)*. Anuncio fijo: "Valoramos si conviene tasar la cosa y asegurarla." Explica que, si la cosa se entrega con tasacion, el comodatario responde de su valor aunque se pierda por caso fortuito (articulo 1.745), lo que protege al comodante y agrava al comodatario. Pregunta si desea tasarla y por que valor, y si existe una poliza de seguro y a cargo de quien va la prima. Si no desea ninguna de las dos cosas, descarta los bloques y renumera.
-8. **Restitucion** *(`[dato objetivo]` — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Concretamos como y donde se devolvera la cosa." Solicita en bloque mediante `slot_filling_request`: a) lugar de restitucion; b) si se suscribira documento acreditativo de devolucion. Recuerda la prohibición de retención del art. 1.747. Vista previa en chat, confirmación y `Edit`.
+8. **Restitucion** *(`[dato objetivo]` — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Concretamos como y donde se devolvera la cosa." Solicita en bloque mediante `slot_filling_request`: a) lugar de restitucion; b) si se suscribira documento acreditativo de devolucion. Recuerda la prohibición de retención del art. 1.747. Vista previa en chat, confirmación y `edit_file`.
 9. **Forma del contrato** *(`[negociacion]` — resuelve V4)*. Anuncio fijo: "Decidimos ahora la forma en que se documentara la cesion." Aplica la explicacion comun de la forma, **omitiendo la parte relativa a la fuerza ejecutiva**: en el comodato no hay deuda dineraria que ejecutar, de modo que lo relevante es solo la fecha cierta frente a terceros y el coste. No recomiendes escritura publica por defecto en un comodato de escaso valor.
 10. **Notificaciones y cierre** *(`[dato objetivo]`)*. Anuncio fijo: "Cerramos con las comunicaciones entre las partes y con el lugar y la fecha de firma."
 
 ### Secciones — HOJA COMPRAVENTA
 
-1. **Parte vendedora** *(`[dato objetivo]` — `slot_filling_request` con confirmacion en el chat)*. Anuncio fijo: "Comenzamos por la identificacion de la parte vendedora." Solicita en bloque mediante `slot_filling_request`, vista previa en chat, confirmación y `Edit`.
-2. **Parte compradora** *(`[dato objetivo]` — `slot_filling_request` con confirmacion en el chat)*. Anuncio fijo: "Pasamos a la identificacion de la parte compradora." Solicita en bloque mediante `slot_filling_request`, vista previa en chat, confirmación y `Edit`.
-3. **El bien vendido** *(`[dato objetivo]` — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Describimos ahora el bien objeto de la venta." Solicita en bloque mediante `slot_filling_request`: a) descripcion; b) datos de identificacion (vehiculo o mueble con número de serie); c) estado; d) accesorios y documentacion. Rechaza descripcion generica. Vista previa en chat, confirmación y `Edit`.
+1. **Parte vendedora** *(`[dato objetivo]` — `slot_filling_request` con confirmacion en el chat)*. Anuncio fijo: "Comenzamos por la identificacion de la parte vendedora." Solicita en bloque mediante `slot_filling_request`, vista previa en chat, confirmación y `edit_file`.
+2. **Parte compradora** *(`[dato objetivo]` — `slot_filling_request` con confirmacion en el chat)*. Anuncio fijo: "Pasamos a la identificacion de la parte compradora." Solicita en bloque mediante `slot_filling_request`, vista previa en chat, confirmación y `edit_file`.
+3. **El bien vendido** *(`[dato objetivo]` — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Describimos ahora el bien objeto de la venta." Solicita en bloque mediante `slot_filling_request`: a) descripcion; b) datos de identificacion (vehiculo o mueble con número de serie); c) estado; d) accesorios y documentacion. Rechaza descripcion generica. Vista previa en chat, confirmación y `edit_file`.
 4. **Precio** *(`[dato objetivo]`)*. Anuncio fijo: "Determinamos ahora el precio de la venta." Pide el precio y escribelo en cifra y en letra. Si el precio no es dinerario, aplica la validacion de presupuestos: es una permuta, no una compraventa.
 5. **Forma de pago** *(`[negociacion]`)*. Anuncio fijo: "Pasamos a determinar como se pagara el precio." Explica antes de preguntar que el precio aplazado **no devenga interes salvo pacto expreso**, salvo que la cosa produzca fruto o renta o el comprador incurra en mora (articulo 1.501 del Codigo Civil). Pregunta despues, en turnos separados: a) si el precio se paga integro al contado o se aplaza; b) si se aplaza, el importe entregado en el acto, el aplazado y el calendario; c) si el aplazado devengara interes y a que tipo; d) medio de pago e IBAN.
 6. **Entrega y transmision del riesgo** *(`[negociacion]`)*. Anuncio fijo: "Determinamos cuando se entrega el bien y desde cuando corre su riesgo." Explica que la venta se perfecciona por el acuerdo sobre cosa y precio aunque ninguno se haya entregado (articulo 1.450), pero que la propiedad y el riesgo de perdida se transmiten con la entrega. Pregunta si el bien se entrega en el acto o en fecha posterior y, en su caso, lugar y fecha, y a cargo de quien van los gastos de entrega.
 7. **Reserva de dominio** *(`[negociacion]` — condicional, solo si el precio esta aplazado)*. Anuncio fijo: "Valoramos si el vendedor debe conservar la propiedad hasta el pago completo." Explica que la reserva de dominio permite al vendedor recuperar el bien si el comprador no paga, pero que su plena oponibilidad frente a terceros exige la inscripcion en el Registro de Bienes Muebles, que esta skill no tramita. Pregunta si desea incluirla. Si el precio se paga al contado, omite la seccion sin preguntar.
 8. **Estado del bien y saneamiento** *(`[negociacion]`)*. Anuncio fijo: "Abordamos ahora la responsabilidad del vendedor por los defectos del bien." **Explica antes de preguntar:** (i) el vendedor responde de los defectos **ocultos** que hagan el bien impropio para su uso o disminuyan tal uso, pero **no de los defectos manifiestos o que estuvieran a la vista** (articulo 1.484); (ii) el plazo para reclamar por vicios ocultos es de **seis meses desde la entrega** (articulo 1.490), un plazo notablemente breve que conviene que el comprador conozca; (iii) puede pactarse la exoneracion del saneamiento, pero **solo produce efecto si el vendedor ignoraba efectivamente los vicios**: si los conocia y no los manifesto, responde pese al pacto (articulo 1.485). Pregunta despues si se pacta exoneracion y si el bien se vende expresamente como usado y a revisar. Si el usuario es el comprador, advierte de que la exoneracion le perjudica; si es el vendedor, advierte de que no le protege si conocia el defecto.
-9. **Cargas y declaraciones del vendedor** *(`[dato objetivo]` — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Verificamos ahora la situacion juridica del bien." Solicita en bloque mediante `slot_filling_request`: a) si el bien esta libre de cargas, gravamenes, embargos y reservas de dominio; b) si esta al corriente de tributos; c) si es vehiculo, fecha ITV y anotaciones en Registro de Vehiculos. Si no esta libre, recoge la salvedad. Vista previa en chat, confirmación y `Edit`.
+9. **Cargas y declaraciones del vendedor** *(`[dato objetivo]` — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Verificamos ahora la situacion juridica del bien." Solicita en bloque mediante `slot_filling_request`: a) si el bien esta libre de cargas, gravamenes, embargos y reservas de dominio; b) si esta al corriente de tributos; c) si es vehiculo, fecha ITV y anotaciones en Registro de Vehiculos. Si no esta libre, recoge la salvedad. Vista previa en chat, confirmación y `edit_file`.
 10. **Impuestos y tramites** *(`[dato objetivo]` con explicacion)*. Anuncio fijo: "Cerramos las obligaciones fiscales y los tramites posteriores a la venta." Informa de que el Impuesto sobre Transmisiones Patrimoniales y Actos Juridicos Documentados corresponde al comprador. Pregunta el reparto de los demas gastos y, si es vehiculo, el plazo para el cambio de titularidad ante la Jefatura de Trafico, advirtiendo al vendedor de que mientras el vehiculo figure a su nombre puede seguir recibiendo sanciones y el impuesto de circulacion.
 11. **Forma del contrato** *(`[negociacion]` — resuelve V4)*. Anuncio fijo: "Decidimos ahora la forma en que se documentara la compraventa." Aplica la explicacion comun de la forma. Si el bien se entrega y se paga integramente en el acto, informa de que el contrato se agota en la firma y que la escritura publica rara vez se justifica.
 12. **Notificaciones y cierre** *(`[dato objetivo]`)*. Anuncio fijo: "Cerramos con las comunicaciones entre las partes y con el lugar y la fecha de firma."
@@ -335,7 +338,7 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 
 ## Límites Legales y Guardrails de Dominio (Gobernados por Vectores)
 
-1. Verificar siempre el Codigo Civil, la Ley Azcarate y, si procede, la LEC en el BOE antes de redactar (Punto 2). Sin verificacion, no proceder. De cada bloque devuelto por la API, la version vigente es la **ultima**.
+1. Verificar siempre el Codigo Civil, la Ley Azcarate y, si procede, la LEC en el BOE antes de redactar (Fase 2). Sin verificacion, no proceder. De cada bloque devuelto por la API, la version vigente es la **ultima**.
 2. **Nunca escribir un tipo de interes legal concreto sin haberlo verificado en el ejercicio en curso.** El interes legal del dinero cambia cada año y se fija en la Ley de Presupuestos Generales del Estado: no se hereda de la reference ni se escribe fijo en el asset. Si no se puede verificar, dejar el placeholder y advertir.
 3. **Nunca redactar un prestamo con un interes que pueda ser usurario sin advertirlo expresamente y antes de escribirlo.** La Ley de 23 de julio de 1908 sigue vigente y su consecuencia es la **NULIDAD del prestamo**, no la reduccion del interes: el prestatario devuelve solo el capital recibido, el prestamista reintegra lo cobrado en exceso y carga con las costas (arts. 1, 3 y 8). Explicarlo con estas palabras: el cliente suele creer que, como mucho, un juez le rebajaria el tipo. **Prohibido afirmar un umbral numerico como si fuera legal** ("hasta el X % es seguro"): la ley no lo fija y lo aprecia el tribunal caso por caso (art. 2).
 4. Es nulo el contrato en que se suponga recibida mayor cantidad que la verdaderamente entregada (art. 1, parrafo 2.º, de la Ley Azcarate). Si el importe que figuraria como prestado excede del efectivamente entregado, detener y no redactar.
@@ -346,8 +349,8 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 9. En la compraventa, informar siempre del plazo de **seis meses** para las acciones por vicios ocultos (art. 1.490 CC) y de que la exoneracion del saneamiento solo produce efecto si el vendedor ignoraba los vicios (art. 1.485 CC). No presentar la exoneracion como una proteccion absoluta del vendedor.
 10. Explicar siempre, antes de que el cliente decida la forma, que el documento privado **no es titulo ejecutivo** y que carece de fecha cierta frente a terceros salvo en los supuestos del art. 1.227 CC. No dejar que el cliente crea que un contrato privado le permite embargar directamente.
 11. Nunca afirmar que la escritura publica garantiza el cobro: acelera el acceso al embargo, no crea solvencia. Nunca afirmar que convalida un contrato nulo.
-12. Nunca inventar datos, importes, fechas, tipos de interes, numeros de protocolo ni jurisprudencia. Los campos no proporcionados quedan como `{{dato}}` con su nombre propio.
-13. El documento escrito en disco no contiene **ningun** comentario HTML, ningun placeholder de ordinal sin resolver, ninguna cabecera de clausula sin cuerpo, ninguna remision interna a una clausula renumerada y ninguna aparicion rezagada de un placeholder ya resuelto en otra parte del documento. Verificarlo con `Read` antes de cerrar.
+12. Nunca inventar datos, importes, fechas, tipos de interes, numeros de protocolo ni jurisprudencia. Los campos no proporcionados quedan como `{{DATO}}` con su nombre propio.
+13. El documento escrito en disco no contiene **ningun** comentario HTML, ningun placeholder de ordinal sin resolver, ninguna cabecera de clausula sin cuerpo, ninguna remision interna a una clausula renumerada y ninguna aparicion rezagada de un placeholder ya resuelto en otra parte del documento. Verificarlo con `read_file` antes de cerrar.
 14. Si la vecindad civil de alguna parte o el lugar de celebracion apunta a un territorio con derecho civil propio, advertir de que puede desplazar reglas del Codigo Civil comun y ofrecer escalacion.
 
 ### Supuestos Fuera de Alcance (Cómo NO usar esta skill)

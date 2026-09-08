@@ -68,6 +68,7 @@ Para garantizar un enrutamiento determinista y la correcta ejecución de las her
 > Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`, `V6`), las marcas de control interno, y **CUALQUIER MENCIÓN A DETALLES DE ARQUITECTURA INTERNA DEL SOFTWARE (como "backend", "frontend", "orquestador", "runtime", "base de datos" o nombres de herramientas técnicas como `set_skill_template`, `save_user_template`, `update_user_template`, `check_user_template_exists`, etc.) son ESTRICTAMENTE CONFIDENCIALES Y ESTÁN TERMINANTEMENTE PROHIBIDOS en el chat con el usuario**.
 > - Toda interacción debe ser comprensible, amigable, orientada al usuario y no técnica en cuanto a la estructura del software.
 > - Refiérete siempre a la infraestructura o soporte exclusivamente como el **"sistema"** o **"la plataforma"** (ej. *"Se ha registrado exitosamente en el sistema"*, *"El sistema utilizará esta plantilla automáticamente"*).
+> - Comunícate siempre en lenguaje natural cordial, profesional y consultivo.
 
 ---
 
@@ -105,6 +106,14 @@ El usuario dispone de dos opciones principales:
        - Modo `save_user` (`save_user_template`).
        - Solo en este caso se requiere acordar o solicitar el nombre formal (`name`) y la descripción de uso (`description`), procediendo con `save_user_template`.
 
+**Correspondencia con el enrutamiento.** Esta skill no usa formulario de clasificación: sus vectores se resuelven en el propio diálogo de las secciones siguientes. La Fase 1.3 y las posteriores los nombran así:
+- `V1` — alcance de la plantilla (`skill` o `global`), resuelto en esta sección 1.2
+- `V2` — vía de especificación del contenido (texto en el chat, archivo del editor o creación asistida), resuelta en la sección 1.3
+- `V3` — skill de destino, resuelta solo si `V1` = `skill`, sobre el catálogo oficial
+- `V4` — asset declarado que la plantilla reemplaza, resuelto solo si `V1` = `skill`
+- `V5` — modo de persistencia: no se pregunta en el formulario de clasificación; se resuelve durante el propio flujo
+- `V6` — compatibilidad con skill: no se pregunta en el formulario de clasificación; se resuelve durante el propio flujo
+
 ### 1.3 Determinación de la Vía de Especificación (V2)
 El usuario dispone de tres vías:
 1. **Texto en el chat:** El usuario pega o escribe el texto directamente en el mensaje (`<user_message>`).
@@ -121,7 +130,7 @@ Procesa la fuente o elabora la plantilla abstracta parametrizada en memoria:
 ### Ruta 2.A — Texto en el Chat (Pegar Directamente)
 1. Extrae el texto íntegro proporcionado por el usuario en `<user_message>`.
 2. Si el mensaje está incompleto o falta el texto, solicita amablemente al usuario que pegue el contenido.
-3. Procede a la anonimización de PII y parametrización de variables `{{snake_case}}` según `references/reglas-parametrizacion-plantillas.md`.
+3. Procede a la anonimización de PII y parametrización de variables `{{NOMBRE_VARIABLE}}` en mayúsculas y con guion bajo, según `references/reglas-parametrizacion-plantillas.md`.
 
 ### Ruta 2.B — Abrir Archivo en el Editor (Archivos del Workspace)
 1. Identifica el nombre o ruta relativa del archivo en el workspace indicado por el usuario (ej: `minuta.md`, `template-modelo-de-demanda.md`) o presente en `# WORKSPACE ACTIVE DOCUMENTS`.
@@ -141,7 +150,7 @@ Procesa la fuente o elabora la plantilla abstracta parametrizada en memoria:
    ```
    - **Si `exists: true`:** La plantilla ya está registrada en el sistema. Conserva su `asset_name` canónico y enruta obligatoriamente a `update_user_template`. Queda **TERMINANTEMENTE PROHIBIDO** solicitar `name` o `description` al usuario (ni por chat ni con formularios).
    - **Si `exists: false`:** La plantilla es nueva en el sistema. Enruta a `save_user_template` y solicita/acuerda `name` y `description`.
-5. Si el archivo contiene datos de casos particulares, aplica la parametrización de variables `{{variable}}` y anonimización de PII.
+5. Si el archivo contiene datos de casos particulares, aplica la parametrización de variables `{{VARIABLE}}` y anonimización de PII.
 6. **Ajustes opcionales en el editor:** Si el usuario desea retocar o perfeccionar cláusulas del archivo antes de persistirlo, utiliza `edit_file` para aplicar los cambios directamente en el editor.
 
 ### Ruta 2.C — Creación Asistida (Desde Cero)
@@ -150,7 +159,7 @@ Cuando el usuario desea crear la plantilla desde cero:
    - **Objeto y alcance:** ¿Qué tipo de relación jurídica o trámite documenta la plantilla?
    - **Partes intervinientes:** ¿Quiénes intervienen (ej: arrendador/arrendatario, demandante/demandado, solicitante) y qué datos identificativos requieren?
    - **Cláusulas / Estipulaciones clave:** Títulos, obligaciones principales, plazos, condiciones económicas, penalizaciones, fuero y jurisdicción.
-   - **Variables dinámicas:** Acordar qué campos serán variables rellenables (`{{nombre_variable}}`).
+   - **Variables dinámicas:** Acordar qué campos serán variables rellenables (`{{NOMBRE_VARIABLE}}`).
 2. Si el alcance es **Global y nueva creación**, define y confirma con el usuario:
    - `name`: Título descriptivo formal (ej. `"Plantilla de Invitación a Evento Corporativo"`, `"Modelo de Requerimiento Previo"`).
    - `description`: Descripción obligatoria explicando el propósito, objetivo y directrices de uso de la plantilla.
@@ -173,22 +182,22 @@ Si la plantilla está destinada a una skill especializada del sistema, **DEBES v
 **Criterios de Verificación:**
 1. **Correspondencia del Asset:** El `asset_name` debe coincidir con uno de los assets oficialmente declarados en la skill.
 2. **Coherencia Temática y Procedimental:** El documento debe cubrir el trámite y la función exacta que la skill gestiona (ej. no admitir una minuta de compraventa para un asset de arrendamiento, ni una comunicación para un contrato sustantivo).
-3. **Cobertura de Variables Obligatorias:** La plantilla DEBE contener los marcadores `{{variable}}` que corresponden a los inputs esenciales que la skill requiere y cumplimenta durante su ejecución (consultar los `inputs:` del `SKILL.md` de la skill destino: datos de las partes, objeto, importes, plazos, etc.).
+3. **Cobertura de Variables Obligatorias:** La plantilla DEBE contener los marcadores `{{VARIABLE}}` que corresponden a los inputs esenciales que la skill requiere y cumplimenta durante su ejecución (consultar los `inputs:` del `SKILL.md` de la skill destino: datos de las partes, objeto, importes, plazos, etc.).
 4. **Assets Limpios:** La plantilla NO debe contener comentarios HTML condicionales (ej. `<!-- Si persona física... -->`) ni pseudocódigo procedural.
-5. **Cero PII:** Cero datos reales de personas o casos particulares; todos deben estar abstraídos en `{{snake_case}}`.
+5. **Cero PII:** Cero datos reales de personas o casos particulares; todos deben estar abstraídos en marcadores `{{NOMBRE_VARIABLE}}`.
 
 > [!CAUTION]
 > ### POLÍTICA INQUEBRANTABLE ANTE INCOMPATIBILIDAD CON LA SKILL:
 > **SI LA PLANTILLA NO ES COMPLETAMENTE COMPATIBLE CON LA SKILL:**
 > - **NO GUARDAR.** Queda **TERMINANTEMENTE PROHIBIDO** invocar la herramienta `set_skill_template`.
 > - Informa de inmediato al usuario en el chat, detallando de forma clara, específica y comprensible:
->   1. Los motivos y deficiencias exactas detectadas (ej: *"La plantilla no contiene las variables obligatorias `{{renta_mensual}}` y `{{datos_inmueble}}`, que la skill `arrendamiento-urbano` necesita para operar"* o *"Se han detectado comentarios condicionales HTML que no cumplen la directiva de assets limpios"*).
+>   1. Los motivos y deficiencias exactas detectadas (ej: *"La plantilla no contiene las variables obligatorias `{{RENTA_MENSUAL}}` y `{{DATOS_INMUEBLE}}`, que la skill `arrendamiento-urbano` necesita para operar"* o *"Se han detectado comentarios condicionales HTML que no cumplen la directiva de assets limpios"*).
 >   2. Las correcciones exactas requeridas para hacerla compatible.
 >   3. Una propuesta de adaptación inmediata para subsanar los puntos observados con la aprobación del usuario.
 
 ### 3.2 Verificación para Plantillas Globales (`V1` = `global`)
 - Verificar que el texto esté en Markdown limpio, con jerarquía coherente y sin comentarios condicionales HTML.
-- Verificar que todas las variables dinámicas sigan la convención `{{snake_case}}`.
+- Verificar que todas las variables dinámicas sigan la convención `{{NOMBRE_VARIABLE}}`: mayúsculas, guion bajo entre palabras y dobles llaves.
 - Garantizar ausencia absoluta de PII.
 - Si es creación nueva (`save_user_template`), asegurar que se cuenta con `name` y `description` no vacíos y con sentido.
 
@@ -259,15 +268,15 @@ Una vez ejecutada exitosamente la herramienta de persistencia:
    - Fecha y estado de activación en el sistema.
    - Inventario final de variables parametrizadas.
 2. **Efecto en Futuras Conversaciones:**
-   - **Para plantillas especializadas:** Explica que, en adelante, cuando realice consultas sobre ese trámite, el sistema utilizará automáticamente esta plantilla personalizada como base para elaborar sus documentos.
-   - **Para plantillas generales:** Explica que la plantilla queda registrada en su catálogo personal en el sistema (`{{asset_name}}`), lista para ser consultada o actualizada cuando lo requiera.
+   - **Para plantillas especializadas (de skill):** Explica que, en adelante, cuando realice consultas sobre ese trámite, el sistema utilizará automáticamente esta plantilla personalizada como base para elaborar sus documentos en lugar de la plantilla por defecto.
+   - **Para plantillas generales (globales):** Explica que la plantilla queda registrada en el catálogo de plantillas generales del usuario en el sistema (`{{asset_name}}`), lista para ser consultada o actualizada cuando lo requiera.
 3. **Cierre:** Ofrece la posibilidad de gestionar otra plantilla o dar por concluida la sesión.
 
 ---
 
 ## Límites Legales y Guardrails de Dominio
 
-1. **Cero Datos Personales en Plantillas:** Queda estrictamente prohibido persistir plantillas que contengan PII o datos reales de partes concretas; todo dato particular debe abstraerse como variable `{{variable}}`.
+1. **Cero Datos Personales en Plantillas:** Queda estrictamente prohibido persistir plantillas que contengan PII o datos reales de partes concretas; todo dato particular debe abstraerse como variable `{{VARIABLE}}`.
 2. **Assets Limpios:** Las plantillas no deben contener comentarios HTML condicionales ni lógica procedural.
 3. **Separación entre Entorno de Trabajo en Editor y Registro en el Sistema:** La creación y edición de archivos en el workspace con `create_file` y `edit_file` funciona como borrador visual interactivo en el editor durante el proceso de diseño (especialmente en creación asistida). Sin embargo, el archivo en el workspace no reemplaza el registro oficial: la plantilla DEBE guardarse formalmente en el sistema mediante `set_skill_template()`, `update_user_template()` o `save_user_template()` tras la confirmación afirmativa del usuario.
 4. **Verificación Estricta de Compatibilidad con Skills:** Antes de persistir una plantilla de skill, verificar si es completamente compatible con la skill como tal. Si no lo es, NO GUARDAR e informar los detalles específicos a corregir.

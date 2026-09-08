@@ -1,26 +1,26 @@
-# CONTRATO DE ARRENDAMIENTO DE VIVIENDA — {{nombre_arrendador}} / {{nombre_arrendatario}}
+# CONTRATO DE ARRENDAMIENTO DE VIVIENDA — {{NOMBRE_ARRENDADOR}} / {{NOMBRE_ARRENDATARIO}}
 
 > **DRAFT — para revision por un abogado antes de su firma. No constituye asesoramiento juridico.**  
-> Version de la LAU verificada en el BOE: {{fecha_verificacion_lau}}
+> Version de la LAU verificada en el BOE: {{FECHA_VERIFICACION_LAU}}
 
 ---
 
-En {{municipio}}, a {{fecha_contrato}}
+En {{MUNICIPIO}}, a {{FECHA_CONTRATO}}
 
 ## REUNIDOS
 
 **De una parte, como ARRENDADOR:**
 
-Nombre / Razon social: {{nombre_arrendador}}  
-NIF / CIF: {{nif_arrendador}}  
-Domicilio a efectos de notificaciones: {{domicilio_arrendador}}  
-Naturaleza: {{naturaleza_arrendador}}  
+Nombre / Razon social: {{NOMBRE_ARRENDADOR}}  
+NIF / CIF: {{NIF_ARRENDADOR}}  
+Domicilio a efectos de notificaciones: {{DOMICILIO_ARRENDADOR}}  
+Naturaleza: {{NATURALEZA_ARRENDADOR}}  
 **De otra parte, como ARRENDATARIO:**
 
-Nombre / Razon social: {{nombre_arrendatario}}  
-NIF / CIF: {{nif_arrendatario}}  
-Domicilio actual: {{domicilio_arrendatario}}  
-Naturaleza: {{naturaleza_arrendatario}}  
+Nombre / Razon social: {{NOMBRE_ARRENDATARIO}}  
+NIF / CIF: {{NIF_ARRENDATARIO}}  
+Domicilio actual: {{DOMICILIO_ARRENDATARIO}}  
+Naturaleza: {{NATURALEZA_ARRENDATARIO}}  
 Ambas partes se reconocen mutua y suficiente capacidad legal para suscribir el presente contrato y, al efecto,
 
 ## EXPONEN
@@ -37,13 +37,13 @@ III. Que ambas partes acuerdan formalizar el presente contrato de arrendamiento 
 
 El ARRENDADOR cede en arrendamiento al ARRENDATARIO la vivienda sita en:
 
-Direccion: {{direccion_inmueble}}  
-Municipio: {{municipio_inmueble}}  
-Comunidad Autonoma: {{comunidad_autonoma}}  
-Codigo Postal: {{codigo_postal}}  
-Referencia Catastral: {{referencia_catastral}}
+Direccion: {{DIRECCION_INMUEBLE}}  
+Municipio: {{MUNICIPIO_INMUEBLE}}  
+Comunidad Autonoma: {{COMUNIDAD_AUTONOMA}}  
+Codigo Postal: {{CODIGO_POSTAL}}  
+Referencia Catastral: {{REFERENCIA_CATASTRAL}}
 
-Descripcion: vivienda de {{superficie_util}} m² utiles, compuesta de {{descripcion_distribucion}}.
+Descripcion: vivienda de {{SUPERFICIE_UTIL}} m² utiles, compuesta de {{DESCRIPCION_DISTRIBUCION}}.
 La vivienda se entrega en buen estado de habitabilidad y con todos los servicios en funcionamiento.
 
 ### SEGUNDA — Destino
@@ -53,18 +53,18 @@ Queda expresamente prohibido destinar la vivienda a uso turistico, comercial o c
 
 ### TERCERA — Duracion
 
-La duracion del presente contrato se establece en {{duracion_pactada}} años, contados desde la fecha de inicio: {{fecha_inicio}}.
+La duracion del presente contrato se establece en {{DURACION_PACTADA}} años, contados desde la fecha de inicio: {{FECHA_INICIO}}.
 A la finalizacion del plazo de duracion o de cualquiera de sus prorrogas, si ninguna de las partes hubiera notificado su voluntad de no renovar —el ARRENDADOR con al menos 4 meses de antelacion, el ARRENDATARIO con al menos 2 meses—, el contrato se prorrogara obligatoriamente por plazos anuales hasta un maximo de 3 años adicionales (Art. 10.1 LAU).
 ### CUARTA — Renta
 
-La renta mensual pactada es de {{renta_mensual}} euros ({{renta_en_letras}} euros).
+La renta mensual pactada es de {{RENTA_MENSUAL}} euros ({{RENTA_EN_LETRAS}} euros).
 
-El pago se realizara dentro de los primeros 7 dias de cada mes, mediante {{medio_de_pago}} a la cuenta {{iban_arrendador}} del ARRENDADOR.
+El pago se realizara dentro de los primeros 7 dias de cada mes, mediante {{MEDIO_DE_PAGO}} a la cuenta {{IBAN_ARRENDADOR}} del ARRENDADOR.
 
 El ARRENDADOR entregara recibo de pago o documento acreditativo equivalente al ARRENDATARIO.
 ### QUINTA — Actualizacion de la renta
 
-La renta se actualizara anualmente en la fecha en que se cumpla cada año de vigencia del contrato, conforme al {{indice_actualizacion}}, de conformidad con el articulo 18 de la LAU.
+La renta se actualizara anualmente en la fecha en que se cumpla cada año de vigencia del contrato, conforme al {{INDICE_ACTUALIZACION}}, de conformidad con el articulo 18 de la LAU.
 
 En todo caso, el incremento anual no podra superar la variacion del Indice de Referencia para la Actualizacion de los Arrendamientos de Vivienda (IRAV), publicado por el Instituto Nacional de Estadistica, vigente a la fecha de la actualizacion (Resolucion de 18 de diciembre de 2024, de la Presidencia del INE, dictada en desarrollo de la Ley 12/2023).
 
@@ -72,16 +72,16 @@ La parte que desee aplicar la actualizacion lo notificara a la otra por escrito,
 
 ### SEXTA — Fianza
 
-En este acto, el ARRENDATARIO hace entrega al ARRENDADOR de la cantidad de {{importe_fianza}} euros ({{importe_fianza_letras}} euros), equivalente a {{numero_mensualidades_fianza}} mensualidad de renta, en concepto de fianza legal obligatoria, de conformidad con el articulo 36.1 de la LAU.
+En este acto, el ARRENDATARIO hace entrega al ARRENDADOR de la cantidad de {{IMPORTE_FIANZA}} euros ({{IMPORTE_FIANZA_LETRAS}} euros), equivalente a {{NUMERO_MENSUALIDADES_FIANZA}} mensualidad de renta, en concepto de fianza legal obligatoria, de conformidad con el articulo 36.1 de la LAU.
 
-El ARRENDADOR se obliga a depositar dicha fianza ante {{organismo_deposito_fianza}} en el plazo de {{plazo_deposito}} desde la firma del presente contrato.
+El ARRENDADOR se obliga a depositar dicha fianza ante {{ORGANISMO_DEPOSITO_FIANZA}} en el plazo de {{PLAZO_DEPOSITO}} desde la firma del presente contrato.
 
 La fianza sera devuelta al ARRENDATARIO en el plazo de 1 mes desde la entrega de llaves y libre disposicion del inmueble por el ARRENDADOR, deducidos, en su caso, los importes correspondientes a rentas pendientes o danos imputables al ARRENDATARIO. Transcurrido dicho plazo sin devolucion, el ARRENDADOR abonara el interes legal del dinero.
 ### SEPTIMA — Gastos y suministros
 
 Los gastos de gestion inmobiliaria y de formalizacion del presente contrato son a cargo del ARRENDADOR, de conformidad con el articulo 20.1 de la LAU.
 
-Los suministros individualizados de la vivienda (agua, gas, electricidad y analogos) son en todo caso a cargo del ARRENDATARIO, quien se obliga a mantener los contratos de suministro a su nombre o a solicitar el cambio de titularidad en el plazo de {{plazo_cambio_titularidad_suministros}} dias desde el inicio del contrato.
+Los suministros individualizados de la vivienda (agua, gas, electricidad y analogos) son en todo caso a cargo del ARRENDATARIO, quien se obliga a mantener los contratos de suministro a su nombre o a solicitar el cambio de titularidad en el plazo de {{PLAZO_CAMBIO_TITULARIDAD_SUMINISTROS}} dias desde el inicio del contrato.
 
 ### OCTAVA — Conservacion y obras
 
@@ -107,12 +107,12 @@ En particular, el ARRENDADOR podra resolver el contrato por las causas del artic
 
 Las notificaciones entre las partes se realizaran en los domicilios indicados en el encabezamiento del presente contrato, o en las siguientes direcciones electronicas, siempre que quede garantizada la autenticidad y la constancia fehaciente de la remision y recepcion (Art. 4.6 LAU):
 
-ARRENDADOR: {{email_arrendador}}  
-ARRENDATARIO: {{email_arrendatario}}
+ARRENDADOR: {{EMAIL_ARRENDADOR}}  
+ARRENDATARIO: {{EMAIL_ARRENDATARIO}}
 
 ### DECIMOTERCERA — Fuero y legislacion aplicable
 
-Para la resolucion de cualquier controversia derivada del presente contrato, las partes se someten, con renuncia expresa a cualquier otro fuero que pudiera corresponderles, a los Juzgados y Tribunales del lugar donde se halla sita la finca arrendada ({{municipio_inmueble}}), de conformidad con el articulo 38 de la LAU.
+Para la resolucion de cualquier controversia derivada del presente contrato, las partes se someten, con renuncia expresa a cualquier otro fuero que pudiera corresponderles, a los Juzgados y Tribunales del lugar donde se halla sita la finca arrendada ({{MUNICIPIO_INMUEBLE}}), de conformidad con el articulo 38 de la LAU.
 
 El presente contrato se rige por la Ley 29/1994, de 24 de noviembre, de Arrendamientos Urbanos, en su version consolidada vigente, y supletoriamente por el Codigo Civil.
 
@@ -120,19 +120,19 @@ El presente contrato se rige por la Ley 29/1994, de 24 de noviembre, de Arrendam
 
 ## FIRMAS
 
-En prueba de conformidad con todo lo expuesto, las partes firman el presente contrato en {{numero_ejemplares}} ejemplares de igual tenor y a un solo efecto, en el lugar y fecha indicados en el encabezamiento.
+En prueba de conformidad con todo lo expuesto, las partes firman el presente contrato en {{NUMERO_EJEMPLARES}} ejemplares de igual tenor y a un solo efecto, en el lugar y fecha indicados en el encabezamiento.
 
 **EL ARRENDADOR**
 
-Nombre: {{nombre_arrendador}}  
+Nombre: {{NOMBRE_ARRENDADOR}}  
 Firma: ___________________________  
-Fecha: {{fecha_firma_arrendador}}
+Fecha: {{FECHA_FIRMA_ARRENDADOR}}
 
 **EL ARRENDATARIO**
 
-Nombre: {{nombre_arrendatario}}  
+Nombre: {{NOMBRE_ARRENDATARIO}}  
 Firma: ___________________________  
-Fecha: {{fecha_firma_arrendatario}}
+Fecha: {{FECHA_FIRMA_ARRENDATARIO}}
 
 ---
 
@@ -141,6 +141,6 @@ Fecha: {{fecha_firma_arrendatario}}
 
 > **Advertencias:**  
 > 1. Este contrato es un DRAFT generado automaticamente. Debe ser revisado por un abogado colegiado antes de su firma.  
-> 2. Version de la LAU verificada: {{fecha_verificacion_lau}}.  
-> 3. El deposito de fianza ante {{organismo_deposito_fianza}} es obligatorio en el plazo de {{plazo_deposito}} desde la firma.  
+> 2. Version de la LAU verificada: {{FECHA_VERIFICACION_LAU}}.  
+> 3. El deposito de fianza ante {{ORGANISMO_DEPOSITO_FIANZA}} es obligatorio en el plazo de {{PLAZO_DEPOSITO}} desde la firma.  
 > 4. Se recomienda la inscripcion del contrato en el Registro de la Propiedad para mayor seguridad juridica (Art. 37 LAU).

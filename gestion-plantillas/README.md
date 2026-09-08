@@ -5,7 +5,7 @@ Plugin de GravitonAI para la creación, parametrización, actualización y regis
 ## Qué hace este plugin
 - Permite a los usuarios registrar plantillas a partir de texto preexistente (texto en el chat o abrir archivo en el editor / archivos del workspace) o crearlas de manera asistida desde cero. (Queda excluida la opción de adjuntar archivos).
 - Soporta dos alcances: **Plantilla para una skill** (reemplazando el asset oficial de una skill del catálogo) o **Global (sin skill)** (plantillas generales de usuario).
-- Analiza o redacta colaborativamente el documento y lo estructura en Markdown limpio con marcadores `{{nombre_variable}}`.
+- Analiza o redacta colaborativamente el documento y lo estructura en Markdown limpio con marcadores `{{NOMBRE_VARIABLE}}`.
 - Garantiza assets limpios (cero datos personales PII y cero comentarios HTML condicionales).
 - Realiza una auditoría obligatoria de compatibilidad con la skill antes de guardar (bloqueando el guardado si no es compatible).
 - Persiste la plantilla en el sistema mediante la herramienta especializada adecuada:

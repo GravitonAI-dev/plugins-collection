@@ -1,0 +1,18 @@
+{
+  "name": "despacho",
+  "displayName": "Gestión del Despacho",
+  "version": "0.1.0",
+  "description": "Generación de los documentos que el propio despacho profesional necesita para sí mismo, con la normativa vigente verificada en el BOE: hoja de encargo profesional con presupuesto de honorarios y su comunicación de finalización, minuta de honorarios, requerimiento previo de pago y solicitud de jura de cuentas del artículo 35 de la Ley de Enjuiciamiento Civil, minuta de poder general para pleitos y designación de representación, expediente de diligencia debida en prevención del blanqueo de capitales conforme a la Ley 10/2010, y paquete de protección de datos del despacho (registro de actividades de tratamiento, contrato de encargado, cláusula informativa, deber de secreto y registro de brechas de seguridad).",
+  "author": {
+    "name": "GravitonAI"
+  },
+  "skills": [
+    "./skills/hoja-encargo",
+    "./skills/minuta-jura-cuentas",
+    "./skills/poder-representacion",
+    "./skills/prevencion-blanqueo",
+    "./skills/proteccion-datos-despacho"
+  ],
+  "agents": [],
+  "hooks": []
+}
