@@ -1,7 +1,7 @@
 # Prescripcion de la Accion y Computo de Plazos
 
 > Material de referencia para la skill `derecho-civil-responsabilidad-civil`. Soporta el filtro de prescripcion BLOQUEANTE
-> del Fase 1 del `SKILL.md`. Todos los preceptos citados fueron verificados en el BOE el 02/09/2026
+> de la Fase 1 del `SKILL.md`. Todos los preceptos citados fueron verificados en el BOE el 02/09/2026
 > (ver `references/fuentes-plantillas-validadas.md`).
 
 ---

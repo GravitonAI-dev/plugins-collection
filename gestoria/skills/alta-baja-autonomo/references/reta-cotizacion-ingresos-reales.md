@@ -3,7 +3,7 @@
 > Material de referencia para la skill `alta-baja-autonomo`. Resume el sistema de cotizacion del Regimen
 > Especial de Trabajadores Autonomos (RETA) por rendimientos netos, conforme al RD-ley 13/2022 y a la
 > tabla de cuotas del ejercicio en curso, y las reglas de la baja en el RETA. TODOS los importes son
-> ORIENTATIVOS: la skill los verifica en el Fase 1 y los marca `[verificar]`; se regularizan anualmente
+> ORIENTATIVOS: la skill los verifica en la Fase 2.1 y los marca `[verificar]`; se regularizan anualmente
 > segun los rendimientos reales.
 
 ---
@@ -21,7 +21,7 @@ Desde el 1 de enero de 2023 (RD-ley 13/2022), el autonomo cotiza al RETA en func
 ## Tabla de tramos y cuotas (ejercicio en curso) [verificar]
 
 > Importes ORIENTATIVOS. La tabla de cuotas del ejercicio en curso quedo congelada respecto al ejercicio
-> anterior. Verificar en el Fase 1 los tramos, las bases minimas y las cuotas vigentes antes de usarlos.
+> anterior. Verificar en la Fase 2.1 los tramos, las bases minimas y las cuotas vigentes antes de usarlos.
 
 | Tramo | Tabla | Rendimientos netos mensuales | Cuota mensual orientativa [verificar] |
 |---|---|---|---|
@@ -97,7 +97,7 @@ Desde el sistema de cotizacion por rendimientos reales (RD-ley 13/2022):
 - A partir de la **cuarta baja del mismo ano natural**, se cotiza el **mes completo** aunque el cese sea a mitad de mes.
 - Si la baja se comunica **fuera del plazo de 3 dias**, surte efecto la fecha de presentacion y se generan cuotas hasta entonces, aunque no haya habido actividad.
 
-Marcar estas reglas como `[verificar]` y confirmarlas en el Fase 1, ya que dependen de la normativa del ejercicio en curso.
+Marcar estas reglas como `[verificar]` y confirmarlas en la Fase 2.1, ya que dependen de la normativa del ejercicio en curso.
 
 ### Obligaciones tras la baja
 

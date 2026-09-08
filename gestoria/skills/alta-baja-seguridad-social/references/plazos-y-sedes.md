@@ -2,8 +2,8 @@
 
 > Material de referencia para la skill `alta-baja-seguridad-social`. Registra las fuentes normativas, los plazos
 > de las altas y bajas, las sedes de presentacion y la regla de verificacion. La skill verifica estas
-> fuentes en cada lanzamiento y, si detecta una version posterior, aplica la redaccion vigente al tramite que
-> plugin antes de preparar el tramite.
+> fuentes en cada lanzamiento y, si detecta una version posterior, aplica la redaccion vigente al tramite
+> que prepara, sin modificar los archivos del plugin.
 
 ---
 
@@ -20,7 +20,7 @@ Cada vez que se lanza la skill, en la Fase 2.1 se comprueban las fuentes de esta
 | RD-legislativo 8/2015, texto refundido de la LGSS | BOE-A-2015-11724 | texto consolidado a la fecha de verificacion (en vigor 02/01/2016) | https://www.boe.es/buscar/act.php?id=BOE-A-2015-11724 |
 | RD 84/1996, Reglamento general de inscripcion, afiliacion, altas, bajas y variaciones | BOE-A-1996-4396 [verificar] | texto consolidado a la fecha de verificacion | https://www.boe.es/buscar/act.php?id=BOE-A-1996-4396 |
 
-Modelos TA de referencia: TA.1 (afiliacion / NUSS), TA.6 (inscripcion de empresa / CCC), TA.2/S (alta y baja de trabajador; empleada de hogar TA.2/S-0138). Verificar el modelo vigente en el Fase 1. [verificar]
+Modelos TA de referencia: TA.1 (afiliacion / NUSS), TA.6 (inscripcion de empresa / CCC), TA.2/S (alta y baja de trabajador; empleada de hogar TA.2/S-0138). Verificar el modelo vigente en la Fase 2.1. [verificar]
 
 ---
 

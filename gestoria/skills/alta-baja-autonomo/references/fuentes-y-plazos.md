@@ -20,7 +20,7 @@ Cada vez que se lanza la skill, en la Fase 2.1 se comprueban las fuentes de esta
 | Ley 20/2007, de 11 de julio, del Estatuto del Trabajo Autonomo | BOE-A-2007-13409 | texto consolidado a la fecha de verificacion | https://www.boe.es/buscar/act.php?id=BOE-A-2007-13409 |
 | RD-ley 13/2022, nuevo sistema de cotizacion de autonomos | BOE-A-2022-12482 | en vigor 01/01/2023 | https://www.boe.es/buscar/act.php?id=BOE-A-2022-12482 |
 
-Articulos relevantes de la Ley 20/2007 para esta skill: arts. 30 a 38 bis (cotizacion y beneficios en la cotizacion). La tabla de tramos y cuotas de cada ejercicio se fija en la Ley de Presupuestos Generales del Estado (o norma que la prorrogue): verificar el ejercicio en curso en el Fase 1. [verificar]
+Articulos relevantes de la Ley 20/2007 para esta skill: arts. 30 a 38 bis (cotizacion y beneficios en la cotizacion). La tabla de tramos y cuotas de cada ejercicio se fija en la Ley de Presupuestos Generales del Estado (o norma que la prorrogue): verificar el ejercicio en curso en la Fase 2.1. [verificar]
 
 ---
 

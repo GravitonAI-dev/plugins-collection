@@ -34,7 +34,7 @@ Articulos relevantes de la LAU: 27 (resolucion por impago) y 35 (resolucion en u
 | `assets/template-demanda-desahucio-expiracion-plazo.md` | Expiracion del plazo contractual o legal |
 | `assets/template-demanda-desahucio-precario.md` | Precario (ocupacion gratuita sin titulo) |
 
-Las plantillas siguen la estructura AL JUZGADO / HECHOS / FUNDAMENTOS DE DERECHO / SUPLICO. En cada lanzamiento, si cambian los tramites procesales (plazos del requerimiento, señalamiento del lanzamiento, requisito de MASC), la skill actualiza los assets.
+Las plantillas siguen la estructura AL JUZGADO / HECHOS / FUNDAMENTOS DE DERECHO / SUPLICO. En cada lanzamiento, si cambian los tramites procesales (plazos del requerimiento, señalamiento del lanzamiento, requisito de MASC), la skill aplica la redaccion vigente al documento que redacta, sin modificar los assets del plugin.
 
 ---
 

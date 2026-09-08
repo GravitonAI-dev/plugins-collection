@@ -136,14 +136,14 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
 - Si V1 = 3 → **aplicar primero el FILTRO DE SUBSIDIARIEDAD** (seccion siguiente). Solo si lo supera:
   - V3 = 1 → **HOJA CURATELA**, `assets/template-demanda-curatela.md`, con los bloques de facultades representativas DESACTIVADOS.
   - V3 = 2 → **HOJA CURATELA**, el mismo asset, con los bloques de facultades representativas ACTIVADOS y justificados acto por acto.
-- **Sub-pregunta de via procesal (solo en la HOJA CURATELA, antes del Fase 3).** El expediente de jurisdiccion voluntaria es la via ordinaria; el proceso contencioso solo procede si un expediente previo termino por oposicion o no pudo resolverse (Art. 756.1 LEC). Formula:
+- **Sub-pregunta de via procesal (solo en la HOJA CURATELA, antes de la Fase 3).** El expediente de jurisdiccion voluntaria es la via ordinaria; el proceso contencioso solo procede si un expediente previo termino por oposicion o no pudo resolverse (Art. 756.1 LEC). Formula:
   "Sobre actuaciones judiciales anteriores por este mismo asunto:
   1. No se ha iniciado ninguna
   2. Se inicio un expediente que termino porque alguien se opuso, o que no pudo resolverse"
   Respuesta 1 → variante de jurisdiccion voluntaria del asset. Respuesta 2 → activar el bloque condicional de la variante contenciosa (Arts. 756 a 761 LEC) y ajustar los fundamentos de tramite y prueba (Art. 759 LEC en lugar del Art. 42 bis b) LJV).
 - Si en cualquier momento consta que la persona es **menor de edad** → **DETENER**: fuera de alcance (patria potestad o tutela de menores). Advertir y escalar. No crear documento. Unica excepcion informativa: si es mayor de dieciseis anos y se preve que precisara apoyo al alcanzar la mayoria de edad, informar del Art. 254 CC y de que **el propio menor puede hacer sus propias previsiones**, y escalar.
 - Si lo que se pretende es un **internamiento no voluntario** (Art. 763 LEC) → **DETENER SIEMPRE**: fuera de alcance, con independencia de lo urgente que parezca. Advertir y escalar de inmediato.
-- Si lo que se pretende es una **incapacitacion** o una **modificacion de la capacidad** → no es un supuesto de "fuera de alcance" sino de institucion inexistente: aplicar la correccion terminologica del Fase 1 y reconducir el caso por V1, sin detener el flujo.
+- Si lo que se pretende es una **incapacitacion** o una **modificacion de la capacidad** → no es un supuesto de "fuera de alcance" sino de institucion inexistente: aplicar la correccion terminologica de la Fase 1 y reconducir el caso por V1, sin detener el flujo.
 - Si lo que se pretende es constituir o administrar un **patrimonio protegido** de la Ley 41/2003 → **DETENER**: fuera de alcance. Advertir y escalar.
 - Si la persona tiene **vecindad civil foral** (Cataluna, Aragon, Navarra, Galicia, Baleares) → **DETENER**: esta skill se apoya en el Codigo Civil estatal y no ha verificado la normativa autonomica. Advertir y escalar.
 
@@ -167,7 +167,7 @@ Es el nucleo de esta skill. El Art. 269 del Codigo Civil solo permite constituir
 
 **Aplica ademas, en ambos casos, el filtro de la necesidad ocasional:** si de lo relatado resulta que el apoyo se necesita solo de vez en cuando, aunque sea de forma recurrente, la medida proporcionada es el **defensor judicial** (Arts. 250 y 295.5.º CC), no la curatela. Adviertelo, explica la diferencia y ofrece escalacion: esta skill no genera la solicitud de defensor judicial.
 
-### Validacion de presupuestos (interno, antes del Fase 3)
+### Validacion de presupuestos (interno, antes de la Fase 3)
 
 - **HOJA VOLUNTARIA (Arts. 255 y 260 CC):** las medidas voluntarias exigen que el otorgante **comprenda el alcance del acto en el momento de la firma**, y ese juicio corresponde al Notario. Si de lo relatado resulta que la persona ya no esta en condiciones de otorgar, **adviertelo con claridad y reconduce**: la via ya no es la voluntaria, sino la guarda de hecho o la curatela. No prepares una minuta que el notario no vaya a poder autorizar.
 - **HOJA VOLUNTARIA (Art. 259 CC):** si el poder va a comprender todos los negocios del otorgante, adviertelo antes de redactarlo: el apoderado quedara sujeto a las reglas de la curatela en todo lo no previsto, incluidas las autorizaciones judiciales del Art. 287. Ofrece acotar las facultades.

@@ -8,7 +8,7 @@
 
 ## Regla de verificacion permanente (OBLIGATORIA)
 
-Cada vez que se lanza la skill, en la Fase 2.1 se comprueban las fuentes de esta tabla. **Si se detecta una version posterior a la registrada, la skill aplica la redaccion vigente al documento que redacta en el workspace del usuario** e informa del cambio en el chat. La skill nunca modifica sus propios archivos de plugin. En esta materia, ademas, el Fase 1.3 verifica la jurisprudencia reciente del tipo de clausula: si difiere de la registrada, se aplica la doctrina vigente al documento que redacta, sin modificar el archivo de referencia del plugin. Si la fuente no es accesible, se usa la version local, se marca `{{VERIFICAR}}` y se informa al usuario.
+Cada vez que se lanza la skill, en la Fase 2.1 se comprueban las fuentes de esta tabla. **Si se detecta una version posterior a la registrada, la skill aplica la redaccion vigente al documento que redacta en el workspace del usuario** e informa del cambio en el chat. La skill nunca modifica sus propios archivos de plugin. En esta materia, ademas, la Fase 1.3 verifica la jurisprudencia reciente del tipo de clausula: si difiere de la registrada, se aplica la doctrina vigente al documento que redacta, sin modificar el archivo de referencia del plugin. Si la fuente no es accesible, se usa la version local, se marca `{{VERIFICAR}}` y se informa al usuario.
 
 ---
 

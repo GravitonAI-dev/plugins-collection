@@ -209,7 +209,7 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 
 ### Hoja de Ruta de Secciones y Cláusulas Condicionales
 
-Ahora, recorre secuencialmente la lista de secciones de la ruta resuelta en el Fase 1 (5.A para contratos, 5.B para comunicaciones). Por cada sección de la que falten datos, aplica el Ciclo de Edición Incremental del sistema global (Petición de datos -> Mostrar Vista Previa en texto plano -> Pedir Confirmación -> Tras confirmación, usar `edit_file` en disco).
+Ahora, recorre secuencialmente la lista de secciones de la ruta resuelta en la Fase 1 (5.A para contratos, 5.B para comunicaciones). Por cada sección de la que falten datos, aplica el Ciclo de Edición Incremental del sistema global (Petición de datos -> Mostrar Vista Previa en texto plano -> Pedir Confirmación -> Tras confirmación, usar `edit_file` en disco).
 
 **Petición de grupos de datos mediante `slot_filling_request` y confirmaciones en el chat:**
 - **Datos estructurados agrupados mediante `slot_filling_request`:** Para cualquier grupo de datos objetivos o identificativos (p. ej. datos de las partes: nombre/razón social, DNI/NIE/CIF, domicilio; datos del inmueble o de cuenta bancaria), **NO pregunte dato por dato en el chat**. Invoque la tool `slot_filling_request` agrupando todos los campos del bloque de una sola vez.

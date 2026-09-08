@@ -135,7 +135,7 @@ Invoca la herramienta con las opciones de triaje:
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores aplicables, evalua en este orden:
 
-- Si V4 = separacion de bienes → **DETENER**: en el regimen de separacion de bienes no existe masa comun de bienes y derechos (Art. 1435 CC), por lo que **no hay sociedad que liquidar** y el procedimiento de los Arts. 806 y siguientes de la LEC no es aplicable. Explicarlo con el texto fijo del Fase 3 para este supuesto, informar de que si existen bienes adquiridos por ambos en proindiviso su reparto es una division de cosa comun (Arts. 400 y siguientes del Codigo Civil) y no una liquidacion de regimen, y ofrecer escalacion. **No crear ningun documento.**
+- Si V4 = separacion de bienes → **DETENER**: en el regimen de separacion de bienes no existe masa comun de bienes y derechos (Art. 1435 CC), por lo que **no hay sociedad que liquidar** y el procedimiento de los Arts. 806 y siguientes de la LEC no es aplicable. Explicarlo con el texto fijo de la Fase 3 para este supuesto, informar de que si existen bienes adquiridos por ambos en proindiviso su reparto es una division de cosa comun (Arts. 400 y siguientes del Codigo Civil) y no una liquidacion de regimen, y ofrecer escalacion. **No crear ningun documento.**
 - Si V4 = regimen de participacion → **DETENER**: el regimen de participacion se liquida por el Art. 811 de la LEC, cuya propuesta exige una estimacion del patrimonio inicial y final de cada conyuge, no un inventario de masa comun. Los assets de esta skill no sirven para ese cauce. Advertir y escalar. **No crear ningun documento.**
 - Si concurre el vector de guarda de derecho civil propio o foral → **DETENER**: verificar la norma autonomica aplicable y escalar. **No crear ningun documento.**
 - Si V4 = gananciales y V1 = 1 (acuerdo) → **HOJA CONVENIO**: `assets/template-convenio-liquidacion-gananciales.md`. V2 determina el bloque condicional de eficacia (integracion en el proceso matrimonial en curso, o convenio autonomo) y V3 el bloque condicional de la vivienda hipotecada.
@@ -143,7 +143,7 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
 - Si V1 = 2 pero el cliente manifiesta que aun no ha intentado el acuerdo → antes de enrutar a la HOJA JUDICIAL, aplica la explicacion de la seccion de dialogo previo descrita mas abajo: no se le impone el acuerdo, pero se le informa del coste real de la via judicial. Si tras la explicacion decide intentar el acuerdo, reenruta a la HOJA CONVENIO.
 - Si el usuario pide unicamente la propuesta de inventario como documento de trabajo para remitirsela a su conyuge o a su abogado, sin escrito judicial → generar solo `assets/template-propuesta-inventario.md`, sin la solicitud.
 
-### Validacion de presupuestos (interno, antes del Fase 3)
+### Validacion de presupuestos (interno, antes de la Fase 3)
 
 - **Estado de la disolucion (Art. 1392 CC), en las dos hojas — distinguir tres situaciones y NO confundirlas.** La causa de disolucion es la disolucion del matrimonio, la declaracion de nulidad, la separacion legal o el pacto de otro regimen en capitulaciones.
   1. **Sociedad ya disuelta** (resolucion matrimonial firme, o capitulaciones ya otorgadas): confirmar la fecha y la causa, y activar en el asset los bloques de disolucion ya producida y de fecha de corte.

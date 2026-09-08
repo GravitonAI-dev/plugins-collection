@@ -2,8 +2,8 @@
 
 > Material de referencia para la skill `extranjeria-residencia`. Registra las fuentes normativas (con su
 > identificador BOE), las sedes de presentacion, la cita previa y los plazos, y la regla de
-> verificacion. La skill verifica estas fuentes en el Fase 1 y, si detecta una version posterior,
-> actualiza los archivos del plugin antes de preparar el tramite.
+> verificacion. La skill verifica estas fuentes en la Fase 2.1 y, si detecta una version posterior,
+> aplica la redaccion vigente al tramite que prepara, sin modificar los archivos del plugin.
 
 ---
 

@@ -38,7 +38,7 @@ Articulos relevantes de la LEC para esta skill:
 | Superior a 15.000 euros, o interes economico incalculable | Juicio ordinario (Art. 249.2) |
 | Materias del Art. 249.1 | Juicio ordinario con independencia de la cuantia |
 
-El umbral se elevo de 6.000 a 15.000 euros por el RDL 6/2023, con efecto desde el 20/03/2024. La skill re-verifica este importe en cada lanzamiento; si el BOE registra otro, actualiza esta tabla y `references/lec-ambito-y-cuantia.md`.
+El umbral se elevo de 6.000 a 15.000 euros por el RDL 6/2023, con efecto desde el 20/03/2024. La skill re-verifica este importe en cada lanzamiento; si el BOE registra otro, aplica el vigente al documento que redacta e informa del cambio en el chat, sin modificar esta tabla ni `references/lec-ambito-y-cuantia.md`.
 
 ---
 
@@ -46,13 +46,13 @@ El umbral se elevo de 6.000 a 15.000 euros por el RDL 6/2023, con efecto desde e
 
 | Asset | Fase |
 |---|---|
-| `assets/template-checklist-admisibilidad.md` | Fase 2 — admisibilidad, competencia, postulacion, cuantia y MASC |
-| `assets/template-demanda-juicio-ordinario.md` | Fase 3 — demanda (Art. 399 LEC) |
-| `assets/template-guion-audiencia-previa.md` | Fase 4 — audiencia previa (Arts. 414-430) |
-| `assets/template-proposicion-de-prueba.md` | Fase 5 — proposicion de prueba (Art. 429 y 281-386) |
-| `assets/template-escrito-de-conclusiones.md` | Fase 6 — conclusiones (Art. 433) |
+| `assets/template-checklist-admisibilidad.md` | Etapa procesal 1 — admisibilidad, competencia, postulacion, cuantia y MASC |
+| `assets/template-demanda-juicio-ordinario.md` | Etapa procesal 2 — demanda (Art. 399 LEC) |
+| `assets/template-guion-audiencia-previa.md` | Etapa procesal 3 — audiencia previa (Arts. 414-430) |
+| `assets/template-proposicion-de-prueba.md` | Etapa procesal 4 — proposicion de prueba (Art. 429 y 281-386) |
+| `assets/template-escrito-de-conclusiones.md` | Etapa procesal 5 — conclusiones (Art. 433) |
 
-Las plantillas siguen la estructura AL JUZGADO / HECHOS / FUNDAMENTOS DE DERECHO / SUPLICO cuando procede. En cada lanzamiento, si cambian los tramites procesales o los umbrales, la skill actualiza los assets.
+Las plantillas siguen la estructura AL JUZGADO / HECHOS / FUNDAMENTOS DE DERECHO / SUPLICO cuando procede. En cada lanzamiento, si cambian los tramites procesales o los umbrales, la skill aplica la redaccion vigente al documento que redacta, sin modificar los assets del plugin.
 
 ---
 
