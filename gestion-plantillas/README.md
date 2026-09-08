@@ -8,7 +8,7 @@ Plugin de GravitonAI para la creación, parametrización, actualización y regis
 - Analiza o redacta colaborativamente el documento y lo estructura en Markdown limpio con marcadores `{{nombre_variable}}`.
 - Garantiza assets limpios (cero datos personales PII y cero comentarios HTML condicionales).
 - Realiza una auditoría obligatoria de compatibilidad con la skill antes de guardar (bloqueando el guardado si no es compatible).
-- Persiste la plantilla en el backend mediante la herramienta especializada adecuada:
+- Persiste la plantilla en el sistema mediante la herramienta especializada adecuada:
   - `set_skill_template(skill_name, asset_name, template_content)`: Si la plantilla pertenece a una skill.
   - `update_user_template(asset_name, template_content)`: Si la plantilla no pertenece a ninguna skill y ya existe (documento en el workspace cuyo nombre es el `asset_name`).
   - `save_user_template(name, template_content, description)`: Si la plantilla no pertenece a ninguna skill y aún no existe (creación asistida desde cero).

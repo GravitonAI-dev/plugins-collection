@@ -492,7 +492,7 @@
     {
       "id": "io.gravitonai.tools.check_user_template_exists",
       "name": "check_user_template_exists",
-      "description": "Verifica si una plantilla de usuario ya existe en el sistema a partir de su asset_name (ej. 'template-carta-de-presentacion.md'). Consulta la base de datos y retorna 'exists': true con los metadatos registrados (nombre, descripción, asset_name) si ya existe, o 'exists': false si no existe. Debe invocarse obligatoriamente antes de guardar una plantilla desde el workspace para determinar si debe actualizarse (mediante update_user_template sin pedir datos) o crearse como nueva (mediante save_user_template solicitando datos).",
+      "description": "Verifica si una plantilla de usuario ya existe en el sistema a partir de su asset_name (ej. 'template-carta-de-presentacion.md'). Consulta el sistema y retorna 'exists': true con los metadatos registrados (nombre, descripción, asset_name) si ya existe, o 'exists': false si no existe. Debe invocarse obligatoriamente antes de guardar una plantilla desde el workspace para determinar si debe actualizarse (mediante update_user_template sin pedir datos) o crearse como nueva (mediante save_user_template solicitando datos).",
       "version": "1.0.0",
       "input_schema": {
         "type": "object",

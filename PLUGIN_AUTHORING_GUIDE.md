@@ -109,8 +109,10 @@ Para garantizar un enrutamiento determinista y el cumplimiento de las normas imp
 - **V4 ([Naturaleza Parte B / Contraparte]):** `persona_fisica` | `persona_juridica`.
 - **V5 (Origen Plantilla / Asset):** `plantilla_sistema` | `plantilla_usuario`.
 
-> **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
-> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, etc.) y los resúmenes de validación con marcas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural comprensible.
+> **REGLA DE INVISIBILIDAD Y COMUNICACIÓN AMIGABLE (Global CLAUDE.md):**
+> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, etc.), los resúmenes de validación con marcas (ej. "V1 resuelto ✔"), y **cualquier mención a términos de arquitectura interna de software (como "backend", "frontend", "orquestador", "runtime", "base de datos", o nombres de herramientas técnicas como `set_skill_template`, `read_file`, `edit_file`, etc.) son estrictamente de control interno y están TERMINANTEMENTE PROHIBIDOS en el chat con el usuario**.
+> - Toda interacción debe ser comprensible, asistencial, empática, profesional y no técnica respecto a la estructura del software.
+> - Para referirse a la infraestructura o capacidades de la plataforma, utiliza siempre y de forma natural **"el sistema"** o **"la plataforma"** (ej. *"guardado en el sistema"*, *"el sistema utilizará esta plantilla"*).
 
 ---
 

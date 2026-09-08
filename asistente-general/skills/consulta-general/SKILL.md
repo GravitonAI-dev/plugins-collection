@@ -10,7 +10,7 @@ description: >
   final de contratos o tramites que dispongan de skill vertical propia en el catalogo (arrendamiento urbano,
   monitorio, desahucio, alta/baja de autonomo, etc.), hacia las cuales orienta proactivamente.
 when_to_use: |
-  - El orquestador o LangGraph no clasifica la solicitud del usuario en ninguna skill vertical especializada (default fallback).
+  - El sistema no clasifica la solicitud del usuario en ninguna skill vertical especializada (default fallback).
   - El usuario plantea una duda legal, técnica, fiscal o administrativa multidisciplinar o no catalogada.
   - El usuario solicita un análisis preliminar de viabilidad de una reclamación, conflicto o actuación.
   - El usuario realiza preguntas informativas, conceptuales, históricas o de actualidad mediante búsqueda web.

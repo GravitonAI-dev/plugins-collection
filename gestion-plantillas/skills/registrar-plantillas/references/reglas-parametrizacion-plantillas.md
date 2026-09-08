@@ -31,7 +31,7 @@ Las únicas vías admitidas para proporcionar o generar el contenido de una plan
   4. **Identificación de variables dinámicas:** Asignar marcadores `{{nombre_variable}}` a todos los datos variables que cambiarán entre usos.
   5. **Borrador en el editor (`create_file`):** Generar el archivo en el workspace para que el usuario pueda visualizar el documento en tiempo real en el editor.
   6. **Edición colaborativa incremental (`edit_file`):** Refinar y expandir cláusulas directamente en el documento del workspace.
-  7. **Persistencia final:** Una vez validado y confirmado, persistir en el backend mediante `save_user_template` o `set_skill_template`.
+  7. **Persistencia final:** Una vez validado y confirmado, guardar en el sistema mediante `save_user_template` o `set_skill_template`.
 
 > [!NOTE]
 > **Sin adjuntos de archivos:** La skill NO procesa documentos adjuntos ni archivos subidos fuera del workspace. Toda entrada preexistente debe proceder exclusivamente de texto pegado en el chat o de un archivo abierto en el editor (workspace).

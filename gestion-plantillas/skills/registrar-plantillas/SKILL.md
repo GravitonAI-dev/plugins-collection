@@ -7,7 +7,7 @@ description: >
   (sin skill). Admite como vías de especificación: texto en el chat, abrir archivo en el editor (archivos del
   workspace) o creación asistida desde cero (excluyendo adjuntar archivos).
   Implementa una verificación estricta de compatibilidad previa con la skill antes de guardar (bloqueando el guardado
-  si es incompatible). Enruta la persistencia en el backend mediante set_skill_template(), update_user_template() o
+  si es incompatible). Enruta el registro oficial en el sistema mediante set_skill_template(), update_user_template() o
   save_user_template().
   NO usar para la tramitación sustantiva de expedientes ni para crear documentos de clientes en el workspace.
 when_to_use: |
@@ -25,7 +25,7 @@ inputs:
   - descripcion_plantilla: descripción obligatoria del propósito y uso de la plantilla (si es global nueva)
   - documento_fuente: texto en el chat, ruta del archivo en el editor/workspace o especificaciones de diseño
 outputs:
-  - confirmacion_registro: reporte estructurado de confirmación de registro/actualización en el backend
+  - confirmacion_registro: reporte estructurado de confirmación de registro/actualización en el sistema
 references:
   - references/reglas-parametrizacion-plantillas.md
 assets:
@@ -38,12 +38,12 @@ assets:
 
 ## Directivas Operacionales y Vectores de Estado Internos
 
-Esta skill guía al usuario de manera consultiva, rigurosa y transparente a través de un procedimiento estructurado para transformar textos preexistentes o diseñar colaborativamente desde cero plantillas oficiales persistidas en el backend de la plataforma.
+Esta skill guía al usuario de manera consultiva, rigurosa y transparente a través de un procedimiento estructurado para transformar textos preexistentes o diseñar colaborativamente desde cero plantillas oficiales registradas en el sistema.
 
-### DIRECTIVA DE GESTIÓN EN WORKSPACE Y PERSISTENCIA EN EL BACKEND:
+### DIRECTIVA DE GESTIÓN EN WORKSPACE Y REGISTRO EN EL SISTEMA:
 > - **Creación y edición interactiva en el workspace (`create_file` y `edit_file`):** Durante la interacción —especialmente en el **modo de creación asistida desde cero** o al refinar documentos en el editor—, el asistente utiliza `create_file` para generar el borrador de la plantilla en el workspace y `edit_file` para incorporar cláusulas o ajustes de manera incremental. Esto permite al usuario visualizar los cambios en tiempo real en el editor.
-> - **Persistencia oficial en el backend:** El archivo del workspace opera como entorno de trabajo interactivo; sin embargo, para que la plantilla quede oficialmente registrada y disponible de manera recurrente en el sistema, DEBE persistirse en el backend mediante las herramientas especializadas:
->   - `check_user_template_exists`: Herramienta especializada obligatoria para verificar mediante `asset_name` si una plantilla global de usuario ya está registrada en el backend antes de persistir.
+> - **Registro oficial en el sistema:** El archivo del workspace opera como entorno de trabajo interactivo; sin embargo, para que la plantilla quede oficialmente registrada y disponible de manera recurrente en el sistema, DEBE guardarse en el sistema mediante las herramientas especializadas:
+>   - `check_user_template_exists`: Herramienta especializada obligatoria para verificar mediante `asset_name` si una plantilla global de usuario ya está registrada en el sistema antes de guardar.
 >   - `set_skill_template`: Si la plantilla pertenece a una skill.
 >   - `update_user_template`: Si la plantilla no pertenece a ninguna skill y ya existe (`check_user_template_exists` retornó `exists: true`).
 >   - `save_user_template`: Si la plantilla no pertenece a ninguna skill y aún no existe (`check_user_template_exists` retornó `exists: false`).
@@ -64,8 +64,10 @@ Para garantizar un enrutamiento determinista y la correcta ejecución de las her
 - **V5 (Modo de Persistencia):** `skill_template` (`set_skill_template`) | `update_user` (`update_user_template`) | `save_user` (`save_user_template`).
 - **V6 (Compatibilidad con Skill):** `compatible` | `incompatible` (evaluado obligatoriamente si `V1` = `skill`).
 
-> **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
-> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`, `V6`) y las marcas de control interno son **estrictamente confidenciales**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial, profesional y consultivo.
+> **REGLA DE INVISIBILIDAD Y COMUNICACIÓN AMIGABLE (Global CLAUDE.md):**
+> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`, `V6`), las marcas de control interno, y **CUALQUIER MENCIÓN A DETALLES DE ARQUITECTURA INTERNA DEL SOFTWARE (como "backend", "frontend", "orquestador", "runtime", "base de datos" o nombres de herramientas técnicas como `set_skill_template`, `save_user_template`, `update_user_template`, `check_user_template_exists`, etc.) son ESTRICTAMENTE CONFIDENCIALES Y ESTÁN TERMINANTEMENTE PROHIBIDOS en el chat con el usuario**.
+> - Toda interacción debe ser comprensible, amigable, orientada al usuario y no técnica en cuanto a la estructura del software.
+> - Refiérete siempre a la infraestructura o soporte exclusivamente como el **"sistema"** o **"la plataforma"** (ej. *"Se ha registrado exitosamente en el sistema"*, *"El sistema utilizará esta plantilla automáticamente"*).
 
 ---
 
@@ -95,7 +97,7 @@ El usuario dispone de dos opciones principales:
    - **Evaluación obligatoria de existencia previa:**
      * Ante cualquier solicitud de guardar o registrar una plantilla global a partir de un archivo del workspace (o cuando haya un documento activo en `# WORKSPACE ACTIVE DOCUMENTS`), el asistente DEBE invocar OBLIGATORIAMENTE `check_user_template_exists(asset_name=...)` pasando el nombre del archivo.
      * **Si la herramienta retorna `exists: true` (plantilla preexistente):**
-       - La plantilla YA está registrada en el backend.
+       - La plantilla YA está registrada en el sistema.
        - Queda **TERMINANTEMENTE PROHIBIDO** solicitar al usuario el nombre (`name`) o la descripción (`description`), ni en chat ni mediante formularios (`slot_filling_request` o `human_in_the_loop_request`).
        - Enrutamiento obligatorio a modo `update_user` (`update_user_template`).
        - Procede a actualizar directamente mediante `update_user_template(asset_name=..., template_content=...)`.
@@ -137,7 +139,7 @@ Procesa la fuente o elabora la plantilla abstracta parametrizada en memoria:
      "asset_name": "<nombre_del_archivo_o_asset.md>"
    }
    ```
-   - **Si `exists: true`:** La plantilla ya está registrada en el backend. Conserva su `asset_name` canónico y enruta obligatoriamente a `update_user_template`. Queda **TERMINANTEMENTE PROHIBIDO** solicitar `name` o `description` al usuario (ni por chat ni con formularios).
+   - **Si `exists: true`:** La plantilla ya está registrada en el sistema. Conserva su `asset_name` canónico y enruta obligatoriamente a `update_user_template`. Queda **TERMINANTEMENTE PROHIBIDO** solicitar `name` o `description` al usuario (ni por chat ni con formularios).
    - **Si `exists: false`:** La plantilla es nueva en el sistema. Enruta a `save_user_template` y solicita/acuerda `name` y `description`.
 5. Si el archivo contiene datos de casos particulares, aplica la parametrización de variables `{{variable}}` y anonimización de PII.
 6. **Ajustes opcionales en el editor:** Si el usuario desea retocar o perfeccionar cláusulas del archivo antes de persistirlo, utiliza `edit_file` para aplicar los cambios directamente en el editor.
@@ -204,7 +206,7 @@ Presenta al usuario en el chat en formato conversacional limpio:
 
 ---
 
-## FASE 5 — ASIGNACIÓN Y PERSISTENCIA EN EL BACKEND
+## FASE 5 — ASIGNACIÓN Y REGISTRO EN EL SISTEMA
 
 Una vez obtenida la confirmación explícita del usuario, ejecuta la herramienta correspondiente según el alcance y estado:
 
@@ -239,26 +241,26 @@ Invoca la herramienta especializada `save_user_template`:
 ```
 
 ### Manejo de Respuestas de las Herramientas:
-- **Éxito (`{"success": true, ...}`):** La plantilla se ha guardado/actualizado correctamente en el backend. Avanza a la **Fase 6**.
-- **Error (`{"success": false, "error": "..."}`):**
+- **Éxito (`{"success": true, ...}`):** La plantilla se ha guardado/actualizado correctamente en el sistema. Avanza a la **Fase 6**.
+- **Error (`{"success": false, "error": "..."}`):** Explica la situación al usuario en lenguaje natural y constructivo (ej. *"El sistema no pudo completar la operación porque..."*), sin culpar al "backend" ni mostrar detalles técnicos de código:
   - Si `update_user_template` falla indicando que la plantilla no existe: aclara la situación con el usuario y procede a registrarla como nueva plantilla con `save_user_template` solicitando la descripción.
   - Si `save_user_template` falla indicando que ya existe: informa al usuario y ofrece actualizarla mediante `update_user_template`.
-  - Si `set_skill_template` reporta error de skill o asset no encontrado: verifica con `list_skills_and_assets` y rectifica.
+  - Si `set_skill_template` reporta error de trámite o plantilla no encontrada: verifica con `list_skills_and_assets` y rectifica.
 
 ---
 
-## FASE 6 — CONFIRMACIÓN DE PERSISTENCIA Y REPORTE DE CIERRE
+## FASE 6 — CONFIRMACIÓN DEL REGISTRO Y REPORTE DE CIERRE
 
 Una vez ejecutada exitosamente la herramienta de persistencia:
 1. **Presentación del Reporte de Configuración:** Emite en el chat un reporte estructurado y profesional en Markdown basado en `assets/resumen-asignacion-plantilla.md`:
-   - Tipo de plantilla (Skill o Global) y herramienta utilizada.
-   - Skill y asset destino, o nombre legible y `asset_name` canónico.
-   - Descripción del propósito (en plantillas globales).
-   - Fecha y estado de asignación en el backend.
+   - Tipo de plantilla (Especializada / General de usuario) y operación realizada (Nuevo registro o Actualización).
+   - Trámite o especialidad destino, o nombre asignado y formato de plantilla.
+   - Descripción del propósito (en plantillas generales).
+   - Fecha y estado de activación en el sistema.
    - Inventario final de variables parametrizadas.
 2. **Efecto en Futuras Conversaciones:**
-   - **Para plantillas de skill:** Explica que, en adelante, cuando active esa skill, el orquestador cargará automáticamente esta minuta personalizada en lugar de la plantilla por defecto.
-   - **Para plantillas globales:** Explica que la plantilla queda registrada en el catálogo de plantillas generales del usuario (`{{asset_name}}`), lista para ser consultada o actualizada.
+   - **Para plantillas especializadas:** Explica que, en adelante, cuando realice consultas sobre ese trámite, el sistema utilizará automáticamente esta plantilla personalizada como base para elaborar sus documentos.
+   - **Para plantillas generales:** Explica que la plantilla queda registrada en su catálogo personal en el sistema (`{{asset_name}}`), lista para ser consultada o actualizada cuando lo requiera.
 3. **Cierre:** Ofrece la posibilidad de gestionar otra plantilla o dar por concluida la sesión.
 
 ---
@@ -267,7 +269,7 @@ Una vez ejecutada exitosamente la herramienta de persistencia:
 
 1. **Cero Datos Personales en Plantillas:** Queda estrictamente prohibido persistir plantillas que contengan PII o datos reales de partes concretas; todo dato particular debe abstraerse como variable `{{variable}}`.
 2. **Assets Limpios:** Las plantillas no deben contener comentarios HTML condicionales ni lógica procedural.
-3. **Separación entre Entorno de Trabajo en Editor y Persistencia Backend:** La creación y edición de archivos en el workspace con `create_file` y `edit_file` funciona como borrador visual interactivo en el editor durante el proceso de diseño (especialmente en creación asistida). Sin embargo, el archivo en el workspace no reemplaza el registro oficial: la plantilla DEBE persistirse formalmente en el backend mediante `set_skill_template()`, `update_user_template()` o `save_user_template()` tras la confirmación afirmativa del usuario.
+3. **Separación entre Entorno de Trabajo en Editor y Registro en el Sistema:** La creación y edición de archivos en el workspace con `create_file` y `edit_file` funciona como borrador visual interactivo en el editor durante el proceso de diseño (especialmente en creación asistida). Sin embargo, el archivo en el workspace no reemplaza el registro oficial: la plantilla DEBE guardarse formalmente en el sistema mediante `set_skill_template()`, `update_user_template()` o `save_user_template()` tras la confirmación afirmativa del usuario.
 4. **Verificación Estricta de Compatibilidad con Skills:** Antes de persistir una plantilla de skill, verificar si es completamente compatible con la skill como tal. Si no lo es, NO GUARDAR e informar los detalles específicos a corregir.
 5. **Confirmación Previa Obligatoria:** Jamás invocar ninguna herramienta de persistencia sin previa presentación de la vista previa en el chat y confirmación afirmativa explícita del usuario.
 6. **Sin Adjuntos de Archivos:** Las únicas vías admitidas para especificar plantillas preexistentes son texto en el chat y abrir archivo en el editor (archivos del workspace). Queda estrictamente excluida la opción de adjuntar archivos.
