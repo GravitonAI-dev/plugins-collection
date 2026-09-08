@@ -63,6 +63,12 @@ Para garantizar un análisis riguroso y una correcta estructuración del razonam
 
 Tu primer objetivo es evaluar la consulta mediante **escucha activa** y determinar la modalidad de atención.
 
+**Correspondencia con el enrutamiento.** Los vectores de esta skill se nombran con los identificadores siguientes; cada uno se resuelve con la respuesta indicada. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — naturaleza de la consulta, resuelta en el triaje de la seccion 1.1
+- `V2` — materia o area tematica implicada
+- `V3` — necesidad o no de documento formal en el workspace
+- `V4` — existencia de una skill vertical del catalogo a la que derivar
+
 ### 1.1 Evaluación del Tipo de Consulta (Escucha Activa)
 
 1. **Rama 1: Consultas Directas / Factuales / Mercado / Workspace (`V2 = duda_normativa_factual`):**

@@ -110,6 +110,12 @@ Invoca la herramienta con las preguntas de conexión territorial y parentesco:
 }
 ```
 
+**Correspondencia con el enrutamiento.** Los vectores de esta skill se nombran con los identificadores siguientes; cada uno se resuelve con la respuesta indicada. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — `modalidad_transmision`
+- `V2` — `grupo_parentesco`
+- `V3` — naturaleza del causahabiente: no se pregunta, es siempre persona fisica
+- `V4` — `comunidad_autonoma`, clave de las bonificaciones autonomicas
+
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 - Plantillas del sistema propuestas: `assets/template-borrador-autoliquidacion-650.md` y `assets/template-checklist-documentacion-sucesiones.md`.
 - Proceder de inmediato a la **Fase 2**.

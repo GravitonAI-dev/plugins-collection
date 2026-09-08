@@ -160,12 +160,17 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
 - Si V1 = acreedor y V2 = monitorio con oposicion:
   - Cuantia > 15.000 euros → **HOJA ORDINARIO-818**: `assets/template-demanda-juicio-ordinario.md` (activar los bloques condicionales del Art. 818.2; V6 no aplica: la demanda trae causa del monitorio).
   - Cuantia <= 15.000 euros → **DETENER**: tras la oposicion, el asunto continua como juicio verbal dentro del mismo procedimiento (impugnacion de la oposicion en 10 dias, Art. 818.1 LEC); no procede una nueva demanda. Informar del cauce y del plazo, y ofrecer escalacion. No crear documento.
-- Si V1 = acreedor, V2 = sin iniciar, V3 = si y V4 = vencida_y_liquida y liquida → **HOJA MONITORIO**: `assets/template-peticion-monitorio.md` (cualquier cuantia). Si V6 = no → generar ademas ANTES `assets/template-burofax-masc-reclamacion.md`.
-- Si V1 = acreedor, V2 = sin iniciar y (V3 = no, o V4 = discutida/por determinar) → via declarativa:
-  - Cuantia <= 15.000 euros, o V5 = si (rentas y cantidades de arrendamiento de inmueble, cualquier cuantia, Art. 250.1.1º LEC) → **HOJA VERBAL**: `assets/template-demanda-juicio-verbal.md`.
-  - Cuantia > 15.000 euros y V5 = no o interes economico imposible de calcular → **HOJA ORDINARIO**: `assets/template-demanda-juicio-ordinario.md`.
-  - En ambas, si V6 = no → generar ademas ANTES `assets/template-burofax-masc-reclamacion.md` (requisito de procedibilidad, Arts. 264 y 403.2 LEC).
-- Si V4 = pendiente de vencer (deuda no exigible) → **DETENER**: la deuda no es exigible todavia; no cabe reclamarla judicialmente. Advertir y no crear documento.
+- Si V1 = acreedor, V2 = sin_iniciar, V3 = si y V4 = vencida_y_liquida → **HOJA MONITORIO**: `assets/template-peticion-monitorio.md` (cualquier cuantia). Si V6 = no → generar ademas ANTES `assets/template-burofax-masc-reclamacion.md`.
+- Si V4 = pendiente_de_vencer → **DETENER**: la deuda no es exigible todavia y no cabe reclamarla judicialmente. Esta rama tiene prioridad sobre todas las siguientes. Advertir y no crear documento.
+- **Via declarativa — puertas de entrada.** Basta con que se cumpla una de las tres:
+- Si V1 = acreedor, V2 = sin_iniciar y V3 = no, por no haber documento del Art. 812 → **RUTA DECLARATIVA**: `assets/template-demanda-juicio-verbal.md` o `assets/template-demanda-juicio-ordinario.md`, segun el desglose de cuantia que sigue.
+- Si V1 = acreedor, V2 = sin_iniciar y V4 = discutida → **RUTA DECLARATIVA**: las mismas dos hojas, segun el desglose de cuantia que sigue.
+- Si V1 = acreedor, V2 = sin_iniciar y V4 = por_determinar → **RUTA DECLARATIVA**: las mismas dos hojas, segun el desglose de cuantia que sigue.
+- **Desglose de la via declarativa.** La hoja la fija el interes economico, que no es un vector sino un dato del asunto:
+  - Si V5 = si (rentas y cantidades debidas del arrendamiento de un inmueble, cualquier cuantia, Art. 250.1.1º LEC) → **HOJA VERBAL**: `assets/template-demanda-juicio-verbal.md`.
+  - Si V5 = no y la cuantia es <= 15.000 euros → **HOJA VERBAL**: `assets/template-demanda-juicio-verbal.md`.
+  - Si V5 = no y la cuantia es > 15.000 euros, o el interes economico es imposible de calcular → **HOJA ORDINARIO**: `assets/template-demanda-juicio-ordinario.md`.
+  - En las tres, si V6 = no → generar ademas ANTES `assets/template-burofax-masc-reclamacion.md` (requisito de procedibilidad, Arts. 264 y 403.2 LEC).
 - Si la pretension principal NO es el pago de una cantidad (materia del Art. 249.1 LEC, obligaciones de hacer, entrega de cosa) → **DETENER**: fuera de alcance; derivar a la skill correspondiente (`juicio-ordinario`) o a escalacion.
 
 ### 1.4 Validacion de procedibilidad (interno, antes de la Fase 3)

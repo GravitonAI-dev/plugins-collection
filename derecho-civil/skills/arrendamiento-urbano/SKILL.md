@@ -100,7 +100,7 @@ Invoca la herramienta con las opciones de triaje:
     },
     {
       "id": "tipo_inmueble",
-      "rationale": "Resolver V2 y V5: determina el título de la LAU aplicable, la fianza mínima legal y los plazos imperativos.",
+      "rationale": "Resolver V2: determina el título de la LAU aplicable, la fianza mínima legal y los plazos imperativos.",
       "question": "Si es un contrato nuevo, ¿qué se arrienda?",
       "options": [
         {"id": "vivienda_completa", "label": "Una vivienda completa"},
@@ -155,8 +155,7 @@ Invoca la herramienta con las opciones de triaje:
 **Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
 - `V0` — respuesta a `tipo_gestion`
 - `V1` — respuesta a `finalidad_uso`
-- `V2` — respuesta a `tipo_inmueble` (vivienda si es `vivienda_completa` o `habitacion`; local si es `local_uso_distinto`)
-- `V5` — respuesta a `tipo_inmueble` (`vivienda_completa` frente a `habitacion`)
+- `V2` — respuesta a `tipo_inmueble` (`vivienda_completa`, `habitacion` o `local_uso_distinto`)
 - `V3` — naturaleza del arrendador (persona física o jurídica): no se pregunta en el formulario de clasificación; se resuelve al recoger sus datos en la Fase 4
 - `V4` — naturaleza del arrendatario (persona física o jurídica): no se pregunta en el formulario de clasificación; se resuelve al recoger sus datos en la Fase 4
 - `V6` — respuesta a `zona_tensionada`, verificada después por el agente con `web_search`
@@ -169,9 +168,9 @@ Una vez resueltos los vectores necesarios, evalúa:
 - Si [V0 = comunicacion_contrato_vigente] y [V7 = no_renovacion] -> Plantilla a usar: `assets/template-comunicacion-no-renovacion.md`.
 - Si [V0 = comunicacion_contrato_vigente] y [V7 = devolucion_fianza] -> Plantilla a usar: `assets/template-requerimiento-devolucion-fianza.md` (remitente: arrendatario. Si quien consulta es el arrendador que quiere CONTESTAR a un requerimiento recibido, detén el proceso y deriva a derivación formal).
 - Si [V0 = contrato_nuevo] y [V2 = local_uso_distinto] -> Plantilla a usar: `assets/template-contrato-arrendamiento-local.md` (Fianza mínima: 2 mensualidades). La duración del local es de libre pacto (Título III LAU): no aplica V1.
-- Si [V0 = contrato_nuevo] y [V5 = habitacion] -> Plantilla a usar: `assets/template-contrato-arrendamiento-habitacion.md` (régimen del Código Civil, arts. 1542 y ss.; fianza de libre pacto). No aplican V1 ni V6.
-- Si [V0 = contrato_nuevo] y [V5 = vivienda_completa] y [V1 = permanente] -> Plantilla a usar: `assets/template-contrato-arrendamiento-vivienda.md` (Fianza mínima: 1 mensualidad). V6 determina los bloques de zona tensionada del asset (Arts. 10.3, 17.6 LAU); si V6 = No lo sé, se resuelve en la sección 1 de la edición incremental.
-- Si [V0 = contrato_nuevo] y [V5 = vivienda_completa] y [V1 = temporada] -> Plantilla a usar: `assets/template-contrato-arrendamiento-temporada.md` (uso distinto de vivienda, Art. 3.2 LAU; fianza mínima: 2 mensualidades). Exige causa de temporalidad real (Guardrail 8).
+- Si [V0 = contrato_nuevo] y [V2 = habitacion] -> Plantilla a usar: `assets/template-contrato-arrendamiento-habitacion.md` (régimen del Código Civil, arts. 1542 y ss.; fianza de libre pacto). No aplican V1 ni V6.
+- Si [V0 = contrato_nuevo] y [V2 = vivienda_completa] y [V1 = permanente] -> Plantilla a usar: `assets/template-contrato-arrendamiento-vivienda.md` (Fianza mínima: 1 mensualidad). V6 determina los bloques de zona tensionada del asset (Arts. 10.3, 17.6 LAU); si V6 = No lo sé, se resuelve en la sección 1 de la edición incremental.
+- Si [V0 = contrato_nuevo] y [V2 = vivienda_completa] y [V1 = temporada] -> Plantilla a usar: `assets/template-contrato-arrendamiento-temporada.md` (uso distinto de vivienda, Art. 3.2 LAU; fianza mínima: 2 mensualidades). Exige causa de temporalidad real (Guardrail 8).
 - Si [V1 = turistico] -> Detén el proceso: vivienda turística excluida expresamente de la LAU (Art. 5.e), sujeta a normativa turística autonómica. No crees documento.
 
 ---

@@ -84,7 +84,7 @@ Invoca la herramienta con las opciones de triaje:
   "form_data": [
     {
       "id": "actuacion",
-      "rationale": "Resolver V2 y V3: cada actuación sucesoria tiene su propio asset y su propio régimen de plazos y de efectos.",
+      "rationale": "Resolver V2: cada actuación sucesoria tiene su propio asset y su propio régimen de plazos y de efectos.",
       "question": "¿Qué actuación necesita documentar?",
       "options": [
         {"id": "solo_aceptacion", "label": "Aceptar la herencia, sin partirla todavía"},
@@ -120,17 +120,16 @@ Invoca la herramienta con las opciones de triaje:
 **Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
 - `V1` — respuesta a `existe_testamento` (testada si `si_testamento`; intestada en los otros dos casos)
 - `V1-b` — respuesta a `existe_testamento` (`no_sin_acta` significa acta pendiente)
-- `V2` — respuesta a `actuacion` (Renunciar, Interpelar o Aceptar, que engloba las tres opciones de aceptación y partición)
-- `V3` — respuesta a `actuacion` (`partir_con_acuerdo`, `partir_sin_acuerdo` o `solo_aceptacion`)
+- `V2` — respuesta a `actuacion`
 - `V4` — respuesta a `modo_aceptacion`
 
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores necesarios, evalua:
-- Si [V2 = Renunciar] -> Plantilla: `assets/template-renuncia-herencia.md`.
-- Si [V2 = Interpelar] -> Plantilla: `assets/template-requerimiento-1005-cc.md`.
-- Si [V2 = solo_aceptacion] y [V3 = partir_con_acuerdo] -> Plantilla: `assets/template-cuaderno-particional.md` (incluye la aceptacion de todos los herederos).
-- Si [V2 = solo_aceptacion] y [V3 = partir_sin_acuerdo] -> Plantilla: `assets/template-solicitud-division-judicial-herencia.md`. Si el cliente ademas necesita documentar su propia aceptacion, puede generarse despues un segundo documento con `assets/template-aceptacion-herencia.md`.
-- Si [V2 = solo_aceptacion] y [V3 = solo_aceptacion] -> Plantilla: `assets/template-aceptacion-herencia.md`.
+- Si [V2 = renunciar] -> Plantilla: `assets/template-renuncia-herencia.md`.
+- Si [V2 = interpelar] -> Plantilla: `assets/template-requerimiento-1005-cc.md`.
+- Si [V2 = partir_con_acuerdo] -> Plantilla: `assets/template-cuaderno-particional.md` (incluye la aceptacion de todos los herederos).
+- Si [V2 = partir_sin_acuerdo] -> Plantilla: `assets/template-solicitud-division-judicial-herencia.md`. Si el cliente ademas necesita documentar su propia aceptacion, puede generarse despues un segundo documento con `assets/template-aceptacion-herencia.md`.
+- Si [V2 = solo_aceptacion] -> Plantilla: `assets/template-aceptacion-herencia.md`.
 - V1 no enruta a plantilla: determina los bloques condicionales testada/intestada de todos los assets y, si el acta esta pendiente (V1-b = no_sin_acta), los datos del titulo sucesorio quedan como `{{DATO_FALTANTE}}`.
 - **Regla de no-contaminacion entre hojas:** el bloque opcional "RENUNCIA" de `assets/template-aceptacion-herencia.md` NO se usa nunca (la renuncia tiene su propio asset): al crear el documento de aceptacion, omite ese bloque completo, incluido su encabezado. En todos los assets, los bloques condicionales de la rama no elegida se omiten sin dejar rastro (regla global de Comment resolution).
 - `V4` no elige plantilla: determina si la aceptacion se formula pura y simple o a beneficio de inventario, activando en ese caso el bloque de formalidades y plazos propios y la advertencia sobre la limitacion de responsabilidad.

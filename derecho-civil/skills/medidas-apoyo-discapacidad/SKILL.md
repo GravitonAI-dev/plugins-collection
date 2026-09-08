@@ -152,7 +152,7 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
 - Si V1 = autorizacion_guarda → **HOJA GUARDA**: `assets/template-solicitud-autorizacion-guarda-hecho.md`, previa la validacion de "acto concreto" descrita mas abajo.
 - Si V1 = curatela → **aplicar primero el FILTRO DE SUBSIDIARIEDAD** (seccion siguiente). Solo si lo supera:
   - V3 = asistencial → **HOJA CURATELA**, `assets/template-demanda-curatela.md`, con los bloques de facultades representativas DESACTIVADOS.
-  - V3 = representativa → **HOJA CURATELA**, el mismo asset, con los bloques de facultades representativas ACTIVADOS y justificados acto por acto.
+  - V3 = representativa → **HOJA CURATELA**: `assets/template-demanda-curatela.md`, el mismo asset, con los bloques de facultades representativas ACTIVADOS y justificados acto por acto.
 - **Sub-pregunta de via procesal (solo en la HOJA CURATELA, antes de la Fase 3).** El expediente de jurisdiccion voluntaria es la via ordinaria; el proceso contencioso solo procede si un expediente previo termino por oposicion o no pudo resolverse (Art. 756.1 LEC). Formula:
   "Sobre actuaciones judiciales anteriores por este mismo asunto:
   1. No se ha iniciado ninguna
