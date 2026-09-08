@@ -27,6 +27,7 @@ Cuando una consulta planteada por el usuario corresponda de forma directa y espe
 | Reclamación extrajudicial y judicial de nulidad de cláusulas abusivas de consumo | `reclamacion-clausulas-abusivas` | `derecho-civil` |
 | Reclamación extrajudicial y judicial de daños por responsabilidad civil y accidentes | `responsabilidad-civil` | `derecho-civil` |
 | Minuta de testamento abierto y planificación sucesoria en derecho común | `testamento-planificacion` | `derecho-civil` |
+| Requerimiento de negociación, acta del intento, oferta vinculante, acuerdo transaccional y declaración responsable del medio adecuado de solución de controversias (Ley Orgánica 1/2025) | `masc-acuerdos` | `derecho-civil` |
 | Redacción de contrato de trabajo (indefinido, fijo-discontinuo, temporal, formativo) y acuerdo de trabajo a distancia | `contrato-trabajo` | `derecho-laboral` |
 | Modificación sustancial de condiciones, traslado con cambio de residencia o movilidad funcional | `modificacion-condiciones` | `derecho-laboral` |
 | Amonestación, sanción con suspensión de empleo y sueldo y expediente contradictorio | `sancion-disciplinaria` | `derecho-laboral` |

@@ -112,9 +112,9 @@ Invoca la herramienta con las opciones de triaje:
 
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 - Plantillas del sistema propuestas:
-  - Si `V1 = ambos_tramites`: `template-contrato-compraventa-vehiculo.md`, `template-solicitud-cambio-titularidad-dgt.md` y `template-notificacion-venta-dgt.md`.
-  - Si `V1 = cambio_titularidad`: `template-contrato-compraventa-vehiculo.md` y `template-solicitud-cambio-titularidad-dgt.md`.
-  - Si `V1 = notificacion_venta`: `template-notificacion-venta-dgt.md`.
+  - Si `V1 = ambos_tramites`: `assets/template-contrato-compraventa-vehiculo.md`, `assets/template-solicitud-cambio-titularidad-dgt.md` y `assets/template-notificacion-venta-dgt.md`.
+  - Si `V1 = cambio_titularidad`: `assets/template-contrato-compraventa-vehiculo.md` y `assets/template-solicitud-cambio-titularidad-dgt.md`.
+  - Si `V1 = notificacion_venta`: `assets/template-notificacion-venta-dgt.md`.
 - Proceder a la **Fase 2**.
 - `V2` no elige hoja: determina la tasa oficial de la DGT aplicable.
 

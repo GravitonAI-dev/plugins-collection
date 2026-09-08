@@ -133,6 +133,7 @@ Una vez resueltos los vectores necesarios, evalua:
 - V1 no enruta a plantilla: determina los bloques condicionales testada/intestada de todos los assets y, si el acta esta pendiente (V1-b = no_sin_acta), los datos del titulo sucesorio quedan como `{{DATO_FALTANTE}}`.
 - **Regla de no-contaminacion entre hojas:** el bloque opcional "RENUNCIA" de `assets/template-aceptacion-herencia.md` NO se usa nunca (la renuncia tiene su propio asset): al crear el documento de aceptacion, omite ese bloque completo, incluido su encabezado. En todos los assets, los bloques condicionales de la rama no elegida se omiten sin dejar rastro (regla global de Comment resolution).
 - `V4` no elige plantilla: determina si la aceptacion se formula pura y simple o a beneficio de inventario, activando en ese caso el bloque de formalidades y plazos propios y la advertencia sobre la limitacion de responsabilidad.
+- **Requisito de procedibilidad (Ley Organica 1/2025).** Si el intento previo de un medio adecuado de solucion de controversias no esta acreditado y esta skill no genera por si misma el documento que lo acredita, **deriva a `masc-acuerdos`**, que produce el requerimiento de negociacion, el acta del intento, la oferta vinculante, el acuerdo transaccional y la declaracion responsable de imposibilidad. Ofrece encadenar con ella antes de continuar, y advierte de que sin ese documento la demanda no se admite a tramite.
 
 ---
 

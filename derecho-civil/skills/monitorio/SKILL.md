@@ -130,6 +130,7 @@ Una vez resueltos los vectores, evalua en este orden:
 - Si la deuda **no es dineraria, liquida, determinada, vencida y exigible** (Art. 812.1 LEC) → **DETENER**: el monitorio no es el cauce. Derivar a `reclamacion-cantidad` para que elija la via declarativa procedente. No crear documento.
 - Si lo que se pretende es **oponerse** a un monitorio ya notificado al cliente → **DETENER**: derivar a `reclamacion-cantidad`, que cubre el escrito de oposicion. No crear documento.
 - Si la deuda es de **cuotas de comunidad de propietarios** → **DETENER** y derivar a `propiedad-horizontal`, que exige la certificacion previa del acuerdo de la junta (articulos 21.1 a 21.3 de la Ley de Propiedad Horizontal) y tiene su propia peticion inicial.
+- **Requisito de procedibilidad (Ley Organica 1/2025).** Si el intento previo de un medio adecuado de solucion de controversias no esta acreditado y esta skill no genera por si misma el documento que lo acredita, **deriva a `masc-acuerdos`**, que produce el requerimiento de negociacion, el acta del intento, la oferta vinculante, el acuerdo transaccional y la declaracion responsable de imposibilidad. Ofrece encadenar con ella antes de continuar, y advierte de que sin ese documento la demanda no se admite a tramite.
 
 ---
 

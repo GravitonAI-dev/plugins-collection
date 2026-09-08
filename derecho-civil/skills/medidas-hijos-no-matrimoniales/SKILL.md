@@ -175,6 +175,7 @@ Una vez resueltos los vectores aplicables, evalua **en este orden**:
 - Si los progenitores **estan o han estado casados entre si** → **DETENER esta via** y derivar a `divorcio`.
 - Si lo que se reclama son **pensiones ya fijadas e impagadas** → **DETENER esta via** y derivar a `ejecucion-titulos`.
 - Si se pretende la **determinacion o impugnacion de la filiacion**, el **traslado internacional del menor** o medidas de proteccion frente a un **riesgo actual** para el menor → **DETENER** y escalar (ver tabla de Escalacion).
+- **Requisito de procedibilidad (Ley Organica 1/2025).** Si el intento previo de un medio adecuado de solucion de controversias no esta acreditado y esta skill no genera por si misma el documento que lo acredita, **deriva a `masc-acuerdos`**, que produce el requerimiento de negociacion, el acta del intento, la oferta vinculante, el acuerdo transaccional y la declaracion responsable de imposibilidad. Ofrece encadenar con ella antes de continuar, y advierte de que sin ese documento la demanda no se admite a tramite.
 
 ### 1.4 Validacion de presupuestos (interno, antes de la Fase 3)
 

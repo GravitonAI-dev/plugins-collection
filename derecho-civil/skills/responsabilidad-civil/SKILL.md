@@ -175,6 +175,7 @@ Una vez resueltos los vectores aplicables y superado el filtro de prescripcion, 
 - Si hubo **fallecimiento del perjudicado o gran invalidez / gran lesionado** → **ESCALAR antes de cifrar nada**. Puede prepararse la reclamacion extrajudicial para interrumpir la prescripcion, dejando la cuantificacion abierta, pero la valoracion se deriva a especialista.
 - Si V3 = negligencia_profesional y es **sanitaria** → advertir de que sin informe medico pericial que acredite la desviacion de la *lex artis* y el nexo causal la reclamacion no es viable, indicar que el primer paso material es obtener la historia clinica completa, y **escalar**.
 - Si el dano deriva de un **producto defectuoso** → advertir de que el regimen es el del texto refundido de la Ley General para la Defensa de los Consumidores y Usuarios, no verificado por esta skill, y escalar.
+- **Requisito de procedibilidad (Ley Organica 1/2025).** Si el intento previo de un medio adecuado de solucion de controversias no esta acreditado y esta skill no genera por si misma el documento que lo acredita, **deriva a `masc-acuerdos`**, que produce el requerimiento de negociacion, el acta del intento, la oferta vinculante, el acuerdo transaccional y la declaracion responsable de imposibilidad. Ofrece encadenar con ella antes de continuar, y advierte de que sin ese documento la demanda no se admite a tramite.
 
 ### 1.4 Validacion de presupuestos (interno, antes de la Fase 3)
 

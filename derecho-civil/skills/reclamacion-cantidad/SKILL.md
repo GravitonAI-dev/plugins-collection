@@ -172,6 +172,7 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
   - Si V5 = no y la cuantia es > 15.000 euros, o el interes economico es imposible de calcular → **HOJA ORDINARIO**: `assets/template-demanda-juicio-ordinario.md`.
   - En las tres, si V6 = no → generar ademas ANTES `assets/template-burofax-masc-reclamacion.md` (requisito de procedibilidad, Arts. 264 y 403.2 LEC).
 - Si la pretension principal NO es el pago de una cantidad (materia del Art. 249.1 LEC, obligaciones de hacer, entrega de cosa) → **DETENER**: fuera de alcance; derivar a la skill correspondiente (`juicio-ordinario`) o a escalacion.
+- **Requisito de procedibilidad (Ley Organica 1/2025).** Si el intento previo de un medio adecuado de solucion de controversias no esta acreditado y esta skill no genera por si misma el documento que lo acredita, **deriva a `masc-acuerdos`**, que produce el requerimiento de negociacion, el acta del intento, la oferta vinculante, el acuerdo transaccional y la declaracion responsable de imposibilidad. Ofrece encadenar con ella antes de continuar, y advierte de que sin ese documento la demanda no se admite a tramite.
 
 ### 1.4 Validacion de procedibilidad (interno, antes de la Fase 3)
 

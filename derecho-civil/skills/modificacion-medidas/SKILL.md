@@ -143,6 +143,7 @@ Una vez resueltos los vectores necesarios y superado el filtro de viabilidad, ev
 - Si no existe resolucion o convenio previo -> Deten el proceso (Guardrail 4) y deriva a `divorcio`. No crees documento.
 - Si lo que se pretende es cobrar pensiones impagadas -> Deten el proceso (Guardrail 5) y deriva o escala. No crees documento.
 - Si en cualquier momento hay indicios de violencia de genero o domestica -> Deten el proceso (Guardrail 3). No crees documento.
+- **Requisito de procedibilidad (Ley Organica 1/2025).** Si el intento previo de un medio adecuado de solucion de controversias no esta acreditado y esta skill no genera por si misma el documento que lo acredita, **deriva a `masc-acuerdos`**, que produce el requerimiento de negociacion, el acta del intento, la oferta vinculante, el acuerdo transaccional y la declaracion responsable de imposibilidad. Ofrece encadenar con ella antes de continuar, y advierte de que sin ese documento la demanda no se admite a tramite.
 
 ---
 

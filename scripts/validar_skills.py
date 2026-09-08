@@ -36,7 +36,7 @@ def condiciones(linea, dom):
         if v not in dom: continue
         resto=linea[mm.end():]; vals=[]; pos=0
         while True:
-            mt=re.match(r'\s*([A-Za-zÁÉÍÓÚÑáéíóúñ][\w\sÁÉÍÓÚÑáéíóúñ]*?)(?=\s*(?:,|\so\s|\sy\s|$|[\.\(\):;*\]\[→”"]|->|\*\*))', resto[pos:])
+            mt=re.match(r'\s*([A-Za-zÁÉÍÓÚÑáéíóúñ][\w\sÁÉÍÓÚÑáéíóúñ]*?)(?=\s*(?:,|\so\s|\sy\s|$|[\.\(\):;*\]\[→”"`]|->|\*\*))', resto[pos:])
             if not mt: break
             cand=norm(mt.group(1))
             if cand not in dom[v]: break

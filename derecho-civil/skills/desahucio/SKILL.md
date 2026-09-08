@@ -167,6 +167,7 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
 - Si V3 = demanda_judicial y V1 = cesion_gratuita → **HOJA PRECARIO**: `assets/template-demanda-desahucio-precario.md`.
 - En cualquier hoja de demanda, si no se ha intentado un medio adecuado de solucion de controversias: el intento previo se documenta con un requerimiento fehaciente, cuya redaccion no forma parte de esta skill. Derivar a `reclamacion-cantidad` (asset `template-burofax-masc-reclamacion.md`) y advertir de que sin ese intento acreditado la demanda puede ser inadmitida.
 - Si la finca es rustica, o el arrendamiento esta excluido de la LAU (Art. 5 LAU), o se pretende la ejecucion hipotecaria → **DETENER**: fuera de alcance. Advertir y escalar.
+- **Requisito de procedibilidad (Ley Organica 1/2025).** Si el intento previo de un medio adecuado de solucion de controversias no esta acreditado y esta skill no genera por si misma el documento que lo acredita, **deriva a `masc-acuerdos`**, que produce el requerimiento de negociacion, el acta del intento, la oferta vinculante, el acuerdo transaccional y la declaracion responsable de imposibilidad. Ofrece encadenar con ella antes de continuar, y advierte de que sin ese documento la demanda no se admite a tramite.
 
 ### 1.4 Validacion de admisibilidad (interno, antes de la Fase 3)
 
