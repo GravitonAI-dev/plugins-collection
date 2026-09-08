@@ -1,6 +1,6 @@
 # Plazos de Residencia y su Computo
 
-> Referencia de la skill `nacionalidad-espanola`. **Ningun plazo ni supuesto de esta ficha se afirma sin
+> Referencia de la skill `extranjeria-nacionalidad-espanola`. **Ningun plazo ni supuesto de esta ficha se afirma sin
 > verificarlo con `web_search` en el texto consolidado vigente.** Es el requisito que decide la
 > admisibilidad del expediente.
 

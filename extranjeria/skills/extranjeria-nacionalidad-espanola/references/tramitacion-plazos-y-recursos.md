@@ -1,6 +1,6 @@
 # Tramitacion, Plazos y Vias de Impugnacion
 
-> Referencia de la skill `nacionalidad-espanola`. **Todo plazo se verifica antes de comunicarlo.** El
+> Referencia de la skill `extranjeria-nacionalidad-espanola`. **Todo plazo se verifica antes de comunicarlo.** El
 > volumen de expedientes pendientes hace que los tiempos reales superen con frecuencia a los legales.
 
 ---

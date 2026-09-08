@@ -1,6 +1,6 @@
 # Pruebas de Integracion: Conocimientos y Idioma
 
-> Referencia de la skill `nacionalidad-espanola`. **Los datos concretos —numero de preguntas, nota de
+> Referencia de la skill `extranjeria-nacionalidad-espanola`. **Los datos concretos —numero de preguntas, nota de
 > corte, precio, vigencia y exenciones— se verifican antes de afirmarlos.** Cambian por convocatoria.
 
 ---

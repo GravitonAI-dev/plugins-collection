@@ -1,6 +1,6 @@
 # Fuentes Oficiales y Plantillas Validadas
 
-> Material de referencia para la skill `nacionalidad-espanola`.
+> Material de referencia para la skill `extranjeria-nacionalidad-espanola`.
 
 ---
 

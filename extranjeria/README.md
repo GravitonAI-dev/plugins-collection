@@ -13,7 +13,7 @@ Hasta ahora el catálogo cubría extranjería con una sola skill dentro de `gest
 | Skill | Qué produce |
 |---|---|
 | `extranjeria-residencia` | Hoja de datos del formulario EX y escrito de solicitud de NIE, arraigo, residencia no lucrativa y reagrupación familiar |
-| `nacionalidad-espanola` | Hoja de datos y escrito motivado de la solicitud por residencia, checklist documental, escrito de subsanación y alegaciones a propuesta desestimatoria |
+| `extranjeria-nacionalidad-espanola` | Hoja de datos y escrito motivado de la solicitud por residencia, checklist documental, escrito de subsanación y alegaciones a propuesta desestimatoria |
 
 ## Qué no cubre
 

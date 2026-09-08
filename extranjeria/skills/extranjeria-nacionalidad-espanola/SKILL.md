@@ -1,5 +1,5 @@
 ---
-name: nacionalidad-espanola
+name: extranjeria-nacionalidad-espanola
 description: >
   Prepara el expediente de solicitud de nacionalidad española por residencia y sus escritos asociados:
   la hoja de datos de la solicitud, el escrito motivado que acredita el arraigo y la buena conducta

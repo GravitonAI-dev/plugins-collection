@@ -67,7 +67,7 @@ Output: borrador del modelo 650 (base y cuota estimada, marcada para verificar) 
 
 ### `extranjeria-residencia` — trasladada
 
-Esta skill ha pasado al plugin **`extranjeria`**, junto con la nueva `nacionalidad-espanola`.
+Esta skill ha pasado al plugin **`extranjeria`**, junto con la nueva `extranjeria-nacionalidad-espanola`.
 
 Invocacion: `/extranjeria:extranjeria-residencia`
 

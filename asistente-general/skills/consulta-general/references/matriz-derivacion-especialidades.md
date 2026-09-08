@@ -41,7 +41,7 @@ Cuando una consulta planteada por el usuario corresponda de forma directa y espe
 | Cambio de titularidad de vehículos y notificación de venta ante la DGT | `transferencia-vehiculo` | `gestoria` |
 | Liquidación y autoliquidación del Impuesto de Sucesiones (modelo 650) | `liquidacion-impuesto-sucesiones` | `gestoria` |
 | Solicitud de NIE y autorizaciones de residencia por arraigo, no lucrativa o reagrupación familiar (modelos EX) | `extranjeria-residencia` | `extranjeria` |
-| Solicitud de nacionalidad española por residencia, subsanación del expediente y alegaciones a propuesta desestimatoria | `nacionalidad-espanola` | `extranjeria` |
+| Solicitud de nacionalidad española por residencia, subsanación del expediente y alegaciones a propuesta desestimatoria | `extranjeria-nacionalidad-espanola` | `extranjeria` |
 | Hoja de encargo profesional, presupuesto de honorarios y comunicación de fin de encargo | `hoja-encargo` | `despacho` |
 | Minuta de honorarios, requerimiento de pago y jura de cuentas del artículo 35 de la LEC | `minuta-jura-cuentas` | `despacho` |
 | Poder general para pleitos, poder especial, apud acta y autorización de representación administrativa | `poder-representacion` | `despacho` |

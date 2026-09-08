@@ -1,6 +1,6 @@
 # Documentacion Extranjera: Legalizacion y Traduccion
 
-> Referencia de la skill `nacionalidad-espanola`. Es la causa mas frecuente de requerimiento de
+> Referencia de la skill `extranjeria-nacionalidad-espanola`. Es la causa mas frecuente de requerimiento de
 > subsanacion, y por eso se advierte **antes** de que el cliente empiece a reunir papeles.
 
 ---

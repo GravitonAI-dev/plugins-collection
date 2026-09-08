@@ -7,8 +7,8 @@
     "name": "GravitonAI"
   },
   "skills": [
-    "./skills/extranjeria-residencia",
-    "./skills/nacionalidad-espanola"
+    "./skills/extranjeria-nacionalidad-espanola",
+    "./skills/extranjeria-residencia"
   ],
   "agents": [],
   "hooks": []
