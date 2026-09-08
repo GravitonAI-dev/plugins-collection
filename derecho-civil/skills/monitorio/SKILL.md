@@ -123,12 +123,12 @@ Asigna deterministamente la plantilla del sistema aplicable según la combinaci�
 En esta fase interactúas **directamente a través del chat (en texto plano conversacional, SIN formularios)** para compartir el plan de trabajo, el fundamento normativo y acordar la plantilla base con el usuario.
 
 ### 2.1 Verificación Normativa Interna
-1. Consulta las referencias jurídicas cargadas en tu contexto (carpeta `references/`).
-2. Opcionalmente verifica en vivo mediante `web_search` la legislación consolidada en el BOE si se requieren confirmar índices o modificaciones normativas recientes.
+Ejecuta esta secuencia completa; en esta materia la verificación no es opcional:
+
 
 La skill verifica las fuentes oficiales en cada lanzamiento y, si detecta una version posterior, aplica la redaccion vigente al documento que redacta en el workspace del usuario, sin modificar sus propios archivos de plugin. Ejecutar SIEMPRE esta secuencia:
 
-- **Leer la fecha/version registrada localmente.** Abrir `references/fuentes-plantillas-validadas.md` y anotar la "Version registrada" de la LEC y del modelo del CGPJ.
+- **Leer la fecha/version registrada localmente.** Consultar `references/fuentes-plantillas-validadas.md`, que llega cargada en tu contexto, y anotar la "Version registrada" de la LEC y del modelo del CGPJ.
 
 - **Consultar la fuente oficial vigente.** Invocar:
 ```

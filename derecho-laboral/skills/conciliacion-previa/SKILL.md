@@ -141,7 +141,7 @@ Comunica en el chat los días consumidos, los restantes y la **fecha límite**. 
 
 ### 2.1 Verificación Normativa Interna
 1. Consulta las referencias cargadas en tu contexto.
-2. Verifica con `web_search` la versión consolidada vigente de la Ley 36/2011 en el BOE, y en particular la lista de excepciones del artículo 64.
+2. Verifica con `web_search` la versión consolidada vigente de la Ley 36/2011 en el BOE. **La lista de excepciones del artículo 64 ya se verificó en el control de procedibilidad de la Fase 1.3: no la vuelvas a consultar**, reutiliza el resultado.
 3. **Identifica el organismo de conciliación competente** con `web_search` a partir de la comunidad autónoma del centro de trabajo: cada comunidad tiene su propio servicio, con denominación, sede electrónica y modelo propio. Informa del nombre exacto, de la sede electrónica y de si admite presentación telemática.
 4. Comprueba si el convenio colectivo o un acuerdo interprofesional del ámbito atribuye la función conciliadora a un **órgano de solución autónoma de conflictos**, en cuyo caso el trámite se cumple ante ese órgano.
 
@@ -219,7 +219,7 @@ Anuncios fijos:
 
 ## Límites Legales y Guardrails de Dominio (Gobernados por Vectores)
 
-1. Verificar siempre en el BOE la versión consolidada vigente de la Ley 36/2011 y del Estatuto de los Trabajadores antes de redactar, y en particular la **lista de excepciones del artículo 64**, que ha sido modificada en sucesivas reformas.
+1. Verificar siempre en el BOE la versión consolidada vigente de la Ley 36/2011 y del Estatuto de los Trabajadores antes de redactar. La **lista de excepciones del artículo 64** se verifica una sola vez, en el control de procedibilidad de la Fase 1.3, y su resultado se reutiliza en el resto de la ejecución.
 2. **Control de procedibilidad como primera acción:** si el asunto está exceptuado, no redactar la papeleta. Presentarla en esos casos no suspende el plazo y puede consumirlo.
 3. **Cómputo y comunicación del plazo:** calcular y comunicar siempre los días hábiles restantes y la fecha límite antes de redactar. Si el plazo ha vencido, advertirlo con claridad y no ocultarlo.
 4. **Días hábiles:** excluir sábados, domingos y festivos nacionales, autonómicos y locales, verificando el calendario laboral de la localidad con `web_search`. El mes de agosto es hábil en el orden social a estos efectos.

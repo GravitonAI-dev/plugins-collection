@@ -231,7 +231,7 @@ Anuncios fijos:
 ## Límites Legales y Guardrails de Dominio (Gobernados por Vectores)
 
 1. Verificar siempre en el BOE la versión consolidada vigente de la Ley General de la Seguridad Social y de la Ley 36/2011 antes de redactar, y aplicar la redacción vigente al documento del workspace.
-2. **Control de plazo como primera acción**, calculado desde la **fecha de notificación**. Verificar los plazos exactos con `web_search` antes de comunicarlos: son breves, de caducidad, y han variado con las reformas.
+2. **Control de plazo como primera acción**, calculado desde la **fecha de notificación**. Los plazos exactos se verifican con `web_search` una sola vez, en el control de la Fase 1.3, y su resultado se reutiliza: son breves, de caducidad, y han variado con las reformas.
 3. **Reclamación previa inexcusable:** no redactar demanda sin acreditar el agotamiento de la vía previa administrativa, expresa o por silencio.
 4. **Conciliación exceptuada:** no derivar a la skill `conciliacion-previa` ni redactar papeleta en esta materia.
 5. **Grados de incapacidad:** no explicar ni invocar la definición de los grados sin verificar el precepto vigente y su régimen transitorio. La regulación formalmente en vigor puede remitir a la anterior.
