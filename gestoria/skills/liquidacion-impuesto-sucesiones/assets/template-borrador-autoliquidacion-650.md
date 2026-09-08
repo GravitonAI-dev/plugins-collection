@@ -46,7 +46,9 @@
 
 | N. | Bien / derecho | Referencia / identificacion | Valor (EUR) |
 |---|---|---|---|
-{{inventario_activo: una fila por bien. Ej.: 1 | Vivienda | Ref. catastral {{REF_CATASTRAL}} | {{VALOR_DECLARADO}} }}
+| {{NUMERO_ORDEN_ACTIVO: número de orden}} | {{DESCRIPCION_BIEN: bien o derecho inventariado}} | {{IDENTIFICACION_BIEN: referencia catastral, matrícula, IBAN o dato que lo identifique}} | {{VALOR_BIEN: importe en euros}} |
+
+(Repetir una fila por cada bien o derecho del caudal relicto.)
 
 Ajuar domestico (Art. 15; 3% del caudal relicto salvo prueba): {{VALOR_AJUAR}} EUR 
 
@@ -56,7 +58,9 @@ Total caudal relicto: {{TOTAL_CAUDAL_RELICTO}} EUR
 
 | N. | Concepto | Importe (EUR) |
 |---|---|---|
-{{deducciones: una fila por concepto. Ej.: 1 | Gastos de ultima enfermedad, entierro y funeral | {{VALOR_DECLARADO}} }}
+| {{NUMERO_ORDEN_DEDUCCION: número de orden}} | {{CONCEPTO_DEDUCIBLE: carga, deuda o gasto deducible}} | {{IMPORTE_DEDUCIBLE: importe en euros}} |
+
+(Repetir una fila por cada carga, deuda o gasto deducible debidamente justificado.)
 
 Total deducible: {{TOTAL_DEDUCIBLE}} EUR
 

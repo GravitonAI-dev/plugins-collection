@@ -488,6 +488,44 @@
       },
       "tags": ["templates", "configuration", "user_templates", "creation"],
       "side_effects": true
+    },
+    {
+      "id": "io.gravitonai.tools.check_user_template_exists",
+      "name": "check_user_template_exists",
+      "description": "Verifica si una plantilla de usuario ya existe en el sistema a partir de su asset_name (ej. 'template-carta-de-presentacion.md'). Consulta la base de datos y retorna 'exists': true con los metadatos registrados (nombre, descripción, asset_name) si ya existe, o 'exists': false si no existe. Debe invocarse obligatoriamente antes de guardar una plantilla desde el workspace para determinar si debe actualizarse (mediante update_user_template sin pedir datos) o crearse como nueva (mediante save_user_template solicitando datos).",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "asset_name": {
+            "type": "string",
+            "description": "Nombre de archivo exacto o identificador de la plantilla a verificar (ej. 'template-carta-de-presentacion.md')."
+          }
+        },
+        "required": ["asset_name"],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "exists": { "type": "boolean" },
+          "data": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "asset_name": { "type": "string" },
+              "description": { "type": "string" },
+              "skill_name": { "type": ["string", "null"] },
+              "is_user_template": { "type": "boolean" }
+            }
+          },
+          "error": { "type": "string" }
+        }
+      },
+      "tags": ["templates", "configuration", "user_templates", "verification"],
+      "side_effects": false
     }
   ]
 }
