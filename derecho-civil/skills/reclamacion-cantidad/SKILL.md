@@ -80,34 +80,57 @@ Antes de abrir formularios interactivos o hacer preguntas, analiza el mensaje in
 - Si restan vectores por definir, no formules preguntas abiertas en turnos sucesivos: presenta el formulario estructurado interactivo mediante la herramienta `restricted_human_in_the_loop_request`.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
-Presenta al usuario las opciones estructuradas para resolver los vectores pendientes:
+Invoca la herramienta con las opciones de triaje:
+
 ```json
 {
-  "type": "object",
-  "properties": {
-    "posicion_cliente": {
-      "type": "string",
-      "description": "Posici\u00f3n del cliente (V1)",
-      "enum": [
-        "acreedor",
-        "deudor"
+  "form_data": [
+    {
+      "id": "rol",
+      "rationale": "Resolver V1: quien ha recibido un requerimiento de monitorio no reclama, se opone, y usa un asset distinto.",
+      "question": "¿En qué posición se encuentra el cliente?",
+      "options": [
+        {"id": "acreedor", "label": "Es acreedor y reclama una cantidad"},
+        {"id": "deudor_requerido", "label": "Ha recibido un requerimiento de pago de un proceso monitorio"}
       ]
     },
-    "via_procesal": {
-      "type": "string",
-      "description": "V\u00eda procesal id\u00f3nea (V2)",
-      "enum": [
-        "burofax_masc",
-        "monitorio",
-        "juicio_verbal",
-        "juicio_ordinario",
-        "oposicion_monitorio"
+    {
+      "id": "estado_reclamacion",
+      "rationale": "Resolver V2: si ya hay monitorio con oposición del deudor, el asunto continúa por el cauce del artículo 818 de la LEC.",
+      "question": "Si es acreedor, ¿en qué estado está la reclamación?",
+      "options": [
+        {"id": "sin_iniciar", "label": "Sin reclamación judicial iniciada"},
+        {"id": "monitorio_con_oposicion", "label": "Ya se presentó monitorio y el deudor se ha opuesto"}
+      ]
+    },
+    {
+      "id": "deuda_documentada",
+      "rationale": "Resolver V3: la existencia de documento acreditativo es presupuesto del proceso monitorio conforme al artículo 812 de la LEC.",
+      "question": "¿Existen documentos que acrediten la deuda: facturas, contrato, albaranes, reconocimiento?",
+      "options": [
+        {"id": "si", "label": "Sí"},
+        {"id": "no", "label": "No"}
+      ]
+    },
+    {
+      "id": "deuda_vencida_liquida",
+      "rationale": "Resolver V4: el monitorio exige deuda dineraria, líquida, determinada, vencida y exigible; si el importe se discute, procede la vía declarativa.",
+      "question": "¿Está la deuda vencida y su importe es fijo o calculable sin discusión?",
+      "options": [
+        {"id": "vencida_y_liquida", "label": "Sí, está vencida y el importe es cierto"},
+        {"id": "discutida", "label": "No, el importe está discutido por la otra parte"},
+        {"id": "por_determinar", "label": "No, el importe todavía debe determinarse"}
+      ]
+    },
+    {
+      "id": "es_arrendamiento",
+      "rationale": "Resolver V5: las rentas de arrendamiento admiten la acumulación de la reclamación al desahucio y tienen especialidades procesales.",
+      "question": "¿Deriva la cantidad de rentas o cantidades debidas por arrendamiento de inmueble?",
+      "options": [
+        {"id": "si", "label": "Sí"},
+        {"id": "no", "label": "No"}
       ]
     }
-  },
-  "required": [
-    "posicion_cliente",
-    "via_procesal"
   ]
 }
 ```

@@ -75,39 +75,48 @@ Antes de abrir formularios interactivos o hacer preguntas, analiza el mensaje in
 - Si restan vectores por definir, no formules preguntas abiertas en turnos sucesivos: presenta el formulario estructurado interactivo mediante la herramienta `restricted_human_in_the_loop_request`.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
-Presenta al usuario las opciones estructuradas para resolver los vectores pendientes:
+Invoca la herramienta con las opciones de triaje:
+
 ```json
 {
-  "type": "object",
-  "properties": {
-    "tipo_documento": {
-      "type": "string",
-      "description": "Alcance de la planificaci\u00f3n sucesoria (V2)",
-      "enum": [
-        "minuta_testamento",
-        "checklist_planificacion"
+  "form_data": [
+    {
+      "id": "vecindad_civil",
+      "rationale": "Resolver V1: esta skill solo cubre el derecho común; la vecindad civil foral impone legítimas y figuras propias y obliga a detener el proceso.",
+      "question": "¿Cuál es la vecindad civil del testador?",
+      "options": [
+        {"id": "comun", "label": "Común (Código Civil)"},
+        {"id": "foral", "label": "Foral o especial: Cataluña, Aragón, Navarra, Baleares, País Vasco o Galicia"},
+        {"id": "desconocida", "label": "No lo sé con certeza"}
       ]
     },
-    "vecindad_civil": {
-      "type": "string",
-      "description": "Vecindad civil y r\u00e9gimen sucesorio aplicable (V1)",
-      "enum": [
-        "comun",
-        "foral"
+    {
+      "id": "alcance",
+      "rationale": "Resolver V2: el testamento simple usa solo la minuta; la planificación exige antes el checklist de decisiones sucesorias.",
+      "question": "¿Qué alcance tiene el encargo?",
+      "options": [
+        {"id": "testamento_simple", "label": "Un testamento sencillo: institución de heredero y poco más"},
+        {"id": "con_planificacion", "label": "Una planificación sucesoria: mejora, legados, sustituciones, usufructo del cónyuge"}
       ]
     },
-    "descendientes": {
-      "type": "string",
-      "description": "Situaci\u00f3n familiar respecto a descendientes (V3a)",
-      "enum": [
-        "con_hijos",
-        "sin_hijos"
+    {
+      "id": "legitimario_con_discapacidad",
+      "rationale": "Resolver V3: activa los bloques de los artículos 808 in fine, 782 y 822 del Código Civil y hace obligatoria la sección de discapacidad.",
+      "question": "¿Hay algún legitimario en situación de discapacidad?",
+      "options": [
+        {"id": "si", "label": "Sí"},
+        {"id": "no", "label": "No"}
+      ]
+    },
+    {
+      "id": "tipo_testamento",
+      "rationale": "Resolver V4: solo el testamento abierto notarial está dentro del alcance; el ológrafo, el cerrado, el mancomunado y los pactos sucesorios quedan excluidos.",
+      "question": "¿Qué tipo de testamento se pretende?",
+      "options": [
+        {"id": "abierto_notarial", "label": "Testamento abierto ante notario"},
+        {"id": "otro_tipo", "label": "Ológrafo, cerrado, mancomunado o pacto sucesorio"}
       ]
     }
-  },
-  "required": [
-    "tipo_documento",
-    "vecindad_civil"
   ]
 }
 ```

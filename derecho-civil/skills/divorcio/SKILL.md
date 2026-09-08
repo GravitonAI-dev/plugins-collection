@@ -83,49 +83,56 @@ Antes de abrir formularios interactivos o hacer preguntas, analiza el mensaje in
 - Si restan vectores por definir, no formules preguntas abiertas en turnos sucesivos: presenta el formulario estructurado interactivo mediante la herramienta `restricted_human_in_the_loop_request`.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
-Presenta al usuario las opciones estructuradas para resolver los vectores pendientes:
+Invoca la herramienta con las opciones de triaje:
+
 ```json
 {
-  "type": "object",
-  "properties": {
-    "modalidad_divorcio": {
-      "type": "string",
-      "description": "Modalidad de tramitaci\u00f3n (V1)",
-      "enum": [
-        "mutuo_acuerdo_judicial",
-        "mutuo_acuerdo_notarial",
-        "contencioso"
+  "form_data": [
+    {
+      "id": "modalidad",
+      "rationale": "Resolver V1: el mutuo acuerdo genera convenio regulador y el contencioso una demanda con medidas, con documentos y trámites incompatibles.",
+      "question": "¿Hay acuerdo entre los cónyuges?",
+      "options": [
+        {"id": "mutuo_acuerdo", "label": "Sí, ambos están de acuerdo"},
+        {"id": "contencioso", "label": "No hay acuerdo: procede vía contenciosa"}
       ]
     },
-    "tipo_ruptura": {
-      "type": "string",
-      "description": "Tipo de disoluci\u00f3n (V2)",
-      "enum": [
-        "divorcio",
-        "separacion"
+    {
+      "id": "tipo_ruptura",
+      "rationale": "Resolver V2: determina el precepto aplicable y los efectos sobre el vínculo matrimonial.",
+      "question": "¿Qué se solicita?",
+      "options": [
+        {"id": "divorcio", "label": "Divorcio, con disolución del vínculo"},
+        {"id": "separacion", "label": "Separación, manteniendo el vínculo"}
       ]
     },
-    "hijos_menores": {
-      "type": "string",
-      "description": "Existencia de hijos (V3)",
-      "enum": [
-        "con_hijos_menores",
-        "con_hijos_mayores",
-        "sin_hijos"
+    {
+      "id": "hijos",
+      "rationale": "Resolver V3: la existencia de hijos menores o dependientes impone la vía judicial con intervención del Ministerio Fiscal y excluye la notarial.",
+      "question": "¿Hay hijos menores no emancipados, o mayores con discapacidad dependientes?",
+      "options": [
+        {"id": "si", "label": "Sí"},
+        {"id": "no", "label": "No"}
       ]
     },
-    "vivienda_y_patrimonio": {
-      "type": "string",
-      "description": "Uso de la vivienda y liquidaci\u00f3n patrimonial (V4)",
-      "enum": [
-        "atribucion_vivienda",
-        "sin_atribucion_exclusiva"
+    {
+      "id": "via",
+      "rationale": "Resolver V4: en mutuo acuerdo sin hijos dependientes cabe la vía notarial, que no genera demanda.",
+      "question": "Si hay mutuo acuerdo y no hay hijos dependientes, ¿qué vía prefiere?",
+      "options": [
+        {"id": "judicial", "label": "Judicial, con presentación de demanda de mutuo acuerdo"},
+        {"id": "notarial", "label": "Notarial, mediante escritura pública"}
+      ]
+    },
+    {
+      "id": "alcance",
+      "rationale": "Resolver V5: determina si además del convenio se redacta la demanda de mutuo acuerdo.",
+      "question": "Si la vía es judicial de mutuo acuerdo, ¿qué alcance tiene el encargo?",
+      "options": [
+        {"id": "solo_convenio", "label": "Solo el convenio regulador"},
+        {"id": "convenio_y_demanda", "label": "El convenio regulador y la demanda de mutuo acuerdo"}
       ]
     }
-  },
-  "required": [
-    "modalidad_divorcio",
-    "tipo_ruptura"
   ]
 }
 ```

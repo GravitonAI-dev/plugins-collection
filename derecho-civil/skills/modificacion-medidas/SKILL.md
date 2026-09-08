@@ -86,33 +86,43 @@ Antes de abrir formularios interactivos o hacer preguntas, analiza el mensaje in
 - Si restan vectores por definir, no formules preguntas abiertas en turnos sucesivos: presenta el formulario estructurado interactivo mediante la herramienta `restricted_human_in_the_loop_request`.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
-Presenta al usuario las opciones estructuradas para resolver los vectores pendientes:
+Invoca la herramienta con las opciones de triaje:
+
 ```json
 {
-  "type": "object",
-  "properties": {
-    "ambito_modificacion": {
-      "type": "string",
-      "description": "\u00c1mbito de las medidas a modificar (V1)",
-      "enum": [
-        "custodia_visitas",
-        "pension_alimentos",
-        "extincion_alimentos",
-        "pension_compensatoria"
+  "form_data": [
+    {
+      "id": "medida_concreta",
+      "rationale": "Resolver V1: determina el asset aplicable, ya que la extinción de la pensión de alimentos tiene escrito propio.",
+      "question": "¿Qué medida se pretende modificar?",
+      "options": [
+        {"id": "custodia_estancias", "label": "Guarda y custodia o régimen de estancias"},
+        {"id": "pension_alimentos", "label": "Pensión de alimentos"},
+        {"id": "pension_compensatoria", "label": "Pensión compensatoria"},
+        {"id": "vivienda", "label": "Uso de la vivienda familiar"},
+        {"id": "varias", "label": "Varias medidas a la vez"}
       ]
     },
-    "modalidad_tramitacion": {
-      "type": "string",
-      "description": "Modalidad procesal (V2)",
-      "enum": [
-        "consensuada",
-        "contenciosa"
+    {
+      "id": "sentido",
+      "rationale": "Resolver V2: la extinción de la pensión de alimentos enruta a su propio asset; el aumento y la reducción usan la demanda de modificación.",
+      "question": "En las pensiones, ¿en qué sentido se pretende la modificación?",
+      "options": [
+        {"id": "aumentar", "label": "Aumentar su importe"},
+        {"id": "reducir", "label": "Reducir su importe"},
+        {"id": "extinguir", "label": "Extinguirla"},
+        {"id": "no_aplica", "label": "No se trata de una pensión"}
+      ]
+    },
+    {
+      "id": "modalidad",
+      "rationale": "Resolver V3: activa la variante de mutuo acuerdo o la contenciosa, con su régimen procesal y su acreditación del intento de MASC.",
+      "question": "¿Hay acuerdo con la otra parte sobre la modificación?",
+      "options": [
+        {"id": "consensuada", "label": "Sí, la modificación es consensuada"},
+        {"id": "contenciosa", "label": "No hay acuerdo: vía contenciosa"}
       ]
     }
-  },
-  "required": [
-    "ambito_modificacion",
-    "modalidad_tramitacion"
   ]
 }
 ```

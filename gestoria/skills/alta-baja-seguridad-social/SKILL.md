@@ -169,6 +169,11 @@ Recorre de forma secuencial los bloques de datos aplicando el ciclo interactivo:
 3. **Confirmación:** Pregunta literalmente: `¿Confirmamos esta sección?`.
 4. **Persistencia en Disco:** Tras el consentimiento, ejecuta `edit_file` con precisión quirúrgica y valida con `read_file`.
 
+**Petición de grupos de datos mediante `slot_filling_request` y confirmaciones en el chat:**
+- **Datos estructurados agrupados mediante `slot_filling_request`:** para cualquier grupo de datos objetivos o identificativos (datos identificativos del empresario y del trabajador, código de cuenta de cotización y datos del contrato), **NO pregunte dato por dato en el chat**. Invoque la herramienta `slot_filling_request` agrupando todos los campos del bloque de una sola vez.
+- **Confirmación obligatoria en el chat:** una vez que la herramienta retorne los valores completados, muestre la vista previa en texto plano en el chat y pida la confirmación explícita (`¿Confirmamos estos datos...?` / `¿Confirmamos esta sección?`). Solo tras la confirmación afirmativa en el chat ejecute el `edit_file` en disco y verifique con `read_file`.
+- **Validación de sentido, no solo de formato:** razone si la respuesta tiene sentido en el contexto de lo preguntado. Si es absurda, imposible o incongruente, dialogue en el chat, señale el motivo y pida aclaración antes de volcarla al documento.
+
 ### Hoja de Ruta de Secciones — TRABAJADOR POR CUENTA AJENA / EMPLEADA DE HOGAR:
 
 1. **Datos del Empleador o Empresa** *(confirmación agrupada)*:

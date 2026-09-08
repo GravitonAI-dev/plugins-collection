@@ -93,34 +93,50 @@ Antes de abrir formularios interactivos o hacer preguntas, analiza el mensaje in
 - Si restan vectores por definir, no formules preguntas abiertas en turnos sucesivos: presenta el formulario estructurado interactivo mediante la herramienta `restricted_human_in_the_loop_request`.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
-Presenta al usuario las opciones estructuradas para resolver los vectores pendientes:
+Invoca la herramienta con las opciones de triaje:
+
 ```json
 {
-  "type": "object",
-  "properties": {
-    "ambito_suceso": {
-      "type": "string",
-      "description": "\u00c1mbito del suceso da\u00f1oso (V1)",
-      "enum": [
-        "accidente_trafico",
-        "caida_establecimiento",
-        "contractual_profesional",
-        "extracontractual_general"
+  "form_data": [
+    {
+      "id": "momento_documento",
+      "rationale": "Resolver V1: cada momento de la reclamación tiene su propio asset y su propia validación de procedibilidad.",
+      "question": "¿Qué documento necesita?",
+      "options": [
+        {"id": "reclamacion_extrajudicial", "label": "Primera reclamación extrajudicial de los daños"},
+        {"id": "respuesta_oferta", "label": "Contestación a una oferta o respuesta motivada de la aseguradora"},
+        {"id": "demanda", "label": "Demanda judicial de reclamación de daños"}
       ]
     },
-    "fase_reclamacion": {
-      "type": "string",
-      "description": "Fase de la reclamaci\u00f3n indemnizatoria (V3)",
-      "enum": [
-        "extrajudicial_previa",
-        "respuesta_oferta",
-        "demanda_judicial"
+    {
+      "id": "ambito_hecho",
+      "rationale": "Resolver V2: el accidente de circulación se rige por el texto refundido de la Ley de responsabilidad civil y seguro en la circulación de vehículos a motor y por su baremo; fuera de la circulación el régimen es el del Código Civil.",
+      "question": "¿Cómo se produjo el daño?",
+      "options": [
+        {"id": "circulacion", "label": "En un accidente de circulación"},
+        {"id": "otro_suceso", "label": "En otro tipo de suceso"}
+      ]
+    },
+    {
+      "id": "supuesto_no_circulatorio",
+      "rationale": "Resolver V3: determina el régimen de responsabilidad aplicable y la carga de la prueba fuera de la circulación.",
+      "question": "Si no fue un accidente de circulación, ¿de qué supuesto se trata?",
+      "options": [
+        {"id": "caida", "label": "Caída en establecimiento o en vía pública"},
+        {"id": "vicio_constructivo", "label": "Defecto o vicio de la construcción"},
+        {"id": "negligencia_profesional", "label": "Negligencia profesional"},
+        {"id": "otro", "label": "Otro supuesto"}
+      ]
+    },
+    {
+      "id": "aseguradora_identificada",
+      "rationale": "Resolver V4: la reclamación previa al asegurador es requisito de procedibilidad de la demanda en el ámbito de la circulación.",
+      "question": "¿Está identificada la aseguradora del causante del daño?",
+      "options": [
+        {"id": "si", "label": "Sí"},
+        {"id": "no", "label": "No, o se desconoce"}
       ]
     }
-  },
-  "required": [
-    "ambito_suceso",
-    "fase_reclamacion"
   ]
 }
 ```

@@ -76,33 +76,49 @@ Antes de abrir formularios interactivos o hacer preguntas, analiza el mensaje in
 - Si restan vectores por definir, no formules preguntas abiertas en turnos sucesivos: presenta el formulario estructurado interactivo mediante la herramienta `restricted_human_in_the_loop_request`.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
-Presenta al usuario las opciones estructuradas para resolver los vectores pendientes:
+Invoca la herramienta con las opciones de triaje:
+
 ```json
 {
-  "type": "object",
-  "properties": {
-    "posicion_cliente": {
-      "type": "string",
-      "description": "Posici\u00f3n del requirente / cliente (V1)",
-      "enum": [
-        "comunidad",
-        "propietario"
+  "form_data": [
+    {
+      "id": "rol_cliente",
+      "rationale": "Resolver V1: la comunidad y el propietario individual tienen acciones y assets distintos.",
+      "question": "¿A quién asiste usted?",
+      "options": [
+        {"id": "comunidad", "label": "A la comunidad de propietarios, o a su presidente, secretario o administrador"},
+        {"id": "propietario", "label": "A un propietario a título individual"}
       ]
     },
-    "asunto_lph": {
-      "type": "string",
-      "description": "Asunto o pretensi\u00f3n a ejercitar (V2)",
-      "enum": [
-        "reclamacion_morosos",
-        "certificacion_deuda",
-        "impugnacion_acuerdos",
-        "actividad_molesta"
+    {
+      "id": "asunto",
+      "rationale": "Resolver V2: determina el asset y el régimen de la Ley de Propiedad Horizontal aplicable.",
+      "question": "¿Cuál es el asunto?",
+      "options": [
+        {"id": "impago_cuotas", "label": "Impago de cuotas de comunidad"},
+        {"id": "actividad_molesta", "label": "Actividad prohibida, molesta, insalubre o peligrosa en un elemento privativo"},
+        {"id": "impugnacion_acuerdo", "label": "Impugnación de un acuerdo de la junta de propietarios"}
+      ]
+    },
+    {
+      "id": "acuerdo_liquidacion",
+      "rationale": "Resolver V3: el acuerdo de la junta que aprueba la liquidación de la deuda y autoriza la reclamación es requisito legal previo del monitorio de cuotas.",
+      "question": "Si el asunto es un impago de cuotas, ¿ha aprobado ya la junta la liquidación de la deuda y autorizado su reclamación?",
+      "options": [
+        {"id": "si", "label": "Sí, hay acuerdo de junta"},
+        {"id": "no", "label": "No, todavía no"}
+      ]
+    },
+    {
+      "id": "estado_requerimiento",
+      "rationale": "Resolver V4: determina si procede el requerimiento de cesación o si el paso siguiente es ya la acción judicial de cesación, que exige autorización de la junta.",
+      "question": "Si el asunto es una actividad molesta, ¿en qué estado está el requerimiento?",
+      "options": [
+        {"id": "sin_requerir", "label": "No se ha requerido todavía"},
+        {"id": "requerido_informalmente", "label": "Se ha requerido, pero sin constancia fehaciente"},
+        {"id": "requerido_y_desatendido", "label": "Se requirió fehacientemente y no se ha atendido"}
       ]
     }
-  },
-  "required": [
-    "posicion_cliente",
-    "asunto_lph"
   ]
 }
 ```

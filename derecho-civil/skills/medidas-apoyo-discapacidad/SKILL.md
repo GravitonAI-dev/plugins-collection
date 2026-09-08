@@ -81,32 +81,49 @@ Antes de abrir formularios interactivos o hacer preguntas, analiza el mensaje in
 - Si restan vectores por definir, no formules preguntas abiertas en turnos sucesivos: presenta el formulario estructurado interactivo mediante la herramienta `restricted_human_in_the_loop_request`.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
-Presenta al usuario las opciones estructuradas para resolver los vectores pendientes:
+Invoca la herramienta con las opciones de triaje:
+
 ```json
 {
-  "type": "object",
-  "properties": {
-    "finalidad_apoyo": {
-      "type": "string",
-      "description": "Finalidad de la medida de provisi\u00f3n de apoyos (V1)",
-      "enum": [
-        "poder_preventivo",
-        "guarda_hecho",
-        "curatela"
+  "form_data": [
+    {
+      "id": "finalidad",
+      "rationale": "Resolver V1: la curatela es subsidiaria de las medidas voluntarias y de la guarda de hecho, y cada finalidad tiene su propio asset.",
+      "question": "¿Qué medida de apoyo se pretende?",
+      "options": [
+        {"id": "prevision_voluntaria", "label": "Una previsión voluntaria de la propia persona: poder preventivo o autocuratela"},
+        {"id": "autorizacion_guarda", "label": "Una autorización judicial puntual a quien ya ejerce la guarda de hecho"},
+        {"id": "curatela", "label": "La constitución judicial de una curatela"}
       ]
     },
-    "tipo_curatela": {
-      "type": "string",
-      "description": "Modalidad de la curatela (V3 - solo si procede demanda judicial)",
-      "enum": [
-        "asistencial",
-        "representativa"
+    {
+      "id": "expresion_voluntad",
+      "rationale": "Resolver V2: determina si cabe la curatela representativa y si la persona puede otorgar por sí misma medidas voluntarias.",
+      "question": "¿Puede la persona expresar su voluntad, deseos y preferencias?",
+      "options": [
+        {"id": "puede_expresar", "label": "Sí, con los apoyos adecuados puede expresarlos"},
+        {"id": "no_puede_expresar", "label": "No, pese a haberse hecho un esfuerzo considerable"}
+      ]
+    },
+    {
+      "id": "tipo_curatela",
+      "rationale": "Resolver V3: activa o desactiva los bloques de facultades representativas, que deben justificarse acto por acto.",
+      "question": "Si se solicita curatela, ¿de qué tipo?",
+      "options": [
+        {"id": "asistencial", "label": "Asistencial: el curador acompaña y asiste en la toma de decisiones"},
+        {"id": "representativa", "label": "Representativa para actos concretos, que deberán enumerarse y justificarse"}
+      ]
+    },
+    {
+      "id": "existe_guarda_hecho",
+      "rationale": "Resolver V4: si la guarda de hecho funciona adecuadamente, la curatela no procede por su carácter subsidiario.",
+      "question": "¿Existe ya una guarda de hecho que preste apoyo suficiente?",
+      "options": [
+        {"id": "si_suficiente", "label": "Sí, y funciona adecuadamente"},
+        {"id": "si_insuficiente", "label": "Sí, pero resulta insuficiente"},
+        {"id": "no", "label": "No existe"}
       ]
     }
-  },
-  "required": [
-    "finalidad_apoyo",
-    "tipo_curatela"
   ]
 }
 ```

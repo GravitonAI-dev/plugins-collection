@@ -124,21 +124,21 @@ Si el usuario ya ha identificado el documento, la existencia de encargo, el ámb
 
 ### 1.3 Control de Viabilidad y Enrutamiento (PRIMERA ACCIÓN OBLIGATORIA)
 
-**Paso 1 — Comprueba la hoja de encargo.** Antes de redactar cualquier reclamación, pide al usuario que aporte o describa la hoja de encargo y su cláusula económica.
+**Comprobación 1 — Comprueba la hoja de encargo.** Antes de redactar cualquier reclamación, pide al usuario que aporte o describa la hoja de encargo y su cláusula económica.
 - **Si `[V2 = con_encargo_escrito]`:** el honorario reclamable es el pactado. La minuta debe ajustarse a él; una minuta que se aparta del pacto es el mejor argumento del cliente.
 - **Si `[V2 = encargo_sin_honorarios]` o `[V2 = sin_encargo_escrito]`:** advierte con claridad de que la posición del despacho es **notablemente más débil**, de que la determinación del honorario se hará por criterios objetivos —usos profesionales, criterios orientativos del colegio a los efectos legalmente admitidos, cuantía y complejidad del asunto—, y de que conviene reunir toda la prueba del encargo y de las actuaciones realizadas antes de reclamar. No oculte esta advertencia.
 
-**Paso 2 — Comprueba la vía.**
+**Comprobación 2 — Comprueba la vía.**
 - La **jura de cuentas del artículo 35** procede respecto de los honorarios devengados **en un asunto judicial** y se sustancia ante el órgano que conoció de él. **No cabe** para honorarios de asesoramiento extrajudicial.
 - **Si `[V3 = extrajudicial]` y `[V1 = jura_de_cuentas]` → Detén la redacción.** Explícalo y ofrece las vías alternativas: requerimiento previo, proceso monitorio o juicio declarativo según la cuantía. Ofrece derivar a la skill `derecho-civil:reclamacion-cantidad` para la elección de la vía civil.
 - **Si `[V3 = mixto]`:** advierte de que solo la parte devengada en el asunto judicial puede reclamarse por el artículo 35, y de que conviene separar ambos conceptos en la minuta desde el principio.
 
-**Paso 3 — Comprueba la naturaleza del cliente.**
+**Comprobación 3 — Comprueba la naturaleza del cliente.**
 - **Si `[V4 = consumidor]`:** advierte de que en el procedimiento del artículo 35 puede operar el **control de la cláusula de honorarios** desde la perspectiva de la transparencia y de la abusividad, y de que una cláusula opaca puede resultar inoponible. **Verifica con `web_search` el estado actual de esta cuestión** antes de afirmar nada sobre su alcance.
 
-**Paso 4 — Comprueba la prescripción.** Pide la fecha de terminación de la actuación y verifica el plazo de prescripción aplicable a la reclamación de honorarios profesionales en la normativa civil vigente. **Verifícalo con `web_search`**: el plazo general de las acciones personales fue modificado y existe régimen transitorio. Comunica la fecha límite.
+**Comprobación 4 — Comprueba la prescripción.** Pide la fecha de terminación de la actuación y verifica el plazo de prescripción aplicable a la reclamación de honorarios profesionales en la normativa civil vigente. **Verifícalo con `web_search`**: el plazo general de las acciones personales fue modificado y existe régimen transitorio. Comunica la fecha límite.
 
-**Paso 5 — Enrutamiento:**
+**Comprobación 5 — Enrutamiento:**
 * **Si `[V1 = minuta]` → Plantilla: `assets/template-minuta-honorarios.md`.**
 * **Si `[V1 = requerimiento_previo]` → Plantilla: `assets/template-requerimiento-previo-pago-honorarios.md`.** Explica que el requerimiento fehaciente interrumpe la prescripción, acredita la mora y suele resolver el asunto sin litigio, y que además prepara la posición procesal.
 * **Si `[V1 = jura_de_cuentas]` → Plantilla: `assets/template-solicitud-jura-de-cuentas.md`.**

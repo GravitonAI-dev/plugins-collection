@@ -88,39 +88,59 @@ Antes de abrir formularios interactivos o hacer preguntas, analiza el mensaje in
 - Si restan vectores por definir, no formules preguntas abiertas en turnos sucesivos: presenta el formulario estructurado interactivo mediante la herramienta `restricted_human_in_the_loop_request`.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
-Presenta al usuario las opciones estructuradas para resolver los vectores pendientes:
+Invoca la herramienta con las opciones de triaje:
+
 ```json
 {
-  "type": "object",
-  "properties": {
-    "acuerdo_progenitores": {
-      "type": "string",
-      "description": "Grado de consenso entre los progenitores (V1)",
-      "enum": [
-        "mutuo_acuerdo",
-        "contencioso"
+  "form_data": [
+    {
+      "id": "filiacion",
+      "rationale": "Resolver V1: sin filiación determinada respecto de ambos progenitores no cabe fijar medidas, y el proceso se detiene.",
+      "question": "¿Está determinada legalmente la filiación respecto de ambos progenitores?",
+      "options": [
+        {"id": "ambos", "label": "Sí, respecto de ambos"},
+        {"id": "solo_uno", "label": "No, no consta respecto del otro progenitor"},
+        {"id": "desconocido", "label": "No lo sé con certeza"}
       ]
     },
-    "regimen_custodia": {
-      "type": "string",
-      "description": "R\u00e9gimen de guarda y custodia propuesto (V3)",
-      "enum": [
-        "compartida",
-        "monoparental"
+    {
+      "id": "acuerdo",
+      "rationale": "Resolver V2: el acuerdo genera pacto de relaciones familiares y su ausencia la demanda de medidas paternofiliales.",
+      "question": "¿Hay acuerdo con el otro progenitor?",
+      "options": [
+        {"id": "con_acuerdo", "label": "Sí, hay acuerdo"},
+        {"id": "sin_acuerdo", "label": "No hay acuerdo"}
       ]
     },
-    "uso_vivienda": {
-      "type": "string",
-      "description": "Atribuci\u00f3n del uso de la vivienda com\u00fan (V4)",
-      "enum": [
-        "atribucion_hijos",
-        "sin_atribucion"
+    {
+      "id": "medidas",
+      "rationale": "Resolver V3: activa los bloques condicionales de custodia y estancias, de alimentos y de vivienda dentro de la hoja elegida.",
+      "question": "¿Qué medidas deben fijarse?",
+      "options": [
+        {"id": "ambas", "label": "Guarda y custodia con régimen de estancias, y pensión de alimentos"},
+        {"id": "solo_custodia", "label": "Solo guarda y custodia con régimen de estancias"},
+        {"id": "solo_alimentos", "label": "Solo pensión de alimentos"}
+      ]
+    },
+    {
+      "id": "convivencia",
+      "rationale": "Resolver V4: determina la variante del expositivo de convivencia y, si la pareja está inscrita, el documento acreditativo del registro.",
+      "question": "¿Cuál era la situación de convivencia de los progenitores?",
+      "options": [
+        {"id": "pareja_inscrita", "label": "Pareja de hecho inscrita en registro"},
+        {"id": "convivencia_sin_inscripcion", "label": "Convivencia estable sin inscripción"},
+        {"id": "sin_convivencia", "label": "Sin convivencia estable"}
+      ]
+    },
+    {
+      "id": "alcance",
+      "rationale": "Resolver V5: determina si además del pacto se redacta la demanda conjunta para su aprobación judicial.",
+      "question": "Si hay acuerdo, ¿qué alcance tiene el encargo?",
+      "options": [
+        {"id": "solo_pacto", "label": "Solo el pacto de relaciones familiares"},
+        {"id": "pacto_y_demanda", "label": "El pacto y la demanda conjunta para su aprobación judicial"}
       ]
     }
-  },
-  "required": [
-    "acuerdo_progenitores",
-    "regimen_custodia"
   ]
 }
 ```

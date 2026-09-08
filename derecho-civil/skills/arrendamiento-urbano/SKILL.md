@@ -84,22 +84,59 @@ Antes de abrir formularios interactivos o hacer preguntas, analiza el mensaje in
 - Si restan vectores por definir, no formules preguntas abiertas en turnos sucesivos: presenta el formulario estructurado interactivo mediante la herramienta `restricted_human_in_the_loop_request`.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
-Presenta al usuario las opciones estructuradas para resolver los vectores pendientes:
+Invoca la herramienta con las opciones de triaje:
+
 ```json
 {
-  "type": "object",
-  "properties": {
-    "opcion_principal": {
-      "type": "string",
-      "description": "Selecci\u00f3n de modalidad o tr\u00e1mite (V1)",
-      "enum": [
-        "opcion_1",
-        "opcion_2"
+  "form_data": [
+    {
+      "id": "tipo_gestion",
+      "rationale": "Resolver V1: separa la redacción de un contrato nuevo de la comunicación sobre un contrato ya vigente, que usan assets y régimen distintos.",
+      "question": "¿Qué necesita preparar?",
+      "options": [
+        {"id": "contrato_nuevo", "label": "Un contrato de arrendamiento nuevo"},
+        {"id": "comunicacion_contrato_vigente", "label": "Una comunicación sobre un contrato ya firmado (renta, no renovación o fianza)"}
+      ]
+    },
+    {
+      "id": "tipo_inmueble",
+      "rationale": "Resolver V2: determina el título de la LAU aplicable, la fianza mínima legal y los plazos imperativos.",
+      "question": "Si es un contrato nuevo, ¿qué se arrienda?",
+      "options": [
+        {"id": "vivienda_completa", "label": "Una vivienda completa"},
+        {"id": "habitacion", "label": "Una habitación dentro de una vivienda (régimen del Código Civil)"},
+        {"id": "local_uso_distinto", "label": "Un local de negocio o inmueble para uso distinto de vivienda"}
+      ]
+    },
+    {
+      "id": "finalidad_uso",
+      "rationale": "Resolver V3: distingue la vivienda habitual, sujeta a los plazos mínimos y a los límites de zona tensionada, del arrendamiento de temporada, y excluye el uso turístico.",
+      "question": "Si es una vivienda completa, ¿a qué uso se destina?",
+      "options": [
+        {"id": "permanente", "label": "Residencia habitual y permanente del arrendatario"},
+        {"id": "temporada", "label": "Temporada, con causa real y acreditable (trabajo, estudios, obras, verano)"},
+        {"id": "turistico", "label": "Alquiler turístico o de corta estancia con fines vacacionales"}
+      ]
+    },
+    {
+      "id": "tipo_comunicacion",
+      "rationale": "Resolver V4: cada comunicación tiene su propio asset, su plazo de preaviso y su validación de fechas.",
+      "question": "Si es una comunicación sobre un contrato vigente, ¿de qué tipo?",
+      "options": [
+        {"id": "actualizacion_renta", "label": "Actualización anual de la renta"},
+        {"id": "no_renovacion", "label": "No renovación del contrato a su vencimiento"},
+        {"id": "devolucion_fianza", "label": "Requerimiento de devolución de la fianza"}
+      ]
+    },
+    {
+      "id": "remitente_comunicacion",
+      "rationale": "Resolver V4b: el plazo de preaviso del artículo 10.1 LAU es distinto según quién comunique, y la devolución de fianza solo la reclama el arrendatario.",
+      "question": "Si es una comunicación, ¿quién la remite?",
+      "options": [
+        {"id": "arrendador", "label": "El arrendador (propietario)"},
+        {"id": "arrendatario", "label": "El arrendatario (inquilino)"}
       ]
     }
-  },
-  "required": [
-    "opcion_principal"
   ]
 }
 ```

@@ -82,42 +82,42 @@ Antes de abrir formularios interactivos o hacer preguntas, analiza el mensaje in
 - Si restan vectores por definir, no formules preguntas abiertas en turnos sucesivos: presenta el formulario estructurado interactivo mediante la herramienta `restricted_human_in_the_loop_request`.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
-Presenta al usuario las opciones estructuradas para resolver los vectores pendientes:
+Invoca la herramienta con las opciones de triaje:
+
 ```json
 {
-  "type": "object",
-  "properties": {
-    "fase_procesal": {
-      "type": "string",
-      "description": "Fase procesal requerida (V1)",
-      "enum": [
-        "demanda",
-        "checklist_admisibilidad",
-        "audiencia_previa",
-        "proposicion_prueba",
-        "escrito_conclusiones"
+  "form_data": [
+    {
+      "id": "fase",
+      "rationale": "Resolver V1: cada fase del juicio ordinario tiene su propio asset y su propio momento procesal.",
+      "question": "¿Qué necesita preparar?",
+      "options": [
+        {"id": "ciclo_completo", "label": "El ciclo completo: comprobar admisibilidad y redactar la demanda"},
+        {"id": "admisibilidad", "label": "Solo la comprobación de admisibilidad, cuantía, competencia y postulación"},
+        {"id": "demanda", "label": "Solo la demanda de juicio ordinario"},
+        {"id": "audiencia_previa", "label": "El guion de la audiencia previa"},
+        {"id": "proposicion_prueba", "label": "El escrito de proposición de prueba"},
+        {"id": "conclusiones", "label": "El escrito de conclusiones"}
       ]
     },
-    "via_ordinario": {
-      "type": "string",
-      "description": "Criterio de atribuci\u00f3n al juicio ordinario (V2)",
-      "enum": [
-        "materia",
-        "cuantia"
+    {
+      "id": "via_ordinario",
+      "rationale": "Resolver V2: determina si el ordinario procede por la materia o por la cuantía, y con ello la justificación que debe expresarse en la demanda.",
+      "question": "¿Por qué corresponde el juicio ordinario?",
+      "options": [
+        {"id": "por_materia", "label": "Por la materia, conforme al artículo 249.1 de la Ley de Enjuiciamiento Civil"},
+        {"id": "por_cuantia", "label": "Por la cuantía, superior a 15.000 euros o de interés económico incalculable"}
       ]
     },
-    "masc_previo": {
-      "type": "string",
-      "description": "Intento de MASC previo a la demanda (V3)",
-      "enum": [
-        "si_intentado",
-        "no_intentado"
+    {
+      "id": "naturaleza_actor",
+      "rationale": "Resolver V3: fija la estructura de comparecencia y la acreditación de la representación en el encabezamiento.",
+      "question": "¿Quién es la parte actora?",
+      "options": [
+        {"id": "persona_fisica", "label": "Persona física"},
+        {"id": "persona_juridica", "label": "Persona jurídica"}
       ]
     }
-  },
-  "required": [
-    "fase_procesal",
-    "via_ordinario"
   ]
 }
 ```
@@ -224,6 +224,11 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 2. **Vista Previa:** Muestra el texto exacto redactado en texto plano en el chat.
 3. **Confirmación:** Consulta al usuario si está conforme o desea algún ajuste.
 4. **Persistencia en Disco:** Una vez confirmado, ejecuta `edit_file` con `old_string` y `new_string` exactos, y verifica con `read_file`.
+
+**Petición de grupos de datos mediante `slot_filling_request` y confirmaciones en el chat:**
+- **Datos estructurados agrupados mediante `slot_filling_request`:** para cualquier grupo de datos objetivos o identificativos (partes actora y demandada, cuantía y determinación del interés económico, y relación de documentos), **NO pregunte dato por dato en el chat**. Invoque la herramienta `slot_filling_request` agrupando todos los campos del bloque de una sola vez.
+- **Confirmación obligatoria en el chat:** una vez que la herramienta retorne los valores completados, muestre la vista previa en texto plano en el chat y pida la confirmación explícita (`¿Confirmamos estos datos...?` / `¿Confirmamos esta sección?`). Solo tras la confirmación afirmativa en el chat ejecute el `edit_file` en disco y verifique con `read_file`.
+- **Validación de sentido, no solo de formato:** razone si la respuesta tiene sentido en el contexto de lo preguntado. Si es absurda, imposible o incongruente, dialogue en el chat, señale el motivo y pida aclaración antes de volcarla al documento.
 
 ### Hoja de Ruta de Secciones y Cláusulas Condicionales
 

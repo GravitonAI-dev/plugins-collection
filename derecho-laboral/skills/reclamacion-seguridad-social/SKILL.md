@@ -121,9 +121,9 @@ Si el usuario ya ha identificado inequívocamente la materia, la entidad y el tr
 
 ### 1.3 Control de Plazo y de Vía (PRIMERA ACCIÓN OBLIGATORIA)
 
-**Paso 1 — Pide la fecha de notificación de la resolución.** No la fecha de la resolución: la de su **notificación**, que es la que abre el plazo. Si el usuario no la conoce con certeza, pídele que compruebe el acuse de recibo o el justificante de la notificación electrónica.
+**Comprobación 1 — Pide la fecha de notificación de la resolución.** No la fecha de la resolución: la de su **notificación**, que es la que abre el plazo. Si el usuario no la conoce con certeza, pídele que compruebe el acuse de recibo o el justificante de la notificación electrónica.
 
-**Paso 2 — Calcula y comunica el plazo.**
+**Comprobación 2 — Calcula y comunica el plazo.**
 - **Reclamación previa:** el plazo es de **treinta días** desde la notificación de la resolución (artículo 71.2 de la Ley 36/2011).
 - **Demanda tras la reclamación previa:** **treinta días** desde la notificación de la resolución de la reclamación previa o desde que deba entenderse denegada por silencio.
 - **Silencio administrativo:** transcurrido el plazo legalmente previsto sin resolución expresa, la reclamación previa se entiende **denegada por silencio**, y desde ese momento se abre el plazo para demandar.
@@ -131,12 +131,12 @@ Si el usuario ya ha identificado inequívocamente la materia, la entidad y el tr
 
 **Verifica con `web_search` los plazos exactos y el plazo de resolución de la entidad en el texto vigente antes de comunicarlos.** Son cifras que han variado y de las que depende el asunto.
 
-**Paso 3 — Comprueba la vía.**
+**Comprobación 3 — Comprueba la vía.**
 - La **conciliación previa está exceptuada** en materia de Seguridad Social (artículo 64 de la Ley 36/2011): no hay que presentar papeleta, y hacerlo no suspende ningún plazo.
 - La **reclamación administrativa previa es requisito inexcusable** para formular demanda (artículo 71). Sin ella, la demanda no se admite.
 - Si el usuario quiere demandar y **no consta reclamación previa**, detén la redacción de la demanda y redacta primero la reclamación previa, si el plazo lo permite.
 
-**Paso 4 — Enrutamiento:**
+**Comprobación 4 — Enrutamiento:**
 * **Si `[V1 = fuera_de_alcance]` → Detener.** Los actos de encuadramiento, afiliación, cotización, recaudación y las sanciones administrativas siguen la vía administrativa común y, en su caso, el orden contencioso-administrativo. Deriva al profesional competente. **No crees documento.**
 * **Si `[V1 = reclamacion_previa]` → Plantilla: `assets/template-reclamacion-previa-prestaciones.md`.**
 * **Si `[V1 = disconformidad_alta]` → Plantilla: `assets/template-escrito-disconformidad-alta-medica.md`.** Advierte del plazo brevísimo y de que la disconformidad debe presentarse en el plazo y ante el órgano correctos, o el alta despliega todos sus efectos.

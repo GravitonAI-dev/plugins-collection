@@ -76,49 +76,43 @@ Antes de abrir formularios interactivos o hacer preguntas, analiza el mensaje in
 - Si restan vectores por definir, no formules preguntas abiertas en turnos sucesivos: presenta el formulario estructurado interactivo mediante la herramienta `restricted_human_in_the_loop_request`.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
-Presenta al usuario las opciones estructuradas para resolver los vectores pendientes:
+Invoca la herramienta con las opciones de triaje:
+
 ```json
 {
-  "type": "object",
-  "properties": {
-    "naturaleza_operacion": {
-      "type": "string",
-      "description": "Naturaleza de la operaci\u00f3n patrimonial (V1)",
-      "enum": [
-        "prestamo_dinero",
-        "reconocimiento_deuda",
-        "comodato",
-        "compraventa_mueble"
+  "form_data": [
+    {
+      "id": "tipo_contrato",
+      "rationale": "Resolver V1: cada figura tiene su propio asset y su propio régimen en el Código Civil, y el comodato exige gratuidad.",
+      "question": "¿Qué quiere documentar?",
+      "options": [
+        {"id": "prestamo_dinero", "label": "Un préstamo de dinero entre particulares"},
+        {"id": "comodato", "label": "La cesión gratuita del uso de una cosa, sin contraprestación alguna"},
+        {"id": "reconocimiento_deuda", "label": "El reconocimiento de una deuda ya existente y su forma de pago"},
+        {"id": "compraventa_mueble", "label": "La compraventa de un bien mueble"}
       ]
     },
-    "pacto_interes": {
-      "type": "string",
-      "description": "Pacto de intereses remuneratorios (V2)",
-      "enum": [
-        "gratuito",
-        "con_interes"
+    {
+      "id": "garantia",
+      "rationale": "Resolver V2: la garantía determina si hay que identificar fiador y si se incorporan las cláusulas de afianzamiento o de reserva de dominio.",
+      "question": "¿Se pacta alguna garantía del cumplimiento?",
+      "options": [
+        {"id": "ninguna", "label": "Ninguna"},
+        {"id": "fianza_solidaria", "label": "Fianza de un tercero, con renuncia a los beneficios de excusión y división"},
+        {"id": "fianza_simple", "label": "Fianza de un tercero, sin renuncia a esos beneficios"},
+        {"id": "reserva_dominio_o_prenda", "label": "Reserva de dominio o prenda sobre el bien"}
       ]
     },
-    "garantia": {
-      "type": "string",
-      "description": "Garant\u00edas del cumplimiento (V3)",
-      "enum": [
-        "sin_garantia",
-        "afianzamiento"
-      ]
-    },
-    "forma_documento": {
-      "type": "string",
-      "description": "Forma y formalizaci\u00f3n del documento (V4)",
-      "enum": [
-        "privado",
-        "publico"
+    {
+      "id": "forma",
+      "rationale": "Resolver V3: determina si el documento incorpora el compromiso de elevación a escritura pública y la advertencia sobre la fuerza ejecutiva.",
+      "question": "¿Qué forma va a darse al documento?",
+      "options": [
+        {"id": "privado", "label": "Documento privado entre las partes"},
+        {"id": "privado_con_elevacion", "label": "Documento privado con compromiso de elevarlo a escritura pública"},
+        {"id": "escritura_publica", "label": "Directamente escritura pública ante notario"}
       ]
     }
-  },
-  "required": [
-    "naturaleza_operacion",
-    "pacto_interes"
   ]
 }
 ```

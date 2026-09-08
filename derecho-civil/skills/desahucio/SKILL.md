@@ -83,48 +83,49 @@ Antes de abrir formularios interactivos o hacer preguntas, analiza el mensaje in
 - Si restan vectores por definir, no formules preguntas abiertas en turnos sucesivos: presenta el formulario estructurado interactivo mediante la herramienta `restricted_human_in_the_loop_request`.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
-Presenta al usuario las opciones estructuradas para resolver los vectores pendientes:
+Invoca la herramienta con las opciones de triaje:
+
 ```json
 {
-  "type": "object",
-  "properties": {
-    "relacion_ocupante": {
-      "type": "string",
-      "description": "T\u00edtulo de ocupaci\u00f3n y relaci\u00f3n jur\u00eddica (V1)",
-      "enum": [
-        "arrendamiento",
-        "precario"
+  "form_data": [
+    {
+      "id": "relacion_ocupante",
+      "rationale": "Resolver V1: determina la acción procedente, y la ocupación sin título previo queda fuera del alcance de esta skill.",
+      "question": "¿Qué relación existe con la persona que ocupa el inmueble?",
+      "options": [
+        {"id": "arrendamiento", "label": "Un contrato de arrendamiento con renta"},
+        {"id": "cesion_gratuita", "label": "Una cesión gratuita del uso, sin renta (precario)"},
+        {"id": "sin_titulo", "label": "Ninguna: entró sin permiso y sin contrato"}
       ]
     },
-    "causa_desahucio": {
-      "type": "string",
-      "description": "Causa de resoluci\u00f3n y recuperaci\u00f3n (V2)",
-      "enum": [
-        "falta_pago",
-        "expiracion_plazo",
-        "recuperacion_precario"
+    {
+      "id": "causa",
+      "rationale": "Resolver V2: separa el desahucio por falta de pago, con enervación y posible acumulación de rentas, del de expiración del plazo.",
+      "question": "Si existe arrendamiento, ¿por qué causa se pretende la recuperación?",
+      "options": [
+        {"id": "falta_pago", "label": "Impago de rentas o cantidades asimiladas"},
+        {"id": "expiracion_plazo", "label": "Expiración del plazo contractual o de sus prórrogas"}
       ]
     },
-    "via_actuacion": {
-      "type": "string",
-      "description": "V\u00eda de tramitaci\u00f3n elegida (V3)",
-      "enum": [
-        "demanda_judicial",
-        "acuerdo_extrajudicial"
+    {
+      "id": "via",
+      "rationale": "Resolver V3: el acuerdo extrajudicial evita el procedimiento y usa un asset distinto de la demanda.",
+      "question": "¿Qué vía se pretende seguir?",
+      "options": [
+        {"id": "demanda_judicial", "label": "Demanda de desahucio ante el juzgado"},
+        {"id": "acuerdo_salida", "label": "Acuerdo extrajudicial de salida pactada con entrega de llaves"}
       ]
     },
-    "condicion_arrendador": {
-      "type": "string",
-      "description": "Condici\u00f3n del arrendador / demandante (V4)",
-      "enum": [
-        "particular",
-        "gran_tenedor"
+    {
+      "id": "gran_tenedor",
+      "rationale": "Resolver V4: la condición de gran tenedor de vivienda activa requisitos adicionales de admisibilidad de la demanda conforme a la Ley 12/2023.",
+      "question": "¿Es la parte demandante gran tenedora de vivienda?",
+      "options": [
+        {"id": "no", "label": "No"},
+        {"id": "si", "label": "Sí"},
+        {"id": "desconocido", "label": "No lo sé con certeza"}
       ]
     }
-  },
-  "required": [
-    "relacion_ocupante",
-    "causa_desahucio"
   ]
 }
 ```

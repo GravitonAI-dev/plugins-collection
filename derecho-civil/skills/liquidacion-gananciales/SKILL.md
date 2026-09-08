@@ -85,40 +85,49 @@ Antes de abrir formularios interactivos o hacer preguntas, analiza el mensaje in
 - Si restan vectores por definir, no formules preguntas abiertas en turnos sucesivos: presenta el formulario estructurado interactivo mediante la herramienta `restricted_human_in_the_loop_request`.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
-Presenta al usuario las opciones estructuradas para resolver los vectores pendientes:
+Invoca la herramienta con las opciones de triaje:
+
 ```json
 {
-  "type": "object",
-  "properties": {
-    "via_liquidacion": {
-      "type": "string",
-      "description": "V\u00eda de tramitaci\u00f3n de la liquidaci\u00f3n (V1)",
-      "enum": [
-        "mutuo_acuerdo",
-        "solicitud_inventario",
-        "propuesta_inventario"
+  "form_data": [
+    {
+      "id": "regimen",
+      "rationale": "Resolver V1: solo la sociedad de gananciales genera masa común liquidable; los demás regímenes quedan fuera del alcance de esta skill.",
+      "question": "¿Cuál es el régimen económico matrimonial?",
+      "options": [
+        {"id": "gananciales", "label": "Sociedad de gananciales"},
+        {"id": "separacion_bienes", "label": "Separación de bienes"},
+        {"id": "participacion", "label": "Régimen de participación"},
+        {"id": "desconocido", "label": "No lo sé con certeza"}
       ]
     },
-    "momento_liquidacion": {
-      "type": "string",
-      "description": "Momento de la liquidaci\u00f3n (V2)",
-      "enum": [
-        "simultaneo_divorcio",
-        "posterior_divorcio"
+    {
+      "id": "acuerdo",
+      "rationale": "Resolver V2: el acuerdo genera convenio de liquidación y su ausencia el procedimiento judicial de los artículos 806 y siguientes de la LEC.",
+      "question": "¿Hay acuerdo sobre el inventario y el reparto?",
+      "options": [
+        {"id": "con_acuerdo", "label": "Sí, hay acuerdo entre los cónyuges"},
+        {"id": "sin_acuerdo", "label": "No hay acuerdo"}
       ]
     },
-    "vivienda_hipotecada": {
-      "type": "string",
-      "description": "Existencia de vivienda familiar gravada con hipoteca (V3)",
-      "enum": [
-        "con_hipoteca",
-        "sin_hipoteca"
+    {
+      "id": "momento",
+      "rationale": "Resolver V3: determina el bloque condicional de eficacia y si la liquidación se une a un proceso matrimonial en curso.",
+      "question": "¿En qué momento se plantea la liquidación?",
+      "options": [
+        {"id": "unida_a_proceso", "label": "Unida a un proceso matrimonial todavía en curso"},
+        {"id": "posterior_a_firmeza", "label": "Posterior a una resolución ya firme"}
+      ]
+    },
+    {
+      "id": "vivienda_hipotecada",
+      "rationale": "Resolver V4: la vivienda con préstamo hipotecario pendiente exige tratar el exceso de adjudicación y la subsistencia de la responsabilidad frente al banco.",
+      "question": "¿Hay vivienda familiar con préstamo hipotecario pendiente?",
+      "options": [
+        {"id": "si", "label": "Sí"},
+        {"id": "no", "label": "No"}
       ]
     }
-  },
-  "required": [
-    "via_liquidacion",
-    "momento_liquidacion"
   ]
 }
 ```

@@ -77,43 +77,42 @@ Antes de abrir formularios interactivos o hacer preguntas, analiza el mensaje in
 - Si restan vectores por definir, no formules preguntas abiertas en turnos sucesivos: presenta el formulario estructurado interactivo mediante la herramienta `restricted_human_in_the_loop_request`.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
-Presenta al usuario las opciones estructuradas para resolver los vectores pendientes:
+Invoca la herramienta con las opciones de triaje:
+
 ```json
 {
-  "type": "object",
-  "properties": {
-    "actuacion_hereditaria": {
-      "type": "string",
-      "description": "Actuaci\u00f3n o tr\u00e1mite hereditario a formalizar (V2)",
-      "enum": [
-        "aceptacion_pura",
-        "beneficio_inventario",
-        "cuaderno_particional",
-        "renuncia",
-        "interpelacion_1005",
-        "division_judicial"
+  "form_data": [
+    {
+      "id": "actuacion",
+      "rationale": "Resolver V1: cada actuación sucesoria tiene su propio asset y su propio régimen de plazos y de efectos.",
+      "question": "¿Qué actuación necesita documentar?",
+      "options": [
+        {"id": "solo_aceptacion", "label": "Aceptar la herencia, sin partirla todavía"},
+        {"id": "renunciar", "label": "Renunciar a la herencia"},
+        {"id": "interpelar", "label": "Interpelar a un heredero que no se pronuncia (artículo 1.005 del Código Civil)"},
+        {"id": "partir_con_acuerdo", "label": "Partir la herencia con acuerdo de todos los herederos"},
+        {"id": "partir_sin_acuerdo", "label": "Partir la herencia sin acuerdo: división judicial"}
       ]
     },
-    "titulo_sucesorio": {
-      "type": "string",
-      "description": "T\u00edtulo sucesorio causante (V1)",
-      "enum": [
-        "testamentaria",
-        "intestada"
+    {
+      "id": "existe_testamento",
+      "rationale": "Resolver V2: determina los bloques condicionales de sucesión testada o intestada de todos los assets y el título sucesorio que debe citarse.",
+      "question": "¿Dejó el causante testamento?",
+      "options": [
+        {"id": "si_testamento", "label": "Sí, hay testamento"},
+        {"id": "no_con_acta", "label": "No, pero ya existe acta notarial de declaración de herederos"},
+        {"id": "no_sin_acta", "label": "No, y el acta de declaración de herederos está pendiente"}
       ]
     },
-    "acuerdo_coherederos": {
-      "type": "string",
-      "description": "Grado de acuerdo entre los coherederos (V3)",
-      "enum": [
-        "unanimidad",
-        "desacuerdo"
+    {
+      "id": "modo_aceptacion",
+      "rationale": "Resolver V3: el beneficio de inventario limita la responsabilidad del heredero por las deudas y exige formalidades y plazos propios.",
+      "question": "Si se acepta la herencia, ¿de qué modo?",
+      "options": [
+        {"id": "pura_y_simple", "label": "Pura y simple, respondiendo de las deudas también con el patrimonio propio"},
+        {"id": "beneficio_inventario", "label": "A beneficio de inventario, limitando la responsabilidad al caudal hereditario"}
       ]
     }
-  },
-  "required": [
-    "actuacion_hereditaria",
-    "titulo_sucesorio"
   ]
 }
 ```

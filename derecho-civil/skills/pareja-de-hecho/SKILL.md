@@ -85,35 +85,39 @@ Antes de abrir formularios interactivos o hacer preguntas, analiza el mensaje in
 - Si restan vectores por definir, no formules preguntas abiertas en turnos sucesivos: presenta el formulario estructurado interactivo mediante la herramienta `restricted_human_in_the_loop_request`.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
-Presenta al usuario las opciones estructuradas para resolver los vectores pendientes:
+Invoca la herramienta con las opciones de triaje:
+
 ```json
 {
-  "type": "object",
-  "properties": {
-    "finalidad_pareja": {
-      "type": "string",
-      "description": "Finalidad de la documentaci\u00f3n (V1)",
-      "enum": [
-        "registro_constitucion",
-        "pacto_convivencia",
-        "pacto_ruptura"
+  "form_data": [
+    {
+      "id": "finalidad",
+      "rationale": "Resolver V1: cada finalidad tiene su propio asset, y no existe ley estatal de parejas de hecho.",
+      "question": "¿Qué necesita preparar?",
+      "options": [
+        {"id": "constituir_inscribir", "label": "Constituir la pareja de hecho e inscribirla en el registro"},
+        {"id": "pacto_convivencia", "label": "Regular la convivencia mediante un pacto entre los convivientes"},
+        {"id": "pacto_ruptura", "label": "Regular los efectos de la ruptura de la pareja"}
       ]
     },
-    "comunidad_autonoma": {
-      "type": "string",
-      "description": "Comunidad Aut\u00f3noma de residencia habitual (V2)",
-      "enum": [
-        "madrid",
-        "cataluna",
-        "andalucia",
-        "valencia",
-        "otras_ccaa"
+    {
+      "id": "hijos_comunes",
+      "rationale": "Resolver V2: la existencia de hijos comunes obliga a derivar todo lo relativo a custodia, estancias y alimentos a la skill de medidas sobre hijos no matrimoniales.",
+      "question": "¿Hay hijos comunes de la pareja?",
+      "options": [
+        {"id": "si", "label": "Sí"},
+        {"id": "no", "label": "No"}
+      ]
+    },
+    {
+      "id": "bienes_o_desequilibrio",
+      "rationale": "Resolver V3: activa los bloques de bienes comunes, aportaciones desiguales y compensación económica.",
+      "question": "¿Hay bienes adquiridos en común, o desequilibrio económico entre los convivientes?",
+      "options": [
+        {"id": "si", "label": "Sí"},
+        {"id": "no", "label": "No"}
       ]
     }
-  },
-  "required": [
-    "finalidad_pareja",
-    "comunidad_autonoma"
   ]
 }
 ```

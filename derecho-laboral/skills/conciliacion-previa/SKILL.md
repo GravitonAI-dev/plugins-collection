@@ -119,16 +119,16 @@ Si el usuario ya ha identificado inequívocamente el objeto de la reclamación, 
 
 ### 1.3 Control de Procedibilidad y Enrutamiento (PRIMERA ACCIÓN OBLIGATORIA)
 
-**Paso 1 — ¿Está el asunto exceptuado del intento de conciliación?** El artículo 64 de la Ley 36/2011 exceptúa, entre otros, los procesos sobre **Seguridad Social**, **vacaciones**, **movilidad geográfica**, **modificación sustancial de condiciones de trabajo**, **suspensión del contrato y reducción de jornada por causas empresariales**, **derechos de conciliación de la vida personal, familiar y laboral**, materia electoral, impugnación de convenios y **tutela de derechos fundamentales**.
+**Comprobación 1 — ¿Está el asunto exceptuado del intento de conciliación?** El artículo 64 de la Ley 36/2011 exceptúa, entre otros, los procesos sobre **Seguridad Social**, **vacaciones**, **movilidad geográfica**, **modificación sustancial de condiciones de trabajo**, **suspensión del contrato y reducción de jornada por causas empresariales**, **derechos de conciliación de la vida personal, familiar y laboral**, materia electoral, impugnación de convenios y **tutela de derechos fundamentales**.
 
 * **Si el objeto está exceptuado → `[V1 = exceptuado_conciliacion]` → Detén la redacción de la papeleta.** Explica en el chat que presentar papeleta en un asunto exceptuado no suspende el plazo de caducidad y puede consumirlo inútilmente, y deriva: a la skill `demanda-social` si procede demanda directa, o a `reclamacion-seguridad-social` si la materia es prestacional. **Verifica siempre la lista vigente del artículo 64 con `web_search` antes de afirmar que un asunto está o no exceptuado.**
 
-**Paso 2 — Cómputo del plazo.** Antes de redactar nada, pide la fecha del hecho —efectos del despido, notificación de la sanción, o devengo de la cantidad— y calcula:
+**Comprobación 2 — Cómputo del plazo.** Antes de redactar nada, pide la fecha del hecho —efectos del despido, notificación de la sanción, o devengo de la cantidad— y calcula:
 - Despido y sanción: **20 días hábiles** de caducidad (artículos 59.3 del Estatuto de los Trabajadores y 103 y 114 de la Ley 36/2011), excluyendo sábados, domingos y festivos.
 - Cantidad: **1 año** de prescripción desde que la acción pudo ejercitarse (artículo 59.2 del Estatuto de los Trabajadores).
 Comunica en el chat los días consumidos, los restantes y la **fecha límite**. Si el plazo ha vencido, adviértelo con claridad antes de continuar y no lo ocultes en el documento.
 
-**Paso 3 — Enrutamiento:**
+**Comprobación 3 — Enrutamiento:**
 * **Si `[V1 = burofax_reclamacion]` → Plantilla: `assets/template-burofax-reclamacion-cantidades.md`.** Útil para interrumpir la prescripción y para acreditar la reclamación previa a efectos del interés por mora.
 * **Si `[V1 = papeleta_despido]` → Plantilla: `assets/template-papeleta-conciliacion-despido.md`.**
 * **Si `[V1 = papeleta_cantidad]` → Plantilla: `assets/template-papeleta-conciliacion-cantidad.md`.**

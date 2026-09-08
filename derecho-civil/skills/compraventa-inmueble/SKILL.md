@@ -79,49 +79,40 @@ Antes de abrir formularios interactivos o hacer preguntas, analiza el mensaje in
 - Si restan vectores por definir, no formules preguntas abiertas en turnos sucesivos: presenta el formulario estructurado interactivo mediante la herramienta `restricted_human_in_the_loop_request`.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
-Presenta al usuario las opciones estructuradas para resolver los vectores pendientes:
+Invoca la herramienta con las opciones de triaje:
+
 ```json
 {
-  "type": "object",
-  "properties": {
-    "documento_necesario": {
-      "type": "string",
-      "description": "Tipo de documento requerido (V1)",
-      "enum": [
-        "arras",
-        "compraventa_privada",
-        "requerimiento_cumplimiento"
+  "form_data": [
+    {
+      "id": "documento",
+      "rationale": "Resolver V1: cada documento tiene su propio asset y su propio régimen legal.",
+      "question": "¿Qué documento necesita?",
+      "options": [
+        {"id": "arras", "label": "Contrato de arras o señal, previo a la compraventa"},
+        {"id": "compraventa", "label": "Contrato privado de compraventa de vivienda"},
+        {"id": "requerimiento", "label": "Requerimiento de cumplimiento por incumplimiento de la otra parte"}
       ]
     },
-    "posicion_cliente": {
-      "type": "string",
-      "description": "Posici\u00f3n del cliente en la operaci\u00f3n (V2)",
-      "enum": [
-        "comprador",
-        "vendedor"
+    {
+      "id": "posicion_cliente",
+      "rationale": "Resolver V2: orienta la redacción de las garantías y de las consecuencias del desistimiento a favor de la parte a la que se asiste.",
+      "question": "¿A qué parte asiste usted?",
+      "options": [
+        {"id": "comprador", "label": "Al comprador"},
+        {"id": "vendedor", "label": "Al vendedor"}
       ]
     },
-    "estado_arrendaticio": {
-      "type": "string",
-      "description": "Situaci\u00f3n posesoria y arrendaticia del inmueble (V4)",
-      "enum": [
-        "libre",
-        "arrendado_vivienda",
-        "no_sabe"
-      ]
-    },
-    "financiacion_pendiente": {
-      "type": "string",
-      "description": "Financiaci\u00f3n bancaria pendiente (V3 - solo para arras o compraventa)",
-      "enum": [
-        "sin_financiacion",
-        "con_hipoteca"
+    {
+      "id": "inmueble_arrendado",
+      "rationale": "Resolver V4: si el inmueble está arrendado como vivienda, nace el derecho de tanteo y retracto del artículo 25 LAU y hay que notificar al arrendatario.",
+      "question": "¿Está el inmueble arrendado en este momento?",
+      "options": [
+        {"id": "no", "label": "No, está libre de arrendatarios y de ocupantes"},
+        {"id": "si_vivienda", "label": "Sí, arrendado como vivienda"},
+        {"id": "no_lo_se", "label": "No lo sé con certeza"}
       ]
     }
-  },
-  "required": [
-    "documento_necesario",
-    "posicion_cliente"
   ]
 }
 ```

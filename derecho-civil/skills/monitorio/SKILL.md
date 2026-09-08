@@ -68,32 +68,47 @@ Antes de abrir formularios interactivos o hacer preguntas, analiza el mensaje in
 - Si restan vectores por definir, no formules preguntas abiertas en turnos sucesivos: presenta el formulario estructurado interactivo mediante la herramienta `restricted_human_in_the_loop_request`.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
-Presenta al usuario las opciones estructuradas para resolver los vectores pendientes:
+Invoca la herramienta con las opciones de triaje:
+
 ```json
 {
-  "type": "object",
-  "properties": {
-    "tipo_deuda": {
-      "type": "string",
-      "description": "Naturaleza de la deuda dineraria (V1)",
-      "enum": [
-        "rentas_arrendamiento",
-        "deuda_comercial_general",
-        "comunidad_propietarios"
+  "form_data": [
+    {
+      "id": "alcance",
+      "rationale": "Resolver V1: determina si además de la petición inicial se genera el burofax de requerimiento previo, útil para acreditar el intento de solución previa.",
+      "question": "¿Qué alcance tiene el encargo?",
+      "options": [
+        {"id": "solo_peticion", "label": "Solo la petición inicial del proceso monitorio"},
+        {"id": "peticion_y_burofax", "label": "La petición inicial y, antes, el burofax de requerimiento previo de pago"}
       ]
     },
-    "alcance_escrito": {
-      "type": "string",
-      "description": "Documento o alcance solicitado (V2)",
-      "enum": [
-        "peticion_judicial",
-        "burofax_masc"
+    {
+      "id": "tipo_deuda",
+      "rationale": "Resolver V2: las rentas de arrendamiento tienen variante propia de petición inicial y régimen específico de acreditación.",
+      "question": "¿De dónde procede la deuda?",
+      "options": [
+        {"id": "rentas_arrendamiento", "label": "Rentas de arrendamiento impagadas"},
+        {"id": "otra_causa", "label": "Otra causa: facturas, préstamo, servicios o gastos de comunidad"}
+      ]
+    },
+    {
+      "id": "naturaleza_acreedor",
+      "rationale": "Resolver V3: fija la estructura de comparecencia y la acreditación de la representación en la petición inicial.",
+      "question": "¿Quién es el acreedor?",
+      "options": [
+        {"id": "persona_fisica", "label": "Persona física"},
+        {"id": "persona_juridica", "label": "Persona jurídica"}
+      ]
+    },
+    {
+      "id": "masc_intentado",
+      "rationale": "Resolver V4: el intento de un medio adecuado de solución de controversias condiciona la procedibilidad conforme a la Ley Orgánica 1/2025.",
+      "question": "¿Se ha intentado ya algún medio de solución previa: burofax, mediación o negociación?",
+      "options": [
+        {"id": "si", "label": "Sí"},
+        {"id": "no", "label": "No"}
       ]
     }
-  },
-  "required": [
-    "tipo_deuda",
-    "alcance_escrito"
   ]
 }
 ```
@@ -182,6 +197,11 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 2. **Vista Previa:** Muestra el texto exacto redactado en texto plano en el chat.
 3. **Confirmación:** Consulta al usuario si está conforme o desea algún ajuste.
 4. **Persistencia en Disco:** Una vez confirmado, ejecuta `edit_file` con `old_string` y `new_string` exactos, y verifica con `read_file`.
+
+**Petición de grupos de datos mediante `slot_filling_request` y confirmaciones en el chat:**
+- **Datos estructurados agrupados mediante `slot_filling_request`:** para cualquier grupo de datos objetivos o identificativos (partes acreedora y deudora, origen y cuantía de la deuda, y documentos que la acreditan), **NO pregunte dato por dato en el chat**. Invoque la herramienta `slot_filling_request` agrupando todos los campos del bloque de una sola vez.
+- **Confirmación obligatoria en el chat:** una vez que la herramienta retorne los valores completados, muestre la vista previa en texto plano en el chat y pida la confirmación explícita (`¿Confirmamos estos datos...?` / `¿Confirmamos esta sección?`). Solo tras la confirmación afirmativa en el chat ejecute el `edit_file` en disco y verifique con `read_file`.
+- **Validación de sentido, no solo de formato:** razone si la respuesta tiene sentido en el contexto de lo preguntado. Si es absurda, imposible o incongruente, dialogue en el chat, señale el motivo y pida aclaración antes de volcarla al documento.
 
 ### Hoja de Ruta de Secciones y Cláusulas Condicionales
 

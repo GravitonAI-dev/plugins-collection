@@ -80,40 +80,40 @@ Antes de abrir formularios interactivos o hacer preguntas, analiza el mensaje in
 - Si restan vectores por definir, no formules preguntas abiertas en turnos sucesivos: presenta el formulario estructurado interactivo mediante la herramienta `restricted_human_in_the_loop_request`.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
-Presenta al usuario las opciones estructuradas para resolver los vectores pendientes:
+Invoca la herramienta con las opciones de triaje:
+
 ```json
 {
-  "type": "object",
-  "properties": {
-    "tipo_titulo": {
-      "type": "string",
-      "description": "Naturaleza del t\u00edtulo ejecutivo (V2)",
-      "enum": [
-        "titulo_judicial",
-        "titulo_no_judicial",
-        "familia_pensiones"
+  "form_data": [
+    {
+      "id": "momento",
+      "rationale": "Resolver V1: separa la demanda ejecutiva inicial del escrito posterior en una ejecución ya despachada, que usan assets distintos.",
+      "question": "¿En qué momento se encuentra la ejecución?",
+      "options": [
+        {"id": "demanda_inicial", "label": "Todavía no se ha instado: hay que presentar la demanda ejecutiva"},
+        {"id": "escrito_posterior", "label": "La ejecución ya está despachada y hace falta un escrito de embargo o de averiguación patrimonial"}
       ]
     },
-    "momento_procesal": {
-      "type": "string",
-      "description": "Momento procesal del escrito (V1)",
-      "enum": [
-        "demanda_inicial",
-        "mejora_embargo"
+    {
+      "id": "tipo_titulo",
+      "rationale": "Resolver V2: el título determina el asset, el plazo de caducidad de la acción ejecutiva y los bloques condicionales aplicables.",
+      "question": "¿Qué título se pretende ejecutar?",
+      "options": [
+        {"id": "judicial", "label": "Judicial: sentencia, decreto o auto, incluido el monitorio firme"},
+        {"id": "no_judicial", "label": "No judicial: escritura pública, laudo arbitral o acuerdo de mediación"},
+        {"id": "familia", "label": "De familia: pensiones de alimentos o compensatoria y demás medidas económicas"}
       ]
     },
-    "bienes_conocidos": {
-      "type": "string",
-      "description": "Bienes del ejecutado conocidos (V4)",
-      "enum": [
-        "con_bienes",
-        "sin_bienes"
+    {
+      "id": "subtipo_no_judicial",
+      "rationale": "Resolver V3: activa el bloque condicional correspondiente al tipo de título no judicial.",
+      "question": "Si el título no es judicial, ¿de qué clase es?",
+      "options": [
+        {"id": "escritura_publica", "label": "Escritura pública notarial"},
+        {"id": "laudo_arbitral", "label": "Laudo arbitral"},
+        {"id": "acuerdo_mediacion", "label": "Acuerdo de mediación u otro medio adecuado de solución de controversias elevado a público"}
       ]
     }
-  },
-  "required": [
-    "tipo_titulo",
-    "momento_procesal"
   ]
 }
 ```

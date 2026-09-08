@@ -68,33 +68,43 @@ Antes de abrir formularios interactivos o hacer preguntas, analiza el mensaje in
 - Si restan vectores por definir, no formules preguntas abiertas en turnos sucesivos: presenta el formulario estructurado interactivo mediante la herramienta `restricted_human_in_the_loop_request`.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
-Presenta al usuario las opciones estructuradas para resolver los vectores pendientes:
+Invoca la herramienta con las opciones de triaje:
+
 ```json
 {
-  "type": "object",
-  "properties": {
-    "fase_reclamacion": {
-      "type": "string",
-      "description": "Fase de la reclamaci\u00f3n de nulidad (V1)",
-      "enum": [
-        "extrajudicial",
-        "demanda_judicial"
+  "form_data": [
+    {
+      "id": "alcance",
+      "rationale": "Resolver V1: la reclamación extrajudicial y la demanda de nulidad con restitución tienen assets y exigencias distintas.",
+      "question": "¿Qué documento necesita?",
+      "options": [
+        {"id": "extrajudicial", "label": "Reclamación extrajudicial a la entidad"},
+        {"id": "demanda_nulidad", "label": "Demanda de nulidad de la cláusula con restitución de cantidades"}
       ]
     },
-    "tipo_clausula": {
-      "type": "string",
-      "description": "Cl\u00e1usula contractual impugnada (V2)",
-      "enum": [
-        "gastos_hipotecarios",
-        "clausula_suelo",
-        "comision_apertura",
-        "tarjeta_revolving"
+    {
+      "id": "tipo_clausula",
+      "rationale": "Resolver V2: cada tipo de cláusula tiene su propio encuadre normativo y su propia doctrina, que debe verificarse en la Fase 2.1.3 antes de redactar.",
+      "question": "¿Qué cláusula o práctica se impugna?",
+      "options": [
+        {"id": "gastos_hipoteca", "label": "Gastos de formalización de hipoteca"},
+        {"id": "clausula_suelo", "label": "Cláusula suelo"},
+        {"id": "irph", "label": "Índice de referencia IRPH"},
+        {"id": "comision_apertura", "label": "Comisión de apertura"},
+        {"id": "interes_demora", "label": "Interés de demora"},
+        {"id": "revolving", "label": "Tarjeta revolving o crédito al consumo con interés usurario"},
+        {"id": "otra", "label": "Otra condición general no negociada individualmente"}
+      ]
+    },
+    {
+      "id": "condicion_reclamante",
+      "rationale": "Resolver V3: la protección frente a cláusulas abusivas exige la condición de consumidor; sin ella el régimen aplicable es distinto.",
+      "question": "¿Contrató el reclamante como consumidor, al margen de una actividad empresarial o profesional?",
+      "options": [
+        {"id": "consumidor", "label": "Sí, como consumidor"},
+        {"id": "empresario_profesional", "label": "No, contrató en el marco de su actividad empresarial o profesional"}
       ]
     }
-  },
-  "required": [
-    "fase_reclamacion",
-    "tipo_clausula"
   ]
 }
 ```
@@ -195,6 +205,11 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 2. **Vista Previa:** Muestra el texto exacto redactado en texto plano en el chat.
 3. **Confirmación:** Consulta al usuario si está conforme o desea algún ajuste.
 4. **Persistencia en Disco:** Una vez confirmado, ejecuta `edit_file` con `old_string` y `new_string` exactos, y verifica con `read_file`.
+
+**Petición de grupos de datos mediante `slot_filling_request` y confirmaciones en el chat:**
+- **Datos estructurados agrupados mediante `slot_filling_request`:** para cualquier grupo de datos objetivos o identificativos (reclamante y entidad predisponente, datos del contrato y de la cláusula impugnada, e importes cobrados con su desglose), **NO pregunte dato por dato en el chat**. Invoque la herramienta `slot_filling_request` agrupando todos los campos del bloque de una sola vez.
+- **Confirmación obligatoria en el chat:** una vez que la herramienta retorne los valores completados, muestre la vista previa en texto plano en el chat y pida la confirmación explícita (`¿Confirmamos estos datos...?` / `¿Confirmamos esta sección?`). Solo tras la confirmación afirmativa en el chat ejecute el `edit_file` en disco y verifique con `read_file`.
+- **Validación de sentido, no solo de formato:** razone si la respuesta tiene sentido en el contexto de lo preguntado. Si es absurda, imposible o incongruente, dialogue en el chat, señale el motivo y pida aclaración antes de volcarla al documento.
 
 ### Hoja de Ruta de Secciones y Cláusulas Condicionales
 
