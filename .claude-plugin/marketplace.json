@@ -16,6 +16,16 @@
       }
     },
     {
+      "name": "derecho-laboral",
+      "displayName": "Derecho Laboral",
+      "source": "./derecho-laboral",
+      "version": "0.1.0",
+      "description": "Generación de documentos del ciclo completo de la relación laboral española, siempre en su versión consolidada vigente verificada en el BOE y contrastada con el convenio colectivo aplicable: contratos de trabajo y acuerdos de trabajo a distancia, modificación sustancial de condiciones y movilidad geográfica, sanciones disciplinarias y expediente contradictorio, cartas de despido (disciplinario, objetivo, periodo de prueba y fin de contrato temporal), recibo de finiquito y liquidación, burofax de reclamación y papeleta de conciliación previa, demanda ante el Juzgado de lo Social (despido, cantidad, sanción y modificación sustancial) y reclamación previa y demanda en materia de prestaciones de Seguridad Social.",
+      "author": {
+        "name": "GravitonAI"
+      }
+    },
+    {
       "name": "gestoria",
       "displayName": "Gestoria",
       "source": "./gestoria",

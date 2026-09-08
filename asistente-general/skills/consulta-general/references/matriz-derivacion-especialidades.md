@@ -27,6 +27,14 @@ Cuando una consulta planteada por el usuario corresponda de forma directa y espe
 | Reclamación extrajudicial y judicial de nulidad de cláusulas abusivas de consumo | `reclamacion-clausulas-abusivas` | `derecho-civil` |
 | Reclamación extrajudicial y judicial de daños por responsabilidad civil y accidentes | `responsabilidad-civil` | `derecho-civil` |
 | Minuta de testamento abierto y planificación sucesoria en derecho común | `testamento-planificacion` | `derecho-civil` |
+| Redacción de contrato de trabajo (indefinido, fijo-discontinuo, temporal, formativo) y acuerdo de trabajo a distancia | `contrato-trabajo` | `derecho-laboral` |
+| Modificación sustancial de condiciones, traslado con cambio de residencia o movilidad funcional | `modificacion-condiciones` | `derecho-laboral` |
+| Amonestación, sanción con suspensión de empleo y sueldo y expediente contradictorio | `sancion-disciplinaria` | `derecho-laboral` |
+| Carta de despido disciplinario u objetivo, no superación del periodo de prueba o fin de contrato temporal | `carta-despido` | `derecho-laboral` |
+| Recibo de finiquito, hoja de liquidación, extinción por mutuo acuerdo o baja voluntaria | `finiquito-liquidacion` | `derecho-laboral` |
+| Burofax de reclamación de salarios y papeleta de conciliación por despido, cantidad o sanción | `conciliacion-previa` | `derecho-laboral` |
+| Demanda ante el Juzgado de lo Social por despido, cantidad, sanción, modificación sustancial o tutela de derechos fundamentales | `demanda-social` | `derecho-laboral` |
+| Reclamación previa al INSS o al SEPE, disconformidad con alta médica, revisión de grado de incapacidad y demanda de prestaciones | `reclamacion-seguridad-social` | `derecho-laboral` |
 | Alta o baja de autónomo en Hacienda (modelo 036) y en la Seguridad Social (RETA) | `alta-baja-autonomo` | `gestoria` |
 | Afiliación, alta y baja de trabajadores por cuenta ajena y empleados de hogar (TGSS) | `alta-baja-seguridad-social` | `gestoria` |
 | Cambio de titularidad de vehículos y notificación de venta ante la DGT | `transferencia-vehiculo` | `gestoria` |
