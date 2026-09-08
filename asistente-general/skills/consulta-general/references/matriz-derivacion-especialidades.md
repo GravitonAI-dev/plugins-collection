@@ -40,6 +40,11 @@ Cuando una consulta planteada por el usuario corresponda de forma directa y espe
 | Cambio de titularidad de vehículos y notificación de venta ante la DGT | `transferencia-vehiculo` | `gestoria` |
 | Liquidación y autoliquidación del Impuesto de Sucesiones (modelo 650) | `liquidacion-impuesto-sucesiones` | `gestoria` |
 | Solicitud de NIE y autorizaciones de residencia / extranjería (modelos EX) | `extranjeria-residencia` | `gestoria` |
+| Hoja de encargo profesional, presupuesto de honorarios y comunicación de fin de encargo | `hoja-encargo` | `despacho` |
+| Minuta de honorarios, requerimiento de pago y jura de cuentas del artículo 35 de la LEC | `minuta-jura-cuentas` | `despacho` |
+| Poder general para pleitos, poder especial, apud acta y autorización de representación administrativa | `poder-representacion` | `despacho` |
+| Diligencia debida y titularidad real en prevención del blanqueo de capitales (Ley 10/2010) | `prevencion-blanqueo` | `despacho` |
+| Registro de actividades, contrato de encargado, cláusula informativa y registro de brechas del despacho | `proteccion-datos-despacho` | `despacho` |
 | Creación, parametrización y registro de plantillas personalizadas aportadas por el usuario | `registrar-plantillas` | `gestion-plantillas` |
 
 
