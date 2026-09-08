@@ -127,21 +127,26 @@ Invoca la herramienta con las opciones de triaje:
 }
 ```
 
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — `medida_concreta`
+- `V2` — `sentido`
+- `V3` — `modalidad`
+
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores necesarios y superado el filtro de viabilidad, evalua:
 
-- Si [V1b = Extinguir] y la pension es de **alimentos** -> Plantilla a usar: `assets/template-solicitud-extincion-pension-alimentos.md`.
+- Si [V1 = pension de alimentos] y [V2 = extinguir] -> Plantilla a usar: `assets/template-solicitud-extincion-pension-alimentos.md`.
 - En **todos los demas casos** (custodia y estancias, aumento o reduccion de alimentos, modificacion o extincion de la pension compensatoria, uso de la vivienda, o varias medidas a la vez) -> Plantilla a usar: `assets/template-demanda-modificacion-medidas.md`.
-- Si [V2 = Consensuada] -> activar en el asset la variante de **mutuo acuerdo** (Art. 775.2 in fine en relacion con el Art. 777 LEC): comparecencia conjunta o con consentimiento del otro, hecho del acuerdo, propuesta de nuevo convenio regulador como documento. **No** se activan los bloques de MASC, ni el OTROSI de prueba, ni el OTROSI de modificacion provisional.
-- Si [V2 = Contenciosa] -> activar en el asset la variante **contenciosa** (Art. 775.2 en relacion con el Art. 770 LEC, juicio verbal): bloque de acreditacion del MASC, OTROSI de prueba y, si se interesa, OTROSI de modificacion provisional. **No** se activa ningun bloque de acuerdo ni de propuesta de convenio.
-- Si [V1 = 3 (ambas)] o se modifican varias medidas -> un unico escrito con `assets/template-demanda-modificacion-medidas.md`, activando el bloque de medida adicional. **Excepcion:** si una de las pretensiones es la extincion de la pension de alimentos y las demas no, crea DOS documentos: primero la demanda de modificacion, y despues la solicitud de extincion, reutilizando sin volver a preguntar todos los datos ya recogidos. Advierte al cliente de que, si ambas pretensiones se dirigen contra la misma parte y ante el mismo Juzgado, su abogado valorara acumularlas en un unico escrito.
+- Si [V3 = consensuada] -> activar en el asset la variante de **mutuo acuerdo** (Art. 775.2 in fine en relacion con el Art. 777 LEC): comparecencia conjunta o con consentimiento del otro, hecho del acuerdo, propuesta de nuevo convenio regulador como documento. **No** se activan los bloques de MASC, ni el OTROSI de prueba, ni el OTROSI de modificacion provisional.
+- Si [V3 = contenciosa] -> activar en el asset la variante **contenciosa** (Art. 775.2 en relacion con el Art. 770 LEC, juicio verbal): bloque de acreditacion del MASC, OTROSI de prueba y, si se interesa, OTROSI de modificacion provisional. **No** se activa ningun bloque de acuerdo ni de propuesta de convenio.
+- Si [V1 = varias medidas] o se modifican varias medidas -> un unico escrito con `assets/template-demanda-modificacion-medidas.md`, activando el bloque de medida adicional. **Excepcion:** si una de las pretensiones es la extincion de la pension de alimentos y las demas no, crea DOS documentos: primero la demanda de modificacion, y despues la solicitud de extincion, reutilizando sin volver a preguntar todos los datos ya recogidos. Advierte al cliente de que, si ambas pretensiones se dirigen contra la misma parte y ante el mismo Juzgado, su abogado valorara acumularlas en un unico escrito.
 - Si no existe resolucion o convenio previo -> Deten el proceso (Guardrail 4) y deriva a `divorcio`. No crees documento.
 - Si lo que se pretende es cobrar pensiones impagadas -> Deten el proceso (Guardrail 5) y deriva o escala. No crees documento.
 - Si en cualquier momento hay indicios de violencia de genero o domestica -> Deten el proceso (Guardrail 3). No crees documento.
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 En esta fase interactúas **directamente a través del chat (en texto plano conversacional, SIN formularios)** para compartir el plan de trabajo, el fundamento normativo y acordar la plantilla base con el usuario.
 
@@ -163,14 +168,14 @@ Envía un mensaje estructurado y formal que contenga:
 
 Ejemplo (ruta contenciosa, reduccion de alimentos): "Al presente caso le resulta de aplicacion la Ley 1/2000, de Enjuiciamiento Civil, articulo 775, que atribuye la modificacion al Juzgado que acordo las medidas definitivas y exige que las circunstancias hayan variado sustancialmente, y el Codigo Civil, articulos 90.3, 91, 93 y 146, en su version consolidada vigente verificada hoy. Al no existir acuerdo, el procedimiento sera el del articulo 770 de la Ley de Enjuiciamiento Civil, por los tramites del juicio verbal, y debera acreditarse el intento previo de un medio adecuado de solucion de controversias (Ley Organica 1/2025, articulo 5). Debe usted saber que la parte contraria podra formular reconvencion y solicitar medidas distintas de las que pedimos. Puede consultar los textos oficiales en: https://www.boe.es/buscar/act.php?id=BOE-A-2000-323 y https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763"
 
-3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-demanda-modificacion-medidas.md`).
+3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** y nombrala por su ruta. Si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la seccion de assets.
 4. **Pregunta Explícita al Usuario (Vía Chat):** Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
-* **Si `[V5 = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+* **Si `[origen_plantilla = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
   Toma el texto íntegro de la plantilla correspondiente directamente desde el catálogo del prompt y procede de inmediato a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
+* **Si `[origen_plantilla = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
   1. Accede al contenido del adjunto desde `<attached_documents>` o el mensaje del usuario.
   2. **Guardrail de Verificación Legal:** Analiza el texto aportado. Si contiene cláusulas nulas, contrarias a normas imperativas o de imposible cumplimiento, adviértelo expresamente en el chat y propón la redacción legalmente válida.
   3. Adopta la minuta revisada como base y avanza a la **Fase 3**.

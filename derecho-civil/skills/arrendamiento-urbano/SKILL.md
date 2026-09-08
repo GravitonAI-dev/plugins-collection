@@ -91,7 +91,7 @@ Invoca la herramienta con las opciones de triaje:
   "form_data": [
     {
       "id": "tipo_gestion",
-      "rationale": "Resolver V1: separa la redacción de un contrato nuevo de la comunicación sobre un contrato ya vigente, que usan assets y régimen distintos.",
+      "rationale": "Resolver V0: separa la redacción de un contrato nuevo de la comunicación sobre un contrato ya vigente, que usan assets y régimen distintos.",
       "question": "¿Qué necesita preparar?",
       "options": [
         {"id": "contrato_nuevo", "label": "Un contrato de arrendamiento nuevo"},
@@ -100,7 +100,7 @@ Invoca la herramienta con las opciones de triaje:
     },
     {
       "id": "tipo_inmueble",
-      "rationale": "Resolver V2: determina el título de la LAU aplicable, la fianza mínima legal y los plazos imperativos.",
+      "rationale": "Resolver V2 y V5: determina el título de la LAU aplicable, la fianza mínima legal y los plazos imperativos.",
       "question": "Si es un contrato nuevo, ¿qué se arrienda?",
       "options": [
         {"id": "vivienda_completa", "label": "Una vivienda completa"},
@@ -110,7 +110,7 @@ Invoca la herramienta con las opciones de triaje:
     },
     {
       "id": "finalidad_uso",
-      "rationale": "Resolver V3: distingue la vivienda habitual, sujeta a los plazos mínimos y a los límites de zona tensionada, del arrendamiento de temporada, y excluye el uso turístico.",
+      "rationale": "Resolver V1: distingue la vivienda habitual, sujeta a los plazos mínimos y a los límites de zona tensionada, del arrendamiento de temporada, y excluye el uso turístico.",
       "question": "Si es una vivienda completa, ¿a qué uso se destina?",
       "options": [
         {"id": "permanente", "label": "Residencia habitual y permanente del arrendatario"},
@@ -120,7 +120,7 @@ Invoca la herramienta con las opciones de triaje:
     },
     {
       "id": "tipo_comunicacion",
-      "rationale": "Resolver V4: cada comunicación tiene su propio asset, su plazo de preaviso y su validación de fechas.",
+      "rationale": "Resolver V7: cada comunicación tiene su propio asset, su plazo de preaviso y su validación de fechas.",
       "question": "Si es una comunicación sobre un contrato vigente, ¿de qué tipo?",
       "options": [
         {"id": "actualizacion_renta", "label": "Actualización anual de la renta"},
@@ -130,16 +130,35 @@ Invoca la herramienta con las opciones de triaje:
     },
     {
       "id": "remitente_comunicacion",
-      "rationale": "Resolver V4b: el plazo de preaviso del artículo 10.1 LAU es distinto según quién comunique, y la devolución de fianza solo la reclama el arrendatario.",
+      "rationale": "Resolver V8: el plazo de preaviso del artículo 10.1 LAU es distinto según quién comunique, y la devolución de fianza solo la reclama el arrendatario.",
       "question": "Si es una comunicación, ¿quién la remite?",
       "options": [
         {"id": "arrendador", "label": "El arrendador (propietario)"},
         {"id": "arrendatario", "label": "El arrendatario (inquilino)"}
       ]
+    },
+    {
+      "id": "zona_tensionada",
+      "rationale": "Resolver V6: los límites de renta y la prórroga extraordinaria de zona de mercado residencial tensionado dependen de este valor. Si el usuario no lo sabe, el agente lo verifica él mismo con `web_search` en el boletín oficial autonómico.",
+      "question": "¿Está el inmueble en zona de mercado residencial tensionado?",
+      "options": [
+        {"id": "si", "label": "Sí"},
+        {"id": "no", "label": "No"},
+        {"id": "no_lo_se", "label": "No lo sé: verifíquelo usted"}
+      ]
     }
   ]
 }
 ```
+
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V0` — respuesta a `tipo_gestion`
+- `V1` — respuesta a `finalidad_uso`
+- `V2` — respuesta a `tipo_inmueble` (vivienda si es `vivienda_completa` o `habitacion`; local si es `local_uso_distinto`)
+- `V5` — respuesta a `tipo_inmueble` (`vivienda_completa` frente a `habitacion`)
+- `V6` — respuesta a `zona_tensionada`, verificada después por el agente con `web_search`
+- `V7` — respuesta a `tipo_comunicacion`
+- `V8` — respuesta a `remitente_comunicacion`
 
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores necesarios, evalúa:
@@ -154,7 +173,7 @@ Una vez resueltos los vectores necesarios, evalúa:
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 En esta fase interactúas **directamente a través del chat (en texto plano conversacional, SIN formularios)** para compartir el plan de trabajo, el fundamento normativo y acordar la plantilla base con el usuario.
 
@@ -165,14 +184,14 @@ En esta fase interactúas **directamente a través del chat (en texto plano conv
 ### 2.2 Mensaje de Plan de Acción y Consulta de Assets
 Envía un mensaje estructurado y formal que contenga:
 1. **Marco Legal Aplicable:** Normativa civil y procesal aplicable consolidada y verificada en el BOE.
-2. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-comunicacion-actualizacion-renta.md`).
+2. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** y nombrala por su ruta. Si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la seccion de assets.
 3. **Pregunta Explícita al Usuario (Vía Chat):** Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
-* **Si `[V5 = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+* **Si `[origen_plantilla = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
   Toma el texto íntegro de la plantilla correspondiente directamente desde el catálogo del prompt y procede de inmediato a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
+* **Si `[origen_plantilla = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
   1. Accede al contenido del adjunto desde `<attached_documents>` o el mensaje del usuario.
   2. **Guardrail de Verificación Legal:** Analiza el texto aportado. Si contiene cláusulas nulas, contrarias a normas imperativas o de imposible cumplimiento, adviértelo expresamente en el chat y propón la redacción legalmente válida.
   3. Adopta la minuta revisada como base y avanza a la **Fase 3**.

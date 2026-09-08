@@ -78,10 +78,22 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 En otro caso, si el usuario ya ha identificado la actuación, la naturaleza del cliente y el nivel de riesgo, registra los vectores en silencio y pasa a la **Fase 2**.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
+Invoca la herramienta con las opciones de triaje:
 
 ```json
 {
   "form_data": [
+    {
+      "id": "tipo_documento",
+      "rationale": "Resolver V1: cada documento de diligencia debida tiene su propio asset y su propio régimen en la Ley 10/2010, y la declaración de titularidad real solo procede si el cliente no es persona física.",
+      "question": "¿Qué documento de diligencia debida necesita preparar?",
+      "options": [
+        {"id": "ficha_identificacion", "label": "Ficha de identificación del cliente"},
+        {"id": "titularidad_real", "label": "Declaración de titularidad real"},
+        {"id": "checklist_diligencia", "label": "Checklist completo de diligencia debida del expediente"},
+        {"id": "examen_especial", "label": "Informe interno de examen especial de una operación"}
+      ]
+    },
     {
       "id": "actuacion_profesional",
       "rationale": "Resolver V2: la sujeción del profesional no es general, depende de la actuación concreta que se le encarga.",
@@ -117,6 +129,12 @@ En otro caso, si el usuario ya ha identificado la actuación, la naturaleza del 
 }
 ```
 
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — `tipo_documento`
+- `V2` — `actuacion_profesional`
+- `V3` — `naturaleza_cliente`
+- `V4` — `factores_de_riesgo`
+
 ### 1.3 Delimitación de la Sujeción y de la Exención (PRIMERA ACCIÓN SUSTANTIVA)
 
 **Comprobación 1 — ¿Está la actuación sujeta?** La sujeción del abogado, procurador u otro profesional independiente **no es general**: depende de la actuación concreta. El artículo 2.1 de la Ley 10/2010 la delimita por referencia a la participación en la concepción, realización o asesoramiento de determinadas operaciones, o a la actuación por cuenta del cliente en operaciones financieras o inmobiliarias. **Verifica la redacción vigente del precepto con `web_search` antes de pronunciarte sobre la sujeción.**
@@ -147,7 +165,7 @@ Si aparecen indicios de blanqueo de capitales o de financiación del terrorismo:
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 ### 2.1 Verificación Normativa Interna
 1. Consulta las referencias cargadas en tu contexto.
@@ -160,13 +178,13 @@ Envía un mensaje formal que contenga:
 2. **Medidas de diligencia debida exigibles** según el nivel de riesgo, enumeradas.
 3. **Documentación que hay que recabar del cliente**, con indicación de lo que falta.
 4. **Advertencia sobre el momento:** la identificación formal debe practicarse **con carácter previo** al establecimiento de la relación de negocios o a la ejecución de la operación, en los términos que la ley establezca. Verifícalo.
-5. **Propuesta de plantilla oficial del sistema.**
+5. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Nombrala por su ruta; si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
 6. **Pregunta explícita al usuario:**
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla)
-* **Si `[V5 = plantilla_sistema]`:** toma el asset íntegro y procede a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]`:** accede al adjunto y verifica que contenga la identificación formal por documento fehaciente, la titularidad real cuando proceda, el propósito de la relación, la información sobre el origen de los fondos cuando resulte exigible, y la fecha y firma. Advierte de las omisiones y de si el documento contiene información que no deba figurar en un documento accesible al cliente.
+### 2.3 Fijación del origen de la plantilla
+* **Si `[origen_plantilla = plantilla_sistema]`:** toma el asset íntegro y procede a la **Fase 3**.
+* **Si `[origen_plantilla = plantilla_usuario]`:** accede al adjunto y verifica que contenga la identificación formal por documento fehaciente, la titularidad real cuando proceda, el propósito de la relación, la información sobre el origen de los fondos cuando resulte exigible, y la fecha y firma. Advierte de las omisiones y de si el documento contiene información que no deba figurar en un documento accesible al cliente.
 
 ---
 

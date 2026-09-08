@@ -118,26 +118,54 @@ Invoca la herramienta con las opciones de triaje:
         {"id": "requerido_informalmente", "label": "Se ha requerido, pero sin constancia fehaciente"},
         {"id": "requerido_y_desatendido", "label": "Se requirió fehacientemente y no se ha atendido"}
       ]
+    },
+    {
+      "id": "sentido_del_voto",
+      "rationale": "Resolver V5: solo esta legitimado para impugnar quien voto en contra, salvo su voto o estuvo ausente (articulo 18.2 de la Ley de Propiedad Horizontal). Preguntar unicamente si V2 = impugnacion de acuerdo.",
+      "question": "¿Cuál fue la posición del cliente en la junta que adoptó el acuerdo?",
+      "options": [
+        {"id": "voto_en_contra", "label": "Votó en contra"},
+        {"id": "salvo_su_voto", "label": "Se abstuvo salvando su voto"},
+        {"id": "ausente", "label": "No asistió a la junta"},
+        {"id": "voto_a_favor_o_abstencion", "label": "Votó a favor, o se abstuvo sin salvar su voto"}
+      ]
+    },
+    {
+      "id": "al_corriente_de_pago",
+      "rationale": "Resolver V6: la impugnacion exige estar al corriente en el pago de las deudas vencidas con la comunidad, o haberlas consignado judicialmente (articulo 18.2 de la Ley de Propiedad Horizontal). Preguntar unicamente si V2 = impugnacion de acuerdo.",
+      "question": "¿Está el cliente al corriente en el pago de las cuotas de la comunidad, o las ha consignado judicialmente?",
+      "options": [
+        {"id": "si", "label": "Sí"},
+        {"id": "no", "label": "No, tiene deudas pendientes"}
+      ]
     }
   ]
 }
 ```
 
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — `rol_cliente`
+- `V2` — `asunto`
+- `V3` — `acuerdo_liquidacion`
+- `V4` — `estado_requerimiento`
+- `V5` — `sentido_del_voto`
+- `V6` — `al_corriente_de_pago`
+
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores aplicables, evalua en este orden:
 
-- Si V1 = comunidad y V2 = impago:
-  - **V4 = si → HOJA CUOTAS**: se generan DOS documentos, en este orden: `assets/template-certificacion-deuda-comunidad.md` y despues `assets/template-peticion-monitorio-cuotas-lph.md`.
-  - **V4 = no → HOJA CUOTAS-SIN-ACUERDO**: advertir de que el acuerdo de la junta que aprueba la liquidacion y autoriza la reclamacion es un requisito legal previo (articulos 21.1 a 21.3 de la Ley de Propiedad Horizontal) y de que sin el no cabe emitir la certificacion ni presentar la peticion. Generar unicamente `assets/template-certificacion-deuda-comunidad.md` como borrador, dejando como placeholders los datos del acuerdo, para emitirlo cuando la junta lo adopte. **NO** generar la peticion de monitorio en esta rama.
-- Si V1 = comunidad y V2 = actividad:
-  - **V6 = 1 o 2 → HOJA CESACION**: `assets/template-requerimiento-cesacion-actividad.md`. (En V6 = 2 se advierte de que el requerimiento anterior no sirve como presupuesto de la accion por no ser acreditable, y de que este lo sustituye.)
-  - **V6 = 3 → DETENER**: el requerimiento ya esta cumplido y el paso siguiente es la accion de cesacion, que exige autorizacion de la junta debidamente convocada al efecto y se sustancia por juicio ordinario. Informar de la secuencia del articulo 7.2 de la Ley de Propiedad Horizontal, derivar a la skill `juicio-ordinario` y ofrecer escalacion. No crear documento.
-- Si V1 = propietario y V3 = impugnacion:
-  - **V5.a = 4 → DETENER**: quien voto a favor o se abstuvo sin salvar su voto no esta legitimado para impugnar (articulo 18.2 de la Ley de Propiedad Horizontal). Explicarlo y ofrecer escalacion. No crear documento.
-  - **V5.a = 1, 2 o 3 y plazo vigente → HOJA IMPUGNACION**: `assets/template-demanda-impugnacion-acuerdos.md`.
+- Si V1 = comunidad y V2 = impago de cuotas:
+  - **V3 = si → HOJA CUOTAS**: se generan DOS documentos, en este orden: `assets/template-certificacion-deuda-comunidad.md` y despues `assets/template-peticion-monitorio-cuotas-lph.md`.
+  - **V3 = no → HOJA CUOTAS-SIN-ACUERDO**: advertir de que el acuerdo de la junta que aprueba la liquidacion y autoriza la reclamacion es un requisito legal previo (articulos 21.1 a 21.3 de la Ley de Propiedad Horizontal) y de que sin el no cabe emitir la certificacion ni presentar la peticion. Generar unicamente `assets/template-certificacion-deuda-comunidad.md` como borrador, dejando como placeholders los datos del acuerdo, para emitirlo cuando la junta lo adopte. **NO** generar la peticion de monitorio en esta rama.
+- Si V1 = comunidad y V2 = actividad molesta:
+  - **V4 = sin requerir o requerido informalmente → HOJA CESACION**: `assets/template-requerimiento-cesacion-actividad.md`. (En V4 = requerido informalmente se advierte de que el requerimiento anterior no sirve como presupuesto de la accion por no ser acreditable, y de que este lo sustituye.)
+  - **V4 = requerido y desatendido → DETENER**: el requerimiento ya esta cumplido y el paso siguiente es la accion de cesacion, que exige autorizacion de la junta debidamente convocada al efecto y se sustancia por juicio ordinario. Informar de la secuencia del articulo 7.2 de la Ley de Propiedad Horizontal, derivar a la skill `juicio-ordinario` y ofrecer escalacion. No crear documento.
+- Si V1 = propietario y V2 = impugnacion de acuerdo:
+  - **V5 = voto a favor o abstencion sin salvar el voto → DETENER**: quien voto a favor o se abstuvo sin salvar su voto no esta legitimado para impugnar (articulo 18.2 de la Ley de Propiedad Horizontal). Explicarlo y ofrecer escalacion. No crear documento.
+  - **V5 = voto en contra, salvo su voto o ausente, y plazo vigente → HOJA IMPUGNACION**: `assets/template-demanda-impugnacion-acuerdos.md`.
   - **Plazo caducado → DETENER**: la accion caduca a los tres meses de adoptarse el acuerdo, o al año si es contrario a la ley o a los estatutos; para el ausente el computo arranca de la comunicacion del acuerdo (articulo 18.3). Advertir de la caducidad, no dar falsas expectativas y ofrecer escalacion. No crear documento.
-  - **V5.b = 2 (deudas pendientes)**: no detiene el flujo, pero es un obstaculo. Ver la validacion de presupuestos.
-- Si V1 = propietario y V3 = otra cuestion → **DETENER Y DERIVAR**: identificar la materia y derivar sin crear documento. Casos frecuentes: requerimiento de pago de un monitorio de la comunidad ya recibido (skill `reclamacion-cantidad`, escrito de oposicion, plazo de veinte dias); reclamacion de cantidad frente a la comunidad por daños (skill `reclamacion-cantidad`); cuestiones arrendaticias del piso (skills `arrendamiento` o `desahucio`). Si no encaja en ninguna, ofrecer escalacion.
+  - **V6 = no (deudas pendientes)**: no detiene el flujo, pero es un obstaculo. Ver la validacion de presupuestos.
+- Si V1 = propietario y la materia no es ninguna de las tres de V2 → **DETENER Y DERIVAR**: identificar la materia y derivar sin crear documento. Casos frecuentes: requerimiento de pago de un monitorio de la comunidad ya recibido (skill `reclamacion-cantidad`, escrito de oposicion, plazo de veinte dias); reclamacion de cantidad frente a la comunidad por daños (skill `reclamacion-cantidad`); cuestiones arrendaticias del piso (skills `arrendamiento` o `desahucio`). Si no encaja en ninguna, ofrecer escalacion.
 
 ### 1.4 Validacion de presupuestos (interno, antes de la Fase 3)
 
@@ -149,7 +177,7 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 En esta fase interactúas **directamente a través del chat (en texto plano conversacional, SIN formularios)** para compartir el plan de trabajo, el fundamento normativo y acordar la plantilla base con el usuario.
 
@@ -169,14 +197,14 @@ Envía un mensaje estructurado y formal que contenga:
    - CESACION: "A su caso corresponde el requerimiento previo de cesacion del articulo 7.2 de la Ley 49/1960, de 21 de julio, sobre propiedad horizontal, que el presidente debe dirigir al infractor antes de que la comunidad pueda ejercitar la accion de cesacion. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-1960-10906"
    - En IMPUGNACION, anadir siempre: "Antes de presentar la demanda debera acreditarse el intento de solucion extrajudicial exigido por la Ley Organica 1/2025 (articulos 264 y 403.2 de la Ley de Enjuiciamiento Civil). La solicitud de negociacion suspende el plazo de caducidad, pero no conviene apurarlo."
 
-3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-certificacion-deuda-comunidad.md`).
+3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** y nombrala por su ruta. Si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la seccion de assets.
 4. **Pregunta Explícita al Usuario (Vía Chat):** Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
-* **Si `[V5 = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+* **Si `[origen_plantilla = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
   Toma el texto íntegro de la plantilla correspondiente directamente desde el catálogo del prompt y procede de inmediato a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
+* **Si `[origen_plantilla = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
   1. Accede al contenido del adjunto desde `<attached_documents>` o el mensaje del usuario.
   2. **Guardrail de Verificación Legal:** Analiza el texto aportado. Si contiene cláusulas nulas, contrarias a normas imperativas o de imposible cumplimiento, adviértelo expresamente en el chat y propón la redacción legalmente válida.
   3. Adopta la minuta revisada como base y avanza a la **Fase 3**.

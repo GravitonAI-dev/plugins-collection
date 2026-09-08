@@ -122,13 +122,18 @@ Invoca la herramienta con las opciones de triaje:
 }
 ```
 
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — `finalidad`
+- `V2` — `hijos_comunes`
+- `V3` — `bienes_o_desequilibrio`
+
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores aplicables, evalua en este orden:
 
-- Si V1 = 1 → **HOJA INSCRIPCION**: `assets/template-checklist-inscripcion-registro.md`. V3 y V4 no se preguntan como vectores; la existencia de hijos comunes se recaba en la seccion de pension de viudedad porque altera sus requisitos.
-- Si V1 = 2 → **HOJA CONVIVENCIA**: `assets/template-pacto-convivencia.md`. V4 determina si se activan los bloques de bienes comunes, aportaciones desiguales y compensacion pactada.
-- Si V1 = 3 → **HOJA RUPTURA**: `assets/template-pacto-ruptura-pareja-hecho.md`. V3 activa el bloque de remision sobre hijos comunes y dispara la derivacion; V4 determina los bloques de liquidacion y compensacion.
-- Si V1 = 3 y V3 = 1 → ademas de la HOJA RUPTURA, **DERIVAR** expresamente para todo lo relativo a los hijos: custodia, regimen de estancias y visitas, y alimentos se regulan en `medidas-hijos-no-matrimoniales`, exigen la intervencion del Ministerio Fiscal y no producen efecto sin aprobacion judicial. **Esta skill no los regula ni los incluye en el pacto**: activa el bloque de remision del asset y ofrece continuar con esa skill al cerrar el documento.
+- Si V1 = constituir e inscribir → **HOJA INSCRIPCION**: `assets/template-checklist-inscripcion-registro.md`. En esta hoja V2 y V3 no eligen asset; la existencia de hijos comunes se recaba en la seccion de pension de viudedad porque altera sus requisitos.
+- Si V1 = pacto de convivencia → **HOJA CONVIVENCIA**: `assets/template-pacto-convivencia.md`. V3 determina si se activan los bloques de bienes comunes, aportaciones desiguales y compensacion pactada.
+- Si V1 = pacto de ruptura → **HOJA RUPTURA**: `assets/template-pacto-ruptura-pareja-hecho.md`. V2 activa el bloque de remision sobre hijos comunes y dispara la derivacion; V3 determina los bloques de liquidacion y compensacion.
+- Si V1 = pacto de ruptura y V2 = si → ademas de la HOJA RUPTURA, **DERIVAR** expresamente para todo lo relativo a los hijos: custodia, regimen de estancias y visitas, y alimentos se regulan en `medidas-hijos-no-matrimoniales`, exigen la intervencion del Ministerio Fiscal y no producen efecto sin aprobacion judicial. **Esta skill no los regula ni los incluye en el pacto**: activa el bloque de remision del asset y ofrece continuar con esa skill al cerrar el documento.
 - Si lo que se pretende es un matrimonio, una separacion o un divorcio, o la liquidacion de un regimen economico matrimonial → **DETENER**: fuera de alcance. Derivar a `divorcio` o a `liquidacion-gananciales` segun corresponda.
 - Si lo que se pretende es tramitar la inscripcion ante el registro, o presentar la solicitud en nombre del cliente → **DETENER** esa pretension concreta: la skill prepara la documentacion y el checklist, pero la solicitud la presenta la propia pareja. Continuar con la HOJA INSCRIPCION advirtiendolo.
 - Si aparecen indicios de violencia entre los convivientes → **DETENER de inmediato**, en el mismo turno, sin crear ni continuar ningun documento. Advertir y escalar a asistencia juridica especializada.
@@ -144,7 +149,7 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 En esta fase interactúas **directamente a través del chat (en texto plano conversacional, SIN formularios)** para compartir el plan de trabajo, el fundamento normativo y acordar la plantilla base con el usuario.
 
@@ -165,14 +170,14 @@ Envía un mensaje estructurado y formal que contenga:
    - **Correccion inmediata del malentendido, si el cliente ya lo ha planteado.** Si en sus mensajes ha preguntado o dado por supuesto que inscribirse equipara al matrimonio, que crea gananciales, que da derecho a heredar o que garantiza una compensacion, **respondele aqui, en este mismo mensaje**, sin esperar a la seccion de la edicion incremental que trate esa materia. Diez turnos despues es tarde: el cliente esta tomando su decision ahora. Di con todas las letras que no, y por que: la inscripcion no crea ningun regimen economico, lo adquirido en comun se rige por los articulos 392 y siguientes del Codigo Civil segun la titularidad, y **el conviviente no hereda sin testamento** salvo lo que prevea la normativa civil aplicable que hayas verificado. Si ha preguntado por heredar, anade que la unica via es otorgar testamento ante notario, con el limite de las legitimas, y ofrece continuar despues con `testamento-planificacion`. Esta correccion no sustituye a la seccion correspondiente de la Fase 4: la anticipa.
    - Si V1 = 3 y V3 = 1 (hay hijos comunes), anade en el mismo mensaje: "Le adelanto que todo lo relativo a sus hijos — guarda y custodia, regimen de estancias y pension de alimentos — no puede regularse en este pacto: tiene un cauce propio, exige la intervencion del Ministerio Fiscal y no produce efecto sin aprobacion judicial. Lo trataremos en un documento aparte cuando cerremos este."
 
-3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-checklist-inscripcion-registro.md`).
+3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** y nombrala por su ruta. Si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la seccion de assets.
 4. **Pregunta Explícita al Usuario (Vía Chat):** Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
-* **Si `[V5 = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+* **Si `[origen_plantilla = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
   Toma el texto íntegro de la plantilla correspondiente directamente desde el catálogo del prompt y procede de inmediato a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
+* **Si `[origen_plantilla = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
   1. Accede al contenido del adjunto desde `<attached_documents>` o el mensaje del usuario.
   2. **Guardrail de Verificación Legal:** Analiza el texto aportado. Si contiene cláusulas nulas, contrarias a normas imperativas o de imposible cumplimiento, adviértelo expresamente en el chat y propón la redacción legalmente válida.
   3. Adopta la minuta revisada como base y avanza a la **Fase 3**.

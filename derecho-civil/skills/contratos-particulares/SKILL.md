@@ -83,7 +83,7 @@ Invoca la herramienta con las opciones de triaje:
   "form_data": [
     {
       "id": "tipo_contrato",
-      "rationale": "Resolver V1: cada figura tiene su propio asset y su propio régimen en el Código Civil, y el comodato exige gratuidad.",
+      "rationale": "Resolver V1 y V1b: cada figura tiene su propio asset y su propio régimen en el Código Civil, y el comodato exige gratuidad.",
       "question": "¿Qué quiere documentar?",
       "options": [
         {"id": "prestamo_dinero", "label": "Un préstamo de dinero entre particulares"},
@@ -94,7 +94,7 @@ Invoca la herramienta con las opciones de triaje:
     },
     {
       "id": "garantia",
-      "rationale": "Resolver V2: la garantía determina si hay que identificar fiador y si se incorporan las cláusulas de afianzamiento o de reserva de dominio.",
+      "rationale": "Resolver V3: la garantía determina si hay que identificar fiador y si se incorporan las cláusulas de afianzamiento o de reserva de dominio.",
       "question": "¿Se pacta alguna garantía del cumplimiento?",
       "options": [
         {"id": "ninguna", "label": "Ninguna"},
@@ -105,17 +105,33 @@ Invoca la herramienta con las opciones de triaje:
     },
     {
       "id": "forma",
-      "rationale": "Resolver V3: determina si el documento incorpora el compromiso de elevación a escritura pública y la advertencia sobre la fuerza ejecutiva.",
+      "rationale": "Resolver V4: determina si el documento incorpora el compromiso de elevación a escritura pública y la advertencia sobre la fuerza ejecutiva.",
       "question": "¿Qué forma va a darse al documento?",
       "options": [
         {"id": "privado", "label": "Documento privado entre las partes"},
         {"id": "privado_con_elevacion", "label": "Documento privado con compromiso de elevarlo a escritura pública"},
         {"id": "escritura_publica", "label": "Directamente escritura pública ante notario"}
       ]
+    },
+    {
+      "id": "interes",
+      "rationale": "Resolver V2: si se pacta interés, se activa el control de usura, que es bloqueante.",
+      "question": "¿Se pacta interés remuneratorio?",
+      "options": [
+        {"id": "si", "label": "Sí, se pacta interés"},
+        {"id": "no", "label": "No, sin interés"}
+      ]
     }
   ]
 }
 ```
+
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — respuesta a `tipo_contrato` (entrega de cosa o dinero si es `prestamo_dinero` o `comodato`; reconocimiento si es `reconocimiento_deuda`; compraventa si es `compraventa_mueble`)
+- `V1b` — respuesta a `tipo_contrato` (`prestamo_dinero` frente a `comodato`)
+- `V2` — respuesta a `interes`
+- `V3` — respuesta a `garantia`
+- `V4` — respuesta a `forma`
 
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores aplicables, evalua en este orden:
@@ -148,7 +164,7 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 En esta fase interactúas **directamente a través del chat (en texto plano conversacional, SIN formularios)** para compartir el plan de trabajo, el fundamento normativo y acordar la plantilla base con el usuario.
 
@@ -169,14 +185,14 @@ Envía un mensaje estructurado y formal que contenga:
    - **Añadir en la HOJA PRESTAMO si V2 = se pacta interes:** "Le informo ademas de que el interes pactado esta sujeto al control de la Ley de 23 de julio de 1908 sobre nulidad de los contratos de prestamos usurarios, que sigue vigente. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-1908-5579"
    - **Añadir en la HOJA PRESTAMO si V2 = no se pacta interes:** "Conforme al articulo 1.755 del Codigo Civil, no se deberan intereses sino cuando expresamente se hubiesen pactado, de modo que su prestamo sera gratuito."
 
-3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-contrato-comodato.md`).
+3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** y nombrala por su ruta. Si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la seccion de assets.
 4. **Pregunta Explícita al Usuario (Vía Chat):** Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
-* **Si `[V5 = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+* **Si `[origen_plantilla = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
   Toma el texto íntegro de la plantilla correspondiente directamente desde el catálogo del prompt y procede de inmediato a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
+* **Si `[origen_plantilla = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
   1. Accede al contenido del adjunto desde `<attached_documents>` o el mensaje del usuario.
   2. **Guardrail de Verificación Legal:** Analiza el texto aportado. Si contiene cláusulas nulas, contrarias a normas imperativas o de imposible cumplimiento, adviértelo expresamente en el chat y propón la redacción legalmente válida.
   3. Adopta la minuta revisada como base y avanza a la **Fase 3**.

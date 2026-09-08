@@ -95,6 +95,12 @@ El usuario dispone de dos opciones principales:
      * **Si la plantilla ya existe** (ej. existe un documento en el workspace cuyo nombre coincide con el `asset_name`, o se trata de una plantilla global previamente guardada): modo `update_user` (`update_user_template`).
      * **Si la plantilla aún no existe** (creación asistida desde cero o nuevo documento no registrado): modo `save_user` (`save_user_template`). Requiere acordar un nombre formal (`name`) y una descripción explicativa de uso (`description`).
 
+**Correspondencia con el enrutamiento.** Esta skill no usa formulario de clasificación: sus vectores se resuelven en el propio diálogo de las secciones siguientes. La Fase 1.3 y las posteriores los nombran así:
+- `V1` — alcance de la plantilla (`skill` o `global`), resuelto en esta sección 1.2
+- `V2` — vía de especificación del contenido (texto en el chat, archivo del editor o creación asistida), resuelta en la sección 1.3
+- `V3` — skill de destino, resuelta solo si `V1` = `skill`, sobre el catálogo oficial
+- `V4` — asset declarado que la plantilla reemplaza, resuelto solo si `V1` = `skill`
+
 ### 1.3 Determinación de la Vía de Especificación (V2)
 El usuario dispone de tres vías:
 1. **Texto en el chat:** El usuario pega o escribe el texto directamente en el mensaje (`<user_message>`).

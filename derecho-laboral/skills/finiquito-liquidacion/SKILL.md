@@ -117,6 +117,11 @@ Si el usuario ya ha identificado inequívocamente el documento, la causa extinti
 }
 ```
 
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — `tipo_documento`
+- `V2` — `causa_extincion`
+- `V4` — `posicion_usuario`
+
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 
 * **Si `[V1 = recibo_finiquito]` → Plantilla: `assets/template-recibo-finiquito.md`.** Ofrece generar además la hoja de liquidación detallada: el recibo consigna importes, la hoja explica cómo se han obtenido, y en una reclamación posterior la hoja es la que sostiene la posición de la empresa.
@@ -127,7 +132,7 @@ Si el usuario ya ha identificado inequívocamente el documento, la causa extinti
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 ### 2.1 Verificación Normativa Interna
 1. Consulta las referencias cargadas en tu contexto.
@@ -138,13 +143,13 @@ Si el usuario ya ha identificado inequívocamente el documento, la causa extinti
 Envía un mensaje formal que contenga:
 1. **Conceptos que integrarán la liquidación** según la causa extintiva y el convenio, enumerados.
 2. **Advertencias específicas de la causa:** derecho o no a indemnización, derecho o no a prestación por desempleo, y preaviso exigible.
-3. **Propuesta de plantilla oficial del sistema.**
+3. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Nombrala por su ruta; si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
 4. **Pregunta explícita al usuario:**
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla)
-* **Si `[V5 = plantilla_sistema]`:** toma el asset íntegro y procede a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]`:** accede al adjunto y aplica el **guardrail de cláusulas abusivas del finiquito**: renuncia genérica al ejercicio de acciones, declaración de que nada más tiene que reclamar por ningún concepto sin desglose de importes, renuncia anticipada a impugnar el despido, o reconocimiento de que el despido es procedente. Advierte expresamente de cada una y propón la redacción válida.
+### 2.3 Fijación del origen de la plantilla
+* **Si `[origen_plantilla = plantilla_sistema]`:** toma el asset íntegro y procede a la **Fase 3**.
+* **Si `[origen_plantilla = plantilla_usuario]`:** accede al adjunto y aplica el **guardrail de cláusulas abusivas del finiquito**: renuncia genérica al ejercicio de acciones, declaración de que nada más tiene que reclamar por ningún concepto sin desglose de importes, renuncia anticipada a impugnar el despido, o reconocimiento de que el despido es procedente. Advierte expresamente de cada una y propón la redacción válida.
 
 ---
 

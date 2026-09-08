@@ -145,15 +145,22 @@ Invoca la herramienta con las opciones de triaje:
 }
 ```
 
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — `filiacion`
+- `V2` — `acuerdo`
+- `V3` — `medidas`
+- `V4` — `convivencia`
+- `V5` — `alcance`
+
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores aplicables, evalua **en este orden**:
 
-- Si **V2 = no consta la filiacion respecto del otro progenitor** (o no ha podido acreditarse) → **DETENER. No crear ningun documento y no pedir ningun otro dato.** Emite el texto fijo del Guardrail 1 y ofrece escalacion. Sin filiacion determinada no existe patria potestad del otro progenitor, ni deber de alimentos exigible frente a el (arts. 143.2.º y 154 CC), ni sujeto pasivo de las medidas: el proceso previo y necesario es el de determinacion de la filiacion (art. 748.2.º LEC), que esta skill no cubre.
+- Si **V1 = solo consta respecto de uno, o no consta** (o no ha podido acreditarse) → **DETENER. No crear ningun documento y no pedir ningun otro dato.** Emite el texto fijo del Guardrail 1 y ofrece escalacion. Sin filiacion determinada no existe patria potestad del otro progenitor, ni deber de alimentos exigible frente a el (arts. 143.2.º y 154 CC), ni sujeto pasivo de las medidas: el proceso previo y necesario es el de determinacion de la filiacion (art. 748.2.º LEC), que esta skill no cubre.
 - Si en cualquier momento aparecen indicios de violencia de genero o domestica → **DETENER** (Guardrail 3). No crear documento.
-- Si **V1 = existe acuerdo** → **HOJA ACUERDO**: `assets/template-pacto-relaciones-familiares.md`. Si ademas V5 = 2, se genera despues `assets/template-demanda-medidas-paternofiliales.md` con los bloques condicionales de acuerdo ACTIVADOS y los de contencioso DESACTIVADOS.
-- Si **V1 = no existe acuerdo** → **HOJA CONTENCIOSA**: `assets/template-demanda-medidas-paternofiliales.md` con los bloques condicionales de contencioso ACTIVADOS (intento de MASC, situacion economica de la regla 1.ª del art. 770, apartado de medidas solicitadas, otrosies de prueba y de medidas provisionales) y los de acuerdo DESACTIVADOS. No se genera pacto de relaciones familiares: es propio de la via de acuerdo.
-- V3 y V3-bis no eligen asset: activan o desactivan los bloques de custodia y estancias, de alimentos y de vivienda dentro de la hoja ya elegida.
-- V4 no elige asset: activa una de las tres variantes del expositivo de convivencia y, solo si V4 = 1, el Documento nº 2 con la certificacion del registro de parejas de hecho.
+- Si **V2 = con acuerdo** → **HOJA ACUERDO**: `assets/template-pacto-relaciones-familiares.md`. Si ademas V5 = pacto y demanda, se genera despues `assets/template-demanda-medidas-paternofiliales.md` con los bloques condicionales de acuerdo ACTIVADOS y los de contencioso DESACTIVADOS.
+- Si **V2 = sin acuerdo** → **HOJA CONTENCIOSA**: `assets/template-demanda-medidas-paternofiliales.md` con los bloques condicionales de contencioso ACTIVADOS (intento de MASC, situacion economica de la regla 1.ª del art. 770, apartado de medidas solicitadas, otrosies de prueba y de medidas provisionales) y los de acuerdo DESACTIVADOS. No se genera pacto de relaciones familiares: es propio de la via de acuerdo.
+- V3 no elige asset: activa o desactiva los bloques de custodia y estancias, de alimentos y de vivienda dentro de la hoja ya elegida.
+- V4 no elige asset: activa una de las tres variantes del expositivo de convivencia y, solo si V4 = pareja inscrita, el Documento nº 2 con la certificacion del registro de parejas de hecho.
 - Si lo que se pretende es **modificar medidas ya fijadas** en sentencia o en un acuerdo aprobado judicialmente → **DETENER esta via** y derivar a `modificacion-medidas`, explicando que lo que procede es una demanda de modificacion de medidas y no la fijacion por primera vez.
 - Si los progenitores **estan o han estado casados entre si** → **DETENER esta via** y derivar a `divorcio`.
 - Si lo que se reclama son **pensiones ya fijadas e impagadas** → **DETENER esta via** y derivar a `ejecucion-titulos`.
@@ -171,7 +178,7 @@ Una vez resueltos los vectores aplicables, evalua **en este orden**:
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 En esta fase interactúas **directamente a través del chat (en texto plano conversacional, SIN formularios)** para compartir el plan de trabajo, el fundamento normativo y acordar la plantilla base con el usuario.
 
@@ -189,14 +196,14 @@ Envía un mensaje estructurado y formal que contenga:
    - **HOJA CONTENCIOSA:** "A su caso corresponde una demanda de medidas paternofiliales en el proceso del articulo 748.4.º de la Ley 1/2000, de Enjuiciamiento Civil, que se sustancia por los tramites del juicio verbal conforme a su articulo 770, siendo competente el Juzgado que determina su articulo 769.3. Las medidas se fundan en los articulos 154, 156, 92, 93, 94, 142, 146 y 148 del Codigo Civil. Al existir hijos menores de edad, la intervencion del Ministerio Fiscal es preceptiva (articulo 749.2 de la Ley de Enjuiciamiento Civil). Debe acreditarse el intento previo de un medio adecuado de solucion de controversias: sin ese requisito la demanda puede ser inadmitida (articulo 5 de la Ley Organica 1/2025 y articulo 264.4.º de la Ley de Enjuiciamiento Civil). Puede consultar los textos oficiales en: https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763, https://www.boe.es/buscar/act.php?id=BOE-A-2000-323 y https://www.boe.es/buscar/act.php?id=BOE-A-2025-76"
    - **En ambas hojas, anadir:** "Le confirmo que el hecho de que ustedes no hayan estado casados no altera en nada los derechos de sus hijos ni los deberes de ambos progenitores: se fija exactamente lo mismo que se fijaria en un divorcio en cuanto a los hijos. Lo unico que no existe aqui es el vinculo matrimonial y, con el, ni regimen economico matrimonial que liquidar ni pension compensatoria."
 
-3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-demanda-medidas-paternofiliales.md`).
+3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** y nombrala por su ruta. Si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la seccion de assets.
 4. **Pregunta Explícita al Usuario (Vía Chat):** Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
-* **Si `[V5 = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+* **Si `[origen_plantilla = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
   Toma el texto íntegro de la plantilla correspondiente directamente desde el catálogo del prompt y procede de inmediato a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
+* **Si `[origen_plantilla = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
   1. Accede al contenido del adjunto desde `<attached_documents>` o el mensaje del usuario.
   2. **Guardrail de Verificación Legal:** Analiza el texto aportado. Si contiene cláusulas nulas, contrarias a normas imperativas o de imposible cumplimiento, adviértelo expresamente en el chat y propón la redacción legalmente válida.
   3. Adopta la minuta revisada como base y avanza a la **Fase 3**.

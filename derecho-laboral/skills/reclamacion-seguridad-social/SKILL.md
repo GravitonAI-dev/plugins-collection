@@ -119,6 +119,11 @@ Si el usuario ya ha identificado inequívocamente la materia, la entidad y el tr
 }
 ```
 
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — `tipo_tramite`
+- `V2` — `materia`
+- `V3` — `entidad_gestora`
+
 ### 1.3 Control de Plazo y de Vía (PRIMERA ACCIÓN OBLIGATORIA)
 
 **Comprobación 1 — Pide la fecha de notificación de la resolución.** No la fecha de la resolución: la de su **notificación**, que es la que abre el plazo. Si el usuario no la conoce con certeza, pídele que compruebe el acuse de recibo o el justificante de la notificación electrónica.
@@ -145,7 +150,7 @@ Si el usuario ya ha identificado inequívocamente la materia, la entidad y el tr
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 ### 2.1 Verificación Normativa Interna
 1. Consulta las referencias cargadas en tu contexto.
@@ -159,13 +164,13 @@ Envía un mensaje formal que contenga:
 2. **Cómputo del plazo** con la fecha límite, y advertencia expresa si el margen es escaso.
 3. **Órgano destinatario** exacto y forma de presentación, incluida la sede electrónica cuando exista.
 4. **Motivos de impugnación** que se van a articular y **prueba médica o documental** que conviene reunir, con indicación de lo que falta.
-5. **Propuesta de plantilla oficial del sistema.**
+5. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Nombrala por su ruta; si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
 6. **Pregunta explícita al usuario:**
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla)
-* **Si `[V5 = plantilla_sistema]`:** toma el asset íntegro y procede a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]`:** accede al adjunto y verifica que identifique al interesado con su número de afiliación, la resolución impugnada con su expediente y fecha de notificación, los motivos y la pretensión. Advierte de las omisiones y propón la redacción válida.
+### 2.3 Fijación del origen de la plantilla
+* **Si `[origen_plantilla = plantilla_sistema]`:** toma el asset íntegro y procede a la **Fase 3**.
+* **Si `[origen_plantilla = plantilla_usuario]`:** accede al adjunto y verifica que identifique al interesado con su número de afiliación, la resolución impugnada con su expediente y fecha de notificación, los motivos y la pretensión. Advierte de las omisiones y propón la redacción válida.
 
 ---
 

@@ -124,6 +124,12 @@ Si el usuario ya ha identificado el instrumento, el ámbito y el alcance, regist
 }
 ```
 
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — `tipo_instrumento`
+- `V2` — `ambito`
+- `V3` — `naturaleza_otorgante`
+- `V4` — `alcance`
+
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 
 * **Si `[V1 = poder_general]` → Plantilla: `assets/template-minuta-poder-general-pleitos.md`.**
@@ -136,7 +142,7 @@ Si el usuario ya ha identificado el instrumento, el ámbito y el alcance, regist
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 ### 2.1 Verificación Normativa Interna
 1. Consulta las referencias cargadas en tu contexto.
@@ -150,13 +156,13 @@ Envía un mensaje formal que contenga:
 2. **Relación de facultades** que se propone incluir, distinguiendo las ordinarias de las que exigen mención especial.
 3. **Advertencia sobre las facultades del artículo 25.2** y sus consecuencias prácticas.
 4. **Comprobaciones previas:** título y suficiencia del representante orgánico si el otorgante es persona jurídica, y necesidad de procurador.
-5. **Propuesta de plantilla oficial del sistema.**
+5. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Nombrala por su ruta; si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
 6. **Pregunta explícita al usuario:**
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla)
-* **Si `[V5 = plantilla_sistema]`:** toma el asset íntegro y procede a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]`:** accede al adjunto y verifica que identifique correctamente al otorgante y a los apoderados con su número de colegiado, que enumere las facultades, y que contenga o excluya de forma expresa las del artículo 25.2. Advierte de las omisiones.
+### 2.3 Fijación del origen de la plantilla
+* **Si `[origen_plantilla = plantilla_sistema]`:** toma el asset íntegro y procede a la **Fase 3**.
+* **Si `[origen_plantilla = plantilla_usuario]`:** accede al adjunto y verifica que identifique correctamente al otorgante y a los apoderados con su número de colegiado, que enumere las facultades, y que contenga o excluya de forma expresa las del artículo 25.2. Advierte de las omisiones.
 
 ---
 

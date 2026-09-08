@@ -116,19 +116,35 @@ Invoca la herramienta con las opciones de triaje:
         {"id": "abierto_notarial", "label": "Testamento abierto ante notario"},
         {"id": "otro_tipo", "label": "Ológrafo, cerrado, mancomunado o pacto sucesorio"}
       ]
+    },
+    {
+      "id": "existe_conyuge",
+      "rationale": "Resolver V5: la cuota legal usufructuaria del conyuge viudo (articulo 834 del Codigo Civil) condiciona el reparto y el bloque de derechos del conyuge de la minuta.",
+      "question": "¿Está el testador casado, sin separación legal ni de hecho?",
+      "options": [
+        {"id": "si", "label": "Sí"},
+        {"id": "no", "label": "No"}
+      ]
     }
   ]
 }
 ```
 
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — `vecindad_civil`
+- `V2` — `alcance`
+- `V3` — `legitimario_con_discapacidad`
+- `V4` — `tipo_testamento`
+- `V5` — `existe_conyuge`
+
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores aplicables, evalua en este orden:
 
-- Si **V1 = 2 o V1 = 3** → **DETENER**. No se pregunta ningun otro vector, no se pide ningun dato del testador y **no se crea ningun documento**. Emite la advertencia fija de `references/vecindad-civil-y-ambito-de-la-skill.md`, apartado 6, y escala a un abogado o notario especializado en el derecho civil de ese territorio. Nunca redactes "una version provisional" ni respondas cuanta legitima corresponde: en derecho foral no es la del Art. 808 CC.
-- Si **V1 = 1 y V2 = 1 y V4 = 2** → **HOJA SIMPLE**: `assets/template-minuta-testamento-abierto.md`, con los bloques condicionales de mejora, legados, usufructo universal con cautela, fideicomiso, desheredacion, facultades del Art. 831 y albacea DESACTIVADOS. Se activa la sustitucion vulgar salvo rechazo expreso del cliente, y el bloque de derechos del conyuge en su version de cuota legal si V3c = 1.
-- Si **V1 = 1 y (V2 = 2 o V4 = 1)** → **HOJA PLANIFICACION**: dos documentos, en este orden. Primero `assets/template-checklist-planificacion-sucesoria.md`, sobre el que se recogen el patrimonio y todas las decisiones; despues, con las decisiones ya cerradas, `assets/template-minuta-testamento-abierto.md`. **Regla de reencaminamiento:** si el cliente respondio V2 = 1 pero despues manifiesta que quiere desheredar, mejorar, legar un bien concreto u ordenar un usufructo universal, reencamina en silencio a la HOJA PLANIFICACION y continua; no le anuncies el cambio de rama.
-- Si **V3d = 1** → activa en la hoja que corresponda los bloques de los Arts. 808 in fine, 782 y 822, y trata la seccion de discapacidad de la Fase 5 como obligatoria, no como opcional.
-- Si lo que el usuario quiere es un **testamento olografo, cerrado o mancomunado**, o un **pacto sucesorio** → **DETENER**: fuera de alcance. El mancomunado es ademas nulo en derecho comun (Art. 669 CC). Advertir y escalar.
+- Si **V1 = foral o desconocida** → **DETENER**. No se pregunta ningun otro vector, no se pide ningun dato del testador y **no se crea ningun documento**. Emite la advertencia fija de `references/vecindad-civil-y-ambito-de-la-skill.md`, apartado 6, y escala a un abogado o notario especializado en el derecho civil de ese territorio. Nunca redactes "una version provisional" ni respondas cuanta legitima corresponde: en derecho foral no es la del Art. 808 CC.
+- Si **V1 = comun, V2 = testamento simple y V4 = abierto notarial** → **HOJA SIMPLE**: `assets/template-minuta-testamento-abierto.md`, con los bloques condicionales de mejora, legados, usufructo universal con cautela, fideicomiso, desheredacion, facultades del Art. 831 y albacea DESACTIVADOS. Se activa la sustitucion vulgar salvo rechazo expreso del cliente, y el bloque de derechos del conyuge en su version de cuota legal si V5 = si (existe conyuge viudo).
+- Si **V1 = comun, V4 = abierto notarial y V2 = con planificacion** → **HOJA PLANIFICACION**: dos documentos, en este orden. Primero `assets/template-checklist-planificacion-sucesoria.md`, sobre el que se recogen el patrimonio y todas las decisiones; despues, con las decisiones ya cerradas, `assets/template-minuta-testamento-abierto.md`. **Regla de reencaminamiento:** si el cliente respondio V2 = 1 pero despues manifiesta que quiere desheredar, mejorar, legar un bien concreto u ordenar un usufructo universal, reencamina en silencio a la HOJA PLANIFICACION y continua; no le anuncies el cambio de rama.
+- Si **V3 = si** → activa en la hoja que corresponda los bloques de los Arts. 808 in fine, 782 y 822, y trata la seccion de discapacidad de la Fase 5 como obligatoria, no como opcional.
+- Si **V4 = otro tipo**, es decir, un **testamento olografo, cerrado o mancomunado**, o un **pacto sucesorio** → **DETENER**: fuera de alcance. El mancomunado es ademas nulo en derecho comun (Art. 669 CC). Advertir y escalar.
 - Si el causante **ya ha fallecido** y lo que se pretende es aceptar, repudiar o partir la herencia → **DETENER**: esta skill cubre la fase previa, en vida. Derivar a `herencia`.
 
 ### 1.4 Validacion de presupuestos (interno, antes de la Fase 3)
@@ -144,7 +160,7 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 En esta fase interactúas **directamente a través del chat (en texto plano conversacional, SIN formularios)** para compartir el plan de trabajo, el fundamento normativo y acordar la plantilla base con el usuario.
 
@@ -164,14 +180,14 @@ Envía un mensaje estructurado y formal que contenga:
    - En ambas hojas, anadir esta advertencia fija: "Debe tener presente desde ahora que el documento que vamos a preparar **no es un testamento**: es una minuta destinada a la notaria. Solo produce efectos el testamento otorgado ante Notario, y es el propio Notario quien lo redacta con arreglo a la voluntad que usted le exprese, conforme al articulo 695 del Codigo Civil."
    - Si V3d = 1, anadir ademas: "Al encontrarse uno de sus legitimarios en situacion de discapacidad, dispone usted de un margen de planificacion mas amplio del ordinario, conforme a los articulos 808 y 822 del Codigo Civil en la redaccion dada por la Ley 8/2021."
 
-3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-checklist-planificacion-sucesoria.md`).
+3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** y nombrala por su ruta. Si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la seccion de assets.
 4. **Pregunta Explícita al Usuario (Vía Chat):** Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
-* **Si `[V5 = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+* **Si `[origen_plantilla = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
   Toma el texto íntegro de la plantilla correspondiente directamente desde el catálogo del prompt y procede de inmediato a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
+* **Si `[origen_plantilla = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
   1. Accede al contenido del adjunto desde `<attached_documents>` o el mensaje del usuario.
   2. **Guardrail de Verificación Legal:** Analiza el texto aportado. Si contiene cláusulas nulas, contrarias a normas imperativas o de imposible cumplimiento, adviértelo expresamente en el chat y propón la redacción legalmente válida.
   3. Adopta la minuta revisada como base y avanza a la **Fase 3**.

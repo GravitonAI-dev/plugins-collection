@@ -84,7 +84,7 @@ Tu primer objetivo es evaluar la consulta mediante **escucha activa** y determin
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 Cuando se va a generar un documento formal en el workspace:
 
@@ -101,9 +101,9 @@ Envía un mensaje en lenguaje natural detallando:
 3. **Pregunta Explícita al Usuario (Vía Chat):**
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla)
-* **Si `[V5 = plantilla_sistema]`:** Toma el texto íntegro de la plantilla seleccionada del catálogo y avanza a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]`:** Toma el texto aportado en `# ATTACHED DOCUMENTS` o `# USER MESSAGE`, comprueba que no contenga cláusulas nulas de orden público y avanza a la **Fase 3**.
+### 2.3 Fijación del origen de la plantilla
+* **Si `[origen_plantilla = plantilla_sistema]`:** Toma el texto íntegro de la plantilla seleccionada del catálogo y avanza a la **Fase 3**.
+* **Si `[origen_plantilla = plantilla_usuario]`:** Toma el texto aportado en `# ATTACHED DOCUMENTS` o `# USER MESSAGE`, comprueba que no contenga cláusulas nulas de orden público y avanza a la **Fase 3**.
 
 ---
 

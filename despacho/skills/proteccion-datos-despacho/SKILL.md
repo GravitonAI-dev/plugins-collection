@@ -121,6 +121,11 @@ En otro caso, si el usuario ya ha identificado el documento, el rol del despacho
 }
 ```
 
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — `tipo_documento`
+- `V2` — `rol_despacho`
+- `V3` — `colectivo_interesados`
+
 ### 1.3 Determinación del Rol y Enrutamiento
 
 **Comprobación 1 — Resuelve el rol si no está claro.** El despacho es **responsable** cuando decide las finalidades y los medios del tratamiento: los datos de sus clientes, los de los asuntos que dirige, los de su personal. Es **encargado** cuando trata datos por cuenta de un cliente y siguiendo sus instrucciones, para una finalidad que el cliente determina: por ejemplo, cuando gestiona en su nombre un canal de comunicaciones internas, administra una base de datos del cliente o presta un servicio externalizado de gestión.
@@ -149,7 +154,7 @@ Si hay una brecha en curso, y **antes de redactar nada**:
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 ### 2.1 Verificación Normativa Interna
 1. Consulta las referencias cargadas en tu contexto.
@@ -163,13 +168,13 @@ Envía un mensaje formal que contenga:
 2. **Obligación que el documento cumple** y su fundamento.
 3. **Bases jurídicas** que se van a emplear para cada finalidad, y advertencia sobre las categorías especiales.
 4. **Interacción con el secreto profesional**, cuando el documento la tenga.
-5. **Propuesta de plantilla oficial del sistema.**
+5. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Nombrala por su ruta; si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
 6. **Pregunta explícita al usuario:**
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla)
-* **Si `[V5 = plantilla_sistema]`:** toma el asset íntegro y procede a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]`:** accede al adjunto y aplica el **guardrail de defectos frecuentes**: consentimiento invocado como base jurídica donde la base real es el contrato o la obligación legal; ausencia de plazos de conservación concretos; contrato de encargado sin el contenido mínimo exigido; cláusula informativa que remite a un documento inexistente; ausencia de mención de las transferencias internacionales cuando los proveedores están fuera del Espacio Económico Europeo; y omisión del tratamiento de categorías especiales. Advierte de cada defecto y propón la redacción válida.
+### 2.3 Fijación del origen de la plantilla
+* **Si `[origen_plantilla = plantilla_sistema]`:** toma el asset íntegro y procede a la **Fase 3**.
+* **Si `[origen_plantilla = plantilla_usuario]`:** accede al adjunto y aplica el **guardrail de defectos frecuentes**: consentimiento invocado como base jurídica donde la base real es el contrato o la obligación legal; ausencia de plazos de conservación concretos; contrato de encargado sin el contenido mínimo exigido; cláusula informativa que remite a un documento inexistente; ausencia de mención de las transferencias internacionales cuando los proveedores están fuera del Espacio Económico Europeo; y omisión del tratamiento de categorías especiales. Advierte de cada defecto y propón la redacción válida.
 
 ---
 

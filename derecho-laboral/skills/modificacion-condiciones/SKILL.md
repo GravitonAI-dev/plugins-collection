@@ -116,6 +116,12 @@ Si el usuario ya ha identificado inequívocamente la medida, la materia afectada
 }
 ```
 
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — `tipo_medida`
+- `V3` — `alcance`
+- `V4` — `posicion_usuario`
+- `V2` — no se pregunta en el formulario: se deriva durante el propio enrutamiento a partir de la norma aplicable y de los hechos que relate el usuario
+
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 
 * **Si `[V1 = fuera_de_alcance]` o `[V3 = colectivo_sobre_umbral]` → Detener proceso.** Explica en el chat que la medida exige un **periodo de consultas** con la representación de los trabajadores (artículo 41.4), o el procedimiento de inaplicación del convenio del artículo 82.3, con trámites, plazos y documentación propios que exceden de esta skill. Ofrece la derivación al profesional competente. **No crees documento.**
@@ -127,7 +133,7 @@ Si el usuario ya ha identificado inequívocamente la medida, la materia afectada
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 ### 2.1 Verificación Normativa Interna
 1. Consulta las referencias cargadas en tu contexto.
@@ -140,13 +146,13 @@ Envía un mensaje formal que contenga:
 2. **Calendario de la operación:** fecha de la comunicación, preaviso exigible y fecha de efectividad más temprana posible. Advierte de que una fecha de efectos anterior al vencimiento del preaviso vicia la medida.
 3. **Plazos que se abren al trabajador:** 20 días hábiles de caducidad para impugnar (artículo 138 de la Ley 36/2011), y el plazo para optar por la extinción indemnizada cuando proceda.
 4. **Cálculo económico preliminar desglosado** de la indemnización por rescisión, cuando la materia afectada la genere.
-5. **Propuesta de plantilla oficial del sistema.**
+5. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Nombrala por su ruta; si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
 6. **Pregunta explícita al usuario:**
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla)
-* **Si `[V5 = plantilla_sistema]`:** toma el asset íntegro y procede a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]`:** accede al adjunto y verifica que exprese la causa, la condición anterior y la nueva, la fecha de efectos y el preaviso. Si omite la causa o fija efectos inmediatos, adviértelo y propón la redacción válida.
+### 2.3 Fijación del origen de la plantilla
+* **Si `[origen_plantilla = plantilla_sistema]`:** toma el asset íntegro y procede a la **Fase 3**.
+* **Si `[origen_plantilla = plantilla_usuario]`:** accede al adjunto y verifica que exprese la causa, la condición anterior y la nueva, la fecha de efectos y el preaviso. Si omite la causa o fija efectos inmediatos, adviértelo y propón la redacción válida.
 
 ---
 

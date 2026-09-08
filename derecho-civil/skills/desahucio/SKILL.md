@@ -118,17 +118,44 @@ Invoca la herramienta con las opciones de triaje:
     },
     {
       "id": "gran_tenedor",
-      "rationale": "Resolver V4: la condición de gran tenedor de vivienda activa requisitos adicionales de admisibilidad de la demanda conforme a la Ley 12/2023.",
+      "rationale": "Resolver V5: la condición de gran tenedor de vivienda activa requisitos adicionales de admisibilidad de la demanda conforme a la Ley 12/2023.",
       "question": "¿Es la parte demandante gran tenedora de vivienda?",
       "options": [
         {"id": "no", "label": "No"},
         {"id": "si", "label": "Sí"},
         {"id": "desconocido", "label": "No lo sé con certeza"}
       ]
+    },
+    {
+      "id": "destino_inmueble",
+      "rationale": "Resolver V4: la mención del destino del inmueble es obligatoria en la demanda y su omisión determina la inadmisión (artículo 439.6.a de la Ley de Enjuiciamiento Civil).",
+      "question": "¿Constituye el inmueble la vivienda habitual de la persona ocupante?",
+      "options": [
+        {"id": "vivienda_habitual", "label": "Sí, es su vivienda habitual"},
+        {"id": "otro_uso", "label": "No, tiene otro uso"}
+      ]
+    },
+    {
+      "id": "masc_intentado",
+      "rationale": "Resolver V7: el intento previo acreditable condiciona la admisibilidad de la demanda.",
+      "question": "¿Se ha practicado requerimiento fehaciente de pago o intentado un medio adecuado de solución de controversias?",
+      "options": [
+        {"id": "si", "label": "Sí, y es acreditable"},
+        {"id": "no", "label": "No"}
+      ]
     }
   ]
 }
 ```
+
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — respuesta a `relacion_ocupante`
+- `V2` — respuesta a `causa`
+- `V3` — respuesta a `via`
+- `V4` — respuesta a `destino_inmueble`
+- `V5` — respuesta a `gran_tenedor`
+- `V6` — circunstancias de enervación del artículo 439.3, que se recogen en la validación de admisibilidad de la Fase 1.4, no en el formulario
+- `V7` — respuesta a `masc_intentado`
 
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores aplicables, evalua en este orden:
@@ -155,7 +182,7 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 En esta fase interactúas **directamente a través del chat (en texto plano conversacional, SIN formularios)** para compartir el plan de trabajo, el fundamento normativo y acordar la plantilla base con el usuario.
 
@@ -176,14 +203,14 @@ Envía un mensaje estructurado y formal que contenga:
    - En las tres hojas de demanda, anadir: "El desahucio no figura entre las materias exceptuadas del articulo 5.2 de la Ley Organica 1/2025, de 2 de enero, por lo que debera acreditarse el intento previo de una solucion extrajudicial para que la demanda sea admitida (articulos 264.4º y 403.2 de la Ley de Enjuiciamiento Civil). Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-2025-76"
    - En las tres hojas de demanda, anadir: "En el desahucio son preceptivos abogado y procurador, porque la clase de juicio viene determinada por la materia y no por la cuantia."
 
-3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-acuerdo-condonacion-entrega-llaves.md`).
+3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** y nombrala por su ruta. Si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la seccion de assets.
 4. **Pregunta Explícita al Usuario (Vía Chat):** Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
-* **Si `[V5 = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+* **Si `[origen_plantilla = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
   Toma el texto íntegro de la plantilla correspondiente directamente desde el catálogo del prompt y procede de inmediato a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
+* **Si `[origen_plantilla = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
   1. Accede al contenido del adjunto desde `<attached_documents>` o el mensaje del usuario.
   2. **Guardrail de Verificación Legal:** Analiza el texto aportado. Si contiene cláusulas nulas, contrarias a normas imperativas o de imposible cumplimiento, adviértelo expresamente en el chat y propón la redacción legalmente válida.
   3. Adopta la minuta revisada como base y avanza a la **Fase 3**.

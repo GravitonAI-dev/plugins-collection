@@ -125,6 +125,12 @@ Si el usuario ya ha identificado inequívocamente el documento, la modalidad ret
 }
 ```
 
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — `tipo_documento`
+- `V2` — `modalidad_honorarios`
+- `V3` — `naturaleza_cliente`
+- `V4` — `ambito_asunto`
+
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 
 * **Si `[V1 = hoja_encargo]` → Plantilla: `assets/template-hoja-encargo-profesional.md`.**
@@ -136,7 +142,7 @@ Si el usuario ya ha identificado inequívocamente el documento, la modalidad ret
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 ### 2.1 Verificación Normativa Interna
 1. Consulta las referencias cargadas en tu contexto.
@@ -149,13 +155,13 @@ Envía un mensaje formal que contenga:
 1. **Estructura del documento** que se va a construir y por qué, con el contenido adicional que exija la clasificación obtenida.
 2. **Advertencias específicas** de la modalidad retributiva y de la naturaleza del cliente.
 3. **Recordatorio de comprobación previa:** conflicto de intereses con clientes anteriores o con la parte contraria, competencia profesional para el objeto del encargo, y cobertura del seguro de responsabilidad civil.
-4. **Propuesta de plantilla oficial del sistema.**
+4. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Nombrala por su ruta; si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
 5. **Pregunta explícita al usuario:**
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla)
-* **Si `[V5 = plantilla_sistema]`:** toma el asset íntegro y procede a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]`:** accede al adjunto y aplica el **guardrail de cláusulas problemáticas**: honorarios sin importe ni criterio determinable; remisión genérica a criterios colegiales como única definición del honorario; exclusión total de responsabilidad del profesional; cláusula que atribuya al despacho la propiedad de la documentación del cliente; renuncia del cliente a reclamar; sumisión a fuero distinto del que corresponda cuando el cliente sea consumidor; y ausencia de información sobre el tratamiento de datos. Advierte de cada una y propón la redacción válida.
+### 2.3 Fijación del origen de la plantilla
+* **Si `[origen_plantilla = plantilla_sistema]`:** toma el asset íntegro y procede a la **Fase 3**.
+* **Si `[origen_plantilla = plantilla_usuario]`:** accede al adjunto y aplica el **guardrail de cláusulas problemáticas**: honorarios sin importe ni criterio determinable; remisión genérica a criterios colegiales como única definición del honorario; exclusión total de responsabilidad del profesional; cláusula que atribuya al despacho la propiedad de la documentación del cliente; renuncia del cliente a reclamar; sumisión a fuero distinto del que corresponda cuando el cliente sea consumidor; y ausencia de información sobre el tratamiento de datos. Advierte de cada una y propón la redacción válida.
 
 ---
 

@@ -98,7 +98,7 @@ Invoca la herramienta con las opciones de triaje:
     },
     {
       "id": "expresion_voluntad",
-      "rationale": "Resolver V2: determina si cabe la curatela representativa y si la persona puede otorgar por sí misma medidas voluntarias.",
+      "rationale": "Resolver V4: determina si cabe la curatela representativa y si la persona puede otorgar por sí misma medidas voluntarias.",
       "question": "¿Puede la persona expresar su voluntad, deseos y preferencias?",
       "options": [
         {"id": "puede_expresar", "label": "Sí, con los apoyos adecuados puede expresarlos"},
@@ -116,17 +116,34 @@ Invoca la herramienta con las opciones de triaje:
     },
     {
       "id": "existe_guarda_hecho",
-      "rationale": "Resolver V4: si la guarda de hecho funciona adecuadamente, la curatela no procede por su carácter subsidiario.",
+      "rationale": "Resolver V5: si la guarda de hecho funciona adecuadamente, la curatela no procede por su carácter subsidiario.",
       "question": "¿Existe ya una guarda de hecho que preste apoyo suficiente?",
       "options": [
         {"id": "si_suficiente", "label": "Sí, y funciona adecuadamente"},
         {"id": "si_insuficiente", "label": "Sí, pero resulta insuficiente"},
         {"id": "no", "label": "No existe"}
       ]
+    },
+    {
+      "id": "existe_medida_voluntaria",
+      "rationale": "Resolver V2.b: la existencia de un poder preventivo o de una autocuratela otorgados con anterioridad hace subsidiaria la curatela.",
+      "question": "¿Otorgó la persona con anterioridad un poder preventivo o una autocuratela?",
+      "options": [
+        {"id": "si", "label": "Sí"},
+        {"id": "no", "label": "No"},
+        {"id": "no_lo_se", "label": "No lo sé"}
+      ]
     }
   ]
 }
 ```
+
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — respuesta a `finalidad`
+- `V2.b` — respuesta a `existe_medida_voluntaria`
+- `V3` — respuesta a `tipo_curatela`
+- `V4` — respuesta a `expresion_voluntad`
+- `V5` — respuesta a `existe_guarda_hecho`
 
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores aplicables, evalua en este orden:
@@ -151,7 +168,7 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
 
 Es el nucleo de esta skill. El Art. 269 del Codigo Civil solo permite constituir la curatela **cuando no exista otra medida de apoyo suficiente**, y el Art. 255 in fine anade que la autoridad judicial solo puede adoptar medidas supletorias "en defecto o por insuficiencia de las voluntarias, y a falta de guarda de hecho que suponga apoyo suficiente". Ver `references/sistema-apoyos-ley-8-2021.md`, apartado 6.
 
-**Regla: si V2.a = 1 o V2.b = 1, NO enrutes a la HOJA CURATELA todavia.** En su lugar, emite en un unico mensaje, en el registro formal del plugin:
+**Regla: si V5 = 1 o V2.b = 1, NO enrutes a la HOJA CURATELA todavia.** En su lugar, emite en un unico mensaje, en el registro formal del plugin:
 
 1. **La explicacion del regimen.** Que la ley considera la guarda de hecho una medida de apoyo con el mismo rango que las demas (Art. 250 CC), que quien viene ejerciendola adecuadamente continua en su funcion (Art. 263 CC), y que la curatela solo se constituye cuando no existe otra medida de apoyo suficiente (Art. 269 CC). Si V2.b = 1, anadir que el poder otorgado en su dia puede seguir siendo operativo y que conviene leerlo antes de descartarlo (Arts. 256 a 259 CC).
 2. **La alternativa concreta.** Que si el problema es un acto puntual que exige actuar en nombre de la persona, la via es la autorizacion judicial del Art. 264 del Codigo Civil, mas breve, mas barata y sin necesidad de abogado ni procurador si el valor del acto no supera los 6.000 euros (Art. 62.3 LJV).
@@ -163,7 +180,7 @@ Es el nucleo de esta skill. El Art. 269 del Codigo Civil solo permite constituir
 - Respuesta 1 → **HOJA GUARDA**. Continua por esa rama.
 - Respuesta 2 → el filtro queda superado por confirmacion expresa del cliente. **Antes de seguir, pide la razon concreta por la que el apoyo actual no basta** (pregunta en prosa) y registrala: es el contenido del hecho de subsidiariedad del escrito, y sin el la solicitud es rechazable. Despues continua con V3.
 
-**Si V2.a = 2 y V2.b = 2**, el filtro queda superado sin necesidad de esta pregunta. Continua con V3.
+**Si V5 = 2 y V2.b = 2**, el filtro queda superado sin necesidad de esta pregunta. Continua con V3.
 
 **Aplica ademas, en ambos casos, el filtro de la necesidad ocasional:** si de lo relatado resulta que el apoyo se necesita solo de vez en cuando, aunque sea de forma recurrente, la medida proporcionada es el **defensor judicial** (Arts. 250 y 295.5.º CC), no la curatela. Adviertelo, explica la diferencia y ofrece escalacion: esta skill no genera la solicitud de defensor judicial.
 
@@ -183,7 +200,7 @@ Es el nucleo de esta skill. El Art. 269 del Codigo Civil solo permite constituir
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 En esta fase interactúas **directamente a través del chat (en texto plano conversacional, SIN formularios)** para compartir el plan de trabajo, el fundamento normativo y acordar la plantilla base con el usuario.
 
@@ -204,14 +221,14 @@ Envía un mensaje estructurado y formal que contenga:
    - En las hojas GUARDA y CURATELA, anadir: "No existe modelo normalizado del Consejo General del Poder Judicial especifico para este documento; se sigue la estructura de su modelo generico de solicitud de expediente de jurisdiccion voluntaria."
    - En la hoja CURATELA, anadir ademas: "Las medidas que se acuerden se revisaran en un plazo maximo de tres anos, y en todo caso ante cualquier cambio en su situacion (articulo 268 del Codigo Civil)."
 
-3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-demanda-curatela.md`).
+3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** y nombrala por su ruta. Si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la seccion de assets.
 4. **Pregunta Explícita al Usuario (Vía Chat):** Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
-* **Si `[V5 = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+* **Si `[origen_plantilla = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
   Toma el texto íntegro de la plantilla correspondiente directamente desde el catálogo del prompt y procede de inmediato a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
+* **Si `[origen_plantilla = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
   1. Accede al contenido del adjunto desde `<attached_documents>` o el mensaje del usuario.
   2. **Guardrail de Verificación Legal:** Analiza el texto aportado. Si contiene cláusulas nulas, contrarias a normas imperativas o de imposible cumplimiento, adviértelo expresamente en el chat y propón la redacción legalmente válida.
   3. Adopta la minuta revisada como base y avanza a la **Fase 3**.

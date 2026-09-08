@@ -105,6 +105,10 @@ Invoca la herramienta con las preguntas de triaje:
 }
 ```
 
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — `tipo_operacion`
+- `V2` — `tipo_sujeto_tramite`
+
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 - **Si `V2 = afiliacion_nuss_ta1`:**
   - Hoja de datos propuesta: `assets/template-hoja-datos-afiliacion-ta1.md`. Proceder a la **Fase 2**.
@@ -115,7 +119,7 @@ Invoca la herramienta con las preguntas de triaje:
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 Interacción directa en texto plano conversacional en el chat (sin formularios).
 
@@ -131,13 +135,14 @@ Envía un mensaje estructurado y pedagógico:
    - **Canal Telemático:** Explicar si el trámite se cursará a través del Sistema RED (empresas con autorización) o del portal Import@ss (empleadores de hogar y particulares).
 2. **Propuesta de Plantilla Oficial del Sistema:**
    - Presentar la hoja de datos oficial correspondiente (`template-hoja-datos-afiliacion-ta1.md`, `template-hoja-datos-alta-baja-trabajador.md` o `template-hoja-datos-inscripcion-empresa-ccc.md`).
+   - Nombra por su ruta la hoja **que ha resuelto el enrutamiento de la Fase 1.3**; si el enrutamiento asigno varias, nombralas todas y en el orden en que se van a rellenar. **No propongas una hoja distinta de la enrutada.**
 3. **Pregunta Explícita al Usuario (Vía Chat):**
    Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
-- **Si `V5 = plantilla_sistema`:** Toma el asset oficial seleccionado y avanza a la **Fase 3**.
-- **Si `V5 = plantilla_usuario`:** Adopta la minuta del usuario desde `<attached_documents>` o `<user_message>`, valida la observancia de normas laborales imperativas y avanza a la **Fase 3**.
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+- **Si `origen_plantilla = plantilla_sistema`:** Toma el asset oficial seleccionado y avanza a la **Fase 3**.
+- **Si `origen_plantilla = plantilla_usuario`:** Adopta la minuta del usuario desde `<attached_documents>` o `<user_message>`, valida la observancia de normas laborales imperativas y avanza a la **Fase 3**.
 
 ---
 

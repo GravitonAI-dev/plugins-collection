@@ -119,7 +119,8 @@ Invoca la herramienta con las opciones de triaje:
       "options": [
         {"id": "vencida_y_liquida", "label": "Sí, está vencida y el importe es cierto"},
         {"id": "discutida", "label": "No, el importe está discutido por la otra parte"},
-        {"id": "por_determinar", "label": "No, el importe todavía debe determinarse"}
+        {"id": "por_determinar", "label": "No, el importe todavía debe determinarse"},
+        {"id": "pendiente_de_vencer", "label": "Todavía no ha vencido"}
       ]
     },
     {
@@ -130,10 +131,27 @@ Invoca la herramienta con las opciones de triaje:
         {"id": "si", "label": "Sí"},
         {"id": "no", "label": "No"}
       ]
+    },
+    {
+      "id": "masc_intentado",
+      "rationale": "Resolver V6: el intento previo de un medio adecuado de solucion de controversias es requisito de procedibilidad de la demanda declarativa (articulos 264 y 403.2 de la Ley de Enjuiciamiento Civil) y no se exige en la peticion inicial de monitorio.",
+      "question": "¿Se ha intentado previamente un medio adecuado de solución de controversias, o un requerimiento fehaciente de pago acreditable?",
+      "options": [
+        {"id": "si", "label": "Sí, y es acreditable"},
+        {"id": "no", "label": "No"}
+      ]
     }
   ]
 }
 ```
+
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — `rol`
+- `V2` — `estado_reclamacion`
+- `V3` — `deuda_documentada`
+- `V4` — `deuda_vencida_liquida`
+- `V5` — `es_arrendamiento`
+- `V6` — `masc_intentado`
 
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores aplicables, evalua en este orden:
@@ -144,10 +162,10 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
   - Cuantia <= 15.000 euros → **DETENER**: tras la oposicion, el asunto continua como juicio verbal dentro del mismo procedimiento (impugnacion de la oposicion en 10 dias, Art. 818.1 LEC); no procede una nueva demanda. Informar del cauce y del plazo, y ofrecer escalacion. No crear documento.
 - Si V1 = acreedor, V2 = sin iniciar, V3 = si y V4 = vencida y liquida → **HOJA MONITORIO**: `assets/template-peticion-monitorio.md` (cualquier cuantia). Si V6 = no → generar ademas ANTES `assets/template-burofax-masc-reclamacion.md`.
 - Si V1 = acreedor, V2 = sin iniciar y (V3 = no, o V4 = discutida/por determinar) → via declarativa:
-  - Cuantia <= 15.000 euros, o rentas/cantidades de arrendamiento de inmueble (cualquier cuantia, Art. 250.1.1º LEC) → **HOJA VERBAL**: `assets/template-demanda-juicio-verbal.md`.
-  - Cuantia > 15.000 euros (no arrendamiento) o interes economico imposible de calcular → **HOJA ORDINARIO**: `assets/template-demanda-juicio-ordinario.md`.
+  - Cuantia <= 15.000 euros, o V5 = si (rentas y cantidades de arrendamiento de inmueble, cualquier cuantia, Art. 250.1.1º LEC) → **HOJA VERBAL**: `assets/template-demanda-juicio-verbal.md`.
+  - Cuantia > 15.000 euros y V5 = no o interes economico imposible de calcular → **HOJA ORDINARIO**: `assets/template-demanda-juicio-ordinario.md`.
   - En ambas, si V6 = no → generar ademas ANTES `assets/template-burofax-masc-reclamacion.md` (requisito de procedibilidad, Arts. 264 y 403.2 LEC).
-- Si V4 = pendiente de vencer → **DETENER**: la deuda no es exigible todavia; no cabe reclamarla judicialmente. Advertir y no crear documento.
+- Si V4 = pendiente de vencer (deuda no exigible) → **DETENER**: la deuda no es exigible todavia; no cabe reclamarla judicialmente. Advertir y no crear documento.
 - Si la pretension principal NO es el pago de una cantidad (materia del Art. 249.1 LEC, obligaciones de hacer, entrega de cosa) → **DETENER**: fuera de alcance; derivar a la skill correspondiente (`juicio-ordinario`) o a escalacion.
 
 ### 1.4 Validacion de procedibilidad (interno, antes de la Fase 3)
@@ -160,7 +178,7 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 En esta fase interactúas **directamente a través del chat (en texto plano conversacional, SIN formularios)** para compartir el plan de trabajo, el fundamento normativo y acordar la plantilla base con el usuario.
 
@@ -181,14 +199,14 @@ Envía un mensaje estructurado y formal que contenga:
    - OPOSICION: "Su escrito se rige por los articulos 815 y 818 de la Ley 1/2000, de Enjuiciamiento Civil: dispone de veinte dias desde el requerimiento para formular una oposicion fundada y motivada. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-2000-323"
    - Si la hoja incluye burofax previo (V6 = no), anadir: "Con caracter previo se preparara un burofax de requerimiento de pago, que acredita el intento de solucion extrajudicial exigido por la Ley Organica 1/2025 (articulos 264 y 403.2 de la Ley de Enjuiciamiento Civil). Tenga en cuenta que la demanda no debe presentarse hasta disponer del justificante del envio del burofax y haber dejado un plazo razonable de respuesta."
 
-3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-burofax-masc-reclamacion.md`).
+3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** y nombrala por su ruta. Si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la seccion de assets.
 4. **Pregunta Explícita al Usuario (Vía Chat):** Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
-* **Si `[V5 = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+* **Si `[origen_plantilla = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
   Toma el texto íntegro de la plantilla correspondiente directamente desde el catálogo del prompt y procede de inmediato a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
+* **Si `[origen_plantilla = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
   1. Accede al contenido del adjunto desde `<attached_documents>` o el mensaje del usuario.
   2. **Guardrail de Verificación Legal:** Analiza el texto aportado. Si contiene cláusulas nulas, contrarias a normas imperativas o de imposible cumplimiento, adviértelo expresamente en el chat y propón la redacción legalmente válida.
   3. Adopta la minuta revisada como base y avanza a la **Fase 3**.

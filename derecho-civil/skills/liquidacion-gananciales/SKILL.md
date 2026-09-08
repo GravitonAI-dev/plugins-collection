@@ -92,7 +92,7 @@ Invoca la herramienta con las opciones de triaje:
   "form_data": [
     {
       "id": "regimen",
-      "rationale": "Resolver V1: solo la sociedad de gananciales genera masa común liquidable; los demás regímenes quedan fuera del alcance de esta skill.",
+      "rationale": "Resolver V4: solo la sociedad de gananciales genera masa común liquidable; los demás regímenes quedan fuera del alcance de esta skill.",
       "question": "¿Cuál es el régimen económico matrimonial?",
       "options": [
         {"id": "gananciales", "label": "Sociedad de gananciales"},
@@ -103,7 +103,7 @@ Invoca la herramienta con las opciones de triaje:
     },
     {
       "id": "acuerdo",
-      "rationale": "Resolver V2: el acuerdo genera convenio de liquidación y su ausencia el procedimiento judicial de los artículos 806 y siguientes de la LEC.",
+      "rationale": "Resolver V1: el acuerdo genera convenio de liquidación y su ausencia el procedimiento judicial de los artículos 806 y siguientes de la LEC.",
       "question": "¿Hay acuerdo sobre el inventario y el reparto?",
       "options": [
         {"id": "con_acuerdo", "label": "Sí, hay acuerdo entre los cónyuges"},
@@ -112,7 +112,7 @@ Invoca la herramienta con las opciones de triaje:
     },
     {
       "id": "momento",
-      "rationale": "Resolver V3: determina el bloque condicional de eficacia y si la liquidación se une a un proceso matrimonial en curso.",
+      "rationale": "Resolver V2: determina el bloque condicional de eficacia y si la liquidación se une a un proceso matrimonial en curso.",
       "question": "¿En qué momento se plantea la liquidación?",
       "options": [
         {"id": "unida_a_proceso", "label": "Unida a un proceso matrimonial todavía en curso"},
@@ -121,7 +121,7 @@ Invoca la herramienta con las opciones de triaje:
     },
     {
       "id": "vivienda_hipotecada",
-      "rationale": "Resolver V4: la vivienda con préstamo hipotecario pendiente exige tratar el exceso de adjudicación y la subsistencia de la responsabilidad frente al banco.",
+      "rationale": "Resolver V3: la vivienda con préstamo hipotecario pendiente exige tratar el exceso de adjudicación y la subsistencia de la responsabilidad frente al banco.",
       "question": "¿Hay vivienda familiar con préstamo hipotecario pendiente?",
       "options": [
         {"id": "si", "label": "Sí"},
@@ -131,6 +131,12 @@ Invoca la herramienta con las opciones de triaje:
   ]
 }
 ```
+
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — respuesta a `acuerdo`
+- `V2` — respuesta a `momento`
+- `V3` — respuesta a `vivienda_hipotecada`
+- `V4` — respuesta a `regimen`
 
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores aplicables, evalua en este orden:
@@ -160,7 +166,7 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 En esta fase interactúas **directamente a través del chat (en texto plano conversacional, SIN formularios)** para compartir el plan de trabajo, el fundamento normativo y acordar la plantilla base con el usuario.
 
@@ -186,14 +192,14 @@ Envía un mensaje estructurado y formal que contenga:
 
 Si V1 = 2 (sin acuerdo) y el cliente no ha intentado realmente negociar, antes de crear los documentos judiciales explicaselo con este contenido (redactalo con tus palabras, en registro formal, sin listas numeradas ni mecanica interna): el procedimiento judicial se desarrolla en dos fases sucesivas —primero se determina que bienes y deudas componen la masa comun, y solo despues se reparte—; cada fase tiene su comparecencia, su posible juicio verbal o su nombramiento de contador y peritos, y su propia via de recurso; los plazos de diez dias que fija la ley son los de senalamiento por el Letrado de la Administracion de Justicia, no la duracion del procedimiento, que en la practica se mide en meses o anos; y el coste del contador y de los peritos recae sobre la propia masa a repartir. Anade que el acuerdo, cuando es posible, se documenta en semanas y deja el reparto en manos de los conyuges en lugar de en las de un contador. Termina preguntando si desea intentar el acuerdo antes o prefiere preparar ya la via judicial. **No presiones ni condiciones la continuacion a que acepte negociar:** informado el cliente, respeta su decision.
 
-3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-convenio-liquidacion-gananciales.md`).
+3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** y nombrala por su ruta. Si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la seccion de assets.
 4. **Pregunta Explícita al Usuario (Vía Chat):** Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
-* **Si `[V5 = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+* **Si `[origen_plantilla = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
   Toma el texto íntegro de la plantilla correspondiente directamente desde el catálogo del prompt y procede de inmediato a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
+* **Si `[origen_plantilla = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
   1. Accede al contenido del adjunto desde `<attached_documents>` o el mensaje del usuario.
   2. **Guardrail de Verificación Legal:** Analiza el texto aportado. Si contiene cláusulas nulas, contrarias a normas imperativas o de imposible cumplimiento, adviértelo expresamente en el chat y propón la redacción legalmente válida.
   3. Adopta la minuta revisada como base y avanza a la **Fase 3**.

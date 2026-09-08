@@ -136,28 +136,44 @@ Invoca la herramienta con las opciones de triaje:
         {"id": "si", "label": "Sí"},
         {"id": "no", "label": "No, o se desconoce"}
       ]
+    },
+    {
+      "id": "tipo_vehiculo",
+      "rationale": "Resolver V5: el seguro obligatorio de los vehiculos personales ligeros no existia antes del 02/01/2026 y, despues, depende de los tres requisitos acumulativos de la disposicion adicional primera de la Ley 5/2025. Preguntar unicamente si V2 = circulacion.",
+      "question": "¿Qué clase de vehículo causó el daño?",
+      "options": [
+        {"id": "turismo_o_similar", "label": "Turismo, motocicleta, furgoneta o camión"},
+        {"id": "vehiculo_personal_ligero", "label": "Patinete o vehículo de movilidad personal"}
+      ]
     }
   ]
 }
 ```
 
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — `momento_documento`
+- `V2` — `ambito_hecho`
+- `V3` — `supuesto_no_circulatorio`
+- `V4` — `aseguradora_identificada`
+- `V5` — `tipo_vehiculo`
+
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores aplicables y superado el filtro de prescripcion, evalua en este orden:
 
-- Si V5 = 1 → **HOJA RECLAMACION**: `assets/template-reclamacion-extrajudicial-danos.md`.
-- Si V5 = 2 → **HOJA OFERTA**: `assets/template-respuesta-oferta-motivada.md`.
-- Si V5 = 3 → **HOJA DEMANDA**: `assets/template-demanda-responsabilidad-civil.md`, con la validacion de procedibilidad del apartado siguiente.
-- Si V5 = 3, V1 = 1 y **no consta reclamacion previa al asegurador** → **NO crear la demanda**. Explicar que el Art. 7.8 TRLRCSCVM, en relacion con el Art. 403 LEC, impide admitir a tramite las demandas que no acompanen la oferta o la respuesta motivada o, en su defecto, la reclamacion previa al asegurador. Redirigir a la HOJA RECLAMACION y ofrecer preparar la demanda despues.
-- Si V5 = 3, V1 = 2 y **no consta ninguna actividad negociadora previa** → **NO crear la demanda**. Explicar el requisito de procedibilidad del Art. 5 LO 1/2025 y del Art. 264.4.º LEC. Redirigir a la HOJA RECLAMACION. Excepcion: si el cliente **desconoce el domicilio del demandado o el medio por el que puede requerirle**, el Art. 264.4.º LEC admite en su lugar una declaracion responsable de la imposibilidad de llevar a cabo la actividad negociadora previa; en ese caso continuar con la HOJA DEMANDA y advertir de que debera aportarse esa declaracion.
-- Si V5 = 2 y V1 = 2 → usar la HOJA OFERTA, **desactivando todos los bloques que invocan el Art. 7 TRLRCSCVM**: fuera de la circulacion la aseguradora no esta sujeta al procedimiento de oferta y respuesta motivada, y lo recibido es una oferta contractual ordinaria regida por los Arts. 18 y 20 LCS. Decirselo al cliente expresamente.
-- Si V1 = 1, V2 = 2 y el hecho es **anterior al 02/01/2026** → el seguro obligatorio de vehiculos personales ligeros **no estaba en vigor**. No afirmar que existe. Reconducir al Art. 1902 CC con culpa probada frente al patrimonio del causante, preguntar si el causante tenia algun seguro voluntario de responsabilidad civil (a menudo el del hogar) y advertir de que el baremo del Anexo pasa a ser solo orientativo.
-- Si V1 = 1, V2 = 2 y el hecho es **posterior al 02/01/2026** → antes de afirmar que hay seguro obligatorio, comprobar los tres requisitos acumulativos del apartado 1 de la disposicion adicional primera de la Ley 5/2025: certificado de circulacion, inscripcion en el Registro de Vehiculos de la DGT y etiqueta identificativa con el numero de inscripcion o matricula. Si no concurren, aplicar el mismo tratamiento que en el caso anterior.
+- Si V1 = reclamacion extrajudicial → **HOJA RECLAMACION**: `assets/template-reclamacion-extrajudicial-danos.md`.
+- Si V1 = respuesta a oferta → **HOJA OFERTA**: `assets/template-respuesta-oferta-motivada.md`.
+- Si V1 = demanda → **HOJA DEMANDA**: `assets/template-demanda-responsabilidad-civil.md`, con la validacion de procedibilidad del apartado siguiente.
+- Si V1 = demanda, V2 = circulacion y **no consta reclamacion previa al asegurador** → **NO crear la demanda**. Explicar que el Art. 7.8 TRLRCSCVM, en relacion con el Art. 403 LEC, impide admitir a tramite las demandas que no acompanen la oferta o la respuesta motivada o, en su defecto, la reclamacion previa al asegurador. Redirigir a la HOJA RECLAMACION y ofrecer preparar la demanda despues.
+- Si V1 = demanda, V2 = otro suceso y **no consta ninguna actividad negociadora previa** → **NO crear la demanda**. Explicar el requisito de procedibilidad del Art. 5 LO 1/2025 y del Art. 264.4.º LEC. Redirigir a la HOJA RECLAMACION. Excepcion: si el cliente **desconoce el domicilio del demandado o el medio por el que puede requerirle**, el Art. 264.4.º LEC admite en su lugar una declaracion responsable de la imposibilidad de llevar a cabo la actividad negociadora previa; en ese caso continuar con la HOJA DEMANDA y advertir de que debera aportarse esa declaracion.
+- Si V1 = respuesta a oferta y V2 = otro suceso → usar la HOJA OFERTA, **desactivando todos los bloques que invocan el Art. 7 TRLRCSCVM**: fuera de la circulacion la aseguradora no esta sujeta al procedimiento de oferta y respuesta motivada, y lo recibido es una oferta contractual ordinaria regida por los Arts. 18 y 20 LCS. Decirselo al cliente expresamente.
+- Si V2 = circulacion, V5 = vehiculo personal ligero y el hecho es **anterior al 02/01/2026** → el seguro obligatorio de vehiculos personales ligeros **no estaba en vigor**. No afirmar que existe. Reconducir al Art. 1902 CC con culpa probada frente al patrimonio del causante, preguntar si el causante tenia algun seguro voluntario de responsabilidad civil (a menudo el del hogar) y advertir de que el baremo del Anexo pasa a ser solo orientativo.
+- Si V2 = circulacion, V5 = vehiculo personal ligero y el hecho es **posterior al 02/01/2026** → antes de afirmar que hay seguro obligatorio, comprobar los tres requisitos acumulativos del apartado 1 de la disposicion adicional primera de la Ley 5/2025: certificado de circulacion, inscripcion en el Registro de Vehiculos de la DGT y etiqueta identificativa con el numero de inscripcion o matricula. Si no concurren, aplicar el mismo tratamiento que en el caso anterior.
 - Si el vehiculo causante **circulaba sin seguro, no esta identificado o su aseguradora esta en liquidacion** → advertir de que la reclamacion corresponde al Consorcio de Compensacion de Seguros por el procedimiento propio del Art. 11 TRLRCSCVM y **escalar**: fuera de alcance. Puede prepararse la reclamacion extrajudicial frente al causante identificado, si lo hay.
 - Si el hecho ocurrio **en la via publica o en una instalacion de titularidad publica**, o la asistencia sanitaria se presto en la **sanidad publica** → **DETENER**: es responsabilidad patrimonial de la Administracion, que se tramita por el procedimiento administrativo y, en su caso, ante la jurisdiccion contencioso-administrativa. Advertir, explicar la via correcta y escalar. No crear documento.
 - Si el dano se sufrio **en el trabajo o con ocasion del trabajo** → **DETENER**: jurisdiccion social, con regimen propio. Advertir y escalar. No crear documento.
 - Si hay o puede haber **proceso penal** por los mismos hechos, o el cliente pide denuncia, querella o la reclamacion de la responsabilidad civil dentro del proceso penal → **DETENER**: fuera de alcance. Advertir y escalar a especialista en penal.
 - Si hubo **fallecimiento del perjudicado o gran invalidez / gran lesionado** → **ESCALAR antes de cifrar nada**. Puede prepararse la reclamacion extrajudicial para interrumpir la prescripcion, dejando la cuantificacion abierta, pero la valoracion se deriva a especialista.
-- Si V3 = 3 y es **negligencia sanitaria** → advertir de que sin informe medico pericial que acredite la desviacion de la *lex artis* y el nexo causal la reclamacion no es viable, indicar que el primer paso material es obtener la historia clinica completa, y **escalar**.
+- Si V3 = negligencia profesional y es **sanitaria** → advertir de que sin informe medico pericial que acredite la desviacion de la *lex artis* y el nexo causal la reclamacion no es viable, indicar que el primer paso material es obtener la historia clinica completa, y **escalar**.
 - Si el dano deriva de un **producto defectuoso** → advertir de que el regimen es el del texto refundido de la Ley General para la Defensa de los Consumidores y Usuarios, no verificado por esta skill, y escalar.
 
 ### 1.4 Validacion de presupuestos (interno, antes de la Fase 3)
@@ -175,7 +191,7 @@ Una vez resueltos los vectores aplicables y superado el filtro de prescripcion, 
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 En esta fase interactúas **directamente a través del chat (en texto plano conversacional, SIN formularios)** para compartir el plan de trabajo, el fundamento normativo y acordar la plantilla base con el usuario.
 
@@ -200,14 +216,14 @@ Envía un mensaje estructurado y formal que contenga:
    - En la HOJA DEMANDA, si V1 = 1, anadir ademas: "Ademas, en un accidente de circulacion la demanda no se admite a tramite si no se acompana la oferta o la respuesta motivada de la aseguradora o, en su defecto, la reclamacion previa que se le dirigio (articulo 7.8 del texto refundido citado, en relacion con el articulo 403 de la Ley de Enjuiciamiento Civil)."
    - En la HOJA OFERTA, si V1 = 1, anadir: "La aseguradora esta obligada a presentar oferta motivada de indemnizacion en el plazo de tres meses desde su reclamacion, o respuesta motivada si no puede ofertar (articulo 7.2 del texto refundido citado). La notificacion fehaciente de una u otra inicia un nuevo plazo de prescripcion de un ano, cuyo vencimiento en su caso es el {{fecha_vencimiento_nuevo_plazo}}."
 
-3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-demanda-responsabilidad-civil.md`).
+3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** y nombrala por su ruta. Si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la seccion de assets.
 4. **Pregunta Explícita al Usuario (Vía Chat):** Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
-* **Si `[V5 = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+* **Si `[origen_plantilla = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
   Toma el texto íntegro de la plantilla correspondiente directamente desde el catálogo del prompt y procede de inmediato a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
+* **Si `[origen_plantilla = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
   1. Accede al contenido del adjunto desde `<attached_documents>` o el mensaje del usuario.
   2. **Guardrail de Verificación Legal:** Analiza el texto aportado. Si contiene cláusulas nulas, contrarias a normas imperativas o de imposible cumplimiento, adviértelo expresamente en el chat y propón la redacción legalmente válida.
   3. Adopta la minuta revisada como base y avanza a la **Fase 3**.

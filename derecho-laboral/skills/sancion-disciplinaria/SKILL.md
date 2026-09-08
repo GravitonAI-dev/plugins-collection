@@ -112,6 +112,11 @@ Si el usuario ya ha identificado inequívocamente la conducta, la sanción prete
 }
 ```
 
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — `tipo_documento`
+- `V3` — `naturaleza_empleador`
+- `V4` — `garantias_trabajador`
+
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 
 * **Si `[V1 = fuera_de_alcance]` → Deriva a la skill `carta-despido`,** que cubre el despido disciplinario con sus requisitos propios. No crees documento aquí.
@@ -124,7 +129,7 @@ Si el usuario ya ha identificado inequívocamente la conducta, la sanción prete
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 ### 2.1 Verificación Normativa Interna
 1. Consulta las referencias cargadas en tu contexto.
@@ -136,13 +141,13 @@ Envía un mensaje formal que contenga:
 1. **Marco legal y convencional:** artículos legales y del convenio, con el cuadro de faltas y sanciones aplicable a la conducta descrita.
 2. **Cómputo de la prescripción de la falta** conforme al artículo 60.2, con la fecha límite resultante y la advertencia expresa si el plazo está próximo a vencer o ya ha vencido.
 3. **Proporcionalidad de la sanción propuesta:** explica que la sanción debe corresponderse con la gravedad tipificada y que una sanción desproporcionada será revocada o reducida en juicio (artículo 115 de la Ley 36/2011).
-4. **Propuesta de plantilla oficial del sistema.**
+4. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Nombrala por su ruta; si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
 5. **Pregunta explícita al usuario:**
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla)
-* **Si `[V5 = plantilla_sistema]`:** toma el asset íntegro y procede a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]`:** accede al adjunto, verifica que contenga fecha, hechos concretos y la sanción impuesta con su duración, advierte de los defectos detectados y de las sanciones prohibidas por el artículo 58.3, y adopta la minuta revisada.
+### 2.3 Fijación del origen de la plantilla
+* **Si `[origen_plantilla = plantilla_sistema]`:** toma el asset íntegro y procede a la **Fase 3**.
+* **Si `[origen_plantilla = plantilla_usuario]`:** accede al adjunto, verifica que contenga fecha, hechos concretos y la sanción impuesta con su duración, advierte de los defectos detectados y de las sanciones prohibidas por el artículo 58.3, y adopta la minuta revisada.
 
 ---
 

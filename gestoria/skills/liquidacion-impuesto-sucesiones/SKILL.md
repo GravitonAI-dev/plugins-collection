@@ -116,7 +116,7 @@ Invoca la herramienta con las preguntas de conexión territorial y parentesco:
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 Interacción directa en texto plano conversacional en el chat (sin formularios).
 
@@ -132,13 +132,14 @@ Envía un mensaje estructurado y pedagógico:
    - Recordar el plazo legal imperativo de **6 meses desde el fallecimiento** para presentar la autoliquidación (con posibilidad de solicitar prórroga por otros 6 meses dentro de los primeros 5 meses).
 2. **Propuesta de Plantilla Oficial del Sistema:**
    - Detallar que dispones de las plantillas oficiales adaptadas: borrador del modelo 650 y checklist documental integral.
+   - Nombra por su ruta la hoja **que ha resuelto el enrutamiento de la Fase 1.3**; si el enrutamiento asigno varias, nombralas todas y en el orden en que se van a rellenar. **No propongas una hoja distinta de la enrutada.**
 3. **Pregunta Explícita al Usuario (Vía Chat):**
    Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
-- **Si `V5 = plantilla_sistema`:** Toma los assets oficiales seleccionados y avanza a la **Fase 3**.
-- **Si `V5 = plantilla_usuario`:** Adopta la minuta del usuario desde `<attached_documents>` o `<user_message>`, valida la observancia de la normativa fiscal imperativa y avanza a la **Fase 3**.
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+- **Si `origen_plantilla = plantilla_sistema`:** Toma los assets oficiales seleccionados y avanza a la **Fase 3**.
+- **Si `origen_plantilla = plantilla_usuario`:** Adopta la minuta del usuario desde `<attached_documents>` o `<user_message>`, valida la observancia de la normativa fiscal imperativa y avanza a la **Fase 3**.
 
 ---
 

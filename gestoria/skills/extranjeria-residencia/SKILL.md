@@ -102,6 +102,10 @@ Invoca la herramienta con las opciones de triaje:
 }
 ```
 
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — `tipo_tramite`
+- `V4` — `lugar_presentacion`
+
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 - **Si `V4 = desde_extranjero_consulado` y `V1 = residencia_no_lucrativa`:**
   - Advertir expresamente de que la solicitud inicial de residencia y el correspondiente visado deben tramitarse ante la demarcación consular española en el país de origen. La skill preparará la hoja de datos y el escrito de soporte, pero no sustituye la tramitación consular.
@@ -110,7 +114,7 @@ Invoca la herramienta con las opciones de triaje:
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 Interacción directa en texto plano conversacional en el chat (sin formularios).
 
@@ -125,13 +129,14 @@ Envía un mensaje estructurado y pedagógico:
    - Detallar los requisitos sustantivos según el trámite: carecer de antecedentes penales en España y países de residencia anterior (5 años), seguro médico privado sin copagos (en no lucrativa), acreditación de fondos (400% del IPREM anual en no lucrativa) o permanencia mínima y vínculos en arraigo.
 2. **Propuesta de Plantilla Oficial del Sistema:**
    - Presentar la hoja de datos para el formulario EX (identificando el modelo: EX-15 para NIE, EX-10 para arraigo, EX-01 para no lucrativa, EX-02 para reagrupación) y el escrito formal de solicitud.
+   - Nombra por su ruta la hoja **que ha resuelto el enrutamiento de la Fase 1.3**; si el enrutamiento asigno varias, nombralas todas y en el orden en que se van a rellenar. **No propongas una hoja distinta de la enrutada.**
 3. **Pregunta Explícita al Usuario (Vía Chat):**
    Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
-- **Si `V5 = plantilla_sistema`:** Utiliza los assets oficiales seleccionados y avanza a la **Fase 3**.
-- **Si `V5 = plantilla_usuario`:** Adopta la minuta del usuario desde `<attached_documents>` o `<user_message>`, valida la observancia de la LOEX y el RD 1155/2024 y avanza a la **Fase 3**.
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+- **Si `origen_plantilla = plantilla_sistema`:** Utiliza los assets oficiales seleccionados y avanza a la **Fase 3**.
+- **Si `origen_plantilla = plantilla_usuario`:** Adopta la minuta del usuario desde `<attached_documents>` o `<user_message>`, valida la observancia de la LOEX y el RD 1155/2024 y avanza a la **Fase 3**.
 
 ---
 

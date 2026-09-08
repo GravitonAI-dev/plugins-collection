@@ -123,6 +123,12 @@ Antes de abrir formularios, analiza el mensaje inicial y la documentación aport
 }
 ```
 
+**Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
+- `V1` — `modalidad_extintiva`
+- `V3` — `naturaleza_empleador`
+- `V4` — `garantias_trabajador`
+- `V2` — no se pregunta en el formulario: se deriva durante el propio enrutamiento a partir de la norma aplicable y de los hechos que relate el usuario
+
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 
 * **Si `[V1 = fuera_de_alcance]` → Detener proceso.** Informa en el chat de que el despido colectivo (artículo 51), la suspensión de contratos (artículo 47), la extinción por voluntad del trabajador (artículos 49.1.d y 50) y el mutuo acuerdo se rigen por trámites propios con periodo de consultas o documentos distintos, quedando fuera del alcance de esta skill. Ofrece la derivación al profesional competente. **No crees documento.**
@@ -135,7 +141,7 @@ Antes de abrir formularios, analiza el mensaje inicial y la documentación aport
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución de V5)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
 
 En esta fase interactúas **directamente en el chat, en texto plano conversacional y sin formularios**.
 
@@ -149,13 +155,13 @@ Envía un mensaje formal que contenga:
 1. **Marco legal aplicable:** norma, artículos y convenio identificado, explicando el efecto de la clasificación obtenida.
 2. **Cómputo del plazo y calendario de la operación:** fecha de efectos propuesta, preaviso exigible, y advertencia expresa de que el trabajador dispone de **20 días hábiles** desde la fecha de efectos para impugnar el despido (artículo 59.3 del Estatuto de los Trabajadores y artículo 103 LRJS), con conciliación previa obligatoria que suspende el cómputo.
 3. **Cálculo económico preliminar desglosado**, cuando la modalidad conlleve indemnización, con la fórmula a la vista y la advertencia de que el importe definitivo depende del salario regulador acreditado.
-4. **Propuesta de plantilla oficial del sistema** correspondiente a la ruta resuelta.
+4. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Nombrala por su ruta; si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
 5. **Pregunta explícita al usuario:**
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
 
-### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
-* **Si `[V5 = plantilla_sistema]`:** toma el texto íntegro del asset correspondiente desde el bloque `<document kind="assets-collection">` y procede a la **Fase 3**.
-* **Si `[V5 = plantilla_usuario]`:**
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+* **Si `[origen_plantilla = plantilla_sistema]`:** toma el texto íntegro del asset correspondiente desde el bloque `<document kind="assets-collection">` y procede a la **Fase 3**.
+* **Si `[origen_plantilla = plantilla_usuario]`:**
   1. Accede al contenido desde `<attached_documents>` o el mensaje del usuario.
   2. **Guardrail de verificación:** analiza el texto aportado. Si carece de fecha de efectos, si las imputaciones son genéricas o no fechadas, si omite la puesta a disposición de la indemnización en un despido objetivo, o si contiene renuncias anticipadas de derechos, adviértelo expresamente en el chat y propón la redacción válida.
   3. Adopta la minuta revisada como base y avanza a la **Fase 3**.
