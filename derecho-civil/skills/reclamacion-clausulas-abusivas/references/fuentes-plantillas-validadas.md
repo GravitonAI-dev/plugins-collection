@@ -1,14 +1,14 @@
 # Fuentes Oficiales y Plantillas Validadas
 
 > Material de referencia para la skill `reclamacion-clausulas-abusivas`. Registra las fuentes normativas
-> y jurisprudenciales que la skill verifica y, si detecta una version posterior, ACTUALIZA en el plugin
+> y jurisprudenciales que la skill verifica y, si detecta una version posterior, aplica la redaccion vigente al documento que redacta
 > en cada lanzamiento.
 
 ---
 
-## Regla de actualizacion permanente (OBLIGATORIA)
+## Regla de verificacion permanente (OBLIGATORIA)
 
-Cada vez que se lanza la skill, en el Paso 1 se comprueban las fuentes de esta tabla. **Si se detecta una version posterior a la registrada, la skill actualiza el archivo correspondiente del plugin (reference o asset) antes de redactar** y anota la nueva fecha/version verificada. En esta materia, ademas, el Paso 1.3 verifica la jurisprudencia reciente del tipo de clausula: si difiere de la registrada, se actualiza `jurisprudencia-tjue-ts-clausulas.md`. Si la fuente no es accesible, se usa la version local, se marca `{{VERIFICAR}}` y se informa al usuario.
+Cada vez que se lanza la skill, en el Paso 1 se comprueban las fuentes de esta tabla. **Si se detecta una version posterior a la registrada, la skill aplica la redaccion vigente al documento que redacta en el workspace del usuario** e informa del cambio en el chat. La skill nunca modifica sus propios archivos de plugin. En esta materia, ademas, el Paso 1.3 verifica la jurisprudencia reciente del tipo de clausula: si difiere de la registrada, se aplica la doctrina vigente al documento que redacta, sin modificar el archivo de referencia del plugin. Si la fuente no es accesible, se usa la version local, se marca `{{VERIFICAR}}` y se informa al usuario.
 
 ---
 

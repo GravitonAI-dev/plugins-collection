@@ -1,15 +1,15 @@
-# Plazos, Sedes y Regla de Auto-actualizacion
+# Plazos, Sedes y Regla de Verificacion
 
 > Material de referencia para la skill `alta-baja-seguridad-social`. Registra las fuentes normativas, los plazos
-> de las altas y bajas, las sedes de presentacion y la regla de auto-actualizacion. La skill verifica estas
-> fuentes en cada lanzamiento y, si detecta una version posterior, ACTUALIZA el archivo correspondiente del
+> de las altas y bajas, las sedes de presentacion y la regla de verificacion. La skill verifica estas
+> fuentes en cada lanzamiento y, si detecta una version posterior, aplica la redaccion vigente al tramite que
 > plugin antes de preparar el tramite.
 
 ---
 
-## Regla de actualizacion permanente (OBLIGATORIA)
+## Regla de verificacion permanente (OBLIGATORIA)
 
-Cada vez que se lanza la skill, en el Paso 1 se comprueban las fuentes de esta tabla, los modelos TA y los plazos vigentes. **Si se detecta una version posterior a la registrada, la skill actualiza el archivo correspondiente del plugin (reference o asset) antes de preparar el tramite** y anota la nueva fecha/version verificada. Si la fuente no es accesible, se usa la version local y se informa al usuario.
+Cada vez que se lanza la skill, en el Paso 1 se comprueban las fuentes de esta tabla, los modelos TA y los plazos vigentes. **Si se detecta una version posterior a la registrada, la skill aplica la redaccion vigente al tramite que prepara en el workspace del usuario** e informa del cambio en el chat. La skill nunca modifica sus propios archivos de plugin. Si la fuente no es accesible, se usa la version local y se informa al usuario.
 
 ---
 

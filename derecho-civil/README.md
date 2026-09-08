@@ -22,7 +22,7 @@ Plugin de GravitonAI para la generacion de documentos de derecho civil espanol, 
 - Prepara la minuta del testamento y el checklist de planificacion sucesoria (legitimas, mejora, sustituciones, desheredacion), solo en derecho comun.
 - Redacta contratos entre particulares (prestamo, reconocimiento de deuda, comodato, compraventa de mueble) con control de usura.
 - Prepara las medidas de apoyo a personas con discapacidad de la Ley 8/2021, tratando la curatela como subsidiaria de la guarda de hecho y de las medidas voluntarias.
-- Toda skill se auto-actualiza en cada lanzamiento: verifica la version vigente de su norma en el BOE antes de redactar y reescribe sus propias references/assets si detecta cambios. Las magnitudes que cambian solas (baremo de trafico, IRAV, SMI, interes legal) se consultan en el momento y nunca quedan escritas fijas en la plantilla.
+- Toda skill verifica en cada lanzamiento la version vigente de su norma en el BOE antes de redactar y, si detecta cambios, aplica la redaccion vigente al documento que genera en el workspace, sin modificar los archivos del plugin. Las magnitudes que cambian solas (baremo de trafico, IRAV, SMI, interes legal) se consultan en el momento y nunca quedan escritas fijas en la plantilla.
 
 ## Que NO hace
 

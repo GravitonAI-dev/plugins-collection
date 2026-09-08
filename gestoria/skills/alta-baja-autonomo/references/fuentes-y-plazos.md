@@ -3,13 +3,13 @@
 > Material de referencia para la skill `alta-baja-autonomo`. Registra las fuentes normativas, las sedes de
 > presentacion y los plazos del alta y la baja censal (AEAT) y del alta y la baja en el RETA (Seguridad
 > Social). La skill verifica estas fuentes en cada lanzamiento y, si detecta una version posterior,
-> ACTUALIZA el archivo correspondiente del plugin antes de preparar el tramite.
+> aplica la redaccion vigente al tramite que prepara, sin modificar los archivos del plugin.
 
 ---
 
-## Regla de actualizacion permanente (OBLIGATORIA)
+## Regla de verificacion permanente (OBLIGATORIA)
 
-Cada vez que se lanza la skill, en el Paso 1 se comprueban las fuentes de esta tabla y las cuotas del ejercicio en curso. **Si se detecta una version posterior a la registrada, la skill actualiza el archivo correspondiente del plugin (reference o asset) antes de preparar el tramite** y anota la nueva fecha/version verificada. Si la fuente no es accesible, se usa la version local y se informa al usuario.
+Cada vez que se lanza la skill, en el Paso 1 se comprueban las fuentes de esta tabla y las cuotas del ejercicio en curso. **Si se detecta una version posterior a la registrada, la skill aplica la redaccion vigente al tramite que prepara en el workspace del usuario** e informa del cambio en el chat. La skill nunca modifica sus propios archivos de plugin. Si la fuente no es accesible, se usa la version local y se informa al usuario.
 
 ---
 

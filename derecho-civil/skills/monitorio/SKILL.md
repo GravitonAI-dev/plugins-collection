@@ -115,7 +115,7 @@ En esta fase interactúas **directamente a través del chat (en texto plano conv
 Envía un mensaje estructurado y formal que contenga:
 1. **Marco Legal Aplicable:** Artículos 812 a 818 de la Ley de Enjuiciamiento Civil (LEC), modificados por RDL 6/2023 y LO 1/2025; Art. 21 de la Ley de Propiedad Horizontal; y Art. 813 LEC (competencia territorial improrrogable del domicilio del deudor).
 2. **Orientación Legal del Caso:**
-La skill se actualiza a si misma en cada lanzamiento: comprueba las fuentes oficiales y, si detecta una version posterior, reescribe sus propios archivos (references y assets) antes de redactar. Ejecutar SIEMPRE esta secuencia:
+La skill verifica las fuentes oficiales en cada lanzamiento y, si detecta una version posterior, aplica la redaccion vigente al documento que redacta en el workspace del usuario, sin modificar sus propios archivos de plugin. Ejecutar SIEMPRE esta secuencia:
 
 **1.1 — Leer la fecha/version registrada localmente.** Abrir `references/fuentes-plantillas-validadas.md` y anotar la "Version registrada" de la LEC y del modelo del CGPJ.
 

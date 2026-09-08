@@ -151,7 +151,7 @@ En esta fase interactúas **directamente a través del chat (en texto plano conv
 Envía un mensaje estructurado y formal que contenga:
 1. **Marco Legal Aplicable:** Artículos 249, 399, 403, 414-433 de la Ley de Enjuiciamiento Civil (LEC), reformada por Real Decreto-ley 6/2023 (umbral de 15.000 €) y Ley Orgánica 1/2025 de eficiencia procesal (MASC como requisito de admisibilidad).
 2. **Orientación Legal del Caso:**
-La skill se actualiza a si misma en cada lanzamiento: comprueba las fuentes oficiales y, si detecta una version posterior, reescribe sus propios archivos (references y assets) antes de redactar. Ejecutar SIEMPRE esta secuencia:
+La skill verifica las fuentes oficiales en cada lanzamiento y, si detecta una version posterior, aplica la redaccion vigente al documento que redacta en el workspace del usuario, sin modificar sus propios archivos de plugin. Ejecutar SIEMPRE esta secuencia:
 
 **1.2 — Consultar la fuente oficial vigente en vivo.** Invocar:
 ```
