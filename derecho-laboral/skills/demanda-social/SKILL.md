@@ -145,6 +145,7 @@ Antes de redactar, resuelve y comunica en el chat estos cinco extremos:
 * **Si `[V1 = sancion]` → Plantilla: `assets/template-demanda-impugnacion-sancion.md`.**
 * **Si `[V1 = modificacion_art138]` → Plantilla: `assets/template-demanda-modificacion-sustancial.md`.** Recuerda que es proceso urgente y de tramitación preferente, exceptuado de conciliación previa, con plazo de caducidad de veinte días hábiles.
 * **Si `[V1 = tutela_derechos_fundamentales]` → Plantilla: `assets/template-demanda-tutela-derechos-fundamentales.md`.** Advierte de que la demanda debe expresar con claridad los **hechos constitutivos de la vulneración** y la cuantía de la indemnización pretendida con las bases de su cálculo, y de que el Ministerio Fiscal será siempre parte.
+- `V2` no elige plantilla: determina si la demanda pide la improcedencia o la nulidad, y con ello el bloque de hechos indiciarios, la inversion de la carga de la prueba y los efectos que se solicitan en el suplico.
 
 ---
 

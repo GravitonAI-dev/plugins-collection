@@ -52,9 +52,9 @@ Al transformar un documento real en una plantilla reutilizable o al crearla desd
 
 ## 2. Convención de Sintaxis de Variables
 
-1. **Formato:** Dobles llaves con nombre en minúsculas y guiones bajos (`snake_case`):
+1. **Formato:** Dobles llaves con el nombre en MAYÚSCULAS y guiones bajos entre palabras, conforme a la Fase 3 de `PLUGIN_AUTHORING_GUIDE.md`:
    - Correcto: `{{NOMBRE_ARRENDADOR}}`, `{{CUANTIA_TOTAL}}`, `{{FECHA_EFECTOS}}`
-   - Incorrecto: `<NOMBRE>`, `[Nombre Arrendador]`, `{{NOMBREARRENDADOR}}`, `{nombre_arrendador}`
+   - Incorrecto: `<NOMBRE>`, `[Nombre Arrendador]`, `{{NombreArrendador}}` (mayúsculas intercaladas), `{{NOMBREARRENDADOR}}` (sin guion bajo), `{{nombre_arrendador}}` (en minúsculas), `{NOMBRE_ARRENDADOR}` (llave simple)
 2. **Variables con Aclaración Opcional:** Si un campo requiere especificar formato o posibles opciones, se puede incluir `:` tras el identificador:
    - Ejemplo: `{{PLAZO_DURACION_ANOS: número de años pactados}}`, `{{TIPO_GARANTIA: aval bancario o fianza en metálico}}`.
 3. **Consistencia de Identificadores:** Si un dato se repite en varias secciones (ej. en el encabezado y en el pie de firma), usar EXACTAMENTE el mismo nombre de marcador (`{{NOMBRE_ARRENDADOR}}`).

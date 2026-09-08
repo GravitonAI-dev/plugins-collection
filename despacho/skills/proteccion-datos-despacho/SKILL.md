@@ -141,6 +141,7 @@ Advierte de que la calificación **no la elige el despacho**: depende de quién 
 * **Si `[V1 = registro_brecha]` → Plantilla: `assets/template-registro-brechas-seguridad.md`,** con el protocolo del punto 1.4.
 
 **Comprobación 3 — Advertencia transversal sobre categorías especiales.** En un despacho, el tratamiento de **categorías especiales de datos** —salud, afiliación sindical, convicciones, orientación sexual, datos biométricos— y de **datos relativos a condenas e infracciones penales** no es excepcional: es cotidiano. Advierte de que estos tratamientos exigen una base jurídica reforzada y medidas de seguridad acordes, y **verifica con `web_search` los preceptos aplicables** —tanto del Reglamento como de la Ley Orgánica 3/2018, que contiene una previsión específica sobre el tratamiento por abogados y procuradores de datos relativos a condenas e infracciones penales— antes de consignar una base jurídica en el documento.
+- `V2` no elige plantilla: determina si el despacho figura como responsable o como encargado del tratamiento, y con ello las obligaciones que se recogen en el documento.
 
 ### 1.4 Protocolo ante Brecha de Seguridad (PARADA POR URGENCIA)
 

@@ -160,7 +160,7 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
 - Si V1 = acreedor y V2 = monitorio con oposicion:
   - Cuantia > 15.000 euros → **HOJA ORDINARIO-818**: `assets/template-demanda-juicio-ordinario.md` (activar los bloques condicionales del Art. 818.2; V6 no aplica: la demanda trae causa del monitorio).
   - Cuantia <= 15.000 euros → **DETENER**: tras la oposicion, el asunto continua como juicio verbal dentro del mismo procedimiento (impugnacion de la oposicion en 10 dias, Art. 818.1 LEC); no procede una nueva demanda. Informar del cauce y del plazo, y ofrecer escalacion. No crear documento.
-- Si V1 = acreedor, V2 = sin iniciar, V3 = si y V4 = vencida y liquida → **HOJA MONITORIO**: `assets/template-peticion-monitorio.md` (cualquier cuantia). Si V6 = no → generar ademas ANTES `assets/template-burofax-masc-reclamacion.md`.
+- Si V1 = acreedor, V2 = sin iniciar, V3 = si y V4 = vencida_y_liquida y liquida → **HOJA MONITORIO**: `assets/template-peticion-monitorio.md` (cualquier cuantia). Si V6 = no → generar ademas ANTES `assets/template-burofax-masc-reclamacion.md`.
 - Si V1 = acreedor, V2 = sin iniciar y (V3 = no, o V4 = discutida/por determinar) → via declarativa:
   - Cuantia <= 15.000 euros, o V5 = si (rentas y cantidades de arrendamiento de inmueble, cualquier cuantia, Art. 250.1.1º LEC) → **HOJA VERBAL**: `assets/template-demanda-juicio-verbal.md`.
   - Cuantia > 15.000 euros y V5 = no o interes economico imposible de calcular → **HOJA ORDINARIO**: `assets/template-demanda-juicio-ordinario.md`.

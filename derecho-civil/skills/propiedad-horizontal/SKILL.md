@@ -121,22 +121,24 @@ Invoca la herramienta con las opciones de triaje:
     },
     {
       "id": "sentido_del_voto",
-      "rationale": "Resolver V5: solo esta legitimado para impugnar quien voto en contra, salvo su voto o estuvo ausente (articulo 18.2 de la Ley de Propiedad Horizontal). Preguntar unicamente si V2 = impugnacion de acuerdo.",
-      "question": "¿Cuál fue la posición del cliente en la junta que adoptó el acuerdo?",
+      "rationale": "Resolver V5: solo esta legitimado para impugnar quien voto en contra, salvo su voto o estuvo ausente (articulo 18.2 de la Ley de Propiedad Horizontal). Preguntar unicamente si V2 = impugnacion_acuerdo.",
+      "question": "Si el asunto es la impugnación de un acuerdo, ¿cuál fue la posición del cliente en la junta que lo adoptó?",
       "options": [
         {"id": "voto_en_contra", "label": "Votó en contra"},
         {"id": "salvo_su_voto", "label": "Se abstuvo salvando su voto"},
         {"id": "ausente", "label": "No asistió a la junta"},
-        {"id": "voto_a_favor_o_abstencion", "label": "Votó a favor, o se abstuvo sin salvar su voto"}
+        {"id": "voto_a_favor_o_abstencion", "label": "Votó a favor, o se abstuvo sin salvar su voto"},
+        {"id": "no_procede", "label": "No procede: el asunto no es una impugnación"}
       ]
     },
     {
       "id": "al_corriente_de_pago",
-      "rationale": "Resolver V6: la impugnacion exige estar al corriente en el pago de las deudas vencidas con la comunidad, o haberlas consignado judicialmente (articulo 18.2 de la Ley de Propiedad Horizontal). Preguntar unicamente si V2 = impugnacion de acuerdo.",
-      "question": "¿Está el cliente al corriente en el pago de las cuotas de la comunidad, o las ha consignado judicialmente?",
+      "rationale": "Resolver V6: la impugnacion exige estar al corriente en el pago de las deudas vencidas con la comunidad, o haberlas consignado judicialmente (articulo 18.2 de la Ley de Propiedad Horizontal). Preguntar unicamente si V2 = impugnacion_acuerdo.",
+      "question": "Si el asunto es la impugnación de un acuerdo, ¿está el cliente al corriente en el pago de las cuotas, o las ha consignado judicialmente?",
       "options": [
         {"id": "si", "label": "Sí"},
-        {"id": "no", "label": "No, tiene deudas pendientes"}
+        {"id": "no", "label": "No, tiene deudas pendientes"},
+        {"id": "no_procede", "label": "No procede: el asunto no es una impugnación"}
       ]
     }
   ]
@@ -154,18 +156,19 @@ Invoca la herramienta con las opciones de triaje:
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores aplicables, evalua en este orden:
 
-- Si V1 = comunidad y V2 = impago de cuotas:
+- Si V1 = comunidad y V2 = impago_cuotas:
   - **V3 = si → HOJA CUOTAS**: se generan DOS documentos, en este orden: `assets/template-certificacion-deuda-comunidad.md` y despues `assets/template-peticion-monitorio-cuotas-lph.md`.
   - **V3 = no → HOJA CUOTAS-SIN-ACUERDO**: advertir de que el acuerdo de la junta que aprueba la liquidacion y autoriza la reclamacion es un requisito legal previo (articulos 21.1 a 21.3 de la Ley de Propiedad Horizontal) y de que sin el no cabe emitir la certificacion ni presentar la peticion. Generar unicamente `assets/template-certificacion-deuda-comunidad.md` como borrador, dejando como placeholders los datos del acuerdo, para emitirlo cuando la junta lo adopte. **NO** generar la peticion de monitorio en esta rama.
-- Si V1 = comunidad y V2 = actividad molesta:
-  - **V4 = sin requerir o requerido informalmente → HOJA CESACION**: `assets/template-requerimiento-cesacion-actividad.md`. (En V4 = requerido informalmente se advierte de que el requerimiento anterior no sirve como presupuesto de la accion por no ser acreditable, y de que este lo sustituye.)
-  - **V4 = requerido y desatendido → DETENER**: el requerimiento ya esta cumplido y el paso siguiente es la accion de cesacion, que exige autorizacion de la junta debidamente convocada al efecto y se sustancia por juicio ordinario. Informar de la secuencia del articulo 7.2 de la Ley de Propiedad Horizontal, derivar a la skill `juicio-ordinario` y ofrecer escalacion. No crear documento.
-- Si V1 = propietario y V2 = impugnacion de acuerdo:
-  - **V5 = voto a favor o abstencion sin salvar el voto → DETENER**: quien voto a favor o se abstuvo sin salvar su voto no esta legitimado para impugnar (articulo 18.2 de la Ley de Propiedad Horizontal). Explicarlo y ofrecer escalacion. No crear documento.
-  - **V5 = voto en contra, salvo su voto o ausente, y plazo vigente → HOJA IMPUGNACION**: `assets/template-demanda-impugnacion-acuerdos.md`.
+- Si V1 = comunidad y V2 = actividad_molesta:
+  - **V4 = sin requerir o requerido informalmente → HOJA CESACION**: `assets/template-requerimiento-cesacion-actividad.md`. (En V4 = requerido_informalmente se advierte de que el requerimiento anterior no sirve como presupuesto de la accion por no ser acreditable, y de que este lo sustituye.)
+  - **V4 = requerido_y_desatendido → DETENER**: el requerimiento ya esta cumplido y el paso siguiente es la accion de cesacion, que exige autorizacion de la junta debidamente convocada al efecto y se sustancia por juicio ordinario. Informar de la secuencia del articulo 7.2 de la Ley de Propiedad Horizontal, derivar a la skill `juicio-ordinario` y ofrecer escalacion. No crear documento.
+- Si V1 = comunidad y V2 = impugnacion_acuerdo → **DETENER Y DERIVAR**: la comunidad no impugna sus propios acuerdos; si lo que se pretende es defenderla frente a la impugnacion de un propietario, es una contestacion a la demanda, que esta skill no cubre. Explicarlo y ofrecer escalacion. No crear documento.
+- Si V1 = propietario y V2 = impugnacion_acuerdo:
+  - **V5 = voto_a_favor_o_abstencion → DETENER**: quien voto a favor o se abstuvo sin salvar su voto no esta legitimado para impugnar (articulo 18.2 de la Ley de Propiedad Horizontal). Explicarlo y ofrecer escalacion. No crear documento.
+  - **V5 = voto_en_contra, salvo_su_voto o ausente, y plazo vigente → HOJA IMPUGNACION**: `assets/template-demanda-impugnacion-acuerdos.md`.
   - **Plazo caducado → DETENER**: la accion caduca a los tres meses de adoptarse el acuerdo, o al año si es contrario a la ley o a los estatutos; para el ausente el computo arranca de la comunicacion del acuerdo (articulo 18.3). Advertir de la caducidad, no dar falsas expectativas y ofrecer escalacion. No crear documento.
   - **V6 = no (deudas pendientes)**: no detiene el flujo, pero es un obstaculo. Ver la validacion de presupuestos.
-- Si V1 = propietario y la materia no es ninguna de las tres de V2 → **DETENER Y DERIVAR**: identificar la materia y derivar sin crear documento. Casos frecuentes: requerimiento de pago de un monitorio de la comunidad ya recibido (skill `reclamacion-cantidad`, escrito de oposicion, plazo de veinte dias); reclamacion de cantidad frente a la comunidad por daños (skill `reclamacion-cantidad`); cuestiones arrendaticias del piso (skills `arrendamiento` o `desahucio`). Si no encaja en ninguna, ofrecer escalacion.
+- Si V1 = propietario y V2 = impago_cuotas o actividad_molesta, o la materia no es ninguna de las tres de V2 → **DETENER Y DERIVAR**: identificar la materia y derivar sin crear documento. Casos frecuentes: requerimiento de pago de un monitorio de la comunidad ya recibido (skill `reclamacion-cantidad`, escrito de oposicion, plazo de veinte dias); reclamacion de cantidad frente a la comunidad por daños (skill `reclamacion-cantidad`); cuestiones arrendaticias del piso (skills `arrendamiento` o `desahucio`). Si no encaja en ninguna, ofrecer escalacion.
 
 ### 1.4 Validacion de presupuestos (interno, antes de la Fase 3)
 

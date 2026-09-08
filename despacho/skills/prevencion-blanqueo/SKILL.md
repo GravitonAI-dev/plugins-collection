@@ -134,16 +134,17 @@ Invoca la herramienta con las opciones de triaje:
 - `V2` — `actuacion_profesional`
 - `V3` — `naturaleza_cliente`
 - `V4` — `factores_de_riesgo`
+- `sujecion` — no se pregunta: es la conclusión que el propio control de la Fase 1.3 deriva de `V2` y de la verificación de los artículos 2.1 y 22 de la Ley 10/2010 (`no_sujeta`, `sujeta_con_exencion` o sujeción plena)
 
 ### 1.3 Delimitación de la Sujeción y de la Exención (PRIMERA ACCIÓN SUSTANTIVA)
 
 **Comprobación 1 — ¿Está la actuación sujeta?** La sujeción del abogado, procurador u otro profesional independiente **no es general**: depende de la actuación concreta. El artículo 2.1 de la Ley 10/2010 la delimita por referencia a la participación en la concepción, realización o asesoramiento de determinadas operaciones, o a la actuación por cuenta del cliente en operaciones financieras o inmobiliarias. **Verifica la redacción vigente del precepto con `web_search` antes de pronunciarte sobre la sujeción.**
 
-* **Si la actuación no está comprendida → `[V2 = no_sujeta]`.** Informa de que la actuación queda fuera del ámbito de sujeción y de que, por tanto, no nacen las obligaciones de diligencia debida de esta normativa. Ofrece, no obstante, documentar la identificación del cliente como buena práctica del despacho. **No presentes como obligatorio lo que no lo es.**
+* **Si la actuación no está comprendida → `[sujecion = no_sujeta]`.** Informa de que la actuación queda fuera del ámbito de sujeción y de que, por tanto, no nacen las obligaciones de diligencia debida de esta normativa. Ofrece, no obstante, documentar la identificación del cliente como buena práctica del despacho. **No presentes como obligatorio lo que no lo es.**
 
 **Comprobación 2 — ¿Opera la exención legal?** El artículo 22 de la Ley 10/2010 exime a los abogados de determinadas obligaciones —señaladamente las relativas a la abstención de ejecución, a la comunicación por indicio y a la colaboración— respecto de la información que reciban de o sobre un cliente **en el marco de la determinación de su posición jurídica, o en el desempeño de las funciones de defensa o representación en procesos judiciales o administrativos, incluido el asesoramiento sobre la incoación o la forma de evitar un proceso**, con independencia de si la información se obtuvo antes, durante o después de tales procesos.
 
-* **Si la actuación es de defensa o de determinación de la posición jurídica → `[V2 = sujeta_con_exencion]`.** **Verifica el alcance exacto de la exención en el texto vigente con `web_search` antes de afirmar nada.** El error en este punto tiene consecuencias graves en ambas direcciones: aplicar la exención donde no procede incumple la ley; no aplicarla donde procede vulnera el secreto profesional y el derecho de defensa del cliente. Ante cualquier duda, **deriva al responsable de cumplimiento del despacho o a especialista**, y no redactes comunicación alguna.
+* **Si la actuación es de defensa o de determinación de la posición jurídica → `[sujecion = sujeta_con_exencion]`.** **Verifica el alcance exacto de la exención en el texto vigente con `web_search` antes de afirmar nada.** El error en este punto tiene consecuencias graves en ambas direcciones: aplicar la exención donde no procede incumple la ley; no aplicarla donde procede vulnera el secreto profesional y el derecho de defensa del cliente. Ante cualquier duda, **deriva al responsable de cumplimiento del despacho o a especialista**, y no redactes comunicación alguna.
 * Advierte en todo caso de que la exención no elimina las obligaciones de identificación y de conservación documental, y de que el **deber de secreto profesional** subsiste con arreglo a la legislación vigente.
 
 **Comprobación 3 — Enrutamiento:**
@@ -151,6 +152,7 @@ Invoca la herramienta con las opciones de triaje:
 * **Si `[V1 = titularidad_real]` → Plantilla: `assets/template-declaracion-titularidad-real.md`.** Solo procede si `[V3]` no es persona física.
 * **Si `[V1 = checklist_diligencia]` → Asset: `assets/checklist-diligencia-debida.md`.**
 * **Si `[V1 = examen_especial]` → Plantilla: `assets/template-informe-examen-especial-interno.md`,** con el protocolo del punto 1.4.
+* `V2` no elige plantilla: es el vector del que se deriva `sujecion` en las comprobaciones 1 y 2, y determina el alcance de las obligaciones que el documento recoge.
 
 ### 1.4 Protocolo ante Indicios (PARADA OBLIGATORIA)
 

@@ -140,11 +140,12 @@ Invoca la herramienta con las opciones de triaje:
     {
       "id": "zona_tensionada",
       "rationale": "Resolver V6: los límites de renta y la prórroga extraordinaria de zona de mercado residencial tensionado dependen de este valor. Si el usuario no lo sabe, el agente lo verifica él mismo con `web_search` en el boletín oficial autonómico.",
-      "question": "¿Está el inmueble en zona de mercado residencial tensionado?",
+      "question": "Si es un contrato nuevo de vivienda, ¿está el inmueble en zona de mercado residencial tensionado?",
       "options": [
         {"id": "si", "label": "Sí"},
         {"id": "no", "label": "No"},
-        {"id": "no_lo_se", "label": "No lo sé: verifíquelo usted"}
+        {"id": "no_lo_se", "label": "No lo sé: verifíquelo usted"},
+        {"id": "no_procede", "label": "No procede: no es un contrato nuevo de vivienda"}
       ]
     }
   ]
@@ -164,14 +165,14 @@ Invoca la herramienta con las opciones de triaje:
 
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores necesarios, evalúa:
-- Si [V0 = Comunicación] y [V7 = Actualización de renta] -> Plantilla a usar: `assets/template-comunicacion-actualizacion-renta.md`.
-- Si [V0 = Comunicación] y [V7 = No renovación] -> Plantilla a usar: `assets/template-comunicacion-no-renovacion.md`.
-- Si [V0 = Comunicación] y [V7 = Devolución de fianza] -> Plantilla a usar: `assets/template-requerimiento-devolucion-fianza.md` (remitente: arrendatario. Si quien consulta es el arrendador que quiere CONTESTAR a un requerimiento recibido, detén el proceso y deriva a derivación formal).
-- Si [V0 = Contrato] y [V2 = Local] -> Plantilla a usar: `assets/template-contrato-arrendamiento-local.md` (Fianza mínima: 2 mensualidades). La duración del local es de libre pacto (Título III LAU): no aplica V1.
-- Si [V0 = Contrato] y [V2 = Vivienda] y [V5 = Habitación] -> Plantilla a usar: `assets/template-contrato-arrendamiento-habitacion.md` (régimen del Código Civil, arts. 1542 y ss.; fianza de libre pacto). No aplican V1 ni V6.
-- Si [V0 = Contrato] y [V5 = Vivienda completa] y [V1 = Permanente] -> Plantilla a usar: `assets/template-contrato-arrendamiento-vivienda.md` (Fianza mínima: 1 mensualidad). V6 determina los bloques de zona tensionada del asset (Arts. 10.3, 17.6 LAU); si V6 = No lo sé, se resuelve en la sección 1 de la edición incremental.
-- Si [V0 = Contrato] y [V5 = Vivienda completa] y [V1 = Temporal] identificado como temporada -> Plantilla a usar: `assets/template-contrato-arrendamiento-temporada.md` (uso distinto de vivienda, Art. 3.2 LAU; fianza mínima: 2 mensualidades). Exige causa de temporalidad real (Guardrail 8).
-- Si [V1 = Temporal] identificado como turístico -> Detén el proceso: vivienda turística excluida expresamente de la LAU (Art. 5.e), sujeta a normativa turística autonómica. No crees documento.
+- Si [V0 = comunicacion_contrato_vigente] y [V7 = actualizacion_renta] -> Plantilla a usar: `assets/template-comunicacion-actualizacion-renta.md`.
+- Si [V0 = comunicacion_contrato_vigente] y [V7 = no_renovacion] -> Plantilla a usar: `assets/template-comunicacion-no-renovacion.md`.
+- Si [V0 = comunicacion_contrato_vigente] y [V7 = devolucion_fianza] -> Plantilla a usar: `assets/template-requerimiento-devolucion-fianza.md` (remitente: arrendatario. Si quien consulta es el arrendador que quiere CONTESTAR a un requerimiento recibido, detén el proceso y deriva a derivación formal).
+- Si [V0 = contrato_nuevo] y [V2 = local_uso_distinto] -> Plantilla a usar: `assets/template-contrato-arrendamiento-local.md` (Fianza mínima: 2 mensualidades). La duración del local es de libre pacto (Título III LAU): no aplica V1.
+- Si [V0 = contrato_nuevo] y [V5 = habitacion] -> Plantilla a usar: `assets/template-contrato-arrendamiento-habitacion.md` (régimen del Código Civil, arts. 1542 y ss.; fianza de libre pacto). No aplican V1 ni V6.
+- Si [V0 = contrato_nuevo] y [V5 = vivienda_completa] y [V1 = permanente] -> Plantilla a usar: `assets/template-contrato-arrendamiento-vivienda.md` (Fianza mínima: 1 mensualidad). V6 determina los bloques de zona tensionada del asset (Arts. 10.3, 17.6 LAU); si V6 = No lo sé, se resuelve en la sección 1 de la edición incremental.
+- Si [V0 = contrato_nuevo] y [V5 = vivienda_completa] y [V1 = temporada] -> Plantilla a usar: `assets/template-contrato-arrendamiento-temporada.md` (uso distinto de vivienda, Art. 3.2 LAU; fianza mínima: 2 mensualidades). Exige causa de temporalidad real (Guardrail 8).
+- Si [V1 = turistico] -> Detén el proceso: vivienda turística excluida expresamente de la LAU (Art. 5.e), sujeta a normativa turística autonómica. No crees documento.
 
 ---
 

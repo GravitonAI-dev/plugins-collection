@@ -148,6 +148,8 @@ Si el usuario ya ha identificado inequívocamente la materia, la entidad y el tr
 * **Si `[V1 = disconformidad_alta]` → Plantilla: `assets/template-escrito-disconformidad-alta-medica.md`.** Advierte del plazo brevísimo y de que la disconformidad debe presentarse en el plazo y ante el órgano correctos, o el alta despliega todos sus efectos.
 * **Si `[V1 = revision_grado]` → Plantilla: `assets/template-solicitud-revision-grado-incapacidad.md`.** Comprueba que haya transcurrido el plazo de revisión fijado en la resolución de reconocimiento o que concurra agravación o mejoría acreditada.
 * **Si `[V1 = demanda]` → Plantilla: `assets/template-demanda-seguridad-social.md`.** Exige la resolución de la reclamación previa o la acreditación de su desestimación presunta.
+- `V2` no elige plantilla: determina los requisitos, la base reguladora y la controversia tipica que se argumentan en el escrito.
+- `V3` no elige plantilla: determina el organo destinatario, que es el que dicto la resolucion, y las particularidades de tramitacion de esa entidad.
 
 ---
 

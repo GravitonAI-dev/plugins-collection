@@ -133,7 +133,7 @@ Una vez resueltos los vectores, asigna la plantilla segun **V1**:
 - **V1 = admisibilidad** → `assets/template-checklist-admisibilidad.md`.
 - **V1 = demanda** → `assets/template-demanda-juicio-ordinario.md`.
 - **V1 = audiencia previa** → `assets/template-guion-audiencia-previa.md`.
-- **V1 = proposicion de prueba** → `assets/template-proposicion-de-prueba.md`.
+- **V1 = proposicion_prueba** → `assets/template-proposicion-de-prueba.md`.
 - **V1 = conclusiones** → `assets/template-escrito-de-conclusiones.md`.
 - **V1 = ciclo completo** → los cinco assets, **un documento por etapa procesal y en este orden**: comprobacion de admisibilidad, demanda, guion de la audiencia previa, proposicion de prueba y escrito de conclusiones. No se redacta la etapa siguiente hasta cerrar la anterior, y los datos ya recogidos no se vuelven a preguntar.
 - V2 no elige asset: determina la justificacion de la clase de juicio y la expresion de la cuantia dentro del documento elegido.

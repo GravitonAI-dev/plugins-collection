@@ -83,7 +83,7 @@ Invoca la herramienta con las opciones de triaje:
   "form_data": [
     {
       "id": "tipo_contrato",
-      "rationale": "Resolver V1 y V1b: cada figura tiene su propio asset y su propio régimen en el Código Civil, y el comodato exige gratuidad.",
+      "rationale": "Resolver V1: cada figura tiene su propio asset y su propio régimen en el Código Civil, y el comodato exige gratuidad.",
       "question": "¿Qué quiere documentar?",
       "options": [
         {"id": "prestamo_dinero", "label": "Un préstamo de dinero entre particulares"},
@@ -127,8 +127,7 @@ Invoca la herramienta con las opciones de triaje:
 ```
 
 **Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
-- `V1` — respuesta a `tipo_contrato` (entrega de cosa o dinero si es `prestamo_dinero` o `comodato`; reconocimiento si es `reconocimiento_deuda`; compraventa si es `compraventa_mueble`)
-- `V1b` — respuesta a `tipo_contrato` (`prestamo_dinero` frente a `comodato`)
+- `V1` — respuesta a `tipo_contrato`
 - `V2` — respuesta a `interes`
 - `V3` — respuesta a `garantia`
 - `V4` — respuesta a `forma`
@@ -136,11 +135,11 @@ Invoca la herramienta con las opciones de triaje:
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores aplicables, evalua en este orden:
 
-- Si V1 = prestamo dinero y V1b = prestamo dinero → **HOJA PRESTAMO**: `assets/template-contrato-prestamo-particulares.md`.
-- Si V1 = prestamo dinero y V1b = comodato → **HOJA COMODATO**: `assets/template-contrato-comodato.md`.
-- Si V1 = comodato → **HOJA RECONOCIMIENTO**: `assets/template-reconocimiento-deuda.md`.
-- Si V1 = reconocimiento deuda → **HOJA COMPRAVENTA**: `assets/template-contrato-compraventa-mueble.md`.
-- Si V1 = prestamo dinero, V1b = comodato y **el cesionario debe pagar algo** por el uso de la cosa (renta, canon, cuota de gastos que exceda de los ordinarios, cualquier emolumento) → **NO es comodato**: el Art. 1741 CC dice que, si interviene emolumento, la convencion deja de ser comodato. Si la cosa es un inmueble urbano, derivar a `arrendamiento`. Si es otra cosa, advertir de que se trata de un arrendamiento y ofrecer escalacion. No crear documento de comodato.
+- Si V1 = prestamo_dinero → **HOJA PRESTAMO**: `assets/template-contrato-prestamo-particulares.md`.
+- Si V1 = comodato → **HOJA COMODATO**: `assets/template-contrato-comodato.md`.
+- Si V1 = reconocimiento_deuda → **HOJA RECONOCIMIENTO**: `assets/template-reconocimiento-deuda.md`.
+- Si V1 = compraventa_mueble → **HOJA COMPRAVENTA**: `assets/template-contrato-compraventa-mueble.md`.
+- Si V1 = comodato y **el cesionario debe pagar algo** por el uso de la cosa (renta, canon, cuota de gastos que exceda de los ordinarios, cualquier emolumento) → **NO es comodato**: el Art. 1741 CC dice que, si interviene emolumento, la convencion deja de ser comodato. Si la cosa es un inmueble urbano, derivar a `arrendamiento`. Si es otra cosa, advertir de que se trata de un arrendamiento y ofrecer escalacion. No crear documento de comodato.
 - Si lo que el usuario pretende es **cobrar una deuda que ya esta impagada** (no documentarla ni pactar su pago futuro) → derivar a `reclamacion-cantidad`. No crear documento.
 - Si ya existe un **titulo ejecutivo** (sentencia, escritura publica, laudo) y lo que se quiere es ejecutarlo → derivar a `ejecucion-titulos`. No crear documento.
 - Si el bien objeto de la operacion es un **inmueble** y la operacion es una compraventa → derivar a `compraventa-inmueble`. No crear documento.
@@ -152,9 +151,9 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
 - **TODAS LAS HOJAS (Art. 1261 CC):** confirmar que concurren consentimiento, objeto cierto y causa. Si el objeto no esta determinado ni es determinable sin nuevo acuerdo entre las partes (Art. 1273 CC), no redactar: pedir que se concrete.
 - **TODAS LAS HOJAS (Art. 1255 CC):** ningun pacto puede ser contrario a las leyes, a la moral ni al orden publico. Si el usuario pide un pacto que lo sea, rechazar la instruccion, explicar por que es nulo y proponer una alternativa valida.
 - **TODAS LAS HOJAS — condicion de particulares:** verificar que ninguna de las partes actua como empresario o profesional en el marco de esa actividad. Si lo hace, aplicar la regla de enrutamiento correspondiente y detener.
-- **HOJA PRESTAMO (control de usura, BLOQUEANTE):** si V2 = se pacta interes, calcular el **coste real total** de la operacion tal como el usuario la plantea: no solo el tipo nominal, sino todo lo que el prestatario devolvera por encima del principal, incluidas comisiones, gastos y penalizaciones. Contrastarlo con el orden de magnitud del interes legal del dinero vigente verificado en la Fase 2 y con el coste normal de operaciones equivalentes. Si la desproporcion es manifiesta, **advertir expresamente ANTES de continuar**, con el texto del guardrail 3, explicando que la consecuencia es la **nulidad del prestamo** y no una rebaja del interes. No redactar la clausula de interes hasta que el usuario confirme que, conocida la advertencia, mantiene o modifica su decision. Si el usuario mantiene un interes que sigue siendo manifiestamente desproporcionado, ofrecer escalacion y dejar constancia de la advertencia en las advertencias finales del documento.
+- **HOJA PRESTAMO (control de usura, BLOQUEANTE):** si V2 = si, calcular el **coste real total** de la operacion tal como el usuario la plantea: no solo el tipo nominal, sino todo lo que el prestatario devolvera por encima del principal, incluidas comisiones, gastos y penalizaciones. Contrastarlo con el orden de magnitud del interes legal del dinero vigente verificado en la Fase 2 y con el coste normal de operaciones equivalentes. Si la desproporcion es manifiesta, **advertir expresamente ANTES de continuar**, con el texto del guardrail 3, explicando que la consecuencia es la **nulidad del prestamo** y no una rebaja del interes. No redactar la clausula de interes hasta que el usuario confirme que, conocida la advertencia, mantiene o modifica su decision. Si el usuario mantiene un interes que sigue siendo manifiestamente desproporcionado, ofrecer escalacion y dejar constancia de la advertencia en las advertencias finales del documento.
 - **HOJA PRESTAMO (Art. 1 parrafo 2.º de la Ley Azcarate, BLOQUEANTE):** si el importe que figuraria como prestado es superior al efectivamente entregado (por descuento del interes en el momento de la entrega o por cualquier otra via), **DETENER**: ese contrato es nulo por el propio precepto. Explicarlo, no redactarlo y ofrecer escalacion.
-- **HOJA PRESTAMO (Art. 1755 CC):** si V2 = no se pacta interes, recordar al usuario que sin pacto expreso no se deberan intereses, y que esa es la regla legal por defecto, no un olvido del documento.
+- **HOJA PRESTAMO (Art. 1755 CC):** si V2 = no, recordar al usuario que sin pacto expreso no se deberan intereses, y que esa es la regla legal por defecto, no un olvido del documento.
 - **HOJA RECONOCIMIENTO (Arts. 1275 y 1276 CC y Art. 9 de la Ley Azcarate, BLOQUEANTE):** si la causa real de la deuda reconocida es un prestamo con interes desproporcionado, un importe superior al realmente debido, o cualquier causa ilicita, **DETENER**: el reconocimiento no puede usarse como envoltorio. Explicar que la Ley Azcarate se aplica a toda operacion sustancialmente equivalente a un prestamo cualquiera que sea la forma del contrato, y que un contrato con causa ilicita no produce efecto alguno. No redactar y ofrecer escalacion.
 - **HOJA COMODATO (Arts. 1740 y 1741 CC):** confirmar que no hay contraprestacion alguna a cargo del comodatario. La asuncion de los gastos ordinarios de uso y conservacion (Art. 1743 CC) no es contraprestacion; el pago de una renta, canon o cuota por el uso, si. Si la hay, aplicar la regla de enrutamiento y detener.
 - **HOJA COMPRAVENTA (Art. 1445 CC):** confirmar que hay cosa determinada y precio cierto en dinero o signo que lo represente. Si la contraprestacion no es dineraria, es una permuta y no una compraventa: advertir y escalar.
@@ -182,8 +181,8 @@ Envía un mensaje estructurado y formal que contenga:
    - RECONOCIMIENTO: "A su caso corresponde un reconocimiento de deuda con compromiso de pago, que se ampara en la libertad de pacto del articulo 1.255 del Codigo Civil y se rige por sus normas generales sobre obligaciones y contratos. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763"
    - COMODATO: "A su caso corresponde un contrato de comodato o prestamo de uso, regulado en los articulos 1.740 a 1.752 del Codigo Civil. Se trata de un contrato esencialmente gratuito. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763"
    - COMPRAVENTA: "A su caso corresponde un contrato de compraventa de bien mueble entre particulares, regulado en los articulos 1.445 y siguientes del Codigo Civil. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763"
-   - **Añadir en la HOJA PRESTAMO si V2 = se pacta interes:** "Le informo ademas de que el interes pactado esta sujeto al control de la Ley de 23 de julio de 1908 sobre nulidad de los contratos de prestamos usurarios, que sigue vigente. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-1908-5579"
-   - **Añadir en la HOJA PRESTAMO si V2 = no se pacta interes:** "Conforme al articulo 1.755 del Codigo Civil, no se deberan intereses sino cuando expresamente se hubiesen pactado, de modo que su prestamo sera gratuito."
+   - **Añadir en la HOJA PRESTAMO si V2 = si:** "Le informo ademas de que el interes pactado esta sujeto al control de la Ley de 23 de julio de 1908 sobre nulidad de los contratos de prestamos usurarios, que sigue vigente. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-1908-5579"
+   - **Añadir en la HOJA PRESTAMO si V2 = no:** "Conforme al articulo 1.755 del Codigo Civil, no se deberan intereses sino cuando expresamente se hubiesen pactado, de modo que su prestamo sera gratuito."
 
 3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** y nombrala por su ruta. Si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la seccion de assets.
 4. **Pregunta Explícita al Usuario (Vía Chat):** Formula exactamente la siguiente consulta en el chat:

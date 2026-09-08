@@ -128,11 +128,12 @@ Invoca la herramienta con las opciones de triaje:
 Una vez resueltos los vectores necesarios, evalua:
 - Si [V2 = Renunciar] -> Plantilla: `assets/template-renuncia-herencia.md`.
 - Si [V2 = Interpelar] -> Plantilla: `assets/template-requerimiento-1005-cc.md`.
-- Si [V2 = Aceptar] y [V3 = Acuerdo] -> Plantilla: `assets/template-cuaderno-particional.md` (incluye la aceptacion de todos los herederos).
-- Si [V2 = Aceptar] y [V3 = Sin acuerdo] -> Plantilla: `assets/template-solicitud-division-judicial-herencia.md`. Si el cliente ademas necesita documentar su propia aceptacion, puede generarse despues un segundo documento con `assets/template-aceptacion-herencia.md`.
-- Si [V2 = Aceptar] y [V3 = Solo aceptacion] -> Plantilla: `assets/template-aceptacion-herencia.md`.
-- V1 no enruta a plantilla: determina los bloques condicionales testada/intestada de todos los assets y, si el acta esta pendiente (V1-b = 2), los datos del titulo sucesorio quedan como `{{DATO_FALTANTE}}`.
+- Si [V2 = solo_aceptacion] y [V3 = partir_con_acuerdo] -> Plantilla: `assets/template-cuaderno-particional.md` (incluye la aceptacion de todos los herederos).
+- Si [V2 = solo_aceptacion] y [V3 = partir_sin_acuerdo] -> Plantilla: `assets/template-solicitud-division-judicial-herencia.md`. Si el cliente ademas necesita documentar su propia aceptacion, puede generarse despues un segundo documento con `assets/template-aceptacion-herencia.md`.
+- Si [V2 = solo_aceptacion] y [V3 = solo_aceptacion] -> Plantilla: `assets/template-aceptacion-herencia.md`.
+- V1 no enruta a plantilla: determina los bloques condicionales testada/intestada de todos los assets y, si el acta esta pendiente (V1-b = no_sin_acta), los datos del titulo sucesorio quedan como `{{DATO_FALTANTE}}`.
 - **Regla de no-contaminacion entre hojas:** el bloque opcional "RENUNCIA" de `assets/template-aceptacion-herencia.md` NO se usa nunca (la renuncia tiene su propio asset): al crear el documento de aceptacion, omite ese bloque completo, incluido su encabezado. En todos los assets, los bloques condicionales de la rama no elegida se omiten sin dejar rastro (regla global de Comment resolution).
+- `V4` no elige plantilla: determina si la aceptacion se formula pura y simple o a beneficio de inventario, activando en ese caso el bloque de formalidades y plazos propios y la advertencia sobre la limitacion de responsabilidad.
 
 ---
 

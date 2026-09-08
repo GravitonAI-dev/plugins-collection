@@ -135,6 +135,7 @@ Invoca la herramienta con las preguntas de triaje:
   - Hojas de datos propuestas del sistema: `assets/template-hoja-datos-alta-censal-036.md` y `assets/template-hoja-datos-alta-reta.md`. Proceder a la **Fase 2**.
 - **Si `V1 = baja`:**
   - Hojas de datos propuestas del sistema: `assets/template-hoja-datos-baja-censal-036.md` y `assets/template-hoja-datos-baja-reta.md`. Proceder a la **Fase 2**.
+- `V2` no elige hoja: delimita la naturaleza del epigrafe del IAE y el regimen de retenciones de IRPF que se consignan.
 
 ---
 

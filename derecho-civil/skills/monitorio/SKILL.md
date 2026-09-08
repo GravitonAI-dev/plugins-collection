@@ -122,10 +122,10 @@ Invoca la herramienta con las opciones de triaje:
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores, evalua en este orden:
 
-- Si **V2 = rentas de arrendamiento** → **HOJA RENTAS**: `assets/template-peticion-inicial-monitorio-rentas.md` (Art. 812.2.2.º LEC, que admite acumular las rentas y cantidades debidas del arrendamiento).
+- Si **V2 = rentas_arrendamiento** → **HOJA RENTAS**: `assets/template-peticion-inicial-monitorio-rentas.md` (Art. 812.2.2.º LEC, que admite acumular las rentas y cantidades debidas del arrendamiento).
 - Si **V2 = otra causa** → **HOJA GENERAL**: `assets/template-peticion-inicial-monitorio.md`.
-- Si **V1 = peticion y burofax**, o **V4 = no** → generar ademas, y **ANTES** de la peticion inicial, `assets/template-burofax-requerimiento-previo-masc.md`. El requerimiento fehaciente previo no es presupuesto de admision del monitorio, pero por defecto conservador se recomienda dejarlo acreditado: constituye en mora, fija la fecha de devengo de los intereses y evita la discusion sobre la procedibilidad. Explicaselo al cliente en esos terminos, sin presentarlo como obligatorio.
-- Si **V1 = solo peticion** y **V4 = si** → no se genera el burofax; se hace constar en la peticion el intento ya practicado.
+- Si **V1 = peticion_y_burofax**, o **V4 = no** → generar ademas, y **ANTES** de la peticion inicial, `assets/template-burofax-requerimiento-previo-masc.md`. El requerimiento fehaciente previo no es presupuesto de admision del monitorio, pero por defecto conservador se recomienda dejarlo acreditado: constituye en mora, fija la fecha de devengo de los intereses y evita la discusion sobre la procedibilidad. Explicaselo al cliente en esos terminos, sin presentarlo como obligatorio.
+- Si **V1 = solo_peticion** y **V4 = si** → no se genera el burofax; se hace constar en la peticion el intento ya practicado.
 - V3 no elige asset: determina la variante del encabezamiento de comparecencia y la acreditacion de la representacion (persona fisica, o persona juridica con su representante y el titulo del que resulta la representacion).
 - Si la deuda **no es dineraria, liquida, determinada, vencida y exigible** (Art. 812.1 LEC) → **DETENER**: el monitorio no es el cauce. Derivar a `reclamacion-cantidad` para que elija la via declarativa procedente. No crear documento.
 - Si lo que se pretende es **oponerse** a un monitorio ya notificado al cliente → **DETENER**: derivar a `reclamacion-cantidad`, que cubre el escrito de oposicion. No crear documento.

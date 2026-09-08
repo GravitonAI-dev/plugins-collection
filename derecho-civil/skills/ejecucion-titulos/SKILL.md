@@ -232,7 +232,7 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 
 ### Secciones — HOJA NO-JUDICIAL
 
-1. **Parte ejecutante** *(dato objetivo — `slot_filling_request` con confirmación en el chat)*. Igual que en la HOJA JUDICIAL, pero la pregunta de postulacion se formula solo si V3 = laudo o acuerdo de mediacion.
+1. **Parte ejecutante** *(dato objetivo — `slot_filling_request` con confirmación en el chat)*. Igual que en la HOJA JUDICIAL, pero la pregunta de postulacion se formula solo si V3 = laudo_arbitral o acuerdo de mediacion.
 2. **Parte ejecutada** *(dato objetivo — `slot_filling_request` con confirmación en el chat)*. Igual que en la HOJA JUDICIAL.
 3. **El titulo no judicial** *(dato objetivo con validacion, segun V3 — `slot_filling_request` con confirmación en el chat)*. Anuncio fijo: "Describimos ahora el titulo en que se funda la ejecucion." Solicita en bloque mediante `slot_filling_request` los datos identificativos del título (notario, fecha, protocolo o árbitro/institución o MASC). Vista previa en chat, confirmación y `edit_file`.
 4. **Obligacion y vencimiento** *(dato objetivo)*. Anuncio fijo: "Pasamos a la obligacion documentada y a su vencimiento." Sub-apartados: a) descripcion de la obligacion; b) fecha de vencimiento. Verifica que la cantidad supera los 300 euros (Art. 520 LEC); si no, aplica la validacion de presupuestos ya descrita.

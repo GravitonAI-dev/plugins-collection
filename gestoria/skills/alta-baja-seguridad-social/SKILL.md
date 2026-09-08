@@ -118,6 +118,7 @@ Invoca la herramienta con las preguntas de triaje:
   - Hoja de datos propuesta: `assets/template-hoja-datos-inscripcion-empresa-ccc.md`. Proceder a la **Fase 2**.
 - **Si `V2 = cuenta_ajena_regimen_general` o `empleada_hogar`:**
   - Hoja de datos propuesta: `assets/template-hoja-datos-alta-baja-trabajador.md`. Proceder a la **Fase 2**.
+- `V1` no elige hoja por si solo: determina si se preparan los tramites de alta y afiliacion o los de cese y baja.
 
 ---
 

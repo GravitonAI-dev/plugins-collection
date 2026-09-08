@@ -1,68 +1,37 @@
 ---
 name: medidas-hijos-no-matrimoniales
 description: >
-  G{
-  "form_data": [
-    {
-      "id": "filiacion",
-      "rationale": "Resolver V1: sin filiación determinada respecto de ambos progenitores no cabe fijar medidas, y el proceso se detiene.",
-      "question": "¿Está determinada legalmente la filiación respecto de ambos progenitores?",
-      "options": [
-        {"id": "ambos", "label": "Sí, respecto de ambos"},
-        {"id": "solo_uno", "label": "No, no consta respecto del otro progenitor"},
-        {"id": "desconocido", "label": "No lo sé con certeza"}
-      ]
-    },
-    {
-      "id": "acuerdo",
-      "rationale": "Resolver V2: el acuerdo genera pacto de relaciones familiares y su ausencia la demanda de medidas paternofiliales.",
-      "question": "¿Hay acuerdo con el otro progenitor?",
-      "options": [
-        {"id": "con_acuerdo", "label": "Sí, hay acuerdo"},
-        {"id": "sin_acuerdo", "label": "No hay acuerdo"}
-      ]
-    },
-    {
-      "id": "medidas",
-      "rationale": "Resolver V3: activa los bloques condicionales de custodia y estancias, de alimentos y de vivienda dentro de la hoja elegida.",
-      "question": "¿Qué medidas deben fijarse?",
-      "options": [
-        {"id": "ambas", "label": "Guarda y custodia con régimen de estancias, y pensión de alimentos"},
-        {"id": "solo_custodia", "label": "Solo guarda y custodia con régimen de estancias"},
-        {"id": "solo_alimentos", "label": "Solo pensión de alimentos"}
-      ]
-    },
-    {
-      "id": "convivencia",
-      "rationale": "Resolver V4: determina la variante del expositivo de convivencia y, si la pareja está inscrita, el documento acreditativo del registro.",
-      "question": "¿Cuál era la situación de convivencia de los progenitores?",
-      "options": [
-        {"id": "pareja_inscrita", "label": "Pareja de hecho inscrita en registro"},
-        {"id": "convivencia_sin_inscripcion", "label": "Convivencia estable sin inscripción"},
-        {"id": "sin_convivencia", "label": "Sin convivencia estable"}
-      ]
-    },
-    {
-      "id": "alcance",
-      "rationale": "Resolver V5: determina si además del pacto se redacta la demanda conjunta para su aprobación judicial.",
-      "question": "Si hay acuerdo, ¿qué alcance tiene el encargo?",
-      "options": [
-        {"id": "solo_pacto", "label": "Solo el pacto de relaciones familiares"},
-        {"id": "pacto_y_demanda", "label": "El pacto y la demanda conjunta para su aprobación judicial"}
-      ]
-    },
-    {
-      "id": "atribucion_vivienda",
-      "rationale": "Resolver V6: la atribucion del uso de la vivienda en que residen los hijos es un bloque propio, distinto de la custodia y de los alimentos, y solo se redacta si se pretende.",
-      "question": "¿Debe regularse también la atribución del uso de la vivienda en que residen los hijos?",
-      "options": [
-        {"id": "si", "label": "Sí"},
-        {"id": "no", "label": "No"}
-      ]
-    }
-  ]
-}arda y custodia con regimen de estancias / pension de alimentos / ambas
-  - vivienda: se solicita la atribucion del uso de la vivienda en que residen los hijos (si / no)
+  Genera los documentos para FIJAR POR PRIMERA VEZ las medidas relativas a los hijos menores comunes
+  de progenitores que no estan ni han estado casados entre si (parejas de hecho registradas, parejas
+  no registradas y progenitores que nunca convivieron), en el proceso del articulo 748.4.º de la Ley
+  de Enjuiciamiento Civil, en sus dos vias: (1) CON ACUERDO — pacto de relaciones familiares que
+  regula el ejercicio de la patria potestad (arts. 154 y 156 CC), la guarda y custodia (art. 92 CC),
+  el regimen de estancias, comunicacion y visitas (art. 94 CC), la pension de alimentos (arts. 93,
+  142, 146 y 148 CC) y, en su caso, el uso de la vivienda en que residen los hijos, para su
+  sometimiento a aprobacion judicial por el cauce del articulo 777 de la LEC; y (2) SIN ACUERDO —
+  demanda de medidas paternofiliales por los tramites del juicio verbal del articulo 770 de la LEC,
+  con acreditacion del intento de MASC (art. 5 LO 1/2025) e intervencion preceptiva del Ministerio
+  Fiscal (art. 749.2 LEC). Verifica la version vigente de las normas en el BOE antes de redactar.
+  NO usar entre conyuges (eso es divorcio o separacion), NO usar para modificar medidas ya fijadas,
+  NO cubre la determinacion ni la impugnacion de la filiacion, NO cubre la reclamacion de pensiones
+  impagadas ni el traslado internacional del menor, y se detiene y escala si existen indicios de
+  violencia de genero o domestica.
+when_to_use: |
+  - Una pareja de hecho con hijos comunes se separa y necesita fijar custodia, estancias y alimentos.
+  - Dos progenitores que nunca estuvieron casados no tienen ninguna medida judicial sobre sus hijos
+    y quieren regularla, con acuerdo o sin el.
+  - El usuario quiere reclamar al otro progenitor la pension de alimentos de un hijo comun cuando no
+    hay sentencia ni convenio previo que la fije.
+  - El usuario quiere que se le atribuya la guarda y custodia de su hijo, o un regimen de estancias,
+    sin que haya habido matrimonio con el otro progenitor.
+  - El usuario tiene un acuerdo con el otro progenitor y quiere darle validez y fuerza ejecutiva
+    sometiendolo a la aprobacion del Juzgado.
+inputs:
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - filiacion: determinada respecto de ambos progenitores / no determinada respecto del otro / se desconoce
+  - acuerdo: existe acuerdo con el otro progenitor / no existe acuerdo
+  - medidas: guarda y custodia con regimen de estancias / pension de alimentos / ambas
+  - atribucion_vivienda: se solicita la atribucion del uso de la vivienda en que residen los hijos (si / no)
   - convivencia: pareja de hecho inscrita en registro / convivencia sin inscripcion / sin convivencia estable
   - alcance: solo el pacto de relaciones familiares / pacto y demanda conjunta (solo en la via de acuerdo)
   - datos_progenitor_a: nombre, DNI o NIE, domicilio
@@ -171,6 +140,15 @@ Invoca la herramienta con las opciones de triaje:
         {"id": "solo_pacto", "label": "Solo el pacto de relaciones familiares"},
         {"id": "pacto_y_demanda", "label": "El pacto y la demanda conjunta para su aprobación judicial"}
       ]
+    },
+    {
+      "id": "atribucion_vivienda",
+      "rationale": "Resolver V6: la atribucion del uso de la vivienda en que residen los hijos es un bloque propio, distinto de la custodia y de los alimentos, y solo se redacta si se pretende.",
+      "question": "¿Debe regularse también la atribución del uso de la vivienda en que residen los hijos?",
+      "options": [
+        {"id": "si", "label": "Sí"},
+        {"id": "no", "label": "No"}
+      ]
     }
   ]
 }
@@ -187,12 +165,12 @@ Invoca la herramienta con las opciones de triaje:
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores aplicables, evalua **en este orden**:
 
-- Si **V1 = solo consta respecto de uno, o no consta** (o no ha podido acreditarse) → **DETENER. No crear ningun documento y no pedir ningun otro dato.** Emite el texto fijo del Guardrail 1 y ofrece escalacion. Sin filiacion determinada no existe patria potestad del otro progenitor, ni deber de alimentos exigible frente a el (arts. 143.2.º y 154 CC), ni sujeto pasivo de las medidas: el proceso previo y necesario es el de determinacion de la filiacion (art. 748.2.º LEC), que esta skill no cubre.
+- Si **V1 = solo_uno o desconocido** (o no ha podido acreditarse) → **DETENER. No crear ningun documento y no pedir ningun otro dato.** Emite el texto fijo del Guardrail 1 y ofrece escalacion. Sin filiacion determinada no existe patria potestad del otro progenitor, ni deber de alimentos exigible frente a el (arts. 143.2.º y 154 CC), ni sujeto pasivo de las medidas: el proceso previo y necesario es el de determinacion de la filiacion (art. 748.2.º LEC), que esta skill no cubre.
 - Si en cualquier momento aparecen indicios de violencia de genero o domestica → **DETENER** (Guardrail 3). No crear documento.
-- Si **V2 = con acuerdo** → **HOJA ACUERDO**: `assets/template-pacto-relaciones-familiares.md`. Si ademas V5 = pacto y demanda, se genera despues `assets/template-demanda-medidas-paternofiliales.md` con los bloques condicionales de acuerdo ACTIVADOS y los de contencioso DESACTIVADOS.
-- Si **V2 = sin acuerdo** → **HOJA CONTENCIOSA**: `assets/template-demanda-medidas-paternofiliales.md` con los bloques condicionales de contencioso ACTIVADOS (intento de MASC, situacion economica de la regla 1.ª del art. 770, apartado de medidas solicitadas, otrosies de prueba y de medidas provisionales) y los de acuerdo DESACTIVADOS. No se genera pacto de relaciones familiares: es propio de la via de acuerdo.
+- Si **V2 = con_acuerdo** → **HOJA ACUERDO**: `assets/template-pacto-relaciones-familiares.md`. Si ademas V5 = pacto_y_demanda, se genera despues `assets/template-demanda-medidas-paternofiliales.md` con los bloques condicionales de acuerdo ACTIVADOS y los de contencioso DESACTIVADOS.
+- Si **V2 = sin_acuerdo** → **HOJA CONTENCIOSA**: `assets/template-demanda-medidas-paternofiliales.md` con los bloques condicionales de contencioso ACTIVADOS (intento de MASC, situacion economica de la regla 1.ª del art. 770, apartado de medidas solicitadas, otrosies de prueba y de medidas provisionales) y los de acuerdo DESACTIVADOS. No se genera pacto de relaciones familiares: es propio de la via de acuerdo.
 - V3 no elige asset: activa o desactiva los bloques de custodia y estancias y de alimentos dentro de la hoja ya elegida. V6 activa o desactiva el bloque de uso de la vivienda.
-- V4 no elige asset: activa una de las tres variantes del expositivo de convivencia y, solo si V4 = pareja inscrita, el Documento nº 2 con la certificacion del registro de parejas de hecho.
+- V4 no elige asset: activa una de las tres variantes del expositivo de convivencia y, solo si V4 = pareja_inscrita, el Documento nº 2 con la certificacion del registro de parejas de hecho.
 - Si lo que se pretende es **modificar medidas ya fijadas** en sentencia o en un acuerdo aprobado judicialmente → **DETENER esta via** y derivar a `modificacion-medidas`, explicando que lo que procede es una demanda de modificacion de medidas y no la fijacion por primera vez.
 - Si los progenitores **estan o han estado casados entre si** → **DETENER esta via** y derivar a `divorcio`.
 - Si lo que se reclama son **pensiones ya fijadas e impagadas** → **DETENER esta via** y derivar a `ejecucion-titulos`.
@@ -206,7 +184,7 @@ Una vez resueltos los vectores aplicables, evalua **en este orden**:
 - **MASC (art. 5.2 LO 1/2025) — solo en la HOJA CONTENCIOSA:** es requisito de procedibilidad. La guarda, la custodia y los alimentos de hijos menores **no** figuran entre las materias exceptuadas de las letras a) a h) del art. 5.2. Verificar si se intento; si no se intento y no concurre imposibilidad, advertir formalmente del riesgo de inadmision antes de continuar. En la HOJA ACUERDO no se pregunta por el MASC: no hay controversia que negociar.
 - **Fecha de efectos de los alimentos (art. 148 CC):** los alimentos no se abonan sino desde la interposicion de la demanda. Si el usuario pide mensualidades anteriores, advertirle de que por esta via no se obtienen y no incluir retroactividad en la medida.
 - **Cuenta de abono:** si el importe de la pension se fija sin cuenta de abono o sin dia de pago, la medida es dificilmente ejecutable. No cerrar la seccion de alimentos sin ambos datos, o dejarlos con su placeholder propio y advertirlo.
-- **Custodia compartida sin acuerdo (art. 92.5 y 92.8 CC):** si V1 = no existe acuerdo y el usuario pide custodia compartida, advertir de que a instancia de una sola parte es excepcional (art. 92.8) y exige informe del Ministerio Fiscal y una fundamentacion en que solo asi se protege el interes del menor. No prometer su concesion.
+- **Custodia compartida sin acuerdo (art. 92.5 y 92.8 CC):** si V2 = sin_acuerdo y el usuario pide custodia compartida, advertir de que a instancia de una sola parte es excepcional (art. 92.8) y exige informe del Ministerio Fiscal y una fundamentacion en que solo asi se protege el interes del menor. No prometer su concesion.
 
 ---
 
@@ -288,7 +266,7 @@ Recorre secuencialmente la lista que corresponda al documento activo (5-A pacto,
 
 1. **Progenitores** *[dato objetivo — recogida en lote con `slot_filling_request`, confirmación en chat]*. Anuncio de apertura: "Comenzamos por la identificación de ambos progenitores." Solicita en lote mediante `slot_filling_request` los datos identificativos (nombre completo, DNI o NIE, domicilio actual) de cada progenitor. Tras recibir la respuesta, muestra la vista previa en el chat, pide confirmación en el chat y aplica `edit_file` + `read_file`.
 2. **Hijos comunes** *[dato objetivo — recogida en lote con `slot_filling_request`, confirmación en chat]*. Anuncio: "Corresponde ahora identificar a los hijos comunes." Solicita de una vez vía `slot_filling_request` el nombre y fecha de nacimiento de cada hijo común (solo esos dos datos por hijo). Muestra vista previa del bloque de hijos en el chat y solicita confirmación antes de aplicar `edit_file` + `read_file`.
-3. **Convivencia y su cese** *[dato objetivo]*. Anuncio: "Recogemos ahora los datos de la convivencia y de su cese, que se hacen constar unicamente como antecedente." V4 ya esta resuelto: no lo vuelvas a preguntar. Si V4 = pareja inscrita, solicita en lote vía `slot_filling_request`: (a) registro de parejas de hecho en que constaba la inscripcion; (b) fecha de la inscripcion; (c) fecha del cese de la convivencia. Si V4 = convivencia sin inscripcion: (a) fecha aproximada de inicio de la convivencia; (b) fecha del cese. Si V4 = sin convivencia, la variante del expositivo se resuelve sola: no preguntes nada y pasa a la seccion siguiente. Vista previa y confirmación en chat antes de `edit_file`.
+3. **Convivencia y su cese** *[dato objetivo]*. Anuncio: "Recogemos ahora los datos de la convivencia y de su cese, que se hacen constar unicamente como antecedente." V4 ya esta resuelto: no lo vuelvas a preguntar. Si V4 = pareja_inscrita, solicita en lote vía `slot_filling_request`: (a) registro de parejas de hecho en que constaba la inscripcion; (b) fecha de la inscripcion; (c) fecha del cese de la convivencia. Si V4 = convivencia sin inscripcion: (a) fecha aproximada de inicio de la convivencia; (b) fecha del cese. Si V4 = sin convivencia, la variante del expositivo se resuelve sola: no preguntes nada y pasa a la seccion siguiente. Vista previa y confirmación en chat antes de `edit_file`.
 4. **Patria potestad y su ejercicio** *[negociacion]*. Anuncio: "Pasamos a la primera de las medidas: el ejercicio de la patria potestad." Explica antes de preguntar: la patria potestad corresponde a ambos progenitores por el hecho de la filiacion y su ejercicio conjunto es la regla (art. 156 CC), **con independencia de a quien se atribuya la custodia**: son dos cosas distintas. Advierte del matiz del parrafo final del art. 156 CC: viviendo los progenitores separados, la ley preve que la ejerza aquel con quien el hijo conviva, salvo atribucion judicial del ejercicio conjunto, **por lo que conviene pactarlo expresamente**. Enumera las decisiones que requieren el acuerdo de ambos, y en particular el cambio del lugar de residencia habitual del menor (art. 154.3.º CC), y explica que los desacuerdos se resuelven por la via del art. 156 CC. Despues pregunta, en turnos separados: (a) si desea anadir alguna decision concreta a la lista de las que requeriran acuerdo de ambos; (b) la via de comunicacion que pactan entre progenitores para los asuntos de los hijos.
 5. **Guarda y custodia** *[negociacion — solo si V3 incluye custodia]*. Anuncio: "Corresponde ahora determinar la guarda y custodia de los hijos." Explica antes de preguntar: no hay preferencia legal automatica; la compartida requiere el acuerdo de ambos (art. 92.5 CC) y que exista una comunicacion minima entre los progenitores, que el juez valora expresamente (art. 92.6 CC); la exclusiva atribuye la convivencia a un progenitor y el otro conserva la patria potestad y un regimen de estancias (art. 94 CC). El criterio decisivo es el interes superior del menor (art. 92.2 CC), y el vinculo que unio a los progenitores es irrelevante para los derechos del hijo. Despues pregunta la modalidad acordada.
 6. **Regimen de estancias, comunicacion y vacaciones** *[negociacion — solo si V3 incluye custodia]*. Anuncio: "Fijada la custodia, corresponde concretar el regimen de estancias y comunicacion." Explica antes de preguntar: la concrecion es lo que evita futuros conflictos y ejecuciones; un regimen "amplio y flexible" garantiza un incidente. Pide dias concretos, horas de inicio y fin, y a quien corresponde cada periodo en los anos pares y en los impares. Despues, en turnos separados: (a) calendario ordinario de estancias; (b) reparto de las vacaciones escolares; (c) lugar de entregas y recogidas y quien recoge y quien entrega; (d) regimen de comunicacion telefonica o telematica con el progenitor con el que el hijo no se encuentre.
@@ -296,14 +274,14 @@ Recorre secuencialmente la lista que corresponda al documento activo (5-A pacto,
 8. **Uso de la vivienda en que residen los hijos** *[negociacion — solo si V6 = si]*. Anuncio: "Corresponde ahora la atribucion del uso de la vivienda en que residen los hijos." **Explica antes de preguntar, y hazlo con detalle porque es el punto que mas confunde al cliente:** aqui no hay regimen economico matrimonial que liquidar; el art. 96 CC, que en los divorcios atribuye el uso al progenitor custodio, esta redactado para los conyuges y para los supuestos de nulidad, separacion y divorcio, de modo que **no se aplica de forma directa**. Sin matrimonio, la vivienda se rige por las reglas ordinarias de la propiedad y de los contratos: si es privativa de un progenitor, es suya; si es de ambos en proindiviso, cualquiera puede pedir la division; si es de alquiler, por el contrato. Lo que si opera es el interes del menor, cuya necesidad de habitacion forma parte de los alimentos (art. 142 CC), y por esa via se invoca el criterio del art. 96.1 **por analogia**. Nunca afirmes que el progenitor no titular tiene derecho al uso por el solo hecho de tener la custodia. Si la vivienda es propiedad exclusiva del otro progenitor, advierte expresamente de que la atribucion es una limitacion de la facultad dispositiva del titular, de resultado incierto, y ofrece escalacion antes de redactar la medida; pon sobre la mesa las alternativas: plazo cerrado en lugar de indefinido, compensacion economica al titular, cuantificar la habitacion dentro de la pension, o venta o extincion del condominio si el inmueble es comun. Despues, en turnos separados: (a) direccion de la vivienda; (b) titularidad real; (c) a quien se atribuye el uso; (d) plazo o condicion de cese; (e) reparto de los gastos derivados de la vivienda.
 9. **Cierre del pacto** *[dato objetivo]*. Anuncio: "Cerramos el pacto con el lugar y la fecha de firma." Pregunta lugar y fecha de firma. La clausula de sometimiento a la aprobacion judicial se resuelve sola: no la preguntes.
 
-### 5-B. Demanda conjunta de mutuo acuerdo (`demanda-medidas-paternofiliales.md`, solo si V5 = pacto y demanda)
+### 5-B. Demanda conjunta de mutuo acuerdo (`demanda-medidas-paternofiliales.md`, solo si V5 = pacto_y_demanda)
 
 Al crearla, vuelca sin volver a preguntar todos los datos ya recogidos en 5-A (progenitores, hijos, convivencia, fecha y lugar del pacto). Secciones pendientes:
 
 1. **Juzgado competente** *[dato objetivo con explicacion]*. Anuncio: "Pasamos a la demanda: en primer lugar, el Juzgado competente." Explica la regla del art. 769.3 LEC: es competente el Juzgado de Primera Instancia del ultimo domicilio comun de los progenitores y, si residen en distintos partidos judiciales, a eleccion del demandante, el del domicilio del demandado o el de la residencia del menor; el tribunal lo examina de oficio y no cabe pactar otro fuero (art. 769.4 LEC). Pregunta el partido judicial y el criterio por el que resulta competente. Si nunca existio domicilio comun, adopta la posicion conservadora del de la residencia del menor y explicalo.
 2. **Situacion actual de los hijos** *[dato objetivo con validacion]*. Anuncio: "Recogemos brevemente la situacion actual de los hijos." Pregunta con quien conviven los hijos en este momento y desde cuando. **No pidas ni escribas ningun otro dato del menor.**
 3. **Representacion procesal** *[dato objetivo — recogida con `slot_filling_request`, confirmación en chat]*. Anuncio: "Corresponde identificar la representacion procesal." Solicita vía `slot_filling_request`: (a) nombre del procurador; (b) nombre del letrado. Si aun no estan designados, cada uno queda con su propio placeholder del asset. Vista previa y confirmación en chat antes de `edit_file`.
-4. **Costas y cierre** *[dato objetivo]*. Anuncio: "Cerramos la demanda con el pronunciamiento sobre costas, el lugar y la fecha." Explica que, presentandose de comun acuerdo, lo habitual es no interesar condena en costas, y pregunta si desea ese pronunciamiento. Despues, lugar y fecha. La relacion de documentos (certificaciones literales de nacimiento, certificacion del registro de parejas de hecho si V4 = pareja inscrita, pacto firmado) se rellena sola segun la clasificacion: muestrala en la vista previa sin preguntar.
+4. **Costas y cierre** *[dato objetivo]*. Anuncio: "Cerramos la demanda con el pronunciamiento sobre costas, el lugar y la fecha." Explica que, presentandose de comun acuerdo, lo habitual es no interesar condena en costas, y pregunta si desea ese pronunciamiento. Despues, lugar y fecha. La relacion de documentos (certificaciones literales de nacimiento, certificacion del registro de parejas de hecho si V4 = pareja_inscrita, pacto firmado) se rellena sola segun la clasificacion: muestrala en la vista previa sin preguntar.
 
 ### 5-C. Demanda contenciosa de medidas paternofiliales (`demanda-medidas-paternofiliales.md`)
 

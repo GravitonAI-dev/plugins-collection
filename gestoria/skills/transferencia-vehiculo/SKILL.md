@@ -116,6 +116,7 @@ Invoca la herramienta con las opciones de triaje:
   - Si `V1 = cambio_titularidad`: `template-contrato-compraventa-vehiculo.md` y `template-solicitud-cambio-titularidad-dgt.md`.
   - Si `V1 = notificacion_venta`: `template-notificacion-venta-dgt.md`.
 - Proceder a la **Fase 2**.
+- `V2` no elige hoja: determina la tasa oficial de la DGT aplicable.
 
 ---
 

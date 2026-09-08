@@ -119,7 +119,7 @@ Procesa la fuente o elabora la plantilla abstracta parametrizada en memoria:
 ### Ruta 2.A — Texto en el Chat (Pegar Directamente)
 1. Extrae el texto íntegro proporcionado por el usuario en `<user_message>`.
 2. Si el mensaje está incompleto o falta el texto, solicita amablemente al usuario que pegue el contenido.
-3. Procede a la anonimización de PII y parametrización de variables `{{SNAKE_CASE}}` según `references/reglas-parametrizacion-plantillas.md`.
+3. Procede a la anonimización de PII y parametrización de variables `{{NOMBRE_VARIABLE}}` en mayúsculas y con guion bajo, según `references/reglas-parametrizacion-plantillas.md`.
 
 ### Ruta 2.B — Abrir Archivo en el Editor (Archivos del Workspace)
 1. Identifica el nombre o ruta relativa del archivo en el workspace indicado por el usuario (ej: `minuta.md`, `template-modelo-de-demanda.md`).
@@ -166,7 +166,7 @@ Si la plantilla está destinada a una skill especializada del sistema, **DEBES v
 2. **Coherencia Temática y Procedimental:** El documento debe cubrir el trámite y la función exacta que la skill gestiona (ej. no admitir una minuta de compraventa para un asset de arrendamiento, ni una comunicación para un contrato sustantivo).
 3. **Cobertura de Variables Obligatorias:** La plantilla DEBE contener los marcadores `{{VARIABLE}}` que corresponden a los inputs esenciales que la skill requiere y cumplimenta durante su ejecución (consultar los `inputs:` del `SKILL.md` de la skill destino: datos de las partes, objeto, importes, plazos, etc.).
 4. **Assets Limpios:** La plantilla NO debe contener comentarios HTML condicionales (ej. `<!-- Si persona física... -->`) ni pseudocódigo procedural.
-5. **Cero PII:** Cero datos reales de personas o casos particulares; todos deben estar abstraídos en `{{SNAKE_CASE}}`.
+5. **Cero PII:** Cero datos reales de personas o casos particulares; todos deben estar abstraídos en marcadores `{{NOMBRE_VARIABLE}}`.
 
 > [!CAUTION]
 > ### POLÍTICA INQUEBRANTABLE ANTE INCOMPATIBILIDAD CON LA SKILL:
@@ -179,7 +179,7 @@ Si la plantilla está destinada a una skill especializada del sistema, **DEBES v
 
 ### 3.2 Verificación para Plantillas Globales (`V1` = `global`)
 - Verificar que el texto esté en Markdown limpio, con jerarquía coherente y sin comentarios condicionales HTML.
-- Verificar que todas las variables dinámicas sigan la convención `{{SNAKE_CASE}}`.
+- Verificar que todas las variables dinámicas sigan la convención `{{NOMBRE_VARIABLE}}`: mayúsculas, guion bajo entre palabras y dobles llaves.
 - Garantizar ausencia absoluta de PII.
 - Si es creación nueva (`save_user_template`), asegurar que se cuenta con `name` y `description` no vacíos y con sentido.
 

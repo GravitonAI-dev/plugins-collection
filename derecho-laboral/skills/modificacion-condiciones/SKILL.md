@@ -130,6 +130,7 @@ Si el usuario ya ha identificado inequívocamente la medida, la materia afectada
 * **Si `[V1 = traslado_art40]` → Plantilla: `assets/template-comunicacion-traslado-art40.md`.** Preaviso: **30 días** de antelación a la fecha de efectividad en el traslado. Distingue el traslado (definitivo, o desplazamiento superior a doce meses en un periodo de tres años) del desplazamiento temporal, con preaviso de cinco días laborables si excede de tres meses.
 * **Si `[V1 = movilidad_funcional_art39]` → Plantilla: `assets/template-comunicacion-movilidad-funcional-art39.md`.** Distingue la movilidad **dentro del grupo profesional**, que no exige causa ni preaviso, de la que excede del grupo, que exige razones técnicas u organizativas y se limita al tiempo imprescindible. Si la encomienda de funciones excede de los límites del artículo 39, la medida se reconduce al artículo 41 y cambia de ruta.
 * **Si `[V1 = respuesta_trabajador]` → Plantilla: `assets/template-escrito-trabajador-opcion-extincion.md`.** Determina primero qué comunicación ha recibido, en qué fecha y qué materia afecta, porque de ello depende que exista o no derecho de rescisión indemnizada.
+- `V4` no elige plantilla por si solo: determina si se redacta la comunicacion de la empresa o el escrito de respuesta del trabajador sobre la plantilla enrutada.
 
 ---
 
