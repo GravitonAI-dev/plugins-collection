@@ -19,7 +19,7 @@ when_to_use: |
   - El usuario necesita pactar o solicitar custodia, visitas, pension de alimentos, uso de la
     vivienda o pension compensatoria dentro de una ruptura matrimonial.
 inputs:
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - modalidad: mutuo acuerdo / contencioso
   - tipo_ruptura: divorcio / separacion
   - hijos: existencia de hijos menores no emancipados o mayores con discapacidad dependientes (si / no)
@@ -66,14 +66,14 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 
 ### Vectores de Estado (Uso Estrictamente Interno):
 
-Para garantizar un enrutamiento determinista y el cumplimiento normativo riguroso, el asistente resuelve y mantiene internamente en memoria los vectores de estado de la operación (V1 a V4) y el origen de la plantilla (V5).
+Para garantizar un enrutamiento determinista y el cumplimiento normativo riguroso, el asistente resuelve y mantiene internamente en memoria los vectores de estado de la operación —cuyo catálogo y su correspondencia con las respuestas del formulario figuran en la Fase 1.2— y el origen de la plantilla (`origen_plantilla`).
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
-> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`) y los resúmenes de validación con marcas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial y profesional.
+> Los identificadores técnicos de los vectores y los resúmenes de validación con marcas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial y profesional.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 Tu primer objetivo es clasificar con precisión la naturaleza del caso y fijar los vectores deterministas de estado.
 
@@ -147,9 +147,9 @@ Invoca la herramienta con las opciones de triaje:
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores necesarios, evalua:
 - Si [V1 = Contencioso] -> Plantilla a usar: `assets/template-demanda-divorcio-contencioso.md`. V4 y V5 no aplican. No se genera convenio regulador (es propio del mutuo acuerdo).
-- Si [V1 = Mutuo acuerdo] y [V3 = Si] -> Via judicial obligatoria con Ministerio Fiscal. Resolver V5. Plantillas: `assets/template-convenio-regulador.md` y, si V5 = 2, ademas `assets/template-demanda-divorcio-mutuo-acuerdo.md`.
+- Si [V1 = Mutuo acuerdo] y [V3 = Si] -> Via judicial obligatoria con Ministerio Fiscal. Resolver V5. Plantillas: `assets/template-convenio-regulador.md` y, si V5 = convenio y demanda, ademas `assets/template-demanda-divorcio-mutuo-acuerdo.md`.
 - Si [V1 = Mutuo acuerdo] y [V3 = No] y [V4 = Notarial] -> Plantilla a usar: `assets/template-convenio-regulador.md` (la escritura la otorga el notario; no se genera demanda). V5 no aplica.
-- Si [V1 = Mutuo acuerdo] y [V3 = No] y [V4 = Judicial] -> Resolver V5. Plantillas: `assets/template-convenio-regulador.md` y, si V5 = 2, ademas `assets/template-demanda-divorcio-mutuo-acuerdo.md`.
+- Si [V1 = Mutuo acuerdo] y [V3 = No] y [V4 = Judicial] -> Resolver V5. Plantillas: `assets/template-convenio-regulador.md` y, si V5 = convenio y demanda, ademas `assets/template-demanda-divorcio-mutuo-acuerdo.md`.
 - Si en cualquier momento hay indicios de violencia de genero o domestica -> Deten el proceso (Guardrail 3). No crees documento.
 
 ---
@@ -244,7 +244,7 @@ Anuncios fijos y secciones:
 10. **Cargas y gastos comunes (NEGOCIACION).** Anuncio: "Por ultimo, el reparto de las cargas y gastos comunes pendientes." Preguntar el reparto de deudas y cargas comunes (por mitad por defecto).
 11. **Cierre del convenio (dato objetivo).** Anuncio: "Cerramos el convenio con el lugar y la fecha de firma." Preguntar lugar y fecha de firma. La clausula de eficacia se resuelve sola con la via ya clasificada (judicial: sometimiento a aprobacion del Juzgado; notarial/LAJ: otorgamiento en escritura o decreto), sin preguntar.
 
-### 5-B. Demanda de mutuo acuerdo (`demanda-divorcio-mutuo-acuerdo.md`, solo si V5 = 2)
+### 5-B. Demanda de mutuo acuerdo (`demanda-divorcio-mutuo-acuerdo.md`, solo si V5 = convenio y demanda)
 
 Al crearla, vuelca sin volver a preguntar todos los datos ya recogidos en 5-A (conyuges, matrimonio, hijos). Secciones pendientes:
 

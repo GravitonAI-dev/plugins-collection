@@ -19,7 +19,7 @@ when_to_use: |
     arte) a otro particular.
   - El usuario pregunta si le conviene firmar un contrato privado o ir al notario, y necesita el documento.
 inputs:
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - tipo_contrato: prestamo de dinero / reconocimiento de deuda / comodato / compraventa de bien mueble
   - datos_parte_acreedora: nombre o razon social, documento de identidad, domicilio, telefono, email
   - datos_parte_deudora: nombre o razon social, documento de identidad, domicilio, telefono, email
@@ -59,14 +59,14 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 
 ### Vectores de Estado (Uso Estrictamente Interno):
 
-Para garantizar un enrutamiento determinista y el cumplimiento normativo riguroso, el asistente resuelve y mantiene internamente en memoria los vectores de estado de la operación (V1 a V4) y el origen de la plantilla (V5).
+Para garantizar un enrutamiento determinista y el cumplimiento normativo riguroso, el asistente resuelve y mantiene internamente en memoria los vectores de estado de la operación —cuyo catálogo y su correspondencia con las respuestas del formulario figuran en la Fase 1.2— y el origen de la plantilla (`origen_plantilla`).
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
-> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`) y los resúmenes de validación con marcas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial y profesional.
+> Los identificadores técnicos de los vectores y los resúmenes de validación con marcas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial y profesional.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 Tu primer objetivo es clasificar con precisión la naturaleza del caso y fijar los vectores deterministas de estado.
 
@@ -136,11 +136,11 @@ Invoca la herramienta con las opciones de triaje:
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores aplicables, evalua en este orden:
 
-- Si V1 = 1 y V1b = 1 → **HOJA PRESTAMO**: `assets/template-contrato-prestamo-particulares.md`.
-- Si V1 = 1 y V1b = 2 → **HOJA COMODATO**: `assets/template-contrato-comodato.md`.
-- Si V1 = 2 → **HOJA RECONOCIMIENTO**: `assets/template-reconocimiento-deuda.md`.
-- Si V1 = 3 → **HOJA COMPRAVENTA**: `assets/template-contrato-compraventa-mueble.md`.
-- Si V1 = 1, V1b = 2 y **el cesionario debe pagar algo** por el uso de la cosa (renta, canon, cuota de gastos que exceda de los ordinarios, cualquier emolumento) → **NO es comodato**: el Art. 1741 CC dice que, si interviene emolumento, la convencion deja de ser comodato. Si la cosa es un inmueble urbano, derivar a `arrendamiento`. Si es otra cosa, advertir de que se trata de un arrendamiento y ofrecer escalacion. No crear documento de comodato.
+- Si V1 = prestamo dinero y V1b = prestamo dinero → **HOJA PRESTAMO**: `assets/template-contrato-prestamo-particulares.md`.
+- Si V1 = prestamo dinero y V1b = comodato → **HOJA COMODATO**: `assets/template-contrato-comodato.md`.
+- Si V1 = comodato → **HOJA RECONOCIMIENTO**: `assets/template-reconocimiento-deuda.md`.
+- Si V1 = reconocimiento deuda → **HOJA COMPRAVENTA**: `assets/template-contrato-compraventa-mueble.md`.
+- Si V1 = prestamo dinero, V1b = comodato y **el cesionario debe pagar algo** por el uso de la cosa (renta, canon, cuota de gastos que exceda de los ordinarios, cualquier emolumento) → **NO es comodato**: el Art. 1741 CC dice que, si interviene emolumento, la convencion deja de ser comodato. Si la cosa es un inmueble urbano, derivar a `arrendamiento`. Si es otra cosa, advertir de que se trata de un arrendamiento y ofrecer escalacion. No crear documento de comodato.
 - Si lo que el usuario pretende es **cobrar una deuda que ya esta impagada** (no documentarla ni pactar su pago futuro) → derivar a `reclamacion-cantidad`. No crear documento.
 - Si ya existe un **titulo ejecutivo** (sentencia, escritura publica, laudo) y lo que se quiere es ejecutarlo → derivar a `ejecucion-titulos`. No crear documento.
 - Si el bien objeto de la operacion es un **inmueble** y la operacion es una compraventa → derivar a `compraventa-inmueble`. No crear documento.

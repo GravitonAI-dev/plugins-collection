@@ -64,7 +64,7 @@ Para garantizar un enrutamiento determinista y la correcta ejecución de las her
 - **V6 (Compatibilidad con Skill):** `compatible` | `incompatible` (evaluado obligatoriamente si `V1` = `skill`).
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
-> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`, `V6`) y las marcas de control interno son **estrictamente confidenciales**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial, profesional y consultivo.
+> Los identificadores técnicos de los vectores y las marcas de control interno son **estrictamente confidenciales**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial, profesional y consultivo.
 
 ---
 
@@ -100,6 +100,8 @@ El usuario dispone de dos opciones principales:
 - `V2` — vía de especificación del contenido (texto en el chat, archivo del editor o creación asistida), resuelta en la sección 1.3
 - `V3` — skill de destino, resuelta solo si `V1` = `skill`, sobre el catálogo oficial
 - `V4` — asset declarado que la plantilla reemplaza, resuelto solo si `V1` = `skill`
+- `V5` — modo de persistencia: no se pregunta en el formulario de clasificación; se resuelve durante el propio flujo
+- `V6` — compatibilidad con skill: no se pregunta en el formulario de clasificación; se resuelve durante el propio flujo
 
 ### 1.3 Determinación de la Vía de Especificación (V2)
 El usuario dispone de tres vías:

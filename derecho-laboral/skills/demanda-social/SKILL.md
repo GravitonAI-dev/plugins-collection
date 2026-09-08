@@ -20,7 +20,7 @@ when_to_use: |
   - El usuario quiere demandar por vulneración de derechos fundamentales en el ámbito laboral.
   - El usuario pregunta ante qué juzgado debe demandar, con qué plazo y con qué requisitos.
 inputs:
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - modalidad_procesal: despido / cantidad / sanción / movilidad y modificación sustancial / tutela de derechos fundamentales
   - calificacion_pretendida: improcedencia o nulidad, solo en despido
   - posicion_usuario: trabajador demandante o empresa demandante
@@ -65,14 +65,14 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 - **V2 (Calificación pretendida):** `improcedencia` | `nulidad` | `no_aplica`.
 - **V3 (Posición del usuario):** `trabajador_demandante` | `empresa_demandante`.
 - **V4 (Régimen de responsabilidad):** `individual` | `solidaria`. *(Determina el mapa de codemandados y la llamada al Fondo de Garantía Salarial.)*
-- **V5 (Origen plantilla):** `plantilla_sistema` | `plantilla_usuario`.
+- **origen_plantilla (origen de la plantilla):** `plantilla_sistema` | `plantilla_usuario`.
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
 > Los identificadores técnicos de los vectores son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos en el chat visible al usuario.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 ### 1.1 Escucha Activa Previa
 Si el usuario ya ha identificado inequívocamente la modalidad, la pretensión y las partes, registra los vectores en silencio y pasa a la **Fase 2**. En todo caso, **antes de redactar, ejecuta el control de admisibilidad del punto 1.3**.
@@ -122,6 +122,7 @@ Si el usuario ya ha identificado inequívocamente la modalidad, la pretensión y
 - `V1` — `modalidad_procesal`
 - `V2` — `calificacion_pretendida`
 - `V4` — `responsabilidad`
+- `V3` — posición del usuario: no se pregunta en el formulario de clasificación; se resuelve durante el propio flujo
 
 ### 1.3 Control de Admisibilidad y Enrutamiento (PRIMERA ACCIÓN OBLIGATORIA)
 

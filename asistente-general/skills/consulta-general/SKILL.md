@@ -21,7 +21,7 @@ inputs:
   - tipo_requerimiento: analisis_viabilidad / orientacion_procedimental / revision_documental / duda_normativa_factual (V2)
   - perfil_consultante: persona_fisica / persona_juridica (V3)
   - situacion_urgencia: extrajudicial_preventivo / conflicto_abierto / plazo_notificacion_en_curso (V4)
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - hechos_consulta: descripción de la situación, antecedentes y cuestiones planteadas
   - documentacion_aportada: textos, contratos, minutas o comunicaciones adjuntas por el usuario
 outputs:
@@ -52,10 +52,10 @@ Para garantizar un análisis riguroso y una correcta estructuración del razonam
 - **V2 (Tipo y Alcance del Requerimiento):** `analisis_viabilidad` (analizar pros, contras y viabilidad) | `orientacion_procedimental` (pasos a dar, plazos y vías de actuación) | `revision_documental` (analizar un texto o contrato genérico adjunto) | `duda_normativa_factual` (preguntas conceptuales, explicaciones, datos de mercado o workspace).
 - **V3 (Perfil del Consultante):** `persona_fisica` (particular, consumidor) | `persona_juridica` (empresa, profesional, entidad).
 - **V4 (Situación Procesal / Nivel de Urgencia):** `extrajudicial_preventivo` | `conflicto_abierto` | `plazo_notificacion_en_curso` (urgente).
-- **V5 (Origen Plantilla / Asset):** `plantilla_sistema` (`template-informe-consulta-general.md` / `template-memo-orientacion-rapida.md`) | `plantilla_usuario`.
+- **origen_plantilla (origen de la plantilla):** `plantilla_sistema` (`template-informe-consulta-general.md` / `template-memo-orientacion-rapida.md`) | `plantilla_usuario`.
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
-> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`) y los resúmenes de validación con marcas técnicas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural, claro y fluido.
+> Los identificadores técnicos de los vectores y los resúmenes de validación con marcas técnicas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural, claro y fluido.
 
 ---
 

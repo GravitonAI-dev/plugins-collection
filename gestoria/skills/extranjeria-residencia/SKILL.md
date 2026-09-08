@@ -19,7 +19,7 @@ inputs:
   - tipo_arraigo_subtipo: social / sociolaboral / socioformativo / familiar / segunda_oportunidad / general (V2)
   - naturaleza_solicitante: persona_fisica (V3)
   - via_presentacion_lugar: en_espana_oficina_extranjeria / desde_extranjero_consulado (V4)
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - datos_extranjero: nombre y apellidos, nacionalidad, numero de pasaporte, fecha de nacimiento
   - nie_previo: si el extranjero ya tiene NIE asignado (si / no)
   - motivo: motivo del NIE o de la residencia
@@ -56,14 +56,14 @@ Para garantizar un enrutamiento determinista y el cumplimiento riguroso de la no
 - **V2 (Subtipo / Modalidad Arraigo):** `social` | `sociolaboral` | `socioformativo` | `familiar` | `segunda_oportunidad` | `general_no_aplica`.
 - **V3 (Naturaleza del Solicitante):** `persona_fisica`.
 - **V4 (Lugar / Vía de Tramitación):** `en_espana_oficina_extranjeria` (vía Mercurio / sede electrónica o cita presencial) | `desde_extranjero_consulado` *(advertencia de visado consular previo)*.
-- **V5 (Origen Plantilla / Asset):** `plantilla_sistema` | `plantilla_usuario`.
+- **origen_plantilla (origen de la plantilla):** `plantilla_sistema` | `plantilla_usuario`.
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
-> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`) y los resúmenes de validación con marcas técnicas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial, claro y profesional.
+> Los identificadores técnicos de los vectores y los resúmenes de validación con marcas técnicas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial, claro y profesional.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 Tu primer objetivo es identificar la figura migratoria exacta y el formulario oficial correspondiente.
 
@@ -105,6 +105,8 @@ Invoca la herramienta con las opciones de triaje:
 **Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
 - `V1` — `tipo_tramite`
 - `V4` — `lugar_presentacion`
+- `V2` — subtipo / modalidad arraigo: no se pregunta en el formulario de clasificación; se resuelve durante el propio flujo
+- `V3` — naturaleza del solicitante: no se pregunta en el formulario de clasificación; se resuelve durante el propio flujo
 
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 - **Si `V4 = desde_extranjero_consulado` y `V1 = residencia_no_lucrativa`:**

@@ -20,7 +20,7 @@ inputs:
   - tipo_vehiculo: turismo / motocicleta / ciclomotor / vehiculo_comercial (V2)
   - naturaleza_vendedor: persona_fisica / persona_juridica (V3)
   - naturaleza_comprador: persona_fisica / persona_juridica (V4)
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - datos_vehiculo: matricula, numero de bastidor (VIN), marca, modelo, fecha de primera matriculacion
   - datos_vendedor: nombre o razon social, NIF o CIF, domicilio
   - datos_comprador: nombre o razon social, NIF o CIF, domicilio
@@ -58,14 +58,14 @@ Para garantizar un enrutamiento determinista y el cumplimiento de la normativa d
 - **V2 (Tipo de Vehículo):** `turismo` | `motocicleta` | `ciclomotor` *(tasa reducida)* | `vehiculo_comercial`.
 - **V3 (Naturaleza del Vendedor):** `persona_fisica` | `persona_juridica`.
 - **V4 (Naturaleza del Comprador):** `persona_fisica` | `persona_juridica`.
-- **V5 (Origen Plantilla / Asset):** `plantilla_sistema` | `plantilla_usuario`.
+- **origen_plantilla (origen de la plantilla):** `plantilla_sistema` | `plantilla_usuario`.
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
-> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`) y los resúmenes de validación con marcas técnicas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial, claro y profesional.
+> Los identificadores técnicos de los vectores y los resúmenes de validación con marcas técnicas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial, claro y profesional.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 Tu primer objetivo es identificar el alcance del encargo (cambio de titularidad por el comprador, notificación de venta por el vendedor o ambos) y el tipo de vehículo.
 
@@ -107,6 +107,8 @@ Invoca la herramienta con las opciones de triaje:
 **Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
 - `V1` — `tipo_tramite_dgt`
 - `V2` — `tipo_vehiculo`
+- `V3` — naturaleza del vendedor: no se pregunta en el formulario de clasificación; se resuelve durante el propio flujo
+- `V4` — naturaleza del comprador: no se pregunta en el formulario de clasificación; se resuelve durante el propio flujo
 
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 - Plantillas del sistema propuestas:

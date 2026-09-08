@@ -20,7 +20,7 @@ when_to_use: |
   - El despacho quiere instar la jura de cuentas del artículo 35 de la Ley de Enjuiciamiento Civil.
   - El cliente ha impugnado la minuta por indebida o por excesiva y hay que contestar.
 inputs:
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - tipo_documento: minuta de honorarios / requerimiento previo de pago / solicitud de jura de cuentas / alegaciones frente a impugnación
   - existe_hoja_encargo: sí, con su fecha y contenido económico / no
   - ambito_asunto: judicial, con identificación del órgano y del procedimiento / extrajudicial
@@ -61,14 +61,14 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 - **V2 (Existencia de hoja de encargo):** `con_encargo_escrito` | `sin_encargo_escrito`. *(Determina la solidez de la posición y la estrategia de la reclamación.)*
 - **V3 (Ámbito del asunto):** `judicial` | `extrajudicial`. *(La jura de cuentas solo cabe respecto de honorarios devengados en un asunto judicial.)*
 - **V4 (Naturaleza del cliente):** `consumidor` | `empresa_profesional`. *(Determina el control de transparencia y de abusividad aplicable.)*
-- **V5 (Origen plantilla):** `plantilla_sistema` | `plantilla_usuario`.
+- **origen_plantilla (origen de la plantilla):** `plantilla_sistema` | `plantilla_usuario`.
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
 > Los identificadores técnicos de los vectores son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos en el chat visible al usuario.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 ### 1.1 Escucha Activa Previa
 Si el usuario ya ha identificado el documento, la existencia de encargo, el ámbito del asunto y la naturaleza del cliente, registra los vectores en silencio y pasa a la **Fase 2**. En todo caso, **resuelve primero el control de viabilidad del punto 1.3**.

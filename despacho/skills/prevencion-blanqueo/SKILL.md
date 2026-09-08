@@ -20,7 +20,7 @@ when_to_use: |
   - El despacho quiere revisar el cumplimiento de la diligencia debida de un expediente concreto.
   - Ha aparecido una operación que exige examen especial y hay que documentar el análisis interno.
 inputs:
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - tipo_documento: ficha de identificación / declaración de titularidad real / lista de comprobación de diligencia debida / informe interno de examen especial
   - actuacion_profesional: descripción de la actuación encargada, a efectos de determinar la sujeción
   - opera_exencion: si la información se recibe en el marco de la determinación de la posición jurídica o de la defensa o representación en un proceso
@@ -62,14 +62,14 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 - **V2 (Sujeción de la actuación):** `sujeta` | `no_sujeta` | `sujeta_con_exencion`. *(Vector determinante: se resuelve antes que ningún otro.)*
 - **V3 (Naturaleza del cliente):** `persona_fisica` | `persona_juridica` | `entidad_sin_personalidad`.
 - **V4 (Nivel de riesgo):** `simplificado` | `normal` | `reforzado`.
-- **V5 (Origen plantilla):** `plantilla_sistema` | `plantilla_usuario`.
+- **origen_plantilla (origen de la plantilla):** `plantilla_sistema` | `plantilla_usuario`.
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
 > Los identificadores técnicos de los vectores son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos en el chat visible al usuario.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 ### 1.1 Escucha Activa Previa y Parada de Seguridad
 

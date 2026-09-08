@@ -22,7 +22,7 @@ inputs:
   - tipo_actividad: empresarial / profesional / artistica (V2)
   - naturaleza_titular: persona_fisica (V3)
   - regimen_cotizacion: reta_general / reta_tarifa_plana / reta_societario_colaborador (V4)
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - datos_interesado: nombre y apellidos, NIF, domicilio fiscal, telefono y correo de contacto
   - actividad: descripcion de la actividad economica (alta que va a ejercer; baja que cesa)
   - epigrafe_iae: epigrafe del IAE si lo conoce (empresarial o profesional)
@@ -68,14 +68,14 @@ Para garantizar un enrutamiento determinista y el cumplimiento de las normas tri
 - **V2 (Tipo de Actividad):** `empresarial` | `profesional` | `artistica`.
 - **V3 (Naturaleza del Titular):** `persona_fisica` (autónomo individual).
 - **V4 (Régimen de Cotización / Bonificación):** `reta_general` | `reta_tarifa_plana` | `reta_societario_colaborador` *(fuera de alcance directo / advertencia)*.
-- **V5 (Origen Plantilla / Asset):** `plantilla_sistema` | `plantilla_usuario`.
+- **origen_plantilla (origen de la plantilla):** `plantilla_sistema` | `plantilla_usuario`.
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
-> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`) y los resúmenes de validación con marcas técnicas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial, claro y profesional.
+> Los identificadores técnicos de los vectores y los resúmenes de validación con marcas técnicas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial, claro y profesional.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 Tu primer objetivo es determinar el tipo de trámite y el encuadre operativo.
 
@@ -126,6 +126,7 @@ Invoca la herramienta con las preguntas de triaje:
 - `V1` — `tipo_operacion`
 - `V2` — `tipo_actividad`
 - `V4` — `regimen_cotizacion`
+- `V3` — naturaleza del titular: no se pregunta en el formulario de clasificación; se resuelve durante el propio flujo
 
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 - **Si `V4 = reta_societario_colaborador`:**

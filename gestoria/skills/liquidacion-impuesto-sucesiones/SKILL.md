@@ -20,7 +20,7 @@ inputs:
   - grupo_parentesco: grupo_i / grupo_ii / grupo_iii / grupo_iv (V2)
   - naturaleza_causahabiente: persona_fisica (V3)
   - comunidad_autonoma: CCAA de residencia habitual del causante (clave de bonificaciones) (V4)
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - datos_causante: nombre, NIF, fecha y lugar de fallecimiento, ultimo domicilio, CCAA de residencia habitual
   - datos_heredero: nombre, NIF, domicilio, parentesco con el causante y grupo (I a IV)
   - caudal_hereditario: inventario de bienes y sus valores (del cuaderno particional si existe)
@@ -60,14 +60,14 @@ Para garantizar un enrutamiento determinista y el correcto cálculo tributario c
 - **V2 (Grupo de Parentesco):** `grupo_i` (descendientes menores de 21) | `grupo_ii` (descendientes de 21 o más, cónyuges, ascendientes) | `grupo_iii` (colaterales de 2º y 3º grado, afines) | `grupo_iv` (colaterales de 4º grado o más, extraños).
 - **V3 (Naturaleza del Causahabiente):** `persona_fisica` (heredero o legatario individual).
 - **V4 (Comunidad Autónoma Competente):** CCAA donde el causante tuvo su residencia habitual durante el mayor número de días de los últimos 5 años anteriores al fallecimiento.
-- **V5 (Origen Plantilla / Asset):** `plantilla_sistema` | `plantilla_usuario`.
+- **origen_plantilla (origen de la plantilla):** `plantilla_sistema` | `plantilla_usuario`.
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
-> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`) y los resúmenes de validación con marcas técnicas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial, claro y profesional.
+> Los identificadores técnicos de los vectores y los resúmenes de validación con marcas técnicas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial, claro y profesional.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 Tu primer objetivo es fijar la Comunidad Autónoma competente y el grado de parentesco del heredero, que determinan las reducciones y bonificaciones aplicables.
 

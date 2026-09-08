@@ -22,7 +22,7 @@ when_to_use: |
   - La empresa quiere encomendar funciones distintas de las del grupo profesional del trabajador.
   - El trabajador ha recibido una comunicación de modificación y quiere optar por la extinción indemnizada o impugnarla.
 inputs:
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - tipo_medida: modificación sustancial / traslado o desplazamiento / movilidad funcional / respuesta del trabajador
   - materia_afectada: jornada, horario y distribución, turnos, sistema de remuneración y cuantía salarial, sistema de trabajo y rendimiento, o funciones
   - alcance: individual o colectivo, con el número de trabajadores afectados en los últimos 90 días
@@ -64,14 +64,14 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 - **V2 (Materia afectada):** `jornada` | `horario_distribucion` | `turnos` | `remuneracion` | `sistema_trabajo_rendimiento` | `funciones`. *(Determina si nace el derecho de rescisión indemnizada.)*
 - **V3 (Alcance):** `individual` | `colectivo_bajo_umbral` | `colectivo_sobre_umbral`.
 - **V4 (Posición del usuario):** `empresa` | `trabajador`.
-- **V5 (Origen plantilla):** `plantilla_sistema` | `plantilla_usuario`.
+- **origen_plantilla (origen de la plantilla):** `plantilla_sistema` | `plantilla_usuario`.
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
 > Los identificadores técnicos de los vectores son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos en el chat visible al usuario.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 ### 1.1 Escucha Activa Previa
 Si el usuario ya ha identificado inequívocamente la medida, la materia afectada, el número de afectados y su propia posición, registra los vectores en silencio y pasa a la **Fase 2**.

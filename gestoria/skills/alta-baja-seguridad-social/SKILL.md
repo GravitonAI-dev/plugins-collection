@@ -23,7 +23,7 @@ inputs:
   - tipo_sujeto_tramite: cuenta_ajena_regimen_general / empleada_hogar / afiliacion_nuss_ta1 / inscripcion_empresa_ccc_ta6 (V2)
   - naturaleza_empleador: persona_fisica / persona_juridica (V3)
   - naturaleza_trabajador: persona_fisica (V4)
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - datos_empleador: razon social o nombre, CIF o NIF, domicilio, CCC si ya existe
   - datos_trabajador: nombre y apellidos, NIF, NUSS si lo tiene, grupo de cotizacion
   - fecha_efectos: fecha de inicio de la relacion laboral (alta) o de cese (baja)
@@ -59,14 +59,14 @@ Para garantizar un enrutamiento determinista y el cumplimiento estricto de la no
 - **V2 (Tipo de Sujeto / Trámite):** `cuenta_ajena_regimen_general` | `empleada_hogar` | `afiliacion_nuss_ta1` | `inscripcion_empresa_ccc_ta6`.
 - **V3 (Naturaleza del Empleador):** `persona_fisica` | `persona_juridica`.
 - **V4 (Naturaleza del Trabajador):** `persona_fisica`.
-- **V5 (Origen Plantilla / Asset):** `plantilla_sistema` | `plantilla_usuario`.
+- **origen_plantilla (origen de la plantilla):** `plantilla_sistema` | `plantilla_usuario`.
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
-> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`) y los resúmenes de validación con marcas técnicas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial, claro y profesional.
+> Los identificadores técnicos de los vectores y los resúmenes de validación con marcas técnicas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial, claro y profesional.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 Tu primer objetivo es determinar el sujeto pasivo del trámite y el modelo aplicable.
 
@@ -108,6 +108,8 @@ Invoca la herramienta con las preguntas de triaje:
 **Correspondencia con el enrutamiento.** La Fase 1.3 nombra los vectores con los identificadores siguientes; cada uno se resuelve con la respuesta indicada de este formulario. No preguntes de nuevo nada que ya esté aquí:
 - `V1` — `tipo_operacion`
 - `V2` — `tipo_sujeto_tramite`
+- `V3` — naturaleza del empleador: no se pregunta en el formulario de clasificación; se resuelve durante el propio flujo
+- `V4` — naturaleza del trabajador: no se pregunta en el formulario de clasificación; se resuelve durante el propio flujo
 
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 - **Si `V2 = afiliacion_nuss_ta1`:**

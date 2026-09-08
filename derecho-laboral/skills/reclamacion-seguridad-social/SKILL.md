@@ -21,7 +21,7 @@ when_to_use: |
   - El usuario está en desacuerdo con un alta médica y quiere manifestar su disconformidad.
   - El usuario quiere demandar en materia de prestaciones tras agotar la reclamación previa.
 inputs:
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - tipo_tramite: reclamación previa / disconformidad con alta médica / solicitud de revisión de grado / demanda
   - materia: incapacidad temporal / incapacidad permanente / lesiones permanentes no invalidantes / jubilación / viudedad y orfandad / nacimiento y cuidado / desempleo / reintegro de gastos / recargo de prestaciones
   - entidad_gestora: Instituto Nacional de la Seguridad Social / Instituto Social de la Marina / Servicio Público de Empleo Estatal / mutua colaboradora con la Seguridad Social
@@ -63,14 +63,14 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 - **V2 (Materia prestacional):** `incapacidad_temporal` | `incapacidad_permanente` | `lesiones_permanentes` | `jubilacion` | `muerte_y_supervivencia` | `nacimiento_y_cuidado` | `desempleo` | `reintegro_gastos` | `recargo_prestaciones`.
 - **V3 (Entidad gestora o colaboradora):** `inss` | `ism` | `sepe` | `mutua`. *(Determina el órgano destinatario y el procedimiento aplicable.)*
 - **V4 (Posición del usuario):** `beneficiario` | `empresa`.
-- **V5 (Origen plantilla):** `plantilla_sistema` | `plantilla_usuario`.
+- **origen_plantilla (origen de la plantilla):** `plantilla_sistema` | `plantilla_usuario`.
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
 > Los identificadores técnicos de los vectores son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos en el chat visible al usuario.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 ### 1.1 Escucha Activa Previa
 Si el usuario ya ha identificado inequívocamente la materia, la entidad y el trámite, registra los vectores en silencio y pasa a la **Fase 2**. En todo caso, **la primera acción sustantiva es el control de plazo y de vía del punto 1.3**: en esta materia los plazos son de treinta días y de caducidad, y el asunto se pierde por el calendario antes que por el fondo.
@@ -123,6 +123,7 @@ Si el usuario ya ha identificado inequívocamente la materia, la entidad y el tr
 - `V1` — `tipo_tramite`
 - `V2` — `materia`
 - `V3` — `entidad_gestora`
+- `V4` — posición del usuario: no se pregunta en el formulario de clasificación; se resuelve durante el propio flujo
 
 ### 1.3 Control de Plazo y de Vía (PRIMERA ACCIÓN OBLIGATORIA)
 

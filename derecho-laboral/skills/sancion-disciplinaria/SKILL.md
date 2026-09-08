@@ -19,7 +19,7 @@ when_to_use: |
   - El usuario debe abrir expediente contradictorio a un representante legal de los trabajadores o delegado sindical.
   - El usuario pregunta qué sanción corresponde a una conducta según el convenio colectivo aplicable.
 inputs:
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - tipo_documento: amonestación / sanción con suspensión de empleo y sueldo / pliego de cargos / resolución de expediente
   - gravedad_falta: leve / grave / muy grave, conforme al convenio colectivo
   - garantias_trabajador: representante legal o sindical / situación de especial protección / ninguna
@@ -60,14 +60,14 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 - **V2 (Gravedad de la falta):** `leve` | `grave` | `muy_grave`, conforme a la tipificación del convenio colectivo.
 - **V3 (Naturaleza del empleador):** `persona_fisica` | `persona_juridica`.
 - **V4 (Garantías reforzadas del trabajador):** `representante_legal` | `especial_proteccion` | `ninguna`.
-- **V5 (Origen plantilla):** `plantilla_sistema` | `plantilla_usuario`.
+- **origen_plantilla (origen de la plantilla):** `plantilla_sistema` | `plantilla_usuario`.
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
 > Los identificadores técnicos de los vectores son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos en el chat visible al usuario.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 ### 1.1 Escucha Activa Previa
 Si el usuario ya ha identificado inequívocamente la conducta, la sanción pretendida y la condición del trabajador, registra los vectores en silencio y pasa a la **Fase 2**. En otro caso, presenta el formulario estructurado.
@@ -116,6 +116,7 @@ Si el usuario ya ha identificado inequívocamente la conducta, la sanción prete
 - `V1` — `tipo_documento`
 - `V3` — `naturaleza_empleador`
 - `V4` — `garantias_trabajador`
+- `V2` — gravedad de la falta: no se pregunta en el formulario de clasificación; se resuelve durante el propio flujo
 
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 

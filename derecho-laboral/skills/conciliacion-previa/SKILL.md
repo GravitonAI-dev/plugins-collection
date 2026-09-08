@@ -20,7 +20,7 @@ when_to_use: |
   - El usuario pregunta qué plazo tiene para reclamar y ante qué organismo debe presentar la papeleta.
   - Las partes han alcanzado un acuerdo y quieren documentarlo para el acto de conciliación.
 inputs:
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - tipo_documento: burofax de reclamación / papeleta de conciliación / acuerdo conciliatorio
   - objeto_reclamacion: despido / cantidad / sanción / otro
   - posicion_usuario: trabajador o empresa
@@ -65,14 +65,14 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 - **V2 (Objeto de la reclamación):** `despido` | `cantidad` | `sancion` | `otro`.
 - **V3 (Posición del usuario):** `trabajador` | `empresa`.
 - **V4 (Ámbito territorial):** comunidad autónoma del centro de trabajo, que determina el organismo competente.
-- **V5 (Origen plantilla):** `plantilla_sistema` | `plantilla_usuario`.
+- **origen_plantilla (origen de la plantilla):** `plantilla_sistema` | `plantilla_usuario`.
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
 > Los identificadores técnicos de los vectores son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos en el chat visible al usuario.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 ### 1.1 Escucha Activa Previa
 Si el usuario ya ha identificado inequívocamente el objeto de la reclamación, su posición y el ámbito territorial, registra los vectores en silencio y pasa a la **Fase 2**. En todo caso, **antes de cualquier otra cosa, resuelve el control de procedibilidad del punto 1.3**: es la razón de ser de esta skill.
@@ -121,6 +121,7 @@ Si el usuario ya ha identificado inequívocamente el objeto de la reclamación, 
 - `V1` — `fase_del_asunto`
 - `V2` — `objeto_reclamacion`
 - `V3` — `posicion_usuario`
+- `V4` — ámbito territorial: no se pregunta en el formulario de clasificación; se resuelve durante el propio flujo
 
 ### 1.3 Control de Procedibilidad y Enrutamiento (PRIMERA ACCIÓN OBLIGATORIA)
 

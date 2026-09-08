@@ -20,7 +20,7 @@ when_to_use: |
   - El despacho quiere pactar una retribución vinculada al resultado del asunto.
   - El despacho va a dar por terminado un encargo, o va a renunciar a él, y necesita documentarlo.
 inputs:
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - tipo_documento: hoja de encargo / presupuesto / hoja de encargo con retribución por resultado / comunicación de fin de encargo
   - modalidad_honorarios: importe fijo por actuación / por horas / mixta / vinculada al resultado / provisión periódica
   - naturaleza_cliente: persona física consumidora / empresa, autónomo o profesional
@@ -62,14 +62,14 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 - **V2 (Modalidad de honorarios):** `fijo` | `por_horas` | `mixta` | `resultado` | `provision_periodica`.
 - **V3 (Naturaleza del cliente):** `consumidor` | `empresa_profesional`. *(Determina el control de transparencia aplicable y la información precontractual exigible.)*
 - **V4 (Ámbito del asunto):** `extrajudicial` | `judicial` | `ambos`. *(Determina la referencia a procurador, tasas, costas y plazos preclusivos.)*
-- **V5 (Origen plantilla):** `plantilla_sistema` | `plantilla_usuario`.
+- **origen_plantilla (origen de la plantilla):** `plantilla_sistema` | `plantilla_usuario`.
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
 > Los identificadores técnicos de los vectores son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos en el chat visible al usuario.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 ### 1.1 Escucha Activa Previa
 Si el usuario ya ha identificado inequívocamente el documento, la modalidad retributiva, la naturaleza del cliente y el ámbito del asunto, registra los vectores en silencio y pasa a la **Fase 2**.

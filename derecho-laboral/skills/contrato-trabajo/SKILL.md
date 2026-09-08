@@ -21,7 +21,7 @@ when_to_use: |
   - El usuario quiere formalizar un acuerdo de trabajo a distancia o teletrabajo.
   - El usuario quiere revisar o adaptar un contrato existente a la normativa vigente.
 inputs:
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - modalidad_contractual: indefinido / fijo-discontinuo / temporal por circunstancias de la producción / temporal por sustitución / formativo en alternancia / formativo para práctica profesional
   - tipo_jornada: completa o parcial, con el número de horas y su distribución
   - modalidad_presencial: presencial / híbrida / a distancia, con el porcentaje de jornada
@@ -67,14 +67,14 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 - **V2 (Jornada):** `completa` | `parcial`.
 - **V3 (Naturaleza del empleador):** `persona_fisica` | `persona_juridica`.
 - **V4 (Modalidad de prestación):** `presencial` | `hibrida` | `a_distancia`. *(Determina si nace el acuerdo de la Ley 10/2021.)*
-- **V5 (Origen plantilla):** `plantilla_sistema` | `plantilla_usuario`.
+- **origen_plantilla (origen de la plantilla):** `plantilla_sistema` | `plantilla_usuario`.
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
 > Los identificadores técnicos de los vectores son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos en el chat visible al usuario.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 ### 1.1 Escucha Activa Previa
 Si el usuario ya ha identificado inequívocamente la modalidad, la jornada y el régimen de prestación, registra los vectores en silencio y pasa a la **Fase 2**. La modalidad no se presume: si el usuario describe una necesidad sin nombrar la modalidad, la resuelves tú preguntando por la necesidad, no por el nombre del contrato.
@@ -125,6 +125,7 @@ Si el usuario ya ha identificado inequívocamente la modalidad, la jornada y el 
 - `V1` — `necesidad_contractual`
 - `V2` — `tipo_jornada`
 - `V4` — `modalidad_prestacion`
+- `V3` — naturaleza del empleador: no se pregunta en el formulario de clasificación; se resuelve durante el propio flujo
 
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 

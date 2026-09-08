@@ -16,7 +16,7 @@ when_to_use: |
   - El usuario proporciona datos de arrendador, arrendatario e inmueble.
   - El usuario pide que el documento cumpla con la LAU o la normativa de vivienda vigente.
 inputs:
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - tipo_gestion: contrato nuevo o comunicacion sobre contrato vigente
   - tipo_inmueble: vivienda (completa o habitacion) o local de negocio / uso distinto de vivienda
   - finalidad_uso: permanente o temporal (temporada); turistico queda fuera de alcance
@@ -67,14 +67,14 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 
 ### Vectores de Estado (Uso Estrictamente Interno):
 
-Para garantizar un enrutamiento determinista y el cumplimiento normativo riguroso, el asistente resuelve y mantiene internamente en memoria los vectores de estado de la operación (V1 a V4) y el origen de la plantilla (V5).
+Para garantizar un enrutamiento determinista y el cumplimiento normativo riguroso, el asistente resuelve y mantiene internamente en memoria los vectores de estado de la operación —cuyo catálogo y su correspondencia con las respuestas del formulario figuran en la Fase 1.2— y el origen de la plantilla (`origen_plantilla`).
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
-> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`) y los resúmenes de validación con marcas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial y profesional.
+> Los identificadores técnicos de los vectores y los resúmenes de validación con marcas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial y profesional.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 Tu primer objetivo es clasificar con precisión la naturaleza del caso y fijar los vectores deterministas de estado.
 
@@ -156,6 +156,8 @@ Invoca la herramienta con las opciones de triaje:
 - `V1` — respuesta a `finalidad_uso`
 - `V2` — respuesta a `tipo_inmueble` (vivienda si es `vivienda_completa` o `habitacion`; local si es `local_uso_distinto`)
 - `V5` — respuesta a `tipo_inmueble` (`vivienda_completa` frente a `habitacion`)
+- `V3` — naturaleza del arrendador (persona física o jurídica): no se pregunta en el formulario de clasificación; se resuelve al recoger sus datos en la Fase 4
+- `V4` — naturaleza del arrendatario (persona física o jurídica): no se pregunta en el formulario de clasificación; se resuelve al recoger sus datos en la Fase 4
 - `V6` — respuesta a `zona_tensionada`, verificada después por el agente con `web_search`
 - `V7` — respuesta a `tipo_comunicacion`
 - `V8` — respuesta a `remitente_comunicacion`

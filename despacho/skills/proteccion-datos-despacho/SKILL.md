@@ -23,7 +23,7 @@ when_to_use: |
   - Se ha producido una brecha de seguridad y hay que documentarla y valorar su notificación.
   - Hay que formalizar el compromiso de confidencialidad del personal o de un colaborador externo.
 inputs:
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - tipo_documento: registro de actividades / contrato de encargado / cláusula informativa / compromiso de confidencialidad / registro de brecha
   - rol_despacho: responsable del tratamiento / encargado del tratamiento por cuenta de un cliente
   - datos_despacho: denominación, NIF, domicilio, contacto de protección de datos y, si existe, delegado de protección de datos
@@ -64,14 +64,14 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 - **V2 (Rol del despacho):** `responsable` | `encargado`. *(Determina las obligaciones y el contenido del documento.)*
 - **V3 (Colectivo de interesados):** `clientes` | `terceros_del_asunto` | `personal` | `proveedores`.
 - **V4 (Urgencia):** `ordinaria` | `brecha_en_curso`. *(La brecha activa un protocolo con plazos de horas.)*
-- **V5 (Origen plantilla):** `plantilla_sistema` | `plantilla_usuario`.
+- **origen_plantilla (origen de la plantilla):** `plantilla_sistema` | `plantilla_usuario`.
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
 > Los identificadores técnicos de los vectores son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos en el chat visible al usuario.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 ### 1.1 Escucha Activa Previa y Parada por Urgencia
 
@@ -125,6 +125,7 @@ En otro caso, si el usuario ya ha identificado el documento, el rol del despacho
 - `V1` — `tipo_documento`
 - `V2` — `rol_despacho`
 - `V3` — `colectivo_interesados`
+- `V4` — urgencia: no se pregunta en el formulario de clasificación; se resuelve durante el propio flujo
 
 ### 1.3 Determinación del Rol y Enrutamiento
 

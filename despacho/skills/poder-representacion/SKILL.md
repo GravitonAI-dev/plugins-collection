@@ -22,7 +22,7 @@ when_to_use: |
   - Hay que designar representación y defensa en un procedimiento del orden social.
   - Hay que acreditar la representación del cliente ante una administración pública.
 inputs:
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - tipo_instrumento: poder general para pleitos / poder especial / apoderamiento apud acta / designación en el orden social / autorización administrativa
   - ambito: civil, penal y contencioso-administrativo / social / procedimiento administrativo
   - alcance: general con todas las facultades ordinarias / especial con facultades tasadas
@@ -63,14 +63,14 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 - **V2 (Ámbito):** `civil_penal_contencioso` | `social` | `administrativo`. *(Determina la norma aplicable y si es exigible procurador.)*
 - **V3 (Naturaleza del otorgante):** `persona_fisica` | `persona_juridica`. *(Si es jurídica, exige acreditar el título del representante orgánico.)*
 - **V4 (Alcance):** `general` | `especial_facultades_tasadas`.
-- **V5 (Origen plantilla):** `plantilla_sistema` | `plantilla_usuario`.
+- **origen_plantilla (origen de la plantilla):** `plantilla_sistema` | `plantilla_usuario`.
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
 > Los identificadores técnicos de los vectores son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos en el chat visible al usuario.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 ### 1.1 Escucha Activa Previa
 Si el usuario ya ha identificado el instrumento, el ámbito y el alcance, registra los vectores en silencio y pasa a la **Fase 2**.

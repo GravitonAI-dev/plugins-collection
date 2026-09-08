@@ -23,7 +23,7 @@ when_to_use: |
   - El usuario ya tiene una ejecucion despachada y quiere designar bienes, pedir el embargo o solicitar
     que el juzgado investigue el patrimonio del ejecutado.
 inputs:
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - momento: demanda ejecutiva inicial / escrito posterior en ejecucion ya despachada
   - tipo_titulo: judicial (sentencia, decreto, auto, incluido monitorio firme) / no judicial (escritura, laudo, acuerdo MASC) / familia (pensiones y medidas)
   - subtipo_no_judicial: escritura publica notarial / laudo arbitral / acuerdo de mediacion u otro MASC elevado a publico
@@ -63,14 +63,14 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 
 ### Vectores de Estado (Uso Estrictamente Interno):
 
-Para garantizar un enrutamiento determinista y el cumplimiento normativo riguroso, el asistente resuelve y mantiene internamente en memoria los vectores de estado de la operación (V1 a V4) y el origen de la plantilla (V5).
+Para garantizar un enrutamiento determinista y el cumplimiento normativo riguroso, el asistente resuelve y mantiene internamente en memoria los vectores de estado de la operación —cuyo catálogo y su correspondencia con las respuestas del formulario figuran en la Fase 1.2— y el origen de la plantilla (`origen_plantilla`).
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
-> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`) y los resúmenes de validación con marcas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial y profesional.
+> Los identificadores técnicos de los vectores y los resúmenes de validación con marcas (ej. "V1 resuelto ✔") son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural cordial y profesional.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 Tu primer objetivo es clasificar con precisión la naturaleza del caso y fijar los vectores deterministas de estado.
 
@@ -127,11 +127,11 @@ Invoca la herramienta con las opciones de triaje:
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Una vez resueltos los vectores aplicables, evalua en este orden:
 
-- Si V1 = 2 → **HOJA AVERIGUACION**: `assets/template-solicitud-embargo-averiguacion-patrimonial.md`. V2, V3 y V4 no se preguntan como vectores: los datos del titulo y de los bienes se recogen en prosa en la Seccion 5 de esta hoja.
-- Si V1 = 1 y V2 = 1 → **HOJA JUDICIAL**: `assets/template-demanda-ejecucion-titulo-judicial.md`, con los bloques condicionales de familia DESACTIVADOS.
-- Si V1 = 1 y V2 = 3 → **HOJA FAMILIA**: el mismo asset `assets/template-demanda-ejecucion-titulo-judicial.md`, con los bloques condicionales de familia ACTIVADOS (relacion de mensualidades, especialidades del Art. 776, Art. 608 si son alimentos o compensatoria).
-- Si V1 = 1 y V2 = 2 → **HOJA NO-JUDICIAL**: `assets/template-demanda-ejecucion-titulo-no-judicial.md`, activando segun V3 el bloque de escritura publica, laudo o acuerdo de MASC elevado a publico.
-- Si V1 = 1 y V2 = 2 y el titulo alegado es un titulo al portador o un certificado de anotaciones en cuenta (Art. 517.2.6º y 7º LEC) → estos supuestos no tienen bloque propio en el asset: recoger la descripcion en prosa, advertir de que es un supuesto poco frecuente y ofrecer escalacion si el usuario no esta seguro de que el documento lleve aparejada ejecucion.
+- Si V1 = escrito posterior → **HOJA AVERIGUACION**: `assets/template-solicitud-embargo-averiguacion-patrimonial.md`. V2, V3 y V4 no se preguntan como vectores: los datos del titulo y de los bienes se recogen en prosa en la Seccion 5 de esta hoja.
+- Si V1 = demanda inicial y V2 = judicial → **HOJA JUDICIAL**: `assets/template-demanda-ejecucion-titulo-judicial.md`, con los bloques condicionales de familia DESACTIVADOS.
+- Si V1 = demanda inicial y V2 = familia → **HOJA FAMILIA**: el mismo asset `assets/template-demanda-ejecucion-titulo-judicial.md`, con los bloques condicionales de familia ACTIVADOS (relacion de mensualidades, especialidades del Art. 776, Art. 608 si son alimentos o compensatoria).
+- Si V1 = demanda inicial y V2 = no judicial → **HOJA NO-JUDICIAL**: `assets/template-demanda-ejecucion-titulo-no-judicial.md`, activando segun V3 el bloque de escritura publica, laudo o acuerdo de MASC elevado a publico.
+- Si V1 = demanda inicial y V2 = no judicial y el titulo alegado es un titulo al portador o un certificado de anotaciones en cuenta (Art. 517.2.6º y 7º LEC) → estos supuestos no tienen bloque propio en el asset: recoger la descripcion en prosa, advertir de que es un supuesto poco frecuente y ofrecer escalacion si el usuario no esta seguro de que el documento lleve aparejada ejecucion.
 - Si en cualquier momento consta o se sospecha que el ejecutado esta en concurso de acreedores → **DETENER**: no pueden iniciarse ejecuciones singulares contra la masa activa y las que estuvieran en curso quedan en suspenso y son nulas las actuaciones posteriores a la declaracion (Arts. 142 y 143 TRLC). Advertir y escalar a concursal. No crear documento.
 - Si lo que se pretende es la ejecucion hipotecaria, la ejecucion provisional de una resolucion no firme, o redactar la oposicion del ejecutado → **DETENER**: fuera de alcance. Advertir y escalar.
 

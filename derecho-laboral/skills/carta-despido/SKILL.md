@@ -21,7 +21,7 @@ when_to_use: |
   - El usuario aporta datos de empresa y trabajador y describe hechos, causas o fechas de efectos de una extinción contractual.
   - El usuario pide que la comunicación cumpla los requisitos de forma del Estatuto de los Trabajadores.
 inputs:
-  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - modalidad_extintiva: disciplinario / objetivo / periodo de prueba / fin de contrato temporal
   - causa_concreta: apartado del artículo 54.2 o del artículo 52 en que se funda la decisión
   - naturaleza_empleador: persona física o persona jurídica
@@ -67,14 +67,14 @@ Para garantizar un enrutamiento determinista y el cumplimiento de los requisitos
 - **V2 (Causa concreta):** apartado del artículo 54.2 (disciplinario) o del artículo 52 (objetivo) del Estatuto de los Trabajadores. *(Inferido del relato del usuario y confirmado)*.
 - **V3 (Naturaleza del empleador):** `persona_fisica` | `persona_juridica`.
 - **V4 (Garantías reforzadas del trabajador):** `representante_legal` | `especial_proteccion` | `ninguna`.
-- **V5 (Origen plantilla):** `plantilla_sistema` | `plantilla_usuario`.
+- **origen_plantilla (origen de la plantilla):** `plantilla_sistema` | `plantilla_usuario`.
 
 > **REGLA DE INVISIBILIDAD EN CHAT (Global CLAUDE.md):**
-> Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`) y los resúmenes de validación con marcas son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural formal y profesional.
+> Los identificadores técnicos de los vectores y los resúmenes de validación con marcas son **estrictamente de control interno**. Tienes **PROHIBIDO** mencionarlos o imprimirlos en el chat visible al usuario. Comunícate siempre en lenguaje natural formal y profesional.
 
 ---
 
-## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores V1 a V4 mediante Formulario HITL)
+## FASE 1 — CLASIFICACIÓN INICIAL (Resolución de Vectores de dominio mediante Formulario HITL)
 
 Tu primer objetivo es clasificar con precisión la modalidad extintiva y las garantías aplicables.
 
