@@ -43,9 +43,10 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 ### DIRECTIVA DE GESTIÓN EN WORKSPACE Y PERSISTENCIA EN EL BACKEND:
 > - **Creación y edición interactiva en el workspace (`create_file` y `edit_file`):** Durante la interacción —especialmente en el **modo de creación asistida desde cero** o al refinar documentos en el editor—, el asistente utiliza `create_file` para generar el borrador de la plantilla en el workspace y `edit_file` para incorporar cláusulas o ajustes de manera incremental. Esto permite al usuario visualizar los cambios en tiempo real en el editor.
 > - **Persistencia oficial en el backend:** El archivo del workspace opera como entorno de trabajo interactivo; sin embargo, para que la plantilla quede oficialmente registrada y disponible de manera recurrente en el sistema, DEBE persistirse en el backend mediante las herramientas especializadas:
+>   - `check_user_template_exists`: Herramienta especializada obligatoria para verificar mediante `asset_name` si una plantilla global de usuario ya está registrada en el backend antes de persistir.
 >   - `set_skill_template`: Si la plantilla pertenece a una skill.
->   - `update_user_template`: Si la plantilla no pertenece a ninguna skill y ya existe (documento en el workspace cuyo nombre es el `asset_name`).
->   - `save_user_template`: Si la plantilla no pertenece a ninguna skill y aún no existe (creación asistida desde cero o nuevo registro).
+>   - `update_user_template`: Si la plantilla no pertenece a ninguna skill y ya existe (`check_user_template_exists` retornó `exists: true`).
+>   - `save_user_template`: Si la plantilla no pertenece a ninguna skill y aún no existe (`check_user_template_exists` retornó `exists: false`).
 
 ### VÍAS ADMITIDAS PARA ESPECIFICAR PLANTILLAS:
 > Las únicas vías para especificar plantillas son:
@@ -91,9 +92,16 @@ El usuario dispone de dos opciones principales:
 2. **Global (sin skill) (`V1` = `global`):**
    - Plantilla general de usuario independiente de cualquier skill del catálogo.
    - Su identificador se normaliza automáticamente al formato `template-<slug>.md`.
-   - **Evaluación de existencia previa:**
-     * **Si la plantilla ya existe** (ej. existe un documento en el workspace cuyo nombre coincide con el `asset_name`, o se trata de una plantilla global previamente guardada): modo `update_user` (`update_user_template`).
-     * **Si la plantilla aún no existe** (creación asistida desde cero o nuevo documento no registrado): modo `save_user` (`save_user_template`). Requiere acordar un nombre formal (`name`) y una descripción explicativa de uso (`description`).
+   - **Evaluación obligatoria de existencia previa:**
+     * Ante cualquier solicitud de guardar o registrar una plantilla global a partir de un archivo del workspace (o cuando haya un documento activo en `# WORKSPACE ACTIVE DOCUMENTS`), el asistente DEBE invocar OBLIGATORIAMENTE `check_user_template_exists(asset_name=...)` pasando el nombre del archivo.
+     * **Si la herramienta retorna `exists: true` (plantilla preexistente):**
+       - La plantilla YA está registrada en el backend.
+       - Queda **TERMINANTEMENTE PROHIBIDO** solicitar al usuario el nombre (`name`) o la descripción (`description`), ni en chat ni mediante formularios (`slot_filling_request` o `human_in_the_loop_request`).
+       - Enrutamiento obligatorio a modo `update_user` (`update_user_template`).
+       - Procede a actualizar directamente mediante `update_user_template(asset_name=..., template_content=...)`.
+     * **Si la herramienta retorna `exists: false` (plantilla nueva no registrada):**
+       - Modo `save_user` (`save_user_template`).
+       - Solo en este caso se requiere acordar o solicitar el nombre formal (`name`) y la descripción de uso (`description`), procediendo con `save_user_template`.
 
 ### 1.3 Determinación de la Vía de Especificación (V2)
 El usuario dispone de tres vías:
@@ -114,16 +122,23 @@ Procesa la fuente o elabora la plantilla abstracta parametrizada en memoria:
 3. Procede a la anonimización de PII y parametrización de variables `{{snake_case}}` según `references/reglas-parametrizacion-plantillas.md`.
 
 ### Ruta 2.B — Abrir Archivo en el Editor (Archivos del Workspace)
-1. Identifica el nombre o ruta relativa del archivo en el workspace indicado por el usuario (ej: `minuta.md`, `template-modelo-de-demanda.md`).
-2. Consulta el contenido auténtico en la sección `# WORKSPACE ACTIVE DOCUMENTS` del prompt de contexto, o bien invoca la herramienta:
+1. Identifica el nombre o ruta relativa del archivo en el workspace indicado por el usuario (ej: `minuta.md`, `template-modelo-de-demanda.md`) o presente en `# WORKSPACE ACTIVE DOCUMENTS`.
+2. Consulta el contenido auténtico en la sección `# WORKSPACE ACTIVE DOCUMENTS` del prompt de contexto, o bien invoca la herramienta `read_file` para obtener su contenido UTF-8 íntegro:
    ```json
    {
      "relative_file_path": "nombre_archivo.md"
    }
    ```
-   mediante `read_file` para obtener su contenido UTF-8 íntegro.
 3. Si el archivo no existe o la ruta es errónea, informa al usuario y solicita la confirmación del nombre exacto del archivo en el editor.
-4. **Detección de actualización global:** Si el alcance es Global (`V1` = `global`) y el archivo del workspace tiene como nombre el `asset_name` canónico de una plantilla existente, se confirma el enrutamiento hacia `update_user_template`.
+4. **Verificación obligatoria de preexistencia con `check_user_template_exists`:**
+   Si el alcance es Global (`V1` = `global`), invoca INMEDIATAMENTE la herramienta especializada:
+   ```json
+   {
+     "asset_name": "<nombre_del_archivo_o_asset.md>"
+   }
+   ```
+   - **Si `exists: true`:** La plantilla ya está registrada en el backend. Conserva su `asset_name` canónico y enruta obligatoriamente a `update_user_template`. Queda **TERMINANTEMENTE PROHIBIDO** solicitar `name` o `description` al usuario (ni por chat ni con formularios).
+   - **Si `exists: false`:** La plantilla es nueva en el sistema. Enruta a `save_user_template` y solicita/acuerda `name` y `description`.
 5. Si el archivo contiene datos de casos particulares, aplica la parametrización de variables `{{variable}}` y anonimización de PII.
 6. **Ajustes opcionales en el editor:** Si el usuario desea retocar o perfeccionar cláusulas del archivo antes de persistirlo, utiliza `edit_file` para aplicar los cambios directamente en el editor.
 
@@ -203,7 +218,7 @@ Invoca la herramienta especializada `set_skill_template`:
 }
 ```
 
-### Caso B — La plantilla no pertenece a ninguna skill y ya existe (documento en workspace cuyo nombre es el `asset_name`):
+### Caso B — La plantilla no pertenece a ninguna skill y ya existe (`check_user_template_exists` retornó `exists: true`):
 Invoca la herramienta especializada `update_user_template`:
 ```json
 {
@@ -211,6 +226,7 @@ Invoca la herramienta especializada `update_user_template`:
   "template_content": "<contenido_completo_markdown_actualizado>"
 }
 ```
+**CRÍTICO:** Queda estrictamente prohibido solicitar al usuario el nombre o la descripción. Guarda directamente con `update_user_template`.
 
 ### Caso C — La plantilla no pertenece a ninguna skill y aún no existe (creación asistida desde cero o nuevo registro):
 Invoca la herramienta especializada `save_user_template`:
@@ -255,4 +271,5 @@ Una vez ejecutada exitosamente la herramienta de persistencia:
 4. **Verificación Estricta de Compatibilidad con Skills:** Antes de persistir una plantilla de skill, verificar si es completamente compatible con la skill como tal. Si no lo es, NO GUARDAR e informar los detalles específicos a corregir.
 5. **Confirmación Previa Obligatoria:** Jamás invocar ninguna herramienta de persistencia sin previa presentación de la vista previa en el chat y confirmación afirmativa explícita del usuario.
 6. **Sin Adjuntos de Archivos:** Las únicas vías admitidas para especificar plantillas preexistentes son texto en el chat y abrir archivo en el editor (archivos del workspace). Queda estrictamente excluida la opción de adjuntar archivos.
+7. **Prohibición de Solicitud Redundante de Metadatos:** En plantillas globales de usuario preexistentes verificadas mediante `check_user_template_exists(asset_name=...)` (`exists: true`), queda estrictamente prohibido solicitar al usuario el nombre formal (`name`) o la descripción (`description`). Se debe guardar de inmediato mediante `update_user_template()`.
 

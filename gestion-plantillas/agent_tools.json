@@ -13,6 +13,9 @@
       "id": "io.gravitonai.tools.save_user_template"
     },
     {
+      "id": "io.gravitonai.tools.check_user_template_exists"
+    },
+    {
       "id": "io.gravitonai.tools.read_file"
     },
     {
