@@ -149,9 +149,9 @@ En esta fase interactúas **directamente a través del chat (en texto plano conv
 
 La skill verifica las fuentes oficiales en cada lanzamiento y, si detecta una version posterior, aplica la redaccion vigente al documento que redacta en el workspace del usuario, sin modificar sus propios archivos de plugin. Ejecutar SIEMPRE esta secuencia:
 
-**2.1.2 — Consultar la fuente oficial vigente en vivo.** Invocar:
+- **Consultar la fuente oficial vigente en vivo.** Invocar:
 ```
-read_file(...) o web_search(...)
+web_search(...)
 ```
 Extraer: fecha del texto consolidado vigente de la LEC; redaccion actual de los arts. 248-255 (ambito y cuantia), 23 y 31 (postulacion), 45 y 50-52 (competencia), 399 y 264-266, 269-270, 336 (demanda y documentos), 414-430 (audiencia previa), 217 y 281-386, 429 (prueba) y 433 (conclusiones); el umbral vigente de cuantia entre juicio verbal y ordinario; y el estado de aplicacion de la LO 1/2025 (BOE-A-2025-76) sobre el requisito de MASC (arts. 403.2, 264.4 y 399.3).
 
@@ -160,15 +160,15 @@ Consultar tambien sobre MASC:
 web_search("BOE-A-2025-76 LO 1/2025 MASC requisito procedibilidad articulo 403 264 399 LEC texto consolidado")
 ```
 
-**2.1.3 — Comparar.** Contrastar la version oficial con la registrada en `fuentes-plantillas-validadas.md` y con las referencias del prompt (`lec-ambito-y-cuantia.md`, `admisibilidad-competencia-postulacion-masc.md`, `lec-demanda-y-documentos.md`, `lec-audiencia-previa.md`, `lec-prueba-y-conclusiones.md`). Prestar especial atencion al umbral de cuantia del Art. 249.2 y al requisito de MASC.
+- **Comparar.** Contrastar la version oficial con la registrada en `fuentes-plantillas-validadas.md` y con las referencias del prompt (`lec-ambito-y-cuantia.md`, `admisibilidad-competencia-postulacion-masc.md`, `lec-demanda-y-documentos.md`, `lec-audiencia-previa.md`, `lec-prueba-y-conclusiones.md`). Prestar especial atencion al umbral de cuantia del Art. 249.2 y al requisito de MASC.
 
-**2.1.4 — Aplicar cambios normativos.** Si la version oficial es posterior o el texto de los articulos ha cambiado:
+- **Aplicar cambios normativos.** Si la version oficial es posterior o el texto de los articulos ha cambiado:
 - Aplicar en memoria la redaccion vigente para adaptar los tramites, fases procesales y fundamentacion de los escritos.
 - Informar brevemente al usuario de que se detecto y aplico una version mas reciente (norma y fecha).
 
 No redactar ningun documento hasta haber completado esta actualizacion. Nunca usar una version desactualizada.
 
-**2.1.5 — Fallback si la fuente no es accesible.** Si `read_file` falla (error HTTP, timeout):
+- **Fallback si la fuente no es accesible.** Si `web_search` no devuelve la fuente oficial:
 ```
 web_search("Ley Enjuiciamiento Civil juicio ordinario articulo 249 399 audiencia previa 414 texto consolidado BOE")
 ```
@@ -227,7 +227,6 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 
 **Petición de grupos de datos mediante `slot_filling_request` y confirmaciones en el chat:**
 - **Datos estructurados agrupados mediante `slot_filling_request`:** para cualquier grupo de datos objetivos o identificativos (partes actora y demandada, cuantía y determinación del interés económico, y relación de documentos), **NO pregunte dato por dato en el chat**. Invoque la herramienta `slot_filling_request` agrupando todos los campos del bloque de una sola vez.
-- **Confirmación obligatoria en el chat:** una vez que la herramienta retorne los valores completados, muestre la vista previa en texto plano en el chat y pida la confirmación explícita (`¿Confirmamos estos datos...?` / `¿Confirmamos esta sección?`). Solo tras la confirmación afirmativa en el chat ejecute el `edit_file` en disco y verifique con `read_file`.
 - **Validación de sentido, no solo de formato:** razone si la respuesta tiene sentido en el contexto de lo preguntado. Si es absurda, imposible o incongruente, dialogue en el chat, señale el motivo y pida aclaración antes de volcarla al documento.
 
 ### Hoja de Ruta de Secciones y Cláusulas Condicionales

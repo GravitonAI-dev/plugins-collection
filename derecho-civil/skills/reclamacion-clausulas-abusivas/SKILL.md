@@ -84,7 +84,7 @@ Invoca la herramienta con las opciones de triaje:
     },
     {
       "id": "tipo_clausula",
-      "rationale": "Resolver V2: cada tipo de cláusula tiene su propio encuadre normativo y su propia doctrina, que debe verificarse en la Fase 2.1.3 antes de redactar.",
+      "rationale": "Resolver V2: cada tipo de cláusula tiene su propio encuadre normativo y su propia doctrina, que debe verificarse en la Fase 2.1 antes de redactar.",
       "question": "¿Qué cláusula o práctica se impugna?",
       "options": [
         {"id": "gastos_hipoteca", "label": "Gastos de formalización de hipoteca"},
@@ -124,36 +124,36 @@ En esta fase interactúas **directamente a través del chat (en texto plano conv
 
 La skill verifica las fuentes oficiales en cada lanzamiento y, si detecta una version posterior, aplica la redaccion vigente al documento que redacta en el workspace del usuario, sin modificar sus propios archivos de plugin. En esta materia, ademas, verifica la jurisprudencia reciente porque es determinante y cambia con frecuencia. Ejecutar SIEMPRE esta secuencia:
 
-**2.1.2 — Consultar la fuente oficial vigente en vivo.** Invocar:
+- **Consultar la fuente oficial vigente en vivo.** Invocar:
 ```
-read_file(...) o web_search(...)
+web_search(...)
 ```
 Extraer: fecha del texto consolidado vigente del TRLGDCU; redaccion actual de los arts. 80 a 91 (control de incorporacion, concepto de clausula abusiva, nulidad y no integracion, lista de clausulas abusivas).
 
 Consultar tambien la LCGC:
 ```
-read_file(...) o web_search(...)
+web_search(...)
 ```
 Extraer: redaccion vigente sobre control de incorporacion (Arts. 5 y 7), nulidad (Arts. 8 y 9), Registro de Condiciones Generales y accion de cesacion (Arts. 11 y 12).
 
 Y la LEC para la demanda (competencia, procedimiento y control de oficio):
 ```
-read_file(...) o web_search(...)
+web_search(...)
 ```
 
-**2.1.3 — Verificar la JURISPRUDENCIA RECIENTE del tipo de clausula (OBLIGATORIO en esta materia).** La doctrina del TJUE y del Tribunal Supremo cambia con frecuencia y determina el resultado. Antes de redactar, invocar web_search especifica para el tipo de clausula reclamado, por ejemplo:
+- **Verificar la JURISPRUDENCIA RECIENTE del tipo de clausula (OBLIGATORIO en esta materia).** La doctrina del TJUE y del Tribunal Supremo cambia con frecuencia y determina el resultado. Antes de redactar, invocar web_search especifica para el tipo de clausula reclamado, por ejemplo:
 ```
 web_search("TJUE Tribunal Supremo clausula <tipo> jurisprudencia reciente <ano actual> nulidad restitucion")
 ```
 Ejemplos de terminos por tipo: "gastos hipotecarios distribucion notaria registro gestoria", "clausula suelo transparencia retroactividad", "IRPH control transparencia", "comision de apertura", "interes de demora abusivo prestamo personal", "tarjeta revolving usura TAE". Anotar solo los criterios verificados; si una sentencia no se puede confirmar, no citarla y marcar `{{VERIFICAR}}`.
 
-**2.1.4 — Comparar y aplicar cambios.** Contrastar la version oficial y jurisprudencia con la registrada en `fuentes-plantillas-validadas.md` y con las referencias del prompt (`trlgdcu-clausulas-abusivas.md`, `lcgc-condiciones-generales.md`, `jurisprudencia-tjue-ts-clausulas.md`). Si hay modificaciones:
+- **Comparar y aplicar cambios.** Contrastar la version oficial y jurisprudencia con la registrada en `fuentes-plantillas-validadas.md` y con las referencias del prompt (`trlgdcu-clausulas-abusivas.md`, `lcgc-condiciones-generales.md`, `jurisprudencia-tjue-ts-clausulas.md`). Si hay modificaciones:
 - Aplicar en memoria la redaccion y doctrina vigente para adaptar la fundamentacion del escrito.
 - Informar brevemente al usuario de que se detecto y aplico una version o doctrina mas reciente (norma/sentencia y fecha).
 
 No redactar ningun documento hasta haber completado esta actualizacion. Nunca usar una version desactualizada.
 
-**2.1.5 — Fallback si la fuente no es accesible.** Si `read_file` falla (error HTTP, timeout):
+- **Fallback si la fuente no es accesible.** Si `web_search` no devuelve la fuente oficial:
 ```
 web_search("texto refundido Ley General Defensa Consumidores Usuarios clausulas abusivas articulos 80 82 83 BOE consolidado")
 ```
@@ -208,7 +208,6 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 
 **Petición de grupos de datos mediante `slot_filling_request` y confirmaciones en el chat:**
 - **Datos estructurados agrupados mediante `slot_filling_request`:** para cualquier grupo de datos objetivos o identificativos (reclamante y entidad predisponente, datos del contrato y de la cláusula impugnada, e importes cobrados con su desglose), **NO pregunte dato por dato en el chat**. Invoque la herramienta `slot_filling_request` agrupando todos los campos del bloque de una sola vez.
-- **Confirmación obligatoria en el chat:** una vez que la herramienta retorne los valores completados, muestre la vista previa en texto plano en el chat y pida la confirmación explícita (`¿Confirmamos estos datos...?` / `¿Confirmamos esta sección?`). Solo tras la confirmación afirmativa en el chat ejecute el `edit_file` en disco y verifique con `read_file`.
 - **Validación de sentido, no solo de formato:** razone si la respuesta tiene sentido en el contexto de lo preguntado. Si es absurda, imposible o incongruente, dialogue en el chat, señale el motivo y pida aclaración antes de volcarla al documento.
 
 ### Hoja de Ruta de Secciones y Cláusulas Condicionales
@@ -245,7 +244,7 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 1. Verificar siempre el TRLGDCU, la LCGC y la LEC en el BOE antes de redactar. Sin verificacion, no proceder.
 2. Verificar siempre la versión consolidada vigente de la norma en el BOE antes de redactar. Si se detectan cambios normativos, aplicar la redacción vigente en el documento a generar en el workspace sin usar versiones desactualizadas.
 3. La materia se aplica SOLO a consumidores (Art. 3 TRLGDCU) frente a un predisponente (empresario) y SOLO a clausulas no negociadas individualmente (Art. 82). Si la clausula fue negociada, o ambas partes son empresarios, no procede esta via: advertir y ofrecer escalacion.
-4. La jurisprudencia del TJUE (Directiva 93/13/CEE) y del Tribunal Supremo en esta materia es CAMBIANTE y decisiva. Antes de redactar, verificar SIEMPRE con web_search la jurisprudencia reciente del tipo de clausula reclamado (ver Fase 2.1.3). No citar ninguna sentencia sin haberla verificado en esa consulta.
+4. La jurisprudencia del TJUE (Directiva 93/13/CEE) y del Tribunal Supremo en esta materia es CAMBIANTE y decisiva. Antes de redactar, verificar SIEMPRE con web_search la jurisprudencia reciente del tipo de clausula reclamado (ver la Fase 2.1). No citar ninguna sentencia sin haberla verificado en esa consulta.
 5. Posicion conservadora: no afirmar que una clausula es nula con caracter automatico o generalizado. La abusividad exige el control de incorporacion y de transparencia caso por caso (Arts. 80, 82, 83 TRLGDCU; Directiva 93/13). Presentar la pretension de nulidad como fundada, no como cosa juzgada.
 6. Nunca inventar sentencias, numeros de resolucion, fechas ni doctrina. Marcar con `{{VERIFICAR}}` (doble llave, nunca corchete simple `[verificar]`: colisiona con los identificadores de privacidad `[PERSON_1]`) todo claim factual o jurisprudencial no confirmado en la Fase 1.
 7. Los campos a rellenar usan el placeholder propio del asset en doble llave, p. ej. `{{cuantia_reclamada}}` (NUNCA corchete simple `[DATO]`). Si hace falta marcar un hueco suelto sin placeholder propio, usa `{{DATO_FALTANTE}}` una sola vez por documento: nunca lo repitas para dos datos distintos, porque el `edit_file` posterior necesita un `oldString` unico. Nunca inventar datos, cuantias, fechas ni numeros de contrato.

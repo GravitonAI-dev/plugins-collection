@@ -190,7 +190,6 @@ Envía un mensaje formal que contenga:
 ```
 
 - **Datos estructurados agrupados (`slot_filling_request`, MANDATORIO):** todo grupo de datos identificativos —empresa, trabajador, relación laboral, importes, cuenta bancaria— se solicita en bloque mediante `slot_filling_request`. Queda prohibido pedirlos uno a uno en turnos sucesivos.
-- **Confirmación obligatoria en el chat:** tras recibir los datos, muestra la vista previa en texto plano y pide confirmación explícita. Solo entonces aplica `edit_file` y verifica con `read_file`.
 - **Validación de sentido, no solo de formato:** comprueba la coherencia interna de los datos (que la antigüedad sea anterior a la fecha de efectos, que el salario declarado sea compatible con la jornada y el convenio, que el DNI o CIF tenga formato válido). Si algo es incongruente, dialógalo en el chat antes de volcarlo.
 - **Anuncio de sección (visible, sin pedir permiso aparte):** al cerrar una sección y antes de la primera solicitud de la siguiente, añade en el mismo mensaje el anuncio fijo de la sección, en tono de abogado y de usted, y continúa. No preguntes si se puede pasar de sección: informa y sigue.
 

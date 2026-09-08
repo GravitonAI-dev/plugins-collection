@@ -128,24 +128,24 @@ En esta fase interactúas **directamente a través del chat (en texto plano conv
 
 La skill verifica las fuentes oficiales en cada lanzamiento y, si detecta una version posterior, aplica la redaccion vigente al documento que redacta en el workspace del usuario, sin modificar sus propios archivos de plugin. Ejecutar SIEMPRE esta secuencia:
 
-**2.1.1 — Leer la fecha/version registrada localmente.** Abrir `references/fuentes-plantillas-validadas.md` y anotar la "Version registrada" de la LEC y del modelo del CGPJ.
+- **Leer la fecha/version registrada localmente.** Abrir `references/fuentes-plantillas-validadas.md` y anotar la "Version registrada" de la LEC y del modelo del CGPJ.
 
-**2.1.2 — Consultar la fuente oficial vigente.** Invocar:
+- **Consultar la fuente oficial vigente.** Invocar:
 ```
-read_file(...) o web_search(...)
+web_search(...)
 ```
 Extraer: fecha del texto consolidado vigente de la LEC; redaccion actual de los arts. 812 a 818 y del art. 264 (acreditacion del intento de MASC); estado de aplicacion de la LO 1/2025 (BOE-A-2025-76).
 
 Consultar tambien el modelo normalizado del CGPJ:
 ```
-read_file(...) o web_search(...)
+web_search(...)
 ```
 
-**2.1.3 — Comparar.** Contrastar la version oficial con la registrada localmente y con el texto de las references.
+- **Comparar.** Contrastar la version oficial con la registrada localmente y con el texto de las references.
 
-**2.1.4 — Aplicación de la redacción vigente.** Si la versión oficial es posterior o el texto de los artículos ha cambiado, aplica la redacción vigente directamente sobre el documento a redactar en el workspace del usuario, sin usar versiones desactualizadas.
+- **Aplicación de la redacción vigente.** Si la versión oficial es posterior o el texto de los artículos ha cambiado, aplica la redacción vigente directamente sobre el documento a redactar en el workspace del usuario, sin usar versiones desactualizadas.
 
-**2.1.5 — Fallback si la fuente no es accesible.** Si `read_file` falla (error HTTP, timeout):
+- **Fallback si la fuente no es accesible.** Si `web_search` no devuelve la fuente oficial:
 ```
 web_search("Ley Enjuiciamiento Civil proceso monitorio articulos 812 818 texto consolidado BOE")
 ```
@@ -200,7 +200,6 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 
 **Petición de grupos de datos mediante `slot_filling_request` y confirmaciones en el chat:**
 - **Datos estructurados agrupados mediante `slot_filling_request`:** para cualquier grupo de datos objetivos o identificativos (partes acreedora y deudora, origen y cuantía de la deuda, y documentos que la acreditan), **NO pregunte dato por dato en el chat**. Invoque la herramienta `slot_filling_request` agrupando todos los campos del bloque de una sola vez.
-- **Confirmación obligatoria en el chat:** una vez que la herramienta retorne los valores completados, muestre la vista previa en texto plano en el chat y pida la confirmación explícita (`¿Confirmamos estos datos...?` / `¿Confirmamos esta sección?`). Solo tras la confirmación afirmativa en el chat ejecute el `edit_file` en disco y verifique con `read_file`.
 - **Validación de sentido, no solo de formato:** razone si la respuesta tiene sentido en el contexto de lo preguntado. Si es absurda, imposible o incongruente, dialogue en el chat, señale el motivo y pida aclaración antes de volcarla al documento.
 
 ### Hoja de Ruta de Secciones y Cláusulas Condicionales

@@ -160,7 +160,7 @@ Recorre de forma secuencial los 5 bloques del documento aplicando el ciclo de ed
 
 #### 4. Conclusiones y Hoja de Ruta Operativa
 - Dictamen sintético y claro.
-- Pasos secuenciales recomendados (Fase 1: requerimiento extrajudicial fehaciente / burofax; Fase 2: intento conciliatorio; Fase 3: acción procesal / administrativa).
+- Pasos secuenciales recomendados (Paso 1: requerimiento extrajudicial fehaciente o burofax; Paso 2: intento conciliatorio; Paso 3: acción procesal o administrativa).
 
 #### 5. Documentación Complementaria y Advertencias Legales
 - Checklist de documentos y pruebas a recopilar (contratos, extractos bancarios, correos, burofaxes, testigos).

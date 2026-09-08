@@ -187,7 +187,6 @@ Envía un mensaje formal que contenga:
 ```
 
 - **Datos estructurados agrupados (`slot_filling_request`, MANDATORIO):** identificación del cliente, del representante y de cada titular real se piden en bloque.
-- **Confirmación obligatoria en el chat** antes de todo `edit_file`, con verificación posterior mediante `read_file`.
 - **Anuncio de sección visible** al pasar de una sección a la siguiente.
 
 ### Hoja de Ruta de Secciones

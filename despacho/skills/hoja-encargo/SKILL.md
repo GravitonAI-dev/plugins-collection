@@ -176,7 +176,6 @@ Envía un mensaje formal que contenga:
 ```
 
 - **Datos estructurados agrupados (`slot_filling_request`, MANDATORIO):** despacho, cliente, datos económicos y datos bancarios se piden en bloque.
-- **Confirmación obligatoria en el chat** antes de todo `edit_file`, con verificación posterior mediante `read_file`.
 - **Anuncio de sección visible** al pasar de una cláusula a la siguiente.
 
 ### Hoja de Ruta de Cláusulas

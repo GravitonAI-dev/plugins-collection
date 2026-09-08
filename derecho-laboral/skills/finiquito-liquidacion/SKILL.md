@@ -166,7 +166,6 @@ Envía un mensaje formal que contenga:
 
 - **Datos estructurados agrupados (`slot_filling_request`, MANDATORIO):** empresa, trabajador, datos retributivos y datos de la extinción se solicitan en bloque.
 - **Todo importe se muestra con su fórmula.** Nunca escribas un resultado sin exhibir antes el cálculo que lo produce: la hoja de liquidación es un documento de convicción, y un importe sin explicación es la causa más frecuente de reclamación.
-- **Confirmación obligatoria en el chat** antes de todo `edit_file`, con verificación posterior mediante `read_file`.
 - **Anuncio de sección visible** al pasar de un bloque de conceptos al siguiente.
 
 ### Hoja de Ruta de Conceptos

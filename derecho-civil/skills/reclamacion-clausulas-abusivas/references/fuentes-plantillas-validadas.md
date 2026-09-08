@@ -33,7 +33,7 @@ Norma europea de referencia (no en BOE): Directiva 93/13/CEE del Consejo, de 5 d
 | CURIA — jurisprudencia del TJUE | Verificar sentencias del TJUE sobre la Directiva 93/13/CEE por tipo de clausula | https://curia.europa.eu |
 | CENDOJ — buscador de jurisprudencia del CGPJ | Verificar sentencias del Tribunal Supremo (Sala Primera) | https://www.poderjudicial.es/search/indexAN.jsp |
 
-La jurisprudencia de esta materia es cambiante. Se verifica con web_search en la Fase 2.1.3 y solo se cita lo confirmado. Ver `jurisprudencia-tjue-ts-clausulas.md`.
+La jurisprudencia de esta materia es cambiante. Se verifica con web_search en la Fase 2.1 y solo se cita lo confirmado. Ver `jurisprudencia-tjue-ts-clausulas.md`.
 
 ---
 

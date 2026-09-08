@@ -206,7 +206,6 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 
 **Petición de grupos de datos mediante `slot_filling_request` y confirmaciones en el chat:**
 - **Datos estructurados agrupados mediante `slot_filling_request`:** Para cualquier grupo de datos objetivos o identificativos (ejecutante, ejecutada, título ejecutivo, datos de ejecución en curso, etc.), **NO pregunte dato por dato en el chat**. Invoque la tool `slot_filling_request` agrupando todos los campos del bloque de una sola vez.
-- **Confirmación obligatoria en el chat:** Una vez que la tool retorne los valores completados, muestre la vista previa en texto plano en el chat y pida la confirmación explícita (`¿Confirmamos estos datos...?` / `¿Confirmamos esta cláusula?`). Solo tras la confirmación afirmativa en el chat ejecute el `edit_file` en disco y verifique con `read_file`.
 - **Anuncio de sección (visible, sin esperar confirmación aparte):** al terminar una sección, emite en el mismo mensaje el anuncio fijo de la sección que se abre y procede con la herramienta o pregunta. Las cláusulas de negociación se explican y debaten en el chat; tras acordarse, se muestra vista previa y se confirma en el chat antes del `edit_file`.
 
 ### Secciones — HOJA JUDICIAL y HOJA FAMILIA

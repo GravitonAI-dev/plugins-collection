@@ -188,7 +188,6 @@ Envía un mensaje formal que contenga:
 
 - **Datos estructurados agrupados (`slot_filling_request`, MANDATORIO):** despacho, cliente, datos del asunto e importes se piden en bloque.
 - **Todo importe con su cálculo a la vista** antes de escribirlo.
-- **Confirmación obligatoria en el chat** antes de todo `edit_file`, con verificación posterior mediante `read_file`.
 - **Anuncio de sección visible** al pasar de una sección a la siguiente.
 
 ### Hoja de Ruta de Secciones

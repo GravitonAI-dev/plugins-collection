@@ -11,7 +11,7 @@
 
 Esta es la reference mas volatil del plugin. La doctrina del TJUE y del Tribunal Supremo sobre clausulas abusivas **cambia con frecuencia** y puede alterar por completo el resultado de una reclamacion (gastos, suelo, IRPH, comision de apertura, interes de demora, tarjeta revolving). Por ello:
 
-1. **Nunca redactar sin ejecutar antes la Fase 2.1.3 del `SKILL.md`** (web_search del tipo de clausula concreto y del ano en curso).
+1. **Nunca redactar sin ejecutar antes la verificación de jurisprudencia reciente de la Fase 2.1 del `SKILL.md`** (web_search del tipo de clausula concreto y del ano en curso).
 2. **Nunca citar una sentencia, numero de resolucion o fecha que no se haya confirmado** en esa verificacion. Si no se confirma, no se cita y se marca `{{VERIFICAR}}`.
 3. **Posicion conservadora:** no afirmar nulidad automatica ni generalizada. La abusividad se aprecia caso por caso mediante el control de incorporacion, de transparencia y de contenido.
 4. Los criterios de abajo son una orientacion de encuadre, NO una cita cerrada. Aplicar la doctrina vigente al documento que se redacta, sin modificar esta tabla, cuando la verificacion arroje doctrina mas reciente.
@@ -44,11 +44,11 @@ Esta es la reference mas volatil del plugin. La doctrina del TJUE y del Tribunal
 ## Como usar estos criterios en el escrito
 
 - Encuadrar la clausula del caso en el eje de analisis correspondiente y fundamentar la falta de transparencia o el desequilibrio con los hechos concretos del contrato del usuario.
-- Citar la norma (TRLGDCU, LCGC, Directiva 93/13) siempre; citar jurisprudencia solo si se verifico en la Fase 2.1.3, indicando organo y fecha confirmados.
+- Citar la norma (TRLGDCU, LCGC, Directiva 93/13) siempre; citar jurisprudencia solo si se verifico en la verificación de jurisprudencia de la Fase 2.1, indicando organo y fecha confirmados.
 - Solicitar la nulidad y la restitucion sin prometer un resultado; presentar la pretension como fundada en Derecho.
 
 ---
 
 ## Nota de mantenimiento
 
-Cuando la Fase 2.1.3 detecte doctrina mas reciente que la reflejada aqui, actualizar la tabla de encuadre conservando este aviso y la disciplina de no citar sentencias sin verificar. No acumular versiones antiguas: sustituir el criterio superado.
+Cuando la verificación de jurisprudencia de la Fase 2.1 detecte doctrina mas reciente que la reflejada aqui, actualizar la tabla de encuadre conservando este aviso y la disciplina de no citar sentencias sin verificar. No acumular versiones antiguas: sustituir el criterio superado.

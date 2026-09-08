@@ -163,7 +163,6 @@ Envía un mensaje formal que contenga:
 ```
 
 - **Datos estructurados agrupados (`slot_filling_request`, MANDATORIO):** empresa, trabajador y relación laboral se solicitan en bloque, nunca dato a dato en turnos sucesivos.
-- **Confirmación obligatoria en el chat** antes de todo `edit_file`, con verificación posterior mediante `read_file`.
 - **Anuncio de sección visible** al pasar de una sección a la siguiente, en el mismo mensaje que la primera solicitud, sin pedir permiso aparte.
 
 ### Hoja de Ruta de Secciones
