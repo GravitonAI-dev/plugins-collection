@@ -549,8 +549,8 @@ Generación de documentos de derecho civil español conforme a normativa consoli
 Generación de solicitudes y checklists para trámites administrativos en España (DGT, AEAT, Seguridad Social, Sucesiones, Extranjería).
 **Skills**: `transferencia-vehiculo`, `alta-baja-autonomo`, `alta-baja-seguridad-social`, `liquidacion-impuesto-sucesiones`, `extranjeria-residencia`.
 
-### `gestion-plantillas` (v0.1.0)
-Creación, parametrización y registro de plantillas personalizadas (assets) mediante `set_skill_template`.
+### `gestion-plantillas` (v0.2.0)
+Creación, parametrización, actualización y registro de plantillas personalizadas (assets) para skills del sistema o globales de usuario mediante `set_skill_template`, `update_user_template` y `save_user_template`.
 **Skills**: `registrar-plantillas`.
 
 ### `asistente-general` (v0.1.0)

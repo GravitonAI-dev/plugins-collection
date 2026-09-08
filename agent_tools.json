@@ -418,6 +418,76 @@
       },
       "tags": ["introspection", "catalog", "skills", "assets"],
       "side_effects": false
+    },
+    {
+      "id": "io.gravitonai.tools.update_user_template",
+      "name": "update_user_template",
+      "description": "Actualiza y persiste el contenido de una plantilla de usuario general existente (no asociada a ninguna skill). Se identifica por su asset_name canónico (ej. 'template-modelo-de-demanda.md'). La plantilla debe existir previamente en el sistema.",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "asset_name": {
+            "type": "string",
+            "description": "Nombre de archivo exacto o identificador de la plantilla de usuario existente a actualizar (ej. 'template-modelo-de-demanda.md'). La plantilla debe existir previamente."
+          },
+          "template_content": {
+            "type": "string",
+            "description": "El contenido completo actualizado en texto o Markdown a persistir para la plantilla."
+          }
+        },
+        "required": ["asset_name", "template_content"],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "asset_name": { "type": "string" },
+          "description": { "type": "string" },
+          "content_length": { "type": "integer" }
+        }
+      },
+      "tags": ["templates", "configuration", "user_templates", "update"],
+      "side_effects": true
+    },
+    {
+      "id": "io.gravitonai.tools.save_user_template",
+      "name": "save_user_template",
+      "description": "Crea y persiste una nueva plantilla de usuario general (no asociada a ninguna skill). Requiere un nombre o título para la plantilla (a partir del cual se genera automáticamente su asset_name, ej. 'Plantilla de Invitación' -> 'template-plantilla-de-invitacion.md'), el contenido en Markdown o texto, y una descripción explicativa obligatoria que detalle el propósito o uso de la plantilla. Se utiliza exclusivamente para crear plantillas nuevas que aún no existen en el sistema.",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Nombre o título para la nueva plantilla de usuario (ej. 'Plantilla de Invitación', 'Modelo de Demanda')."
+          },
+          "template_content": {
+            "type": "string",
+            "description": "Contenido completo en Markdown o texto de la plantilla a crear."
+          },
+          "description": {
+            "type": "string",
+            "description": "Descripción obligatoria que explica el propósito, uso o ámbito de aplicación de la plantilla."
+          }
+        },
+        "required": ["name", "template_content", "description"],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "asset_name": { "type": "string" },
+          "description": { "type": "string" },
+          "content_length": { "type": "integer" }
+        }
+      },
+      "tags": ["templates", "configuration", "user_templates", "creation"],
+      "side_effects": true
     }
   ]
 }

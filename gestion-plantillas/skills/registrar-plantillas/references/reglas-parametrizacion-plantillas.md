@@ -1,35 +1,51 @@
-# Reglas de Parametrización y Abstracción de Plantillas (Assets)
+# Reglas de Parametrización, Abstracción y Verificación de Plantillas (Assets)
 
-> Material de referencia para la skill `registrar-plantillas`. Define las pautas metodológicas para convertir documentos o minutas de ejemplo en plantillas estandarizadas limpias con marcadores `{{variable}}`.
+> Material de referencia para la skill `registrar-plantillas`. Define las pautas metodológicas para procesar, crear asistidamente, verificar compatibilidad y persistir plantillas de documentos (assets) tanto para skills del sistema como globales de usuario.
 
 ---
 
-## 0. Ingesta de Documentos desde `<attached_documents>`
+## 0. Vías para Especificar Plantillas
 
-Los documentos de ejemplo aportados por el usuario (PDFs, DOCX, TXT, MD) son analizados por el backend y se inyectan automáticamente en el prompt dentro de la sección:
+Las únicas vías admitidas para proporcionar o generar el contenido de una plantilla son:
 
-```xml
-# ATTACHED DOCUMENTS
-<attached_documents>
-    <attached_document name="archivo_ejemplo.pdf">
-        "Texto completo del archivo..."
-    </attached_document>
-</attached_documents>
-```
+### 0.1 Texto en el Chat (Pegar Directamente)
+- El usuario proporciona el texto de la minuta o modelo directamente en la conversación (`<user_message>`).
+- Se extrae el texto del mensaje, se analiza su estructura y se parametriza a variables `{{variable}}`.
 
-- La skill debe extraer el texto directamente de `<attached_document name="...">`.
-- Si el usuario aporta el documento mediante texto en el chat, se extrae de `# USER MESSAGE` / `<user_message>`.
+### 0.2 Abrir Archivo en el Editor (Archivos del Workspace)
+- El usuario indica un archivo ya existente en el espacio de trabajo activo de la conversación (visible o abierto en el editor).
+- El contenido auténtico del archivo se consulta en la sección `# WORKSPACE ACTIVE DOCUMENTS` o se lee directamente invocando la herramienta `read_file`:
+  ```json
+  {
+    "relative_file_path": "ruta/al/archivo.md"
+  }
+  ```
+- Si la plantilla es **Global (sin skill)** y el documento en el workspace se denomina como el `asset_name` canónico de una plantilla existente (ej. `template-modelo-de-demanda.md`), este canal constituye la vía de actualización directa mediante `update_user_template`.
+
+### 0.3 Creación Asistida (Desde Cero)
+- Cuando el usuario no dispone de un documento previo y desea construir una plantilla nueva desde cero con ayuda del asistente.
+- El asistente conduce un diálogo estructurado y consultivo para diseñar la plantilla:
+  1. **Finalidad y ámbito:** Identificar el tipo de documento (contrato, escrito judicial, comunicación formal, solicitud administrativa) y su propósito.
+  2. **Intervinientes:** Definir las partes o sujetos y sus datos identificativos necesarios.
+  3. **Cuerpo y cláusulas principales:** Estructurar las estipulaciones esenciales (objeto, plazos, condiciones económicas, obligaciones de las partes, penalizaciones, fuero y jurisdicción).
+  4. **Identificación de variables dinámicas:** Asignar marcadores `{{nombre_variable}}` a todos los datos variables que cambiarán entre usos.
+  5. **Borrador en el editor (`create_file`):** Generar el archivo en el workspace para que el usuario pueda visualizar el documento en tiempo real en el editor.
+  6. **Edición colaborativa incremental (`edit_file`):** Refinar y expandir cláusulas directamente en el documento del workspace.
+  7. **Persistencia final:** Una vez validado y confirmado, persistir en el backend mediante `save_user_template` o `set_skill_template`.
+
+> [!NOTE]
+> **Sin adjuntos de archivos:** La skill NO procesa documentos adjuntos ni archivos subidos fuera del workspace. Toda entrada preexistente debe proceder exclusivamente de texto pegado en el chat o de un archivo abierto en el editor (workspace).
 
 ---
 
 ## 1. Principio de Cero Datos Personales (PII)
 
-Al transformar un documento real (contrato firmado, demanda judicial, solicitud administrativa, hoja censal) en una plantilla reutilizable:
-- **Nombres y Apellidos:** Sustituir por `{{nombre_arrendador}}`, `{{nombre_demandante}}`, `{{nombre_interesado}}`, `{{nombre_representante}}`, etc.
-- **Identificadores Fiscales / DNI:** Sustituir por `{{nif_arrendador}}`, `{{dni_demandante}}`, `{{cif_entidad}}`, `{{nie_solicitante}}`.
+Al transformar un documento real en una plantilla reutilizable o al crearla desde cero:
+- **Nombres y Apellidos / Razones Sociales:** Sustituir por `{{nombre_arrendador}}`, `{{nombre_demandante}}`, `{{razon_social_empresa}}`, `{{nombre_representante}}`.
+- **Identificadores Fiscales (DNI/NIE/CIF):** Sustituir por `{{nif_arrendador}}`, `{{dni_demandante}}`, `{{cif_entidad}}`, `{{nie_solicitante}}`.
 - **Domicilios y Direcciones:** Sustituir por `{{domicilio_notificaciones}}`, `{{direccion_inmueble}}`, `{{municipio}}`, `{{provincia}}`.
 - **Fechas Concretas:** Sustituir por `{{fecha_contrato}}`, `{{fecha_inicio}}`, `{{fecha_vencimiento}}`, `{{fecha_notificacion}}`.
-- **Importes y Números de Cuenta:** Sustituir por `{{renta_mensual}}`, `{{cuantia_reclamada}}`, `{{iban_pago}}`, `{{numero_cuenta}}`.
+- **Importes y Cuentas Bancarias:** Sustituir por `{{renta_mensual}}`, `{{cuantia_reclamada}}`, `{{iban_pago}}`, `{{numero_cuenta}}`.
 - **Referencias Notariales o Registrales:** Sustituir por `{{nombre_notario}}`, `{{plaza_notario}}`, `{{numero_protocolo}}`, `{{datos_registrales}}`.
 
 ---
@@ -38,31 +54,73 @@ Al transformar un documento real (contrato firmado, demanda judicial, solicitud 
 
 1. **Formato:** Dobles llaves con nombre en minúsculas y guiones bajos (`snake_case`):
    - Correcto: `{{nombre_arrendador}}`, `{{cuantia_total}}`, `{{fecha_efectos}}`
-   - Incorrecto: `<NOMBRE>`, `[Nombre Arrendador]`, `{{NombreArrendador}}`
-2. **Variables con Descripción Opcional:** Si un campo requiere una aclaración de formato o valor esperado, se puede incluir `:` tras el identificador:
-   - Ejemplo: `{{plazo_duracion_anos: número de años pactados}}`, `{{tipo_garantia: aval bancario o depósito}}`.
-3. **Coherencia de Identificadores:** Si la misma variable aparece múltiples veces a lo largo del documento (ej. el nombre del arrendador en el encabezamiento y en el pie de firma), usar EXACTAMENTE el mismo nombre de marcador (`{{nombre_arrendador}}`).
+   - Incorrecto: `<NOMBRE>`, `[Nombre Arrendador]`, `{{NombreArrendador}}`, `{nombre_arrendador}`
+2. **Variables con Aclaración Opcional:** Si un campo requiere especificar formato o posibles opciones, se puede incluir `:` tras el identificador:
+   - Ejemplo: `{{plazo_duracion_anos: número de años pactados}}`, `{{tipo_garantia: aval bancario o fianza en metálico}}`.
+3. **Consistencia de Identificadores:** Si un dato se repite en varias secciones (ej. en el encabezado y en el pie de firma), usar EXACTAMENTE el mismo nombre de marcador (`{{nombre_arrendador}}`).
 
 ---
 
 ## 3. Regla de Assets Limpios (Sin Condicionales en Comentarios HTML)
 
-Siguiendo el estándar de arquitectura de GravitonAI:
-- **PROHIBIDO** incluir comentarios HTML condicionales (ej. `<!-- Si persona jurídica: ... -->`, `<!-- Opción A ... -->`).
-- La plantilla resultante debe contener la estructura íntegra de cláusulas o estipulaciones en Markdown limpio.
-- Las variaciones o bifurcaciones de redacción son manejadas por el procedimiento de la skill destino mediante edición incremental (`edit_file`).
+- **PROHIBIDO** incluir comentarios HTML condicionales (ej. `<!-- Si persona jurídica: ... -->`, `<!-- Opción A ... -->`) o pseudocódigo dentro del contenido de la plantilla.
+- La plantilla debe ser puramente estructural en Markdown limpio.
+- Las variaciones o bifurcaciones de redacción son gestionadas por el asistente o por la skill especializada en el momento de la redacción.
 
 ---
 
 ## 4. Preservación Estructural y de Formato Markdown
 
-- **Títulos y Encabezamientos:** Mantener la jerarquía de títulos Markdown (`#`, `##`, `###`).
-- **Tablas:** Si el documento original incluye tablas de datos o liquidaciones, convertirlas a tablas Markdown estándar (`| Campo | Valor |`).
-- **Cláusulas Numeradas:** Preservar la numeración ordinal o cardinal del documento original (ej. `PRIMERA. — OBJETO`, `SEGUNDA. — RENTA`, `1. Hechos`, `2. Fundamentos`).
-- **Pie de Firmas:** Estructurar los bloques de firma al final del documento con marcadores de comparecencia:
+- **Títulos y Encabezamientos:** Mantener una jerarquía limpia (`#` para título principal, `##` para secciones/cláusulas, `###` para subsecciones).
+- **Tablas:** Convertir datos tabulares a formato estándar Markdown (`| Campo | Valor |`).
+- **Cláusulas Numeradas:** Preservar la numeración ordinal o cardinal del documento original (ej. `PRIMERA. — OBJETO`, `SEGUNDA. — RENTA`).
+- **Pie de Firmas:** Estructurar los bloques de firma al final del documento:
   ```markdown
   En {{municipio_firma}}, a {{fecha_firma}}.
 
   Por la parte ARRENDADORA:               Por la parte ARRENDATARIA:
   {{nombre_arrendador}}                   {{nombre_arrendatario}}
   ```
+
+---
+
+## 5. Protocolo de Verificación de Compatibilidad con Skills (OBLIGATORIO)
+
+Antes de guardar una plantilla asignada a una skill del sistema (`set_skill_template`), el asistente debe someter la plantilla a una **auditoría de compatibilidad integral**:
+
+### Lista de Chequeo de Compatibilidad:
+1. **Correspondencia del Asset (`asset_name`):**
+   - El `asset_name` debe coincidir exactamente con uno de los assets declarados formalmente en la skill objetivo (ej. `template-contrato-arrendamiento-vivienda.md`).
+2. **Coherencia Temática y Normativa:**
+   - La plantilla debe corresponder a la naturaleza del trámite regulado por la skill (ej. un contrato de arrendamiento de vivienda no puede asignarse a un asset de arrendamiento de local ni a una demanda de desahucio).
+3. **Cobertura de Variables Esenciales de la Skill:**
+   - La plantilla debe incluir los marcadores `{{variable}}` requeridos para los inputs que la skill recopila y cumplimenta en sus fases de trabajo (consultar los `inputs:` del `SKILL.md` de la skill destino: datos de partes, objeto, importes, plazos, etc.).
+4. **Ausencia de Directivas Prohibidas:**
+   - Verificar que no existan comentarios HTML de control de flujo (`<!-- Si ... -->`) ni datos personales reales sin anonimizar.
+
+### Directiva de Rechazo por Incompatibilidad:
+> **SI LA PLANTILLA NO ES COMPLETAMENTE COMPATIBLE CON LA SKILL:**
+> - **NO GUARDAR.** Queda expresamente prohibido invocar `set_skill_template`.
+> - Informar al usuario de forma inmediata y constructiva:
+>   - Señalar con exactitud qué elementos faltan o resultan incompatibles (ej. "La plantilla carece de la cláusula de duración o de la variable `{{renta_mensual}}`, requeridas por la skill `arrendamiento-urbano`").
+>   - Proponer la adición o corrección de los bloques afectados.
+>   - Solicitar confirmación para aplicar los ajustes antes de proceder al guardado.
+
+---
+
+## 6. Directivas para Plantillas Globales de Usuario (Sin Skill)
+
+Cuando el usuario registra o actualiza una plantilla general no asociada a una skill:
+
+1. **Generación del Asset Name:**
+   - El nombre legible proporcionado por el usuario se normaliza a slug en minúsculas con prefijo `template-` y extensión `.md`.
+   - Ejemplo: `"Plantilla de Invitación a Evento"` -> `template-plantilla-de-invitacion-a-evento.md`.
+2. **Actualización de Plantilla Existente (`update_user_template`):**
+   - Se utiliza cuando la plantilla ya existe en el sistema/workspace (ej. identificada por su `asset_name`).
+   - Requiere: `asset_name` y `template_content`.
+3. **Creación de Nueva Plantilla (`save_user_template`):**
+   - Se utiliza para crear una plantilla que aún no existe (típicamente creación asistida desde cero).
+   - Requiere obligatoriamente:
+     * `name`: Nombre o título de la plantilla.
+     * `template_content`: Contenido completo en Markdown.
+     * `description`: Explicación detallada del propósito o casos de uso de la plantilla.

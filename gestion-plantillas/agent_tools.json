@@ -7,6 +7,21 @@
       "id": "io.gravitonai.tools.set_skill_template"
     },
     {
+      "id": "io.gravitonai.tools.update_user_template"
+    },
+    {
+      "id": "io.gravitonai.tools.save_user_template"
+    },
+    {
+      "id": "io.gravitonai.tools.read_file"
+    },
+    {
+      "id": "io.gravitonai.tools.create_file"
+    },
+    {
+      "id": "io.gravitonai.tools.edit_file"
+    },
+    {
       "id": "io.gravitonai.tools.restricted_human_in_the_loop_request"
     },
     {
