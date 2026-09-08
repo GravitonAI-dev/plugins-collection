@@ -144,23 +144,13 @@ En esta fase interactúas **directamente a través del chat (en texto plano conv
 Envía un mensaje estructurado y formal que contenga:
 1. **Marco Legal Aplicable:** Artículos 657 a 1.087 del Código Civil (régimen sucesorio, legítimas, mejora, aceptación y partición), Art. 1.005 CC (interpelación notarial), y Arts. 782 a 805 de la Ley de Enjuiciamiento Civil (división judicial de patrimonios).
 2. **Orientación Legal del Caso:**
-A diferencia de los Puntos 1 y 2, esta seccion es visible para el usuario. Tras completar la verificacion normativa (Punto 2), en un unico mensaje:
 
-**3.1 — Informa la norma aplicable a la hoja enrutada,** con la version vigente verificada y el enlace del BOE consultado en el Punto 2.2. Registro formal (usted), tono de abogado. Ejemplos segun hoja:
+**Informa la norma aplicable a la hoja enrutada,** con la version vigente verificada y el enlace del BOE consultado en la Fase 2.1. Registro formal (usted), tono de abogado. Ejemplos segun hoja:
 - Renuncia: "A la renuncia de la herencia le resultan de aplicacion los articulos 988, 997 y 1008 del Codigo Civil: debe otorgarse ante Notario en instrumento publico y es irrevocable. Puede consultar el texto oficial en: https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763"
 - Interpelacion: "Al requerimiento le resulta de aplicacion el articulo 1005 del Codigo Civil: el Notario comunicara al heredero que dispone de treinta dias naturales para aceptar o repudiar, y que su silencio supondra la aceptacion pura y simple. Puede consultar el texto oficial en: https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763"
 - Division judicial: citar los articulos 782 y siguientes y 52.1.4 de la Ley 1/2000, de Enjuiciamiento Civil, y el requisito de actividad negociadora previa del articulo 5 de la Ley Organica 1/2025, con ambos enlaces del BOE.
 - Aceptacion y cuaderno: citar los articulos del Codigo Civil de la hoja (988 y siguientes; 806-808, 1035 y siguientes, 1051 y siguientes) con el enlace del BOE.
 
-**3.2 — Ofrece la plantilla o pide el documento propio** (alternativas numeradas, decision que cambia el flujo):
-
-"¿Que documento desea utilizar como base?
-1. La plantilla del sistema, revisada por nuestros abogados y colaboradores
-2. Adjuntar su propio documento"
-
-**3.3 — Enrutamiento segun la respuesta:** si elige la plantilla, continua con el Punto 4 usando el asset de la hoja; si elige adjuntar el suyo, pide que lo adjunte o pegue, leelo con `Read` y usalo como documento base en el Punto 4, sin dejar de aplicar los Guardrails (si el documento adjuntado los incumple — p. ej. una renuncia sin advertencia de irrevocabilidad, una particion que vulnera la legitima —, adviertelo antes de continuar).
-
----
 3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-aceptacion-herencia.md`).
 4. **Pregunta Explícita al Usuario (Vía Chat):** Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
@@ -203,7 +193,7 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 
 ### Hoja de Ruta de Secciones y Cláusulas Condicionales
 
-Recorre secuencialmente las secciones de la hoja enrutada. Por cada seccion incompleta, aplica el Ciclo de Edición Incremental global (Petición de datos -> Vista Previa en texto plano -> Confirmación -> `Edit` en disco).
+Recorre secuencialmente las secciones de la hoja enrutada. Por cada seccion incompleta, aplica el Ciclo de Edición Incremental global (Petición de datos -> Vista Previa en texto plano -> Confirmación -> `edit_file` en disco).
 
 **Petición de grupos de datos mediante `slot_filling_request` y confirmaciones en el chat:**
 - **Datos estructurados agrupados mediante `slot_filling_request`:** Para cualquier grupo de datos objetivos o identificativos (datos del causante, del título sucesorio, del heredero aceptante/renunciante/requirente/solicitante, o de la lista de herederos e interesados), **NO pregunte dato por dato en el chat**. Invoque la tool `slot_filling_request` agrupando todos los campos del bloque de una sola vez.
@@ -216,31 +206,31 @@ Recorre secuencialmente las secciones de la hoja enrutada. Por cada seccion inco
 
 ### Secciones comunes a todas las hojas
 
-1. **Causante (dato objetivo — `slot_filling_request` con confirmación en el chat).** Anuncio: "Comenzamos por la identificacion del causante y las circunstancias de su fallecimiento." Solicita en bloque mediante `slot_filling_request`: a) nombre completo; b) NIF; c) fecha de fallecimiento; d) lugar de fallecimiento; e) ultimo domicilio (en cuaderno y división judicial: estado civil y régimen matrimonial). Vista previa en chat, confirmación y `Edit`.
-2. **Titulo sucesorio (dato objetivo registral — `slot_filling_request` con confirmación en el chat).** Anuncio: "Pasamos a reflejar el titulo sucesorio que fundamenta el llamamiento." Segun V1, solicita en bloque mediante `slot_filling_request`: a) notario autorizante y su plaza; b) fecha del testamento o acta; c) numero de protocolo. Vista previa en chat, confirmación y `Edit`.
+1. **Causante (dato objetivo — `slot_filling_request` con confirmación en el chat).** Anuncio: "Comenzamos por la identificacion del causante y las circunstancias de su fallecimiento." Solicita en bloque mediante `slot_filling_request`: a) nombre completo; b) NIF; c) fecha de fallecimiento; d) lugar de fallecimiento; e) ultimo domicilio (en cuaderno y división judicial: estado civil y régimen matrimonial). Vista previa en chat, confirmación y `edit_file`.
+2. **Titulo sucesorio (dato objetivo registral — `slot_filling_request` con confirmación en el chat).** Anuncio: "Pasamos a reflejar el titulo sucesorio que fundamenta el llamamiento." Segun V1, solicita en bloque mediante `slot_filling_request`: a) notario autorizante y su plaza; b) fecha del testamento o acta; c) numero de protocolo. Vista previa en chat, confirmación y `edit_file`.
 
 ### Hoja: Aceptacion (`aceptacion-herencia.md`)
 
-3. **Heredero aceptante (dato objetivo — `slot_filling_request` con confirmación en el chat).** Anuncio: "Procedemos a la identificacion del heredero aceptante." Solicita en bloque mediante `slot_filling_request`: a) nombre completo; b) NIF; c) domicilio. Vista previa en chat, confirmación y `Edit`.
+3. **Heredero aceptante (dato objetivo — `slot_filling_request` con confirmación en el chat).** Anuncio: "Procedemos a la identificacion del heredero aceptante." Solicita en bloque mediante `slot_filling_request`: a) nombre completo; b) NIF; c) domicilio. Vista previa en chat, confirmación y `edit_file`.
 4. **Modo de aceptacion e inventario (NEGOCIACION).** Anuncio: "Corresponde ahora dejar constancia del modo de aceptacion." El modo ya esta resuelto (V2-b): NO vuelvas a preguntarlo; refleja el bloque correspondiente. Si es a beneficio de inventario, explica que la declaracion debe hacerse ante Notario (Art. 1011 CC) y que rige el plazo de treinta dias para pedir la formacion de inventario (Arts. 1014-1015 CC), y pide: a) relacion del activo; b) relacion del pasivo.
 5. **Otorgamiento (dato objetivo).** Anuncio: "Por ultimo, fijamos el lugar y la fecha de otorgamiento." a) lugar; b) fecha. Pregunta ademas la comunidad autonoma de residencia del causante para la advertencia del Impuesto de Sucesiones (dato puntual, misma seccion).
 
 ### Hoja: Renuncia (`renuncia-herencia.md`)
 
-3. **Renunciante (dato objetivo — `slot_filling_request` con confirmación en el chat).** Anuncio: "Procedemos a la identificacion del renunciante." Solicita en bloque mediante `slot_filling_request`: a) nombre completo; b) NIF; c) domicilio. Vista previa en chat, confirmación y `Edit`.
+3. **Renunciante (dato objetivo — `slot_filling_request` con confirmación en el chat).** Anuncio: "Procedemos a la identificacion del renunciante." Solicita en bloque mediante `slot_filling_request`: a) nombre completo; b) NIF; c) domicilio. Vista previa en chat, confirmación y `edit_file`.
 4. **Alcance de la renuncia (NEGOCIACION — critica).** Anuncio: "Antes de reflejar la renuncia, es necesario que conozca sus efectos." Explica y confirma, en este orden: que la renuncia es irrevocable una vez otorgada (Art. 997 CC); que solo vale ante Notario en instrumento publico (Art. 1008 CC); y la diferencia fiscal (Art. 28 Ley 29/1987): la renuncia pura, simple y gratuita hace tributar a los beneficiarios, mientras que la renuncia a favor de persona determinada implica aceptacion tacita (Art. 1000 CC) y doble tributacion. Confirma que la renuncia es pura, simple y gratuita, y que el renunciante no ha realizado actos de aceptacion tacita. Si el cliente quiere renunciar a favor de persona determinada, advierte que ese acto es civil y fiscalmente una aceptacion con cesion y que esta plantilla no lo cubre; si insiste, escala.
 5. **Otorgamiento (dato objetivo).** Anuncio: "Por ultimo, fijamos el lugar y la fecha de otorgamiento." a) lugar; b) fecha; y comunidad autonoma del causante (dato puntual, misma seccion).
 
 ### Hoja: Interpelacion del Art. 1005 CC (`requerimiento-1005-cc.md`)
 
-3. **Requirente (dato objetivo — `slot_filling_request` con confirmación en el chat).** Anuncio: "Procedemos a la identificacion del requirente y del interes que acredita." Solicita en bloque mediante `slot_filling_request`: a) nombre completo; b) NIF; c) domicilio; d) interes que acredita. Vista previa en chat, confirmación y `Edit`.
-4. **Heredero requerido (dato objetivo — `slot_filling_request` con confirmación en el chat).** Anuncio: "Pasamos a identificar al heredero requerido." Solicita en bloque mediante `slot_filling_request`: a) nombre completo; b) domicilio donde practicar la comunicacion; c) llamamiento que ostenta. Vista previa en chat, confirmación y `Edit`.
+3. **Requirente (dato objetivo — `slot_filling_request` con confirmación en el chat).** Anuncio: "Procedemos a la identificacion del requirente y del interes que acredita." Solicita en bloque mediante `slot_filling_request`: a) nombre completo; b) NIF; c) domicilio; d) interes que acredita. Vista previa en chat, confirmación y `edit_file`.
+4. **Heredero requerido (dato objetivo — `slot_filling_request` con confirmación en el chat).** Anuncio: "Pasamos a identificar al heredero requerido." Solicita en bloque mediante `slot_filling_request`: a) nombre completo; b) domicilio donde practicar la comunicacion; c) llamamiento que ostenta. Vista previa en chat, confirmación y `edit_file`.
 5. **Requerimiento (NEGOCIACION).** Anuncio: "Corresponde ahora concretar el requerimiento y sus efectos." Explica el efecto legal antes de confirmar: el Notario comunicara el plazo de treinta dias naturales y, si el requerido calla, la herencia se entendera aceptada PURA Y SIMPLEMENTE (Arts. 1005 y 1003 CC) — lo que puede convenir o no al requirente segun su interes. Pide: a) plaza del Notario al que se dirigira la solicitud; b) consecuencia que la falta de pronunciamiento causa al requirente (para el hecho TERCERO).
 6. **Cierre (dato objetivo).** Anuncio: "Por ultimo, fijamos el lugar y la fecha de la solicitud." a) lugar; b) fecha.
 
 ### Hoja: Cuaderno particional (`cuaderno-particional.md`)
 
-3. **Herederos (dato objetivo — `slot_filling_request` con confirmación en el chat).** Anuncio: "Procedemos a la identificacion de los herederos y demas intervinientes." Solicita en bloque mediante `slot_filling_request` para cada heredero: a) nombre completo; b) NIF; c) domicilio; d) parentesco; e) cuota o institucion segun el titulo sucesorio. Muestra vista previa conjunta en el chat, pide confirmación y aplica el `Edit`. Pregunta despues si existe conyuge viudo y si hay contador-partidor.
+3. **Herederos (dato objetivo — `slot_filling_request` con confirmación en el chat).** Anuncio: "Procedemos a la identificacion de los herederos y demas intervinientes." Solicita en bloque mediante `slot_filling_request` para cada heredero: a) nombre completo; b) NIF; c) domicilio; d) parentesco; e) cuota o institucion segun el titulo sucesorio. Muestra vista previa conjunta en el chat, pide confirmación y aplica el `edit_file`. Pregunta despues si existe conyuge viudo y si hay contador-partidor.
 4. **Liquidacion de gananciales (NEGOCIACION, solo si el regimen era gananciales).** Anuncio: "Procede liquidar previamente la sociedad de gananciales." Explica que la mitad de los gananciales corresponde al conyuge viudo y solo la otra mitad mas los privativos integra el caudal; confirma la relacion de bienes gananciales y privativos.
 5. **Inventario — activo (dato objetivo con validacion).** Anuncio: "Pasamos a formar el inventario del caudal hereditario, comenzando por el activo." Relacion numerada de bienes con su valor (inmuebles con referencia catastral, cuentas, valores, vehiculos, ajuar), cifras en numero y letra.
 6. **Inventario — pasivo (dato objetivo con advertencia).** Anuncio: "Continuamos con el pasivo de la herencia." Deudas, cargas y gastos deducibles. Si el pasivo es relevante y la aceptacion pactada es pura y simple, recuerda la advertencia del Guardrail 5 y la oposicion de acreedores (Arts. 1082-1083 CC).
@@ -251,9 +241,9 @@ Recorre secuencialmente las secciones de la hoja enrutada. Por cada seccion inco
 
 ### Hoja: Division judicial (`solicitud-division-judicial-herencia.md`)
 
-3. **Solicitante (dato objetivo — `slot_filling_request` con confirmación en el chat).** Anuncio: "Procedemos a la identificacion del solicitante." Solicita en bloque mediante `slot_filling_request`: a) nombre completo; b) NIF; c) domicilio; d) condicion en la sucesion. Vista previa en chat, confirmación y `Edit`.
+3. **Solicitante (dato objetivo — `slot_filling_request` con confirmación en el chat).** Anuncio: "Procedemos a la identificacion del solicitante." Solicita en bloque mediante `slot_filling_request`: a) nombre completo; b) NIF; c) domicilio; d) condicion en la sucesion. Vista previa en chat, confirmación y `edit_file`.
 4. **Procedencia de la via (verificacion, respuestas cerradas).** Anuncio: "Debemos verificar que procede la via judicial." Pregunta si existe comisario o contador-partidor designado por el testador, por acuerdo de los coherederos, por el Letrado de la Administracion de Justicia o por Notario (si/no/no lo sabe). Si existe, DETEN el proceso: la division judicial no procede (Art. 782.1 LEC); advierte y escala.
-5. **Demas interesados (dato objetivo — `slot_filling_request` con confirmación en el chat).** Anuncio: "Pasamos a identificar a los demas interesados en la herencia." Solicita en bloque mediante `slot_filling_request` para cada coheredero o interesado: a) nombre; b) NIF si se conoce; c) domicilio de citacion; d) condicion. Vista previa en chat, confirmación y `Edit`.
+5. **Demas interesados (dato objetivo — `slot_filling_request` con confirmación en el chat).** Anuncio: "Pasamos a identificar a los demas interesados en la herencia." Solicita en bloque mediante `slot_filling_request` para cada coheredero o interesado: a) nombre; b) NIF si se conoce; c) domicilio de citacion; d) condicion. Vista previa en chat, confirmación y `edit_file`.
 6. **Desacuerdo (dato objetivo con validacion).** Anuncio: "Corresponde dejar constancia del desacuerdo que motiva la solicitud." Descripcion breve y objetiva del desacuerdo (hecho CUARTO), sin valoraciones.
 7. **Caudal conocido (dato objetivo).** Anuncio: "Pasamos a relacionar el caudal hereditario conocido." Bienes y derechos identificables y, si se conocen, deudas y cargas.
 8. **MASC (NEGOCIACION — requisito de procedibilidad).** Anuncio: "Debemos acreditar la actividad negociadora previa que exige la ley." Explica que la Ley Organica 1/2025 (articulo 5) exige el intento previo de un medio adecuado de solucion de controversias tambien en este procedimiento, y que sin justificante la solicitud puede inadmitirse (articulo 403.2 de la LEC). Pregunta que actividad se intento (tipo y fecha). Si no se intento ninguna, recomienda realizarla antes de presentar (p. ej. requerimiento fehaciente con propuesta de particion, mediacion o conciliacion) y ofrece dejar el hecho SEXTO con `{{DATO_FALTANTE}}` mientras tanto.
@@ -292,5 +282,5 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 6. La particion definitiva con inmuebles suele requerir escritura publica notarial para su inscripcion; el acta de declaracion de herederos abintestato es un tramite notarial previo que esta skill NO tramita. Los documentos generados son borradores de trabajo.
 7. Guardar la posible igualdad en los lotes (Art. 1061 CC); los bienes indivisibles se adjudican a un heredero abonando el exceso en dinero (Art. 1062 CC).
 8. Nunca omitir la advertencia del Impuesto de Sucesiones y Donaciones (autonomico, plazo de 6 meses, Art. 67 RD 1629/1991) ni de la plusvalia municipal cuando haya inmuebles urbanos.
-9. Los datos faltantes conservan el nombre propio del placeholder del asset (p. ej. `{{plaza_notario}}`, `{{numero_protocolo}}`); usa el marcador generico `{{DATO_FALTANTE}}` solo para un hueco suelto dentro de una frase ya redactada que no tenga placeholder propio. Nunca generes dos `{{DATO_FALTANTE}}` en el mismo documento: al repetirse el mismo texto literal, `Edit` ya no puede localizar uno sin el otro por `oldString` unico. Nunca inventar bienes, valores, cuotas, fechas ni protocolos. Nunca afirmar cuotas sin base en el titulo sucesorio. Nunca inventar clausulas testamentarias ni jurisprudencia.
+9. Los datos faltantes conservan el nombre propio del placeholder del asset (p. ej. `{{plaza_notario}}`, `{{numero_protocolo}}`); usa el marcador generico `{{DATO_FALTANTE}}` solo para un hueco suelto dentro de una frase ya redactada que no tenga placeholder propio. Nunca generes dos `{{DATO_FALTANTE}}` en el mismo documento: al repetirse el mismo texto literal, `edit_file` ya no puede localizar uno sin el otro por `oldString` unico. Nunca inventar bienes, valores, cuotas, fechas ni protocolos. Nunca afirmar cuotas sin base en el titulo sucesorio. Nunca inventar clausulas testamentarias ni jurisprudencia.
 10. En la solicitud de division judicial, no omitir el requisito de procedibilidad MASC (Art. 5 LO 1/2025 y Art. 403.2 LEC): sin intento previo acreditado, advertir del riesgo de inadmision.

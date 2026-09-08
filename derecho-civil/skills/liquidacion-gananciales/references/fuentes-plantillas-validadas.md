@@ -7,7 +7,7 @@
 
 ## Regla de verificacion permanente (OBLIGATORIA)
 
-Cada vez que se lanza la skill, en el Paso de verificacion se comprueban las fuentes de esta tabla. **Si se detecta una version posterior a la registrada, la skill aplica la redaccion vigente al documento que redacta en el workspace del usuario** e informa del cambio en el chat. La skill nunca modifica sus propios archivos de plugin. Si la fuente no es accesible, se usa la version local, se advierte expresamente al usuario y el punto queda marcado como pendiente de verificacion manual. **Prohibido dar por vigente lo que no se ha podido verificar.**
+Cada vez que se lanza la skill, en la Fase 2.1 se comprueban las fuentes de esta tabla. **Si se detecta una version posterior a la registrada, la skill aplica la redaccion vigente al documento que redacta en el workspace del usuario** e informa del cambio en el chat. La skill nunca modifica sus propios archivos de plugin. Si la fuente no es accesible, se usa la version local, se advierte expresamente al usuario y el punto queda marcado como pendiente de verificacion manual. **Prohibido dar por vigente lo que no se ha podido verificar.**
 
 Atencion especial en esta skill: **los articulos 807, 808 y 810 de la LEC fueron modificados por la Ley Organica 2/2022, de 21 de marzo (BOE-A-2022-4516), con entrada en vigor el 23/03/2022.** Es una redaccion reciente en terminos de consolidacion: verificar estos tres bloques en cada lanzamiento, sin excepcion.
 

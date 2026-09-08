@@ -48,4 +48,4 @@ Cuando el desahucio afecta a la vivienda habitual del demandado, aplican garanti
 
 ### Marca de verificacion
 
-La regulacion de la vulnerabilidad y de la conciliacion/intermediacion previa (gran tenedor, zona de mercado tensionado) es especialmente cambiante y depende de la comunidad autonoma. La skill debe verificarla en el Paso 1 y, si no la confirma, marcarla `[verificar]` y advertir al usuario. Nunca afirmar que no aplica sin confirmacion.
+La regulacion de la vulnerabilidad y de la conciliacion/intermediacion previa (gran tenedor, zona de mercado tensionado) es especialmente cambiante y depende de la comunidad autonoma. La skill debe verificarla en el Fase 1 y, si no la confirma, marcarla `[verificar]` y advertir al usuario. Nunca afirmar que no aplica sin confirmacion.

@@ -1,6 +1,6 @@
 # Regimenes de Responsabilidad por Supuesto
 
-> Material de referencia para la skill `derecho-civil-responsabilidad-civil`. Soporta el enrutamiento del Punto 1 y la
+> Material de referencia para la skill `derecho-civil-responsabilidad-civil`. Soporta el enrutamiento del Fase 1 y la
 > redaccion de los fundamentos de imputacion de los assets. Preceptos verificados en el BOE el 02/09/2026
 > (ver `references/fuentes-plantillas-validadas.md`).
 

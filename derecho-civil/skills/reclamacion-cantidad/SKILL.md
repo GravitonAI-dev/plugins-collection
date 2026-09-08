@@ -127,9 +127,9 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
 - Si V4 = pendiente de vencer → **DETENER**: la deuda no es exigible todavia; no cabe reclamarla judicialmente. Advertir y no crear documento.
 - Si la pretension principal NO es el pago de una cantidad (materia del Art. 249.1 LEC, obligaciones de hacer, entrega de cosa) → **DETENER**: fuera de alcance; derivar a la skill correspondiente (`juicio-ordinario`) o a escalacion.
 
-### Validacion de procedibilidad (interno, antes del Punto 3)
+### Validacion de procedibilidad (interno, antes del Fase 3)
 
-- **HOJA MONITORIO:** confirmar deuda dineraria, liquida, determinada, vencida y exigible con documento del Art. 812; competencia del Juzgado de Primera Instancia del domicilio del deudor (Art. 813, sin sumision); si el deudor es ilocalizable, advertir de la limitacion. Si la deuda se funda en contrato empresario-consumidor, anotar el control de oficio del Art. 815.4 para explicarlo en el Punto 5.
+- **HOJA MONITORIO:** confirmar deuda dineraria, liquida, determinada, vencida y exigible con documento del Art. 812; competencia del Juzgado de Primera Instancia del domicilio del deudor (Art. 813, sin sumision); si el deudor es ilocalizable, advertir de la limitacion. Si la deuda se funda en contrato empresario-consumidor, anotar el control de oficio del Art. 815.4 para explicarlo en el Fase 5.
 - **HOJA VERBAL / ORDINARIO:** verificar que la cuantia se puede fijar (Arts. 251-253); en verbal <= 2.000 euros, informar de que no son preceptivos abogado ni procurador (Arts. 23.2.1º y 31.2.1º) y de que existe formulario normalizado del CGPJ; en ordinario, abogado y procurador preceptivos.
 - **HOJA ORDINARIO-818:** verificar que esta dentro del plazo de UN MES desde el traslado del escrito de oposicion (Art. 818.2). Si el plazo esta vencido o proximo a vencer, advertirlo de inmediato.
 - **HOJA OPOSICION:** verificar que esta dentro del plazo de VEINTE DIAS desde el requerimiento (Art. 815.1). Si el plazo esta vencido, advertir del riesgo de despacho de ejecucion (Art. 816) y ofrecer escalacion. Si la cuantia reclamada excede de 2.000 euros, informar de que la oposicion requiere abogado y procurador.
@@ -149,20 +149,15 @@ En esta fase interactúas **directamente a través del chat (en texto plano conv
 Envía un mensaje estructurado y formal que contenga:
 1. **Marco Legal Aplicable:** Ley de Enjuiciamiento Civil (Arts. 249, 250, 437 y 812 a 818), Código Civil (Arts. 1.088, 1.091, 1.101, 1.108 y 1.124), y Ley Orgánica 1/2025 de medidas de eficiencia del servicio público de justicia.
 2. **Orientación Legal del Caso:**
-Tras completar la verificacion (Punto 2), en un unico mensaje:
 
-1. **Informa la via y la fuente aplicable.** Indica al usuario que via procesal corresponde a su caso y por que, citando la norma con nombre completo y articulo, con el enlace del BOE consultado. Textos fijos por hoja (adaptar solo el dato de cuantia):
+**Informa la via y la fuente aplicable.** Indica al usuario que via procesal corresponde a su caso y por que, citando la norma con nombre completo y articulo, con el enlace del BOE consultado. Textos fijos por hoja (adaptar solo el dato de cuantia):
    - MONITORIO: "A su caso corresponde el proceso monitorio, regulado en los articulos 812 y siguientes de la Ley 1/2000, de Enjuiciamiento Civil, al tratarse de una deuda dineraria, liquida, vencida y exigible acreditada documentalmente, cualquiera que sea su cuantia. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-2000-323"
    - VERBAL: "A su caso corresponde el juicio verbal, conforme al articulo 250 de la Ley 1/2000, de Enjuiciamiento Civil, por no exceder la cuantia de 15.000 euros [o: por tratarse de rentas o cantidades debidas por arrendamiento de inmueble, articulo 250.1.1º]. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-2000-323"
    - ORDINARIO: "A su caso corresponde el juicio ordinario, conforme al articulo 249.2 de la Ley 1/2000, de Enjuiciamiento Civil, por exceder la cuantia de 15.000 euros. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-2000-323"
    - ORDINARIO-818: anadir ademas "Al haberse opuesto el deudor en el proceso monitorio, la demanda debe interponerse en el plazo de un mes desde el traslado del escrito de oposicion, conforme al articulo 818 de la misma ley."
    - OPOSICION: "Su escrito se rige por los articulos 815 y 818 de la Ley 1/2000, de Enjuiciamiento Civil: dispone de veinte dias desde el requerimiento para formular una oposicion fundada y motivada. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-2000-323"
    - Si la hoja incluye burofax previo (V6 = no), anadir: "Con caracter previo se preparara un burofax de requerimiento de pago, que acredita el intento de solucion extrajudicial exigido por la Ley Organica 1/2025 (articulos 264 y 403.2 de la Ley de Enjuiciamiento Civil). Tenga en cuenta que la demanda no debe presentarse hasta disponer del justificante del envio del burofax y haber dejado un plazo razonable de respuesta."
-2. **Ofrece la plantilla o pide el documento propio.** En el mismo mensaje:
-   "¿Que documento desea utilizar como base?
-   1. La plantilla del sistema, revisada por nuestros abogados y colaboradores
-   2. Adjuntar su propio documento"
-3. **Enruta segun la respuesta:** si elige la plantilla, continua con el Punto 4 usando el asset de la hoja; si elige adjuntar el suyo, pide que lo adjunte, leelo con `Read` y usalo como documento base en el Punto 4 en lugar del asset, sin dejar de aplicar los guardrails del dominio (advierte si el documento adjuntado los incumple).
+
 3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-burofax-masc-reclamacion.md`).
 4. **Pregunta Explícita al Usuario (Vía Chat):** Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
@@ -209,7 +204,7 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 
 **Anuncio de seccion y encadenamiento:** al terminar una seccion y confirmar su edicion en disco, emite en ese mismo turno el anuncio fijo de la seccion que se abre y lanza de inmediato su formulario `slot_filling_request` (si es grupo de datos) o su planteamiento en chat (si es negociacion). No pidas permiso para pasar de seccion: informa y continua. Los anuncios nombran la seccion SUSTANTIVA del documento, nunca la mecanica interna. La vista previa y la confirmacion siempre van en el chat. Las clausulas de negociacion se explican y se confirman una a una en el chat.
 
-**Propagacion de un dato confirmado (regla global de Edit):** varios datos (nombre y NIF de cada parte, cuantia) aparecen repetidos literalmente en mas de un punto del asset (encabezamiento/titulo, bloque de datos, cuerpo del EXPONE/HECHOS, SUPLICO y firma). Al confirmar el dato, sustituyelo mediante `Edit` en TODAS sus apariciones del documento, no solo en el bloque de datos donde se pregunto; verifica con `Read` que no queden placeholders sueltos del mismo dato ya confirmado.
+**Propagacion de un dato confirmado (regla global de Edit):** varios datos (nombre y NIF de cada parte, cuantia) aparecen repetidos literalmente en mas de un punto del asset (encabezamiento/titulo, bloque de datos, cuerpo del EXPONE/HECHOS, SUPLICO y firma). Al confirmar el dato, sustituyelo mediante `edit_file` en TODAS sus apariciones del documento, no solo en el bloque de datos donde se pregunto; verifica con `read_file` que no queden placeholders sueltos del mismo dato ya confirmado.
 
 ### Secciones — HOJA MONITORIO / HOJA VERBAL / HOJA ORDINARIO / HOJA ORDINARIO-818
 
@@ -253,7 +248,7 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 
 ## Límites Legales y Guardrails de Dominio (Gobernados por Vectores)
 
-1. Verificar siempre la LEC en el BOE antes de redactar (Punto 2). Sin verificacion, no proceder.
+1. Verificar siempre la LEC en el BOE antes de redactar (Fase 2). Sin verificacion, no proceder.
 2. Si se detecta una version de la LEC o un modelo del CGPJ posterior al registrado en las references, aplicar la redacción vigente directamente sobre el documento a redactar en el workspace del usuario. No usar una version desactualizada.
 3. El monitorio solo procede con deuda dineraria, liquida, determinada, vencida y exigible acreditada con documento (Art. 812). Si falla cualquier requisito, enrutar al declarativo o detener; nunca forzar la via.
 4. El umbral entre verbal y ordinario es 15.000 euros (Arts. 249.2 y 250.2); las rentas de arrendamiento van a verbal cualquiera que sea la cuantia (Art. 250.1.1º). No admitir elecciones de via contrarias a estos articulos aunque el usuario las pida.

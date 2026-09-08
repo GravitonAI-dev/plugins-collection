@@ -9,7 +9,7 @@
 
 ## Regla de verificacion permanente (OBLIGATORIA)
 
-Cada vez que se lanza la skill, en el Paso 1 se comprueban las fuentes de esta tabla, los modelos TA y los plazos vigentes. **Si se detecta una version posterior a la registrada, la skill aplica la redaccion vigente al tramite que prepara en el workspace del usuario** e informa del cambio en el chat. La skill nunca modifica sus propios archivos de plugin. Si la fuente no es accesible, se usa la version local y se informa al usuario.
+Cada vez que se lanza la skill, en la Fase 2.1 se comprueban las fuentes de esta tabla, los modelos TA y los plazos vigentes. **Si se detecta una version posterior a la registrada, la skill aplica la redaccion vigente al tramite que prepara en el workspace del usuario** e informa del cambio en el chat. La skill nunca modifica sus propios archivos de plugin. Si la fuente no es accesible, se usa la version local y se informa al usuario.
 
 ---
 
@@ -20,7 +20,7 @@ Cada vez que se lanza la skill, en el Paso 1 se comprueban las fuentes de esta t
 | RD-legislativo 8/2015, texto refundido de la LGSS | BOE-A-2015-11724 | texto consolidado a la fecha de verificacion (en vigor 02/01/2016) | https://www.boe.es/buscar/act.php?id=BOE-A-2015-11724 |
 | RD 84/1996, Reglamento general de inscripcion, afiliacion, altas, bajas y variaciones | BOE-A-1996-4396 [verificar] | texto consolidado a la fecha de verificacion | https://www.boe.es/buscar/act.php?id=BOE-A-1996-4396 |
 
-Modelos TA de referencia: TA.1 (afiliacion / NUSS), TA.6 (inscripcion de empresa / CCC), TA.2/S (alta y baja de trabajador; empleada de hogar TA.2/S-0138). Verificar el modelo vigente en el Paso 1. [verificar]
+Modelos TA de referencia: TA.1 (afiliacion / NUSS), TA.6 (inscripcion de empresa / CCC), TA.2/S (alta y baja de trabajador; empleada de hogar TA.2/S-0138). Verificar el modelo vigente en el Fase 1. [verificar]
 
 ---
 

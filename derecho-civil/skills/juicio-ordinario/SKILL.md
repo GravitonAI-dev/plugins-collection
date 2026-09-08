@@ -147,13 +147,9 @@ En esta fase interactúas **directamente a través del chat (en texto plano conv
 1. Consulta las referencias jurídicas cargadas en tu contexto (carpeta `references/`).
 2. Opcionalmente verifica en vivo mediante `web_search` la legislación consolidada en el BOE si se requieren confirmar índices o modificaciones normativas recientes.
 
-### 2.2 Mensaje de Plan de Acción y Consulta de Assets
-Envía un mensaje estructurado y formal que contenga:
-1. **Marco Legal Aplicable:** Artículos 249, 399, 403, 414-433 de la Ley de Enjuiciamiento Civil (LEC), reformada por Real Decreto-ley 6/2023 (umbral de 15.000 €) y Ley Orgánica 1/2025 de eficiencia procesal (MASC como requisito de admisibilidad).
-2. **Orientación Legal del Caso:**
 La skill verifica las fuentes oficiales en cada lanzamiento y, si detecta una version posterior, aplica la redaccion vigente al documento que redacta en el workspace del usuario, sin modificar sus propios archivos de plugin. Ejecutar SIEMPRE esta secuencia:
 
-**1.2 — Consultar la fuente oficial vigente en vivo.** Invocar:
+**2.1.2 — Consultar la fuente oficial vigente en vivo.** Invocar:
 ```
 read_file(...) o web_search(...)
 ```
@@ -164,15 +160,15 @@ Consultar tambien sobre MASC:
 web_search("BOE-A-2025-76 LO 1/2025 MASC requisito procedibilidad articulo 403 264 399 LEC texto consolidado")
 ```
 
-**1.3 — Comparar.** Contrastar la version oficial con la registrada en `fuentes-plantillas-validadas.md` y con las referencias del prompt (`lec-ambito-y-cuantia.md`, `admisibilidad-competencia-postulacion-masc.md`, `lec-demanda-y-documentos.md`, `lec-audiencia-previa.md`, `lec-prueba-y-conclusiones.md`). Prestar especial atencion al umbral de cuantia del Art. 249.2 y al requisito de MASC.
+**2.1.3 — Comparar.** Contrastar la version oficial con la registrada en `fuentes-plantillas-validadas.md` y con las referencias del prompt (`lec-ambito-y-cuantia.md`, `admisibilidad-competencia-postulacion-masc.md`, `lec-demanda-y-documentos.md`, `lec-audiencia-previa.md`, `lec-prueba-y-conclusiones.md`). Prestar especial atencion al umbral de cuantia del Art. 249.2 y al requisito de MASC.
 
-**1.4 — Aplicar cambios normativos.** Si la version oficial es posterior o el texto de los articulos ha cambiado:
+**2.1.4 — Aplicar cambios normativos.** Si la version oficial es posterior o el texto de los articulos ha cambiado:
 - Aplicar en memoria la redaccion vigente para adaptar los tramites, fases procesales y fundamentacion de los escritos.
 - Informar brevemente al usuario de que se detecto y aplico una version mas reciente (norma y fecha).
 
 No redactar ningun documento hasta haber completado esta actualizacion. Nunca usar una version desactualizada.
 
-**1.5 — Fallback si la fuente no es accesible.** Si `read_file` falla (error HTTP, timeout):
+**2.1.5 — Fallback si la fuente no es accesible.** Si `read_file` falla (error HTTP, timeout):
 ```
 web_search("Ley Enjuiciamiento Civil juicio ordinario articulo 249 399 audiencia previa 414 texto consolidado BOE")
 ```
@@ -182,6 +178,13 @@ web_search("LO 1/2025 MASC requisito procedibilidad articulo 403 264 399 LEC tex
 ```
 Si tambien falla: usar las references locales como respaldo y notificar al usuario:
 "No se pudo verificar la version vigente de la LEC en el BOE. Los documentos se generan con la version de referencia. Verificar manualmente antes de presentar."
+
+### 2.2 Mensaje de Plan de Acción y Consulta de Assets
+Envía un mensaje estructurado y formal que contenga:
+1. **Marco Legal Aplicable:** Artículos 249, 399, 403, 414-433 de la Ley de Enjuiciamiento Civil (LEC), reformada por Real Decreto-ley 6/2023 (umbral de 15.000 €) y Ley Orgánica 1/2025 de eficiencia procesal (MASC como requisito de admisibilidad).
+2. **Orientación Legal del Caso:**
+   Informa al usuario, en registro formal, de la norma y los artículos aplicables a la ruta resuelta, con la versión vigente verificada en la Fase 2.1 y el enlace de la fuente consultada.
+
 3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-checklist-admisibilidad.md`).
 4. **Pregunta Explícita al Usuario (Vía Chat):** Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
@@ -265,4 +268,4 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 6. Posicion conservadora sobre el MASC: la LO 1/2025 exige acreditar el intento previo de un medio adecuado de solucion de controversias como requisito de procedibilidad (Art. 403.2 LEC). Ante la duda, recomendar e integrar el intento previo y advertir de la cuestion (riesgo de inadmision, Art. 403.2).
 7. Documentos y preclusion: advertir SIEMPRE de que los documentos fundamentales de la accion y los dictamenes periciales deben acompanarse con la demanda (Arts. 265, 336) y de la preclusion del Art. 269. No admitir aportacion tardia salvo los supuestos del Art. 270.
 8. Carga de la prueba (Art. 217): al preparar la prueba y las conclusiones, atribuir a cada parte la carga que le corresponde. Nunca afirmar que un hecho esta probado sin base en las pruebas practicadas.
-9. Los campos a rellenar usan el placeholder propio del asset en doble llave, p. ej. `{{cuantia_reclamada}}` (NUNCA corchete simple `[DATO]`: colisiona con los identificadores de privacidad `[PERSON_1]`). Si hace falta marcar un hueco suelto sin placeholder propio, usa `{{DATO_FALTANTE}}` una sola vez por documento: nunca lo repitas para dos datos distintos, porque el `Edit` posterior necesita un `oldString` unico. Nunca inventar datos, cuantias, fechas ni referencias catastrales. Nunca inventar jurisprudencia.
+9. Los campos a rellenar usan el placeholder propio del asset en doble llave, p. ej. `{{cuantia_reclamada}}` (NUNCA corchete simple `[DATO]`: colisiona con los identificadores de privacidad `[PERSON_1]`). Si hace falta marcar un hueco suelto sin placeholder propio, usa `{{DATO_FALTANTE}}` una sola vez por documento: nunca lo repitas para dos datos distintos, porque el `edit_file` posterior necesita un `oldString` unico. Nunca inventar datos, cuantias, fechas ni referencias catastrales. Nunca inventar jurisprudencia.

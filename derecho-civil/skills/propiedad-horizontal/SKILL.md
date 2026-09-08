@@ -123,9 +123,9 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
   - **V5.b = 2 (deudas pendientes)**: no detiene el flujo, pero es un obstaculo. Ver la validacion de presupuestos.
 - Si V1 = propietario y V3 = otra cuestion → **DETENER Y DERIVAR**: identificar la materia y derivar sin crear documento. Casos frecuentes: requerimiento de pago de un monitorio de la comunidad ya recibido (skill `reclamacion-cantidad`, escrito de oposicion, plazo de veinte dias); reclamacion de cantidad frente a la comunidad por daños (skill `reclamacion-cantidad`); cuestiones arrendaticias del piso (skills `arrendamiento` o `desahucio`). Si no encaja en ninguna, ofrecer escalacion.
 
-### Validacion de presupuestos (interno, antes del Punto 3)
+### Validacion de presupuestos (interno, antes del Fase 3)
 
-- **HOJA CUOTAS:** comprobar que existe acuerdo de junta aprobando la liquidacion y autorizando la reclamacion; que quien va a firmar la certificacion ejerce las funciones de secretario; y si el visto bueno del presidente es necesario o concurre la excepcion del articulo 21.3 (secretario-administrador con cualificacion profesional legalmente reconocida que no vaya a intervenir profesionalmente en la reclamacion). Comprobar que la deuda puede desglosarse por concepto y periodo. Si el deudor no ha designado domicilio, anotar la regla del articulo 815.2 de la LEC (notificacion en el propio piso o local) para explicarla en el Punto 5.
+- **HOJA CUOTAS:** comprobar que existe acuerdo de junta aprobando la liquidacion y autorizando la reclamacion; que quien va a firmar la certificacion ejerce las funciones de secretario; y si el visto bueno del presidente es necesario o concurre la excepcion del articulo 21.3 (secretario-administrador con cualificacion profesional legalmente reconocida que no vaya a intervenir profesionalmente en la reclamacion). Comprobar que la deuda puede desglosarse por concepto y periodo. Si el deudor no ha designado domicilio, anotar la regla del articulo 815.2 de la LEC (notificacion en el propio piso o local) para explicarla en el Fase 5.
 - **HOJA CUOTAS-SIN-ACUERDO:** ademas de lo anterior, advertir de que la junta debe incluir el punto en el orden del dia y de que la certificacion no puede emitirse antes.
 - **HOJA IMPUGNACION:** verificar la legitimacion (articulo 18.2), el plazo de caducidad (articulo 18.3, computado desde el acuerdo o desde su comunicacion al ausente) y el requisito de estar al corriente de pago, con la excepcion legal de los acuerdos sobre establecimiento o alteracion de las cuotas de participacion del articulo 9. Si el cliente estuvo ausente, comprobar si comunico su discrepancia dentro de los treinta dias naturales del articulo 17.8 y advertir de las consecuencias si no lo hizo. Abogado y procurador son preceptivos.
 - **HOJA CESACION:** verificar que quien requiere es el presidente (o que actua por su cuenta a iniciativa de un propietario u ocupante) y que la conducta encaja en alguno de los tres supuestos del articulo 7.2, o en el articulo 7.3 si se trata de alquiler de uso turistico sin aprobacion de la comunidad. Comprobar si el infractor es propietario u ocupante.
@@ -145,19 +145,14 @@ En esta fase interactúas **directamente a través del chat (en texto plano conv
 Envía un mensaje estructurado y formal que contenga:
 1. **Marco Legal Aplicable:** Ley 49/1960, de 21 de julio, sobre Propiedad Horizontal (LPH): Art. 7.2 (actividades prohibidas y acción de cesación), Art. 9.1.e (obligación contributiva y afección real), Art. 18 (impugnación de acuerdos, plazos de 3 meses o 1 año y requisito de estar al corriente de pago), y Art. 21 (proceso monitorio especial de reclamación de cuotas).
 2. **Orientación Legal del Caso:**
-Tras completar la verificacion (Punto 2), en un unico mensaje:
 
-1. **Informa el cauce y la fuente aplicable.** Indica que documento corresponde a su caso y por que, citando la norma con nombre completo y articulo, con el enlace del BOE consultado. Textos fijos por hoja:
+**Informa el cauce y la fuente aplicable.** Indica que documento corresponde a su caso y por que, citando la norma con nombre completo y articulo, con el enlace del BOE consultado. Textos fijos por hoja:
    - CUOTAS: "A su caso corresponde el proceso monitorio especial de comunidades de propietarios, regulado en el articulo 21 de la Ley 49/1960, de 21 de julio, sobre propiedad horizontal, en relacion con el articulo 812.2.2º de la Ley 1/2000, de Enjuiciamiento Civil. Prepararemos primero la certificacion del acuerdo de liquidacion de la deuda, que es el documento que la ley exige acompanar, y despues la peticion inicial. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-1960-10906"
    - CUOTAS-SIN-ACUERDO: anadir al texto anterior "Tenga en cuenta que la reclamacion requiere un acuerdo previo de la junta que apruebe la liquidacion de la deuda y autorice su reclamacion judicial, conforme a los articulos 21.1 y 21.2 de la misma ley. Prepararemos ahora la certificacion para que pueda emitirse en cuanto la junta lo adopte; la peticion inicial no debe presentarse antes."
    - IMPUGNACION: "A su caso corresponde la impugnacion de acuerdos de la junta, regulada en el articulo 18 de la Ley 49/1960, de 21 de julio, sobre propiedad horizontal, que se sustancia por los tramites del juicio ordinario conforme al articulo 249.1.8º de la Ley 1/2000, de Enjuiciamiento Civil, cualquiera que sea la cuantia. La accion caduca a los tres meses desde la adopcion del acuerdo, o al año si el acuerdo es contrario a la ley o a los estatutos. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-1960-10906"
    - CESACION: "A su caso corresponde el requerimiento previo de cesacion del articulo 7.2 de la Ley 49/1960, de 21 de julio, sobre propiedad horizontal, que el presidente debe dirigir al infractor antes de que la comunidad pueda ejercitar la accion de cesacion. Fuente consultada: https://www.boe.es/buscar/act.php?id=BOE-A-1960-10906"
    - En IMPUGNACION, anadir siempre: "Antes de presentar la demanda debera acreditarse el intento de solucion extrajudicial exigido por la Ley Organica 1/2025 (articulos 264 y 403.2 de la Ley de Enjuiciamiento Civil). La solicitud de negociacion suspende el plazo de caducidad, pero no conviene apurarlo."
-2. **Ofrece la plantilla o pide el documento propio.** En el mismo mensaje:
-   "¿Que documento desea utilizar como base?
-   1. La plantilla del sistema, revisada por nuestros abogados y colaboradores
-   2. Adjuntar su propio documento"
-3. **Enruta segun la respuesta:** si elige la plantilla, continua con el Punto 4 usando el asset de la hoja; si elige adjuntar el suyo, pide que lo adjunte, leelo con `Read` y usalo como documento base en el Punto 4 en lugar del asset, sin dejar de aplicar los guardrails del dominio (advierte si el documento adjuntado los incumple, en particular si la certificacion carece de desglose o de las firmas exigidas por el articulo 21.3).
+
 3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada (`assets/template-certificacion-deuda-comunidad.md`).
 4. **Pregunta Explícita al Usuario (Vía Chat):** Formula exactamente la siguiente consulta en el chat:
    > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
@@ -267,7 +262,7 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 
 ## Límites Legales y Guardrails de Dominio (Gobernados por Vectores)
 
-1. Verificar siempre la LPH y la LEC en el BOE antes de redactar (Punto 2). Sin verificacion, no proceder.
+1. Verificar siempre la LPH y la LEC en el BOE antes de redactar (Fase 2). Sin verificacion, no proceder.
 2. Si se detecta una version del texto consolidado posterior a la registrada en las references, aplicar la redacción vigente directamente sobre el documento a redactar en el workspace del usuario. No usar una version desactualizada.
 3. La reclamacion de cuotas exige acuerdo previo de la junta que apruebe la liquidacion y autorice la reclamacion (articulos 21.1 y 21.2). Sin ese acuerdo no se genera la peticion inicial, por mucho que el usuario insista.
 4. La certificacion debe expresar el importe adeudado Y SU DESGLOSE (articulo 21.3). Nunca emitir una certificacion con un importe global.

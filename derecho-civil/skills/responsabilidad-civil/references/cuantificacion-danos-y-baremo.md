@@ -1,7 +1,7 @@
 # Cuantificacion del Dano y Sistema de Valoracion (Baremo)
 
 > Material de referencia para la skill `derecho-civil-responsabilidad-civil`. Soporta las secciones de cuantificacion
-> marcadas como `[negociacion]` en el Punto 5 del `SKILL.md`. Preceptos verificados en el BOE el 02/09/2026
+> marcadas como `[negociacion]` en el Fase 5 del `SKILL.md`. Preceptos verificados en el BOE el 02/09/2026
 > (ver `references/fuentes-plantillas-validadas.md`).
 
 ---
@@ -68,7 +68,7 @@ El anejo del Anexo contiene ademas las tablas I a VI y A a C, de apoyo al calcul
 
 Consecuencias operativas, sin excepcion:
 
-1. **Ningun asset de esta skill lleva escrita una cuantia del baremo.** La cuantia se resuelve en el turno correspondiente del Punto 5, leyendo las tablas del ejercicio.
+1. **Ningun asset de esta skill lleva escrita una cuantia del baremo.** La cuantia se resuelve en el turno correspondiente del Fase 5, leyendo las tablas del ejercicio.
 2. **El texto consolidado del BOE NO sirve para cifrar.** Su Anexo refleja las cuantias de la ultima modificacion legislativa (a 02/09/2026, la de la Ley 5/2025 de 25/07/2025), sin las actualizaciones anuales por IPC. Trabajar con esas cifras significa indemnizar con un baremo caducado.
 3. **La fuente de la cuantia es la Resolucion de la DGSFP del ejercicio.** Para 2026: Resolucion de 3 de febrero de 2026 (BOE-A-2026-3803, publicada el 18/02/2026), que aplica el IPC de 2025, **+2,9 %**. Las tablas completas se publican en el portal de la DGSFP: `https://dgsfp.mineco.gob.es/`.
 4. **Se lee el importe, no se calcula.** Esta PROHIBIDO obtener una cuantia aplicando el porcentaje de actualizacion a un importe recordado o al del texto consolidado: hay que abrir la tabla del ejercicio y leer la cifra.
