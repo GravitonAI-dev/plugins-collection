@@ -1,35 +1,35 @@
-# CONTRATO DE COMODATO (PRESTAMO DE USO GRATUITO) — {{nombre_comodante}} / {{nombre_comodatario}}
+# CONTRATO DE COMODATO (PRESTAMO DE USO GRATUITO) — {{NOMBRE_COMODANTE}} / {{NOMBRE_COMODATARIO}}
 
 > **DRAFT — para revision por un abogado colegiado antes de su firma. No constituye asesoramiento juridico definitivo.**  
-> Version del Codigo Civil verificada en el BOE: {{fecha_verificacion_normativa}}
+> Version del Codigo Civil verificada en el BOE: {{FECHA_VERIFICACION_NORMATIVA}}
 
 ---
 
-En {{municipio_firma}}, a {{fecha_contrato}}
+En {{MUNICIPIO_FIRMA}}, a {{FECHA_CONTRATO}}
 
 ## REUNIDOS
 
 **De una parte, como COMODANTE:**
 
-Nombre / Razon social: {{nombre_comodante}}  
-DNI / NIE / CIF: {{documento_comodante}}  
-Domicilio a efectos de notificaciones: {{domicilio_comodante}}  
-Telefono: {{telefono_comodante}}  
-Correo electronico: {{email_comodante}}
+Nombre / Razon social: {{NOMBRE_COMODANTE}}  
+DNI / NIE / CIF: {{DOCUMENTO_COMODANTE}}  
+Domicilio a efectos de notificaciones: {{DOMICILIO_COMODANTE}}  
+Telefono: {{TELEFONO_COMODANTE}}  
+Correo electronico: {{EMAIL_COMODANTE}}
 **De otra parte, como COMODATARIO:**
 
-Nombre / Razon social: {{nombre_comodatario}}  
-DNI / NIE / CIF: {{documento_comodatario}}  
-Domicilio a efectos de notificaciones: {{domicilio_comodatario}}  
-Telefono: {{telefono_comodatario}}  
-Correo electronico: {{email_comodatario}}
+Nombre / Razon social: {{NOMBRE_COMODATARIO}}  
+DNI / NIE / CIF: {{DOCUMENTO_COMODATARIO}}  
+Domicilio a efectos de notificaciones: {{DOMICILIO_COMODATARIO}}  
+Telefono: {{TELEFONO_COMODATARIO}}  
+Correo electronico: {{EMAIL_COMODATARIO}}
 Las partes se reconocen mutuamente la capacidad legal necesaria para obligarse en los terminos de este contrato y, a tal fin,
 
 ## EXPONEN
 
-I. Que el COMODANTE es {{titulo_del_comodante}} del bien que se describe en la clausula PRIMERA, y tiene sobre el facultades suficientes para cederlo en uso.  
-II. Que el COMODATARIO esta interesado en usar dicho bien para {{uso_previsto}}, sin contraprestacion alguna.  
-III. Que la cesion se realiza a titulo estrictamente gratuito, movida exclusivamente por la relacion de {{relacion_entre_las_partes}} existente entre las partes, sin que el COMODATARIO deba abonar renta, canon, precio ni emolumento de ninguna clase.  
+I. Que el COMODANTE es {{TITULO_DEL_COMODANTE}} del bien que se describe en la clausula PRIMERA, y tiene sobre el facultades suficientes para cederlo en uso.  
+II. Que el COMODATARIO esta interesado en usar dicho bien para {{USO_PREVISTO}}, sin contraprestacion alguna.  
+III. Que la cesion se realiza a titulo estrictamente gratuito, movida exclusivamente por la relacion de {{RELACION_ENTRE_LAS_PARTES}} existente entre las partes, sin que el COMODATARIO deba abonar renta, canon, precio ni emolumento de ninguna clase.  
 IV. Que, reconociendose capacidad suficiente, formalizan el presente CONTRATO DE COMODATO al amparo de los articulos 1.740 a 1.752 del Codigo Civil, con arreglo a las siguientes
 
 ---
@@ -40,10 +40,10 @@ IV. Que, reconociendose capacidad suficiente, formalizan el presente CONTRATO DE
 
 El COMODANTE cede al COMODATARIO, en concepto de comodato o prestamo de uso, el siguiente bien:
 
-Descripcion: {{descripcion_bien}}  
-Identificacion: {{identificacion_bien}}  
-Ubicacion: {{ubicacion_bien}}  
-Estado en el momento de la entrega: {{estado_bien_entrega}}
+Descripcion: {{DESCRIPCION_BIEN}}  
+Identificacion: {{IDENTIFICACION_BIEN}}  
+Ubicacion: {{UBICACION_BIEN}}  
+Estado en el momento de la entrega: {{ESTADO_BIEN_ENTREGA}}
 
 El COMODANTE conserva en todo momento la propiedad del bien cedido. El COMODATARIO adquiere unicamente su uso, y no hace suyos los frutos que el bien pueda producir, conforme al articulo 1.741 del Codigo Civil.
 
@@ -57,7 +57,7 @@ La obligacion del COMODATARIO de asumir los gastos ordinarios prevista en la cla
 
 ### TERCERA — Destino y duracion
 
-El COMODATARIO destinara el bien exclusivamente a {{uso_previsto}}, sin que pueda darle un uso distinto.
+El COMODATARIO destinara el bien exclusivamente a {{USO_PREVISTO}}, sin que pueda darle un uso distinto.
 
 ### CUARTA — Obligaciones del COMODATARIO
 
@@ -85,23 +85,23 @@ Si el COMODATARIO destina el bien a un uso distinto de aquel para el que se pres
 
 El uso del bien para un destino distinto del pactado, o la cesion no autorizada a terceros, facultara ademas al COMODANTE para exigir la restitucion inmediata del bien y para reclamar los daños y perjuicios causados, conforme a los articulos 1.101 y 1.124 del Codigo Civil.
 
-### {{ordinal_restitucion}} — Restitucion del bien
+### {{ORDINAL_RESTITUCION}} — Restitucion del bien
 
-Llegado el momento de la restitucion, el COMODATARIO devolvera el bien al COMODANTE en {{lugar_restitucion}}, junto con todos los elementos accesorios que le fueron entregados.
+Llegado el momento de la restitucion, el COMODATARIO devolvera el bien al COMODANTE en {{LUGAR_RESTITUCION}}, junto con todos los elementos accesorios que le fueron entregados.
 
 Las partes suscribiran en ese momento un documento acreditativo de la devolucion, en el que se hara constar el estado en que el bien es restituido.
 
-### {{ordinal_forma}} — Forma del contrato
+### {{ORDINAL_FORMA}} — Forma del contrato
 
-### {{ordinal_notificaciones}} — Notificaciones
+### {{ORDINAL_NOTIFICACIONES}} — Notificaciones
 
 Las comunicaciones entre las partes se dirigiran a los domicilios y direcciones de correo electronico que constan en el encabezamiento de este contrato.
 
-Cualquier cambio de domicilio o de direccion electronica debera ser comunicado a la otra parte en el plazo de {{plazo_comunicacion_cambio_domicilio}}. En tanto no se comunique, las notificaciones dirigidas a los datos consignados en este contrato se tendran por validamente efectuadas.
+Cualquier cambio de domicilio o de direccion electronica debera ser comunicado a la otra parte en el plazo de {{PLAZO_COMUNICACION_CAMBIO_DOMICILIO}}. En tanto no se comunique, las notificaciones dirigidas a los datos consignados en este contrato se tendran por validamente efectuadas.
 
 El requerimiento de restitucion del bien se realizara por un medio que permita acreditar su contenido y su recepcion.
 
-### {{ordinal_ley_fuero}} — Ley aplicable y fuero
+### {{ORDINAL_LEY_FUERO}} — Ley aplicable y fuero
 
 El presente contrato se rige por los articulos 1.740 a 1.752 del Codigo Civil y, supletoriamente, por las disposiciones generales sobre obligaciones y contratos del mismo cuerpo legal.
 
@@ -114,12 +114,12 @@ Leido el presente contrato por ambas partes, y encontrandolo conforme, lo firman
 
 **EL COMODANTE**
 
-Nombre: {{nombre_comodante}}  
+Nombre: {{NOMBRE_COMODANTE}}  
 Firma: ___________________________
 
 **EL COMODATARIO**
 
-Nombre: {{nombre_comodatario}}  
+Nombre: {{NOMBRE_COMODATARIO}}  
 Firma: ___________________________
 
 ---
@@ -130,6 +130,6 @@ Firma: ___________________________
 
 > **Advertencias:**  
 > 1. Este contrato es un DRAFT generado automaticamente. Debe ser revisado por un abogado colegiado antes de su firma.  
-> 2. Version del Codigo Civil verificada en el BOE: {{fecha_verificacion_normativa}}.  
+> 2. Version del Codigo Civil verificada en el BOE: {{FECHA_VERIFICACION_NORMATIVA}}.  
 > 3. El comodato es gratuito por definicion. Si se pacta cualquier contraprestacion a cargo del comodatario, el contrato deja de ser comodato y pasa a regirse por el regimen del arrendamiento, con consecuencias distintas para ambas partes.  
 > 4. Documente el estado del bien en el momento de la entrega (anexo y fotografias): es la unica forma de discutir despues si un deterioro deriva del uso normal o de un uso indebido.

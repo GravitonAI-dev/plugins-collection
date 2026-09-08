@@ -30,7 +30,7 @@ El deber de secreto se proyecta sobre **todo** lo conocido con ocasión del enca
 
 Consecuencias operativas para este plugin:
 
-1. **En la minuta y en la jura de cuentas**, el detalle de las actuaciones debe describirse con la precisión necesaria para justificar el honorario, **sin revelar** la estrategia del asunto, las confidencias del cliente ni datos de terceros. Es una tensión real: la minuta necesita detalle y el secreto lo limita. La solución es describir **actuaciones** ("estudio de la documentación aportada", "redacción de escrito de oposición", "asistencia a vista de {{fecha}}") sin describir **contenidos**.
+1. **En la minuta y en la jura de cuentas**, el detalle de las actuaciones debe describirse con la precisión necesaria para justificar el honorario, **sin revelar** la estrategia del asunto, las confidencias del cliente ni datos de terceros. Es una tensión real: la minuta necesita detalle y el secreto lo limita. La solución es describir **actuaciones** ("estudio de la documentación aportada", "redacción de escrito de oposición", "asistencia a vista de {{FECHA}}") sin describir **contenidos**.
 2. **En la comunicación de fin de encargo**, hacer constar que el deber subsiste.
 3. **En la prevención del blanqueo**, la normativa contempla un régimen específico respecto de la información obtenida en el marco de la determinación de la posición jurídica del cliente y de su defensa o representación, cuyo alcance exacto debe verificarse.
 4. **En los contratos con proveedores** del despacho que accedan a información —informática, archivo, destrucción documental—, el deber se traslada mediante contrato de encargado de tratamiento y compromiso de confidencialidad.

@@ -1,28 +1,28 @@
-# RECIBO DE FINIQUITO — {{razon_social_empresa: razón social}} y {{nombre_trabajador: nombre y apellidos}}
+# RECIBO DE FINIQUITO — {{RAZON_SOCIAL_EMPRESA: razón social}} y {{NOMBRE_TRABAJADOR: nombre y apellidos}}
 
 > **DRAFT — para revisión por un abogado o graduado social colegiado antes de su firma y entrega. No constituye asesoramiento jurídico definitivo.**  
-> Convenio colectivo aplicable: {{denominacion_convenio: denominación y ámbito del convenio colectivo}} (código {{codigo_convenio: código de convenio}})
+> Convenio colectivo aplicable: {{DENOMINACION_CONVENIO: denominación y ámbito del convenio colectivo}} (código {{CODIGO_CONVENIO: código de convenio}})
 
 ---
 
 **EMPRESA**  
-{{razon_social_empresa: razón social}}  
-CIF {{cif_empresa: CIF/NIF}}  
-{{domicilio_empresa: domicilio completo}}  
-Código de cuenta de cotización {{ccc_empresa: código de cuenta de cotización}}
+{{RAZON_SOCIAL_EMPRESA: razón social}}  
+CIF {{CIF_EMPRESA: CIF/NIF}}  
+{{DOMICILIO_EMPRESA: domicilio completo}}  
+Código de cuenta de cotización {{CCC_EMPRESA: código de cuenta de cotización}}
 
 **PERSONA TRABAJADORA**  
-{{nombre_trabajador: nombre y apellidos}}  
-DNI/NIE {{dni_trabajador: DNI/NIE}}  
-Número de afiliación a la Seguridad Social {{naf_trabajador: número de afiliación a la Seguridad Social}}  
-Categoría o grupo profesional: {{categoria_profesional: categoría profesional del convenio}}  
-Fecha de antigüedad: {{fecha_antiguedad: fecha (DD/MM/AAAA)}}
+{{NOMBRE_TRABAJADOR: nombre y apellidos}}  
+DNI/NIE {{DNI_TRABAJADOR: DNI/NIE}}  
+Número de afiliación a la Seguridad Social {{NAF_TRABAJADOR: número de afiliación a la Seguridad Social}}  
+Categoría o grupo profesional: {{CATEGORIA_PROFESIONAL: categoría profesional del convenio}}  
+Fecha de antigüedad: {{FECHA_ANTIGUEDAD: fecha (DD/MM/AAAA)}}
 
 **EXTINCIÓN**  
-Fecha de efectos: {{fecha_extincion: fecha (DD/MM/AAAA)}}  
-Causa: {{causa_extincion: causa de la extinción}}
+Fecha de efectos: {{FECHA_EXTINCION: fecha (DD/MM/AAAA)}}  
+Causa: {{CAUSA_EXTINCION: causa de la extinción}}
 
-En {{lugar_emision: localidad}}, a {{fecha_recibo: fecha (DD/MM/AAAA)}}
+En {{LUGAR_EMISION: localidad}}, a {{FECHA_RECIBO: fecha (DD/MM/AAAA)}}
 
 ---
 
@@ -34,30 +34,30 @@ En cumplimiento de lo dispuesto en el artículo 49.2 del texto refundido de la L
 
 | Concepto | Detalle del cálculo | Importe bruto |
 |---|---|---|
-| Salario del mes de {{mes_extincion: mes de la extinción}} ({{dias_trabajados_mes: número de días}} días) | {{calculo_salario_mes: detalle del cálculo}} | {{importe_salario_mes: importe en euros}} € |
-| Parte proporcional de paga extraordinaria de {{denominacion_paga_1: denominación de la paga extraordinaria}} | {{calculo_paga_1: detalle del cálculo}} | {{importe_paga_1: importe en euros}} € |
-| Parte proporcional de paga extraordinaria de {{denominacion_paga_2: denominación de la paga extraordinaria}} | {{calculo_paga_2: detalle del cálculo}} | {{importe_paga_2: importe en euros}} € |
-| Vacaciones devengadas y no disfrutadas ({{dias_vacaciones_pendientes: número de días}} días) | {{calculo_vacaciones: detalle del cálculo}} | {{importe_vacaciones: importe en euros}} € |
-| {{concepto_adicional_1: concepto adicional}} | {{calculo_concepto_adicional_1: detalle del cálculo}} | {{importe_concepto_adicional_1: importe en euros}} € |
-| {{concepto_adicional_2: concepto adicional}} | {{calculo_concepto_adicional_2: detalle del cálculo}} | {{importe_concepto_adicional_2: importe en euros}} € |
-| **TOTAL DEVENGOS** | | **{{total_devengos: importe en euros — calculado, suma de los devengos}} €** |
+| Salario del mes de {{MES_EXTINCION: mes de la extinción}} ({{DIAS_TRABAJADOS_MES: número de días}} días) | {{CALCULO_SALARIO_MES: detalle del cálculo}} | {{IMPORTE_SALARIO_MES: importe en euros}} € |
+| Parte proporcional de paga extraordinaria de {{DENOMINACION_PAGA_1: denominación de la paga extraordinaria}} | {{CALCULO_PAGA_1: detalle del cálculo}} | {{IMPORTE_PAGA_1: importe en euros}} € |
+| Parte proporcional de paga extraordinaria de {{DENOMINACION_PAGA_2: denominación de la paga extraordinaria}} | {{CALCULO_PAGA_2: detalle del cálculo}} | {{IMPORTE_PAGA_2: importe en euros}} € |
+| Vacaciones devengadas y no disfrutadas ({{DIAS_VACACIONES_PENDIENTES: número de días}} días) | {{CALCULO_VACACIONES: detalle del cálculo}} | {{IMPORTE_VACACIONES: importe en euros}} € |
+| {{CONCEPTO_ADICIONAL_1: concepto adicional}} | {{CALCULO_CONCEPTO_ADICIONAL_1: detalle del cálculo}} | {{IMPORTE_CONCEPTO_ADICIONAL_1: importe en euros}} € |
+| {{CONCEPTO_ADICIONAL_2: concepto adicional}} | {{CALCULO_CONCEPTO_ADICIONAL_2: detalle del cálculo}} | {{IMPORTE_CONCEPTO_ADICIONAL_2: importe en euros}} € |
+| **TOTAL DEVENGOS** | | **{{TOTAL_DEVENGOS: importe en euros — calculado, suma de los devengos}} €** |
 
 ### Deducciones
 
 | Concepto | Detalle | Importe |
 |---|---|---|
-| Cotización a la Seguridad Social a cargo de la persona trabajadora | {{calculo_cotizacion_trabajador: detalle del cálculo}} | {{importe_cotizacion_trabajador: importe en euros}} € |
-| Retención a cuenta del Impuesto sobre la Renta de las Personas Físicas ({{tipo_retencion: porcentaje}} %) | {{calculo_retencion_irpf: detalle del cálculo}} | {{importe_retencion_irpf: importe en euros}} € |
-| {{concepto_deduccion_1: concepto de la deducción}} | {{detalle_deduccion_1: detalle del cálculo}} | {{importe_deduccion_1: importe en euros}} € |
-| **TOTAL DEDUCCIONES** | | **{{total_deducciones: importe en euros — calculado, suma de las deducciones}} €** |
+| Cotización a la Seguridad Social a cargo de la persona trabajadora | {{CALCULO_COTIZACION_TRABAJADOR: detalle del cálculo}} | {{IMPORTE_COTIZACION_TRABAJADOR: importe en euros}} € |
+| Retención a cuenta del Impuesto sobre la Renta de las Personas Físicas ({{TIPO_RETENCION: porcentaje}} %) | {{CALCULO_RETENCION_IRPF: detalle del cálculo}} | {{IMPORTE_RETENCION_IRPF: importe en euros}} € |
+| {{CONCEPTO_DEDUCCION_1: concepto de la deducción}} | {{DETALLE_DEDUCCION_1: detalle del cálculo}} | {{IMPORTE_DEDUCCION_1: importe en euros}} € |
+| **TOTAL DEDUCCIONES** | | **{{TOTAL_DEDUCCIONES: importe en euros — calculado, suma de las deducciones}} €** |
 
 ### Líquido a percibir
 
-**{{liquido_percibir: importe en euros — calculado, devengos menos deducciones}} euros**
+**{{LIQUIDO_PERCIBIR: importe en euros — calculado, devengos menos deducciones}} euros**
 
-{{parrafo_indemnizacion_extincion: bloque condicional que inserta la skill}}
+{{PARRAFO_INDEMNIZACION_EXTINCION: bloque condicional que inserta la skill}}
 
-El pago se realizará mediante {{forma_pago: forma de pago}} en fecha {{fecha_pago: fecha (DD/MM/AAAA)}}.
+El pago se realizará mediante {{FORMA_PAGO: forma de pago}} en fecha {{FECHA_PAGO: fecha (DD/MM/AAAA)}}.
 
 ---
 
@@ -65,23 +65,23 @@ El pago se realizará mediante {{forma_pago: forma de pago}} en fecha {{fecha_pa
 
 Conforme al artículo 49.2 del Estatuto de los Trabajadores, la persona trabajadora puede solicitar la presencia de un representante legal de los trabajadores en el momento de la firma del presente recibo.
 
-A tal efecto se hace constar: {{constancia_presencia_representante: constancia sobre la presencia de representante legal en la firma}}
+A tal efecto se hace constar: {{CONSTANCIA_PRESENCIA_REPRESENTANTE: constancia sobre la presencia de representante legal en la firma}}
 
 ---
 
 ## RECIBÍ
 
-Recibo de {{razon_social_empresa: razón social}} la cantidad líquida de {{liquido_percibir: importe en euros — calculado, devengos menos deducciones}} euros, por los conceptos que se detallan en la liquidación que antecede, correspondientes a la extinción de mi contrato de trabajo con efectos del día {{fecha_extincion: fecha (DD/MM/AAAA)}}.
+Recibo de {{RAZON_SOCIAL_EMPRESA: razón social}} la cantidad líquida de {{LIQUIDO_PERCIBIR: importe en euros — calculado, devengos menos deducciones}} euros, por los conceptos que se detallan en la liquidación que antecede, correspondientes a la extinción de mi contrato de trabajo con efectos del día {{FECHA_EXTINCION: fecha (DD/MM/AAAA)}}.
 
-{{formula_salvedad_firma: detalle del cálculo}}
+{{FORMULA_SALVEDAD_FIRMA: detalle del cálculo}}
 
-Fdo.: {{nombre_trabajador: nombre y apellidos}}  
-DNI/NIE {{dni_trabajador: DNI/NIE}}  
-Fecha: {{fecha_firma_recibo: fecha (DD/MM/AAAA)}}
+Fdo.: {{NOMBRE_TRABAJADOR: nombre y apellidos}}  
+DNI/NIE {{DNI_TRABAJADOR: DNI/NIE}}  
+Fecha: {{FECHA_FIRMA_RECIBO: fecha (DD/MM/AAAA)}}
 
 **POR LA EMPRESA**  
-Fdo.: {{nombre_representante: nombre y apellidos}}  
-{{cargo_representante: cargo del firmante}}
+Fdo.: {{NOMBRE_REPRESENTANTE: nombre y apellidos}}  
+{{CARGO_REPRESENTANTE: cargo del firmante}}
 
 ---
 

@@ -4,23 +4,23 @@
 
 ---
 
-**AL JUZGADO {{organo_judicial: denominación del órgano judicial}}**  
-**Autos:** {{clase_procedimiento: clase de procedimiento judicial}} n.º {{numero_autos: referencia alfanumérica}}  
+**AL JUZGADO {{ORGANO_JUDICIAL: denominación del órgano judicial}}**  
+**Autos:** {{CLASE_PROCEDIMIENTO: clase de procedimiento judicial}} n.º {{NUMERO_AUTOS: referencia alfanumérica}}  
 **Pieza de reclamación de honorarios del artículo 35 de la Ley de Enjuiciamiento Civil**
 
-{{nombre_profesional_responsable: nombre y apellidos}}, abogado colegiado n.º {{numero_colegiado: número de colegiado}} del {{colegio_adscripcion: denominación del colegio}}, con domicilio profesional en {{domicilio_despacho: domicilio completo}}, en la pieza de reclamación de honorarios de referencia, ante el Juzgado comparezco y como mejor proceda en Derecho
+{{NOMBRE_PROFESIONAL_RESPONSABLE: nombre y apellidos}}, abogado colegiado n.º {{NUMERO_COLEGIADO: número de colegiado}} del {{COLEGIO_ADSCRIPCION: denominación del colegio}}, con domicilio profesional en {{DOMICILIO_DESPACHO: domicilio completo}}, en la pieza de reclamación de honorarios de referencia, ante el Juzgado comparezco y como mejor proceda en Derecho
 
 **DIGO**
 
-Que se me ha dado traslado del escrito de impugnación de la minuta presentado por {{nombre_cliente: nombre y apellidos}}, y dentro del plazo conferido formulo las siguientes **ALEGACIONES**:
+Que se me ha dado traslado del escrito de impugnación de la minuta presentado por {{NOMBRE_CLIENTE: nombre y apellidos}}, y dentro del plazo conferido formulo las siguientes **ALEGACIONES**:
 
 ## PRIMERO — Naturaleza de la impugnación formulada
 
-{{caracterizacion_impugnacion: texto libre}}
+{{CARACTERIZACION_IMPUGNACION: texto libre}}
 
 ## SEGUNDO — Título del encargo y honorarios pactados
 
-{{bloque_titulo_encargo_y_pacto: bloque condicional que inserta la skill}}
+{{BLOQUE_TITULO_ENCARGO_Y_PACTO: bloque condicional que inserta la skill}}
 
 ## TERCERO — Realidad de las actuaciones profesionales
 
@@ -28,43 +28,43 @@ Frente a lo alegado de contrario, las actuaciones minutadas fueron efectivamente
 
 | Actuación minutada | Acreditación en autos o documental |
 |---|---|
-| {{actuacion_1: actuación minutada}} | {{acreditacion_1: texto breve}} |
-| {{actuacion_2: actuación minutada}} | {{acreditacion_2: texto breve}} |
-| {{actuacion_3: actuación minutada}} | {{acreditacion_3: texto breve}} |
-| {{actuacion_4: actuación minutada}} | {{acreditacion_4: texto breve}} |
-| {{actuacion_5: actuación minutada}} | {{acreditacion_5: texto breve}} |
+| {{ACTUACION_1: actuación minutada}} | {{ACREDITACION_1: texto breve}} |
+| {{ACTUACION_2: actuación minutada}} | {{ACREDITACION_2: texto breve}} |
+| {{ACTUACION_3: actuación minutada}} | {{ACREDITACION_3: texto breve}} |
+| {{ACTUACION_4: actuación minutada}} | {{ACREDITACION_4: texto breve}} |
+| {{ACTUACION_5: actuación minutada}} | {{ACREDITACION_5: texto breve}} |
 
 ## CUARTO — Contestación a los motivos de impugnación
 
-{{contestacion_motivos_impugnacion: texto libre, uno o varios párrafos}}
+{{CONTESTACION_MOTIVOS_IMPUGNACION: texto libre, uno o varios párrafos}}
 
 ## QUINTO — Adecuación de la cuantía
 
-{{bloque_adecuacion_cuantia: bloque condicional que inserta la skill}}
+{{BLOQUE_ADECUACION_CUANTIA: bloque condicional que inserta la skill}}
 
 ## SEXTO — Suplidos justificados
 
-{{bloque_suplidos_justificados: bloque condicional que inserta la skill}}
+{{BLOQUE_SUPLIDOS_JUSTIFICADOS: bloque condicional que inserta la skill}}
 
 ## SÉPTIMO — Cantidades percibidas
 
-{{bloque_cantidades_percibidas: bloque condicional que inserta la skill}}
+{{BLOQUE_CANTIDADES_PERCIBIDAS: bloque condicional que inserta la skill}}
 
 ## OCTAVO — Deber de secreto profesional
 
 Las presentes alegaciones se formulan con estricta observancia del deber de secreto profesional, describiendo las actuaciones realizadas sin revelar el contenido de la estrategia del asunto ni las confidencias recibidas del cliente, y sin perjuicio de que las actuaciones minutadas constan en los propios autos.
 
-{{parrafo_reserva_secreto: bloque condicional que inserta la skill}}
+{{PARRAFO_RESERVA_SECRETO: bloque condicional que inserta la skill}}
 
 ## FUNDAMENTOS DE DERECHO
 
 **I. Cauce y trámite.** Artículo 35 de la Ley 1/2000, de 7 de enero, de Enjuiciamiento Civil, y su remisión al régimen de tramitación aplicable según la naturaleza de la impugnación formulada.
 
-**II. Realidad y devengo de los honorarios.** {{fundamentos_realidad_devengo: texto libre, uno o varios párrafos}}
+**II. Realidad y devengo de los honorarios.** {{FUNDAMENTOS_REALIDAD_DEVENGO: texto libre, uno o varios párrafos}}
 
-**III. Adecuación de la cuantía.** {{fundamentos_cuantia: texto libre, uno o varios párrafos}}
+**III. Adecuación de la cuantía.** {{FUNDAMENTOS_CUANTIA: texto libre, uno o varios párrafos}}
 
-{{bloque_fundamento_criterios_orientativos: bloque condicional que inserta la skill}}
+{{BLOQUE_FUNDAMENTO_CRITERIOS_ORIENTATIVOS: bloque condicional que inserta la skill}}
 
 **IV. Suplidos.** Los suplidos repercutidos son cantidades abonadas por cuenta del cliente a terceros, justificadas documentalmente y repercutidas sin recargo, ajenas por su naturaleza al concepto de honorarios profesionales.
 
@@ -72,21 +72,21 @@ Las presentes alegaciones se formulan con estricta observancia del deber de secr
 
 **Por lo expuesto,**
 
-**SUPLICO AL JUZGADO** que, teniendo por presentado este escrito, se sirva admitirlo, tener por formuladas las presentes alegaciones frente a la impugnación de la minuta, y previos los trámites legales que correspondan según la naturaleza de la impugnación, dictar decreto por el que se determine como cantidad debida la de **{{cantidad_que_se_sostiene: importe en euros}} euros**, con apercibimiento de apremio, y con imposición de las costas causadas a la parte impugnante si procediere.
+**SUPLICO AL JUZGADO** que, teniendo por presentado este escrito, se sirva admitirlo, tener por formuladas las presentes alegaciones frente a la impugnación de la minuta, y previos los trámites legales que correspondan según la naturaleza de la impugnación, dictar decreto por el que se determine como cantidad debida la de **{{CANTIDAD_QUE_SE_SOSTIENE: importe en euros}} euros**, con apercibimiento de apremio, y con imposición de las costas causadas a la parte impugnante si procediere.
 
-Es Justicia que pido en {{lugar_presentacion: localidad}}, a {{fecha_escrito: fecha (DD/MM/AAAA)}}.
+Es Justicia que pido en {{LUGAR_PRESENTACION: localidad}}, a {{FECHA_ESCRITO: fecha (DD/MM/AAAA)}}.
 
-Fdo.: {{nombre_profesional_responsable: nombre y apellidos}}  
-Abogado — Colegiado n.º {{numero_colegiado: número de colegiado}} del {{colegio_adscripcion: denominación del colegio}}
+Fdo.: {{NOMBRE_PROFESIONAL_RESPONSABLE: nombre y apellidos}}  
+Abogado — Colegiado n.º {{NUMERO_COLEGIADO: número de colegiado}} del {{COLEGIO_ADSCRIPCION: denominación del colegio}}
 
 ---
 
 ## DOCUMENTOS QUE SE ACOMPAÑAN
 
-1. {{documento_1: documento aportado}}
-2. {{documento_2: documento aportado}}
-3. {{documento_3: documento aportado}}
-4. {{documento_4: documento aportado}}
+1. {{DOCUMENTO_1: documento aportado}}
+2. {{DOCUMENTO_2: documento aportado}}
+3. {{DOCUMENTO_3: documento aportado}}
+4. {{DOCUMENTO_4: documento aportado}}
 
 ---
 

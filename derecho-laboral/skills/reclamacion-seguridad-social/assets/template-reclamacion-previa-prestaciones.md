@@ -1,35 +1,35 @@
 # RECLAMACIÓN ADMINISTRATIVA PREVIA EN MATERIA DE PRESTACIONES DE SEGURIDAD SOCIAL
 
 > **DRAFT — para revisión por un abogado o graduado social colegiado antes de su firma y presentación. No constituye asesoramiento jurídico definitivo.**  
-> Plazo: 30 días desde la notificación de la resolución, producida el {{fecha_notificacion: fecha (DD/MM/AAAA)}} — fecha límite calculada: {{fecha_limite_reclamacion: fecha (DD/MM/AAAA)}}  
+> Plazo: 30 días desde la notificación de la resolución, producida el {{FECHA_NOTIFICACION: fecha (DD/MM/AAAA)}} — fecha límite calculada: {{FECHA_LIMITE_RECLAMACION: fecha (DD/MM/AAAA)}}  
 > Requisito **inexcusable** para poder formular demanda ante el Juzgado de lo Social (artículo 71 de la Ley 36/2011)
 
 ---
 
-**A LA {{organo_destinatario: denominación del órgano destinatario}}**  
-{{direccion_provincial: dirección provincial de la entidad gestora}}
+**A LA {{ORGANO_DESTINATARIO: denominación del órgano destinatario}}**  
+{{DIRECCION_PROVINCIAL: dirección provincial de la entidad gestora}}
 
 ## DATOS DEL INTERESADO
 
 | Dato | Valor |
 |---|---|
-| Nombre y apellidos | {{nombre_interesado: nombre y apellidos}} |
-| DNI/NIE | {{dni_interesado: DNI/NIE}} |
-| Número de afiliación a la Seguridad Social | {{naf_interesado: número de afiliación a la Seguridad Social}} |
-| Domicilio a efectos de notificaciones | {{domicilio_interesado: domicilio completo}} |
-| Teléfono | {{telefono_interesado: teléfono}} |
-| Correo electrónico | {{email_interesado: correo electrónico}} |
-| Representado por | {{representante_interesado: representado por}} |
+| Nombre y apellidos | {{NOMBRE_INTERESADO: nombre y apellidos}} |
+| DNI/NIE | {{DNI_INTERESADO: DNI/NIE}} |
+| Número de afiliación a la Seguridad Social | {{NAF_INTERESADO: número de afiliación a la Seguridad Social}} |
+| Domicilio a efectos de notificaciones | {{DOMICILIO_INTERESADO: domicilio completo}} |
+| Teléfono | {{TELEFONO_INTERESADO: teléfono}} |
+| Correo electrónico | {{EMAIL_INTERESADO: correo electrónico}} |
+| Representado por | {{REPRESENTANTE_INTERESADO: representado por}} |
 
 ## EXPEDIENTE DE REFERENCIA
 
 | Dato | Valor |
 |---|---|
-| Número de expediente | {{numero_expediente: número de expediente}} |
-| Prestación solicitada | {{prestacion_solicitada: prestación solicitada}} |
-| Fecha de la resolución | {{fecha_resolucion: fecha (DD/MM/AAAA)}} |
-| **Fecha de notificación** | **{{fecha_notificacion: fecha (DD/MM/AAAA)}}** |
-| Contenido de la resolución | {{contenido_resolucion: contenido de la resolución}} |
+| Número de expediente | {{NUMERO_EXPEDIENTE: número de expediente}} |
+| Prestación solicitada | {{PRESTACION_SOLICITADA: prestación solicitada}} |
+| Fecha de la resolución | {{FECHA_RESOLUCION: fecha (DD/MM/AAAA)}} |
+| **Fecha de notificación** | **{{FECHA_NOTIFICACION: fecha (DD/MM/AAAA)}}** |
+| Contenido de la resolución | {{CONTENIDO_RESOLUCION: contenido de la resolución}} |
 
 Que por medio del presente escrito, y dentro del plazo legalmente establecido, formulo **RECLAMACIÓN ADMINISTRATIVA PREVIA** contra la resolución identificada, al amparo del artículo 71 de la Ley 36/2011, reguladora de la Jurisdicción Social, con base en los siguientes
 
@@ -37,31 +37,31 @@ Que por medio del presente escrito, y dentro del plazo legalmente establecido, f
 
 ### PRIMERO — Solicitud y resolución
 
-{{relato_solicitud_y_resolucion: texto libre, uno o varios párrafos}}
+{{RELATO_SOLICITUD_Y_RESOLUCION: texto libre, uno o varios párrafos}}
 
 ### SEGUNDO — Profesión habitual y condiciones reales del puesto de trabajo
 
-La profesión habitual del interesado es la de **{{profesion_habitual: profesión habitual}}**, encuadrada en {{categoria_profesional: categoría profesional del convenio}}, actividad que viene desarrollando desde {{fecha_inicio_profesion: fecha (DD/MM/AAAA)}} y que comporta los siguientes requerimientos y condiciones reales de trabajo:
+La profesión habitual del interesado es la de **{{PROFESION_HABITUAL: profesión habitual}}**, encuadrada en {{CATEGORIA_PROFESIONAL: categoría profesional del convenio}}, actividad que viene desarrollando desde {{FECHA_INICIO_PROFESION: fecha (DD/MM/AAAA)}} y que comporta los siguientes requerimientos y condiciones reales de trabajo:
 
-{{descripcion_tareas_y_requerimientos: texto libre, uno o varios párrafos}}
+{{DESCRIPCION_TAREAS_Y_REQUERIMIENTOS: texto libre, uno o varios párrafos}}
 
 ### TERCERO — Cuadro clínico acreditado
 
 El interesado presenta las siguientes dolencias, según consta en los informes médicos que se acompañan:
 
-{{relacion_dolencias_con_informes: lista, un elemento por línea}}
+{{RELACION_DOLENCIAS_CON_INFORMES: lista, un elemento por línea}}
 
 ### CUARTO — Limitaciones funcionales
 
 De las dolencias descritas resultan acreditadas las siguientes limitaciones funcionales:
 
-{{relacion_limitaciones_funcionales: lista, un elemento por línea}}
+{{RELACION_LIMITACIONES_FUNCIONALES: lista, un elemento por línea}}
 
 ### QUINTO — Incidencia de las limitaciones sobre la profesión habitual
 
-{{analisis_incidencia_limitaciones_profesion: texto libre, uno o varios párrafos}}
+{{ANALISIS_INCIDENCIA_LIMITACIONES_PROFESION: texto libre, uno o varios párrafos}}
 
-{{bloque_datos_economicos_base_reguladora: bloque condicional que inserta la skill}}
+{{BLOQUE_DATOS_ECONOMICOS_BASE_REGULADORA: bloque condicional que inserta la skill}}
 
 ## FUNDAMENTOS
 
@@ -71,11 +71,11 @@ El presente escrito se formula al amparo del artículo 71 de la Ley 36/2011, reg
 
 ### II. Normativa aplicable
 
-{{normativa_aplicable_verificada: normativa aplicable verificada en el BOE}}
+{{NORMATIVA_APLICABLE_VERIFICADA: normativa aplicable verificada en el BOE}}
 
 ### III. Motivos de la impugnación
 
-{{motivos_impugnacion_desarrollados: texto libre, uno o varios párrafos}}
+{{MOTIVOS_IMPUGNACION_DESARROLLADOS: texto libre, uno o varios párrafos}}
 
 ### IV. Solicitud de aportación del expediente
 
@@ -87,20 +87,20 @@ Se interesa expresamente que se una a la presente reclamación el **expediente a
 
 **SOLICITO** que se tenga por presentada esta reclamación administrativa previa, se una al expediente de referencia, y previos los trámites oportunos se dicte resolución por la que, estimando la presente reclamación, se revoque la resolución impugnada y en su lugar se acuerde:
 
-{{pretension_concreta: pretensión concreta que se solicita}}
+{{PRETENSION_CONCRETA: pretensión concreta que se solicita}}
 
-Con efectos económicos desde {{fecha_efectos_pretendida: fecha (DD/MM/AAAA)}}.
+Con efectos económicos desde {{FECHA_EFECTOS_PRETENDIDA: fecha (DD/MM/AAAA)}}.
 
-En {{lugar_presentacion: localidad}}, a {{fecha_escrito: fecha (DD/MM/AAAA)}}
+En {{LUGAR_PRESENTACION: localidad}}, a {{FECHA_ESCRITO: fecha (DD/MM/AAAA)}}
 
-Fdo.: {{nombre_interesado: nombre y apellidos}}  
-DNI/NIE {{dni_interesado: DNI/NIE}}
+Fdo.: {{NOMBRE_INTERESADO: nombre y apellidos}}  
+DNI/NIE {{DNI_INTERESADO: DNI/NIE}}
 
 ---
 
 ## DOCUMENTACIÓN QUE SE ACOMPAÑA
 
-{{relacion_documentacion_aportada: lista, un elemento por línea}}
+{{RELACION_DOCUMENTACION_APORTADA: lista, un elemento por línea}}
 
 ---
 

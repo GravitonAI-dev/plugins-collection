@@ -1,35 +1,35 @@
-# CARTA DE AMONESTACIÓN — {{razon_social_empresa: razón social}} a {{nombre_trabajador: nombre y apellidos}}
+# CARTA DE AMONESTACIÓN — {{RAZON_SOCIAL_EMPRESA: razón social}} a {{NOMBRE_TRABAJADOR: nombre y apellidos}}
 
 > **DRAFT — para revisión por un abogado o graduado social colegiado antes de su firma y entrega. No constituye asesoramiento jurídico definitivo.**  
-> Convenio colectivo aplicable: {{denominacion_convenio: denominación y ámbito del convenio colectivo}} (código {{codigo_convenio: código de convenio}})
+> Convenio colectivo aplicable: {{DENOMINACION_CONVENIO: denominación y ámbito del convenio colectivo}} (código {{CODIGO_CONVENIO: código de convenio}})
 
 ---
 
 **EMPRESA**  
-{{razon_social_empresa: razón social}}  
-CIF {{cif_empresa: CIF/NIF}}  
-{{domicilio_empresa: domicilio completo}}  
-Representada por {{nombre_representante: nombre y apellidos}}, con NIF {{nif_representante: CIF/NIF}}, en su condición de {{cargo_representante: cargo del firmante}}
+{{RAZON_SOCIAL_EMPRESA: razón social}}  
+CIF {{CIF_EMPRESA: CIF/NIF}}  
+{{DOMICILIO_EMPRESA: domicilio completo}}  
+Representada por {{NOMBRE_REPRESENTANTE: nombre y apellidos}}, con NIF {{NIF_REPRESENTANTE: CIF/NIF}}, en su condición de {{CARGO_REPRESENTANTE: cargo del firmante}}
 
 **TRABAJADOR**  
-{{nombre_trabajador: nombre y apellidos}}  
-DNI/NIE {{dni_trabajador: DNI/NIE}}  
-{{domicilio_trabajador: domicilio completo}}  
-Categoría profesional: {{categoria_profesional: categoría profesional del convenio}}
+{{NOMBRE_TRABAJADOR: nombre y apellidos}}  
+DNI/NIE {{DNI_TRABAJADOR: DNI/NIE}}  
+{{DOMICILIO_TRABAJADOR: domicilio completo}}  
+Categoría profesional: {{CATEGORIA_PROFESIONAL: categoría profesional del convenio}}
 
-En {{lugar_emision: localidad}}, a {{fecha_carta: fecha (DD/MM/AAAA)}}
+En {{LUGAR_EMISION: localidad}}, a {{FECHA_CARTA: fecha (DD/MM/AAAA)}}
 
 Muy Sr./Sra. nuestro/a:
 
-Por medio de la presente le comunicamos la imposición de una **amonestación por escrito**, en ejercicio de la facultad disciplinaria que corresponde a esta empresa conforme al artículo 58 del texto refundido de la Ley del Estatuto de los Trabajadores, aprobado por Real Decreto Legislativo 2/2015, de 23 de octubre, y al artículo {{articulo_convenio_faltas: número de artículo}} del convenio colectivo de aplicación.
+Por medio de la presente le comunicamos la imposición de una **amonestación por escrito**, en ejercicio de la facultad disciplinaria que corresponde a esta empresa conforme al artículo 58 del texto refundido de la Ley del Estatuto de los Trabajadores, aprobado por Real Decreto Legislativo 2/2015, de 23 de octubre, y al artículo {{ARTICULO_CONVENIO_FALTAS: número de artículo}} del convenio colectivo de aplicación.
 
 ## PRIMERO — Hechos
 
-{{relato_hechos_imputados: texto libre, uno o varios párrafos}}
+{{RELATO_HECHOS_IMPUTADOS: texto libre, uno o varios párrafos}}
 
 ## SEGUNDO — Calificación
 
-Los hechos descritos constituyen una falta {{gravedad_falta: gravedad: leve, grave o muy grave}}, tipificada en el artículo {{articulo_convenio_faltas: número de artículo}} del {{denominacion_convenio: denominación y ámbito del convenio colectivo}}, relativo a {{descripcion_falta_convenio: definición de la falta según el convenio}}.
+Los hechos descritos constituyen una falta {{GRAVEDAD_FALTA: gravedad: leve, grave o muy grave}}, tipificada en el artículo {{ARTICULO_CONVENIO_FALTAS: número de artículo}} del {{DENOMINACION_CONVENIO: denominación y ámbito del convenio colectivo}}, relativo a {{DESCRIPCION_FALTA_CONVENIO: definición de la falta según el convenio}}.
 
 ## TERCERO — Sanción
 
@@ -45,18 +45,18 @@ Rogamos firme el duplicado de la presente a los solos efectos de acreditar su re
 
 Atentamente,
 
-Fdo.: {{nombre_representante: nombre y apellidos}}  
-{{cargo_representante: cargo del firmante}}  
-{{razon_social_empresa: razón social}}
+Fdo.: {{NOMBRE_REPRESENTANTE: nombre y apellidos}}  
+{{CARGO_REPRESENTANTE: cargo del firmante}}  
+{{RAZON_SOCIAL_EMPRESA: razón social}}
 
 ---
 
 **RECIBÍ**
 
-Recibo copia de la presente comunicación en fecha {{fecha_recibi: fecha (DD/MM/AAAA)}}, a los solos efectos de acreditar su recepción y sin que ello implique conformidad con su contenido.
+Recibo copia de la presente comunicación en fecha {{FECHA_RECIBI: fecha (DD/MM/AAAA)}}, a los solos efectos de acreditar su recepción y sin que ello implique conformidad con su contenido.
 
-Fdo.: {{nombre_trabajador: nombre y apellidos}}  
-DNI/NIE {{dni_trabajador: DNI/NIE}}
+Fdo.: {{NOMBRE_TRABAJADOR: nombre y apellidos}}  
+DNI/NIE {{DNI_TRABAJADOR: DNI/NIE}}
 
 ---
 

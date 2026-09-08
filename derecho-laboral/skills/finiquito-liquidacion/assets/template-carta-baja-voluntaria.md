@@ -1,24 +1,24 @@
-# COMUNICACIÓN DE BAJA VOLUNTARIA — {{nombre_trabajador: nombre y apellidos}} a {{razon_social_empresa: razón social}}
+# COMUNICACIÓN DE BAJA VOLUNTARIA — {{NOMBRE_TRABAJADOR: nombre y apellidos}} a {{RAZON_SOCIAL_EMPRESA: razón social}}
 
 > **DRAFT — para revisión por un abogado o graduado social colegiado antes de su firma y entrega. No constituye asesoramiento jurídico definitivo.**  
-> Convenio colectivo aplicable: {{denominacion_convenio: denominación y ámbito del convenio colectivo}} (código {{codigo_convenio: código de convenio}})
+> Convenio colectivo aplicable: {{DENOMINACION_CONVENIO: denominación y ámbito del convenio colectivo}} (código {{CODIGO_CONVENIO: código de convenio}})
 
 ---
 
 **REMITENTE (PERSONA TRABAJADORA)**  
-{{nombre_trabajador: nombre y apellidos}}  
-DNI/NIE {{dni_trabajador: DNI/NIE}}  
-{{domicilio_trabajador: domicilio completo}}  
-Categoría o grupo profesional: {{categoria_profesional: categoría profesional del convenio}}  
-Antigüedad: {{fecha_antiguedad: fecha (DD/MM/AAAA)}}
+{{NOMBRE_TRABAJADOR: nombre y apellidos}}  
+DNI/NIE {{DNI_TRABAJADOR: DNI/NIE}}  
+{{DOMICILIO_TRABAJADOR: domicilio completo}}  
+Categoría o grupo profesional: {{CATEGORIA_PROFESIONAL: categoría profesional del convenio}}  
+Antigüedad: {{FECHA_ANTIGUEDAD: fecha (DD/MM/AAAA)}}
 
 **DESTINATARIO (EMPRESA)**  
-{{razon_social_empresa: razón social}}  
-CIF {{cif_empresa: CIF/NIF}}  
-{{domicilio_empresa: domicilio completo}}  
-A la atención de {{nombre_receptor_empresa: nombre y apellidos}}, {{cargo_receptor_empresa: cargo de quien recibe}}
+{{RAZON_SOCIAL_EMPRESA: razón social}}  
+CIF {{CIF_EMPRESA: CIF/NIF}}  
+{{DOMICILIO_EMPRESA: domicilio completo}}  
+A la atención de {{NOMBRE_RECEPTOR_EMPRESA: nombre y apellidos}}, {{CARGO_RECEPTOR_EMPRESA: cargo de quien recibe}}
 
-En {{lugar_emision: localidad}}, a {{fecha_comunicacion: fecha (DD/MM/AAAA)}}
+En {{LUGAR_EMISION: localidad}}, a {{FECHA_COMUNICACION: fecha (DD/MM/AAAA)}}
 
 Muy Sres. míos:
 
@@ -26,7 +26,7 @@ Por medio de la presente les comunico mi decisión de **extinguir voluntariament
 
 ## PRIMERO — Fecha de efectos y preaviso
 
-La extinción surtirá efectos el día {{fecha_extincion: fecha (DD/MM/AAAA)}}, quedando cumplido el plazo de preaviso de {{plazo_preaviso: plazo de preaviso en días}} establecido en el artículo {{articulo_convenio_preaviso: número de artículo}} del convenio colectivo de aplicación, contado desde la fecha de la presente comunicación.
+La extinción surtirá efectos el día {{FECHA_EXTINCION: fecha (DD/MM/AAAA)}}, quedando cumplido el plazo de preaviso de {{PLAZO_PREAVISO: plazo de preaviso en días}} establecido en el artículo {{ARTICULO_CONVENIO_PREAVISO: número de artículo}} del convenio colectivo de aplicación, contado desde la fecha de la presente comunicación.
 
 ## SEGUNDO — Prestación de servicios durante el preaviso
 
@@ -36,23 +36,23 @@ Continuaré prestando servicios con normalidad hasta la fecha de efectos indicad
 
 Ruego procedan a la liquidación de las partes proporcionales devengadas y no percibidas —salario del mes en curso, partes proporcionales de pagas extraordinarias y vacaciones devengadas y no disfrutadas—, así como a la entrega del recibo de finiquito con su desglose, del certificado de empresa y del certificado de retenciones e ingresos a cuenta del ejercicio en curso.
 
-{{parrafo_conceptos_pendientes_reclamados: bloque condicional que inserta la skill}}
+{{PARRAFO_CONCEPTOS_PENDIENTES_RECLAMADOS: bloque condicional que inserta la skill}}
 
 Ruego acusen recibo de la presente comunicación.
 
 Atentamente,
 
-Fdo.: {{nombre_trabajador: nombre y apellidos}}  
-DNI/NIE {{dni_trabajador: DNI/NIE}}
+Fdo.: {{NOMBRE_TRABAJADOR: nombre y apellidos}}  
+DNI/NIE {{DNI_TRABAJADOR: DNI/NIE}}
 
 ---
 
 **RECIBÍ (EMPRESA)**
 
-Recibida la presente comunicación en fecha {{fecha_recibi: fecha (DD/MM/AAAA)}}.
+Recibida la presente comunicación en fecha {{FECHA_RECIBI: fecha (DD/MM/AAAA)}}.
 
-Fdo.: {{nombre_receptor_empresa: nombre y apellidos}}  
-{{cargo_receptor_empresa: cargo de quien recibe}}
+Fdo.: {{NOMBRE_RECEPTOR_EMPRESA: nombre y apellidos}}  
+{{CARGO_RECEPTOR_EMPRESA: cargo de quien recibe}}
 
 ---
 

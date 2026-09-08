@@ -1,38 +1,38 @@
-# DEMANDA DE JUICIO ORDINARIO (RECLAMACION DE CANTIDAD) — {{nombre_actor}} contra {{nombre_demandado}}
+# DEMANDA DE JUICIO ORDINARIO (RECLAMACION DE CANTIDAD) — {{NOMBRE_ACTOR}} contra {{NOMBRE_DEMANDADO}}
 
 > **DRAFT — para revision por un abogado colegiado antes de su firma. No constituye asesoramiento juridico definitivo.**  
-> Version de la LEC verificada en el BOE: {{fecha_verificacion_lec}}  
+> Version de la LEC verificada en el BOE: {{FECHA_VERIFICACION_LEC}}  
 > Fundamento procesal: Art. 399 LEC. Clase de juicio: ordinario (Art. 249.2 LEC, cuantia superior a 15.000 euros).
 
 ---
 
-## AL JUZGADO DE PRIMERA INSTANCIA DE {{partido_judicial}}
+## AL JUZGADO DE PRIMERA INSTANCIA DE {{PARTIDO_JUDICIAL}}
 
-{{nombre_procurador}}, Procurador de los Tribunales, en nombre y representacion de {{nombre_actor}}, segun acredito con el poder que acompano como Documento nº 1, bajo la direccion del Letrado {{nombre_letrado}}, ante el Juzgado comparezco y, como mejor proceda en Derecho, DIGO:
+{{NOMBRE_PROCURADOR}}, Procurador de los Tribunales, en nombre y representacion de {{NOMBRE_ACTOR}}, segun acredito con el poder que acompano como Documento nº 1, bajo la direccion del Letrado {{NOMBRE_LETRADO}}, ante el Juzgado comparezco y, como mejor proceda en Derecho, DIGO:
 
-Que por medio del presente escrito formulo DEMANDA DE JUICIO ORDINARIO contra {{nombre_demandado}}, con NIF/CIF {{nif_demandado}} y domicilio en {{domicilio_demandado}}, en reclamacion de la cantidad de {{cuantia_total}} euros ({{cuantia_en_letras}} euros), con base en los siguientes
+Que por medio del presente escrito formulo DEMANDA DE JUICIO ORDINARIO contra {{NOMBRE_DEMANDADO}}, con NIF/CIF {{NIF_DEMANDADO}} y domicilio en {{DOMICILIO_DEMANDADO}}, en reclamacion de la cantidad de {{CUANTIA_TOTAL}} euros ({{CUANTIA_EN_LETRAS}} euros), con base en los siguientes
 
 ## HECHOS
 
 **PRIMERO — Relacion entre las partes y origen de la deuda.**  
-{{descripcion_origen_deuda}} Se acompana {{documento_hecho_primero}} como Documento nº 2.
+{{DESCRIPCION_ORIGEN_DEUDA}} Se acompana {{DOCUMENTO_HECHO_PRIMERO}} como Documento nº 2.
 
 **SEGUNDO — Cuantia reclamada.**  
-El importe adeudado asciende a {{principal}} euros de principal
+El importe adeudado asciende a {{PRINCIPAL}} euros de principal
 .
 
 **TERCERO — Vencimiento e impago.**  
-La cantidad vencio el {{fecha_vencimiento}} y, pese a los requerimientos efectuados, la parte demandada no la ha satisfecho.
+La cantidad vencio el {{FECHA_VENCIMIENTO}} y, pese a los requerimientos efectuados, la parte demandada no la ha satisfecho.
 
 ## FUNDAMENTOS DE DERECHO
 
 ### Procesales
 
-**I. Jurisdiccion y competencia.** Corresponde el conocimiento a ese Juzgado por {{fundamento_competencia}}, siendo competente objetivamente conforme al articulo 45 de la LEC.
+**I. Jurisdiccion y competencia.** Corresponde el conocimiento a ese Juzgado por {{FUNDAMENTO_COMPETENCIA}}, siendo competente objetivamente conforme al articulo 45 de la LEC.
 
 **II. Procedimiento.** El asunto debe sustanciarse por los tramites del juicio ordinario, conforme al articulo 249.2 de la LEC, por exceder la cuantia de 15.000 euros.
 
-**III. Cuantia.** Se fija en {{cuantia_total}} euros, conforme a los articulos 251 a 253 de la LEC.
+**III. Cuantia.** Se fija en {{CUANTIA_TOTAL}} euros, conforme a los articulos 251 a 253 de la LEC.
 
 **IV. Capacidad, legitimacion y postulacion.** Las partes tienen capacidad para ser parte y procesal. El actor esta legitimado activamente como titular del credito y el demandado pasivamente como obligado al pago. Se comparece con Procurador y Abogado, preceptivos conforme a los articulos 23 y 31 de la LEC.
 
@@ -40,21 +40,21 @@ La cantidad vencio el {{fecha_vencimiento}} y, pese a los requerimientos efectua
 
 ### De fondo
 
-**VI. Fondo del asunto.** {{fundamentos_fondo}}
+**VI. Fondo del asunto.** {{FUNDAMENTOS_FONDO}}
 
-**VII. Intereses.** {{fundamento_intereses}}
+**VII. Intereses.** {{FUNDAMENTO_INTERESES}}
 
 **VIII. Costas.** Conforme al articulo 394 de la LEC, procede su imposicion a la parte demandada.
 
 ## SUPLICO AL JUZGADO
 
-Que tenga por presentado este escrito con los documentos que se acompanan, por formulada DEMANDA DE JUICIO ORDINARIO contra {{nombre_demandado}}, la admita a tramite, y previos los tramites legales dicte sentencia por la que:
+Que tenga por presentado este escrito con los documentos que se acompanan, por formulada DEMANDA DE JUICIO ORDINARIO contra {{NOMBRE_DEMANDADO}}, la admita a tramite, y previos los tramites legales dicte sentencia por la que:
 
-1. Condene a la parte demandada a pagar a la actora la cantidad de {{cuantia_total}} euros.
-2. Condene a la parte demandada al pago de los intereses que correspondan {{detalle_intereses_suplico}}.
+1. Condene a la parte demandada a pagar a la actora la cantidad de {{CUANTIA_TOTAL}} euros.
+2. Condene a la parte demandada al pago de los intereses que correspondan {{DETALLE_INTERESES_SUPLICO}}.
 3. Imponga las costas a la parte demandada.
 
-Es justicia que pido en {{lugar}}, a {{fecha_demanda}}.
+Es justicia que pido en {{LUGAR}}, a {{FECHA_DEMANDA}}.
 
 ---
 
@@ -75,7 +75,7 @@ Firma del Letrado: ___________________________
 
 > **Advertencias:**  
 > 1. Este documento es un DRAFT generado automaticamente. Debe ser revisado por un abogado antes de su presentacion.  
-> 2. Version de la LEC verificada: {{fecha_verificacion_lec}}.  
+> 2. Version de la LEC verificada: {{FECHA_VERIFICACION_LEC}}.  
 > 3. En el juicio ordinario son preceptivos abogado y procurador (Arts. 23 y 31 LEC).  
 > 4. Los documentos fundamentales de la accion y los dictamenes periciales deben acompanarse con esta demanda (Arts. 265, 336 LEC); rige la preclusion del Art. 269 LEC.  
 > 5. La LO 1/2025 exige acreditar el intento previo de un MASC como requisito de procedibilidad (Arts. 264 y 403.2 LEC), salvo el criterio aplicable a demandas que traen causa de un monitorio con oposicion (Art. 818.2 LEC); confirmar con el juzgado.  

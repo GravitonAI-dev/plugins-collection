@@ -39,7 +39,7 @@ El apartado 3 obliga a una comprobación adicional: hay leyes sectoriales que ex
 
 El cliente quiere control; el despacho necesita margen. La solución práctica es conferir la facultad de transigir **con límite cuantitativo**:
 
-> Se confiere la facultad de transigir, con el límite de que los acuerdos que impliquen una renuncia superior a {{importe}} euros, o una quita superior al {{porcentaje}} del principal reclamado, requerirán autorización expresa y previa del otorgante, que podrá otorgarse por cualquier medio que deje constancia.
+> Se confiere la facultad de transigir, con el límite de que los acuerdos que impliquen una renuncia superior a {{IMPORTE}} euros, o una quita superior al {{PORCENTAJE}} del principal reclamado, requerirán autorización expresa y previa del otorgante, que podrá otorgarse por cualquier medio que deje constancia.
 
 Ventajas: el despacho puede cerrar acuerdos razonables en el acto, y el cliente conserva el control de las decisiones relevantes. Variantes útiles:
 

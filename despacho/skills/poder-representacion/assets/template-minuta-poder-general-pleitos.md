@@ -6,9 +6,9 @@
 
 ## OTORGANTE
 
-{{bloque_identificacion_otorgante: bloque condicional que inserta la skill}}
+{{BLOQUE_IDENTIFICACION_OTORGANTE: bloque condicional que inserta la skill}}
 
-{{bloque_titulo_representante_organico: bloque condicional que inserta la skill}}
+{{BLOQUE_TITULO_REPRESENTANTE_ORGANICO: bloque condicional que inserta la skill}}
 
 ## APODERADOS
 
@@ -16,17 +16,17 @@ Confiere poder, tan amplio y bastante como en derecho se requiera y sea necesari
 
 | Apoderado | Documento | Colegiado n.º | Colegio |
 |---|---|---|---|
-| {{nombre_apoderado_1: nombre y apellidos}} | {{documento_apoderado_1: DNI/NIE}} | {{colegiado_apoderado_1: número de colegiado}} | {{colegio_apoderado_1: colegio}} |
-| {{nombre_apoderado_2: nombre y apellidos}} | {{documento_apoderado_2: DNI/NIE}} | {{colegiado_apoderado_2: número de colegiado}} | {{colegio_apoderado_2: colegio}} |
-| {{nombre_apoderado_3: nombre y apellidos}} | {{documento_apoderado_3: DNI/NIE}} | {{colegiado_apoderado_3: número de colegiado}} | {{colegio_apoderado_3: colegio}} |
+| {{NOMBRE_APODERADO_1: nombre y apellidos}} | {{DOCUMENTO_APODERADO_1: DNI/NIE}} | {{COLEGIADO_APODERADO_1: número de colegiado}} | {{COLEGIO_APODERADO_1: colegio}} |
+| {{NOMBRE_APODERADO_2: nombre y apellidos}} | {{DOCUMENTO_APODERADO_2: DNI/NIE}} | {{COLEGIADO_APODERADO_2: número de colegiado}} | {{COLEGIO_APODERADO_2: colegio}} |
+| {{NOMBRE_APODERADO_3: nombre y apellidos}} | {{DOCUMENTO_APODERADO_3: DNI/NIE}} | {{COLEGIADO_APODERADO_3: número de colegiado}} | {{COLEGIO_APODERADO_3: colegio}} |
 
-{{bloque_apoderamiento_procuradores: bloque condicional que inserta la skill}}
+{{BLOQUE_APODERAMIENTO_PROCURADORES: bloque condicional que inserta la skill}}
 
-Los apoderados podrán ejercitar las facultades conferidas de forma **{{regimen_ejercicio_facultades: régimen: solidario o mancomunado}}**.
+Los apoderados podrán ejercitar las facultades conferidas de forma **{{REGIMEN_EJERCICIO_FACULTADES: régimen: solidario o mancomunado}}**.
 
 ## ÁMBITO DEL PODER
 
-{{delimitacion_ambito_poder: texto libre}}
+{{DELIMITACION_AMBITO_PODER: texto libre}}
 
 ## FACULTADES QUE SE CONFIEREN
 
@@ -52,29 +52,29 @@ El otorgante se pronuncia expresamente sobre cada una de las siguientes facultad
 
 | Facultad | ¿Se confiere? |
 |---|---|
-| Renunciar a la acción o al derecho | {{facultad_renuncia: sí / no}} |
-| Transigir, en juicio o fuera de él, y suscribir acuerdos transaccionales | {{facultad_transaccion: sí / no}} |
-| Desistir del procedimiento o del recurso | {{facultad_desistimiento: sí / no}} |
-| Allanarse total o parcialmente a la pretensión de la contraria | {{facultad_allanamiento: sí / no}} |
-| Someter la controversia a arbitraje o a mediación, y suscribir el convenio correspondiente | {{facultad_arbitraje: sí / no}} |
-| Formular manifestaciones que puedan comportar el sobreseimiento del proceso por satisfacción extraprocesal o carencia sobrevenida de objeto | {{facultad_sobreseimiento: sí / no}} |
-| {{facultad_adicional_1: facultad}} | {{concesion_facultad_adicional_1: sí / no}} |
+| Renunciar a la acción o al derecho | {{FACULTAD_RENUNCIA: sí / no}} |
+| Transigir, en juicio o fuera de él, y suscribir acuerdos transaccionales | {{FACULTAD_TRANSACCION: sí / no}} |
+| Desistir del procedimiento o del recurso | {{FACULTAD_DESISTIMIENTO: sí / no}} |
+| Allanarse total o parcialmente a la pretensión de la contraria | {{FACULTAD_ALLANAMIENTO: sí / no}} |
+| Someter la controversia a arbitraje o a mediación, y suscribir el convenio correspondiente | {{FACULTAD_ARBITRAJE: sí / no}} |
+| Formular manifestaciones que puedan comportar el sobreseimiento del proceso por satisfacción extraprocesal o carencia sobrevenida de objeto | {{FACULTAD_SOBRESEIMIENTO: sí / no}} |
+| {{FACULTAD_ADICIONAL_1: facultad}} | {{CONCESION_FACULTAD_ADICIONAL_1: sí / no}} |
 
 ### III. Facultades de cobro y percepción
 
-{{bloque_facultades_cobro: bloque condicional que inserta la skill}}
+{{BLOQUE_FACULTADES_COBRO: bloque condicional que inserta la skill}}
 
 ### IV. Sustitución
 
-{{bloque_sustitucion: bloque condicional que inserta la skill}}
+{{BLOQUE_SUSTITUCION: bloque condicional que inserta la skill}}
 
 ## DURACIÓN Y REVOCACIÓN
 
-{{bloque_duracion_y_revocacion: bloque condicional que inserta la skill}}
+{{BLOQUE_DURACION_Y_REVOCACION: bloque condicional que inserta la skill}}
 
 ## ACEPTACIÓN
 
-{{bloque_aceptacion_apoderados: bloque condicional que inserta la skill}}
+{{BLOQUE_ACEPTACION_APODERADOS: bloque condicional que inserta la skill}}
 
 ---
 

@@ -1,65 +1,65 @@
-# DEMANDA DE IMPUGNACIÓN DE SANCIÓN — {{nombre_demandante: nombre y apellidos}} contra {{razon_social_demandada: razón social}}
+# DEMANDA DE IMPUGNACIÓN DE SANCIÓN — {{NOMBRE_DEMANDANTE: nombre y apellidos}} contra {{RAZON_SOCIAL_DEMANDADA: razón social}}
 
 > **DRAFT — para revisión por un abogado o graduado social colegiado antes de su firma y presentación. No constituye asesoramiento jurídico definitivo.**  
-> Plazo de caducidad: 20 días hábiles desde el {{fecha_notificacion_sancion: fecha (DD/MM/AAAA)}}, suspendido por la papeleta presentada el {{fecha_papeleta: fecha (DD/MM/AAAA)}} — fecha límite calculada: {{fecha_limite_demanda: fecha (DD/MM/AAAA)}}
+> Plazo de caducidad: 20 días hábiles desde el {{FECHA_NOTIFICACION_SANCION: fecha (DD/MM/AAAA)}}, suspendido por la papeleta presentada el {{FECHA_PAPELETA: fecha (DD/MM/AAAA)}} — fecha límite calculada: {{FECHA_LIMITE_DEMANDA: fecha (DD/MM/AAAA)}}
 
 ---
 
-**AL JUZGADO DE LO SOCIAL DE {{partido_judicial: localidad del juzgado}}**
+**AL JUZGADO DE LO SOCIAL DE {{PARTIDO_JUDICIAL: localidad del juzgado}}**
 
-{{nombre_representante_procesal: nombre y apellidos}}, {{condicion_representante_procesal: condición: abogado, procurador o graduado social}}, con número de colegiado {{numero_colegiado: número de colegiado}} y domicilio a efectos de notificaciones en {{domicilio_notificaciones: domicilio completo}}, en nombre y representación de **{{nombre_demandante: nombre y apellidos}}**, mayor de edad, con DNI/NIE {{dni_demandante: DNI/NIE}} y domicilio en {{domicilio_demandante: domicilio completo}}, según acredito mediante {{titulo_representacion: título que acredita la representación}}, ante el Juzgado comparezco y como mejor proceda en Derecho
+{{NOMBRE_REPRESENTANTE_PROCESAL: nombre y apellidos}}, {{CONDICION_REPRESENTANTE_PROCESAL: condición: abogado, procurador o graduado social}}, con número de colegiado {{NUMERO_COLEGIADO: número de colegiado}} y domicilio a efectos de notificaciones en {{DOMICILIO_NOTIFICACIONES: domicilio completo}}, en nombre y representación de **{{NOMBRE_DEMANDANTE: nombre y apellidos}}**, mayor de edad, con DNI/NIE {{DNI_DEMANDANTE: DNI/NIE}} y domicilio en {{DOMICILIO_DEMANDANTE: domicilio completo}}, según acredito mediante {{TITULO_REPRESENTACION: título que acredita la representación}}, ante el Juzgado comparezco y como mejor proceda en Derecho
 
 **DIGO**
 
-Que por medio del presente escrito formulo **DEMANDA DE IMPUGNACIÓN DE SANCIÓN** contra **{{razon_social_demandada: razón social}}**, con CIF {{cif_demandada: CIF/NIF}}, domicilio social en {{domicilio_social_demandada: domicilio completo}} y centro de trabajo en {{domicilio_centro_trabajo: domicilio completo}}, con base en los siguientes
+Que por medio del presente escrito formulo **DEMANDA DE IMPUGNACIÓN DE SANCIÓN** contra **{{RAZON_SOCIAL_DEMANDADA: razón social}}**, con CIF {{CIF_DEMANDADA: CIF/NIF}}, domicilio social en {{DOMICILIO_SOCIAL_DEMANDADA: domicilio completo}} y centro de trabajo en {{DOMICILIO_CENTRO_TRABAJO: domicilio completo}}, con base en los siguientes
 
 ## HECHOS
 
 ### PRIMERO — Relación laboral
 
-La parte actora presta servicios para la empresa demandada desde el {{fecha_antiguedad: fecha (DD/MM/AAAA)}}, con la categoría profesional de {{categoria_profesional: categoría profesional del convenio}}, contrato de modalidad {{modalidad_contrato: modalidad contractual}}, jornada {{tipo_jornada: jornada: completa o parcial}} y salario bruto anual de {{salario_bruto_anual: importe en euros}} euros, siéndole de aplicación el {{denominacion_convenio: denominación y ámbito del convenio colectivo}}.
+La parte actora presta servicios para la empresa demandada desde el {{FECHA_ANTIGUEDAD: fecha (DD/MM/AAAA)}}, con la categoría profesional de {{CATEGORIA_PROFESIONAL: categoría profesional del convenio}}, contrato de modalidad {{MODALIDAD_CONTRATO: modalidad contractual}}, jornada {{TIPO_JORNADA: jornada: completa o parcial}} y salario bruto anual de {{SALARIO_BRUTO_ANUAL: importe en euros}} euros, siéndole de aplicación el {{DENOMINACION_CONVENIO: denominación y ámbito del convenio colectivo}}.
 
-{{parrafo_condicion_representativa: bloque condicional que inserta la skill}}
+{{PARRAFO_CONDICION_REPRESENTATIVA: bloque condicional que inserta la skill}}
 
 ### SEGUNDO — La sanción impugnada
 
-Con fecha {{fecha_notificacion_sancion: fecha (DD/MM/AAAA)}} la empresa demandada notificó a la parte actora comunicación escrita por la que le imponía la sanción de **{{sancion_impuesta: sanción impuesta y su duración}}**, con efectos {{periodo_efectos_sancion: fechas de inicio y fin de los efectos de la sanción}}, imputándole los siguientes hechos y calificándolos como falta {{gravedad_falta: gravedad: leve, grave o muy grave}} del artículo {{articulo_convenio_faltas: número de artículo}} del convenio colectivo de aplicación:
+Con fecha {{FECHA_NOTIFICACION_SANCION: fecha (DD/MM/AAAA)}} la empresa demandada notificó a la parte actora comunicación escrita por la que le imponía la sanción de **{{SANCION_IMPUESTA: sanción impuesta y su duración}}**, con efectos {{PERIODO_EFECTOS_SANCION: fechas de inicio y fin de los efectos de la sanción}}, imputándole los siguientes hechos y calificándolos como falta {{GRAVEDAD_FALTA: gravedad: leve, grave o muy grave}} del artículo {{ARTICULO_CONVENIO_FALTAS: número de artículo}} del convenio colectivo de aplicación:
 
-{{hechos_imputados_por_la_empresa: transcripción literal de los hechos imputados en la carta}}
+{{HECHOS_IMPUTADOS_POR_LA_EMPRESA: transcripción literal de los hechos imputados en la carta}}
 
 ### TERCERO — Realidad de lo sucedido
 
-{{relato_hechos_actora: texto libre, uno o varios párrafos}}
+{{RELATO_HECHOS_ACTORA: texto libre, uno o varios párrafos}}
 
 ### CUARTO — Motivos de impugnación
 
-{{motivos_impugnacion_desarrollados: texto libre, uno o varios párrafos}}
+{{MOTIVOS_IMPUGNACION_DESARROLLADOS: texto libre, uno o varios párrafos}}
 
 ### QUINTO — Perjuicio causado
 
-{{parrafo_perjuicio_y_cantidades_descontadas: bloque condicional que inserta la skill}}
+{{PARRAFO_PERJUICIO_Y_CANTIDADES_DESCONTADAS: bloque condicional que inserta la skill}}
 
 ### SEXTO — Agotamiento de la vía previa
 
-Con fecha {{fecha_papeleta: fecha (DD/MM/AAAA)}} se presentó papeleta de conciliación ante {{organismo_conciliacion: denominación exacta del servicio de conciliación competente}}, celebrándose el acto el día {{fecha_acto_conciliacion: fecha (DD/MM/AAAA)}} con el resultado de **{{resultado_conciliacion: resultado: sin avenencia, intentada sin efecto o avenencia}}**, según certificación que se acompaña como documento número 1.
+Con fecha {{FECHA_PAPELETA: fecha (DD/MM/AAAA)}} se presentó papeleta de conciliación ante {{ORGANISMO_CONCILIACION: denominación exacta del servicio de conciliación competente}}, celebrándose el acto el día {{FECHA_ACTO_CONCILIACION: fecha (DD/MM/AAAA)}} con el resultado de **{{RESULTADO_CONCILIACION: resultado: sin avenencia, intentada sin efecto o avenencia}}**, según certificación que se acompaña como documento número 1.
 
 La presente demanda se interpone dentro del plazo de veinte días hábiles del artículo 59.3 del texto refundido de la Ley del Estatuto de los Trabajadores y del artículo 114 de la Ley 36/2011, computado con la suspensión producida por la presentación de la papeleta.
 
 ## FUNDAMENTOS DE DERECHO
 
-**I. Jurisdicción y competencia.** Artículos 1, 2.a) y 10 de la Ley 36/2011, por ser {{criterio_competencia_territorial: criterio: lugar de prestación de servicios o domicilio del demandado}}.
+**I. Jurisdicción y competencia.** Artículos 1, 2.a) y 10 de la Ley 36/2011, por ser {{CRITERIO_COMPETENCIA_TERRITORIAL: criterio: lugar de prestación de servicios o domicilio del demandado}}.
 
 **II. Procedimiento.** Modalidad procesal de impugnación de sanciones, artículos 114 y 115 de la Ley 36/2011.
 
-**III. Fondo del asunto.** Artículos 58 y 60.2 del texto refundido de la Ley del Estatuto de los Trabajadores, y artículo {{articulo_convenio_faltas: número de artículo}} del convenio colectivo de aplicación, conforme a los cuales {{fundamentos_fondo: texto libre, uno o varios párrafos}}.
+**III. Fondo del asunto.** Artículos 58 y 60.2 del texto refundido de la Ley del Estatuto de los Trabajadores, y artículo {{ARTICULO_CONVENIO_FALTAS: número de artículo}} del convenio colectivo de aplicación, conforme a los cuales {{FUNDAMENTOS_FONDO: texto libre, uno o varios párrafos}}.
 
 **IV. Carga de la prueba.** Conforme al artículo 114.3 de la Ley 36/2011, corresponde al empresario probar la realidad de los hechos imputados a la parte actora y su entidad, sin que puedan ser admitidos otros motivos de oposición que los alegados en su momento para justificar la sanción.
 
 **V. Contenido de la sentencia.** El artículo 115 de la Ley 36/2011 determina que la sentencia confirmará la sanción cuando resulte acreditado el cumplimiento de las exigencias formales y la realidad del incumplimiento imputado en su gravedad; la revocará totalmente cuando no haya sido probada la realidad de los hechos o estos no sean constitutivos de falta; la revocará en parte cuando la falta cometida no haya sido adecuadamente calificada, autorizando al empresario a imponer la sanción adecuada a la gravedad de la falta; y la declarará nula si hubiese sido impuesta sin observar los requisitos formales establecidos legal, convencional o contractualmente, o cuando estos hayan sido incumplidos.
 
-{{bloque_fundamento_nulidad_derechos_fundamentales: bloque condicional que inserta la skill}}
+{{BLOQUE_FUNDAMENTO_NULIDAD_DERECHOS_FUNDAMENTALES: bloque condicional que inserta la skill}}
 
-**VI. Costas.** {{fundamentos_costas: texto libre, uno o varios párrafos}}
+**VI. Costas.** {{FUNDAMENTOS_COSTAS: texto libre, uno o varios párrafos}}
 
 ---
 
@@ -67,12 +67,12 @@ La presente demanda se interpone dentro del plazo de veinte días hábiles del a
 
 **SUPLICO AL JUZGADO** que, teniendo por presentado este escrito con sus documentos y copias, se sirva admitirlo, tener por formulada demanda de impugnación de sanción, dar traslado a la demandada, señalar día y hora para los actos de conciliación y juicio, y en su día dictar sentencia por la que:
 
-{{parte_dispositiva_suplica: pretensiones de la súplica, en su orden: principal, subsidiarias y accesorias}}
+{{PARTE_DISPOSITIVA_SUPLICA: pretensiones de la súplica, en su orden: principal, subsidiarias y accesorias}}
 
-Es Justicia que pido en {{lugar_presentacion: localidad}}, a {{fecha_demanda: fecha (DD/MM/AAAA)}}.
+Es Justicia que pido en {{LUGAR_PRESENTACION: localidad}}, a {{FECHA_DEMANDA: fecha (DD/MM/AAAA)}}.
 
-Fdo.: {{nombre_representante_procesal: nombre y apellidos}}  
-{{condicion_representante_procesal: condición: abogado, procurador o graduado social}} — Colegiado n.º {{numero_colegiado: número de colegiado}}
+Fdo.: {{NOMBRE_REPRESENTANTE_PROCESAL: nombre y apellidos}}  
+{{CONDICION_REPRESENTANTE_PROCESAL: condición: abogado, procurador o graduado social}} — Colegiado n.º {{NUMERO_COLEGIADO: número de colegiado}}
 
 ---
 
@@ -80,7 +80,7 @@ Fdo.: {{nombre_representante_procesal: nombre y apellidos}}
 
 **PRIMER OTROSÍ DIGO:** que se acompañan los siguientes documentos:
 
-{{relacion_documental_aportada: lista, un elemento por línea}}
+{{RELACION_DOCUMENTAL_APORTADA: lista, un elemento por línea}}
 
 **SUPLICO AL JUZGADO** que los tenga por aportados y unidos a los autos.
 
@@ -90,15 +90,15 @@ Fdo.: {{nombre_representante_procesal: nombre y apellidos}}
 - Expediente personal completo de la parte actora, con sus antecedentes disciplinarios y sus fechas.
 - Expediente contradictorio íntegro, si se tramitó, con el pliego de cargos, su acuse, los descargos y la resolución.
 - Convenio colectivo aplicable y, en su caso, reglamento interno.
-- {{documentacion_adicional_requerida: documentación adicional que se requiere a la contraria}}
+- {{DOCUMENTACION_ADICIONAL_REQUERIDA: documentación adicional que se requiere a la contraria}}
 
 **SUPLICO AL JUZGADO** que requiera a la demandada para su aportación, con los efectos del artículo 94.2 de la Ley 36/2011.
 
-**TERCER OTROSÍ DIGO:** que interesa el interrogatorio del representante legal de la demandada y la prueba testifical de {{relacion_testigos: lista, un elemento por línea}}, para cuya comparecencia se solicita citación judicial.
+**TERCER OTROSÍ DIGO:** que interesa el interrogatorio del representante legal de la demandada y la prueba testifical de {{RELACION_TESTIGOS: lista, un elemento por línea}}, para cuya comparecencia se solicita citación judicial.
 
 **SUPLICO AL JUZGADO** que acuerde su citación.
 
-{{otrosies_adicionales: bloque condicional que inserta la skill}}
+{{OTROSIES_ADICIONALES: bloque condicional que inserta la skill}}
 
 **ÚLTIMO OTROSÍ DIGO:** que esta parte designa como domicilio a efectos de notificaciones el indicado en el encabezamiento.
 

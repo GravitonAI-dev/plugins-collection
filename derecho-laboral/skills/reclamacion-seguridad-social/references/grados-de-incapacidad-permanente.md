@@ -44,9 +44,9 @@ Es la distinción que decide la mayoría de los asuntos. La entidad gestora no v
 
 | Formulación débil | Formulación útil |
 |---|---|
-| "Padece lumbalgia crónica" | "Limitación de la flexión lumbar a 40 grados, con imposibilidad de manipulación de cargas superiores a 5 kilogramos y de bipedestación mantenida más de 20 minutos, según informe de {{facultativo}} de {{fecha}}" |
-| "Tiene depresión" | "Deterioro de la atención sostenida y de la capacidad de concentración, con episodios de tres o más al mes que impiden la asistencia, según informe de salud mental de {{fecha}}" |
-| "Sufre artrosis de rodilla" | "Balance articular de rodilla limitado a 90 grados de flexión, con imposibilidad de subir y bajar escaleras de forma repetida y de arrodillarse, acreditado por resonancia de {{fecha}}" |
+| "Padece lumbalgia crónica" | "Limitación de la flexión lumbar a 40 grados, con imposibilidad de manipulación de cargas superiores a 5 kilogramos y de bipedestación mantenida más de 20 minutos, según informe de {{FACULTATIVO}} de {{FECHA}}" |
+| "Tiene depresión" | "Deterioro de la atención sostenida y de la capacidad de concentración, con episodios de tres o más al mes que impiden la asistencia, según informe de salud mental de {{FECHA}}" |
+| "Sufre artrosis de rodilla" | "Balance articular de rodilla limitado a 90 grados de flexión, con imposibilidad de subir y bajar escaleras de forma repetida y de arrodillarse, acreditado por resonancia de {{FECHA}}" |
 
 La skill debe transcribir lo que digan los informes, **nunca deducir ni inventar limitaciones** que el informe no exprese. Cuando el informe solo consigna diagnóstico, la instrucción al cliente es obtener un informe complementario que describa la limitación.
 

@@ -321,7 +321,7 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 10. El regimen extraordinario de suspension de lanzamientos por vulnerabilidad tiene vigencia temporal y ha sido objeto de prorrogas no siempre convalidadas. Nunca afirmar que esta vigente ni que esta derogado sin haberlo comprobado en el texto consolidado en la Fase 2. Lo que si es permanente es el mecanismo de los Arts. 441.5 a 441.7 de la LEC en desahucios de vivienda habitual.
 11. Nunca redactar clausulas o pretensiones que contravengan normas imperativas de la LAU (Art. 6 LAU) ni afirmar la resolucion del contrato sin base en el Art. 27 LAU.
 12. En el acuerdo de condonacion, la condonacion debe quedar siempre condicionada a la entrega efectiva de la posesion. Nunca redactar una condonacion incondicionada previa al desalojo.
-13. Nunca inventar datos, rentas, fechas, referencias catastrales ni jurisprudencia. Los campos no proporcionados quedan como `{{dato}}`.
+13. Nunca inventar datos, rentas, fechas, referencias catastrales ni jurisprudencia. Los campos no proporcionados quedan como `{{DATO}}`.
 
 ### Supuestos Fuera de Alcance (Cómo NO usar esta skill)
 

@@ -4,28 +4,28 @@
 
 ---
 
-**AL JUZGADO DE LO SOCIAL DE {{partido_judicial: localidad del juzgado}}**  
-{{bloque_identificacion_autos: bloque condicional que inserta la skill}}
+**AL JUZGADO DE LO SOCIAL DE {{PARTIDO_JUDICIAL: localidad del juzgado}}**  
+{{BLOQUE_IDENTIFICACION_AUTOS: bloque condicional que inserta la skill}}
 
 ## PARTE OTORGANTE
 
-{{bloque_identificacion_otorgante: bloque condicional que inserta la skill}}
+{{BLOQUE_IDENTIFICACION_OTORGANTE: bloque condicional que inserta la skill}}
 
-{{bloque_titulo_representante_organico: bloque condicional que inserta la skill}}
+{{BLOQUE_TITULO_REPRESENTANTE_ORGANICO: bloque condicional que inserta la skill}}
 
 ## PROFESIONAL DESIGNADO
 
 | Dato | Contenido |
 |---|---|
-| Nombre y apellidos | {{nombre_profesional: nombre y apellidos}} |
-| Documento de identidad | {{documento_profesional: DNI/NIE}} |
-| Condición | {{condicion_profesional: condición: abogado o graduado social}} |
-| Número de colegiado | {{numero_colegiado: número de colegiado}} |
-| Colegio de adscripción | {{colegio_adscripcion: colegio de adscripción}} |
-| Domicilio profesional a efectos de notificaciones | {{domicilio_profesional: domicilio completo}} |
-| Teléfono y correo electrónico | {{contacto_profesional: teléfono y correo electrónico}} |
+| Nombre y apellidos | {{NOMBRE_PROFESIONAL: nombre y apellidos}} |
+| Documento de identidad | {{DOCUMENTO_PROFESIONAL: DNI/NIE}} |
+| Condición | {{CONDICION_PROFESIONAL: condición: abogado o graduado social}} |
+| Número de colegiado | {{NUMERO_COLEGIADO: número de colegiado}} |
+| Colegio de adscripción | {{COLEGIO_ADSCRIPCION: colegio de adscripción}} |
+| Domicilio profesional a efectos de notificaciones | {{DOMICILIO_PROFESIONAL: domicilio completo}} |
+| Teléfono y correo electrónico | {{CONTACTO_PROFESIONAL: teléfono y correo electrónico}} |
 
-{{bloque_profesionales_adicionales: bloque condicional que inserta la skill}}
+{{BLOQUE_PROFESIONALES_ADICIONALES: bloque condicional que inserta la skill}}
 
 Que comparece y, como mejor proceda en Derecho,
 
@@ -33,17 +33,17 @@ Que comparece y, como mejor proceda en Derecho,
 
 ## PRIMERO — Designación
 
-Que, al amparo de lo dispuesto en los artículos 18 y 21 de la Ley 36/2011, de 10 de octubre, reguladora de la Jurisdicción Social, **DESIGNO** al profesional identificado en el encabezamiento para que asuma mi **{{alcance_designacion: alcance: representación, defensa o ambas}}** en el presente procedimiento, con las facultades ordinarias inherentes a dicha función.
+Que, al amparo de lo dispuesto en los artículos 18 y 21 de la Ley 36/2011, de 10 de octubre, reguladora de la Jurisdicción Social, **DESIGNO** al profesional identificado en el encabezamiento para que asuma mi **{{ALCANCE_DESIGNACION: alcance: representación, defensa o ambas}}** en el presente procedimiento, con las facultades ordinarias inherentes a dicha función.
 
 ## SEGUNDO — Ámbito de la designación
 
-{{delimitacion_ambito_designacion: texto libre}}
+{{DELIMITACION_AMBITO_DESIGNACION: texto libre}}
 
 ## TERCERO — Facultades
 
 Se confieren al profesional designado las facultades necesarias para la tramitación del procedimiento, y en particular:
 
-{{relacion_facultades_ordinarias: lista, un elemento por línea}}
+{{RELACION_FACULTADES_ORDINARIAS: lista, un elemento por línea}}
 
 ## CUARTO — Facultades que requieren mención especial
 
@@ -51,11 +51,11 @@ El otorgante se pronuncia expresamente sobre las siguientes facultades, que no s
 
 | Facultad | ¿Se confiere? |
 |---|---|
-| Transigir y suscribir acuerdos, en conciliación judicial o extrajudicial | {{facultad_transaccion: sí / no}} |
-| Desistir del procedimiento o del recurso | {{facultad_desistimiento: sí / no}} |
-| Renunciar a la acción o al derecho | {{facultad_renuncia: sí / no}} |
-| Allanarse a la pretensión de la contraria | {{facultad_allanamiento: sí / no}} |
-| Percibir cantidades en nombre del otorgante | {{facultad_cobro: sí / no}} |
+| Transigir y suscribir acuerdos, en conciliación judicial o extrajudicial | {{FACULTAD_TRANSACCION: sí / no}} |
+| Desistir del procedimiento o del recurso | {{FACULTAD_DESISTIMIENTO: sí / no}} |
+| Renunciar a la acción o al derecho | {{FACULTAD_RENUNCIA: sí / no}} |
+| Allanarse a la pretensión de la contraria | {{FACULTAD_ALLANAMIENTO: sí / no}} |
+| Percibir cantidades en nombre del otorgante | {{FACULTAD_COBRO: sí / no}} |
 
 ## QUINTO — Domicilio a efectos de notificaciones
 
@@ -67,15 +67,15 @@ Se designa como domicilio a efectos de notificaciones el domicilio profesional i
 
 **SOLICITO AL JUZGADO** que, teniendo por presentado este escrito, se sirva admitirlo, tener por designada la representación y defensa en los términos indicados, tener por hecha la designación de domicilio a efectos de notificaciones, y entender con esta representación todas las diligencias sucesivas del procedimiento.
 
-En {{lugar_presentacion: localidad}}, a {{fecha_escrito: fecha (DD/MM/AAAA)}}
+En {{LUGAR_PRESENTACION: localidad}}, a {{FECHA_ESCRITO: fecha (DD/MM/AAAA)}}
 
 **EL OTORGANTE**  
-Fdo.: {{nombre_otorgante: nombre y apellidos}}  
-{{documento_otorgante: DNI/NIE}}
+Fdo.: {{NOMBRE_OTORGANTE: nombre y apellidos}}  
+{{DOCUMENTO_OTORGANTE: DNI/NIE}}
 
 **EL PROFESIONAL DESIGNADO, que acepta**  
-Fdo.: {{nombre_profesional: nombre y apellidos}}  
-{{condicion_profesional: condición: abogado o graduado social}} — Colegiado n.º {{numero_colegiado: número de colegiado}} del {{colegio_adscripcion: denominación del colegio}}
+Fdo.: {{NOMBRE_PROFESIONAL: nombre y apellidos}}  
+{{CONDICION_PROFESIONAL: condición: abogado o graduado social}} — Colegiado n.º {{NUMERO_COLEGIADO: número de colegiado}} del {{COLEGIO_ADSCRIPCION: denominación del colegio}}
 
 ---
 

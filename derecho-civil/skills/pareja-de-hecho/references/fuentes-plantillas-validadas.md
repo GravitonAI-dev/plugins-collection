@@ -19,7 +19,7 @@ Consecuencia operativa, sin excepciones:
 
 1. La comunidad autonoma es un **vector obligatorio** del arbol de decision en todas las ramas de la skill.
 2. La normativa autonomica y su registro **se verifican con `web_search` en CADA lanzamiento**, contra el boletin oficial de la comunidad autonoma o el texto consolidado del BOE de esa ley autonomica y contra la sede electronica del registro. **Esta reference NO almacena los requisitos de las 17 comunidades**: hacerlo invitaria a citarlos de memoria y quedarian obsoletos sin aviso.
-3. La fecha de la verificacion se hace constar en el documento generado (`{{fecha_verificacion_normativa_autonomica}}`) junto con la denominacion exacta de la ley y el enlace consultado.
+3. La fecha de la verificacion se hace constar en el documento generado (`{{FECHA_VERIFICACION_NORMATIVA_AUTONOMICA}}`) junto con la denominacion exacta de la ley y el enlace consultado.
 4. **Si la verificacion falla**, la skill lo dice expresamente, no afirma ningun requisito autonomico y marca el punto como pendiente de comprobacion en el propio documento. Prohibido rellenar el hueco con conocimiento previo del modelo.
 
 | Fuente | Que se verifica | Cuando |

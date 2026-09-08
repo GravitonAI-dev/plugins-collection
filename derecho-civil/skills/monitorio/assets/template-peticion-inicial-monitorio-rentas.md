@@ -1,44 +1,44 @@
-# PETICION INICIAL DE PROCESO MONITORIO (RENTAS DE ARRENDAMIENTO) — {{nombre_acreedor}} contra {{nombre_deudor}}
+# PETICION INICIAL DE PROCESO MONITORIO (RENTAS DE ARRENDAMIENTO) — {{NOMBRE_ACREEDOR}} contra {{NOMBRE_DEUDOR}}
 
 > **DRAFT — para revision por un abogado antes de su presentacion. No constituye asesoramiento juridico.**  
-> Version de la LEC verificada en el BOE: {{fecha_verificacion_lec}}  
+> Version de la LEC verificada en el BOE: {{FECHA_VERIFICACION_LEC}}  
 > Variante para reclamacion de rentas impagadas. Conecta con la skill `derecho-civil-arrendamiento`.
 
 ---
 
-## AL JUZGADO DE PRIMERA INSTANCIA DE {{partido_judicial_deudor}}
+## AL JUZGADO DE PRIMERA INSTANCIA DE {{PARTIDO_JUDICIAL_DEUDOR}}
 
-En {{lugar}}, a {{fecha_peticion}}
+En {{LUGAR}}, a {{FECHA_PETICION}}
 
 ## DATOS DEL PETICIONARIO (ARRENDADOR / ACREEDOR)
 
-Nombre / Razon social: {{nombre_acreedor}}  
-NIF / CIF: {{nif_acreedor}}  
-Domicilio a efectos de notificaciones: {{domicilio_acreedor}}  
-Naturaleza: {{naturaleza_acreedor}}  
+Nombre / Razon social: {{NOMBRE_ACREEDOR}}  
+NIF / CIF: {{NIF_ACREEDOR}}  
+Domicilio a efectos de notificaciones: {{DOMICILIO_ACREEDOR}}  
+Naturaleza: {{NATURALEZA_ACREEDOR}}  
 ## DATOS DEL DEUDOR (ARRENDATARIO)
 
-Nombre / Razon social: {{nombre_deudor}}  
-NIF / CIF: {{nif_deudor}}  
-Domicilio o lugar donde puede ser hallado: {{domicilio_deudor}}
+Nombre / Razon social: {{NOMBRE_DEUDOR}}  
+NIF / CIF: {{NIF_DEUDOR}}  
+Domicilio o lugar donde puede ser hallado: {{DOMICILIO_DEUDOR}}
 
 ---
 
 ## EXPONE
 
-Que formula PETICION INICIAL DE PROCESO MONITORIO, conforme a los articulos 812 y siguientes de la Ley 1/2000, de 7 de enero, de Enjuiciamiento Civil, en reclamacion de las rentas y cantidades asimiladas impagadas por importe de {{cuantia_total}} euros ({{cuantia_en_letras}} euros), con base en los siguientes
+Que formula PETICION INICIAL DE PROCESO MONITORIO, conforme a los articulos 812 y siguientes de la Ley 1/2000, de 7 de enero, de Enjuiciamiento Civil, en reclamacion de las rentas y cantidades asimiladas impagadas por importe de {{CUANTIA_TOTAL}} euros ({{CUANTIA_EN_LETRAS}} euros), con base en los siguientes
 
 ## HECHOS
 
 **PRIMERO — Contrato de arrendamiento.**  
-El peticionario y el deudor suscribieron contrato de arrendamiento de {{tipo_inmueble}} sobre el inmueble sito en {{direccion_inmueble}}, con fecha {{fecha_contrato}} y renta mensual de {{renta_mensual}} euros. Se acompana copia del contrato como documento.
+El peticionario y el deudor suscribieron contrato de arrendamiento de {{TIPO_INMUEBLE}} sobre el inmueble sito en {{DIRECCION_INMUEBLE}}, con fecha {{FECHA_CONTRATO}} y renta mensual de {{RENTA_MENSUAL}} euros. Se acompana copia del contrato como documento.
 
 **SEGUNDO — Rentas impagadas.**  
 El arrendatario ha dejado de abonar las siguientes mensualidades de renta
 :  
-{{relacion_mensualidades_impagadas}}
+{{RELACION_MENSUALIDADES_IMPAGADAS}}
 
-El total adeudado por rentas asciende a {{principal}} euros
+El total adeudado por rentas asciende a {{PRINCIPAL}} euros
 .
 
 **TERCERO — Vencimiento y exigibilidad.**  
@@ -46,7 +46,7 @@ Las rentas reclamadas estan vencidas, son liquidas y exigibles conforme al contr
 
 **CUARTO — Documentos que acreditan la deuda.**  
 Se acompanan, de los previstos en el articulo 812 de la LEC:  
-{{relacion_documentos}}
+{{RELACION_DOCUMENTOS}}
 ## FUNDAMENTOS DE DERECHO
 
 **I. Competencia.** Juzgado de Primera Instancia del domicilio del deudor (Art. 813 LEC).
@@ -58,22 +58,22 @@ Se acompanan, de los previstos en el articulo 812 de la LEC:
 **IV. Acreditacion documental.** La deuda se acredita con los documentos acompanados (Art. 812 LEC).
 ## SUPLICO AL JUZGADO
 
-Que tenga por presentado este escrito con los documentos que se acompanan, admita a tramite la peticion inicial de proceso monitorio y requiera al deudor {{nombre_deudor}} para que, en el plazo de veinte dias, pague al peticionario la cantidad de {{cuantia_total}} euros, o comparezca y alegue por escrito las razones por las que no debe la cantidad reclamada; con el apercibimiento de que, de no pagar ni comparecer, se dictara decreto dando por terminado el proceso monitorio y se dara traslado para instar la ejecucion (Art. 816 LEC).
+Que tenga por presentado este escrito con los documentos que se acompanan, admita a tramite la peticion inicial de proceso monitorio y requiera al deudor {{NOMBRE_DEUDOR}} para que, en el plazo de veinte dias, pague al peticionario la cantidad de {{CUANTIA_TOTAL}} euros, o comparezca y alegue por escrito las razones por las que no debe la cantidad reclamada; con el apercibimiento de que, de no pagar ni comparecer, se dictara decreto dando por terminado el proceso monitorio y se dara traslado para instar la ejecucion (Art. 816 LEC).
 
-Es justicia que pido en {{lugar}}, a {{fecha_peticion}}.
+Es justicia que pido en {{LUGAR}}, a {{FECHA_PETICION}}.
 
 ---
 
 Firma del peticionario / representante:
 
 ___________________________  
-{{nombre_acreedor}}
+{{NOMBRE_ACREEDOR}}
 
 ---
 
 > **Advertencias:**  
 > 1. Este documento es un DRAFT generado automaticamente. Debe ser revisado por un abogado antes de su presentacion.  
-> 2. Version de la LEC verificada: {{fecha_verificacion_lec}}.  
+> 2. Version de la LEC verificada: {{FECHA_VERIFICACION_LEC}}.  
 > 3. La reclamacion de rentas por monitorio no incluye el desahucio: para recuperar la posesion procede el juicio de desahucio (que puede acumular la reclamacion de rentas). Valorar la via mas adecuada con un abogado.  
 > 4. Competencia exclusiva del Juzgado de Primera Instancia del domicilio del deudor (Art. 813 LEC).  
 > 5. Si el deudor se opone, el asunto pasa a juicio verbal u ordinario segun la cuantia (Art. 818 LEC).  

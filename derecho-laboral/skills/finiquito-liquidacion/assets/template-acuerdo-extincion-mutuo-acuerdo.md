@@ -1,23 +1,23 @@
-# ACUERDO DE EXTINCIÓN DEL CONTRATO DE TRABAJO POR MUTUO ACUERDO — {{razon_social_empresa: razón social}} y {{nombre_trabajador: nombre y apellidos}}
+# ACUERDO DE EXTINCIÓN DEL CONTRATO DE TRABAJO POR MUTUO ACUERDO — {{RAZON_SOCIAL_EMPRESA: razón social}} y {{NOMBRE_TRABAJADOR: nombre y apellidos}}
 
 > **DRAFT — para revisión por un abogado o graduado social colegiado antes de su firma. No constituye asesoramiento jurídico definitivo.**  
-> Convenio colectivo aplicable: {{denominacion_convenio: denominación y ámbito del convenio colectivo}} (código {{codigo_convenio: código de convenio}})
+> Convenio colectivo aplicable: {{DENOMINACION_CONVENIO: denominación y ámbito del convenio colectivo}} (código {{CODIGO_CONVENIO: código de convenio}})
 
-En {{lugar_firma: localidad}}, a {{fecha_acuerdo: fecha (DD/MM/AAAA)}}
+En {{LUGAR_FIRMA: localidad}}, a {{FECHA_ACUERDO: fecha (DD/MM/AAAA)}}
 
 ---
 
 ## REUNIDOS
 
-**DE UNA PARTE**, {{razon_social_empresa: razón social}}, con CIF {{cif_empresa: CIF/NIF}} y domicilio en {{domicilio_empresa: domicilio completo}}, representada en este acto por {{nombre_representante: nombre y apellidos}}, con NIF {{nif_representante: CIF/NIF}}, en su condición de {{cargo_representante: cargo del firmante}} (en adelante, la EMPRESA).
+**DE UNA PARTE**, {{RAZON_SOCIAL_EMPRESA: razón social}}, con CIF {{CIF_EMPRESA: CIF/NIF}} y domicilio en {{DOMICILIO_EMPRESA: domicilio completo}}, representada en este acto por {{NOMBRE_REPRESENTANTE: nombre y apellidos}}, con NIF {{NIF_REPRESENTANTE: CIF/NIF}}, en su condición de {{CARGO_REPRESENTANTE: cargo del firmante}} (en adelante, la EMPRESA).
 
-**DE OTRA PARTE**, {{nombre_trabajador: nombre y apellidos}}, mayor de edad, con DNI/NIE {{dni_trabajador: DNI/NIE}}, número de afiliación a la Seguridad Social {{naf_trabajador: número de afiliación a la Seguridad Social}} y domicilio en {{domicilio_trabajador: domicilio completo}} (en adelante, la persona TRABAJADORA).
+**DE OTRA PARTE**, {{NOMBRE_TRABAJADOR: nombre y apellidos}}, mayor de edad, con DNI/NIE {{DNI_TRABAJADOR: DNI/NIE}}, número de afiliación a la Seguridad Social {{NAF_TRABAJADOR: número de afiliación a la Seguridad Social}} y domicilio en {{DOMICILIO_TRABAJADOR: domicilio completo}} (en adelante, la persona TRABAJADORA).
 
 Ambas partes se reconocen mutuamente capacidad legal suficiente para el otorgamiento del presente acuerdo, y
 
 ## EXPONEN
 
-**I.** Que ambas partes están vinculadas por contrato de trabajo de modalidad {{modalidad_contrato: modalidad contractual}}, suscrito con fecha {{fecha_contrato: fecha (DD/MM/AAAA)}}, en virtud del cual la persona TRABAJADORA presta servicios como {{categoria_profesional: categoría profesional del convenio}}, con antigüedad reconocida desde el {{fecha_antiguedad: fecha (DD/MM/AAAA)}} y salario bruto anual de {{salario_bruto_anual: importe en euros}} euros.
+**I.** Que ambas partes están vinculadas por contrato de trabajo de modalidad {{MODALIDAD_CONTRATO: modalidad contractual}}, suscrito con fecha {{FECHA_CONTRATO: fecha (DD/MM/AAAA)}}, en virtud del cual la persona TRABAJADORA presta servicios como {{CATEGORIA_PROFESIONAL: categoría profesional del convenio}}, con antigüedad reconocida desde el {{FECHA_ANTIGUEDAD: fecha (DD/MM/AAAA)}} y salario bruto anual de {{SALARIO_BRUTO_ANUAL: importe en euros}} euros.
 
 **II.** Que ambas partes, de forma libre y voluntaria, han convenido poner fin a la relación laboral que les une, al amparo de lo dispuesto en el artículo 49.1.a) del texto refundido de la Ley del Estatuto de los Trabajadores, aprobado por Real Decreto Legislativo 2/2015, de 23 de octubre.
 
@@ -27,25 +27,25 @@ Ambas partes se reconocen mutuamente capacidad legal suficiente para el otorgami
 
 ### PRIMERA — Extinción de la relación laboral
 
-Ambas partes acuerdan la **extinción del contrato de trabajo por mutuo acuerdo**, con efectos del día {{fecha_extincion: fecha (DD/MM/AAAA)}}, fecha en la que la persona TRABAJADORA causará baja en la EMPRESA y en el Régimen General de la Seguridad Social.
+Ambas partes acuerdan la **extinción del contrato de trabajo por mutuo acuerdo**, con efectos del día {{FECHA_EXTINCION: fecha (DD/MM/AAAA)}}, fecha en la que la persona TRABAJADORA causará baja en la EMPRESA y en el Régimen General de la Seguridad Social.
 
 ### SEGUNDA — Liquidación de partes proporcionales
 
-La EMPRESA abonará a la persona TRABAJADORA la liquidación de partes proporcionales devengadas y no percibidas, por importe bruto de {{importe_finiquito: importe en euros}} euros, conforme al desglose que figura en el recibo de finiquito que se suscribe en este mismo acto y que se incorpora como anexo al presente acuerdo.
+La EMPRESA abonará a la persona TRABAJADORA la liquidación de partes proporcionales devengadas y no percibidas, por importe bruto de {{IMPORTE_FINIQUITO: importe en euros}} euros, conforme al desglose que figura en el recibo de finiquito que se suscribe en este mismo acto y que se incorpora como anexo al presente acuerdo.
 
 ### TERCERA — Cantidad pactada
 
-{{bloque_cantidad_pactada: bloque condicional que inserta la skill}}
+{{BLOQUE_CANTIDAD_PACTADA: bloque condicional que inserta la skill}}
 
 ### CUARTA — Forma de pago
 
-Las cantidades indicadas se abonarán mediante {{forma_pago: forma de pago}}, en la cuenta {{iban_trabajador: IBAN}}, en fecha {{fecha_pago: fecha (DD/MM/AAAA)}}.
+Las cantidades indicadas se abonarán mediante {{FORMA_PAGO: forma de pago}}, en la cuenta {{IBAN_TRABAJADOR: IBAN}}, en fecha {{FECHA_PAGO: fecha (DD/MM/AAAA)}}.
 
 ### QUINTA — Obligaciones pendientes
 
 La persona TRABAJADORA se compromete a devolver, con anterioridad a la fecha de efectos, los siguientes bienes y medios propiedad de la EMPRESA:
 
-{{relacion_bienes_devolver: lista, un elemento por línea}}
+{{RELACION_BIENES_DEVOLVER: lista, un elemento por línea}}
 
 ### SEXTA — Confidencialidad
 
@@ -57,19 +57,19 @@ La persona TRABAJADORA mantiene, tras la extinción, el deber de secreto sobre l
 
 La EMPRESA entregará a la persona TRABAJADORA, en la fecha de efectos, el certificado de empresa a efectos de las prestaciones de la Seguridad Social, el recibo de finiquito y el certificado de retenciones e ingresos a cuenta del ejercicio en curso.
 
-{{clausulas_adicionales_pactadas: bloque condicional que inserta la skill}}
+{{CLAUSULAS_ADICIONALES_PACTADAS: bloque condicional que inserta la skill}}
 
 ---
 
 Y en prueba de conformidad, ambas partes firman el presente acuerdo por duplicado y a un solo efecto, en el lugar y fecha indicados en el encabezamiento.
 
 **POR LA EMPRESA**  
-Fdo.: {{nombre_representante: nombre y apellidos}}  
-{{cargo_representante: cargo del firmante}}
+Fdo.: {{NOMBRE_REPRESENTANTE: nombre y apellidos}}  
+{{CARGO_REPRESENTANTE: cargo del firmante}}
 
 **LA PERSONA TRABAJADORA**  
-Fdo.: {{nombre_trabajador: nombre y apellidos}}  
-DNI/NIE {{dni_trabajador: DNI/NIE}}
+Fdo.: {{NOMBRE_TRABAJADOR: nombre y apellidos}}  
+DNI/NIE {{DNI_TRABAJADOR: DNI/NIE}}
 
 ---
 

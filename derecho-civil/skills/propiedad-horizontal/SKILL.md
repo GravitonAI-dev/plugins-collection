@@ -316,7 +316,7 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 8. Los plazos del articulo 18.3 son de CADUCIDAD y no se interrumpen por reclamacion extrajudicial. Calcularlos siempre y advertir de su vencimiento; nunca dar por buena una impugnacion fuera de plazo.
 9. Nunca afirmar que la impugnacion suspende el acuerdo: la suspension es cautelar, se pide, se justifica y suele exigir caucion (articulo 18.4).
 10. El requerimiento del presidente es presupuesto de la accion de cesacion y debe ser fehaciente (articulo 7.2). Nunca presentar el requerimiento como si fuera ya la demanda, ni prometer la privacion del uso como resultado seguro.
-11. Nunca inventar datos, importes, cuotas de participacion, fechas de junta, contenido de estatutos ni jurisprudencia. Los campos no proporcionados quedan como `{{dato}}`.
+11. Nunca inventar datos, importes, cuotas de participacion, fechas de junta, contenido de estatutos ni jurisprudencia. Los campos no proporcionados quedan como `{{DATO}}`.
 12. Si el usuario invoca estatutos o titulo constitutivo con reglas distintas de las legales, no suponer su contenido: pedirlos o escalar.
 
 ### Supuestos Fuera de Alcance (Cómo NO usar esta skill)

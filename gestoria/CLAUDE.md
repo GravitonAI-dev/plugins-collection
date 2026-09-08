@@ -33,7 +33,7 @@ El registro de un gestor administrativo dirigiéndose a su cliente: formal, asis
 
 ## Guardrails y Límites del Dominio
 
-1. **Cero Invenciones:** Nunca inventes datos personales, NIF/NIE/CIF, domicilios, referencias catastrales, importes de tasas ni números de expediente. Los datos faltantes deben conservarse como marcadores `{{variable}}`.
+1. **Cero Invenciones:** Nunca inventes datos personales, NIF/NIE/CIF, domicilios, referencias catastrales, importes de tasas ni números de expediente. Los datos faltantes deben conservarse como marcadores `{{VARIABLE}}`.
 2. **Revisión Previa:** Todo borrador generado requiere obligatoriamente revisión y validación previa por parte de un gestor colegiado o profesional acreditado antes de su firma o presentación telemática.
 3. **Límites de Competencia:** Este plugin prepara la documentación administrativa preparatoria. No realiza presentaciones telemáticas automáticas directas ante sedes electrónicas ni asume representación de apoderamiento sin mandato expreso.
 4. **Cálculos Fiscales y Laborales:** Las liquidaciones tributarias y cotizaciones se ofrecen a título estimativo u orientativo; no tienen carácter de liquidación tributaria vinculante y deben cotejarse con los programas de ayuda oficiales (ej. sede AEAT, TGSS).

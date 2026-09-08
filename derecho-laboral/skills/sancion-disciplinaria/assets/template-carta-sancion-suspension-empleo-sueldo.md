@@ -1,24 +1,24 @@
-# CARTA DE SANCIÓN CON SUSPENSIÓN DE EMPLEO Y SUELDO — {{razon_social_empresa: razón social}} a {{nombre_trabajador: nombre y apellidos}}
+# CARTA DE SANCIÓN CON SUSPENSIÓN DE EMPLEO Y SUELDO — {{RAZON_SOCIAL_EMPRESA: razón social}} a {{NOMBRE_TRABAJADOR: nombre y apellidos}}
 
 > **DRAFT — para revisión por un abogado o graduado social colegiado antes de su firma y entrega. No constituye asesoramiento jurídico definitivo.**  
-> Convenio colectivo aplicable: {{denominacion_convenio: denominación y ámbito del convenio colectivo}} (código {{codigo_convenio: código de convenio}})
+> Convenio colectivo aplicable: {{DENOMINACION_CONVENIO: denominación y ámbito del convenio colectivo}} (código {{CODIGO_CONVENIO: código de convenio}})
 
 ---
 
 **EMPRESA**  
-{{razon_social_empresa: razón social}}  
-CIF {{cif_empresa: CIF/NIF}}  
-{{domicilio_empresa: domicilio completo}}  
-Representada por {{nombre_representante: nombre y apellidos}}, con NIF {{nif_representante: CIF/NIF}}, en su condición de {{cargo_representante: cargo del firmante}}
+{{RAZON_SOCIAL_EMPRESA: razón social}}  
+CIF {{CIF_EMPRESA: CIF/NIF}}  
+{{DOMICILIO_EMPRESA: domicilio completo}}  
+Representada por {{NOMBRE_REPRESENTANTE: nombre y apellidos}}, con NIF {{NIF_REPRESENTANTE: CIF/NIF}}, en su condición de {{CARGO_REPRESENTANTE: cargo del firmante}}
 
 **TRABAJADOR**  
-{{nombre_trabajador: nombre y apellidos}}  
-DNI/NIE {{dni_trabajador: DNI/NIE}}  
-{{domicilio_trabajador: domicilio completo}}  
-Categoría profesional: {{categoria_profesional: categoría profesional del convenio}}  
-Antigüedad: {{fecha_antiguedad: fecha (DD/MM/AAAA)}}
+{{NOMBRE_TRABAJADOR: nombre y apellidos}}  
+DNI/NIE {{DNI_TRABAJADOR: DNI/NIE}}  
+{{DOMICILIO_TRABAJADOR: domicilio completo}}  
+Categoría profesional: {{CATEGORIA_PROFESIONAL: categoría profesional del convenio}}  
+Antigüedad: {{FECHA_ANTIGUEDAD: fecha (DD/MM/AAAA)}}
 
-En {{lugar_emision: localidad}}, a {{fecha_carta: fecha (DD/MM/AAAA)}}
+En {{LUGAR_EMISION: localidad}}, a {{FECHA_CARTA: fecha (DD/MM/AAAA)}}
 
 Muy Sr./Sra. nuestro/a:
 
@@ -26,21 +26,21 @@ Por medio de la presente le comunicamos, en cumplimiento de lo dispuesto en el a
 
 ## PRIMERO — Hechos que motivan la sanción
 
-{{relato_hechos_imputados: texto libre, uno o varios párrafos}}
+{{RELATO_HECHOS_IMPUTADOS: texto libre, uno o varios párrafos}}
 
 ## SEGUNDO — Calificación de los hechos
 
-Los hechos descritos constituyen una falta {{gravedad_falta: gravedad: leve, grave o muy grave}}, tipificada en el artículo {{articulo_convenio_faltas: número de artículo}} del {{denominacion_convenio: denominación y ámbito del convenio colectivo}}, que la define como {{descripcion_falta_convenio: definición de la falta según el convenio}}.
+Los hechos descritos constituyen una falta {{GRAVEDAD_FALTA: gravedad: leve, grave o muy grave}}, tipificada en el artículo {{ARTICULO_CONVENIO_FALTAS: número de artículo}} del {{DENOMINACION_CONVENIO: denominación y ámbito del convenio colectivo}}, que la define como {{DESCRIPCION_FALTA_CONVENIO: definición de la falta según el convenio}}.
 
-{{parrafo_antecedentes_disciplinarios: bloque condicional que inserta la skill}}
+{{PARRAFO_ANTECEDENTES_DISCIPLINARIOS: bloque condicional que inserta la skill}}
 
 ## TERCERO — Sanción impuesta
 
-En atención a la gravedad de los hechos, a las circunstancias concurrentes y al cuadro de sanciones previsto en el artículo {{articulo_convenio_sanciones: número de artículo}} del convenio colectivo, esta empresa acuerda imponerle la sanción de **suspensión de empleo y sueldo durante {{duracion_suspension: plazo o número}}**, que se hará efectiva desde el día {{fecha_inicio_suspension: fecha (DD/MM/AAAA)}} hasta el día {{fecha_fin_suspension: fecha (DD/MM/AAAA)}}, ambos inclusive.
+En atención a la gravedad de los hechos, a las circunstancias concurrentes y al cuadro de sanciones previsto en el artículo {{ARTICULO_CONVENIO_SANCIONES: número de artículo}} del convenio colectivo, esta empresa acuerda imponerle la sanción de **suspensión de empleo y sueldo durante {{DURACION_SUSPENSION: plazo o número}}**, que se hará efectiva desde el día {{FECHA_INICIO_SUSPENSION: fecha (DD/MM/AAAA)}} hasta el día {{FECHA_FIN_SUSPENSION: fecha (DD/MM/AAAA)}}, ambos inclusive.
 
 Durante dicho periodo no deberá acudir a su puesto de trabajo y no devengará retribución alguna, permaneciendo en situación de alta en el Régimen General de la Seguridad Social conforme a la normativa aplicable.
 
-Deberá reincorporarse a su puesto de trabajo el día {{fecha_reincorporacion: fecha (DD/MM/AAAA)}}, en su horario habitual.
+Deberá reincorporarse a su puesto de trabajo el día {{FECHA_REINCORPORACION: fecha (DD/MM/AAAA)}}, en su horario habitual.
 
 ## CUARTO — Advertencia
 
@@ -52,18 +52,18 @@ Rogamos firme el duplicado de la presente a los solos efectos de acreditar su re
 
 Atentamente,
 
-Fdo.: {{nombre_representante: nombre y apellidos}}  
-{{cargo_representante: cargo del firmante}}  
-{{razon_social_empresa: razón social}}
+Fdo.: {{NOMBRE_REPRESENTANTE: nombre y apellidos}}  
+{{CARGO_REPRESENTANTE: cargo del firmante}}  
+{{RAZON_SOCIAL_EMPRESA: razón social}}
 
 ---
 
 **RECIBÍ**
 
-Recibo copia de la presente comunicación en fecha {{fecha_recibi: fecha (DD/MM/AAAA)}}, a los solos efectos de acreditar su recepción y sin que ello implique conformidad con su contenido.
+Recibo copia de la presente comunicación en fecha {{FECHA_RECIBI: fecha (DD/MM/AAAA)}}, a los solos efectos de acreditar su recepción y sin que ello implique conformidad con su contenido.
 
-Fdo.: {{nombre_trabajador: nombre y apellidos}}  
-DNI/NIE {{dni_trabajador: DNI/NIE}}
+Fdo.: {{NOMBRE_TRABAJADOR: nombre y apellidos}}  
+DNI/NIE {{DNI_TRABAJADOR: DNI/NIE}}
 
 ---
 

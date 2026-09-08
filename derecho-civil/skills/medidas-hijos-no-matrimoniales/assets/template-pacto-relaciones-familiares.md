@@ -1,25 +1,25 @@
 # PACTO DE RELACIONES FAMILIARES
 
 > **DRAFT — para revision por un abogado colegiado antes de su firma. No constituye asesoramiento juridico definitivo.**  
-> Version del Codigo Civil y de la LEC verificada en el BOE: {{fecha_verificacion_normativa}}  
+> Version del Codigo Civil y de la LEC verificada en el BOE: {{FECHA_VERIFICACION_NORMATIVA}}  
 > Medidas relativas a los hijos comunes de progenitores no unidos por matrimonio, conforme a los articulos 154, 156, 92, 93, 94, 142, 146 y 148 del Codigo Civil.
 
 ---
 
-En {{lugar_pacto}}, a {{fecha_pacto}}
+En {{LUGAR_PACTO}}, a {{FECHA_PACTO}}
 
 ## REUNIDOS
 
-De una parte, **{{nombre_progenitor_a}}**, mayor de edad, con DNI {{dni_progenitor_a}}, y domicilio en {{domicilio_progenitor_a}}.
+De una parte, **{{NOMBRE_PROGENITOR_A}}**, mayor de edad, con DNI {{DNI_PROGENITOR_A}}, y domicilio en {{DOMICILIO_PROGENITOR_A}}.
 
-De otra parte, **{{nombre_progenitor_b}}**, mayor de edad, con DNI {{dni_progenitor_b}}, y domicilio en {{domicilio_progenitor_b}}.
+De otra parte, **{{NOMBRE_PROGENITOR_B}}**, mayor de edad, con DNI {{DNI_PROGENITOR_B}}, y domicilio en {{DOMICILIO_PROGENITOR_B}}.
 
 Ambos intervienen en su propio nombre y derecho, se reconocen mutuamente capacidad legal suficiente para otorgar el presente pacto y, a tal efecto,
 
 ## EXPONEN
 
 **PRIMERO.** Que son progenitores de los siguientes hijos comunes, cuya filiacion consta determinada respecto de ambos e inscrita en el Registro Civil:  
-{{relacion_hijos}}
+{{RELACION_HIJOS}}
 
 **SEGUNDO.** Que ambos otorgantes no estan ni han estado unidos entre si por vinculo matrimonial.
 
@@ -29,7 +29,7 @@ Ambos intervienen en su propio nombre y derecho, se reconocen mutuamente capacid
 
 ## PACTOS
 
-**{{numero_pacto_patria_potestad}} — Patria potestad y su ejercicio.**  
+**{{NUMERO_PACTO_PATRIA_POTESTAD}} — Patria potestad y su ejercicio.**  
 La patria potestad sobre los hijos comunes corresponde a ambos progenitores y sera ejercida por ambos de forma conjunta, con independencia de a quien se atribuya la guarda y custodia.
 
 Requeriran el acuerdo expreso de ambos progenitores, en particular, las siguientes decisiones:
@@ -39,13 +39,13 @@ Requeriran el acuerdo expreso de ambos progenitores, en particular, las siguient
 3. Los tratamientos medicos que no revistan caracter urgente, asi como las intervenciones quirurgicas.
 4. Las decisiones relativas a la formacion religiosa o moral de los hijos.
 5. La realizacion de viajes al extranjero y la solicitud o renovacion de documentacion de los hijos.
-6. {{decisiones_adicionales_acuerdo}}
+6. {{DECISIONES_ADICIONALES_ACUERDO}}
 
-Cada progenitor mantendra informado al otro, de forma inmediata y por medio de {{via_comunicacion_progenitores}}, de cuanto afecte a la salud, la educacion y el bienestar de los hijos, y podra adoptar por si solo las decisiones de la vida diaria durante los periodos en que los tenga en su compania, asi como las que resulten de urgente necesidad, comunicandolas al otro sin demora.
+Cada progenitor mantendra informado al otro, de forma inmediata y por medio de {{VIA_COMUNICACION_PROGENITORES}}, de cuanto afecte a la salud, la educacion y el bienestar de los hijos, y podra adoptar por si solo las decisiones de la vida diaria durante los periodos en que los tenga en su compania, asi como las que resulten de urgente necesidad, comunicandolas al otro sin demora.
 
 En caso de desacuerdo en el ejercicio de la patria potestad, cualquiera de los progenitores podra acudir a la autoridad judicial conforme al articulo 156 del Codigo Civil.
 
-**{{numero_pacto_sometimiento}} — Sometimiento a la aprobacion judicial y eficacia.**  
+**{{NUMERO_PACTO_SOMETIMIENTO}} — Sometimiento a la aprobacion judicial y eficacia.**  
 Ambos progenitores someten el presente pacto a la aprobacion del Juzgado de Primera Instancia competente conforme al articulo 769.3 de la Ley de Enjuiciamiento Civil, e interesan que sea ratificado por sentencia, previa la intervencion preceptiva del Ministerio Fiscal por existir hijos menores de edad (articulo 749.2 de la Ley de Enjuiciamiento Civil).
 
 Ambos progenitores conocen y aceptan que la aprobacion judicial no es automatica: el Juzgado no aprobara aquello que resulte danoso para los hijos, y que hasta su aprobacion este pacto vincula a los otorgantes como acuerdo entre ellos, pero carece de fuerza ejecutiva.
@@ -54,11 +54,11 @@ Y en prueba de conformidad, ambos progenitores firman el presente pacto por dupl
 
 ---
 
-Firma de {{nombre_progenitor_a}}:
+Firma de {{NOMBRE_PROGENITOR_A}}:
 
 ___________________________
 
-Firma de {{nombre_progenitor_b}}:
+Firma de {{NOMBRE_PROGENITOR_B}}:
 
 ___________________________
 
@@ -66,7 +66,7 @@ ___________________________
 
 > **Advertencias:**  
 > 1. Este documento es un DRAFT generado automaticamente. Debe ser revisado por un abogado colegiado antes de su firma y presentacion.  
-> 2. Version del Codigo Civil y de la Ley de Enjuiciamiento Civil verificada: {{fecha_verificacion_normativa}}.  
+> 2. Version del Codigo Civil y de la Ley de Enjuiciamiento Civil verificada: {{FECHA_VERIFICACION_NORMATIVA}}.  
 > 3. Este pacto no produce plenos efectos ni tiene fuerza ejecutiva hasta su aprobacion judicial. Un pacto privado no aprobado exige un proceso declarativo previo para poder exigir su cumplimiento.  
 > 4. Al existir hijos menores, la intervencion del Ministerio Fiscal es preceptiva (articulo 749.2 de la Ley de Enjuiciamiento Civil) y el Juzgado no aprobara las clausulas danosas para los hijos.  
 > 5. La pension de alimentos de los hijos menores no es renunciable. Un pacto sin pension, o con una pension irrisoria, no sera aprobado.  

@@ -10,7 +10,7 @@ Las únicas vías admitidas para proporcionar o generar el contenido de una plan
 
 ### 0.1 Texto en el Chat (Pegar Directamente)
 - El usuario proporciona el texto de la minuta o modelo directamente en la conversación (`<user_message>`).
-- Se extrae el texto del mensaje, se analiza su estructura y se parametriza a variables `{{variable}}`.
+- Se extrae el texto del mensaje, se analiza su estructura y se parametriza a variables `{{VARIABLE}}`.
 
 ### 0.2 Abrir Archivo en el Editor (Archivos del Workspace)
 - El usuario indica un archivo ya existente en el espacio de trabajo activo de la conversación (visible o abierto en el editor).
@@ -28,7 +28,7 @@ Las únicas vías admitidas para proporcionar o generar el contenido de una plan
   1. **Finalidad y ámbito:** Identificar el tipo de documento (contrato, escrito judicial, comunicación formal, solicitud administrativa) y su propósito.
   2. **Intervinientes:** Definir las partes o sujetos y sus datos identificativos necesarios.
   3. **Cuerpo y cláusulas principales:** Estructurar las estipulaciones esenciales (objeto, plazos, condiciones económicas, obligaciones de las partes, penalizaciones, fuero y jurisdicción).
-  4. **Identificación de variables dinámicas:** Asignar marcadores `{{nombre_variable}}` a todos los datos variables que cambiarán entre usos.
+  4. **Identificación de variables dinámicas:** Asignar marcadores `{{NOMBRE_VARIABLE}}` a todos los datos variables que cambiarán entre usos.
   5. **Borrador en el editor (`create_file`):** Generar el archivo en el workspace para que el usuario pueda visualizar el documento en tiempo real en el editor.
   6. **Edición colaborativa incremental (`edit_file`):** Refinar y expandir cláusulas directamente en el documento del workspace.
   7. **Persistencia final:** Una vez validado y confirmado, persistir en el backend mediante `save_user_template` o `set_skill_template`.
@@ -41,23 +41,23 @@ Las únicas vías admitidas para proporcionar o generar el contenido de una plan
 ## 1. Principio de Cero Datos Personales (PII)
 
 Al transformar un documento real en una plantilla reutilizable o al crearla desde cero:
-- **Nombres y Apellidos / Razones Sociales:** Sustituir por `{{nombre_arrendador}}`, `{{nombre_demandante}}`, `{{razon_social_empresa}}`, `{{nombre_representante}}`.
-- **Identificadores Fiscales (DNI/NIE/CIF):** Sustituir por `{{nif_arrendador}}`, `{{dni_demandante}}`, `{{cif_entidad}}`, `{{nie_solicitante}}`.
-- **Domicilios y Direcciones:** Sustituir por `{{domicilio_notificaciones}}`, `{{direccion_inmueble}}`, `{{municipio}}`, `{{provincia}}`.
-- **Fechas Concretas:** Sustituir por `{{fecha_contrato}}`, `{{fecha_inicio}}`, `{{fecha_vencimiento}}`, `{{fecha_notificacion}}`.
-- **Importes y Cuentas Bancarias:** Sustituir por `{{renta_mensual}}`, `{{cuantia_reclamada}}`, `{{iban_pago}}`, `{{numero_cuenta}}`.
-- **Referencias Notariales o Registrales:** Sustituir por `{{nombre_notario}}`, `{{plaza_notario}}`, `{{numero_protocolo}}`, `{{datos_registrales}}`.
+- **Nombres y Apellidos / Razones Sociales:** Sustituir por `{{NOMBRE_ARRENDADOR}}`, `{{NOMBRE_DEMANDANTE}}`, `{{RAZON_SOCIAL_EMPRESA}}`, `{{NOMBRE_REPRESENTANTE}}`.
+- **Identificadores Fiscales (DNI/NIE/CIF):** Sustituir por `{{NIF_ARRENDADOR}}`, `{{DNI_DEMANDANTE}}`, `{{CIF_ENTIDAD}}`, `{{NIE_SOLICITANTE}}`.
+- **Domicilios y Direcciones:** Sustituir por `{{DOMICILIO_NOTIFICACIONES}}`, `{{DIRECCION_INMUEBLE}}`, `{{MUNICIPIO}}`, `{{PROVINCIA}}`.
+- **Fechas Concretas:** Sustituir por `{{FECHA_CONTRATO}}`, `{{FECHA_INICIO}}`, `{{FECHA_VENCIMIENTO}}`, `{{FECHA_NOTIFICACION}}`.
+- **Importes y Cuentas Bancarias:** Sustituir por `{{RENTA_MENSUAL}}`, `{{CUANTIA_RECLAMADA}}`, `{{IBAN_PAGO}}`, `{{NUMERO_CUENTA}}`.
+- **Referencias Notariales o Registrales:** Sustituir por `{{NOMBRE_NOTARIO}}`, `{{PLAZA_NOTARIO}}`, `{{NUMERO_PROTOCOLO}}`, `{{DATOS_REGISTRALES}}`.
 
 ---
 
 ## 2. Convención de Sintaxis de Variables
 
 1. **Formato:** Dobles llaves con nombre en minúsculas y guiones bajos (`snake_case`):
-   - Correcto: `{{nombre_arrendador}}`, `{{cuantia_total}}`, `{{fecha_efectos}}`
-   - Incorrecto: `<NOMBRE>`, `[Nombre Arrendador]`, `{{NombreArrendador}}`, `{nombre_arrendador}`
+   - Correcto: `{{NOMBRE_ARRENDADOR}}`, `{{CUANTIA_TOTAL}}`, `{{FECHA_EFECTOS}}`
+   - Incorrecto: `<NOMBRE>`, `[Nombre Arrendador]`, `{{NOMBREARRENDADOR}}`, `{nombre_arrendador}`
 2. **Variables con Aclaración Opcional:** Si un campo requiere especificar formato o posibles opciones, se puede incluir `:` tras el identificador:
-   - Ejemplo: `{{plazo_duracion_anos: número de años pactados}}`, `{{tipo_garantia: aval bancario o fianza en metálico}}`.
-3. **Consistencia de Identificadores:** Si un dato se repite en varias secciones (ej. en el encabezado y en el pie de firma), usar EXACTAMENTE el mismo nombre de marcador (`{{nombre_arrendador}}`).
+   - Ejemplo: `{{PLAZO_DURACION_ANOS: número de años pactados}}`, `{{TIPO_GARANTIA: aval bancario o fianza en metálico}}`.
+3. **Consistencia de Identificadores:** Si un dato se repite en varias secciones (ej. en el encabezado y en el pie de firma), usar EXACTAMENTE el mismo nombre de marcador (`{{NOMBRE_ARRENDADOR}}`).
 
 ---
 
@@ -76,10 +76,10 @@ Al transformar un documento real en una plantilla reutilizable o al crearla desd
 - **Cláusulas Numeradas:** Preservar la numeración ordinal o cardinal del documento original (ej. `PRIMERA. — OBJETO`, `SEGUNDA. — RENTA`).
 - **Pie de Firmas:** Estructurar los bloques de firma al final del documento:
   ```markdown
-  En {{municipio_firma}}, a {{fecha_firma}}.
+  En {{MUNICIPIO_FIRMA}}, a {{FECHA_FIRMA}}.
 
   Por la parte ARRENDADORA:               Por la parte ARRENDATARIA:
-  {{nombre_arrendador}}                   {{nombre_arrendatario}}
+  {{NOMBRE_ARRENDADOR}}                   {{NOMBRE_ARRENDATARIO}}
   ```
 
 ---
@@ -94,7 +94,7 @@ Antes de guardar una plantilla asignada a una skill del sistema (`set_skill_temp
 2. **Coherencia Temática y Normativa:**
    - La plantilla debe corresponder a la naturaleza del trámite regulado por la skill (ej. un contrato de arrendamiento de vivienda no puede asignarse a un asset de arrendamiento de local ni a una demanda de desahucio).
 3. **Cobertura de Variables Esenciales de la Skill:**
-   - La plantilla debe incluir los marcadores `{{variable}}` requeridos para los inputs que la skill recopila y cumplimenta en sus fases de trabajo (consultar los `inputs:` del `SKILL.md` de la skill destino: datos de partes, objeto, importes, plazos, etc.).
+   - La plantilla debe incluir los marcadores `{{VARIABLE}}` requeridos para los inputs que la skill recopila y cumplimenta en sus fases de trabajo (consultar los `inputs:` del `SKILL.md` de la skill destino: datos de partes, objeto, importes, plazos, etc.).
 4. **Ausencia de Directivas Prohibidas:**
    - Verificar que no existan comentarios HTML de control de flujo (`<!-- Si ... -->`) ni datos personales reales sin anonimizar.
 
@@ -102,7 +102,7 @@ Antes de guardar una plantilla asignada a una skill del sistema (`set_skill_temp
 > **SI LA PLANTILLA NO ES COMPLETAMENTE COMPATIBLE CON LA SKILL:**
 > - **NO GUARDAR.** Queda expresamente prohibido invocar `set_skill_template`.
 > - Informar al usuario de forma inmediata y constructiva:
->   - Señalar con exactitud qué elementos faltan o resultan incompatibles (ej. "La plantilla carece de la cláusula de duración o de la variable `{{renta_mensual}}`, requeridas por la skill `arrendamiento-urbano`").
+>   - Señalar con exactitud qué elementos faltan o resultan incompatibles (ej. "La plantilla carece de la cláusula de duración o de la variable `{{RENTA_MENSUAL}}`, requeridas por la skill `arrendamiento-urbano`").
 >   - Proponer la adición o corrección de los bloques afectados.
 >   - Solicitar confirmación para aplicar los ajustes antes de proceder al guardado.
 

@@ -1,34 +1,34 @@
-# COMUNICACION DE NO RENOVACION DEL CONTRATO DE ARRENDAMIENTO — {{nombre_remitente}} a {{nombre_destinatario}}
+# COMUNICACION DE NO RENOVACION DEL CONTRATO DE ARRENDAMIENTO — {{NOMBRE_REMITENTE}} a {{NOMBRE_DESTINATARIO}}
 
 > **DRAFT — para revision por un abogado antes de su envio. No constituye asesoramiento juridico.**  
-> Version de la LAU verificada en el BOE: {{fecha_verificacion_lau}}
+> Version de la LAU verificada en el BOE: {{FECHA_VERIFICACION_LAU}}
 
 ---
 
-**REMITENTE ({{condicion_remitente}})**  
-{{nombre_remitente}}  
-{{nif_remitente}}  
-{{domicilio_remitente}}
+**REMITENTE ({{CONDICION_REMITENTE}})**  
+{{NOMBRE_REMITENTE}}  
+{{NIF_REMITENTE}}  
+{{DOMICILIO_REMITENTE}}
 
-**DESTINATARIO ({{condicion_destinatario}})**  
-{{nombre_destinatario}}  
-{{domicilio_notificaciones_destinatario}}
+**DESTINATARIO ({{CONDICION_DESTINATARIO}})**  
+{{NOMBRE_DESTINATARIO}}  
+{{DOMICILIO_NOTIFICACIONES_DESTINATARIO}}
 
-En {{lugar_emision}}, a {{fecha_comunicacion}}
+En {{LUGAR_EMISION}}, a {{FECHA_COMUNICACION}}
 
 Asunto: comunicacion de no renovacion del contrato de arrendamiento de vivienda (articulo 10.1 de la Ley 29/1994, de Arrendamientos Urbanos)
 
 Muy Sr./Sra. mio/a:
 
-Me dirijo a usted en mi condicion de {{condicion_remitente}} del contrato de arrendamiento de vivienda suscrito entre ambas partes en fecha {{fecha_contrato}}, sobre la vivienda sita en {{direccion_inmueble}}, {{municipio_inmueble}}, cuyo plazo de duracion {{situacion_plazo}} vence el proximo {{fecha_vencimiento}}.
+Me dirijo a usted en mi condicion de {{CONDICION_REMITENTE}} del contrato de arrendamiento de vivienda suscrito entre ambas partes en fecha {{FECHA_CONTRATO}}, sobre la vivienda sita en {{DIRECCION_INMUEBLE}}, {{MUNICIPIO_INMUEBLE}}, cuyo plazo de duracion {{SITUACION_PLAZO}} vence el proximo {{FECHA_VENCIMIENTO}}.
 
 Por medio de la presente le comunico, de forma fehaciente y con la antelacion legalmente exigida, mi voluntad de NO RENOVAR el referido contrato a su vencimiento, de conformidad con el articulo 10.1 de la Ley 29/1994, de 24 de noviembre, de Arrendamientos Urbanos.
 
-En consecuencia, el contrato quedara extinguido el dia {{fecha_vencimiento}}, fecha en la que debera procederse a la entrega de llaves y a la puesta de la vivienda a libre disposicion del arrendador, asi como a la liquidacion de las obligaciones pendientes, incluida la devolucion de la fianza en los terminos del articulo 36.4 de la citada ley.
+En consecuencia, el contrato quedara extinguido el dia {{FECHA_VENCIMIENTO}}, fecha en la que debera procederse a la entrega de llaves y a la puesta de la vivienda a libre disposicion del arrendador, asi como a la liquidacion de las obligaciones pendientes, incluida la devolucion de la fianza en los terminos del articulo 36.4 de la citada ley.
 Sin otro particular, reciba un cordial saludo.
 
-Fdo.: {{nombre_remitente}}  
-{{condicion_remitente}}
+Fdo.: {{NOMBRE_REMITENTE}}  
+{{CONDICION_REMITENTE}}
 
 ---
 

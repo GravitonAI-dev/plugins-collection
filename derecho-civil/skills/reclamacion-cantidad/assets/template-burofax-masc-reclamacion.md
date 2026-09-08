@@ -1,4 +1,4 @@
-# BUROFAX DE REQUERIMIENTO PREVIO DE PAGO — {{nombre_acreedor}} a {{nombre_deudor}}
+# BUROFAX DE REQUERIMIENTO PREVIO DE PAGO — {{NOMBRE_ACREEDOR}} a {{NOMBRE_DEUDOR}}
 
 > **DRAFT — para revision por un abogado colegiado antes de su firma. No constituye asesoramiento juridico definitivo.**  
 > Documento de requerimiento extrajudicial que sirve para constituir en mora al deudor (Art. 1100 CC)  
@@ -6,11 +6,11 @@
 
 ---
 
-Remitente: {{nombre_acreedor}}, con NIF/CIF {{nif_acreedor}}, domicilio en {{domicilio_acreedor}}.
+Remitente: {{NOMBRE_ACREEDOR}}, con NIF/CIF {{NIF_ACREEDOR}}, domicilio en {{DOMICILIO_ACREEDOR}}.
 
-Destinatario: {{nombre_deudor}}, con NIF/CIF {{nif_deudor}}, domicilio en {{domicilio_deudor}}.
+Destinatario: {{NOMBRE_DEUDOR}}, con NIF/CIF {{NIF_DEUDOR}}, domicilio en {{DOMICILIO_DEUDOR}}.
 
-En {{lugar}}, a {{fecha_burofax}}.
+En {{LUGAR}}, a {{FECHA_BUROFAX}}.
 
 ---
 
@@ -18,16 +18,16 @@ Estimado/a Sr./Sra.:
 
 Me dirijo a usted en relacion con la deuda que mantiene pendiente de pago, cuyo origen y cuantia se detallan a continuacion.
 
-**Origen de la deuda:** {{descripcion_origen_deuda}}
+**Origen de la deuda:** {{DESCRIPCION_ORIGEN_DEUDA}}
 
-**Importe adeudado:** {{principal}} euros de principal
-, lo que asciende a un total de {{cuantia_total}} euros.
+**Importe adeudado:** {{PRINCIPAL}} euros de principal
+, lo que asciende a un total de {{CUANTIA_TOTAL}} euros.
 
-**Vencimiento:** la cantidad vencio en la fecha o fechas que constan en los documentos que acreditan la deuda ({{fecha_vencimiento}}), y es liquida, vencida y exigible.
+**Vencimiento:** la cantidad vencio en la fecha o fechas que constan en los documentos que acreditan la deuda ({{FECHA_VENCIMIENTO}}), y es liquida, vencida y exigible.
 
-Por medio del presente le REQUIERO formalmente para que, en el plazo de {{plazo_pago}} desde la recepcion de esta comunicacion, abone la cantidad indicada mediante {{medio_de_pago}}.
+Por medio del presente le REQUIERO formalmente para que, en el plazo de {{PLAZO_PAGO}} desde la recepcion de esta comunicacion, abone la cantidad indicada mediante {{MEDIO_DE_PAGO}}.
 
-Le comunico asimismo mi disposicion a alcanzar una solucion extrajudicial del asunto (pago aplazado, negociacion o mediacion), a fin de evitar el procedimiento judicial. Puede contactar en {{via_contacto}} para acordar una formula de pago.
+Le comunico asimismo mi disposicion a alcanzar una solucion extrajudicial del asunto (pago aplazado, negociacion o mediacion), a fin de evitar el procedimiento judicial. Puede contactar en {{VIA_CONTACTO}} para acordar una formula de pago.
 
 Le advierto que, de no atender este requerimiento en el plazo indicado, me vere obligado a reclamar la deuda por la via judicial que corresponda conforme a la Ley de Enjuiciamiento Civil
 
@@ -38,7 +38,7 @@ Conservo copia certificada de esta comunicacion y de su acuse de recibo a los ef
 Atentamente,
 
 ___________________________  
-{{nombre_acreedor}}
+{{NOMBRE_ACREEDOR}}
 
 ---
 

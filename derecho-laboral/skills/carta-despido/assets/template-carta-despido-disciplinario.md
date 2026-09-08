@@ -1,51 +1,51 @@
-# CARTA DE DESPIDO DISCIPLINARIO — {{razon_social_empresa: razón social}} a {{nombre_trabajador: nombre y apellidos}}
+# CARTA DE DESPIDO DISCIPLINARIO — {{RAZON_SOCIAL_EMPRESA: razón social}} a {{NOMBRE_TRABAJADOR: nombre y apellidos}}
 
 > **DRAFT — para revisión por un abogado o graduado social colegiado antes de su firma y entrega. No constituye asesoramiento jurídico definitivo.**  
-> Versión del Estatuto de los Trabajadores verificada en el BOE: {{fecha_verificacion_et: fecha (DD/MM/AAAA)}}  
-> Convenio colectivo aplicable: {{denominacion_convenio: denominación y ámbito del convenio colectivo}} (código {{codigo_convenio: código de convenio}})
+> Versión del Estatuto de los Trabajadores verificada en el BOE: {{FECHA_VERIFICACION_ET: fecha (DD/MM/AAAA)}}  
+> Convenio colectivo aplicable: {{DENOMINACION_CONVENIO: denominación y ámbito del convenio colectivo}} (código {{CODIGO_CONVENIO: código de convenio}})
 
 ---
 
 **EMPRESA**  
-{{razon_social_empresa: razón social}}  
-CIF {{cif_empresa: CIF/NIF}}  
-{{domicilio_empresa: domicilio completo}}  
-Código de cuenta de cotización {{ccc_empresa: código de cuenta de cotización}}  
-Representada por {{nombre_representante: nombre y apellidos}}, con NIF {{nif_representante: CIF/NIF}}, en su condición de {{cargo_representante: cargo del firmante}}
+{{RAZON_SOCIAL_EMPRESA: razón social}}  
+CIF {{CIF_EMPRESA: CIF/NIF}}  
+{{DOMICILIO_EMPRESA: domicilio completo}}  
+Código de cuenta de cotización {{CCC_EMPRESA: código de cuenta de cotización}}  
+Representada por {{NOMBRE_REPRESENTANTE: nombre y apellidos}}, con NIF {{NIF_REPRESENTANTE: CIF/NIF}}, en su condición de {{CARGO_REPRESENTANTE: cargo del firmante}}
 
 **TRABAJADOR**  
-{{nombre_trabajador: nombre y apellidos}}  
-DNI/NIE {{dni_trabajador: DNI/NIE}}  
-{{domicilio_trabajador: domicilio completo}}  
-Número de afiliación a la Seguridad Social {{naf_trabajador: número de afiliación a la Seguridad Social}}
+{{NOMBRE_TRABAJADOR: nombre y apellidos}}  
+DNI/NIE {{DNI_TRABAJADOR: DNI/NIE}}  
+{{DOMICILIO_TRABAJADOR: domicilio completo}}  
+Número de afiliación a la Seguridad Social {{NAF_TRABAJADOR: número de afiliación a la Seguridad Social}}
 
-En {{lugar_emision: localidad}}, a {{fecha_carta: fecha (DD/MM/AAAA)}}
+En {{LUGAR_EMISION: localidad}}, a {{FECHA_CARTA: fecha (DD/MM/AAAA)}}
 
 Muy Sr./Sra. nuestro/a:
 
-Por medio de la presente le comunicamos la decisión de esta empresa de proceder a la **extinción de su contrato de trabajo por despido disciplinario**, con efectos del día {{fecha_efectos: fecha (DD/MM/AAAA)}}, al amparo de lo dispuesto en los artículos 54 y 55 del texto refundido de la Ley del Estatuto de los Trabajadores, aprobado por Real Decreto Legislativo 2/2015, de 23 de octubre, y en el artículo {{articulo_convenio_faltas: número de artículo}} del {{denominacion_convenio: denominación y ámbito del convenio colectivo}}.
+Por medio de la presente le comunicamos la decisión de esta empresa de proceder a la **extinción de su contrato de trabajo por despido disciplinario**, con efectos del día {{FECHA_EFECTOS: fecha (DD/MM/AAAA)}}, al amparo de lo dispuesto en los artículos 54 y 55 del texto refundido de la Ley del Estatuto de los Trabajadores, aprobado por Real Decreto Legislativo 2/2015, de 23 de octubre, y en el artículo {{ARTICULO_CONVENIO_FALTAS: número de artículo}} del {{DENOMINACION_CONVENIO: denominación y ámbito del convenio colectivo}}.
 
 ## PRIMERO — Datos de la relación laboral
 
-Viene usted prestando servicios para esta empresa desde el {{fecha_antiguedad: fecha (DD/MM/AAAA)}}, con la categoría profesional de {{categoria_profesional: categoría profesional del convenio}}, encuadrado en el grupo profesional {{grupo_profesional: grupo profesional del convenio}}, en virtud de contrato de trabajo de modalidad {{modalidad_contrato: modalidad contractual}}, a jornada {{tipo_jornada: jornada: completa o parcial}}, y percibiendo un salario bruto anual de {{salario_bruto_anual: importe en euros}} euros con inclusión del prorrateo de pagas extraordinarias.
+Viene usted prestando servicios para esta empresa desde el {{FECHA_ANTIGUEDAD: fecha (DD/MM/AAAA)}}, con la categoría profesional de {{CATEGORIA_PROFESIONAL: categoría profesional del convenio}}, encuadrado en el grupo profesional {{GRUPO_PROFESIONAL: grupo profesional del convenio}}, en virtud de contrato de trabajo de modalidad {{MODALIDAD_CONTRATO: modalidad contractual}}, a jornada {{TIPO_JORNADA: jornada: completa o parcial}}, y percibiendo un salario bruto anual de {{SALARIO_BRUTO_ANUAL: importe en euros}} euros con inclusión del prorrateo de pagas extraordinarias.
 
 ## SEGUNDO — Hechos que motivan la decisión
 
 Los hechos que fundamentan la presente decisión extintiva son los siguientes:
 
-{{relato_hechos_imputados: texto libre, uno o varios párrafos}}
+{{RELATO_HECHOS_IMPUTADOS: texto libre, uno o varios párrafos}}
 
 ## TERCERO — Calificación de los hechos
 
-Los hechos descritos constituyen un incumplimiento contractual grave y culpable, subsumible en el artículo 54.2.{{apartado_articulo_54: letra del apartado del artículo 54}} del Estatuto de los Trabajadores, relativo a {{descripcion_causa_legal: denominación de la causa legal del apartado}}, y tipificado como falta {{calificacion_falta: texto breve}} en el artículo {{articulo_convenio_faltas: número de artículo}} del convenio colectivo de aplicación, que contempla para dicha falta la sanción de despido.
+Los hechos descritos constituyen un incumplimiento contractual grave y culpable, subsumible en el artículo 54.2.{{APARTADO_ARTICULO_54: letra del apartado del artículo 54}} del Estatuto de los Trabajadores, relativo a {{DESCRIPCION_CAUSA_LEGAL: denominación de la causa legal del apartado}}, y tipificado como falta {{CALIFICACION_FALTA: texto breve}} en el artículo {{ARTICULO_CONVENIO_FALTAS: número de artículo}} del convenio colectivo de aplicación, que contempla para dicha falta la sanción de despido.
 
-{{parrafo_antecedentes_disciplinarios: bloque condicional que inserta la skill}}
+{{PARRAFO_ANTECEDENTES_DISCIPLINARIOS: bloque condicional que inserta la skill}}
 
 ## CUARTO — Efectos de la decisión
 
-La presente decisión extintiva producirá efectos el día {{fecha_efectos: fecha (DD/MM/AAAA)}}, fecha en la que causará usted baja en esta empresa y en el Régimen General de la Seguridad Social.
+La presente decisión extintiva producirá efectos el día {{FECHA_EFECTOS: fecha (DD/MM/AAAA)}}, fecha en la que causará usted baja en esta empresa y en el Régimen General de la Seguridad Social.
 
-Se pone a su disposición la liquidación de partes proporcionales devengadas y no percibidas (finiquito) por importe bruto de {{importe_finiquito: importe en euros}} euros, cuyo detalle se acompaña en documento separado, así como el certificado de empresa a efectos de las prestaciones por desempleo.
+Se pone a su disposición la liquidación de partes proporcionales devengadas y no percibidas (finiquito) por importe bruto de {{IMPORTE_FINIQUITO: importe en euros}} euros, cuyo detalle se acompaña en documento separado, así como el certificado de empresa a efectos de las prestaciones por desempleo.
 
 Al tratarse de una extinción de naturaleza disciplinaria fundada en incumplimiento del trabajador, **no procede indemnización alguna** por la extinción del contrato, sin perjuicio de la liquidación de las cantidades devengadas que se acaba de indicar.
 
@@ -57,18 +57,18 @@ Rogamos firme el duplicado de la presente a los solos efectos de acreditar su re
 
 Atentamente,
 
-Fdo.: {{nombre_representante: nombre y apellidos}}  
-{{cargo_representante: cargo del firmante}}  
-{{razon_social_empresa: razón social}}
+Fdo.: {{NOMBRE_REPRESENTANTE: nombre y apellidos}}  
+{{CARGO_REPRESENTANTE: cargo del firmante}}  
+{{RAZON_SOCIAL_EMPRESA: razón social}}
 
 ---
 
 **RECIBÍ**
 
-Recibo copia de la presente comunicación en fecha {{fecha_recibi: fecha (DD/MM/AAAA)}}, a los solos efectos de acreditar su recepción y sin que ello implique conformidad con su contenido.
+Recibo copia de la presente comunicación en fecha {{FECHA_RECIBI: fecha (DD/MM/AAAA)}}, a los solos efectos de acreditar su recepción y sin que ello implique conformidad con su contenido.
 
-Fdo.: {{nombre_trabajador: nombre y apellidos}}  
-DNI/NIE {{dni_trabajador: DNI/NIE}}
+Fdo.: {{NOMBRE_TRABAJADOR: nombre y apellidos}}  
+DNI/NIE {{DNI_TRABAJADOR: DNI/NIE}}
 
 ---
 

@@ -1,69 +1,69 @@
 # PAPELETA DE CONCILIACIÓN POR IMPUGNACIÓN DE SANCIÓN
 
 > **DRAFT — para revisión por un abogado o graduado social colegiado antes de su firma y presentación. No constituye asesoramiento jurídico definitivo.**  
-> Organismo de presentación: {{organismo_conciliacion: denominación exacta del servicio de conciliación competente}}  
-> Plazo de caducidad: 20 días hábiles desde el {{fecha_notificacion_sancion: fecha (DD/MM/AAAA)}} — fecha límite calculada: {{fecha_limite_caducidad: fecha (DD/MM/AAAA)}}
+> Organismo de presentación: {{ORGANISMO_CONCILIACION: denominación exacta del servicio de conciliación competente}}  
+> Plazo de caducidad: 20 días hábiles desde el {{FECHA_NOTIFICACION_SANCION: fecha (DD/MM/AAAA)}} — fecha límite calculada: {{FECHA_LIMITE_CADUCIDAD: fecha (DD/MM/AAAA)}}
 
 ---
 
-**AL {{organismo_conciliacion: denominación exacta del servicio de conciliación competente}}**
+**AL {{ORGANISMO_CONCILIACION: denominación exacta del servicio de conciliación competente}}**
 
 ## DATOS DEL SOLICITANTE
 
 | Dato | Valor |
 |---|---|
-| Nombre y apellidos | {{nombre_solicitante: nombre y apellidos}} |
-| DNI/NIE | {{dni_solicitante: DNI/NIE}} |
-| Domicilio a efectos de notificaciones | {{domicilio_solicitante: domicilio completo}} |
-| Teléfono | {{telefono_solicitante: teléfono}} |
-| Correo electrónico | {{email_solicitante: correo electrónico}} |
-| Representado por | {{representante_solicitante: representado por}} |
+| Nombre y apellidos | {{NOMBRE_SOLICITANTE: nombre y apellidos}} |
+| DNI/NIE | {{DNI_SOLICITANTE: DNI/NIE}} |
+| Domicilio a efectos de notificaciones | {{DOMICILIO_SOLICITANTE: domicilio completo}} |
+| Teléfono | {{TELEFONO_SOLICITANTE: teléfono}} |
+| Correo electrónico | {{EMAIL_SOLICITANTE: correo electrónico}} |
+| Representado por | {{REPRESENTANTE_SOLICITANTE: representado por}} |
 
 ## DATOS DE LA PARTE FRENTE A LA QUE SE SOLICITA LA CONCILIACIÓN
 
 | Dato | Valor |
 |---|---|
-| Razón social o nombre | {{razon_social_demandado: razón social}} |
-| CIF/NIF | {{cif_demandado: CIF/NIF}} |
-| Domicilio social | {{domicilio_social_demandado: domicilio completo}} |
-| Domicilio del centro de trabajo | {{domicilio_centro_trabajo: domicilio completo}} |
+| Razón social o nombre | {{RAZON_SOCIAL_DEMANDADO: razón social}} |
+| CIF/NIF | {{CIF_DEMANDADO: CIF/NIF}} |
+| Domicilio social | {{DOMICILIO_SOCIAL_DEMANDADO: domicilio completo}} |
+| Domicilio del centro de trabajo | {{DOMICILIO_CENTRO_TRABAJO: domicilio completo}} |
 
 ## DATOS DE LA RELACIÓN LABORAL Y DE LA SANCIÓN
 
 | Dato | Valor |
 |---|---|
-| Fecha de antigüedad | {{fecha_antiguedad: fecha (DD/MM/AAAA)}} |
-| Categoría o grupo profesional | {{categoria_profesional: categoría o grupo profesional}} |
-| Salario bruto anual | {{salario_bruto_anual: importe en euros}} € |
-| Convenio colectivo aplicable | {{denominacion_convenio: convenio colectivo aplicable}} |
-| Fecha de notificación de la sanción | {{fecha_notificacion_sancion: fecha (DD/MM/AAAA)}} |
-| Falta imputada y calificación | {{falta_imputada: falta imputada y calificación}} |
-| Sanción impuesta | {{sancion_impuesta: sanción impuesta}} |
-| Periodo de efectos de la sanción | {{periodo_efectos_sancion: periodo de efectos de la sanción}} |
-| Condición representativa del solicitante | {{condicion_representativa: condición representativa, si la ostenta}} |
+| Fecha de antigüedad | {{FECHA_ANTIGUEDAD: fecha (DD/MM/AAAA)}} |
+| Categoría o grupo profesional | {{CATEGORIA_PROFESIONAL: categoría o grupo profesional}} |
+| Salario bruto anual | {{SALARIO_BRUTO_ANUAL: importe en euros}} € |
+| Convenio colectivo aplicable | {{DENOMINACION_CONVENIO: convenio colectivo aplicable}} |
+| Fecha de notificación de la sanción | {{FECHA_NOTIFICACION_SANCION: fecha (DD/MM/AAAA)}} |
+| Falta imputada y calificación | {{FALTA_IMPUTADA: falta imputada y calificación}} |
+| Sanción impuesta | {{SANCION_IMPUESTA: sanción impuesta}} |
+| Periodo de efectos de la sanción | {{PERIODO_EFECTOS_SANCION: periodo de efectos de la sanción}} |
+| Condición representativa del solicitante | {{CONDICION_REPRESENTATIVA: condición representativa, si la ostenta}} |
 
 ## HECHOS
 
-{{relato_hechos: texto libre, uno o varios párrafos}}
+{{RELATO_HECHOS: texto libre, uno o varios párrafos}}
 
 ## FUNDAMENTOS DE LA IMPUGNACIÓN
 
 Se impugna la sanción impuesta por los siguientes motivos:
 
-{{motivos_impugnacion: texto libre, uno o varios párrafos}}
+{{MOTIVOS_IMPUGNACION: texto libre, uno o varios párrafos}}
 
 ## PRETENSIÓN
 
 Que se tenga por presentada la presente papeleta de conciliación y, previos los trámites oportunos, se celebre el acto de conciliación entre las partes, interesando el solicitante que se **revoque la sanción** impuesta, con reposición en la integridad de sus derechos y reintegro de las cantidades descontadas de su retribución con ocasión de su cumplimiento, y con cancelación de su constancia en el expediente personal.
 
-{{bloque_pretension_nulidad_sancion: bloque condicional que inserta la skill}}
+{{BLOQUE_PRETENSION_NULIDAD_SANCION: bloque condicional que inserta la skill}}
 
 ---
 
-En {{lugar_presentacion: localidad}}, a {{fecha_presentacion: fecha (DD/MM/AAAA)}}
+En {{LUGAR_PRESENTACION: localidad}}, a {{FECHA_PRESENTACION: fecha (DD/MM/AAAA)}}
 
-Fdo.: {{nombre_solicitante: nombre y apellidos}}  
-DNI/NIE {{dni_solicitante: DNI/NIE}}
+Fdo.: {{NOMBRE_SOLICITANTE: nombre y apellidos}}  
+DNI/NIE {{DNI_SOLICITANTE: DNI/NIE}}
 
 ---
 

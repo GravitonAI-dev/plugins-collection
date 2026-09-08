@@ -1,32 +1,32 @@
-# SOLICITUD DE EMBARGO Y AVERIGUACION PATRIMONIAL — Ejecucion {{numero_autos_ejecucion}}
+# SOLICITUD DE EMBARGO Y AVERIGUACION PATRIMONIAL — Ejecucion {{NUMERO_AUTOS_EJECUCION}}
 
 > **DRAFT — para revision por un abogado colegiado antes de su firma. No constituye asesoramiento juridico definitivo.**  
-> Version de la LEC verificada en el BOE: {{fecha_verificacion_lec}}  
+> Version de la LEC verificada en el BOE: {{FECHA_VERIFICACION_LEC}}  
 > Fundamento procesal: Arts. 589, 590 y 592 de la Ley 1/2000, de Enjuiciamiento Civil. Escrito de designacion de bienes e investigacion patrimonial.
 
 ---
 
-## AL JUZGADO {{denominacion_juzgado}} DE {{partido_judicial}}
+## AL JUZGADO {{DENOMINACION_JUZGADO}} DE {{PARTIDO_JUDICIAL}}
 
-**Procedimiento:** Ejecucion de titulos {{clase_ejecucion}} nº {{numero_autos_ejecucion}}
+**Procedimiento:** Ejecucion de titulos {{CLASE_EJECUCION}} nº {{NUMERO_AUTOS_EJECUCION}}
 
-{{nombre_procurador}}, Procurador de los Tribunales, en nombre y representacion de {{nombre_ejecutante}}, parte ejecutante en el procedimiento resenado, bajo la direccion del Letrado {{nombre_letrado}}, ante el Juzgado comparezco y, como mejor proceda en Derecho, DIGO:
-Que mediante el presente escrito vengo a designar bienes del ejecutado {{nombre_ejecutado}}, con NIF/CIF {{nif_ejecutado}}, y a interesar las medidas de localizacion e investigacion patrimonial que se diran, con base en las siguientes
+{{NOMBRE_PROCURADOR}}, Procurador de los Tribunales, en nombre y representacion de {{NOMBRE_EJECUTANTE}}, parte ejecutante en el procedimiento resenado, bajo la direccion del Letrado {{NOMBRE_LETRADO}}, ante el Juzgado comparezco y, como mejor proceda en Derecho, DIGO:
+Que mediante el presente escrito vengo a designar bienes del ejecutado {{NOMBRE_EJECUTADO}}, con NIF/CIF {{NIF_EJECUTADO}}, y a interesar las medidas de localizacion e investigacion patrimonial que se diran, con base en las siguientes
 
 ## ALEGACIONES
 
 **PRIMERA — Estado de la ejecucion.**  
-Por auto de {{fecha_auto_despacho}} se despacho ejecucion frente a {{nombre_ejecutado}} por la cantidad de {{cantidad_total}} euros, de los que {{principal}} euros corresponden a principal, {{intereses_vencidos}} euros a intereses vencidos y {{cantidad_presupuestada}} euros a la cantidad presupuestada para intereses de la ejecucion y costas. {{estado_cobro}}
+Por auto de {{FECHA_AUTO_DESPACHO}} se despacho ejecucion frente a {{NOMBRE_EJECUTADO}} por la cantidad de {{CANTIDAD_TOTAL}} euros, de los que {{PRINCIPAL}} euros corresponden a principal, {{INTERESES_VENCIDOS}} euros a intereses vencidos y {{CANTIDAD_PRESUPUESTADA}} euros a la cantidad presupuestada para intereses de la ejecucion y costas. {{ESTADO_COBRO}}
 
 **SEGUNDA — Bienes designados.**  
-{{introduccion_bienes_designados}}
+{{INTRODUCCION_BIENES_DESIGNADOS}}
 
 **TERCERA — Insuficiencia de los bienes conocidos.**  
-{{justificacion_insuficiencia}}
+{{JUSTIFICACION_INSUFICIENCIA}}
 **CUARTA — Destinatarios de los oficios de investigacion y razon de cada uno.**  
 Conforme exige el articulo 590 de la Ley de Enjuiciamiento Civil, se indican a continuacion las entidades, organismos, registros y personas a los que se interesa que se dirija el Juzgado, con expresion sucinta de las razones por las que esta parte estima que disponen de informacion sobre el patrimonio del ejecutado:
 
-{{relacion_oficios_averiguacion}}
+{{RELACION_OFICIOS_AVERIGUACION}}
 
 Esta parte hace constar que no se solicitan datos que pueda obtener por si misma o a traves de su procurador debidamente facultado.
 
@@ -42,7 +42,7 @@ Que tenga por presentado este escrito y por hechas las manifestaciones que conti
 3. Librar, conforme al articulo 590 de la Ley de Enjuiciamiento Civil, los oficios de investigacion patrimonial a los destinatarios relacionados en la alegacion cuarta.
 4. Que las cantidades que se obtengan se apliquen al pago de las cantidades por las que se despacho ejecucion.
 
-Es justicia que pido en {{lugar}}, a {{fecha_escrito}}.
+Es justicia que pido en {{LUGAR}}, a {{FECHA_ESCRITO}}.
 
 ---
 
@@ -56,7 +56,7 @@ Firma del Letrado: ___________________________
 
 > **Advertencias:**  
 > 1. Este documento es un DRAFT generado automaticamente. Debe ser revisado por un abogado antes de su presentacion.  
-> 2. Version de la LEC verificada: {{fecha_verificacion_lec}}.  
+> 2. Version de la LEC verificada: {{FECHA_VERIFICACION_LEC}}.  
 > 3. El requerimiento de manifestacion de bienes del articulo 589 de la Ley de Enjuiciamiento Civil se acuerda de oficio salvo que el ejecutante haya senalado bienes que estime suficientes. Designar bienes claramente insuficientes sin advertirlo puede impedir que se acuerde.  
 > 4. La investigacion patrimonial del articulo 590 exige indicar destinatarios concretos y expresar la razon por la que se estima que cada uno dispone de informacion. El Juzgado no reclamara datos que el ejecutante o su procurador puedan obtener por si mismos.  
 > 5. El orden de embargos del articulo 592 antepone la mayor facilidad de enajenacion y la menor onerosidad para el ejecutado; la escala de nueve rangos es subsidiaria.  

@@ -1,83 +1,83 @@
 # ESCRITO DE DISCONFORMIDAD CON EL ALTA MÉDICA
 
 > **DRAFT — para revisión por un abogado o graduado social colegiado antes de su firma y presentación. No constituye asesoramiento jurídico definitivo.**  
-> **PLAZO BREVÍSIMO Y CONTADO EN DÍAS NATURALES.** Alta notificada el {{fecha_notificacion_alta: fecha (DD/MM/AAAA)}} — fecha límite calculada: {{fecha_limite_disconformidad: fecha (DD/MM/AAAA)}}. Verificar el plazo vigente antes de presentar.
+> **PLAZO BREVÍSIMO Y CONTADO EN DÍAS NATURALES.** Alta notificada el {{FECHA_NOTIFICACION_ALTA: fecha (DD/MM/AAAA)}} — fecha límite calculada: {{FECHA_LIMITE_DISCONFORMIDAD: fecha (DD/MM/AAAA)}}. Verificar el plazo vigente antes de presentar.
 
 ---
 
-**A LA {{organo_destinatario: denominación del órgano destinatario}}**  
-{{direccion_organo: dirección del órgano}}
+**A LA {{ORGANO_DESTINATARIO: denominación del órgano destinatario}}**  
+{{DIRECCION_ORGANO: dirección del órgano}}
 
 ## DATOS DEL INTERESADO
 
 | Dato | Valor |
 |---|---|
-| Nombre y apellidos | {{nombre_interesado: nombre y apellidos}} |
-| DNI/NIE | {{dni_interesado: DNI/NIE}} |
-| Número de afiliación a la Seguridad Social | {{naf_interesado: número de afiliación a la Seguridad Social}} |
-| Domicilio a efectos de notificaciones | {{domicilio_interesado: domicilio completo}} |
-| Teléfono | {{telefono_interesado: teléfono}} |
-| Correo electrónico | {{email_interesado: correo electrónico}} |
-| Empresa y actividad | {{empresa_y_actividad: razón social y actividad}} |
-| Profesión habitual | {{profesion_habitual: profesión habitual}} |
+| Nombre y apellidos | {{NOMBRE_INTERESADO: nombre y apellidos}} |
+| DNI/NIE | {{DNI_INTERESADO: DNI/NIE}} |
+| Número de afiliación a la Seguridad Social | {{NAF_INTERESADO: número de afiliación a la Seguridad Social}} |
+| Domicilio a efectos de notificaciones | {{DOMICILIO_INTERESADO: domicilio completo}} |
+| Teléfono | {{TELEFONO_INTERESADO: teléfono}} |
+| Correo electrónico | {{EMAIL_INTERESADO: correo electrónico}} |
+| Empresa y actividad | {{EMPRESA_Y_ACTIVIDAD: razón social y actividad}} |
+| Profesión habitual | {{PROFESION_HABITUAL: profesión habitual}} |
 
 ## DATOS DEL PROCESO DE INCAPACIDAD TEMPORAL
 
 | Dato | Valor |
 |---|---|
-| Fecha de la baja médica | {{fecha_baja_medica: fecha (DD/MM/AAAA)}} |
-| Contingencia declarada | {{contingencia_declarada: común o profesional}} |
-| Diagnóstico que motivó la baja | {{diagnostico_baja: diagnóstico que motivó la baja}} |
-| Órgano que emite el alta | {{organo_emisor_alta: órgano que emite el alta}} |
-| Fecha del parte de alta | {{fecha_parte_alta: fecha (DD/MM/AAAA)}} |
-| **Fecha de notificación del alta** | **{{fecha_notificacion_alta: fecha (DD/MM/AAAA)}}** |
-| Fecha de efectos del alta | {{fecha_efectos_alta: fecha (DD/MM/AAAA)}} |
-| Motivo del alta consignado | {{motivo_alta: motivo del alta consignado}} |
+| Fecha de la baja médica | {{FECHA_BAJA_MEDICA: fecha (DD/MM/AAAA)}} |
+| Contingencia declarada | {{CONTINGENCIA_DECLARADA: común o profesional}} |
+| Diagnóstico que motivó la baja | {{DIAGNOSTICO_BAJA: diagnóstico que motivó la baja}} |
+| Órgano que emite el alta | {{ORGANO_EMISOR_ALTA: órgano que emite el alta}} |
+| Fecha del parte de alta | {{FECHA_PARTE_ALTA: fecha (DD/MM/AAAA)}} |
+| **Fecha de notificación del alta** | **{{FECHA_NOTIFICACION_ALTA: fecha (DD/MM/AAAA)}}** |
+| Fecha de efectos del alta | {{FECHA_EFECTOS_ALTA: fecha (DD/MM/AAAA)}} |
+| Motivo del alta consignado | {{MOTIVO_ALTA: motivo del alta consignado}} |
 
 Que por medio del presente escrito, y dentro del plazo legalmente establecido, manifiesto mi **DISCONFORMIDAD** con el alta médica de referencia, con base en lo siguiente:
 
 ## PRIMERO — Persistencia del cuadro clínico incapacitante
 
-{{descripcion_persistencia_dolencias: texto libre, uno o varios párrafos}}
+{{DESCRIPCION_PERSISTENCIA_DOLENCIAS: texto libre, uno o varios párrafos}}
 
 ## SEGUNDO — Informes médicos que acreditan la persistencia
 
 | Fecha | Facultativo y servicio | Contenido relevante |
 |---|---|---|
-| {{fecha_informe_1: fecha (DD/MM/AAAA)}} | {{facultativo_1: facultativo y servicio}} | {{contenido_informe_1: contenido relevante}} |
-| {{fecha_informe_2: fecha (DD/MM/AAAA)}} | {{facultativo_2: facultativo y servicio}} | {{contenido_informe_2: contenido relevante}} |
-| {{fecha_informe_3: fecha (DD/MM/AAAA)}} | {{facultativo_3: facultativo y servicio}} | {{contenido_informe_3: contenido relevante}} |
+| {{FECHA_INFORME_1: fecha (DD/MM/AAAA)}} | {{FACULTATIVO_1: facultativo y servicio}} | {{CONTENIDO_INFORME_1: contenido relevante}} |
+| {{FECHA_INFORME_2: fecha (DD/MM/AAAA)}} | {{FACULTATIVO_2: facultativo y servicio}} | {{CONTENIDO_INFORME_2: contenido relevante}} |
+| {{FECHA_INFORME_3: fecha (DD/MM/AAAA)}} | {{FACULTATIVO_3: facultativo y servicio}} | {{CONTENIDO_INFORME_3: contenido relevante}} |
 
 ## TERCERO — Tratamiento y pruebas pendientes
 
-{{tratamiento_y_pruebas_pendientes: texto libre}}
+{{TRATAMIENTO_Y_PRUEBAS_PENDIENTES: texto libre}}
 
 ## CUARTO — Limitaciones funcionales subsistentes y su incidencia sobre el puesto
 
 Las limitaciones funcionales que subsisten son las siguientes:
 
-{{relacion_limitaciones_funcionales: lista, un elemento por línea}}
+{{RELACION_LIMITACIONES_FUNCIONALES: lista, un elemento por línea}}
 
 Dichas limitaciones resultan incompatibles con los requerimientos reales del puesto de trabajo, que son los siguientes:
 
-{{descripcion_tareas_y_requerimientos: texto libre, uno o varios párrafos}}
+{{DESCRIPCION_TAREAS_Y_REQUERIMIENTOS: texto libre, uno o varios párrafos}}
 
 ---
 
 **Por lo expuesto,**
 
-**SOLICITO** que se tenga por presentada en plazo la presente manifestación de disconformidad con el alta médica, se admita la documentación médica que se acompaña, se practiquen los reconocimientos y actuaciones que resulten procedentes, y se acuerde dejar sin efecto el alta médica emitida, con continuación del proceso de incapacidad temporal, {{pretension_adicional: pretensión adicional, si procede}}.
+**SOLICITO** que se tenga por presentada en plazo la presente manifestación de disconformidad con el alta médica, se admita la documentación médica que se acompaña, se practiquen los reconocimientos y actuaciones que resulten procedentes, y se acuerde dejar sin efecto el alta médica emitida, con continuación del proceso de incapacidad temporal, {{PRETENSION_ADICIONAL: pretensión adicional, si procede}}.
 
-En {{lugar_presentacion: localidad}}, a {{fecha_escrito: fecha (DD/MM/AAAA)}}
+En {{LUGAR_PRESENTACION: localidad}}, a {{FECHA_ESCRITO: fecha (DD/MM/AAAA)}}
 
-Fdo.: {{nombre_interesado: nombre y apellidos}}  
-DNI/NIE {{dni_interesado: DNI/NIE}}
+Fdo.: {{NOMBRE_INTERESADO: nombre y apellidos}}  
+DNI/NIE {{DNI_INTERESADO: DNI/NIE}}
 
 ---
 
 ## DOCUMENTACIÓN QUE SE ACOMPAÑA
 
-{{relacion_documentacion_aportada: lista, un elemento por línea}}
+{{RELACION_DOCUMENTACION_APORTADA: lista, un elemento por línea}}
 
 ---
 

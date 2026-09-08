@@ -329,7 +329,7 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 14. **Cada partida de la propuesta necesita su documento justificativo** (Art. 808.2 LEC). Advertir expresamente de las partidas sin justificacion y no presentarlas como acreditadas.
 15. **La fecha de disolucion es la fecha de corte del inventario** (Art. 1397.1.º CC). No inventariar bienes adquiridos ni deudas contraidas despues de esa fecha.
 16. **No estimar valores.** El avaluo lo aportan los conyuges o un peritaje. La skill calcula la aritmetica, pero nunca estima ni inventa el valor de un inmueble, de una empresa, de un vehiculo ni el saldo de una deuda: esas partidas conservan su placeholder.
-17. Nunca inventar datos, cuantias, fechas, numeros de protocolo, datos registrales ni jurisprudencia. Los campos no proporcionados quedan como `{{dato}}` con el nombre propio del placeholder del asset.
+17. Nunca inventar datos, cuantias, fechas, numeros de protocolo, datos registrales ni jurisprudencia. Los campos no proporcionados quedan como `{{DATO}}` con el nombre propio del placeholder del asset.
 18. **Indicios de violencia de genero o domestica → DETENER SIEMPRE y escalar**, conforme al guardrail del plugin. Si el proceso matrimonial se siguio ante un Juzgado de Violencia sobre la Mujer (Art. 807 LEC), concurren por definicion esos presupuestos.
 19. El documento escrito en disco no contiene ningun comentario HTML. Los bloques condicionales se insertan sin su envoltorio de comentario, y los ordinales y numeros de documento de los bloques condicionales se resuelven en el momento de insertarlos, sin dejar saltos en la numeracion.
 

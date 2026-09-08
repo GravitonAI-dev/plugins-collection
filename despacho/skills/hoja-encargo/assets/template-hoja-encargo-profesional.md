@@ -1,16 +1,16 @@
-# HOJA DE ENCARGO PROFESIONAL — {{denominacion_despacho: razón social}} y {{nombre_cliente: nombre y apellidos}}
+# HOJA DE ENCARGO PROFESIONAL — {{DENOMINACION_DESPACHO: razón social}} y {{NOMBRE_CLIENTE: nombre y apellidos}}
 
 > **DRAFT — para revisión por el profesional responsable antes de su firma y entrega. Debe adaptarse a la normativa deontológica del colegio de adscripción.**
 
-En {{lugar_firma: localidad}}, a {{fecha_firma: fecha (DD/MM/AAAA)}}
+En {{LUGAR_FIRMA: localidad}}, a {{FECHA_FIRMA: fecha (DD/MM/AAAA)}}
 
 ---
 
 ## REUNIDOS
 
-**DE UNA PARTE**, {{denominacion_despacho: razón social}}, con NIF {{nif_despacho: CIF/NIF}} y domicilio profesional en {{domicilio_despacho: domicilio completo}}, actuando en este acto {{nombre_profesional_responsable: nombre y apellidos}}, colegiado n.º {{numero_colegiado: número de colegiado}} del {{colegio_adscripcion: denominación del colegio}}, en su condición de profesional responsable del presente encargo (en adelante, el DESPACHO).
+**DE UNA PARTE**, {{DENOMINACION_DESPACHO: razón social}}, con NIF {{NIF_DESPACHO: CIF/NIF}} y domicilio profesional en {{DOMICILIO_DESPACHO: domicilio completo}}, actuando en este acto {{NOMBRE_PROFESIONAL_RESPONSABLE: nombre y apellidos}}, colegiado n.º {{NUMERO_COLEGIADO: número de colegiado}} del {{COLEGIO_ADSCRIPCION: denominación del colegio}}, en su condición de profesional responsable del presente encargo (en adelante, el DESPACHO).
 
-**DE OTRA PARTE**, {{nombre_cliente: nombre y apellidos}}, con {{tipo_documento_cliente: tipo de documento: DNI, NIE o CIF}} {{documento_cliente: DNI/NIE}} y domicilio en {{domicilio_cliente: domicilio completo}}, {{representacion_cliente: título de representación, si actúa por medio de representante}}, con teléfono {{telefono_cliente: teléfono}} y correo electrónico {{email_cliente: correo electrónico}} a efectos de comunicación (en adelante, el CLIENTE).
+**DE OTRA PARTE**, {{NOMBRE_CLIENTE: nombre y apellidos}}, con {{TIPO_DOCUMENTO_CLIENTE: tipo de documento: DNI, NIE o CIF}} {{DOCUMENTO_CLIENTE: DNI/NIE}} y domicilio en {{DOMICILIO_CLIENTE: domicilio completo}}, {{REPRESENTACION_CLIENTE: título de representación, si actúa por medio de representante}}, con teléfono {{TELEFONO_CLIENTE: teléfono}} y correo electrónico {{EMAIL_CLIENTE: correo electrónico}} a efectos de comunicación (en adelante, el CLIENTE).
 
 Ambas partes se reconocen capacidad suficiente para el otorgamiento del presente documento y
 
@@ -28,19 +28,19 @@ Ambas partes se reconocen capacidad suficiente para el otorgamiento del presente
 
 El CLIENTE encarga al DESPACHO la siguiente actuación profesional:
 
-{{descripcion_asunto: texto libre, uno o varios párrafos}}
+{{DESCRIPCION_ASUNTO: texto libre, uno o varios párrafos}}
 
 **Actuaciones expresamente incluidas en el encargo:**
 
-{{relacion_actuaciones_incluidas: lista, un elemento por línea}}
+{{RELACION_ACTUACIONES_INCLUIDAS: lista, un elemento por línea}}
 
 ### SEGUNDA — Actuaciones expresamente excluidas
 
 Quedan **fuera** del presente encargo, y requerirán en su caso un encargo y una retribución independientes, las siguientes actuaciones:
 
-{{relacion_actuaciones_excluidas: lista, un elemento por línea}}
+{{RELACION_ACTUACIONES_EXCLUIDAS: lista, un elemento por línea}}
 
-{{parrafo_exclusiones_judiciales: bloque condicional que inserta la skill}}
+{{PARRAFO_EXCLUSIONES_JUDICIALES: bloque condicional que inserta la skill}}
 
 ### TERCERA — Naturaleza de la obligación
 
@@ -48,40 +48,40 @@ La obligación asumida por el DESPACHO es una **obligación de medios y no de re
 
 ### CUARTA — Honorarios
 
-{{bloque_honorarios_por_modalidad: bloque condicional que inserta la skill}}
+{{BLOQUE_HONORARIOS_POR_MODALIDAD: bloque condicional que inserta la skill}}
 
 **Desglose económico:**
 
 | Concepto | Importe |
 |---|---|
-| Base de honorarios | {{base_honorarios: importe en euros — calculado, suma de los conceptos de honorario}} € |
-| Impuesto sobre el valor añadido ({{tipo_iva: porcentaje}} %) | {{importe_iva: importe en euros — calculado, base por el tipo de IVA}} € |
-| Retención a cuenta del IRPF ({{tipo_retencion: porcentaje}} %) | {{importe_retencion: importe en euros — calculado, base por el tipo de retención}} € |
-| **Total a percibir por el DESPACHO** | **{{total_a_percibir: importe en euros — calculado, total con impuestos menos retención}} €** |
+| Base de honorarios | {{BASE_HONORARIOS: importe en euros — calculado, suma de los conceptos de honorario}} € |
+| Impuesto sobre el valor añadido ({{TIPO_IVA: porcentaje}} %) | {{IMPORTE_IVA: importe en euros — calculado, base por el tipo de IVA}} € |
+| Retención a cuenta del IRPF ({{TIPO_RETENCION: porcentaje}} %) | {{IMPORTE_RETENCION: importe en euros — calculado, base por el tipo de retención}} € |
+| **Total a percibir por el DESPACHO** | **{{TOTAL_A_PERCIBIR: importe en euros — calculado, total con impuestos menos retención}} €** |
 
-{{parrafo_retencion_solo_si_cliente_obligado: bloque condicional que inserta la skill}}
+{{PARRAFO_RETENCION_SOLO_SI_CLIENTE_OBLIGADO: bloque condicional que inserta la skill}}
 
-**Forma y plazo de pago:** {{forma_y_plazo_pago: forma y plazo de pago}}, mediante transferencia a la cuenta {{iban_despacho: IBAN}}.
+**Forma y plazo de pago:** {{FORMA_Y_PLAZO_PAGO: forma y plazo de pago}}, mediante transferencia a la cuenta {{IBAN_DESPACHO: IBAN}}.
 
-**Impago:** el retraso en el pago de cualquier cantidad devengada dará lugar al interés de demora pactado del {{interes_demora: porcentaje}} anual, sin perjuicio de la facultad del DESPACHO de suspender la actuación previa comunicación al CLIENTE con antelación suficiente para evitar su indefensión, y de reclamar las cantidades debidas por los cauces legalmente previstos.
+**Impago:** el retraso en el pago de cualquier cantidad devengada dará lugar al interés de demora pactado del {{INTERES_DEMORA: porcentaje}} anual, sin perjuicio de la facultad del DESPACHO de suspender la actuación previa comunicación al CLIENTE con antelación suficiente para evitar su indefensión, y de reclamar las cantidades debidas por los cauces legalmente previstos.
 
 ### QUINTA — Costas procesales
 
-{{bloque_costas_procesales: bloque condicional que inserta la skill}}
+{{BLOQUE_COSTAS_PROCESALES: bloque condicional que inserta la skill}}
 
 ### SEXTA — Gastos, suplidos y provisión de fondos
 
 Los honorarios pactados en la estipulación cuarta **no incluyen** los gastos y suplidos derivados del asunto, que serán de cuenta del CLIENTE y se justificarán documentalmente:
 
-{{relacion_gastos_y_suplidos_previsibles: lista, un elemento por línea}}
+{{RELACION_GASTOS_Y_SUPLIDOS_PREVISIBLES: lista, un elemento por línea}}
 
-**Provisión de fondos:** el CLIENTE entregará al DESPACHO la cantidad de {{importe_provision: importe en euros}} euros en concepto de provisión de fondos, destinada exclusivamente a la atención de los gastos y suplidos indicados. El DESPACHO llevará cuenta separada de dichos fondos, rendirá cuenta justificada de su aplicación {{periodicidad_rendicion_cuentas: periodicidad de la rendición de cuentas}} y devolverá al CLIENTE el saldo no consumido a la terminación del encargo.
+**Provisión de fondos:** el CLIENTE entregará al DESPACHO la cantidad de {{IMPORTE_PROVISION: importe en euros}} euros en concepto de provisión de fondos, destinada exclusivamente a la atención de los gastos y suplidos indicados. El DESPACHO llevará cuenta separada de dichos fondos, rendirá cuenta justificada de su aplicación {{PERIODICIDAD_RENDICION_CUENTAS: periodicidad de la rendición de cuentas}} y devolverá al CLIENTE el saldo no consumido a la terminación del encargo.
 
 ### SÉPTIMA — Obligaciones del DESPACHO
 
 1. Desempeñar el encargo con la diligencia profesional exigible y con sujeción a la normativa deontológica aplicable.
 2. Guardar **secreto profesional** sobre cuanto conozca con ocasión del encargo, deber que subsiste indefinidamente tras su terminación.
-3. Informar al CLIENTE del estado del asunto {{periodicidad_informacion: periodicidad de la información al cliente}}, y de forma inmediata de cualquier resolución o incidencia relevante.
+3. Informar al CLIENTE del estado del asunto {{PERIODICIDAD_INFORMACION: periodicidad de la información al cliente}}, y de forma inmediata de cualquier resolución o incidencia relevante.
 4. Advertir al CLIENTE de los plazos que deba observar y de las consecuencias de su incumplimiento.
 5. Mantener vigente el seguro de responsabilidad civil profesional durante la vigencia del encargo.
 6. Poner a disposición del CLIENTE la documentación del asunto a su terminación.
@@ -100,7 +100,7 @@ El DESPACHO no responderá de las consecuencias derivadas de la falta de colabor
 
 El presente encargo se extiende desde la fecha de su firma hasta la conclusión de las actuaciones descritas en la estipulación primera.
 
-Cualquiera de las partes podrá poner fin al encargo comunicándolo por escrito a la otra con un preaviso de {{plazo_preaviso: plazo de preaviso en días}}. {{parrafo_preaviso_asunto_judicial: bloque condicional que inserta la skill}}
+Cualquiera de las partes podrá poner fin al encargo comunicándolo por escrito a la otra con un preaviso de {{PLAZO_PREAVISO: plazo de preaviso en días}}. {{PARRAFO_PREAVISO_ASUNTO_JUDICIAL: bloque condicional que inserta la skill}}
 
 A la terminación del encargo, por cualquier causa, el DESPACHO liquidará los honorarios devengados por las actuaciones efectivamente realizadas hasta ese momento, y el CLIENTE los abonará conforme a lo pactado.
 
@@ -110,9 +110,9 @@ La documentación aportada por el CLIENTE es de su propiedad y le será entregad
 
 ### UNDÉCIMA — Protección de datos
 
-El DESPACHO informa al CLIENTE de que tratará sus datos personales con la finalidad de gestionar el presente encargo profesional y cumplir las obligaciones legales derivadas de él, siendo la base jurídica del tratamiento la ejecución del presente contrato y el cumplimiento de dichas obligaciones. Los datos se conservarán durante la vigencia del encargo y, posteriormente, durante los plazos de prescripción y de conservación legalmente exigibles. El CLIENTE puede ejercer sus derechos de acceso, rectificación, supresión, limitación, oposición y portabilidad dirigiéndose a {{contacto_proteccion_datos: dirección de contacto en materia de protección de datos}}. La información adicional consta en {{referencia_informacion_adicional_datos: referencia al documento de información adicional}}.
+El DESPACHO informa al CLIENTE de que tratará sus datos personales con la finalidad de gestionar el presente encargo profesional y cumplir las obligaciones legales derivadas de él, siendo la base jurídica del tratamiento la ejecución del presente contrato y el cumplimiento de dichas obligaciones. Los datos se conservarán durante la vigencia del encargo y, posteriormente, durante los plazos de prescripción y de conservación legalmente exigibles. El CLIENTE puede ejercer sus derechos de acceso, rectificación, supresión, limitación, oposición y portabilidad dirigiéndose a {{CONTACTO_PROTECCION_DATOS: dirección de contacto en materia de protección de datos}}. La información adicional consta en {{REFERENCIA_INFORMACION_ADICIONAL_DATOS: referencia al documento de información adicional}}.
 
-{{parrafo_diligencia_debida_blanqueo: bloque condicional que inserta la skill}}
+{{PARRAFO_DILIGENCIA_DEBIDA_BLANQUEO: bloque condicional que inserta la skill}}
 
 ### DUODÉCIMA — Integridad y modificación
 
@@ -120,19 +120,19 @@ El presente documento constituye el acuerdo íntegro entre las partes sobre el o
 
 ### DECIMOTERCERA — Ley aplicable y fuero
 
-El presente encargo se rige por la legislación española. {{clausula_fuero: cláusula de fuero aplicable}}
+El presente encargo se rige por la legislación española. {{CLAUSULA_FUERO: cláusula de fuero aplicable}}
 
 ---
 
 Y en prueba de conformidad, ambas partes firman el presente documento por duplicado y a un solo efecto, entregándose un ejemplar al CLIENTE, en el lugar y fecha indicados en el encabezamiento.
 
 **POR EL DESPACHO**  
-Fdo.: {{nombre_profesional_responsable: nombre y apellidos}}  
-Colegiado n.º {{numero_colegiado: número de colegiado}} — {{colegio_adscripcion: denominación del colegio}}
+Fdo.: {{NOMBRE_PROFESIONAL_RESPONSABLE: nombre y apellidos}}  
+Colegiado n.º {{NUMERO_COLEGIADO: número de colegiado}} — {{COLEGIO_ADSCRIPCION: denominación del colegio}}
 
 **EL CLIENTE**  
-Fdo.: {{nombre_cliente: nombre y apellidos}}  
-{{tipo_documento_cliente: tipo de documento: DNI, NIE o CIF}} {{documento_cliente: DNI/NIE}}
+Fdo.: {{NOMBRE_CLIENTE: nombre y apellidos}}  
+{{TIPO_DOCUMENTO_CLIENTE: tipo de documento: DNI, NIE o CIF}} {{DOCUMENTO_CLIENTE: DNI/NIE}}
 
 ---
 

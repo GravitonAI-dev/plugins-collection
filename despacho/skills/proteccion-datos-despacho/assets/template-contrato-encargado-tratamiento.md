@@ -2,19 +2,19 @@
 
 > **DRAFT — para revisión por el profesional responsable o por el delegado de protección de datos antes de su firma. Debe cumplir íntegramente el contenido mínimo exigido por el artículo 28 del Reglamento (UE) 2016/679, cuyo listado vigente debe verificarse.**
 
-En {{lugar_firma: localidad}}, a {{fecha_firma: fecha (DD/MM/AAAA)}}
+En {{LUGAR_FIRMA: localidad}}, a {{FECHA_FIRMA: fecha (DD/MM/AAAA)}}
 
 ---
 
 ## REUNIDOS
 
-**DE UNA PARTE**, {{denominacion_responsable: razón social}}, con NIF {{nif_responsable: CIF/NIF}} y domicilio en {{domicilio_responsable: domicilio completo}}, representada por {{representante_responsable: nombre y cargo del representante}}, en adelante el **RESPONSABLE DEL TRATAMIENTO**.
+**DE UNA PARTE**, {{DENOMINACION_RESPONSABLE: razón social}}, con NIF {{NIF_RESPONSABLE: CIF/NIF}} y domicilio en {{DOMICILIO_RESPONSABLE: domicilio completo}}, representada por {{REPRESENTANTE_RESPONSABLE: nombre y cargo del representante}}, en adelante el **RESPONSABLE DEL TRATAMIENTO**.
 
-**DE OTRA PARTE**, {{denominacion_encargado: razón social}}, con NIF {{nif_encargado: CIF/NIF}} y domicilio en {{domicilio_encargado: domicilio completo}}, representada por {{representante_encargado: nombre y cargo del representante}}, en adelante el **ENCARGADO DEL TRATAMIENTO**.
+**DE OTRA PARTE**, {{DENOMINACION_ENCARGADO: razón social}}, con NIF {{NIF_ENCARGADO: CIF/NIF}} y domicilio en {{DOMICILIO_ENCARGADO: domicilio completo}}, representada por {{REPRESENTANTE_ENCARGADO: nombre y cargo del representante}}, en adelante el **ENCARGADO DEL TRATAMIENTO**.
 
 ## EXPONEN
 
-**I.** Que las partes están vinculadas por {{contrato_principal: contrato principal del que deriva el encargo}}, en cuya ejecución el ENCARGADO accederá a datos personales cuyo responsable es el RESPONSABLE.
+**I.** Que las partes están vinculadas por {{CONTRATO_PRINCIPAL: contrato principal del que deriva el encargo}}, en cuya ejecución el ENCARGADO accederá a datos personales cuyo responsable es el RESPONSABLE.
 
 **II.** Que, en cumplimiento de lo dispuesto en el artículo 28 del Reglamento (UE) 2016/679, del Parlamento Europeo y del Consejo, de 27 de abril de 2016, y en la Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos Personales y garantía de los derechos digitales, suscriben el presente contrato con arreglo a las siguientes
 
@@ -24,14 +24,14 @@ En {{lugar_firma: localidad}}, a {{fecha_firma: fecha (DD/MM/AAAA)}}
 
 | Elemento | Contenido |
 |---|---|
-| Objeto del tratamiento | {{objeto_tratamiento: objeto del tratamiento}} |
-| Finalidad exclusiva | {{finalidad_tratamiento: finalidad exclusiva}} |
-| Naturaleza de las operaciones | {{naturaleza_operaciones: texto breve}} |
-| Categorías de datos | {{categorias_datos: categorías de datos}} |
-| ¿Categorías especiales de datos? | {{categorias_especiales: sí / no, con su detalle}} |
-| Categorías de interesados | {{categorias_interesados: categorías de interesados}} |
-| Duración del tratamiento | {{duracion_tratamiento: duración del tratamiento}} |
-| Ubicación del tratamiento | {{ubicacion_tratamiento: ubicación del tratamiento}} |
+| Objeto del tratamiento | {{OBJETO_TRATAMIENTO: objeto del tratamiento}} |
+| Finalidad exclusiva | {{FINALIDAD_TRATAMIENTO: finalidad exclusiva}} |
+| Naturaleza de las operaciones | {{NATURALEZA_OPERACIONES: texto breve}} |
+| Categorías de datos | {{CATEGORIAS_DATOS: categorías de datos}} |
+| ¿Categorías especiales de datos? | {{CATEGORIAS_ESPECIALES: sí / no, con su detalle}} |
+| Categorías de interesados | {{CATEGORIAS_INTERESADOS: categorías de interesados}} |
+| Duración del tratamiento | {{DURACION_TRATAMIENTO: duración del tratamiento}} |
+| Ubicación del tratamiento | {{UBICACION_TRATAMIENTO: ubicación del tratamiento}} |
 
 ### SEGUNDA — Actuación conforme a instrucciones
 
@@ -45,35 +45,35 @@ Si el ENCARGADO determinase por su cuenta las finalidades o los medios del trata
 
 El ENCARGADO, y todas las personas que bajo su autoridad accedan a los datos, están sujetos al **deber de confidencialidad**, que subsiste indefinidamente tras la terminación de la relación. El ENCARGADO garantizará que dichas personas se comprometan por escrito a respetarlo y que hayan recibido la formación necesaria.
 
-{{parrafo_secreto_profesional_reforzado: bloque condicional que inserta la skill}}
+{{PARRAFO_SECRETO_PROFESIONAL_REFORZADO: bloque condicional que inserta la skill}}
 
 ### CUARTA — Medidas de seguridad
 
 El ENCARGADO aplicará las medidas técnicas y organizativas apropiadas para garantizar un nivel de seguridad adecuado al riesgo, atendiendo al estado de la técnica, los costes de aplicación y la naturaleza, alcance, contexto y fines del tratamiento. En particular:
 
-{{relacion_medidas_seguridad_exigidas: lista, un elemento por línea}}
+{{RELACION_MEDIDAS_SEGURIDAD_EXIGIDAS: lista, un elemento por línea}}
 
 El ENCARGADO acreditará al RESPONSABLE, a su requerimiento, la implantación efectiva de dichas medidas.
 
 ### QUINTA — Subcontratación
 
-{{bloque_regimen_subcontratacion: bloque condicional que inserta la skill}}
+{{BLOQUE_REGIMEN_SUBCONTRATACION: bloque condicional que inserta la skill}}
 
 ### SEXTA — Transferencias internacionales
 
-{{bloque_transferencias_internacionales: bloque condicional que inserta la skill}}
+{{BLOQUE_TRANSFERENCIAS_INTERNACIONALES: bloque condicional que inserta la skill}}
 
 ### SÉPTIMA — Asistencia al responsable
 
 El ENCARGADO asistirá al RESPONSABLE en el cumplimiento de sus obligaciones y, en particular:
 
-1. **Derechos de los interesados:** si un interesado dirige al ENCARGADO una solicitud de ejercicio de derechos, la **trasladará al RESPONSABLE sin dilación**, en el plazo máximo de {{plazo_traslado_derechos: plazo en días}}, sin atenderla por sí mismo, junto con cualquier otra información relevante.
+1. **Derechos de los interesados:** si un interesado dirige al ENCARGADO una solicitud de ejercicio de derechos, la **trasladará al RESPONSABLE sin dilación**, en el plazo máximo de {{PLAZO_TRASLADO_DERECHOS: plazo en días}}, sin atenderla por sí mismo, junto con cualquier otra información relevante.
 2. **Seguridad y evaluaciones de impacto:** asistirá al RESPONSABLE en la garantía del cumplimiento de las obligaciones de seguridad, notificación de brechas y evaluación de impacto, cuando proceda.
-3. **Consultas de la autoridad de control:** informará al RESPONSABLE de cualquier requerimiento recibido de la autoridad de control o de otra autoridad, en el plazo de {{plazo_traslado_requerimientos: plazo en días}}.
+3. **Consultas de la autoridad de control:** informará al RESPONSABLE de cualquier requerimiento recibido de la autoridad de control o de otra autoridad, en el plazo de {{PLAZO_TRASLADO_REQUERIMIENTOS: plazo en días}}.
 
 ### OCTAVA — Notificación de brechas de seguridad
 
-El ENCARGADO notificará al RESPONSABLE, **sin dilación indebida y en todo caso dentro del plazo de {{plazo_notificacion_brecha: plazo en horas}}** desde que tenga constancia de ella, cualquier violación de la seguridad de los datos personales, aportando al menos:
+El ENCARGADO notificará al RESPONSABLE, **sin dilación indebida y en todo caso dentro del plazo de {{PLAZO_NOTIFICACION_BRECHA: plazo en horas}}** desde que tenga constancia de ella, cualquier violación de la seguridad de los datos personales, aportando al menos:
 
 1. Descripción de la naturaleza de la violación.
 2. Fecha y hora en que se produjo y en que se detectó.
@@ -86,13 +86,13 @@ El ENCARGADO **no notificará la brecha a la autoridad de control ni a los inter
 
 ### NOVENA — Auditoría y acreditación
 
-El ENCARGADO pondrá a disposición del RESPONSABLE toda la información necesaria para demostrar el cumplimiento de las obligaciones del presente contrato, y permitirá y contribuirá a la realización de **auditorías e inspecciones** por el RESPONSABLE o por un auditor por él designado, en los términos y con la periodicidad siguientes: {{regimen_auditoria: texto breve}}.
+El ENCARGADO pondrá a disposición del RESPONSABLE toda la información necesaria para demostrar el cumplimiento de las obligaciones del presente contrato, y permitirá y contribuirá a la realización de **auditorías e inspecciones** por el RESPONSABLE o por un auditor por él designado, en los términos y con la periodicidad siguientes: {{REGIMEN_AUDITORIA: texto breve}}.
 
 ### DÉCIMA — Destino de los datos a la terminación
 
 A la terminación de la prestación del servicio, el ENCARGADO, a elección del RESPONSABLE, **devolverá o suprimirá** los datos personales tratados y suprimirá las copias existentes, salvo que la conservación esté exigida por el Derecho de la Unión o nacional, supuesto en el que conservará los datos debidamente bloqueados durante el plazo legalmente exigible.
 
-El ENCARGADO acreditará la devolución o supresión mediante {{acreditacion_supresion: texto libre, uno o varios párrafos}}, en el plazo de {{plazo_devolucion_supresion: plazo en días}} desde la terminación.
+El ENCARGADO acreditará la devolución o supresión mediante {{ACREDITACION_SUPRESION: texto libre, uno o varios párrafos}}, en el plazo de {{PLAZO_DEVOLUCION_SUPRESION: plazo en días}} desde la terminación.
 
 ### UNDÉCIMA — Registro de actividades del encargado
 
@@ -100,23 +100,23 @@ El ENCARGADO llevará el registro de las categorías de actividades de tratamien
 
 ### DUODÉCIMA — Responsabilidad
 
-{{bloque_responsabilidad_y_garantias: bloque condicional que inserta la skill}}
+{{BLOQUE_RESPONSABILIDAD_Y_GARANTIAS: bloque condicional que inserta la skill}}
 
 ### DECIMOTERCERA — Duración
 
 El presente contrato estará vigente durante toda la duración de la prestación del servicio descrita en el expositivo I, y sus obligaciones de confidencialidad subsistirán indefinidamente tras su terminación.
 
-{{clausulas_adicionales_pactadas: bloque condicional que inserta la skill}}
+{{CLAUSULAS_ADICIONALES_PACTADAS: bloque condicional que inserta la skill}}
 
 ---
 
 Y en prueba de conformidad, ambas partes firman el presente contrato por duplicado y a un solo efecto.
 
 **POR EL RESPONSABLE DEL TRATAMIENTO**  
-Fdo.: {{representante_responsable: nombre y cargo del representante}}
+Fdo.: {{REPRESENTANTE_RESPONSABLE: nombre y cargo del representante}}
 
 **POR EL ENCARGADO DEL TRATAMIENTO**  
-Fdo.: {{representante_encargado: nombre y cargo del representante}}
+Fdo.: {{REPRESENTANTE_ENCARGADO: nombre y cargo del representante}}
 
 ---
 

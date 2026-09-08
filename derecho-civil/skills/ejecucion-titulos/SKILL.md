@@ -291,7 +291,7 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 9. En alimentos, el limite del Art. 607 no se aplica por ministerio de la ley (Art. 608). En pension compensatoria, esa exclusion es rogada y exige acreditar necesidad economica: nunca aplicarla sin que el cliente la acredite.
 10. Si consta o se sospecha que el ejecutado esta en concurso de acreedores, detener de inmediato: no pueden iniciarse ejecuciones singulares contra la masa activa (Arts. 142 y 143 TRLC).
 11. No es exigible acreditar el intento de un medio adecuado de solucion de controversias para presentar una demanda ejecutiva (Art. 5.3 LO 1/2025). Nunca pedir ese dato en esta skill.
-12. Nunca inventar datos, cuantias, fechas, numeros de protocolo ni jurisprudencia. Los campos no proporcionados quedan como `{{dato}}`.
+12. Nunca inventar datos, cuantias, fechas, numeros de protocolo ni jurisprudencia. Los campos no proporcionados quedan como `{{DATO}}`.
 13. Cuando el impago de pensiones de familia alcance dos meses consecutivos o cuatro no consecutivos, informar de que la conducta puede tener relevancia penal (Art. 227 del Codigo Penal) y ofrecer escalacion a un especialista en penal. Nunca redactar denuncia ni querella: excede el alcance de esta skill.
 
 ### Supuestos Fuera de Alcance (Cómo NO usar esta skill)

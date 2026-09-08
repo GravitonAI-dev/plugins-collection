@@ -5,13 +5,13 @@
 ---
 
 **SUJETO OBLIGADO**  
-{{denominacion_despacho: razón social}} — NIF {{nif_despacho: CIF/NIF}}  
-Profesional responsable del expediente: {{nombre_profesional_responsable: nombre y apellidos}}, colegiado n.º {{numero_colegiado: número de colegiado}} del {{colegio_adscripcion: denominación del colegio}}
+{{DENOMINACION_DESPACHO: razón social}} — NIF {{NIF_DESPACHO: CIF/NIF}}  
+Profesional responsable del expediente: {{NOMBRE_PROFESIONAL_RESPONSABLE: nombre y apellidos}}, colegiado n.º {{NUMERO_COLEGIADO: número de colegiado}} del {{COLEGIO_ADSCRIPCION: denominación del colegio}}
 
 **EXPEDIENTE**  
-Referencia: {{referencia_expediente: referencia alfanumérica}}  
-Fecha de apertura: {{fecha_apertura: fecha (DD/MM/AAAA)}}  
-Fecha de esta ficha: {{fecha_ficha: fecha (DD/MM/AAAA)}}
+Referencia: {{REFERENCIA_EXPEDIENTE: referencia alfanumérica}}  
+Fecha de apertura: {{FECHA_APERTURA: fecha (DD/MM/AAAA)}}  
+Fecha de esta ficha: {{FECHA_FICHA: fecha (DD/MM/AAAA)}}
 
 ---
 
@@ -19,99 +19,99 @@ Fecha de esta ficha: {{fecha_ficha: fecha (DD/MM/AAAA)}}
 
 | Elemento | Contenido |
 |---|---|
-| Actuación profesional encargada | {{descripcion_actuacion: texto breve}} |
-| ¿Comprendida en el ámbito de sujeción de la Ley 10/2010? | {{conclusion_sujecion: sí / no, con el precepto aplicado}} |
-| Precepto aplicado y fecha de verificación | {{precepto_sujecion_verificado: precepto aplicado y fecha de verificación}} |
-| ¿Opera la exención relativa a la determinación de la posición jurídica o a la defensa y representación? | {{conclusion_exencion: sí / no, con el precepto aplicado}} |
-| Observaciones | {{observaciones_sujecion: texto breve}} |
+| Actuación profesional encargada | {{DESCRIPCION_ACTUACION: texto breve}} |
+| ¿Comprendida en el ámbito de sujeción de la Ley 10/2010? | {{CONCLUSION_SUJECION: sí / no, con el precepto aplicado}} |
+| Precepto aplicado y fecha de verificación | {{PRECEPTO_SUJECION_VERIFICADO: precepto aplicado y fecha de verificación}} |
+| ¿Opera la exención relativa a la determinación de la posición jurídica o a la defensa y representación? | {{CONCLUSION_EXENCION: sí / no, con el precepto aplicado}} |
+| Observaciones | {{OBSERVACIONES_SUJECION: texto breve}} |
 
 ## 2. Identificación formal del cliente
 
 | Dato | Contenido |
 |---|---|
-| Nombre y apellidos o denominación social | {{nombre_o_denominacion: nombre y apellidos}} |
-| Naturaleza | {{naturaleza_cliente: naturaleza: persona física o jurídica}} |
-| Tipo de documento fehaciente de identificación | {{tipo_documento: tipo de documento fehaciente de identificación}} |
-| Número del documento | {{numero_documento: número del documento}} |
-| Fecha de validez del documento | {{validez_documento: fecha de validez del documento}} |
-| Nacionalidad o país de constitución | {{nacionalidad_o_pais: nacionalidad o país de constitución}} |
-| Fecha y lugar de nacimiento o de constitución | {{fecha_lugar_nacimiento_constitucion: fecha (DD/MM/AAAA)}} |
-| Domicilio | {{domicilio_cliente: domicilio completo}} |
-| Actividad profesional o empresarial declarada | {{actividad_declarada: actividad profesional o empresarial declarada}} |
-| Datos de inscripción registral, si es persona jurídica | {{datos_registrales: datos de inscripción registral, si es persona jurídica}} |
-| ¿Se ha obtenido copia del documento de identificación? | {{copia_documento_obtenida: sí / no}} |
-| Fecha en que se practicó la identificación | {{fecha_identificacion: fecha (DD/MM/AAAA)}} |
-| ¿Se practicó con carácter previo al inicio de la actuación? | {{identificacion_previa: sí / no}} |
+| Nombre y apellidos o denominación social | {{NOMBRE_O_DENOMINACION: nombre y apellidos}} |
+| Naturaleza | {{NATURALEZA_CLIENTE: naturaleza: persona física o jurídica}} |
+| Tipo de documento fehaciente de identificación | {{TIPO_DOCUMENTO: tipo de documento fehaciente de identificación}} |
+| Número del documento | {{NUMERO_DOCUMENTO: número del documento}} |
+| Fecha de validez del documento | {{VALIDEZ_DOCUMENTO: fecha de validez del documento}} |
+| Nacionalidad o país de constitución | {{NACIONALIDAD_O_PAIS: nacionalidad o país de constitución}} |
+| Fecha y lugar de nacimiento o de constitución | {{FECHA_LUGAR_NACIMIENTO_CONSTITUCION: fecha (DD/MM/AAAA)}} |
+| Domicilio | {{DOMICILIO_CLIENTE: domicilio completo}} |
+| Actividad profesional o empresarial declarada | {{ACTIVIDAD_DECLARADA: actividad profesional o empresarial declarada}} |
+| Datos de inscripción registral, si es persona jurídica | {{DATOS_REGISTRALES: datos de inscripción registral, si es persona jurídica}} |
+| ¿Se ha obtenido copia del documento de identificación? | {{COPIA_DOCUMENTO_OBTENIDA: sí / no}} |
+| Fecha en que se practicó la identificación | {{FECHA_IDENTIFICACION: fecha (DD/MM/AAAA)}} |
+| ¿Se practicó con carácter previo al inicio de la actuación? | {{IDENTIFICACION_PREVIA: sí / no}} |
 
 ## 3. Representante que actúa por cuenta del cliente
 
-{{bloque_identificacion_representante: bloque condicional que inserta la skill}}
+{{BLOQUE_IDENTIFICACION_REPRESENTANTE: bloque condicional que inserta la skill}}
 
 ## 4. Titularidad real
 
-{{bloque_remision_titularidad_real: bloque condicional que inserta la skill}}
+{{BLOQUE_REMISION_TITULARIDAD_REAL: bloque condicional que inserta la skill}}
 
 ## 5. Propósito e índole de la relación de negocios
 
 | Elemento | Contenido |
 |---|---|
-| Finalidad de la actuación encargada | {{finalidad_actuacion: finalidad de la actuación encargada}} |
-| Naturaleza e importe previsto de la operación | {{naturaleza_importe_operacion: naturaleza e importe previsto de la operación}} |
-| Actividad real del cliente y su coherencia con la operación | {{coherencia_actividad_operacion: actividad real del cliente y su coherencia con la operación}} |
-| Origen de los fondos, cuando resulte exigible | {{origen_fondos: origen de los fondos, cuando resulte exigible}} |
-| Destino previsto de los fondos, cuando resulte exigible | {{destino_fondos: destino previsto de los fondos, cuando resulte exigible}} |
-| Duración prevista de la relación | {{duracion_prevista: duración prevista de la relación}} |
-| Canal de contratación | {{canal_contratacion: canal de contratación}} |
+| Finalidad de la actuación encargada | {{FINALIDAD_ACTUACION: finalidad de la actuación encargada}} |
+| Naturaleza e importe previsto de la operación | {{NATURALEZA_IMPORTE_OPERACION: naturaleza e importe previsto de la operación}} |
+| Actividad real del cliente y su coherencia con la operación | {{COHERENCIA_ACTIVIDAD_OPERACION: actividad real del cliente y su coherencia con la operación}} |
+| Origen de los fondos, cuando resulte exigible | {{ORIGEN_FONDOS: origen de los fondos, cuando resulte exigible}} |
+| Destino previsto de los fondos, cuando resulte exigible | {{DESTINO_FONDOS: destino previsto de los fondos, cuando resulte exigible}} |
+| Duración prevista de la relación | {{DURACION_PREVISTA: duración prevista de la relación}} |
+| Canal de contratación | {{CANAL_CONTRATACION: canal de contratación}} |
 
 ## 6. Valoración del nivel de riesgo
 
 | Factor de riesgo | Valoración | Observaciones |
 |---|---|---|
-| Cliente | {{riesgo_cliente: valoración}} | {{obs_riesgo_cliente: texto breve}} |
-| Producto, servicio u operación | {{riesgo_producto: valoración}} | {{obs_riesgo_producto: texto breve}} |
-| Canal de contratación | {{riesgo_canal: valoración}} | {{obs_riesgo_canal: texto breve}} |
-| Ubicación geográfica | {{riesgo_geografico: valoración}} | {{obs_riesgo_geografico: texto breve}} |
-| ¿Persona con responsabilidad pública, o familiar o allegado? | {{condicion_prp: valoración}} | {{obs_prp: texto breve}} |
-| **Nivel de riesgo resultante** | **{{nivel_riesgo_resultante: nivel: simplificado, normal o reforzado}}** | {{justificacion_nivel_riesgo: justificación del nivel de riesgo asignado}} |
+| Cliente | {{RIESGO_CLIENTE: valoración}} | {{OBS_RIESGO_CLIENTE: texto breve}} |
+| Producto, servicio u operación | {{RIESGO_PRODUCTO: valoración}} | {{OBS_RIESGO_PRODUCTO: texto breve}} |
+| Canal de contratación | {{RIESGO_CANAL: valoración}} | {{OBS_RIESGO_CANAL: texto breve}} |
+| Ubicación geográfica | {{RIESGO_GEOGRAFICO: valoración}} | {{OBS_RIESGO_GEOGRAFICO: texto breve}} |
+| ¿Persona con responsabilidad pública, o familiar o allegado? | {{CONDICION_PRP: valoración}} | {{OBS_PRP: texto breve}} |
+| **Nivel de riesgo resultante** | **{{NIVEL_RIESGO_RESULTANTE: nivel: simplificado, normal o reforzado}}** | {{JUSTIFICACION_NIVEL_RIESGO: justificación del nivel de riesgo asignado}} |
 
 ## 7. Medidas de diligencia debida aplicadas
 
-{{relacion_medidas_aplicadas: lista, un elemento por línea}}
+{{RELACION_MEDIDAS_APLICADAS: lista, un elemento por línea}}
 
-{{bloque_medidas_reforzadas: bloque condicional que inserta la skill}}
+{{BLOQUE_MEDIDAS_REFORZADAS: bloque condicional que inserta la skill}}
 
 ## 8. Documentación recabada y conservada
 
 | Documento | Fecha | Soporte | Observaciones |
 |---|---|---|---|
-| {{documento_1: documento aportado}} | {{fecha_doc_1: fecha (DD/MM/AAAA)}} | {{soporte_doc_1: soporte}} | {{obs_doc_1: texto breve}} |
-| {{documento_2: documento aportado}} | {{fecha_doc_2: fecha (DD/MM/AAAA)}} | {{soporte_doc_2: soporte}} | {{obs_doc_2: texto breve}} |
-| {{documento_3: documento aportado}} | {{fecha_doc_3: fecha (DD/MM/AAAA)}} | {{soporte_doc_3: soporte}} | {{obs_doc_3: texto breve}} |
-| {{documento_4: documento aportado}} | {{fecha_doc_4: fecha (DD/MM/AAAA)}} | {{soporte_doc_4: soporte}} | {{obs_doc_4: texto breve}} |
+| {{DOCUMENTO_1: documento aportado}} | {{FECHA_DOC_1: fecha (DD/MM/AAAA)}} | {{SOPORTE_DOC_1: soporte}} | {{OBS_DOC_1: texto breve}} |
+| {{DOCUMENTO_2: documento aportado}} | {{FECHA_DOC_2: fecha (DD/MM/AAAA)}} | {{SOPORTE_DOC_2: soporte}} | {{OBS_DOC_2: texto breve}} |
+| {{DOCUMENTO_3: documento aportado}} | {{FECHA_DOC_3: fecha (DD/MM/AAAA)}} | {{SOPORTE_DOC_3: soporte}} | {{OBS_DOC_3: texto breve}} |
+| {{DOCUMENTO_4: documento aportado}} | {{FECHA_DOC_4: fecha (DD/MM/AAAA)}} | {{SOPORTE_DOC_4: soporte}} | {{OBS_DOC_4: texto breve}} |
 
-**Documentación pendiente de obtener:** {{documentacion_pendiente: documentación pendiente de obtener}}
+**Documentación pendiente de obtener:** {{DOCUMENTACION_PENDIENTE: documentación pendiente de obtener}}
 
 ## 9. Seguimiento y conservación
 
 | Elemento | Contenido |
 |---|---|
-| Periodicidad de revisión del expediente | {{periodicidad_revision: periodicidad de revisión del expediente}} |
-| Fecha de la próxima revisión | {{fecha_proxima_revision: fecha (DD/MM/AAAA)}} |
-| Plazo de conservación aplicable | {{plazo_conservacion: plazo de conservación aplicable}} |
-| Soporte y medidas de seguridad de la conservación | {{soporte_conservacion: soporte y medidas de seguridad de la conservación}} |
-| Profesional responsable del expediente | {{nombre_profesional_responsable: nombre y apellidos}} |
+| Periodicidad de revisión del expediente | {{PERIODICIDAD_REVISION: periodicidad de revisión del expediente}} |
+| Fecha de la próxima revisión | {{FECHA_PROXIMA_REVISION: fecha (DD/MM/AAAA)}} |
+| Plazo de conservación aplicable | {{PLAZO_CONSERVACION: plazo de conservación aplicable}} |
+| Soporte y medidas de seguridad de la conservación | {{SOPORTE_CONSERVACION: soporte y medidas de seguridad de la conservación}} |
+| Profesional responsable del expediente | {{NOMBRE_PROFESIONAL_RESPONSABLE: nombre y apellidos}} |
 
 ## 10. Conclusión
 
-{{conclusion_diligencia_debida: texto libre, uno o varios párrafos}}
+{{CONCLUSION_DILIGENCIA_DEBIDA: texto libre, uno o varios párrafos}}
 
 ---
 
-Fdo.: {{nombre_profesional_responsable: nombre y apellidos}}  
-Colegiado n.º {{numero_colegiado: número de colegiado}} — {{colegio_adscripcion: denominación del colegio}}  
-Fecha: {{fecha_ficha: fecha (DD/MM/AAAA)}}
+Fdo.: {{NOMBRE_PROFESIONAL_RESPONSABLE: nombre y apellidos}}  
+Colegiado n.º {{NUMERO_COLEGIADO: número de colegiado}} — {{COLEGIO_ADSCRIPCION: denominación del colegio}}  
+Fecha: {{FECHA_FICHA: fecha (DD/MM/AAAA)}}
 
-{{bloque_visto_responsable_cumplimiento: bloque condicional que inserta la skill}}
+{{BLOQUE_VISTO_RESPONSABLE_CUMPLIMIENTO: bloque condicional que inserta la skill}}
 
 ---
 

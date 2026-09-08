@@ -1,16 +1,16 @@
-# HOJA DE ENCARGO PROFESIONAL CON RETRIBUCIÓN VINCULADA AL RESULTADO — {{denominacion_despacho: razón social}} y {{nombre_cliente: nombre y apellidos}}
+# HOJA DE ENCARGO PROFESIONAL CON RETRIBUCIÓN VINCULADA AL RESULTADO — {{DENOMINACION_DESPACHO: razón social}} y {{NOMBRE_CLIENTE: nombre y apellidos}}
 
 > **DRAFT — para revisión por el profesional responsable antes de su firma y entrega. La admisibilidad y los límites de la retribución vinculada al resultado deben verificarse en la normativa deontológica vigente del colegio de adscripción.**
 
-En {{lugar_firma: localidad}}, a {{fecha_firma: fecha (DD/MM/AAAA)}}
+En {{LUGAR_FIRMA: localidad}}, a {{FECHA_FIRMA: fecha (DD/MM/AAAA)}}
 
 ---
 
 ## REUNIDOS
 
-**DE UNA PARTE**, {{denominacion_despacho: razón social}}, con NIF {{nif_despacho: CIF/NIF}} y domicilio profesional en {{domicilio_despacho: domicilio completo}}, actuando en este acto {{nombre_profesional_responsable: nombre y apellidos}}, colegiado n.º {{numero_colegiado: número de colegiado}} del {{colegio_adscripcion: denominación del colegio}} (en adelante, el DESPACHO).
+**DE UNA PARTE**, {{DENOMINACION_DESPACHO: razón social}}, con NIF {{NIF_DESPACHO: CIF/NIF}} y domicilio profesional en {{DOMICILIO_DESPACHO: domicilio completo}}, actuando en este acto {{NOMBRE_PROFESIONAL_RESPONSABLE: nombre y apellidos}}, colegiado n.º {{NUMERO_COLEGIADO: número de colegiado}} del {{COLEGIO_ADSCRIPCION: denominación del colegio}} (en adelante, el DESPACHO).
 
-**DE OTRA PARTE**, {{nombre_cliente: nombre y apellidos}}, con {{tipo_documento_cliente: tipo de documento: DNI, NIE o CIF}} {{documento_cliente: DNI/NIE}} y domicilio en {{domicilio_cliente: domicilio completo}}, {{representacion_cliente: título de representación, si actúa por medio de representante}} (en adelante, el CLIENTE).
+**DE OTRA PARTE**, {{NOMBRE_CLIENTE: nombre y apellidos}}, con {{TIPO_DOCUMENTO_CLIENTE: tipo de documento: DNI, NIE o CIF}} {{DOCUMENTO_CLIENTE: DNI/NIE}} y domicilio en {{DOMICILIO_CLIENTE: domicilio completo}}, {{REPRESENTACION_CLIENTE: título de representación, si actúa por medio de representante}} (en adelante, el CLIENTE).
 
 ## EXPONEN
 
@@ -24,15 +24,15 @@ En {{lugar_firma: localidad}}, a {{fecha_firma: fecha (DD/MM/AAAA)}}
 
 ### PRIMERA — Objeto del encargo
 
-{{descripcion_asunto: texto libre, uno o varios párrafos}}
+{{DESCRIPCION_ASUNTO: texto libre, uno o varios párrafos}}
 
 **Actuaciones incluidas:**
 
-{{relacion_actuaciones_incluidas: lista, un elemento por línea}}
+{{RELACION_ACTUACIONES_INCLUIDAS: lista, un elemento por línea}}
 
 ### SEGUNDA — Actuaciones expresamente excluidas
 
-{{relacion_actuaciones_excluidas: lista, un elemento por línea}}
+{{RELACION_ACTUACIONES_EXCLUIDAS: lista, un elemento por línea}}
 
 ### TERCERA — Naturaleza de la obligación
 
@@ -40,87 +40,87 @@ La obligación asumida por el DESPACHO es de **medios y no de resultado**. La vi
 
 ### CUARTA — Retribución fija
 
-{{bloque_retribucion_fija_minima: bloque condicional que inserta la skill}}
+{{BLOQUE_RETRIBUCION_FIJA_MINIMA: bloque condicional que inserta la skill}}
 
 ### QUINTA — Definición del resultado que genera la retribución variable
 
 A los efectos del presente encargo, se entenderá por **resultado** que genera el derecho a la retribución variable, exclusivamente, el siguiente:
 
-{{definicion_resultado: texto libre}}
+{{DEFINICION_RESULTADO: texto libre}}
 
-**Cuantía que sirve de base al cálculo:** {{base_de_calculo_resultado: base de cálculo de la retribución variable}}
+**Cuantía que sirve de base al cálculo:** {{BASE_DE_CALCULO_RESULTADO: base de cálculo de la retribución variable}}
 
-**Momento en que se entiende obtenido el resultado:** {{momento_obtencion_resultado: momento en que se entiende obtenido el resultado}}
+**Momento en que se entiende obtenido el resultado:** {{MOMENTO_OBTENCION_RESULTADO: momento en que se entiende obtenido el resultado}}
 
 ### SEXTA — Retribución variable
 
-Obtenido el resultado en los términos definidos en la estipulación anterior, el CLIENTE abonará al DESPACHO una retribución variable equivalente al **{{porcentaje_variable: porcentaje}}** de la base de cálculo indicada, con el siguiente desglose:
+Obtenido el resultado en los términos definidos en la estipulación anterior, el CLIENTE abonará al DESPACHO una retribución variable equivalente al **{{PORCENTAJE_VARIABLE: porcentaje}}** de la base de cálculo indicada, con el siguiente desglose:
 
 | Concepto | Importe |
 |---|---|
-| Base de la retribución variable | {{base_variable: importe en euros}} € |
-| Impuesto sobre el valor añadido ({{tipo_iva: porcentaje}} %) | {{importe_iva_variable: importe en euros — calculado, base por el tipo de IVA}} € |
-| **Total** | **{{total_variable: importe en euros — calculado, base variable más IVA}} €** |
+| Base de la retribución variable | {{BASE_VARIABLE: importe en euros}} € |
+| Impuesto sobre el valor añadido ({{TIPO_IVA: porcentaje}} %) | {{IMPORTE_IVA_VARIABLE: importe en euros — calculado, base por el tipo de IVA}} € |
+| **Total** | **{{TOTAL_VARIABLE: importe en euros — calculado, base variable más IVA}} €** |
 
-{{parrafo_limite_maximo_variable: bloque condicional que inserta la skill}}
+{{PARRAFO_LIMITE_MAXIMO_VARIABLE: bloque condicional que inserta la skill}}
 
-**Devengo y pago:** la retribución variable se devengará en el momento definido en la estipulación quinta y se abonará en el plazo de {{plazo_pago_variable: plazo de pago en días}} desde su devengo, mediante transferencia a la cuenta {{iban_despacho: IBAN}}.
+**Devengo y pago:** la retribución variable se devengará en el momento definido en la estipulación quinta y se abonará en el plazo de {{PLAZO_PAGO_VARIABLE: plazo de pago en días}} desde su devengo, mediante transferencia a la cuenta {{IBAN_DESPACHO: IBAN}}.
 
 ### SÉPTIMA — Supuestos especiales
 
 Las partes pactan expresamente el siguiente tratamiento de los supuestos que pueden alterar la obtención del resultado:
 
-**a) Acuerdo transaccional o allanamiento de la contraparte.** {{tratamiento_transaccion: texto libre}}
+**a) Acuerdo transaccional o allanamiento de la contraparte.** {{TRATAMIENTO_TRANSACCION: texto libre}}
 
-**b) Desistimiento o renuncia del CLIENTE a la pretensión.** {{tratamiento_desistimiento_cliente: texto libre}}
+**b) Desistimiento o renuncia del CLIENTE a la pretensión.** {{TRATAMIENTO_DESISTIMIENTO_CLIENTE: texto libre}}
 
-**c) Revocación del encargo por el CLIENTE antes de la obtención del resultado.** {{tratamiento_revocacion: texto libre}}
+**c) Revocación del encargo por el CLIENTE antes de la obtención del resultado.** {{TRATAMIENTO_REVOCACION: texto libre}}
 
-**d) Renuncia del DESPACHO al encargo.** {{tratamiento_renuncia_despacho: texto libre}}
+**d) Renuncia del DESPACHO al encargo.** {{TRATAMIENTO_RENUNCIA_DESPACHO: texto libre}}
 
-**e) Obtención parcial del resultado.** {{tratamiento_resultado_parcial: texto libre}}
+**e) Obtención parcial del resultado.** {{TRATAMIENTO_RESULTADO_PARCIAL: texto libre}}
 
-**f) Cobro efectivo frente a reconocimiento del derecho.** {{tratamiento_cobro_efectivo: texto libre}}
+**f) Cobro efectivo frente a reconocimiento del derecho.** {{TRATAMIENTO_COBRO_EFECTIVO: texto libre}}
 
 ### OCTAVA — Costas procesales
 
-{{bloque_costas_procesales_resultado: bloque condicional que inserta la skill}}
+{{BLOQUE_COSTAS_PROCESALES_RESULTADO: bloque condicional que inserta la skill}}
 
 ### NOVENA — Gastos, suplidos y provisión de fondos
 
 Los honorarios pactados no incluyen los gastos y suplidos del asunto, que serán de cuenta del CLIENTE:
 
-{{relacion_gastos_y_suplidos_previsibles: lista, un elemento por línea}}
+{{RELACION_GASTOS_Y_SUPLIDOS_PREVISIBLES: lista, un elemento por línea}}
 
-**Provisión de fondos:** {{importe_provision: importe en euros}} euros, con cuenta separada, rendición justificada {{periodicidad_rendicion_cuentas: periodicidad de la rendición de cuentas}} y devolución del saldo no consumido a la terminación.
+**Provisión de fondos:** {{IMPORTE_PROVISION: importe en euros}} euros, con cuenta separada, rendición justificada {{PERIODICIDAD_RENDICION_CUENTAS: periodicidad de la rendición de cuentas}} y devolución del saldo no consumido a la terminación.
 
 ### DÉCIMA — Obligaciones de las partes
 
-{{bloque_obligaciones_partes: bloque condicional que inserta la skill}}
+{{BLOQUE_OBLIGACIONES_PARTES: bloque condicional que inserta la skill}}
 
 ### UNDÉCIMA — Duración, terminación y documentación
 
-{{bloque_duracion_terminacion_documentacion: bloque condicional que inserta la skill}}
+{{BLOQUE_DURACION_TERMINACION_DOCUMENTACION: bloque condicional que inserta la skill}}
 
 ### DUODÉCIMA — Protección de datos
 
-{{bloque_proteccion_datos: bloque condicional que inserta la skill}}
+{{BLOQUE_PROTECCION_DATOS: bloque condicional que inserta la skill}}
 
 ### DECIMOTERCERA — Integridad, modificación y fuero
 
-El presente documento constituye el acuerdo íntegro entre las partes. Toda modificación requerirá acuerdo escrito. {{clausula_fuero: cláusula de fuero aplicable}}
+El presente documento constituye el acuerdo íntegro entre las partes. Toda modificación requerirá acuerdo escrito. {{CLAUSULA_FUERO: cláusula de fuero aplicable}}
 
 ---
 
 Y en prueba de conformidad, ambas partes firman por duplicado y a un solo efecto, entregándose un ejemplar al CLIENTE.
 
 **POR EL DESPACHO**  
-Fdo.: {{nombre_profesional_responsable: nombre y apellidos}}  
-Colegiado n.º {{numero_colegiado: número de colegiado}} — {{colegio_adscripcion: denominación del colegio}}
+Fdo.: {{NOMBRE_PROFESIONAL_RESPONSABLE: nombre y apellidos}}  
+Colegiado n.º {{NUMERO_COLEGIADO: número de colegiado}} — {{COLEGIO_ADSCRIPCION: denominación del colegio}}
 
 **EL CLIENTE**  
-Fdo.: {{nombre_cliente: nombre y apellidos}}  
-{{tipo_documento_cliente: tipo de documento: DNI, NIE o CIF}} {{documento_cliente: DNI/NIE}}
+Fdo.: {{NOMBRE_CLIENTE: nombre y apellidos}}  
+{{TIPO_DOCUMENTO_CLIENTE: tipo de documento: DNI, NIE o CIF}} {{DOCUMENTO_CLIENTE: DNI/NIE}}
 
 ---
 

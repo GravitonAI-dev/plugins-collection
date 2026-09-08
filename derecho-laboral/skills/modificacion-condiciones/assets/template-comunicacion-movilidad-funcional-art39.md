@@ -1,46 +1,46 @@
-# COMUNICACIÓN DE MOVILIDAD FUNCIONAL — {{razon_social_empresa: razón social}} a {{nombre_trabajador: nombre y apellidos}}
+# COMUNICACIÓN DE MOVILIDAD FUNCIONAL — {{RAZON_SOCIAL_EMPRESA: razón social}} a {{NOMBRE_TRABAJADOR: nombre y apellidos}}
 
 > **DRAFT — para revisión por un abogado o graduado social colegiado antes de su firma y entrega. No constituye asesoramiento jurídico definitivo.**  
-> Convenio colectivo aplicable: {{denominacion_convenio: denominación y ámbito del convenio colectivo}} (código {{codigo_convenio: código de convenio}})
+> Convenio colectivo aplicable: {{DENOMINACION_CONVENIO: denominación y ámbito del convenio colectivo}} (código {{CODIGO_CONVENIO: código de convenio}})
 
 ---
 
 **EMPRESA**  
-{{razon_social_empresa: razón social}}  
-CIF {{cif_empresa: CIF/NIF}}  
-{{domicilio_empresa: domicilio completo}}  
-Representada por {{nombre_representante: nombre y apellidos}}, con NIF {{nif_representante: CIF/NIF}}, en su condición de {{cargo_representante: cargo del firmante}}
+{{RAZON_SOCIAL_EMPRESA: razón social}}  
+CIF {{CIF_EMPRESA: CIF/NIF}}  
+{{DOMICILIO_EMPRESA: domicilio completo}}  
+Representada por {{NOMBRE_REPRESENTANTE: nombre y apellidos}}, con NIF {{NIF_REPRESENTANTE: CIF/NIF}}, en su condición de {{CARGO_REPRESENTANTE: cargo del firmante}}
 
 **TRABAJADOR**  
-{{nombre_trabajador: nombre y apellidos}}  
-DNI/NIE {{dni_trabajador: DNI/NIE}}  
-{{domicilio_trabajador: domicilio completo}}  
-Grupo profesional: {{grupo_profesional: grupo profesional del convenio}}  
-Funciones actuales: {{funciones_actuales: descripción de las funciones}}
+{{NOMBRE_TRABAJADOR: nombre y apellidos}}  
+DNI/NIE {{DNI_TRABAJADOR: DNI/NIE}}  
+{{DOMICILIO_TRABAJADOR: domicilio completo}}  
+Grupo profesional: {{GRUPO_PROFESIONAL: grupo profesional del convenio}}  
+Funciones actuales: {{FUNCIONES_ACTUALES: descripción de las funciones}}
 
-En {{lugar_emision: localidad}}, a {{fecha_carta: fecha (DD/MM/AAAA)}}
+En {{LUGAR_EMISION: localidad}}, a {{FECHA_CARTA: fecha (DD/MM/AAAA)}}
 
 Muy Sr./Sra. nuestro/a:
 
-Por medio de la presente le comunicamos que, con efectos del día {{fecha_efectos: fecha (DD/MM/AAAA)}}, pasará usted a desempeñar las funciones que se detallan a continuación, en ejercicio de la facultad de movilidad funcional que corresponde a esta empresa conforme al artículo 39 del texto refundido de la Ley del Estatuto de los Trabajadores, aprobado por Real Decreto Legislativo 2/2015, de 23 de octubre.
+Por medio de la presente le comunicamos que, con efectos del día {{FECHA_EFECTOS: fecha (DD/MM/AAAA)}}, pasará usted a desempeñar las funciones que se detallan a continuación, en ejercicio de la facultad de movilidad funcional que corresponde a esta empresa conforme al artículo 39 del texto refundido de la Ley del Estatuto de los Trabajadores, aprobado por Real Decreto Legislativo 2/2015, de 23 de octubre.
 
 ## PRIMERO — Funciones encomendadas
 
-{{descripcion_funciones_nuevas: texto libre, uno o varios párrafos}}
+{{DESCRIPCION_FUNCIONES_NUEVAS: texto libre, uno o varios párrafos}}
 
-Dichas funciones se corresponden con {{encuadre_funciones_grupo: texto breve}}.
+Dichas funciones se corresponden con {{ENCUADRE_FUNCIONES_GRUPO: texto breve}}.
 
 ## SEGUNDO — Fundamento de la medida
 
-{{fundamento_movilidad_funcional: texto libre, uno o varios párrafos}}
+{{FUNDAMENTO_MOVILIDAD_FUNCIONAL: texto libre, uno o varios párrafos}}
 
 ## TERCERO — Duración
 
-{{parrafo_duracion_movilidad: bloque condicional que inserta la skill}}
+{{PARRAFO_DURACION_MOVILIDAD: bloque condicional que inserta la skill}}
 
 ## CUARTO — Retribución
 
-{{parrafo_retribucion_movilidad: bloque condicional que inserta la skill}}
+{{PARRAFO_RETRIBUCION_MOVILIDAD: bloque condicional que inserta la skill}}
 
 ## QUINTO — Garantías
 
@@ -50,18 +50,18 @@ Rogamos firme el duplicado de la presente a los solos efectos de acreditar su re
 
 Atentamente,
 
-Fdo.: {{nombre_representante: nombre y apellidos}}  
-{{cargo_representante: cargo del firmante}}  
-{{razon_social_empresa: razón social}}
+Fdo.: {{NOMBRE_REPRESENTANTE: nombre y apellidos}}  
+{{CARGO_REPRESENTANTE: cargo del firmante}}  
+{{RAZON_SOCIAL_EMPRESA: razón social}}
 
 ---
 
 **RECIBÍ**
 
-Recibo copia de la presente comunicación en fecha {{fecha_recibi: fecha (DD/MM/AAAA)}}, a los solos efectos de acreditar su recepción y sin que ello implique conformidad con su contenido.
+Recibo copia de la presente comunicación en fecha {{FECHA_RECIBI: fecha (DD/MM/AAAA)}}, a los solos efectos de acreditar su recepción y sin que ello implique conformidad con su contenido.
 
-Fdo.: {{nombre_trabajador: nombre y apellidos}}  
-DNI/NIE {{dni_trabajador: DNI/NIE}}
+Fdo.: {{NOMBRE_TRABAJADOR: nombre y apellidos}}  
+DNI/NIE {{DNI_TRABAJADOR: DNI/NIE}}
 
 ---
 

@@ -1,53 +1,53 @@
 # RESOLUCIÓN DE EXPEDIENTE CONTRADICTORIO
 
 > **DRAFT — para revisión por un abogado o graduado social colegiado antes de su firma y entrega. No constituye asesoramiento jurídico definitivo.**  
-> Convenio colectivo aplicable: {{denominacion_convenio: denominación y ámbito del convenio colectivo}} (código {{codigo_convenio: código de convenio}})
+> Convenio colectivo aplicable: {{DENOMINACION_CONVENIO: denominación y ámbito del convenio colectivo}} (código {{CODIGO_CONVENIO: código de convenio}})
 
 ---
 
 **EMPRESA INSTRUCTORA**  
-{{razon_social_empresa: razón social}}  
-CIF {{cif_empresa: CIF/NIF}}  
-{{domicilio_empresa: domicilio completo}}  
-Representada por {{nombre_representante: nombre y apellidos}}, con NIF {{nif_representante: CIF/NIF}}, en su condición de {{cargo_representante: cargo del firmante}}
+{{RAZON_SOCIAL_EMPRESA: razón social}}  
+CIF {{CIF_EMPRESA: CIF/NIF}}  
+{{DOMICILIO_EMPRESA: domicilio completo}}  
+Representada por {{NOMBRE_REPRESENTANTE: nombre y apellidos}}, con NIF {{NIF_REPRESENTANTE: CIF/NIF}}, en su condición de {{CARGO_REPRESENTANTE: cargo del firmante}}
 
 **TRABAJADOR EXPEDIENTADO**  
-{{nombre_trabajador: nombre y apellidos}}  
-DNI/NIE {{dni_trabajador: DNI/NIE}}  
-{{domicilio_trabajador: domicilio completo}}  
-Categoría profesional: {{categoria_profesional: categoría profesional del convenio}}
+{{NOMBRE_TRABAJADOR: nombre y apellidos}}  
+DNI/NIE {{DNI_TRABAJADOR: DNI/NIE}}  
+{{DOMICILIO_TRABAJADOR: domicilio completo}}  
+Categoría profesional: {{CATEGORIA_PROFESIONAL: categoría profesional del convenio}}
 
-En {{lugar_emision: localidad}}, a {{fecha_resolucion: fecha (DD/MM/AAAA)}}
+En {{LUGAR_EMISION: localidad}}, a {{FECHA_RESOLUCION: fecha (DD/MM/AAAA)}}
 
 ## ANTECEDENTES
 
-**Primero.** Con fecha {{fecha_pliego: fecha (DD/MM/AAAA)}} se le notificó pliego de cargos por el que se acordaba la apertura de expediente contradictorio, imputándole los hechos allí relacionados y calificándolos provisionalmente como falta {{gravedad_falta: gravedad: leve, grave o muy grave}} del artículo {{articulo_convenio_faltas: número de artículo}} del convenio colectivo de aplicación.
+**Primero.** Con fecha {{FECHA_PLIEGO: fecha (DD/MM/AAAA)}} se le notificó pliego de cargos por el que se acordaba la apertura de expediente contradictorio, imputándole los hechos allí relacionados y calificándolos provisionalmente como falta {{GRAVEDAD_FALTA: gravedad: leve, grave o muy grave}} del artículo {{ARTICULO_CONVENIO_FALTAS: número de artículo}} del convenio colectivo de aplicación.
 
-**Segundo.** {{parrafo_pliego_descargos: bloque condicional que inserta la skill}}
+**Segundo.** {{PARRAFO_PLIEGO_DESCARGOS: bloque condicional que inserta la skill}}
 
-**Tercero.** {{parrafo_alegaciones_representacion: bloque condicional que inserta la skill}}
+**Tercero.** {{PARRAFO_ALEGACIONES_REPRESENTACION: bloque condicional que inserta la skill}}
 
-**Cuarto.** {{parrafo_prueba_practicada: bloque condicional que inserta la skill}}
+**Cuarto.** {{PARRAFO_PRUEBA_PRACTICADA: bloque condicional que inserta la skill}}
 
 ## HECHOS PROBADOS
 
 A la vista de las actuaciones practicadas, se declaran acreditados los siguientes hechos:
 
-{{relato_hechos_probados: texto libre, uno o varios párrafos}}
+{{RELATO_HECHOS_PROBADOS: texto libre, uno o varios párrafos}}
 
 ## VALORACIÓN
 
-{{valoracion_alegaciones_y_prueba: texto libre, uno o varios párrafos}}
+{{VALORACION_ALEGACIONES_Y_PRUEBA: texto libre, uno o varios párrafos}}
 
 ## CALIFICACIÓN DEFINITIVA
 
-Los hechos declarados probados constituyen una falta {{gravedad_falta_definitiva: gravedad definitiva: leve, grave o muy grave}}, tipificada en el artículo {{articulo_convenio_faltas: número de artículo}} del {{denominacion_convenio: denominación y ámbito del convenio colectivo}}, relativo a {{descripcion_falta_convenio: definición de la falta según el convenio}}.
+Los hechos declarados probados constituyen una falta {{GRAVEDAD_FALTA_DEFINITIVA: gravedad definitiva: leve, grave o muy grave}}, tipificada en el artículo {{ARTICULO_CONVENIO_FALTAS: número de artículo}} del {{DENOMINACION_CONVENIO: denominación y ámbito del convenio colectivo}}, relativo a {{DESCRIPCION_FALTA_CONVENIO: definición de la falta según el convenio}}.
 
 ## RESOLUCIÓN
 
-En atención a lo expuesto, y en aplicación del cuadro de sanciones del artículo {{articulo_convenio_sanciones: número de artículo}} del convenio colectivo, esta empresa **RESUELVE**:
+En atención a lo expuesto, y en aplicación del cuadro de sanciones del artículo {{ARTICULO_CONVENIO_SANCIONES: número de artículo}} del convenio colectivo, esta empresa **RESUELVE**:
 
-{{parte_dispositiva_resolucion: parte dispositiva de la resolución}}
+{{PARTE_DISPOSITIVA_RESOLUCION: parte dispositiva de la resolución}}
 
 ## NOTIFICACIÓN Y RECURSOS
 
@@ -55,18 +55,18 @@ La presente resolución se notifica al trabajador expedientado y a la representa
 
 Se hace constar que el trabajador dispone de un plazo de **veinte días hábiles**, a contar desde el día siguiente a la notificación de la presente, para impugnar la sanción ante el Juzgado de lo Social competente, previa presentación de papeleta de conciliación ante el servicio administrativo correspondiente, conforme a los artículos 63 y 114 de la Ley 36/2011, reguladora de la Jurisdicción Social.
 
-Fdo.: {{nombre_representante: nombre y apellidos}}  
-{{cargo_representante: cargo del firmante}}  
-{{razon_social_empresa: razón social}}
+Fdo.: {{NOMBRE_REPRESENTANTE: nombre y apellidos}}  
+{{CARGO_REPRESENTANTE: cargo del firmante}}  
+{{RAZON_SOCIAL_EMPRESA: razón social}}
 
 ---
 
 **RECIBÍ**
 
-Recibo copia de la presente resolución en fecha {{fecha_recibi: fecha (DD/MM/AAAA)}}, a los solos efectos de acreditar su recepción y sin que ello implique conformidad con su contenido.
+Recibo copia de la presente resolución en fecha {{FECHA_RECIBI: fecha (DD/MM/AAAA)}}, a los solos efectos de acreditar su recepción y sin que ello implique conformidad con su contenido.
 
-Fdo.: {{nombre_trabajador: nombre y apellidos}}  
-DNI/NIE {{dni_trabajador: DNI/NIE}}
+Fdo.: {{NOMBRE_TRABAJADOR: nombre y apellidos}}  
+DNI/NIE {{DNI_TRABAJADOR: DNI/NIE}}
 
 ---
 

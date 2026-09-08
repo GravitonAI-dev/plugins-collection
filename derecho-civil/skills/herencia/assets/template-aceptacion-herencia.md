@@ -1,18 +1,18 @@
-# ACEPTACION DE HERENCIA DE {{nombre_causante}}
+# ACEPTACION DE HERENCIA DE {{NOMBRE_CAUSANTE}}
 
 > **DRAFT — para revision por un abogado y elevacion a escritura publica notarial antes de su firma. No constituye asesoramiento juridico ni fiscal.**  
-> Version del Codigo Civil verificada en el BOE: {{fecha_verificacion_cc}}
+> Version del Codigo Civil verificada en el BOE: {{FECHA_VERIFICACION_CC}}
 
 ---
 
 ## COMPARECE
 
-En {{lugar}}, a {{fecha_aceptacion}}, don/dona {{nombre_heredero}}, con NIF {{nif_heredero}}, domiciliado en {{domicilio_heredero}}, en su condicion de heredero de don/dona {{nombre_causante}}.
+En {{LUGAR}}, a {{FECHA_ACEPTACION}}, don/dona {{NOMBRE_HEREDERO}}, con NIF {{NIF_HEREDERO}}, domiciliado en {{DOMICILIO_HEREDERO}}, en su condicion de heredero de don/dona {{NOMBRE_CAUSANTE}}.
 
 ## EXPONE
 
 **PRIMERO — Fallecimiento del causante.**  
-Que don/dona {{nombre_causante}}, con NIF {{nif_causante}}, fallecio en {{lugar_fallecimiento}} el dia {{fecha_fallecimiento}}.
+Que don/dona {{NOMBRE_CAUSANTE}}, con NIF {{NIF_CAUSANTE}}, fallecio en {{LUGAR_FALLECIMIENTO}} el dia {{FECHA_FALLECIMIENTO}}.
 
 **SEGUNDO — Titulo sucesorio y llamamiento.**  
 
@@ -21,7 +21,7 @@ Que, conforme al Art. 988 del Codigo Civil, la aceptacion de la herencia es un a
 
 ## MANIFIESTA Y ACEPTA
 
-{{modo_aceptacion}}
+{{MODO_ACEPTACION}}
 
 ## RENUNCIA (bloque opcional)
 ## OTORGAMIENTO
@@ -33,13 +33,13 @@ Y en prueba de conformidad con cuanto antecede, firma el compareciente en el lug
 Firma:
 
 ___________________________  
-{{nombre_heredero}}
+{{NOMBRE_HEREDERO}}
 
 ---
 
 > **Advertencias:**  
 > 1. Este documento es un DRAFT generado automaticamente. Debe ser revisado por un abogado y elevado a escritura publica notarial (la aceptacion a beneficio de inventario y la renuncia exigen instrumento publico y plazos concretos, Arts. 1008 y 1010 y ss. CC).  
-> 2. Version del Codigo Civil verificada: {{fecha_verificacion_cc}}.  
+> 2. Version del Codigo Civil verificada: {{FECHA_VERIFICACION_CC}}.  
 > 3. Aceptar pura y simplemente implica responder de las deudas de la herencia con el propio patrimonio (Art. 1003 CC). Si el pasivo puede superar al activo, valorar la aceptacion a beneficio de inventario.  
 > 4. La aceptacion a beneficio de inventario y la renuncia estan sujetas a plazos legales; verificar su cumplimiento antes de otorgar.  
-> 5. Impuesto de Sucesiones y Donaciones: tributo AUTONOMICO, plazo general de 6 meses desde el fallecimiento (prorrogable). Verificar la normativa de la comunidad autonoma {{comunidad_autonoma}}.
+> 5. Impuesto de Sucesiones y Donaciones: tributo AUTONOMICO, plazo general de 6 meses desde el fallecimiento (prorrogable). Verificar la normativa de la comunidad autonoma {{COMUNIDAD_AUTONOMA}}.

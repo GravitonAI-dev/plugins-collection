@@ -1,53 +1,53 @@
-# COMUNICACIÓN DE TRASLADO CON CAMBIO DE RESIDENCIA — {{razon_social_empresa: razón social}} a {{nombre_trabajador: nombre y apellidos}}
+# COMUNICACIÓN DE TRASLADO CON CAMBIO DE RESIDENCIA — {{RAZON_SOCIAL_EMPRESA: razón social}} a {{NOMBRE_TRABAJADOR: nombre y apellidos}}
 
 > **DRAFT — para revisión por un abogado o graduado social colegiado antes de su firma y entrega. No constituye asesoramiento jurídico definitivo.**  
-> Convenio colectivo aplicable: {{denominacion_convenio: denominación y ámbito del convenio colectivo}} (código {{codigo_convenio: código de convenio}})
+> Convenio colectivo aplicable: {{DENOMINACION_CONVENIO: denominación y ámbito del convenio colectivo}} (código {{CODIGO_CONVENIO: código de convenio}})
 
 ---
 
 **EMPRESA**  
-{{razon_social_empresa: razón social}}  
-CIF {{cif_empresa: CIF/NIF}}  
-{{domicilio_empresa: domicilio completo}}  
-Representada por {{nombre_representante: nombre y apellidos}}, con NIF {{nif_representante: CIF/NIF}}, en su condición de {{cargo_representante: cargo del firmante}}
+{{RAZON_SOCIAL_EMPRESA: razón social}}  
+CIF {{CIF_EMPRESA: CIF/NIF}}  
+{{DOMICILIO_EMPRESA: domicilio completo}}  
+Representada por {{NOMBRE_REPRESENTANTE: nombre y apellidos}}, con NIF {{NIF_REPRESENTANTE: CIF/NIF}}, en su condición de {{CARGO_REPRESENTANTE: cargo del firmante}}
 
 **TRABAJADOR**  
-{{nombre_trabajador: nombre y apellidos}}  
-DNI/NIE {{dni_trabajador: DNI/NIE}}  
-{{domicilio_trabajador: domicilio completo}}  
-Categoría o grupo profesional: {{categoria_profesional: categoría profesional del convenio}}  
-Antigüedad: {{fecha_antiguedad: fecha (DD/MM/AAAA)}}  
-Centro de trabajo actual: {{centro_trabajo_origen: dirección del centro de origen}}
+{{NOMBRE_TRABAJADOR: nombre y apellidos}}  
+DNI/NIE {{DNI_TRABAJADOR: DNI/NIE}}  
+{{DOMICILIO_TRABAJADOR: domicilio completo}}  
+Categoría o grupo profesional: {{CATEGORIA_PROFESIONAL: categoría profesional del convenio}}  
+Antigüedad: {{FECHA_ANTIGUEDAD: fecha (DD/MM/AAAA)}}  
+Centro de trabajo actual: {{CENTRO_TRABAJO_ORIGEN: dirección del centro de origen}}
 
-En {{lugar_emision: localidad}}, a {{fecha_carta: fecha (DD/MM/AAAA)}}
+En {{LUGAR_EMISION: localidad}}, a {{FECHA_CARTA: fecha (DD/MM/AAAA)}}
 
 Muy Sr./Sra. nuestro/a:
 
-Por medio de la presente le comunicamos la decisión de esta empresa de proceder a su **{{tipo_medida_movilidad: medida: traslado o desplazamiento temporal}}** al centro de trabajo sito en {{centro_trabajo_destino: dirección del centro de destino}}, con efectos del día {{fecha_efectos: fecha (DD/MM/AAAA)}}, al amparo de lo dispuesto en el artículo 40 del texto refundido de la Ley del Estatuto de los Trabajadores, aprobado por Real Decreto Legislativo 2/2015, de 23 de octubre.
+Por medio de la presente le comunicamos la decisión de esta empresa de proceder a su **{{TIPO_MEDIDA_MOVILIDAD: medida: traslado o desplazamiento temporal}}** al centro de trabajo sito en {{CENTRO_TRABAJO_DESTINO: dirección del centro de destino}}, con efectos del día {{FECHA_EFECTOS: fecha (DD/MM/AAAA)}}, al amparo de lo dispuesto en el artículo 40 del texto refundido de la Ley del Estatuto de los Trabajadores, aprobado por Real Decreto Legislativo 2/2015, de 23 de octubre.
 
 ## PRIMERO — Causa de la medida
 
-La presente decisión se funda en las siguientes causas de carácter {{tipo_causa_empresarial: tipo de causa: económica, técnica, organizativa o de producción}}, que justifican la medida por contribuir a mejorar la situación de la empresa a través de una más adecuada organización de sus recursos:
+La presente decisión se funda en las siguientes causas de carácter {{TIPO_CAUSA_EMPRESARIAL: tipo de causa: económica, técnica, organizativa o de producción}}, que justifican la medida por contribuir a mejorar la situación de la empresa a través de una más adecuada organización de sus recursos:
 
-{{acreditacion_causa_empresarial: texto libre, uno o varios párrafos}}
+{{ACREDITACION_CAUSA_EMPRESARIAL: texto libre, uno o varios párrafos}}
 
 ## SEGUNDO — Centro de destino y condiciones
 
-Su prestación de servicios pasará a desarrollarse en el centro de trabajo sito en {{centro_trabajo_destino: dirección del centro de destino}}, con las siguientes condiciones:
+Su prestación de servicios pasará a desarrollarse en el centro de trabajo sito en {{CENTRO_TRABAJO_DESTINO: dirección del centro de destino}}, con las siguientes condiciones:
 
-{{descripcion_condiciones_destino: texto libre, uno o varios párrafos}}
+{{DESCRIPCION_CONDICIONES_DESTINO: texto libre, uno o varios párrafos}}
 
-{{parrafo_duracion_desplazamiento: bloque condicional que inserta la skill}}
+{{PARRAFO_DURACION_DESPLAZAMIENTO: bloque condicional que inserta la skill}}
 
 ## TERCERO — Preaviso
 
-La presente comunicación se le notifica con una antelación de {{dias_preaviso: número de días}} días respecto de la fecha de efectividad indicada, conforme a lo exigido por el artículo 40 del Estatuto de los Trabajadores {{referencia_preaviso_convenio: referencia al artículo del convenio sobre preaviso}}.
+La presente comunicación se le notifica con una antelación de {{DIAS_PREAVISO: número de días}} días respecto de la fecha de efectividad indicada, conforme a lo exigido por el artículo 40 del Estatuto de los Trabajadores {{REFERENCIA_PREAVISO_CONVENIO: referencia al artículo del convenio sobre preaviso}}.
 
 ## CUARTO — Compensación de gastos
 
 En caso de aceptar la medida, esta empresa abonará la compensación de gastos derivada del cambio de residencia, propios y de los familiares a su cargo, en los siguientes términos:
 
-{{detalle_compensacion_gastos: detalle del cálculo}}
+{{DETALLE_COMPENSACION_GASTOS: detalle del cálculo}}
 
 ## QUINTO — Derechos que le asisten
 
@@ -55,11 +55,11 @@ Se le informa expresamente de que, conforme al artículo 40 del Estatuto de los 
 
 1. **Aceptar el traslado**, percibiendo la compensación de gastos indicada en el apartado anterior.
 
-2. **Extinguir su contrato de trabajo**, percibiendo una indemnización de **veinte días de salario por año de servicio**, prorrateándose por meses los periodos de tiempo inferiores a un año, con un máximo de doce mensualidades. Conforme a los datos obrantes en esta empresa, dicha indemnización ascendería a un importe bruto aproximado de {{importe_indemnizacion_extincion: importe en euros}} euros, según el cálculo siguiente: {{detalle_calculo_indemnizacion: detalle del cálculo}}.
+2. **Extinguir su contrato de trabajo**, percibiendo una indemnización de **veinte días de salario por año de servicio**, prorrateándose por meses los periodos de tiempo inferiores a un año, con un máximo de doce mensualidades. Conforme a los datos obrantes en esta empresa, dicha indemnización ascendería a un importe bruto aproximado de {{IMPORTE_INDEMNIZACION_EXTINCION: importe en euros}} euros, según el cálculo siguiente: {{DETALLE_CALCULO_INDEMNIZACION: detalle del cálculo}}.
 
 3. **Impugnar la decisión ante la jurisdicción social**, en el plazo de **veinte días hábiles** desde la notificación de la presente, conforme al artículo 138 de la Ley 36/2011, reguladora de la Jurisdicción Social, sin perjuicio de la ejecutividad de la medida mientras no recaiga resolución.
 
-{{parrafo_derecho_traslado_conyuge: bloque condicional que inserta la skill}}
+{{PARRAFO_DERECHO_TRASLADO_CONYUGE: bloque condicional que inserta la skill}}
 
 ## SEXTO — Comunicación a la representación legal de los trabajadores
 
@@ -69,18 +69,18 @@ Rogamos firme el duplicado de la presente a los solos efectos de acreditar su re
 
 Atentamente,
 
-Fdo.: {{nombre_representante: nombre y apellidos}}  
-{{cargo_representante: cargo del firmante}}  
-{{razon_social_empresa: razón social}}
+Fdo.: {{NOMBRE_REPRESENTANTE: nombre y apellidos}}  
+{{CARGO_REPRESENTANTE: cargo del firmante}}  
+{{RAZON_SOCIAL_EMPRESA: razón social}}
 
 ---
 
 **RECIBÍ**
 
-Recibo copia de la presente comunicación en fecha {{fecha_recibi: fecha (DD/MM/AAAA)}}, a los solos efectos de acreditar su recepción y sin que ello implique conformidad con su contenido.
+Recibo copia de la presente comunicación en fecha {{FECHA_RECIBI: fecha (DD/MM/AAAA)}}, a los solos efectos de acreditar su recepción y sin que ello implique conformidad con su contenido.
 
-Fdo.: {{nombre_trabajador: nombre y apellidos}}  
-DNI/NIE {{dni_trabajador: DNI/NIE}}
+Fdo.: {{NOMBRE_TRABAJADOR: nombre y apellidos}}  
+DNI/NIE {{DNI_TRABAJADOR: DNI/NIE}}
 
 ---
 

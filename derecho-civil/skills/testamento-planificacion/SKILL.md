@@ -289,7 +289,7 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 Cuando todas las secciones esten completadas y todos los bloques condicionales decididos, y **antes** de mostrar el menu del bucle de realimentacion:
 
 1. Lee la minuta con `read_file`.
-2. Sustituye cada placeholder `{{ordinal_...}}` por su ordinal en letra, **correlativo y sin saltos**, siguiendo el orden en que las clausulas aparecen realmente en el documento. La revocacion es siempre PRIMERA.
+2. Sustituye cada placeholder `{{ORDINAL_...}}` por su ordinal en letra, **correlativo y sin saltos**, siguiendo el orden en que las clausulas aparecen realmente en el documento. La revocacion es siempre PRIMERA.
 3. Verifica con `read_file` que no queda ningun placeholder de ordinal sin resolver, ningun ordinal repetido y ninguna clausula sin encabezado.
 4. Verifica en la misma lectura que el documento no contiene ningun comentario HTML (`<!-- ... -->`) ni ningun bloque de una rama descartada.
 
@@ -330,7 +330,7 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 9. **La mejora debe ser expresa** (Arts. 825 y 828 CC). Nunca dar por mejorado a un hijo por el hecho de dejarle un bien concreto.
 10. **La sustitucion fideicomisaria no puede gravar la legitima** salvo el supuesto del legitimario con discapacidad del Art. 808 (Art. 782 CC), y no puede pasar del segundo grado o de personas que vivan al fallecer el testador (Art. 781).
 11. **Esta skill no calcula el Impuesto sobre Sucesiones y Donaciones** ni valora la fiscalidad de las disposiciones. Advertir siempre de que es un tributo autonomico con consecuencias muy distintas segun la comunidad, y no dar cifras ni estimaciones.
-12. Nunca inventar datos, cuantias, bienes, fechas ni jurisprudencia. Nunca citar un articulo sin haberlo verificado en la Fase 2. Los campos no proporcionados quedan como `{{dato}}` con el nombre propio del placeholder del asset.
+12. Nunca inventar datos, cuantias, bienes, fechas ni jurisprudencia. Nunca citar un articulo sin haberlo verificado en la Fase 2. Los campos no proporcionados quedan como `{{DATO}}` con el nombre propio del placeholder del asset.
 13. **La institucion de heredero se pregunta siempre y de forma expresa**, en las dos hojas. Nunca deducirla de la mejora, de los legados o del reparto de un bien concreto: sin ella el testamento no dispone de la herencia y se abre la sucesion intestada respecto de lo no dispuesto (Art. 912.2.º CC).
 14. **Bien indivisible que absorbe el caudal.** Adjudicar la vivienda a algunos legitimarios solo es viable ordenando el pago en metalico de la porcion de los demas (Arts. 841 a 847 CC, con autorizacion expresa en el testamento) o remitiendo la cuestion a la particion (Art. 1062 CC). Nunca darlo por resuelto con un legado del inmueble cuando el resto del caudal no cubre la legitima.
 15. El documento escrito en disco lleva CERO comentarios HTML y CERO placeholders de ordinal sin resolver al cerrar.

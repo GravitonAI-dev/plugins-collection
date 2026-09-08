@@ -1,70 +1,70 @@
 # PAPELETA DE CONCILIACIÓN POR DESPIDO
 
 > **DRAFT — para revisión por un abogado o graduado social colegiado antes de su firma y presentación. No constituye asesoramiento jurídico definitivo.**  
-> Organismo de presentación: {{organismo_conciliacion: denominación exacta del servicio de conciliación competente}}  
-> Plazo de caducidad: 20 días hábiles desde el {{fecha_efectos_despido: fecha (DD/MM/AAAA)}} — fecha límite calculada: {{fecha_limite_caducidad: fecha (DD/MM/AAAA)}}
+> Organismo de presentación: {{ORGANISMO_CONCILIACION: denominación exacta del servicio de conciliación competente}}  
+> Plazo de caducidad: 20 días hábiles desde el {{FECHA_EFECTOS_DESPIDO: fecha (DD/MM/AAAA)}} — fecha límite calculada: {{FECHA_LIMITE_CADUCIDAD: fecha (DD/MM/AAAA)}}
 
 ---
 
-**AL {{organismo_conciliacion: denominación exacta del servicio de conciliación competente}}**
+**AL {{ORGANISMO_CONCILIACION: denominación exacta del servicio de conciliación competente}}**
 
 ## DATOS DEL SOLICITANTE
 
 | Dato | Valor |
 |---|---|
-| Nombre y apellidos | {{nombre_solicitante: nombre y apellidos}} |
-| DNI/NIE | {{dni_solicitante: DNI/NIE}} |
-| Domicilio a efectos de notificaciones | {{domicilio_solicitante: domicilio completo}} |
-| Teléfono | {{telefono_solicitante: teléfono}} |
-| Correo electrónico | {{email_solicitante: correo electrónico}} |
-| Representado por | {{representante_solicitante: representado por}} |
+| Nombre y apellidos | {{NOMBRE_SOLICITANTE: nombre y apellidos}} |
+| DNI/NIE | {{DNI_SOLICITANTE: DNI/NIE}} |
+| Domicilio a efectos de notificaciones | {{DOMICILIO_SOLICITANTE: domicilio completo}} |
+| Teléfono | {{TELEFONO_SOLICITANTE: teléfono}} |
+| Correo electrónico | {{EMAIL_SOLICITANTE: correo electrónico}} |
+| Representado por | {{REPRESENTANTE_SOLICITANTE: representado por}} |
 
 ## DATOS DE LA PARTE FRENTE A LA QUE SE SOLICITA LA CONCILIACIÓN
 
 | Dato | Valor |
 |---|---|
-| Razón social o nombre | {{razon_social_demandado: razón social}} |
-| CIF/NIF | {{cif_demandado: CIF/NIF}} |
-| Domicilio social | {{domicilio_social_demandado: domicilio completo}} |
-| Domicilio del centro de trabajo | {{domicilio_centro_trabajo: domicilio completo}} |
-| Actividad | {{actividad_demandado: actividad}} |
+| Razón social o nombre | {{RAZON_SOCIAL_DEMANDADO: razón social}} |
+| CIF/NIF | {{CIF_DEMANDADO: CIF/NIF}} |
+| Domicilio social | {{DOMICILIO_SOCIAL_DEMANDADO: domicilio completo}} |
+| Domicilio del centro de trabajo | {{DOMICILIO_CENTRO_TRABAJO: domicilio completo}} |
+| Actividad | {{ACTIVIDAD_DEMANDADO: actividad}} |
 
-{{bloque_codemandados_responsabilidad_solidaria: bloque condicional que inserta la skill}}
+{{BLOQUE_CODEMANDADOS_RESPONSABILIDAD_SOLIDARIA: bloque condicional que inserta la skill}}
 
 ## DATOS DE LA RELACIÓN LABORAL
 
 | Dato | Valor |
 |---|---|
-| Fecha de antigüedad | {{fecha_antiguedad: fecha (DD/MM/AAAA)}} |
-| Categoría o grupo profesional | {{categoria_profesional: categoría o grupo profesional}} |
-| Tipo de contrato | {{modalidad_contrato: modalidad contractual}} |
-| Jornada | {{tipo_jornada: jornada: completa o parcial}} |
-| Salario bruto anual con prorrateo de pagas | {{salario_bruto_anual: importe en euros}} € |
-| Salario diario regulador | {{salario_dia_regulador: importe en euros}} € |
-| Convenio colectivo aplicable | {{denominacion_convenio: convenio colectivo aplicable}} |
-| Fecha de efectos del despido | {{fecha_efectos_despido: fecha (DD/MM/AAAA)}} |
-| Modalidad del despido | {{modalidad_despido: modalidad del despido}} |
+| Fecha de antigüedad | {{FECHA_ANTIGUEDAD: fecha (DD/MM/AAAA)}} |
+| Categoría o grupo profesional | {{CATEGORIA_PROFESIONAL: categoría o grupo profesional}} |
+| Tipo de contrato | {{MODALIDAD_CONTRATO: modalidad contractual}} |
+| Jornada | {{TIPO_JORNADA: jornada: completa o parcial}} |
+| Salario bruto anual con prorrateo de pagas | {{SALARIO_BRUTO_ANUAL: importe en euros}} € |
+| Salario diario regulador | {{SALARIO_DIA_REGULADOR: importe en euros}} € |
+| Convenio colectivo aplicable | {{DENOMINACION_CONVENIO: convenio colectivo aplicable}} |
+| Fecha de efectos del despido | {{FECHA_EFECTOS_DESPIDO: fecha (DD/MM/AAAA)}} |
+| Modalidad del despido | {{MODALIDAD_DESPIDO: modalidad del despido}} |
 
 ## HECHOS
 
-{{relato_hechos: texto libre, uno o varios párrafos}}
+{{RELATO_HECHOS: texto libre, uno o varios párrafos}}
 
 ## PRETENSIÓN
 
 Que se tenga por presentada la presente papeleta de conciliación y, previos los trámites oportunos, se celebre el acto de conciliación entre las partes, interesando el solicitante que se **declare la improcedencia** del despido de que ha sido objeto, con los efectos legalmente previstos en el artículo 56 del texto refundido de la Ley del Estatuto de los Trabajadores, aprobado por Real Decreto Legislativo 2/2015, de 23 de octubre, esto es, la readmisión en las mismas condiciones que regían antes del despido con abono de los salarios de tramitación, o el abono de una indemnización de treinta y tres días de salario por año de servicio, prorrateándose por meses los periodos inferiores al año, con el máximo de veinticuatro mensualidades, a elección de la empresa.
 
-{{bloque_pretension_nulidad: bloque condicional que inserta la skill}}
+{{BLOQUE_PRETENSION_NULIDAD: bloque condicional que inserta la skill}}
 
-{{bloque_cantidades_adeudadas: bloque condicional que inserta la skill}}
+{{BLOQUE_CANTIDADES_ADEUDADAS: bloque condicional que inserta la skill}}
 
 Todo ello con abono de las cantidades que se acrediten adeudadas y de los intereses que correspondan.
 
 ---
 
-En {{lugar_presentacion: localidad}}, a {{fecha_presentacion: fecha (DD/MM/AAAA)}}
+En {{LUGAR_PRESENTACION: localidad}}, a {{FECHA_PRESENTACION: fecha (DD/MM/AAAA)}}
 
-Fdo.: {{nombre_solicitante: nombre y apellidos}}  
-DNI/NIE {{dni_solicitante: DNI/NIE}}
+Fdo.: {{NOMBRE_SOLICITANTE: nombre y apellidos}}  
+DNI/NIE {{DNI_SOLICITANTE: DNI/NIE}}
 
 ---
 

@@ -5,26 +5,26 @@
 
 ---
 
-**AL JUZGADO {{organo_judicial: denominación del órgano judicial}}**  
-**Autos:** {{clase_procedimiento: clase de procedimiento judicial}} n.º {{numero_autos: referencia alfanumérica}}
+**AL JUZGADO {{ORGANO_JUDICIAL: denominación del órgano judicial}}**  
+**Autos:** {{CLASE_PROCEDIMIENTO: clase de procedimiento judicial}} n.º {{NUMERO_AUTOS: referencia alfanumérica}}
 
-{{nombre_profesional_responsable: nombre y apellidos}}, abogado colegiado n.º {{numero_colegiado: número de colegiado}} del {{colegio_adscripcion: denominación del colegio}}, con domicilio profesional en {{domicilio_despacho: domicilio completo}} y NIF {{nif_despacho: CIF/NIF}}, ante el Juzgado comparezco y como mejor proceda en Derecho
+{{NOMBRE_PROFESIONAL_RESPONSABLE: nombre y apellidos}}, abogado colegiado n.º {{NUMERO_COLEGIADO: número de colegiado}} del {{COLEGIO_ADSCRIPCION: denominación del colegio}}, con domicilio profesional en {{DOMICILIO_DESPACHO: domicilio completo}} y NIF {{NIF_DESPACHO: CIF/NIF}}, ante el Juzgado comparezco y como mejor proceda en Derecho
 
 **DIGO**
 
-Que por medio del presente escrito formulo **RECLAMACIÓN DE HONORARIOS PROFESIONALES** al amparo del artículo 35 de la Ley 1/2000, de 7 de enero, de Enjuiciamiento Civil, frente a **{{nombre_cliente: nombre y apellidos}}**, con {{tipo_documento_cliente: tipo de documento: DNI, NIE o CIF}} {{documento_cliente: DNI/NIE}} y domicilio en {{domicilio_cliente: domicilio completo}}, parte a la que he defendido en el procedimiento de referencia, y ello con base en los siguientes
+Que por medio del presente escrito formulo **RECLAMACIÓN DE HONORARIOS PROFESIONALES** al amparo del artículo 35 de la Ley 1/2000, de 7 de enero, de Enjuiciamiento Civil, frente a **{{NOMBRE_CLIENTE: nombre y apellidos}}**, con {{TIPO_DOCUMENTO_CLIENTE: tipo de documento: DNI, NIE o CIF}} {{DOCUMENTO_CLIENTE: DNI/NIE}} y domicilio en {{DOMICILIO_CLIENTE: domicilio completo}}, parte a la que he defendido en el procedimiento de referencia, y ello con base en los siguientes
 
 ## HECHOS
 
 ### PRIMERO — Encargo y designación
 
-{{relato_encargo_y_designacion: texto libre, uno o varios párrafos}}
+{{RELATO_ENCARGO_Y_DESIGNACION: texto libre, uno o varios párrafos}}
 
 ### SEGUNDO — Procedimiento en que se devengaron los honorarios
 
-Los honorarios que se reclaman se devengaron en el procedimiento {{clase_procedimiento: clase de procedimiento judicial}} n.º {{numero_autos: referencia alfanumérica}}, seguido ante este Juzgado, cuyo objeto fue {{objeto_procedimiento: texto libre}}, y en el que he ejercido la dirección técnica de la defensa de la parte {{posicion_procesal_cliente: texto breve}}.
+Los honorarios que se reclaman se devengaron en el procedimiento {{CLASE_PROCEDIMIENTO: clase de procedimiento judicial}} n.º {{NUMERO_AUTOS: referencia alfanumérica}}, seguido ante este Juzgado, cuyo objeto fue {{OBJETO_PROCEDIMIENTO: texto libre}}, y en el que he ejercido la dirección técnica de la defensa de la parte {{POSICION_PROCESAL_CLIENTE: texto breve}}.
 
-{{parrafo_estado_o_terminacion_procedimiento: bloque condicional que inserta la skill}}
+{{PARRAFO_ESTADO_O_TERMINACION_PROCEDIMIENTO: bloque condicional que inserta la skill}}
 
 ### TERCERO — Actuaciones profesionales realizadas
 
@@ -32,33 +32,33 @@ Las actuaciones profesionales realizadas en el procedimiento, todas ellas obrant
 
 | Fecha | Actuación |
 |---|---|
-| {{fecha_act_1: fecha (DD/MM/AAAA)}} | {{descripcion_act_1: descripción de la actuación}} |
-| {{fecha_act_2: fecha (DD/MM/AAAA)}} | {{descripcion_act_2: descripción de la actuación}} |
-| {{fecha_act_3: fecha (DD/MM/AAAA)}} | {{descripcion_act_3: descripción de la actuación}} |
-| {{fecha_act_4: fecha (DD/MM/AAAA)}} | {{descripcion_act_4: descripción de la actuación}} |
-| {{fecha_act_5: fecha (DD/MM/AAAA)}} | {{descripcion_act_5: descripción de la actuación}} |
-| {{fecha_act_6: fecha (DD/MM/AAAA)}} | {{descripcion_act_6: descripción de la actuación}} |
+| {{FECHA_ACT_1: fecha (DD/MM/AAAA)}} | {{DESCRIPCION_ACT_1: descripción de la actuación}} |
+| {{FECHA_ACT_2: fecha (DD/MM/AAAA)}} | {{DESCRIPCION_ACT_2: descripción de la actuación}} |
+| {{FECHA_ACT_3: fecha (DD/MM/AAAA)}} | {{DESCRIPCION_ACT_3: descripción de la actuación}} |
+| {{FECHA_ACT_4: fecha (DD/MM/AAAA)}} | {{DESCRIPCION_ACT_4: descripción de la actuación}} |
+| {{FECHA_ACT_5: fecha (DD/MM/AAAA)}} | {{DESCRIPCION_ACT_5: descripción de la actuación}} |
+| {{FECHA_ACT_6: fecha (DD/MM/AAAA)}} | {{DESCRIPCION_ACT_6: descripción de la actuación}} |
 
 ### CUARTO — Minuta detallada
 
-Se acompaña como documento número 1 la **minuta detallada** de honorarios n.º {{numero_minuta: referencia alfanumérica}}, de fecha {{fecha_minuta: fecha (DD/MM/AAAA)}}, cuyo desglose es el siguiente:
+Se acompaña como documento número 1 la **minuta detallada** de honorarios n.º {{NUMERO_MINUTA: referencia alfanumérica}}, de fecha {{FECHA_MINUTA: fecha (DD/MM/AAAA)}}, cuyo desglose es el siguiente:
 
 | Concepto | Importe |
 |---|---|
-| Base de honorarios | {{base_honorarios: importe en euros — calculado, suma de los conceptos de honorario}} € |
-| Impuesto sobre el valor añadido ({{tipo_iva: porcentaje}} %) | {{importe_iva: importe en euros — calculado, base por el tipo de IVA}} € |
-| Suplidos justificados | {{total_suplidos: importe en euros — calculado, suma de los suplidos}} € |
-| **Total minuta** | **{{total_minuta: importe en euros — calculado, subtotal de honorarios más suplidos}} €** |
-| Cantidades percibidas a cuenta | -{{cantidades_abonadas: importe en euros}} € |
-| **Principal reclamado** | **{{principal_reclamado: importe en euros — calculado, total minuta menos lo percibido}} €** |
+| Base de honorarios | {{BASE_HONORARIOS: importe en euros — calculado, suma de los conceptos de honorario}} € |
+| Impuesto sobre el valor añadido ({{TIPO_IVA: porcentaje}} %) | {{IMPORTE_IVA: importe en euros — calculado, base por el tipo de IVA}} € |
+| Suplidos justificados | {{TOTAL_SUPLIDOS: importe en euros — calculado, suma de los suplidos}} € |
+| **Total minuta** | **{{TOTAL_MINUTA: importe en euros — calculado, subtotal de honorarios más suplidos}} €** |
+| Cantidades percibidas a cuenta | -{{CANTIDADES_ABONADAS: importe en euros}} € |
+| **Principal reclamado** | **{{PRINCIPAL_RECLAMADO: importe en euros — calculado, total minuta menos lo percibido}} €** |
 
 ### QUINTO — Fundamento de la cuantía de los honorarios
 
-{{fundamento_cuantia_honorarios: texto libre, uno o varios párrafos}}
+{{FUNDAMENTO_CUANTIA_HONORARIOS: texto libre, uno o varios párrafos}}
 
 ### SEXTO — Requerimiento previo y falta de pago
 
-{{relato_requerimiento_previo: texto libre, uno o varios párrafos}}
+{{RELATO_REQUERIMIENTO_PREVIO: texto libre, uno o varios párrafos}}
 
 ### SÉPTIMO — Manifestación formal
 
@@ -72,28 +72,28 @@ A los efectos exigidos por el artículo 35.1 de la Ley de Enjuiciamiento Civil, 
 
 **III. Tramitación.** Conforme al artículo 35.2 de la Ley de Enjuiciamiento Civil, presentada la reclamación procede requerir al deudor para que pague la suma reclamada con las costas, o impugne la cuenta, en el plazo legalmente previsto, bajo apercibimiento de apremio.
 
-**IV. Devengo y cuantía.** {{fundamentos_devengo_y_cuantia: texto libre, uno o varios párrafos}}
+**IV. Devengo y cuantía.** {{FUNDAMENTOS_DEVENGO_Y_CUANTIA: texto libre, uno o varios párrafos}}
 
 ---
 
 **Por lo expuesto,**
 
-**SUPLICO AL JUZGADO** que, teniendo por presentado este escrito con la minuta detallada y los documentos que se acompañan, se sirva admitirlo, tener por formulada reclamación de honorarios profesionales al amparo del artículo 35 de la Ley de Enjuiciamiento Civil frente a {{nombre_cliente: nombre y apellidos}}, y acordar requerir al deudor para que abone la cantidad de **{{principal_reclamado: importe en euros — calculado, total minuta menos lo percibido}} euros**, más las costas que se causen, o impugne la cuenta en el plazo legalmente previsto, bajo apercibimiento de apremio si no pagare ni formulare impugnación; y, en su caso, previos los trámites legales, dictar decreto determinando la cantidad que haya de satisfacerse, con apercibimiento de apremio.
+**SUPLICO AL JUZGADO** que, teniendo por presentado este escrito con la minuta detallada y los documentos que se acompañan, se sirva admitirlo, tener por formulada reclamación de honorarios profesionales al amparo del artículo 35 de la Ley de Enjuiciamiento Civil frente a {{NOMBRE_CLIENTE: nombre y apellidos}}, y acordar requerir al deudor para que abone la cantidad de **{{PRINCIPAL_RECLAMADO: importe en euros — calculado, total minuta menos lo percibido}} euros**, más las costas que se causen, o impugne la cuenta en el plazo legalmente previsto, bajo apercibimiento de apremio si no pagare ni formulare impugnación; y, en su caso, previos los trámites legales, dictar decreto determinando la cantidad que haya de satisfacerse, con apercibimiento de apremio.
 
-Es Justicia que pido en {{lugar_presentacion: localidad}}, a {{fecha_escrito: fecha (DD/MM/AAAA)}}.
+Es Justicia que pido en {{LUGAR_PRESENTACION: localidad}}, a {{FECHA_ESCRITO: fecha (DD/MM/AAAA)}}.
 
-Fdo.: {{nombre_profesional_responsable: nombre y apellidos}}  
-Abogado — Colegiado n.º {{numero_colegiado: número de colegiado}} del {{colegio_adscripcion: denominación del colegio}}
+Fdo.: {{NOMBRE_PROFESIONAL_RESPONSABLE: nombre y apellidos}}  
+Abogado — Colegiado n.º {{NUMERO_COLEGIADO: número de colegiado}} del {{COLEGIO_ADSCRIPCION: denominación del colegio}}
 
 ---
 
 ## DOCUMENTOS QUE SE ACOMPAÑAN
 
-1. Minuta detallada de honorarios n.º {{numero_minuta: referencia alfanumérica}}.
-2. {{documento_2: documento aportado}}
-3. {{documento_3: documento aportado}}
-4. {{documento_4: documento aportado}}
-5. {{documento_5: documento aportado}}
+1. Minuta detallada de honorarios n.º {{NUMERO_MINUTA: referencia alfanumérica}}.
+2. {{DOCUMENTO_2: documento aportado}}
+3. {{DOCUMENTO_3: documento aportado}}
+4. {{DOCUMENTO_4: documento aportado}}
+5. {{DOCUMENTO_5: documento aportado}}
 
 ---
 

@@ -17,7 +17,7 @@ Debe describir **actuaciones**, no resultados ni fases abstractas. Comparación:
 | Formulación débil | Formulación útil |
 |---|---|
 | "Llevar el asunto de reclamación de cantidad" | "Estudio de la documentación aportada; requerimiento extrajudicial de pago por burofax; presentación de papeleta de conciliación y asistencia al acto; redacción y presentación de la demanda; asistencia al acto del juicio en primera instancia" |
-| "Asesoramiento laboral" | "Consultas por escrito o telefónicas hasta un máximo de {{numero}} al mes; revisión de contratos de trabajo; redacción de comunicaciones a la plantilla; sin incluir la representación en procedimientos" |
+| "Asesoramiento laboral" | "Consultas por escrito o telefónicas hasta un máximo de {{NUMERO}} al mes; revisión de contratos de trabajo; redacción de comunicaciones a la plantilla; sin incluir la representación en procedimientos" |
 | "Defensa jurídica" | Enumeración de instancias y trámites concretos, con indicación de hasta dónde llega el encargo |
 
 ## 3. Exclusiones que deben constar siempre

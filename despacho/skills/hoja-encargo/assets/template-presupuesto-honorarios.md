@@ -5,62 +5,62 @@
 ---
 
 **DESPACHO**  
-{{denominacion_despacho: razón social}}  
-NIF {{nif_despacho: CIF/NIF}}  
-{{domicilio_despacho: domicilio completo}}  
-Profesional responsable: {{nombre_profesional_responsable: nombre y apellidos}}, colegiado n.º {{numero_colegiado: número de colegiado}} del {{colegio_adscripcion: denominación del colegio}}  
-Contacto: {{telefono_despacho: teléfono}} — {{email_despacho: correo electrónico}}
+{{DENOMINACION_DESPACHO: razón social}}  
+NIF {{NIF_DESPACHO: CIF/NIF}}  
+{{DOMICILIO_DESPACHO: domicilio completo}}  
+Profesional responsable: {{NOMBRE_PROFESIONAL_RESPONSABLE: nombre y apellidos}}, colegiado n.º {{NUMERO_COLEGIADO: número de colegiado}} del {{COLEGIO_ADSCRIPCION: denominación del colegio}}  
+Contacto: {{TELEFONO_DESPACHO: teléfono}} — {{EMAIL_DESPACHO: correo electrónico}}
 
 **DESTINATARIO**  
-{{nombre_cliente: nombre y apellidos}}  
-{{tipo_documento_cliente: tipo de documento: DNI, NIE o CIF}} {{documento_cliente: DNI/NIE}}  
-{{domicilio_cliente: domicilio completo}}
+{{NOMBRE_CLIENTE: nombre y apellidos}}  
+{{TIPO_DOCUMENTO_CLIENTE: tipo de documento: DNI, NIE o CIF}} {{DOCUMENTO_CLIENTE: DNI/NIE}}  
+{{DOMICILIO_CLIENTE: domicilio completo}}
 
-**Referencia:** {{referencia_presupuesto: referencia alfanumérica}}  
-**Fecha de emisión:** {{fecha_presupuesto: fecha (DD/MM/AAAA)}}  
-**Validez del presupuesto:** {{plazo_validez: plazo de validez en días}}
+**Referencia:** {{REFERENCIA_PRESUPUESTO: referencia alfanumérica}}  
+**Fecha de emisión:** {{FECHA_PRESUPUESTO: fecha (DD/MM/AAAA)}}  
+**Validez del presupuesto:** {{PLAZO_VALIDEZ: plazo de validez en días}}
 
 ---
 
 ## 1. Asunto sobre el que se emite el presupuesto
 
-{{descripcion_asunto: texto libre, uno o varios párrafos}}
+{{DESCRIPCION_ASUNTO: texto libre, uno o varios párrafos}}
 
 **Documentación e información facilitada por el destinatario para su elaboración:**
 
-{{documentacion_examinada: documentación examinada}}
+{{DOCUMENTACION_EXAMINADA: documentación examinada}}
 
 Este presupuesto se emite sobre la base de la información indicada. Cualquier dato o circunstancia relevante no comunicada que altere la complejidad o el alcance del asunto podrá modificar la valoración, en cuyo caso se emitirá un presupuesto revisado con carácter previo a cualquier actuación.
 
 ## 2. Actuaciones incluidas en el presupuesto
 
-{{relacion_actuaciones_incluidas: lista, un elemento por línea}}
+{{RELACION_ACTUACIONES_INCLUIDAS: lista, un elemento por línea}}
 
 ## 3. Actuaciones no incluidas
 
-{{relacion_actuaciones_excluidas: lista, un elemento por línea}}
+{{RELACION_ACTUACIONES_EXCLUIDAS: lista, un elemento por línea}}
 
 ## 4. Honorarios propuestos
 
-{{bloque_honorarios_por_modalidad: bloque condicional que inserta la skill}}
+{{BLOQUE_HONORARIOS_POR_MODALIDAD: bloque condicional que inserta la skill}}
 
 | Concepto | Importe |
 |---|---|
-| Base de honorarios | {{base_honorarios: importe en euros — calculado, suma de los conceptos de honorario}} € |
-| Impuesto sobre el valor añadido ({{tipo_iva: porcentaje}} %) | {{importe_iva: importe en euros — calculado, base por el tipo de IVA}} € |
-| **Total con impuestos** | **{{total_con_impuestos: importe en euros — calculado, base más IVA}} €** |
-| Retención a cuenta del IRPF ({{tipo_retencion: porcentaje}} %), si el destinatario está obligado a practicarla | {{importe_retencion: importe en euros — calculado, base por el tipo de retención}} € |
-| **Total a percibir por el DESPACHO** | **{{total_a_percibir: importe en euros — calculado, total con impuestos menos retención}} €** |
+| Base de honorarios | {{BASE_HONORARIOS: importe en euros — calculado, suma de los conceptos de honorario}} € |
+| Impuesto sobre el valor añadido ({{TIPO_IVA: porcentaje}} %) | {{IMPORTE_IVA: importe en euros — calculado, base por el tipo de IVA}} € |
+| **Total con impuestos** | **{{TOTAL_CON_IMPUESTOS: importe en euros — calculado, base más IVA}} €** |
+| Retención a cuenta del IRPF ({{TIPO_RETENCION: porcentaje}} %), si el destinatario está obligado a practicarla | {{IMPORTE_RETENCION: importe en euros — calculado, base por el tipo de retención}} € |
+| **Total a percibir por el DESPACHO** | **{{TOTAL_A_PERCIBIR: importe en euros — calculado, total con impuestos menos retención}} €** |
 
 **Hitos de facturación propuestos:**
 
 | Hito | Actuación que lo genera | Importe |
 |---|---|---|
-| {{hito_1: hito}} | {{actuacion_hito_1: actuación que lo genera}} | {{importe_hito_1: importe en euros}} € |
-| {{hito_2: hito}} | {{actuacion_hito_2: actuación que lo genera}} | {{importe_hito_2: importe en euros}} € |
-| {{hito_3: hito}} | {{actuacion_hito_3: actuación que lo genera}} | {{importe_hito_3: importe en euros}} € |
+| {{HITO_1: hito}} | {{ACTUACION_HITO_1: actuación que lo genera}} | {{IMPORTE_HITO_1: importe en euros}} € |
+| {{HITO_2: hito}} | {{ACTUACION_HITO_2: actuación que lo genera}} | {{IMPORTE_HITO_2: importe en euros}} € |
+| {{HITO_3: hito}} | {{ACTUACION_HITO_3: actuación que lo genera}} | {{IMPORTE_HITO_3: importe en euros}} € |
 
-{{parrafo_estimacion_maxima_por_horas: bloque condicional que inserta la skill}}
+{{PARRAFO_ESTIMACION_MAXIMA_POR_HORAS: bloque condicional que inserta la skill}}
 
 ## 5. Gastos y suplidos no incluidos en los honorarios
 
@@ -68,15 +68,15 @@ Los siguientes conceptos son ajenos a los honorarios profesionales y serán de c
 
 | Concepto | Importe estimado | Observaciones |
 |---|---|---|
-| {{gasto_1: concepto del gasto}} | {{importe_gasto_1: importe en euros}} € | {{observaciones_gasto_1: texto breve}} |
-| {{gasto_2: concepto del gasto}} | {{importe_gasto_2: importe en euros}} € | {{observaciones_gasto_2: texto breve}} |
-| {{gasto_3: concepto del gasto}} | {{importe_gasto_3: importe en euros}} € | {{observaciones_gasto_3: texto breve}} |
+| {{GASTO_1: concepto del gasto}} | {{IMPORTE_GASTO_1: importe en euros}} € | {{OBSERVACIONES_GASTO_1: texto breve}} |
+| {{GASTO_2: concepto del gasto}} | {{IMPORTE_GASTO_2: importe en euros}} € | {{OBSERVACIONES_GASTO_2: texto breve}} |
+| {{GASTO_3: concepto del gasto}} | {{IMPORTE_GASTO_3: importe en euros}} € | {{OBSERVACIONES_GASTO_3: texto breve}} |
 
-**Provisión de fondos propuesta:** {{importe_provision: importe en euros}} euros.
+**Provisión de fondos propuesta:** {{IMPORTE_PROVISION: importe en euros}} euros.
 
 ## 6. Plazos estimados
 
-{{plazos_estimados_actuaciones: plazo o número}}
+{{PLAZOS_ESTIMADOS_ACTUACIONES: plazo o número}}
 
 Los plazos indicados son estimativos y dependen de circunstancias ajenas al DESPACHO, señaladamente de los tiempos de tramitación de los organismos y órganos judiciales intervinientes, y de la disponibilidad de la documentación a aportar por el destinatario.
 
@@ -84,21 +84,21 @@ Los plazos indicados son estimativos y dependen de circunstancias ajenas al DESP
 
 La obligación que asumiría el DESPACHO sería una **obligación de medios y no de resultado**. No se asume ni puede asumirse compromiso alguno sobre el resultado del asunto.
 
-{{bloque_advertencia_costas: bloque condicional que inserta la skill}}
+{{BLOQUE_ADVERTENCIA_COSTAS: bloque condicional que inserta la skill}}
 
 ## 8. Formalización
 
 La aceptación de este presupuesto **no sustituye a la hoja de encargo profesional**. Aceptada la propuesta, se formalizará la correspondiente hoja de encargo, que se firmará con carácter previo al inicio de cualquier actuación y en la que se recogerán íntegramente las condiciones del encargo.
 
-{{parrafo_diligencia_debida_blanqueo: bloque condicional que inserta la skill}}
+{{PARRAFO_DILIGENCIA_DEBIDA_BLANQUEO: bloque condicional que inserta la skill}}
 
 ---
 
-**Validez:** este presupuesto tiene una validez de {{plazo_validez: plazo de validez en días}} desde su fecha de emisión. Transcurrido dicho plazo sin aceptación, quedará sin efecto.
+**Validez:** este presupuesto tiene una validez de {{PLAZO_VALIDEZ: plazo de validez en días}} desde su fecha de emisión. Transcurrido dicho plazo sin aceptación, quedará sin efecto.
 
-{{denominacion_despacho: razón social}}  
-Fdo.: {{nombre_profesional_responsable: nombre y apellidos}}  
-Colegiado n.º {{numero_colegiado: número de colegiado}} — {{colegio_adscripcion: denominación del colegio}}
+{{DENOMINACION_DESPACHO: razón social}}  
+Fdo.: {{NOMBRE_PROFESIONAL_RESPONSABLE: nombre y apellidos}}  
+Colegiado n.º {{NUMERO_COLEGIADO: número de colegiado}} — {{COLEGIO_ADSCRIPCION: denominación del colegio}}
 
 ---
 
@@ -106,9 +106,9 @@ Colegiado n.º {{numero_colegiado: número de colegiado}} — {{colegio_adscripc
 
 Acepto el presupuesto que antecede en todos sus términos y solicito la formalización de la correspondiente hoja de encargo profesional.
 
-Fdo.: {{nombre_cliente: nombre y apellidos}}  
-{{tipo_documento_cliente: tipo de documento: DNI, NIE o CIF}} {{documento_cliente: DNI/NIE}}  
-Fecha: {{fecha_aceptacion: fecha (DD/MM/AAAA)}}
+Fdo.: {{NOMBRE_CLIENTE: nombre y apellidos}}  
+{{TIPO_DOCUMENTO_CLIENTE: tipo de documento: DNI, NIE o CIF}} {{DOCUMENTO_CLIENTE: DNI/NIE}}  
+Fecha: {{FECHA_ACEPTACION: fecha (DD/MM/AAAA)}}
 
 ---
 

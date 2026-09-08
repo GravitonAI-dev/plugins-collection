@@ -1,34 +1,34 @@
-# DEMANDA DE JUICIO VERBAL DE DESAHUCIO POR PRECARIO — {{nombre_demandante}} contra {{nombre_demandado}}
+# DEMANDA DE JUICIO VERBAL DE DESAHUCIO POR PRECARIO — {{NOMBRE_DEMANDANTE}} contra {{NOMBRE_DEMANDADO}}
 
 > **DRAFT — para revision por un abogado antes de su presentacion. No constituye asesoramiento juridico.**  
-> Version de la LEC verificada en el BOE: {{fecha_verificacion_normativa}}  
+> Version de la LEC verificada en el BOE: {{FECHA_VERIFICACION_NORMATIVA}}  
 > Fundamento procesal: Art. 250.1.2 LEC. Fundamento sustantivo: Arts. 348 y 1750 y ss. del Codigo Civil.
 
 ---
 
-## AL JUZGADO DE PRIMERA INSTANCIA DE {{partido_judicial_inmueble}}
+## AL JUZGADO DE PRIMERA INSTANCIA DE {{PARTIDO_JUDICIAL_INMUEBLE}}
 
-En {{lugar}}, a {{fecha_demanda}}
+En {{LUGAR}}, a {{FECHA_DEMANDA}}
 
 ## DATOS DEL DEMANDANTE (PROPIETARIO)
 
-Nombre / Razon social: {{nombre_demandante}}  
-NIF / CIF: {{nif_demandante}}  
-Domicilio a efectos de notificaciones: {{domicilio_demandante}}  
-Naturaleza: {{naturaleza_demandante}}  
-Representado por el Procurador {{nombre_procurador}} y asistido por el Letrado {{nombre_letrado}}.
+Nombre / Razon social: {{NOMBRE_DEMANDANTE}}  
+NIF / CIF: {{NIF_DEMANDANTE}}  
+Domicilio a efectos de notificaciones: {{DOMICILIO_DEMANDANTE}}  
+Naturaleza: {{NATURALEZA_DEMANDANTE}}  
+Representado por el Procurador {{NOMBRE_PROCURADOR}} y asistido por el Letrado {{NOMBRE_LETRADO}}.
 
 ## DATOS DEL DEMANDADO (OCUPANTE)
 
-Nombre / Razon social: {{nombre_demandado}}  
-NIF / CIF: {{nif_demandado}}  
-Domicilio (inmueble ocupado): {{domicilio_demandado}}
+Nombre / Razon social: {{NOMBRE_DEMANDADO}}  
+NIF / CIF: {{NIF_DEMANDADO}}  
+Domicilio (inmueble ocupado): {{DOMICILIO_DEMANDADO}}
 
 ## INMUEBLE OBJETO DEL DESAHUCIO
 
-Direccion completa: {{direccion_inmueble}}  
-Referencia catastral: {{referencia_catastral}}  
-Tipo: {{tipo_inmueble}}
+Direccion completa: {{DIRECCION_INMUEBLE}}  
+Referencia catastral: {{REFERENCIA_CATASTRAL}}  
+Tipo: {{TIPO_INMUEBLE}}
 
 ---
 
@@ -42,12 +42,12 @@ Que por medio del presente escrito formula DEMANDA DE JUICIO VERBAL DE DESAHUCIO
 El demandante es propietario del inmueble descrito, segun se acredita con la nota simple registral que se acompana como Documento nº 1.
 
 **SEGUNDO — Destino del inmueble y condicion de la parte actora.**  
-El inmueble descrito constituye {{destino_inmueble}}, en los terminos del articulo 439.6.a) de la LEC. La parte actora {{condicion_gran_tenedor}}, conforme al articulo 3.k) de la Ley 12/2023, de 24 de mayo, por el derecho a la vivienda.
+El inmueble descrito constituye {{DESTINO_INMUEBLE}}, en los terminos del articulo 439.6.a) de la LEC. La parte actora {{CONDICION_GRAN_TENEDOR}}, conforme al articulo 3.k) de la Ley 12/2023, de 24 de mayo, por el derecho a la vivienda.
 **TERCERO — Cesion en precario.**  
-El demandado ocupa el inmueble en precario, es decir, sin titulo, sin pago de renta ni contraprestacion y por mera tolerancia del demandante. Dicha ocupacion tuvo su origen en {{titulo_precario}}.
+El demandado ocupa el inmueble en precario, es decir, sin titulo, sin pago de renta ni contraprestacion y por mera tolerancia del demandante. Dicha ocupacion tuvo su origen en {{TITULO_PRECARIO}}.
 
 **CUARTO — Revocacion de la tolerancia y requerimiento de restitucion.**  
-El demandante revoco la tolerancia y requirio al demandado la restitucion de la posesion mediante {{medio_requerimiento}} de fecha {{fecha_requerimiento}}, sin que la haya restituido. Se acompana el requerimiento como Documento nº 2.
+El demandante revoco la tolerancia y requirio al demandado la restitucion de la posesion mediante {{MEDIO_REQUERIMIENTO}} de fecha {{FECHA_REQUERIMIENTO}}, sin que la haya restituido. Se acompana el requerimiento como Documento nº 2.
 
 **QUINTO — Ausencia de titulo.**  
 El demandado carece de titulo que ampare su posesion, por lo que procede el desahucio y la recuperacion de la plena posesion por el propietario.
@@ -71,11 +71,11 @@ El demandado carece de titulo que ampare su posesion, por lo que procede el desa
 
 Que tenga por presentada esta demanda de juicio verbal de desahucio por precario, la admita a tramite y, previos los tramites legales, dicte sentencia por la que:
 
-1. Declare que el demandado {{nombre_demandado}} ocupa el inmueble en precario, sin titulo que ampare su posesion.
+1. Declare que el demandado {{NOMBRE_DEMANDADO}} ocupa el inmueble en precario, sin titulo que ampare su posesion.
 2. Condene al demandado al desahucio y a dejar libre y a disposicion del demandante el inmueble descrito, con apercibimiento de lanzamiento si no lo desaloja voluntariamente.
 3. Imponga las costas al demandado.
 
-Es justicia que pido en {{lugar}}, a {{fecha_demanda}}.
+Es justicia que pido en {{LUGAR}}, a {{FECHA_DEMANDA}}.
 
 ---
 
@@ -87,7 +87,7 @@ Firma del Letrado: ___________________________
 
 > **Advertencias:**  
 > 1. Este documento es un DRAFT generado automaticamente. Debe ser revisado por un abogado antes de su presentacion.  
-> 2. Version de la LEC verificada: {{fecha_verificacion_normativa}}.  
+> 2. Version de la LEC verificada: {{FECHA_VERIFICACION_NORMATIVA}}.  
 > 3. Competencia del tribunal del lugar donde este sita la finca (Art. 52.1.7 LEC).  
 > 4. La LO 1/2025 exige acreditar el intento previo de un MASC (Art. 403.2 LEC). Conservar el justificante.  
 > 5. En el desahucio por precario no cabe enervacion de la accion (Art. 22.4 LEC).  

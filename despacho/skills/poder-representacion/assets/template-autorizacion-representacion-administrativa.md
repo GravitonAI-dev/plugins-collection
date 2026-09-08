@@ -6,28 +6,28 @@
 
 ## OTORGANTE
 
-{{bloque_identificacion_otorgante: bloque condicional que inserta la skill}}
+{{BLOQUE_IDENTIFICACION_OTORGANTE: bloque condicional que inserta la skill}}
 
-{{bloque_titulo_representante_organico: bloque condicional que inserta la skill}}
+{{BLOQUE_TITULO_REPRESENTANTE_ORGANICO: bloque condicional que inserta la skill}}
 
 ## REPRESENTANTE AUTORIZADO
 
 | Dato | Contenido |
 |---|---|
-| Nombre y apellidos | {{nombre_representante: nombre y apellidos}} |
-| Documento de identidad | {{documento_representante: DNI/NIE}} |
-| Condición | {{condicion_representante: condición}} |
-| Número de colegiado y colegio | {{colegiacion_representante: número de colegiado y colegio}} |
-| Domicilio a efectos de notificaciones | {{domicilio_representante: domicilio completo}} |
-| Teléfono y correo electrónico | {{contacto_representante: teléfono y correo electrónico}} |
+| Nombre y apellidos | {{NOMBRE_REPRESENTANTE: nombre y apellidos}} |
+| Documento de identidad | {{DOCUMENTO_REPRESENTANTE: DNI/NIE}} |
+| Condición | {{CONDICION_REPRESENTANTE: condición}} |
+| Número de colegiado y colegio | {{COLEGIACION_REPRESENTANTE: número de colegiado y colegio}} |
+| Domicilio a efectos de notificaciones | {{DOMICILIO_REPRESENTANTE: domicilio completo}} |
+| Teléfono y correo electrónico | {{CONTACTO_REPRESENTANTE: teléfono y correo electrónico}} |
 
 ## OBJETO DE LA REPRESENTACIÓN
 
-Por medio del presente documento, el otorgante **AUTORIZA** al representante identificado para que actúe en su nombre y representación ante {{administracion_destinataria: denominación de la administración destinataria}}, en relación con:
+Por medio del presente documento, el otorgante **AUTORIZA** al representante identificado para que actúe en su nombre y representación ante {{ADMINISTRACION_DESTINATARIA: denominación de la administración destinataria}}, en relación con:
 
-{{objeto_representacion: texto libre}}
+{{OBJETO_REPRESENTACION: texto libre}}
 
-{{bloque_identificacion_expediente: bloque condicional que inserta la skill}}
+{{BLOQUE_IDENTIFICACION_EXPEDIENTE: bloque condicional que inserta la skill}}
 
 ## ACTUACIONES PARA LAS QUE SE CONFIERE LA REPRESENTACIÓN
 
@@ -35,41 +35,41 @@ Se confiere la representación para las siguientes actuaciones, con expresa menc
 
 | Actuación | ¿Se confiere? |
 |---|---|
-| Actos y gestiones de mero trámite, obtención de información y consulta del expediente | {{facultad_tramite: sí / no}} |
-| Formular solicitudes | {{facultad_solicitudes: sí / no}} |
-| Presentar declaraciones responsables y comunicaciones | {{facultad_declaraciones: sí / no}} |
-| Interponer recursos administrativos | {{facultad_recursos: sí / no}} |
-| Desistir de acciones | {{facultad_desistimiento: sí / no}} |
-| Renunciar a derechos | {{facultad_renuncia: sí / no}} |
-| Aportar y retirar documentación, y solicitar copias y certificaciones | {{facultad_documentacion: sí / no}} |
-| Recibir notificaciones, incluidas las electrónicas | {{facultad_notificaciones: sí / no}} |
-| Comparecer en trámites de audiencia, vista del expediente e información pública | {{facultad_comparecencia: sí / no}} |
-| Formular alegaciones y proponer y aportar prueba | {{facultad_alegaciones: sí / no}} |
-| {{facultad_adicional: actuación}} | {{concesion_facultad_adicional: sí / no}} |
+| Actos y gestiones de mero trámite, obtención de información y consulta del expediente | {{FACULTAD_TRAMITE: sí / no}} |
+| Formular solicitudes | {{FACULTAD_SOLICITUDES: sí / no}} |
+| Presentar declaraciones responsables y comunicaciones | {{FACULTAD_DECLARACIONES: sí / no}} |
+| Interponer recursos administrativos | {{FACULTAD_RECURSOS: sí / no}} |
+| Desistir de acciones | {{FACULTAD_DESISTIMIENTO: sí / no}} |
+| Renunciar a derechos | {{FACULTAD_RENUNCIA: sí / no}} |
+| Aportar y retirar documentación, y solicitar copias y certificaciones | {{FACULTAD_DOCUMENTACION: sí / no}} |
+| Recibir notificaciones, incluidas las electrónicas | {{FACULTAD_NOTIFICACIONES: sí / no}} |
+| Comparecer en trámites de audiencia, vista del expediente e información pública | {{FACULTAD_COMPARECENCIA: sí / no}} |
+| Formular alegaciones y proponer y aportar prueba | {{FACULTAD_ALEGACIONES: sí / no}} |
+| {{FACULTAD_ADICIONAL: actuación}} | {{CONCESION_FACULTAD_ADICIONAL: sí / no}} |
 
-{{bloque_facultades_excluidas: bloque condicional que inserta la skill}}
+{{BLOQUE_FACULTADES_EXCLUIDAS: bloque condicional que inserta la skill}}
 
 ## DURACIÓN Y REVOCACIÓN
 
-{{bloque_duracion_y_revocacion: bloque condicional que inserta la skill}}
+{{BLOQUE_DURACION_Y_REVOCACION: bloque condicional que inserta la skill}}
 
 ## NOTIFICACIONES
 
-{{bloque_regimen_notificaciones: bloque condicional que inserta la skill}}
+{{BLOQUE_REGIMEN_NOTIFICACIONES: bloque condicional que inserta la skill}}
 
 ---
 
 Y para que así conste y surta los efectos oportunos, el otorgante firma la presente autorización.
 
-En {{lugar_firma: localidad}}, a {{fecha_firma: fecha (DD/MM/AAAA)}}
+En {{LUGAR_FIRMA: localidad}}, a {{FECHA_FIRMA: fecha (DD/MM/AAAA)}}
 
 **EL OTORGANTE**  
-Fdo.: {{nombre_otorgante: nombre y apellidos}}  
-{{documento_otorgante: DNI/NIE}}
+Fdo.: {{NOMBRE_OTORGANTE: nombre y apellidos}}  
+{{DOCUMENTO_OTORGANTE: DNI/NIE}}
 
 **EL REPRESENTANTE, que acepta**  
-Fdo.: {{nombre_representante: nombre y apellidos}}  
-{{documento_representante: DNI/NIE}}
+Fdo.: {{NOMBRE_REPRESENTANTE: nombre y apellidos}}  
+{{DOCUMENTO_REPRESENTANTE: DNI/NIE}}
 
 ---
 

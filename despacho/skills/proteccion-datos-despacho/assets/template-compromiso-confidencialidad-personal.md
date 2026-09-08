@@ -2,15 +2,15 @@
 
 > **DRAFT — para revisión por el profesional responsable antes de su firma. No constituye asesoramiento jurídico definitivo.**
 
-En {{lugar_firma: localidad}}, a {{fecha_firma: fecha (DD/MM/AAAA)}}
+En {{LUGAR_FIRMA: localidad}}, a {{FECHA_FIRMA: fecha (DD/MM/AAAA)}}
 
 ---
 
 ## COMPARECIENTES
 
-**EL DESPACHO:** {{denominacion_despacho: razón social}}, con NIF {{nif_despacho: CIF/NIF}} y domicilio profesional en {{domicilio_despacho: domicilio completo}}, representado por {{nombre_representante_despacho: nombre y apellidos}}, en su condición de {{cargo_representante_despacho: cargo del firmante}}.
+**EL DESPACHO:** {{DENOMINACION_DESPACHO: razón social}}, con NIF {{NIF_DESPACHO: CIF/NIF}} y domicilio profesional en {{DOMICILIO_DESPACHO: domicilio completo}}, representado por {{NOMBRE_REPRESENTANTE_DESPACHO: nombre y apellidos}}, en su condición de {{CARGO_REPRESENTANTE_DESPACHO: cargo del firmante}}.
 
-**LA PERSONA OBLIGADA:** {{nombre_persona_obligada: nombre y apellidos}}, con documento {{documento_persona_obligada: DNI/NIE}} y domicilio en {{domicilio_persona_obligada: domicilio completo}}, que presta servicios para el despacho en calidad de **{{condicion_persona_obligada: condición: personal laboral, colaborador, becario o proveedor}}** desde {{fecha_inicio_relacion: fecha (DD/MM/AAAA)}}.
+**LA PERSONA OBLIGADA:** {{NOMBRE_PERSONA_OBLIGADA: nombre y apellidos}}, con documento {{DOCUMENTO_PERSONA_OBLIGADA: DNI/NIE}} y domicilio en {{DOMICILIO_PERSONA_OBLIGADA: domicilio completo}}, que presta servicios para el despacho en calidad de **{{CONDICION_PERSONA_OBLIGADA: condición: personal laboral, colaborador, becario o proveedor}}** desde {{FECHA_INICIO_RELACION: fecha (DD/MM/AAAA)}}.
 
 ## EXPONEN
 
@@ -59,29 +59,29 @@ Las obligaciones asumidas en el presente compromiso, y en particular el deber de
 
 ### QUINTA — Consecuencias del incumplimiento
 
-{{bloque_consecuencias_incumplimiento: bloque condicional que inserta la skill}}
+{{BLOQUE_CONSECUENCIAS_INCUMPLIMIENTO: bloque condicional que inserta la skill}}
 
 ### SEXTA — Información sobre el tratamiento de sus propios datos
 
-{{bloque_informacion_datos_persona_obligada: bloque condicional que inserta la skill}}
+{{BLOQUE_INFORMACION_DATOS_PERSONA_OBLIGADA: bloque condicional que inserta la skill}}
 
 ### SÉPTIMA — Entrega de normativa interna
 
-La persona obligada declara haber recibido, leído y comprendido {{relacion_documentacion_entregada: lista, un elemento por línea}}, y se compromete a su cumplimiento.
+La persona obligada declara haber recibido, leído y comprendido {{RELACION_DOCUMENTACION_ENTREGADA: lista, un elemento por línea}}, y se compromete a su cumplimiento.
 
-{{clausulas_adicionales_pactadas: bloque condicional que inserta la skill}}
+{{CLAUSULAS_ADICIONALES_PACTADAS: bloque condicional que inserta la skill}}
 
 ---
 
 Y en prueba de conformidad, ambas partes firman el presente compromiso por duplicado y a un solo efecto, entregándose un ejemplar a la persona obligada.
 
 **POR EL DESPACHO**  
-Fdo.: {{nombre_representante_despacho: nombre y apellidos}}  
-{{cargo_representante_despacho: cargo del firmante}}
+Fdo.: {{NOMBRE_REPRESENTANTE_DESPACHO: nombre y apellidos}}  
+{{CARGO_REPRESENTANTE_DESPACHO: cargo del firmante}}
 
 **LA PERSONA OBLIGADA**  
-Fdo.: {{nombre_persona_obligada: nombre y apellidos}}  
-{{documento_persona_obligada: DNI/NIE}}
+Fdo.: {{NOMBRE_PERSONA_OBLIGADA: nombre y apellidos}}  
+{{DOCUMENTO_PERSONA_OBLIGADA: DNI/NIE}}
 
 ---
 

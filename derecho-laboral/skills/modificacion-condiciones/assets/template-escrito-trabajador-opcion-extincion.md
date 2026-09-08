@@ -1,44 +1,44 @@
-# ESCRITO DEL TRABAJADOR EN RESPUESTA A LA MODIFICACIÓN DE CONDICIONES — {{nombre_trabajador: nombre y apellidos}} a {{razon_social_empresa: razón social}}
+# ESCRITO DEL TRABAJADOR EN RESPUESTA A LA MODIFICACIÓN DE CONDICIONES — {{NOMBRE_TRABAJADOR: nombre y apellidos}} a {{RAZON_SOCIAL_EMPRESA: razón social}}
 
 > **DRAFT — para revisión por un abogado o graduado social colegiado antes de su firma y envío. No constituye asesoramiento jurídico definitivo.**  
-> Convenio colectivo aplicable: {{denominacion_convenio: denominación y ámbito del convenio colectivo}} (código {{codigo_convenio: código de convenio}})
+> Convenio colectivo aplicable: {{DENOMINACION_CONVENIO: denominación y ámbito del convenio colectivo}} (código {{CODIGO_CONVENIO: código de convenio}})
 
 ---
 
 **REMITENTE (TRABAJADOR)**  
-{{nombre_trabajador: nombre y apellidos}}  
-DNI/NIE {{dni_trabajador: DNI/NIE}}  
-{{domicilio_trabajador: domicilio completo}}  
-Categoría o grupo profesional: {{categoria_profesional: categoría profesional del convenio}}  
-Antigüedad: {{fecha_antiguedad: fecha (DD/MM/AAAA)}}
+{{NOMBRE_TRABAJADOR: nombre y apellidos}}  
+DNI/NIE {{DNI_TRABAJADOR: DNI/NIE}}  
+{{DOMICILIO_TRABAJADOR: domicilio completo}}  
+Categoría o grupo profesional: {{CATEGORIA_PROFESIONAL: categoría profesional del convenio}}  
+Antigüedad: {{FECHA_ANTIGUEDAD: fecha (DD/MM/AAAA)}}
 
 **DESTINATARIO (EMPRESA)**  
-{{razon_social_empresa: razón social}}  
-CIF {{cif_empresa: CIF/NIF}}  
-{{domicilio_empresa: domicilio completo}}  
-A la atención de {{nombre_representante: nombre y apellidos}}, {{cargo_representante: cargo del firmante}}
+{{RAZON_SOCIAL_EMPRESA: razón social}}  
+CIF {{CIF_EMPRESA: CIF/NIF}}  
+{{DOMICILIO_EMPRESA: domicilio completo}}  
+A la atención de {{NOMBRE_REPRESENTANTE: nombre y apellidos}}, {{CARGO_REPRESENTANTE: cargo del firmante}}
 
-En {{lugar_emision: localidad}}, a {{fecha_escrito: fecha (DD/MM/AAAA)}}
+En {{LUGAR_EMISION: localidad}}, a {{FECHA_ESCRITO: fecha (DD/MM/AAAA)}}
 
 Muy Sres. míos:
 
 ## PRIMERO — Comunicación recibida
 
-Con fecha {{fecha_comunicacion_recibida: fecha (DD/MM/AAAA)}} he recibido de esa empresa comunicación por la que se me notifica {{descripcion_medida_recibida: texto libre, uno o varios párrafos}}, con efectos del día {{fecha_efectos: fecha (DD/MM/AAAA)}}, invocando el artículo {{articulo_invocado_empresa: número de artículo}} del texto refundido de la Ley del Estatuto de los Trabajadores.
+Con fecha {{FECHA_COMUNICACION_RECIBIDA: fecha (DD/MM/AAAA)}} he recibido de esa empresa comunicación por la que se me notifica {{DESCRIPCION_MEDIDA_RECIBIDA: texto libre, uno o varios párrafos}}, con efectos del día {{FECHA_EFECTOS: fecha (DD/MM/AAAA)}}, invocando el artículo {{ARTICULO_INVOCADO_EMPRESA: número de artículo}} del texto refundido de la Ley del Estatuto de los Trabajadores.
 
 ## SEGUNDO — Perjuicio causado
 
 La medida comunicada me causa el siguiente perjuicio:
 
-{{descripcion_perjuicio: texto libre, uno o varios párrafos}}
+{{DESCRIPCION_PERJUICIO: texto libre, uno o varios párrafos}}
 
 ## TERCERO — Decisión adoptada
 
-{{parte_dispositiva_decision_trabajador: decisión adoptada: rescisión indemnizada o impugnación}}
+{{PARTE_DISPOSITIVA_DECISION_TRABAJADOR: decisión adoptada: rescisión indemnizada o impugnación}}
 
 ## CUARTO — Liquidación reclamada
 
-{{parrafo_liquidacion_reclamada: bloque condicional que inserta la skill}}
+{{PARRAFO_LIQUIDACION_RECLAMADA: bloque condicional que inserta la skill}}
 
 ## QUINTO — Reserva de acciones
 
@@ -48,17 +48,17 @@ Ruego acusen recibo del presente escrito.
 
 Atentamente,
 
-Fdo.: {{nombre_trabajador: nombre y apellidos}}  
-DNI/NIE {{dni_trabajador: DNI/NIE}}
+Fdo.: {{NOMBRE_TRABAJADOR: nombre y apellidos}}  
+DNI/NIE {{DNI_TRABAJADOR: DNI/NIE}}
 
 ---
 
 **RECIBÍ (EMPRESA)**
 
-Recibido el presente escrito en fecha {{fecha_recibi: fecha (DD/MM/AAAA)}}.
+Recibido el presente escrito en fecha {{FECHA_RECIBI: fecha (DD/MM/AAAA)}}.
 
-Fdo.: {{nombre_receptor_empresa: nombre y apellidos}}  
-{{cargo_receptor_empresa: cargo de quien recibe}}
+Fdo.: {{NOMBRE_RECEPTOR_EMPRESA: nombre y apellidos}}  
+{{CARGO_RECEPTOR_EMPRESA: cargo de quien recibe}}
 
 ---
 

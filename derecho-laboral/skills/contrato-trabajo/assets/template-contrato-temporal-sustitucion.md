@@ -1,23 +1,23 @@
-# CONTRATO DE TRABAJO DE DURACIÓN DETERMINADA POR SUSTITUCIÓN — {{razon_social_empresa: razón social}} y {{nombre_trabajador: nombre y apellidos}}
+# CONTRATO DE TRABAJO DE DURACIÓN DETERMINADA POR SUSTITUCIÓN — {{RAZON_SOCIAL_EMPRESA: razón social}} y {{NOMBRE_TRABAJADOR: nombre y apellidos}}
 
 > **DRAFT — para revisión por un abogado o graduado social colegiado antes de su firma y formalización. No constituye asesoramiento jurídico definitivo.**  
-> Convenio colectivo aplicable: {{denominacion_convenio: denominación y ámbito del convenio colectivo}} (código {{codigo_convenio: código de convenio}})
+> Convenio colectivo aplicable: {{DENOMINACION_CONVENIO: denominación y ámbito del convenio colectivo}} (código {{CODIGO_CONVENIO: código de convenio}})
 
-En {{lugar_firma: localidad}}, a {{fecha_firma: fecha (DD/MM/AAAA)}}
+En {{LUGAR_FIRMA: localidad}}, a {{FECHA_FIRMA: fecha (DD/MM/AAAA)}}
 
 ---
 
 ## REUNIDOS
 
-**DE UNA PARTE**, {{razon_social_empresa: razón social}}, con CIF {{cif_empresa: CIF/NIF}}, domicilio social en {{domicilio_empresa: domicilio completo}}, código de cuenta de cotización {{ccc_empresa: código de cuenta de cotización}} y actividad de {{actividad_empresa: actividad de la empresa}}, representada en este acto por {{nombre_representante: nombre y apellidos}}, con NIF {{nif_representante: CIF/NIF}}, en su condición de {{cargo_representante: cargo del firmante}} (en adelante, la EMPRESA).
+**DE UNA PARTE**, {{RAZON_SOCIAL_EMPRESA: razón social}}, con CIF {{CIF_EMPRESA: CIF/NIF}}, domicilio social en {{DOMICILIO_EMPRESA: domicilio completo}}, código de cuenta de cotización {{CCC_EMPRESA: código de cuenta de cotización}} y actividad de {{ACTIVIDAD_EMPRESA: actividad de la empresa}}, representada en este acto por {{NOMBRE_REPRESENTANTE: nombre y apellidos}}, con NIF {{NIF_REPRESENTANTE: CIF/NIF}}, en su condición de {{CARGO_REPRESENTANTE: cargo del firmante}} (en adelante, la EMPRESA).
 
-**DE OTRA PARTE**, {{nombre_trabajador: nombre y apellidos}}, mayor de edad, con DNI/NIE {{dni_trabajador: DNI/NIE}}, número de afiliación a la Seguridad Social {{naf_trabajador: número de afiliación a la Seguridad Social}}, y domicilio en {{domicilio_trabajador: domicilio completo}} (en adelante, la persona TRABAJADORA).
+**DE OTRA PARTE**, {{NOMBRE_TRABAJADOR: nombre y apellidos}}, mayor de edad, con DNI/NIE {{DNI_TRABAJADOR: DNI/NIE}}, número de afiliación a la Seguridad Social {{NAF_TRABAJADOR: número de afiliación a la Seguridad Social}}, y domicilio en {{DOMICILIO_TRABAJADOR: domicilio completo}} (en adelante, la persona TRABAJADORA).
 
 Ambas partes se reconocen mutuamente capacidad legal suficiente para contratar y obligarse, y a tal efecto
 
 ## EXPONEN
 
-**I.** Que {{nombre_persona_sustituida: nombre y apellidos}}, con DNI/NIE {{dni_persona_sustituida: DNI/NIE}}, que presta servicios en esta EMPRESA como {{puesto_persona_sustituida: puesto de la persona sustituida}}, se encuentra en la situación de {{causa_sustitucion: causa de la sustitución}}, con derecho a reserva de su puesto de trabajo desde el día {{fecha_inicio_reserva: fecha (DD/MM/AAAA)}}.
+**I.** Que {{NOMBRE_PERSONA_SUSTITUIDA: nombre y apellidos}}, con DNI/NIE {{DNI_PERSONA_SUSTITUIDA: DNI/NIE}}, que presta servicios en esta EMPRESA como {{PUESTO_PERSONA_SUSTITUIDA: puesto de la persona sustituida}}, se encuentra en la situación de {{CAUSA_SUSTITUCION: causa de la sustitución}}, con derecho a reserva de su puesto de trabajo desde el día {{FECHA_INICIO_RESERVA: fecha (DD/MM/AAAA)}}.
 
 **II.** Que la EMPRESA precisa cubrir temporalmente dicho puesto durante la ausencia indicada, al amparo del artículo 15.3 del texto refundido de la Ley del Estatuto de los Trabajadores, aprobado por Real Decreto Legislativo 2/2015, de 23 de octubre.
 
@@ -27,43 +27,43 @@ Ambas partes se reconocen mutuamente capacidad legal suficiente para contratar y
 
 ### PRIMERA — Objeto y clasificación profesional
 
-La persona TRABAJADORA prestará sus servicios como {{denominacion_puesto: denominación del puesto}}, en sustitución de {{nombre_persona_sustituida: nombre y apellidos}}, quedando encuadrada en el grupo profesional {{grupo_profesional: grupo profesional del convenio}}, nivel retributivo {{nivel_retributivo: nivel retributivo del convenio}}, del {{denominacion_convenio: denominación y ámbito del convenio colectivo}}.
+La persona TRABAJADORA prestará sus servicios como {{DENOMINACION_PUESTO: denominación del puesto}}, en sustitución de {{NOMBRE_PERSONA_SUSTITUIDA: nombre y apellidos}}, quedando encuadrada en el grupo profesional {{GRUPO_PROFESIONAL: grupo profesional del convenio}}, nivel retributivo {{NIVEL_RETRIBUTIVO: nivel retributivo del convenio}}, del {{DENOMINACION_CONVENIO: denominación y ámbito del convenio colectivo}}.
 
 Las funciones a desarrollar serán las siguientes:
 
-{{descripcion_funciones: texto libre, uno o varios párrafos}}
+{{DESCRIPCION_FUNCIONES: texto libre, uno o varios párrafos}}
 
 ### SEGUNDA — Duración y causa
 
-El presente contrato se concierta al amparo del artículo 15.3 del Estatuto de los Trabajadores, con efectos desde el día {{fecha_inicio: fecha (DD/MM/AAAA)}}, y **se extinguirá cuando cese la causa que motivó la sustitución**, esto es, con la reincorporación de {{nombre_persona_sustituida: nombre y apellidos}} a su puesto de trabajo, la extinción de su relación laboral, o la pérdida de su derecho a la reserva del puesto.
+El presente contrato se concierta al amparo del artículo 15.3 del Estatuto de los Trabajadores, con efectos desde el día {{FECHA_INICIO: fecha (DD/MM/AAAA)}}, y **se extinguirá cuando cese la causa que motivó la sustitución**, esto es, con la reincorporación de {{NOMBRE_PERSONA_SUSTITUIDA: nombre y apellidos}} a su puesto de trabajo, la extinción de su relación laboral, o la pérdida de su derecho a la reserva del puesto.
 
-La duración prevista es de {{duracion_prevista: plazo o número}}, sin perjuicio de lo indicado en el párrafo anterior.
+La duración prevista es de {{DURACION_PREVISTA: plazo o número}}, sin perjuicio de lo indicado en el párrafo anterior.
 
-{{parrafo_anticipacion_quince_dias: bloque condicional que inserta la skill}}
+{{PARRAFO_ANTICIPACION_QUINCE_DIAS: bloque condicional que inserta la skill}}
 
 ### TERCERA — Lugar de prestación de servicios
 
-Los servicios se prestarán en el centro de trabajo sito en {{centro_trabajo: dirección del centro de trabajo}}, bajo la modalidad {{modalidad_prestacion: modalidad: presencial, híbrida o a distancia}}.
+Los servicios se prestarán en el centro de trabajo sito en {{CENTRO_TRABAJO: dirección del centro de trabajo}}, bajo la modalidad {{MODALIDAD_PRESTACION: modalidad: presencial, híbrida o a distancia}}.
 
 ### CUARTA — Jornada y distribución
 
-La jornada de trabajo será {{tipo_jornada: jornada: completa o parcial}}, con una duración de {{jornada_semanal: número de horas semanales}} horas semanales, distribuidas conforme al siguiente horario: {{distribucion_horaria: horario y distribución de la jornada}}.
+La jornada de trabajo será {{TIPO_JORNADA: jornada: completa o parcial}}, con una duración de {{JORNADA_SEMANAL: número de horas semanales}} horas semanales, distribuidas conforme al siguiente horario: {{DISTRIBUCION_HORARIA: horario y distribución de la jornada}}.
 
-{{parrafo_horas_ordinarias_tiempo_parcial: bloque condicional que inserta la skill}}
+{{PARRAFO_HORAS_ORDINARIAS_TIEMPO_PARCIAL: bloque condicional que inserta la skill}}
 
 La EMPRESA llevará el registro diario de jornada exigido por el artículo 34.9 del Estatuto de los Trabajadores.
 
 ### QUINTA — Retribución
 
-La persona TRABAJADORA percibirá una retribución bruta de {{salario_bruto_mensual: importe en euros}} euros mensuales, equivalente a {{salario_bruto_anual: importe en euros}} euros anuales, con el siguiente desglose:
+La persona TRABAJADORA percibirá una retribución bruta de {{SALARIO_BRUTO_MENSUAL: importe en euros}} euros mensuales, equivalente a {{SALARIO_BRUTO_ANUAL: importe en euros}} euros anuales, con el siguiente desglose:
 
-{{desglose_retribucion: detalle del cálculo}}
+{{DESGLOSE_RETRIBUCION: detalle del cálculo}}
 
-El abono se realizará por meses vencidos mediante transferencia bancaria a la cuenta {{iban_trabajador: IBAN}}.
+El abono se realizará por meses vencidos mediante transferencia bancaria a la cuenta {{IBAN_TRABAJADOR: IBAN}}.
 
 ### SEXTA — Periodo de prueba
 
-Se establece un periodo de prueba de {{duracion_periodo_prueba: duración del periodo de prueba}}, conforme al convenio colectivo de aplicación y al artículo 14 del Estatuto de los Trabajadores.
+Se establece un periodo de prueba de {{DURACION_PERIODO_PRUEBA: duración del periodo de prueba}}, conforme al convenio colectivo de aplicación y al artículo 14 del Estatuto de los Trabajadores.
 
 ### SÉPTIMA — Vacaciones
 
@@ -75,7 +75,7 @@ A la extinción del contrato por cese de la causa de sustitución **no proceder�
 
 ### NOVENA — Convenio colectivo aplicable
 
-La presente relación laboral se regirá por lo pactado en este contrato, por el {{denominacion_convenio: denominación y ámbito del convenio colectivo}} y, en lo no previsto, por el Estatuto de los Trabajadores y demás normativa laboral vigente.
+La presente relación laboral se regirá por lo pactado en este contrato, por el {{DENOMINACION_CONVENIO: denominación y ámbito del convenio colectivo}} y, en lo no previsto, por el Estatuto de los Trabajadores y demás normativa laboral vigente.
 
 ### DÉCIMA — Confidencialidad y protección de datos
 
@@ -85,19 +85,19 @@ La persona TRABAJADORA se obliga a guardar secreto sobre la información reserva
 
 La EMPRESA facilitará, con carácter previo al inicio efectivo de la prestación, la información y formación en materia de prevención de riesgos laborales correspondientes al puesto, así como los equipos de protección necesarios.
 
-{{clausulas_adicionales_pactadas: bloque condicional que inserta la skill}}
+{{CLAUSULAS_ADICIONALES_PACTADAS: bloque condicional que inserta la skill}}
 
 ---
 
 Y en prueba de conformidad, ambas partes firman el presente contrato por duplicado y a un solo efecto, en el lugar y fecha indicados en el encabezamiento.
 
 **POR LA EMPRESA**  
-Fdo.: {{nombre_representante: nombre y apellidos}}  
-{{cargo_representante: cargo del firmante}}
+Fdo.: {{NOMBRE_REPRESENTANTE: nombre y apellidos}}  
+{{CARGO_REPRESENTANTE: cargo del firmante}}
 
 **LA PERSONA TRABAJADORA**  
-Fdo.: {{nombre_trabajador: nombre y apellidos}}  
-DNI/NIE {{dni_trabajador: DNI/NIE}}
+Fdo.: {{NOMBRE_TRABAJADOR: nombre y apellidos}}  
+DNI/NIE {{DNI_TRABAJADOR: DNI/NIE}}
 
 ---
 

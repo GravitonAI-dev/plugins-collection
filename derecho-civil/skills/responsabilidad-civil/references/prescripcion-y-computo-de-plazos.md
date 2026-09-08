@@ -111,4 +111,4 @@ Con la fecha del hecho (y, si hay dano corporal, la del alta o estabilizacion), 
 | **Plazo holgado** | Continuar el flujo, informando del plazo y de su fecha limite en la Confirmacion |
 | **Datos insuficientes para computar** | No dar el plazo por vivo. Pedir la fecha que falta antes de continuar; si el cliente no la conoce, adoptar la hipotesis mas desfavorable y advertirlo |
 
-**Nunca se comunica una fecha limite como si fuera exacta sin decir de que dato depende.** La formula correcta es: "computando desde {{fecha}}, el plazo vence el {{fecha_limite}}; si la fecha en que usted conocio el alcance del dano fuera posterior, el plazo se desplazaria en la misma medida".
+**Nunca se comunica una fecha limite como si fuera exacta sin decir de que dato depende.** La formula correcta es: "computando desde {{FECHA}}, el plazo vence el {{FECHA_LIMITE}}; si la fecha en que usted conocio el alcance del dano fuera posterior, el plazo se desplazaria en la misma medida".

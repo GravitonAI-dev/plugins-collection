@@ -56,7 +56,7 @@ Y respecto de **terceros**: no consignar datos personales de la contraparte, de 
 
 Ocurre: la mejor justificación de un honorario elevado puede ser precisamente la complejidad de una información confidencial. La respuesta correcta no es revelarla, sino:
 
-1. Describir la actuación por su **naturaleza y volumen** ("estudio de documentación contable del periodo {{periodo}}, con un volumen aproximado de {{numero}} documentos").
+1. Describir la actuación por su **naturaleza y volumen** ("estudio de documentación contable del periodo {{PERIODO}}, con un volumen aproximado de {{NUMERO}} documentos").
 2. Invocar la **dedicación acreditada** por otros medios: registro de tiempos, correos con su fecha, actuaciones obrantes en autos.
 3. Si la defensa exigiera inevitablemente revelar información amparada por el secreto, **consultar al colegio de adscripción antes de hacerlo**. No es una decisión que deba tomarse sola ni sobre la marcha.
 

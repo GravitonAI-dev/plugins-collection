@@ -8,14 +8,14 @@
 
 | Elemento | Contenido |
 |---|---|
-| **Responsable del tratamiento** | {{denominacion_despacho: responsable del tratamiento}}, NIF {{nif_despacho: CIF/NIF}}, {{domicilio_despacho: domicilio completo}} |
-| **Contacto en materia de protección de datos** | {{contacto_proteccion_datos: contacto en materia de protección de datos}} |
-| **Delegado de protección de datos** | {{datos_dpd: delegado de protección de datos}} |
-| **Finalidad** | {{finalidad_resumen: finalidad}} |
-| **Base jurídica** | {{base_juridica_resumen: base jurídica}} |
-| **Destinatarios** | {{destinatarios_resumen: destinatarios}} |
-| **Transferencias internacionales** | {{transferencias_resumen: transferencias internacionales}} |
-| **Plazo de conservación** | {{conservacion_resumen: plazo de conservación}} |
+| **Responsable del tratamiento** | {{DENOMINACION_DESPACHO: responsable del tratamiento}}, NIF {{NIF_DESPACHO: CIF/NIF}}, {{DOMICILIO_DESPACHO: domicilio completo}} |
+| **Contacto en materia de protección de datos** | {{CONTACTO_PROTECCION_DATOS: contacto en materia de protección de datos}} |
+| **Delegado de protección de datos** | {{DATOS_DPD: delegado de protección de datos}} |
+| **Finalidad** | {{FINALIDAD_RESUMEN: finalidad}} |
+| **Base jurídica** | {{BASE_JURIDICA_RESUMEN: base jurídica}} |
+| **Destinatarios** | {{DESTINATARIOS_RESUMEN: destinatarios}} |
+| **Transferencias internacionales** | {{TRANSFERENCIAS_RESUMEN: transferencias internacionales}} |
+| **Plazo de conservación** | {{CONSERVACION_RESUMEN: plazo de conservación}} |
 | **Derechos** | Acceso, rectificación, supresión, limitación, oposición y portabilidad, en los términos que se detallan |
 | **Reclamación** | Ante la autoridad de control competente |
 
@@ -25,49 +25,49 @@
 
 ### 1. ¿Quién trata sus datos?
 
-{{denominacion_despacho: razón social}}, con NIF {{nif_despacho: CIF/NIF}} y domicilio profesional en {{domicilio_despacho: domicilio completo}}, en su condición de despacho profesional, es el responsable del tratamiento de sus datos personales.
+{{DENOMINACION_DESPACHO: razón social}}, con NIF {{NIF_DESPACHO: CIF/NIF}} y domicilio profesional en {{DOMICILIO_DESPACHO: domicilio completo}}, en su condición de despacho profesional, es el responsable del tratamiento de sus datos personales.
 
-Puede dirigirse a nosotros en materia de protección de datos a través de {{contacto_proteccion_datos: dirección de contacto en materia de protección de datos}}.
+Puede dirigirse a nosotros en materia de protección de datos a través de {{CONTACTO_PROTECCION_DATOS: dirección de contacto en materia de protección de datos}}.
 
-{{parrafo_delegado_proteccion_datos: bloque condicional que inserta la skill}}
+{{PARRAFO_DELEGADO_PROTECCION_DATOS: bloque condicional que inserta la skill}}
 
 ### 2. ¿Con qué finalidad tratamos sus datos y con qué base jurídica?
 
 | Finalidad | Base jurídica |
 |---|---|
-| {{finalidad_1: finalidad}} | {{base_1: base jurídica}} |
-| {{finalidad_2: finalidad}} | {{base_2: base jurídica}} |
-| {{finalidad_3: finalidad}} | {{base_3: base jurídica}} |
-| {{finalidad_4: finalidad}} | {{base_4: base jurídica}} |
-| {{finalidad_5: finalidad}} | {{base_5: base jurídica}} |
+| {{FINALIDAD_1: finalidad}} | {{BASE_1: base jurídica}} |
+| {{FINALIDAD_2: finalidad}} | {{BASE_2: base jurídica}} |
+| {{FINALIDAD_3: finalidad}} | {{BASE_3: base jurídica}} |
+| {{FINALIDAD_4: finalidad}} | {{BASE_4: base jurídica}} |
+| {{FINALIDAD_5: finalidad}} | {{BASE_5: base jurídica}} |
 
-{{parrafo_categorias_especiales: bloque condicional que inserta la skill}}
+{{PARRAFO_CATEGORIAS_ESPECIALES: bloque condicional que inserta la skill}}
 
-{{parrafo_datos_de_terceros_aportados_por_el_cliente: bloque condicional que inserta la skill}}
+{{PARRAFO_DATOS_DE_TERCEROS_APORTADOS_POR_EL_CLIENTE: bloque condicional que inserta la skill}}
 
 ### 3. ¿Durante cuánto tiempo conservamos sus datos?
 
 | Categoría de datos | Plazo de conservación | Fundamento |
 |---|---|---|
-| {{categoria_conservacion_1: categoría de datos}} | {{plazo_1: plazo de conservación}} | {{fundamento_1: texto breve}} |
-| {{categoria_conservacion_2: categoría de datos}} | {{plazo_2: plazo de conservación}} | {{fundamento_2: texto breve}} |
-| {{categoria_conservacion_3: categoría de datos}} | {{plazo_3: plazo de conservación}} | {{fundamento_3: texto breve}} |
+| {{CATEGORIA_CONSERVACION_1: categoría de datos}} | {{PLAZO_1: plazo de conservación}} | {{FUNDAMENTO_1: texto breve}} |
+| {{CATEGORIA_CONSERVACION_2: categoría de datos}} | {{PLAZO_2: plazo de conservación}} | {{FUNDAMENTO_2: texto breve}} |
+| {{CATEGORIA_CONSERVACION_3: categoría de datos}} | {{PLAZO_3: plazo de conservación}} | {{FUNDAMENTO_3: texto breve}} |
 
 Transcurridos los plazos indicados, los datos se suprimirán o se conservarán debidamente bloqueados durante el tiempo en que puedan resultar exigibles responsabilidades, en los términos que la normativa establezca.
 
 ### 4. ¿A quién comunicamos sus datos?
 
-{{relacion_destinatarios_detallada: lista, un elemento por línea}}
+{{RELACION_DESTINATARIOS_DETALLADA: lista, un elemento por línea}}
 
 **Prestadores de servicios:** contamos con proveedores que acceden a datos personales como encargados de tratamiento, con los que hemos suscrito los contratos exigidos por la normativa. Las categorías de servicios son las siguientes:
 
-{{relacion_categorias_encargados: lista, un elemento por línea}}
+{{RELACION_CATEGORIAS_ENCARGADOS: lista, un elemento por línea}}
 
-**Transferencias internacionales:** {{detalle_transferencias_internacionales: detalle del cálculo}}
+**Transferencias internacionales:** {{DETALLE_TRANSFERENCIAS_INTERNACIONALES: detalle del cálculo}}
 
 ### 5. ¿Cuáles son sus derechos?
 
-Puede ejercer los siguientes derechos dirigiéndose a {{contacto_proteccion_datos: dirección de contacto en materia de protección de datos}}, acompañando copia de un documento que acredite su identidad:
+Puede ejercer los siguientes derechos dirigiéndose a {{CONTACTO_PROTECCION_DATOS: dirección de contacto en materia de protección de datos}}, acompañando copia de un documento que acredite su identidad:
 
 | Derecho | Contenido |
 |---|---|
@@ -82,7 +82,7 @@ Responderemos a su solicitud en el plazo legalmente establecido. Si considera qu
 
 ### 6. Límites derivados del secreto profesional y del derecho de defensa
 
-{{bloque_limites_secreto_profesional: bloque condicional que inserta la skill}}
+{{BLOQUE_LIMITES_SECRETO_PROFESIONAL: bloque condicional que inserta la skill}}
 
 ### 7. Deber de confidencialidad
 
@@ -92,13 +92,13 @@ Todo el personal y los colaboradores de este despacho están sujetos al deber de
 
 Aplicamos medidas técnicas y organizativas apropiadas para garantizar un nivel de seguridad adecuado al riesgo del tratamiento, atendiendo a la naturaleza de la información que manejamos.
 
-{{parrafo_actualizacion_informacion: bloque condicional que inserta la skill}}
+{{PARRAFO_ACTUALIZACION_INFORMACION: bloque condicional que inserta la skill}}
 
 ---
 
-Fecha de esta información: {{fecha_informacion: fecha (DD/MM/AAAA)}}
+Fecha de esta información: {{FECHA_INFORMACION: fecha (DD/MM/AAAA)}}
 
-{{bloque_acuse_recibo_cliente: bloque condicional que inserta la skill}}
+{{BLOQUE_ACUSE_RECIBO_CLIENTE: bloque condicional que inserta la skill}}
 
 ---
 
