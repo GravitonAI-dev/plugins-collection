@@ -221,7 +221,9 @@ Envía un mensaje formal que contenga:
 ## FASE 3 — CREACIÓN DEL DOCUMENTO BASE EN DISCO (Zero Vacíos)
 
 1. **Escritura (`create_file`):** vuelca íntegramente la plantilla acordada en el workspace con nombre en `snake_case.md`, aplicando **Zero-Omission**: sustituye todos los datos ya conocidos por la escucha activa y por el formulario, y deja los pendientes como marcadores en mayúsculas entre dobles llaves. PROHIBIDO dejar archivos en blanco, con títulos solos o con resúmenes.
-2. **Validación (`read_file`):** comprueba el volcado íntegro sobre la ruta exacta escrita.
+2. **Validación de Integridad:**
+   - La comprobación de integridad y contenido del archivo creado se realiza consultando prioritariamente la sección `# WORKSPACE ACTIVE DOCUMENTS` del prompt, donde el sistema mantiene siempre la última versión de todos los documentos. Solo se debe invocar `read_file` si es estrictamente necesario y en algún caso extremo (ej. el archivo no aparece en dicha sección o contenido truncado).
+
 3. **Confirmación y encadenamiento:** informa de la ruta absoluta y, en la misma respuesta, abre la primera sección de la Fase 4 con su anuncio y su primera solicitud de datos.
 
 ---
@@ -231,7 +233,7 @@ Envía un mensaje formal que contenga:
 ### Protocolo Obligatorio de Edición
 ```
 [slot_filling_request (grupos) / Chat (relato y decisiones)] --> [Vista previa en texto plano]
-      --> [«¿Confirmamos esta sección?»] --> [edit_file + read_file]
+      --> [«¿Confirmamos esta sección?»] --> [edit_file en el editor]
 ```
 
 - **Datos estructurados agrupados (`slot_filling_request`, MANDATORIO):** los datos del requirente, los del requerido y los importes se piden en bloque, nunca dato a dato.

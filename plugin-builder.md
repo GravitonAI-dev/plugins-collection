@@ -236,8 +236,8 @@ Verifica cada id contra `agent_tools.json` raiz. Si alguno no esta, rechaza y pi
 El flujo de toda skill debe estructurarse obligatoriamente en las 5 fases secuenciales:
 1. Fase 1: Clasificación Inicial (Escucha Activa + Formulario HITL `restricted_human_in_the_loop_request` para resolver vectores V1-V4 + Enrutamiento de Estado).
 2. Fase 2: Plan de Acción, Marco Legal/Técnico y Negociación de Assets (En texto plano conversacional en chat, sin formularios + propuesta de plantilla oficial del sistema + resolución de V5: plantilla_sistema vs plantilla_usuario con guardrail de verificación de cláusulas nulas).
-3. Fase 3: Creación del Documento Base en Disco (Escritura `create_file` con Zero-Omission `{{DATO_FALTANTE}}` + verificación `read_file` + confirmación de ruta en chat encadenando de inmediato la Fase 4).
-4. Fase 4: Edición Incremental Cláusula a Cláusula / Sección a Sección (Ciclo estricto: Recogida en bloque con `slot_filling_request` para grupos de datos objetivos / diálogo en chat para negociación -> Vista previa en texto plano en chat -> "¿Confirmamos esta cláusula?" en chat -> `edit_file` + `read_file` + Hoja de Ruta con condicionales).
+3. Fase 3: Creación del Documento Base en Disco (Escritura `create_file` con Zero-Omission `{{DATO_FALTANTE}}` + verificación prioritaria en `# WORKSPACE ACTIVE DOCUMENTS` + confirmación de ruta en chat encadenando de inmediato la Fase 4).
+4. Fase 4: Edición Incremental Cláusula a Cláusula / Sección a Sección (Ciclo estricto: Recogida en bloque con `slot_filling_request` para grupos de datos objetivos / diálogo en chat para negociación -> Vista previa en texto plano en chat -> "¿Confirmamos esta cláusula?" en chat -> `edit_file` en el editor + Hoja de Ruta con condicionales).
 5. Fase 5: Bucle de Realimentación Final y Cierre (Menú interactivo de 5 opciones + Advertencias preceptivas de cierre).
 
 Dime cómo encaja la lógica de esta skill ("<nombre>") dentro de estas 5 fases obligatorias y qué límites/guardrails gobernados por vectores aplican, para que yo arme el esqueleto canónico de tu SKILL.md.`
@@ -726,7 +726,7 @@ Quien es la audiencia objetivo?
 
 <Builder>: El plugin necesitara tools? Te listo las disponibles:
 
-  - `io.gravitonai.tools.read_file` — Lee contenido UTF-8 de un archivo del workspace por ruta relativa
+  - `io.gravitonai.tools.read_file` — Lee contenido UTF-8 de un archivo del workspace por ruta relativa (fallback extremo de `# WORKSPACE ACTIVE DOCUMENTS`)
   - `io.gravitonai.tools.create_file` — Crea un archivo nuevo en el workspace con su contenido UTF-8
   - `io.gravitonai.tools.edit_file` — Edita un archivo existente en el workspace reemplazando ocurrencias de texto
   - `io.gravitonai.tools.web_search` — Búsqueda en la web abierta

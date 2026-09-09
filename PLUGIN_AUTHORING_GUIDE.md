@@ -212,8 +212,8 @@ Envía un mensaje estructurado y cordial que contenga:
      - Sustituye todos los datos ya resueltos a través de los vectores `V1-V4` y la escucha activa inicial.
      - Todos los datos o campos pendientes deben permanecer explícitamente como marcadores `{{DATO_FALTANTE}}` en mayúsculas entre dobles llaves.
      - PROHIBIDO dejar archivos en blanco, sólo con títulos o crear resúmenes.
-2. **Validación de Disco (`read_file`):**
-   - Ejecuta `read_file` sobre el archivo recién creado para validar que el contenido en disco es exacto y completo.
+2. **Validación de Integridad:**
+   - La comprobación de integridad y contenido del archivo creado se realiza consultando prioritariamente la sección `# WORKSPACE ACTIVE DOCUMENTS` del prompt, donde el sistema mantiene siempre la última versión de todos los documentos. Solo se debe invocar `read_file` si es estrictamente necesario y en algún caso extremo (ej. el archivo no aparece en dicha sección o contenido truncado).
 3. **Confirmación en Chat:**
    - Emite un mensaje indicando que el documento base ha quedado preparado en el editor (en el espacio de trabajo).
    - En la misma respuesta, sin detener la marcha, introduce la primera sección de la Fase 4 para iniciar la edición incremental (invocando `slot_filling_request` si la primera sección requiere un grupo de datos, o formulando la consulta correspondiente).
@@ -234,7 +234,7 @@ Recorre de forma secuencial los siguientes bloques del documento. Por cada secci
            [Confirmación en CHAT: "¿Confirmamos esta cláusula?"]
                                   │
                                   ▼
-                    [edit_file + read_file en DISCO]
+                    [edit_file en el editor]
 ```
 
 ### Protocolo Obligatorio por Sección:
@@ -243,8 +243,7 @@ Recorre de forma secuencial los siguientes bloques del documento. Por cada secci
    - **Negociación y asesoramiento técnico/legal:** Cuando la cláusula dependa de una decisión o pacto (duración, reparto de gastos, compensaciones), explica en el chat las consecuencias legales del régimen por defecto y las opciones disponibles (o usa `restricted_human_in_the_loop_request` si son opciones predefinidas cerradas).
 2. **Vista Previa (Preview) en CHAT:** Tras recibir los datos del formulario o la elección del usuario, redacta la cláusula y muestra el texto exacto redactado en texto plano en el chat (sin bloques de código ni backticks).
 3. **Petición de Confirmación en CHAT:** Pregunta literalmente en el chat: `¿Confirmamos esta cláusula?` (o `¿Confirmamos esta sección?`).
-4. **Edición en Disco:** Tras el "sí" o confirmación del usuario en el chat, aplica `edit_file` sustituyendo con exactitud milimétrica el texto antiguo por el nuevo.
-5. **Verificación:** Ejecuta `read_file` sobre el archivo para comprobar la modificación antes de continuar con la siguiente sección.
+4. **Edición en Disco:** Tras el "sí" o confirmación del usuario en el chat, aplica `edit_file` sustituyendo con exactitud milimétrica el texto antiguo por el nuevo. La verificación del documento se apoya prioritariamente en `# WORKSPACE ACTIVE DOCUMENTS`, recurriendo a `read_file` únicamente en casos extremos y estrictamente necesarios.
 
 ---
 
@@ -255,13 +254,13 @@ Recorre de forma secuencial los siguientes bloques del documento. Por cada secci
 - **Condicional [Sujeto / Persona Jurídica]:**
   - *Si [Condición A - Persona Jurídica]:* Redactar e insertar: `Representado por: {{nombre_representante}}, con NIF {{nif_representante}}, en calidad de {{cargo_representante}} según escritura de poder.`
   - *Si [Condición B - Persona Física]:* Redactar e insertar comparecencia en su propio nombre y derecho.
-- **Vista previa y confirmación en chat:** Mostrar la comparecencia completa redactada en texto plano y preguntar: `¿Confirmamos estos datos de las partes?` Tras la confirmación en chat, aplicar `edit_file` + `read_file`.
+- **Vista previa y confirmación en chat:** Mostrar la comparecencia completa redactada en texto plano y preguntar: `¿Confirmamos estos datos de las partes?` Tras la confirmación en chat, aplicar `edit_file`.
 
 #### 2. [Nombre de la Sección 2 - Ej. Objeto y Alcance]
 - **Recogida con `slot_filling_request` (si hay datos identificativos):** Dirección, referencia catastral, superficie, etc.
 - **Condicional [Elementos Accesorios / Variantes]:**
   - *Si incluye variantes opcionales:* Insertar estipulación detallando los anejos o prestaciones complementarias.
-- **Vista previa y confirmación en chat:** `¿Confirmamos esta cláusula?` $\rightarrow$ `edit_file` + `read_file`.
+- **Vista previa y confirmación en chat:** `¿Confirmamos esta cláusula?` $\rightarrow$ `edit_file`.
 
 #### 3. [Nombre de la Sección 3 - Ej. Duración y Plazos]
 - Plazos pactados y vigencia inicial.

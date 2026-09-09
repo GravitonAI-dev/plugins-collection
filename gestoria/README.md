@@ -83,7 +83,7 @@ acumula ya skills suficientes para constituir un vertical propio.
 
 | ID | Uso |
 |---|---|
-| `io.gravitonai.tools.read_file` | Lectura y verificación de documentos en el workspace |
+| `io.gravitonai.tools.read_file` | Lectura de documentos en el workspace (fallback extremo de `# WORKSPACE ACTIVE DOCUMENTS`) |
 | `io.gravitonai.tools.create_file` | Creación de solicitudes, hojas de datos y checklists en el workspace |
 | `io.gravitonai.tools.edit_file` | Edición incremental de hojas de datos, solicitudes y borradores en el workspace |
 | `io.gravitonai.tools.web_search` | Verificación normativa en el BOE, tasas y modelos oficiales |

@@ -14,7 +14,7 @@ Las únicas vías admitidas para proporcionar o generar el contenido de una plan
 
 ### 0.2 Abrir Archivo en el Editor (Archivos del Workspace)
 - El usuario indica un archivo ya existente en el espacio de trabajo activo de la conversación (visible o abierto en el editor).
-- El contenido auténtico del archivo se consulta en la sección `# WORKSPACE ACTIVE DOCUMENTS` o se lee directamente invocando la herramienta `read_file`:
+- El contenido auténtico del archivo se consulta prioritariamente en la sección `# WORKSPACE ACTIVE DOCUMENTS` (donde siempre se encuentra la última versión sincronizada). Solo se recurre a la herramienta `read_file` si es estrictamente necesario en algún caso extremo (ej. archivo no visible en dicha sección o contenido truncado):
   ```json
   {
     "relative_file_path": "ruta/al/archivo.md"

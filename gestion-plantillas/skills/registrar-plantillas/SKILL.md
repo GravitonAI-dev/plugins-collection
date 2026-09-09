@@ -56,7 +56,7 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 ### VÍAS ADMITIDAS PARA ESPECIFICAR PLANTILLAS:
 > Las únicas vías para especificar plantillas son:
 > 1. **Texto en el chat:** Pegar el texto directamente en la conversación.
-> 2. **Abrir archivo en el editor (archivos del workspace):** Indicar un archivo existente en el editor/workspace para su lectura vía `read_file`.
+> 2. **Abrir archivo en el editor (archivos del workspace):** Indicar un archivo existente en el editor/workspace, cuyo contenido se consulta prioritariamente en la sección `# WORKSPACE ACTIVE DOCUMENTS` (o mediante `read_file` únicamente en caso extremo).
 > 3. **Creación asistida (desde cero):** Redacción guiada e interactiva desde el chat.
 > *(Queda expresamente excluida la opción de adjuntar archivos).*
 
@@ -86,7 +86,7 @@ Antes de formular preguntas o abrir formularios, analiza el mensaje inicial del 
 - Si el usuario ya especificó con claridad el alcance y la vía (ej: *"Quiero actualizar la plantilla de arrendamiento de vivienda de la skill arrendamiento-urbano con el archivo contrato.md del workspace"* o *"Quiero crear una plantilla global desde cero para un modelo de recibo de pago"*):
   - Fija silenciosamente los vectores correspondientes y avanza a la fase oportuna.
 - **Si el usuario especifica un archivo del workspace solicitando asistencia (ej. *"Requiero asistencia con la plantilla (template-carta-de-presentacion.md)"*):**
-  - Identifica el archivo en el editor (`V2 = archivo_workspace`), fija el alcance (`V1 = global` o `skill` según el nombre o contexto) y lee el contenido con `read_file`.
+  - Identifica el archivo en el editor (`V2 = archivo_workspace`), fija el alcance (`V1 = global` o `skill` según el nombre o contexto) y consulta su contenido prioritariamente en la sección `# WORKSPACE ACTIVE DOCUMENTS` (usando `read_file` únicamente si el archivo no figura en dicha sección o su contenido está truncado).
   - Verifica inmediatamente su existencia con `check_user_template_exists(asset_name=...)`. Si `exists: true`, omite preguntas sobre `name`/`description` y presenta de inmediato el formulario interactivo (`restricted_human_in_the_loop_request`) con las opciones consultivas de la **Ruta 2.D** (*convertir_placeholders*, *mejorar_contenido*, *actualizar_contenido*).
 - Si restan parámetros por definir, guía al usuario consultivamente o mediante `restricted_human_in_the_loop_request`.
 
@@ -143,7 +143,7 @@ Procesa la fuente o elabora la plantilla abstracta parametrizada en memoria:
 
 ### Ruta 2.B — Abrir Archivo en el Editor (Archivos del Workspace)
 1. Identifica el nombre o ruta relativa del archivo en el workspace indicado por el usuario (ej: `minuta.md`, `template-modelo-de-demanda.md`) o presente en `# WORKSPACE ACTIVE DOCUMENTS`.
-2. Consulta el contenido auténtico en la sección `# WORKSPACE ACTIVE DOCUMENTS` del prompt de contexto, o bien invoca la herramienta `read_file` para obtener su contenido UTF-8 íntegro:
+2. Consulta el contenido auténtico prioritariamente en la sección `# WORKSPACE ACTIVE DOCUMENTS` del prompt de contexto, donde el sistema mantiene siempre sincronizada la última versión del documento. Solo se debe invocar la herramienta `read_file` si es estrictamente necesario en algún caso extremo (ej. archivo no presente en dicha sección o contenido truncado):
    ```json
    {
      "relative_file_path": "nombre_archivo.md"
@@ -177,12 +177,12 @@ Cuando el usuario desea crear la plantilla desde cero:
    - Esto abre y refleja el borrador en el editor de inmediato para que el usuario pueda visualizar los avances en tiempo real.
 4. **Refinamiento incremental y redacción colaborativa (`edit_file`):**
    - A medida que se redactan estipulaciones detalladas o el usuario solicita cambios sobre cláusulas o variables, aplica las modificaciones sobre el archivo del workspace mediante `edit_file(relative_file_path=..., old_string=..., new_string=...)`.
-   - Consulta o verifica el contenido consolidado mediante `read_file`.
+   - Consulta o verifica el contenido consolidado prioritariamente en `# WORKSPACE ACTIVE DOCUMENTS` (o mediante `read_file` solo en caso extremo).
 
 ### Ruta 2.D — Asistencia Consultiva sobre Plantilla Preexistente
 Este caso de uso se identifica típicamente cuando el usuario especifica un archivo del workspace solicitando apoyo (ej. *"Requiero asistencia con la plantilla (template-carta-de-presentacion.md)"*), o cuando se procesa un archivo o texto preexistente donde `check_user_template_exists` confirma que ya está registrada (`exists: true`) y el usuario no ha ordenado una sobreescritura directa e inmediata sin cambios.
 
-El asistente lee el archivo del workspace mediante `read_file` (si no lo ha hecho previamente) y presenta las opciones disponibles al usuario a través de un formulario interactivo mediante la herramienta `restricted_human_in_the_loop_request`:
+El asistente consulta prioritariamente el archivo del workspace en la sección `# WORKSPACE ACTIVE DOCUMENTS` (recurriendo a `read_file` únicamente si no figura en dicha sección) y presenta las opciones disponibles al usuario a través de un formulario interactivo mediante la herramienta `restricted_human_in_the_loop_request`:
 
 ```json
 {

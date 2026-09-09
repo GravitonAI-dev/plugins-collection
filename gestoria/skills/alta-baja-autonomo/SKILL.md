@@ -175,8 +175,9 @@ Envía un mensaje estructurado y pedagógico:
      - Sustituye los datos ya conocidos de la clasificación (tipo de trámite, epígrafe general, tarifa plana).
      - Todos los datos pendientes deben permanecer como marcadores `{{DATO_FALTANTE}}` en mayúsculas y dobles llaves.
      - PROHIBIDO dejar archivos en blanco o con notas resumidas.
-2. **Validación de Disco (`read_file`):**
-   - Ejecuta `read_file` sobre los archivos creados para confirmar su integridad física en disco.
+2. **Validación de Integridad:**
+   - La comprobación de integridad y contenido del archivo creado se realiza consultando prioritariamente la sección `# WORKSPACE ACTIVE DOCUMENTS` del prompt, donde el sistema mantiene siempre la última versión de todos los documentos. Solo se debe invocar `read_file` si es estrictamente necesario y en algún caso extremo (ej. el archivo no aparece en dicha sección o contenido truncado).
+
 3. **Confirmación en Chat:**
    - Informa al usuario de la ruta de los archivos generados e introduce de inmediato la primera sección de la **Fase 4** sin detener el flujo.
 
@@ -186,14 +187,14 @@ Envía un mensaje estructurado y pedagógico:
 
 Recorre de forma secuencial los bloques de datos. Para cada bloque, ejecuta estrictamente el ciclo interactivo:
 ```
-[Pregunta al Usuario] --> [Vista Previa en texto plano] --> [¿Confirmamos esta sección?] --> [edit_file + read_file]
+[Pregunta al Usuario] --> [Vista Previa en texto plano] --> [¿Confirmamos esta sección?] --> [edit_file en el editor]
 ```
 
 ### Protocolo Obligatorio por Sección:
 1. **Pregunta en Chat:** Solicita los datos específicos del bloque orientando sobre las opciones tributarias o de cotización.
 2. **Vista Previa (Preview):** Muestra el texto redactado en texto plano (sin backticks de código).
 3. **Confirmación:** Pregunta literalmente: `¿Confirmamos esta sección?`.
-4. **Persistencia en Disco:** Tras la confirmación, aplica `edit_file` con coincidencia exacta y verifica inmediatamente con `read_file`.
+4. **Persistencia en Disco:** Tras la confirmación, aplica `edit_file` con coincidencia exacta. La verificación del documento se apoya prioritariamente en `# WORKSPACE ACTIVE DOCUMENTS`, recurriendo a `read_file` únicamente en casos extremos y estrictamente necesarios.
 
 **Petición de grupos de datos mediante `slot_filling_request` y confirmaciones en el chat:**
 - **Datos estructurados agrupados mediante `slot_filling_request`:** para cualquier grupo de datos objetivos o identificativos (datos identificativos del interesado, domicilio fiscal y de la actividad, epígrafes y datos de cotización), **NO pregunte dato por dato en el chat**. Invoque la herramienta `slot_filling_request` agrupando todos los campos del bloque de una sola vez.

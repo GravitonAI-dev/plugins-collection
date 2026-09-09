@@ -204,8 +204,9 @@ Envía un mensaje estructurado y formal que contenga:
    - Vuelca íntegramente la plantilla acordada en un archivo en el workspace con nombre en `snake_case.md`.
    - Aplica el principio **Zero-Omission**: sustituye los datos ya conocidos e inserta `{{DATO_FALTANTE}}` para aquellos que deban resolverse durante la redacción.
    - PROHIBIDO dejar archivos en blanco, crear resúmenes o esquemas provisionales.
-2. **Validación de Integridad (`read_file`):**
-   - Ejecuta inmediatamente `read_file` sobre el archivo recién creado para comprobar que el volcado es íntegro y que el archivo existe en disco.
+2. **Validación de Integridad:**
+   - La comprobación de integridad y contenido del archivo creado se realiza consultando prioritariamente la sección `# WORKSPACE ACTIVE DOCUMENTS` del prompt, donde el sistema mantiene siempre la última versión de todos los documentos. Solo se debe invocar `read_file` si es estrictamente necesario y en algún caso extremo (ej. el archivo no aparece en dicha sección o contenido truncado).
+
 3. **Confirmación en Chat y Encadenamiento Inmediato:**
    - Informa al usuario de la ruta absoluta del documento creado.
    - En esa **misma respuesta**, introduce la primera sección/cláusula de la **Fase 4** y formula ya su primera pregunta, sin detener el flujo.
@@ -217,12 +218,12 @@ Envía un mensaje estructurado y formal que contenga:
 ### Protocolo Obligatorio de Edición
 Para cada cláusula o bloque temático del documento, ejecuta estrictamente el siguiente ciclo interactivo:
 ```
-[Pregunta al Usuario] --> [Vista Previa en texto plano] --> [¿Confirmamos?] --> [edit_file + read_file]
+[Pregunta al Usuario] --> [Vista Previa en texto plano] --> [¿Confirmamos?] --> [edit_file en el editor]
 ```
 1. **Pregunta en Chat:** Solicita los datos específicos de la sección.
 2. **Vista Previa:** Muestra el texto exacto redactado en texto plano en el chat.
 3. **Confirmación:** Consulta al usuario si está conforme o desea algún ajuste.
-4. **Persistencia en Disco:** Una vez confirmado, ejecuta `edit_file` con `old_string` y `new_string` exactos, y verifica con `read_file`.
+4. **Persistencia en Disco:** Una vez confirmado, ejecuta `edit_file` con `old_string` y `new_string` exactos. La verificación del documento se realiza prioritariamente a través de la sección `# WORKSPACE ACTIVE DOCUMENTS`, recurriendo a `read_file` únicamente en casos extremos y estrictamente necesarios.
 
 ### Hoja de Ruta de Secciones y Cláusulas Condicionales
 
@@ -350,7 +351,7 @@ Al dar por finalizado el documento, emite siempre las siguientes advertencias:
 10. Explicar siempre, antes de que el cliente decida la forma, que el documento privado **no es titulo ejecutivo** y que carece de fecha cierta frente a terceros salvo en los supuestos del art. 1.227 CC. No dejar que el cliente crea que un contrato privado le permite embargar directamente.
 11. Nunca afirmar que la escritura publica garantiza el cobro: acelera el acceso al embargo, no crea solvencia. Nunca afirmar que convalida un contrato nulo.
 12. Nunca inventar datos, importes, fechas, tipos de interes, numeros de protocolo ni jurisprudencia. Los campos no proporcionados quedan como `{{DATO}}` con su nombre propio.
-13. El documento escrito en disco no contiene **ningun** comentario HTML, ningun placeholder de ordinal sin resolver, ninguna cabecera de clausula sin cuerpo, ninguna remision interna a una clausula renumerada y ninguna aparicion rezagada de un placeholder ya resuelto en otra parte del documento. Verificarlo con `read_file` antes de cerrar.
+13. El documento escrito en disco no contiene **ningun** comentario HTML, ningun placeholder de ordinal sin resolver, ninguna cabecera de clausula sin cuerpo, ninguna remision interna a una clausula renumerada y ninguna aparicion rezagada de un placeholder ya resuelto en otra parte del documento. Verificarlo prioritariamente en `# WORKSPACE ACTIVE DOCUMENTS` (o mediante `read_file` en caso extremo) antes de cerrar.
 14. Si la vecindad civil de alguna parte o el lugar de celebracion apunta a un territorio con derecho civil propio, advertir de que puede desplazar reglas del Codigo Civil comun y ofrecer escalacion.
 
 ### Supuestos Fuera de Alcance (Cómo NO usar esta skill)

@@ -157,8 +157,9 @@ Envía un mensaje estructurado y pedagógico:
      - Sustituye los datos ya conocidos del triaje.
      - Todos los campos pendientes deben permanecer como marcadores `{{DATO_FALTANTE}}` en mayúsculas y dobles llaves.
      - PROHIBIDO dejar archivos vacíos o resúmenes coloquiales.
-2. **Validación de Disco (`read_file`):**
-   - Comprueba la integridad física del documento recién creado en el workspace.
+2. **Validación de Integridad:**
+   - La comprobación de integridad y contenido del archivo creado se realiza consultando prioritariamente la sección `# WORKSPACE ACTIVE DOCUMENTS` del prompt, donde el sistema mantiene siempre la última versión de todos los documentos. Solo se debe invocar `read_file` si es estrictamente necesario y en algún caso extremo (ej. el archivo no aparece en dicha sección o contenido truncado).
+
 3. **Confirmación en Chat:**
    - Comunica la ruta absoluta del documento en el workspace y enlaza de inmediato la primera sección de la **Fase 4**.
 
@@ -168,14 +169,14 @@ Envía un mensaje estructurado y pedagógico:
 
 Recorre de forma secuencial los bloques de datos aplicando el ciclo interactivo:
 ```
-[Pregunta al Usuario] --> [Vista Previa en texto plano] --> [¿Confirmamos esta sección?] --> [edit_file + read_file]
+[Pregunta al Usuario] --> [Vista Previa en texto plano] --> [¿Confirmamos esta sección?] --> [edit_file en el editor]
 ```
 
 ### Protocolo Obligatorio por Sección:
 1. **Pregunta en Chat:** Solicita los datos específicos del bloque orientando sobre las opciones técnicas (grupos de cotización, convenios o coeficientes de jornada).
 2. **Vista Previa (Preview):** Muestra el bloque redactado en texto plano.
 3. **Confirmación:** Pregunta literalmente: `¿Confirmamos esta sección?`.
-4. **Persistencia en Disco:** Tras el consentimiento, ejecuta `edit_file` con precisión quirúrgica y valida con `read_file`.
+4. **Persistencia en Disco:** Tras el consentimiento, ejecuta `edit_file` con precisión quirúrgica. La verificación del documento se apoya prioritariamente en `# WORKSPACE ACTIVE DOCUMENTS`, recurriendo a `read_file` únicamente en casos extremos y estrictamente necesarios.
 
 **Petición de grupos de datos mediante `slot_filling_request` y confirmaciones en el chat:**
 - **Datos estructurados agrupados mediante `slot_filling_request`:** para cualquier grupo de datos objetivos o identificativos (datos identificativos del empresario y del trabajador, código de cuenta de cotización y datos del contrato), **NO pregunte dato por dato en el chat**. Invoque la herramienta `slot_filling_request` agrupando todos los campos del bloque de una sola vez.

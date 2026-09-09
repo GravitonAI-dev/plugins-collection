@@ -241,8 +241,9 @@ Envía un mensaje estructurado y formal que contenga:
    - Vuelca íntegramente la plantilla acordada en un archivo en el workspace con nombre en `snake_case.md`.
    - Aplica el principio **Zero-Omission**: sustituye los datos ya conocidos e inserta `{{DATO_FALTANTE}}` para aquellos que deban resolverse durante la redacción.
    - PROHIBIDO dejar archivos en blanco, crear resúmenes o esquemas provisionales.
-2. **Validación de Integridad (`read_file`):**
-   - Ejecuta inmediatamente `read_file` sobre el archivo recién creado para comprobar que el volcado es íntegro y que el archivo existe en disco.
+2. **Validación de Integridad:**
+   - La comprobación de integridad y contenido del archivo creado se realiza consultando prioritariamente la sección `# WORKSPACE ACTIVE DOCUMENTS` del prompt, donde el sistema mantiene siempre la última versión de todos los documentos. Solo se debe invocar `read_file` si es estrictamente necesario y en algún caso extremo (ej. el archivo no aparece en dicha sección o contenido truncado).
+
 3. **Confirmación en Chat y Encadenamiento Inmediato:**
    - Informa al usuario de la ruta absoluta del documento creado.
    - En esa **misma respuesta**, introduce la primera sección/cláusula de la **Fase 4** y formula ya su primera pregunta, sin detener el flujo.
@@ -254,12 +255,12 @@ Envía un mensaje estructurado y formal que contenga:
 ### Protocolo Obligatorio de Edición
 Para cada cláusula o bloque temático del documento, ejecuta estrictamente el siguiente ciclo interactivo:
 ```
-[Pregunta al Usuario] --> [Vista Previa en texto plano] --> [¿Confirmamos?] --> [edit_file + read_file]
+[Pregunta al Usuario] --> [Vista Previa en texto plano] --> [¿Confirmamos?] --> [edit_file en el editor]
 ```
 1. **Pregunta en Chat:** Solicita los datos específicos de la sección.
 2. **Vista Previa:** Muestra el texto exacto redactado en texto plano en el chat.
 3. **Confirmación:** Consulta al usuario si está conforme o desea algún ajuste.
-4. **Persistencia en Disco:** Una vez confirmado, ejecuta `edit_file` con `old_string` y `new_string` exactos, y verifica con `read_file`.
+4. **Persistencia en Disco:** Una vez confirmado, ejecuta `edit_file` con `old_string` y `new_string` exactos. La verificación del documento se realiza prioritariamente a través de la sección `# WORKSPACE ACTIVE DOCUMENTS`, recurriendo a `read_file` únicamente en casos extremos y estrictamente necesarios.
 
 ### Hoja de Ruta de Secciones y Cláusulas Condicionales
 

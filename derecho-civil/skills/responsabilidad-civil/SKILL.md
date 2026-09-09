@@ -237,8 +237,9 @@ Envía un mensaje estructurado y formal que contenga:
    - Vuelca íntegramente la plantilla acordada en un archivo en el workspace con nombre en `snake_case.md`.
    - Aplica el principio **Zero-Omission**: sustituye los datos ya conocidos e inserta `{{DATO_FALTANTE}}` para aquellos que deban resolverse durante la redacción.
    - PROHIBIDO dejar archivos en blanco, crear resúmenes o esquemas provisionales.
-2. **Validación de Integridad (`read_file`):**
-   - Ejecuta inmediatamente `read_file` sobre el archivo recién creado para comprobar que el volcado es íntegro y que el archivo existe en disco.
+2. **Validación de Integridad:**
+   - La comprobación de integridad y contenido del archivo creado se realiza consultando prioritariamente la sección `# WORKSPACE ACTIVE DOCUMENTS` del prompt, donde el sistema mantiene siempre la última versión de todos los documentos. Solo se debe invocar `read_file` si es estrictamente necesario y en algún caso extremo (ej. el archivo no aparece en dicha sección o contenido truncado).
+
 3. **Confirmación en Chat y Encadenamiento Inmediato:**
    - Informa al usuario de la ruta absoluta del documento creado.
    - En esa **misma respuesta**, introduce la primera sección/cláusula de la **Fase 4** y formula ya su primera pregunta, sin detener el flujo.
@@ -250,14 +251,14 @@ Envía un mensaje estructurado y formal que contenga:
 ### Protocolo Obligatorio de Edición
 Para cada cláusula o bloque temático del documento, ejecuta estrictamente el siguiente ciclo interactivo:
 ```
-[Recogida: slot_filling_request (grupos de datos) / Chat (negociación)] --> [Vista Previa en texto plano en CHAT] --> [¿Confirmamos en CHAT?] --> [edit_file + read_file]
+[Recogida: slot_filling_request (grupos de datos) / Chat (negociación)] --> [Vista Previa en texto plano en CHAT] --> [¿Confirmamos en CHAT?] --> [edit_file en el editor]
 ```
 1. **Recogida de datos / Diálogo:**
    - **Grupos de datos estructurados (MANDATORIO con `slot_filling_request`):** Para todo bloque que recopile datos personales/identificativos (perjudicado, causante, aseguradora, datos de póliza y siniestro; procurador y letrado; o datos del hecho en bloque), **DEBES invocar `slot_filling_request`** pidiendo todo el grupo de datos a la vez en lote. Queda **ESTRICTAMENTE PROHIBIDO** pedir estos datos uno por uno en turnos sucesivos de chat.
    - **Cláusulas de negociación:** Explica en el chat las consecuencias legales del régimen por defecto y las opciones a pactar.
 2. **Vista Previa (Preview) en CHAT:** Tras recibir los datos de `slot_filling_request` o la respuesta del usuario, muestra en el chat el texto exacto redactado de la cláusula en texto plano (sin backticks).
 3. **Confirmación en CHAT:** Pregunta literalmente en el chat: `¿Confirmamos esta cláusula?` (o `¿Confirmamos estos datos?`).
-4. **Persistencia en Disco:** Una vez confirmado por el usuario en el chat, aplica `edit_file` con `old_string` y `new_string` exactos, y verifica inmediatamente con `read_file`.
+4. **Persistencia en Disco:** Una vez confirmado por el usuario en el chat, aplica `edit_file` con `old_string` y `new_string` exactos. La verificación del documento se realiza prioritariamente a través de la sección `# WORKSPACE ACTIVE DOCUMENTS`, recurriendo a `read_file` únicamente en casos extremos y estrictamente necesarios.
 
 ### Hoja de Ruta de Secciones y Cláusulas Condicionales
 
@@ -267,7 +268,7 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 
 ### Secciones — HOJA RECLAMACION
 
-1. **Datos del perjudicado** *(dato objetivo — recogida en lote con `slot_filling_request`, confirmación en chat)*. Anuncio fijo: "Comenzamos por sus datos identificativos." Solicita en bloque vía `slot_filling_request`: a) nombre y apellidos o razon social; b) DNI, NIE o CIF segun corresponda; c) domicilio a efectos de notificaciones; d) telefono y correo electronico de contacto; e) si interviene letrado, su nombre y numero de colegiado. Muestra vista previa única en el chat y pide confirmación antes del `edit_file` + `read_file`.
+1. **Datos del perjudicado** *(dato objetivo — recogida en lote con `slot_filling_request`, confirmación en chat)*. Anuncio fijo: "Comenzamos por sus datos identificativos." Solicita en bloque vía `slot_filling_request`: a) nombre y apellidos o razon social; b) DNI, NIE o CIF segun corresponda; c) domicilio a efectos de notificaciones; d) telefono y correo electronico de contacto; e) si interviene letrado, su nombre y numero de colegiado. Muestra vista previa única en el chat y pide confirmación antes del `edit_file`.
 2. **Contra quien se dirige la reclamacion** *(negociacion — explicar antes de decidir)*. Anuncio fijo: "Determinamos ahora a quien debe dirigirse la reclamacion." **Explica antes de preguntar**, apoyandote en `references/regimenes-de-responsabilidad-por-supuesto.md`, apartado 6: dirigirla solo al causante obliga a cobrar contra su patrimonio, con riesgo de insolvencia; dirigirla a la aseguradora por la accion directa del Art. 76 LCS aporta solvencia y, sobre todo, **inmunidad frente a las excepciones que el asegurador tenga contra su asegurado** (impago de prima, incumplimiento de deberes de la poliza), aunque el asegurador si puede oponer la culpa exclusiva del perjudicado; y dirigirla a **ambos** cubre el exceso sobre el limite de la poliza y evita quedar sin nada si se discute la vigencia del seguro. **Recomienda por defecto dirigirla a ambos** cuando V4 = si, y explica por que. Pregunta despues la decision y confirmala.
 3. **Datos del destinatario o destinatarios** *(dato objetivo — recogida en lote con `slot_filling_request`, confirmación en chat)*. Anuncio fijo: "Pasamos a los datos de la parte a la que se dirige la reclamacion." Por cada destinatario, solicita en bloque vía `slot_filling_request`: a) nombre o razon social; b) documento de identidad o CIF; c) domicilio. Si es aseguradora, ademas: numero de poliza y referencia del siniestro, si se conocen. Confirmacion agrupada por cada destinatario tras vista previa en chat. **Si V4 = no**, explica que se incluira el requerimiento del ultimo inciso del Art. 76 LCS para que el causante manifieste la existencia y el contenido de su seguro, y en circulacion menciona el fichero de vehiculos asegurados del Consorcio (Art. 2.2 TRLRCSCVM).
 4. **El hecho danoso** *(dato objetivo con validacion — recogida con `slot_filling_request`, confirmación en chat)*. Anuncio fijo: "Describimos ahora el hecho que le causo el dano." La fecha y hora ya son conocidas por el filtro de prescripcion: **no la vuelvas a preguntar**. Solicita vía `slot_filling_request`: a) lugar exacto; b) descripcion de lo ocurrido, en sus propias palabras; c) circunstancias relevantes para la imputacion (senalizacion, estado del pavimento, maniobra del vehiculo, identidad del conductor o del dependiente); d) si existe atestado, informe policial, parte de incidencia o denuncia, su referencia y organismo. **En circulacion, informa de que las Fuerzas y Cuerpos de Seguridad de trafico facilitan gratuitamente copia del atestado a peticion del perjudicado (Art. 7.1 TRLRCSCVM)** y ofrece dejarlo solicitado en el escrito. **Si el supuesto es una caida en establecimiento, advierte en este mismo turno y con caracter urgente de que las grabaciones de videovigilancia se sobreescriben en dias** y de que el escrito incluira el requerimiento de conservacion de las imagenes. Vista previa y confirmación en chat.

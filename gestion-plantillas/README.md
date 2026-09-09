@@ -21,7 +21,7 @@ Plugin de GravitonAI para la creación, parametrización, actualización y regis
 - `io.gravitonai.tools.set_skill_template`: Persistencia de plantillas asignadas a una skill.
 - `io.gravitonai.tools.update_user_template`: Actualización de plantillas de usuario existentes.
 - `io.gravitonai.tools.save_user_template`: Creación de nuevas plantillas de usuario con descripción.
-- `io.gravitonai.tools.read_file`: Lectura de archivos existentes en el espacio de trabajo activo (editor).
+- `io.gravitonai.tools.read_file`: Lectura de archivos existentes en el espacio de trabajo activo (editor), prioritariamente vía `# WORKSPACE ACTIVE DOCUMENTS`.
 - `io.gravitonai.tools.create_file`: Creación de archivos en el workspace para volcar y visualizar el borrador en el editor.
 - `io.gravitonai.tools.edit_file`: Edición incremental y refinamiento de plantillas en el editor.
 - `io.gravitonai.tools.restricted_human_in_the_loop_request`: Selección guiada de opciones cerradas (alcance, origen, catálogo).

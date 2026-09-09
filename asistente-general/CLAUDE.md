@@ -4,7 +4,7 @@
 Este plugin es el punto de entrada universal y asistente de primera línea para todas aquellas consultas, peticiones de orientación, análisis de antecedentes de hecho y evaluaciones multidisciplinares que no clasifican en una skill especializada preexistente del catálogo. 
 
 Atiende con máxima agilidad consultas de cualquier índole:
-1. **Consultas directas y factuales:** Respuestas claras, definiciones, cálculos, datos históricos, explicaciones conceptuales, análisis de mercado o actualidad en tiempo real mediante `web_search`, o inspección/resumen de documentos existentes en el workspace mediante `read_file`.
+1. **Consultas directas y factuales:** Respuestas claras, definiciones, cálculos, datos históricos, explicaciones conceptuales, análisis de mercado o actualidad en tiempo real mediante `web_search`, o inspección/resumen de documentos existentes en el workspace (consultando prioritariamente la sección `# WORKSPACE ACTIVE DOCUMENTS`, o mediante `read_file` únicamente como recurso extremo).
 2. **Consultas de orientación jurídica, técnica y administrativa:** Asesoramiento multidisciplinar, encuadre normativo, análisis de viabilidad de pretensiones y propuestas de actuación práctica.
 3. **Generación bajo demanda de informes formales:** Redacción estructurada de dictámenes, memorándums ejecutivos e informes de consulta en el workspace (`DRAFT`) cuando el usuario lo solicite explícitamente o acepte formalizar el análisis.
 

@@ -261,7 +261,7 @@ El proceso de control de calidad auditó cada flujo conversacional, validando la
 
 El plugin opera exclusivamente con las 7 herramientas nativas del catálogo de agente (agent_tools.json):
 
-1. `read_file`: Inspección y verificación de integridad de documentos creados en el workspace.
+1. `read_file`: Inspección y verificación de integridad de documentos creados en el workspace (reservado para casos extremos donde el documento no figure en `# WORKSPACE ACTIVE DOCUMENTS`).
 2. `create_file`: Creación del borrador base completo con principio Zero-Omission (`{{DATO_FALTANTE}}`).
 3. `edit_file`: Edición incremental y sustitución quirúrgica cláusula a cláusula.
 4. `web_search`: Consulta opcional en vivo del texto consolidado de normas y baremos en el BOE.

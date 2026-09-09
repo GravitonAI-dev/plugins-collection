@@ -174,7 +174,9 @@ Envía un mensaje formal que contenga:
    - Vuelca íntegramente la plantilla acordada en un archivo del workspace con nombre en `snake_case.md`.
    - Aplica **Zero-Omission**: sustituye todos los datos ya resueltos por la clasificación y la escucha activa; deja como marcador con su nombre propio de plantilla (`{{RAZON_SOCIAL_EMPRESA: razón social}}`, `{{FECHA_EFECTOS: fecha (DD/MM/AAAA)}}`) los que resten.
    - PROHIBIDO dejar el archivo en blanco, con solo el título o con un resumen.
-2. **Validación de integridad (`read_file`):** ejecuta `read_file` sobre el archivo recién creado y comprueba que el volcado es íntegro.
+2. **Validación de Integridad:**
+   - La comprobación de integridad y contenido del archivo creado se realiza consultando prioritariamente la sección `# WORKSPACE ACTIVE DOCUMENTS` del prompt, donde el sistema mantiene siempre la última versión de todos los documentos. Solo se debe invocar `read_file` si es estrictamente necesario y en algún caso extremo (ej. el archivo no aparece en dicha sección o contenido truncado).
+
 3. **Confirmación en chat y encadenamiento inmediato:** informa de la ruta absoluta y, en esa **misma respuesta**, abre la primera sección de la Fase 4 con su anuncio y su primera solicitud de datos, sin detener el flujo.
 
 ---
@@ -192,7 +194,7 @@ Envía un mensaje formal que contenga:
           [Confirmación en CHAT: "¿Confirmamos esta sección?"]
                           |
                           v
-                [edit_file + read_file en DISCO]
+                [edit_file en el editor]
 ```
 
 - **Datos estructurados agrupados (`slot_filling_request`, MANDATORIO):** todo grupo de datos identificativos —empresa, trabajador, relación laboral, importes, cuenta bancaria— se solicita en bloque mediante `slot_filling_request`. Queda prohibido pedirlos uno a uno en turnos sucesivos.
