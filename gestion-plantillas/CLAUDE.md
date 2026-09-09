@@ -5,7 +5,7 @@ Este plugin proporciona las capacidades necesarias para que los usuarios puedan 
 
 Permite tres vías de trabajo:
 1. **A partir de texto preexistente:** procesando minutas o modelos suministrados exclusivamente mediante texto pegado directamente en el chat o abriendo un archivo en el editor (archivos del workspace). (Queda expresamente excluida la opción de adjuntar archivos).
-2. **Asistencia sobre plantillas preexistentes:** cuando el usuario especifica un archivo del workspace solicitando apoyo (ej. *"Requiero asistencia con la plantilla (template-carta-de-presentacion.md)"*) o se detecta una plantilla ya registrada, ofreciendo opciones estructuradas para: *Convertir datos a placeholders genéricos*, *Mejorar el contenido*, o *Actualizar contenido*.
+2. **Asistencia sobre plantillas preexistentes:** cuando el usuario especifica un archivo del workspace solicitando apoyo (ej. *"Requiero asistencia con la plantilla (template-carta-de-presentacion.md)"*) o se detecta una plantilla ya registrada, presentando un formulario interactivo (`restricted_human_in_the_loop_request`) con opciones para: *Convertir datos a placeholders genéricos*, *Mejorar el contenido*, o *Actualizar contenido*.
 3. **Creación asistida (desde cero):** estructurando y redactando colaborativamente la plantilla de forma interactiva cuando el usuario no cuenta con un texto previo.
 
 Persiste las plantillas en el sistema mediante herramientas especializadas según su alcance:
@@ -45,7 +45,7 @@ Explícitamente NO cubre la tramitación sustantiva de expedientes legales o adm
    - En plantillas globales, el `asset_name` sigue el formato `template-<slug>.md`.
 5. **Confirmación Previa Obligatoria:** NUNCA invocar `set_skill_template`, `update_user_template` ni `save_user_template` sin previa presentación de la vista previa de la plantilla en el chat y confirmación afirmativa explícita del usuario.
 6. **Sin Adjuntos de Archivos:** Las únicas vías admitidas para especificar plantillas preexistentes son el texto en el chat y abrir un archivo en el editor (archivos del workspace). Queda estrictamente prohibida la ingesta o solicitud de archivos adjuntos.
-7. **Asistencia Consultiva en Plantillas Preexistentes:** Ante plantillas ya registradas donde el usuario requiera apoyo o no ordene una actualización inmediata cerrada, presentar el abanico estructurado de opciones (*Convertir datos a placeholders genéricos*, *Mejorar el contenido*, *Actualizar contenido*) antes de persistir, manteniendo la prohibición estricta de solicitar metadatos redundantes (`name`/`description`).
+7. **Asistencia Consultiva en Plantillas Preexistentes:** Ante plantillas ya registradas donde el usuario requiera apoyo o no ordene una actualización inmediata cerrada, presentar mediante formulario interactivo (`restricted_human_in_the_loop_request`) el abanico estructurado de opciones (*Convertir datos a placeholders genéricos*, *Mejorar el contenido*, *Actualizar contenido*) antes de persistir, manteniendo la prohibición estricta de solicitar metadatos redundantes (`name`/`description`).
 
 ## Matriz de Escalación Universal
 En los siguientes escenarios, detén la generación y sugiere la acción correspondiente:

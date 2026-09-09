@@ -118,7 +118,7 @@ Cuando el usuario registra o actualiza una plantilla general no asociada a una s
 2. **Actualización de Plantilla Existente (`update_user_template`):**
    - Se utiliza cuando la plantilla ya existe en el sistema/workspace (ej. identificada por su `asset_name`).
    - Requiere: `asset_name` y `template_content`.
-   - **Modalidades de Asistencia Consultiva:** Si el usuario requiere apoyo para trabajar la plantilla antes de actualizarla, se ofrecen tres opciones:
+   - **Modalidades de Asistencia Consultiva:** Si el usuario requiere apoyo para trabajar la plantilla antes de actualizarla, se presentan tres opciones mediante formulario interactivo (`restricted_human_in_the_loop_request`):
      * *Convertir datos a placeholders genéricos:* Detección de datos particulares o PII y sustitución por variables `{{VARIABLE}}`.
      * *Mejorar el contenido:* Optimización de redacción, claridad técnica/jurídica y estructuración en Markdown limpio.
      * *Actualizar contenido:* Integración directa de cláusulas o cambios aportados por el usuario.
