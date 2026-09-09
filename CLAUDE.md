@@ -173,7 +173,7 @@ Work happens on disk. **Never** emit the full deliverable in chat.
 ### 6.1 Creation cycle
 
 1. **`Write`** — dump the template in full. Forbidden: empty files or title-only files. Forbidden: conversational text inside the file.
-2. **Zero-omission** — in that same dump, replace **every** placeholder whose value you already know: user-supplied data (active listening) and data you obtained or computed yourself (system dates, consulted statute versions, search results). Placeholders whose value does not yet exist **stay as `{{DATUM}}`** and are resolved by the incremental editing cycle. Zero-omission never invents content ahead of time; it only fills what is already known.
+2. **Zero-omission** — in that same dump, replace **every** placeholder whose value you already know: user-supplied data (active listening) and data you obtained or computed yourself (system dates, consulted statute versions, search results). Placeholders whose value does not yet exist **stay as `{{DATUM}}`** and are resolved by the incremental editing cycle. Zero-omission never invents content ahead of time; it only fills what is already known. *(Note: In template management workflows such as `gestion-plantillas`, workspace files are template assets in progress; placeholders `{{VARIABLE}}` are the intentional final output and must NOT be resolved into concrete client data).*
 3. **`Read`** — mandatory verification on the exact path written.
 4. **Confirmation** — a chat message that **must** contain the absolute path (e.g. *"I created the document at /absolute/path/file.md"*) and, in the same reply, chain into the first section of the incremental edit (via `slot_filling_request` if it gathers structured data, or via the first question).
 
