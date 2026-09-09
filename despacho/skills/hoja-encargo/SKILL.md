@@ -159,7 +159,7 @@ Envía un mensaje formal que contenga:
 3. **Recordatorio de comprobación previa:** conflicto de intereses con clientes anteriores o con la parte contraria, competencia profesional para el objeto del encargo, y cobertura del seguro de responsabilidad civil.
 4. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Nombrala por su ruta; si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
 5. **Pregunta explícita al usuario:**
-   > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
+   > *"¿Desea que utilicemos la plantilla base predeterminada (de la sección de plantillas) o prefiere aportar su propia minuta para trabajar sobre ella pegando el texto en el chat o abriéndola en el editor?"*
 
 ### 2.3 Fijación del origen de la plantilla
 * **Si `[origen_plantilla = plantilla_sistema]`:** toma el asset íntegro y procede a la **Fase 3**.

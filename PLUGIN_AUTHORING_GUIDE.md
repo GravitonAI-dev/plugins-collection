@@ -112,7 +112,7 @@ Para garantizar un enrutamiento determinista y el cumplimiento de las normas imp
 > **REGLA DE INVISIBILIDAD Y COMUNICACIÓN AMIGABLE (Global CLAUDE.md):**
 > Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, etc.), los resúmenes de validación con marcas (ej. "V1 resuelto ✔"), y **cualquier mención a términos de arquitectura interna de software (como "backend", "frontend", "orquestador", "runtime", "base de datos", o nombres de herramientas técnicas como `set_skill_template`, `read_file`, `edit_file`, etc.) son estrictamente de control interno y están TERMINANTEMENTE PROHIBIDOS en el chat con el usuario**.
 > - Toda interacción debe ser comprensible, asistencial, empática, profesional y no técnica respecto a la estructura del software.
-> - Para referirse a la infraestructura o capacidades de la plataforma, utiliza siempre y de forma natural **"el sistema"** o **"la plataforma"** (ej. *"guardado en el sistema"*, *"el sistema utilizará esta plantilla"*).
+> - Para referirse a la infraestructura general, utiliza de forma natural **"el sistema"** o **"la plataforma"**. Sin embargo, al pedir confirmación o referirte a espacios de trabajo y destinos visibles al usuario, sé específico según el área de la interfaz: utiliza **"la sección de plantillas"** (o *"tu catálogo de plantillas"*) al guardar o gestionar modelos (ej. *"¿Quieres que guarde en la sección de plantillas?"*), y **"el editor"** o **"tu espacio de trabajo"** al interactuar con borradores de documentos (ej. *"he preparado el borrador en el editor"*). Evita fórmulas impersonales genéricas como *"en el sistema"* o tecnicismos como *"en disco"*.
 
 ---
 
@@ -186,7 +186,7 @@ Envía un mensaje estructurado y cordial que contenga:
    - Detalla que dispones de la plantilla oficial adaptada (`assets/template-[plantilla].md`), con una estructura jurídica y técnica completa y equilibrada.
 3. **Pregunta Explícita al Usuario (Vía Chat):**
    Formula exactamente la siguiente consulta en el chat:
-   > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
+   > *"¿Desea que utilicemos la plantilla base predeterminada (de la sección de plantillas) o prefiere aportar su propia minuta para trabajar sobre ella pegando el texto en el chat o abriéndola en el editor?"*
 
 ### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
 * **Si `[V5 = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
@@ -215,7 +215,7 @@ Envía un mensaje estructurado y cordial que contenga:
 2. **Validación de Disco (`read_file`):**
    - Ejecuta `read_file` sobre el archivo recién creado para validar que el contenido en disco es exacto y completo.
 3. **Confirmación en Chat:**
-   - Emite un mensaje indicando la ruta absoluta del archivo creado en disco.
+   - Emite un mensaje indicando que el documento base ha quedado preparado en el editor (en el espacio de trabajo).
    - En la misma respuesta, sin detener la marcha, introduce la primera sección de la Fase 4 para iniciar la edición incremental (invocando `slot_filling_request` si la primera sección requiere un grupo de datos, o formulando la consulta correspondiente).
 
 ---
@@ -281,7 +281,7 @@ Recorre de forma secuencial los siguientes bloques del documento. Por cada secci
 Una vez completadas todas las secciones, muestra en el chat el siguiente menú interactivo de opciones finales:
 
 ```markdown
-El borrador completo del documento ha sido redactado y actualizado en disco.
+El borrador completo del documento ha sido redactado y actualizado en el editor.
 
 Seleccione una opción si desea realizar ajustes adicionales:
 1. Ajustar o modificar una sección/cláusula existente.

@@ -31,7 +31,7 @@ Las únicas vías admitidas para proporcionar o generar el contenido de una plan
   4. **Identificación de variables dinámicas:** Asignar marcadores `{{NOMBRE_VARIABLE}}` a todos los datos variables que cambiarán entre usos.
   5. **Borrador en el editor (`create_file`):** Generar el archivo en el workspace para que el usuario pueda visualizar el documento en tiempo real en el editor.
   6. **Edición colaborativa incremental (`edit_file`):** Refinar y expandir cláusulas directamente en el documento del workspace.
-  7. **Persistencia final:** Una vez validado y confirmado, guardar en el sistema mediante `save_user_template` o `set_skill_template`.
+  7. **Persistencia final:** Una vez validado y confirmado (preguntando al usuario: *"¿Quieres que guarde en la sección de plantillas?"*), guardar mediante `save_user_template` o `set_skill_template`.
 
 > [!NOTE]
 > **Sin adjuntos de archivos:** La skill NO procesa documentos adjuntos ni archivos subidos fuera del workspace. Toda entrada preexistente debe proceder exclusivamente de texto pegado en el chat o de un archivo abierto en el editor (workspace).
@@ -104,7 +104,7 @@ Antes de guardar una plantilla asignada a una skill del sistema (`set_skill_temp
 > - Informar al usuario de forma inmediata y constructiva:
 >   - Señalar con exactitud qué elementos faltan o resultan incompatibles (ej. "La plantilla carece de la cláusula de duración o de la variable `{{RENTA_MENSUAL}}`, requeridas por la skill `arrendamiento-urbano`").
 >   - Proponer la adición o corrección de los bloques afectados.
->   - Solicitar confirmación para aplicar los ajustes antes de proceder al guardado.
+>   - Solicitar confirmación para aplicar los ajustes antes de proceder al guardado en la sección de plantillas.
 
 ---
 

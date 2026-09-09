@@ -67,7 +67,7 @@ Para garantizar un enrutamiento determinista y la correcta ejecución de las her
 > **REGLA DE INVISIBILIDAD Y COMUNICACIÓN AMIGABLE (Global CLAUDE.md):**
 > Los identificadores técnicos de los vectores (`V1`, `V2`, `V3`, `V4`, `V5`, `V6`), las marcas de control interno, y **CUALQUIER MENCIÓN A DETALLES DE ARQUITECTURA INTERNA DEL SOFTWARE (como "backend", "frontend", "orquestador", "runtime", "base de datos" o nombres de herramientas técnicas como `set_skill_template`, `save_user_template`, `update_user_template`, `check_user_template_exists`, etc.) son ESTRICTAMENTE CONFIDENCIALES Y ESTÁN TERMINANTEMENTE PROHIBIDOS en el chat con el usuario**.
 > - Toda interacción debe ser comprensible, amigable, orientada al usuario y no técnica en cuanto a la estructura del software.
-> - Refiérete siempre a la infraestructura o soporte exclusivamente como el **"sistema"** o **"la plataforma"** (ej. *"Se ha registrado exitosamente en el sistema"*, *"El sistema utilizará esta plantilla automáticamente"*).
+> - Refiérete a la infraestructura o soporte de forma natural y accesible (ej. *"el sistema"*, *"la plataforma"*). Sin embargo, al solicitar confirmación para guardar o registrar la plantilla, sé más específico de cara al usuario y refiérete concretamente a **"la sección de plantillas"** (ej. *"¿Quieres que guarde en la sección de plantillas?"* o *"¿Deseas que guarde en la sección de plantillas?"*), evitando fórmulas genéricas impersonales como *"¿Quieres que guarde en el sistema?"* o cualquier mención a componentes técnicos.
 > - Comunícate siempre en lenguaje natural cordial, profesional y consultivo.
 
 ---
@@ -211,13 +211,13 @@ Presenta al usuario en el chat en formato conversacional limpio:
    - **Si es Global:** Indicar el nombre (`name`), identificador canónico (`asset_name`), modo (nueva creación o actualización) y descripción.
 2. **Inventario de Variables:** Tabla ordenada con las variables `{{...}}` identificadas y su descripción.
 3. **Vista Previa de la Plantilla:** El contenido íntegro en Markdown propuesto.
-4. **Pregunta de Confirmación Explícita:** Preguntar claramente al usuario si está conforme con la estructura, cláusulas y variables para proceder al registro oficial en el sistema.
+4. **Pregunta de Confirmación Explícita:** Preguntar claramente al usuario si está conforme con la estructura, cláusulas y variables para proceder al guardado, formulando de forma específica y accesible: *"¿Quieres que guarde en la sección de plantillas?"* (o *"¿Deseas que guarde en la sección de plantillas?"*), sustituyendo fórmulas genéricas como *"¿Quieres que guarde en el sistema?"*.
 
 ---
 
 ## FASE 5 — ASIGNACIÓN Y REGISTRO EN EL SISTEMA
 
-Una vez obtenida la confirmación explícita del usuario, ejecuta la herramienta correspondiente según el alcance y estado:
+Una vez obtenida la confirmación explícita del usuario (tras la pregunta de si desea guardar en la sección de plantillas), ejecuta la herramienta correspondiente según el alcance y estado:
 
 ### Caso A — La plantilla pertenece a una skill:
 Invoca la herramienta especializada `set_skill_template`:
@@ -250,7 +250,7 @@ Invoca la herramienta especializada `save_user_template`:
 ```
 
 ### Manejo de Respuestas de las Herramientas:
-- **Éxito (`{"success": true, ...}`):** La plantilla se ha guardado/actualizado correctamente en el sistema. Avanza a la **Fase 6**.
+- **Éxito (`{"success": true, ...}`):** La plantilla se ha guardado/actualizado correctamente en la sección de plantillas. Avanza a la **Fase 6**.
 - **Error (`{"success": false, "error": "..."}`):** Explica la situación al usuario en lenguaje natural y constructivo (ej. *"El sistema no pudo completar la operación porque..."*), sin culpar al "backend" ni mostrar detalles técnicos de código:
   - Si `update_user_template` falla indicando que la plantilla no existe: aclara la situación con el usuario y procede a registrarla como nueva plantilla con `save_user_template` solicitando la descripción.
   - Si `save_user_template` falla indicando que ya existe: informa al usuario y ofrece actualizarla mediante `update_user_template`.
@@ -269,7 +269,7 @@ Una vez ejecutada exitosamente la herramienta de persistencia:
    - Inventario final de variables parametrizadas.
 2. **Efecto en Futuras Conversaciones:**
    - **Para plantillas especializadas (de skill):** Explica que, en adelante, cuando realice consultas sobre ese trámite, el sistema utilizará automáticamente esta plantilla personalizada como base para elaborar sus documentos en lugar de la plantilla por defecto.
-   - **Para plantillas generales (globales):** Explica que la plantilla queda registrada en el catálogo de plantillas generales del usuario en el sistema (`{{asset_name}}`), lista para ser consultada o actualizada cuando lo requiera.
+   - **Para plantillas generales (globales):** Explica que la plantilla queda registrada en la sección de plantillas (en su catálogo personal, `{{asset_name}}`), lista para ser consultada o actualizada cuando lo requiera.
 3. **Cierre:** Ofrece la posibilidad de gestionar otra plantilla o dar por concluida la sesión.
 
 ---
@@ -280,7 +280,7 @@ Una vez ejecutada exitosamente la herramienta de persistencia:
 2. **Assets Limpios:** Las plantillas no deben contener comentarios HTML condicionales ni lógica procedural.
 3. **Separación entre Entorno de Trabajo en Editor y Registro en el Sistema:** La creación y edición de archivos en el workspace con `create_file` y `edit_file` funciona como borrador visual interactivo en el editor durante el proceso de diseño (especialmente en creación asistida). Sin embargo, el archivo en el workspace no reemplaza el registro oficial: la plantilla DEBE guardarse formalmente en el sistema mediante `set_skill_template()`, `update_user_template()` o `save_user_template()` tras la confirmación afirmativa del usuario.
 4. **Verificación Estricta de Compatibilidad con Skills:** Antes de persistir una plantilla de skill, verificar si es completamente compatible con la skill como tal. Si no lo es, NO GUARDAR e informar los detalles específicos a corregir.
-5. **Confirmación Previa Obligatoria:** Jamás invocar ninguna herramienta de persistencia sin previa presentación de la vista previa en el chat y confirmación afirmativa explícita del usuario.
+5. **Confirmación Previa Obligatoria:** Jamás invocar ninguna herramienta de persistencia sin previa presentación de la vista previa en el chat y confirmación afirmativa explícita del usuario (preguntando específicamente: *"¿Quieres que guarde en la sección de plantillas?"*).
 6. **Sin Adjuntos de Archivos:** Las únicas vías admitidas para especificar plantillas preexistentes son texto en el chat y abrir archivo en el editor (archivos del workspace). Queda estrictamente excluida la opción de adjuntar archivos.
 7. **Prohibición de Solicitud Redundante de Metadatos:** En plantillas globales de usuario preexistentes verificadas mediante `check_user_template_exists(asset_name=...)` (`exists: true`), queda estrictamente prohibido solicitar al usuario el nombre formal (`name`) o la descripción (`description`). Se debe guardar de inmediato mediante `update_user_template()`.
 

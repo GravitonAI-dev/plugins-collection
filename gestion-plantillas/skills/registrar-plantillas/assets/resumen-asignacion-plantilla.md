@@ -1,19 +1,19 @@
 # Reporte de Configuración de Plantilla
 
-> Plantilla registrada/actualizada exitosamente en el sistema.
+> Plantilla registrada/actualizada exitosamente en la sección de plantillas.
 
 ## 1. Datos del Registro
 
 | Parámetro | Detalle |
 |---|---|
-| Tipo de Plantilla | {{TIPO_PLANTILLA}} (Skill / Global) |
-| Skill Objetivo | {{SKILL_NAME}} |
-| Nombre / Título | {{NOMBRE_PLANTILLA}} |
-| Identificador de Asset | `{{ASSET_NAME}}` |
-| Herramienta Utilizada | `{{HERRAMIENTA_USADA}}` (`set_skill_template` / `update_user_template` / `save_user_template`) |
-| Canal de Origen | {{CANAL_ORIGEN}} (Texto en el chat / Archivo en el editor / Creación asistida) |
+| Tipo de Plantilla | {{TIPO_PLANTILLA}} (Especializada / General) |
+| Trámite / Especialidad | {{SKILL_NAME}} |
+| Nombre de la Plantilla | {{NOMBRE_PLANTILLA}} |
+| Archivo de Plantilla | `{{ASSET_NAME}}` |
+| Operación Realizada | {{OPERACION_REALIZADA}} (Nuevo registro / Actualización) |
+| Vía de Origen | {{CANAL_ORIGEN}} (Texto en el chat / Archivo en el editor / Creación asistida) |
 | Fecha de Registro | {{FECHA_REGISTRO}} |
-| Estado en Orquestador | {{ESTADO_ASIGNACION}} |
+| Estado en el Sistema | {{ESTADO_ASIGNACION}} (Activa y disponible) |
 
 ---
 
@@ -38,5 +38,5 @@ A continuación se detallan los campos variables identificados en la plantilla:
 ## 4. Disponibilidad y Próximos Pasos
 
 {{INSTRUCCIONES_ACTIVACION}}
-- **Si es Plantilla de Skill (`set_skill_template`):** En todas las siguientes conversaciones en las que actives la skill `{{SKILL_NAME}}`, el orquestador utilizará automáticamente esta plantilla personalizada como base para redactar tus documentos.
-- **Si es Plantilla Global (`save_user_template` / `update_user_template`):** La plantilla queda registrada en el catálogo de plantillas generales del usuario (`{{ASSET_NAME}}`), disponible para ser reutilizada o actualizada en cualquier momento.
+- **Para trámites específicos ({{SKILL_NAME}}):** En las próximas consultas relacionadas con este trámite, el sistema utilizará automáticamente su plantilla personalizada como base para elaborar los documentos.
+- **Para plantillas generales:** La plantilla queda registrada en la sección de plantillas (en su catálogo personal, `{{ASSET_NAME}}`), lista para ser consultada, reutilizada o actualizada cuando lo necesite.

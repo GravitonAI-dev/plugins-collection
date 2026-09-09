@@ -157,7 +157,7 @@ Envía un mensaje estructurado y pedagógico:
    - Nombra por su ruta la hoja **que ha resuelto el enrutamiento de la Fase 1.3**; si el enrutamiento asigno varias, nombralas todas y en el orden en que se van a rellenar. **No propongas una hoja distinta de la enrutada.**
 3. **Pregunta Explícita al Usuario (Vía Chat):**
    Formula exactamente la siguiente consulta en el chat:
-   > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
+   > *"¿Desea que utilicemos la plantilla base predeterminada (de la sección de plantillas) o prefiere aportar su propia minuta para trabajar sobre ella pegando el texto en el chat o abriéndola en el editor?"*
 
 ### 2.3 Fijación del origen de la plantilla y manejo de la elección
 - **Si `origen_plantilla = plantilla_sistema`:** Utiliza los assets oficiales correspondientes y avanza a la **Fase 3**.

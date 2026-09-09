@@ -105,7 +105,7 @@ Envía un mensaje en lenguaje natural detallando:
    - Si la consulta es exhaustiva o compleja: propone `assets/template-informe-consulta-general.md` (*Informe de Consulta y Orientación Jurídico-Técnica*).
    - Si se requiere una nota ejecutiva rápida: propone `assets/template-memo-orientacion-rapida.md` (*Memorándum de Orientación Ejecutiva*).
 3. **Pregunta Explícita al Usuario (Vía Chat):**
-   > *"¿Desea que utilicemos la plantilla base propuesta por el sistema o prefiere aportar su propia plantilla/minuta para trabajar sobre ella adjuntándola en el chat?"*
+   > *"¿Desea que utilicemos la plantilla base predeterminada (de la sección de plantillas) o prefiere aportar su propia minuta pegando el texto en el chat o abriéndola en el editor?"*
 
 ### 2.3 Fijación del origen de la plantilla
 * **Si `[origen_plantilla = plantilla_sistema]`:** Toma el texto íntegro de la plantilla seleccionada del catálogo y avanza a la **Fase 3**.
@@ -124,7 +124,7 @@ Envía un mensaje en lenguaje natural detallando:
 2. **Validación de Disco (`read_file`):**
    - Ejecuta `read_file` sobre el archivo recién creado para comprobar que se escribió íntegramente.
 3. **Confirmación en Chat:**
-   - Emite un mensaje indicando la ruta absoluta del archivo creado en disco (ej. *"He creado el documento en `/workspace/informe_consulta_legal.md`"*).
+   - Emite un mensaje indicando que el borrador ha quedado preparado en el editor (ej. *"He preparado el borrador en el editor (`informe_consulta_legal.md`)"*).
    - En la misma respuesta, introduce la primera sección de la Fase 4 para iniciar la edición incremental.
 
 ---
@@ -182,7 +182,7 @@ Recorre de forma secuencial los 5 bloques del documento aplicando el ciclo de ed
 2. **Menú Interactivo de Cierre:**
    Presenta en el chat las opciones finales de revisión:
    ```markdown
-   El informe de orientación y consulta ha sido generado y verificado en disco.
+   El informe de orientación y consulta ha sido generado y verificado en el editor.
    
    Seleccione una opción si desea realizar ajustes adicionales:
    1. Ajustar o ampliar antecedentes de hecho o fundamentación jurídica.
