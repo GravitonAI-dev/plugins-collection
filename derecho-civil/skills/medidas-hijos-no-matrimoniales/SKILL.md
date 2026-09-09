@@ -3,9 +3,9 @@ name: medidas-hijos-no-matrimoniales
 description: >
   Genera los documentos para FIJAR POR PRIMERA VEZ las medidas relativas a los hijos menores comunes
   de progenitores que no estan ni han estado casados entre si (parejas de hecho registradas, parejas
-  no registradas y progenitores que nunca convivieron), en el proceso del articulo 748.4.º de la Ley
-  de Enjuiciamiento Civil, en sus dos vias: (1) CON ACUERDO — pacto de relaciones familiares que
-  regula el ejercicio de la patria potestad (arts. 154 y 156 CC), la guarda y custodia (art. 92 CC),
+  no registradas y progenitores que nunca convivieron), en el proceso del articulo 748.4.º de la **Ley
+  de Enjuiciamiento Civil**, que regula los procesos de familia sobre menores, en sus dos vias: (1) CON ACUERDO — pacto de relaciones familiares que
+  regula el ejercicio de la patria potestad (arts. 154 y 156 del **Codigo Civil**, CC), la guarda y custodia (art. 92 CC),
   el regimen de estancias, comunicacion y visitas (art. 94 CC), la pension de alimentos (arts. 93,
   142, 146 y 148 CC) y, en su caso, el uso de la vivienda en que residen los hijos, para su
   sometimiento a aprobacion judicial por el cauce del articulo 777 de la LEC; y (2) SIN ACUERDO —

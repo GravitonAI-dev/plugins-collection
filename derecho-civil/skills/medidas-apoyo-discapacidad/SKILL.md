@@ -2,7 +2,7 @@
 name: medidas-apoyo-discapacidad
 description: >
   Genera el documento adecuado para proveer de apoyo a una persona mayor de edad con discapacidad
-  conforme al sistema de la Ley 8/2021, verificado en el BOE: minuta de escritura de medidas de apoyo
+  conforme al sistema de la **Ley 8/2021**, que sustituyo la incapacitacion judicial por un sistema de apoyos a la persona con discapacidad, verificado en el BOE: minuta de escritura de medidas de apoyo
   voluntarias y poder preventivo, incluida la autocuratela (Arts. 255 a 262 y 271 a 274 CC); solicitud
   de autorizacion judicial al guardador de hecho para un acto concreto que exige actuacion
   representativa (Art. 264 CC, por el expediente de jurisdiccion voluntaria de los Arts. 61 a 63 LJV);

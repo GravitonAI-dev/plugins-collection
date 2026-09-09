@@ -2,7 +2,7 @@
 name: modificacion-medidas
 description: >
   Genera los escritos para MODIFICAR medidas definitivas ya fijadas en sentencia o convenio regulador
-  aprobado, en Espana, conforme al articulo 775 de la LEC y al articulo 90.3 del Codigo Civil, en sus
+  aprobado, en Espana, conforme al articulo 775 de la **Ley 1/2000 de Enjuiciamiento Civil (LEC)**, que regula el procedimiento para modificar medidas de familia, y al articulo 90.3 del **Codigo Civil**, en sus
   dos vias: (1) CONSENSUADA — peticion de ambas partes, o de una con el consentimiento de la otra,
   acompanando propuesta de nuevo convenio regulador, por el procedimiento del articulo 777 de la LEC;
   y (2) CONTENCIOSA — demanda por el procedimiento del articulo 770 de la LEC (juicio verbal con

@@ -3,7 +3,7 @@ name: monitorio
 description: >
   Genera la peticion inicial de proceso monitorio para reclamar una deuda dineraria liquida,
   determinada, vencida y exigible de cualquier cuantia, conforme a los articulos 812 a 818 de la
-  Ley de Enjuiciamiento Civil (LEC) en su version consolidada vigente verificada en el BOE.
+  **Ley 1/2000 de Enjuiciamiento Civil (LEC)**, que regula el proceso monitorio como via rapida para cobrar deudas documentadas, en su version consolidada vigente verificada en el BOE.
   Opcionalmente genera tambien el burofax de requerimiento previo (intento de MASC). Adapta el
   documento segun la naturaleza de las partes y el tipo de deuda (rentas de arrendamiento u otra).
   NO usar para deudas no dinerarias, iliquidas o controvertidas, ni para reclamaciones frente a

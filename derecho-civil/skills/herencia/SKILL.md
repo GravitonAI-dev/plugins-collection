@@ -1,8 +1,7 @@
 ---
 name: herencia
 description: >
-  Cubre el ciclo completo de la herencia conforme al Codigo Civil (BOE-A-1889-4763) y a la LEC
-  (BOE-A-2000-323) en su version consolidada vigente verificada en el BOE: aceptacion de herencia
+  Cubre el ciclo completo de la herencia conforme al **Codigo Civil**, que regula la sucesion, la aceptacion de la herencia, las legitimas y la particion, (BOE-A-1889-4763) y a la **Ley 1/2000 de Enjuiciamiento Civil (LEC)** (BOE-A-2000-323) en su version consolidada vigente verificada en el BOE: aceptacion de herencia
   (pura y simple o a beneficio de inventario), renuncia (minuta para escritura notarial, Art. 1008 CC),
   interpelacion notarial al heredero que no se pronuncia (Art. 1005 CC, plazo de 30 dias naturales),
   cuaderno particional con inventario, avaluo, liquidacion y adjudicaciones respetando la legitima

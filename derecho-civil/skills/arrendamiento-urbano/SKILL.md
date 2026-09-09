@@ -4,8 +4,8 @@ description: >
   Genera los documentos del ciclo completo del arrendamiento urbano: contratos nuevos (vivienda
   habitual, local de negocio, vivienda por temporada y habitacion) y comunicaciones sobre contratos
   vigentes (actualizacion anual de la renta, no renovacion a vencimiento y requerimiento de
-  devolucion de fianza). Aplica la Ley 29/1994 de Arrendamientos Urbanos (LAU), la Ley 12/2023 por
-  el derecho a la vivienda (zonas de mercado residencial tensionado, IRAV) y el Codigo Civil
+  devolucion de fianza). Aplica la **Ley 29/1994 de Arrendamientos Urbanos (LAU)**, que rige los alquileres de vivienda y de uso distinto (duracion, prorrogas, renta y fianza), la **Ley 12/2023 por
+  el derecho a la vivienda** (zonas de mercado residencial tensionado, IRAV) y el **Codigo Civil**
   (habitacion, arts. 1542 y ss.), en sus versiones consolidadas vigentes verificadas en el BOE.
   Adapta las clausulas segun la naturaleza de las partes (persona fisica o juridica) y la ubicacion
   del inmueble. NO usar para arrendamientos de finca rustica, viviendas turisticas (Art. 5.e LAU),

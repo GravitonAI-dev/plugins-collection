@@ -6,7 +6,7 @@ description: >
   en el alta con epigrafe IAE y eleccion de regimen de IVA e IRPF; en la baja con la fecha efectiva de
   cese y sus efectos en IVA e IRPF) y (2) el alta o la baja en el RETA de la Seguridad Social (en el alta,
   eleccion de base segun rendimientos netos previstos y tarifa plana; en la baja, comunicacion del cese
-  y efectos en la cuota), conforme a la Ley 20/2007 (LETA) y al RD-ley 13/2022 en su version consolidada
+  y efectos en la cuota), conforme a la **Ley 20/2007 del Estatuto del Trabajo Autonomo (LETA)**, que regula el regimen profesional del trabajador autonomo, y al **RD-ley 13/2022**, que establece la cotizacion por ingresos reales, en su version consolidada
   verificada en el BOE. Opera bajo el flujo de 5 fases canonicas con clasificacion HITL, consulta de assets,
   creacion zero-vacios en workspace y edicion incremental seccion a seccion. NO usar para altas ni bajas de
   sociedades mercantiles (SL/SA), autonomos societarios o colaboradores sin revision letrada, ni para el calculo

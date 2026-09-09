@@ -1,7 +1,7 @@
 ---
 name: testamento-planificacion
 description: >
-  Prepara la planificacion sucesoria EN VIDA conforme al Codigo Civil comun (BOE-A-1889-4763) en su version
+  Prepara la planificacion sucesoria EN VIDA conforme al **Codigo Civil comun**, que regula el testamento, las legitimas y las sustituciones hereditarias, (BOE-A-1889-4763) en su version
   consolidada vigente verificada en el BOE: minuta de testamento abierto para llevar a la notaria (institucion
   de herederos, revocacion de disposiciones anteriores, legados, mejora de los Arts. 808 y 823, usufructo
   universal al conyuge articulado con cautela socini al amparo del Art. 820.3.º, sustitucion vulgar del Art. 774,

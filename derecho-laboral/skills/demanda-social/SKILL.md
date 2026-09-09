@@ -4,9 +4,9 @@ description: >
   Genera la demanda ante el Juzgado de lo Social en las modalidades procesales de mayor uso: despido
   con pretensión de improcedencia o de nulidad, reclamación de cantidad, impugnación de sanción,
   movilidad geográfica y modificación sustancial de condiciones de trabajo del artículo 138, y tutela
-  de derechos fundamentales y libertades públicas. Aplica la Ley 36/2011 reguladora de la Jurisdicción
-  Social y el texto refundido de la Ley del Estatuto de los Trabajadores aprobado por Real Decreto
-  Legislativo 2/2015, en sus versiones consolidadas vigentes verificadas en el BOE. Comprueba antes de
+  de derechos fundamentales y libertades públicas. Aplica la **Ley 36/2011 reguladora de la Jurisdicción
+  Social**, que regula el proceso ante los juzgados y tribunales del orden social y los requisitos de la demanda, y el **texto refundido de la Ley del Estatuto de los Trabajadores aprobado por Real Decreto
+  Legislativo 2/2015**, en sus versiones consolidadas vigentes verificadas en el BOE. Comprueba antes de
   redactar la competencia objetiva y territorial, la postulación, el agotamiento de la vía previa y el
   plazo de caducidad o prescripción restante, y construye la demanda con los requisitos del artículo
   80 y, en el despido, los adicionales del artículo 104. Metodología: clasificación de la modalidad

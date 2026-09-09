@@ -6,9 +6,9 @@ description: >
   sustancial de condiciones de trabajo (artículo 41 del texto refundido de la Ley del Estatuto de los
   Trabajadores), comunicación de traslado o desplazamiento con cambio de residencia (artículo 40),
   comunicación de movilidad funcional (artículo 39) y escrito del trabajador optando por la extinción
-  indemnizada o anunciando la impugnación. Aplica el Estatuto de los Trabajadores aprobado por Real
-  Decreto Legislativo 2/2015 y los artículos 138 y siguientes de la Ley 36/2011 reguladora de la
-  Jurisdicción Social, en sus versiones consolidadas vigentes verificadas en el BOE, y contrasta el
+  indemnizada o anunciando la impugnación. Aplica el **Estatuto de los Trabajadores aprobado por Real
+  Decreto Legislativo 2/2015**, norma básica que regula la movilidad funcional y geográfica y la modificación sustancial de condiciones, y los artículos 138 y siguientes de la **Ley 36/2011 reguladora de la
+  Jurisdicción Social**, que regula la impugnación judicial de esas medidas, en sus versiones consolidadas vigentes verificadas en el BOE, y contrasta el
   convenio colectivo aplicable, que puede mejorar los preavisos y las compensaciones. Metodología:
   clasificación de la medida y de su alcance individual o colectivo mediante formulario interactivo,
   plan de acción con cómputo de preavisos y plazos de caducidad, creación del documento base en el

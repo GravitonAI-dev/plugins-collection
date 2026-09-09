@@ -2,8 +2,8 @@
 name: prevencion-blanqueo
 description: >
   Genera la documentación de cumplimiento que el despacho debe conservar cuando actúa como sujeto
-  obligado por la Ley 10/2010 de prevención del blanqueo de capitales y de la financiación del
-  terrorismo: ficha de identificación formal del cliente, declaración de titularidad real, lista de
+  obligado por la **Ley 10/2010 de prevención del blanqueo de capitales y de la financiación del
+  terrorismo**, que fija las obligaciones de identificación y diligencia debida de los sujetos obligados,: ficha de identificación formal del cliente, declaración de titularidad real, lista de
   comprobación de diligencia debida por expediente, e informe interno de examen especial de una
   operación. Aplica la Ley 10/2010 y su reglamento de desarrollo, en sus versiones consolidadas
   vigentes verificadas en el BOE. Su primera función es de delimitación: determina si la actuación

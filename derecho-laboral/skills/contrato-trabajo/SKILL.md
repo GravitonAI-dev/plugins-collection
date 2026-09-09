@@ -1,12 +1,12 @@
 ---
 name: contrato-trabajo
 description: >
-  Genera el contrato de trabajo y sus anexos en las modalidades vigentes tras la reforma del Real
-  Decreto-ley 32/2021: indefinido ordinario, fijo-discontinuo, temporal por circunstancias de la
+  Genera el contrato de trabajo y sus anexos en las modalidades vigentes tras la reforma del **Real
+  Decreto-ley 32/2021**, reforma laboral que redefinió las modalidades de contratación y limitó la temporalidad,: indefinido ordinario, fijo-discontinuo, temporal por circunstancias de la
   producción, temporal por sustitución de persona trabajadora, formativo en alternancia y formativo
   para la obtención de práctica profesional, a jornada completa o parcial, con el acuerdo de trabajo a
-  distancia de la Ley 10/2021 cuando proceda. Aplica el texto refundido de la Ley del Estatuto de los
-  Trabajadores aprobado por Real Decreto Legislativo 2/2015, en su versión consolidada vigente
+  distancia de la **Ley 10/2021** cuando proceda. Aplica el **texto refundido de la Ley del Estatuto de los
+  Trabajadores aprobado por Real Decreto Legislativo 2/2015**, norma básica que regula los derechos y deberes de la relación laboral, en su versión consolidada vigente
   verificada en el BOE, y toma del convenio colectivo aplicable la clasificación profesional, las
   tablas salariales, la jornada anual, el periodo de prueba y las duraciones máximas de los contratos
   temporales. Metodología: clasificación de la modalidad y la jornada mediante formulario interactivo,

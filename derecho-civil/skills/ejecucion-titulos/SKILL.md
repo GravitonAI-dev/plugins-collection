@@ -2,7 +2,7 @@
 name: ejecucion-titulos
 description: >
   Genera el escrito adecuado para ejecutar forzosamente un titulo ejecutivo dinerario conforme al
-  Libro III de la LEC verificado en el BOE: demanda de ejecucion de titulo judicial (sentencia,
+  Libro III de la **Ley 1/2000 de Enjuiciamiento Civil (LEC)**, que regula la ejecucion forzosa de sentencias y demas titulos ejecutivos, verificado en el BOE: demanda de ejecucion de titulo judicial (sentencia,
   decreto o auto firme, incluido el decreto que pone fin a un proceso monitorio sin oposicion, Art.
   517.2.1º y 9º LEC), demanda de ejecucion de titulo no judicial (escritura publica notarial, laudo
   arbitral o acuerdo de mediacion u otro MASC elevado a escritura publica, Art. 517.2.2º y 4º LEC,

@@ -4,9 +4,9 @@ description: >
   Genera los documentos de la vía previa al proceso social: burofax de reclamación extrajudicial de
   cantidades, papeleta de conciliación por despido, por reclamación de cantidad y por impugnación de
   sanción ante el servicio administrativo de mediación, arbitraje y conciliación competente, y acuerdo
-  conciliatorio para su elevación al acta. Aplica los artículos 63 a 68 de la Ley 36/2011 reguladora
-  de la Jurisdicción Social y el texto refundido de la Ley del Estatuto de los Trabajadores aprobado
-  por Real Decreto Legislativo 2/2015, en sus versiones consolidadas vigentes verificadas en el BOE.
+  conciliatorio para su elevación al acta. Aplica los artículos 63 a 68 de la **Ley 36/2011 reguladora
+  de la Jurisdicción Social**, que exige el intento de conciliación como requisito previo a la demanda en el orden social, y el **texto refundido de la Ley del Estatuto de los Trabajadores aprobado
+  por Real Decreto Legislativo 2/2015**, en sus versiones consolidadas vigentes verificadas en el BOE.
   Su primera función es de control: comprueba si el asunto está o no exceptuado del intento de
   conciliación, calcula el plazo de caducidad restante y su suspensión, e identifica el organismo
   territorialmente competente. Metodología: clasificación del objeto y la posición mediante formulario
