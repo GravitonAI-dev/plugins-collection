@@ -1,7 +1,7 @@
 ---
 name: juicio-ordinario
 description: >
-  Prepara de principio a fin un juicio ordinario civil conforme a la Ley de Enjuiciamiento Civil (LEC)
+  Prepara de principio a fin un juicio ordinario civil conforme a la **Ley 1/2000 de Enjuiciamiento Civil (LEC)**, que regula el procedimiento declarativo ordinario desde la demanda hasta la sentencia,
   en su version consolidada vigente verificada en el BOE. Cubre el ciclo completo por fases y genera el
   documento de cada una: intake del caso, comprobacion de admisibilidad (ambito del Art. 249, cuantia,
   competencia, postulacion de abogado y procurador, y requisito de MASC de la LO 1/2025), demanda del

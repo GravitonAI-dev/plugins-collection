@@ -4,9 +4,9 @@ description: >
   Genera la comunicación escrita de extinción del contrato de trabajo por decisión del empresario en
   sus cuatro modalidades individuales: despido disciplinario (artículo 54 del Estatuto de los
   Trabajadores), despido objetivo (artículos 52 y 53), desistimiento durante el periodo de prueba
-  (artículo 14) y comunicación de finalización de contrato temporal (artículo 49.1.c). Aplica el texto
-  refundido del Estatuto de los Trabajadores aprobado por Real Decreto Legislativo 2/2015 y la Ley
-  36/2011 reguladora de la Jurisdicción Social, en sus versiones consolidadas vigentes verificadas en
+  (artículo 14) y comunicación de finalización de contrato temporal (artículo 49.1.c). Aplica el **texto
+  refundido del Estatuto de los Trabajadores aprobado por Real Decreto Legislativo 2/2015**, norma básica que regula las causas, la forma y las indemnizaciones del despido, y la **Ley
+  36/2011 reguladora de la Jurisdicción Social**, que regula la impugnación del despido ante los juzgados de lo social, en sus versiones consolidadas vigentes verificadas en
   el BOE, y contrasta siempre el régimen disciplinario y los preavisos del convenio colectivo
   aplicable. Metodología: clasificación inicial de la modalidad y la causa mediante formulario
   interactivo, plan de acción con el cálculo desglosado de indemnización y plazos, creación del

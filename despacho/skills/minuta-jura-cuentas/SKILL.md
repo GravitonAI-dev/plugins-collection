@@ -3,9 +3,9 @@ name: minuta-jura-cuentas
 description: >
   Genera los documentos de facturación y reclamación de honorarios profesionales: minuta detallada de
   honorarios, requerimiento previo de pago al cliente, solicitud de jura de cuentas del artículo 35 de
-  la Ley 1/2000 de Enjuiciamiento Civil, y escrito de alegaciones frente a la impugnación de la minuta
-  por indebida o por excesiva. Aplica la Ley 1/2000 de Enjuiciamiento Civil, el Estatuto General de la
-  Abogacía Española aprobado por Real Decreto 135/2021 y la Ley 15/2007 de Defensa de la Competencia
+  la **Ley 1/2000 de Enjuiciamiento Civil**, que regula el procedimiento de jura de cuentas para cobrar honorarios de un asunto judicial, y escrito de alegaciones frente a la impugnación de la minuta
+  por indebida o por excesiva. Aplica la Ley 1/2000 de Enjuiciamiento Civil, el **Estatuto General de la
+  Abogacía Española aprobado por Real Decreto 135/2021** y la **Ley 15/2007 de Defensa de la Competencia**
   en cuanto al uso de criterios orientativos de honorarios, en sus versiones consolidadas vigentes
   verificadas en el BOE, y contrasta la normativa deontológica del colegio de adscripción y sus
   criterios orientativos. Su primera función es de control: comprueba si existe hoja de encargo

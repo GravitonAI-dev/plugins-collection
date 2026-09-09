@@ -6,9 +6,9 @@ description: >
   notario, solicitud de apoderamiento apud acta ante el letrado de la Administración de Justicia o por
   comparecencia electrónica, designación de representación y defensa en el orden social, y
   autorización de representación en el procedimiento administrativo común. Aplica los artículos 23 a
-  26 de la Ley 1/2000 de Enjuiciamiento Civil, los artículos 18 y 21 de la Ley 36/2011 reguladora de
-  la Jurisdicción Social y los artículos 5 y 6 de la Ley 39/2015 del Procedimiento Administrativo
-  Común de las Administraciones Públicas, en sus versiones consolidadas vigentes verificadas en el
+  26 de la **Ley 1/2000 de Enjuiciamiento Civil**, que regula la representación procesal por procurador y el poder para pleitos, los artículos 18 y 21 de la **Ley 36/2011 reguladora de
+  la Jurisdicción Social** y los artículos 5 y 6 de la **Ley 39/2015 del Procedimiento Administrativo
+  Común de las Administraciones Públicas**, que regula la representación ante la Administración, en sus versiones consolidadas vigentes verificadas en el
   BOE. Su función crítica es advertir de las facultades que exigen **poder especial** y que un poder
   general no cubre. Metodología: clasificación del ámbito y del alcance mediante formulario
   interactivo, plan de acción con la relación de facultades, creación del documento base en el

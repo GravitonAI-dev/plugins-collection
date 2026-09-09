@@ -5,8 +5,8 @@ description: >
   propuesta de liquidación de partes proporcionales del artículo 49.2 del texto refundido de la Ley
   del Estatuto de los Trabajadores, hoja de liquidación detallada con el desglose y la fórmula de cada
   concepto, acuerdo de extinción por mutuo acuerdo con indemnización pactada, y carta de baja
-  voluntaria con preaviso. Aplica el Estatuto de los Trabajadores aprobado por Real Decreto
-  Legislativo 2/2015 en su versión consolidada vigente verificada en el BOE, y toma del convenio
+  voluntaria con preaviso. Aplica el **Estatuto de los Trabajadores aprobado por Real Decreto
+  Legislativo 2/2015**, norma básica que regula la extinción del contrato y la liquidación de las cantidades pendientes, en su versión consolidada vigente verificada en el BOE, y toma del convenio
   colectivo aplicable el número y devengo de las pagas extraordinarias, el régimen de vacaciones y los
   plazos de preaviso. Metodología: clasificación de la causa extintiva mediante formulario
   interactivo, plan de acción con el cálculo desglosado de cada concepto, creación del documento base

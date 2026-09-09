@@ -5,7 +5,7 @@ description: >
   la hoja de datos de la solicitud, el escrito motivado que acredita el arraigo y la buena conducta
   cívica, el checklist documental completo con su régimen de legalización y traducción, el escrito de
   subsanación cuando el Registro requiere documentación, y el escrito de alegaciones frente a la
-  propuesta de resolución desestimatoria. Aplica el Código Civil en materia de adquisición de la
+  propuesta de resolución desestimatoria. Aplica el **Código Civil**, que fija los plazos de residencia y los requisitos para adquirir la nacionalidad, en materia de adquisición de la
   nacionalidad y su normativa de desarrollo procedimental, en sus versiones consolidadas vigentes
   verificadas en el BOE. Determina el plazo de residencia legal exigible según la nacionalidad de
   origen y la situación personal, comprueba las pruebas obligatorias y sus exenciones, y comunica el

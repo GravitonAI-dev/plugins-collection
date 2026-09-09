@@ -2,8 +2,8 @@
 name: divorcio
 description: >
   Genera los documentos de la separacion o el divorcio en Espana, en sus tres vias: (1) MUTUO ACUERDO
-  judicial — convenio regulador conforme al articulo 90 del Codigo Civil y, si se desea, demanda
-  conjunta del articulo 777 de la LEC (con intervencion del Ministerio Fiscal si hay hijos menores o
+  judicial — convenio regulador conforme al articulo 90 del **Codigo Civil**, que regula las causas y los efectos de la separacion y el divorcio, y, si se desea, demanda
+  conjunta del articulo 777 de la **Ley 1/2000 de Enjuiciamiento Civil (LEC)** (con intervencion del Ministerio Fiscal si hay hijos menores o
   mayores con discapacidad dependientes); (2) MUTUO ACUERDO notarial o ante el Letrado de la
   Administracion de Justicia — convenio regulador para su otorgamiento en escritura publica (arts. 82
   y 87 CC y art. 54 Ley del Notariado; solo sin hijos menores ni dependientes); y (3) CONTENCIOSO —

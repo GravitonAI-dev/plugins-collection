@@ -2,7 +2,7 @@
 name: reclamacion-cantidad
 description: >
   Genera el documento adecuado para reclamar (o defenderse de la reclamacion de) una cantidad de dinero,
-  eligiendo la via procesal correcta conforme a la LEC verificada en el BOE: peticion inicial de proceso
+  eligiendo la via procesal correcta conforme a la **Ley 1/2000 de Enjuiciamiento Civil (LEC)**, que fija que procedimiento corresponde segun la cuantia y el tipo de deuda, verificada en el BOE: peticion inicial de proceso
   monitorio (deuda documentada, liquida, vencida y exigible, cualquier cuantia), demanda de juicio verbal
   (hasta 15.000 euros o rentas de arrendamiento), demanda de juicio ordinario (mas de 15.000 euros, incluida
   la posterior a la oposicion de un monitorio, Art. 818.2 LEC), escrito de oposicion al monitorio (posicion

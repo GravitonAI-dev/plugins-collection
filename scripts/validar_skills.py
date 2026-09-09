@@ -185,6 +185,7 @@ for _e in json.load(open('.claude-plugin/marketplace.json',encoding='utf-8'))['p
     if not _SEMVER.match(_e.get('version','')): print(f"  FALLO version no semver en marketplace: {_e['name']}"); FALLOS+=1
     if not _e.get('description'): print(f"  FALLO entrada de marketplace sin description: {_e['name']}"); FALLOS+=1
 _EXCL=re.compile(r'\bNO\s+(usar|cubre|sustituye|genera|dise[nñ]a|se\s+usa|aplica)', re.I)
+_LEY=re.compile(r'\b(Ley|Real Decreto|Decreto Legislativo|RD(?:-ley|-legislativo)?|Reglamento|Estatuto|C[oó]digo Civil|Directiva|LEC|LAU|LOEX|LGSS)\b')
 for _s in sorted(glob.glob('*/skills/*/SKILL.md')):
     _n=_s.split('/skills/')[1][:-9]; _t=open(_s,encoding='utf-8').read(); _fm=_t.split('\n---\n')[0]
     _plug=_s.split('/')[0]
@@ -194,6 +195,11 @@ for _s in sorted(glob.glob('*/skills/*/SKILL.md')):
     _desc=re.search(r'^description:(.*?)^[a-z_]+:', _fm, re.S|re.M)
     if _desc and not _EXCL.search(' '.join(_desc.group(1).split())):
         print(f"  FALLO description sin clausula de exclusion: {_n}"); FALLOS+=1
+    # ley base: si la description nombra una norma, al menos una tiene que ir en negrita (es la tarjeta de la skill)
+    if _desc:
+        _dd=' '.join(_desc.group(1).split())
+        if _LEY.search(_dd) and not re.search(r'\*\*[^*]*?'+_LEY.pattern+r'[^*]*?\*\*', _dd):
+            print(f"  FALLO description con ley base sin negrita: {_n}"); FALLOS+=1
     if 'DRAFT' not in _t and _plug!='gestion-plantillas':
         print(f"  FALLO SKILL.md sin header DRAFT: {_n}"); FALLOS+=1
     if any(ord(c)>0x2500 and _ud.category(c)=='So' for c in _t):

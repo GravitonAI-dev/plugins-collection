@@ -4,10 +4,10 @@ description: >
   Genera la documentación contractual de la relación entre el despacho y su cliente: hoja de encargo
   profesional con delimitación del alcance y presupuesto de honorarios, presupuesto previo
   independiente, hoja de encargo con retribución vinculada al resultado, y comunicación de
-  finalización o renuncia al encargo. Aplica el Estatuto General de la Abogacía Española aprobado por
-  Real Decreto 135/2021, la normativa deontológica del colegio de adscripción, la normativa de
+  finalización o renuncia al encargo. Aplica el **Estatuto General de la Abogacía Española aprobado por
+  Real Decreto 135/2021**, que regula el ejercicio de la abogacía, la hoja de encargo y el deber de información sobre honorarios, la normativa deontológica del colegio de adscripción, la normativa de
   protección de consumidores cuando el cliente es persona física que actúa al margen de una actividad
-  empresarial, y la Ley 15/2007 de Defensa de la Competencia en cuanto al uso de criterios
+  empresarial, y la **Ley 15/2007 de Defensa de la Competencia** en cuanto al uso de criterios
   orientativos de honorarios, en sus versiones consolidadas vigentes verificadas en el BOE.
   Metodología: clasificación de la modalidad de honorarios y de la naturaleza del cliente mediante
   formulario interactivo, plan de acción con el desglose económico completo, creación del documento

@@ -2,12 +2,12 @@
 name: masc-acuerdos
 description: >
   Produce los documentos del requisito de procedibilidad de los medios adecuados de solución de
-  controversias (MASC) introducido por la Ley Orgánica 1/2025, de 2 de enero, de medidas en materia de
-  eficiencia del Servicio Público de Justicia, exigible en el orden civil desde el 3 de abril de 2025:
+  controversias (MASC) introducido por la **Ley Orgánica 1/2025, de 2 de enero, de medidas en materia de
+  eficiencia del Servicio Público de Justicia**, que impone el intento de negociación previa como requisito para poder demandar en el orden civil, exigible en el orden civil desde el 3 de abril de 2025:
   el requerimiento de negociación con que se inicia la actividad negociadora, el acta que acredita el
   intento y su resultado, la oferta vinculante confidencial, el acuerdo transaccional que pone fin a la
   controversia y la declaración responsable de imposibilidad cuando el intento no puede llevarse a cabo.
-  Aplica la Ley Orgánica 1/2025 y los artículos de la Ley 1/2000 de Enjuiciamiento Civil que aquella
+  Aplica la Ley Orgánica 1/2025 y los artículos de la **Ley 1/2000 de Enjuiciamiento Civil** que aquella
   reforma, en sus versiones consolidadas vigentes verificadas en el BOE. Metodología: clasificación del
   documento y del medio empleado mediante formulario interactivo, control previo de si la materia está
   exceptuada del requisito, cómputo y comunicación de los plazos de suspensión de la prescripción y de

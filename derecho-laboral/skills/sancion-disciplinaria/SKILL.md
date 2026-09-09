@@ -4,9 +4,9 @@ description: >
   Genera los documentos del ejercicio de la potestad disciplinaria del empresario distinta del
   despido: carta de amonestación, carta de sanción por falta grave o muy grave con o sin suspensión
   de empleo y sueldo, pliego de cargos de apertura de expediente contradictorio y resolución del
-  expediente. Aplica los artículos 58 y 60.2 del texto refundido de la Ley del Estatuto de los
-  Trabajadores aprobado por Real Decreto Legislativo 2/2015 y los artículos 114 y 115 de la Ley
-  36/2011 reguladora de la Jurisdicción Social, en sus versiones consolidadas vigentes verificadas en
+  expediente. Aplica los artículos 58 y 60.2 del **texto refundido de la Ley del Estatuto de los
+  Trabajadores aprobado por Real Decreto Legislativo 2/2015**, norma básica que regula la potestad disciplinaria del empresario y la prescripción de las faltas, y los artículos 114 y 115 de la **Ley
+  36/2011 reguladora de la Jurisdicción Social**, que regula la impugnación judicial de las sanciones, en sus versiones consolidadas vigentes verificadas en
   el BOE, y toma la tipificación y graduación de faltas y el cuadro de sanciones del convenio
   colectivo aplicable, sin el cual no se redacta ninguna sanción. Metodología: clasificación de la
   gravedad y de las garantías del trabajador mediante formulario interactivo, plan de acción con

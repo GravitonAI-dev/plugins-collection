@@ -2,7 +2,7 @@
 name: compraventa-inmueble
 description: >
   Genera el documento que corresponda en una compraventa de vivienda entre particulares conforme al
-  Codigo Civil verificado en el BOE: contrato de arras o senal previo a la compraventa (Art. 1454 CC),
+  **Codigo Civil**, que regula el contrato de compraventa, las arras y las consecuencias del incumplimiento, verificado en el BOE: contrato de arras o senal previo a la compraventa (Art. 1454 CC),
   contrato privado de compraventa de vivienda completo (Arts. 1445 y siguientes CC) y requerimiento
   extrajudicial de cumplimiento por incumplimiento de un contrato ya firmado (Arts. 1124 y 1504 CC).
   Trata expresamente la clase de arras y su consecuencia, las cargas del inmueble, el reparto de

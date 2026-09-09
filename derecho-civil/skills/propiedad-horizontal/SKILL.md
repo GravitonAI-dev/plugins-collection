@@ -1,8 +1,7 @@
 ---
 name: propiedad-horizontal
 description: >
-  Genera el documento adecuado en materia de propiedad horizontal conforme a la Ley 49/1960 (LPH) y a la LEC
-  verificadas en el BOE: certificacion del acuerdo de liquidacion de deuda (Art. 21.3 LPH), peticion inicial del
+  Genera el documento adecuado en materia de propiedad horizontal conforme a la **Ley 49/1960 de Propiedad Horizontal (LPH)**, que regula las comunidades de propietarios, sus acuerdos y las cuotas, y a la **Ley 1/2000 de Enjuiciamiento Civil (LEC)** verificadas en el BOE: certificacion del acuerdo de liquidacion de deuda (Art. 21.3 LPH), peticion inicial del
   proceso monitorio especial de cuotas de comunidad (Art. 21 LPH y Art. 812.2.2º LEC), demanda de juicio ordinario
   de impugnacion de acuerdos de junta (Art. 18 LPH y Art. 249.1.8º LEC) y requerimiento de cesacion de actividad
   prohibida o molesta del presidente al infractor (Art. 7.2 LPH). NO usar para la administracion de fincas

@@ -5,7 +5,7 @@ description: >
   checklist de inscripcion en el registro autonomico de parejas de hecho, con los requisitos, la
   documentacion y el tramite verificados en el lanzamiento contra la normativa de la comunidad
   autonoma concreta; (2) CONVIVENCIA — pacto de convivencia otorgado al amparo del articulo 1255 del
-  Codigo Civil, que regula el regimen de los bienes de cada uno, los bienes adquiridos en comun y las
+  **Codigo Civil**, que regula el regimen de los bienes de cada uno, los bienes adquiridos en comun y las
   aportaciones desiguales (arts. 392 a 406 CC), la vivienda, la contribucion a los gastos, las deudas
   y, si asi se pacta expresamente, una compensacion economica por la dedicacion a la familia o al
   negocio del otro; y (3) RUPTURA — pacto de extincion de la convivencia y liquidacion de la comunidad

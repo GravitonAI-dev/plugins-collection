@@ -4,9 +4,9 @@ description: >
   Genera los escritos de impugnación de resoluciones en materia de prestaciones de Seguridad Social:
   reclamación administrativa previa ante la entidad gestora, escrito de disconformidad con el alta
   médica, solicitud de revisión del grado de incapacidad permanente y demanda ante el Juzgado de lo
-  Social una vez agotada la vía previa. Aplica la Ley General de la Seguridad Social aprobada por Real
-  Decreto Legislativo 8/2015 y los artículos 71 y 140 a 147 de la Ley 36/2011 reguladora de la
-  Jurisdicción Social, en sus versiones consolidadas vigentes verificadas en el BOE. Su función
+  Social una vez agotada la vía previa. Aplica la **Ley General de la Seguridad Social aprobada por Real
+  Decreto Legislativo 8/2015**, que regula las prestaciones del sistema y los requisitos para acceder a ellas, y los artículos 71 y 140 a 147 de la **Ley 36/2011 reguladora de la
+  Jurisdicción Social**, que regula la reclamación previa y el proceso en materia de prestaciones, en sus versiones consolidadas vigentes verificadas en el BOE. Su función
   crítica es de control de plazos y de vía: en esta materia la conciliación previa está exceptuada
   pero la reclamación administrativa previa es requisito inexcusable, y los plazos son breves y de
   caducidad. Metodología: clasificación de la materia y la entidad gestora mediante formulario

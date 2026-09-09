@@ -65,6 +65,10 @@ description: >
   consolidado y verificado en fuentes oficiales, metodología operativa (clasificación inicial de
   vectores mediante formulario interactivo, plan de acción y negociación de assets vía chat,
   creación del documento base en workspace y edición incremental cláusula a cláusula / sección a sección).
+  Si la skill se basa en una ley concreta, esa ley DEBE aparecer aquí con su nombre y número,
+  en negrita con doble asterisco, seguida de una frase breve que explique qué regula
+  (ej. la **Ley 29/1994 de Arrendamientos Urbanos (LAU)**, que rige los alquileres de vivienda y
+  de uso distinto). Esta description es la que se muestra en la tarjeta (card) de la skill.
   Delimitación negativa explícita: NO usar para X, Y, Z.]
 when_to_use: |
   - [Caso de activación específico 1]

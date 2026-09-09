@@ -2,7 +2,7 @@
 name: liquidacion-impuesto-sucesiones
 description: >
   Prepara la autoliquidacion del Impuesto sobre Sucesiones y Donaciones (modelo 650, adquisiciones
-  mortis causa) de un heredero conforme a la Ley 29/1987 (LISD) y a su Reglamento (RD 1629/1991)
+  mortis causa) de un heredero conforme a la **Ley 29/1987 del Impuesto sobre Sucesiones y Donaciones (LISD)**, que regula el hecho imponible, las reducciones y la cuota del impuesto, y a su **Reglamento (RD 1629/1991)**
   en su version consolidada vigente verificada en el BOE, combinada con la normativa autonomica vigente
   de la comunidad autonoma competente verificada en vivo. Opera bajo el flujo de 5 fases canonicas con
   clasificacion HITL, consulta de assets, creacion zero-vacios en workspace y edicion incremental seccion

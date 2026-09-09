@@ -2,7 +2,7 @@
 name: liquidacion-gananciales
 description: >
   Genera los documentos para liquidar la sociedad de gananciales conforme a los Arts. 1392 y 1396 a 1410 del
-  Codigo Civil y a los Arts. 806 a 810 de la LEC, verificados en el BOE: (1) CON ACUERDO — convenio de
+  **Codigo Civil**, que regula la sociedad de gananciales, su disolucion y su liquidacion, y a los Arts. 806 a 810 de la **Ley 1/2000 de Enjuiciamiento Civil (LEC)**, verificados en el BOE: (1) CON ACUERDO — convenio de
   liquidacion con la estructura de inventario, avaluo, liquidacion y adjudicaciones, que puede documentarse de
   forma autonoma, elevarse a escritura publica si hay inmuebles, o integrarse en el convenio regulador del
   divorcio (Art. 90.1.e) CC); y (2) SIN ACUERDO — propuesta de inventario del Art. 808.2 LEC y solicitud

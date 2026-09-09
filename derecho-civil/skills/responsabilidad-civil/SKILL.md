@@ -2,7 +2,7 @@
 name: responsabilidad-civil
 description: >
   Genera el escrito adecuado para reclamar la indemnizacion de los danos y perjuicios sufridos por un
-  perjudicado, con la normativa verificada en el BOE: reclamacion extrajudicial de danos (que interrumpe
+  perjudicado, conforme al **Codigo Civil**, que regula la obligacion de reparar el dano causado por incumplimiento o por culpa, (Arts. 1902 y ss.) y al **Texto Refundido de la Ley sobre responsabilidad civil y seguro en la circulacion de vehiculos a motor (TRLRCSCVM, Real Decreto Legislativo 8/2004)**, que regula la responsabilidad y el seguro obligatorio en los accidentes de circulacion, verificados en el BOE: reclamacion extrajudicial de danos (que interrumpe
   la prescripcion del Art. 1973 CC, abre la actividad negociadora previa del Art. 5 LO 1/2025 y, en
   circulacion, constituye la reclamacion previa al asegurador del Art. 7.1 TRLRCSCVM), demanda de
   responsabilidad civil contractual (Arts. 1101 y 1103 CC) o extracontractual (Arts. 1902, 1903, 1907 y

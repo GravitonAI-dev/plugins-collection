@@ -6,7 +6,7 @@ description: >
   en el alta con epigrafe IAE y eleccion de regimen de IVA e IRPF; en la baja con la fecha efectiva de
   cese y sus efectos en IVA e IRPF) y (2) el alta o la baja en el RETA de la Seguridad Social (en el alta,
   eleccion de base segun rendimientos netos previstos y tarifa plana; en la baja, comunicacion del cese
-  y efectos en la cuota), conforme a la Ley 20/2007 (LETA) y al RD-ley 13/2022 en su version consolidada
+  y efectos en la cuota), conforme a la **Ley 20/2007 del Estatuto del Trabajo Autonomo (LETA)**, que regula el regimen profesional del trabajador autonomo, y al **RD-ley 13/2022**, que establece la cotizacion por ingresos reales, en su version consolidada
   verificada en el BOE. Opera bajo el flujo de 5 fases canonicas con clasificacion HITL, consulta de assets,
   creacion zero-vacios en workspace y edicion incremental seccion a seccion. NO usar para altas ni bajas de
   sociedades mercantiles (SL/SA), autonomos societarios o colaboradores sin revision letrada, ni para el calculo
@@ -79,10 +79,12 @@ Para garantizar un enrutamiento determinista y el cumplimiento de las normas tri
 
 Tu primer objetivo es determinar el tipo de trámite y el encuadre operativo.
 
-### 1.1 Escucha Activa Previa
-Antes de invocar formularios, evalúa el mensaje inicial del usuario:
-- Si el usuario ya indicó de forma inequívoca si desea tramitar un alta o una baja, su actividad y si solicita tarifa plana, registra los vectores en silencio y avanza a la **Fase 2**.
-- Si falta determinar la operación principal (`V1`) o el encuadre de cotización (`V4`), invoca de inmediato la herramienta `restricted_human_in_the_loop_request`.
+### 1.1 Apertura Inmediata y Escucha Activa Previa
+En el mismo turno en que se activa la skill, sin detenerte a esperar ninguna reacción del usuario, actúa de inmediato:
+1. **Anuncio de Apertura (Vía Chat):** Envía primero un mensaje breve y cordial, en el registro formal de un gestor administrativo (de usted), confirmando que vas a ayudarle a preparar el alta o la baja de autónomo (trámite censal ante la AEAT y trámite en el RETA de la Seguridad Social).
+2. **Escucha Activa:** Evalúa en ese mismo turno el mensaje inicial del usuario y el historial de la conversación:
+   - Si el usuario ya indicó de forma inequívoca si desea tramitar un alta o una baja, su actividad y si solicita tarifa plana, registra los vectores en silencio y avanza directamente a la **Fase 2**.
+   - Si falta determinar la operación principal (`V1`) o el encuadre de cotización (`V4`), invoca ya en ese mismo turno, junto con el anuncio de apertura, la herramienta `restricted_human_in_the_loop_request`. No emitas el anuncio como mensaje aislado a la espera de que el usuario reaccione: el anuncio y el formulario de clasificación viajan juntos, en el mismo turno.
 
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
 Invoca la herramienta con las preguntas de triaje:

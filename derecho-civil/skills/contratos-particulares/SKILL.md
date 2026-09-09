@@ -1,7 +1,7 @@
 ---
 name: contratos-particulares
 description: >
-  Genera el contrato adecuado para una operacion patrimonial entre particulares, conforme al Codigo Civil
+  Genera el contrato adecuado para una operacion patrimonial entre particulares, conforme al **Codigo Civil**, que regula las obligaciones y los contratos entre particulares,
   verificado en el BOE: contrato de prestamo de dinero entre particulares (simple prestamo o mutuo, Arts.
   1740 y 1753 a 1757 CC, con control de usura conforme a la Ley de 23 de julio de 1908), reconocimiento de
   deuda y compromiso de pago (Arts. 1255, 1274 a 1277 y 1973 CC), contrato de comodato o prestamo de uso

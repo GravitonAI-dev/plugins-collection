@@ -2,7 +2,7 @@
 name: desahucio
 description: >
   Genera el documento adecuado para recuperar la posesion de una finca urbana, eligiendo la via
-  correcta conforme a la LEC verificada en el BOE: demanda de juicio verbal de desahucio por falta
+  correcta conforme a la **Ley 1/2000 de Enjuiciamiento Civil (LEC)**, que regula el juicio verbal de desahucio y sus requisitos de admision, verificada en el BOE: demanda de juicio verbal de desahucio por falta
   de pago de rentas (con opcion de acumular la reclamacion de las rentas debidas, Art. 437.4.3ª LEC),
   demanda de desahucio por expiracion del plazo contractual o legal (Art. 250.1.1º LEC), demanda de
   desahucio por precario (Art. 250.1.2º LEC) y acuerdo extrajudicial de condonacion de rentas a cambio

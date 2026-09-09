@@ -3,8 +3,8 @@ name: extranjeria-residencia
 description: >
   Prepara el tramite administrativo de solicitud del Numero de Identidad de Extranjero (NIE) o de
   autorizacion de residencia (residencia temporal no lucrativa, residencia por arraigo, reagrupacion
-  familiar u otra) ante la Oficina de Extranjeria, conforme a la Ley Organica 4/2000 (LOEX) y al
-  Reglamento de Extranjeria (RD 1155/2024, en vigor desde el 20/05/2025) verificados en el BOE.
+  familiar u otra) ante la Oficina de Extranjeria, conforme a la **Ley Organica 4/2000 de Extranjeria (LOEX)**, que regula los derechos y la situacion administrativa de los extranjeros en Espana, y al
+  **Reglamento de Extranjeria (RD 1155/2024, en vigor desde el 20/05/2025)**, que desarrolla los procedimientos de autorizacion y sus requisitos, verificados en el BOE.
   Opera bajo el flujo de 5 fases canonicas con clasificacion HITL, consulta de assets, creacion
   zero-vacios en workspace y edicion incremental seccion a seccion. Genera la hoja de datos para el
   formulario EX correspondiente, el escrito motivado de solicitud, el checklist de documentos y la

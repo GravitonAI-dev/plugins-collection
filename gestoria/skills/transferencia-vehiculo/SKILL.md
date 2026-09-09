@@ -2,8 +2,7 @@
 name: transferencia-vehiculo
 description: >
   Prepara el tramite administrativo de cambio de titularidad (transferencia) de un vehiculo usado ante
-  la DGT y, en su caso, la notificacion de venta por el vendedor, conforme al Reglamento General de
-  Vehiculos (RD 2822/1998, texto consolidado verificado en el BOE) y a la normativa de tasas de la DGT.
+  la DGT y, en su caso, la notificacion de venta por el vendedor, conforme al **Reglamento General de Vehiculos (RD 2822/1998)**, que regula la matriculacion y los cambios de titularidad de los vehiculos, en su texto consolidado verificado en el BOE y a la normativa de tasas de la DGT.
   Opera bajo el flujo de 5 fases canonicas con clasificacion HITL, consulta de assets, creacion zero-vacios
   en workspace y edicion incremental seccion a seccion. Genera el contrato de compraventa, la hoja de datos
   para la solicitud en la DGT, la notificacion de venta y el checklist de documentos, tasas y liquidacion

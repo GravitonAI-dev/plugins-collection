@@ -5,8 +5,8 @@ description: >
   registro de actividades de tratamiento, contrato de encargado de tratamiento con proveedores o con
   clientes, cláusula informativa para clientes y para terceros afectados, compromiso de
   confidencialidad del personal y colaboradores, y registro de brechas de seguridad con su análisis de
-  riesgo. Aplica el Reglamento (UE) 2016/679 y la Ley Orgánica 3/2018 de Protección de Datos
-  Personales y garantía de los derechos digitales, en sus versiones consolidadas vigentes verificadas
+  riesgo. Aplica el **Reglamento (UE) 2016/679**, norma europea de protección de datos de aplicación directa, y la **Ley Orgánica 3/2018 de Protección de Datos
+  Personales y garantía de los derechos digitales**, que la adapta y completa en el ordenamiento español, en sus versiones consolidadas vigentes verificadas
   en el BOE y en el Diario Oficial de la Unión Europea. Atiende a las dos particularidades del
   despacho como responsable: el **secreto profesional**, que modula el ejercicio de los derechos de
   los interesados y el acceso de terceros, y el tratamiento habitual de **categorías especiales de

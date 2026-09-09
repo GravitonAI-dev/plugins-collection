@@ -6,8 +6,8 @@ description: >
   con el modelo TA.1; (2) inscripcion de empresa y apertura del Codigo de Cuenta de Cotizacion (CCC),
   y sus variaciones o baja, con el modelo TA.6; (3) alta y baja de trabajadores por cuenta ajena en el
   Regimen General por el empleador via Sistema RED o Import@ss; (4) alta y baja de empleadas de hogar
-  (Sistema Especial del Regimen General), conforme al texto refundido de la LGSS (RD-legislativo 8/2015)
-  y al Reglamento general de inscripcion, afiliacion, altas y bajas (RD 84/1996), en su version consolidada
+  (Sistema Especial del Regimen General), conforme al **texto refundido de la Ley General de la Seguridad Social (LGSS, RD-legislativo 8/2015)**, que regula la afiliacion, las altas y las bajas de trabajadores y empresas,
+  y al **Reglamento general de inscripcion, afiliacion, altas y bajas (RD 84/1996)**, en su version consolidada
   vigente verificada en el BOE. Opera bajo el flujo de 5 fases canonicas con clasificacion HITL, consulta de assets,
   creacion zero-vacios en workspace y edicion incremental seccion a seccion. NO usar para el alta de autonomos en el
   RETA (usar la skill alta-baja-autonomo), ni para el calculo definitivo de cuotas, expedientes de

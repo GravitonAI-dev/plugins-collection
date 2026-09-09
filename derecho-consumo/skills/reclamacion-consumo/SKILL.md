@@ -4,8 +4,8 @@ description: >
   Genera los documentos del itinerario extrajudicial de una reclamación de consumo en España: la
   reclamación previa dirigida a la empresa, la hoja oficial de quejas y reclamaciones, el escrito ante
   la administración autonómica o municipal de consumo y la solicitud de arbitraje de consumo. Aplica el
-  texto refundido de la Ley General para la Defensa de los Consumidores y Usuarios y el Reglamento del
-  Sistema Arbitral de Consumo aprobado por Real Decreto 713/2024, que derogó el Real Decreto 231/2008
+  **texto refundido de la Ley General para la Defensa de los Consumidores y Usuarios**, que define los derechos básicos del consumidor y el deber de la empresa de atender sus reclamaciones, y el **Reglamento del
+  Sistema Arbitral de Consumo aprobado por Real Decreto 713/2024**, que regula el procedimiento arbitral de consumo y derogó el Real Decreto 231/2008
   con efectos desde el 13 de agosto de 2024, en sus versiones consolidadas vigentes verificadas en el
   BOE, y contrasta el procedimiento con la normativa de consumo de la comunidad autónoma, que fija el
   modelo de hoja y el organismo competente. Metodología: comprobación previa de la condición de

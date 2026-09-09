@@ -2,9 +2,9 @@
 name: reclamacion-clausulas-abusivas
 description: >
   Genera escritos para reclamar la nulidad de clausulas abusivas en contratos con consumidores y la
-  restitucion de las cantidades indebidamente cobradas, conforme al Texto Refundido de la Ley General
-  para la Defensa de los Consumidores y Usuarios (TRLGDCU, Real Decreto Legislativo 1/2007), la Ley
-  7/1998 de Condiciones Generales de la Contratacion (LCGC) y la Directiva 93/13/CEE, en su version
+  restitucion de las cantidades indebidamente cobradas, conforme al **Texto Refundido de la Ley General
+  para la Defensa de los Consumidores y Usuarios (TRLGDCU, Real Decreto Legislativo 1/2007)**, que define los derechos basicos del consumidor y el control de las clausulas abusivas, la **Ley
+  7/1998 de Condiciones Generales de la Contratacion (LCGC)** y la **Directiva 93/13/CEE**, en su version
   consolidada vigente verificada en el BOE. Produce, a eleccion del usuario, una RECLAMACION
   EXTRAJUDICIAL a la entidad o empresa, o una DEMANDA de nulidad con restitucion de cantidades e
   intereses. Cubre gastos de formalizacion de hipoteca, clausula suelo, IRPH, comision de apertura,
