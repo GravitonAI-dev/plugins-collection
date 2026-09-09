@@ -15,7 +15,7 @@ when_to_use: |
   - El usuario desea registrar una plantilla general de usuario (global, sin skill) para reutilización en la plataforma.
   - El usuario desea crear una plantilla desde cero de manera asistida y guiada.
   - El usuario desea convertir en plantilla un texto pegado en el chat o un archivo abierto en el editor (workspace).
-  - El usuario desea actualizar una plantilla de usuario ya existente a partir de un archivo del editor (workspace).
+  - El usuario actualiza una plantilla existente o requiere asistencia consultiva especificando un archivo del workspace (ej. *"Requiero asistencia con la plantilla (template-carta-de-presentacion.md)"*).
 inputs:
   - alcance_plantilla: plantilla para una skill / global (sin skill) (V1)
   - origen_contenido: texto en el chat / abrir archivo en el editor (workspace) / creación asistida (desde cero) (V2)
@@ -80,6 +80,9 @@ Tu primer objetivo es identificar el alcance (`V1`), la vía de especificación 
 Antes de formular preguntas o abrir formularios, analiza el mensaje inicial del usuario y el contexto:
 - Si el usuario ya especificó con claridad el alcance y la vía (ej: *"Quiero actualizar la plantilla de arrendamiento de vivienda de la skill arrendamiento-urbano con el archivo contrato.md del workspace"* o *"Quiero crear una plantilla global desde cero para un modelo de recibo de pago"*):
   - Fija silenciosamente los vectores correspondientes y avanza a la fase oportuna.
+- **Si el usuario especifica un archivo del workspace solicitando asistencia (ej. *"Requiero asistencia con la plantilla (template-carta-de-presentacion.md)"*):**
+  - Identifica el archivo en el editor (`V2 = archivo_workspace`), fija el alcance (`V1 = global` o `skill` según el nombre o contexto) y lee el contenido con `read_file`.
+  - Verifica inmediatamente su existencia con `check_user_template_exists(asset_name=...)`. Si `exists: true`, omite preguntas sobre `name`/`description` y despliega de inmediato el menú de opciones consultivas de la **Ruta 2.D** (*1. Convertir datos a placeholders genéricos*, *2. Mejorar el contenido*, *3. Actualizar contenido*).
 - Si restan parámetros por definir, guía al usuario consultivamente o mediante `restricted_human_in_the_loop_request`.
 
 ### 1.2 Determinación del Alcance (V1: Skill vs Global)
@@ -97,11 +100,12 @@ El usuario dispone de dos opciones principales:
    - Su identificador se normaliza automáticamente al formato `template-<slug>.md`.
    - **Evaluación obligatoria de existencia previa:**
      * Ante cualquier solicitud de guardar o registrar una plantilla global a partir de un archivo del workspace (o cuando haya un documento activo en `# WORKSPACE ACTIVE DOCUMENTS`), el asistente DEBE invocar OBLIGATORIAMENTE `check_user_template_exists(asset_name=...)` pasando el nombre del archivo.
-     * **Si la herramienta retorna `exists: true` (plantilla preexistente):**
-       - La plantilla YA está registrada en el sistema.
-       - Queda **TERMINANTEMENTE PROHIBIDO** solicitar al usuario el nombre (`name`) o la descripción (`description`), ni en chat ni mediante formularios (`slot_filling_request` o `human_in_the_loop_request`).
-       - Enrutamiento obligatorio a modo `update_user` (`update_user_template`).
-       - Procede a actualizar directamente mediante `update_user_template(asset_name=..., template_content=...)`.
+      * **Si la herramienta retorna `exists: true` (plantilla preexistente):**
+        - La plantilla YA está registrada en el sistema.
+        - Queda **TERMINANTEMENTE PROHIBIDO** solicitar al usuario el nombre (`name`) o la descripción (`description`), ni en chat ni mediante formularios (`slot_filling_request` o `human_in_the_loop_request`).
+        - Enrutamiento obligatorio a modo `update_user` (`update_user_template`).
+        - **Asistencia consultiva:** Si el usuario solicita asistencia con la plantilla (o no ha solicitado un volcado directo inmediato), activar el menú de asistencia consultiva (Ruta 2.D): *1. Convertir datos a placeholders genéricos*, *2. Mejorar el contenido*, o *3. Actualizar contenido*.
+        - Si el documento ya está finalizado y conforme, procede directamente a la Fase 4 para previsualización y confirmación de guardado.
      * **Si la herramienta retorna `exists: false` (plantilla nueva no registrada):**
        - Modo `save_user` (`save_user_template`).
        - Solo en este caso se requiere acordar o solicitar el nombre formal (`name`) y la descripción de uso (`description`), procediendo con `save_user_template`.
@@ -148,7 +152,7 @@ Procesa la fuente o elabora la plantilla abstracta parametrizada en memoria:
      "asset_name": "<nombre_del_archivo_o_asset.md>"
    }
    ```
-   - **Si `exists: true`:** La plantilla ya está registrada en el sistema. Conserva su `asset_name` canónico y enruta obligatoriamente a `update_user_template`. Queda **TERMINANTEMENTE PROHIBIDO** solicitar `name` o `description` al usuario (ni por chat ni con formularios).
+   - **Si `exists: true`:** La plantilla ya está registrada en el sistema. Conserva su `asset_name` canónico y enruta obligatoriamente a `update_user_template`. Queda **TERMINANTEMENTE PROHIBIDO** solicitar `name` o `description` al usuario (ni por chat ni con formularios). Si el usuario requiere asistencia para trabajar sobre la plantilla, activa el menú consultivo de la **Ruta 2.D**.
    - **Si `exists: false`:** La plantilla es nueva en el sistema. Enruta a `save_user_template` y solicita/acuerda `name` y `description`.
 5. Si el archivo contiene datos de casos particulares, aplica la parametrización de variables `{{VARIABLE}}` y anonimización de PII.
 6. **Ajustes opcionales en el editor:** Si el usuario desea retocar o perfeccionar cláusulas del archivo antes de persistirlo, utiliza `edit_file` para aplicar los cambios directamente en el editor.
@@ -169,6 +173,34 @@ Cuando el usuario desea crear la plantilla desde cero:
 4. **Refinamiento incremental y redacción colaborativa (`edit_file`):**
    - A medida que se redactan estipulaciones detalladas o el usuario solicita cambios sobre cláusulas o variables, aplica las modificaciones sobre el archivo del workspace mediante `edit_file(relative_file_path=..., old_string=..., new_string=...)`.
    - Consulta o verifica el contenido consolidado mediante `read_file`.
+
+### Ruta 2.D — Asistencia Consultiva sobre Plantilla Preexistente
+Este caso de uso se identifica típicamente cuando el usuario especifica un archivo del workspace solicitando apoyo (ej. *"Requiero asistencia con la plantilla (template-carta-de-presentacion.md)"*), o cuando se procesa un archivo o texto preexistente donde `check_user_template_exists` confirma que ya está registrada (`exists: true`) y el usuario no ha ordenado una sobreescritura directa e inmediata sin cambios.
+
+El asistente lee el archivo del workspace mediante `read_file` (si no lo ha hecho previamente) y despliega en el chat de forma ordenada y accesible el siguiente menú consultivo:
+
+> **Opciones disponibles para tu plantilla:**
+> 1. **Convertir datos a placeholders genéricos:** Anonimizar datos de carácter personal (PII) o ejemplos específicos (nombres, fechas, importes, domicilios) y convertirlos en variables reutilizables `{{VARIABLE}}` en mayúsculas con guiones bajos, conforme a `references/reglas-parametrizacion-plantillas.md`.
+> 2. **Mejorar el contenido:** Optimizar la redacción jurídica/técnica, clarificar estipulaciones complejas o ambiguas, perfeccionar la jerarquía de encabezados Markdown o sugerir cláusulas estándar recomendadas según el tipo de documento.
+> 3. **Actualizar contenido:** Incorporar directamente los cambios o ajustes aportados por el usuario y preparar la plantilla para su registro actualizado.
+
+**Procedimiento según la elección del usuario:**
+- **Si elige opción 1 (Convertir datos a placeholders genéricos):**
+  1. Escanea el contenido para localizar datos personales (PII) o valores particulares de ejemplos previos.
+  2. Muestra un inventario claro en el chat con los datos detectados y la propuesta de nombres de variable `{{NOMBRE_VARIABLE}}`.
+  3. Si el archivo está en el workspace, aplica las sustituciones mediante `edit_file` para que el usuario pueda visualizar la plantilla parametrizada en tiempo real en el editor; si provino de texto en el chat, muestra el borrador parametrizado.
+  4. Pregunta al usuario si desea realizar mejoras adicionales o proceder al guardado.
+- **Si elige opción 2 (Mejorar el contenido):**
+  1. Analiza el documento evaluando coherencia normativa, completitud de estipulaciones clave y ausencia de comentarios HTML condicionales.
+  2. Propone redacciones perfeccionadas o cláusulas sugeridas para robustecer la minuciosidad del documento.
+  3. Tras la conformidad del usuario, aplica los cambios sobre el archivo en el editor mediante `edit_file`.
+  4. Verifica si restan placeholders por parametrizar o avanza hacia la confirmación.
+- **Si elige opción 3 (Actualizar contenido):**
+  1. Integra directamente las modificaciones aportadas por el usuario sobre el borrador.
+  2. Verifica que no existan variables mal formateadas ni PII visible.
+  3. Avanza de inmediato a la Fase 3 y 4 para la previsualización final e inventario de variables.
+
+*(Nota: El usuario puede solicitar una combinación sucesiva de opciones, como mejorar primero la redacción y luego convertir datos a placeholders).*
 
 ---
 
@@ -283,4 +315,5 @@ Una vez ejecutada exitosamente la herramienta de persistencia:
 5. **Confirmación Previa Obligatoria:** Jamás invocar ninguna herramienta de persistencia sin previa presentación de la vista previa en el chat y confirmación afirmativa explícita del usuario (preguntando específicamente: *"¿Quieres que guarde en la sección de plantillas?"*).
 6. **Sin Adjuntos de Archivos:** Las únicas vías admitidas para especificar plantillas preexistentes son texto en el chat y abrir archivo en el editor (archivos del workspace). Queda estrictamente excluida la opción de adjuntar archivos.
 7. **Prohibición de Solicitud Redundante de Metadatos:** En plantillas globales de usuario preexistentes verificadas mediante `check_user_template_exists(asset_name=...)` (`exists: true`), queda estrictamente prohibido solicitar al usuario el nombre formal (`name`) o la descripción (`description`). Se debe guardar de inmediato mediante `update_user_template()`.
+8. **Asistencia Consultiva en Plantillas Preexistentes:** Ante plantillas ya registradas en las que el usuario solicite orientación o no ordene una actualización inmediata cerrada, el asistente DEBE presentar el menú consultivo de trabajo (*Convertir datos a placeholders genéricos*, *Mejorar el contenido*, *Actualizar contenido*) antes de forzar el guardado, manteniendo en todo momento la prohibición de solicitar metadatos redundantes (`name`/`description`).
 
