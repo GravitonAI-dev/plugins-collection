@@ -51,6 +51,7 @@ Al transformar un documento de muestra en una plantilla reutilizable o al crearl
 ### 1.1 Pautas para la Aplicación de Cambios en el Workspace (`edit_file`)
 - **Coincidencia Literal (No Regex):** El parámetro `old_string` de `edit_file` busca coincidencia exacta de texto literal. **NUNCA utilices caracteres de escape como `\.`, `\(`, `\)` o `\[`**, ya que provocarán que la búsqueda falle.
 - **Edición por Bloques o Secciones Coherentes:** Para evitar agotar el límite de iteraciones de herramientas del orquestador, **no realices micro-sustituciones palabra por palabra**. Agrupa los reemplazos por bloques multilínea completos (ej. todo el encabezado de fecha y remitente, todo el bloque de destinatario, párrafos completos o el pie de firmas).
+- **Completitud en el Turno:** Aplica de forma continua y autónoma todas las parametrizaciones en el mismo turno hasta culminar la totalidad del documento, sin detenerte a pedir confirmaciones intermedias.
 
 ---
 
