@@ -134,7 +134,7 @@ Procesa la fuente o elabora la plantilla abstracta parametrizada en memoria:
 ### Ruta 2.A — Texto en el Chat (Pegar Directamente)
 1. Extrae el texto íntegro proporcionado por el usuario en `<user_message>`.
 2. Si el mensaje está incompleto o falta el texto, solicita amablemente al usuario que pegue el contenido.
-3. Procede a la anonimización de PII y parametrización de variables `{{NOMBRE_VARIABLE}}` en mayúsculas y con guion bajo, según `references/reglas-parametrizacion-plantillas.md`.
+3. Procede a la parametrización de variables `{{NOMBRE_VARIABLE}}` en mayúsculas y con guion bajo, según `references/reglas-parametrizacion-plantillas.md`.
 
 ### Ruta 2.B — Abrir Archivo en el Editor (Archivos del Workspace)
 1. Identifica el nombre o ruta relativa del archivo en el workspace indicado por el usuario (ej: `minuta.md`, `template-modelo-de-demanda.md`) o presente en `# WORKSPACE ACTIVE DOCUMENTS`.
@@ -154,7 +154,7 @@ Procesa la fuente o elabora la plantilla abstracta parametrizada en memoria:
    ```
    - **Si `exists: true`:** La plantilla ya está registrada en el sistema. Conserva su `asset_name` canónico y enruta obligatoriamente a `update_user_template`. Queda **TERMINANTEMENTE PROHIBIDO** solicitar `name` o `description` al usuario (ni por chat ni con formularios). Si el usuario requiere asistencia para trabajar sobre la plantilla, activa el menú consultivo de la **Ruta 2.D**.
    - **Si `exists: false`:** La plantilla es nueva en el sistema. Enruta a `save_user_template` y solicita/acuerda `name` y `description`.
-5. Si el archivo contiene datos de casos particulares, aplica la parametrización de variables `{{VARIABLE}}` y anonimización de PII.
+5. Si el archivo contiene datos de casos particulares o ejemplos, aplica la parametrización de variables `{{VARIABLE}}`.
 6. **Ajustes opcionales en el editor:** Si el usuario desea retocar o perfeccionar cláusulas del archivo antes de persistirlo, utiliza `edit_file` para aplicar los cambios directamente en el editor.
 
 ### Ruta 2.C — Creación Asistida (Desde Cero)
@@ -189,7 +189,7 @@ El asistente lee el archivo del workspace mediante `read_file` (si no lo ha hech
       "options": [
         {
           "id": "convertir_placeholders",
-          "label": "Convertir datos a placeholders genéricos (anonimizar PII y crear variables {{VARIABLE}})"
+          "label": "Convertir datos a placeholders genéricos (parametrizar variables {{VARIABLE}})"
         },
         {
           "id": "mejorar_contenido",
@@ -207,7 +207,7 @@ El asistente lee el archivo del workspace mediante `read_file` (si no lo ha hech
 
 **Procedimiento según la opción seleccionada por el usuario en el formulario:**
 - **Si selecciona `convertir_placeholders` (Convertir datos a placeholders genéricos):**
-  1. Escanea el contenido para localizar datos personales (PII) o valores particulares de ejemplos previos.
+  1. Escanea el contenido para localizar valores concretos o datos particulares de ejemplos previos (nombres, fechas, importes, referencias).
   2. Muestra un inventario claro en el chat con los datos detectados y la propuesta de nombres de variable `{{NOMBRE_VARIABLE}}` conforme a `references/reglas-parametrizacion-plantillas.md`.
   3. Si el archivo está en el workspace, aplica las sustituciones mediante `edit_file` para que el usuario pueda visualizar la plantilla parametrizada en tiempo real en el editor; si provino de texto en el chat, muestra el borrador parametrizado.
   4. Pregunta al usuario si desea realizar mejoras adicionales o proceder al guardado.
@@ -218,7 +218,7 @@ El asistente lee el archivo del workspace mediante `read_file` (si no lo ha hech
   4. Verifica si restan placeholders por parametrizar o avanza hacia la confirmación.
 - **Si selecciona `actualizar_contenido` (Actualizar contenido):**
   1. Integra directamente las modificaciones aportadas por el usuario sobre el borrador.
-  2. Verifica que no existan variables mal formateadas ni PII visible.
+  2. Verifica que no existan variables mal formateadas y que la estructura sea correcta.
   3. Avanza de inmediato a la Fase 3 y 4 para la previsualización final e inventario de variables.
 
 *(Nota: Si el usuario desea combinar varias acciones, como mejorar primero la redacción y luego convertir datos a placeholders, el asistente atenderá secuencialmente cada mejora solicitada).*
@@ -237,7 +237,6 @@ Si la plantilla está destinada a una skill especializada del sistema, **DEBES v
 2. **Coherencia Temática y Procedimental:** El documento debe cubrir el trámite y la función exacta que la skill gestiona (ej. no admitir una minuta de compraventa para un asset de arrendamiento, ni una comunicación para un contrato sustantivo).
 3. **Cobertura de Variables Obligatorias:** La plantilla DEBE contener los marcadores `{{VARIABLE}}` que corresponden a los inputs esenciales que la skill requiere y cumplimenta durante su ejecución (consultar los `inputs:` del `SKILL.md` de la skill destino: datos de las partes, objeto, importes, plazos, etc.).
 4. **Assets Limpios:** La plantilla NO debe contener comentarios HTML condicionales (ej. `<!-- Si persona física... -->`) ni pseudocódigo procedural.
-5. **Cero PII:** Cero datos reales de personas o casos particulares; todos deben estar abstraídos en marcadores `{{NOMBRE_VARIABLE}}`.
 
 > [!CAUTION]
 > ### POLÍTICA INQUEBRANTABLE ANTE INCOMPATIBILIDAD CON LA SKILL:
@@ -251,7 +250,6 @@ Si la plantilla está destinada a una skill especializada del sistema, **DEBES v
 ### 3.2 Verificación para Plantillas Globales (`V1` = `global`)
 - Verificar que el texto esté en Markdown limpio, con jerarquía coherente y sin comentarios condicionales HTML.
 - Verificar que todas las variables dinámicas sigan la convención `{{NOMBRE_VARIABLE}}`: mayúsculas, guion bajo entre palabras y dobles llaves.
-- Garantizar ausencia absoluta de PII.
 - Si es creación nueva (`save_user_template`), asegurar que se cuenta con `name` y `description` no vacíos y con sentido.
 
 ---
@@ -329,12 +327,11 @@ Una vez ejecutada exitosamente la herramienta de persistencia:
 
 ## Límites Legales y Guardrails de Dominio
 
-1. **Cero Datos Personales en Plantillas:** Queda estrictamente prohibido persistir plantillas que contengan PII o datos reales de partes concretas; todo dato particular debe abstraerse como variable `{{VARIABLE}}`.
-2. **Assets Limpios:** Las plantillas no deben contener comentarios HTML condicionales ni lógica procedural.
-3. **Separación entre Entorno de Trabajo en Editor y Registro en el Sistema:** La creación y edición de archivos en el workspace con `create_file` y `edit_file` funciona como borrador visual interactivo en el editor durante el proceso de diseño (especialmente en creación asistida). Sin embargo, el archivo en el workspace no reemplaza el registro oficial: la plantilla DEBE guardarse formalmente en el sistema mediante `set_skill_template()`, `update_user_template()` o `save_user_template()` tras la confirmación afirmativa del usuario.
-4. **Verificación Estricta de Compatibilidad con Skills:** Antes de persistir una plantilla de skill, verificar si es completamente compatible con la skill como tal. Si no lo es, NO GUARDAR e informar los detalles específicos a corregir.
-5. **Confirmación Previa Obligatoria:** Jamás invocar ninguna herramienta de persistencia sin previa presentación de la vista previa en el chat y confirmación afirmativa explícita del usuario (preguntando específicamente: *"¿Quieres que guarde en la sección de plantillas?"*).
-6. **Sin Adjuntos de Archivos:** Las únicas vías admitidas para especificar plantillas preexistentes son texto en el chat y abrir archivo en el editor (archivos del workspace). Queda estrictamente excluida la opción de adjuntar archivos.
-7. **Prohibición de Solicitud Redundante de Metadatos:** En plantillas globales de usuario preexistentes verificadas mediante `check_user_template_exists(asset_name=...)` (`exists: true`), queda estrictamente prohibido solicitar al usuario el nombre formal (`name`) o la descripción (`description`). Se debe guardar de inmediato mediante `update_user_template()`.
-8. **Asistencia Consultiva en Plantillas Preexistentes:** Ante plantillas ya registradas en las que el usuario solicite orientación o no ordene una actualización inmediata cerrada, el asistente DEBE presentar el menú de opciones (*Convertir datos a placeholders genéricos*, *Mejorar el contenido*, *Actualizar contenido*) mediante formulario interactivo (`restricted_human_in_the_loop_request`) antes de forzar el guardado, manteniendo en todo momento la prohibición de solicitar metadatos redundantes (`name`/`description`).
+1. **Assets Limpios:** Las plantillas no deben contener comentarios HTML condicionales ni lógica procedural.
+2. **Separación entre Entorno de Trabajo en Editor y Registro en el Sistema:** La creación y edición de archivos en el workspace con `create_file` y `edit_file` funciona como borrador visual interactivo en el editor durante el proceso de diseño (especialmente en creación asistida). Sin embargo, el archivo en el workspace no reemplaza el registro oficial: la plantilla DEBE guardarse formalmente en el sistema mediante `set_skill_template()`, `update_user_template()` o `save_user_template()` tras la confirmación afirmativa del usuario.
+3. **Verificación Estricta de Compatibilidad con Skills:** Antes de persistir una plantilla de skill, verificar si es completamente compatible con la skill como tal. Si no lo es, NO GUARDAR e informar los detalles específicos a corregir.
+4. **Confirmación Previa Obligatoria:** Jamás invocar ninguna herramienta de persistencia sin previa presentación de la vista previa en el chat y confirmación afirmativa explícita del usuario (preguntando específicamente: *"¿Quieres que guarde en la sección de plantillas?"*).
+5. **Sin Adjuntos de Archivos:** Las únicas vías admitidas para especificar plantillas preexistentes son texto en el chat y abrir archivo en el editor (archivos del workspace). Queda estrictamente excluida la opción de adjuntar archivos.
+6. **Prohibición de Solicitud Redundante de Metadatos:** En plantillas globales de usuario preexistentes verificadas mediante `check_user_template_exists(asset_name=...)` (`exists: true`), queda estrictamente prohibido solicitar al usuario el nombre formal (`name`) o la descripción (`description`). Se debe guardar de inmediato mediante `update_user_template()`.
+7. **Asistencia Consultiva en Plantillas Preexistentes:** Ante plantillas ya registradas en las que el usuario solicite orientación o no ordene una actualización inmediata cerrada, el asistente DEBE presentar el menú de opciones (*Convertir datos a placeholders genéricos*, *Mejorar el contenido*, *Actualizar contenido*) mediante formulario interactivo (`restricted_human_in_the_loop_request`) antes de forzar el guardado, manteniendo en todo momento la prohibición de solicitar metadatos redundantes (`name`/`description`).
 

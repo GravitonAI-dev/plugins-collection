@@ -38,9 +38,9 @@ Las únicas vías admitidas para proporcionar o generar el contenido de una plan
 
 ---
 
-## 1. Principio de Cero Datos Personales (PII)
+## 1. Parametrización y Abstracción de Datos Concretos a Variables
 
-Al transformar un documento real en una plantilla reutilizable o al crearla desde cero:
+Al transformar un documento de muestra en una plantilla reutilizable o al crearla desde cero:
 - **Nombres y Apellidos / Razones Sociales:** Sustituir por `{{NOMBRE_ARRENDADOR}}`, `{{NOMBRE_DEMANDANTE}}`, `{{RAZON_SOCIAL_EMPRESA}}`, `{{NOMBRE_REPRESENTANTE}}`.
 - **Identificadores Fiscales (DNI/NIE/CIF):** Sustituir por `{{NIF_ARRENDADOR}}`, `{{DNI_DEMANDANTE}}`, `{{CIF_ENTIDAD}}`, `{{NIE_SOLICITANTE}}`.
 - **Domicilios y Direcciones:** Sustituir por `{{DOMICILIO_NOTIFICACIONES}}`, `{{DIRECCION_INMUEBLE}}`, `{{MUNICIPIO}}`, `{{PROVINCIA}}`.
@@ -96,7 +96,7 @@ Antes de guardar una plantilla asignada a una skill del sistema (`set_skill_temp
 3. **Cobertura de Variables Esenciales de la Skill:**
    - La plantilla debe incluir los marcadores `{{VARIABLE}}` requeridos para los inputs que la skill recopila y cumplimenta en sus fases de trabajo (consultar los `inputs:` del `SKILL.md` de la skill destino: datos de partes, objeto, importes, plazos, etc.).
 4. **Ausencia de Directivas Prohibidas:**
-   - Verificar que no existan comentarios HTML de control de flujo (`<!-- Si ... -->`) ni datos personales reales sin anonimizar.
+   - Verificar que no existan comentarios HTML de control de flujo (`<!-- Si ... -->`) ni pseudocódigo procedural.
 
 ### Directiva de Rechazo por Incompatibilidad:
 > **SI LA PLANTILLA NO ES COMPLETAMENTE COMPATIBLE CON LA SKILL:**
@@ -119,7 +119,7 @@ Cuando el usuario registra o actualiza una plantilla general no asociada a una s
    - Se utiliza cuando la plantilla ya existe en el sistema/workspace (ej. identificada por su `asset_name`).
    - Requiere: `asset_name` y `template_content`.
    - **Modalidades de Asistencia Consultiva:** Si el usuario requiere apoyo para trabajar la plantilla antes de actualizarla, se presentan tres opciones mediante formulario interactivo (`restricted_human_in_the_loop_request`):
-     * *Convertir datos a placeholders genéricos:* Detección de datos particulares o PII y sustitución por variables `{{VARIABLE}}`.
+     * *Convertir datos a placeholders genéricos:* Identificación de datos concretos de ejemplo y sustitución por variables `{{VARIABLE}}`.
      * *Mejorar el contenido:* Optimización de redacción, claridad técnica/jurídica y estructuración en Markdown limpio.
      * *Actualizar contenido:* Integración directa de cláusulas o cambios aportados por el usuario.
 3. **Creación de Nueva Plantilla (`save_user_template`):**
