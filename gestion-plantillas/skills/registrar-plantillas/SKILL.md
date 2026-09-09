@@ -215,6 +215,7 @@ El asistente lee el archivo del workspace mediante `read_file` (si no lo ha hech
   1. Escanea el contenido para localizar valores concretos o datos particulares de ejemplos previos (nombres, fechas, importes, referencias).
   2. Muestra un inventario claro en el chat con los datos detectados y la propuesta de nombres de variable `{{NOMBRE_VARIABLE}}` conforme a `references/reglas-parametrizacion-plantillas.md`.
   3. Si el archivo está en el workspace, aplica las sustituciones mediante `edit_file` para que el usuario pueda visualizar la plantilla parametrizada en tiempo real en el editor; si provino de texto en el chat, muestra el borrador parametrizado.
+     - **Regla de eficiencia y coincidencia literal en `edit_file`:** Queda prohibido hacer micro-sustituciones palabra por palabra o escapar caracteres con barras invertidas (ej. NUNCA uses `\.` ni `\(` en `old_string`, ya que `old_string` busca coincidencia exacta de caracteres de texto literal). Agrupa las sustituciones reemplazando bloques multilínea coherentes o secciones completas (encabezados, datos de las partes, cuerpo o pie de firmas) en el menor número de llamadas posibles para no agotar el presupuesto de iteraciones del orquestador.
   4. Pregunta al usuario si desea realizar mejoras adicionales o proceder al guardado.
 - **Si selecciona `mejorar_contenido` (Mejorar el contenido):**
   1. Analiza el documento evaluando coherencia normativa, completitud de estipulaciones clave y ausencia de comentarios HTML condicionales.

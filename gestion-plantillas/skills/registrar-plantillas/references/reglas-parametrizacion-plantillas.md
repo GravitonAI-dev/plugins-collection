@@ -48,6 +48,10 @@ Al transformar un documento de muestra en una plantilla reutilizable o al crearl
 - **Importes y Cuentas Bancarias:** Sustituir por `{{RENTA_MENSUAL}}`, `{{CUANTIA_RECLAMADA}}`, `{{IBAN_PAGO}}`, `{{NUMERO_CUENTA}}`.
 - **Referencias Notariales o Registrales:** Sustituir por `{{NOMBRE_NOTARIO}}`, `{{PLAZA_NOTARIO}}`, `{{NUMERO_PROTOCOLO}}`, `{{DATOS_REGISTRALES}}`.
 
+### 1.1 Pautas para la Aplicación de Cambios en el Workspace (`edit_file`)
+- **Coincidencia Literal (No Regex):** El parámetro `old_string` de `edit_file` busca coincidencia exacta de texto literal. **NUNCA utilices caracteres de escape como `\.`, `\(`, `\)` o `\[`**, ya que provocarán que la búsqueda falle.
+- **Edición por Bloques o Secciones Coherentes:** Para evitar agotar el límite de iteraciones de herramientas del orquestador, **no realices micro-sustituciones palabra por palabra**. Agrupa los reemplazos por bloques multilínea completos (ej. todo el encabezado de fecha y remitente, todo el bloque de destinatario, párrafos completos o el pie de firmas).
+
 ---
 
 ## 2. Convención de Sintaxis de Variables
