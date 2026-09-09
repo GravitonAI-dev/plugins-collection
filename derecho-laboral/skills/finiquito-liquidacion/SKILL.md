@@ -174,6 +174,7 @@ Envía un mensaje formal que contenga:
 ```
 
 - **Datos estructurados agrupados (`slot_filling_request`, MANDATORIO):** empresa, trabajador, datos retributivos y datos de la extinción se solicitan en bloque.
+- **Campos omitidos o negativa expresa (No insistencia):** Si el usuario pide explícitamente no aportar determinados campos de información, pásalos por alto de inmediato sin insistir en pedirlos ni presionar. Rellena la plantilla con los datos disponibles, conserva los no aportados como marcadores pendientes ({{NOMBRE_CAMPO}} o {{DATO_FALTANTE}}) e indica en la confirmación cuáles faltan antes de continuar con la siguiente sección.
 - **Todo importe se muestra con su fórmula.** Nunca escribas un resultado sin exhibir antes el cálculo que lo produce: la hoja de liquidación es un documento de convicción, y un importe sin explicación es la causa más frecuente de reclamación.
 - **Anuncio de sección visible** al pasar de un bloque de conceptos al siguiente.
 

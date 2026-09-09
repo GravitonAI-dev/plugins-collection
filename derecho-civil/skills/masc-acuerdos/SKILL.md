@@ -237,6 +237,7 @@ Envía un mensaje formal que contenga:
 ```
 
 - **Datos estructurados agrupados (`slot_filling_request`, MANDATORIO):** los datos del requirente, los del requerido y los importes se piden en bloque, nunca dato a dato.
+- **Campos omitidos o negativa expresa (No insistencia):** Si el usuario pide explícitamente no aportar determinados campos de información, pásalos por alto de inmediato sin insistir en pedirlos ni presionar. Rellena la plantilla con los datos disponibles, conserva los no aportados como marcadores pendientes ({{NOMBRE_CAMPO}} o {{DATO_FALTANTE}}) e indica en la confirmación cuáles faltan antes de continuar con la siguiente sección.
 - **Confirmación agrupada por parte:** los datos de una misma persona se confirman todos juntos al final del bloque, no uno a uno.
 - **Anuncio de sección visible** al pasar de una sección a la siguiente, en el mismo mensaje que la primera solicitud y sin pedir permiso aparte.
 - **Validación de sentido, no solo de formato:** si un dato es absurdo, imposible o no responde a lo preguntado, dialógalo en el chat antes de volcarlo.

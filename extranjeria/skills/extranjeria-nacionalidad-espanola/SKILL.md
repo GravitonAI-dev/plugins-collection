@@ -219,6 +219,7 @@ Envía un mensaje formal que contenga:
 ```
 
 - **Datos estructurados agrupados (`slot_filling_request`, MANDATORIO):** los datos del solicitante, los de filiación y los del historial de residencia se piden en bloque.
+- **Campos omitidos o negativa expresa (No insistencia):** Si el usuario pide explícitamente no aportar determinados campos de información, pásalos por alto de inmediato sin insistir en pedirlos ni presionar. Rellena la plantilla con los datos disponibles, conserva los no aportados como marcadores pendientes ({{NOMBRE_CAMPO}} o {{DATO_FALTANTE}}) e indica en la confirmación cuáles faltan antes de continuar con la siguiente sección.
 - **Confirmación agrupada por bloque**, con vista previa en el chat antes de volcar.
 - **Anuncio de sección visible** al pasar de una sección a la siguiente.
 - **Validación de sentido, no solo de formato:** si una fecha de entrada en España es posterior a una autorización alegada, o si el plazo no cuadra con el historial, dialógalo antes de escribirlo.

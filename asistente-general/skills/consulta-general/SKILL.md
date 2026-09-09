@@ -138,7 +138,7 @@ Recorre de forma secuencial los 5 bloques del documento aplicando el ciclo de ed
 ```
 
 ### Protocolo Obligatorio por Sección:
-1. **Diálogo y Planteamiento:** Presenta la redacción propuesta para la sección con base en el análisis jurídico y técnico.
+1. **Diálogo y Planteamiento:** Presenta la redacción propuesta para la sección con base en el análisis jurídico y técnico. Si el usuario pide explícitamente no aportar determinados datos o antecedentes, respeta su decisión de inmediato sin insistir: elabora la sección con la información disponible, conserva los marcadores pendientes e indícalo en el chat antes de continuar.
 2. **Vista Previa (Preview):** Muestra el fragmento redactado en texto plano (sin backticks de código).
 3. **Petición de Confirmación:** Pregunta literalmente: `¿Confirmamos esta sección?`.
 4. **Edición en Disco:** Tras la aprobación del usuario, aplica `edit_file` con precisión quirúrgica. La verificación de la modificación se apoya prioritariamente en `# WORKSPACE ACTIVE DOCUMENTS`, recurriendo a `read_file` únicamente en casos extremos y estrictamente necesarios.
