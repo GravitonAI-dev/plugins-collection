@@ -1,8 +1,8 @@
 {
   "name": "derecho-civil",
   "displayName": "Derecho Civil",
-  "version": "0.9.0",
-  "description": "Generacion de documentos de derecho civil espanol, siempre en su version consolidada vigente verificada en el BOE: arrendamiento urbano, compraventa de inmuebles, contratos entre particulares, propiedad horizontal, desahucios, ejecucion de titulos, reclamacion de cantidad, monitorio y juicio ordinario, familia (divorcio, medidas sobre hijos no matrimoniales, modificacion de medidas, liquidacion de gananciales y parejas de hecho), sucesiones (herencia y planificacion testamentaria), clausulas abusivas de consumo, responsabilidad civil y medidas de apoyo a personas con discapacidad. Incluye la produccion de los documentos del medio adecuado de solucion de controversias exigido por la Ley Organica 1/2025.",
+  "version": "0.10.0",
+  "description": "Generacion de documentos de derecho civil espanol, siempre en su version consolidada vigente verificada en el BOE: arrendamiento urbano, compraventa de inmuebles, contratos entre particulares, propiedad horizontal, desahucios, ejecucion de titulos, reclamacion de cantidad, monitorio y juicio ordinario, familia (divorcio, medidas sobre hijos no matrimoniales, modificacion de medidas, liquidacion de gananciales y parejas de hecho), sucesiones (herencia y planificacion testamentaria), clausulas abusivas de consumo, responsabilidad civil y medidas de apoyo a personas con discapacidad. Incluye la produccion de los documentos del medio adecuado de solucion de controversias exigido por la Ley Organica 1/2025. Incorpora ademas la extincion de condominio y la division de la cosa comun, las capitulaciones matrimoniales con la liquidacion del regimen que sustituyen, la declaracion de herederos abintestato y las voluntades anticipadas, y los escritos de segunda instancia y de tutela cautelar (apelacion, oposicion y medidas cautelares).",
   "author": {
     "name": "GravitonAI"
   },
@@ -10,6 +10,10 @@
     "./skills/arrendamiento-urbano",
     "./skills/compraventa-inmueble",
     "./skills/contratos-particulares",
+    "./skills/derecho-civil-apelacion-y-medidas-cautelares",
+    "./skills/derecho-civil-capitulaciones-matrimoniales",
+    "./skills/derecho-civil-extincion-condominio",
+    "./skills/derecho-civil-sucesion-abintestato-y-voluntades",
     "./skills/desahucio",
     "./skills/divorcio",
     "./skills/ejecucion-titulos",
