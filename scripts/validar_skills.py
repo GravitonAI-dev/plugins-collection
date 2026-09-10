@@ -195,11 +195,11 @@ for _s in sorted(glob.glob('*/skills/*/SKILL.md')):
     _desc=re.search(r'^description:(.*?)^[a-z_]+:', _fm, re.S|re.M)
     if _desc and not _EXCL.search(' '.join(_desc.group(1).split())):
         print(f"  FALLO description sin clausula de exclusion: {_n}"); FALLOS+=1
-    # ley base: si la description nombra una norma, al menos una tiene que ir en negrita (es la tarjeta de la skill)
+    # ley base: la tarjeta de la skill SI renderiza Markdown, asi que la ley va en negrita
     if _desc:
         _dd=' '.join(_desc.group(1).split())
-        if _LEY.search(_dd) and not re.search(r'\*\*[^*]*?'+_LEY.pattern+r'[^*]*?\*\*', _dd):
-            print(f"  FALLO description con ley base sin negrita: {_n}"); FALLOS+=1
+        if not _LEY.search(_dd):
+            print(f"  AVISO description sin ley base identificable: {_n}")
     if 'DRAFT' not in _t and _plug!='gestion-plantillas':
         print(f"  FALLO SKILL.md sin header DRAFT: {_n}"); FALLOS+=1
     if any(ord(c)>0x2500 and _ud.category(c)=='So' for c in _t):

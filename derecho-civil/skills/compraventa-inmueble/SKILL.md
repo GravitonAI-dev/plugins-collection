@@ -2,15 +2,17 @@
 name: compraventa-inmueble
 description: >
   Genera el documento que corresponda en una compraventa de vivienda entre particulares conforme al
-  **Codigo Civil**, que regula el contrato de compraventa, las arras y las consecuencias del incumplimiento, verificado en el BOE: contrato de arras o senal previo a la compraventa (Art. 1454 CC),
-  contrato privado de compraventa de vivienda completo (Arts. 1445 y siguientes CC) y requerimiento
-  extrajudicial de cumplimiento por incumplimiento de un contrato ya firmado (Arts. 1124 y 1504 CC).
-  Trata expresamente la clase de arras y su consecuencia, las cargas del inmueble, el reparto de
-  impuestos y gastos, la condicion suspensiva de financiacion hipotecaria y el derecho de tanteo y
-  retracto del arrendatario (Art. 25 de la Ley 29/1994). NO sustituye la escritura publica notarial
-  ni la inscripcion registral, no hace due diligence de titularidad ni valoracion del inmueble, y NO
-  cubre la compraventa de local, la de obra nueva sobre plano con entregas a cuenta, ni las herencias
-  o donaciones de inmuebles.
+  **Código Civil**, que regula el contrato de compraventa, las arras y las consecuencias del
+  incumplimiento, en su versión consolidada verificada en el BOE. Cubre tres documentos: contrato de
+  arras o señal previo a la compraventa (**Art. 1454 CC**), contrato privado de compraventa de
+  vivienda completo (**Arts. 1445 y siguientes CC**) y requerimiento extrajudicial de cumplimiento
+  cuando una parte incumple un contrato ya firmado (**Arts. 1124 y 1504 CC**). Trata expresamente la
+  clase de arras y su consecuencia, las cargas del inmueble, el reparto de impuestos y gastos, la
+  condición suspensiva de financiación hipotecaria y el derecho de tanteo y retracto del arrendatario
+  (**Art. 25 de la Ley 29/1994**). NO sustituye la escritura pública notarial ni la inscripción
+  registral, no hace due diligence de titularidad ni valoración del inmueble, y NO cubre la
+  compraventa de local, la de obra nueva sobre plano con entregas a cuenta, ni las herencias o
+  donaciones de inmuebles.
 when_to_use: |
   - El usuario va a comprar o vender una vivienda y necesita el contrato de arras o senal previo.
   - El usuario necesita el contrato privado de compraventa de vivienda antes de ir al notario.

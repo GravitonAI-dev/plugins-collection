@@ -36,6 +36,16 @@
       }
     },
     {
+      "name": "derecho-mercantil",
+      "displayName": "Derecho Mercantil y Societario",
+      "source": "./derecho-mercantil",
+      "version": "0.1.0",
+      "description": "Generación de documentos societarios y contractuales de empresa en España conforme al Real Decreto Legislativo 1/2010, texto refundido de la Ley de Sociedades de Capital, en su versión consolidada vigente verificada en el BOE: constitución de sociedad de responsabilidad limitada (solicitud de certificación de denominación al Registro Mercantil Central, estatutos sociales y minuta de escritura), pacto de socios con permanencia, arrastre, acompañamiento y no competencia, vida societaria ordinaria (convocatoria de junta general, junta universal, acta y certificación de acuerdos) y contratos entre empresas (prestación de servicios, confidencialidad, agencia conforme a la Ley 12/1992 y distribución). No cubre sociedades cotizadas, modificaciones estructurales ni concurso de acreedores.",
+      "author": {
+        "name": "GravitonAI"
+      }
+    },
+    {
       "name": "gestoria",
       "displayName": "Gestoria",
       "source": "./gestoria",
