@@ -53,6 +53,17 @@ Esta skill guía al usuario de manera consultiva, rigurosa y transparente a trav
 >   - `update_user_template`: Si la plantilla no pertenece a ninguna skill y ya existe (`check_user_template_exists` retornó `exists: true`).
 >   - `save_user_template`: Si la plantilla no pertenece a ninguna skill y aún no existe (`check_user_template_exists` retornó `exists: false`).
 
+### MANDATO IMPERATIVO DE GUARDADO ANTE ORDEN DEL USUARIO:
+> Cuando el usuario emita una orden o solicitud explícita de guardado (ej. *"guarda"*, *"guardar"*, *"guarda la plantilla"*, *"persiste la plantilla"*, *"guarda en la base de datos"*, *"sí, guárdala"*, *"procede a guardar"* o confirmación equivalente):
+> 1. **Invocación Obligatoria de la Herramienta en el Mismo Turno:** El asistente DEBE invocar INMEDIATAMENTE en esa misma respuesta la herramienta de persistencia que corresponda:
+>    - `update_user_template(asset_name=..., template_content=...)`: Si la plantilla es global y ya existe (`check_user_template_exists` retornó `exists: true`, o el archivo en el editor ya tiene formato `template-<slug>.md`).
+>    - `save_user_template(name=..., template_content=..., description=...)`: Si es una plantilla global nueva no registrada.
+>    - `set_skill_template(skill_name=..., asset_name=..., template_content=...)`: Si la plantilla pertenece a una skill especializada.
+> 2. **No Desviar el Turno a Edición:** Queda estrictamente PROHIBIDO invocar `edit_file` o `create_file` en un turno de guardado, salvo que el usuario haya solicitado simultáneamente cambios textuales puntuales en el texto. La orden de guardar es exclusivamente de persistencia.
+> 3. **No Re-preguntar Confirmación:** Si el usuario ya ordenó guardar, NO formular preguntas como *"¿Quieres que guarde en la sección de plantillas?"*. Su orden directa constituye confirmación suficiente para ejecutar la herramienta.
+> 4. **Origen Fidedigno del Contenido (`template_content`):** El argumento `template_content` debe tomarse de forma completa e íntegra del documento activo en `# WORKSPACE ACTIVE DOCUMENTS` (o del chat si provino de texto plano). Queda prohibido enviar texto modificado de memoria, abreviado o truncado.
+> 5. **Prohibición Estricta de Falsa Persistencia:** Queda TERMINANTEMENTE PROHIBIDO afirmar en el mensaje al usuario que la plantilla fue guardada, registrada, persistida o sincronizada si en ese mismo turno no se ejecutó la herramienta de persistencia y se obtuvo `{"success": true}`.
+
 ### VÍAS ADMITIDAS PARA ESPECIFICAR PLANTILLAS:
 > Las únicas vías para especificar plantillas son:
 > 1. **Texto en el chat:** Pegar el texto directamente en la conversación.
@@ -110,7 +121,7 @@ El usuario dispone de dos opciones principales:
         - Queda **TERMINANTEMENTE PROHIBIDO** solicitar al usuario el nombre (`name`) o la descripción (`description`), ni en chat ni mediante formularios (`slot_filling_request` o `human_in_the_loop_request`).
         - Enrutamiento obligatorio a modo `update_user` (`update_user_template`).
         - **Asistencia consultiva mediante formulario:** Si el usuario solicita asistencia con la plantilla (o no ha solicitado un volcado directo inmediato), activar el formulario interactivo de asistencia consultiva (`restricted_human_in_the_loop_request`, Ruta 2.D) con las opciones: *Convertir datos a placeholders genéricos*, *Mejorar el contenido*, o *Actualizar contenido*.
-        - Si el documento ya está finalizado y conforme, procede directamente a la Fase 4 para previsualización y confirmación de guardado.
+        - Si el documento ya está finalizado y conforme, procede a la Fase 4 para previsualización y confirmación de guardado (o directamente a la Fase 5 invocando `update_user_template` si el usuario ya ordenó explícitamente guardar).
      * **Si la herramienta retorna `exists: false` (plantilla nueva no registrada):**
        - Modo `save_user` (`save_user_template`).
        - Solo en este caso se requiere acordar o solicitar el nombre formal (`name`) y la descripción de uso (`description`), procediendo con `save_user_template`.
@@ -157,7 +168,7 @@ Procesa la fuente o elabora la plantilla abstracta parametrizada en memoria:
      "asset_name": "<nombre_del_archivo_o_asset.md>"
    }
    ```
-   - **Si `exists: true`:** La plantilla ya está registrada en el sistema. Conserva su `asset_name` canónico y enruta obligatoriamente a `update_user_template`. Queda **TERMINANTEMENTE PROHIBIDO** solicitar `name` o `description` al usuario (ni por chat ni con formularios). Si el usuario requiere asistencia para trabajar sobre la plantilla, activa el menú consultivo de la **Ruta 2.D**.
+   - **Si `exists: true`:** La plantilla ya está registrada en el sistema. Conserva su `asset_name` canónico y enruta obligatoriamente a `update_user_template`. Queda **TERMINANTEMENTE PROHIBIDO** solicitar `name` o `description` al usuario (ni por chat ni con formularios). Si el usuario requiere asistencia para trabajar sobre la plantilla, activa el menú consultivo de la **Ruta 2.D**. Si el usuario ordenó directamente guardar, invoca de inmediato `update_user_template(asset_name=..., template_content=...)` extrayendo el contenido íntegro de `# WORKSPACE ACTIVE DOCUMENTS`.
    - **Si `exists: false`:** La plantilla es nueva en el sistema. Enruta a `save_user_template` y solicita/acuerda `name` y `description`.
 5. Si el archivo contiene datos de casos particulares o ejemplos, aplica la parametrización de variables `{{VARIABLE}}`.
 6. **Ajustes opcionales en el editor:** Si el usuario desea retocar o perfeccionar cláusulas del archivo antes de persistirlo, utiliza `edit_file` para aplicar los cambios directamente en el editor.
@@ -270,13 +281,22 @@ Presenta al usuario en el chat en formato conversacional limpio:
    - **Si es Global:** Indicar el nombre (`name`), identificador canónico (`asset_name`), modo (nueva creación o actualización) y descripción.
 2. **Inventario de Variables:** Tabla ordenada con las variables `{{...}}` identificadas y su descripción.
 3. **Vista Previa de la Plantilla:** El contenido íntegro en Markdown propuesto.
-4. **Pregunta de Confirmación Explícita:** Preguntar claramente al usuario si está conforme con la estructura, cláusulas y variables para proceder al guardado, formulando de forma específica y accesible: *"¿Quieres que guarde en la sección de plantillas?"* (o *"¿Deseas que guarde en la sección de plantillas?"*), sustituyendo fórmulas genéricas como *"¿Quieres que guarde en el sistema?"*.
+4. **Pregunta de Confirmación Explícita:** Cuando el asistente finalice la propuesta de plantilla y el usuario aún no haya indicado su decisión de guardar, preguntar claramente si está conforme con la estructura, cláusulas y variables para proceder al guardado, formulando de forma específica y accesible: *"¿Quieres que guarde en la sección de plantillas?"* (o *"¿Deseas que guarde en la sección de plantillas?"*), sustituyendo fórmulas genéricas como *"¿Quieres que guarde en el sistema?"*.
+   - **Excepción por Orden Directa de Guardado:** Si el usuario ya ordenó explícitamente guardar la plantilla (ej. *"guarda"*, *"guardar"*, *"guarda la plantilla"*, *"persiste la plantilla"*, *"guarda en la base de datos"*), OMITIR esta pregunta y pasar DIRECTAMENTE a la **Fase 5** ejecutando la herramienta de persistencia en este mismo turno.
 
 ---
 
 ## FASE 5 — ASIGNACIÓN Y REGISTRO EN EL SISTEMA
 
-Una vez obtenida la confirmación explícita del usuario (tras la pregunta de si desea guardar en la sección de plantillas), ejecuta la herramienta correspondiente según el alcance y estado:
+Esta fase se activa inmediatamente al recibir la confirmación afirmativa del usuario (tras la pregunta de Fase 4) o cuando el usuario emite una orden directa de guardar (*"guarda"*, *"guardar"*, *"guarda la plantilla"*, etc.).
+
+**REGLAS OBLIGATORIAS DE EJECUCIÓN:**
+1. **Ejecución Inmediata en el Mismo Turno:** El asistente DEBE invocar la herramienta correspondiente en esta misma respuesta. Queda prohibido postergar la invocación.
+2. **Origen Fidedigno del Contenido (`template_content`):** El argumento `template_content` DEBE ser el texto completo y exacto del documento activo en `# WORKSPACE ACTIVE DOCUMENTS` (o del mensaje del chat si fue vía `texto_chat`). Jamás recortar el contenido, omitir títulos o encabezados, ni pasar texto desde la memoria que difiera del documento del workspace.
+3. **Sin Desvíos a Edición:** Queda prohibido invocar `edit_file` o `create_file` en un turno de guardado, salvo petición explícita de cambios textuales por parte del usuario.
+4. **Prohibición de Falsa Persistencia:** Queda prohibido afirmar que la plantilla fue guardada o sincronizada sin haber ejecutado la herramienta y obtenido `{"success": true}`.
+
+Ejecuta la herramienta correspondiente según el alcance y estado:
 
 ### Caso A — La plantilla pertenece a una skill:
 Invoca la herramienta especializada `set_skill_template`:
@@ -336,11 +356,13 @@ Una vez ejecutada exitosamente la herramienta de persistencia:
 ## Límites Legales y Guardrails de Dominio
 
 1. **Assets Limpios:** Las plantillas no deben contener comentarios HTML condicionales ni lógica procedural.
-2. **Separación entre Entorno de Trabajo en Editor y Registro en el Sistema:** La creación y edición de archivos en el workspace con `create_file` y `edit_file` funciona como borrador visual interactivo en el editor durante el proceso de diseño (especialmente en creación asistida). Sin embargo, el archivo en el workspace no reemplaza el registro oficial: la plantilla DEBE guardarse formalmente en el sistema mediante `set_skill_template()`, `update_user_template()` o `save_user_template()` tras la confirmación afirmativa del usuario.
+2. **Separación entre Entorno de Trabajo en Editor y Registro en el Sistema:** La creación y edición de archivos en el workspace con `create_file` y `edit_file` funciona como borrador visual interactivo en el editor durante el proceso de diseño (especialmente en creación asistida). Sin embargo, el archivo en el workspace NO constituye registro oficial ni persistencia: la plantilla DEBE guardarse formalmente en el sistema mediante `set_skill_template()`, `update_user_template()` o `save_user_template()`. Queda terminantemente prohibido considerar o dar a entender que editar o tener el archivo en el workspace equivale a haber guardado la plantilla.
 3. **Verificación Estricta de Compatibilidad con Skills:** Antes de persistir una plantilla de skill, verificar si es completamente compatible con la skill como tal. Si no lo es, NO GUARDAR e informar los detalles específicos a corregir.
-4. **Confirmación Previa Obligatoria:** Jamás invocar ninguna herramienta de persistencia sin previa presentación de la vista previa en el chat y confirmación afirmativa explícita del usuario (preguntando específicamente: *"¿Quieres que guarde en la sección de plantillas?"*).
+4. **Confirmación Previa y Mandato de Guardado:** Jamás invocar ninguna herramienta de persistencia sin confirmación explícita del usuario. Si el asistente presenta una propuesta de plantilla, debe preguntar específicamente: *"¿Quieres que guarde en la sección de plantillas?"*. Ahora bien, si el usuario emite directamente una orden o solicitud de guardado (ej. *"guarda"*, *"guardar"*, *"guarda la plantilla"*, *"sí, guárdala"*, *"persiste la plantilla"*), esto satisface de inmediato la confirmación y el asistente DEBE ejecutar en ese mismo turno la herramienta de persistencia correspondiente, tomando el contenido íntegro de `# WORKSPACE ACTIVE DOCUMENTS`, sin volver a preguntar ni desviar el turno a edición.
 5. **Sin Adjuntos de Archivos:** Las únicas vías admitidas para especificar plantillas preexistentes son texto en el chat y abrir archivo en el editor (archivos del workspace). Queda estrictamente excluida la opción de adjuntar archivos.
 6. **Prohibición de Solicitud Redundante de Metadatos:** En plantillas globales de usuario preexistentes verificadas mediante `check_user_template_exists(asset_name=...)` (`exists: true`), queda estrictamente prohibido solicitar al usuario el nombre formal (`name`) o la descripción (`description`). Se debe guardar de inmediato mediante `update_user_template()`.
 7. **Asistencia Consultiva en Plantillas Preexistentes:** Ante plantillas ya registradas en las que el usuario solicite orientación o no ordene una actualización inmediata cerrada, el asistente DEBE presentar el menú de opciones (*Convertir datos a placeholders genéricos*, *Mejorar el contenido*, *Actualizar contenido*) mediante formulario interactivo (`restricted_human_in_the_loop_request`) antes de forzar el guardado, manteniendo en todo momento la prohibición de solicitar metadatos redundantes (`name`/`description`).
 8. **Preservación Obligatoria de Placeholders en Plantillas:** En los borradores y plantillas gestionados en esta skill, la presencia de variables `{{VARIABLE}}` no constituye una omisión ni un campo pendiente de rellenar, sino la naturaleza intrínseca de una plantilla reutilizable. Queda terminantemente prohibido activar ciclos de recogida de datos sustantivos (`slot_filling_request`) para sustituir dichos placeholders por datos reales; el documento debe persistirse con sus variables intactas. Toda regla global de "cero placeholders" queda expresamente excluida en esta skill.
+9. **Prohibición Estricta de Falsa Persistencia:** Queda TERMINANTEMENTE PROHIBIDO afirmar, reportar o insinuar al usuario en el chat que la plantilla ha sido guardada, registrada, persistida o sincronizada si en ese mismo turno no se ha ejecutado la herramienta de persistencia especializada (`update_user_template`, `save_user_template` o `set_skill_template`) y se ha recibido una respuesta con éxito (`{"success": true}`).
+
 
