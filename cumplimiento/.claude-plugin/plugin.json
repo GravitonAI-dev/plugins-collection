@@ -1,0 +1,16 @@
+{
+  "name": "cumplimiento",
+  "displayName": "Cumplimiento Normativo de Empresa",
+  "version": "0.1.0",
+  "description": "Generación de la documentación de cumplimiento que la ley exige a una empresa y cuya ausencia es infracción por sí misma, en su versión consolidada vigente verificada en el BOE: protección de datos conforme al Reglamento (UE) 2016/679 y a la Ley Orgánica 3/2018 (registro de actividades de tratamiento, contrato de encargado y notificación de brechas a la Agencia Española de Protección de Datos), sistema interno de información y canal de denuncias conforme a la Ley 2/2023 (política, procedimiento de gestión y designación del responsable), e igualdad y prevención del acoso conforme a la Ley Orgánica 3/2007 y a su desarrollo reglamentario (protocolo de acoso, plan de igualdad y registro retributivo). Comprueba en cada caso los umbrales de plantilla que determinan qué obligaciones son exigibles. No cubre investigaciones internas en curso, expedientes sancionadores ni defensa ante la autoridad de control.",
+  "author": {
+    "name": "GravitonAI"
+  },
+  "skills": [
+    "./skills/cumplimiento-canal-denuncias",
+    "./skills/cumplimiento-igualdad-y-acoso",
+    "./skills/cumplimiento-proteccion-datos-empresa"
+  ],
+  "agents": [],
+  "hooks": []
+}

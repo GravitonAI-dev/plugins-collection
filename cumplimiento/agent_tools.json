@@ -1,0 +1,25 @@
+{
+  "tools": [
+    {
+      "id": "io.gravitonai.tools.read_file"
+    },
+    {
+      "id": "io.gravitonai.tools.create_file"
+    },
+    {
+      "id": "io.gravitonai.tools.edit_file"
+    },
+    {
+      "id": "io.gravitonai.tools.web_search"
+    },
+    {
+      "id": "io.gravitonai.tools.human_in_the_loop_request"
+    },
+    {
+      "id": "io.gravitonai.tools.restricted_human_in_the_loop_request"
+    },
+    {
+      "id": "io.gravitonai.tools.slot_filling_request"
+    }
+  ]
+}
