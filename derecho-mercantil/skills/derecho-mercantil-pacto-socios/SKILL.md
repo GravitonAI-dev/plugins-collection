@@ -1,5 +1,5 @@
 ---
-name: pacto-socios
+name: derecho-mercantil-pacto-socios
 description: >
   Redacta el pacto de socios (pacto parasocial) de una sociedad limitada espanola al amparo del
   **Codigo Civil** (Arts. 1091, 1255 y 1258), que consagra la libertad de pactos y su fuerza

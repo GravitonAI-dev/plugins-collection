@@ -7,10 +7,10 @@
     "name": "GravitonAI"
   },
   "skills": [
-    "./skills/constitucion-sociedad",
-    "./skills/contratos-mercantiles",
-    "./skills/juntas-y-acuerdos-sociales",
-    "./skills/pacto-socios"
+    "./skills/derecho-mercantil-constitucion-sociedad",
+    "./skills/derecho-mercantil-contratos-mercantiles",
+    "./skills/derecho-mercantil-juntas-y-acuerdos-sociales",
+    "./skills/derecho-mercantil-pacto-socios"
   ],
   "agents": [],
   "hooks": []

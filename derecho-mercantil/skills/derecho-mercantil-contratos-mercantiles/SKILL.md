@@ -1,5 +1,5 @@
 ---
-name: contratos-mercantiles
+name: derecho-mercantil-contratos-mercantiles
 description: >
   Redacta los contratos habituales entre empresas en Espana conforme al **Codigo Civil** (Arts. 1254 a
   1258 y 1543 y siguientes), que fija el regimen general de las obligaciones y contratos, al **Codigo

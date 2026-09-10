@@ -1,5 +1,5 @@
 ---
-name: juntas-y-acuerdos-sociales
+name: derecho-mercantil-juntas-y-acuerdos-sociales
 description: >
   Genera los documentos de la vida societaria ordinaria de una sociedad limitada espanola conforme al
   **Real Decreto Legislativo 1/2010**, texto refundido de la Ley de Sociedades de Capital (LSC), que

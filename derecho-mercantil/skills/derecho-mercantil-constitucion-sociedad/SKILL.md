@@ -1,5 +1,5 @@
 ---
-name: constitucion-sociedad
+name: derecho-mercantil-constitucion-sociedad
 description: >
   Prepara los documentos de constitucion de una sociedad de responsabilidad limitada en Espana
   conforme al **Real Decreto Legislativo 1/2010**, texto refundido de la Ley de Sociedades de Capital
