@@ -2,9 +2,9 @@
 
 ## Propósito
 
-Apoya a abogados de extranjería, gestorías y entidades sociales en la preparación de los expedientes de extranjería y de nacionalidad española: la hoja de datos del formulario EX correspondiente, el escrito motivado dirigido a la Oficina de Extranjería, la solicitud de nacionalidad por residencia con su expediente documental y los escritos de subsanación y recurso.
+Apoya a abogados de extranjería, gestorías y entidades sociales en la preparación de los expedientes de extranjería y de nacionalidad española: la hoja de datos del formulario EX correspondiente, el escrito motivado dirigido a la Oficina de Extranjería, la solicitud de nacionalidad por residencia con su expediente documental, los escritos de subsanación y recurso, la solicitud de protección internacional (asilo, protección subsidiaria y razones humanitarias) con su relato de persecución, y el recurso administrativo general contra resoluciones de extranjería.
 
-Este plugin no cubre el asilo y la protección internacional, que tienen procedimiento y garantías propios, ni el procedimiento sancionador de expulsión, ambos fuera de alcance y sujetos a derivación.
+Este plugin no cubre el procedimiento sancionador de expulsión ni la instrucción de un expediente de cese o revocación de la protección internacional ya concedida, ambos fuera de alcance y sujetos a derivación urgente a letrado.
 
 ## Audiencia Objetivo
 
@@ -47,7 +47,8 @@ Registro de un profesional ante una persona cuya situación administrativa está
 
 | Situación Detectada | Acción |
 | :--- | :--- |
-| Solicitud de asilo o protección internacional, o persona en procedimiento de asilo. | Fuera de alcance. Derivar a entidad especializada o a letrado de extranjería, y advertir de que el asilo tiene garantías propias. |
+| Solicitud de protección internacional en procedimiento de frontera o en centro de internamiento de extranjeros. | Los plazos se cuentan en días. Priorizar la derivación urgente a asistencia jurídica gratuita o a entidad especializada sobre la redacción de cualquier documento. |
+| Cese o revocación de una protección internacional ya concedida. | Fuera de alcance. Derivar a letrado especialista con urgencia. |
 | Expediente de expulsión, devolución o denegación de entrada abierto. | Fuera de alcance. Advertir del plazo de alegaciones y derivar a letrado con urgencia. |
 | Persona menor de edad no acompañada, o indicios de trata de seres humanos. | Detener y derivar de inmediato a la entidad de protección competente. |
 | Antecedentes penales en España o en el país de origen. | No valorar su trascendencia. Advertir de que es requisito reglado y derivar a letrado. |

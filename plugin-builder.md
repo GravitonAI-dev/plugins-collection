@@ -149,7 +149,7 @@ Verifica que no exista ya en `<plugin>/skills/`. Si existe, pregunta si quiere e
 
 Formato: "<verbo> + <a quien/que> + <como> + NO usar para <exclusiones>".
 
-Si la skill se basa en una ley concreta, la ley (nombre y numero) tiene que aparecer en la description en negrita con doble asterisco y seguida de una frase breve que explique que regula, porque la description es lo que se muestra en la tarjeta (card) de la skill. Ej: "... conforme a la **Ley 29/1994 de Arrendamientos Urbanos (LAU)**, que rige los alquileres de vivienda y de uso distinto, ...".
+Si la skill se basa en una ley concreta, la ley (nombre y numero) tiene que aparecer en la description en negrita Markdown (la tarjeta de la skill SI renderiza Markdown: la negrita se ve como negrita), y seguida de una frase breve que explique que regula, porque la description es lo que se muestra en la tarjeta (card) de la skill. Ej: "... conforme a la **Ley 29/1994** de Arrendamientos Urbanos (LAU), que rige los alquileres de vivienda y de uso distinto, ...".
 
 Ej: "Triage automatico de NDAs entrantes con verdict VERDE/AMARILLO/ROJO. NO usar para MSAs, NDAs embebidos en otros acuerdos, ni contratos en idiomas distintos al ingles."`
 
@@ -485,7 +485,7 @@ Contenido que se escribira:
 5. Skills:
    - <OK | FIX NECESARIO>: cada SKILL.md tiene frontmatter con `name` y `description`.
    - <OK | FIX NECESARIO>: la description incluye "NO usar para...".
-   - <OK | FIX NECESARIO>: si la skill se basa en una ley concreta, la description la nombra (nombre y numero), la lleva en negrita (`**Ley ...**`) y la sigue una frase breve de que regula, porque la description es la tarjeta de la skill.
+   - <OK | FIX NECESARIO>: si la skill se basa en una ley concreta, la description la nombra (nombre y numero) en negrita Markdown, y la sigue una frase breve de que regula, porque la description es la tarjeta de la skill y si renderiza Markdown.
    - <OK | FIX NECESARIO>: nombres de skill en kebab-case, unicos dentro del plugin.
 
 6. Header DRAFT:

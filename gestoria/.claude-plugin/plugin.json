@@ -1,14 +1,17 @@
 {
   "name": "gestoria",
   "displayName": "Gestoria",
-  "version": "0.2.1",
-  "description": "Generacion de documentos y solicitudes para tramites administrativos de gestoria en Espana (trafico y DGT, alta y baja de autonomo, altas y bajas en la Seguridad Social e impuesto de sucesiones), con verificacion de la normativa vigente en el BOE, checklist de documentos y organismo de presentacion. Los tramites de extranjeria y nacionalidad se han trasladado al plugin `extranjeria`. Salida DRAFT en markdown para revision profesional.",
+  "version": "0.4.0",
+  "description": "Generacion de documentos y solicitudes para tramites administrativos de gestoria en Espana (trafico y DGT, alta y baja de autonomo, altas y bajas en la Seguridad Social, impuesto de sucesiones, impuestos de la transmision de un inmueble y defensa frente a sanciones de trafico), con verificacion de la normativa vigente en el BOE, checklist de documentos y organismo de presentacion. Los tramites de extranjeria y nacionalidad se han trasladado al plugin `extranjeria`. Salida DRAFT en markdown para revision profesional. Incorpora ademas los recursos administrativos generales (alzada y reposicion), la responsabilidad patrimonial y el acceso a la informacion publica frente a cualquier Administracion.",
   "author": {
     "name": "GravitonAI"
   },
   "skills": [
     "./skills/alta-baja-autonomo",
     "./skills/alta-baja-seguridad-social",
+    "./skills/gestoria-impuestos-transmision-inmueble",
+    "./skills/gestoria-recurso-multa-trafico",
+    "./skills/gestoria-recursos-administrativos",
     "./skills/liquidacion-impuesto-sucesiones",
     "./skills/transferencia-vehiculo"
   ],
