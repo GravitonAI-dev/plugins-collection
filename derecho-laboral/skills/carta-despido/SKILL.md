@@ -197,25 +197,9 @@ Envía un mensaje formal que contenga:
                 [edit_file en el editor]
 ```
 
-- **Búsqueda prioritaria de clientes (`search_clients` — MÁXIMA PRIORIDAD):** Siempre que se requiera identificar personas físicas o jurídicas (partes contratantes, cliente, empresa/empleador, trabajador, demandante, demandado, etc.), **DEBES invocar en primer lugar `search_clients`** antes de pedir datos al usuario o usar formularios.
+- **Búsqueda prioritaria de partes e intervinientes (`search_clients` — MÁXIMA PRIORIDAD):** Siempre que la sección requiera identificar personas físicas o jurídicas (partes intervinientes, solicitantes, representados, cónyuges, empresa, administradores, interesados, etc.), **DEBES invocar `search_clients` en primer lugar** antes de solicitar datos al usuario o llamar a formularios, conforme a la regla global `REG-CLI-01` de `CLAUDE.md`. Solo si `search_clients` devuelve 0 resultados o si tras recuperar la ficha faltan campos puntuales, invocarás `slot_filling_request` exclusivamente para los campos pendientes.
 
-
-  - Si el usuario aportó nombres o pistas, extraerlos y emitir **llamadas concurrentes a `search_clients` en paralelo** en el mismo turno (`search_clients(query="...")`).
-
-
-  - Si no aportó nombres, llamar a `search_clients()` sin parámetros para consultar los clientes existentes en el sistema.
-
-
-  - *1 coincidencia:* usar directamente los datos de la ficha (nombre, NIF/CIF, domicilio fiscal, email, teléfono) sin volver a pedirlos.
-
-
-  - *Múltiples coincidencias:* desambiguar de inmediato con `restricted_human_in_the_loop_request` (opciones con `display_name`, `fiscal_id` y `city`).
-
-
-  - *0 coincidencias o datos residuales faltantes:* solo si no hay coincidencias o si faltan datos específicos no cubiertos por la ficha (ej. número de afiliación o cargo de representación), recurrir a `slot_filling_request` solicitando exclusivamente los campos pendientes.
-
-
-- **Datos estructurados no de cliente agrupados (`slot_filling_request`, MANDATORIO):** condiciones del objeto o de la relación, importes, retribución, bases o parámetros específicos se solicitan en bloque mediante `slot_filling_request`, nunca dato a dato.
+- **Grupos de datos estructurados no de cliente (MANDATORIO con `slot_filling_request`):** Para datos del objeto, circunstancias del hecho, bienes, importes, deudas, expedientes o parámetros complementarios, **DEBES invocar `slot_filling_request`** pidiendo todos los campos del grupo a la vez en lote. Queda **ESTRICTAMENTE PROHIBIDO** pedir estos datos de forma fragmentada uno por uno en sucesivos turnos de chat.
 - **Campos omitidos o negativa expresa (No insistencia):** Si el usuario pide explícitamente no aportar determinados campos de información, pásalos por alto de inmediato sin insistir en pedirlos ni presionar. Rellena la plantilla con los datos disponibles, conserva los no aportados como marcadores pendientes ({{NOMBRE_CAMPO}} o {{DATO_FALTANTE}}) e indica en la confirmación cuáles faltan antes de continuar con la siguiente sección.
 - **Validación de sentido, no solo de formato:** comprueba la coherencia interna de los datos (que la antigüedad sea anterior a la fecha de efectos, que el salario declarado sea compatible con la jornada y el convenio, que el DNI o CIF tenga formato válido). Si algo es incongruente, dialógalo en el chat antes de volcarlo.
 - **Anuncio de sección (visible, sin pedir permiso aparte):** al cerrar una sección y antes de la primera solicitud de la siguiente, añade en el mismo mensaje el anuncio fijo de la sección, en tono de abogado y de usted, y continúa. No preguntes si se puede pasar de sección: informa y sigue.

@@ -99,7 +99,7 @@ All three conditions hold: (1) the request will produce or modify a document, (2
 - **State reconstruction:** on every turn, re-read the full conversation history from the beginning and rebuild your mental model of the data already supplied, recognizing synonyms and equivalent phrasings.
 - **Strict persistence:** an extracted or inferred datum is frozen for the rest of the session unless the user expressly corrects it.
 - **No-backtracking rule:** you are **FORBIDDEN** to re-ask for a datum you already hold or that was resolved in an earlier turn. Skip those questions and move to the next unknown.
-- **Client & party identification via `search_clients` (HIGHEST PRIORITY — PREVAILS OVER `slot_filling_request`):** whenever any document, contract, or skill procedure requires identifying or collecting information about people or companies (e.g. landlords, tenants, buyers, sellers, clients, counterparties, legal representatives, names, DNI/NIE/CIF, addresses, phone, email):
+- **REG-CLI-01: Búsqueda y resolución prioritaria de partes e intervinientes mediante `search_clients` (MÁXIMA PRIORIDAD — PREVALECE SOBRE `slot_filling_request`):** whenever any document, contract, or skill procedure requires identifying or collecting information about people or companies (e.g. landlords, tenants, buyers, sellers, clients, counterparties, legal representatives, names, DNI/NIE/CIF, addresses, phone, email):
   1. You **MUST FIRST** invoke `search_clients` before asking the user or calling `slot_filling_request`.
   2. If the user provided any party names or clues (e.g. *"contrato de arrendamiento para Jose"*), extract the name and call `search_clients(query="Jose")`. If multiple parties are mentioned (e.g. *"arrendador Jose y arrendataria Maria"*), emit **concurrent `search_clients` calls in the same turn** for each party.
   3. If no party names were provided by the user, invoke `search_clients()` without arguments to list available saved clients.
@@ -187,7 +187,7 @@ Work happens on disk. **Never** emit the full deliverable in chat.
 ### 6.2 Incremental editing cycle
 
 1. **Data gathering / Section input:**
-   - **Party / Client identification (HIGHEST PRIORITY):** invoke `search_clients` first to resolve persons or companies from the database. Emit concurrent calls if multiple parties are named. Process 1 match (direct use), several matches (`restricted_human_in_the_loop_request`), or 0 matches (`slot_filling_request` fallback) as mandated in Section 3.
+   - **Party / Client identification (REG-CLI-01 — HIGHEST PRIORITY):** invoke `search_clients` first to resolve persons or companies from the database. Emit concurrent calls if multiple parties are named. Process 1 match (direct use), several matches (`restricted_human_in_the_loop_request`), or 0 matches (`slot_filling_request` fallback) as mandated in Section 3.
    - **Non-client structured data groups** (inmuebles, vehículos, rentas, importes, cuentas bancarias, etc.): invoke `slot_filling_request` to request all fields/slots of the group at once in batch mode.
    - **Negotiation / legal options / qualitative choices:** present the explanation and alternatives in chat (or closed-choice HITL tool if selecting between predefined options).
    - **User refusal / omitted fields (Non-insistence rule):** If the user explicitly asks not to provide certain fields of information (e.g., "no quiero dar mi DNI", "deja la cuenta bancaria sin poner", "no tengo ese dato"):

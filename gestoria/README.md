@@ -90,6 +90,8 @@ acumula ya skills suficientes para constituir un vertical propio.
 | `io.gravitonai.tools.human_in_the_loop_request` | Formulario interactivo con opciones (single/multi-select) y texto libre |
 | `io.gravitonai.tools.restricted_human_in_the_loop_request` | Formulario con opciones cerradas para confirmaciones y enrutamiento |
 | `io.gravitonai.tools.slot_filling_request` | Formulario de captura de datos en lotes (*batch slot-filling*) con campos de texto libre |
+| `io.gravitonai.tools.search_clients` | Búsqueda prioritaria de clientes y partes en el sistema por nombre o datos identificativos |
+| `io.gravitonai.tools.get_client` | Recuperación de la ficha completa de un cliente existente |
 
 ### Servidores MCP
 
