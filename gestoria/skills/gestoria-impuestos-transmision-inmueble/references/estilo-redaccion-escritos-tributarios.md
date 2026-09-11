@@ -1,7 +1,8 @@
-# Estilo de Redaccion de Escritos y Hojas de Datos Administrativas
+# Estilo de Redaccion de Hojas de Datos Tributarias de la Transmision de un Inmueble
 
-> Material de referencia para la skill `alta-baja-autonomo`. Reglas de estilo aplicables a las hojas de datos
-> y checklists dirigidos a la AEAT y a la Seguridad Social. Basado en guias de lenguaje administrativo
+> Material de referencia para la skill `gestoria-impuestos-transmision-inmueble`. Reglas de estilo
+> aplicables a la hoja de datos del impuesto de transmisiones patrimoniales, a la de la plusvalia
+> municipal y al escrito de rectificacion y devolucion. Basado en guias de lenguaje administrativo
 > claro. La skill aplica estas reglas al preparar el tramite; no forman parte del output al usuario.
 
 ---
@@ -21,7 +22,7 @@
 - Cada campo transmite un unico dato, sin ambiguedad.
 - Frases cortas y directas; lenguaje llano, sin jerga tributaria innecesaria.
 - Usar la voz activa y la forma impersonal propia del ambito administrativo.
-- Precision terminologica: usar el nombre exacto del modelo, el epigrafe y el regimen.
+- Precision terminologica: distinguir "valor de referencia de Catastro" de "valor catastral", que son magnitudes distintas; y "impuesto de transmisiones" de "plusvalia municipal", que gravan hechos y sujetos pasivos diferentes.
 - No abusar de mayusculas, subrayados ni negritas.
 - Importes siempre en euros, con el concepto al que corresponden; marcar como estimados los que lo sean.
 
@@ -29,22 +30,22 @@
 
 ## Reglas de estructura (hoja de datos)
 
-- Encabezamiento con el organismo y el tramite (ALTA/BAJA CENSAL - AEAT / ALTA/BAJA EN EL RETA - Seguridad Social).
-- Datos del interesado agrupados como en el formulario oficial.
-- Datos de la actividad, epigrafe y regimenes en bloques diferenciados.
-- Checklist de documentos accionable (casillas), correlativo a lo que exige el organismo.
-- Sede de presentacion, medio de identificacion y plazo al final del bloque.
+- Encabezamiento con la administracion competente (comunidad autonoma o ayuntamiento) y el concepto tributario.
+- Datos del obligado tributario y del inmueble agrupados por bloques, con referencia catastral completa.
+- Base imponible y calculo de la cuota en bloque separado, con el criterio aplicado explicito.
+- Checklist de documentos accionable, correlativo a lo que exige la sede electronica.
+- Plazo de presentacion y fecha limite al final del bloque.
 
 ---
 
 ## Formato (recomendado)
 
 - Tipo de letra legible; interlineado comodo.
+- Tablas para los datos que vayan a volcarse casilla a casilla en el modelo oficial.
 - Un espacio entre bloques; encabezados sobrios.
-- Tablas para los datos que van a volcarse casilla a casilla en el formulario oficial.
 
 ---
 
 ## Aplicacion en esta skill
 
-Al rellenar los assets, ordenar los campos como en el modelo 036 y en el alta de Import@ss, para que el profesional pueda volcarlos directamente. Marcar la cuota del RETA como estimada, relacionar cada documento del checklist con el tramite al que pertenece, e indicar siempre organismo, sede y plazo. Evitar formulas grandilocuentes y tecnicismos sin explicar.
+Al rellenar los assets, verificar siempre el tipo autonomico o el coeficiente municipal en la sesion antes de consignarlo; comparar los dos metodos de calculo de la plusvalia cuando se disponga del valor de adquisicion; y marcar como estimadas las cuotas hasta su confirmacion en la sede. Evitar formulas grandilocuentes y tecnicismos sin explicar.

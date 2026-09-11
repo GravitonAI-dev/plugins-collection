@@ -1,9 +1,10 @@
-# Estilo de Redaccion — Escritos y solicitudes administrativas de extranjeria
+# Estilo de Redaccion — Proteccion Internacional y Recursos de Extranjeria
 
-> Material de referencia para la skill `extranjeria-residencia`. Reglas de estilo aplicables a la hoja
-> de datos y al escrito de solicitud o alegaciones ante la Oficina de Extranjeria. Basado en la Ley
-> 39/2015 del Procedimiento Administrativo Comun y en guias de lenguaje administrativo claro. La skill
-> aplica estas reglas al redactar; no forman parte del output al usuario.
+> Material de referencia para la skill `extranjeria-asilo-y-recursos`. Reglas de estilo aplicables al
+> relato de persecucion que acompana la solicitud de proteccion internacional y al recurso
+> administrativo contra una resolucion de extranjeria. Basado en la Ley 39/2015 del Procedimiento
+> Administrativo Comun y en guias de lenguaje administrativo claro. La skill aplica estas reglas al
+> redactar; no forman parte del output al usuario.
 
 ---
 
@@ -17,16 +18,10 @@
 
 ---
 
-## Estructura de una solicitud administrativa
+## Estructura segun el documento
 
-Una solicitud dirigida a la Oficina de Extranjeria sigue el esquema clasico del procedimiento administrativo:
-
-1. **Encabezamiento**: organismo al que se dirige (Oficina de Extranjeria de la provincia) y, en su caso, el procedimiento.
-2. **Datos del interesado**: nombre y apellidos, nacionalidad, pasaporte, NIE si lo tiene, domicilio a efectos de notificaciones. Si actua representante, sus datos y la representacion.
-3. **EXPONE**: los hechos y el motivo, numerados, un hecho por parrafo.
-4. **SOLICITA**: la peticion concreta (asignacion de NIE, concesion de la autorizacion de residencia del tipo que sea), sin divagaciones.
-5. **Documentos que se acompanan**: relacion numerada.
-6. **Lugar, fecha y firma**.
+- **Relato de persecucion**: identidad y datos personales, situacion familiar, itinerario, relato cronologico de los hechos, motivo legal invocado, agente perseguidor y ausencia de proteccion estatal, temor fundado, prueba.
+- **Recurso administrativo**: datos del interesado, resolucion que se recurre, computo del plazo, antecedentes, motivos de forma y de fondo, peticion.
 
 ---
 
@@ -35,18 +30,25 @@ Una solicitud dirigida a la Oficina de Extranjeria sigue el esquema clasico del 
 - Cada frase transmite una sola idea, sin ambiguedad.
 - Frases y parrafos cortos; voz activa.
 - Lenguaje formal pero llano: evitar formulas grandilocuentes, latinismos y arcaismos administrativos.
-- Precision en los datos: fechas, numeros de documento y cuantias exactos.
+- Precision en los datos: fechas, numeros de expediente y documentos exactos; cuando una fecha no se recuerde con exactitud, consignarla expresamente como aproximada en lugar de forzar una precision falsa.
 - No abusar de mayusculas, subrayados ni negritas.
-- Tratamiento respetuoso a la Administracion, sin servilismos.
 
 ---
 
-## Reglas especificas de extranjeria
+## Reglas especificas del relato de persecucion
 
-- No afirmar que el tramite se concedera: la resolucion es discrecional. Redactar en terminos de solicitud, no de derecho adquirido.
-- Relacionar cada documento del checklist con el requisito que acredita.
-- Indicar el tipo exacto de autorizacion (por ejemplo, "residencia temporal no lucrativa" o "arraigo social") para evitar confusion en la tramitacion.
-- Cuando falte un dato, dejar el marcador del asset y no inventarlo.
+- El relato es el de la persona: no se completa, no se adorna y no se inventa ningun hecho ni fecha.
+- Preguntar de forma abierta, sin sugerir respuestas, y sin exigir detalles innecesarios de episodios traumaticos.
+- Senalar las contradicciones detectadas con tacto, como necesidad tecnica del escrito, nunca cuestionando la credibilidad de la persona en el chat.
+- Citar informes de pais con su fuente y su fecha, y solo si se han consultado realmente en la sesion.
+
+---
+
+## Reglas especificas del recurso administrativo
+
+- No afirmar que el recurso se estimara: la resolucion corresponde al organo competente. Redactar en terminos de peticion fundada, no de resultado garantizado.
+- Distinguir con rigor "alzada" de "reposicion" segun lo que indique la propia notificacion.
+- Relacionar cada documento aportado con el requisito o el defecto que subsana.
 
 ---
 
@@ -60,4 +62,4 @@ Una solicitud dirigida a la Oficina de Extranjeria sigue el esquema clasico del 
 
 ## Aplicacion en esta skill
 
-Al rellenar los assets, redactar el EXPONE de forma numerada y concisa, con una idea por parrafo; relacionar cada documento acompanado con el requisito que cubre; y mantener el SOLICITA ajustado a lo estrictamente pedido (asignacion del NIE o concesion de la autorizacion de residencia del tipo indicado). Evitar formulas grandilocuentes y no anticipar el sentido de la resolucion.
+Al rellenar los assets, mantener la cronologia del relato y verificarla contra el itinerario declarado; encuadrar los hechos en el motivo legal correspondiente sin forzar la calificacion; y, en el recurso, calcular siempre el plazo desde la fecha exacta de notificacion antes de redactar. Evitar formulas grandilocuentes y no anticipar el sentido de la resolucion.
