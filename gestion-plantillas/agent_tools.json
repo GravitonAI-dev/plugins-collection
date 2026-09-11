@@ -38,6 +38,9 @@
     },
     {
       "id": "io.gravitonai.tools.get_client"
+    },
+    {
+      "id": "io.gravitonai.tools.save_client"
     }
   ]
 }

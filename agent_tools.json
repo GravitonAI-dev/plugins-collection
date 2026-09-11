@@ -593,6 +593,132 @@
       },
       "tags": ["crm", "clients", "details", "identity"],
       "side_effects": false
+    },
+    {
+      "id": "io.gravitonai.tools.save_client",
+      "name": "save_client",
+      "description": "Creates or updates a client record in the database with their personal, company, fiscal, and contact details. All fields are optional.\n\nWHEN TO USE:\n- MANDATORY CONFIRMATION PROMPT (REG-CLI-03): Whenever a new client/person's data has been specified (via form or chat) and the user confirms via form (`restricted_human_in_the_loop_request`) that they want to save them in the platform.\n- When the user explicitly asks to save, register, add, or create a client.\n- When updating an existing client's details (provide `client_id`).\n\nBEHAVIOR:\n- If all required identity fields for an active client are present (full name and valid DNI/NIE for individuals, or company name and valid CIF for legal entities), the client is registered with status 'ACTIVE'.\n- If only partial data is available, the client is registered with status 'DRAFT' safely.\n- Automatically links the client and seeds their personal data into the current conversation scope for privacy and anonymization protection.",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "description": "Optional UUID of an existing client to update. If omitted, a new client is created."
+          },
+          "client_type": {
+            "type": "string",
+            "enum": ["INDIVIDUAL", "LEGAL_ENTITY"],
+            "description": "Type of client: 'INDIVIDUAL' (persona física) or 'LEGAL_ENTITY' (persona jurídica). Inferred if omitted."
+          },
+          "full_name": {
+            "type": "string",
+            "description": "Complete full name of the individual (e.g. 'Juan Carlos Pérez García'). Automatically parsed into first name and surnames."
+          },
+          "first_name": {
+            "type": "string",
+            "description": "First name (nombre de pila) of the individual."
+          },
+          "last_name_1": {
+            "type": "string",
+            "description": "First surname (primer apellido) of the individual."
+          },
+          "last_name_2": {
+            "type": "string",
+            "description": "Second surname (segundo apellido) of the individual."
+          },
+          "document_type": {
+            "type": "string",
+            "enum": ["DNI", "NIE", "PASSPORT", "OTHER"],
+            "description": "Identification document type. Inferred from document_number if omitted."
+          },
+          "document_number": {
+            "type": "string",
+            "description": "Identification number (DNI, NIE, passport) of the individual."
+          },
+          "company_name": {
+            "type": "string",
+            "description": "Corporate or legal name (razón social) if the client is a company/entity."
+          },
+          "commercial_name": {
+            "type": "string",
+            "description": "Trade or commercial name (nombre comercial) if different from company_name."
+          },
+          "cif": {
+            "type": "string",
+            "description": "Tax identification code (CIF / NIF) of the company."
+          },
+          "vat_number": {
+            "type": "string",
+            "description": "EU VAT number (NIF-IVA intracomunitario) if applicable."
+          },
+          "legal_rep_name": {
+            "type": "string",
+            "description": "Full name of the company's legal representative or administrator."
+          },
+          "legal_rep_document": {
+            "type": "string",
+            "description": "Tax ID / DNI / NIE of the legal representative."
+          },
+          "fiscal_street": {
+            "type": "string",
+            "description": "Street name of the fiscal address (without number)."
+          },
+          "fiscal_number": {
+            "type": "string",
+            "description": "Building/street number of the fiscal address."
+          },
+          "fiscal_floor_door": {
+            "type": "string",
+            "description": "Floor, door, or unit of the fiscal address."
+          },
+          "fiscal_postal_code": {
+            "type": "string",
+            "description": "Postal code of the fiscal address."
+          },
+          "fiscal_city": {
+            "type": "string",
+            "description": "City or municipality of the fiscal address."
+          },
+          "fiscal_province": {
+            "type": "string",
+            "description": "Province of the fiscal address."
+          },
+          "fiscal_country": {
+            "type": "string",
+            "description": "Country of the fiscal address (defaults to 'España')."
+          },
+          "email": {
+            "type": "string",
+            "description": "Contact email address."
+          },
+          "phone": {
+            "type": "string",
+            "description": "Contact telephone number."
+          },
+          "notes": {
+            "type": "string",
+            "description": "Additional notes, remarks, or billing details."
+          },
+          "status": {
+            "type": "string",
+            "enum": ["ACTIVE", "DRAFT"],
+            "description": "Status of the client: 'ACTIVE' or 'DRAFT'. If omitted, determined automatically based on data completeness."
+          }
+        },
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "message": { "type": "string" },
+          "data": { "type": "object" },
+          "next_step": { "type": "string" }
+        }
+      },
+      "tags": ["crm", "clients", "save", "create", "update", "identity"],
+      "side_effects": true
     }
   ]
 }
