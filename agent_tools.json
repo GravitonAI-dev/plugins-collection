@@ -526,6 +526,73 @@
       },
       "tags": ["templates", "configuration", "user_templates", "verification"],
       "side_effects": false
+    },
+    {
+      "id": "io.gravitonai.tools.search_clients",
+      "name": "search_clients",
+      "description": "PRIMARY & HIGHEST PRIORITY TOOL for retrieving party and personal data (names, surnames, company name, tax ID / DNI / NIE / CIF, fiscal address, email, phone).\n\nWHEN TO USE (ALWAYS FIRST):\nWhenever drafting a document, contract, or communication that requires personal or party identification, you MUST call `search_clients` BEFORE asking the user or using `slot_filling_request`.\n\nRULES OF INVOCATION:\n  * User provided name/person info: extract that name and pass it as `query` (e.g. `search_clients(query=\"Jose\")`).\n  * Multiple persons/parties: emit PARALLEL tool calls in the same turn for each person mentioned (e.g. `search_clients(query=\"Carlos\")` and `search_clients(query=\"Lucia\")`).\n  * No person info provided by user: call `search_clients()` with no parameters to list saved clients.\n\nHOW TO PRESENT THE RESULTS — never assume which client the user means:\n  * Exactly one match: use the client's information card directly. If additional full details are needed, call `get_client`.\n  * Several matches: ask with `restricted_human_in_the_loop_request`, one option per client. Set each option's `id` to that client's `client_id`, and its `label` to a line that tells them apart — name, tax id and city, not the name alone, because two clients may share a name.\n  * No matches or missing fields: if no saved client matches or if any specific data points required by the document/clause are missing from the retrieved record, request ONLY the remaining missing fields using `slot_filling_request`. Never invent a client.",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Free text matched against name, surnames, company name, trade name, tax id, document number, city, email and phone. Accent- and case-insensitive. Omit it to list all clients."
+          },
+          "client_type": {
+            "type": "string",
+            "enum": ["INDIVIDUAL", "LEGAL_ENTITY"],
+            "description": "Optional filter by client type."
+          }
+        },
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": {
+            "type": "object",
+            "properties": {
+              "clients": {
+                "type": "array",
+                "items": { "type": "object" }
+              },
+              "total": { "type": "integer" },
+              "has_more": { "type": "boolean" },
+              "next_step": { "type": "string" }
+            }
+          }
+        }
+      },
+      "tags": ["crm", "clients", "search", "identity"],
+      "side_effects": false
+    },
+    {
+      "id": "io.gravitonai.tools.get_client",
+      "name": "get_client",
+      "description": "Returns the complete record of a saved client: identity, tax ids, registered address and contact details. Use it after the user has chosen a client, to draft documents with their real data.\n\nThe `client_id` must come from a previous `search_clients` call — never invent one.",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "description": "UUID of the client, as returned by `search_clients`."
+          }
+        },
+        "required": ["client_id"],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "type": "object" }
+        }
+      },
+      "tags": ["crm", "clients", "details", "identity"],
+      "side_effects": false
     }
   ]
 }

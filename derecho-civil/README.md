@@ -259,15 +259,17 @@ El proceso de control de calidad auditó cada flujo conversacional, validando la
 
 ## Herramientas Nativas de Agente (Agent Tools)
 
-El plugin opera exclusivamente con las 7 herramientas nativas del catálogo de agente (agent_tools.json):
+El plugin opera exclusivamente con las 9 herramientas nativas del catálogo de agente (agent_tools.json):
 
 1. `read_file`: Inspección y verificación de integridad de documentos creados en el workspace (reservado para casos extremos donde el documento no figure en `# WORKSPACE ACTIVE DOCUMENTS`).
 2. `create_file`: Creación del borrador base completo con principio Zero-Omission (`{{DATO_FALTANTE}}`).
 3. `edit_file`: Edición incremental y sustitución quirúrgica cláusula a cláusula.
 4. `web_search`: Consulta opcional en vivo del texto consolidado de normas y baremos en el BOE.
-5. `restricted_human_in_the_loop_request`: Presentación de formularios estructurados de clasificación de vectores en Fase 1.
+5. `restricted_human_in_the_loop_request`: Presentación de formularios estructurados de clasificación de vectores en Fase 1 y desambiguación de clientes.
 6. `human_in_the_loop_request`: Consulta interactiva abierta en decisiones de diseño o confirmaciones críticas.
-7. `slot_filling_request`: Recogida estructurada de parámetros complementarios.
+7. `slot_filling_request`: Recogida estructurada de parámetros de la transacción o datos residuales faltantes.
+8. `search_clients`: Búsqueda primaria y de máxima prioridad para identificar partes y personas en el sistema.
+9. `get_client`: Obtención de la ficha completa y detallada de un cliente seleccionado.
 
 ---
 

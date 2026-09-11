@@ -230,7 +230,25 @@ Envía un mensaje formal que contenga:
       --> [«¿Confirmamos esta sección?»] --> [edit_file en el editor]
 ```
 
-- **Datos estructurados agrupados (`slot_filling_request`, MANDATORIO):** los datos de quien reclama, los de la empresa y los del contrato o compra se piden en bloque, nunca dato a dato.
+- **Búsqueda prioritaria de clientes (`search_clients` — MÁXIMA PRIORIDAD):** Siempre que se requiera identificar personas físicas o jurídicas (partes contratantes, cliente, empresa/empleador, trabajador, demandante, demandado, etc.), **DEBES invocar en primer lugar `search_clients`** antes de pedir datos al usuario o usar formularios.
+
+
+  - Si el usuario aportó nombres o pistas, extraerlos y emitir **llamadas concurrentes a `search_clients` en paralelo** en el mismo turno (`search_clients(query="...")`).
+
+
+  - Si no aportó nombres, llamar a `search_clients()` sin parámetros para consultar los clientes existentes en el sistema.
+
+
+  - *1 coincidencia:* usar directamente los datos de la ficha (nombre, NIF/CIF, domicilio fiscal, email, teléfono) sin volver a pedirlos.
+
+
+  - *Múltiples coincidencias:* desambiguar de inmediato con `restricted_human_in_the_loop_request` (opciones con `display_name`, `fiscal_id` y `city`).
+
+
+  - *0 coincidencias o datos residuales faltantes:* solo si no hay coincidencias o si faltan datos específicos no cubiertos por la ficha (ej. número de afiliación o cargo de representación), recurrir a `slot_filling_request` solicitando exclusivamente los campos pendientes.
+
+
+- **Datos estructurados no de cliente agrupados (`slot_filling_request`, MANDATORIO):** condiciones del objeto o de la relación, importes, retribución, bases o parámetros específicos se solicitan en bloque mediante `slot_filling_request`, nunca dato a dato.
 - **Campos omitidos o negativa expresa (No insistencia):** Si el usuario pide explícitamente no aportar determinados campos de información, pásalos por alto de inmediato sin insistir en pedirlos ni presionar. Rellena la plantilla con los datos disponibles, conserva los no aportados como marcadores pendientes ({{NOMBRE_CAMPO}} o {{DATO_FALTANTE}}) e indica en la confirmación cuáles faltan antes de continuar con la siguiente sección.
 - **Confirmación agrupada por parte:** los datos de una misma persona o empresa se confirman todos juntos al final del bloque.
 - **Anuncio de sección visible** al pasar de una sección a la siguiente, en el mismo mensaje que la primera solicitud.

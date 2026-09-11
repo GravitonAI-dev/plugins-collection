@@ -32,6 +32,12 @@
     },
     {
       "id": "io.gravitonai.tools.slot_filling_request"
+    },
+    {
+      "id": "io.gravitonai.tools.search_clients"
+    },
+    {
+      "id": "io.gravitonai.tools.get_client"
     }
   ]
 }

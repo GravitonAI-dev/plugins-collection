@@ -207,7 +207,19 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 [Recogida: slot_filling_request (grupos de datos) / Chat (negociación)] --> [Vista Previa en texto plano en CHAT] --> [¿Confirmamos en CHAT?] --> [edit_file en el editor]
 ```
 1. **Recogida de datos / Diálogo:**
-   - **Grupos de datos estructurados (MANDATORIO con `slot_filling_request`):** Para todo bloque que recopile datos personales/identificativos (nombre, DNI/NIE/documento, domicilio), datos de la convivencia (fechas, domicilio común) o relaciones de bienes, **DEBES invocar `slot_filling_request`** pidiendo todo el grupo de datos a la vez en lote. Queda **ESTRICTAMENTE PROHIBIDO** pedir estos datos uno por uno en turnos sucesivos de chat.
+   - **Búsqueda prioritaria de partes e intervinientes (MANDATORIO con `search_clients` — MÁXIMA PRIORIDAD):** Siempre que la sección requiera identificar personas físicas o jurídicas (partes intervinientes, solicitantes, representados, cónyuges, progenitores, deudores, etc.), **DEBES invocar `search_clients` en primer lugar** antes de solicitar datos al usuario o llamar a formularios.
+
+     - *Nombres aportados por el usuario:* extraer el nombre y llamar a `search_clients(query="Nombre")`. Si hay varias partes mencionadas, emitir **llamadas concurrentes en paralelo** en el mismo turno para cada persona.
+
+     - *Sin nombres aportados:* llamar a `search_clients()` sin argumentos para listar los clientes guardados en el sistema.
+
+     - *1 coincidencia:* emplear directamente los datos de la ficha (nombre, NIF/CIF, domicilio fiscal, etc.) sin volver a pedirlos.
+
+     - *Múltiples coincidencias:* formular inmediatamente `restricted_human_in_the_loop_request` para que el usuario elija el cliente (con opciones mostrando `display_name`, `fiscal_id` y `city`).
+
+     - *0 coincidencias o datos residuales faltantes:* solo si `search_clients` devuelve 0 resultados, o si tras recuperar la ficha faltan campos puntuales, invocar `slot_filling_request` solicitando exclusivamente los campos faltantes.
+
+   - **Grupos de datos estructurados no de cliente (MANDATORIO con `slot_filling_request`):** Para datos del objeto, circunstancias del hecho, bienes, importes, deudas o parámetros complementarios, **DEBES invocar `slot_filling_request`** pidiendo todos los campos del grupo a la vez en lote. Queda **ESTRICTAMENTE PROHIBIDO** pedir estos datos de forma fragmentada uno por uno en sucesivos turnos de chat.
    - **Campos omitidos o negativa expresa (No insistencia):** Si el usuario pide explícitamente no aportar determinados campos de información, pásalos por alto de inmediato sin insistir en pedirlos ni presionar. Rellena la plantilla con los datos disponibles, conserva los no aportados como marcadores pendientes ({{NOMBRE_CAMPO}} o {{DATO_FALTANTE}}) e indica en la confirmación cuáles faltan antes de continuar con la siguiente sección.
    - **Cláusulas de negociación:** Explica en el chat las consecuencias legales del régimen por defecto y las opciones a pactar.
 2. **Vista Previa (Preview) en CHAT:** Tras recibir los datos de `slot_filling_request` o la respuesta del usuario, muestra en el chat el texto exacto redactado de la cláusula en texto plano (sin backticks).

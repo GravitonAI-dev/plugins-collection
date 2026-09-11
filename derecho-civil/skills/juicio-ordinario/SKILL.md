@@ -244,8 +244,14 @@ Para cada cláusula o bloque temático del documento, ejecuta estrictamente el s
 3. **Confirmación:** Consulta al usuario si está conforme o desea algún ajuste.
 4. **Persistencia en Disco:** Una vez confirmado, ejecuta `edit_file` con `old_string` y `new_string` exactos. La verificación del documento se realiza prioritariamente a través de la sección `# WORKSPACE ACTIVE DOCUMENTS`, recurriendo a `read_file` únicamente en casos extremos y estrictamente necesarios.
 
-**Petición de grupos de datos mediante `slot_filling_request` y confirmaciones en el chat:**
-- **Datos estructurados agrupados mediante `slot_filling_request`:** para cualquier grupo de datos objetivos o identificativos (partes actora y demandada, cuantía y determinación del interés económico, y relación de documentos), **NO pregunte dato por dato en el chat**. Invoque la herramienta `slot_filling_request` agrupando todos los campos del bloque de una sola vez.
+**Petición de grupos de datos mediante `search_clients` y `slot_filling_request`, y confirmaciones en el chat:**
+- **Búsqueda prioritaria de clientes (`search_clients` — MÁXIMA PRIORIDAD):** Siempre que se requiera identificar personas físicas o jurídicas (partes intervinientes, solicitantes, demandantes, demandados, cónyuges, acreedores, deudores, etc.), **DEBE invocar en primer lugar `search_clients`** antes de pedir datos al usuario o formular formularios.
+  - Si el usuario aportó nombres o pistas, extraerlos y emitir **llamadas concurrentes a `search_clients` en paralelo en el mismo turno** para cada persona (`search_clients(query="...")`).
+  - Si no aportó nombres, llamar a `search_clients()` sin parámetros para consultar los clientes guardados en el sistema.
+  - *1 coincidencia:* usar directamente los datos de la ficha (nombre, NIF/CIF, domicilio fiscal, etc.) sin volver a pedirlos.
+  - *Múltiples coincidencias:* desambiguar de inmediato mediante `restricted_human_in_the_loop_request` (opciones con `display_name`, `fiscal_id` y `city`).
+  - *0 coincidencias o datos residuales faltantes:* solo si no hay coincidencias o si tras usar la ficha faltan datos específicos, recurrir a `slot_filling_request` solicitando exclusivamente los campos faltantes.
+- **Datos estructurados no de cliente agrupados mediante `slot_filling_request`:** Para datos del objeto, circunstancias, bienes, importes o parámetros complementarios no identificativos de cliente, **NO pregunte dato por dato en el chat**. Invoque la tool `slot_filling_request` agrupando todos los campos del bloque de una sola vez.
 - **Campos omitidos o negativa expresa (No insistencia):** Si el usuario pide explícitamente no aportar determinados campos de información, pásalos por alto de inmediato sin insistir en pedirlos ni presionar. Rellena la plantilla con los datos disponibles, conserva los no aportados como marcadores pendientes ({{NOMBRE_CAMPO}} o {{DATO_FALTANTE}}) e indica en la confirmación cuáles faltan antes de continuar con la siguiente sección.
 - **Validación de sentido, no solo de formato:** razone si la respuesta tiene sentido en el contexto de lo preguntado. Si es absurda, imposible o incongruente, dialogue en el chat, señale el motivo y pida aclaración antes de volcarla al documento.
 
