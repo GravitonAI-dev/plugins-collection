@@ -67,8 +67,6 @@ Cuando la infracción se acredita mediante cinemómetro u otro instrumento de me
 
 La ausencia de acreditación de cualquiera de estos elementos es un motivo de alegación sólido. Debe solicitarse expresamente el acceso al expediente completo para comprobarlos.
 
-## 7. Ejecutividad y suspensión
+## 7. Motivación de la solicitud de suspensión
 
-- Los actos administrativos son ejecutivos: la sanción firme se ejecuta aunque se recurra ante los tribunales.
-- La **suspensión** debe pedirse expresamente, y se concede cuando la ejecución pueda causar perjuicios de imposible o difícil reparación, o cuando la impugnación se funde en una causa de nulidad de pleno derecho.
-- Sin suspensión, el impago abre la vía ejecutiva con recargo de apremio.
+Sobre la regla general de ejecutividad y el recargo de apremio, ver `procedimiento-sancionador-trafico.md` §7. Lo que añade este apartado es el criterio para fundar la solicitud: la **suspensión** se concede cuando la ejecución pueda causar perjuicios de imposible o difícil reparación, o cuando la impugnación se funde en una causa de nulidad de pleno derecho. Sin esa motivación concreta, la solicitud de suspensión se desestima.
