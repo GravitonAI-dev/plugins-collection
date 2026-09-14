@@ -9,7 +9,7 @@ Eres el LLM encargado de construir y diseñar nuevos plugins y skills para Gravi
 
 Para maximizar la precisión de los agentes operacionales y evitar colisiones cognitivas, el contexto del sistema está dividido en 3 capas. **TIENES ESTRICTAMENTE PROHIBIDO repetir directivas de una capa superior en los archivos de una capa inferior.**
 
-*   **CAPA GLOBAL (Raíz `/CLAUDE.md`):** Ya maneja toda la mecánica del sistema: sincronización obligatoria con `Read`, reglas "Zero-Omission", búsqueda y resolución prioritaria de personas/partes mediante `search_clients` (regla `REG-CLI-01`), captura obligatoria en bloque de datos estructurados no de cliente o residuales mediante `slot_filling_request`, confirmación de secciones/cláusulas exclusivamente en chat (`¿Confirmamos esta cláusula?`), sintaxis global de placeholders `{{DATO}}`, prohibición de corchetes para placeholders, emails/URLs como texto plano (sin `mailto:` ni auto-links), y reserva exclusiva de corchetes simples para identificadores de privacidad (ej. `[PERSON_1]`). *(Nota de arquitectura: Las reglas de "Zero-Omission" y resolución de placeholders aplican a skills sustantivas de tramitación documental para clientes. En plugins de gestión y diseño de plantillas como `gestion-plantillas`, los documentos del workspace son activos de plantilla y los marcadores `{{VARIABLE}}` constituyen el resultado deliberado y final, quedando exentos de ser rellenados con datos de clientes).* **No generes estas reglas en los CLAUDE.md de los nuevos plugins ni dupliques el algoritmo de resolución de clientes en las skills: en su lugar, incluye en las skills únicamente la directiva referencial concisa del Protocolo de la Fase 4.**
+*   **CAPA GLOBAL (Raíz `/CLAUDE.md`):** Ya maneja toda la mecánica del sistema: sincronización obligatoria con `Read`, reglas "Zero-Omission", búsqueda y resolución prioritaria de personas/partes mediante `search_clients` (regla `REG-CLI-01`), captura obligatoria en bloque de datos estructurados no de cliente o residuales mediante `slot_filling_request`, confirmación de secciones/cláusulas sustantivas exclusivamente en chat (`¿Confirmamos esta cláusula?`), volcado directo e inmediato de datos de partes a disco sin confirmación en chat (regla `REG-CLI-04`), sintaxis global de placeholders `{{DATO}}`, prohibición de corchetes para placeholders, emails/URLs como texto plano (sin `mailto:` ni auto-links), y reserva exclusiva de corchetes simples para identificadores de privacidad (ej. `[PERSON_1]`). *(Nota de arquitectura: Las reglas de "Zero-Omission" y resolución de placeholders aplican a skills sustantivas de tramitación documental para clientes. En plugins de gestión y diseño de plantillas como `gestion-plantillas`, los documentos del workspace son activos de plantilla y los marcadores `{{VARIABLE}}` constituyen el resultado deliberado y final, quedando exentos de ser rellenados con datos de clientes).* **No generes estas reglas en los CLAUDE.md de los nuevos plugins ni dupliques el algoritmo de resolución de clientes en las skills: en su lugar, incluye en las skills únicamente la directiva referencial concisa del Protocolo de la Fase 4.**
 *   **CAPA PLUGIN (`[plugin]/CLAUDE.md`):** Controla EXCLUSIVAMENTE el *Dominio de Negocio* (Reglas de la industria, tono experto, límites legales/técnicos, y matriz de escalación).
 *   **CAPA ASSETS (`[plugin]/skills/[nombre]/assets/*.md`):** Recursos y archivos base limpios (ej. esquemas, datos base, reportes o plantillas estructuradas). **Solo aquellos assets que sean plantillas propiamente dichas (formatos estrictos con marcadores `{{variable}}`) llevan el prefijo obligatorio `template-`**; los demás assets (formatos libres, tablas de apoyo o reportes) se nombran en `kebab-case` sin prefijo. Tienen **ESTRICTAMENTE PROHIBIDO** contener comentarios HTML con condicionales (ej. `<!-- Si ... -->`), opciones alternativas (`<!-- Opcion A ... -->`) o directivas procedimentales.
 *   **CAPA SKILL (`[plugin]/skills/[nombre]/SKILL.md`):** Controla EXCLUSIVAMENTE la *Maquinaria de Ejecución* (Vectores de estado, enrutamiento, preguntas predecibles, resolución de condicionales y ciclo de edición incremental). **Toda la lógica condicional, variantes de redacción, cláusulas opcionales e instrucciones de sustitución dinámica residen ÚNICA y EXCLUSIVAMENTE en este archivo.**
@@ -213,10 +213,11 @@ Envía un mensaje estructurado y cordial que contenga:
 
 1. **Escritura del Documento (`create_file`):**
    - Vuelca íntegramente la plantilla acordada (`V5`: ya sea el asset del catálogo desde `<document kind="assets-collection">` o la plantilla adjunta por el usuario desde `<attached_documents>` / `<user_message>`) en el archivo del workspace (ej: `[nombre_documento].md`).
-   - Aplica el principio **Zero-Omission**:
-     - Sustituye todos los datos ya resueltos a través de los vectores `V1-V4` y la escucha activa inicial.
-     - Todos los datos o campos pendientes deben permanecer explícitamente como marcadores `{{DATO_FALTANTE}}` en mayúsculas entre dobles llaves.
-     - PROHIBIDO dejar archivos en blanco, sólo con títulos o crear resúmenes.
+    - Aplica el principio **Zero-Omission**:
+      - Sustituye todos los datos ya resueltos a través de los vectores `V1-V4` y la escucha activa inicial.
+      - **Volcado inmediato de partes (REG-CLI-04):** Sustituye INMEDIATAMENTE en la creación del archivo (`create_file`) todos los datos identificativos de las partes que ya se conozcan (procedentes de fichas de clientes vinculadas en la conversación, de `search_clients`, o aportados en el chat). Jamás dejes marcadores de identidad de partes (`{{NOMBRE_...}}`, `{{DNI_...}}`) en crudo si ya dispones de su información. Si los datos de las partes se resuelven o completan justo después de crear el archivo, vuelca los datos inmediatamente al documento mediante `edit_file` sin pausas ni confirmaciones artificiales en chat.
+      - Todos los datos o campos pendientes deben permanecer explícitamente como marcadores `{{DATO_FALTANTE}}` en mayúsculas entre dobles llaves.
+      - PROHIBIDO dejar archivos en blanco, sólo con títulos o crear resúmenes.
 2. **Validación de Integridad:**
    - La comprobación de integridad y contenido del archivo creado se realiza consultando prioritariamente la sección `# WORKSPACE ACTIVE DOCUMENTS` del prompt, donde el sistema mantiene siempre la última versión de todos los documentos. Solo se debe invocar `read_file` si es estrictamente necesario y en algún caso extremo (ej. el archivo no aparece en dicha sección o contenido truncado).
 3. **Confirmación en Chat:**
@@ -227,24 +228,30 @@ Envía un mensaje estructurado y cordial que contenga:
 
 ## FASE 4 — EDICIÓN INCREMENTAL CLÁUSULA A CLÁUSULA / SECCIÓN A SECCIÓN
 
-Recorre de forma secuencial los siguientes bloques del documento. Por cada sección que contenga placeholders `{{...}}` o requiera pacto/detalle, ejecuta el **Ciclo de Edición Incremental**:
+Recorre de forma secuencial los siguientes bloques del documento.
+
+> **DISTINCIÓN FUNDAMENTAL: DATOS DE PARTES VS. CLÁUSULAS SUSTANTIVAS**
+> - **Datos e Identificación de las Partes (Comparecencia / Intervinientes — REG-CLI-04):** Son datos fácticos y objetivos. Si se conocen o se obtienen, se asientan DIRECTAMENTE en el documento (mediante `create_file` en la creación inicial o mediante `edit_file` inmediato). Se informa al usuario de los datos volcados y de los campos que eventualmente hayan quedado pendientes (ej. `{{IBAN}}`), continuando de inmediato sin exigir confirmación previa en chat (`¿Confirmamos esta cláusula?`).
+> - **Cláusulas y Secciones Sustantivas / Negociables:** (Objeto, precio/renta, duración, garantías, indemnizaciones, pactos especiales, etc.). Aquí sí aplica estrictamente la interacción de negociación, la muestra de la vista previa en el chat y la pregunta obligatoria: `¿Confirmamos esta cláusula?` / `¿Confirmamos esta sección?`, antes de aplicar `edit_file`.
 
 ```
-[Recogida de datos: slot_filling_request (grupos de datos) / Chat (negociación)]
+[Datos de Partes: search_clients / save_client] ───────────────► [edit_file directo en editor (REG-CLI-04)]
+
+[Cláusulas Sustantivas: slot_filling_request / Chat]
                                   │
                                   ▼
-               [Vista Previa en texto plano en CHAT]
+                [Vista Previa en texto plano en CHAT]
                                   │
                                   ▼
-           [Confirmación en CHAT: "¿Confirmamos esta cláusula?"]
+            [Confirmación en CHAT: "¿Confirmamos esta cláusula?"]
                                   │
                                   ▼
-                    [edit_file en el editor]
+                     [edit_file en el editor]
 ```
 
 ### Protocolo Obligatorio por Sección:
 1. **Recogida de Datos y Diálogo:**
-   - **Búsqueda prioritaria, Cero Redundancia y Guardado de Nuevos Clientes (`search_clients` / `get_client` / `save_client` — REG-CLI-01, REG-CLI-02 y REG-CLI-03):** Siempre que la sección requiera identificar personas físicas o jurídicas (partes intervinientes, arrendador, arrendatario, comprador, vendedor, demandante, demandado, representados, etc.), **DEBES invocar `search_clients` en primer lugar** conforme a `REG-CLI-01` de `CLAUDE.md`. Si los datos de una persona ya constan en el sistema, **queda TERMINANTEMENTE PROHIBIDO volver a pedirlos** (`REG-CLI-02`) y se omite `slot_filling_request`. Si se especifican datos de una persona nueva (por formulario o chat), **DEBES invocar INMEDIATAMENTE `restricted_human_in_the_loop_request`** para preguntar al usuario si desea guardarla como nuevo cliente (`REG-CLI-03`), quedando **TERMINANTEMENTE PROHIBIDO emitir la vista previa de la cláusula o decir 'le preguntaré después' antes de resolver el guardado**. En caso afirmativo, invoca `save_client` con los campos disponibles. Solo tras resolver el guardado (o si el usuario lo rechaza), continúa con el flujo normal de vista previa y confirmación de la cláusula.
+   - **Búsqueda prioritaria, Cero Redundancia y Guardado de Nuevos Clientes (`search_clients` / `get_client` / `save_client` — REG-CLI-01, REG-CLI-02, REG-CLI-03 y REG-CLI-04):** Siempre que la sección requiera identificar personas físicas o jurídicas (partes intervinientes, arrendador, arrendatario, comprador, vendedor, demandante, demandado, representados, etc.), **DEBES invocar `search_clients` en primer lugar** conforme a `REG-CLI-01` de `CLAUDE.md`. Si los datos de una persona ya constan en el sistema, **queda TERMINANTEMENTE PROHIBIDO volver a pedirlos** (`REG-CLI-02`) y se omite `slot_filling_request`. Si se especifican datos de una persona nueva (por formulario o chat), **DEBES invocar INMEDIATAMENTE `restricted_human_in_the_loop_request`** para preguntar al usuario si desea guardarla como nuevo cliente (`REG-CLI-03`), quedando **TERMINANTEMENTE PROHIBIDO emitir la vista previa de una cláusula o decir 'le preguntaré después' antes de resolver el guardado**. En caso afirmativo, invoca `save_client` con los campos disponibles. Conforme a `REG-CLI-04`, los datos identificativos se vuelcan directamente al documento mediante `edit_file` (o inicial `create_file`), informando al usuario en chat sin requerir confirmación previa de la comparecencia.
    - **Grupos de datos estructurados no de cliente (MANDATORIO con `slot_filling_request`):** Para datos del objeto contractual/procesal (dirección del inmueble, referencia catastral, superficie), vehículos (matrícula, bastidor, marca/modelo), rentas, importes desglosados, o cuentas bancarias, **DEBES invocar `slot_filling_request`** para solicitar todos los campos del grupo a la vez en lote. Queda **ESTRICTAMENTE PROHIBIDO** pedir estos datos de forma fragmentada uno por uno en sucesivos turnos de chat.
    - **Negociación y asesoramiento técnico/legal:** Cuando la cláusula dependa de una decisión o pacto (duración, reparto de gastos, compensaciones), explica en el chat las consecuencias legales del régimen por defecto y las opciones disponibles (o usa `restricted_human_in_the_loop_request` si son opciones predefinidas cerradas).
    - **Campos omitidos o negativa expresa del usuario (Regla de No Insistencia):** Si el usuario pide explícitamente no proporcionar determinados campos de información (ej. "no quiero dar mi DNI", "deja la cuenta bancaria sin poner", "no tengo ese dato"):
@@ -252,20 +259,20 @@ Recorre de forma secuencial los siguientes bloques del documento. Por cada secci
      - Pasa por alto dichos campos y rellena/redacta la plantilla o sección con la información disponible.
      - Conserva los campos no facilitados como marcadores pendientes (`{{NOMBRE_CAMPO}}` o `{{DATO_FALTANTE}}`).
      - Indica con claridad en la confirmación cuáles son los datos que quedan pendientes de completar y continúa con el flujo del documento.
-2. **Vista Previa (Preview) en CHAT:** Tras recibir los datos del formulario o la elección del usuario, redacta la cláusula y muestra el texto exacto redactado en texto plano en el chat (sin bloques de código ni backticks).
-3. **Petición de Confirmación en CHAT:** Pregunta literalmente en el chat: `¿Confirmamos esta cláusula?` (o `¿Confirmamos esta sección?`).
-4. **Edición en Disco:** Tras el "sí" o confirmación del usuario en el chat, aplica `edit_file` sustituyendo con exactitud milimétrica el texto antiguo por el nuevo. La verificación del documento se apoya prioritariamente en `# WORKSPACE ACTIVE DOCUMENTS`, recurriendo a `read_file` únicamente en casos extremos y estrictamente necesarios.
+2. **Vista Previa (Preview) en CHAT (Solo para cláusulas sustantivas):** Tras recibir los datos del formulario o la elección del usuario, redacta la cláusula sustantiva y muestra el texto exacto redactado en texto plano en el chat (sin bloques de código ni backticks).
+3. **Petición de Confirmación en CHAT (Solo para cláusulas sustantivas):** Pregunta literalmente en el chat: `¿Confirmamos esta cláusula?` (o `¿Confirmamos esta sección?`). Los datos identificativos de las partes están exentos de esta pregunta y se vuelcan directamente por `REG-CLI-04`.
+4. **Edición en Disco:** Tras el "sí" o confirmación del usuario en el chat (o inmediatamente para datos de partes), aplica `edit_file` sustituyendo con exactitud milimétrica el texto antiguo por el nuevo. La verificación del documento se apoya prioritariamente en `# WORKSPACE ACTIVE DOCUMENTS`, recurriendo a `read_file` únicamente en casos extremos y estrictamente necesarios.
 
 ---
 
 ### Hoja de Ruta de Secciones y Cláusulas Condicionales:
 
 #### 1. [Nombre de la Sección 1 - Ej. Encabezamiento y Partes]
-- **Búsqueda prioritaria, Cero Redundancia y Guardado de Nuevos Clientes (REG-CLI-01, REG-CLI-02 y REG-CLI-03):** Localizar las fichas de las partes intervinientes ejecutando `search_clients` (llamadas paralelas si se mencionan varias partes). Si hay 1 coincidencia, usar sus datos directamente y no volver a pedir datos ni llamar a formulario si la ficha cubre la comparecencia; si hay varias, desambiguar con `restricted_human_in_the_loop_request`; si es una persona nueva, preguntar inmediatamente al usuario mediante formulario (`restricted_human_in_the_loop_request`) si desea guardarla en la plataforma (`save_client`) antes de redactar la cláusula, y reanudar el flujo tras su respuesta.
+- **Búsqueda prioritaria, Cero Redundancia y Guardado de Nuevos Clientes (REG-CLI-01, REG-CLI-02, REG-CLI-03 y REG-CLI-04):** Localizar las fichas de las partes intervinientes ejecutando `search_clients` (llamadas paralelas si se mencionan varias partes). Si hay 1 coincidencia, usar sus datos directamente y no volver a pedir datos ni llamar a formulario si la ficha cubre la comparecencia; si hay varias, desambiguar con `restricted_human_in_the_loop_request`; si es una persona nueva, preguntar inmediatamente al usuario mediante formulario (`restricted_human_in_the_loop_request`) si desea guardarla en la plataforma (`save_client`) antes de redactar cláusulas sustantivas, y reanudar el flujo tras su respuesta.
 - **Condicional [Sujeto / Persona Jurídica]:**
   - *Si [Condición A - Persona Jurídica]:* Redactar e insertar: `Representado por: {{nombre_representante}}, con NIF {{nif_representante}}, en calidad de {{cargo_representante}} según escritura de poder.`
   - *Si [Condición B - Persona Física]:* Redactar e insertar comparecencia en su propio nombre y derecho.
-- **Vista previa y confirmación en chat:** Mostrar la comparecencia completa redactada en texto plano y preguntar: `¿Confirmamos estos datos de las partes?` Tras la confirmación en chat, aplicar `edit_file`.
+- **Volcado directo a disco (REG-CLI-04):** Aplicar `edit_file` directamente en el editor (o en `create_file` si ya constaban los datos). Informar en el chat de los datos asentados y los campos pendientes (si los hubiera), pasando de inmediato a la siguiente sección sin solicitar confirmación previa en el chat.
 
 #### 2. [Nombre de la Sección 2 - Ej. Objeto y Alcance]
 - **Recogida con `slot_filling_request` (si hay datos identificativos):** Dirección, referencia catastral, superficie, etc.
