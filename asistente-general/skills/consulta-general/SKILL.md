@@ -139,9 +139,10 @@ Recorre de forma secuencial los 5 bloques del documento aplicando el ciclo de ed
 
 ### Protocolo Obligatorio por Sección:
 1. **Diálogo y Planteamiento:** Presenta la redacción propuesta para la sección con base en el análisis jurídico y técnico. Si el usuario pide explícitamente no aportar determinados datos o antecedentes, respeta su decisión de inmediato sin insistir: elabora la sección con la información disponible, conserva los marcadores pendientes e indícalo en el chat antes de continuar.
-2. **Vista Previa (Preview):** Muestra el fragmento redactado en texto plano (sin backticks de código).
-3. **Petición de Confirmación:** Pregunta literalmente: `¿Confirmamos esta sección?`.
-4. **Edición en Disco:** Tras la aprobación del usuario, aplica `edit_file` con precisión quirúrgica. La verificación de la modificación se apoya prioritariamente en `# WORKSPACE ACTIVE DOCUMENTS`, recurriendo a `read_file` únicamente en casos extremos y estrictamente necesarios.
+2. **Equivalencia de Vía y Cero Redundancia de Datos por Chat (REG-DAT-01):** Toda información o datos requeridos para el dictamen o informe pueden ser suministrados indistintamente por el usuario mediante texto libre en el chat o herramientas interactivas. Comprueba meticulosamente si el usuario ya aportó los datos en su mensaje o historial reciente; si ya los suministró, ingiérela e incorpórala directamente sin redundancias. Si el usuario formula dudas o consultas accesorias sin aportar antecedentes clave, atiende su consulta en el chat y solicita posteriormente los datos indispensables para el análisis.
+3. **Vista Previa (Preview):** Muestra el fragmento redactado en texto plano (sin backticks de código).
+4. **Petición de Confirmación:** Pregunta literalmente: `¿Confirmamos esta sección?`.
+5. **Edición en Disco:** Tras la aprobación del usuario, aplica `edit_file` con precisión quirúrgica. La verificación de la modificación se apoya prioritariamente en `# WORKSPACE ACTIVE DOCUMENTS`, recurriendo a `read_file` únicamente en casos extremos y estrictamente necesarios.
 
 ---
 
