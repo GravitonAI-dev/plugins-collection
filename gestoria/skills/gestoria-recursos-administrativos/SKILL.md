@@ -118,10 +118,11 @@ Invoca la herramienta con las preguntas de triaje:
     {
       "id": "agota_via",
       "rationale": "Resolver V2: determina si procede recurso de alzada o de reposicion, que tienen plazos y organos distintos.",
-      "question": "¿Indica la notificación que contra la resolución cabe recurso de alzada, o que agota la vía administrativa?",
+      "question": "Si es un recurso administrativo, ¿indica la notificación que contra la resolución cabe recurso de alzada, o que agota la vía administrativa?",
       "options": [
         {"id": "no_agota_via", "label": "Cabe recurso de alzada, o lo dictó un órgano con superior jerárquico"},
-        {"id": "agota_via", "label": "Agota la vía administrativa, o no lo sé con certeza"}
+        {"id": "agota_via", "label": "Agota la vía administrativa, o no lo sé con certeza"},
+        {"id": "no_procede", "label": "No procede: no es un recurso contra una resolución previa (es una solicitud inicial)"}
       ]
     },
     {

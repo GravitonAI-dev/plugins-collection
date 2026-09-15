@@ -114,19 +114,21 @@ Invoca la herramienta con las preguntas de triaje:
     {
       "id": "lugar_solicitud",
       "rationale": "Resolver V2: el procedimiento en frontera y en centro de internamiento tiene plazos de dias, no de meses.",
-      "question": "¿Dónde se encuentra la persona que solicita protección?",
+      "question": "Si es solicitud de protección internacional, ¿dónde se encuentra la persona?",
       "options": [
         {"id": "en_territorio", "label": "Ya en territorio español, con libertad de movimientos"},
-        {"id": "en_frontera_o_cie", "label": "En un puesto fronterizo, en un aeropuerto o en un centro de internamiento"}
+        {"id": "en_frontera_o_cie", "label": "En un puesto fronterizo, en un aeropuerto o en un centro de internamiento"},
+        {"id": "no_procede", "label": "No procede: no es una solicitud de protección internacional (es un recurso administrativo)"}
       ]
     },
     {
       "id": "recurso_procedente",
       "rationale": "Resolver V3: el recurso depende de si el acto agota o no la via administrativa, segun indique su notificacion.",
-      "question": "¿Qué recurso indica la notificación de la resolución que quiere impugnar?",
+      "question": "Si es un recurso, ¿qué recurso indica la notificación de la resolución que quiere impugnar?",
       "options": [
         {"id": "alzada", "label": "Recurso de alzada ante el órgano superior"},
-        {"id": "reposicion", "label": "Recurso de reposición, o dice que agota la vía administrativa"}
+        {"id": "reposicion", "label": "Recurso de reposición, o dice que agota la vía administrativa"},
+        {"id": "no_procede", "label": "No procede: no es un recurso (es una solicitud inicial de protección)"}
       ]
     }
   ]

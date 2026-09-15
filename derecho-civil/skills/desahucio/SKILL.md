@@ -104,7 +104,8 @@ Invoca la herramienta con las opciones de triaje:
       "question": "Si existe arrendamiento, ¿por qué causa se pretende la recuperación?",
       "options": [
         {"id": "falta_pago", "label": "Impago de rentas o cantidades asimiladas"},
-        {"id": "expiracion_plazo", "label": "Expiración del plazo contractual o de sus prórrogas"}
+        {"id": "expiracion_plazo", "label": "Expiración del plazo contractual o de sus prórrogas"},
+        {"id": "no_procede", "label": "No procede: no existe contrato de arrendamiento (precario o sin título)"}
       ]
     },
     {

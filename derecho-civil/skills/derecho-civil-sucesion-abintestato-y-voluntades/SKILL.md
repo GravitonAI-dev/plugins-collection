@@ -114,20 +114,22 @@ Invoca la herramienta con las preguntas de triaje:
     {
       "id": "orden_sucesorio",
       "rationale": "Resolver V2 para determinar el orden de suceder y las cuotas que corresponden.",
-      "question": "¿Qué familiares sobreviven al fallecido?",
+      "question": "Si es declaración de herederos abintestato, ¿qué familiares sobreviven al fallecido?",
       "options": [
         {"id": "descendientes", "label": "Hijos o nietos"},
         {"id": "ascendientes_o_colaterales", "label": "No hay hijos: padres, hermanos, sobrinos, tíos o primos"},
-        {"id": "conyuge_o_pareja", "label": "Solo cónyuge o pareja, sin hijos ni padres"}
+        {"id": "conyuge_o_pareja", "label": "Solo cónyuge o pareja, sin hijos ni padres"},
+        {"id": "no_procede", "label": "No procede: la persona está viva (se solicitan voluntades anticipadas)"}
       ]
     },
     {
       "id": "testamento",
       "rationale": "Resolver V3: sin el certificado del Registro de Actos de Ultima Voluntad el notario no puede autorizar el acta.",
-      "question": "¿Han obtenido ya el certificado del Registro de Actos de Última Voluntad que acredita que no hay testamento?",
+      "question": "Si es declaración de herederos, ¿han obtenido ya el certificado del Registro de Actos de Última Voluntad que acredita que no hay testamento?",
       "options": [
         {"id": "inexistencia_acreditada", "label": "Sí, ya lo tenemos y no hay testamento"},
-        {"id": "pendiente_comprobar", "label": "No, todavía no lo hemos solicitado"}
+        {"id": "pendiente_comprobar", "label": "No, todavía no lo hemos solicitado"},
+        {"id": "no_procede", "label": "No procede: son voluntades anticipadas (no hay causante fallecido)"}
       ]
     }
   ]

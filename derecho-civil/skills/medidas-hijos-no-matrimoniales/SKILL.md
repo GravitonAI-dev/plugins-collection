@@ -138,7 +138,8 @@ Invoca la herramienta con las opciones de triaje:
       "question": "Si hay acuerdo, ¿qué alcance tiene el encargo?",
       "options": [
         {"id": "solo_pacto", "label": "Solo el pacto de relaciones familiares"},
-        {"id": "pacto_y_demanda", "label": "El pacto y la demanda conjunta para su aprobación judicial"}
+        {"id": "pacto_y_demanda", "label": "El pacto y la demanda conjunta para su aprobación judicial"},
+        {"id": "no_procede", "label": "No procede: no hay acuerdo (vía contenciosa)"}
       ]
     },
     {

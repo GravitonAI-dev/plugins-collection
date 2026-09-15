@@ -109,7 +109,8 @@ Invoca la herramienta con las opciones de triaje:
       "question": "Si se acepta la herencia, ¿de qué modo?",
       "options": [
         {"id": "pura_y_simple", "label": "Pura y simple, respondiendo de las deudas también con el patrimonio propio"},
-        {"id": "beneficio_inventario", "label": "A beneficio de inventario, limitando la responsabilidad al caudal hereditario"}
+        {"id": "beneficio_inventario", "label": "A beneficio de inventario, limitando la responsabilidad al caudal hereditario"},
+        {"id": "no_procede", "label": "No procede: no se acepta la herencia (renuncia o interpelación)"}
       ]
     }
   ]

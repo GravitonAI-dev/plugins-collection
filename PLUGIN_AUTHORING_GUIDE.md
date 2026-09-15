@@ -133,13 +133,20 @@ Antes de invocar formularios, evalúa el mensaje inicial y el historial de la co
 ### 1.2 Formulario de Clasificación (`restricted_human_in_the_loop_request`)
 Invoca la herramienta con las preguntas necesarias para completar la resolución de los vectores pendientes:
 
+> **ESTÁNDAR MANDATORIO DE COBERTURA UNIVERSAL DE ÁRBOLES LÓGICOS (WIZARD HITL):**
+> El frontend de la aplicación presenta el bloque `form_data` de `restricted_human_in_the_loop_request` como un asistente (*wizard*) interactivo secuencial paso a paso (Pasos 1, 2, 3, etc.), donde cada pregunta requiere una selección obligatoria para avanzar.
+> 1. **Preguntas Condicionales:** Cuando una pregunta dependa de una rama o respuesta anterior (ej. preguntas que comiencen por *"Si es..."*, *"En caso de..."*, o que solo apliquen si en un paso anterior se eligió cierta opción):
+>    - **Enunciado explícito:** Debe reflejar con claridad la condición previa (ej. *"Si es un contrato nuevo, ¿qué se arrienda?"*, *"Si es una comunicación sobre un contrato vigente, ¿de qué tipo?"*, *"Si hay acuerdo, ¿qué alcance tiene el encargo?"*).
+>    - **Opción de escape / negación obligatoria:** Debe incluir **OBLIGATORIAMENTE** al final de su lista `options` una opción de negación con `"id": "no_procede"` (o `"no_aplica"`), cuya etiqueta visible exprese inequívocamente la no aplicación de la premisa (ej. `{"id": "no_procede", "label": "No es un contrato nuevo"}`, `{"id": "no_procede", "label": "No es una comunicación sobre un contrato vigente"}`, `{"id": "no_procede", "label": "No procede: no hay acuerdo (vía contenciosa)"}`).
+> 2. **Prohibición de Bloqueos Lógicos:** Queda **TERMINANTEMENTE PROHIBIDO** crear preguntas condicionales en `form_data` que asuman una respuesta afirmativa previa sin ofrecer una opción explícita de negación. Todo árbol lógico debe permitir que un usuario que haya elegido otra rama pueda transitar por los pasos restantes marcando la opción de no procedencia sin verse forzado a elegir una opción ficticia o errónea.
+
 ```json
 {
   "form_data": [
     {
       "id": "vector_1_id",
       "rationale": "Resolver V1 para determinar el régimen y alcance aplicable.",
-      "question": "¿[Pregunta clara y directa sobre la finalidad/objeto principal]?",
+      "question": "¿Qué necesita tramitar?",
       "options": [
         {"id": "opcion_a", "label": "[Descripción clara de la opción A]"},
         {"id": "opcion_b", "label": "[Descripción clara de la opción B]"},
@@ -147,9 +154,19 @@ Invoca la herramienta con las preguntas necesarias para completar la resolución
       ]
     },
     {
+      "id": "vector_2_id",
+      "rationale": "Resolver V2 condicional a la opción A.",
+      "question": "Si eligió la opción A, ¿cuál es el subtipo aplicable?",
+      "options": [
+        {"id": "subtipo_a1", "label": "[Subtipo A1]"},
+        {"id": "subtipo_a2", "label": "[Subtipo A2]"},
+        {"id": "no_procede", "label": "No procede: no corresponde a la opción A"}
+      ]
+    },
+    {
       "id": "vector_3_id",
       "rationale": "Resolver V3 para fijar la estructura de partes y límites imperativos.",
-      "question": "¿[Pregunta sobre la naturaleza jurídica de la parte principal]?",
+      "question": "¿[Pregunta general sobre la naturaleza jurídica de la parte principal]?",
       "options": [
         {"id": "persona_fisica", "label": "Persona física (particular)"},
         {"id": "persona_juridica", "label": "Persona jurídica (empresa, entidad)"}
@@ -160,16 +177,16 @@ Invoca la herramienta con las preguntas necesarias para completar la resolución
 ```
 
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
-Una vez fijados los vectores de clasificación, evalúa la rama de ejecución:
+Una vez fijados los vectores de clasificación, evalúa la rama de ejecución. Los vectores que hayan recibido `no_procede` quedan en estado inactivo/neutro y no interfieren con la rama sustantiva activada:
 * **Si `[V1 = fuera_de_alcance]` $\rightarrow$ Detener proceso (Fuera de Alcance):**
   - Informa en el chat de que el caso se rige por normativas o supuestos distintos, quedando excluido del alcance de esta skill.
   - Ofrece derivar el caso al profesional o plugin competente. **No crees documento.**
 * **Si `[V1 = opcion_a]` (Dentro de alcance):**
-  - Régimen aplicable y directivas de dominio.
+  - Régimen aplicable y directivas de dominio (evaluando `V2` entre sus subtipos activos).
   - Plantilla del sistema propuesta: `assets/template-[plantilla_a].md`.
   - Proceder a la **Fase 2**.
 * **Si `[V1 = opcion_b]` (Dentro de alcance):**
-  - Régimen aplicable y directivas de dominio.
+  - Régimen aplicable y directivas de dominio (`V2 = no_procede` queda ignorado).
   - Plantilla del sistema propuesta: `assets/template-[plantilla_b].md`.
   - Proceder a la **Fase 2**.
 

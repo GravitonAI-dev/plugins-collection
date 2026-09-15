@@ -115,10 +115,11 @@ Invoca la herramienta con las preguntas de triaje:
     {
       "id": "posicion",
       "rationale": "Resolver V2: la estrategia y la carga argumental cambian segun se recurra o se defienda la sentencia.",
-      "question": "¿En qué posición está su cliente respecto de la sentencia?",
+      "question": "Si se trata de apelación, ¿en qué posición está su cliente respecto de la sentencia?",
       "options": [
         {"id": "apelante", "label": "Le perjudica la sentencia y quiere recurrirla"},
-        {"id": "apelado", "label": "Le favorece la sentencia y quiere defenderla"}
+        {"id": "apelado", "label": "Le favorece la sentencia y quiere defenderla"},
+        {"id": "no_procede", "label": "No procede: no se recurre una sentencia (se solicitan medidas cautelares)"}
       ]
     },
     {
@@ -127,7 +128,8 @@ Invoca la herramienta con las preguntas de triaje:
       "question": "Si necesita medidas cautelares, ¿el pleito ya está iniciado o hay que pedirlas antes de demandar?",
       "options": [
         {"id": "con_demanda", "label": "Con la demanda o con el proceso ya iniciado"},
-        {"id": "antes_de_demanda", "label": "Antes de presentar la demanda, por urgencia"}
+        {"id": "antes_de_demanda", "label": "Antes de presentar la demanda, por urgencia"},
+        {"id": "no_procede", "label": "No procede: no se solicitan medidas cautelares"}
       ]
     }
   ]

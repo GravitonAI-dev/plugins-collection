@@ -105,7 +105,8 @@ Invoca la herramienta con las opciones de triaje:
       "options": [
         {"id": "vivienda_completa", "label": "Una vivienda completa"},
         {"id": "habitacion", "label": "Una habitación dentro de una vivienda (régimen del Código Civil)"},
-        {"id": "local_uso_distinto", "label": "Un local de negocio o inmueble para uso distinto de vivienda"}
+        {"id": "local_uso_distinto", "label": "Un local de negocio o inmueble para uso distinto de vivienda"},
+        {"id": "no_procede", "label": "No es un contrato nuevo"}
       ]
     },
     {
@@ -115,7 +116,8 @@ Invoca la herramienta con las opciones de triaje:
       "options": [
         {"id": "permanente", "label": "Residencia habitual y permanente del arrendatario"},
         {"id": "temporada", "label": "Temporada, con causa real y acreditable (trabajo, estudios, obras, verano)"},
-        {"id": "turistico", "label": "Alquiler turístico o de corta estancia con fines vacacionales"}
+        {"id": "turistico", "label": "Alquiler turístico o de corta estancia con fines vacacionales"},
+        {"id": "no_procede", "label": "No es una vivienda completa"}
       ]
     },
     {
@@ -125,7 +127,8 @@ Invoca la herramienta con las opciones de triaje:
       "options": [
         {"id": "actualizacion_renta", "label": "Actualización anual de la renta"},
         {"id": "no_renovacion", "label": "No renovación del contrato a su vencimiento"},
-        {"id": "devolucion_fianza", "label": "Requerimiento de devolución de la fianza"}
+        {"id": "devolucion_fianza", "label": "Requerimiento de devolución de la fianza"},
+        {"id": "no_procede", "label": "No es una comunicación sobre un contrato vigente"}
       ]
     },
     {
@@ -134,7 +137,8 @@ Invoca la herramienta con las opciones de triaje:
       "question": "Si es una comunicación, ¿quién la remite?",
       "options": [
         {"id": "arrendador", "label": "El arrendador (propietario)"},
-        {"id": "arrendatario", "label": "El arrendatario (inquilino)"}
+        {"id": "arrendatario", "label": "El arrendatario (inquilino)"},
+        {"id": "no_procede", "label": "No es una comunicación"}
       ]
     },
     {

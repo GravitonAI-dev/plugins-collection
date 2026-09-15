@@ -111,7 +111,8 @@ Invoca la herramienta con las opciones de triaje:
       "question": "Si se solicita curatela, ¿de qué tipo?",
       "options": [
         {"id": "asistencial", "label": "Asistencial: el curador acompaña y asiste en la toma de decisiones"},
-        {"id": "representativa", "label": "Representativa para actos concretos, que deberán enumerarse y justificarse"}
+        {"id": "representativa", "label": "Representativa para actos concretos, que deberán enumerarse y justificarse"},
+        {"id": "no_procede", "label": "No procede: no se solicita curatela (es previsión voluntaria o guarda de hecho)"}
       ]
     },
     {

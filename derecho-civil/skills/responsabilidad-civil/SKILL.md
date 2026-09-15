@@ -125,7 +125,8 @@ Invoca la herramienta con las opciones de triaje:
         {"id": "caida", "label": "Caída en establecimiento o en vía pública"},
         {"id": "vicio_constructivo", "label": "Defecto o vicio de la construcción"},
         {"id": "negligencia_profesional", "label": "Negligencia profesional"},
-        {"id": "otro", "label": "Otro supuesto"}
+        {"id": "otro", "label": "Otro supuesto"},
+        {"id": "no_procede", "label": "No procede: fue un accidente de circulación"}
       ]
     },
     {
@@ -140,10 +141,11 @@ Invoca la herramienta con las opciones de triaje:
     {
       "id": "tipo_vehiculo",
       "rationale": "Resolver V5: el seguro obligatorio de los vehiculos personales ligeros no existia antes del 02/01/2026 y, despues, depende de los tres requisitos acumulativos de la disposicion adicional primera de la Ley 5/2025. Preguntar unicamente si V2 = circulacion.",
-      "question": "¿Qué clase de vehículo causó el daño?",
+      "question": "Si fue un accidente de circulación, ¿qué clase de vehículo causó el daño?",
       "options": [
         {"id": "turismo_o_similar", "label": "Turismo, motocicleta, furgoneta o camión"},
-        {"id": "vehiculo_personal_ligero", "label": "Patinete o vehículo de movilidad personal"}
+        {"id": "vehiculo_personal_ligero", "label": "Patinete o vehículo de movilidad personal"},
+        {"id": "no_procede", "label": "No procede: no intervino ningún vehículo (suceso no circulatorio)"}
       ]
     }
   ]

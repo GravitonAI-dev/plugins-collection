@@ -111,7 +111,8 @@ Invoca la herramienta con las opciones de triaje:
       "options": [
         {"id": "escritura_publica", "label": "Escritura pública notarial"},
         {"id": "laudo_arbitral", "label": "Laudo arbitral"},
-        {"id": "acuerdo_mediacion", "label": "Acuerdo de mediación u otro medio adecuado de solución de controversias elevado a público"}
+        {"id": "acuerdo_mediacion", "label": "Acuerdo de mediación u otro medio adecuado de solución de controversias elevado a público"},
+        {"id": "no_procede", "label": "No procede: el título es judicial o de familia"}
       ]
     }
   ]

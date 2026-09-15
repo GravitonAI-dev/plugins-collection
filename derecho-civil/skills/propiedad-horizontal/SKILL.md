@@ -105,7 +105,8 @@ Invoca la herramienta con las opciones de triaje:
       "question": "Si el asunto es un impago de cuotas, ¿ha aprobado ya la junta la liquidación de la deuda y autorizado su reclamación?",
       "options": [
         {"id": "si", "label": "Sí, hay acuerdo de junta"},
-        {"id": "no", "label": "No, todavía no"}
+        {"id": "no", "label": "No, todavía no"},
+        {"id": "no_procede", "label": "No procede: el asunto no es un impago de cuotas"}
       ]
     },
     {
@@ -115,7 +116,8 @@ Invoca la herramienta con las opciones de triaje:
       "options": [
         {"id": "sin_requerir", "label": "No se ha requerido todavía"},
         {"id": "requerido_informalmente", "label": "Se ha requerido, pero sin constancia fehaciente"},
-        {"id": "requerido_y_desatendido", "label": "Se requirió fehacientemente y no se ha atendido"}
+        {"id": "requerido_y_desatendido", "label": "Se requirió fehacientemente y no se ha atendido"},
+        {"id": "no_procede", "label": "No procede: el asunto no es una actividad molesta"}
       ]
     },
     {

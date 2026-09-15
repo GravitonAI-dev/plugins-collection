@@ -121,7 +121,8 @@ Invoca la herramienta con las opciones de triaje:
       "question": "Si hay mutuo acuerdo y no hay hijos dependientes, ¿qué vía prefiere?",
       "options": [
         {"id": "judicial", "label": "Judicial, con presentación de demanda de mutuo acuerdo"},
-        {"id": "notarial", "label": "Notarial, mediante escritura pública"}
+        {"id": "notarial", "label": "Notarial, mediante escritura pública"},
+        {"id": "no_procede", "label": "No procede: no hay mutuo acuerdo o existen hijos dependientes"}
       ]
     },
     {
@@ -130,7 +131,8 @@ Invoca la herramienta con las opciones de triaje:
       "question": "Si la vía es judicial de mutuo acuerdo, ¿qué alcance tiene el encargo?",
       "options": [
         {"id": "solo_convenio", "label": "Solo el convenio regulador"},
-        {"id": "convenio_y_demanda", "label": "El convenio regulador y la demanda de mutuo acuerdo"}
+        {"id": "convenio_y_demanda", "label": "El convenio regulador y la demanda de mutuo acuerdo"},
+        {"id": "no_procede", "label": "No procede: no es vía judicial de mutuo acuerdo"}
       ]
     }
   ]

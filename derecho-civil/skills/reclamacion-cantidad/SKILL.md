@@ -100,7 +100,8 @@ Invoca la herramienta con las opciones de triaje:
       "question": "Si es acreedor, ¿en qué estado está la reclamación?",
       "options": [
         {"id": "sin_iniciar", "label": "Sin reclamación judicial iniciada"},
-        {"id": "monitorio_con_oposicion", "label": "Ya se presentó monitorio y el deudor se ha opuesto"}
+        {"id": "monitorio_con_oposicion", "label": "Ya se presentó monitorio y el deudor se ha opuesto"},
+        {"id": "no_procede", "label": "No procede: el cliente es el deudor requerido"}
       ]
     },
     {
