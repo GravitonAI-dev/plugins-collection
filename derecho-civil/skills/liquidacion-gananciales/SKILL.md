@@ -198,72 +198,24 @@ Si V1 = sin acuerdo (sin acuerdo) y el cliente no ha intentado realmente negocia
    > *"¿Desea que utilicemos la plantilla base predeterminada (de la sección de plantillas) o prefiere aportar su propia minuta para trabajar sobre ella pegando el texto en el chat o abriéndola en el editor?"*
 
 ### 2.3 Fijación del origen de la plantilla y manejo de la elección
-* **Si `[origen_plantilla = plantilla_sistema]` (El usuario acepta la plantilla propuesta):**
-  Toma el texto íntegro de la plantilla correspondiente directamente desde el catálogo del prompt y procede de inmediato a la **Fase 3**.
-* **Si `[origen_plantilla = plantilla_usuario]` (El usuario aporta su propia minuta adjuntando un documento o pegando texto):**
-  1. Accede al contenido del adjunto desde `<attached_documents>` o el mensaje del usuario.
-  2. **Guardrail de Verificación Legal:** Analiza el texto aportado. Si contiene cláusulas nulas, contrarias a normas imperativas o de imposible cumplimiento, adviértelo expresamente en el chat y propón la redacción legalmente válida.
-  3. Adopta la minuta revisada como base y avanza a la **Fase 3**.
-
+Aplica el protocolo determinista de `REG-AST-01` (`CLAUDE.md`): si el usuario acepta la plantilla predeterminada propuesta (`plantilla_sistema`), carga el asset enrutado y avanza a la **Fase 3**; si aporta su propia minuta (`plantilla_usuario`), realiza el control de legalidad advirtiendo de cláusulas nulas o contrarias a normas imperativas, adopta la minuta revisada como base y avanza a la **Fase 3**.
 ---
 
-## FASE 3 — CREACIÓN DEL DOCUMENTO BASE EN DISCO (Zero Vacíos)
+## FASE 3 — CREACIÓN DEL DOCUMENTO BASE EN DISCO (REG-DOC-01)
 
-1. **Escritura del Documento (`create_file`):**
-   - Vuelca íntegramente la plantilla acordada en un archivo en el workspace con nombre en `snake_case.md`.
-   - Aplica el principio **Zero-Omission**: sustituye inmediatamente todos los datos ya conocidos (incluyendo de forma obligatoria los datos de las partes identificadas mediante escucha activa inicial, `search_clients` o fichas de clientes vinculadas en la conversación, conforme a `REG-CLI-04`). Queda **TERMINANTEMENTE PROHIBIDO** dejar marcadores de partes en blanco si esa información ya obra en su conocimiento. **Esta sustitución debe ser TOTAL en el documento entero: en el título/encabezado H1 (`# ... — {{NOMBRE_...}}`), en la comparecencia y en el bloque final de FIRMAS (`Nombre: {{NOMBRE_...}}`). Está TERMINANTEMENTE PROHIBIDO actualizar únicamente la comparecencia y dejar marcadores pendientes en el título o en las firmas.** Inserta `{{DATO_FALTANTE}}` únicamente para aquellos datos que no hayan sido proporcionados.
-   - PROHIBIDO dejar archivos en blanco, crear resúmenes o esquemas provisionales.
-2. **Validación de Integridad:**
-   - La comprobación de integridad y contenido del archivo creado se realiza consultando prioritariamente la sección `# WORKSPACE ACTIVE DOCUMENTS` del prompt, donde el sistema mantiene siempre la última versión de todos los documentos. Solo se debe invocar `read_file` si es estrictamente necesario y en algún caso extremo (ej. el archivo no aparece en dicha sección o contenido truncado).
-
-3. **Confirmación en Chat y Encadenamiento Inmediato:**
-   - Informa al usuario de la ruta absoluta del documento creado y de los datos de partes volcados.
-   - En esa **misma respuesta**, introduce la siguiente sección de la **Fase 4** y formula ya su primera pregunta o solicitud, sin detener el flujo.
-
+Aplica rigurosamente la directiva `REG-DOC-01` y la sección 6.1 de `CLAUDE.md`:
+1. **Escritura del Documento (`create_file`):** Vuelca íntegramente la plantilla acordada en un archivo en el workspace con nombre en `snake_case.md`, aplicando el principio Zero-Omission y el volcado inmediato total de partes (`REG-CLI-04`) en título H1, comparecencia y firmas.
+2. **Validación de Integridad:** Comprobación prioritaria mediante `# WORKSPACE ACTIVE DOCUMENTS`.
+3. **Confirmación en Chat y Encadenamiento Inmediato:** Informa en el chat de la ruta absoluta del documento creado y los datos de partes incorporados, e introduce en esa misma respuesta la primera sección de la Fase 4 sin detener el flujo.
 ---
 
 ## FASE 4 — EDICIÓN INCREMENTAL CLÁUSULA A CLÁUSULA / SECCIÓN A SECCIÓN
 
-### Protocolo Obligatorio de Edición
-
-> **DISTINCIÓN FUNDAMENTAL: DATOS DE PARTES VS. CLÁUSULAS SUSTANTIVAS (REG-CLI-04)**
-> - **Datos de Partes e Intervinientes:** Son datos fácticos y objetivos. Si se conocen o se obtienen, se asientan DIRECTAMENTE en el documento (mediante `create_file` en la creación inicial o mediante `edit_file` inmediato). Se informa al usuario de los datos volcados y de los campos que eventualmente hayan quedado pendientes, continuando de inmediato sin exigir confirmación previa en chat (`¿Confirmamos esta cláusula?`).
-> - **Cláusulas Sustantivas / Negociables:** (Matrimonio, inventario, activo, pasivo, liquidación, adjudicaciones, etc.). Siguen estrictamente el ciclo: Negociación/Datos -> Vista Previa en chat -> `¿Confirmamos esta cláusula?` -> `edit_file`.
-
-```
-[Datos de Partes: search_clients / save_client] ───────────────► [edit_file directo en editor (REG-CLI-04)]
-
-[Cláusulas Sustantivas: slot_filling_request / Chat]
-                                  │
-                                  ▼
-                [Vista Previa en texto plano en CHAT]
-                                  │
-                                  ▼
-            [Confirmación en CHAT: "¿Confirmamos esta cláusula?"]
-                                  │
-                                  ▼
-                     [edit_file en el editor]
-```
-
-1. **Pregunta / Datos en Chat o Tool:** Solicita los datos específicos de la sección sustantiva (o vía `slot_filling_request` si son datos estructurados en bloque).
-2. **Vista Previa:** Muestra el texto exacto redactado de la cláusula sustantiva en texto plano en el chat.
-3. **Confirmación:** Pregunta literalmente `¿Confirmamos esta cláusula?` (o `¿Confirmamos esta sección?`).
-4. **Persistencia en Disco:** Una vez confirmado por el usuario en chat (o directamente para datos de partes), ejecuta `edit_file` con `old_string` y `new_string` exactos. La verificación del documento se realiza prioritariamente a través de la sección `# WORKSPACE ACTIVE DOCUMENTS`, recurriendo a `read_file` únicamente en casos extremos y estrictamente necesarios.
-
-### Hoja de Ruta de Secciones y Cláusulas Condicionales
-
-**Petición de grupos de datos mediante `search_clients` y `slot_filling_request`, y confirmaciones en el chat:**
-- **Búsqueda prioritaria, Cero Redundancia y Guardado de Nuevos Clientes (`search_clients` / `get_client` / `save_client` — REG-CLI-01, REG-CLI-02, REG-CLI-03 y REG-CLI-04):** Siempre que la sección requiera identificar personas físicas o jurídicas (partes intervinientes, solicitantes, representados, cónyuges, empresa, administradores, interesados, etc.), **DEBES invocar `search_clients` en primer lugar** conforme a `REG-CLI-01`. Si los datos ya constan en el sistema, **queda TERMINANTEMENTE PROHIBIDO volver a pedirlos** (`REG-CLI-02`) y se omite `slot_filling_request`. Si la búsqueda de clientes arroja varios resultados (o desambigua entre clientes existentes), invoca `restricted_human_in_the_loop_request` incluyendo **OBLIGATORIAMENTE al final de `options` la opción de negación**: `{"id": "ninguna", "label": "Ninguna de las personas identificadas (otra persona)"}`; si el usuario la selecciona, trata a esa parte como persona no registrada. Si se especifican datos de una persona nueva (por formulario o chat), **DEBES invocar INMEDIATAMENTE `restricted_human_in_the_loop_request`** para preguntar al usuario si desea guardarla como nuevo cliente (`REG-CLI-03`), quedando **TERMINANTEMENTE PROHIBIDO emitir la vista previa de una cláusula o decir 'le preguntaré después' antes de resolver el guardado**. En caso afirmativo, invoca `save_client` con los campos disponibles. Conforme a `REG-CLI-04`, los datos identificativos se vuelcan directamente al documento mediante `edit_file` (o inicial `create_file`), informando al usuario en chat sin requerir confirmación previa de la comparecencia.
-- **Grupos de datos estructurados no de cliente (MANDATORIO con `slot_filling_request`):** Para datos del objeto, circunstancias del hecho, bienes, importes, deudas, expedientes o parámetros complementarios, **DEBES invocar `slot_filling_request`** pidiendo todos los campos del grupo a la vez en lote. Queda **ESTRICTAMENTE PROHIBIDO** pedir estos datos de forma fragmentada uno por uno en sucesivos turnos de chat.
-- **Equivalencia de Vía y Cero Redundancia de Datos por Chat (REG-DAT-01):** Toda información requerida para el documento o trámite puede ser suministrada por el usuario indistintamente por formulario (`slot_filling_request`) o mediante texto libre en el chat. Antes de convocar `slot_filling_request`, comprueba meticulosamente si el usuario ya aportó dicha información en su mensaje de chat o historial. Si facilitó los datos directamente por chat (total o parcialmente), ingiérela e incorpórala de inmediato sin convocar `slot_filling_request` (o solicita únicamente los campos residuales no suministrados). Si el usuario canceló o cerró el formulario para realizar una consulta, duda o saludo sin aportar los datos requeridos, atiende su consulta en el chat y reenvía oportunamente el formulario al retomar la redacción del documento.
-- **Campos omitidos o negativa expresa (No insistencia):** Si el usuario pide explícitamente no aportar determinados campos de información, pásalos por alto de inmediato sin insistir en pedirlos ni presionar. Rellena la plantilla con los datos disponibles, conserva los no aportados como marcadores pendientes ({{NOMBRE_CAMPO}} o {{DATO_FALTANTE}}) e indica en la confirmación cuáles faltan antes de continuar con la siguiente sección.
-- **Anuncio de sección (visible, sin esperar confirmación aparte):** al terminar una sección, emite en el mismo mensaje el anuncio fijo de la sección que se abre y procede con la herramienta o pregunta. Las cláusulas de negociación se explican y debaten en el chat; tras acordarse, se muestra vista previa y se confirma en el chat antes del `edit_file`.
-
-**Validacion de sentido, no solo de formato.** Eres un LLM, no un formulario. Antes de escribir una respuesta en el documento, razona si tiene sentido: una fecha de disolucion anterior a la del matrimonio, un valor de vivienda de 300 euros, un saldo hipotecario superior al importe inicial del prestamo, un total de adjudicaciones que no cuadra con el haber, o unos bienes gananciales adquiridos despues de la fecha de corte no se escriben: senala por que no encaja y pide aclaracion en el chat.
-
-**Aritmetica: la haces tu, los datos los aporta el cliente.** Los totales, las diferencias, el haber liquido, la mitad de cada conyuge y el exceso de adjudicacion los calculas y los muestras en la vista previa, sin pedirselos al cliente. Pero **nunca estimes ni inventes un valor de partida**: si el cliente no aporta el valor de un bien o el saldo de una deuda, esa partida queda con su placeholder y se advierte de que sin ella el haber no puede cerrarse. Sigue el guion de operaciones de `references/cc-liquidacion-division-adjudicacion.md`, apartado 6.
-
-**Cuadre al centimo en los importes fraccionados.** Cuando un importe se reparta en varios pagos, en varias partidas o entre dos lotes y la division no sea exacta, **la suma de las fracciones tiene que coincidir exactamente con el total, al centimo**. Ajusta la diferencia en el primer pago o partida (p. ej. 70.000 euros en tres plazos son 23.333,34 + 23.333,33 + 23.333,33, nunca tres de 23.333,33, que suman 69.999,99) y verifica la suma antes de mostrar la vista previa. Un documento patrimonial cuyos importes no suman el total es un documento defectuoso.
+Recorre de forma secuencial las secciones del documento respetando rigurosamente las directivas operativas globales de `CLAUDE.md`:
+- **Partes e Intervinientes (REG-CLI-01 a 04):** Búsqueda prioritaria con `search_clients`, desambiguación con opción obligatoria `ninguna`, consentimiento de guardado con `save_client` (REG-CLI-03) y volcado directo e inmediato al editor (`edit_file` / `create_file`) sin confirmación en chat (REG-CLI-04).
+- **Datos Estructurados Objetivos:** Solicitud en bloque mediante `slot_filling_request`.
+- **Equivalencia Chat / Formulario (REG-DAT-01):** Ingestión directa de información aportada por chat sin re-emitir formularios innecesarios; reenvío oportuno si el usuario canceló sin responder.
+- **Cláusulas Sustantivas / Negociables:** Negociación en chat -> Vista previa en texto plano -> Pregunta literal de confirmación (`¿Confirmamos esta cláusula?` / `¿Confirmamos esta sección?`) -> Persistencia con `edit_file`.
 
 ### Secciones — HOJA CONVENIO (`convenio-liquidacion-gananciales.md`)
 
@@ -314,22 +266,11 @@ Al rellenar cualquier hoja, aplica el estilo de `references/estilo-redaccion-esc
 
 ---
 
-## FASE 5 — BUCLE DE REALIMENTACIÓN FINAL Y CIERRE
+## FASE 5 — BUCLE DE REALIMENTACIÓN FINAL Y CIERRE (REG-FDB-01 & REG-CLO-01)
 
-Una vez completadas todas las secciones del documento, presenta al usuario un menú interactivo:
-```
-1. Modificar o ajustar una cláusula o sección existente.
-2. Añadir una estipulación o pacto adicional a medida.
-3. Eliminar contenido opcional o corregir datos de partes/fincas.
-4. Revisar la coherencia global y realizar control de calidad final.
-5. Dar el documento por finalizado y cerrar la sesión.
-```
-### Advertencias Legales Preceptivas de Cierre:
-Al dar por finalizado el documento, emite siempre las siguientes advertencias:
-- **Carácter DRAFT:** El documento generado es un borrador profesional que debe ser revisado por un abogado colegiado antes de su firma o presentación procesal.
-- **Obligaciones Fiscales y Plazos:** Recuerda los plazos de liquidación de tributos (ITP/AJD o Plusvalía municipal en 30 días hábiles) cuando proceda.
-- **Elevación a Instrumento Público:** Recuerda que para la inscripción en el Registro de la Propiedad o Mercantil, o para su ejecución forzosa directa, es necesario el otorgamiento ante Notario público.
-
+Aplica rigurosamente las directivas `REG-FDB-01` y `REG-CLO-01` de `CLAUDE.md`:
+1. **Menú de Revisión Final (REG-FDB-01):** Presenta el menú interactivo de 5 opciones de realimentación y revisión.
+2. **Advertencias Preceptivas de Cierre (REG-CLO-01):** Al dar por finalizado el documento (opción 5), emite las advertencias obligatorias de cierre (carácter DRAFT, plazos de liquidación tributaria en 30 días hábiles cuando proceda, y elevación a instrumento público ante Notario para eficacia registral o ejecutiva).
 ---
 
 ## Límites Legales y Guardrails de Dominio (Gobernados por Vectores)

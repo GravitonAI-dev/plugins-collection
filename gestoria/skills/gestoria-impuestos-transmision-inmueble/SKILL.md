@@ -179,37 +179,24 @@ Envía un mensaje estructurado y pedagógico:
    > *"¿Desea que utilicemos la plantilla base predeterminada (de la sección de plantillas) o prefiere aportar su propia minuta para trabajar sobre ella pegando el texto en el chat o abriéndola en el editor?"*
 
 ### 2.3 Fijación del origen de la plantilla y manejo de la elección
-- **Si `origen_plantilla = plantilla_sistema`:** utiliza el asset enrutado y avanza a la **Fase 3**.
-- **Si `origen_plantilla = plantilla_usuario`:** toma la plantilla adjunta en `<attached_documents>` o el texto pegado en `<user_message>`, verifica que no omita datos cuya ausencia provoque el rechazo de la presentación (referencia catastral, fecha de devengo, identificación del obligado, base imponible), advierte en el chat y propón la redacción válida, y avanza a la **Fase 3**.
-
+Aplica el protocolo determinista de `REG-AST-01` (`CLAUDE.md`): si el usuario acepta la plantilla predeterminada propuesta (`plantilla_sistema`), carga el asset enrutado y avanza a la **Fase 3**; si aporta su propia minuta (`plantilla_usuario`), realiza el control de legalidad advirtiendo de cláusulas nulas o contrarias a normas imperativas, adopta la minuta revisada como base y avanza a la **Fase 3**.
 ---
 
-## FASE 3 — CREACIÓN DEL DOCUMENTO BASE EN DISCO (Zero Vacíos)
+## FASE 3 — CREACIÓN DEL DOCUMENTO BASE EN DISCO (REG-DOC-01)
 
-1. **Escritura del Documento (`create_file`):**
-   - Vuelca íntegramente la plantilla acordada en el workspace del usuario, con el nombre `hoja_datos_itp_modelo_600.md`, `hoja_datos_plusvalia_municipal.md` o `solicitud_rectificacion_devolucion.md`.
-   - Aplica el principio **Zero-Omission**: sustituye los datos ya conocidos de la clasificación y de la escucha activa, incluida la fecha del sistema y los tipos y coeficientes verificados en la Fase 2.1. Todos los datos pendientes permanecen como marcadores `{{DATO_FALTANTE}}` en mayúsculas y dobles llaves. PROHIBIDO dejar archivos en blanco o con notas resumidas.
-2. **Validación de Disco (`read_file`):** ejecuta `read_file` sobre el archivo creado para confirmar su integridad.
-3. **Confirmación en Chat:** informa al usuario de la ruta del archivo generado e introduce de inmediato la primera sección de la **Fase 4** sin detener el flujo.
-
+Aplica rigurosamente la directiva `REG-DOC-01` y la sección 6.1 de `CLAUDE.md`:
+1. **Escritura del Documento (`create_file`):** Vuelca íntegramente la plantilla acordada en un archivo en el workspace con nombre en `snake_case.md`, aplicando el principio Zero-Omission y el volcado inmediato total de partes (`REG-CLI-04`) en título H1, comparecencia y firmas.
+2. **Validación de Integridad:** Comprobación prioritaria mediante `# WORKSPACE ACTIVE DOCUMENTS`.
+3. **Confirmación en Chat y Encadenamiento Inmediato:** Informa en el chat de la ruta absoluta del documento creado y los datos de partes incorporados, e introduce en esa misma respuesta la primera sección de la Fase 4 sin detener el flujo.
 ---
 
 ## FASE 4 — EDICIÓN INCREMENTAL CLÁUSULA A CLÁUSULA / SECCIÓN A SECCIÓN
 
-Recorre de forma secuencial los bloques. Para cada bloque, ejecuta estrictamente el ciclo interactivo:
-```
-[Anuncio de la sección + Pregunta] --> [Vista Previa en texto plano] --> [¿Confirmamos esta sección?] --> [edit_file + read_file]
-```
-
-### Protocolo Obligatorio por Sección:
-1. **Anuncio y Pregunta en Chat:** anuncia la sección sustantiva con una frase breve en registro administrativo (por ejemplo, *"Pasamos ahora a determinar la base imponible del impuesto"*) y, en el mismo mensaje, formula ya la primera pregunta. No pidas permiso para pasar de sección: informa y continúa.
-2. **Búsqueda prioritaria, Cero Redundancia y Guardado de Nuevos Clientes (`search_clients` / `get_client` / `save_client` — REG-CLI-01, REG-CLI-02, REG-CLI-03 y REG-CLI-04):** Siempre que la sección requiera identificar personas físicas o jurídicas (partes intervinientes, solicitantes, representados, cónyuges, empresa, administradores, interesados, etc.), **DEBES invocar `search_clients` en primer lugar** conforme a `REG-CLI-01`. Si los datos ya constan en el sistema, **queda TERMINANTEMENTE PROHIBIDO volver a pedirlos** (`REG-CLI-02`) y se omite `slot_filling_request`. Si la búsqueda de clientes arroja varios resultados (o desambigua entre clientes existentes), invoca `restricted_human_in_the_loop_request` incluyendo **OBLIGATORIAMENTE al final de `options` la opción de negación**: `{"id": "ninguna", "label": "Ninguna de las personas identificadas (otra persona)"}`; si el usuario la selecciona, trata a esa parte como persona no registrada. Si se especifican datos de una persona nueva (por formulario o chat), **DEBES invocar INMEDIATAMENTE `restricted_human_in_the_loop_request`** para preguntar al usuario si desea guardarla como nuevo cliente (`REG-CLI-03`), quedando **TERMINANTEMENTE PROHIBIDO emitir la vista previa de la cláusula o decir 'le preguntaré después' antes de resolver el guardado**. En caso afirmativo, invoca `save_client` con los campos disponibles. Conforme a REG-CLI-04, los datos identificativos se vuelcan directamente al documento mediante edit_file (o inicial create_file), informando al usuario en chat sin requerir confirmación previa de la comparecencia.
-   - **Datos estructurados no de cliente agrupados (`slot_filling_request`, MANDATORIO):** Para datos del objeto, circunstancias del hecho, bienes, importes, deudas, expedientes o parámetros complementarios, **DEBES invocar `slot_filling_request`** pidiendo todos los campos del grupo a la vez en lote. Queda **ESTRICTAMENTE PROHIBIDO** pedir estos datos de forma fragmentada uno por uno en sucesivos turnos de chat.
-   - **Equivalencia de Vía y Cero Redundancia de Datos por Chat (REG-DAT-01):** Toda información requerida para el documento o trámite puede ser suministrada por el usuario indistintamente por formulario (`slot_filling_request`) o mediante texto libre en el chat. Antes de convocar `slot_filling_request`, comprueba meticulosamente si el usuario ya aportó dicha información en su mensaje de chat o historial. Si facilitó los datos directamente por chat (total o parcialmente), ingiérela e incorpórala de inmediato sin convocar `slot_filling_request` (o solicita únicamente los campos residuales no suministrados). Si el usuario canceló o cerró el formulario para realizar una consulta, duda o saludo sin aportar los datos requeridos, atiende su consulta en el chat y reenvía oportunamente el formulario al retomar la redacción del documento.
-3. **Vista Previa (Preview):** muestra el texto redactado en texto plano, sin backticks de código.
-4. **Confirmación:** pregunta literalmente: `¿Confirmamos esta sección?`.
-5. **Persistencia en Disco:** tras la confirmación, aplica `edit_file` con coincidencia exacta y verifica inmediatamente con `read_file`.
-6. **Validación de sentido, no solo de formato:** comprueba que la fecha de transmisión es posterior a la de adquisición anterior, que la referencia catastral tiene veinte caracteres, que el valor del suelo no excede del valor catastral total y que el resultado del cálculo es coherente con los valores declarados. Si algo no encaja, dialoga en el chat, señala el motivo y pide aclaración antes de volcarlo.
+Recorre de forma secuencial las secciones del documento respetando rigurosamente las directivas operativas globales de `CLAUDE.md`:
+- **Partes e Intervinientes (REG-CLI-01 a 04):** Búsqueda prioritaria con `search_clients`, desambiguación con opción obligatoria `ninguna`, consentimiento de guardado con `save_client` (REG-CLI-03) y volcado directo e inmediato al editor (`edit_file` / `create_file`) sin confirmación en chat (REG-CLI-04).
+- **Datos Estructurados Objetivos:** Solicitud en bloque mediante `slot_filling_request`.
+- **Equivalencia Chat / Formulario (REG-DAT-01):** Ingestión directa de información aportada por chat sin re-emitir formularios innecesarios; reenvío oportuno si el usuario canceló sin responder.
+- **Cláusulas Sustantivas / Negociables:** Negociación en chat -> Vista previa en texto plano -> Pregunta literal de confirmación (`¿Confirmamos esta cláusula?` / `¿Confirmamos esta sección?`) -> Persistencia con `edit_file`.
 
 ### Hoja de Ruta de Secciones — RAMA IMPUESTO DE TRANSMISIONES:
 
@@ -239,32 +226,11 @@ Recorre de forma secuencial los bloques. Para cada bloque, ejecuta estrictamente
 
 ---
 
-## FASE 5 — BUCLE DE REALIMENTACIÓN FINAL Y CIERRE
+## FASE 5 — BUCLE DE REALIMENTACIÓN FINAL Y CIERRE (REG-FDB-01 & REG-CLO-01)
 
-Una vez completadas todas las secciones, presenta al usuario el menú interactivo:
-```markdown
-La documentación tributaria ha sido generada y actualizada en el editor.
-
-Seleccione una opción si desea realizar ajustes adicionales:
-1. Ajustar o modificar una sección (base imponible, valores, fechas o bonificaciones).
-2. Preparar también el otro impuesto de la misma transmisión.
-3. Recalcular la plusvalía por el otro método para comparar el resultado.
-4. Revisar la coherencia global y realizar control de calidad previo a la presentación.
-5. Dar la documentación por finalizada y cerrar la sesión.
-```
-
-### Advertencias Preceptivas al Finalizar:
-1. **Carácter DRAFT:** las hojas de datos son preparatorias para facilitar la cumplimentación en la sede electrónica; deben ser validadas por un gestor o asesor fiscal antes de presentar y pagar.
-2. **Carácter estimado de las cuotas:** los importes calculados son orientativos. Los tipos autonómicos y los coeficientes municipales deben confirmarse en la sede de la administración competente el día de la presentación.
-3. **Plazos imperativos:**
-   - Impuesto de transmisiones: treinta días hábiles desde la fecha del documento.
-   - Plusvalía municipal: treinta días hábiles en actos entre vivos; seis meses prorrogables a un año en transmisiones por causa de muerte.
-   - Rectificación y devolución: cuatro años desde el fin del plazo de presentación.
-   La presentación fuera de plazo genera recargos por declaración extemporánea y, si media requerimiento, sanción.
-4. **Dos impuestos, dos administraciones:** una misma compraventa genera el impuesto de transmisiones (comunidad autónoma, a cargo del comprador) y la plusvalía municipal (ayuntamiento, a cargo del vendedor). Conviene advertir a ambas partes de lo que le corresponde a cada una.
-5. **Impuesto potestativo:** la plusvalía municipal solo se exige si el ayuntamiento la tiene establecida en su ordenanza fiscal. Debe verificarse antes de liquidar.
-6. **Otros efectos no cubiertos:** la transmisión puede generar además ganancia patrimonial en el IRPF del vendedor y obligaciones de retención cuando el transmitente es no residente. Debe advertirse y derivarse a asesoramiento fiscal.
-
+Aplica rigurosamente las directivas `REG-FDB-01` y `REG-CLO-01` de `CLAUDE.md`:
+1. **Menú de Revisión Final (REG-FDB-01):** Presenta el menú interactivo de 5 opciones de realimentación y revisión.
+2. **Advertencias Preceptivas de Cierre (REG-CLO-01):** Al dar por finalizado el documento (opción 5), emite las advertencias obligatorias de cierre (carácter DRAFT, plazos de liquidación tributaria en 30 días hábiles cuando proceda, y elevación a instrumento público ante Notario para eficacia registral o ejecutiva).
 ---
 
 ## Límites Legales y Guardrails de Dominio (Gobernados por Vectores)

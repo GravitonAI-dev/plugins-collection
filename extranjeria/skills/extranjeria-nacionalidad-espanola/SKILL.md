@@ -194,38 +194,25 @@ Envía un mensaje formal que contenga:
 6. **Pregunta explícita al usuario:**
    > *"¿Desea que utilicemos la plantilla base predeterminada (de la sección de plantillas) o prefiere aportar su propia minuta para trabajar sobre ella pegando el texto en el chat o abriéndola en el editor?"*
 
-### 2.3 Fijación del origen de la plantilla
-* **Si `[origen_plantilla = plantilla_sistema]`:** toma el asset íntegro y procede a la **Fase 3**.
-* **Si `[origen_plantilla = plantilla_usuario]`:** accede al adjunto y verifica que identifique correctamente al solicitante conforme al pasaporte, exprese la vía y el plazo alegados y relacione los documentos. Si falta alguno de esos elementos, adviértelo y propón la redacción que lo subsana.
-
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+Aplica el protocolo determinista de `REG-AST-01` (`CLAUDE.md`): si el usuario acepta la plantilla predeterminada propuesta (`plantilla_sistema`), carga el asset enrutado y avanza a la **Fase 3**; si aporta su propia minuta (`plantilla_usuario`), realiza el control de legalidad advirtiendo de cláusulas nulas o contrarias a normas imperativas, adopta la minuta revisada como base y avanza a la **Fase 3**.
 ---
 
-## FASE 3 — CREACIÓN DEL DOCUMENTO BASE EN DISCO (Zero Vacíos)
+## FASE 3 — CREACIÓN DEL DOCUMENTO BASE EN DISCO (REG-DOC-01)
 
-1. **Escritura (`create_file`):** vuelca íntegramente la plantilla acordada en el workspace con nombre en `snake_case.md`, aplicando **Zero-Omission**: sustituye los datos ya conocidos y deja los pendientes como marcadores en mayúsculas entre dobles llaves. PROHIBIDO dejar archivos en blanco, con títulos solos o con resúmenes.
-2. **Validación de Integridad:**
-   - La comprobación de integridad y contenido del archivo creado se realiza consultando prioritariamente la sección `# WORKSPACE ACTIVE DOCUMENTS` del prompt, donde el sistema mantiene siempre la última versión de todos los documentos. Solo se debe invocar `read_file` si es estrictamente necesario y en algún caso extremo (ej. el archivo no aparece en dicha sección o contenido truncado).
-
-3. **Confirmación y encadenamiento:** informa de la ruta absoluta y, en la misma respuesta, abre la primera sección de la Fase 4 con su anuncio y su primera solicitud de datos.
-
+Aplica rigurosamente la directiva `REG-DOC-01` y la sección 6.1 de `CLAUDE.md`:
+1. **Escritura del Documento (`create_file`):** Vuelca íntegramente la plantilla acordada en un archivo en el workspace con nombre en `snake_case.md`, aplicando el principio Zero-Omission y el volcado inmediato total de partes (`REG-CLI-04`) en título H1, comparecencia y firmas.
+2. **Validación de Integridad:** Comprobación prioritaria mediante `# WORKSPACE ACTIVE DOCUMENTS`.
+3. **Confirmación en Chat y Encadenamiento Inmediato:** Informa en el chat de la ruta absoluta del documento creado y los datos de partes incorporados, e introduce en esa misma respuesta la primera sección de la Fase 4 sin detener el flujo.
 ---
 
 ## FASE 4 — EDICIÓN INCREMENTAL APARTADO A APARTADO
 
-### Protocolo Obligatorio de Edición
-```
-[slot_filling_request (grupos) / Chat (historial y decisiones)] --> [Vista previa en texto plano]
-      --> [«¿Confirmamos esta sección?»] --> [edit_file en el editor]
-```
-
-- **Búsqueda prioritaria, Cero Redundancia y Guardado de Nuevos Clientes (`search_clients` / `get_client` / `save_client` — REG-CLI-01, REG-CLI-02, REG-CLI-03 y REG-CLI-04):** Siempre que la sección requiera identificar personas físicas o jurídicas (partes intervinientes, solicitantes, representados, cónyuges, empresa, administradores, interesados, etc.), **DEBES invocar `search_clients` en primer lugar** conforme a `REG-CLI-01`. Si los datos ya constan en el sistema, **queda TERMINANTEMENTE PROHIBIDO volver a pedirlos** (`REG-CLI-02`) y se omite `slot_filling_request`. Si la búsqueda de clientes arroja varios resultados (o desambigua entre clientes existentes), invoca `restricted_human_in_the_loop_request` incluyendo **OBLIGATORIAMENTE al final de `options` la opción de negación**: `{"id": "ninguna", "label": "Ninguna de las personas identificadas (otra persona)"}`; si el usuario la selecciona, trata a esa parte como persona no registrada. Si se especifican datos de una persona nueva (por formulario o chat), **DEBES invocar INMEDIATAMENTE `restricted_human_in_the_loop_request`** para preguntar al usuario si desea guardarla como nuevo cliente (`REG-CLI-03`), quedando **TERMINANTEMENTE PROHIBIDO emitir la vista previa de la cláusula o decir 'le preguntaré después' antes de resolver el guardado**. En caso afirmativo, invoca `save_client` con los campos disponibles. Conforme a REG-CLI-04, los datos identificativos se vuelcan directamente al documento mediante edit_file (o inicial create_file), informando al usuario en chat sin requerir confirmación previa de la comparecencia.
-
-- **Grupos de datos estructurados no de cliente (MANDATORIO con `slot_filling_request`):** Para datos del objeto, circunstancias del hecho, bienes, importes, deudas, expedientes o parámetros complementarios, **DEBES invocar `slot_filling_request`** pidiendo todos los campos del grupo a la vez en lote. Queda **ESTRICTAMENTE PROHIBIDO** pedir estos datos de forma fragmentada uno por uno en sucesivos turnos de chat.
-- **Equivalencia de Vía y Cero Redundancia de Datos por Chat (REG-DAT-01):** Toda información requerida para el documento o trámite puede ser suministrada por el usuario indistintamente por formulario (`slot_filling_request`) o mediante texto libre en el chat. Antes de convocar `slot_filling_request`, comprueba meticulosamente si el usuario ya aportó dicha información en su mensaje de chat o historial. Si facilitó los datos directamente por chat (total o parcialmente), ingiérela e incorpórala de inmediato sin convocar `slot_filling_request` (o solicita únicamente los campos residuales no suministrados). Si el usuario canceló o cerró el formulario para realizar una consulta, duda o saludo sin aportar los datos requeridos, atiende su consulta en el chat y reenvía oportunamente el formulario al retomar la redacción del documento.
-- **Campos omitidos o negativa expresa (No insistencia):** Si el usuario pide explícitamente no aportar determinados campos de información, pásalos por alto de inmediato sin insistir en pedirlos ni presionar. Rellena la plantilla con los datos disponibles, conserva los no aportados como marcadores pendientes ({{NOMBRE_CAMPO}} o {{DATO_FALTANTE}}) e indica en la confirmación cuáles faltan antes de continuar con la siguiente sección.
-- **Confirmación agrupada por bloque**, con vista previa en el chat antes de volcar.
-- **Anuncio de sección visible** al pasar de una sección a la siguiente.
-- **Validación de sentido, no solo de formato:** si una fecha de entrada en España es posterior a una autorización alegada, o si el plazo no cuadra con el historial, dialógalo antes de escribirlo.
+Recorre de forma secuencial las secciones del documento respetando rigurosamente las directivas operativas globales de `CLAUDE.md`:
+- **Partes e Intervinientes (REG-CLI-01 a 04):** Búsqueda prioritaria con `search_clients`, desambiguación con opción obligatoria `ninguna`, consentimiento de guardado con `save_client` (REG-CLI-03) y volcado directo e inmediato al editor (`edit_file` / `create_file`) sin confirmación en chat (REG-CLI-04).
+- **Datos Estructurados Objetivos:** Solicitud en bloque mediante `slot_filling_request`.
+- **Equivalencia Chat / Formulario (REG-DAT-01):** Ingestión directa de información aportada por chat sin re-emitir formularios innecesarios; reenvío oportuno si el usuario canceló sin responder.
+- **Cláusulas Sustantivas / Negociables:** Negociación en chat -> Vista previa en texto plano -> Pregunta literal de confirmación (`¿Confirmamos esta cláusula?` / `¿Confirmamos esta sección?`) -> Persistencia con `edit_file`.
 
 ### Hoja de Ruta de Secciones
 
@@ -244,7 +231,7 @@ Anuncios fijos:
 
 ---
 
-## FASE 5 — BUCLE DE REALIMENTACIÓN FINAL Y CIERRE
+## FASE 5 — BUCLE DE REALIMENTACIÓN FINAL Y CIERRE (REG-FDB-01 & REG-CLO-01)
 
 ```
 1. Modificar o ajustar un apartado existente.

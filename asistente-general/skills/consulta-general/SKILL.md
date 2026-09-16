@@ -107,42 +107,25 @@ Envía un mensaje en lenguaje natural detallando:
 3. **Pregunta Explícita al Usuario (Vía Chat):**
    > *"¿Desea que utilicemos la plantilla base predeterminada (de la sección de plantillas) o prefiere aportar su propia minuta pegando el texto en el chat o abriéndola en el editor?"*
 
-### 2.3 Fijación del origen de la plantilla
-* **Si `[origen_plantilla = plantilla_sistema]`:** Toma el texto íntegro de la plantilla seleccionada del catálogo y avanza a la **Fase 3**.
-* **Si `[origen_plantilla = plantilla_usuario]`:** Toma el texto aportado en `# ATTACHED DOCUMENTS` o `# USER MESSAGE`, comprueba que no contenga cláusulas nulas de orden público y avanza a la **Fase 3**.
-
+### 2.3 Fijación del origen de la plantilla y manejo de la elección
+Aplica el protocolo determinista de `REG-AST-01` (`CLAUDE.md`): si el usuario acepta la plantilla predeterminada propuesta (`plantilla_sistema`), carga el asset enrutado y avanza a la **Fase 3**; si aporta su propia minuta (`plantilla_usuario`), realiza el control de legalidad advirtiendo de cláusulas nulas o contrarias a normas imperativas, adopta la minuta revisada como base y avanza a la **Fase 3**.
 ---
 
-## FASE 3 — CREACIÓN DEL DOCUMENTO BASE EN DISCO (Zero Vacíos)
+## FASE 3 — CREACIÓN DEL DOCUMENTO BASE EN DISCO (REG-DOC-01)
 
-1. **Escritura del Documento (`create_file`):**
-   - Vuelca íntegramente la plantilla acordada en el workspace con un nombre descriptivo en `snake_case.md` (ej. `informe_consulta_legal.md` o `memo_orientacion.md`).
-   - Aplica el principio **Zero-Omission**:
-     - Rellena todos los campos deducidos de `V1-V4` y de la exposición de hechos.
-     - Los campos pendientes permanecen estrictamente como `{{VARIABLE}}` en mayúsculas con dobles llaves.
-     - PROHIBIDO crear archivos vacíos o con resúmenes truncados.
-2. **Validación de Integridad:**
-   - La comprobación de integridad y contenido del archivo creado se realiza consultando prioritariamente la sección `# WORKSPACE ACTIVE DOCUMENTS` del prompt, donde el sistema mantiene siempre la última versión de todos los documentos. Solo se debe invocar `read_file` si es estrictamente necesario y en algún caso extremo (ej. el archivo no aparece en dicha sección o contenido truncado).
-3. **Confirmación en Chat:**
-   - Emite un mensaje indicando que el borrador ha quedado preparado en el editor (ej. *"He preparado el borrador en el editor (`informe_consulta_legal.md`)"*).
-   - En la misma respuesta, introduce la primera sección de la Fase 4 para iniciar la edición incremental.
-
+Aplica rigurosamente la directiva `REG-DOC-01` y la sección 6.1 de `CLAUDE.md`:
+1. **Escritura del Documento (`create_file`):** Vuelca íntegramente la plantilla acordada en un archivo en el workspace con nombre en `snake_case.md`, aplicando el principio Zero-Omission y el volcado inmediato total de partes (`REG-CLI-04`) en título H1, comparecencia y firmas.
+2. **Validación de Integridad:** Comprobación prioritaria mediante `# WORKSPACE ACTIVE DOCUMENTS`.
+3. **Confirmación en Chat y Encadenamiento Inmediato:** Informa en el chat de la ruta absoluta del documento creado y los datos de partes incorporados, e introduce en esa misma respuesta la primera sección de la Fase 4 sin detener el flujo.
 ---
 
 ## FASE 4 — EDICIÓN INCREMENTAL SECCIÓN A SECCIÓN
 
-Recorre de forma secuencial los 5 bloques del documento aplicando el ciclo de edición incremental:
-
-```
-[Pregunta / Diálogo en Chat] --> [Vista Previa en texto plano] --> [¿Confirmamos esta sección?] --> [edit_file en el editor]
-```
-
-### Protocolo Obligatorio por Sección:
-1. **Diálogo y Planteamiento:** Presenta la redacción propuesta para la sección con base en el análisis jurídico y técnico. Si el usuario pide explícitamente no aportar determinados datos o antecedentes, respeta su decisión de inmediato sin insistir: elabora la sección con la información disponible, conserva los marcadores pendientes e indícalo en el chat antes de continuar.
-2. **Equivalencia de Vía y Cero Redundancia de Datos por Chat (REG-DAT-01):** Toda información o datos requeridos para el dictamen o informe pueden ser suministrados indistintamente por el usuario mediante texto libre en el chat o herramientas interactivas. Comprueba meticulosamente si el usuario ya aportó los datos en su mensaje o historial reciente; si ya los suministró, ingiérela e incorpórala directamente sin redundancias. Si el usuario formula dudas o consultas accesorias sin aportar antecedentes clave, atiende su consulta en el chat y solicita posteriormente los datos indispensables para el análisis.
-3. **Vista Previa (Preview):** Muestra el fragmento redactado en texto plano (sin backticks de código).
-4. **Petición de Confirmación:** Pregunta literalmente: `¿Confirmamos esta sección?`.
-5. **Edición en Disco:** Tras la aprobación del usuario, aplica `edit_file` con precisión quirúrgica. La verificación de la modificación se apoya prioritariamente en `# WORKSPACE ACTIVE DOCUMENTS`, recurriendo a `read_file` únicamente en casos extremos y estrictamente necesarios.
+Recorre de forma secuencial las secciones del documento respetando rigurosamente las directivas operativas globales de `CLAUDE.md`:
+- **Partes e Intervinientes (REG-CLI-01 a 04):** Búsqueda prioritaria con `search_clients`, desambiguación con opción obligatoria `ninguna`, consentimiento de guardado con `save_client` (REG-CLI-03) y volcado directo e inmediato al editor (`edit_file` / `create_file`) sin confirmación en chat (REG-CLI-04).
+- **Datos Estructurados Objetivos:** Solicitud en bloque mediante `slot_filling_request`.
+- **Equivalencia Chat / Formulario (REG-DAT-01):** Ingestión directa de información aportada por chat sin re-emitir formularios innecesarios; reenvío oportuno si el usuario canceló sin responder.
+- **Cláusulas Sustantivas / Negociables:** Negociación en chat -> Vista previa en texto plano -> Pregunta literal de confirmación (`¿Confirmamos esta cláusula?` / `¿Confirmamos esta sección?`) -> Persistencia con `edit_file`.
 
 ---
 
@@ -175,7 +158,7 @@ Recorre de forma secuencial los 5 bloques del documento aplicando el ciclo de ed
 
 ---
 
-## FASE 5 — BUCLE DE REALIMENTACIÓN FINAL Y CIERRE
+## FASE 5 — BUCLE DE REALIMENTACIÓN FINAL Y CIERRE (REG-FDB-01 & REG-CLO-01)
 
 1. **Lectura Final de Verificación:**
    - Comprueba prioritariamente en la sección `# WORKSPACE ACTIVE DOCUMENTS` que el archivo final no conserve placeholders sin resolver y mantenga la coherencia íntegra. Solo invoca `read_file` si el documento no está disponible en dicha sección o se requiere verificación en un caso extremo.

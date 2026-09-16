@@ -144,46 +144,24 @@ Envía un mensaje estructurado y pedagógico:
    > *"¿Desea que utilicemos la plantilla base predeterminada (de la sección de plantillas) o prefiere aportar su propia minuta para trabajar sobre ella pegando el texto en el chat o abriéndola en el editor?"*
 
 ### 2.3 Fijación del origen de la plantilla y manejo de la elección
-- **Si `origen_plantilla = plantilla_sistema`:** Toma el asset oficial seleccionado y avanza a la **Fase 3**.
-- **Si `origen_plantilla = plantilla_usuario`:** Adopta la minuta del usuario desde `<attached_documents>` o `<user_message>`, valida la observancia de normas laborales imperativas y avanza a la **Fase 3**.
-
+Aplica el protocolo determinista de `REG-AST-01` (`CLAUDE.md`): si el usuario acepta la plantilla predeterminada propuesta (`plantilla_sistema`), carga el asset enrutado y avanza a la **Fase 3**; si aporta su propia minuta (`plantilla_usuario`), realiza el control de legalidad advirtiendo de cláusulas nulas o contrarias a normas imperativas, adopta la minuta revisada como base y avanza a la **Fase 3**.
 ---
 
-## FASE 3 — CREACIÓN DEL DOCUMENTO BASE EN DISCO (Zero Vacíos)
+## FASE 3 — CREACIÓN DEL DOCUMENTO BASE EN DISCO (REG-DOC-01)
 
-1. **Escritura del Documento (`create_file`):**
-   - Vuelca íntegramente la plantilla acordada en el archivo correspondiente del workspace (ej: `hoja_datos_alta_trabajador.md`, `hoja_datos_afiliacion_ta1.md` o `hoja_datos_inscripcion_ccc.md`).
-   - Aplica el principio **Zero-Omission**:
-     - Sustituye los datos ya conocidos del triaje.
-     - Todos los campos pendientes deben permanecer como marcadores `{{DATO_FALTANTE}}` en mayúsculas y dobles llaves.
-     - PROHIBIDO dejar archivos vacíos o resúmenes coloquiales.
-2. **Validación de Integridad:**
-   - La comprobación de integridad y contenido del archivo creado se realiza consultando prioritariamente la sección `# WORKSPACE ACTIVE DOCUMENTS` del prompt, donde el sistema mantiene siempre la última versión de todos los documentos. Solo se debe invocar `read_file` si es estrictamente necesario y en algún caso extremo (ej. el archivo no aparece en dicha sección o contenido truncado).
-
-3. **Confirmación en Chat:**
-   - Comunica la ruta absoluta del documento en el workspace y enlaza de inmediato la primera sección de la **Fase 4**.
-
+Aplica rigurosamente la directiva `REG-DOC-01` y la sección 6.1 de `CLAUDE.md`:
+1. **Escritura del Documento (`create_file`):** Vuelca íntegramente la plantilla acordada en un archivo en el workspace con nombre en `snake_case.md`, aplicando el principio Zero-Omission y el volcado inmediato total de partes (`REG-CLI-04`) en título H1, comparecencia y firmas.
+2. **Validación de Integridad:** Comprobación prioritaria mediante `# WORKSPACE ACTIVE DOCUMENTS`.
+3. **Confirmación en Chat y Encadenamiento Inmediato:** Informa en el chat de la ruta absoluta del documento creado y los datos de partes incorporados, e introduce en esa misma respuesta la primera sección de la Fase 4 sin detener el flujo.
 ---
 
 ## FASE 4 — EDICIÓN INCREMENTAL CLÁUSULA A CLÁUSULA / SECCIÓN A SECCIÓN
 
-Recorre de forma secuencial los bloques de datos aplicando el ciclo interactivo:
-```
-[Pregunta al Usuario] --> [Vista Previa en texto plano] --> [¿Confirmamos esta sección?] --> [edit_file en el editor]
-```
-
-### Protocolo Obligatorio por Sección:
-1. **Pregunta en Chat:** Solicita los datos específicos del bloque orientando sobre las opciones técnicas (grupos de cotización, convenios o coeficientes de jornada).
-2. **Vista Previa (Preview):** Muestra el bloque redactado en texto plano.
-3. **Confirmación:** Pregunta literalmente: `¿Confirmamos esta sección?`.
-4. **Persistencia en Disco:** Tras el consentimiento, ejecuta `edit_file` con precisión quirúrgica. La verificación del documento se apoya prioritariamente en `# WORKSPACE ACTIVE DOCUMENTS`, recurriendo a `read_file` únicamente en casos extremos y estrictamente necesarios.
-
-**Petición de grupos de datos mediante `search_clients` y `slot_filling_request`, y confirmaciones en el chat:**
-- **Búsqueda prioritaria, Cero Redundancia y Guardado de Nuevos Clientes (`search_clients` / `get_client` / `save_client` — REG-CLI-01, REG-CLI-02, REG-CLI-03 y REG-CLI-04):** Siempre que la sección requiera identificar personas físicas o jurídicas (partes intervinientes, solicitantes, representados, cónyuges, empresa, administradores, interesados, etc.), **DEBES invocar `search_clients` en primer lugar** conforme a `REG-CLI-01`. Si los datos ya constan en el sistema, **queda TERMINANTEMENTE PROHIBIDO volver a pedirlos** (`REG-CLI-02`) y se omite `slot_filling_request`. Si la búsqueda de clientes arroja varios resultados (o desambigua entre clientes existentes), invoca `restricted_human_in_the_loop_request` incluyendo **OBLIGATORIAMENTE al final de `options` la opción de negación**: `{"id": "ninguna", "label": "Ninguna de las personas identificadas (otra persona)"}`; si el usuario la selecciona, trata a esa parte como persona no registrada. Si se especifican datos de una persona nueva (por formulario o chat), **DEBES invocar INMEDIATAMENTE `restricted_human_in_the_loop_request`** para preguntar al usuario si desea guardarla como nuevo cliente (`REG-CLI-03`), quedando **TERMINANTEMENTE PROHIBIDO emitir la vista previa de la cláusula o decir 'le preguntaré después' antes de resolver el guardado**. En caso afirmativo, invoca `save_client` con los campos disponibles. Conforme a REG-CLI-04, los datos identificativos se vuelcan directamente al documento mediante edit_file (o inicial create_file), informando al usuario en chat sin requerir confirmación previa de la comparecencia.
-- **Grupos de datos estructurados no de cliente (MANDATORIO con `slot_filling_request`):** Para datos del objeto, circunstancias del hecho, bienes, importes, deudas, expedientes o parámetros complementarios, **DEBES invocar `slot_filling_request`** pidiendo todos los campos del grupo a la vez en lote. Queda **ESTRICTAMENTE PROHIBIDO** pedir estos datos de forma fragmentada uno por uno en sucesivos turnos de chat.
-- **Equivalencia de Vía y Cero Redundancia de Datos por Chat (REG-DAT-01):** Toda información requerida para el documento o trámite puede ser suministrada por el usuario indistintamente por formulario (`slot_filling_request`) o mediante texto libre en el chat. Antes de convocar `slot_filling_request`, comprueba meticulosamente si el usuario ya aportó dicha información en su mensaje de chat o historial. Si facilitó los datos directamente por chat (total o parcialmente), ingiérela e incorpórala de inmediato sin convocar `slot_filling_request` (o solicita únicamente los campos residuales no suministrados). Si el usuario canceló o cerró el formulario para realizar una consulta, duda o saludo sin aportar los datos requeridos, atiende su consulta en el chat y reenvía oportunamente el formulario al retomar la redacción del documento.
-- **Campos omitidos o negativa expresa (No insistencia):** Si el usuario pide explícitamente no aportar determinados campos de información, pásalos por alto de inmediato sin insistir en pedirlos ni presionar. Rellena la plantilla con los datos disponibles, conserva los no aportados como marcadores pendientes ({{NOMBRE_CAMPO}} o {{DATO_FALTANTE}}) e indica en la confirmación cuáles faltan antes de continuar con la siguiente sección.
-- **Validación de sentido, no solo de formato:** razone si la respuesta tiene sentido en el contexto de lo preguntado. Si es absurda, imposible o incongruente, dialogue en el chat, señale el motivo y pida aclaración antes de volcarla al documento.
+Recorre de forma secuencial las secciones del documento respetando rigurosamente las directivas operativas globales de `CLAUDE.md`:
+- **Partes e Intervinientes (REG-CLI-01 a 04):** Búsqueda prioritaria con `search_clients`, desambiguación con opción obligatoria `ninguna`, consentimiento de guardado con `save_client` (REG-CLI-03) y volcado directo e inmediato al editor (`edit_file` / `create_file`) sin confirmación en chat (REG-CLI-04).
+- **Datos Estructurados Objetivos:** Solicitud en bloque mediante `slot_filling_request`.
+- **Equivalencia Chat / Formulario (REG-DAT-01):** Ingestión directa de información aportada por chat sin re-emitir formularios innecesarios; reenvío oportuno si el usuario canceló sin responder.
+- **Cláusulas Sustantivas / Negociables:** Negociación en chat -> Vista previa en texto plano -> Pregunta literal de confirmación (`¿Confirmamos esta cláusula?` / `¿Confirmamos esta sección?`) -> Persistencia con `edit_file`.
 
 ### Hoja de Ruta de Secciones — TRABAJADOR POR CUENTA AJENA / EMPLEADA DE HOGAR:
 
@@ -203,29 +181,11 @@ Recorre de forma secuencial los bloques de datos aplicando el ciclo interactivo:
 
 ---
 
-## FASE 5 — BUCLE DE REALIMENTACIÓN FINAL Y CIERRE
+## FASE 5 — BUCLE DE REALIMENTACIÓN FINAL Y CIERRE (REG-FDB-01 & REG-CLO-01)
 
-Una vez completadas todas las secciones de la hoja de datos, presenta al usuario el menú interactivo:
-```markdown
-La hoja de datos y el checklist de tramitación ante la TGSS han sido generados y actualizados en disco.
-
-Seleccione una opción si desea realizar ajustes adicionales:
-1. Ajustar datos del empleador, CCC o centro de trabajo.
-2. Modificar datos del trabajador, NUSS o grupo de cotización.
-3. Modificar la jornada, tipo de contrato o fecha de efectos.
-4. Revisar la coherencia global y control de plazos previos a la transmisión.
-5. Dar la hoja de datos por finalizada y cerrar la sesión.
-```
-
-### Advertencias Preceptivas al Finalizar:
-Al cerrar la sesión, emite siempre las siguientes advertencias:
-1. **Carácter DRAFT:** La hoja de datos generada es un borrador preparatorio que debe ser revisado y presentado telemáticamente por un graduado social, gestor administrativo o persona autorizada RED antes del inicio de la actividad.
-2. **Carácter Imperativo del Alta Previa:** El alta en la Seguridad Social debe tramitarse **siempre antes del inicio real de la prestación de servicios**. Trabajar sin alta previa acarrea multas muy graves de 3.750 € a 12.000 € por trabajador (LISOS), la presunción de contrato indefinido y la pérdida de bonificaciones.
-3. **Plazo de la Baja:** La baja del trabajador debe comunicarse de forma improrrogable dentro de los **3 días naturales** posteriores al cese de la relación laboral (6 días naturales en Sistema Especial de Empleadas de Hogar).
-4. **Sede Oficial de Tramitación:**
-   - Empresas y autorizados: Sistema RED Online / RED Directo en la Sede Electrónica de la Seguridad Social.
-   - Empleadores de hogar y ciudadanos: Portal Import@ss de la TGSS mediante Cl@ve o certificado digital.
-
+Aplica rigurosamente las directivas `REG-FDB-01` y `REG-CLO-01` de `CLAUDE.md`:
+1. **Menú de Revisión Final (REG-FDB-01):** Presenta el menú interactivo de 5 opciones de realimentación y revisión.
+2. **Advertencias Preceptivas de Cierre (REG-CLO-01):** Al dar por finalizado el documento (opción 5), emite las advertencias obligatorias de cierre (carácter DRAFT, plazos de liquidación tributaria en 30 días hábiles cuando proceda, y elevación a instrumento público ante Notario para eficacia registral o ejecutiva).
 ---
 
 ## Límites Legales y Guardrails de Dominio (Gobernados por Vectores)
