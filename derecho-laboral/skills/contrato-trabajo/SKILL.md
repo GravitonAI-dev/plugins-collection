@@ -139,7 +139,9 @@ Si el usuario ya ha identificado inequívocamente la modalidad, la jornada y el 
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y ELECCIÓN DE PLANTILLA (REG-AST-01)
+
+En esta fase compartes en el chat el plan de trabajo y marco legal, y consultas preceptivamente la plantilla base mediante formulario interactivo de opciones cerradas (`restricted_human_in_the_loop_request`), aplicando rigurosamente el protocolo universal de `REG-AST-01` de `CLAUDE.md`:
 
 ### 2.1 Verificación Normativa Interna
 1. Consulta las referencias cargadas en tu contexto.
@@ -147,18 +149,17 @@ Si el usuario ya ha identificado inequívocamente la modalidad, la jornada y el 
 3. **Localiza el convenio colectivo aplicable** y extrae de él: clasificación profesional y grupos, tablas salariales vigentes del año en curso, jornada anual, distribución irregular, periodo de prueba, duración máxima ampliada del contrato por circunstancias de la producción, y complementos obligatorios.
 4. Verifica el **salario mínimo interprofesional vigente** con `web_search` antes de fijar cualquier retribución, y comprueba que el salario pactado no queda por debajo ni del salario mínimo ni de la tabla del convenio para ese grupo y nivel.
 
-### 2.2 Mensaje de Plan de Acción y Consulta de Assets
+### 2.2 Mensaje de Plan de Acción y Elección de Plantilla
 Envía un mensaje formal que contenga:
 1. **Modalidad procedente y su fundamento legal**, explicando por qué la necesidad descrita encaja en ella y, si el usuario pretendía otra, por qué no procede.
 2. **Marco convencional:** convenio identificado, grupo profesional y salario de tabla aplicable.
 3. **Duración, periodo de prueba y límites** aplicables a la modalidad.
 4. **Obligaciones de formalización:** comunicación del contenido del contrato al servicio público de empleo y entrega de copia básica a la representación legal de los trabajadores, con sus plazos.
-5. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Nombrala por su ruta; si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
-6. **Pregunta explícita al usuario:**
-   > *"¿Desea que utilicemos la plantilla base predeterminada (de la sección de plantillas) o prefiere aportar su propia minuta para trabajar sobre ella pegando el texto en el chat o abriéndola en el editor?"*
+5. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Menciónala por su denominación formal (sin mostrar rutas internas ni volcar su contenido); si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
+6. **Elección de Plantilla Base:** Aplica el protocolo universal de `REG-AST-01` (`CLAUDE.md`), convocando en ese mismo turno el formulario interactivo `restricted_human_in_the_loop_request` para que el usuario elija entre la plantilla del sistema o aportar su propia minuta.
 
-### 2.3 Fijación del origen de la plantilla y manejo de la elección
-Aplica el protocolo determinista de `REG-AST-01` (`CLAUDE.md`): si el usuario acepta la plantilla predeterminada propuesta (`plantilla_sistema`), carga el asset enrutado y avanza a la **Fase 3**; si aporta su propia minuta (`plantilla_usuario`), realiza el control de legalidad advirtiendo de cláusulas nulas o contrarias a normas imperativas, adopta la minuta revisada como base y avanza a la **Fase 3**.
+### 2.3 Manejo Determinista de la Elección
+Aplica rigurosamente el protocolo de `REG-AST-01` (`CLAUDE.md`): si se selecciona `plantilla_sistema`, carga la plantilla oficial y avanza a la **Fase 3**; si se selecciona `plantilla_usuario`, requiere la minuta (si no consta ya en el chat), ejecuta el control de legalidad y avanza a la **Fase 3**.
 ---
 
 ## FASE 3 — CREACIÓN DEL DOCUMENTO BASE EN DISCO (REG-DOC-01)

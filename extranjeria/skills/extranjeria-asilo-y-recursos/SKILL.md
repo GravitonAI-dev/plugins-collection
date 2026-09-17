@@ -152,15 +152,15 @@ Invoca la herramienta con las preguntas de triaje:
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y ELECCIÓN DE PLANTILLA (REG-AST-01)
 
-Interacción directa en texto plano conversacional en el chat (sin formularios).
+En esta fase compartes en el chat el plan de trabajo y marco legal, y consultas preceptivamente la plantilla base mediante formulario interactivo de opciones cerradas (`restricted_human_in_the_loop_request`), aplicando rigurosamente el protocolo universal de `REG-AST-01` de `CLAUDE.md`:
 
 ### 2.1 Verificación Normativa Interna
 1. Consulta las referencias internas: `ley-12-2009-proteccion-internacional.md`, `recursos-en-extranjeria-y-plazos.md` y `estilo-redaccion-escritos.md`.
 2. Verifica **obligatoriamente** mediante `web_search` la información actualizada del **país de origen** cuando se prepare un relato de persecución (situación de seguridad, colectivos en riesgo, actuación de las autoridades), y las instrucciones vigentes de la Secretaría de Estado de Migraciones y de la Oficina de Asilo y Refugio. La información de país es prueba esencial y cambia con rapidez.
 
-### 2.2 Mensaje de Plan de Acción y Consulta de Assets
+### 2.2 Mensaje de Plan de Acción y Elección de Plantilla
 Envía un mensaje estructurado y pedagógico:
 1. **Marco Legal, Garantías y Plazos:**
    - Explicar la diferencia entre las tres figuras: el **derecho de asilo** para quien tiene temor fundado de ser perseguido por motivos de raza, religión, nacionalidad, opiniones políticas o pertenencia a determinado grupo social, incluidos los motivos de género y orientación sexual; la **protección subsidiaria** para quien, sin reunir esos requisitos, corre riesgo real de sufrir daños graves (pena de muerte, tortura o tratos inhumanos, o amenazas graves derivadas de violencia indiscriminada en conflicto); y las **razones humanitarias** como salida residual.
@@ -168,13 +168,11 @@ Envía un mensaje estructurado y pedagógico:
    - *Condicional `V2 = en_frontera_o_cie`:* advertir con claridad de que en frontera y en centro de internamiento los plazos son de **días**, con posibilidad de reexamen también en días, y de que la intervención de abogado es **urgente e imprescindible**; ofrecer el documento como apoyo, no como sustituto.
    - Para el recurso: comunicar el plazo de **un mes** desde la notificación y advertir de que el recurso **no suspende** por sí solo la eficacia de la resolución, por lo que la suspensión debe pedirse expresamente.
 2. **Propuesta de Plantilla Oficial del Sistema:**
-   - Nombrar por su ruta el escrito **que ha resuelto el enrutamiento de la Fase 1.3**. **No propongas una plantilla distinta de la enrutada.**
-3. **Pregunta Explícita al Usuario (Vía Chat):**
-   Formula exactamente la siguiente consulta en el chat:
-   > *"¿Desea que utilicemos la plantilla base predeterminada (de la sección de plantillas) o prefiere aportar su propia minuta para trabajar sobre ella pegando el texto en el chat o abriéndola en el editor?"*
+   - Mencionar por su denominación formal el escrito (sin mostrar rutas internas ni volcar su contenido) **que ha resuelto el enrutamiento de la Fase 1.3**. **No propongas una plantilla distinta de la enrutada.**
+3. **Elección de Plantilla Base:** Aplica el protocolo universal de `REG-AST-01` (`CLAUDE.md`), convocando en ese mismo turno el formulario interactivo `restricted_human_in_the_loop_request` para que el usuario elija entre la plantilla del sistema o aportar su propia minuta.
 
-### 2.3 Fijación del origen de la plantilla y manejo de la elección
-Aplica el protocolo determinista de `REG-AST-01` (`CLAUDE.md`): si el usuario acepta la plantilla predeterminada propuesta (`plantilla_sistema`), carga el asset enrutado y avanza a la **Fase 3**; si aporta su propia minuta (`plantilla_usuario`), realiza el control de legalidad advirtiendo de cláusulas nulas o contrarias a normas imperativas, adopta la minuta revisada como base y avanza a la **Fase 3**.
+### 2.3 Manejo Determinista de la Elección
+Aplica rigurosamente el protocolo de `REG-AST-01` (`CLAUDE.md`): si se selecciona `plantilla_sistema`, carga la plantilla oficial y avanza a la **Fase 3**; si se selecciona `plantilla_usuario`, requiere la minuta (si no consta ya en el chat), ejecuta el control de legalidad y avanza a la **Fase 3**.
 ---
 
 ## FASE 3 — CREACIÓN DEL DOCUMENTO BASE EN DISCO (REG-DOC-01)

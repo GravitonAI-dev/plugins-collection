@@ -116,28 +116,26 @@ Invoca la herramienta con las opciones de triaje:
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y ELECCIÓN DE PLANTILLA (REG-AST-01)
 
-Interacción directa en texto plano conversacional en el chat (sin formularios).
+En esta fase compartes en el chat el plan de trabajo y marco legal, y consultas preceptivamente la plantilla base mediante formulario interactivo de opciones cerradas (`restricted_human_in_the_loop_request`), aplicando rigurosamente el protocolo universal de `REG-AST-01` de `CLAUDE.md`:
 
 ### 2.1 Verificación Normativa Interna
 1. Consulta las referencias internas: `loex-y-reglamento.md` (con especial atención al Reglamento RD 1155/2024 en vigor desde el 20/05/2025), `formularios-ex-y-tasas.md` y `documentacion-por-tramite.md`.
 2. Opcionalmente verifica mediante `web_search` las cuantías exactas de las tasas vigentes (Tasa 790 código 052 o código 012). Aplica cualquier actualización normativa directamente sobre los documentos del workspace del usuario sin alterar los assets locales.
 
-### 2.2 Mensaje de Plan de Acción y Consulta de Assets
+### 2.2 Mensaje de Plan de Acción y Elección de Plantilla
 Envía un mensaje estructurado y pedagógico:
 1. **Marco Normativo y Requisitos Esenciales:**
    - Citar el RD 1155/2024 y la LO 4/2000.
    - Detallar los requisitos sustantivos según el trámite: carecer de antecedentes penales en España y países de residencia anterior (5 años), seguro médico privado sin copagos (en no lucrativa), acreditación de fondos (400% del IPREM anual en no lucrativa) o permanencia mínima y vínculos en arraigo.
 2. **Propuesta de Plantilla Oficial del Sistema:**
    - Presentar la hoja de datos para el formulario EX (identificando el modelo: EX-15 para NIE, EX-10 para arraigo, EX-01 para no lucrativa, EX-02 para reagrupación) y el escrito formal de solicitud.
-   - Nombra por su ruta la hoja **que ha resuelto el enrutamiento de la Fase 1.3**; si el enrutamiento asigno varias, nombralas todas y en el orden en que se van a rellenar. **No propongas una hoja distinta de la enrutada.**
-3. **Pregunta Explícita al Usuario (Vía Chat):**
-   Formula exactamente la siguiente consulta en el chat:
-   > *"¿Desea que utilicemos la plantilla base predeterminada (de la sección de plantillas) o prefiere aportar su propia minuta para trabajar sobre ella pegando el texto en el chat o abriéndola en el editor?"*
+   - Menciona por su denominación formal (sin mostrar rutas internas ni volcar su contenido) la hoja **que ha resuelto el enrutamiento de la Fase 1.3**; si el enrutamiento asigno varias, nombralas todas y en el orden en que se van a rellenar. **No propongas una hoja distinta de la enrutada.**
+3. **Elección de Plantilla Base:** Aplica el protocolo universal de `REG-AST-01` (`CLAUDE.md`), convocando en ese mismo turno el formulario interactivo `restricted_human_in_the_loop_request` para que el usuario elija entre la plantilla del sistema o aportar su propia minuta.
 
-### 2.3 Fijación del origen de la plantilla y manejo de la elección
-Aplica el protocolo determinista de `REG-AST-01` (`CLAUDE.md`): si el usuario acepta la plantilla predeterminada propuesta (`plantilla_sistema`), carga el asset enrutado y avanza a la **Fase 3**; si aporta su propia minuta (`plantilla_usuario`), realiza el control de legalidad advirtiendo de cláusulas nulas o contrarias a normas imperativas, adopta la minuta revisada como base y avanza a la **Fase 3**.
+### 2.3 Manejo Determinista de la Elección
+Aplica rigurosamente el protocolo de `REG-AST-01` (`CLAUDE.md`): si se selecciona `plantilla_sistema`, carga la plantilla oficial y avanza a la **Fase 3**; si se selecciona `plantilla_usuario`, requiere la minuta (si no consta ya en el chat), ejecuta el control de legalidad y avanza a la **Fase 3**.
 ---
 
 ## FASE 3 — CREACIÓN DEL DOCUMENTO BASE EN DISCO (REG-DOC-01)

@@ -155,15 +155,15 @@ Invoca la herramienta con las preguntas de triaje:
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y ELECCIÓN DE PLANTILLA (REG-AST-01)
 
-Interacción directa en texto plano conversacional en el chat (sin formularios).
+En esta fase compartes en el chat el plan de trabajo y marco legal, y consultas preceptivamente la plantilla base mediante formulario interactivo de opciones cerradas (`restricted_human_in_the_loop_request`), aplicando rigurosamente el protocolo universal de `REG-AST-01` de `CLAUDE.md`:
 
 ### 2.1 Verificación Normativa Interna
 1. Consulta las referencias internas: `lec-apelacion-motivos-y-plazos.md`, `lec-medidas-cautelares-y-caucion.md` y `estilo-redaccion-escritos.md`.
 2. **Cómputo del plazo como primera tarea:** solicita la fecha de notificación de la sentencia y calcula el vencimiento en días hábiles. Si el plazo ha vencido, **dilo de inmediato** antes de redactar nada.
 
-### 2.2 Mensaje de Plan de Acción y Consulta de Assets
+### 2.2 Mensaje de Plan de Acción y Elección de Plantilla
 Envía un mensaje estructurado y pedagógico:
 1. **Marco Legal, Plazos y Riesgos:**
    - Para la apelación: comunicar el plazo de **veinte días hábiles** desde la notificación para interponer el recurso ante el mismo tribunal que dictó la sentencia, la exigencia del **depósito para recurrir** y su acreditación, y la advertencia de que la sentencia recurrida puede ser objeto de **ejecución provisional** por la parte favorecida.
@@ -171,13 +171,11 @@ Envía un mensaje estructurado y pedagógico:
    - Para la oposición: comunicar el plazo de **diez días** desde el traslado, y la posibilidad de **impugnar** la sentencia en ese mismo escrito respecto de los pronunciamientos que perjudiquen al apelado.
    - Para las medidas cautelares: explicar los tres presupuestos (apariencia de buen derecho, peligro por la mora procesal y proporcionalidad), la exigencia de **caución** y el régimen de la responsabilidad por los daños si la medida se alza. *Condicional `V3 = antes_de_demanda`:* advertir de que la medida obtenida antes de la demanda queda sin efecto si la demanda no se presenta en el plazo legal de veinte días.
 2. **Propuesta de Plantilla Oficial del Sistema:**
-   - Nombrar por su ruta la plantilla **que ha resuelto el enrutamiento de la Fase 1.3**. **No propongas una plantilla distinta de la enrutada.**
-3. **Pregunta Explícita al Usuario (Vía Chat):**
-   Formula exactamente la siguiente consulta en el chat:
-   > *"¿Desea que utilicemos la plantilla base predeterminada (de la sección de plantillas) o prefiere aportar su propia minuta para trabajar sobre ella pegando el texto en el chat o abriéndola en el editor?"*
+   - Mencionar por su denominación formal la plantilla (sin mostrar rutas internas ni volcar su contenido) **que ha resuelto el enrutamiento de la Fase 1.3**. **No propongas una plantilla distinta de la enrutada.**
+3. **Elección de Plantilla Base:** Aplica el protocolo universal de `REG-AST-01` (`CLAUDE.md`), convocando en ese mismo turno el formulario interactivo `restricted_human_in_the_loop_request` para que el usuario elija entre la plantilla del sistema o aportar su propia minuta.
 
-### 2.3 Fijación del origen de la plantilla y manejo de la elección
-Aplica el protocolo determinista de `REG-AST-01` (`CLAUDE.md`): si el usuario acepta la plantilla predeterminada propuesta (`plantilla_sistema`), carga el asset enrutado y avanza a la **Fase 3**; si aporta su propia minuta (`plantilla_usuario`), realiza el control de legalidad advirtiendo de cláusulas nulas o contrarias a normas imperativas, adopta la minuta revisada como base y avanza a la **Fase 3**.
+### 2.3 Manejo Determinista de la Elección
+Aplica rigurosamente el protocolo de `REG-AST-01` (`CLAUDE.md`): si se selecciona `plantilla_sistema`, carga la plantilla oficial y avanza a la **Fase 3**; si se selecciona `plantilla_usuario`, requiere la minuta (si no consta ya en el chat), ejecuta el control de legalidad y avanza a la **Fase 3**.
 ---
 
 ## FASE 3 — CREACIÓN DEL DOCUMENTO BASE EN DISCO (REG-DOC-01)

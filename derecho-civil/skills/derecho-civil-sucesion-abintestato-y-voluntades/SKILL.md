@@ -153,15 +153,15 @@ Invoca la herramienta con las preguntas de triaje:
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y ELECCIÓN DE PLANTILLA (REG-AST-01)
 
-Interacción directa en texto plano conversacional en el chat (sin formularios).
+En esta fase compartes en el chat el plan de trabajo y marco legal, y consultas preceptivamente la plantilla base mediante formulario interactivo de opciones cerradas (`restricted_human_in_the_loop_request`), aplicando rigurosamente el protocolo universal de `REG-AST-01` de `CLAUDE.md`:
 
 ### 2.1 Verificación Normativa Interna
 1. Consulta las referencias internas: `cc-orden-sucesorio-abintestato.md`, `acta-notarial-y-voluntades-anticipadas.md` y `estilo-redaccion-escritos.md`.
 2. Comprueba la **vecindad civil** del causante o del otorgante: si es foral, el orden sucesorio y los derechos del cónyuge pueden ser distintos. En voluntades anticipadas, verifica mediante `web_search` la normativa autonómica aplicable, que determina la forma de otorgamiento y el registro competente.
 
-### 2.2 Mensaje de Plan de Acción y Consulta de Assets
+### 2.2 Mensaje de Plan de Acción y Elección de Plantilla
 Envía un mensaje estructurado y pedagógico:
 1. **Marco Legal y Plazos Aplicables:**
    - Para la declaración de herederos: explicar que, sin testamento, la ley designa a los herederos por un **orden de llamamientos** en el que cada grupo excluye al siguiente, y que ese hecho se acredita mediante **acta de notoriedad** autorizada por notario, no mediante resolución judicial. Explicar el notario territorialmente competente y que el acta requiere **dos testigos** que conozcan a la familia y un plazo de **veinte días hábiles** desde el requerimiento inicial hasta su conclusión.
@@ -169,13 +169,11 @@ Envía un mensaje estructurado y pedagógico:
    - Para voluntades anticipadas: explicar que el documento permite dejar instrucciones sobre los tratamientos que se aceptan o rechazan y designar un representante que decida por el otorgante, que **prevalece sobre la opinión de los familiares**, y que solo es plenamente eficaz si se **inscribe** en el registro autonómico y, a través de él, en el registro nacional que consultan los profesionales sanitarios.
    - Advertir de los límites: no pueden solicitarse actuaciones contrarias al ordenamiento jurídico ni a la buena práctica clínica, ni intervenciones que no se correspondan con el supuesto de hecho previsto.
 2. **Propuesta de Plantilla Oficial del Sistema:**
-   - Nombrar por su ruta la plantilla **que ha resuelto el enrutamiento de la Fase 1.3**. **No propongas una plantilla distinta de la enrutada.**
-3. **Pregunta Explícita al Usuario (Vía Chat):**
-   Formula exactamente la siguiente consulta en el chat:
-   > *"¿Desea que utilicemos la plantilla base predeterminada (de la sección de plantillas) o prefiere aportar su propia minuta para trabajar sobre ella pegando el texto en el chat o abriéndola en el editor?"*
+   - Mencionar por su denominación formal la plantilla (sin mostrar rutas internas ni volcar su contenido) **que ha resuelto el enrutamiento de la Fase 1.3**. **No propongas una plantilla distinta de la enrutada.**
+3. **Elección de Plantilla Base:** Aplica el protocolo universal de `REG-AST-01` (`CLAUDE.md`), convocando en ese mismo turno el formulario interactivo `restricted_human_in_the_loop_request` para que el usuario elija entre la plantilla del sistema o aportar su propia minuta.
 
-### 2.3 Fijación del origen de la plantilla y manejo de la elección
-Aplica el protocolo determinista de `REG-AST-01` (`CLAUDE.md`): si el usuario acepta la plantilla predeterminada propuesta (`plantilla_sistema`), carga el asset enrutado y avanza a la **Fase 3**; si aporta su propia minuta (`plantilla_usuario`), realiza el control de legalidad advirtiendo de cláusulas nulas o contrarias a normas imperativas, adopta la minuta revisada como base y avanza a la **Fase 3**.
+### 2.3 Manejo Determinista de la Elección
+Aplica rigurosamente el protocolo de `REG-AST-01` (`CLAUDE.md`): si se selecciona `plantilla_sistema`, carga la plantilla oficial y avanza a la **Fase 3**; si se selecciona `plantilla_usuario`, requiere la minuta (si no consta ya en el chat), ejecuta el control de legalidad y avanza a la **Fase 3**.
 ---
 
 ## FASE 3 — CREACIÓN DEL DOCUMENTO BASE EN DISCO (REG-DOC-01)

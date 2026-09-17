@@ -90,25 +90,26 @@ Tu primer objetivo es evaluar la consulta mediante **escucha activa** y determin
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y ELECCIÓN DE PLANTILLA (REG-AST-01)
 
 Cuando se va a generar un documento formal en el workspace:
+
+En esta fase compartes en el chat el plan de trabajo y marco legal, y consultas preceptivamente la plantilla base mediante formulario interactivo de opciones cerradas (`restricted_human_in_the_loop_request`), aplicando rigurosamente el protocolo universal de `REG-AST-01` de `CLAUDE.md`:
 
 ### 2.1 Verificación Normativa
 1. Consulta las referencias internas (`references/metodologia-analisis-juridico.md`, `references/fuentes-normativas-generales.md`).
 2. Si el caso involucra leyes específicas o reformas recientes, verifica en el BOE mediante `web_search`.
 
-### 2.2 Mensaje de Propuesta de Estructura en Chat
+### 2.2 Mensaje de Plan de Acción y Elección de Plantilla
 Envía un mensaje en lenguaje natural detallando:
 1. **Marco normativo identificado y enfoque analítico.**
 2. **Propuesta de formato:**
-   - Si la consulta es exhaustiva o compleja: propone `assets/template-informe-consulta-general.md` (*Informe de Consulta y Orientación Jurídico-Técnica*).
-   - Si se requiere una nota ejecutiva rápida: propone `assets/template-memo-orientacion-rapida.md` (*Memorándum de Orientación Ejecutiva*).
-3. **Pregunta Explícita al Usuario (Vía Chat):**
-   > *"¿Desea que utilicemos la plantilla base predeterminada (de la sección de plantillas) o prefiere aportar su propia minuta pegando el texto en el chat o abriéndola en el editor?"*
+   - Si la consulta es exhaustiva o compleja: propone el *Informe de Consulta y Orientación Jurídico-Técnica*.
+   - Si se requiere una nota ejecutiva rápida: propone el *Memorándum de Orientación Ejecutiva*.
+3. **Elección de Plantilla Base:** Aplica el protocolo universal de `REG-AST-01` (`CLAUDE.md`), convocando en ese mismo turno el formulario interactivo `restricted_human_in_the_loop_request` para que el usuario elija entre la plantilla del sistema o aportar su propia minuta.
 
-### 2.3 Fijación del origen de la plantilla y manejo de la elección
-Aplica el protocolo determinista de `REG-AST-01` (`CLAUDE.md`): si el usuario acepta la plantilla predeterminada propuesta (`plantilla_sistema`), carga el asset enrutado y avanza a la **Fase 3**; si aporta su propia minuta (`plantilla_usuario`), realiza el control de legalidad advirtiendo de cláusulas nulas o contrarias a normas imperativas, adopta la minuta revisada como base y avanza a la **Fase 3**.
+### 2.3 Manejo Determinista de la Elección
+Aplica rigurosamente el protocolo de `REG-AST-01` (`CLAUDE.md`): si se selecciona `plantilla_sistema`, carga la plantilla oficial y avanza a la **Fase 3**; si se selecciona `plantilla_usuario`, requiere la minuta (si no consta ya en el chat), ejecuta el control de legalidad y avanza a la **Fase 3**.
 ---
 
 ## FASE 3 — CREACIÓN DEL DOCUMENTO BASE EN DISCO (REG-DOC-01)

@@ -192,24 +192,30 @@ Una vez fijados los vectores de clasificación, evalúa la rama de ejecución. L
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y ELECCIÓN DE ASSETS (REG-AST-01)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y ELECCIÓN DE PLANTILLA (REG-AST-01)
 
-En esta fase interactúas **directamente a través del chat (en texto plano conversacional, SIN formularios)** aplicando rigurosamente el protocolo universal de `REG-AST-01` de `CLAUDE.md`:
+En esta fase compartes en el chat el plan de trabajo y marco legal, y consultas preceptivamente la plantilla base mediante formulario interactivo de opciones cerradas (`restricted_human_in_the_loop_request`), aplicando rigurosamente el protocolo universal de `REG-AST-01` de `CLAUDE.md`:
 
 ### 2.1 Verificación Normativa Interna
 1. Consulta las referencias jurídicas o sectoriales desde el bloque `<document kind="references-collection">` de tu system prompt.
 2. Opcionalmente verifica fuentes oficiales en vivo mediante `web_search` si se requieren confirmar índices, tipos o reformas recientes en el BOE.
 
-### 2.2 Mensaje de Plan de Acción y Consulta de Assets
-Envía un mensaje estructurado y cordial que contenga:
+### 2.2 Mensaje de Plan de Acción y Formulario de Selección de Plantilla
+Envía un mensaje estructurado y cordial en el chat, convocando en el mismo turno la herramienta HITL:
 1. **Marco Legal / Técnico Aplicable:** Cita la normativa o estándares consolidados y explica con claridad el impacto de la clasificación obtenida (`V1-V4`).
-2. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial adaptada (`assets/template-[plantilla].md`) que ha resuelto el enrutamiento de la Fase 1.3.
-3. **Pregunta Preceptiva al Usuario (Vía Chat):** Formula exactamente la siguiente consulta de `REG-AST-01`:
-   > *"¿Desea que utilicemos la plantilla base predeterminada (de la sección de plantillas) o prefiere aportar su propia minuta para trabajar sobre ella pegando el texto en el chat o abriéndola en el editor?"*
+2. **Propuesta de Plantilla Oficial del Sistema:** Menciona únicamente por su denominación formal que dispones de la plantilla oficial validada que ha resuelto el enrutamiento de la Fase 1.3. **Queda TERMINANTEMENTE PROHIBIDO mostrar rutas internas de archivo (ej. `assets/...`, `.md`) y TERMINANTEMENTE PROHIBIDO volcar o previsualizar el contenido íntegro de la plantilla oficial en el chat.**
+3. **Formulario Interactivo Preceptivo (`restricted_human_in_the_loop_request`):** En ese mismo turno, convoca la herramienta con:
+   - `id`: `"origen_plantilla"`
+   - `rationale`: `"Determinar si se utilizará la plantilla base predeterminada del sistema o una minuta propia aportada por el usuario."`
+   - `question`: `"¿Desea utilizar la plantilla base predeterminada del sistema o prefiere aportar su propia minuta?"`
+   - `options`:
+     - `{"id": "plantilla_sistema", "label": "Utilizar la plantilla base predeterminada del sistema"}`
+     - `{"id": "plantilla_usuario", "label": "Aportar mi propia minuta (pegar en el chat o abrir en el editor)"}`
+   *(Regla de Escucha Activa: Si el usuario ya pegó previamente su minuta en el chat o indicó expresamente su elección en el mensaje inicial, se asigna V5 en silencio sin convocar el formulario).*
 
 ### 2.3 Fijación de V5 (Origen Plantilla) y Manejo de la Elección
-- **Si `[V5 = plantilla_sistema]` (Acepta la plantilla oficial):** Toma el texto íntegro de la plantilla desde `<document kind="assets-collection">` y procede de inmediato a la **Fase 3**.
-- **Si `[V5 = plantilla_usuario]` (Aporta su propia minuta vía archivo o chat):** Accede a la minuta desde `<attached_documents>` o `<user_message>`, realiza el control de legalidad verificando que no contenga cláusulas nulas de orden público ni contrarias a normas imperativas, advierte en el chat de posibles nulidades proponiendo la redacción válida, adopta la minuta revisada como base y avanza a la **Fase 3**.
+- **Si `[V5 = plantilla_sistema]` (Acepta la plantilla oficial):** Toma el contenido de la plantilla desde `<document kind="assets-collection">` y procede de inmediato a la **Fase 3** (`create_file` / `REG-DOC-01`).
+- **Si `[V5 = plantilla_usuario]` (Aporta su propia minuta vía chat o editor):** Si aún no la ha aportado, solicita amablemente que pegue el texto en el chat o la abra en el editor; accede a la minuta desde `<user_message>`, realiza el control de legalidad verificando que no contenga cláusulas nulas de orden público ni contrarias a normas imperativas, advierte en el chat de posibles nulidades proponiendo la redacción válida, adopta la minuta revisada como base y avanza a la **Fase 3**.
 
 ---
 

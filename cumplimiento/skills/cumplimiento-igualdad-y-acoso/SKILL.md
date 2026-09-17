@@ -154,15 +154,15 @@ Invoca la herramienta con las preguntas de triaje:
 
 ---
 
-## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y NEGOCIACIÓN DE ASSETS (Vía Chat — Resolución del origen de la plantilla)
+## FASE 2 — PLAN DE ACCIÓN, MARCO LEGAL Y ELECCIÓN DE PLANTILLA (REG-AST-01)
 
-Interacción directa en texto plano conversacional en el chat (sin formularios).
+En esta fase compartes en el chat el plan de trabajo y marco legal, y consultas preceptivamente la plantilla base mediante formulario interactivo de opciones cerradas (`restricted_human_in_the_loop_request`), aplicando rigurosamente el protocolo universal de `REG-AST-01` de `CLAUDE.md`:
 
 ### 2.1 Verificación Normativa Interna
 1. Consulta las referencias internas: `igualdad-plan-protocolo-y-umbrales.md`, `registro-y-auditoria-retributiva.md` y `estilo-redaccion-cumplimiento.md`.
 2. Verifica **obligatoriamente** el **convenio colectivo aplicable**, que puede imponer un protocolo propio, un procedimiento concreto o mejoras, y mediante `web_search` el estado del registro de planes de igualdad y de la normativa de igualdad de trato de las personas LGTBI y su reglamento de desarrollo. Aplica la redacción vigente sobre los documentos del workspace del usuario sin alterar los assets locales.
 
-### 2.2 Mensaje de Plan de Acción y Consulta de Assets
+### 2.2 Mensaje de Plan de Acción y Elección de Plantilla
 Envía un mensaje estructurado y pedagógico:
 1. **Marco Legal, Umbrales y Riesgo:**
    - Explicar con claridad qué obligación depende del tamaño y cuál no: el **protocolo frente al acoso sexual y por razón de sexo** y el **registro retributivo** se exigen a **todas** las empresas, sin umbral; el **plan de igualdad** y la **auditoría retributiva** a partir de **cincuenta** personas trabajadoras.
@@ -170,13 +170,11 @@ Envía un mensaje estructurado y pedagógico:
    - Explicar que el plan de igualdad debe **negociarse** con la representación legal, tiene **vigencia máxima de cuatro años** y debe **inscribirse** en el registro de convenios y acuerdos colectivos: sin inscripción no se tiene por cumplida la obligación.
    - Advertir del riesgo: sanción de la inspección de trabajo, pérdida de acceso a contratación pública y subvenciones, e inversión de la carga de la prueba en los litigios por discriminación.
 2. **Propuesta de Plantilla Oficial del Sistema:**
-   - Nombrar por su ruta la plantilla **que ha resuelto el enrutamiento de la Fase 1.3**. **No propongas una plantilla distinta de la enrutada.**
-3. **Pregunta Explícita al Usuario (Vía Chat):**
-   Formula exactamente la siguiente consulta en el chat:
-   > *"¿Desea que utilicemos la plantilla base predeterminada (de la sección de plantillas) o prefiere aportar su propia minuta para trabajar sobre ella pegando el texto en el chat o abriéndola en el editor?"*
+   - Mencionar por su denominación formal la plantilla (sin mostrar rutas internas ni volcar su contenido) **que ha resuelto el enrutamiento de la Fase 1.3**. **No propongas una plantilla distinta de la enrutada.**
+3. **Elección de Plantilla Base:** Aplica el protocolo universal de `REG-AST-01` (`CLAUDE.md`), convocando en ese mismo turno el formulario interactivo `restricted_human_in_the_loop_request` para que el usuario elija entre la plantilla del sistema o aportar su propia minuta.
 
-### 2.3 Fijación del origen de la plantilla y manejo de la elección
-Aplica el protocolo determinista de `REG-AST-01` (`CLAUDE.md`): si el usuario acepta la plantilla predeterminada propuesta (`plantilla_sistema`), carga el asset enrutado y avanza a la **Fase 3**; si aporta su propia minuta (`plantilla_usuario`), realiza el control de legalidad advirtiendo de cláusulas nulas o contrarias a normas imperativas, adopta la minuta revisada como base y avanza a la **Fase 3**.
+### 2.3 Manejo Determinista de la Elección
+Aplica rigurosamente el protocolo de `REG-AST-01` (`CLAUDE.md`): si se selecciona `plantilla_sistema`, carga la plantilla oficial y avanza a la **Fase 3**; si se selecciona `plantilla_usuario`, requiere la minuta (si no consta ya en el chat), ejecuta el control de legalidad y avanza a la **Fase 3**.
 ---
 
 ## FASE 3 — CREACIÓN DEL DOCUMENTO BASE EN DISCO (REG-DOC-01)
