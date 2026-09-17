@@ -236,8 +236,8 @@ Aplica rigurosamente la directiva `REG-DOC-01` y la sección 6.1 de `CLAUDE.md`:
 
 ### Protocolo de Ejecución de la Fase 4
 Recorre de forma secuencial las secciones del documento respetando rigurosamente las directivas operativas globales de `CLAUDE.md`:
-- **Partes e Intervinientes (REG-CLI-01 a 05):** Búsqueda prioritaria con `search_clients`, desambiguación con opción obligatoria `ninguna`, consentimiento de guardado con `save_client` (REG-CLI-03), volcado directo e inmediato al editor (`edit_file` / `create_file`) sin confirmación en chat (REG-CLI-04) y asignación nominal completa de roles entre clientes conocidos (REG-CLI-05).
-- **Datos Estructurados Objetivos:** Solicitud en bloque mediante `slot_filling_request`.
+- **Partes e Intervinientes (REG-CLI-01 a 05):** Búsqueda prioritaria con `search_clients`, desambiguación con opción obligatoria `ninguna`, consentimiento de guardado con `save_client` (REG-CLI-03), volcado directo e inmediato al editor (`edit_file` / `create_file`) sin confirmación en chat (REG-CLI-04) y asignación nominal completa de roles entre clientes conocidos mediante formulario atómico de exactamente 1 pregunta (REG-CLI-05, prohibido mezclar con preguntas de objeto o inmueble).
+- **Datos Estructurados Objetivos:** Solicitud en bloque mediante `slot_filling_request` (herramienta exclusiva para datos a rellenar; nunca mediante `restricted_human_in_the_loop_request`).
 - **Equivalencia Chat / Formulario (REG-DAT-01):** Ingestión directa de información aportada por chat sin re-emitir formularios innecesarios; reenvío oportuno si el usuario canceló sin responder.
 - **Cero Insistencia ante Negativa Expresa (REG-INS-01):** Respeto inmediato a campos omitidos por el usuario, rellenando con datos disponibles y conservando marcadores pendientes sin presionar ni insistir.
 - **Validación de Sentido y Coherencia (REG-VAL-01):** Verificación de coherencia fáctica y jurídica en chat antes de volcar datos incongruentes.
