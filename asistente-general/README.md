@@ -14,12 +14,14 @@ Sirve como el **fallback universal y asistente de primera línea** para orquesta
 - Analiza problemas legales y administrativos multidisciplinares, identificando la normativa aplicable, la viabilidad de pretensiones y los riesgos.
 - Detecta si la consulta encaja en una skill especializada del catálogo (`derecho-civil`, `gestoria`, etc.) y orienta al usuario hacia ella.
 - Genera y edita incrementalmente en el workspace informes formales (`informe_consulta_legal.md`, `memo_orientacion.md`) cuando el usuario lo solicita.
+- Produce artefactos visuales autocontenidos en un único archivo `.html` que el usuario abre en su navegador con doble clic y puede imprimir o guardar como PDF: informes visuales, paneles de datos con gráficos y herramientas interactivas de cálculo.
 
 ## Qué NO hace
 
 - No sustituye el asesoramiento ni la representación legal por un abogado o graduado social colegiado.
 - No redacta contratos hiper-especializados ni demandas tipificadas cuando existe una skill vertical propia (ej. `arrendamiento-urbano`, `monitorio`, etc.).
 - No fuerza la creación de documentos en disco ni cuestionarios interactivos innecesarios para dudas directas.
+- No construye aplicaciones web con servidor, base de datos o conexión a servicios externos: los artefactos son un único archivo estático sin dependencias.
 
 ---
 
@@ -36,6 +38,20 @@ Asistente universal y versátil para el procesamiento de consultas no catalogada
 - **Inputs principales:** Materia/rama de la consulta (V1), tipo de requerimiento (V2), perfil del consultante (V3), situación de urgencia/plazos (V4), origen de la plantilla/formato (V5), hechos y dudas planteadas.
 - **Outputs:** Respuesta argumentada en chat o informe formal en markdown (`DRAFT`) en workspace (`assets/template-informe-consulta-general.md` o `assets/template-memo-orientacion-rapida.md`).
 
+### `artefacto-visual`
+
+Generación de artefactos visuales autocontenidos en HTML, del estilo de los que el usuario ya conoce de otros asistentes, pero pensados para un despacho: sobrios, imprimibles y sin una sola dependencia externa (ni librerías, ni CDN, ni conexión). Tres formatos:
+1. **Informe visual:** dossier de lectura con índice lateral, indicadores, secciones numeradas, tabla comparativa, cronología de hitos y firmas.
+2. **Panel de datos:** rejilla de tarjetas con indicadores, minigráfico de tendencia, barras comparativas, anillo de reparto, evolución con área y umbral, cascada de importes, medidor de plazo y tabla con totales.
+3. **Herramienta interactiva:** calculadora o simulador que recalcula al instante, con medidor, desglose auditable y lista de verificación con progreso.
+
+Incluye una biblioteca propia de once formas gráficas en SVG con la fórmula exacta de sus coordenadas, criterios de qué forma responde a cada pregunta y reglas de honestidad gráfica (eje desde cero, sin recortes, sin datos inventados).
+
+- **Invocación:** `/asistente-general:artefacto-visual`
+- **Inputs principales:** Tipo de artefacto (V1), destino de uso —pantalla o impresión— (V2), origen de los datos (V3), identidad visual (V4), origen de la plantilla (V5), datos y parámetros a representar.
+- **Outputs:** Archivo `snake_case.html` en el espacio de trabajo, con tema claro y oscuro, diseño adaptable, estilos de impresión en A4 y aviso `DRAFT` visible.
+- **Ejemplos abribles:** `skills/artefacto-visual/ejemplos/` contiene cuatro artefactos completos con su PDF ya generado, incluida una galería con las once formas gráficas.
+
 ---
 
 ## Estructura del Plugin
@@ -49,13 +65,29 @@ asistente-general/
 ├── CLAUDE.md
 ├── README.md
 └── skills/
-    └── consulta-general/
+    ├── consulta-general/
+    │   ├── SKILL.md
+    │   ├── assets/
+    │   │   ├── template-informe-consulta-general.md
+    │   │   └── template-memo-orientacion-rapida.md
+    │   └── references/
+    │       ├── metodologia-analisis-juridico.md
+    │       ├── fuentes-normativas-generales.md
+    │       └── matriz-derivacion-especialidades.md
+    └── artefacto-visual/
         ├── SKILL.md
         ├── assets/
-        │   ├── template-informe-consulta-general.md
-        │   └── template-memo-orientacion-rapida.md
-        └── references/
-            ├── metodologia-analisis-juridico.md
-            ├── fuentes-normativas-generales.md
-            └── matriz-derivacion-especialidades.md
+        │   ├── template-informe-visual.md
+        │   ├── template-panel-datos.md
+        │   └── template-herramienta-interactiva.md
+        ├── references/
+        │   ├── anatomia-artefacto-html.md
+        │   ├── biblioteca-componentes-visuales.md
+        │   └── criterios-visualizacion-datos.md
+        └── ejemplos/
+            ├── generar_ejemplos.py
+            ├── panel_reclamacion_cantidad.html / .pdf
+            ├── informe_viabilidad_monitorio.html / .pdf
+            ├── simulador_intereses_demora.html / .pdf
+            └── galeria_graficos.html / .pdf
 ```
