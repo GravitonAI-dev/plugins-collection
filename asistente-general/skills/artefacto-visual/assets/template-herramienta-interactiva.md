@@ -152,7 +152,7 @@ input[type=number]{font-variant-numeric:tabular-nums}
 @media print{
   :root{--fondo:#fff;--superficie:#fff;--superficie-2:#fff;--borde:#c8c5bf;--borde-suave:#dcd9d3;
         --texto:#000;--apagado:#3f3d39;--sombra:none;--acento-suave:#f2f6f8}
-  @page{size:A4;margin:15mm}
+  @page{size:A4;margin:16mm 14mm}
   *{animation:none!important;transition:none!important}
   body{font-size:10.5pt;background-image:none}
   .contenedor{max-width:none;padding:0}
@@ -161,6 +161,17 @@ input[type=number]{font-variant-numeric:tabular-nums}
   .tarjeta{break-inside:avoid;page-break-inside:avoid;box-shadow:none}
   thead{display:table-header-group}
   tbody tr:hover{background:transparent}
+}
+
+@media print{
+  /* Los colores de los graficos y de las barras viajan al papel aunque no se
+     marque "graficos de fondo" en el dialogo de impresion. */
+  *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
+  p{orphans:3;widows:3}
+  h1,h2,h3{break-after:avoid;page-break-after:avoid}
+  tr{break-inside:avoid;page-break-inside:avoid}
+  caption{break-after:avoid}
+  .aviso,.leyenda,.barras li,.cronologia li{break-inside:avoid;page-break-inside:avoid}
 }
 </style>
 </head>

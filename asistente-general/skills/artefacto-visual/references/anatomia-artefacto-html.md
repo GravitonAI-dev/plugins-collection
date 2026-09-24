@@ -78,7 +78,10 @@ El usuario imprime el artefacto o lo guarda como PDF desde el navegador (dialogo
 - `break-inside: avoid` en tarjetas, indicadores y secciones; `break-after: avoid` en los encabezados.
 - `thead { display: table-header-group }` para que el encabezado de una tabla larga se repita en cada pagina.
 - En el informe, el indice lateral desaparece y el contenido pasa a una sola columna.
-- Un boton visible en pantalla que invoque `window.print()`.
+- **Fidelidad de color en papel:** `*{-webkit-print-color-adjust:exact; print-color-adjust:exact}` dentro de `@media print`. Sin esto, quien imprima sin marcar *graficos de fondo* se lleva las barras y las areas en blanco, y el artefacto pierde justo lo que lo hacia util.
+- **Tipografia de pagina:** `p{orphans:3;widows:3}`, `h1,h2,h3{break-after:avoid}`, `tr{break-inside:avoid}`, y `break-inside:avoid` en avisos, leyendas, barras e hitos de cronologia. Una fila partida por la mitad o un titulo solo al pie de pagina delatan el documento.
+- Un boton visible en pantalla que invoque `window.print()`. El nombre del PDF que propone el navegador sale del `<title>`, asi que ese titulo es tambien el nombre del archivo.
+- **Cabeceras y pies repetidos en cada pagina: no.** Un elemento `position:fixed` parece la solucion evidente, pero Chrome lo coloca una sola vez y fuera de sitio —acaba al pie de la primera pagina y tapando la primera linea de la siguiente—. Si hace falta identificacion en cada hoja, se deja al dialogo de impresion del navegador (que anade cabecera, pie, fecha y numero de pagina) o se acepta que la identificacion viva en la cabecera del documento y en su pie final.
 
 ## 6. JavaScript permitido y prohibido
 
