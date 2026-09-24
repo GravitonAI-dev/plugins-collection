@@ -37,6 +37,15 @@ def chispa(valores, x0=1, ancho=118, alto=28, base=30):
                                round(base - (v - minimo) / rango * alto, 1))
                     for i, v in enumerate(valores))
 
+def chispa_area(valores):
+    """El area bajo la linea: los mismos puntos mas los dos vertices del suelo."""
+    return chispa(valores) + " 119,32 1,32"
+
+def chispa_ultimo_y(valores):
+    minimo, maximo = min(valores), max(valores)
+    rango = (maximo - minimo) or 1
+    return round(30 - (valores[-1] - minimo) / rango * 28, 1)
+
 def arcos_anillo(porcentajes, radio=62):
     """Devuelve [(arco, resto, desplazamiento)] para cada porcion."""
     circunferencia = 2 * math.pi * radio
@@ -109,6 +118,8 @@ def panel():
       "INDICADOR_1_ROTULO": "Principal reclamado", "INDICADOR_1_CIFRA": eur(PRINCIPAL),
       "INDICADOR_1_DETALLE": "Siete facturas vencidas e impagadas",
       "CHISPA_PUNTOS": chispa(SERIE_DEUDA),
+      "CHISPA_AREA": chispa_area(SERIE_DEUDA), "CHISPA_ULTIMO_Y": chispa_ultimo_y(SERIE_DEUDA),
+      "CHISPA_NOTA": "Enero a septiembre: el principal se ha multiplicado por 3,4",
       "CHISPA_DESCRIPCION": "Tendencia del principal acumulado de enero a septiembre: al alza",
       "INDICADOR_2_ROTULO": "Intereses devengados", "INDICADOR_2_CIFRA": eur(INTERESES),
       "INDICADOR_2_DETALLE": "Interes legal del dinero hasta 24/09/2026",

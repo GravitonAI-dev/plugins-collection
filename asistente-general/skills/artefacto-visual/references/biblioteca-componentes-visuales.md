@@ -136,12 +136,21 @@ y(v) = 30 - (v - minimo) / (maximo - minimo) * 28
 ```
 
 ```html
-<svg class="chispa" viewBox="0 0 120 32" role="img" aria-label="Tendencia de los ultimos seis meses: al alza">
-  <polyline class="serie-1" style="stroke-width:2" points="1,28 24.6,24 48.2,18 71.8,13 95.4,9 119,4"></polyline>
-</svg>
+<div class="tendencia">
+  <svg class="chispa" viewBox="0 0 120 32" preserveAspectRatio="none" role="img" aria-label="Tendencia de los ultimos seis meses: al alza">
+    <polygon class="chispa-area" points="1,28 24.6,24 48.2,18 71.8,13 95.4,9 119,4 119,32 1,32"></polygon>
+    <polyline class="chispa-linea" points="1,28 24.6,24 48.2,18 71.8,13 95.4,9 119,4"></polyline>
+    <circle class="chispa-punto" cx="119" cy="4" r="2.4"></circle>
+  </svg>
+  <p class="tendencia-nota">Enero a septiembre: +240%</p>
+</div>
 ```
 
-Aqui la escala si puede arrancar en el minimo de la serie, porque el minigrafico muestra **forma**, no magnitud, y nunca lleva cifras.
+Tres cosas lo convierten en un grafico y no en una raya suelta: el **area** bajo la linea, que le da suelo; el **punto final**, que dice hacia donde se lee; y el **pie de una linea**, que dice de que periodo habla y cuanto ha variado. Sin ellos, quien lo mira ve una diagonal sin explicacion en medio de una tarjeta.
+
+El poligono del area son los puntos de la linea mas los dos vertices del suelo, `119,32` y `1,32`. La linea lleva `vector-effect="non-scaling-stroke"` porque el `preserveAspectRatio="none"` estira el lienzo al ancho de la tarjeta y, sin eso, el trazo se deformaria.
+
+Aqui la escala si puede arrancar en el minimo de la serie, porque el minigrafico muestra **forma**, no magnitud, y nunca lleva cifras en los ejes.
 
 ### 7. Medidor semicircular
 

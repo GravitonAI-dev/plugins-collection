@@ -29,7 +29,7 @@ inputs:
   - tipo_artefacto: informe_visual / panel_datos / herramienta_interactiva / fuera_de_alcance (V1)
   - destino_uso: pantalla_interactiva / impresion_pdf / ambos (V2)
   - origen_datos: datos_del_chat / documento_del_workspace / busqueda_web (V3)
-  - identidad_visual: tema_sistema / tema_personalizado (V4)
+  - identidad_visual: tema_moderno / tema_sobrio / tema_personalizado (V4)
   - origen_plantilla: plantilla estandar del sistema / plantilla propia del usuario (V5)
   - titulo_y_proposito: titulo del artefacto, destinatario y pregunta que debe responder
   - datos_de_contenido: cifras, fechas, importes, series, hitos, conceptos o criterios a representar
@@ -60,7 +60,7 @@ Esta skill guia al usuario de manera consultiva y transparente a traves de un pr
 - **V1 (Tipo de Artefacto):** `informe_visual` | `panel_datos` | `herramienta_interactiva` | `fuera_de_alcance`.
 - **V2 (Destino de Uso):** `pantalla_interactiva` | `impresion_pdf` | `ambos`. Determina el peso de la interaccion frente a la fidelidad de impresion.
 - **V3 (Origen de los Datos):** `datos_del_chat` | `documento_del_workspace` | `busqueda_web`.
-- **V4 (Identidad Visual):** `tema_sistema` (paleta sobria por defecto) | `tema_personalizado` (colores corporativos aportados por el usuario).
+- **V4 (Identidad Visual):** `tema_moderno` (paleta viva de producto, la de las plantillas) | `tema_sobrio` (paleta de despacho: azul petroleo y neutros calidos, para juzgado y cliente institucional) | `tema_personalizado` (colores corporativos aportados por el usuario).
 - **V5 (Origen Plantilla):** `plantilla_sistema` | `plantilla_usuario`.
 
 > **REGLA DE INVISIBILIDAD Y COMUNICACION AMIGABLE (Global CLAUDE.md):**
@@ -121,10 +121,11 @@ Evalua el mensaje inicial y el historial antes de abrir ningun formulario. Si el
     },
     {
       "id": "identidad_visual",
-      "rationale": "Resolver V4 para fijar la paleta y el encabezado del artefacto.",
-      "question": "¿Que identidad visual prefiere?",
+      "rationale": "Resolver V4 para fijar la paleta, el radio de las tarjetas y el encabezado del artefacto.",
+      "question": "¿Que aspecto prefiere para el artefacto?",
       "options": [
-        {"id": "tema_sistema", "label": "La paleta sobria por defecto de la plataforma"},
+        {"id": "tema_moderno", "label": "Moderno: cifras grandes, colores vivos y mucho aire"},
+        {"id": "tema_sobrio", "label": "Sobrio de despacho: azules apagados y neutros calidos"},
         {"id": "tema_personalizado", "label": "Los colores y el nombre de mi despacho o empresa"}
       ]
     }

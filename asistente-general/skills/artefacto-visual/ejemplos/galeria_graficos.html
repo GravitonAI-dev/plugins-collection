@@ -8,29 +8,29 @@
 *,*::before,*::after{box-sizing:border-box}
 :root{
   color-scheme:light dark;
-  --fondo:#f4f3f0;--superficie:#ffffff;--superficie-2:#faf9f7;--borde:#e4e1da;--borde-suave:#edebe6;
-  --texto:#171614;--apagado:#66635d;
-  --acento:#2c6a88;--acento-suave:#e7eff4;--acento-fuerte:#1d4d66;
-  --ok:#3c7a4f;--aviso:#ad7127;--riesgo:#98373f;--linea-rejilla:#e6e3dc;
-  --c1:#2c6a88;--c2:#b4762c;--c3:#4b7f52;--c4:#8e4a5e;--c5:#5d5fa3;--c6:#7c7974;
-  --e1:4px;--e2:8px;--e3:12px;--e4:20px;--e5:32px;--e6:52px;
-  --radio:14px;--radio-s:9px;
-  --sombra:0 1px 1px rgba(23,22,20,.04),0 4px 10px rgba(23,22,20,.05),0 16px 36px rgba(23,22,20,.05);
+  --fondo:#f6f7fb;--superficie:#ffffff;--superficie-2:#f4f6fb;--borde:#e3e7f0;--borde-suave:#eef1f7;
+  --texto:#121722;--apagado:#5f6675;
+  --acento:#2f6ae8;--acento-suave:#eaf1ff;--acento-fuerte:#1c46ad;
+  --ok:#0f9d63;--aviso:#e08a12;--riesgo:#d1445a;--linea-rejilla:#e8ebf3;
+  --c1:#2f6ae8;--c2:#12b886;--c3:#f59e0b;--c4:#7c5cf0;--c5:#e35d9a;--c6:#64748b;
+  --e1:4px;--e2:8px;--e3:14px;--e4:22px;--e5:34px;--e6:56px;
+  --radio:20px;--radio-s:12px;
+  --sombra:0 1px 2px rgba(47,106,232,.07),0 8px 22px rgba(18,23,34,.07),0 28px 56px rgba(47,106,232,.07);
   --fuente:ui-sans-serif,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 }
 @media (prefers-color-scheme:dark){
   :root{
-    --fondo:#121417;--superficie:#1c1f23;--superficie-2:#23262b;--borde:#333840;--borde-suave:#2a2e34;
-    --texto:#eae8e4;--apagado:#a4a19b;
-    --acento:#7fb7d4;--acento-suave:#1b2b34;--acento-fuerte:#a6cfe4;
-    --ok:#77b98a;--aviso:#e0a85c;--riesgo:#e08289;--linea-rejilla:#2f343b;
-    --c1:#7fb7d4;--c2:#e0a85c;--c3:#86c093;--c4:#d192a4;--c5:#9a9cdc;--c6:#a8a5a0;
-    --sombra:0 1px 1px rgba(0,0,0,.3),0 4px 10px rgba(0,0,0,.28),0 16px 36px rgba(0,0,0,.3);
+    --fondo:#0d1017;--superficie:#161b25;--superficie-2:#1d232f;--borde:#2a3240;--borde-suave:#222935;
+    --texto:#e9edf5;--apagado:#9aa4b8;
+    --acento:#7aa5ff;--acento-suave:#17233a;--acento-fuerte:#a9c4ff;
+    --ok:#3ddc97;--aviso:#f0b354;--riesgo:#ff7a90;--linea-rejilla:#242c39;
+    --c1:#7aa5ff;--c2:#3ddc97;--c3:#f0b354;--c4:#a78bfa;--c5:#f472b6;--c6:#94a3b8;
+    --sombra:0 1px 2px rgba(0,0,0,.5),0 10px 26px rgba(0,0,0,.45),0 30px 60px rgba(0,0,0,.4);
   }
 }
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--fondo);color:var(--texto);font-family:var(--fuente);font-size:16px;line-height:1.55;
-  background-image:radial-gradient(1100px 520px at 50% -12%,color-mix(in srgb,var(--acento) 8%,transparent),transparent 70%);
+  background-image:radial-gradient(900px 460px at 12% -8%,color-mix(in srgb,var(--acento) 13%,transparent),transparent 72%),radial-gradient(760px 420px at 92% 4%,color-mix(in srgb,var(--c2) 10%,transparent),transparent 70%);
   background-attachment:fixed}
 .contenedor{max-width:var(--ancho);margin:0 auto;padding:var(--e5) var(--e4) var(--e6)}
 a{color:var(--acento)}
@@ -43,21 +43,23 @@ h1{font-size:clamp(1.65rem,3.6vw,2.4rem);line-height:1.12;margin:0 0 var(--e3);l
 .entradilla{font-size:1.06rem;color:var(--apagado);margin:0 0 var(--e4);max-width:66ch}
 .ficha{display:flex;flex-wrap:wrap;gap:var(--e2) var(--e5);font-size:.84rem;color:var(--apagado);margin:0;padding:0;list-style:none}
 .ficha b{color:var(--texto);font-weight:620}
-.indicadores{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:var(--e3);margin:0 0 var(--e4)}
+.indicadores{display:grid;grid-template-columns:repeat(auto-fit,minmax(212px,1fr));gap:var(--e3);margin:0 0 var(--e4)}
 .indicador{background:var(--superficie);border:1px solid var(--borde);border-radius:var(--radio);
-  padding:var(--e4);box-shadow:var(--sombra);position:relative;overflow:hidden}
-.indicador::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--acento);opacity:.85}
+  padding:calc(var(--e4) + var(--e1)) var(--e4) var(--e4);box-shadow:var(--sombra);position:relative;overflow:hidden}
+.indicador::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;
+  background:linear-gradient(90deg,var(--acento),color-mix(in srgb,var(--acento) 45%,var(--c2)))}
 .indicador.es-ok::before{background:var(--ok)}
 .indicador.es-atencion::before{background:var(--aviso)}
 .indicador.es-riesgo::before{background:var(--riesgo)}
 .indicador .rotulo{font-size:.74rem;text-transform:uppercase;letter-spacing:.09em;color:var(--apagado);margin:0 0 var(--e2)}
-.indicador .cifra{font-size:clamp(1.5rem,2.5vw,1.95rem);font-weight:670;letter-spacing:-.028em;line-height:1.05;margin:0;font-variant-numeric:tabular-nums}
+.indicador .cifra{font-size:clamp(1.6rem,2.3vw,2.25rem);font-weight:680;letter-spacing:-.032em;line-height:1.05;margin:0;
+  font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .indicador .detalle{font-size:.8rem;color:var(--apagado);margin:var(--e2) 0 0}
 .indicador.es-ok .cifra{color:var(--ok)}
 .indicador.es-atencion .cifra{color:var(--aviso)}
 .indicador.es-riesgo .cifra{color:var(--riesgo)}
 .tarjeta{background:var(--superficie);border:1px solid var(--borde);border-radius:var(--radio);
-  padding:var(--e4) calc(var(--e4) + var(--e1));box-shadow:var(--sombra)}
+  padding:calc(var(--e4) + var(--e2)) calc(var(--e4) + var(--e3));box-shadow:var(--sombra)}
 h2{font-size:clamp(1.02rem,1.5vw,1.16rem);margin:0 0 var(--e1);letter-spacing:-.012em;font-weight:660}
 .subtitulo{font-size:.84rem;color:var(--apagado);margin:0 0 var(--e4)}
 p{margin:0 0 var(--e3)}
@@ -122,7 +124,12 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 :root{--ancho:1120px}
 .malla{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:var(--e3);margin:0 0 var(--e3);align-items:start}
 .malla .ancho-total{grid-column:1/-1}
-.chispa{display:block;width:132px;height:35px;margin:var(--e2) 0 0}
+.tendencia{margin:var(--e3) 0 0;padding-top:var(--e2);border-top:1px solid var(--borde-suave)}
+.chispa{display:block;width:100%;height:30px}
+.chispa-area{fill:var(--acento);opacity:.13;stroke:none}
+.chispa-linea{fill:none;stroke:var(--acento);stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.chispa-punto{fill:var(--acento)}
+.tendencia-nota{font-size:.76rem;color:var(--apagado);margin:5px 0 0}
 .medidor text{fill:var(--texto)}
 .medidor .pista-arco{fill:none;stroke:var(--superficie-2);stroke-width:18;stroke-linecap:round}
 .medidor .arco{fill:none;stroke-width:18;stroke-linecap:round}
