@@ -27,7 +27,7 @@ when_to_use: |
   - El usuario necesita un entregable listo para imprimir o exportar a PDF con identidad visual cuidada.
 inputs:
   - tipo_artefacto: informe_visual / panel_datos / herramienta_interactiva / fuera_de_alcance (V1)
-  - destino_uso: pantalla_interactiva / impresion_pdf / ambos (V2)
+  - destino_uso: fijado siempre en ambos, no se pregunta (V2)
   - origen_datos: datos_del_chat / documento_del_workspace / busqueda_web (V3)
   - identidad_visual: tema_moderno / tema_sobrio / tema_personalizado (V4)
   - origen_plantilla: plantilla estandar del sistema / plantilla propia del usuario (V5)
@@ -58,7 +58,7 @@ Esta skill guia al usuario de manera consultiva y transparente a traves de un pr
 
 ### Vectores de Estado (Uso Estrictamente Interno):
 - **V1 (Tipo de Artefacto):** `informe_visual` | `panel_datos` | `herramienta_interactiva` | `fuera_de_alcance`.
-- **V2 (Destino de Uso):** `pantalla_interactiva` | `impresion_pdf` | `ambos`. Determina el peso de la interaccion frente a la fidelidad de impresion.
+- **V2 (Destino de Uso):** fijado siempre en `ambos`. **No se pregunta nunca:** todo artefacto se entrega util en pantalla y listo para imprimir o guardar como PDF. Preguntarlo solo anadia un paso al asistente para una respuesta que casi siempre era la misma.
 - **V3 (Origen de los Datos):** `datos_del_chat` | `documento_del_workspace` | `busqueda_web`.
 - **V4 (Identidad Visual):** `tema_moderno` (paleta viva de producto, la de las plantillas) | `tema_sobrio` (paleta de despacho: azul petroleo y neutros calidos, para juzgado y cliente institucional) | `tema_personalizado` (colores corporativos aportados por el usuario).
 - **V5 (Origen Plantilla):** `plantilla_sistema` | `plantilla_usuario`.
@@ -78,7 +78,7 @@ Evalua el mensaje inicial y el historial antes de abrir ningun formulario. Si el
 
 **Correspondencia con el enrutamiento.** Los vectores de esta skill se nombran con los identificadores siguientes; cada uno se resuelve con la respuesta indicada. No preguntes de nuevo nada que ya este aqui:
 - `V1` — respuesta a `tipo_artefacto`
-- `V2` — respuesta a `destino_uso`
+- `V2` — fijado en `ambos` sin preguntar: pantalla e impresion a la vez
 - `V3` — respuesta a `origen_datos`
 - `V4` — respuesta a `identidad_visual`
 - `V5` — respuesta a `origen_plantilla`, resuelto en la Fase 2 conforme a `REG-AST-01`
@@ -97,16 +97,6 @@ Evalua el mensaje inicial y el historial antes de abrir ningun formulario. Si el
         {"id": "panel_datos", "label": "Panel de datos con indicadores y graficos (evolucion, reparto y comparativas)"},
         {"id": "herramienta_interactiva", "label": "Herramienta interactiva: calculadora, simulador o lista de verificacion"},
         {"id": "fuera_de_alcance", "label": "Otra cosa: un contrato o escrito, un archivo de ofimatica o una aplicacion con servidor"}
-      ]
-    },
-    {
-      "id": "destino_uso",
-      "rationale": "Resolver V2 para calibrar el peso de la interaccion frente a la fidelidad de impresion.",
-      "question": "¿Que uso le va a dar principalmente?",
-      "options": [
-        {"id": "pantalla_interactiva", "label": "Verlo y manejarlo en pantalla"},
-        {"id": "impresion_pdf", "label": "Imprimirlo o guardarlo como PDF para entregarlo"},
-        {"id": "ambos", "label": "Ambos usos por igual"}
       ]
     },
     {
@@ -134,7 +124,7 @@ Evalua el mensaje inicial y el historial antes de abrir ningun formulario. Si el
 ```
 
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
-Fijados los vectores de clasificacion, evalua la rama de ejecucion. Las respuestas de `V2`, `V3` y `V4` no abren rama propia: modulan el contenido de la Fase 4 dentro de la rama elegida.
+Fijados los vectores de clasificacion, evalua la rama de ejecucion. `V2` esta fijado en `ambos` y no se pregunta; `V3` y `V4` no abren rama propia: modulan el contenido de la Fase 4 dentro de la rama elegida.
 
 * Si `V1 = informe_visual` -> Plantilla del sistema: `assets/template-informe-visual.md`. Lectura secuencial con encabezado, indice lateral pegajoso, fila de indicadores, secciones numeradas, tabla, cronologia de hitos, avisos y bloque de firmas. Procede a la Fase 2.
 * Si `V1 = panel_datos` -> Plantilla del sistema: `assets/template-panel-datos.md`. Rejilla de tarjetas con indicadores (uno con minigrafico de tendencia), barras comparativas, anillo de reparto, evolucion con area y banda de umbral, cascada de descomposicion del importe, medidor semicircular y tabla de detalle con totales. Procede a la Fase 2.
@@ -169,7 +159,7 @@ En un unico turno, expon en el chat:
 2. **Zero-Omission:** sustituye en ese mismo volcado **todos** los marcadores cuyo valor ya conoces: titulo, entradilla, etiqueta superior, fechas, referencia del expediente, destinatario, nombres de las partes resueltos conforme a `REG-CLI-01` a `REG-CLI-04`, e indicadores cuyas cifras ya constan. Prohibido crear el archivo con los marcadores en blanco si la informacion ya obra en la conversacion.
 3. **Marcadores pendientes:** los datos aun desconocidos permanecen visibles como `{{VARIABLE}}` y se resuelven en la Fase 4. Prohibido rellenarlos con ceros, guiones o cifras inventadas.
 4. **Aplicacion de V4:** si `V4 = tema_personalizado`, ajusta en el bloque de estilos los tokens `--accent`, `--accent-soft` y la serie `--c1` a `--c6` a los colores aportados, verificando el contraste en tema claro y oscuro, y coloca el nombre del despacho en la etiqueta superior. Si `V4 = tema_sistema`, conserva la paleta por defecto.
-5. **Aplicacion de V2:** si `V2 = impresion_pdf`, refuerza el bloque `@media print` y reduce la interaccion a lo imprescindible; si `V2 = pantalla_interactiva`, prioriza la densidad de informacion y los elementos manipulables; si `V2 = ambos`, ambos requisitos se cumplen sin sacrificar ninguno.
+5. **Aplicacion de V2 (siempre `ambos`):** el artefacto tiene que sostener las dos lecturas a la vez, sin sacrificar ninguna. En pantalla: densidad de informacion, elementos manipulables y tema oscuro. En papel: bloque `@media print` completo, fidelidad de color, sin cortes de tarjeta ni titulos huerfanos. Si una decision favorece a una y perjudica a la otra, se busca la que sirva a ambas.
 6. **Confirmacion en el chat y encadenamiento:** informa de la ruta absoluta del artefacto creado y anade siempre estas dos indicaciones al usuario:
    - **Como se abre:** al seleccionarlo en su espacio de trabajo, la plataforma ofrece abrirlo en el navegador o mostrarlo en su carpeta; tambien se abre con un doble clic sobre el archivo. El boton inferior de la propia pagina lo imprime o lo guarda como PDF (destino *Guardar como PDF* en el dialogo de impresion, con los graficos de fondo activados si se quiere conservar el color).
    - **Como se modifica:** cualquier ajuste se pide en el chat y el asistente lo aplica sobre el archivo. El artefacto no se edita a mano en el editor de texto, que trabaja en markdown.
