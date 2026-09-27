@@ -27,7 +27,7 @@ El `maximo_eje` se redondea **hacia arriba** a una cifra legible: si el maximo r
 Reglas que acompanan a todos los graficos:
 
 - `role="img"` y `aria-label` con el dato resumido en una frase.
-- Colores tomados de la serie `--c1` a `--c6`, en orden y **coherentes entre graficos del mismo artefacto**: si la parte actora es `--c1` en el primero, lo es en todos.
+- Colores tomados de la serie `--c1` a `--c6`, en orden y **coherentes entre graficos del mismo documento visual**: si la parte actora es `--c1` en el primero, lo es en todos.
 - Coordenadas con un decimal como maximo.
 - Nunca se inventa un punto para cerrar una serie: un hueco interrumpe la linea.
 
@@ -325,7 +325,7 @@ Presente en la plantilla interactiva. Cada punto es un `input type="checkbox"` c
 Tres funciones separadas:
 
 - `leer()` recoge los valores del formulario y devuelve un objeto.
-- `calcular(d)` recibe ese objeto y devuelve `{ resultado1, resultado2, resultado3, medidor, desglose: [{concepto, importe, detalle}] }`. Es el unico bloque que cambia de un artefacto a otro. `medidor` es un porcentaje de 0 a 100 que mueve el arco; `detalle` es texto ya formateado. La fila de totales suma la columna de importes; la tercera solo muestra total si el calculo devuelve ademas `totalDetalle`, porque sumar dias o porcentajes carece de sentido.
+- `calcular(d)` recibe ese objeto y devuelve `{ resultado1, resultado2, resultado3, medidor, desglose: [{concepto, importe, detalle}] }`. Es el unico bloque que cambia de un documento visual a otro. `medidor` es un porcentaje de 0 a 100 que mueve el arco; `detalle` es texto ya formateado. La fila de totales suma la columna de importes; la tercera solo muestra total si el calculo devuelve ademas `totalDetalle`, porque sumar dias o porcentajes carece de sentido.
 - `pintar(r)` vuelca el resultado con `textContent`, nunca con `innerHTML`.
 
 Formato espanol siempre mediante `Intl.NumberFormat("es-ES", ...)`.
@@ -352,7 +352,7 @@ return {
 };
 ```
 
-### Pie del artefacto
+### Pie del documento visual
 
 ```html
 <footer class="pie">

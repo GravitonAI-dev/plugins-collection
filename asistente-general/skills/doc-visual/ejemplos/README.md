@@ -1,6 +1,6 @@
-# Ejemplos de la skill `artefacto-visual`
+# Ejemplos de la skill `doc-visual`
 
-Artefactos de demostracion generados con las plantillas de `../assets`. Se abren **con doble clic** en cualquier navegador: no necesitan servidor, ni conexion, ni instalar nada. El boton inferior de cada pagina la imprime o la guarda como PDF; al lado de cada `.html` esta ese PDF ya generado.
+Documentos visuales de demostracion generados con las plantillas de `../assets`. Se abren **con doble clic** en cualquier navegador: no necesitan servidor, ni conexion, ni instalar nada. El boton inferior de cada pagina la imprime o la guarda como PDF; al lado de cada `.html` esta ese PDF ya generado.
 
 > DRAFT — Los datos son ficticios y sirven unicamente para mostrar el formato. Ningun importe, plazo o conclusion de estos archivos es real.
 

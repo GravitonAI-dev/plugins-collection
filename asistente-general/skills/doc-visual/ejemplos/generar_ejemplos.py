@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Genera los artefactos de ejemplo de la skill `artefacto-visual`.
+"""Genera los documentos visuales de ejemplo de la skill `documento visual-visual`.
 
 Rellena las tres plantillas de `../assets` con un caso real (reclamacion de
 cantidad) y compone ademas la galeria de graficos. Si encuentra Google Chrome,
-imprime cada artefacto a PDF con el mismo motor que usara el navegador del
+imprime cada documento visual a PDF con el mismo motor que usara el navegador del
 usuario.
 
 Uso:   python3 generar_ejemplos.py          (HTML y PDF)
@@ -109,7 +109,7 @@ def panel():
                         ("Costas est.", PRINCIPAL + INTERESES, TOTAL),
                         ("Total", 0, TOTAL)], TOTAL)
     v = {
-      "TITULO_ARTEFACTO": "La deuda se concentra en tres facturas de 2025",
+      "TITULO_DOCUMENTO": "La deuda se concentra en tres facturas de 2025",
       "ETIQUETA_SUPERIOR": "Reclamacion de cantidad | Expediente 2026/0417",
       "ENTRADILLA": "Situacion de la deuda de Construcciones Delta, S.L. a 24 de septiembre de 2026. Tres facturas concentran el 89 por ciento del principal y la mas antigua supera ya los 300 dias de demora.",
       "PERIODO": "enero a septiembre de 2026",
@@ -186,7 +186,7 @@ def panel():
 
 def informe():
     v = {
-      "TITULO_ARTEFACTO": "El monitorio es la via mas rapida y economica",
+      "TITULO_DOCUMENTO": "El monitorio es la via mas rapida y economica",
       "ETIQUETA_SUPERIOR": "Informe de viabilidad | Expediente 2026/0417",
       "ENTRADILLA": "Analisis de las vias de reclamacion frente a Construcciones Delta, S.L. por un principal de 42.180,50 euros, con el detalle de plazos, costes y riesgos de cada alternativa.",
       "REFERENCIA_EXPEDIENTE": "2026/0417", "FECHA_EMISION": "24 de septiembre de 2026",
@@ -253,7 +253,7 @@ def herramienta():
       ]
     };"""
     v = {
-      "TITULO_ARTEFACTO": "Simulador de intereses de demora",
+      "TITULO_DOCUMENTO": "Simulador de intereses de demora",
       "ETIQUETA_SUPERIOR": "Herramienta de apoyo | Expediente 2026/0417",
       "ENTRADILLA": "Calcule el importe total a reclamar ajustando el principal, el tipo aplicable y los dias transcurridos desde el vencimiento. El desglose se actualiza al instante.",
       "TITULO_PANEL_ENTRADA": "Parametros de calculo",
@@ -387,7 +387,7 @@ def galeria():
   <p class="borrador"><span><strong>DRAFT</strong> &mdash; Galeria de demostracion de la biblioteca de componentes de la skill. Los datos son ficticios y sirven unicamente para comprobar el renderizado de cada forma grafica.</span></p>
 
   <header>
-    <p class="antetitulo">Skill artefacto-visual | Catalogo visual</p>
+    <p class="antetitulo">Skill documento visual-visual | Catalogo visual</p>
     <h1>Las diez formas graficas de la biblioteca</h1>
     <p class="entradilla">Cada tarjeta muestra una forma con datos de ejemplo y la formula exacta con la que se calculan sus coordenadas. Todo es SVG o CSS en linea: ni una sola dependencia externa.</p>
   </header>
@@ -606,7 +606,7 @@ arco = porcentaje / 100 * C ; desplazamiento = -acumulado</p>
   </div>
 
   <footer class="pie">
-    <p>Galeria de demostracion de la skill artefacto-visual. Datos ficticios.</p>
+    <p>Galeria de demostracion de la skill documento visual-visual. Datos ficticios.</p>
   </footer>
 
 </main>
@@ -668,10 +668,10 @@ def imprimir_pdf(archivos):
 
 # --------------------------------------------------------------------------- principal
 if __name__ == "__main__":
-    print("Generando artefactos de ejemplo:")
+    print("Generando documentos visuales de ejemplo:")
     completos = [panel(), informe(), herramienta(), galeria()]
     if not all(completos):
-        print("\nAviso: algun artefacto conserva marcadores sin resolver.")
+        print("\nAviso: algun documento visual conserva marcadores sin resolver.")
     else:
         print("  (el informe conserva {{LETRADO_RESPONSABLE}} a proposito: ejemplo de dato pendiente)")
     if "--sin-pdf" not in sys.argv:

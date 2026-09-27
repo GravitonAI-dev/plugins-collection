@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{TITULO_ARTEFACTO}}</title>
+<title>{{TITULO_DOCUMENTO}}</title>
 <style>
 *,*::before,*::after{box-sizing:border-box}
 :root{
@@ -177,7 +177,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 
   <header>
     <p class="antetitulo">{{ETIQUETA_SUPERIOR}}</p>
-    <h1>{{TITULO_ARTEFACTO}}</h1>
+    <h1>{{TITULO_DOCUMENTO}}</h1>
     <p class="entradilla">{{ENTRADILLA}}</p>
     <ul class="ficha">
       <li><b>Periodo:</b> {{PERIODO}}</li>
@@ -379,5 +379,5 @@ document.getElementById("imprimir").addEventListener("click", function(){ window
 </html>
 H
 cat /tmp/panel_head.html /tmp/base.css /tmp/panel_css2.css > template-panel-datos.md
-rm -f template-artefacto-panel-datos.md
+rm -f template-documento visual-panel-datos.md
 grep -c . template-panel-datos.md

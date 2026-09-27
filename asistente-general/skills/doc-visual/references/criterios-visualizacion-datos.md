@@ -1,6 +1,6 @@
 # Criterios de visualizacion y de composicion
 
-El valor de un artefacto no esta en que tenga graficos, sino en que cada elemento responda a una pregunta que el lector se hace. Este documento fija que forma corresponde a cada pregunta y que esta prohibido hacer.
+El valor de un documento visual no esta en que tenga graficos, sino en que cada elemento responda a una pregunta que el lector se hace. Este documento fija que forma corresponde a cada pregunta y que esta prohibido hacer.
 
 ## 1. Eleccion de la forma segun la pregunta
 
@@ -50,21 +50,21 @@ Si la respuesta a la pregunta cabe en una frase, se escribe la frase. Un grafico
 
 ## 3. Color
 
-- La serie categorica (`--c1` a `--c6`) se recorre en orden. No se reasignan colores entre graficos del mismo artefacto: si en el primero la parte actora es `--c1`, lo sigue siendo en todos.
+- La serie categorica (`--c1` a `--c6`) se recorre en orden. No se reasignan colores entre graficos del mismo documento visual: si en el primero la parte actora es `--c1`, lo sigue siendo en todos.
 - El semaforo (`--ok`, `--warn`, `--risk`) queda reservado a estados y riesgos. No se usa para distinguir categorias neutras.
 - Maximo seis colores simultaneos. A partir de ahi se agrupa en una categoria "otros".
 - El color nunca porta la informacion en solitario: siempre hay etiqueta, cifra o distintivo textual.
-- Las paletas se comprueban en tema claro **y** en oscuro antes de dar el artefacto por bueno.
+- Las paletas se comprueban en tema claro **y** en oscuro antes de dar el documento visual por bueno.
 
 ## 4. Jerarquia y composicion
 
-- Una sola idea principal por artefacto, enunciada en el titulo y sostenida por la entradilla.
+- Una sola idea principal por documento visual, enunciada en el titulo y sostenida por la entradilla.
 - Orden descendente de importancia: indicadores primero, despues el grafico que sostiene la tesis, luego el detalle tabular y por ultimo los supuestos y advertencias.
-- Entre cuatro y siete bloques de contenido. Un artefacto que exige desplazarse cinco pantallas es un informe; conviene dividirlo.
+- Entre cuatro y siete bloques de contenido. Un documento visual que exige desplazarse cinco pantallas es un informe; conviene dividirlo.
 - Cada grafico lleva titulo que afirma algo, no una etiqueta generica: "La deuda se concentra en dos facturas" informa; "Grafico de importes" no.
 - Espacio en blanco generoso: es lo que separa un documento profesional de una hoja saturada.
 
-## 5. Texto dentro del artefacto
+## 5. Texto dentro del documento visual
 
 - Frases cortas, voz activa, sin jerga procesal innecesaria cuando el destinatario es el cliente.
 - Cifras en formato espanol: miles con punto, decimales con coma, moneda con el simbolo o el codigo detras del importe.
