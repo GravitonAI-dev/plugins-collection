@@ -57,3 +57,6 @@ htmlcov/
 
 plugin-builder-skill.md
 *.zip
+
+ai_tasks/
+tests/
