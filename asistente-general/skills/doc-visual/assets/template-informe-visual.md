@@ -154,6 +154,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   .tarjeta,.indicador{break-inside:avoid;page-break-inside:avoid;box-shadow:none}
   h2{break-after:avoid}
   thead{display:table-header-group}
+  /* Chrome repite el tfoot en cada pagina; asi solo aparece al final. */
+  tfoot{display:table-row-group}
+  /* En papel no hay scroll horizontal: si la tabla es ancha, se compacta. */
+  .tabla{overflow:visible}
+  table{min-width:0}
   tbody tr:hover{background:transparent}
   a{color:#000;text-decoration:none}
 }
