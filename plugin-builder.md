@@ -630,7 +630,7 @@ Si en medio de un modo el usuario dice algo que no es de scaffolding (ej: "ahora
 
 | Archivo | Rol en el flujo | Contenido minimo |
 |---|---|---|
-| `<plugin>/.claude-plugin/plugin.json` | Manifest que el orquestador lee para identificar el plugin y listar sus skills | `name`, `version`, `description`, `author`, `skills[]`, `agents[]`, `hooks[]` |
+| `<plugin>/.claude-plugin/plugin.json` | Manifest que el orquestador lee para identificar el plugin y listar sus skills | `name`, `displayName`, `i18n.en` (`name` alias kebab-case único, `displayName`, `description`), `version`, `description`, `author`, `skills[]`, `agents[]`, `hooks[]` |
 | `<plugin>/CLAUDE.md` | Playbook del plugin. Lo lee el agente al activarse cualquier skill | **ESTRICTAMENTE la estructura definida en la sección 2 de `PLUGIN_AUTHORING_GUIDE.md`.** (Propósito, audiencia, jurisdicción, tono, guardrails, escalación). |
 | Al menos una skill | El plugin sin skills no es util | `skills/<skill>/SKILL.md` |
 | Entrada en `.claude-plugin/marketplace.json` raiz | Registro para que el orquestador sepa que existe el plugin | Entry en `plugins[]` con `name`, `source`, `version`, `description`, `author` |
@@ -666,7 +666,7 @@ Si en medio de un modo el usuario dice algo que no es de scaffolding (ej: "ahora
 
 | Archivo | Rol | Contenido |
 |---|---|---|
-| `<plugin>/skills/<skill>/SKILL.md` | Corazón de la skill. Lo lee el agente para saber qué pasos seguir | **ESTRICTAMENTE la estructura definida en la sección 3 de `PLUGIN_AUTHORING_GUIDE.md` (Estándar Canónico de 5 Fases, referencia: `arrendamiento-urbano`).** (Invisibilidad, Clasificación HITL V1-V4, Plan y Negociación V5 en Chat, Creación Base Zero-Omission, Edición Incremental Cláusula a Cláusula con ciclo Pregunta/Preview/Confirmación/edit_file, Menú Final y Guardrails de Dominio). |
+| `<plugin>/skills/<skill>/SKILL.md` | Corazón de la skill. Lo lee el agente para saber qué pasos seguir | **ESTRICTAMENTE la estructura definida en la sección 3 de `PLUGIN_AUTHORING_GUIDE.md` (Estándar Canónico de 5 Fases, referencia: `arrendamiento-urbano`).** Frontmatter con `name` (= carpeta), `title`, `i18n.en` (`name` alias kebab-case único en el catálogo, `title`, `description` resumida con ley en negrita y "Do not use for…"), `description`, `when_to_use`, `inputs`, `outputs`, `references`, `assets`. (Invisibilidad, Clasificación HITL V1-V4, Plan y Negociación V5 en Chat, Creación Base Zero-Omission, Edición Incremental Cláusula a Cláusula con ciclo Pregunta/Preview/Confirmación/edit_file, Menú Final y Guardrails de Dominio). |
 
 ### 13.5 Skill — opcionales
 
@@ -688,7 +688,7 @@ Si en medio de un modo el usuario dice algo que no es de scaffolding (ej: "ahora
 | **semver** | `MAJOR.MINOR.PATCH` en `plugin.json`, `marketplace.json` entries, y entradas de catalogos globales. MAJOR = cambios incompatibles. MINOR = nuevas capabilities additive. PATCH = fixes descriptivos. |
 | **Header DRAFT** | En todo SKILL.md y asset cuyo output sea legal / regulatorio / fiscal / privacidad. Texto canonico: `> DRAFT — para revision por un abogado. No constituye asesoria legal.` |
 | **Sin emojis** | En todos los archivos creados. En las preguntas al usuario tambien, salvo solicitud explicita. |
-| **Idioma** | Espanol en todo el contenido. Comandos y nombres tecnicos en ingles. |
+| **Idioma** | Espanol en todo el contenido. Comandos y nombres tecnicos en ingles. Los textos de cara al usuario en otros idiomas van en el bloque `i18n.<lang>` del frontmatter de `SKILL.md` y de `plugin.json` (alias `name`, `title`/`displayName`, `description`); nunca se duplica una skill o plugin por idioma. |
 
 ---
 

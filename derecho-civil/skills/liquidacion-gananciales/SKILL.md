@@ -1,5 +1,24 @@
 ---
 name: liquidacion-gananciales
+title: Liquidación de gananciales
+i18n:
+  en:
+    name: community-property-liquidation
+    title: Community property liquidation
+    description: >
+      Generates the documents to liquidate the community of property (sociedad de gananciales)
+      under Arts. 1392 and 1396 to 1410 of the **Civil Code**, which governs the community of
+      property, its dissolution and liquidation, and Arts. 806 to 810 of the **Civil Procedure
+      Act (Law 1/2000, LEC)**, verified in the BOE: (1) WITH AGREEMENT, a liquidation agreement
+      with inventory, valuation, settlement and allocations, which may stand alone, be raised to
+      a public deed if there is real estate, or be included in the divorce regulatory agreement
+      (Art. 90.1.e CC); and (2) WITHOUT AGREEMENT, the inventory proposal of Art. 808.2 LEC and
+      the application to the court for formation of inventory (Arts. 807 and 808 LEC). It
+      explains the presumption of community property, reimbursements between estates, the effect
+      of allocating a mortgaged home and excess allocation. Do not use under separation of
+      property, under the participation regime (Art. 811 LEC), under regional civil law regimes,
+      or where there is a family business, companies, assets abroad, tax or Social Security
+      debts or indications of concealment of assets, in which case it stops and escalates.
 description: >
   Genera los documentos para liquidar la sociedad de gananciales conforme a los Arts. 1392 y 1396 a 1410 del
   **Codigo Civil**, que regula la sociedad de gananciales, su disolucion y su liquidacion, y a los Arts. 806 a 810 de la **Ley 1/2000 de Enjuiciamiento Civil (LEC)**, verificados en el BOE: (1) CON ACUERDO — convenio de

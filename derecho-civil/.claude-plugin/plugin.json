@@ -1,6 +1,13 @@
 {
   "name": "derecho-civil",
   "displayName": "Derecho Civil",
+  "i18n": {
+    "en": {
+      "name": "civil-law",
+      "displayName": "Civil Law",
+      "description": "Generation of Spanish civil law documents, always in the consolidated version verified in the BOE: urban leases, property sales, contracts between private individuals, condominium law, evictions, enforcement of titles, debt claims, order-for-payment and ordinary proceedings, family law (divorce, measures for children of unmarried parents, modification of measures, liquidation of community property and unmarried couples), succession (inheritance and estate planning), unfair consumer terms, civil liability and support measures for persons with disabilities. It also covers the mandatory pre-litigation settlement attempt (MASC) under Organic Law 1/2025, dissolution of co-ownership, marriage settlements, intestate succession and advance directives, and second-instance and interim relief filings (appeal, opposition and interim measures)."
+    }
+  },
   "version": "0.10.0",
   "description": "Generacion de documentos de derecho civil espanol, siempre en su version consolidada vigente verificada en el BOE: arrendamiento urbano, compraventa de inmuebles, contratos entre particulares, propiedad horizontal, desahucios, ejecucion de titulos, reclamacion de cantidad, monitorio y juicio ordinario, familia (divorcio, medidas sobre hijos no matrimoniales, modificacion de medidas, liquidacion de gananciales y parejas de hecho), sucesiones (herencia y planificacion testamentaria), clausulas abusivas de consumo, responsabilidad civil y medidas de apoyo a personas con discapacidad. Incluye la produccion de los documentos del medio adecuado de solucion de controversias exigido por la Ley Organica 1/2025. Incorpora ademas la extincion de condominio y la division de la cosa comun, las capitulaciones matrimoniales con la liquidacion del regimen que sustituyen, la declaracion de herederos abintestato y las voluntades anticipadas, y los escritos de segunda instancia y de tutela cautelar (apelacion, oposicion y medidas cautelares).",
   "author": {

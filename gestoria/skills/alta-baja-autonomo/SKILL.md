@@ -1,5 +1,24 @@
 ---
 name: alta-baja-autonomo
+title: Alta y baja de autónomo
+i18n:
+  en:
+    name: self-employed-registration
+    title: Self-employed registration
+    description: >
+      Prepares the registration and deregistration of a self-employed worker in Spain: (1) the
+      tax census registration or deregistration with the AEAT through form 036 (with IAE heading
+      and choice of VAT and personal income tax regime on registration; with the effective
+      cessation date and its VAT and income tax effects on deregistration) and (2) the
+      registration or deregistration in the RETA Social Security scheme (choice of contribution
+      base according to expected net income and flat rate on registration; notice of cessation
+      and effects on contributions on deregistration), under **Law 20/2007 on the Statute of
+      Self-Employed Work (LETA)**, which governs the professional regime of self-employed
+      workers, and **Royal Decree-Law 13/2022**, which establishes contributions based on real
+      income, in the consolidated version verified in the BOE. Do not use for registration or
+      deregistration of companies (SL/SA), corporate self-employed or collaborating family
+      members without legal review, for the final calculation of contributions, or for automatic
+      electronic filing with the e-office.
 description: >
   Prepara el alta y la baja de trabajador autonomo en Espana: (1) el alta o la baja censal en la AEAT
   mediante el modelo 036 (declaracion censal en el censo de empresarios, profesionales y retenedores;

@@ -1,6 +1,13 @@
 {
   "name": "extranjeria",
   "displayName": "Extranjería y Nacionalidad",
+  "i18n": {
+    "en": {
+      "name": "immigration-and-nationality",
+      "displayName": "Immigration and Nationality",
+      "description": "Generation of immigration and nationality documents in Spain under Organic Law 4/2000 and the Regulation approved by Royal Decree 1155/2024, in force since 20 May 2025, which repealed Royal Decree 557/2011: foreigner identity number (NIE) application, residence permits through the five forms of arraigo, non-lucrative residence, family reunification, and the application for Spanish nationality by residence with its full file, tests and oath. Each skill verifies the consolidated version in force in the BOE and the instructions of the Secretary of State for Migration before drafting. It also covers international protection (asylum, subsidiary protection and humanitarian grounds) and general administrative appeals against immigration decisions."
+    }
+  },
   "version": "0.2.0",
   "description": "Generación de documentos de extranjería y nacionalidad en España conforme a la Ley Orgánica 4/2000 y al Reglamento aprobado por Real Decreto 1155/2024, en vigor desde el 20 de mayo de 2025, que derogó el Real Decreto 557/2011: solicitud de número de identidad de extranjero, autorizaciones de residencia por arraigo en sus cinco modalidades, residencia no lucrativa, reagrupación familiar, y solicitud de nacionalidad española por residencia con su expediente completo, sus pruebas y su juramento. Cada skill verifica la versión consolidada vigente en el BOE y las instrucciones de la Secretaría de Estado de Migraciones antes de redactar. Incorpora ademas la proteccion internacional (asilo, proteccion subsidiaria y razones humanitarias) y los recursos administrativos generales contra resoluciones de extranjeria.",
   "author": {

@@ -1,5 +1,26 @@
 ---
 name: contrato-trabajo
+title: Contrato de trabajo
+i18n:
+  en:
+    name: employment-contract
+    title: Employment contract
+    description: >
+      Generates the employment contract and its annexes in the forms in force after the reform
+      of **Royal Decree-Law 32/2021**, the labour reform that redefined contract types and
+      limited temporary employment: ordinary permanent, permanent-discontinuous, temporary due
+      to production circumstances, temporary for replacement, dual training and professional
+      practice training, full-time or part-time, with the remote-work agreement of **Law
+      10/2021** where applicable. It applies the **consolidated Workers' Statute approved by
+      Royal Legislative Decree 2/2015**, the basic rule governing the rights and duties of the
+      employment relationship, in the consolidated version verified in the BOE, and takes from
+      the applicable collective agreement the professional classification, pay tables, annual
+      working hours, probation period and maximum durations of temporary contracts. It
+      classifies the contract type and working hours, validates the ground for temporary hiring,
+      creates the base document and edits it clause by clause. Do not use for special employment
+      relationships (senior management, domestic workers, artists, professional athletes, sales
+      representatives, inmates, sheltered employment), for commercial service or agency
+      contracts, or for relief contracts and partial retirement.
 description: >
   Genera el contrato de trabajo y sus anexos en las modalidades vigentes tras la reforma del **Real
   Decreto-ley 32/2021**, reforma laboral que redefinió las modalidades de contratación y limitó la temporalidad,: indefinido ordinario, fijo-discontinuo, temporal por circunstancias de la

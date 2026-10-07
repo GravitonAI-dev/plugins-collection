@@ -1,5 +1,19 @@
 ---
 name: consulta-general
+title: Consulta general
+i18n:
+  en:
+    name: general-consultation
+    title: General consultation
+    description: >
+      Handles open questions, multidisciplinary legal and administrative guidance, fact
+      analysis, information searches and feasibility assessments that do not fit any specialised
+      skill. It is the first-line universal assistant and fallback: it answers directly in chat
+      or, on request, drafts and incrementally edits formal reports and preliminary opinions in
+      the workspace, in line with the legal framework verified in the BOE and official sources.
+      Do not use for the final drafting of contracts or procedures that have their own vertical
+      skill in the catalogue (urban lease, order for payment, eviction, self-employed
+      registration, etc.), to which it proactively refers the user.
 description: >
   Atiende y procesa consultas abiertas, orientacion juridica y administrativa multidisciplinar,
   analisis de hechos, busquedas de informacion y evaluaciones de viabilidad que no clasifican en una skill

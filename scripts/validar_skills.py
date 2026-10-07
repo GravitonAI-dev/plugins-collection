@@ -109,13 +109,13 @@ print(f"==== {TH} combinaciones sin rama | {TC} con dos plantillas | {len(det)} 
 
 # ---------------------------------------------------------------- estructura y vectores
 FALLOS=0
-CLAVES={'name','description','when_to_use','inputs','outputs'}
+CLAVES={'name','title','i18n','description','when_to_use','inputs','outputs'}
 TOKEN=re.compile(r'\bV\d+(?:\.[a-z]|-bis|b)?\b')
 for f in sorted(glob.glob('*/skills/*/SKILL.md')):
     t=open(f,encoding='utf-8').read()
     nombre=f.split('/skills/')[1][:-9]
     fm=t.split('\n---\n')[0]
-    if not CLAVES <= set(re.findall(r'^([a-z_]+):', fm, re.M)):
+    if not CLAVES <= set(re.findall(r'^([a-z0-9_]+):', fm, re.M)):
         print(f"  FALLO frontmatter incompleto: {nombre}"); FALLOS+=1
     if len(re.findall(r'^## FASE [1-5]', t, re.M))!=5:
         print(f"  FALLO no tiene cinco fases: {nombre}"); FALLOS+=1
@@ -192,7 +192,7 @@ for _s in sorted(glob.glob('*/skills/*/SKILL.md')):
     if not _KEBAB.match(_n): print(f"  FALLO nombre de skill no kebab-case: {_n}"); FALLOS+=1
     if not _n.startswith(_plug.split('-')[0]) and not _n.startswith(_plug):
         pass  # el prefijo del plugin se audita aparte: hoy solo lo cumple extranjeria
-    _desc=re.search(r'^description:(.*?)^[a-z_]+:', _fm, re.S|re.M)
+    _desc=re.search(r'^description:(.*?)^[a-z0-9_]+:', _fm, re.S|re.M)
     if _desc and not _EXCL.search(' '.join(_desc.group(1).split())):
         print(f"  FALLO description sin clausula de exclusion: {_n}"); FALLOS+=1
     # ley base: la tarjeta de la skill SI renderiza Markdown, asi que la ley DEBE ir en negrita
@@ -209,6 +209,56 @@ for _s in sorted(glob.glob('*/skills/*/SKILL.md')):
 for _a in sorted(glob.glob('*/skills/*/assets/*.md')):
     if 'DRAFT' not in open(_a,encoding='utf-8').read() and 'gestion-plantillas' not in _a:
         print(f"  FALLO asset sin header DRAFT: {_a}"); FALLOS+=1
+
+# ---------------------------------------------------------------- i18n: title + i18n.<lang> en SKILL.md y plugin.json
+# El id canonico de una skill es su carpeta; `i18n.<lang>.name` es un alias que el backend
+# resuelve al canonico, asi que no puede chocar con ningun otro id ni alias. El backend lee el
+# frontmatter con yaml.safe_load y, si falla, con un lector laxo de primer nivel que PERDERIA el
+# bloque anidado `i18n`: por eso aqui el YAML tiene que ser valido, no solo parecerlo.
+import yaml as _yaml
+_EXCL_EN=re.compile(r'\b(Do not use|Not for|does not (cover|replace|design))\b', re.I)
+_LEY_EN=re.compile(r'\b(Law|Act|Royal (?:Legislative )?Decree(?:-Law)?|Regulation|Statute|Civil Code|Commercial Code|Directive)\b')
+def _reclamar(tabla, ident, duenio, tipo):
+    global FALLOS
+    if not _KEBAB.match(str(ident or '')):
+        print(f"  FALLO {tipo} no kebab-case: {duenio} ({ident!r})"); FALLOS+=1; return
+    if ident in tabla and tabla[ident]!=duenio:
+        print(f"  FALLO {tipo} duplicado: '{ident}' lo reclaman {duenio} y {tabla[ident]}"); FALLOS+=1
+    tabla.setdefault(ident, duenio)
+_SIDS={}
+for _s in sorted(glob.glob('*/skills/*/SKILL.md')):
+    _n=_s.split('/skills/')[1][:-9]
+    _fm=open(_s,encoding='utf-8').read().split('\n---\n')[0].split('---\n',1)[-1]
+    try: _y=_yaml.safe_load(_fm) or {}
+    except Exception as _e:
+        print(f"  FALLO frontmatter no es YAML valido (el backend perderia i18n): {_n} ({str(_e).splitlines()[0]})"); FALLOS+=1; continue
+    _reclamar(_SIDS,_n,_n,'id de skill')
+    if not str(_y.get('title') or '').strip(): print(f"  FALLO skill sin title: {_n}"); FALLOS+=1
+    _i=_y.get('i18n')
+    if not isinstance(_i,dict) or not isinstance(_i.get('en'),dict):
+        print(f"  FALLO skill sin bloque i18n.en: {_n}"); FALLOS+=1; continue
+    for _lang,_v in _i.items():
+        if not isinstance(_v,dict): print(f"  FALLO i18n.{_lang} no es un bloque: {_n}"); FALLOS+=1; continue
+        for _k in ('name','title','description'):
+            if not str(_v.get(_k) or '').strip(): print(f"  FALLO i18n.{_lang}.{_k} vacio: {_n}"); FALLOS+=1
+        _reclamar(_SIDS,_v.get('name'),_n,f'alias i18n.{_lang}.name')
+    _de=' '.join(str(_i['en'].get('description') or '').split())
+    if _de and not _EXCL_EN.search(_de): print(f"  FALLO i18n.en.description sin clausula de exclusion: {_n}"); FALLOS+=1
+    if _de and _LEY_EN.search(_de) and not re.search(r'\*\*[^*\n]*(?:'+_LEY_EN.pattern+r')[^*\n]*\*\*', _de):
+        print(f"  FALLO ley base en i18n.en.description no en negrita: {_n}"); FALLOS+=1
+_PIDS={}
+for _pj in sorted(glob.glob('*/.claude-plugin/plugin.json')):
+    _p=_pj.split('/')[0]; _d=json.load(open(_pj,encoding='utf-8'))
+    _reclamar(_PIDS,_d.get('name'),_p,'id de plugin')
+    if not str(_d.get('displayName') or '').strip(): print(f"  FALLO plugin sin displayName: {_p}"); FALLOS+=1
+    _i=_d.get('i18n')
+    if not isinstance(_i,dict) or not isinstance(_i.get('en'),dict):
+        print(f"  FALLO plugin sin bloque i18n.en: {_p}"); FALLOS+=1; continue
+    for _lang,_v in _i.items():
+        if not isinstance(_v,dict): print(f"  FALLO i18n.{_lang} no es un bloque: {_p}"); FALLOS+=1; continue
+        for _k in ('name','displayName','description'):
+            if not str(_v.get(_k) or '').strip(): print(f"  FALLO i18n.{_lang}.{_k} vacio: {_p}"); FALLOS+=1
+        _reclamar(_PIDS,_v.get('name'),_p,f'alias i18n.{_lang}.name')
 
 _mkd={e['name']:e for e in json.load(open('.claude-plugin/marketplace.json',encoding='utf-8'))['plugins']}
 for _pj in sorted(glob.glob('*/.claude-plugin/plugin.json')):

@@ -60,6 +60,15 @@ Toda skill en GravitonAI debe estructurarse obligatoriamente bajo el **flujo det
 ```yaml
 ---
 name: [nombre-de-la-skill]
+title: [Título legible en español, ej. Consulta general]
+i18n:
+  en:
+    name: [alias-en-ingles-kebab-case, ej. general-consultation]
+    title: [Título legible en inglés, ej. General consultation]
+    description: >
+      [Resumen condensado en inglés de 3-5 frases: qué genera, ley base en **negrita** y la
+      cláusula de exclusión "Do not use for X, Y, Z". Es lo que ve en la tarjeta un usuario con
+      la app en inglés; la `description` larga en español sigue siendo la que lee el clasificador.]
 description: >
   [Descripción densa de 1-2 párrafos: qué genera y adapta con precisión, marco normativo/técnico
   consolidado y verificado en fuentes oficiales, metodología operativa (clasificación inicial de
@@ -94,6 +103,8 @@ assets:
   - assets/template-[plantilla_base_2].md
 ---
 ```
+
+**Identidad e idiomas del frontmatter.** `name` es el id canónico y coincide SIEMPRE con el nombre de la carpeta: es lo que viaja al backend. `title` es el rótulo legible en español. `i18n.<lang>.name` es un alias que el backend resuelve al canónico (`/general-consultation` → `consulta-general`), así que debe ser kebab-case y único en todo el catálogo (ningún otro `name` ni alias puede repetirlo; lo comprueba `scripts/validar_skills.py`). `i18n.<lang>.title` y `i18n.<lang>.description` son lo que ve en la galería un usuario con la app en ese idioma. Añadir otro idioma es añadir otro bloque (`pt:`, `ca:`...) sin tocar código. El frontmatter completo debe ser YAML válido: si un valor contiene `: ` o `#`, entrecomíllalo.
 
 ```markdown
 # [Nombre de la Acción Principal]

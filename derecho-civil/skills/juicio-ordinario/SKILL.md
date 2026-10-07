@@ -1,5 +1,22 @@
 ---
 name: juicio-ordinario
+title: Juicio ordinario
+i18n:
+  en:
+    name: ordinary-proceedings
+    title: Ordinary civil proceedings
+    description: >
+      Prepares an ordinary civil trial from start to finish under the **Civil Procedure Act (Law
+      1/2000, LEC)**, which governs ordinary declaratory proceedings from the claim to the
+      judgment, in the consolidated version verified in the BOE. It covers the full cycle in
+      phases and generates the document for each: case intake, admissibility check (scope of
+      Art. 249, amount, jurisdiction, lawyer and procurador representation and the MASC
+      requirement of Organic Law 1/2025), claim under Art. 399 with its documents, outline for
+      the pre-trial hearing (Arts. 414-430), proposal of evidence (Arts. 429 and 281-386) and
+      draft closing submissions (Art. 433). Do not use for matters assigned to summary
+      proceedings by subject or by amount of 15,000 euros or less, for special proceedings
+      (family, contested succession, division of estates, order for payment, bills of exchange),
+      or for drafting the defendant's answer, counterclaim or appeals.
 description: >
   Prepara de principio a fin un juicio ordinario civil conforme a la **Ley 1/2000 de Enjuiciamiento Civil (LEC)**, que regula el procedimiento declarativo ordinario desde la demanda hasta la sentencia,
   en su version consolidada vigente verificada en el BOE. Cubre el ciclo completo por fases y genera el

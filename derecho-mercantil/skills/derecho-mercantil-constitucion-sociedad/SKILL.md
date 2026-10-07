@@ -1,5 +1,25 @@
 ---
 name: derecho-mercantil-constitucion-sociedad
+title: Constitución de sociedad limitada
+i18n:
+  en:
+    name: company-incorporation
+    title: Company incorporation
+    description: >
+      Prepares the documents to incorporate a limited liability company in Spain under **Royal
+      Legislative Decree 1/2010**, the consolidated Capital Companies Act (LSC), which governs
+      incorporation, share capital, contributions and the management body, and **Royal Decree
+      1784/1996**, the Commercial Registry Regulation, which sets the requirements for the
+      company name and registration. It generates three documents: the company name clearance
+      certificate request to the Central Commercial Registry, the full articles of association
+      and the draft deed of incorporation for the notary. It covers the one-euro minimum capital
+      and the special reserve and liability regime of Art. 4.3 LSC introduced by Law 18/2022,
+      cash and in-kind contributions with the joint liability of Art. 73 LSC, sole-shareholder
+      companies (Arts. 12 to 14 LSC), the corporate purpose with its CNAE code and the four ways
+      of organising management under Art. 210 LSC. Do not use for public limited or listed
+      companies, for structural modifications (merger, spin-off or global transfer), for
+      amendments to the articles of an already registered company, or for insolvency
+      proceedings.
 description: >
   Prepara los documentos de constitucion de una sociedad de responsabilidad limitada en Espana
   conforme al **Real Decreto Legislativo 1/2010**, texto refundido de la Ley de Sociedades de Capital

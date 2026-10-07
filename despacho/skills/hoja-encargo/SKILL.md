@@ -1,5 +1,23 @@
 ---
 name: hoja-encargo
+title: Hoja de encargo
+i18n:
+  en:
+    name: engagement-letter
+    title: Engagement letter
+    description: >
+      Generates the contractual documentation of the relationship between the law firm and its
+      client: professional engagement letter defining the scope and fee estimate, stand-alone
+      prior estimate, engagement letter with result-based remuneration, and notice of completion
+      of or withdrawal from the engagement. It applies the **General Statute of the Spanish
+      Legal Profession approved by Royal Decree 135/2021**, which governs legal practice, the
+      engagement letter and the duty to inform on fees, the ethical rules of the bar
+      association, consumer protection rules where the client is a private individual, and **Law
+      15/2007 on Defence of Competition** as to the use of indicative fee criteria, in their
+      consolidated versions verified in the BOE. It classifies the fee model and the nature of
+      the client, prepares the full financial breakdown, creates the base document and edits it
+      clause by clause. Do not use for drafting documents of the client's own matter, or for
+      claiming unpaid fees, which belongs to the fee note and fee enforcement skill.
 description: >
   Genera la documentación contractual de la relación entre el despacho y su cliente: hoja de encargo
   profesional con delimitación del alcance y presupuesto de honorarios, presupuesto previo

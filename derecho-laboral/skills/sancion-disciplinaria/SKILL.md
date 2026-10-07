@@ -1,5 +1,25 @@
 ---
 name: sancion-disciplinaria
+title: Sanción disciplinaria
+i18n:
+  en:
+    name: disciplinary-sanction
+    title: Disciplinary sanction
+    description: >
+      Generates the documents of the employer's disciplinary power other than dismissal: warning
+      letter, sanction letter for serious or very serious misconduct with or without suspension
+      of employment and pay, statement of charges opening adversarial proceedings and decision
+      closing the proceedings. It applies Articles 58 and 60.2 of the **consolidated Workers'
+      Statute approved by Royal Legislative Decree 2/2015**, the basic rule governing the
+      employer's disciplinary power and the limitation of misconduct, and Articles 114 and 115
+      of **Law 36/2011 on Labour Jurisdiction**, which governs the judicial challenge of
+      sanctions, in their consolidated versions verified in the BOE, and takes the
+      classification and grading of misconduct and the table of sanctions from the applicable
+      collective agreement, without which no sanction is drafted. It classifies the seriousness
+      and the employee's guarantees, computes limitation periods, creates the base document and
+      edits it section by section. Do not use for disciplinary dismissal, which belongs to the
+      dismissal letter skill, or for sanctions on statutory or civil service staff, subject to
+      their own administrative regime.
 description: >
   Genera los documentos del ejercicio de la potestad disciplinaria del empresario distinta del
   despido: carta de amonestación, carta de sanción por falta grave o muy grave con o sin suspensión

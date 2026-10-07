@@ -1,5 +1,25 @@
 ---
 name: derecho-civil-capitulaciones-matrimoniales
+title: Capitulaciones matrimoniales
+i18n:
+  en:
+    name: marriage-settlement
+    title: Marriage settlement
+    description: >
+      Drafts the draft marriage settlement (capitulaciones matrimoniales) under the **Civil
+      Code**, which allows spouses to stipulate, modify or replace their matrimonial property
+      regime and requires a public deed to do so (Arts. 1315 to 1335), and the **Civil Procedure
+      Act (Law 1/2000)** as to the inventory and liquidation of the regime being replaced. It
+      generates two documents: the draft settlement for the notary, with the choice of
+      separation of property or participation regime and its accompanying agreements, and the
+      inventory and liquidation proposal of the previous regime when an existing community of
+      property is replaced. It covers the choice between regimes and its practical consequences,
+      agreements on the family home and marital expenses, the validity and limits of agreements
+      in anticipation of a future breakup, publicity before third parties through registration
+      and the protection of prior creditors. Do not use for the regulatory agreement of a
+      divorce or separation (divorce skill), for contested liquidation of community property
+      (community property liquidation skill), or for succession agreements under regional civil
+      law.
 description: >
   Redacta la minuta de capitulaciones matrimoniales conforme al **Codigo Civil**, que permite a los
   conyuges estipular, modificar o sustituir el regimen economico de su matrimonio y exige para ello

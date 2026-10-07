@@ -1,5 +1,24 @@
 ---
 name: derecho-mercantil-contratos-mercantiles
+title: Contratos mercantiles
+i18n:
+  en:
+    name: commercial-contracts
+    title: Commercial contracts
+    description: >
+      Drafts the usual contracts between companies in Spain under the **Civil Code** (Arts. 1254
+      to 1258 and 1543 et seq.), which sets the general regime of obligations and contracts, the
+      **Commercial Code**, which governs acts of commerce, and **Law 12/1992 on agency
+      contracts**, which governs the agent's status and goodwill compensation. It generates four
+      contracts: business-to-business services, non-disclosure agreement, agency contract and
+      distribution contract. It incorporates the maximum payment terms of late-payment rules,
+      the data processor regime where the provider accesses personal data, trade secret
+      protection, and governing law and jurisdiction where the counterparty is foreign, and
+      warns of the critical difference between agency and distribution on goodwill compensation
+      and of the indicators that may turn the agent or provider into an employee. Do not use
+      where the counterparty is a consumer (consumer law plugin), for employment or economically
+      dependent self-employed relationships (employment law plugin), or for financial,
+      insurance, public works or software licence contracts with pre-set general terms.
 description: >
   Redacta los contratos habituales entre empresas en Espana conforme al **Codigo Civil** (Arts. 1254 a
   1258 y 1543 y siguientes), que fija el regimen general de las obligaciones y contratos, al **Codigo

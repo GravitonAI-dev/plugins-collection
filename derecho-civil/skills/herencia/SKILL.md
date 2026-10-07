@@ -1,5 +1,22 @@
 ---
 name: herencia
+title: Herencia
+i18n:
+  en:
+    name: inheritance
+    title: Inheritance
+    description: >
+      Covers the full inheritance cycle under the **Civil Code**, which governs succession,
+      acceptance of the inheritance, forced shares and partition, and the **Civil Procedure Act
+      (Law 1/2000, LEC)**, in their consolidated versions verified in the BOE: acceptance of
+      inheritance (outright or with benefit of inventory), renunciation (draft for notarial
+      deed, Art. 1008 CC), notarial demand to the heir who does not respond (Art. 1005 CC, 30
+      calendar days), partition deed with inventory, valuation, settlement and allocations
+      respecting forced shares (Arts. 806-808 CC), and application for judicial division of the
+      estate when there is no agreement (Arts. 782 et seq. LEC). It warns of inheritance tax
+      (regional, six-month deadline) and municipal capital gains tax. Do not use for drafting
+      wills, for the notarial declaration of heirs, or for contested succession litigation other
+      than judicial division.
 description: >
   Cubre el ciclo completo de la herencia conforme al **Codigo Civil**, que regula la sucesion, la aceptacion de la herencia, las legitimas y la particion, (BOE-A-1889-4763) y a la **Ley 1/2000 de Enjuiciamiento Civil (LEC)** (BOE-A-2000-323) en su version consolidada vigente verificada en el BOE: aceptacion de herencia
   (pura y simple o a beneficio de inventario), renuncia (minuta para escritura notarial, Art. 1008 CC),

@@ -1,5 +1,25 @@
 ---
 name: reclamacion-seguridad-social
+title: Reclamación de Seguridad Social
+i18n:
+  en:
+    name: social-security-claim
+    title: Social Security claim
+    description: >
+      Generates the filings to challenge decisions on Social Security benefits: prior
+      administrative claim before the managing entity, statement of disagreement with the
+      medical discharge, request for review of the degree of permanent incapacity and claim
+      before the Labour Court once the prior step is exhausted. It applies the **General Social
+      Security Act approved by Royal Legislative Decree 8/2015**, which governs the system's
+      benefits and their requirements, and Articles 71 and 140 to 147 of **Law 36/2011 on Labour
+      Jurisdiction**, which governs the prior claim and benefit proceedings, in their
+      consolidated versions verified in the BOE. Its critical function is control of deadlines
+      and route: in this matter conciliation is exempt but the prior administrative claim is an
+      unavoidable requirement, and deadlines are short and non-extendable. Do not use for
+      registration, affiliation, contribution and collection acts before the Social Security
+      Treasury, which follow the general administrative route and the administrative courts, or
+      for the initial processing of registrations and deregistrations, which belongs to the
+      administrative agency plugin.
 description: >
   Genera los escritos de impugnación de resoluciones en materia de prestaciones de Seguridad Social:
   reclamación administrativa previa ante la entidad gestora, escrito de disconformidad con el alta

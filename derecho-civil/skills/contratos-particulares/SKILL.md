@@ -1,5 +1,21 @@
 ---
 name: contratos-particulares
+title: Contratos entre particulares
+i18n:
+  en:
+    name: private-contracts
+    title: Contracts between private individuals
+    description: >
+      Generates the right contract for an asset transaction between private individuals under
+      the **Civil Code**, which governs obligations and contracts, verified in the BOE: money
+      loan between individuals (simple loan, Arts. 1740 and 1753 to 1757 CC, with usury control
+      under the Law of 23 July 1908), acknowledgement of debt and payment commitment (Arts.
+      1255, 1274 to 1277 and 1973 CC), gratuitous loan for use (commodatum, Arts. 1740 to 1752
+      CC) and sale of movable property (Arts. 1445 et seq. CC). It explains and documents the
+      choice between a private document and a public deed (Arts. 1278 to 1280 CC and Art.
+      517.2.4 LEC). Do not use for loans from financial institutions or consumer credit,
+      mortgage loans, real estate sales, claiming a debt already unpaid, or commercial contracts
+      between companies.
 description: >
   Genera el contrato adecuado para una operacion patrimonial entre particulares, conforme al **Codigo Civil**, que regula las obligaciones y los contratos entre particulares,
   verificado en el BOE: contrato de prestamo de dinero entre particulares (simple prestamo o mutuo, Arts.

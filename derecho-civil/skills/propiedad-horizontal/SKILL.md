@@ -1,5 +1,21 @@
 ---
 name: propiedad-horizontal
+title: Propiedad horizontal
+i18n:
+  en:
+    name: condominium-law
+    title: Condominium law
+    description: >
+      Generates the right document in condominium matters under **Law 49/1960 on Horizontal
+      Property (LPH)**, which governs owners' associations, their resolutions and fees, and the
+      **Civil Procedure Act (Law 1/2000, LEC)**, verified in the BOE: certification of the debt
+      settlement resolution (Art. 21.3 LPH), initial petition for the special order-for-payment
+      procedure for community fees (Art. 21 LPH and Art. 812.2.2 LEC), ordinary claim
+      challenging owners' meeting resolutions (Art. 18 LPH and Art. 249.1.8 LEC) and the
+      president's demand to cease a prohibited or nuisance activity (Art. 7.2 LPH). Do not use
+      for property management (accounting, budgets, meeting notices, minutes), for neighbour
+      disputes without basis in the LPH, for drafting the cessation claim, or for works
+      affecting the structure or the constitutive title.
 description: >
   Genera el documento adecuado en materia de propiedad horizontal conforme a la **Ley 49/1960 de Propiedad Horizontal (LPH)**, que regula las comunidades de propietarios, sus acuerdos y las cuotas, y a la **Ley 1/2000 de Enjuiciamiento Civil (LEC)** verificadas en el BOE: certificacion del acuerdo de liquidacion de deuda (Art. 21.3 LPH), peticion inicial del
   proceso monitorio especial de cuotas de comunidad (Art. 21 LPH y Art. 812.2.2º LEC), demanda de juicio ordinario

@@ -1,5 +1,25 @@
 ---
 name: poder-representacion
+title: Poder de representación
+i18n:
+  en:
+    name: power-of-attorney
+    title: Power of attorney
+    description: >
+      Generates the instruments of representation with which the firm acts on behalf of its
+      client: draft general power of attorney for litigation and special power with listed
+      powers for execution before a notary, application for apud acta appointment before the
+      court clerk or by electronic appearance, appointment of representation and defence in
+      labour proceedings, and authorisation of representation in common administrative
+      procedure. It applies Articles 23 to 26 of the **Civil Procedure Act (Law 1/2000)**, which
+      governs procedural representation by procurador and the power for litigation, Articles 18
+      and 21 of **Law 36/2011 on Labour Jurisdiction** and Articles 5 and 6 of **Law 39/2015 on
+      Common Administrative Procedure**, which governs representation before the administration,
+      in their consolidated versions verified in the BOE. Its critical function is to warn of
+      the powers that require a **special power** and that a general power does not cover. Do
+      not use for preventive powers or support measures for persons with disabilities, which
+      belong to the disability support measures skill, or for corporate powers of organic
+      representation of companies.
 description: >
   Genera los instrumentos de representación con que el despacho actúa por cuenta de su cliente: minuta
   de poder general para pleitos y de poder especial con facultades tasadas para su otorgamiento ante

@@ -243,6 +243,14 @@ Un plugin es una unidad de **dominio vertical** (legal comercial, privacidad, pr
 ```json
 {
   "name": "commercial-legal",
+  "displayName": "Derecho Mercantil",
+  "i18n": {
+    "en": {
+      "name": "commercial-law",
+      "displayName": "Commercial Law",
+      "description": "..."
+    }
+  },
   "version": "0.1.0",
   "description": "...",
   "author": { "name": "GravitonAI" },
@@ -252,7 +260,7 @@ Un plugin es una unidad de **dominio vertical** (legal comercial, privacidad, pr
 }
 ```
 
-Los arrays `agents` y `hooks` están **vacíos** en este punto (no implementados). Quedan reservados para la fase 2.
+`name` es el id canónico (coincide con la carpeta) y `displayName`/`description` son los textos en español. `i18n.<lang>` aporta el alias (`name`, kebab-case y único entre plugins), el `displayName` y la `description` en otro idioma; la app muestra el bloque del idioma del usuario y el backend acepta el alias como sinónimo del id. Los arrays `agents` y `hooks` están **vacíos** en este punto (no implementados). Quedan reservados para la fase 2.
 
 ### 7.2 `.mcp.json`
 
@@ -322,6 +330,14 @@ Una skill es una **unidad de trabajo concreto**: un procedimiento que el agente 
 **Estructura recomendada**:
 ```markdown
 ---
+name: <nombre-de-la-skill>        # id canónico = nombre de la carpeta
+title: <Título en español>
+i18n:
+  en:
+    name: <alias-en-ingles>       # kebab-case, único en todo el catálogo
+    title: <Título en inglés>
+    description: >
+      <Resumen en inglés de 3-5 frases, ley base en **negrita**, "Do not use for ...">
 description: ...
 when_to_use: |
   - condición 1
@@ -472,6 +488,7 @@ Regla de oro: **definir una vez, referenciar por id**.
 ## 12. Convenciones
 
 - **Idioma**: todo el contenido en español. Comandos y nombres técnicos en inglés.
+- **Nombres y alias por idioma**: el id canónico de una skill es su carpeta (`name`) y el de un plugin su `name` en `plugin.json`; nunca se duplica una skill por idioma. Los textos que ve el usuario en otro idioma van en el bloque `i18n.<lang>` (`name` como alias kebab-case único, `title`/`displayName` y `description`). El backend resuelve el alias al id canónico y la app muestra el bloque del idioma activo.
 - **Tono**: profesional, claro, sin jerga innecesaria. Cero emojis salvo que el usuario los pida.
 - **Nombres**: kebab-case para archivos y skills (`nda-review`, `nda-clause-checklist.md`).
 - **Sin secretos en el repo**: nunca. `.env`, `*.local.md`, `drafts/`, `private/`.

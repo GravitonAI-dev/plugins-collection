@@ -1,5 +1,25 @@
 ---
 name: gestoria-impuestos-transmision-inmueble
+title: Impuestos de transmisión de inmueble
+i18n:
+  en:
+    name: property-transfer-taxes
+    title: Property transfer taxes
+    description: >
+      Prepares the two taxes accrued on the transfer of real estate in Spain under **Royal
+      Legislative Decree 1/1993**, the consolidated Transfer Tax and Stamp Duty Act, which taxes
+      the acquisition, and **Royal Legislative Decree 2/2004**, the consolidated Local Finance
+      Act, which governs the municipal tax on the increase in value of urban land. It generates
+      three documents: the data sheet for the transfer tax self-assessment (regional form 600),
+      the data sheet for the municipal capital gains tax self-assessment or declaration, and the
+      request for rectification of the self-assessment and refund of undue payments under **Law
+      58/2003**, the General Tax Act. It applies the Cadastre reference value as taxable base,
+      compares the two municipal capital gains calculation methods to apply the more favourable
+      one, checks the non-taxation case where there is no increase in value, and computes the
+      filing deadlines of thirty working days for inter vivos acts and six months for transfers
+      on death. Do not use for transfers subject to VAT (new builds, first delivery or business
+      transfer), for inheritance and gift tax (inheritance tax skill), for the seller's personal
+      income tax on the capital gain, or for judicial review appeals against assessments.
 description: >
   Prepara los dos impuestos que se devengan al transmitir un inmueble en Espana conforme al **Real
   Decreto Legislativo 1/1993**, texto refundido de la Ley del Impuesto sobre Transmisiones

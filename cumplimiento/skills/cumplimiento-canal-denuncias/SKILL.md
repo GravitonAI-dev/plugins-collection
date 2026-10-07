@@ -1,5 +1,24 @@
 ---
 name: cumplimiento-canal-denuncias
+title: Canal de denuncias
+i18n:
+  en:
+    name: whistleblowing-channel
+    title: Whistleblowing channel
+    description: >
+      Prepares the internal reporting system and whistleblowing channel required by **Law
+      2/2023** on the protection of persons who report regulatory breaches and the fight against
+      corruption, which obliges companies with fifty or more employees to implement it, appoint
+      a system manager and guarantee the absence of retaliation, with data processing subject to
+      the **Regulation (EU) 2016/679** (GDPR). It generates three documents: the internal
+      reporting system policy approved by the governing body, the procedure for managing reports
+      with its deadlines and guarantees, and the appointment agreement of the system manager. It
+      checks whether the company is obliged, computes the seven-day acknowledgement and
+      three-month investigation deadlines, provides for anonymous reports, sets retention
+      periods and warns of the ban on retaliation and its reversed burden of proof. Do not use
+      when a report has already been received and an internal investigation is under way, for
+      defence before the Independent Whistleblower Protection Authority, or for disciplinary
+      proceedings arising from a report, which require legal counsel.
 description: >
   Prepara el sistema interno de informacion y canal de denuncias que exige la **Ley 2/2023**,
   reguladora de la proteccion de las personas que informen sobre infracciones normativas y de lucha

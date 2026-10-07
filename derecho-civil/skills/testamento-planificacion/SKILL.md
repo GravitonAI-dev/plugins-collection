@@ -1,5 +1,23 @@
 ---
 name: testamento-planificacion
+title: Testamento y planificación sucesoria
+i18n:
+  en:
+    name: will-and-estate-planning
+    title: Will and estate planning
+    description: >
+      Prepares LIFETIME estate planning under the common **Civil Code**, which governs wills,
+      forced shares and hereditary substitutions, in the consolidated version verified in the
+      BOE: a draft open will to take to the notary (appointment of heirs, revocation of earlier
+      dispositions, legacies, the betterment of Arts. 808 and 823, universal usufruct to the
+      spouse with the Socini clause under Art. 820.3, ordinary substitution under Art. 774,
+      fideicommissary substitution within the limit of Art. 781, disinheritance on the grounds
+      of Arts. 849 to 857, provisions for a forced heir with a disability, executor and
+      partitioner and powers under Art. 831), and an estate planning checklist with the
+      documents to gather, decisions to make and tax warnings. It covers ONLY common civil law
+      and ONLY the notarial open will. Do not use for regional civil law (Catalonia, Aragon,
+      Navarre, Balearic Islands, Basque Country, Galicia), for holographic or closed wills, for
+      an estate already opened after death, or to calculate inheritance tax.
 description: >
   Prepara la planificacion sucesoria EN VIDA conforme al **Codigo Civil comun**, que regula el testamento, las legitimas y las sustituciones hereditarias, (BOE-A-1889-4763) en su version
   consolidada vigente verificada en el BOE: minuta de testamento abierto para llevar a la notaria (institucion

@@ -1,5 +1,20 @@
 ---
 name: registrar-plantillas
+title: Registro de plantillas
+i18n:
+  en:
+    name: register-templates
+    title: Register templates
+    description: >
+      Lets the user register, parameterise, update and create their own document templates
+      (assets), either from existing text or through assisted creation from scratch. It supports
+      two scopes: templates assigned to a specialised system skill or global user templates (no
+      skill). Templates can be specified as chat text, by opening a workspace file in the
+      editor, or through assisted creation from scratch (file attachments excluded). It runs a
+      strict compatibility check against the skill before saving (blocking the save if
+      incompatible) and routes the official registration through set_skill_template(),
+      update_user_template() or save_user_template(). Do not use for the substantive processing
+      of cases or for creating client documents in the workspace.
 description: >
   Permite al usuario registrar, parametrizar, actualizar y crear sus propias plantillas de documentos (assets),
   ya sea a partir de texto preexistente o mediante creación asistida desde cero.

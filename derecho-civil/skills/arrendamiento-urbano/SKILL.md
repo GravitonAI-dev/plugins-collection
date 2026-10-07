@@ -1,5 +1,20 @@
 ---
 name: arrendamiento-urbano
+title: Arrendamiento urbano
+i18n:
+  en:
+    name: urban-lease
+    title: Urban lease
+    description: >
+      Generates the documents of the full urban lease cycle: new contracts (primary residence,
+      business premises, seasonal and room rental) and notices on existing contracts (annual
+      rent update, non-renewal at expiry and demand for return of the deposit). It applies **Law
+      29/1994 on Urban Leases (LAU)**, which governs residential and non-residential leases
+      (term, extensions, rent and deposit), **Law 12/2023 on the right to housing** (stressed
+      residential market areas, IRAV index) and the **Civil Code** (room rental, Arts. 1542 et
+      seq.), in their consolidated versions verified in the BOE. It adapts the clauses to the
+      nature of the parties and the location of the property. Do not use for rural leases,
+      tourist accommodation (Art. 5.e LAU), military housing or caretaker housing.
 description: >
   Genera los documentos del ciclo completo del arrendamiento urbano: contratos nuevos (vivienda
   habitual, local de negocio, vivienda por temporada y habitacion) y comunicaciones sobre contratos

@@ -1,5 +1,24 @@
 ---
 name: finiquito-liquidacion
+title: Finiquito y liquidación
+i18n:
+  en:
+    name: final-settlement
+    title: Final settlement
+    description: >
+      Generates the documents closing the financial side of the employment relationship:
+      settlement receipt (finiquito) with the proposed settlement of pro-rata amounts under
+      Article 49.2 of the consolidated Workers' Statute, detailed settlement sheet with the
+      breakdown and formula of each item, mutual termination agreement with agreed compensation,
+      and voluntary resignation letter with notice. It applies the **Workers' Statute approved
+      by Royal Legislative Decree 2/2015**, the basic rule governing contract termination and
+      settlement of outstanding amounts, in the consolidated version verified in the BOE, and
+      takes from the applicable collective agreement the number and accrual of extra payments,
+      the holiday regime and notice periods. It classifies the ground for termination, prepares
+      an itemised calculation of each item, creates the base document and edits it item by item.
+      Do not use for drafting the termination notice itself, which belongs to the dismissal
+      letter skill, or for claiming unpaid amounts in court, which belongs to the pre-litigation
+      conciliation and labour claim skills.
 description: >
   Genera los documentos de cierre económico de la relación laboral: recibo de finiquito con la
   propuesta de liquidación de partes proporcionales del artículo 49.2 del texto refundido de la Ley

@@ -1,6 +1,13 @@
 {
   "name": "cumplimiento",
   "displayName": "Cumplimiento Normativo de Empresa",
+  "i18n": {
+    "en": {
+      "name": "corporate-compliance",
+      "displayName": "Corporate Compliance",
+      "description": "Generation of the compliance documentation that Spanish law requires from a company and whose absence is an infringement in itself, always in the consolidated version verified in the BOE: data protection under Regulation (EU) 2016/679 and Organic Law 3/2018 (record of processing activities, processor agreement and breach notification to the Spanish Data Protection Agency), internal reporting system and whistleblowing channel under Law 2/2023 (policy, management procedure and appointment of the system manager), and equality and harassment prevention under Organic Law 3/2007 (harassment protocol, equality plan and pay register). It checks the headcount thresholds that trigger each obligation. It does not cover ongoing internal investigations, sanctioning proceedings or defence before the supervisory authority."
+    }
+  },
   "version": "0.1.0",
   "description": "Generación de la documentación de cumplimiento que la ley exige a una empresa y cuya ausencia es infracción por sí misma, en su versión consolidada vigente verificada en el BOE: protección de datos conforme al Reglamento (UE) 2016/679 y a la Ley Orgánica 3/2018 (registro de actividades de tratamiento, contrato de encargado y notificación de brechas a la Agencia Española de Protección de Datos), sistema interno de información y canal de denuncias conforme a la Ley 2/2023 (política, procedimiento de gestión y designación del responsable), e igualdad y prevención del acoso conforme a la Ley Orgánica 3/2007 y a su desarrollo reglamentario (protocolo de acoso, plan de igualdad y registro retributivo). Comprueba en cada caso los umbrales de plantilla que determinan qué obligaciones son exigibles. No cubre investigaciones internas en curso, expedientes sancionadores ni defensa ante la autoridad de control.",
   "author": {

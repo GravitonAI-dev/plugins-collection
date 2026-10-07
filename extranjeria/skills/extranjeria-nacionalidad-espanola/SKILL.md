@@ -1,5 +1,23 @@
 ---
 name: extranjeria-nacionalidad-espanola
+title: Nacionalidad española
+i18n:
+  en:
+    name: spanish-nationality
+    title: Spanish nationality
+    description: >
+      Prepares the application file for Spanish nationality by residence and its associated
+      filings: the application data sheet, the reasoned statement evidencing integration and
+      good civic conduct, the full document checklist with its legalisation and translation
+      regime, the statement curing deficiencies when the Registry requests documents, and the
+      submissions against a proposed refusal. It applies the **Civil Code**, which sets the
+      residence periods and requirements for acquiring nationality, and its procedural
+      implementing rules, in their consolidated versions verified in the BOE. It determines the
+      legal residence period required according to nationality of origin and personal situation,
+      checks the mandatory tests and their exemptions, and communicates the decision deadline,
+      the effect of administrative silence and the deadline to take the oath after approval. Do
+      not use for nationality by option, by naturalisation letter or by possession of status, or
+      for recovery of nationality, which have their own routes.
 description: >
   Prepara el expediente de solicitud de nacionalidad española por residencia y sus escritos asociados:
   la hoja de datos de la solicitud, el escrito motivado que acredita el arraigo y la buena conducta

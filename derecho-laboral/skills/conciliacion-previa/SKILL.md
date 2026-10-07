@@ -1,5 +1,23 @@
 ---
 name: conciliacion-previa
+title: Conciliación previa
+i18n:
+  en:
+    name: pre-litigation-conciliation
+    title: Pre-litigation conciliation
+    description: >
+      Generates the documents of the step prior to labour proceedings: out-of-court demand
+      letter by burofax for unpaid amounts, conciliation request for dismissal, for amounts and
+      for challenging a sanction before the competent mediation, arbitration and conciliation
+      service, and conciliation agreement for its recording in the minutes. It applies Articles
+      63 to 68 of **Law 36/2011 on Labour Jurisdiction**, which requires the conciliation
+      attempt as a prerequisite to a labour claim, and the **consolidated Workers' Statute
+      approved by Royal Legislative Decree 2/2015**, in their consolidated versions verified in
+      the BOE. Its first function is control: it checks whether the matter is exempt from
+      conciliation, calculates the remaining expiry period and its suspension, and identifies
+      the territorially competent body. Do not use for Social Security matters, which belong to
+      the Social Security claim skill, or for drafting the lawsuit, which belongs to the labour
+      claim skill.
 description: >
   Genera los documentos de la vía previa al proceso social: burofax de reclamación extrajudicial de
   cantidades, papeleta de conciliación por despido, por reclamación de cantidad y por impugnación de
