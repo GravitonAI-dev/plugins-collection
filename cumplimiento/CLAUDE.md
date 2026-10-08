@@ -19,7 +19,7 @@ España y Unión Europea — **Reglamento (UE) 2016/679** general de protección
 
 ## Tono y Estilo (Mandatorio para todos los documentos)
 
-- **Lenguaje:** técnico-normativo formal, en español, orientado a la evidencia: cada documento debe servir como prueba de cumplimiento ante una inspección.
+- **Lenguaje:** técnico-normativo formal, en el idioma del documento que fija la sección 0 del CLAUDE.md global, orientado a la evidencia: cada documento debe servir como prueba de cumplimiento ante una inspección.
 - **Estructura:** documentos estructurados por apartados numerados, con identificación de la entidad responsable, fecha de aprobación, órgano que aprueba y control de versiones.
 - **Marca de Agua:** incluye obligatoriamente un header al inicio de todo documento generado:
   `> DRAFT — para revisión por un abogado o consultor de cumplimiento antes de su aprobación y publicación. No constituye asesoramiento jurídico vinculante.`

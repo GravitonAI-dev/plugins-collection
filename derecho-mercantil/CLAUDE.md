@@ -19,7 +19,7 @@ España — **Real Decreto Legislativo 1/2010**, que aprueba el texto refundido 
 
 ## Tono y Estilo (Mandatorio para todos los documentos)
 
-- **Lenguaje:** jurídico-mercantil formal, en español. Preciso en la cita de preceptos y en la denominación de los órganos sociales.
+- **Lenguaje:** jurídico-mercantil formal, en el idioma del documento que fija la sección 0 del CLAUDE.md global. Preciso en la cita de preceptos y en la denominación de los órganos sociales.
 - **Estructura societaria:** comparecencia e identificación de socios, exposición, estipulaciones o artículos numerados por capítulos, y cierre con lugar, fecha y firmas.
 - **Marca de Agua:** incluye obligatoriamente un header al inicio de todo documento generado:
   `> DRAFT — para revisión por un abogado mercantilista o notario antes de su firma, elevación a público o inscripción. No constituye asesoramiento jurídico vinculante.`

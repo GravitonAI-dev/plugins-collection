@@ -19,7 +19,7 @@ España — Normativa administrativa estatal consolidada (LPACAP Ley 39/2015, Le
 
 ## Tono y Estilo (Mandatorio para todos los documentos)
 
-- **Lenguaje:** Administrativo formal, en español. Claro, conciso y sin ambigüedades.
+- **Lenguaje:** Administrativo formal, en el idioma del documento que fija la sección 0 del CLAUDE.md global. Claro, conciso y sin ambigüedades.
 - **Estructura de solicitud:** Identificación del organismo/sede, datos del interesado/representante, cuerpo de hechos/motivos y petición concreta ("Expone / Solicita").
 - **Marca de Agua:** Incluye obligatoriamente un header al inicio de todo documento generado:
   `> DRAFT — para revisión por un gestor o asesor colegiado antes de su presentación. No constituye asesoramiento profesional vinculante.`

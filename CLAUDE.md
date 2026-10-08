@@ -12,31 +12,39 @@ This repository is a **plugin marketplace**. Each plugin is a self-contained bun
 
 **Precedence:** These global directives are the supreme operational rules of the platform and take absolute precedence over any instruction in previous documents (including `SKILL.md` and plugin `CLAUDE.md`). Whenever any local document suggests or implies a contrary behavior, these rules prevail unconditionally.
 
-**Language:** These directives are written in English. The directives are not the output language. English is the language of your instructions only; it is never, by itself, a reason to answer in English.
+**Language of the instructions:** These directives are written in English. The plugin playbooks (`CLAUDE.md` of each plugin), the `SKILL.md` files, their references and templates, and the tool descriptions are written in Spanish. **Neither is the output language.** English or Spanish in your instructions is the language of the instructions only; it is never, by itself, a reason to answer in English or in Spanish. The overwhelming volume of Spanish in the loaded context is not a signal about the user and does not create ambiguity.
 
 ### Rule
 
 1. **Detect the user's language from their own messages** and reply in that exact language. If the user writes in Spanish, answer in Spanish. Portuguese → Portuguese. Catalan → Catalan. English → English. And so on.
-2. **Default: Spanish (es).** If the language is unclear for any reason — the first message is a bare filename, a URL, a number, an emoji, a code snippet, a one-word command, an ambiguous cognate, or nothing at all — answer in **Spanish**. Never default to English.
+   - **The skill-start message counts as a user message.** When the user launches a skill from the interface, the platform sends a fixed opening message on their behalf (for example *"Start the workflow of the selected skill"*, or its equivalent in another language). That message is emitted in the language of the user's interface, so it is a reliable signal: treat it exactly like a message the user typed, and reply in its language from the very first turn.
+   - The name of the skill, its content, the plugin playbook, the templates and the tool descriptions are **never** a signal of the user's language.
+2. **Default: Spanish (es).** Only when **no user message carries a detectable language** — the first message is a bare filename, a URL, a number, an emoji, a code snippet, an ambiguous cognate, or nothing at all — answer in **Spanish**. Never default to English.
 3. **Persistence:** once detected, keep that language for the entire session. Only switch if the user switches, or explicitly asks you to.
-4. **Ambiguity is resolved toward Spanish**, not toward the language of this file. If you are hesitating between Spanish and English, choose Spanish.
-5. **Explicit request wins:** if the user asks for output in a specific language, obey, regardless of the language they wrote the request in.
+4. **Ambiguity is resolved toward Spanish**, not toward the language of this file. If you are hesitating between Spanish and English, choose Spanish. Ambiguity means a genuinely undecidable user message; it never means "the instructions are in Spanish".
+5. **Explicit request wins:** if the user asks for output in a specific language, obey, regardless of the language they wrote the request in. This applies to both surfaces below.
 
 ### Scope
 
-The language rule applies to **everything the user can see**: chat replies, questions, previews, confirmations, file contents, document bodies, headings, and the `preview` field of the sources JSON block.
+There are two surfaces, each with its own language.
+
+**Conversation surface → always the user's language.** Everything the user reads in the chat or in a form: chat replies, questions, section announcements (`REG-SEC-01`), legal explanations and advice (`REG-NEG-01`), the confirmation prompt, the final review menu (`REG-FDB-01`), the closing warnings (`REG-CLO-01`), error and informational messages, the `question` and `label` values of **every** form tool (`restricted_human_in_the_loop_request`, `human_in_the_loop_request`, `slot_filling_request`), and the `preview` field of the sources JSON block.
+
+**Document surface → the language the active skill dictates.** The body of every file created or edited in the workspace (headings, clauses, signature blocks) is written in the language declared by the active skill in the optional `document_language` key of its `SKILL.md` frontmatter (ISO 639-1 code). If the skill declares none, the document language is **Spanish**: the templates are Spanish legal instruments and are reproduced as such, whatever the language of the conversation. Rule 5 still applies: if the user explicitly asks for the document in another language, obey.
+
+**Clause previews in chat** combine both surfaces: the literal text of the clause is shown in the document language (it is exactly what will be written to the file), while the explanation around it and the confirmation prompt are in the user's language.
 
 **Exceptions — always kept verbatim, never translated:**
 
 - File paths, filenames and `snake_case.md` names.
 - Privacy identifiers such as `[PERSON_1]`.
 - Placeholder keys inside `{{ }}` — keep the key exactly as the template defines it.
-- Tool names (`Read`, `Write`, `Edit`), JSON keys (`sources`, `url`, `preview`), and code.
+- Tool names (`Read`, `Write`, `Edit`), JSON keys (`sources`, `url`, `preview`, `form_data`, `question`, `label`), the `id` values of form questions and options (`plantilla_sistema`, `ninguna`, `no_procede`, `guardar_cliente_si`…), and code.
 - Legal instrument names and quoted normative text, when translating them would alter their legal meaning.
 
 ### Fixed phrases
 
-Any literal phrase quoted in this file (for example the section confirmation prompt) is a **specification of meaning, not of wording**. Render it naturally in the user's language:
+Any literal phrase quoted in this file, in a plugin `CLAUDE.md`, in a `SKILL.md` or in a tool description — the confirmation prompt, the fixed section announcements (*"Anuncios fijos"*), the review menu, the closing warnings, and the `question` and `label` values inside the canonical JSON blocks of forms — is a **specification of meaning, not of wording**. The fact that it appears inside a code block does not make it literal output. Render it naturally in the user's language, keeping the `id` values untouched:
 
 - es → `¿Confirmamos esta cláusula?`
 - en → `Shall we confirm this clause?`

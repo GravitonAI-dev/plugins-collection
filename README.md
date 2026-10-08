@@ -487,7 +487,7 @@ Regla de oro: **definir una vez, referenciar por id**.
 
 ## 12. Convenciones
 
-- **Idioma**: todo el contenido en español. Comandos y nombres técnicos en inglés.
+- **Idioma de autoría**: todo el contenido del repositorio se escribe en español. Comandos y nombres técnicos en inglés. No es el idioma de salida: ese lo rige la sección 0 del `CLAUDE.md` global (chat y formularios en el idioma del usuario; documento en español salvo que la skill declare `document_language`).
 - **Nombres y alias por idioma**: el id canónico de una skill es su carpeta (`name`) y el de un plugin su `name` en `plugin.json`; nunca se duplica una skill por idioma. Los textos que ve el usuario en otro idioma van en el bloque `i18n.<lang>` (`name` como alias kebab-case único, `title`/`displayName` y `description`). El backend resuelve el alias al id canónico y la app muestra el bloque del idioma activo.
 - **Tono**: profesional, claro, sin jerga innecesaria. Cero emojis salvo que el usuario los pida.
 - **Nombres**: kebab-case para archivos y skills (`nda-review`, `nda-clause-checklist.md`).
