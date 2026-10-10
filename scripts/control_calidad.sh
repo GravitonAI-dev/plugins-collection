@@ -15,7 +15,7 @@ python3 scripts/validar_skills.py || fallo=1
 
 echo
 echo "== Versiones de los plugins modificados"
-python3 scripts/comprobar_version.py "${1:-${BASE_REF:-origin/develop}}" || fallo=1
+python3 scripts/comprobar_version.py "$@" || fallo=1
 
 echo
 if [ "$fallo" -ne 0 ]; then

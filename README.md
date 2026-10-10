@@ -432,10 +432,6 @@ Estos elementos **no existen en el ejemplo actual** pero la estructura los conte
 
 **Estado**: no contemplado estructuralmente. Probablemente vivan en `agents/` cuando se implemente, distinguidos por frontmatter (`type: watcher`).
 
-### 9.6 Validación automatizada
-
-Implementada: ver §10.
-
 ---
 
 ## 10. Control de calidad obligatorio

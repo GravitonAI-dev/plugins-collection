@@ -311,14 +311,6 @@ Aplica las directivas globales `REG-FDB-01` y `REG-CLO-01` de `CLAUDE.md`:
 
 ## 4. CONTROL DE CALIDAD OBLIGATORIO
 
-Todo cambio en una skill o un plugin pasa por el mismo control de calidad, lo haga el constructor (`plugin-builder.md`) o una persona a mano:
-
-1. `scripts/control_calidad.sh` en verde. Ejecuta `scripts/validar_skills.py` (formato y datos obligatorios de skills y plugins) y `scripts/comprobar_version.py` (todo plugin modificado sube su version respecto a `origin/develop`).
-2. `/simplify` sobre el diff: que la skill no repita directivas del `CLAUDE.md` global ni del plugin.
-3. `/code-review` sobre el diff: contradicciones con el `CLAUDE.md` global, referencias mal copiadas, ramas incoherentes.
-4. Refrescar con `git fetch` e integrar `origin/develop`. Si trae cambios, repetir desde el paso 1.
-5. Subir a una rama y abrir PR a `develop`.
-
-El control se impone en dos sitios. El hook `scripts/hooks/pre-push` corta el push en local; se activa una vez por clon con `git config core.hooksPath scripts/hooks`. La accion `.github/workflows/control-calidad.yml` lo ejecuta en cada PR a `develop` y `main`, y la proteccion de rama impide fusionar en rojo. Las lineas `FALLO` bloquean; las `AVISO` solo informan.
+Ninguna skill ni plugin entra en `develop` sin pasar el control de calidad descrito en la seccion 10 del `README.md`: `scripts/control_calidad.sh` en verde, `/simplify` y `/code-review` sobre el diff, refresco de `origin/develop` y PR. GitHub no deja fusionar en rojo.
 
 El validador comprueba, entre otras cosas, que el `name` coincida con la carpeta, que existan los assets y references citados, que toda combinacion de vectores tenga rama, que la Fase 2 tenga el formulario `origen_plantilla` y la Fase 5 el menu de cierre, que los assets sean render-safe (sin comentarios HTML, sin marcadores con corchete simple, prefijo `template-` si llevan `{{...}}`), la cabecera DRAFT, los bloques `i18n` y las secciones obligatorias del `CLAUDE.md` del plugin.

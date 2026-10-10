@@ -129,6 +129,9 @@ for f in sorted(glob.glob('*/skills/*/SKILL.md')):
             for q in d["form_data"]:
                 if not {"id","rationale","question","options"} <= set(q) or len(q["options"])<2:
                     print(f"  FALLO pregunta mal formada: {nombre}/{q.get('id')}"); FALLOS+=1
+            for q in d["form_data"][1:]:
+                if q.get('question','').lower().startswith('si ') and not any(o.get('id') in ('no_procede','no_aplica') for o in q.get('options',[])):
+                    print(f"  AVISO pregunta condicional sin opcion no_procede (REG-TRI-01): {nombre}/{q.get('id')}")
     c=re.search(r'Correspondencia con el enrutamiento(.*?)\n\n', t, re.S)
     if c:
         decl=set(re.findall(r'`(V\d+(?:\.[a-z]|-bis|b)?)`', c.group(1)))
@@ -138,9 +141,9 @@ for f in sorted(glob.glob('*/skills/*/SKILL.md')):
     elif TOKEN.search(t):
         print(f"  FALLO sin bloque de correspondencia: {nombre}"); FALLOS+=1
     import os
-    for a in set(re.findall(r'assets/[\w.-]+\.md', t)):
+    for a in sorted(set(re.findall(r'(?:assets|references)/[\w.-]+\.md', t))):
         if not os.path.exists(os.path.join(os.path.dirname(f),a)):
-            print(f"  FALLO asset inexistente: {nombre} {a}"); FALLOS+=1
+            print(f"  FALLO {a.split('/')[0][:-1]} inexistente: {nombre} {a}"); FALLOS+=1
 
 # ---------------------------------------------------------------- registro de plugins y skills
 import os as _os
@@ -202,13 +205,28 @@ for _s in sorted(glob.glob('*/skills/*/SKILL.md')):
             print(f"  AVISO description sin ley base identificable: {_n}")
         elif not re.search(r'\*\*[^*\n]*(?:'+_LEY.pattern+r')[^*\n]*\*\*', _dd):
             print(f"  FALLO ley base citada pero no en negrita (la tarjeta SI renderiza Markdown): {_n}"); FALLOS+=1
-    if 'DRAFT' not in _t and _plug!='gestion-plantillas':
-        print(f"  FALLO SKILL.md sin header DRAFT: {_n}"); FALLOS+=1
+    if _plug!='gestion-plantillas':
+        if 'DRAFT' not in _t: print(f"  FALLO SKILL.md sin header DRAFT: {_n}"); FALLOS+=1
+        if 'origen_plantilla' not in _t: print(f"  FALLO Fase 2 sin formulario origen_plantilla (REG-AST-01): {_n}"); FALLOS+=1
+        _f5=_t.split('\n## FASE 5',1)[1] if '\n## FASE 5' in _t else ''
+        if 'REG-FDB-01' not in _f5 and not re.search(r'^\s*5\.\s', _f5, re.M):
+            print(f"  FALLO Fase 5 sin menu de cierre ni remision a REG-FDB-01: {_n}"); FALLOS+=1
     if any(ord(c)>0x2500 and _ud.category(c)=='So' for c in _t):
         print(f"  FALLO simbolos no permitidos en {_n}"); FALLOS+=1
+# Assets render-safe (guia, seccion 1). Las plantillas HTML de reportes quedan fuera de las reglas de
+# markdown: en HTML los comentarios y los selectores con corchetes son codigo.
+_PRIV=re.compile(r'\[(?:PERSON|ORGANIZATION|DATE|LOCATION|EMAIL|PHONE|ID|ADDRESS)[A-Z_]*_\d+\]')
 for _a in sorted(glob.glob('*/skills/*/assets/*.md')):
-    if 'DRAFT' not in open(_a,encoding='utf-8').read() and 'gestion-plantillas' not in _a:
-        print(f"  FALLO asset sin header DRAFT: {_a}"); FALLOS+=1
+    if 'gestion-plantillas' in _a: continue
+    _t=open(_a,encoding='utf-8').read()
+    if 'DRAFT' not in _t: print(f"  FALLO asset sin header DRAFT: {_a}"); FALLOS+=1
+    if '{{' in _t and not _os.path.basename(_a).startswith('template-'): print(f"  FALLO asset con marcadores sin prefijo template-: {_a}"); FALLOS+=1
+    if 'mailto:' in _t: print(f"  FALLO enlace mailto en asset: {_a}"); FALLOS+=1
+    if re.search(r'<!doctype html', _t, re.I): continue
+    if '<!--' in _t: print(f"  FALLO comentario HTML en asset (no es render-safe): {_a}"); FALLOS+=1
+    if re.search(r'\\[.\-()+\[\]]', _t): print(f"  FALLO escape con barra invertida en asset: {_a}"); FALLOS+=1
+    _corch=re.findall(r'\[[^\]\n]{2,60}\]', re.sub(r'\[[^\]]*\]\([^)]*\)|\[[ xX]\]', '', _PRIV.sub('', _t)))
+    if _corch: print(f"  FALLO marcador con corchete simple en asset (usar {{{{...}}}}): {_a} {_corch[:3]}"); FALLOS+=1
 
 # ---------------------------------------------------------------- i18n: title + i18n.<lang> en SKILL.md y plugin.json
 # El id canonico de una skill es su carpeta; `i18n.<lang>.name` es un alias que el backend
@@ -233,6 +251,7 @@ for _s in sorted(glob.glob('*/skills/*/SKILL.md')):
     except Exception as _e:
         print(f"  FALLO frontmatter no es YAML valido (el backend perderia i18n): {_n} ({str(_e).splitlines()[0]})"); FALLOS+=1; continue
     _reclamar(_SIDS,_n,_n,'id de skill')
+    if _y.get('name')!=_s.split('/')[2]: print(f"  FALLO name del frontmatter distinto de la carpeta: {_s.split('/')[2]} (name: {_y.get('name')})"); FALLOS+=1
     if not str(_y.get('title') or '').strip(): print(f"  FALLO skill sin title: {_n}"); FALLOS+=1
     _i=_y.get('i18n')
     if not isinstance(_i,dict) or not isinstance(_i.get('en'),dict):
@@ -269,47 +288,12 @@ for _pj in sorted(glob.glob('*/.claude-plugin/plugin.json')):
     if _e.get('version')!=_d.get('version'):
         print(f"  FALLO version distinta entre plugin.json y marketplace: {_d['name']}"); FALLOS+=1
 
-# ---------------------------------------------------------------- control de calidad de formato (PLUGIN_AUTHORING_GUIDE)
-# Reglas de la guia que antes solo se revisaban a ojo. Las plantillas HTML (skill reportes) quedan
-# fuera de las reglas de markdown: en HTML los comentarios y los selectores con corchetes son codigo.
-_PRIV=re.compile(r'\[(?:PERSON|ORGANIZATION|DATE|LOCATION|EMAIL|PHONE|ID|ADDRESS)[A-Z_]*_\d+\]')
+# ---------------------------------------------------------------- CLAUDE.md de cada plugin (guia, seccion 2)
 _SECC_PLUGIN=('Propósito','Audiencia','Contexto','Tono','Guardrails','Escalación')
-def _fallo(msg):
-    global FALLOS
-    print(f"  FALLO {msg}"); FALLOS+=1
-for _s in sorted(glob.glob('*/skills/*/SKILL.md')):
-    _t=open(_s,encoding='utf-8').read(); _carpeta=_s.split('/')[2]; _plug=_s.split('/')[0]
-    _nm=re.search(r'^name:\s*(\S+)', _t.split('\n---\n')[0], re.M)
-    if not _nm or _nm.group(1)!=_carpeta:
-        _fallo(f"name del frontmatter distinto de la carpeta: {_carpeta} (name: {_nm.group(1) if _nm else 'ausente'})")
-    for _r in sorted(set(re.findall(r'references/[\w.-]+\.md', _t))):
-        if not _os.path.exists(_os.path.join(_os.path.dirname(_s),_r)): _fallo(f"reference inexistente: {_carpeta} {_r}")
-    if _plug=='gestion-plantillas': continue
-    if 'origen_plantilla' not in _t: _fallo(f"Fase 2 sin formulario origen_plantilla (REG-AST-01): {_carpeta}")
-    _f5=_t.split('\n## FASE 5',1)[1] if '\n## FASE 5' in _t else ''
-    if 'REG-FDB-01' not in _f5 and not re.search(r'^\s*5\.\s', _f5, re.M):
-        _fallo(f"Fase 5 sin menu de cierre ni remision a REG-FDB-01: {_carpeta}")
-    _m=re.search(r'### 1\.2[^\n]*\n(.*?)(?=### 1\.3)', _t, re.S)
-    _jb=re.search(r'```json\n(.*?)\n```', _m.group(1), re.S) if _m else None
-    if _jb:
-        for _q in json.loads(_jb.group(1))['form_data'][1:]:
-            if _q.get('question','').lower().startswith('si ') and not any(o['id'] in ('no_procede','no_aplica') for o in _q['options']):
-                print(f"  AVISO pregunta condicional sin opcion no_procede (REG-TRI-01): {_carpeta}/{_q['id']}")
-for _a in sorted(glob.glob('*/skills/*/assets/*.md')):
-    _t=open(_a,encoding='utf-8').read()
-    if 'gestion-plantillas' in _a: continue
-    if '{{' in _t and not _os.path.basename(_a).startswith('template-'): _fallo(f"asset con marcadores sin prefijo template-: {_a}")
-    if 'mailto:' in _t: _fallo(f"enlace mailto en asset: {_a}")
-    if re.search(r'<!doctype html', _t, re.I): continue
-    if '<!--' in _t: _fallo(f"comentario HTML en asset (no es render-safe): {_a}")
-    if re.search(r'\\[.\-()+\[\]]', _t): _fallo(f"escape con barra invertida en asset: {_a}")
-    _limpio=re.sub(r'\[[^\]]*\]\([^)]*\)|\[[ xX]\]', '', _PRIV.sub('', _t))
-    _corch=re.findall(r'\[[^\]\n]{2,60}\]', _limpio)
-    if _corch: _fallo(f"marcador con corchete simple en asset (usar {{{{...}}}}): {_a} {_corch[:3]}")
 for _c in sorted(glob.glob('*/CLAUDE.md')):
     _t=open(_c,encoding='utf-8').read()
     _faltan=[h for h in _SECC_PLUGIN if not re.search(r'^##.*'+h, _t, re.M|re.I)]
-    if _faltan: _fallo(f"CLAUDE.md de plugin sin secciones obligatorias: {_c} {_faltan}")
+    if _faltan: print(f"  FALLO CLAUDE.md de plugin sin secciones obligatorias: {_c} {_faltan}"); FALLOS+=1
 
 if TH or TC: FALLOS+=1
 print(("\nOK — catalogo coherente" if not FALLOS else f"\n{FALLOS} comprobaciones fallidas"))

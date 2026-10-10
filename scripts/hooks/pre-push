@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
 # Corta el push si el control de calidad falla. Se activa una vez por clon:
 #   git config core.hooksPath scripts/hooks
-git fetch -q origin develop 2>/dev/null
 exec scripts/control_calidad.sh

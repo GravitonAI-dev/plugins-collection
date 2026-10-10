@@ -31,8 +31,8 @@ mb = mb.stdout.strip()
 
 cambiados = set(git("diff", "--name-only", mb).stdout.split())
 cambiados |= set(git("ls-files", "--others", "--exclude-standard").stdout.split())
-plugins = sorted({f.split("/")[0] for f in cambiados
-                  if "/" in f and os.path.exists(f"{f.split('/')[0]}/.claude-plugin/plugin.json")})
+plugins = sorted({d for d in (f.split("/")[0] for f in cambiados if "/" in f)
+                  if os.path.exists(f"{d}/.claude-plugin/plugin.json")})
 
 fallos = 0
 for p in plugins:

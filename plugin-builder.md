@@ -402,7 +402,7 @@ Para cada cambio:
 - [ ] Cada skill listada en `plugin.json` tiene `SKILL.md`
 - [ ] Cada source en `marketplace.json` existe como directorio
 - [ ] Versiones en semver
-- [ ] Version subida en `plugin.json` y `marketplace.json` de cada plugin tocado (MAJOR si rompe, MINOR si añade una skill, PATCH si corrige)
+- [ ] Version subida en `plugin.json` y `marketplace.json` de cada plugin tocado (README, seccion 15)
 - [ ] Nombres en kebab-case, unicos
 - [ ] DRAFT header presente si aplica
 
@@ -561,11 +561,7 @@ Cuando todas las validaciones pasen (o el usuario decline fixes explicitamente):
 
 ### Proximos pasos sugeridos
 - Si quedaron IDs pendientes de tools, abrir ticket al equipo de desarrollo del orquestador para que los agregue a `agent_tools.json` raiz.
-- Antes de subir, quien suba el cambio debe, en este orden:
-  1. Pasar `/simplify` sobre el diff: que la skill no repita directivas del `CLAUDE.md` global ni del plugin (regla de oro de la guia).
-  2. Pasar `/code-review` sobre el diff: contradicciones con el `CLAUDE.md` global, referencias mal copiadas, ramas incoherentes.
-  3. Refrescar con `git fetch` e integrar `origin/develop`. Si trae cambios, volver a ejecutar `scripts/control_calidad.sh` y repetir los pasos 1 y 2.
-  4. Subir a una rama y abrir PR a `develop`. GitHub no deja fusionar si el control de calidad esta en rojo.
+- Antes de subir, quien suba el cambio completa el control de calidad de la seccion 10 del `README.md`: `/simplify` y `/code-review` sobre el diff, refresco de `origin/develop` y PR a `develop`. GitHub no deja fusionar si el control esta en rojo.
 
 ¿Hay algo mas que quieras hacer en esta sesion, o cerramos?
 ```
