@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
 # Corta el push si el control de calidad falla. Se activa una vez por clon:
 #   git config core.hooksPath scripts/hooks
-exec scripts/control_calidad.sh
+# Se ejecuta sobre una copia limpia del commit que se sube, no sobre la carpeta de
+# trabajo: lo que no esta commiteado ni ayuda ni estorba.
+copia=$(mktemp -d)
+git worktree add -q --detach "$copia" HEAD || exit 1
+(cd "$copia" && scripts/control_calidad.sh)
+estado=$?
+git worktree remove --force "$copia"
+exit $estado

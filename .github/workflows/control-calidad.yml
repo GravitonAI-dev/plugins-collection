@@ -19,5 +19,7 @@ jobs:
       - run: pip install pyyaml
       - name: Control de calidad
         env:
-          BASE_REF: ${{ github.event_name == 'pull_request' && format('origin/{0}', github.base_ref) || github.event.before }}
+          # En un PR se compara con la rama destino. En un push a develop o main la base es la propia
+          # rama, asi que solo corre el validador: las versiones ya se exigieron en el PR.
+          BASE_REF: origin/${{ github.base_ref || github.ref_name }}
         run: bash scripts/control_calidad.sh

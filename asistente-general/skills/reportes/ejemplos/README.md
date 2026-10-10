@@ -9,7 +9,7 @@ Documentos visuales de demostracion generados con las plantillas de `../assets`.
 | `panel_reclamacion_cantidad.html` | `template-panel-datos.md` | Panel con indicadores, minigrafico de tendencia, barras comparativas, anillo de reparto, evolucion con area y umbral, cascada de importes, medidor de plazo y tabla con totales |
 | `informe_viabilidad_monitorio.html` | `template-informe-visual.md` | Informe de lectura con indice lateral, indicadores, secciones numeradas, tabla comparativa, cronologia de hitos, avisos y firmas |
 | `simulador_intereses_demora.html` | `template-herramienta-interactiva.md` | Herramienta que recalcula al instante, con medidor, desglose y lista de verificacion con progreso |
-| `galeria_graficos.html` | compuesta a partir del sistema de diseno | Las once formas graficas de la biblioteca, cada una con la formula exacta de sus coordenadas |
+| `galeria_graficos.html` | compuesta a partir del sistema de diseno | Las diez formas graficas de la biblioteca, cada una con la formula exacta de sus coordenadas |
 
 El informe conserva a proposito el marcador `{{LETRADO_RESPONSABLE}}`: asi se ve como queda un dato que el usuario decide no aportar.
 

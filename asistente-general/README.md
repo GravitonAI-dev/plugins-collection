@@ -45,12 +45,12 @@ Generación de documentos visuales autocontenidos en HTML, del estilo de los que
 2. **Panel de datos:** rejilla de tarjetas con indicadores, minigráfico de tendencia, barras comparativas, anillo de reparto, evolución con área y umbral, cascada de importes, medidor de plazo y tabla con totales.
 3. **Herramienta interactiva:** calculadora o simulador que recalcula al instante, con medidor, desglose auditable y lista de verificación con progreso.
 
-Incluye una biblioteca propia de once formas gráficas en SVG con la fórmula exacta de sus coordenadas, criterios de qué forma responde a cada pregunta y reglas de honestidad gráfica (eje desde cero, sin recortes, sin datos inventados).
+Incluye una biblioteca propia de diez formas gráficas en SVG con la fórmula exacta de sus coordenadas, criterios de qué forma responde a cada pregunta y reglas de honestidad gráfica (eje desde cero, sin recortes, sin datos inventados).
 
 - **Invocación:** `/asistente-general:reportes`
 - **Inputs principales:** Tipo de documento visual (V1), destino de uso —pantalla o impresión— (V2), origen de los datos (V3), identidad visual (V4), origen de la plantilla (V5), datos y parámetros a representar.
 - **Outputs:** Archivo `snake_case.html` en el espacio de trabajo, con tema claro y oscuro, diseño adaptable, estilos de impresión en A4 y aviso `DRAFT` visible.
-- **Ejemplos abribles:** `skills/reportes/ejemplos/` contiene cuatro documentos visuales completos con su PDF ya generado, incluida una galería con las once formas gráficas.
+- **Ejemplos abribles:** `skills/reportes/ejemplos/` contiene cuatro documentos visuales completos con su PDF ya generado, incluida una galería con las diez formas gráficas.
 
 ---
 

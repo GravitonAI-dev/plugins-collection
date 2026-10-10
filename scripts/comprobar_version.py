@@ -29,8 +29,9 @@ if mb.returncode:
     sys.exit(0)
 mb = mb.stdout.strip()
 
-cambiados = set(git("diff", "--name-only", mb).stdout.split())
-cambiados |= set(git("ls-files", "--others", "--exclude-standard").stdout.split())
+# -z y quotePath=false: rutas con tildes o espacios llegan enteras y sin comillas.
+cambiados = set(git("-c", "core.quotePath=false", "diff", "--name-only", "-z", mb).stdout.split("\0"))
+cambiados |= set(git("-c", "core.quotePath=false", "ls-files", "-z", "--others", "--exclude-standard").stdout.split("\0"))
 plugins = sorted({d for d in (f.split("/")[0] for f in cambiados if "/" in f)
                   if os.path.exists(f"{d}/.claude-plugin/plugin.json")})
 

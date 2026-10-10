@@ -208,7 +208,7 @@ for _s in sorted(glob.glob('*/skills/*/SKILL.md')):
     if _plug!='gestion-plantillas':
         if 'DRAFT' not in _t: print(f"  FALLO SKILL.md sin header DRAFT: {_n}"); FALLOS+=1
         if 'origen_plantilla' not in _t: print(f"  FALLO Fase 2 sin formulario origen_plantilla (REG-AST-01): {_n}"); FALLOS+=1
-        _f5=_t.split('\n## FASE 5',1)[1] if '\n## FASE 5' in _t else ''
+        _f5=_t.split('\n## FASE 5',1)[1].split('\n## ',1)[0] if '\n## FASE 5' in _t else ''
         if 'REG-FDB-01' not in _f5 and not re.search(r'^\s*5\.\s', _f5, re.M):
             print(f"  FALLO Fase 5 sin menu de cierre ni remision a REG-FDB-01: {_n}"); FALLOS+=1
     if any(ord(c)>0x2500 and _ud.category(c)=='So' for c in _t):
