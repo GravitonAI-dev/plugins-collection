@@ -172,6 +172,7 @@ Una vez resueltos los vectores aplicables, evalua en este orden:
 - Si V1 = curatela → **aplicar primero el FILTRO DE SUBSIDIARIEDAD** (seccion siguiente). Solo si lo supera:
   - V3 = asistencial → **HOJA CURATELA**, `assets/template-demanda-curatela.md`, con los bloques de facultades representativas DESACTIVADOS.
   - V3 = representativa → **HOJA CURATELA**: `assets/template-demanda-curatela.md`, el mismo asset, con los bloques de facultades representativas ACTIVADOS y justificados acto por acto.
+  - V3 = no_procede → **DETENER** la eleccion de hoja: la respuesta es incoherente, porque se pide curatela pero se indica que no se solicita. Aclarar en el chat (REG-VAL-01) si la curatela es asistencial o representativa, o si lo que se busca es una prevision voluntaria o una autorizacion de guarda, y volver a resolver V3 o V1. No crear documento hasta resolverlo.
 - **Sub-pregunta de via procesal (solo en la HOJA CURATELA, antes de la Fase 3).** El expediente de jurisdiccion voluntaria es la via ordinaria; el proceso contencioso solo procede si un expediente previo termino por oposicion o no pudo resolverse (Art. 756.1 LEC). Formula:
   "Sobre actuaciones judiciales anteriores por este mismo asunto:
   1. No se ha iniciado ninguna

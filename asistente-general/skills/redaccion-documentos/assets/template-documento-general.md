@@ -1,5 +1,7 @@
 # {{TITULO_DEL_DOCUMENTO}}
 
+> DRAFT — Para revision letrada colegiada antes de su firma o presentacion formal.
+
 **Fecha:** {{FECHA_ACTUAL}}
 **De:** {{NOMBRE_REMITENTE}}
 **Para:** {{NOMBRE_DESTINATARIO}}

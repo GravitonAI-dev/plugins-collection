@@ -269,6 +269,48 @@ for _pj in sorted(glob.glob('*/.claude-plugin/plugin.json')):
     if _e.get('version')!=_d.get('version'):
         print(f"  FALLO version distinta entre plugin.json y marketplace: {_d['name']}"); FALLOS+=1
 
+# ---------------------------------------------------------------- control de calidad de formato (PLUGIN_AUTHORING_GUIDE)
+# Reglas de la guia que antes solo se revisaban a ojo. Las plantillas HTML (skill reportes) quedan
+# fuera de las reglas de markdown: en HTML los comentarios y los selectores con corchetes son codigo.
+_PRIV=re.compile(r'\[(?:PERSON|ORGANIZATION|DATE|LOCATION|EMAIL|PHONE|ID|ADDRESS)[A-Z_]*_\d+\]')
+_SECC_PLUGIN=('Propósito','Audiencia','Contexto','Tono','Guardrails','Escalación')
+def _fallo(msg):
+    global FALLOS
+    print(f"  FALLO {msg}"); FALLOS+=1
+for _s in sorted(glob.glob('*/skills/*/SKILL.md')):
+    _t=open(_s,encoding='utf-8').read(); _carpeta=_s.split('/')[2]; _plug=_s.split('/')[0]
+    _nm=re.search(r'^name:\s*(\S+)', _t.split('\n---\n')[0], re.M)
+    if not _nm or _nm.group(1)!=_carpeta:
+        _fallo(f"name del frontmatter distinto de la carpeta: {_carpeta} (name: {_nm.group(1) if _nm else 'ausente'})")
+    for _r in sorted(set(re.findall(r'references/[\w.-]+\.md', _t))):
+        if not _os.path.exists(_os.path.join(_os.path.dirname(_s),_r)): _fallo(f"reference inexistente: {_carpeta} {_r}")
+    if _plug=='gestion-plantillas': continue
+    if 'origen_plantilla' not in _t: _fallo(f"Fase 2 sin formulario origen_plantilla (REG-AST-01): {_carpeta}")
+    _f5=_t.split('\n## FASE 5',1)[1] if '\n## FASE 5' in _t else ''
+    if 'REG-FDB-01' not in _f5 and not re.search(r'^\s*5\.\s', _f5, re.M):
+        _fallo(f"Fase 5 sin menu de cierre ni remision a REG-FDB-01: {_carpeta}")
+    _m=re.search(r'### 1\.2[^\n]*\n(.*?)(?=### 1\.3)', _t, re.S)
+    _jb=re.search(r'```json\n(.*?)\n```', _m.group(1), re.S) if _m else None
+    if _jb:
+        for _q in json.loads(_jb.group(1))['form_data'][1:]:
+            if _q.get('question','').lower().startswith('si ') and not any(o['id'] in ('no_procede','no_aplica') for o in _q['options']):
+                print(f"  AVISO pregunta condicional sin opcion no_procede (REG-TRI-01): {_carpeta}/{_q['id']}")
+for _a in sorted(glob.glob('*/skills/*/assets/*.md')):
+    _t=open(_a,encoding='utf-8').read()
+    if 'gestion-plantillas' in _a: continue
+    if '{{' in _t and not _os.path.basename(_a).startswith('template-'): _fallo(f"asset con marcadores sin prefijo template-: {_a}")
+    if 'mailto:' in _t: _fallo(f"enlace mailto en asset: {_a}")
+    if re.search(r'<!doctype html', _t, re.I): continue
+    if '<!--' in _t: _fallo(f"comentario HTML en asset (no es render-safe): {_a}")
+    if re.search(r'\\[.\-()+\[\]]', _t): _fallo(f"escape con barra invertida en asset: {_a}")
+    _limpio=re.sub(r'\[[^\]]*\]\([^)]*\)|\[[ xX]\]', '', _PRIV.sub('', _t))
+    _corch=re.findall(r'\[[^\]\n]{2,60}\]', _limpio)
+    if _corch: _fallo(f"marcador con corchete simple en asset (usar {{{{...}}}}): {_a} {_corch[:3]}")
+for _c in sorted(glob.glob('*/CLAUDE.md')):
+    _t=open(_c,encoding='utf-8').read()
+    _faltan=[h for h in _SECC_PLUGIN if not re.search(r'^##.*'+h, _t, re.M|re.I)]
+    if _faltan: _fallo(f"CLAUDE.md de plugin sin secciones obligatorias: {_c} {_faltan}")
+
 if TH or TC: FALLOS+=1
 print(("\nOK — catalogo coherente" if not FALLOS else f"\n{FALLOS} comprobaciones fallidas"))
 raise SystemExit(1 if FALLOS else 0)
