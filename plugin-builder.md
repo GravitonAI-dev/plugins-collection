@@ -402,6 +402,7 @@ Para cada cambio:
 - [ ] Cada skill listada en `plugin.json` tiene `SKILL.md`
 - [ ] Cada source en `marketplace.json` existe como directorio
 - [ ] Versiones en semver
+- [ ] Version subida en `plugin.json` y `marketplace.json` de cada plugin tocado (README, seccion 15)
 - [ ] Nombres en kebab-case, unicos
 - [ ] DRAFT header presente si aplica
 
@@ -462,6 +463,16 @@ Contenido que se escribira:
 ## 9. Fase de validacion (bloqueante)
 
 **Cuando se ejecuta**: tras escribir todos los archivos del plan.
+
+**Paso obligatorio: control de calidad automatico.** Ejecuta desde la raiz del repo:
+
+```
+scripts/control_calidad.sh
+```
+
+Es el mismo control que corre el hook `pre-push` y que GitHub exige en cada PR a `develop` y `main`: si sale en rojo, el cambio no se puede fusionar. Comprueba el formato y los datos obligatorios de cada skill y plugin (`scripts/validar_skills.py`) y que todo plugin modificado sube su version (`scripts/comprobar_version.py`). Si no puedes ejecutar comandos, pide al usuario que lo ejecute y pegue la salida. Cada linea `FALLO` es un fallo de esta fase y se trata con el flujo de fixes de abajo. Las lineas `AVISO` se muestran al usuario pero no bloquean. **No pasas a la seccion 10 hasta que el control salga en verde**, salvo que el usuario rechace los fixes de forma expresa.
+
+El checklist siguiente explica lo que el control comprueba y sirve para presentar el resultado al usuario. No sustituye a la ejecucion del script.
 
 **Checklist completo**:
 
@@ -549,12 +560,8 @@ Cuando todas las validaciones pasen (o el usuario decline fixes explicitamente):
 - ...
 
 ### Proximos pasos sugeridos
-- Si el cambio es MAJOR (schema que rompe, default que cambia): bumpear MAJOR en `plugin.json` y en `marketplace.json`.
-- Si agregaste skills nuevas a un plugin existente: bumpear MINOR en ese plugin.
-- Si hiciste solo fixes de descripcion o typos: bumpear PATCH.
 - Si quedaron IDs pendientes de tools, abrir ticket al equipo de desarrollo del orquestador para que los agregue a `agent_tools.json` raiz.
-- Considera correr `scripts/validate.py` (cuando exista) para automatizar esta validacion.
-- Considera commitear los cambios con un mensaje que siga la convencion del repo.
+- Antes de subir, quien suba el cambio completa el control de calidad de la seccion 10 del `README.md`: `/simplify` y `/code-review` sobre el diff, refresco de `origin/develop` y PR a `develop`. GitHub no deja fusionar si el control esta en rojo.
 
 ¿Hay algo mas que quieras hacer en esta sesion, o cerramos?
 ```

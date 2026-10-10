@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{TITULO_DOCUMENTO}}</title>
+<title>El monitorio es la via mas rapida y economica</title>
 <style>
 *,*::before,*::after{box-sizing:border-box}
 :root{
@@ -154,6 +154,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   .tarjeta,.indicador{break-inside:avoid;page-break-inside:avoid;box-shadow:none}
   h2{break-after:avoid}
   thead{display:table-header-group}
+  /* Chrome repite el tfoot en cada pagina; asi solo aparece al final. */
+  tfoot{display:table-row-group}
+  /* En papel no hay scroll horizontal: si la tabla es ancha, se compacta. */
+  .tabla{overflow:visible}
+  table{min-width:0}
   tbody tr:hover{background:transparent}
   a{color:#000;text-decoration:none}
 }
@@ -176,32 +181,32 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   <p class="borrador"><span><strong>DRAFT</strong> &mdash; Documento de trabajo generado en la plataforma. Debe ser revisado por un abogado o profesional colegiado antes de su firma, entrega o presentacion oficial. No constituye asesoramiento juridico vinculante.</span></p>
 
   <header>
-    <p class="antetitulo">{{ETIQUETA_SUPERIOR}}</p>
-    <h1>{{TITULO_DOCUMENTO}}</h1>
-    <p class="entradilla">{{ENTRADILLA}}</p>
+    <p class="antetitulo">Informe de viabilidad | Expediente 2026/0417</p>
+    <h1>El monitorio es la via mas rapida y economica</h1>
+    <p class="entradilla">Analisis de las vias de reclamacion frente a Construcciones Delta, S.L. por un principal de 42.180,50 euros, con el detalle de plazos, costes y riesgos de cada alternativa.</p>
     <ul class="ficha">
-      <li><b>Referencia:</b> {{REFERENCIA_EXPEDIENTE}}</li>
-      <li><b>Fecha:</b> {{FECHA_EMISION}}</li>
-      <li><b>Destinatario:</b> {{DESTINATARIO}}</li>
-      <li><b>Preparado por:</b> {{AUTOR}}</li>
+      <li><b>Referencia:</b> 2026/0417</li>
+      <li><b>Fecha:</b> 24 de septiembre de 2026</li>
+      <li><b>Destinatario:</b> Suministros Ibericos del Norte, S.L.</li>
+      <li><b>Preparado por:</b> Departamento de procesal civil</li>
     </ul>
   </header>
 
   <div class="indicadores">
     <div class="indicador aparece">
-      <p class="rotulo">{{INDICADOR_1_ROTULO}}</p>
-      <p class="cifra">{{INDICADOR_1_CIFRA}}</p>
-      <p class="detalle">{{INDICADOR_1_DETALLE}}</p>
+      <p class="rotulo">Principal reclamable</p>
+      <p class="cifra">42.180,50 EUR</p>
+      <p class="detalle">Mas 1.947,32 euros de intereses</p>
     </div>
     <div class="indicador aparece">
-      <p class="rotulo">{{INDICADOR_2_ROTULO}}</p>
-      <p class="cifra">{{INDICADOR_2_CIFRA}}</p>
-      <p class="detalle">{{INDICADOR_2_DETALLE}}</p>
+      <p class="rotulo">Plazo estimado</p>
+      <p class="cifra">2 a 4 meses</p>
+      <p class="detalle">Si no media oposicion del deudor</p>
     </div>
     <div class="indicador aparece es-riesgo">
-      <p class="rotulo">{{INDICADOR_3_ROTULO}}</p>
-      <p class="cifra">{{INDICADOR_3_CIFRA}}</p>
-      <p class="detalle">{{INDICADOR_3_DETALLE}}</p>
+      <p class="rotulo">Prescripcion mas proxima</p>
+      <p class="cifra">15/11/2030</p>
+      <p class="detalle">Factura 2025/118, accion personal</p>
     </div>
   </div>
 
@@ -210,71 +215,71 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
     <nav class="indice" aria-label="Indice del documento">
       <p>Contenido</p>
       <ol>
-        <li><a href="#seccion-1">{{TITULO_SECCION_1}}</a></li>
-        <li><a href="#seccion-2">{{TITULO_SECCION_2}}</a></li>
-        <li><a href="#seccion-3">{{TITULO_SECCION_3}}</a></li>
-        <li><a href="#seccion-4">{{TITULO_SECCION_4}}</a></li>
+        <li><a href="#seccion-1">Antecedentes de hecho</a></li>
+        <li><a href="#seccion-2">Comparativa de vias de reclamacion</a></li>
+        <li><a href="#seccion-3">Cronologia del expediente</a></li>
+        <li><a href="#seccion-4">Conclusion y hoja de ruta</a></li>
       </ol>
     </nav>
 
     <div>
 
       <section class="tarjeta bloque" id="seccion-1">
-        <h2><span class="orden">1.</span>{{TITULO_SECCION_1}}</h2>
-        <p class="subtitulo">{{SUBTITULO_SECCION_1}}</p>
-        <p>{{CONTENIDO_SECCION_1}}</p>
+        <h2><span class="orden">1.</span>Antecedentes de hecho</h2>
+        <p class="subtitulo">Hechos acreditados con la documentacion aportada</p>
+        <p>Entre noviembre de 2025 y marzo de 2026 se emitieron siete facturas por suministro de material, todas ellas vencidas e impagadas. El deudor reconocio la deuda por correo electronico el 4 de mayo de 2026 y realizo dos pagos parciales a cuenta por importe conjunto de 5.600 euros, sin que desde julio se haya producido nuevo abono.</p>
         <div class="aviso">
-          <span class="titulo">{{TITULO_NOTA}}</span>
-          {{CONTENIDO_NOTA}}
+          <span class="titulo">Reconocimiento de deuda</span>
+          El correo de 4 de mayo de 2026 interrumpe la prescripcion e integra el principio de prueba por escrito que sostiene la peticion inicial de monitorio.
         </div>
       </section>
 
       <section class="tarjeta bloque" id="seccion-2">
-        <h2><span class="orden">2.</span>{{TITULO_SECCION_2}}</h2>
-        <p class="subtitulo">{{SUBTITULO_SECCION_2}}</p>
-        <p>{{CONTENIDO_SECCION_2}}</p>
+        <h2><span class="orden">2.</span>Comparativa de vias de reclamacion</h2>
+        <p class="subtitulo">Coste, plazo y probabilidad de cobro efectivo</p>
+        <p>Se valoran tres alternativas atendiendo al coste de iniciarlas, al plazo previsible de resolucion y a la probabilidad de cobro efectivo una vez obtenido el titulo.</p>
         <div class="tabla">
           <table>
-            <caption>{{TITULO_TABLA}}</caption>
+            <caption>Vias disponibles y su valoracion</caption>
             <thead>
-              <tr><th>{{COLUMNA_1}}</th><th>{{COLUMNA_2}}</th><th class="cifra">{{COLUMNA_3}}</th><th>{{COLUMNA_4}}</th></tr>
+              <tr><th>Via</th><th>Requisitos</th><th class="cifra">Plazo</th><th>Viabilidad</th></tr>
             </thead>
             <tbody>
-              <tr><td>{{FILA_1_C1}}</td><td>{{FILA_1_C2}}</td><td class="cifra">{{FILA_1_C3}}</td><td><span class="distintivo">{{FILA_1_C4}}</span></td></tr>
-              <tr><td>{{FILA_2_C1}}</td><td>{{FILA_2_C2}}</td><td class="cifra">{{FILA_2_C3}}</td><td><span class="distintivo">{{FILA_2_C4}}</span></td></tr>
-              <tr><td>{{FILA_3_C1}}</td><td>{{FILA_3_C2}}</td><td class="cifra">{{FILA_3_C3}}</td><td><span class="distintivo">{{FILA_3_C4}}</span></td></tr>
+              <tr><td>Monitorio</td><td>Documento que acredite la deuda</td><td class="cifra">2 a 4 meses</td><td><span class="distintivo">Alta</span></td></tr>
+              <tr><td>Juicio ordinario</td><td>Abogado y procurador</td><td class="cifra">12 a 18 meses</td><td><span class="distintivo">Media</span></td></tr>
+              <tr><td>Acuerdo extrajudicial</td><td>Voluntad del deudor</td><td class="cifra">1 a 2 meses</td><td><span class="distintivo">Incierta</span></td></tr>
             </tbody>
           </table>
         </div>
       </section>
 
       <section class="tarjeta bloque" id="seccion-3">
-        <h2><span class="orden">3.</span>{{TITULO_SECCION_3}}</h2>
-        <p class="subtitulo">{{SUBTITULO_SECCION_3}}</p>
-        <p>{{CONTENIDO_SECCION_3}}</p>
+        <h2><span class="orden">3.</span>Cronologia del expediente</h2>
+        <p class="subtitulo">Hitos acreditados documentalmente</p>
+        <p>La secuencia siguiente fija las fechas relevantes a efectos de prescripcion y de acreditacion de la deuda.</p>
         <ol class="cronologia">
-          <li><span class="fecha">{{HITO_1_FECHA}}</span><span class="hito">{{HITO_1_TITULO}}</span><br>{{HITO_1_DETALLE}}</li>
-          <li><span class="fecha">{{HITO_2_FECHA}}</span><span class="hito">{{HITO_2_TITULO}}</span><br>{{HITO_2_DETALLE}}</li>
-          <li><span class="fecha">{{HITO_3_FECHA}}</span><span class="hito">{{HITO_3_TITULO}}</span><br>{{HITO_3_DETALLE}}</li>
+          <li><span class="fecha">15 de noviembre de 2025</span><span class="hito">Vencimiento de la primera factura</span><br>Factura 2025/118 por 18.400,00 euros, impagada a su vencimiento.</li>
+          <li><span class="fecha">4 de mayo de 2026</span><span class="hito">Reconocimiento de deuda</span><br>Correo del administrador del deudor aceptando el saldo y proponiendo calendario de pagos.</li>
+          <li><span class="fecha">17 de septiembre de 2026</span><span class="hito">Burofax de requerimiento</span><br>Requerimiento fehaciente con acuse de recibo y plazo de diez dias para el pago.</li>
         </ol>
       </section>
 
       <section class="tarjeta bloque" id="seccion-4">
-        <h2><span class="orden">4.</span>{{TITULO_SECCION_4}}</h2>
-        <p class="subtitulo">{{SUBTITULO_SECCION_4}}</p>
-        <p>{{CONTENIDO_SECCION_4}}</p>
+        <h2><span class="orden">4.</span>Conclusion y hoja de ruta</h2>
+        <p class="subtitulo">Actuaciones recomendadas y su orden</p>
+        <p>Agotado el plazo del requerimiento sin pago, se recomienda acudir al procedimiento monitorio, que no exige abogado ni procurador para la peticion inicial y permite obtener titulo ejecutivo en pocos meses si el deudor no se opone.</p>
         <ol>
-          <li>{{PASO_1}}</li>
-          <li>{{PASO_2}}</li>
-          <li>{{PASO_3}}</li>
+          <li>Esperar al vencimiento del plazo del burofax y documentar la ausencia de pago.</li>
+          <li>Presentar peticion inicial de monitorio por el principal y los intereses devengados hasta la fecha de presentacion.</li>
+          <li>Si hay oposicion, valorar la transformacion en el declarativo que corresponda por la cuantia.</li>
         </ol>
         <div class="aviso riesgo">
-          <span class="titulo">{{TITULO_ADVERTENCIA}}</span>
-          {{CONTENIDO_ADVERTENCIA}}
+          <span class="titulo">Riesgo de oposicion</span>
+          Si el deudor se opone en plazo, el asunto se transforma en el juicio declarativo que corresponda por la cuantia, con la consiguiente necesidad de abogado y procurador y un plazo sensiblemente mayor.
         </div>
         <div class="firma">
-          <div>{{FIRMA_1}}</div>
-          <div>{{FIRMA_2}}</div>
+          <div>Preparado por: Departamento de procesal civil</div>
+          <div>Revisado por: {{LETRADO_RESPONSABLE}}</div>
         </div>
       </section>
 
@@ -286,8 +291,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   </div>
 
   <footer class="pie">
-    <p>{{PIE_FUENTES}}</p>
-    <p>{{PIE_AVISO_LEGAL}}</p>
+    <p>Fuentes: facturas y correspondencia aportadas por el cliente el 18 de septiembre de 2026.</p>
+    <p>Documento de trabajo. No sustituye al asesoramiento de un profesional colegiado.</p>
   </footer>
 
 </main>

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Genera un artefacto con la habilidad `artefacto-visual` desde la aplicación
+# Genera un artefacto con la habilidad `reportes` desde la aplicación
 # y lo audita, todo seguido.
 #
 # Hace falta una gateway que responda a POST /v1/chat/completions: el backend

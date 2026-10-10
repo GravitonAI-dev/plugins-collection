@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Genera los documentos visuales de ejemplo de la skill `documento visual-visual`.
+"""Genera los documentos visuales de ejemplo de la skill `reportes`.
 
 Rellena las tres plantillas de `../assets` con un caso real (reclamacion de
 cantidad) y compone ademas la galeria de graficos. Si encuentra Google Chrome,
@@ -387,7 +387,7 @@ def galeria():
   <p class="borrador"><span><strong>DRAFT</strong> &mdash; Galeria de demostracion de la biblioteca de componentes de la skill. Los datos son ficticios y sirven unicamente para comprobar el renderizado de cada forma grafica.</span></p>
 
   <header>
-    <p class="antetitulo">Skill documento visual-visual | Catalogo visual</p>
+    <p class="antetitulo">Skill reportes | Catalogo visual</p>
     <h1>Las diez formas graficas de la biblioteca</h1>
     <p class="entradilla">Cada tarjeta muestra una forma con datos de ejemplo y la formula exacta con la que se calculan sus coordenadas. Todo es SVG o CSS en linea: ni una sola dependencia externa.</p>
   </header>
@@ -606,7 +606,7 @@ arco = porcentaje / 100 * C ; desplazamiento = -acumulado</p>
   </div>
 
   <footer class="pie">
-    <p>Galeria de demostracion de la skill documento visual-visual. Datos ficticios.</p>
+    <p>Galeria de demostracion de la skill reportes. Datos ficticios.</p>
   </footer>
 
 </main>

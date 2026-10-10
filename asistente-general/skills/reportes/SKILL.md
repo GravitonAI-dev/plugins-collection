@@ -1,10 +1,10 @@
 ---
-name: doc-visual
-title: Documento visual
+name: reportes
+title: Reportes
 i18n:
   en:
-    name: visual-document
-    title: Visual document
+    name: reports
+    title: Reports
     description: >
       Generates self-contained single-file HTML visual documents that the user opens in a
       browser and prints or saves as PDF with one button: one-page visual reports and dossiers,
@@ -147,7 +147,7 @@ Fijados los vectores de clasificacion, evalua la rama de ejecucion. `V2` esta fi
 * Si `V1 = informe_visual` -> Plantilla del sistema: `assets/template-informe-visual.md`. Lectura secuencial con encabezado, indice lateral pegajoso, fila de indicadores, secciones numeradas, tabla, cronologia de hitos, avisos y bloque de firmas. Procede a la Fase 2.
 * Si `V1 = panel_datos` -> Plantilla del sistema: `assets/template-panel-datos.md`. Rejilla de tarjetas con indicadores (uno con minigrafico de tendencia), barras comparativas, anillo de reparto, evolucion con area y banda de umbral, cascada de descomposicion del importe, medidor semicircular y tabla de detalle con totales. Procede a la Fase 2.
 * Si `V1 = herramienta_interactiva` -> Plantilla del sistema: `assets/template-herramienta-interactiva.md`. Panel de entrada con campos, recalculo inmediato, medidor semicircular que se mueve con el resultado, desglose tabular, lista de verificacion con progreso y bloque de supuestos. Procede a la Fase 2.
-* Si `V1 = fuera_de_alcance` -> Detener proceso: no crear documento visual. Explica en el chat que ese entregable corresponde a otra via (la skill vertical del catalogo si es un contrato o un escrito de tramitacion; un archivo de ofimatica si necesita documento de texto, hoja de calculo o presentacion; un desarrollo a medida si requiere servidor o conexion a servicios externos) y ofrece como alternativa el documento visual visual mas proximo a su necesidad.
+* Si `V1 = fuera_de_alcance` -> Detener proceso: no crear documento visual. Explica en el chat que ese entregable corresponde a otra via (la skill vertical del catalogo si es un contrato o un escrito de tramitacion; un archivo de ofimatica si necesita documento de texto, hoja de calculo o presentacion; un desarrollo a medida si requiere servidor o conexion a servicios externos) y ofrece como alternativa el documento visual mas proximo a su necesidad.
 
 ---
 
@@ -155,8 +155,9 @@ Fijados los vectores de clasificacion, evalua la rama de ejecucion. `V2` esta fi
 
 ### 2.1 Verificacion Previa
 1. Consulta `references/criterios-visualizacion-datos.md` para decidir que forma grafica responde a la pregunta del usuario, y `references/anatomia-documento-visual.md` para las reglas invariables del formato.
-2. Si `V3 = busqueda_web`, verifica los datos en fuentes oficiales mediante `web_search` antes de representarlos, y anota la fuente que figurara en el pie del documento visual.
+2. Si `V3 = busqueda_web`, verifica los datos en fuentes oficiales mediante `web_search` antes de representarlos. **Regla de citas (obligatoria):** cada cifra obtenida de internet queda trazada a su fuente &mdash;nombre de la fuente, URL y fecha de consulta&mdash; y el documento visual lleva siempre su bloque de fuentes en el pie con esas referencias. Una cifra sin fuente verificada en la sesion no entra en el documento: queda como `{{VARIABLE}}` o se omite el bloque que la necesitaba.
 3. Si `V3 = documento_del_workspace`, toma el contenido prioritariamente de la seccion `# WORKSPACE ACTIVE DOCUMENTS`.
+4. **Regla de enriquecimiento (obligatoria):** si los datos los aporta el usuario (`V3 = datos_del_chat` o `documento_del_workspace`), pregunta SIEMPRE, antes de crear el documento, si este se construye solo con sus datos o si se enriquece con documentacion buscada en internet. Si el usuario elige enriquecer: las cifras de internet cumplen la regla de citas del punto 2 y quedan diferenciadas de las del usuario (en el propio bloque o en el pie se dice que dato viene de cada origen); nunca se mezclan origenes sin marcarlos.
 
 ### 2.2 Mensaje de Plan de Accion y Formulario de Seleccion de Plantilla
 En un unico turno, expon en el chat:
@@ -211,7 +212,7 @@ Para cada bloque sustantivo: recogida de datos -> **descripcion en texto plano d
 
 #### 4. Supuestos, fuentes y advertencias
 - Bloque de supuestos con las formulas, tipos e hipotesis empleadas en cualquier calculo. Si el documento visual calcula, el usuario debe poder auditar como.
-- Pie con las fuentes efectivamente consultadas (documento aportado, expediente o fuente oficial verificada) y la advertencia legal.
+- Pie con las fuentes efectivamente consultadas (documento aportado, expediente o fuente oficial verificada) y la advertencia legal. Todo dato buscado en internet cita fuente, URL y fecha de consulta (regla de citas de la Fase 2.1); si conviven datos del usuario y datos de internet, el pie deja claro que viene de cada origen.
 - Aviso destacado de riesgo cuando corran plazos de caducidad o prescripcion.
 
 #### 5. Control de calidad final

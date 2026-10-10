@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Control de calidad de un artefacto generado por la skill `artefacto-visual`.
+"""Control de calidad de un artefacto generado por la skill `reportes`.
 
 Comprueba lo que un artefacto debe cumplir siempre y que revisarlo a ojo no
 garantiza: que sea autocontenido, que no traiga codigo peligroso, que no deje

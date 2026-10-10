@@ -432,39 +432,19 @@ Estos elementos **no existen en el ejemplo actual** pero la estructura los conte
 
 **Estado**: no contemplado estructuralmente. Probablemente vivan en `agents/` cuando se implemente, distinguidos por frontmatter (`type: watcher`).
 
-### 9.6 Validación automatizada
-
-**Qué sería**: un script `scripts/validate.py` que verifique:
-- Cada entry de `marketplace.json` tiene un `source` que existe.
-- Cada `plugin.json` tiene una `version` semver válida.
-- Cada skill listada en `plugin.json` tiene un `SKILL.md` en disco.
-- Cada id en `<plugin>/.mcp.json` existe en `mcp_servers.json`.
-- Cada id en `<plugin>/agent_tools.json` existe en `agent_tools.json`.
-
-**Estado**: **no implementado todavía**. La validación hoy es manual (ver §10). La lógica es sencilla y es candidata natural para ser el primer script que se agregue cuando se decida meter `scripts/` al repo.
-
 ---
 
-## 10. Validación manual (lo que se hace hoy)
+## 10. Control de calidad obligatorio
 
-Mientras no exista `validate.py`, la validación cruzada se hace con un script ad-hoc. Resultado de la última corrida sobre este repo:
+Todo cambio en una skill o un plugin pasa por el mismo control de calidad, lo haga el constructor (`plugin-builder.md`) o una persona a mano:
 
-```
-=== ERRORS ===   (none)
-=== WARNINGS === (none)
-=== OK (4 plugins, 26 skills, 83 assets) ===
-  + [derecho-civil] 16 skills validadas, .mcp.json (servers: []), agent_tools sincronizado
-  + [gestoria] 5 skills validadas, .mcp.json (servers: []), agent_tools sincronizado
-  + [gestion-plantillas] 1 skill validada, .mcp.json (servers: []), agent_tools sincronizado
-  + [asistente-general] 4 skills validadas, .mcp.json (servers: []), agent_tools sincronizado
-  + mcp_servers.json -> servers: [] (sin manejador MCP activo en el orquestador)
-  + agent_tools.json -> 9 tools estándar verificados
-```
+1. `scripts/control_calidad.sh` en verde. Ejecuta `scripts/validar_skills.py` (formato y datos obligatorios de skills y plugins) y `scripts/comprobar_version.py` (todo plugin modificado sube su version respecto a `origin/develop`).
+2. `/simplify` sobre el diff: que la skill no repita directivas del `CLAUDE.md` global ni del plugin.
+3. `/code-review` sobre el diff: contradicciones con el `CLAUDE.md` global, referencias mal copiadas, ramas incoherentes.
+4. Refrescar con `git fetch` e integrar `origin/develop`. Si trae cambios, repetir desde el paso 1.
+5. Subir a una rama y abrir PR a `develop`.
 
-Cuando agregues un plugin o skill, el flujo mínimo de validación es:
-1. `python3 -c "import json; json.load(open('marketplace.json'))"` y análogos.
-2. Confirmar visualmente que todo id referenciado en un plugin existe en su catálogo global.
-3. Si algo no cuadra, **no commitear** hasta arreglar.
+El control se impone en dos sitios. El hook `scripts/hooks/pre-push` corta el push en local; se activa una vez por clon con `git config core.hooksPath scripts/hooks`. La accion `.github/workflows/control-calidad.yml` lo ejecuta en cada PR a `develop` y `main`, y la proteccion de rama impide fusionar en rojo. Las lineas `FALLO` bloquean; las `AVISO` solo informan.
 
 ---
 
@@ -524,6 +504,7 @@ Regla de oro: **definir una vez, referenciar por id**.
 6. **Actualizar** el array `skills` en `mi-plugin/.claude-plugin/plugin.json`.
 7. **Documentar** la skill en `mi-plugin/README.md` con: nombre, descripción de una línea, ejemplo de invocación, qué no hace.
 8. **Validar** que el nombre de la skill es kebab-case y único dentro del plugin.
+9. **Pasar el control de calidad** de §10 y subir la versión del plugin (§15). Sin eso el PR no se puede fusionar.
 
 ---
 
