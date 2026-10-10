@@ -1,5 +1,19 @@
 ---
 name: monitorio
+title: Proceso monitorio
+i18n:
+  en:
+    name: order-for-payment
+    title: Order for payment
+    description: >
+      Generates the initial petition for order-for-payment proceedings (proceso monitorio) to
+      claim a liquid, determined, due and payable monetary debt of any amount, under Articles
+      812 to 818 of the **Civil Procedure Act (Law 1/2000, LEC)**, which governs this fast-track
+      procedure for collecting documented debts, in the consolidated version verified in the
+      BOE. It optionally also generates the prior demand letter by burofax (MASC attempt) and
+      adapts the document to the nature of the parties and the type of debt (rent or other). Do
+      not use for non-monetary, unliquidated or disputed debts, or for claims against public
+      administrations.
 description: >
   Genera la peticion inicial de proceso monitorio para reclamar una deuda dineraria liquida,
   determinada, vencida y exigible de cualquier cuantia, conforme a los articulos 812 a 818 de la

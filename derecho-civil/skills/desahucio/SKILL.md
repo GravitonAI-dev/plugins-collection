@@ -1,5 +1,23 @@
 ---
 name: desahucio
+title: Desahucio
+i18n:
+  en:
+    name: eviction
+    title: Eviction
+    description: >
+      Generates the right document to recover possession of urban property, choosing the correct
+      route under the **Civil Procedure Act (Law 1/2000, LEC)**, which governs the summary
+      eviction procedure and its admission requirements, verified in the BOE: eviction claim for
+      non-payment of rent (optionally joined with the claim for rent due, Art. 437.4.3 LEC),
+      eviction claim on expiry of the contractual or legal term (Art. 250.1.1 LEC), eviction
+      claim for occupation without title after consent (precario, Art. 250.1.2 LEC) and
+      out-of-court agreement waiving rent in exchange for handing over the keys (Art. 1809 CC,
+      approvable under Art. 19 LEC). It applies termination for non-payment under Art. 27 LAU,
+      the admissibility requirements of Arts. 439.3 and 439.6 LEC (Law 12/2023), the cure regime
+      of Art. 22.4 LEC and the MASC requirement of Organic Law 1/2025. Do not use for recovery
+      of housing from occupation without any prior title (Art. 250.1.4 LEC), rural evictions,
+      mortgage foreclosure, or drafting the defendant's opposition.
 description: >
   Genera el documento adecuado para recuperar la posesion de una finca urbana, eligiendo la via
   correcta conforme a la **Ley 1/2000 de Enjuiciamiento Civil (LEC)**, que regula el juicio verbal de desahucio y sus requisitos de admision, verificada en el BOE: demanda de juicio verbal de desahucio por falta

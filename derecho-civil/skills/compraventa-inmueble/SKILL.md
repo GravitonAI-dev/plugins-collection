@@ -1,5 +1,22 @@
 ---
 name: compraventa-inmueble
+title: Compraventa de inmueble
+i18n:
+  en:
+    name: property-sale
+    title: Property sale
+    description: >
+      Generates the right document for a home sale between private individuals under the **Civil
+      Code**, which governs the sale contract, earnest money and the consequences of breach, in
+      the consolidated version verified in the BOE. It covers three documents: the earnest money
+      (arras) contract prior to the sale (**Art. 1454 CC**), the full private home sale contract
+      (**Arts. 1445 et seq. CC**) and the out-of-court demand for performance when a party
+      breaches a signed contract (**Arts. 1124 and 1504 CC**). It expressly deals with the type
+      of earnest money and its consequence, encumbrances on the property, allocation of taxes
+      and costs, the mortgage financing condition and the tenant's pre-emption rights (**Art. 25
+      of Law 29/1994**). It does not replace the notarial deed or land registration, performs no
+      title due diligence or valuation, and does not cover sales of business premises, off-plan
+      new builds with staged payments, or inheritances or gifts of real estate.
 description: >
   Genera el documento que corresponda en una compraventa de vivienda entre particulares conforme al
   **Código Civil**, que regula el contrato de compraventa, las arras y las consecuencias del

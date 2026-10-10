@@ -1,5 +1,25 @@
 ---
 name: prevencion-blanqueo
+title: Prevención del blanqueo de capitales
+i18n:
+  en:
+    name: anti-money-laundering
+    title: Anti-money laundering
+    description: >
+      Generates the compliance documentation the firm must keep when acting as an obliged entity
+      under **Law 10/2010 on the prevention of money laundering and terrorist financing**, which
+      sets the identification and due diligence obligations of obliged entities: formal client
+      identification form, declaration of beneficial ownership, due diligence checklist per
+      file, and internal special examination report on a transaction. It applies Law 10/2010 and
+      its implementing regulation, in their consolidated versions verified in the BOE. Its first
+      function is delimitation: it determines whether the specific engagement falls within the
+      professional's scope of obligation and whether the legal exemption for information
+      received when determining the client's legal position or in their defence or
+      representation applies. It classifies the engagement and the risk level, sets out the
+      required measures, creates the base document and edits it section by section. Do not use
+      to generate the suspicious transaction report to the competent authority, which is
+      formalised on official forms by the obliged entity's representative and requires
+      specialist advice: on indications, this skill stops and refers.
 description: >
   Genera la documentación de cumplimiento que el despacho debe conservar cuando actúa como sujeto
   obligado por la **Ley 10/2010 de prevención del blanqueo de capitales y de la financiación del

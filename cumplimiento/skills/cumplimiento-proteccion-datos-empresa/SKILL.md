@@ -1,5 +1,25 @@
 ---
 name: cumplimiento-proteccion-datos-empresa
+title: Protección de datos de empresa
+i18n:
+  en:
+    name: corporate-data-protection
+    title: Corporate data protection
+    description: >
+      Prepares the data protection documentation a client company must keep under the
+      **Regulation (EU) 2016/679** (GDPR), which imposes the record of processing activities,
+      the processor agreement and breach notification, and **Organic Law 3/2018** on personal
+      data protection and digital rights, which implements it in Spain and sets when a data
+      protection officer is mandatory. It generates three documents: the record of processing
+      activities with its lawful basis and retention periods, the data processor agreement with
+      the minimum required content, and the security breach notification to the Spanish Data
+      Protection Agency with the communication to data subjects. It determines the lawful basis
+      of each processing, distinguishes controller from processor, computes the seventy-two-hour
+      breach notification and one-month data subject request deadlines, and warns when a DPO or
+      an impact assessment becomes mandatory. Do not use for defence in sanctioning proceedings
+      already opened by the supervisory authority, for international transfers requiring
+      standard contractual clauses or binding corporate rules, or for the law firm's own data
+      protection package, which belongs to the firm data protection skill.
 description: >
   Prepara la documentacion de proteccion de datos que debe tener una empresa cliente conforme al
   **Reglamento (UE) 2016/679** general de proteccion de datos, que impone el registro de actividades de

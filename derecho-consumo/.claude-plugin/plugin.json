@@ -1,6 +1,13 @@
 {
   "name": "derecho-consumo",
   "displayName": "Derecho de Consumo",
+  "i18n": {
+    "en": {
+      "name": "consumer-law",
+      "displayName": "Consumer Law",
+      "description": "Generation of consumer complaint documents in Spain, always in the consolidated version verified in the BOE and checked against the regional consumer regulations that set the official form and the competent body: prior complaint to the company, official complaint form, filing before the regional or municipal consumer authority and request for consumer arbitration under the Regulation approved by Royal Decree 713/2024. It also covers the three highest-volume sectors with their own regime: air travel under Regulation (EC) 261/2004, utilities and telecommunications with escalation to the sector regulator, and withdrawal from distance purchases. It refers the user to court proceedings when appropriate."
+    }
+  },
   "version": "0.2.0",
   "description": "Generación de documentos de reclamación de consumo en España, siempre en su versión consolidada vigente verificada en el BOE y contrastada con la normativa autonómica de consumo, que fija el modelo de hoja y el organismo competente: reclamación previa dirigida a la empresa, hoja oficial de quejas y reclamaciones, escrito ante la administración autonómica o municipal de consumo y solicitud de arbitraje conforme al Reglamento aprobado por Real Decreto 713/2024. Cubre además las reclamaciones de los tres sectores de mayor volumen con régimen propio: transporte aéreo conforme al Reglamento (CE) 261/2004, suministros y telecomunicaciones con su escalado al organismo sectorial, y desistimiento de compras a distancia. Deriva a la vía judicial cuando esta procede.",
   "author": {

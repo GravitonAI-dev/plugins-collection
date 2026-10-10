@@ -1,5 +1,26 @@
 ---
 name: gestoria-recurso-multa-trafico
+title: Recurso de multa de tráfico
+i18n:
+  en:
+    name: traffic-fine-appeal
+    title: Traffic fine appeal
+    description: >
+      Prepares the defence against a traffic penalty in Spain under **Royal Legislative Decree
+      6/2015**, the consolidated Road Traffic, Motor Vehicle and Road Safety Act, which governs
+      the sanctioning procedure, driver identification and the points licence, and **Law
+      39/2015** on Common Administrative Procedure, which sets the rules on notification,
+      deadlines and appeals. It generates three documents: the statement identifying the
+      responsible driver when the notice is addressed to the vehicle owner, the statement of
+      allegations within the sanctioning procedure, and the reconsideration appeal against the
+      penalty decision already issued. It computes the twenty-calendar-day deadline to submit
+      allegations and one month to appeal, explains the effect of the fifty-percent reduced
+      payment (which ends the procedure, bars allegations and does not avoid the loss of
+      points), reviews notification defects and the validity of electronic notification, and
+      checks the limitation of the offence and expiry of the procedure. Do not use for the
+      judicial review appeal before the courts, for criminal road safety offences (driving
+      without a licence, criminal drink-driving, reckless driving), for penalties from
+      authorities other than traffic, or for claiming damages from an accident.
 description: >
   Prepara la defensa frente a una sancion de trafico en Espana conforme al **Real Decreto Legislativo
   6/2015**, texto refundido de la Ley sobre Trafico, Circulacion de Vehiculos a Motor y Seguridad

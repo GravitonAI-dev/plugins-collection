@@ -1,5 +1,26 @@
 ---
 name: modificacion-condiciones
+title: Modificación de condiciones de trabajo
+i18n:
+  en:
+    name: modification-of-working-conditions
+    title: Modification of working conditions
+    description: >
+      Generates the documents for unilateral changes to working conditions by the employer and
+      the employee's responses: notice of substantial modification of working conditions
+      (Article 41 of the consolidated Workers' Statute), notice of transfer or posting involving
+      a change of residence (Article 40), notice of functional mobility (Article 39) and the
+      employee's letter opting for compensated termination or announcing a challenge. It applies
+      the **Workers' Statute approved by Royal Legislative Decree 2/2015**, the basic rule
+      governing functional and geographic mobility and substantial modification of conditions,
+      and Articles 138 et seq. of **Law 36/2011 on Labour Jurisdiction**, which governs the
+      judicial challenge of those measures, in their consolidated versions verified in the BOE,
+      and checks the applicable collective agreement, which may improve notice periods and
+      compensation. It classifies the measure and its individual or collective scope, computes
+      notice and expiry periods, creates the base document and edits it section by section. Do
+      not use for collective modifications exceeding the thresholds of Article 41.2, which
+      require a consultation period, for non-application of the collective agreement under
+      Article 82.3, or for suspension or reduction of working hours under Article 47.
 description: >
   Genera los documentos de alteración unilateral de las condiciones de trabajo por decisión
   empresarial y las respuestas del trabajador a esa alteración: comunicación de modificación

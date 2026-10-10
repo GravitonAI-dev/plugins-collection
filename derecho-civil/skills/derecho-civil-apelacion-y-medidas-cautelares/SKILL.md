@@ -1,5 +1,23 @@
 ---
 name: derecho-civil-apelacion-y-medidas-cautelares
+title: Apelación y medidas cautelares
+i18n:
+  en:
+    name: appeal-and-interim-measures
+    title: Appeal and interim measures
+    description: >
+      Generates the second-instance and interim relief filings of civil proceedings under the
+      **Civil Procedure Act (Law 1/2000)**, which governs the appeal and its opposition (Arts.
+      455 to 465) and interim measures with their requirements and security (Arts. 721 to 747),
+      and the **Civil Code** as to the substantive law invoked. It generates three documents:
+      the appeal against the first-instance judgment, the opposition to the opposing party's
+      appeal with any cross-appeal, and the application for interim measures with the offer of
+      security. It computes the twenty-working-day deadline to appeal and ten to oppose,
+      distinguishes the three useful grounds of appeal, warns of the appeal deposit and
+      provisional enforcement, and in the interim track establishes prima facie case, risk of
+      delay and proportionality. Do not use for cassation or the extraordinary appeal for
+      procedural infringement, for appeals in the labour, criminal or administrative
+      jurisdictions, or for enforcement of a final judgment.
 description: >
   Genera los escritos de segunda instancia y de tutela cautelar del proceso civil conforme a la **Ley
   1/2000 de Enjuiciamiento Civil**, que regula el recurso de apelacion y su oposicion (Arts. 455 a

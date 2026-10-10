@@ -1,5 +1,23 @@
 ---
 name: medidas-apoyo-discapacidad
+title: Medidas de apoyo a personas con discapacidad
+i18n:
+  en:
+    name: disability-support-measures
+    title: Disability support measures
+    description: >
+      Generates the right document to provide support to an adult with a disability under the
+      system of **Law 8/2021**, which replaced judicial incapacitation with a system of support
+      for persons with disabilities, verified in the BOE: draft deed of voluntary support
+      measures and preventive power of attorney, including self-curatorship (Arts. 255 to 262
+      and 271 to 274 CC); application for judicial authorisation to the de facto guardian for a
+      specific act requiring representation (Art. 264 CC, through the voluntary jurisdiction
+      procedure of Arts. 61 to 63 LJV); and application for judicial provision of support
+      measures with appointment of a curator (Art. 269 CC, through the procedure of Art. 42 bis
+      a) LJV or the contested proceedings of Arts. 756 to 761 LEC). Curatorship is SUBSIDIARY:
+      the skill applies the Art. 269 filter before routing to it. Do not use for minors, for
+      involuntary commitment (Art. 763 LEC), for incapacitation or modification of capacity
+      (abolished in 2021), or for setting up a protected estate under Law 41/2003.
 description: >
   Genera el documento adecuado para proveer de apoyo a una persona mayor de edad con discapacidad
   conforme al sistema de la **Ley 8/2021**, que sustituyo la incapacitacion judicial por un sistema de apoyos a la persona con discapacidad, verificado en el BOE: minuta de escritura de medidas de apoyo

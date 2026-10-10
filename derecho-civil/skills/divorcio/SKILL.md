@@ -1,5 +1,22 @@
 ---
 name: divorcio
+title: Divorcio y separación
+i18n:
+  en:
+    name: divorce
+    title: Divorce and separation
+    description: >
+      Generates the documents for separation or divorce in Spain through its three routes: (1)
+      judicial MUTUAL AGREEMENT, with the regulatory agreement under Article 90 of the **Civil
+      Code** and, optionally, the joint petition under Article 777 of the **Civil Procedure Act
+      (Law 1/2000, LEC)**; (2) MUTUAL AGREEMENT before a notary or court clerk, with the
+      regulatory agreement for execution as a public deed (Arts. 82 and 87 CC and Art. 54
+      Notarial Act; only without minor or dependent children); and (3) CONTESTED, with the
+      petition under Article 770 LEC, the definitive measures of Articles 91 to 97 of the Civil
+      Code and proof of the MASC attempt (Organic Law 1/2025). It verifies the version in force
+      in the BOE before drafting. Do not use for marriage annulment, modification of measures
+      already agreed, enforcement of breached agreements, unmarried couples, or where there are
+      indications of gender or domestic violence (in which case it stops and escalates).
 description: >
   Genera los documentos de la separacion o el divorcio en Espana, en sus tres vias: (1) MUTUO ACUERDO
   judicial — convenio regulador conforme al articulo 90 del **Codigo Civil**, que regula las causas y los efectos de la separacion y el divorcio, y, si se desea, demanda

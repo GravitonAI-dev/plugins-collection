@@ -1,5 +1,25 @@
 ---
 name: pareja-de-hecho
+title: Pareja de hecho
+i18n:
+  en:
+    name: unmarried-couple
+    title: Unmarried couple
+    description: >
+      Generates the documentation of an unmarried couple (pareja de hecho) at its three stages:
+      (1) FORMATION, a checklist for registration in the regional register of unmarried couples,
+      with the requirements, documents and procedure verified against the specific region's
+      regulations; (2) COHABITATION, a cohabitation agreement under Article 1255 of the **Civil
+      Code**, governing each partner's assets, jointly acquired assets and unequal contributions
+      (Arts. 392 to 406 CC), the home, contribution to expenses, debts and, if expressly agreed,
+      financial compensation; and (3) BREAKUP, an agreement terminating cohabitation and
+      liquidating joint property, with cancellation of the registration, the fate of the home
+      and mortgage, debts and any agreed compensation. There is no national unmarried couples
+      act or register, so the skill always asks for the region and verifies its law and register
+      with a web search. Do not use for custody, maintenance or visiting arrangements for common
+      children (measures for children of unmarried parents skill), for marriage, separation or
+      divorce, for immigration or family reunification, or to resolve survivor's pension
+      entitlement, on which it only informs.
 description: >
   Genera la documentacion propia de la pareja de hecho en sus tres momentos: (1) CONSTITUCION —
   checklist de inscripcion en el registro autonomico de parejas de hecho, con los requisitos, la

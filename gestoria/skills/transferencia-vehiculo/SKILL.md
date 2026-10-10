@@ -1,5 +1,19 @@
 ---
 name: transferencia-vehiculo
+title: Transferencia de vehículo
+i18n:
+  en:
+    name: vehicle-transfer
+    title: Vehicle transfer
+    description: >
+      Prepares the administrative procedure for change of ownership (transfer) of a used vehicle
+      before the DGT and, where applicable, the seller's notice of sale, under the **General
+      Vehicle Regulation (Royal Decree 2822/1998)**, which governs vehicle registration and
+      changes of ownership, in the consolidated text verified in the BOE, and the DGT fee
+      regulations. It generates the sale contract, the data sheet for the DGT application, the
+      notice of sale and the checklist of documents, fees and regional transfer tax settlement
+      (form 620/621). Do not use for new vehicles, initial registrations, final deregistration
+      for scrapping, licence duplicates, or transfers in professional trade-in stock.
 description: >
   Prepara el tramite administrativo de cambio de titularidad (transferencia) de un vehiculo usado ante
   la DGT y, en su caso, la notificacion de venta por el vendedor, conforme al **Reglamento General de Vehiculos (RD 2822/1998)**, que regula la matriculacion y los cambios de titularidad de los vehiculos, en su texto consolidado verificado en el BOE y a la normativa de tasas de la DGT.

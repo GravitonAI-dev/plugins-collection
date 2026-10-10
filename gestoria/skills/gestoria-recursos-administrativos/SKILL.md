@@ -1,5 +1,26 @@
 ---
 name: gestoria-recursos-administrativos
+title: Recursos administrativos
+i18n:
+  en:
+    name: administrative-appeals
+    title: Administrative appeals
+    description: >
+      Prepares filings before any Spanish public administration under **Law 39/2015** on Common
+      Administrative Procedure, which governs hierarchical and reconsideration appeals,
+      administrative silence and the computation of deadlines, **Law 40/2015** on the Legal
+      Regime of the Public Sector, which sets the requirements for state liability, and **Law
+      19/2013** on transparency, which recognises the right of access to public information. It
+      generates three documents: the administrative appeal (hierarchical when the act does not
+      exhaust the administrative route and reconsideration when it does), the state liability
+      claim for damage caused by the operation of public services, and the request for access to
+      public information with its subsequent complaint. It determines which appeal applies,
+      computes the one-month and three-month deadlines and the effects of silence, establishes
+      the four requirements of state liability and the one-year deadline from the damage, and
+      warns of the enforceability of the act and the need to expressly request suspension. Do
+      not use for the judicial review appeal before the courts, for traffic penalties (traffic
+      fine appeal skill), for tax procedures (economic-administrative claim), or for immigration
+      matters (immigration plugin).
 description: >
   Prepara los escritos frente a cualquier Administracion espanola conforme a la **Ley 39/2015** del
   Procedimiento Administrativo Comun, que regula los recursos de alzada y de reposicion, el silencio

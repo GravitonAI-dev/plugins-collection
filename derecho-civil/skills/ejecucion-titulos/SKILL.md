@@ -1,5 +1,22 @@
 ---
 name: ejecucion-titulos
+title: Ejecución de títulos
+i18n:
+  en:
+    name: enforcement-of-titles
+    title: Enforcement of titles
+    description: >
+      Generates the right filing to enforce a monetary enforceable title under Book III of the
+      **Civil Procedure Act (Law 1/2000, LEC)**, which governs enforcement of judgments and
+      other enforceable titles, verified in the BOE: enforcement of a judicial title (final
+      judgment, decree or order, including the decree closing an unopposed order-for-payment
+      procedure, Art. 517.2.1 and 9 LEC), enforcement of a non-judicial title (notarial deed,
+      arbitral award or mediation or MASC agreement raised to public deed, Art. 517.2.2 and 4
+      LEC, with the 300-euro threshold of Art. 520), enforcement of family maintenance and
+      measures under Art. 776 LEC, and subsequent request for attachment of designated assets
+      and judicial asset investigation (Arts. 589, 590 and 592 LEC). Do not use for mortgage
+      foreclosure (Art. 681 LEC), provisional enforcement of non-final decisions, the debtor's
+      opposition, or when the debtor is in insolvency proceedings.
 description: >
   Genera el escrito adecuado para ejecutar forzosamente un titulo ejecutivo dinerario conforme al
   Libro III de la **Ley 1/2000 de Enjuiciamiento Civil (LEC)**, que regula la ejecucion forzosa de sentencias y demas titulos ejecutivos, verificado en el BOE: demanda de ejecucion de titulo judicial (sentencia,

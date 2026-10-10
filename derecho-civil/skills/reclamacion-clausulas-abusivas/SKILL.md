@@ -1,5 +1,22 @@
 ---
 name: reclamacion-clausulas-abusivas
+title: Reclamación de cláusulas abusivas
+i18n:
+  en:
+    name: unfair-terms-claim
+    title: Unfair terms claim
+    description: >
+      Generates filings to claim the nullity of unfair terms in consumer contracts and
+      restitution of amounts unduly charged, under the **Consolidated General Act for the
+      Protection of Consumers and Users (TRLGDCU, Royal Legislative Decree 1/2007)**, which
+      defines basic consumer rights and the control of unfair terms, **Law 7/1998 on General
+      Contract Terms (LCGC)** and **Directive 93/13/EEC**, in the consolidated version verified
+      in the BOE. At the user's choice it produces an OUT-OF-COURT CLAIM to the bank or company,
+      or a CLAIM for nullity with restitution of amounts and interest. It covers mortgage
+      arrangement costs, floor clauses, IRPH, arrangement fees, default interest, revolving
+      cards and other terms not individually negotiated. Do not use for contracts between
+      businesses with no consumer, for individually negotiated terms, or for claims outside
+      consumer law.
 description: >
   Genera escritos para reclamar la nulidad de clausulas abusivas en contratos con consumidores y la
   restitucion de las cantidades indebidamente cobradas, conforme al **Texto Refundido de la Ley General

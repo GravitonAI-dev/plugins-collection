@@ -1,5 +1,25 @@
 ---
 name: medidas-hijos-no-matrimoniales
+title: Medidas sobre hijos no matrimoniales
+i18n:
+  en:
+    name: measures-for-children-of-unmarried-parents
+    title: Measures for children of unmarried parents
+    description: >
+      Generates the documents to SET FOR THE FIRST TIME the measures concerning the minor
+      children of parents who are not and have never been married to each other (registered and
+      unregistered couples and parents who never lived together), in the proceedings of Article
+      748.4 of the **Civil Procedure Act (LEC)**, which governs family proceedings on minors,
+      through two routes: (1) WITH AGREEMENT, a family relations agreement governing parental
+      authority (Arts. 154 and 156 of the **Civil Code**), custody (Art. 92 CC), contact and
+      visiting arrangements (Art. 94 CC), child maintenance (Arts. 93, 142, 146 and 148 CC) and
+      use of the home, for court approval under Article 777 LEC; and (2) WITHOUT AGREEMENT, a
+      petition for parental measures under the summary procedure of Article 770 LEC, with proof
+      of the MASC attempt and mandatory intervention of the Public Prosecutor. It verifies the
+      version in force in the BOE before drafting. Do not use between spouses (that is divorce
+      or separation), to modify measures already set, for determination or challenge of
+      parentage, for claiming unpaid maintenance or international relocation of the child, and
+      it stops and escalates where there are indications of gender or domestic violence.
 description: >
   Genera los documentos para FIJAR POR PRIMERA VEZ las medidas relativas a los hijos menores comunes
   de progenitores que no estan ni han estado casados entre si (parejas de hecho registradas, parejas

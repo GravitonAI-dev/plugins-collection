@@ -1,5 +1,24 @@
 ---
 name: derecho-mercantil-juntas-y-acuerdos-sociales
+title: Juntas y acuerdos sociales
+i18n:
+  en:
+    name: general-meetings-and-resolutions
+    title: General meetings and corporate resolutions
+    description: >
+      Generates the documents of the ordinary corporate life of a Spanish limited company under
+      **Royal Legislative Decree 1/2010**, the consolidated Capital Companies Act (LSC), which
+      governs the general meeting, its notice, majorities and minutes, and **Royal Decree
+      1784/1996**, the Commercial Registry Regulation, which sets the requirements for
+      certification and notarisation of resolutions. It generates three documents: the notice or
+      communication calling the general meeting with its agenda, the minutes of the meeting
+      (universal or duly called) with the resolutions adopted and their majorities, and the
+      certification of corporate resolutions issued by the management body for notarisation or
+      registration. It computes and communicates notice periods and the deadlines for approving
+      and filing annual accounts, applies the reinforced majorities of Arts. 199 and 201 LSC and
+      warns of conflicts of interest under Art. 190 LSC. Do not use for challenging corporate
+      resolutions or liability actions against directors, for listed public companies, or for
+      structural modifications such as mergers or spin-offs.
 description: >
   Genera los documentos de la vida societaria ordinaria de una sociedad limitada espanola conforme al
   **Real Decreto Legislativo 1/2010**, texto refundido de la Ley de Sociedades de Capital (LSC), que

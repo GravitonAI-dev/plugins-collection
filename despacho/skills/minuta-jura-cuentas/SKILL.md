@@ -1,5 +1,23 @@
 ---
 name: minuta-jura-cuentas
+title: Minuta y jura de cuentas
+i18n:
+  en:
+    name: fee-note-and-enforcement
+    title: Fee note and fee enforcement
+    description: >
+      Generates the documents for billing and claiming professional fees: itemised fee note,
+      prior payment demand to the client, application for fee enforcement (jura de cuentas)
+      under Article 35 of the **Civil Procedure Act (Law 1/2000)**, which governs the procedure
+      for collecting fees from a court matter, and submissions against the client's challenge of
+      the fee note as undue or excessive. It applies the Civil Procedure Act, the **General
+      Statute of the Spanish Legal Profession approved by Royal Decree 135/2021** and **Law
+      15/2007 on Defence of Competition** as to the use of indicative fee criteria, in their
+      consolidated versions verified in the BOE, and checks the bar association's ethical rules
+      and indicative criteria. Its first function is control: it checks whether there is a
+      signed engagement letter and what it says, whether the fees accrued in a court matter (the
+      only case where fee enforcement is available) and whether the client is a consumer. Do not
+      use for agreeing fees, which belongs to the engagement letter skill.
 description: >
   Genera los documentos de facturación y reclamación de honorarios profesionales: minuta detallada de
   honorarios, requerimiento previo de pago al cliente, solicitud de jura de cuentas del artículo 35 de

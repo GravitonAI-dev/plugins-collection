@@ -1,5 +1,24 @@
 ---
 name: alta-baja-seguridad-social
+title: Altas y bajas en la Seguridad Social
+i18n:
+  en:
+    name: social-security-registration
+    title: Social Security registration
+    description: >
+      Prepares Social Security (General Scheme) registrations and deregistrations for employers
+      and employees in Spain: (1) initial affiliation and Social Security number (NUSS) with
+      form TA.1; (2) company registration and opening of the Contribution Account Code (CCC),
+      and its variations or closure, with form TA.6; (3) registration and deregistration of
+      employees in the General Scheme by the employer through the RED System or Import@ss; (4)
+      registration and deregistration of domestic workers (Special System of the General
+      Scheme), under the **consolidated General Social Security Act (LGSS, Royal Legislative
+      Decree 8/2015)**, which governs affiliation, registration and deregistration of workers
+      and companies, and the **General Regulation on registration, affiliation, registrations
+      and deregistrations (Royal Decree 84/1996)**, in the consolidated version verified in the
+      BOE. Do not use for self-employed registration in the RETA (self-employed registration
+      skill), for the final calculation of contributions, regularisation files, Labour
+      Inspectorate reports or appeals before the Social Security Treasury.
 description: >
   Prepara altas y bajas en la Seguridad Social (Regimen General) que corresponden al empleador y al
   trabajador por cuenta ajena en Espana: (1) afiliacion inicial y numero de la Seguridad Social (NUSS)

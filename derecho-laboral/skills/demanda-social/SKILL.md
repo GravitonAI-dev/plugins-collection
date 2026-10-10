@@ -1,5 +1,24 @@
 ---
 name: demanda-social
+title: Demanda ante el Juzgado de lo Social
+i18n:
+  en:
+    name: labour-claim
+    title: Labour court claim
+    description: >
+      Generates the claim before the Labour Court in the most common procedural forms: dismissal
+      seeking a finding of unfairness or nullity, claim for amounts, challenge of a sanction,
+      geographic mobility and substantial modification of working conditions under Article 138,
+      and protection of fundamental rights and public freedoms. It applies **Law 36/2011 on
+      Labour Jurisdiction**, which governs proceedings before the labour courts and the
+      requirements of the claim, and the **consolidated Workers' Statute approved by Royal
+      Legislative Decree 2/2015**, in their consolidated versions verified in the BOE. Before
+      drafting it checks subject-matter and territorial jurisdiction, representation, exhaustion
+      of the prior step and the remaining expiry or limitation period, and builds the claim with
+      the requirements of Article 80 and, in dismissal, those of Article 104. Do not use for
+      collective proceedings, collective disputes, challenges to collective agreements,
+      electoral matters, collective redundancies or Social Security benefits, which have their
+      own procedures.
 description: >
   Genera la demanda ante el Juzgado de lo Social en las modalidades procesales de mayor uso: despido
   con pretensión de improcedencia o de nulidad, reclamación de cantidad, impugnación de sanción,

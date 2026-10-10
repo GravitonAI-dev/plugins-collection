@@ -1,6 +1,13 @@
 {
   "name": "gestoria",
   "displayName": "Gestoria",
+  "i18n": {
+    "en": {
+      "name": "administrative-agency",
+      "displayName": "Administrative Agency",
+      "description": "Generation of documents and applications for administrative procedures handled by a Spanish gestoría (traffic and DGT, self-employed registration and deregistration, Social Security registrations, inheritance tax, taxes on the transfer of real estate and defence against traffic fines), with verification of the regulations in force in the BOE, document checklist and competent filing body."
+    }
+  },
   "version": "0.4.0",
   "description": "Generacion de documentos y solicitudes para tramites administrativos de gestoria en Espana (trafico y DGT, alta y baja de autonomo, altas y bajas en la Seguridad Social, impuesto de sucesiones, impuestos de la transmision de un inmueble y defensa frente a sanciones de trafico), con verificacion de la normativa vigente en el BOE, checklist de documentos y organismo de presentacion. Los tramites de extranjeria y nacionalidad se han trasladado al plugin `extranjeria`. Salida DRAFT en markdown para revision profesional. Incorpora ademas los recursos administrativos generales (alzada y reposicion), la responsabilidad patrimonial y el acceso a la informacion publica frente a cualquier Administracion.",
   "author": {

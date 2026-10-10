@@ -1,5 +1,25 @@
 ---
 name: responsabilidad-civil
+title: Responsabilidad civil
+i18n:
+  en:
+    name: civil-liability
+    title: Civil liability
+    description: >
+      Generates the right filing to claim compensation for damage suffered by an injured party
+      under the **Civil Code**, which governs the obligation to repair damage caused by breach
+      or fault (Arts. 1902 et seq.), and the **Consolidated Act on civil liability and insurance
+      in motor vehicle traffic (TRLRCSCVM, Royal Legislative Decree 8/2004)**, verified in the
+      BOE: out-of-court damages claim (which interrupts limitation under Art. 1973 CC, opens the
+      MASC negotiation and, in traffic cases, constitutes the prior claim to the insurer under
+      Art. 7.1 TRLRCSCVM), contractual (Arts. 1101 and 1103 CC) or non-contractual (Arts. 1902,
+      1903, 1907 and 1908 CC) liability claim with direct action against the insurer (Art. 76
+      LCS), and reply accepting or rejecting an insurer's offer or reasoned response. It covers
+      motor vehicle accidents, personal mobility vehicle accidents (subject to compulsory
+      insurance since 2 January 2026), falls on premises, construction defects (Arts. 17 and 18
+      LOE, Art. 1591 CC) and professional negligence, with a BLOCKING limitation-period filter
+      before drafting. Do not use for civil liability arising from a crime, for state liability
+      of the public administration, or for workplace injuries.
 description: >
   Genera el escrito adecuado para reclamar la indemnizacion de los danos y perjuicios sufridos por un
   perjudicado, conforme al **Codigo Civil**, que regula la obligacion de reparar el dano causado por incumplimiento o por culpa, (Arts. 1902 y ss.) y al **Texto Refundido de la Ley sobre responsabilidad civil y seguro en la circulacion de vehiculos a motor (TRLRCSCVM, Real Decreto Legislativo 8/2004)**, que regula la responsabilidad y el seguro obligatorio en los accidentes de circulacion, verificados en el BOE: reclamacion extrajudicial de danos (que interrumpe

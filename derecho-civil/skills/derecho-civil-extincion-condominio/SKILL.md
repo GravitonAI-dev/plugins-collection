@@ -1,5 +1,24 @@
 ---
 name: derecho-civil-extincion-condominio
+title: Extinción de condominio
+i18n:
+  en:
+    name: dissolution-of-co-ownership
+    title: Dissolution of co-ownership
+    description: >
+      Generates the documents to dissolve co-ownership of a property under the **Civil Code**,
+      which governs joint ownership and the right of any co-owner to request division of the
+      common property at any time (Arts. 392 to 406), and the **Civil Procedure Act (Law
+      1/2000)**, which sets the judicial route when there is no agreement. It generates three
+      documents: the prior demand to the other co-owners with an allocation and valuation
+      proposal, the draft deed of dissolution of co-ownership for the notary with its cash
+      compensation and allocation of costs, and the claim for division of common property when
+      agreement proves impossible. It handles the most frequent case, the unmarried couple who
+      bought in equal shares, with subrogation or cancellation of the outstanding mortgage,
+      indivisibility of the property, valuation and compensation, settlement of costs borne by
+      one party and the more favourable taxation of dissolution versus sale. Do not use for
+      liquidation of the matrimonial property regime, for partition of an inheritance among
+      several heirs, or for division of business assets.
 description: >
   Genera los documentos para deshacer una copropiedad sobre un inmueble conforme al **Codigo Civil**,
   que regula la comunidad de bienes y el derecho de todo comunero a pedir en cualquier momento la

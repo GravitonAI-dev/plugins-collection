@@ -1,5 +1,26 @@
 ---
 name: derecho-consumo-reclamacion-sectorial
+title: Reclamación de consumo sectorial
+i18n:
+  en:
+    name: sector-consumer-complaint
+    title: Sector consumer complaint
+    description: >
+      Generates consumer complaints for the three highest-volume sectors with their own regime
+      in Spain, under **Royal Legislative Decree 1/2007**, the consolidated General Act for the
+      Protection of Consumers and Users, which governs the right of withdrawal and the handling
+      of complaints, and **Regulation (EC) 261/2004**, which sets compensation and assistance
+      for air passengers in the event of denied boarding, cancellation and long delay. It
+      generates three documents: the complaint to the airline for a cancelled or delayed flight
+      or denied boarding with escalation to the State Aviation Safety Agency, the complaint on
+      utilities and telecommunications (undue billing, unprocessed cancellation, portability or
+      lock-in) with escalation to the sector body, and the withdrawal notice for a distance
+      purchase with the refund request. It calculates the compensation due by flight distance,
+      distinguishes compensable delay from exonerating extraordinary circumstances, computes the
+      fourteen-day withdrawal period and its extension, and identifies the body that takes over
+      when the company does not respond. Do not use for judicial debt claims (civil law debt
+      claim skill), for nullity of unfair terms, for personal injury in transport accidents, or
+      for business-to-business disputes.
 description: >
   Genera las reclamaciones de consumo de los tres sectores con regimen propio y mayor volumen en
   Espana, conforme al **Real Decreto Legislativo 1/2007**, texto refundido de la Ley General para la

@@ -1,5 +1,25 @@
 ---
 name: cumplimiento-igualdad-y-acoso
+title: Igualdad y prevención del acoso
+i18n:
+  en:
+    name: equality-and-harassment
+    title: Equality and harassment prevention
+    description: >
+      Prepares the equality and harassment prevention documentation a company must have under
+      **Organic Law 3/2007** on effective equality between women and men, which obliges every
+      company to adopt measures against sexual and sex-based harassment and those with fifty or
+      more employees to have an equality plan, and its implementing regulations on equality
+      plans and pay equality, which impose the pay register on all companies and the pay audit
+      on those with a plan. It generates three documents: the protocol for preventing and acting
+      on sexual, sex-based and orientation or identity-based harassment, the equality plan with
+      its diagnosis and negotiating committee, and the pay register with the structure of the
+      pay audit. It checks which obligations apply according to headcount, structures
+      negotiation with employee representatives and warns of the plan's validity period,
+      registration and the employer's duty to act immediately on a complaint. Do not use when
+      there is an ongoing harassment case or a complaint already filed, for disciplinary
+      proceedings, or for defence before the labour inspectorate or against a discrimination
+      claim.
 description: >
   Prepara la documentacion de igualdad y prevencion del acoso que la ley exige a una empresa conforme
   a la **Ley Organica 3/2007** para la igualdad efectiva de mujeres y hombres, que obliga a toda

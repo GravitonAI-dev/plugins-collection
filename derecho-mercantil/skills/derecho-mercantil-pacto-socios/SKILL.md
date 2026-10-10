@@ -1,5 +1,24 @@
 ---
 name: derecho-mercantil-pacto-socios
+title: Pacto de socios
+i18n:
+  en:
+    name: shareholders-agreement
+    title: Shareholders' agreement
+    description: >
+      Drafts the shareholders' agreement of a Spanish limited company under the **Civil Code**
+      (Arts. 1091, 1255 and 1258), which enshrines freedom of contract and its binding force
+      between the parties, and **Royal Legislative Decree 1/2010**, the consolidated Capital
+      Companies Act (Art. 29 LSC), which declares reserved agreements unenforceable against the
+      company. It generates two documents: the founders' agreement (vesting of shares,
+      dedication, non-compete, intellectual property, reinforced majorities and exit regime) and
+      the investor entry agreement (contribution and valuation, information and veto rights,
+      anti-dilution, drag-along and tag-along, liquidation preference). It explains which
+      clauses must be moved to the articles to be effective against the company and third
+      parties, and warns of the validity limits of lock-up, non-compete and penalty clauses. Do
+      not use for listed companies, for public limited company protocols with syndicated shares,
+      for corporate disputes already open, or for amending the articles, which requires a public
+      deed and registration.
 description: >
   Redacta el pacto de socios (pacto parasocial) de una sociedad limitada espanola al amparo del
   **Codigo Civil** (Arts. 1091, 1255 y 1258), que consagra la libertad de pactos y su fuerza

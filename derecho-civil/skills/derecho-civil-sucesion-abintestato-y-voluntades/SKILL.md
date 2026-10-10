@@ -1,5 +1,24 @@
 ---
 name: derecho-civil-sucesion-abintestato-y-voluntades
+title: Sucesión abintestato y voluntades anticipadas
+i18n:
+  en:
+    name: intestate-succession-and-advance-directives
+    title: Intestate succession and advance directives
+    description: >
+      Prepares two succession documents under the **Civil Code**, which sets the order of
+      succession when there is no will (Arts. 912 to 958) and the rights of the surviving
+      spouse, and **Law 41/2002** on patient autonomy, which recognises the right to leave
+      advance directives on care and medical treatment. It generates two documents: the request
+      to the notary for the notarial act of declaration of intestate heirs, with proof of
+      kinship and absence of a will, and the advance directives document, with appointment of a
+      representative and its registration. It determines the applicable order of succession,
+      calculates each heir's share and the surviving spouse's usufruct, identifies the competent
+      notary and required documents, computes the twenty-working-day processing period and warns
+      of the limits of advance directives. Do not use for drafting wills or estate planning
+      (will and planning skill), for accepting or partitioning the inheritance (inheritance
+      skill), or for successions governed by regional civil law or with an international
+      element.
 description: >
   Prepara los dos documentos que el catalogo de sucesiones no cubria conforme al **Codigo Civil**, que
   fija el orden de suceder cuando no hay testamento (Arts. 912 a 958) y los derechos del conyuge

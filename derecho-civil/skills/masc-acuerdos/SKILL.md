@@ -1,5 +1,24 @@
 ---
 name: masc-acuerdos
+title: MASC y acuerdos previos
+i18n:
+  en:
+    name: pre-litigation-settlement
+    title: Pre-litigation settlement (MASC)
+    description: >
+      Produces the documents of the pre-litigation requirement of appropriate dispute resolution
+      means (MASC) introduced by **Organic Law 1/2025 of 2 January on measures for the
+      efficiency of the Public Justice Service**, which imposes a prior negotiation attempt as a
+      condition to sue in civil matters, enforceable since 3 April 2025: the negotiation demand
+      that opens the negotiation, the record evidencing the attempt and its outcome, the
+      confidential binding offer, the settlement agreement that ends the dispute and the
+      responsible declaration of impossibility when the attempt cannot be carried out. It
+      applies Organic Law 1/2025 and the articles of the **Civil Procedure Act (Law 1/2000)** it
+      amends, in their consolidated versions verified in the BOE, checks whether the matter is
+      exempt from the requirement and computes the suspension of limitation and expiry periods.
+      Do not use for drafting the subsequent claim, which belongs to the skill of the applicable
+      procedure, or for the conciliation attempt prior to labour proceedings, which belongs to
+      the employment law pre-litigation conciliation skill.
 description: >
   Produce los documentos del requisito de procedibilidad de los medios adecuados de solución de
   controversias (MASC) introducido por la **Ley Orgánica 1/2025, de 2 de enero, de medidas en materia de

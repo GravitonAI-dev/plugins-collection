@@ -1,5 +1,22 @@
 ---
 name: redaccion-documentos
+title: Redacción de documentos
+i18n:
+  en:
+    name: document-drafting
+    title: Document drafting
+    description: >
+      Drafts, structures and adapts any type of document that has no specific vertical skill in
+      the catalogue: legal documents, administrative filings, statements of defence and
+      pleadings against penalties, atypical contracts, private agreements, corporate
+      communications, business proposals, formal e-mails, reports, internal memos and personal
+      letters. It applies **Law 39/2015** on Common Administrative Procedure for filings before
+      the public sector, the **Civil Code** and **Commercial Code** for private agreements, and
+      corporate standards and good business practice for business communications. It classifies
+      the request, proposes a base structure, creates the file in the workspace and edits it
+      section by section with rigorous resolution of parties and data. Do not use for matters
+      that have their own vertical skill (urban lease, dismissal letter, labour claim, order for
+      payment, eviction, regulated administrative appeals, etc.).
 description: >
   Redacta, estructura y adapta cualquier tipo de documento: juridico, escrito administrativo,
   escrito de descargo o pliego de alegaciones sancionadoras, contrato atipico, acuerdo privado,

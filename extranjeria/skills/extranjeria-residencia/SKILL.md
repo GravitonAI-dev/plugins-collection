@@ -1,5 +1,21 @@
 ---
 name: extranjeria-residencia
+title: Residencia y NIE
+i18n:
+  en:
+    name: residence-permit
+    title: Residence permit and NIE
+    description: >
+      Prepares the administrative application for a Foreigner Identity Number (NIE) or a
+      residence permit (non-lucrative temporary residence, residence through arraigo, family
+      reunification or other) before the Immigration Office, under **Organic Law 4/2000 on
+      Immigration (LOEX)**, which governs the rights and administrative status of foreigners in
+      Spain, and the **Immigration Regulation (Royal Decree 1155/2024, in force since 20 May
+      2025)**, which implements the permit procedures and their requirements, verified in the
+      BOE. It generates the data sheet for the corresponding EX form, the reasoned application
+      statement, the document checklist and the official fee (form 790). Do not use for consular
+      visa applications from abroad, for Spanish nationality, asylum or international
+      protection, or for judicial review appeals against refusals.
 description: >
   Prepara el tramite administrativo de solicitud del Numero de Identidad de Extranjero (NIE) o de
   autorizacion de residencia (residencia temporal no lucrativa, residencia por arraigo, reagrupacion

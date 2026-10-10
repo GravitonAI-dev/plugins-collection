@@ -1,5 +1,25 @@
 ---
 name: extranjeria-asilo-y-recursos
+title: Asilo y recursos de extranjería
+i18n:
+  en:
+    name: asylum-and-immigration-appeals
+    title: Asylum and immigration appeals
+    description: >
+      Prepares two immigration filings under **Law 12/2009** on the right of asylum and
+      subsidiary protection, which sets the requirements for international protection and the
+      applicant's guarantees, and **Organic Law 4/2000** on Immigration, which refers the
+      challenge of decisions to the general administrative procedure rules. It generates two
+      documents: the statement of allegations and persecution account accompanying the
+      international protection application, and the administrative appeal against the refusal,
+      inadmissibility or closure of an immigration file. It distinguishes asylum from subsidiary
+      protection and humanitarian grounds, structures the persecution account around the five
+      legal grounds and the persecuting agent, computes the very short deadlines of border and
+      detention centre procedures and of the appeal, and determines whether the decision is
+      subject to a hierarchical or reconsideration appeal. Do not use for the judicial review
+      appeal before the courts, for NIE or residence permit applications (immigration and
+      residence skill), for Spanish nationality, or for expulsion or return proceedings, which
+      require urgent legal counsel.
 description: >
   Prepara los dos escritos de extranjeria que el catalogo no cubria conforme a la **Ley 12/2009**,
   reguladora del derecho de asilo y de la proteccion subsidiaria, que fija los requisitos de la

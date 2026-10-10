@@ -1,5 +1,25 @@
 ---
 name: modificacion-medidas
+title: Modificación de medidas
+i18n:
+  en:
+    name: modification-of-family-measures
+    title: Modification of family measures
+    description: >
+      Generates the filings to MODIFY definitive measures already set in a judgment or approved
+      regulatory agreement in Spain, under Article 775 of the **Civil Procedure Act (Law 1/2000,
+      LEC)**, which governs the procedure to modify family measures, and Article 90.3 of the
+      **Civil Code**, through two routes: (1) BY CONSENT, a petition by both parties or by one
+      with the other's consent, with a proposed new regulatory agreement, under Article 777 LEC;
+      and (2) CONTESTED, a petition under Article 770 LEC with proof of the MASC attempt
+      (Organic Law 1/2025). It covers changes to custody and contact arrangements, increase or
+      reduction of child maintenance, modification or termination of spousal maintenance (Arts.
+      100 and 101 CC), use of the family home, and TERMINATION of child maintenance under
+      Articles 93.2, 142 and 152 of the Civil Code, with a prior feasibility filter when the
+      alleged change is voluntary or attributable to the applicant. Do not use to set measures
+      for the first time, for stand-alone provisional measures, to claim unpaid maintenance
+      (enforcement under Article 776 LEC), or where there are indications of gender or domestic
+      violence (in which case it stops and escalates).
 description: >
   Genera los escritos para MODIFICAR medidas definitivas ya fijadas en sentencia o convenio regulador
   aprobado, en Espana, conforme al articulo 775 de la **Ley 1/2000 de Enjuiciamiento Civil (LEC)**, que regula el procedimiento para modificar medidas de familia, y al articulo 90.3 del **Codigo Civil**, en sus

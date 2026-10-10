@@ -1,5 +1,20 @@
 ---
 name: liquidacion-impuesto-sucesiones
+title: Liquidación del impuesto de sucesiones
+i18n:
+  en:
+    name: inheritance-tax
+    title: Inheritance tax
+    description: >
+      Prepares an heir's self-assessment of Inheritance and Gift Tax (form 650, acquisitions on
+      death) under **Law 29/1987 on Inheritance and Gift Tax (LISD)**, which governs the taxable
+      event, reductions and tax due, and its **Regulation (Royal Decree 1629/1991)** in the
+      consolidated version verified in the BOE, combined with the regional regulations of the
+      competent region verified live. It generates the draft form 650 self-assessment with
+      inventory, regional reductions and estimated tax due duly flagged for verification, a
+      document checklist, the competent body and a mandatory warning on municipal capital gains
+      tax (IIVTNU). Do not use for the legal partition of the estate (civil law inheritance
+      skill), for inter vivos gifts, or to set the tax due with final binding effect.
 description: >
   Prepara la autoliquidacion del Impuesto sobre Sucesiones y Donaciones (modelo 650, adquisiciones
   mortis causa) de un heredero conforme a la **Ley 29/1987 del Impuesto sobre Sucesiones y Donaciones (LISD)**, que regula el hecho imponible, las reducciones y la cuota del impuesto, y a su **Reglamento (RD 1629/1991)**

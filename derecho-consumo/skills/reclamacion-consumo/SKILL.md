@@ -1,5 +1,24 @@
 ---
 name: reclamacion-consumo
+title: Reclamación de consumo
+i18n:
+  en:
+    name: consumer-complaint
+    title: Consumer complaint
+    description: >
+      Generates the documents of the out-of-court path of a consumer complaint in Spain: the
+      prior complaint to the company, the official complaint form, the filing before the
+      regional or municipal consumer authority and the request for consumer arbitration. It
+      applies the **consolidated General Act for the Protection of Consumers and Users**, which
+      defines basic consumer rights and the company's duty to handle complaints, and the
+      **Consumer Arbitration System Regulation approved by Royal Decree 713/2024**, which
+      governs the consumer arbitration procedure and repealed Royal Decree 231/2008 with effect
+      from 13 August 2024, in their consolidated versions verified in the BOE, and checks the
+      procedure against the regional consumer regulations that set the official form and the
+      competent body. It first verifies consumer status and exhaustion of the prior step,
+      classifies the document, computes and communicates deadlines, and edits the document
+      section by section. Do not use for the judicial debt claim (civil law debt claim skill) or
+      for nullity of unfair terms (unfair terms claim skill).
 description: >
   Genera los documentos del itinerario extrajudicial de una reclamación de consumo en España: la
   reclamación previa dirigida a la empresa, la hoja oficial de quejas y reclamaciones, el escrito ante

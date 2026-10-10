@@ -1,5 +1,25 @@
 ---
 name: proteccion-datos-despacho
+title: Protección de datos del despacho
+i18n:
+  en:
+    name: law-firm-data-protection
+    title: Law firm data protection
+    description: >
+      Generates the data protection compliance package the law firm itself needs: record of
+      processing activities, data processor agreement with suppliers or clients, privacy notice
+      for clients and third parties, confidentiality undertaking of staff and collaborators, and
+      security breach register with risk analysis. It applies **Regulation (EU) 2016/679**, the
+      directly applicable European data protection rule, and **Organic Law 3/2018 on Personal
+      Data Protection and digital rights**, which adapts and completes it in Spanish law, in
+      their consolidated versions verified in the BOE and the Official Journal of the EU. It
+      addresses the two particularities of the firm as controller: **professional secrecy**,
+      which modulates the exercise of data subject rights and third-party access, and the
+      habitual processing of **special categories of data** and data on criminal convictions and
+      offences. It classifies the document and the firm's role, identifies legal bases, creates
+      the base document and edits it section by section. Do not use to design the firm's
+      complete compliance system, or as a substitute for an impact assessment or the advice of a
+      data protection officer.
 description: >
   Genera el paquete de cumplimiento en protección de datos que el propio despacho profesional necesita:
   registro de actividades de tratamiento, contrato de encargado de tratamiento con proveedores o con

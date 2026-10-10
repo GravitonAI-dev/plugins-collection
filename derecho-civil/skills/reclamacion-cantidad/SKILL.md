@@ -1,5 +1,21 @@
 ---
 name: reclamacion-cantidad
+title: Reclamación de cantidad
+i18n:
+  en:
+    name: debt-claim
+    title: Debt claim
+    description: >
+      Generates the right document to claim (or defend against a claim for) a sum of money,
+      choosing the correct procedural route under the **Civil Procedure Act (Law 1/2000, LEC)**,
+      which sets the procedure according to the amount and type of debt, verified in the BOE:
+      initial petition for order-for-payment proceedings (documented, liquid, due and payable
+      debt, any amount), summary proceedings claim (up to 15,000 euros or rent), ordinary
+      proceedings claim (over 15,000 euros, including the claim following opposition to an order
+      for payment, Art. 818.2 LEC), opposition to the order for payment (debtor's position) and
+      prior demand letter by burofax (MASC, Organic Law 1/2025). Do not use for non-monetary
+      claims, matters under Art. 249.1 LEC whose main claim is not payment, claims against
+      public administrations, evictions or enforcement.
 description: >
   Genera el documento adecuado para reclamar (o defenderse de la reclamacion de) una cantidad de dinero,
   eligiendo la via procesal correcta conforme a la **Ley 1/2000 de Enjuiciamiento Civil (LEC)**, que fija que procedimiento corresponde segun la cuantia y el tipo de deuda, verificada en el BOE: peticion inicial de proceso

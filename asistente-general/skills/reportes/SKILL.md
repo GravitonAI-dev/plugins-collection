@@ -1,5 +1,23 @@
 ---
 name: reportes
+title: Reportes
+i18n:
+  en:
+    name: reports
+    title: Reports
+    description: >
+      Generates self-contained single-file HTML visual documents that the user opens in a
+      browser and prints or saves as PDF with one button: one-page visual reports and dossiers,
+      data dashboards with indicators and charts, and interactive calculation, simulation and
+      verification tools. It ships its own library of ten inline SVG chart shapes (bars, stacked
+      bars, line with area and threshold band, sparkline, gauge, waterfall, risk matrix,
+      timeline and donut), with light and dark themes, responsive layout, A4 print styles and
+      accessible text alternatives, built with no external libraries or resources. All figures,
+      dates and amounts come from the user, a workspace document or a source verified in the
+      session. Do not use for contracts, claims, pleadings or procedural documents (which have
+      their own vertical skill and are delivered in markdown), for office files (text documents,
+      spreadsheets or presentations), or for web applications with a server, database or
+      external services.
 description: >
   Genera documentos visuales HTML autocontenidos de un solo archivo que el usuario abre directamente en su navegador
   y puede imprimir o guardar como PDF con un boton: informes visuales y dossieres de una pagina, paneles de datos

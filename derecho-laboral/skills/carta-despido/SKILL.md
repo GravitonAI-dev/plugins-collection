@@ -1,5 +1,25 @@
 ---
 name: carta-despido
+title: Carta de despido
+i18n:
+  en:
+    name: dismissal-letter
+    title: Dismissal letter
+    description: >
+      Generates the written notice of termination of the employment contract by the employer in
+      its four individual forms: disciplinary dismissal (Article 54 of the Workers' Statute),
+      objective dismissal (Articles 52 and 53), withdrawal during the probation period (Article
+      14) and notice of end of a temporary contract (Article 49.1.c). It applies the
+      **consolidated Workers' Statute approved by Royal Legislative Decree 2/2015**, the basic
+      rule governing the grounds, form and severance of dismissal, and **Law 36/2011 on Labour
+      Jurisdiction**, which governs the challenge of dismissal before the labour courts, in
+      their consolidated versions verified in the BOE, and always checks the disciplinary regime
+      and notice periods of the applicable collective agreement. It classifies the form and
+      grounds, prepares an itemised severance and deadline calculation, creates the base
+      document and edits it section by section. Do not use for collective redundancies (Article
+      51), suspension or reduction of working hours (Article 47), termination at the employee's
+      initiative (Articles 49.1.d and 50), mutual agreement, retirement, or special employment
+      relationships such as senior management or domestic workers.
 description: >
   Genera la comunicación escrita de extinción del contrato de trabajo por decisión del empresario en
   sus cuatro modalidades individuales: despido disciplinario (artículo 54 del Estatuto de los
