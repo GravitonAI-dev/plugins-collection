@@ -1,4 +1,4 @@
-# Ejemplos de la skill `doc-visual`
+# Ejemplos de la skill `reportes`
 
 Documentos visuales de demostracion generados con las plantillas de `../assets`. Se abren **con doble clic** en cualquier navegador: no necesitan servidor, ni conexion, ni instalar nada. El boton inferior de cada pagina la imprime o la guarda como PDF; al lado de cada `.html` esta ese PDF ya generado.
 

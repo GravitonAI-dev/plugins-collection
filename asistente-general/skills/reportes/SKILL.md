@@ -1,5 +1,5 @@
 ---
-name: doc-visual
+name: reportes
 description: >
   Genera documentos visuales HTML autocontenidos de un solo archivo que el usuario abre directamente en su navegador
   y puede imprimir o guardar como PDF con un boton: informes visuales y dossieres de una pagina, paneles de datos
@@ -129,7 +129,7 @@ Fijados los vectores de clasificacion, evalua la rama de ejecucion. `V2` esta fi
 * Si `V1 = informe_visual` -> Plantilla del sistema: `assets/template-informe-visual.md`. Lectura secuencial con encabezado, indice lateral pegajoso, fila de indicadores, secciones numeradas, tabla, cronologia de hitos, avisos y bloque de firmas. Procede a la Fase 2.
 * Si `V1 = panel_datos` -> Plantilla del sistema: `assets/template-panel-datos.md`. Rejilla de tarjetas con indicadores (uno con minigrafico de tendencia), barras comparativas, anillo de reparto, evolucion con area y banda de umbral, cascada de descomposicion del importe, medidor semicircular y tabla de detalle con totales. Procede a la Fase 2.
 * Si `V1 = herramienta_interactiva` -> Plantilla del sistema: `assets/template-herramienta-interactiva.md`. Panel de entrada con campos, recalculo inmediato, medidor semicircular que se mueve con el resultado, desglose tabular, lista de verificacion con progreso y bloque de supuestos. Procede a la Fase 2.
-* Si `V1 = fuera_de_alcance` -> Detener proceso: no crear documento visual. Explica en el chat que ese entregable corresponde a otra via (la skill vertical del catalogo si es un contrato o un escrito de tramitacion; un archivo de ofimatica si necesita documento de texto, hoja de calculo o presentacion; un desarrollo a medida si requiere servidor o conexion a servicios externos) y ofrece como alternativa el documento visual visual mas proximo a su necesidad.
+* Si `V1 = fuera_de_alcance` -> Detener proceso: no crear documento visual. Explica en el chat que ese entregable corresponde a otra via (la skill vertical del catalogo si es un contrato o un escrito de tramitacion; un archivo de ofimatica si necesita documento de texto, hoja de calculo o presentacion; un desarrollo a medida si requiere servidor o conexion a servicios externos) y ofrece como alternativa el documento visual mas proximo a su necesidad.
 
 ---
 

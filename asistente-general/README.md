@@ -38,7 +38,7 @@ Asistente universal y versátil para el procesamiento de consultas no catalogada
 - **Inputs principales:** Materia/rama de la consulta (V1), tipo de requerimiento (V2), perfil del consultante (V3), situación de urgencia/plazos (V4), origen de la plantilla/formato (V5), hechos y dudas planteadas.
 - **Outputs:** Respuesta argumentada en chat o informe formal en markdown (`DRAFT`) en workspace (`assets/template-informe-consulta-general.md` o `assets/template-memo-orientacion-rapida.md`).
 
-### `doc-visual`
+### `reportes`
 
 Generación de documentos visuales autocontenidos en HTML, del estilo de los que el usuario ya conoce de otros asistentes, pero pensados para un despacho: sobrios, imprimibles y sin una sola dependencia externa (ni librerías, ni CDN, ni conexión). Tres formatos:
 1. **Informe visual:** dossier de lectura con índice lateral, indicadores, secciones numeradas, tabla comparativa, cronología de hitos y firmas.
@@ -47,10 +47,10 @@ Generación de documentos visuales autocontenidos en HTML, del estilo de los que
 
 Incluye una biblioteca propia de once formas gráficas en SVG con la fórmula exacta de sus coordenadas, criterios de qué forma responde a cada pregunta y reglas de honestidad gráfica (eje desde cero, sin recortes, sin datos inventados).
 
-- **Invocación:** `/asistente-general:doc-visual`
+- **Invocación:** `/asistente-general:reportes`
 - **Inputs principales:** Tipo de documento visual (V1), destino de uso —pantalla o impresión— (V2), origen de los datos (V3), identidad visual (V4), origen de la plantilla (V5), datos y parámetros a representar.
 - **Outputs:** Archivo `snake_case.html` en el espacio de trabajo, con tema claro y oscuro, diseño adaptable, estilos de impresión en A4 y aviso `DRAFT` visible.
-- **Ejemplos abribles:** `skills/doc-visual/ejemplos/` contiene cuatro documentos visuales completos con su PDF ya generado, incluida una galería con las once formas gráficas.
+- **Ejemplos abribles:** `skills/reportes/ejemplos/` contiene cuatro documentos visuales completos con su PDF ya generado, incluida una galería con las once formas gráficas.
 
 ---
 
@@ -74,14 +74,14 @@ asistente-general/
     │       ├── metodologia-analisis-juridico.md
     │       ├── fuentes-normativas-generales.md
     │       └── matriz-derivacion-especialidades.md
-    └── doc-visual/
+    └── reportes/
         ├── SKILL.md
         ├── assets/
         │   ├── template-informe-visual.md
         │   ├── template-panel-datos.md
         │   └── template-herramienta-interactiva.md
         ├── references/
-        │   ├── anatomia-documento visual-html.md
+        │   ├── anatomia-documento-visual.md
         │   ├── biblioteca-componentes-visuales.md
         │   └── criterios-visualizacion-datos.md
         └── ejemplos/

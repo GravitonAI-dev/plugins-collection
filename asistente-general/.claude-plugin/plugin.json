@@ -8,7 +8,7 @@
   },
   "skills": [
     "./skills/consulta-general",
-    "./skills/doc-visual",
+    "./skills/reportes",
     "./skills/redaccion-documentos"
   ],
   "agents": [],
