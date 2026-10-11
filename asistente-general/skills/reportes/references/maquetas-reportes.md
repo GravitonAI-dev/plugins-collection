@@ -165,13 +165,6 @@ Reglas comunes a todas las maquetas:
 .bloque{margin:0 0 var(--e3)}
 .bloque h2{display:flex;gap:var(--e2);align-items:baseline}
 .bloque h2 .orden{color:var(--acento);font-variant-numeric:tabular-nums}
-.cronologia{list-style:none;margin:var(--e4) 0 0;padding:0 0 0 26px;border-left:2px solid var(--borde)}
-.cronologia li{position:relative;margin:0 0 var(--e4)}
-.cronologia li:last-child{margin-bottom:0}
-.cronologia li::before{content:"";position:absolute;left:-33px;top:6px;width:12px;height:12px;border-radius:50%;
-  background:var(--acento);border:3px solid var(--superficie);box-shadow:0 0 0 1px var(--borde)}
-.cronologia .fecha{display:block;font-size:.76rem;letter-spacing:.07em;text-transform:uppercase;color:var(--apagado)}
-.cronologia .hito{font-weight:650}
 .firma{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--e4);margin:var(--e4) 0 0;font-size:.9rem}
 .firma div{border-top:1px solid var(--borde);padding-top:var(--e2);color:var(--apagado)}
 @media (max-width:900px){.diseno{grid-template-columns:1fr}.indice{display:none}}
@@ -769,7 +762,7 @@ Se coloca despues del script del motor (y de los modulos, si los hay). Monta las
 
 - El indice lo compone el script de la maqueta a partir de los titulos `h2` de los capitulos: no se escribe a mano. En el PDF sus entradas son enlaces que llevan al capitulo.
 - Cada capitulo es una `section class="capitulo"`; con `class="capitulo nueva-pagina"` empieza en pagina nueva al imprimir (recomendado a partir del segundo).
-- Los graficos y diagramas se declaran como en cualquier reporte y se colocan con su hueco `figure` dentro del capitulo que los usa, con un titulo que afirma.
+- Los graficos y diagramas se declaran como en cualquier reporte y se colocan con su hueco `figure` dentro del capitulo que los usa, precedido de un `h3` con un titulo que afirma (dentro del `figure` no se escribe nada: el motor lo rellena).
 - Las notas se marcan con `<sup class="nota">1</sup>` en el texto y se desarrollan en la seccion de notas.
 - Extension orientativa: entre 6 y 20 paginas. Mas alla, conviene partirlo.
 
@@ -806,7 +799,6 @@ main{counter-reset:capitulo}
 .capitulo h3{font-size:1.12rem;margin:var(--e4) 0 var(--e2)}
 .capitulo p,.capitulo li{font-size:1.02rem;line-height:1.7}
 .capitulo .grafico{margin:var(--e4) 0;padding:var(--e4);border:1px solid var(--borde-suave);border-radius:var(--radio-s);background:var(--superficie)}
-.capitulo .grafico>.titulo-figura{font-weight:650;margin:0 0 var(--e3);font-size:.98rem}
 .destacado{font-size:1.25rem;line-height:1.45;font-weight:600;border-left:5px solid var(--acento);padding:var(--e2) 0 var(--e2) var(--e4);margin:var(--e5) 0}
 sup.nota{color:var(--acento);font-weight:650}
 .notas-documento li,.fuentes-documento li{font-size:.88rem;color:var(--apagado)}
@@ -924,7 +916,7 @@ Se coloca despues del motor y de los modulos. Compone el indice con enlaces y po
 
 ## 6. Resumen ejecutivo de una pagina (`resumen_ejecutivo`)
 
-**Ancho:** `1000px`. Una sola pagina A4: titular con la conclusion, tres indicadores, un grafico que la sostiene y tres conclusiones con la decision que se pide. Para un consejo, un socio o un cliente con poco tiempo. Si el contenido no cabe en una pagina, sobra contenido: se recorta, no se encoge la letra.
+**Ancho:** `1000px`. Una sola pagina A4: titular con la conclusion, tres indicadores, un grafico que la sostiene y tres conclusiones con la decision que se pide. Para un consejo, un socio o un cliente con poco tiempo. Al imprimir, el script de la maqueta reduce la escala lo justo para que todo quepa en una hoja; aun asi, si hay que reducir mucho, sobra contenido: un aviso o un bloque mas es lo primero que se quita.
 
 ### Ficha
 
@@ -955,6 +947,8 @@ Se coloca despues del motor y de los modulos. Compone el indice con enlaces y po
   .pie{margin-top:var(--e3);padding-top:var(--e2);font-size:7.5pt}
 }
 ```
+
+Los `data-cifra` de los tres indicadores apuntan a las claves que se declaren en `cifras` (los nombres `indicador_1` a `indicador_3` son de ejemplo).
 
 ### Contenido
 
@@ -990,13 +984,30 @@ Se coloca despues del motor y de los modulos. Compone el indice con enlaces y po
   "fuentes": {
     "cliente": {"nombre": "{{DESCRIPCION_FUENTE}}", "consulta": "{{FECHA_AAAA_MM_DD}}"}
   },
-  "cifras": {
-    "indicador_1": {"valor": 0, "unidad": "eur"},
-    "indicador_2": {"valor": 0, "unidad": "eur"},
-    "indicador_3": {"valor": 0, "unidad": "pct"}
-  },
+  "cifras": {},
   "graficos": {
     "principal": {"tipo": "barras", "unidad": "eur", "fuente": "cliente", "elementos": [], "resumen": "{{RESUMEN}}"}
   }
 }
+```
+
+### Script
+
+Se coloca despues del motor. Antes de imprimir mide el contenido a ancho de A4 y, si pasa de una hoja, lo reduce lo justo.
+
+```js maqueta=resumen_ejecutivo parte=script
+<script>
+(function(){
+  "use strict";
+  var main = document.querySelector("main"), ALTO_A4 = 1010, ANCHO_A4 = 718;  /* area util en px a 96 ppp con 12 mm de margen */
+  window.addEventListener("beforeprint", function () {
+    main.style.zoom = "";
+    var ancho = main.style.width; main.style.width = ANCHO_A4 + "px";
+    var alto = main.scrollHeight;
+    main.style.width = ancho;
+    if (alto > ALTO_A4) main.style.zoom = Math.max(0.6, ALTO_A4 / alto).toFixed(3);
+  });
+  window.addEventListener("afterprint", function () { main.style.zoom = ""; });
+})();
+</script>
 ```
