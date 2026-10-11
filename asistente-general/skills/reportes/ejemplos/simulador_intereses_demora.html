@@ -512,6 +512,7 @@ var tipos = {};
 tipos.barras = function (fig, g) {
   var el = (g.elementos || []).slice();
   if (!el.length) throw new Error("faltan elementos");
+  if (el.some(function (e) { return !num(e.valor) || e.valor < 0; })) throw new Error("las barras necesitan valores numericos no negativos; para saldos con signo usa cascada");
   if (g.orden !== "original") el.sort(function (a, b) { return b.valor - a.valor; });
   var tope = maximo(el.map(function (e) { return e.valor; }));
   var ul = html("ul", "barras", fig);
@@ -544,7 +545,7 @@ function columnasComun(fig, g, apilar, cien) {
     series.forEach(function (se, j) {
       var v = se.valores[i];
       if (!num(v)) return;
-      if (v < 0) throw new Error("las columnas no admiten valores negativos; usa barras divergentes");
+      if (v < 0) throw new Error("las columnas no admiten valores negativos; usa cascada para saldos con signo");
       if (cien) v = totales[i] ? v / totales[i] * 100 : 0;
       var c = color(se.color, j), x, w, y, alto = v / tope * 200;
       if (apilar) { w = anchoGrupo; x = X0 + banda * i + (banda - w) / 2; y = Y1 - (acumulado + v) / tope * 200; acumulado += v; }
@@ -617,17 +618,25 @@ tipos.linea = function (fig, g, id) {
 };
 
 tipos.chispa = function (fig, g) {
-  var v = g.valores || [], n = v.length;
-  if (n < 2) throw new Error("hacen falta al menos dos valores");
+  var v = g.valores || [], n = v.length, validos = v.filter(num);
+  if (n < 2 || validos.length < 2) throw new Error("hacen falta al menos dos valores numericos");
   var lo = minimo(v), hi = maximo(v), rango = (hi - lo) || 1;
-  var pts = v.map(function (x, i) { return r1(1 + i * 118 / (n - 1)) + "," + r1(30 - (x - lo) / rango * 28); }).join(" ");
-  var s = lienzo(fig, 120, 32, g.resumen || "", "chispa", true);
-  svg("polygon", {"class": "chispa-area", points: pts + " 119,32 1,32"}, s);
-  svg("polyline", {"class": "chispa-linea", points: pts}, s);
-  svg("circle", {"class": "chispa-punto", cx: 119, cy: r1(30 - (v[n - 1] - lo) / rango * 28), r: 2.4}, s);
+  var x = function (i) { return r1(1 + i * 118 / (n - 1)); }, y = function (val) { return r1(30 - (val - lo) / rango * 28); };
+  var s = lienzo(fig, 120, 32, g.resumen || "", "chispa", true), tramo = [], ultimo = -1;
+  /* Un null interrumpe la linea, igual que en el grafico de linea. */
+  v.concat([null]).forEach(function (val, i) {
+    if (num(val)) { tramo.push([x(i), y(val)]); ultimo = i; return; }
+    if (tramo.length > 1) {
+      var pts = tramo.map(function (p) { return p.join(","); }).join(" ");
+      svg("polygon", {"class": "chispa-area", points: pts + " " + tramo[tramo.length - 1][0] + ",32 " + tramo[0][0] + ",32"}, s);
+      svg("polyline", {"class": "chispa-linea", points: pts}, s);
+    }
+    tramo = [];
+  });
+  svg("circle", {"class": "chispa-punto", cx: x(ultimo), cy: y(v[ultimo]), r: 2.4}, s);
   var nota = g.nota;
-  if (!nota && g.etiquetas && v[0]) {
-    var vari = (v[n - 1] - v[0]) / Math.abs(v[0]) * 100;
+  if (!nota && g.etiquetas && validos[0]) {
+    var vari = (validos[validos.length - 1] - validos[0]) / Math.abs(validos[0]) * 100;
     nota = g.etiquetas[0] + " \u2013 " + g.etiquetas[g.etiquetas.length - 1] + ": " + (vari > 0 ? "+" : "") + fmt(vari, "pct");
   }
   if (nota) html("p", "tendencia-nota", fig, nota);
@@ -635,18 +644,19 @@ tipos.chispa = function (fig, g) {
 };
 
 tipos.medidor = function (fig, g) {
-  var tope = g.maximo || 100, p = Math.max(0, Math.min(100, (g.valor || 0) / tope * 100));
+  /* real puede pasar de 100 (un plazo excedido): el arco se limita, la cifra no. */
+  var tope = g.maximo || 100, real = (g.valor || 0) / tope * 100, p = Math.max(0, Math.min(100, real));
   var tramos = g.tramos || [60, 85];
-  var c = g.color ? color(g.color) : p <= tramos[0] ? "var(--ok)" : p <= tramos[1] ? "var(--aviso)" : "var(--riesgo)";
+  var c = g.color ? color(g.color) : real <= tramos[0] ? "var(--ok)" : real <= tramos[1] ? "var(--aviso)" : "var(--riesgo)";
   var L = Math.PI * 90, arco = r1(p / 100 * L);
   var s = lienzo(fig, 240, 150, g.resumen || "", "medidor");
   svg("path", {"class": "pista-arco", d: "M 30 125 A 90 90 0 0 1 210 125"}, s);
   svg("path", {"class": "arco", d: "M 30 125 A 90 90 0 0 1 210 125", stroke: c, "stroke-dasharray": arco + " " + r1(L - arco + 1)}, s);
-  svg("text", {x: 120, y: 112, "text-anchor": "middle", "font-size": 34, "font-weight": 670, fill: "var(--texto)"}, s, g.cifra || fmt(g.unidad === "pct" || !g.unidad ? p : g.valor, g.unidad || "pct"));
+  svg("text", {x: 120, y: 112, "text-anchor": "middle", "font-size": 34, "font-weight": 670, fill: "var(--texto)"}, s, g.cifra || (g.unidad ? fmt(g.valor, g.unidad) : fmt(real, "pct")));
   svg("text", {"class": "eje", x: 30, y: 146, "text-anchor": "middle"}, s, "0");
-  svg("text", {"class": "eje", x: 210, y: 146, "text-anchor": "middle"}, s, fmt(tope, g.unidad || "pct", true));
+  svg("text", {"class": "eje", x: 210, y: 146, "text-anchor": "middle"}, s, g.unidad ? fmt(tope, g.unidad, true) : "100\u00a0%");
   if (g.rotulo) html("p", "medidor-rotulo", fig, g.rotulo);
-  return {cabecera: [T.valor, T.maximo, T.porcentaje], filas: [[g.valor, tope, r1(p) + " %"]], unidad: g.unidad};
+  return {cabecera: [T.valor, T.maximo, T.porcentaje], filas: [[g.valor, tope, fmt(real, "pct")]], unidad: g.unidad};
 };
 
 tipos.cascada = function (fig, g) {
@@ -815,7 +825,8 @@ function textoFuente(clave) {
   if (!f) { console.error("Fuente no declarada en datos-reporte: " + clave); return clave; }
   var t = f.nombre;
   if (f.url) t += " (" + f.url + ")";
-  if (f.consulta) t += ", " + T.consulta + " " + fmtFechaLarga.format(fecha(f.consulta));
+  /* Una fecha que no sea AAAA-MM-DD (o un marcador pendiente) se muestra tal cual: nunca rompe el motor. */
+  if (f.consulta) t += ", " + T.consulta + " " + (/^\d{4}-\d{2}-\d{2}$/.test(f.consulta) ? fmtFechaLarga.format(fecha(f.consulta)) : f.consulta);
   return t;
 }
 function fuentesDe(g) {

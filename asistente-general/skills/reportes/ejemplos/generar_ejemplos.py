@@ -278,6 +278,8 @@ def comprobar_y_imprimir(archivos, pdf):
     print("\nComprobando en Chrome%s:" % (" e imprimiendo a PDF" if pdf else ""))
     def abrir(archivo):
         ruta = os.path.join(AQUI, archivo)
+        if pdf and os.path.exists(ruta.replace(".html", ".pdf")):
+            os.remove(ruta.replace(".html", ".pdf"))  # un PDF viejo no debe pasar por uno nuevo
         with tempfile.TemporaryDirectory(prefix="reportes-chrome-") as perfil:
             orden = [CHROME, "--headless=new", "--disable-gpu", "--user-data-dir=" + perfil, "--enable-logging=stderr", "--v=0",
                      "--virtual-time-budget=3000", "--no-pdf-header-footer"]
@@ -294,7 +296,8 @@ def comprobar_y_imprimir(archivos, pdf):
         print("  %-38s %s" % (archivo, estado))
         for e in errores:
             print("      " + e.split("CONSOLE")[-1][:200])
-    return not any(resultados)
+    sin_pdf = [a for a in archivos if pdf and not os.path.exists(os.path.join(AQUI, a.replace(".html", ".pdf")))]
+    return not any(resultados) and not sin_pdf
 
 # --------------------------------------------------------------------------- principal
 if __name__ == "__main__":

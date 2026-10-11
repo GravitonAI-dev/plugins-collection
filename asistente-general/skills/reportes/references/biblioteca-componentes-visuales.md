@@ -109,7 +109,7 @@ Muestra **forma**, no magnitud: no lleva ejes ni cifras, y su escala si arranca 
 {"tipo": "medidor", "valor": 7, "maximo": 10, "unidad": "dias", "cifra": "70 %", "rotulo": "del plazo de diez dias consumido", "tramos": [60, 85]}
 ```
 
-El color va por tramos: hasta el primer porcentaje `--ok`, hasta el segundo `--aviso`, por encima `--riesgo`. Solo para valores que son un porcentaje de un maximo conocido: plazo consumido, avance, nivel de riesgo. `rotulo` va debajo, en HTML, porque dentro del SVG un texto largo se recorta.
+Sin `unidad`, la cifra central es el porcentaje de `valor` sobre `maximo` y el extremo dice «100 %»; con `unidad`, la cifra es el valor con su unidad y el extremo, el maximo (o la `cifra` que se indique). Si el valor supera el maximo, el arco se llena y la cifra muestra el valor real, nunca el recortado. El color va por tramos: hasta el primer porcentaje `--ok`, hasta el segundo `--aviso`, por encima `--riesgo`. Solo para valores que son un porcentaje de un maximo conocido: plazo consumido, avance, nivel de riesgo. `rotulo` va debajo, en HTML, porque dentro del SVG un texto largo se recorta.
 
 ### `cascada` — como se llega a un total
 
