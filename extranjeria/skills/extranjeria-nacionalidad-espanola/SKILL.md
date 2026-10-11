@@ -59,7 +59,7 @@ references:
 assets:
   - assets/template-hoja-datos-solicitud-nacionalidad.md
   - assets/template-escrito-motivado-nacionalidad.md
-  - assets/checklist-documentacion-nacionalidad.md
+  - assets/template-checklist-documentacion-nacionalidad.md
   - assets/template-escrito-subsanacion.md
   - assets/template-alegaciones-propuesta-desestimatoria.md
 ---
@@ -174,7 +174,7 @@ Invoca la herramienta con las opciones de triaje:
 **Comprobación 4 — Enrutamiento:**
 * **Si `[V1 = hoja_datos]` → Plantilla: `assets/template-hoja-datos-solicitud-nacionalidad.md`.**
 * **Si `[V1 = escrito_motivado]` → Plantilla: `assets/template-escrito-motivado-nacionalidad.md`.**
-* **Si `[V1 = checklist]` → Asset: `assets/checklist-documentacion-nacionalidad.md`,** ajustado a la vía de `V2`.
+* **Si `[V1 = checklist]` → Asset: `assets/template-checklist-documentacion-nacionalidad.md`,** ajustado a la vía de `V2`.
 * **Si `[V1 = subsanacion]` → Plantilla: `assets/template-escrito-subsanacion.md`.** Pide el requerimiento recibido y su fecha de notificación **antes** de redactar: el plazo corre desde ella y es breve.
 * **Si `[V1 = alegaciones]` → Plantilla: `assets/template-alegaciones-propuesta-desestimatoria.md`.** Pide la propuesta recibida y su fecha de notificación antes de redactar.
 * **Si `[V1 = subsanacion]` y `[V4 = no_presentado o en_tramitacion]` → DETENER esa pretensión concreta:** no hay requerimiento que contestar. Reconduce al documento que corresponda al estado real del expediente.

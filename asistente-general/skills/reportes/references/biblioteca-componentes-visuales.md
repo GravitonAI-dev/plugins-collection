@@ -328,7 +328,7 @@ Tres funciones separadas:
 - `calcular(d)` recibe ese objeto y devuelve `{ resultado1, resultado2, resultado3, medidor, desglose: [{concepto, importe, detalle}] }`. Es el unico bloque que cambia de un documento visual a otro. `medidor` es un porcentaje de 0 a 100 que mueve el arco; `detalle` es texto ya formateado. La fila de totales suma la columna de importes; la tercera solo muestra total si el calculo devuelve ademas `totalDetalle`, porque sumar dias o porcentajes carece de sentido.
 - `pintar(r)` vuelca el resultado con `textContent`, nunca con `innerHTML`.
 
-Formato espanol siempre mediante `Intl.NumberFormat("es-ES", ...)`.
+Formato espanol siempre mediante `Intl.NumberFormat("es-ES", ...)`. La plantilla formatea `resultado1`, `resultado2` y los importes del desglose con `formatoMagnitud`, que por defecto es moneda: si la herramienta calcula otra magnitud (personas, dias, unidades), se sustituye ese formateador por el `Intl.NumberFormat` adecuado y se indica la unidad en los rotulos; `signDisplay:"exceptZero"` ayuda cuando el signo informa (saldos, variaciones).
 
 Ejemplo de bloque de calculo para intereses de demora:
 
@@ -351,6 +351,25 @@ return {
   ]
 };
 ```
+
+### Figura con fotografia
+
+Cuando una foto aporta de verdad (portada de un informe, evidencia de un caso), se incrusta como `data:` URI conforme a las reglas de `anatomia-documento-visual.md` (JPEG comprimido, menos de 30 KB, licencia que permita el uso). Estilos con tokens, a anadir junto al resto del CSS:
+
+```css
+figure{margin:var(--e4) 0 0}
+figure img{display:block;width:100%;max-width:520px;height:auto;border-radius:var(--radio-s);border:1px solid var(--borde)}
+figcaption{font-size:.78rem;color:var(--apagado);margin-top:var(--e2);max-width:520px}
+```
+
+```html
+<figure>
+  <img src="data:image/jpeg;base64,..." alt="Descripcion literal de lo que se ve en la foto.">
+  <figcaption>Pie que conecta la foto con el dato. Foto: Autor, "Titulo", origen, licencia (URL).</figcaption>
+</figure>
+```
+
+El `alt` describe la imagen; el `figcaption` la acredita **siempre** (autor, titulo, origen, licencia con URL), tambien cuando la licencia no lo exige.
 
 ### Pie del documento visual
 

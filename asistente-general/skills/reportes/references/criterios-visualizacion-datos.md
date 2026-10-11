@@ -80,6 +80,7 @@ Si la respuesta a la pregunta cabe en una frase, se escribe la frase. Un grafico
 5. La vista previa de impresion cabe en pagina, sin botones y sin fondos oscuros.
 6. Todas las cifras del texto coinciden con las de los graficos y las tablas.
 7. Cada grafico tiene alternativa textual accesible.
-8. El aviso DRAFT y el pie con fuentes estan presentes.
+8. El aviso DRAFT y el pie con fuentes estan presentes; todo dato buscado en internet lleva su cita (fuente, URL y fecha de consulta) y, si conviven datos del usuario y de internet, el origen de cada uno queda marcado.
+8 bis. La vista de impresion no corta tablas anchas por el borde derecho, no duplica la fila de totales y no deja paginas medio vacias por tarjetas mas altas que el A4 (reglas de `anatomia-documento-visual.md`).
 9. La animacion de entrada no se dispara para quien ha pedido movimiento reducido, y desaparece al imprimir.
 10. El nombre del archivo, los rotulos, las leyendas y las unidades estan en el idioma del usuario.

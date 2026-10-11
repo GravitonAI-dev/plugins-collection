@@ -306,3 +306,11 @@ Aplica las directivas globales `REG-FDB-01` y `REG-CLO-01` de `CLAUDE.md`:
 3. **Fuero y Jurisdicción Imperativa:** Restricciones de sumisión judicial o administrativa.
 4. **Cero Invención de Datos y Normas:** Todos los datos reales no aportados deben permanecer como `{{DATO_FALTANTE}}`. Queda estrictamente prohibido inventar números identificativos, referencias catastrales, jurisprudencia o artículos legales.
 ```
+
+---
+
+## 4. CONTROL DE CALIDAD OBLIGATORIO
+
+Ninguna skill ni plugin entra en `develop` sin pasar el control de calidad descrito en la seccion 10 del `README.md`: `scripts/control_calidad.sh` en verde, `/simplify` y `/code-review` sobre el diff, refresco de `origin/develop` y PR. GitHub no deja fusionar en rojo.
+
+El validador comprueba, entre otras cosas, que el `name` coincida con la carpeta, que existan los assets y references citados, que toda combinacion de vectores tenga rama, que la Fase 2 tenga el formulario `origen_plantilla` y la Fase 5 el menu de cierre, que los assets sean render-safe (sin comentarios HTML, sin marcadores con corchete simple, prefijo `template-` si llevan `{{...}}`), la cabecera DRAFT, los bloques `i18n` y las secciones obligatorias del `CLAUDE.md` del plugin.

@@ -8,14 +8,14 @@
       "description": "First-line universal assistant and fallback for general queries, multidisciplinary legal and administrative guidance, web searches, fact analysis and on-demand reports and memoranda. It also produces self-contained visual documents in a single HTML file (reports, dashboards and interactive calculators with its own SVG chart library) that the user opens in a browser and exports to PDF, with no external libraries or resources."
     }
   },
-  "version": "0.7.0",
-  "description": "Asistente universal de primera linea y fallback para consultas generales, orientacion juridica y administrativa multidisciplinar, busquedas web, analisis de hechos y generacion bajo demanda de informes y memorandums tecnicos. Incorpora ademas la generacion de documentos visuales autocontenidos en un unico archivo HTML que el usuario abre en su navegador y exporta a PDF con fidelidad de color desde su propio boton: informes y dossieres visuales, paneles de datos y herramientas interactivas de calculo, con una biblioteca propia de once formas graficas en SVG (barras horizontales, verticales y apiladas, linea con area y banda de umbral, minigrafico de tendencia, medidor semicircular, cascada de importes, matriz de riesgo, diagrama de plazos y anillo de reparto), sin librerias ni recursos externos.",
+  "version": "1.0.0",
+  "description": "Asistente universal de primera linea y fallback para consultas generales, orientacion juridica y administrativa multidisciplinar, busquedas web, analisis de hechos y generacion bajo demanda de informes y memorandums tecnicos. Incorpora ademas la generacion de documentos visuales autocontenidos en un unico archivo HTML que el usuario abre en su navegador y exporta a PDF con fidelidad de color desde su propio boton: informes y dossieres visuales, paneles de datos y herramientas interactivas de calculo, con una biblioteca propia de diez formas graficas en SVG (barras horizontales, verticales y apiladas, linea con area y banda de umbral, minigrafico de tendencia, medidor semicircular, cascada de importes, matriz de riesgo, diagrama de plazos y anillo de reparto), sin librerias ni recursos externos.",
   "author": {
     "name": "GravitonAI"
   },
   "skills": [
     "./skills/consulta-general",
-    "./skills/doc-visual",
+    "./skills/reportes",
     "./skills/redaccion-documentos"
   ],
   "agents": [],

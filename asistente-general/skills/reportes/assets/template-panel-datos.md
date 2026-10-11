@@ -156,6 +156,14 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   .entradilla{margin-bottom:var(--e2)}
   thead{display:table-header-group}
   tbody tr:hover{background:transparent}
+  /* En papel no hay scroll horizontal: la tabla se compacta hasta caber en el A4. */
+  .indicadores{grid-template-columns:repeat(2,1fr)}
+  .tabla{overflow:visible}
+  table{min-width:0;font-size:8.2pt}
+  th,td{padding:5px 7px}
+  .distintivo{font-size:.62rem;padding:2px 7px}
+  /* Chrome repite el tfoot en cada pagina; asi solo aparece al final. */
+  tfoot{display:table-row-group}
 }
 
 @media print{
@@ -329,10 +337,10 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
         <path class="pista-arco" d="M 30 125 A 90 90 0 0 1 210 125"></path>
         <path class="arco" d="M 30 125 A 90 90 0 0 1 210 125" stroke="{{MEDIDOR_COLOR}}"
               stroke-dasharray="{{MEDIDOR_ARCO}} {{MEDIDOR_RESTO}}"></path>
-        <text x="120" y="112" text-anchor="middle" font-size="34" font-weight="670">{{MEDIDOR_CIFRA}}</text>
-        <text class="eje" x="120" y="136" text-anchor="middle">{{MEDIDOR_ROTULO}}</text>
-        <text class="eje" x="30" y="145" text-anchor="middle">0</text>
-        <text class="eje" x="210" y="145" text-anchor="middle">{{MEDIDOR_MAXIMO}}</text>
+        <text x="120" y="106" text-anchor="middle" font-size="34" font-weight="670">{{MEDIDOR_CIFRA}}</text>
+        <text class="eje" x="120" y="128" text-anchor="middle">{{MEDIDOR_ROTULO}}</text>
+        <text class="eje" x="30" y="147" text-anchor="middle">0</text>
+        <text class="eje" x="210" y="147" text-anchor="middle">{{MEDIDOR_MAXIMO}}</text>
       </svg>
       <div class="aviso">
         <span class="titulo">{{MEDIDOR_TITULO_NOTA}}</span>
@@ -377,7 +385,3 @@ document.getElementById("imprimir").addEventListener("click", function(){ window
 </script>
 </body>
 </html>
-H
-cat /tmp/panel_head.html /tmp/base.css /tmp/panel_css2.css > template-panel-datos.md
-rm -f template-documento visual-panel-datos.md
-grep -c . template-panel-datos.md

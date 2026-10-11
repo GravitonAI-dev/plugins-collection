@@ -137,7 +137,8 @@ input[type=number]{font-variant-numeric:tabular-nums}
 .resultado .cifra{font-size:1.5rem;font-weight:670;letter-spacing:-.025em;margin:0;font-variant-numeric:tabular-nums}
 .resultado.principal{background:var(--acento-suave);border-color:var(--acento)}
 .resultado.principal .cifra{color:var(--acento-fuerte)}
-.medidor{margin:0 auto var(--e3)}
+.medidor{margin:0 auto 6px}
+.medidor-rotulo{text-align:center;font-size:.82rem;color:var(--apagado);margin:0 0 var(--e4)}
 .medidor .pista-arco{fill:none;stroke:var(--superficie-2);stroke-width:16;stroke-linecap:round}
 .medidor .arco{fill:none;stroke:var(--acento);stroke-width:16;stroke-linecap:round;transition:stroke-dasharray .35s ease}
 .medidor text{fill:var(--texto)}
@@ -161,7 +162,14 @@ input[type=number]{font-variant-numeric:tabular-nums}
   .columnas{grid-template-columns:1fr}
   .acciones{display:none}
   .tarjeta{break-inside:avoid;page-break-inside:avoid;box-shadow:none}
+  /* La tarjeta de resultados suele ser mas alta que un A4: prohibirle el corte
+     deja paginas medio vacias. Se deja partir y se protegen sus bloques. */
+  .permite-corte{break-inside:auto;page-break-inside:auto}
+  .permite-corte .medidor,.permite-corte .medidor-rotulo,.permite-corte .resultados,
+  .permite-corte .tabla,.permite-corte .aviso{break-inside:avoid;page-break-inside:avoid}
   thead{display:table-header-group}
+  /* Chrome repite el tfoot en cada pagina; asi solo aparece al final. */
+  tfoot{display:table-row-group}
   tbody tr:hover{background:transparent}
 }
 
@@ -236,16 +244,18 @@ input[type=number]{font-variant-numeric:tabular-nums}
     </div>
 
     <div>
-      <section class="tarjeta aparece">
+      <section class="tarjeta aparece permite-corte">
         <h2>{{TITULO_PANEL_RESULTADO}}</h2>
         <p class="subtitulo">{{SUBTITULO_PANEL_RESULTADO}}</p>
 
-        <svg class="medidor" viewBox="0 0 180 118" width="230" role="img" aria-label="{{MEDIDOR_DESCRIPCION}}">
+        <!-- El rotulo del medidor va en HTML, no dentro del SVG: un texto largo
+             dentro del viewBox se recorta por los lados sin aviso. -->
+        <svg class="medidor" viewBox="0 0 180 108" width="230" role="img" aria-label="{{MEDIDOR_DESCRIPCION}}">
           <path class="pista-arco" d="M 20 96 A 70 70 0 0 1 160 96"></path>
           <path class="arco" id="arco-medidor" d="M 20 96 A 70 70 0 0 1 160 96" stroke-dasharray="0 219.9"></path>
           <text x="90" y="88" text-anchor="middle" font-size="27" font-weight="670" id="medidor-cifra">--</text>
-          <text class="eje" x="90" y="110" text-anchor="middle">{{MEDIDOR_ROTULO}}</text>
         </svg>
+        <p class="medidor-rotulo">{{MEDIDOR_ROTULO}}</p>
 
         <div class="resultados">
           <div class="resultado principal"><p class="rotulo">{{RESULTADO_1_ROTULO}}</p><p class="cifra" id="resultado1">--</p></div>
@@ -293,7 +303,11 @@ input[type=number]{font-variant-numeric:tabular-nums}
 <script>
 (function(){
   "use strict";
-  var euro = new Intl.NumberFormat("es-ES", {style:"currency", currency:"EUR", maximumFractionDigits:2});
+  // formatoMagnitud da formato a resultado1, resultado2 y a los importes del
+  // desglose. Por defecto es dinero; si la herramienta calcula otra magnitud
+  // (personas, dias, kilogramos...) se sustituye por el Intl.NumberFormat
+  // adecuado y, si procede, se anade la unidad en los rotulos.
+  var formatoMagnitud = new Intl.NumberFormat("es-ES", {style:"currency", currency:"EUR", maximumFractionDigits:2});
   var numero = new Intl.NumberFormat("es-ES", {maximumFractionDigits:2});
   var LONGITUD_ARCO = 219.9;
   var iniciales = {};
@@ -312,8 +326,8 @@ input[type=number]{font-variant-numeric:tabular-nums}
   }
 
   function pintar(r){
-    document.getElementById("resultado1").textContent = euro.format(r.resultado1);
-    document.getElementById("resultado2").textContent = euro.format(r.resultado2);
+    document.getElementById("resultado1").textContent = formatoMagnitud.format(r.resultado1);
+    document.getElementById("resultado2").textContent = formatoMagnitud.format(r.resultado2);
     document.getElementById("resultado3").textContent = numero.format(r.resultado3);
 
     var proporcion = Math.max(0, Math.min(100, r.medidor || 0));
@@ -327,13 +341,13 @@ input[type=number]{font-variant-numeric:tabular-nums}
     r.desglose.forEach(function(fila){
       var tr = document.createElement("tr");
       var c1 = document.createElement("td"); c1.textContent = fila.concepto;
-      var c2 = document.createElement("td"); c2.className = "cifra"; c2.textContent = euro.format(fila.importe);
+      var c2 = document.createElement("td"); c2.className = "cifra"; c2.textContent = formatoMagnitud.format(fila.importe);
       var c3 = document.createElement("td"); c3.className = "cifra"; c3.textContent = fila.detalle;
       tr.appendChild(c1); tr.appendChild(c2); tr.appendChild(c3);
       cuerpo.appendChild(tr);
       total += fila.importe;
     });
-    document.getElementById("total-columna-2").textContent = euro.format(total);
+    document.getElementById("total-columna-2").textContent = formatoMagnitud.format(total);
     document.getElementById("total-columna-3").textContent = (r.totalDetalle === undefined) ? "" : r.totalDetalle;
   }
 

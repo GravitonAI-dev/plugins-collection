@@ -45,8 +45,8 @@ Los assets no reproducen ningun formulario oficial: reunen y ordenan el contenid
 |---|---|
 | `template-hoja-datos-solicitud-nacionalidad.md` | Campos del formulario oficial de solicitud, ordenados por bloques |
 | `template-escrito-motivado-nacionalidad.md` | Estructura de escrito administrativo: expone, solicita, otrosies y relacion documental |
-| `checklist-documentacion-nacionalidad.md` | Relacion documental con su estado, su vigencia y su regimen de legalizacion |
+| `template-checklist-documentacion-nacionalidad.md` | Relacion documental con su estado, su vigencia y su regimen de legalizacion |
 | `template-escrito-subsanacion.md` | Contestacion punto por punto al requerimiento, en su mismo orden |
 | `template-alegaciones-propuesta-desestimatoria.md` | Alegaciones en tramite de audiencia previo a la resolucion |
 
-`checklist-documentacion-nacionalidad.md` no lleva el prefijo `template-` porque no es una plantilla de documento a presentar, sino un instrumento de control del expediente.
+`template-checklist-documentacion-nacionalidad.md` no es un documento a presentar, sino un instrumento de control del expediente. Lleva el prefijo `template-` porque se rellena con marcadores `{{...}}`, como exige la guia de autoria.
