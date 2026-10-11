@@ -204,7 +204,7 @@ Para cada bloque sustantivo: recogida de datos -> **descripcion en texto plano d
 #### 1. Encabezado e identificacion
 - Titulo del documento visual (afirma la idea principal, no etiqueta el contenido), entradilla de una o dos frases, etiqueta superior, referencia del expediente, fecha, destinatario y autoria.
 - Datos de personas y entidades resueltos conforme a `REG-CLI-01` a `REG-CLI-05` y volcados de inmediato en el encabezado y en el pie, sin confirmacion previa en el chat.
-- Ajuste del elemento `title` del documento: nombre corto y reconocible, porque es lo que se lee en la pestana del navegador y el nombre que propone el PDF. Los caracteres especiales de HTML se escriben como entidades en cualquier texto del documento (`&amp;` para «&», `&lt;` para «<»); los acentos y la «ñ» se escriben tal cual.
+- `{{TITULO_CORTO}}` (el elemento `title`) es distinto del titular: nombre corto y reconocible («Morosidad 2026 · Talleres Ebro»), mientras el `h1` afirma la idea principal. El titulo corto es lo que se lee en la pestana del navegador y el nombre que propone el PDF. Los caracteres especiales de HTML se escriben como entidades en cualquier texto del documento (`&amp;` para «&», `&lt;` para «<»); los acentos y la «ñ» se escriben tal cual.
 
 #### 2. Indicadores principales
 - Entre dos y cuatro cifras clave con su unidad, su fecha de referencia y una linea de detalle.

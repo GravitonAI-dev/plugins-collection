@@ -1,6 +1,6 @@
 # Modulos opcionales del motor
 
-Algunos tipos de grafico pesan demasiado para ir en todos los reportes. Viven aqui como **modulos**: un `<script>` que se copia integro, sin modificarlo, **justo despues del script del motor** y solo en los reportes que usan ese tipo. El modulo registra su tipo en el motor y, a partir de ahi, se declara en `datos-reporte` como cualquier otro grafico.
+Algunos tipos de grafico pesan demasiado para ir en todos los reportes. Viven aqui como **modulos**: un `<script>` que se copia integro, sin modificarlo, **justo despues del script del motor** (antes de `</body>` y antes del script de la maqueta, si la maqueta tiene uno) y solo en los reportes que usan ese tipo. El modulo registra su tipo en el motor y, a partir de ahi, se declara en `datos-reporte` como cualquier otro grafico.
 
 Si un reporte declara un tipo de modulo pero no copia el modulo, el grafico muestra el recuadro rojo «tipo desconocido».
 
@@ -41,6 +41,8 @@ Cajas unidas por flechas: procesos, flujos de un procedimiento, cadenas de hecho
 
 Reglas:
 
+- **Solo los pasos que ha descrito el usuario o que constan en el expediente.** Si el flujo queda incompleto (falta que pasa cuando si paga, por ejemplo), se pregunta en el chat; no se completa con pasos supuestos.
+- **Colores de grupo:** la serie `1` a `6` para distinguir fases o actores; `ok`, `aviso` y `riesgo` solo cuando el nodo es un resultado bueno, dudoso o malo (cobro, archivo, sancion).
 - **Maximo 24 nodos.** Un diagrama mayor no se lee: se divide en dos o se resume.
 - Texto de cada caja corto, en una o dos lineas. Los detalles van en el texto del reporte, no dentro de la caja.
 - Una conexion que vuelve atras (un ciclo) se dibuja por fuera, curvada. Si hay muchas, el proceso esta mal descrito o necesita otra forma.

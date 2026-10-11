@@ -48,6 +48,7 @@ def componer(destino, textos, datos, maqueta=None, tema="moderno", ficha=None, c
         html = html.replace("</body>", MODULOS[modulo] + "\n</body>")
     if parte("script"):
         html = html.replace("</body>", parte("script") + "\n</body>")
+    textos = dict({"TITULO_CORTO": textos.get("TITULO_DOCUMENTO", "")}, **textos)
     for clave, valor in textos.items():
         html = html.replace("{{%s}}" % clave, valor)
     pendientes = sorted(set(re.findall(r"\{\{(\w+)\}\}", html)) - {"LETRADO_RESPONSABLE", "clave"})
@@ -284,7 +285,7 @@ GALERIA = [
    {"tipo": "medidor", "valor": 68, "rotulo": "plazo de prescripcion consumido"}),
   ("cascada", "Cascada", "Como se llega a un total; los saldos negativos bajan.",
    {"tipo": "cascada", "unidad": "eur", "pasos": [{"rotulo": "Principal", "valor": 12000}, {"rotulo": "Intereses", "valor": 1450},
-                                                  {"rotulo": "Costas", "valor": 800}, {"rotulo": "Pagos", "valor": -2000}],
+                                                  {"rotulo": "Costas", "valor": 800}, {"rotulo": "Pagos", "valor": "@pagos"}],
     "total": {"rotulo": "A reclamar"}}),
   ("anillo", "Anillo", "Peso de cada parte sobre el total, con la cifra en el centro.",
    {"tipo": "anillo", "unidad": "eur", "porciones": [{"rotulo": "Principal", "valor": 12000}, {"rotulo": "Intereses", "valor": 1450},
@@ -324,7 +325,9 @@ GALERIA = [
   ("plazos", "Diagrama de plazos", "Varios plazos en una escala comun, con la marca de hoy.",
    {"tipo": "plazos", "hoy": "2026-09-20", "plazos": [{"rotulo": "Recurso de reposicion", "inicio": "2026-08-01", "fin": "2026-08-20"},
      {"rotulo": "Requerimiento", "inicio": "2026-09-01", "fin": "2026-09-27"},
-     {"rotulo": "Contestacion a la demanda", "inicio": "2026-10-01", "fin": "2026-11-13"}]}),
+     {"rotulo": "Contestacion a la demanda", "inicio": "2026-10-01", "fin": "2026-11-13"},
+     {"rotulo": "Negociacion con la contraria", "inicio": "2026-09-10"},
+     {"rotulo": "Vista prevista", "inicio": "2026-12-01", "fin": "2026-12-15", "aproximada": True}]}),
 ]
 
 def galeria():
@@ -336,7 +339,8 @@ def galeria():
         tarjetas.append('<section class="tarjeta%s">\n      <h2>%s</h2>\n      <p class="subtitulo">%s <code>"tipo": "%s"</code></p>\n'
                         '      <figure class="grafico" data-grafico="%s"></figure>\n    </section>' % (ancho, titulo, uso, g["tipo"], clave))
     graficos["tendencia"] = {"tipo": "chispa", "valores": [10, 12, 18, 22, 30, 34], "etiquetas": ["Abril", "Septiembre"], "fuente": "ejemplo"}
-    datos = {"idioma": "es-ES", "moneda": "EUR", "cifras": {"total": {"de": "cascada", "calculo": "suma", "unidad": "eur"}},
+    datos = {"idioma": "es-ES", "moneda": "EUR", "cifras": {"total": {"de": "cascada", "calculo": "suma", "unidad": "eur"},
+                                                           "pagado": {"valor": 2000}, "pagos": {"operacion": "producto", "a": "pagado", "b": -1}},
              "fuentes": {"ejemplo": {"nombre": "Datos ficticios de demostracion", "consulta": "2026-10-11"}}, "graficos": graficos}
     contenido = ('<div class="indicadores">\n    <div class="indicador">\n      <p class="rotulo">Indicador con minigrafico</p>\n'
                  '      <p class="cifra" data-cifra="total"></p>\n      <p class="detalle">La cifra sale del grafico de cascada</p>\n'

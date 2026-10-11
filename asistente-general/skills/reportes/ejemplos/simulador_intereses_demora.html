@@ -387,8 +387,8 @@ catch (e) { console.error("datos-reporte no es JSON valido: " + e.message); }
 var IDIOMA = datos.idioma || D.documentElement.lang || "es-ES";
 var MONEDA = datos.moneda || "EUR";
 var TEXTOS_BASE = {
-  es: {desde:"Desde", hacia:"Hacia", rotulo:"Rotulo", objetivo:"Objetivo", cumplimiento:"Cumplimiento", datos:"Ver los datos", csv:"Descargar CSV", fuente:"Fuente", fuentes:"Fuentes", consulta:"consultado el", otros:"Otros", hoy:"hoy", total:"Total", concepto:"Concepto", valor:"Valor", acumulado:"Acumulado", porcentaje:"Porcentaje", inicio:"Inicio", fin:"Fin", restantes:"Dias restantes", maximo:"Maximo", ok:"Asumir", aviso:"Vigilar", riesgo:"Actuar ya", error:"No se puede dibujar el grafico"},
-  en: {desde:"From", hacia:"To", rotulo:"Label", objetivo:"Target", cumplimiento:"Achieved", datos:"Show the data", csv:"Download CSV", fuente:"Source", fuentes:"Sources", consulta:"accessed on", otros:"Other", hoy:"today", total:"Total", concepto:"Item", valor:"Value", acumulado:"Running total", porcentaje:"Share", inicio:"Start", fin:"End", restantes:"Days left", maximo:"Maximum", ok:"Accept", aviso:"Monitor", riesgo:"Act now", error:"The chart cannot be drawn"}
+  es: {en_curso:"en curso", desde:"Desde", hacia:"Hacia", rotulo:"Rotulo", objetivo:"Objetivo", cumplimiento:"Cumplimiento", datos:"Ver los datos", csv:"Descargar CSV", fuente:"Fuente", fuentes:"Fuentes", consulta:"consultado el", otros:"Otros", hoy:"hoy", total:"Total", concepto:"Concepto", valor:"Valor", acumulado:"Acumulado", porcentaje:"Porcentaje", inicio:"Inicio", fin:"Fin", restantes:"Dias restantes", maximo:"Maximo", ok:"Asumir", aviso:"Vigilar", riesgo:"Actuar ya", error:"No se puede dibujar el grafico"},
+  en: {en_curso:"ongoing", desde:"From", hacia:"To", rotulo:"Label", objetivo:"Target", cumplimiento:"Achieved", datos:"Show the data", csv:"Download CSV", fuente:"Source", fuentes:"Sources", consulta:"accessed on", otros:"Other", hoy:"today", total:"Total", concepto:"Item", valor:"Value", acumulado:"Running total", porcentaje:"Share", inicio:"Start", fin:"End", restantes:"Days left", maximo:"Maximum", ok:"Accept", aviso:"Monitor", riesgo:"Act now", error:"The chart cannot be drawn"}
 };
 var T = Object.assign({}, TEXTOS_BASE[IDIOMA.slice(0, 2)] || TEXTOS_BASE.es, datos.textos || {});
 var FUENTES = datos.fuentes || {};
@@ -724,10 +724,10 @@ tipos.matriz = function (fig, g) {
 tipos.plazos = function (fig, g) {
   var pl = g.plazos || [];
   if (!pl.length) throw new Error("faltan plazos");
-  var hoy = fecha(g.hoy), ini = pl.map(function (p) { return fecha(p.inicio); }), fin = pl.map(function (p) { return fecha(p.fin); });
+  var hoy = fecha(g.hoy), ini = pl.map(function (p) { return fecha(p.inicio); }), fin = pl.map(function (p) { return p.fin ? fecha(p.fin) : hoy; });  /* sin fin: fase abierta hasta hoy */
   var desde = Math.min(hoy, minimo(ini)), hasta = Math.max(hoy, maximo(fin)), margen = Math.max((hasta - desde) * 0.04, DIA);
   desde -= margen; hasta += margen;
-  var x0 = W < 520 ? 112 : 150, ancho = W - x0 - 30, corte = W < 520 ? 16 : 24, alto = 46 + pl.length * 38 + 34;
+  var x0 = W < 520 ? 112 : 150, ancho = W - x0 - 30, corte = W < 520 ? 16 : 28, alto = 46 + pl.length * 38 + 34;
   var x = function (t) { return r1(x0 + (t - desde) / (hasta - desde) * ancho); };
   var s = lienzo(fig, W, alto, g.resumen || "");
   var base = alto - 26, dias = (hasta - desde) / DIA;
@@ -749,17 +749,19 @@ tipos.plazos = function (fig, g) {
   });
   pl.forEach(function (p, i) {
     var y = 46 + i * 38, a = ini[i], b = fin[i];
-    var c = p.color ? color(p.color, i) : b < hoy ? "var(--c6)" : a <= hoy ? "var(--aviso)" : color(null, i);
+    var c = p.color ? color(p.color, i) : !p.fin ? "var(--aviso)" : b < hoy ? "var(--c6)" : a <= hoy ? "var(--aviso)" : color(null, i);
     consejo(svg("text", {"class": "eje", x: x0 - 10, y: y + 13, "text-anchor": "end"}, s, recortar(p.rotulo, corte)), p.rotulo);
-    consejo(svg("rect", {x: x(a), y: y, width: Math.max(r1(x(b) - x(a)), 3), height: 18, rx: 4, fill: c, opacity: b < hoy ? ".55" : null}, s),
-      p.rotulo + ": " + fmtFechaLarga.format(a) + " \u2013 " + fmtFechaLarga.format(b));
-    var dch = x(b) + 6 < x0 + ancho - 40;
-    svg("text", {"class": dch ? "fecha-fin" : "fecha-fin dentro", x: dch ? x(b) + 6 : x(b) - 6, y: y + 13, "text-anchor": dch ? "start" : "end"}, s, fmtFecha.format(b));
+    /* Una fecha aproximada (prevista, no notificada) se dibuja con borde discontinuo y relleno claro. */
+    consejo(svg("rect", {x: x(a), y: y, width: Math.max(r1(x(b) - x(a)), 3), height: 18, rx: 4, fill: c, opacity: b < hoy && p.fin ? ".55" : null,
+      "fill-opacity": p.aproximada ? ".3" : null, stroke: p.aproximada ? c : null, "stroke-dasharray": p.aproximada ? "4 3" : null}, s),
+      p.rotulo + ": " + fmtFechaLarga.format(a) + " \u2013 " + (p.fin ? fmtFechaLarga.format(b) : T.en_curso));
+    var dch = x(b) + 6 < x0 + ancho - 40, etiqueta = !p.fin ? T.en_curso : (p.aproximada ? "\u2248 " : "") + fmtFecha.format(b);
+    svg("text", {"class": dch || p.aproximada ? "fecha-fin" : "fecha-fin dentro", x: dch ? x(b) + 6 : x(b) - 6, y: y + 13, "text-anchor": dch ? "start" : "end"}, s, etiqueta);
   });
   svg("line", {"class": "hoy", x1: x(hoy), y1: 30, x2: x(hoy), y2: base}, s);
   svg("text", {"class": "texto-hoy", x: x(hoy), y: 24, "text-anchor": "middle"}, s, g.texto_hoy || T.hoy);
   return {cabecera: [T.concepto, T.inicio, T.fin, T.restantes], filas: pl.map(function (p, i) {
-    return [p.rotulo, fmtFechaLarga.format(ini[i]), fmtFechaLarga.format(fin[i]), Math.max(0, Math.round((fin[i] - hoy) / DIA))];
+    return [p.rotulo, fmtFechaLarga.format(ini[i]), p.fin ? (p.aproximada ? "\u2248 " : "") + fmtFechaLarga.format(fin[i]) : T.en_curso, p.fin ? Math.max(0, Math.round((fin[i] - hoy) / DIA)) : "\u2014"];
   })};
 };
 
@@ -915,6 +917,7 @@ function cifra(def, pila) {
       case "diferencia": return a - b;
       case "cociente": return a / b;
       case "porcentaje": return a / b * 100;
+      case "producto": return a * b;
     }
     throw new Error("operacion desconocida: " + def.operacion);
   }
@@ -940,6 +943,18 @@ function cifra(def, pila) {
 }
 
 /* ---------- arranque ---------- */
+/* Un valor "@clave" dentro de un grafico se sustituye por la cifra clave de cifras: asi una
+   diferencia o un total calculado alimenta tambien al grafico sin escribirlo a mano. */
+function referencias(x) {
+  if (typeof x === "string" && /^@[\w-]+$/.test(x)) {
+    var d = (datos.cifras || {})[x.slice(1)];
+    if (!d) throw new Error("no hay cifra " + x.slice(1));
+    return cifra(d);
+  }
+  if (Array.isArray(x)) return x.map(referencias);
+  if (x && typeof x === "object") { var o = {}; for (var k in x) o[k] = referencias(x[k]); return o; }
+  return x;
+}
 function escala(fig) { return parseFloat(getComputedStyle(fig).getPropertyValue("--escala-grafico")) || 1; }
 function dibujar(fig, ancho) {
   var id = fig.getAttribute("data-grafico"), g = (datos.graficos || {})[id];
@@ -952,6 +967,7 @@ function dibujar(fig, ancho) {
   try {
     if (!g) throw new Error("no hay datos con el nombre " + id);
     if (!tipos[g.tipo]) throw new Error("tipo desconocido: " + g.tipo);
+    g = referencias(g);
     var tabla = tipos[g.tipo](fig, g, id, W);
     if (tabla && g.tabla !== false) tablaDatos(fig, tabla, id);
     var claves = fuentesDe(g);

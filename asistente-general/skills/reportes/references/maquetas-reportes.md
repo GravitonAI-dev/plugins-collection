@@ -17,6 +17,8 @@ Reglas comunes a todas las maquetas:
 - El tema se fija en la etiqueta `html`: `data-tema="moderno"` o `data-tema="sobrio"`.
 - Los bloques se pueden repetir, quitar o reordenar, y **cualquier hueco de grafico admite cualquier tipo**: si en un panel no hay importe que descomponer, la tarjeta de la cascada pasa a ser una bala, unas divergentes o un diagrama. Las maquetas son un punto de partida, no un formulario que haya que llenar entero. Lo que no cambia es la estructura de cada bloque: las clases son las de la base y no se renombran.
 - Toda cifra del texto que salga de un grafico se escribe con `<span data-cifra="clave"></span>` y se declara en `cifras`. Asi el texto y el grafico no pueden contradecirse.
+- **Lo que falta:** una linea de la ficha cuyo dato no es esencial y no se ha dado (la referencia del expediente, el autor) se quita; si es esencial, se pregunta. Un hito sin fecha cierta se escribe como «Fecha por determinar» o «Prevista: noviembre de 2026», nunca con un dia inventado. Los marcadores `{{VARIABLE}}` solo quedan para datos que el usuario ha decidido no dar.
+- **Titulo:** `{{TITULO_CORTO}}` es el nombre de la pestana y del PDF; `{{TITULO_DOCUMENTO}}`, el titular que afirma.
 - Las cifras que no salen de un grafico (un plazo en meses, una fecha) se escriben como texto.
 
 ---
@@ -535,7 +537,7 @@ Notas de uso:
 - **Cifras dentro de los textos:** cualquier texto de una diapositiva admite `{cifra:clave}`, que se sustituye por la cifra `clave` de `cifras` (por ejemplo `"texto": "Son {cifra:exceso} por encima del objetivo"`). Asi las cifras derivadas tampoco se escriben a mano en una presentacion.
 - **Diapositiva `cifra`:** el numero va arriba, en grande, y el `titulo` debajo lo completa como frase («531.200 €» + «es el saldo vencido a 30 de septiembre»).
 - **Graficos y diagramas** se dibujan con letra de diapositiva. Un diagrama de flujo cabe a lo ancho hasta unos seis pasos; con mas, se divide en dos diapositivas. Un grafico sin `conclusion` ocupa todo el ancho.
-- **Cabecera de la base:** en la presentacion no se ve. `{{ETIQUETA_SUPERIOR}}` y `{{ENTRADILLA}}` se rellenan igualmente (con el contexto de la reunion) y `{{TITULO_DOCUMENTO}}` es el titulo corto que aparece en el pie de cada diapositiva y en la pestana.
+- **Cabecera de la base:** en la presentacion no se ve. `{{ETIQUETA_SUPERIOR}}` y `{{ENTRADILLA}}` se rellenan igualmente (con el contexto de la reunion) y `{{TITULO_CORTO}}` es el que aparece en el pie de cada diapositiva y en la pestana.
 - **Aviso legal:** `{{PIE_AVISO_LEGAL}}` se imprime en la ultima diapositiva, junto a las fuentes; el aviso DRAFT va en el pie de cada diapositiva.
 
 ### Ficha
@@ -551,7 +553,7 @@ Notas de uso:
 .escenario{position:relative;width:100%;overflow:hidden;border-radius:var(--radio);box-shadow:var(--sombra);background:var(--superficie)}
 .escenario:fullscreen{border-radius:0;display:flex;align-items:center;justify-content:center;background:#000}
 .diapositivas{position:relative;width:1280px;height:720px;transform-origin:0 0}
-.diapositiva{position:absolute;inset:0;padding:56px 72px 64px;background:var(--superficie);visibility:hidden;display:flex;flex-direction:column;overflow:hidden}
+.diapositiva{position:absolute;inset:0;padding:52px 72px 76px;background:var(--superficie);visibility:hidden;display:flex;flex-direction:column;overflow:hidden}
 .diapositiva.activa{visibility:visible}
 .diapositiva h2{font-size:40px;line-height:1.12;letter-spacing:-.02em;margin:0 0 28px;max-width:1040px}
 .diapositiva p,.diapositiva li{font-size:22px;line-height:1.45}
@@ -560,7 +562,7 @@ Notas de uso:
 .diapositiva .pie-diapositiva b{color:var(--aviso);letter-spacing:.06em}
 .diapositiva .cuerpo{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center}
 .diapositiva .grafico{--escala-grafico:1.5}
-.diapositiva .grafico svg{width:100%;max-height:440px}
+.diapositiva .grafico svg{width:100%;max-height:380px}
 .diapositiva .barras .fila{font-size:19px}
 .diapositiva .pista{height:14px}
 .diapositiva .distintivo{font-size:14px;padding:4px 12px}
@@ -728,7 +730,13 @@ Se coloca despues del script del motor (y de los modulos, si los hay). Monta las
   D.getElementById("anterior").addEventListener("click", function () { ir(actual - 1); });
   D.getElementById("siguiente").addEventListener("click", function () { ir(actual + 1); });
   D.getElementById("completa").addEventListener("click", function () { if (escenario.requestFullscreen) escenario.requestFullscreen(); });
-  function notas() { var p = D.getElementById("panel-notas"); p.hidden = !p.hidden; }
+  /* El reloj solo corre mientras las notas estan a la vista. */
+  var reloj = null;
+  function notas() {
+    var p = D.getElementById("panel-notas"); p.hidden = !p.hidden;
+    clearInterval(reloj);
+    if (!p.hidden) reloj = setInterval(function () { var s = Math.floor((Date.now() - inicio) / 1000); D.getElementById("reloj").textContent = String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); }, 1000);
+  }
   D.getElementById("ver-notas").addEventListener("click", notas);
   D.addEventListener("keydown", function (e) {
     if (/INPUT|SELECT|TEXTAREA/.test(e.target.tagName)) return;
@@ -744,7 +752,6 @@ Se coloca despues del script del motor (y de los modulos, si los hay). Monta las
   escenario.addEventListener("touchend", function (e) { if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) ir(actual + (dx < 0 ? 1 : -1)); x0 = null; });
   window.addEventListener("resize", escalar);
   D.addEventListener("fullscreenchange", escalar);
-  setInterval(function () { var s = Math.floor((Date.now() - inicio) / 1000); D.getElementById("reloj").textContent = String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); }, 1000);
   escalar();
   ir(0);
 })();
