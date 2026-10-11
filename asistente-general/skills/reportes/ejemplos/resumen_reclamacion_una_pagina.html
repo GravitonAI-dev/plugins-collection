@@ -158,6 +158,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 .grafico .hoy{stroke:var(--riesgo);stroke-width:2;stroke-dasharray:4 3}
 .grafico .texto-hoy{font-size:11px;fill:var(--riesgo);font-weight:650}
 ol.leyenda{display:block;padding-left:20px}
+.logo-marca{display:block;max-height:52px;max-width:220px;margin:0 0 var(--e3)}
 [data-cifra].delta-bien{color:var(--ok)}
 [data-cifra].delta-mal{color:var(--riesgo)}
 .grafico .valor-punto.dentro{fill:#fff}
@@ -396,6 +397,7 @@ function consejo(nodo, texto) { svg("title", {}, nodo, texto); return nodo; }
 var formatos = {};
 function fmt(v, unidad, corto, decimales) {
   if (!num(v)) return "\u2014";
+  if (unidad === "fecha") return fmtFechaLarga.format(v);
   unidad = unidad || "num";
   var clave = unidad + (corto ? "|c" : "") + "|" + decimales, f = formatos[clave];
   if (!f) {
@@ -416,6 +418,7 @@ var fmtFecha = new Intl.DateTimeFormat(IDIOMA, {day: "numeric", month: "short", 
 var fmtFechaLarga = new Intl.DateTimeFormat(IDIOMA, {day: "numeric", month: "long", year: "numeric", timeZone: "UTC"});
 var fmtMes = new Intl.DateTimeFormat(IDIOMA, {month: "short", year: "2-digit", timeZone: "UTC"});
 function fecha(texto) {
+  if (num(texto)) return texto;  /* ya es una fecha calculada (por ejemplo, un vencimiento) */
   var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(texto || "");
   if (!m) throw new Error("fecha no valida (usa AAAA-MM-DD): " + texto);
   return Date.UTC(+m[1], +m[2] - 1, +m[3]);
@@ -888,9 +891,23 @@ function cifraDe(clave, pila) {
   if (!d) throw new Error("no hay cifra " + clave);
   return cifra(d, pila.concat([clave]));
 }
+/* Plazos en dias habiles: sin sabados, domingos ni los festivos que se indiquen (y sin
+   agosto si es inhabil). Los festivos los aporta quien redacta, verificados: no se suponen. */
+function habil(t, def) {
+  var d = new Date(t), s = d.getUTCDay();
+  return s !== 0 && s !== 6 && !(def.agosto_inhabil && d.getUTCMonth() === 7) && (def.festivos || []).indexOf(d.toISOString().slice(0, 10)) < 0;
+}
+function habiles(def) {
+  var t = fecha(def.desde), n = 0;
+  if (def.calculo === "dias_habiles") { for (var fin = fecha(def.hasta); t < fin;) { t += DIA; if (habil(t, def)) n++; } return n; }
+  if (!(def.dias > 0)) throw new Error("el vencimiento necesita dias");
+  while (n < def.dias) { t += DIA; if (habil(t, def)) n++; }
+  return t;
+}
 function cifra(def, pila) {
   pila = pila || [];
   if (num(def.valor)) return def.valor;
+  if (def.calculo === "dias_habiles" || def.calculo === "vencimiento") return habiles(def);
   /* Operacion entre dos cifras (o numeros): porcentaje de cumplimiento, diferencia con un objetivo... */
   if (def.operacion) {
     var op = function (x) { return num(x) ? x : cifraDe(x, pila); };
@@ -949,7 +966,7 @@ function dibujar(fig, ancho) {
     if (!g) throw new Error("no hay datos con el nombre " + id);
     if (!tipos[g.tipo]) throw new Error("tipo desconocido: " + g.tipo);
     g = referencias(g, ["#" + id]);
-    var tabla = tipos[g.tipo](fig, g, id);
+    var tabla = tipos[g.tipo](fig, g, id, W);  /* W: ancho del lienzo, para los tipos de los modulos */
     if (tabla && g.tabla !== false) tablaDatos(fig, tabla, id);
     var claves = fuentesDe(g);
     claves.forEach(function (c) { if (usadas.indexOf(c) < 0) usadas.push(c); });
@@ -989,7 +1006,27 @@ function pintarCifras() {
     } catch (e) { console.error("Cifra " + clave + ": " + e.message); n.textContent = "{{" + clave + "}}"; }
   });
 }
+/* Identidad del despacho: colores, logo y pie, sin tocar el CSS. Solo colores hexadecimales
+   y logos en data URI de imagen, para que nada externo entre en el documento. */
+function aplicarMarca(m) {
+  if (!m) return;
+  var raiz = D.documentElement.style, hex = /^#[0-9a-fA-F]{3,8}$/;
+  if (hex.test(m.acento || "")) {
+    raiz.setProperty("--acento", m.acento);
+    raiz.setProperty("--acento-fuerte", hex.test(m.acento_fuerte || "") ? m.acento_fuerte : m.acento);
+    raiz.setProperty("--acento-suave", "color-mix(in srgb," + m.acento + " 12%,var(--superficie))");
+  }
+  (m.serie || []).slice(0, 6).forEach(function (c, i) { if (hex.test(c)) raiz.setProperty("--c" + (i + 1), c); });
+  var cabecera = D.querySelector(".contenedor>header");
+  if (cabecera && /^data:image\/(png|jpeg|svg\+xml|webp);base64,/.test(m.logo || "")) {
+    var img = D.createElement("img");
+    img.src = m.logo; img.alt = m.nombre || ""; img.className = "logo-marca";
+    cabecera.insertBefore(img, cabecera.firstChild);
+  }
+  if (m.pie) html("p", "", D.querySelector(".pie"), m.pie);
+}
 function arrancar() {
+  aplicarMarca(datos.marca);
   figuras = [].slice.call(D.querySelectorAll("[data-grafico]"));
   todos();
   pintarCifras();

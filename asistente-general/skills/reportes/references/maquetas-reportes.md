@@ -666,11 +666,12 @@ Se coloca despues del script del motor (y de los modulos, si los hay). Monta las
   "use strict";
   var R = Reportes, D = document, lista = R.datos.diapositivas || [], cont = D.getElementById("diapositivas");
   var titulo = D.title, actual = 0, inicio = Date.now();
-  /* Los textos admiten {cifra:clave}: se convierte en una cifra enlazada al bloque de datos. */
+  /* Los textos admiten {cifra:clave} (cifra enlazada al bloque de datos) y {icono:nombre} (modulo de iconos). */
   function el(tag, clase, padre, texto) {
     var n = R.html(tag, clase, padre);
-    if (texto !== undefined) String(texto).split(/\{cifra:([\w-]+)\}/).forEach(function (trozo, i) {
-      if (i % 2) R.html("span", "", n).setAttribute("data-cifra", trozo); else if (trozo) n.appendChild(D.createTextNode(trozo));
+    if (texto !== undefined) String(texto).split(/\{(cifra|icono):([\w-]+)\}/).forEach(function (trozo, i, partes) {
+      if (i % 3 === 2) R.html("span", partes[i - 1] === "icono" ? "icono" : "", n).setAttribute("data-" + partes[i - 1], trozo);
+      else if (i % 3 === 0 && trozo) n.appendChild(D.createTextNode(trozo));
     });
     return n;
   }
