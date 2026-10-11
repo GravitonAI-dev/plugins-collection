@@ -1,258 +1,155 @@
 # Biblioteca de componentes visuales
 
-Bloques listos para insertar en cualquiera de las tres plantillas. Todos usan los tokens ya declarados en `:root` (`--superficie`, `--borde`, `--acento`, `--c1` a `--c6`, escala `--e1` a `--e6`), de modo que heredan el tema claro, el oscuro y los estilos de impresion sin tocar nada. Las clases y los identificadores estan en espanol y **no se renombran**: lo que cambia de idioma es el texto visible.
+Todo lo que se inserta en un reporte usa los tokens de `:root` de la base (`--superficie`, `--borde`, `--acento`, `--c1` a `--c6`, escala `--e1` a `--e6`). Por eso hereda el tema claro, el oscuro, el sobrio y la impresion sin tocar nada. Las clases y los identificadores estan en espanol y **no se renombran**: lo que cambia de idioma es el texto visible.
 
 ---
 
-## Parte I. Sistema de coordenadas comun
+## Parte I. Como se declara un grafico
 
-Los graficos cartesianos comparten un mismo lienzo para que todos los calculos sean iguales:
+Los graficos **no se dibujan a mano ni se calculan coordenadas**. Se declaran en dos sitios con el mismo nombre:
 
+1. **El hueco**, donde debe aparecer: `<figure class="grafico" data-grafico="evolucion"></figure>`. El minigrafico de un indicador usa `<div class="tendencia" data-grafico="tendencia"></div>`.
+2. **Los datos**, dentro del bloque `<script type="application/json" id="datos-reporte">` de la base, en `graficos.evolucion`.
+
+El motor de la base dibuja el SVG, calcula escalas, ejes y porcentajes, rellena la descripcion accesible, anade debajo la tabla de datos desplegable con descarga en CSV, escribe la linea de fuente del grafico y compone el pie de fuentes del documento. Si un grafico tiene un error de datos, en su lugar aparece un recuadro rojo que dice que falta; nunca un grafico equivocado.
+
+### Estructura del bloque de datos
+
+```json
+{
+  "idioma": "es-ES",
+  "moneda": "EUR",
+  "fuentes": {
+    "ine": {"nombre": "INE, Estadistica de nacimientos", "url": "https://www.ine.es/...", "consulta": "2026-10-11"},
+    "cliente": {"nombre": "Mayor de clientes aportado por el cliente", "consulta": "2026-09-18"}
+  },
+  "cifras": {
+    "principal": {"de": "evolucion", "calculo": "ultimo", "unidad": "eur"}
+  },
+  "graficos": {
+    "evolucion": {"tipo": "linea", "unidad": "eur", "fuente": "cliente", "etiquetas": [], "series": []}
+  },
+  "textos": {}
+}
 ```
-viewBox = "0 0 700 300"
-area de dibujo:  x de 64 a 664   (600 de ancho)
-                 y de 44 a 244   (200 de alto, con el cero en y = 244)
-lineas de rejilla: y = 44, 94, 144, 194, 244
-```
 
-```
-y(valor)   = 244 - valor / maximo_eje * 200
-x(indice)  = 64 + indice / (n - 1) * 600          para lineas
-banda      = 600 / n                              para barras
-centro(i)  = 64 + banda * (i + 0,5)
-```
+- **`idioma`** y **`moneda`** fijan el formato de cifras y fechas (miles con punto en espanol, siempre, tambien con cuatro cifras).
+- **`fuentes`**: cada fuente con `nombre`, `url` si viene de internet y `consulta` en formato `AAAA-MM-DD` (la fecha real de la consulta en la sesion, nunca inventada). Los graficos las citan por su clave.
+- **`cifras`**: cifras sueltas del texto. Cada una es `{"valor": 1234, "unidad": "eur"}` o un calculo sobre un grafico: `{"de": "grafico", "calculo": "suma", "serie": 0, "unidad": "eur"}`. Calculos: `suma`, `media`, `maximo`, `minimo`, `primero`, `ultimo`, `cuenta`, `variacion` (porcentaje entre el primero y el ultimo) y `porcentaje` (peso de `"elemento": "rotulo"` sobre el total). En el HTML se escriben con `<span data-cifra="principal"></span>`.
+- **`textos`**: solo si el documento no esta en espanol ni en ingles, para traducir los rotulos del motor (`datos`, `csv`, `fuente`, `fuentes`, `consulta`, `otros`, `hoy`, `total`, `concepto`, `valor`, `acumulado`, `porcentaje`, `inicio`, `fin`, `restantes`, `maximo`, `ok`, `aviso`, `riesgo`, `error`).
 
-El `maximo_eje` se redondea **hacia arriba** a una cifra legible: si el maximo real es 8.640, el eje va a 10.000. Las etiquetas del eje vertical, de arriba abajo, valen `maximo_eje`, `0,75 x maximo_eje`, `0,5 x maximo_eje`, `0,25 x maximo_eje` y `0`. El eje arranca **siempre** en cero.
+### Campos comunes a todos los graficos
 
-Reglas que acompanan a todos los graficos:
+| Campo | Uso |
+| :--- | :--- |
+| `tipo` | Obligatorio. Uno de los tipos de la Parte II |
+| `resumen` | La frase que lee un lector de pantalla: el dato principal resumido. Obligatorio en la practica |
+| `fuente` | Clave de `fuentes`. En linea y columnas puede ir por serie (`series[].fuente`) |
+| `unidad` | `eur`, `pct`, `num`, `entero` o cualquier texto (`"dias"`, `"asuntos"`), que se anade detras de la cifra |
+| `color` | En elementos, series o porciones: `1` a `6` (serie `--c1` a `--c6`) o `ok`, `aviso`, `riesgo`. Sirve para mantener el mismo color para la misma parte en todos los graficos |
+| `tabla` | `false` para no anadir la tabla de datos desplegable |
 
-- `role="img"` y `aria-label` con el dato resumido en una frase.
-- Colores tomados de la serie `--c1` a `--c6`, en orden y **coherentes entre graficos del mismo documento visual**: si la parte actora es `--c1` en el primero, lo es en todos.
-- Coordenadas con un decimal como maximo.
-- Nunca se inventa un punto para cerrar una serie: un hueco interrumpe la linea.
+Los valores que falten se escriben `null`: la linea se interrumpe y la columna no se pinta. Nunca se inventa un punto para cerrar una serie.
 
 ---
 
-## Parte II. Las diez formas
+## Parte II. Los tipos
 
-### 1. Barras horizontales comparativas (CSS, sin SVG)
+### `barras` — barras horizontales
 
-La forma mas robusta para comparar partidas: solo exige el porcentaje respecto al valor mayor.
+La forma mas robusta para comparar partidas.
 
-```html
-<ul class="barras">
-  <li>
-    <p class="fila"><span>Factura 2025/118</span><span class="valor">18.400,00 EUR</span></p>
-    <div class="pista" role="img" aria-label="Factura 2025/118: 18.400,00 euros"><span style="width:100%"></span></div>
-  </li>
-  <li>
-    <p class="fila"><span>Factura 2025/131</span><span class="valor">11.250,00 EUR</span></p>
-    <div class="pista" role="img" aria-label="Factura 2025/131: 11.250,00 euros"><span style="width:61.1%"></span></div>
-  </li>
-</ul>
+```json
+{"tipo": "barras", "unidad": "eur", "fuente": "cliente",
+ "elementos": [{"rotulo": "Factura 2025/118", "valor": 18400}, {"rotulo": "Factura 2025/131", "valor": 11250}]}
 ```
 
-`porcentaje = valor / valor_maximo * 100`, con un decimal. Cada `li` toma automaticamente el siguiente color de la serie. Se ordenan de mayor a menor salvo que el orden cronologico sea el que informa.
+Se ordenan de mayor a menor salvo `"orden": "original"`, que se usa cuando el orden cronologico es el que informa.
 
-### 2. Barras verticales
+### `columnas` — barras verticales, una o varias series
 
-```
-banda  = 600 / n
-ancho  = banda * 0,56
-x(i)   = 64 + banda * (i + 0,5) - ancho / 2
-alto(v)= v / maximo_eje * 200
-y(v)   = 244 - alto(v)
+```json
+{"tipo": "columnas", "unidad": "eur", "etiquetas": ["1T", "2T", "3T", "4T"],
+ "series": [{"nombre": "2025", "valores": [12000, 16000, 9000, 14000]}, {"nombre": "2026", "valores": [14000, 18500, 11000, null]}]}
 ```
 
-```html
-<svg viewBox="0 0 700 300" role="img" aria-label="Importe reclamado por trimestre">
-  <line class="rejilla" x1="64" y1="44" x2="664" y2="44"></line>
-  <line class="rejilla" x1="64" y1="144" x2="664" y2="144"></line>
-  <line class="rejilla" x1="64" y1="244" x2="664" y2="244"></line>
-  <text class="eje" x="56" y="48" text-anchor="end">20.000</text>
-  <text class="eje" x="56" y="248" text-anchor="end">0</text>
-  <rect x="97.6" y="124" width="84" height="120" fill="var(--c1)" rx="3"></rect>
-  <rect x="247.6" y="84" width="84" height="160" fill="var(--c1)" rx="3"></rect>
-  <text class="eje" x="139.6" y="264" text-anchor="middle">1T</text>
-  <text class="eje" x="289.6" y="264" text-anchor="middle">2T</text>
-</svg>
+Con mas de ocho categorias se usan `barras`: las etiquetas dejan de leerse. `"valores": false` quita las cifras encima de las columnas.
+
+### `apiladas` — composicion de cada periodo
+
+Mismo formato que `columnas`. Encima de cada columna aparece el total. Con `"cien": true` cada columna se normaliza al cien por cien: **solo cuando importa la proporcion**, nunca el volumen, porque una columna de 200 euros y otra de 200.000 se verian identicas. No admite negativos.
+
+### `linea` — evolucion, con area, banda, anotaciones y destacados
+
+```json
+{"tipo": "linea", "unidad": "eur", "etiquetas": ["Ene", "Feb", "Mar"],
+ "series": [{"nombre": "Principal", "valores": [12400, 21800, 28900]}, {"nombre": "Cobrado", "valores": [0, 2100, 2100]}],
+ "umbral": {"desde": 0, "hasta": 15000, "rotulo": "Umbral de riesgo asumido"},
+ "anotaciones": [{"indice": 1, "texto": "Reconocimiento de deuda"}],
+ "destacar": ["maximo", "ultimo"]}
 ```
 
-Con mas de ocho categorias, se pasa a barras horizontales: las etiquetas verticales dejan de leerse.
+- La primera serie lleva area degradada (`"area": false` la quita); las demas van con trazo discontinuo y sin area, para no taparse.
+- `umbral` dibuja una franja por debajo de las series (un limite legal, un pacto, un objetivo) y su rotulo entra en la leyenda.
+- `anotaciones` marca con una linea vertical un hecho de contexto en el punto `indice` (base cero).
+- `destacar` escribe la cifra en `maximo`, `minimo`, `primero` o `ultimo`. Por serie: `series[].destacar`.
+- El eje empieza en cero y su tope es la cifra redonda inmediatamente superior. No admite negativos.
 
-### 3. Barras apiladas y apiladas al cien por cien
+### `chispa` — minigrafico de tendencia dentro de un indicador
 
-Cada segmento arranca donde acaba el anterior:
-
-```
-acumulado(0) = 0
-y_segmento(k) = 244 - (acumulado(k) + valor(k)) / maximo_eje * 200
-alto_segmento(k) = valor(k) / maximo_eje * 200
-acumulado(k+1) = acumulado(k) + valor(k)
-```
-
-En la variante al cien por cien, `maximo_eje = total de la columna` y cada valor se convierte antes en porcentaje. **Solo se usa cuando importa la proporcion, nunca cuando importa el volumen absoluto**: al normalizar, una columna de 200 euros y otra de 200.000 se ven identicas.
-
-### 4. Linea con area degradada
-
-El degradado se declara una vez en `<defs>` y la plantilla de panel ya lo trae con el identificador `degradado-area`:
-
-```html
-<defs>
-  <linearGradient id="degradado-area" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="var(--c1)" stop-opacity=".34"></stop>
-    <stop offset="100%" stop-color="var(--c1)" stop-opacity="0"></stop>
-  </linearGradient>
-</defs>
-<polygon class="area-1" points="64,190.4 214,152.8 364,124.4 514,95.2 664,71.3 664,244 64,244"></polygon>
-<polyline class="serie-1" points="64,190.4 214,152.8 364,124.4 514,95.2 664,71.3"></polyline>
-<circle class="punto-1" cx="214" cy="152.8" r="3.6"></circle>
+```json
+{"tipo": "chispa", "valores": [12400, 21800, 28900, 36200, 42180.5], "etiquetas": ["Enero", "Septiembre"], "resumen": "Al alza de enero a septiembre"}
 ```
 
-El poligono del area son **los mismos puntos de la linea mas los dos vertices de la base**: `664,244` y `64,244`, en ese orden. La segunda serie usa `class="serie-2"` (trazo discontinuo) y no lleva area.
+Muestra **forma**, no magnitud: no lleva ejes ni cifras, y su escala si arranca en el minimo. Con `etiquetas` el motor escribe la nota «Enero – Septiembre: +240 %»; `nota` la sustituye por un texto propio.
 
-### 5. Banda de objetivo o umbral
+### `medidor` — semicirculo para un porcentaje de algo
 
-Franja horizontal que situa la serie frente a un limite legal, un pacto o un objetivo:
-
-```
-y_banda   = 244 - limite_superior / maximo_eje * 200
-alto_banda= (limite_superior - limite_inferior) / maximo_eje * 200
+```json
+{"tipo": "medidor", "valor": 7, "maximo": 10, "unidad": "dias", "cifra": "70 %", "rotulo": "del plazo de diez dias consumido", "tramos": [60, 85]}
 ```
 
-```html
-<rect class="banda" x="64" y="104" width="600" height="40"></rect>
+El color va por tramos: hasta el primer porcentaje `--ok`, hasta el segundo `--aviso`, por encima `--riesgo`. Solo para valores que son un porcentaje de un maximo conocido: plazo consumido, avance, nivel de riesgo. `rotulo` va debajo, en HTML, porque dentro del SVG un texto largo se recorta.
+
+### `cascada` — como se llega a un total
+
+```json
+{"tipo": "cascada", "unidad": "eur",
+ "pasos": [{"rotulo": "Principal", "valor": 42180.5}, {"rotulo": "Intereses", "valor": 1947.32}, {"rotulo": "Pagos", "valor": -5600}],
+ "total": {"rotulo": "A reclamar"}}
 ```
 
-Se dibuja **antes** que la rejilla y que las series, para que quede por debajo. Su significado se explica en la leyenda.
+El total lo calcula el motor: nunca se escribe. Un valor negativo baja la columna y se pinta en `--riesgo`. Solo conceptos que suman al total.
 
-### 6. Minigrafico de tendencia dentro del indicador
+### `matriz` — riesgo e impacto
 
-Cabe en la tarjeta del indicador y no necesita ejes:
-
-```
-x(i) = 1 + i / (n - 1) * 118
-y(v) = 30 - (v - minimo) / (maximo - minimo) * 28
-```
-
-```html
-<div class="tendencia">
-  <svg class="chispa" viewBox="0 0 120 32" preserveAspectRatio="none" role="img" aria-label="Tendencia de los ultimos seis meses: al alza">
-    <polygon class="chispa-area" points="1,28 24.6,24 48.2,18 71.8,13 95.4,9 119,4 119,32 1,32"></polygon>
-    <polyline class="chispa-linea" points="1,28 24.6,24 48.2,18 71.8,13 95.4,9 119,4"></polyline>
-    <circle class="chispa-punto" cx="119" cy="4" r="2.4"></circle>
-  </svg>
-  <p class="tendencia-nota">Enero a septiembre: +240%</p>
-</div>
+```json
+{"tipo": "matriz", "filas": ["Alta", "Media", "Baja"], "columnas": ["Bajo", "Medio", "Alto"],
+ "eje_filas": "Probabilidad", "eje_columnas": "Impacto",
+ "elementos": [{"nombre": "Prescripcion de la accion", "fila": "Alta", "columna": "Alto"}],
+ "zonas": {"ok": "Asumir", "aviso": "Vigilar", "riesgo": "Actuar ya"}}
 ```
 
-Tres cosas lo convierten en un grafico y no en una raya suelta: el **area** bajo la linea, que le da suelo; el **punto final**, que dice hacia donde se lee; y el **pie de una linea**, que dice de que periodo habla y cuanto ha variado. Sin ellos, quien lo mira ve una diagonal sin explicacion en medio de una tarjeta.
+De dos a cuatro niveles por eje: mas niveles no dan precision, solo ruido. `filas` van de arriba abajo (la mas grave primero) y `columnas` de izquierda a derecha (la mas grave al final). Cada elemento es un circulo numerado en su celda y su nombre va en la lista de debajo. La zona de cada celda se calcula sola y lleva escrito que hacer.
 
-El poligono del area son los puntos de la linea mas los dos vertices del suelo, `119,32` y `1,32`. La linea lleva `vector-effect="non-scaling-stroke"` porque el `preserveAspectRatio="none"` estira el lienzo al ancho de la tarjeta y, sin eso, el trazo se deformaria.
+### `plazos` — varios plazos en un calendario comun con la marca de hoy
 
-Aqui la escala si puede arrancar en el minimo de la serie, porque el minigrafico muestra **forma**, no magnitud, y nunca lleva cifras en los ejes.
-
-### 7. Medidor semicircular
-
-> **Cuidado con el color:** una regla CSS gana siempre al atributo `stroke` escrito en la etiqueta. Si el color del arco se decide por dato (verde, ambar o rojo segun el tramo), la regla `.medidor .arco` **no** debe fijar `stroke`; solo el grosor y el remate. Lo mismo ocurre con `transform` en el anillo.
-
-Arco de media circunferencia para porcentajes de avance, consumo de plazo o nivel de riesgo.
-
-```
-Plantilla de panel:        radio 90  ->  longitud del arco = pi x 90 = 282,7
-Plantilla interactiva:     radio 70  ->  longitud del arco = pi x 70 = 219,9
-
-arco  = porcentaje / 100 * longitud
-resto = longitud - arco
+```json
+{"tipo": "plazos", "hoy": "2026-09-24",
+ "plazos": [{"rotulo": "Plazo del burofax", "inicio": "2026-09-17", "fin": "2026-09-27"}]}
 ```
 
-```html
-<svg class="medidor" viewBox="0 0 240 150" role="img" aria-label="Plazo consumido: 68 por ciento">
-  <path class="pista-arco" d="M 30 125 A 90 90 0 0 1 210 125"></path>
-  <path class="arco" d="M 30 125 A 90 90 0 0 1 210 125" stroke="var(--aviso)" stroke-dasharray="192.2 90.5"></path>
-  <text x="120" y="112" text-anchor="middle" font-size="34" font-weight="670">68%</text>
-</svg>
+Fechas en `AAAA-MM-DD`. Todos los plazos comparten escala, que es lo unico que da sentido a la linea de hoy. El motor colorea: vencido en gris, en curso en `--aviso`, futuro con la serie. Cada barra lleva su fecha de vencimiento. La tabla de datos anade los dias que quedan.
+
+### `anillo` y `tarta` — peso de cada parte sobre el total
+
+```json
+{"tipo": "anillo", "unidad": "eur",
+ "porciones": [{"rotulo": "Principal", "valor": 12000}, {"rotulo": "Intereses", "valor": 1450}, {"rotulo": "Costas", "valor": 800}],
+ "centro": {"rotulo": "total"}}
 ```
 
-Color por tramo: hasta el 60 por ciento `var(--ok)`, hasta el 85 `var(--aviso)`, por encima `var(--riesgo)`.
-
-### 8. Cascada de descomposicion
-
-Explica como se llega a un total: principal, intereses, costas y suma. Lienzo de la plantilla de panel: `viewBox="0 0 460 280"`, base en `y = 240`, alto util 200.
-
-```
-maximo   = total final
-alto(k)  = |valor_final(k) - valor_inicial(k)| / maximo * 200
-y(k)     = 240 - mayor(valor_inicial(k), valor_final(k)) / maximo * 200
-etiqueta = y(k) - 6
-```
-
-La primera columna arranca en cero y la ultima es el total, que tambien arranca en cero y se pinta con `var(--acento-fuerte)`. Los conectores discontinuos unen el techo de cada columna con el arranque de la siguiente. Con saldos negativos, la columna baja: `valor_final < valor_inicial` y se colorea con `var(--riesgo)`.
-
-### 9. Matriz de riesgo e impacto
-
-Cruza dos ejes cualitativos de tres o cuatro niveles. Mas niveles no aportan precision, solo ruido.
-
-```html
-<svg viewBox="0 0 420 300" role="img" aria-label="Matriz de riesgo: dos contingencias en probabilidad alta e impacto alto">
-  <rect x="90" y="30" width="100" height="70" fill="var(--aviso)" opacity=".18"></rect>
-  <rect x="190" y="30" width="100" height="70" fill="var(--riesgo)" opacity=".22"></rect>
-  <text class="eje" x="140" y="70" text-anchor="middle">Vigilar</text>
-  <text class="eje" x="240" y="70" text-anchor="middle">Actuar ya</text>
-  <text class="eje" x="80" y="70" text-anchor="end">Probabilidad alta</text>
-  <text class="eje" x="140" y="290" text-anchor="middle">Impacto medio</text>
-  <circle cx="240" cy="62" r="7" fill="var(--c4)"></circle>
-</svg>
-```
-
-Cada contingencia es un circulo **numerado** dentro de su celda, y los nombres van en una `ul class="leyenda"` debajo del grafico: escribir el rotulo al lado del circulo desborda la tarjeta en cuanto el texto crece. El color de fondo de la celda indica la zona (`--ok`, `--aviso`, `--riesgo` con opacidad baja) y el texto de la celda dice que hacer.
-
-### 10. Diagrama de plazos con marca de hoy
-
-Varios plazos sobre **una misma escala de calendario**, con una linea vertical en la fecha actual. Es la unica forma honesta de comparar plazos entre si: si cada barra tuviera su propia escala, la linea de hoy no significaria nada.
-
-```
-x(fecha) = x0 + (fecha - inicio) / (fin - inicio) * ancho
-```
-
-Con `x0 = 150` y `ancho = 520` queda sitio para los rotulos a la izquierda. Cada fila baja 38 px; la barra mide 18 px de alto con `rx="4"`.
-
-```html
-<svg viewBox="0 0 700 210" role="img" aria-label="El requerimiento vence el 27 de septiembre y la contestacion corre hasta el 13 de noviembre">
-  <text class="eje" x="140" y="57" text-anchor="end">Requerimiento</text>
-  <rect x="218.8" y="44" width="43.0" height="18" rx="4" fill="var(--aviso)"></rect>
-  <text class="eje" x="148.9" y="24" text-anchor="middle" fill="var(--riesgo)">hoy</text>
-  <line x1="248.9" y1="30" x2="248.9" y2="196" stroke="var(--riesgo)" stroke-width="2" stroke-dasharray="4 3"></line>
-  <line class="rejilla" x1="150" y1="182" x2="670" y2="182"></line>
-  <text class="eje" x="150" y="198">1 sep</text>
-</svg>
-```
-
-El plazo en curso se pinta con `var(--aviso)`; los futuros, con la serie categorica. Todo plazo lleva su fecha de vencimiento, en el rotulo o en el eje: una barra sin fecha no sirve para calcular.
-
-**Variante corta (una sola barra por plazo, sin calendario comun):** la pista de la seccion 1 con el ancho igual a la parte consumida, `dias_transcurridos / dias_totales * 100`, y `var(--riesgo)` por encima del 80 por ciento. Sirve para un unico plazo dentro de una tarjeta de indicador, nunca para comparar varios.
-
-### 11. Anillo de reparto
-
-Radio 62 en la plantilla de panel, luego `C = 2 x pi x 62 = 389,6`.
-
-```
-arco(i)          = porcentaje(i) / 100 * 389,6
-resto(i)         = 389,6 - arco(i)
-desplazamiento(i)= -(suma de los arcos anteriores)
-```
-
-```html
-<g transform="translate(115,95) rotate(-90)">
-  <circle class="base" cx="0" cy="0" r="62"></circle>
-  <circle cx="0" cy="0" r="62" stroke="var(--c1)" stroke-dasharray="101.3 288.3" stroke-dashoffset="0"></circle>
-  <circle cx="0" cy="0" r="62" stroke="var(--c2)" stroke-dasharray="148.0 241.6" stroke-dashoffset="-101.3"></circle>
-</g>
-```
-
-La rotacion va en el atributo `transform` del grupo, **nunca** en una regla CSS: una `transform` en CSS sustituye al atributo y descoloca el anillo. Maximo cuatro porciones.
-
----
+Maximo seis porciones: a partir de ahi el motor agrupa las menores en «Otros». Los porcentajes de la leyenda los calcula el motor. El anillo pone el total en el centro (o `centro.cifra`); la tarta no tiene centro. Para tres o cuatro partes es preferible el anillo; para comparar partidas entre si, siempre `barras`.
 
 ## Parte III. Componentes de contenido
 
@@ -268,7 +165,7 @@ La rotacion va en el atributo `transform` del grupo, **nunca** en una regla CSS:
 </div>
 ```
 
-Modificadores: `es-ok`, `es-atencion`, `es-riesgo`. Maximo cuatro por fila. La clase `aparece` anade la animacion escalonada de entrada, que se desactiva sola en impresion y para quien pide movimiento reducido.
+Modificadores: `es-ok`, `es-atencion`, `es-riesgo`. Maximo cuatro por fila. Si la cifra sale de un grafico, se escribe `<p class="cifra" data-cifra="clave"></p>` y se declara en `cifras`; si no, va como texto. La clase `aparece` anade la animacion escalonada de entrada, que se desactiva sola en impresion y para quien pide movimiento reducido.
 
 ### Aviso destacado
 
@@ -318,14 +215,14 @@ Las columnas numericas llevan `class="cifra"`. Los distintivos admiten `ok`, `at
 
 ### Lista de verificacion con progreso
 
-Presente en la plantilla interactiva. Cada punto es un `input type="checkbox"` con su `label`; la barra y el contador se actualizan solos. Para anadir puntos basta replicar el `li`: el script cuenta los elementos existentes, no un numero fijo.
+Presente en la maqueta de herramienta interactiva (`maquetas-reportes.md`). Cada punto es un `input type="checkbox"` con su `label`; la barra y el contador se actualizan solos. Para anadir puntos basta replicar el `li`: el script cuenta los elementos existentes, no un numero fijo.
 
 ### Panel de entrada y recalculo
 
 Tres funciones separadas:
 
 - `leer()` recoge los valores del formulario y devuelve un objeto.
-- `calcular(d)` recibe ese objeto y devuelve `{ resultado1, resultado2, resultado3, medidor, desglose: [{concepto, importe, detalle}] }`. Es el unico bloque que cambia de un documento visual a otro. `medidor` es un porcentaje de 0 a 100 que mueve el arco; `detalle` es texto ya formateado. La fila de totales suma la columna de importes; la tercera solo muestra total si el calculo devuelve ademas `totalDetalle`, porque sumar dias o porcentajes carece de sentido.
+- `calcular(d)` recibe ese objeto y devuelve `{ resultado1, resultado2, resultado3, medidor, desglose: [{concepto, importe, detalle}] }`. Es el unico bloque que cambia de un reporte a otro. `medidor` es un porcentaje de 0 a 100: el script lo guarda en el grafico `resultado` y llama a `Reportes.redibujar("resultado")`, de modo que el arco lo sigue dibujando el motor; `detalle` es texto ya formateado. La fila de totales suma la columna de importes; la tercera solo muestra total si el calculo devuelve ademas `totalDetalle`, porque sumar dias o porcentajes carece de sentido.
 - `pintar(r)` vuelca el resultado con `textContent`, nunca con `innerHTML`.
 
 Formato espanol siempre mediante `Intl.NumberFormat("es-ES", ...)`. La plantilla formatea `resultado1`, `resultado2` y los importes del desglose con `formatoMagnitud`, que por defecto es moneda: si la herramienta calcula otra magnitud (personas, dias, unidades), se sustituye ese formateador por el `Intl.NumberFormat` adecuado y se indica la unidad en los rotulos; `signDisplay:"exceptZero"` ayuda cuando el signo informa (saldos, variaciones).
@@ -371,7 +268,7 @@ figcaption{font-size:.78rem;color:var(--apagado);margin-top:var(--e2);max-width:
 
 El `alt` describe la imagen; el `figcaption` la acredita **siempre** (autor, titulo, origen, licencia con URL), tambien cuando la licencia no lo exige.
 
-### Pie del documento visual
+### Pie del reporte
 
 ```html
 <footer class="pie">

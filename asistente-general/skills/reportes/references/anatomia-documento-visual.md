@@ -4,11 +4,11 @@ Reglas tecnicas invariables del formato. Todo documento visual que produzca esta
 
 ## 1. Un unico archivo, cero dependencias externas
 
-- **Extension `.html`** y **un solo archivo**. Todo el CSS va en un unico `<style>` dentro de `<head>`; todo el JavaScript en un unico `<script>` antes de `</body>`.
+- **Extension `.html`** y **un solo archivo**, construido copiando integra la base `assets/template-base-reportes.md` e insertando la maqueta del tipo de entregable (`maquetas-reportes.md`). Todo el CSS va en el unico `<style>` de la base. El JavaScript es el del motor de la base, que no se modifica; solo la herramienta interactiva anade un segundo `<script>` con su bloque de calculo, justo despues del motor.
 - **Prohibido** cualquier recurso remoto: `<script src="https://...">`, `<link rel="stylesheet" href="https://...">`, fuentes de Google Fonts, imagenes por URL, `fetch`, `XMLHttpRequest`, `import` de modulos remotos, iframes a terceros. Bajo `file://` fallan en silencio o los bloquea el navegador y el documento visual se ve roto.
-- **Prohibidas las librerias** (Chart.js, D3, Tailwind por CDN, React, jQuery). Los graficos se dibujan con SVG en linea o con CSS, segun `biblioteca-componentes-visuales.md`.
+- **Prohibidas las librerias** (Chart.js, D3, Tailwind por CDN, React, jQuery). Los graficos los dibuja en SVG el motor propio que viaja dentro de la base, a partir del bloque de datos `datos-reporte` (contrato en `biblioteca-componentes-visuales.md`). Nunca se escriben coordenadas a mano.
 - Si hace falta una imagen, se incrusta como SVG en linea o como `data:` URI, y solo si es imprescindible.
-- **Fotografias:** se incrustan como `data:image/jpeg;base64,...` dentro de una `<figure>`, comprimidas antes a un ancho maximo de unos 520 px y calidad media (el objetivo es que la foto pese menos de 30 KB, porque cuenta para el limite de 100 KB del archivo). Toda foto lleva `alt` descriptivo y `<figcaption>` con su credito: autor, titulo, origen y licencia con URL. Solo se usan imagenes con licencia que permita el uso (dominio publico, CC0, CC BY, CC BY-SA) y nunca una foto sin fuente conocida.
+- **Fotografias:** se incrustan como `data:image/jpeg;base64,...` dentro de una `<figure>`, comprimidas antes a un ancho maximo de unos 520 px y calidad media (el objetivo es que la foto pese menos de 30 KB, porque cuenta para el limite de 120 KB del archivo). Toda foto lleva `alt` descriptivo y `<figcaption>` con su credito: autor, titulo, origen y licencia con URL. Solo se usan imagenes con licencia que permita el uso (dominio publico, CC0, CC BY, CC BY-SA) y nunca una foto sin fuente conocida.
 - Tipografia: pila de fuentes del sistema (`ui-sans-serif, -apple-system, "Segoe UI", Roboto, Arial, sans-serif`). Nunca fuentes descargadas.
 
 ## 2. Cabecera obligatoria
@@ -75,7 +75,7 @@ El usuario imprime el documento visual o lo guarda como PDF desde el navegador (
 - Un bloque `@media print` que redefina los tokens a papel (`--fondo:#fff`, `--superficie:#fff`, `--texto:#000`, `--sombra:none`), quite el degradado de fondo (`background-image:none`), oculte los botones (`.acciones{display:none}`) y anule animaciones y transiciones.
 - `@page` con tamano y margen segun la plantilla: A4 vertical, con 16 mm de margen en el informe, 15 mm en la herramienta y 14 mm en el panel.
 - **Las rejillas se deshacen al imprimir** (`.malla{display:block}`, `.columnas{grid-template-columns:1fr}`): Chrome pagina mal dentro de una rejilla y deja medias paginas en blanco. En papel las tarjetas van una debajo de otra.
-- Los graficos de las tarjetas estrechas se limitan con `max-height` para que no impongan saltos de pagina; los de las tarjetas a todo lo ancho conservan su tamano.
+- Al imprimir, el motor redibuja todos los graficos al ancho de la pagina (evento `beforeprint`) y los vuelve a ajustar a la pantalla al cerrar el dialogo. La tabla de datos desplegable de cada grafico no se imprime.
 - `break-inside: avoid` en tarjetas, indicadores y secciones; `break-after: avoid` en los encabezados.
 - `thead { display: table-header-group }` para que el encabezado de una tabla larga se repita en cada pagina.
 - En el informe, el indice lateral desaparece y el contenido pasa a una sola columna.
@@ -94,7 +94,7 @@ El usuario imprime el documento visual o lo guarda como PDF desde el navegador (
 - **Prohibido**: `alert()`, `confirm()` y `prompt()` (bloquean la ventana), `eval()`, `new Function()`, `document.write()`, temporizadores infinitos y cualquier llamada de red.
 - **Prohibido inyectar texto con `innerHTML`** a partir de valores introducidos por el usuario: siempre `textContent` o `createElement`. Es la unica proteccion real frente a contenido malicioso pegado en un campo.
 - El almacenamiento del navegador (`localStorage`, `sessionStorage`) falla o lanza excepcion bajo `file://` en varios navegadores. No se usa; si excepcionalmente se usara, siempre dentro de `try/catch` y con la pagina funcionando igual sin el.
-- El documento visual debe renderizar contenido util aunque el JavaScript este desactivado: los datos ya calculados van escritos en el HTML, y el script solo aporta recalculo e interaccion.
+- Los textos, indicadores escritos como texto y tablas van en el HTML y se leen aunque el JavaScript este desactivado. Los graficos y las cifras con `data-cifra` necesitan el motor: el aviso `noscript` de la base lo indica. Ningun dato debe existir solo dentro de un grafico: lo que importa se dice tambien en el texto o en una tabla.
 
 ## 7. Accesibilidad
 
@@ -123,6 +123,6 @@ El documento visual se edita **siempre desde el chat**, pidiendo el cambio al as
 
 ## 10. Tamano
 
-El archivo completo no deberia superar unos **100 KB**. Los documentos abiertos del espacio de trabajo se incorporan enteros al contexto de la conversacion y compiten por un presupuesto comun: un documento visual desmesurado desplaza a los documentos de trabajo del usuario. Si el volumen de datos es mayor, se resume la serie, se agrupa por tramos o se reparte en dos documentos visuales: un panel con lo esencial y un documento con el detalle.
+El archivo completo no deberia superar unos **120 KB**; la base con el motor ocupa unos 50. Los documentos abiertos del espacio de trabajo se incorporan enteros al contexto de la conversacion y compiten por un presupuesto comun: un documento visual desmesurado desplaza a los documentos de trabajo del usuario. Si el volumen de datos es mayor, se resume la serie, se agrupa por tramos o se reparte en dos documentos visuales: un panel con lo esencial y un documento con el detalle.
 
-Los tres documentos visuales de ejemplo pesan entre 18 y 27 KB con todos sus graficos, que es el orden de magnitud esperable.
+Los reportes de ejemplo pesan entre 58 y 62 KB con todos sus graficos, que es el orden de magnitud esperable.

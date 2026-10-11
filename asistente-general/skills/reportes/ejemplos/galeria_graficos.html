@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-tema="moderno">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Galeria de graficos</title>
+<title>Galeria de graficos del motor de reportes</title>
 <style>
 *,*::before,*::after{box-sizing:border-box}
 :root{
@@ -121,325 +121,228 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   @keyframes aparece{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
   @keyframes crece{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 }
-:root{--ancho:1120px}
+:root{--ancho:1080px}
+:root[data-tema="sobrio"]{
+  --fondo:#f7f6f3;--superficie:#ffffff;--superficie-2:#f3f1ec;--borde:#ddd8ce;--borde-suave:#ebe7df;
+  --texto:#1c1f24;--apagado:#585c63;
+  --acento:#1f5f73;--acento-suave:#e7f0f2;--acento-fuerte:#154452;
+  --ok:#2f7d4f;--aviso:#a8650f;--riesgo:#b23a48;--linea-rejilla:#e6e2da;
+  --c1:#1f5f73;--c2:#8a6d3b;--c3:#5b7f4a;--c4:#7a4e6e;--c5:#b0623d;--c6:#6b7280;
+  --radio:10px;--radio-s:7px;
+  --sombra:0 1px 2px rgba(28,31,36,.06),0 6px 18px rgba(28,31,36,.05);
+}
+@media (prefers-color-scheme:dark){
+  :root[data-tema="sobrio"]{
+    --fondo:#101417;--superficie:#171d21;--superficie-2:#1e252a;--borde:#2c353b;--borde-suave:#242c31;
+    --texto:#e8eaec;--apagado:#a0a7ad;
+    --acento:#6fb3c6;--acento-suave:#16262c;--acento-fuerte:#9fd0dd;
+    --ok:#6cc58f;--aviso:#e0a95a;--riesgo:#ef8590;--linea-rejilla:#252d33;
+    --c1:#6fb3c6;--c2:#d1b07a;--c3:#9cc28a;--c4:#c49ab8;--c5:#e39a78;--c6:#9aa3ad;
+    --sombra:0 1px 2px rgba(0,0,0,.5),0 8px 22px rgba(0,0,0,.4);
+  }
+}
+:root[data-tema="sobrio"] body{background-image:none}
 .malla{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:var(--e3);margin:0 0 var(--e3);align-items:start}
 .malla .ancho-total{grid-column:1/-1}
+.diseno{display:grid;grid-template-columns:196px minmax(0,1fr);gap:var(--e5);align-items:start}
+.indice{position:sticky;top:var(--e4);font-size:.85rem}
+.indice p{font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:var(--apagado);margin:0 0 var(--e2)}
+.indice ol{list-style:none;margin:0;padding:0;border-left:2px solid var(--borde)}
+.indice li{margin:0}
+.indice a{display:block;padding:7px 0 7px 14px;color:var(--apagado);text-decoration:none;border-left:2px solid transparent;margin-left:-2px}
+.indice a:hover{color:var(--acento);border-left-color:var(--acento)}
+.bloque{margin:0 0 var(--e3)}
+.bloque h2{display:flex;gap:var(--e2);align-items:baseline}
+.bloque h2 .orden{color:var(--acento);font-variant-numeric:tabular-nums}
+.cronologia{list-style:none;margin:var(--e4) 0 0;padding:0 0 0 26px;border-left:2px solid var(--borde)}
+.cronologia li{position:relative;margin:0 0 var(--e4)}
+.cronologia li:last-child{margin-bottom:0}
+.cronologia li::before{content:"";position:absolute;left:-33px;top:6px;width:12px;height:12px;border-radius:50%;
+  background:var(--acento);border:3px solid var(--superficie);box-shadow:0 0 0 1px var(--borde)}
+.cronologia .fecha{display:block;font-size:.76rem;letter-spacing:.07em;text-transform:uppercase;color:var(--apagado)}
+.cronologia .hito{font-weight:650}
+.firma{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--e4);margin:var(--e4) 0 0;font-size:.9rem}
+.firma div{border-top:1px solid var(--borde);padding-top:var(--e2);color:var(--apagado)}
+.columnas{display:grid;grid-template-columns:minmax(290px,1fr) minmax(320px,1.2fr);gap:var(--e3);align-items:start}
+.columnas .tarjeta + .tarjeta{margin-top:var(--e3)}
+.campo{margin:0 0 var(--e4)}
+.campo label{display:block;font-size:.86rem;font-weight:620;margin-bottom:6px}
+.campo .ayuda{display:block;font-size:.78rem;color:var(--apagado);margin-top:6px}
+input,select{width:100%;font:inherit;font-size:.95rem;color:var(--texto);background:var(--superficie-2);
+  border:1px solid var(--borde);border-radius:var(--radio-s);padding:10px 12px}
+input:focus,select:focus{border-color:var(--acento)}
+input[type=number]{font-variant-numeric:tabular-nums}
+.resultados{display:grid;grid-template-columns:repeat(auto-fit,minmax(126px,1fr));gap:var(--e3);margin:0 0 var(--e4)}
+.resultado{background:var(--superficie-2);border:1px solid var(--borde-suave);border-radius:var(--radio-s);padding:var(--e3) var(--e4)}
+.resultado .rotulo{font-size:.73rem;text-transform:uppercase;letter-spacing:.09em;color:var(--apagado);margin:0 0 5px}
+.resultado .cifra{font-size:clamp(1.1rem,1.7vw,1.45rem);overflow-wrap:anywhere;font-weight:670;letter-spacing:-.025em;margin:0;font-variant-numeric:tabular-nums}
+.resultado.principal{background:var(--acento-suave);border-color:var(--acento)}
+.resultado.principal .cifra{color:var(--acento-fuerte)}
+.verificacion{list-style:none;margin:0;padding:0}
+.verificacion li{display:flex;gap:var(--e3);align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--borde-suave)}
+.verificacion li:last-child{border-bottom:none}
+.verificacion input[type=checkbox]{width:17px;height:17px;margin-top:3px;flex:0 0 auto;accent-color:var(--acento)}
+.verificacion .texto{font-size:.93rem}
+.verificacion .texto small{display:block;color:var(--apagado);font-size:.8rem}
+.progreso{height:9px;border-radius:999px;background:var(--superficie-2);border:1px solid var(--borde-suave);overflow:hidden;margin:var(--e4) 0 6px}
+.progreso span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ok),color-mix(in srgb,var(--ok) 70%,white));transition:width .25s ease}
+.progreso-texto{font-size:.82rem;color:var(--apagado);margin:0}
+.grafico{margin:0;min-width:0}
 .tendencia{margin:var(--e3) 0 0;padding-top:var(--e2);border-top:1px solid var(--borde-suave)}
 .chispa{display:block;width:100%;height:30px}
 .chispa-area{fill:var(--acento);opacity:.13;stroke:none}
 .chispa-linea{fill:none;stroke:var(--acento);stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
 .chispa-punto{fill:var(--acento)}
 .tendencia-nota{font-size:.76rem;color:var(--apagado);margin:5px 0 0}
-.medidor text{fill:var(--texto)}
-.medidor .pista-arco{fill:none;stroke:var(--superficie-2);stroke-width:18;stroke-linecap:round}
-.medidor .arco{fill:none;stroke-width:18;stroke-linecap:round}
-.cascada rect{stroke:none}
-.cascada .conector{stroke:var(--linea-rejilla);stroke-width:1;stroke-dasharray:3 3}
-.anillo circle{fill:none;stroke-width:24}
-.anillo .base{stroke:var(--superficie-2)}
 .centro-anillo{text-anchor:middle;fill:var(--texto);font-weight:670}
+.grafico svg{margin:0 auto}
+.grafico svg.medidor{max-width:300px}
+.grafico svg.reparto{max-width:320px}
+.grafico .valor-punto{font-size:11px;fill:var(--texto);font-weight:620}
+.grafico .anotacion{stroke:var(--apagado);stroke-width:1;stroke-dasharray:3 3}
+.grafico .texto-anotacion{font-size:10.5px;fill:var(--apagado)}
+.grafico .cero{stroke:var(--apagado);stroke-width:1}
+.grafico .hueco-tarta{fill:var(--superficie)}
+.grafico .zona{font-size:12px;fill:var(--apagado);font-weight:620}
+.grafico .numero-riesgo{font-size:11px;font-weight:700;fill:#fff}
+.grafico .fecha-fin{font-size:10.5px;fill:var(--apagado)}
+.grafico .fecha-fin.dentro{fill:#fff;font-weight:620}
+.grafico .hoy{stroke:var(--riesgo);stroke-width:2;stroke-dasharray:4 3}
+.grafico .texto-hoy{font-size:11px;fill:var(--riesgo);font-weight:650}
+.leyenda .porcentaje{color:var(--texto);font-variant-numeric:tabular-nums;font-weight:620}
+.medidor-rotulo{text-align:center;font-size:.82rem;color:var(--apagado);margin:0 0 var(--e3)}
+.medidor{margin:0 auto}
+.medidor .pista-arco{fill:none;stroke:var(--superficie-2);stroke-width:18;stroke-linecap:round}
+.medidor .arco{fill:none;stroke-width:18;stroke-linecap:round;transition:stroke-dasharray .35s ease}
+.fuente-grafico{font-size:.76rem;color:var(--apagado);margin:var(--e2) 0 0}
+.datos-grafico{margin:var(--e3) 0 0;font-size:.82rem}
+.datos-grafico summary{cursor:pointer;color:var(--apagado);width:max-content}
+.datos-grafico summary:hover{color:var(--acento)}
+.datos-grafico table{min-width:0;font-size:.82rem;margin-top:var(--e2)}
+.datos-grafico button{font-size:.78rem;padding:6px 12px;margin-top:var(--e2);box-shadow:none}
+.error-grafico{border:1px dashed var(--riesgo);color:var(--riesgo);border-radius:var(--radio-s);padding:var(--e3);font-size:.85rem;margin:0}
+.fuentes-reporte{margin:0 0 var(--e3);padding-left:20px}
+.fuentes-reporte li{margin:0 0 var(--e1)}
+@media (max-width:900px){.diseno{grid-template-columns:1fr}.indice{display:none}}
+@media (max-width:760px){.columnas{grid-template-columns:1fr}}
 @media print{
-  :root{--fondo:#fff;--superficie:#fff;--superficie-2:#fff;--borde:#c8c5bf;--borde-suave:#dcd9d3;
+  :root,:root[data-tema="sobrio"]{--fondo:#fff;--superficie:#fff;--superficie-2:#fff;--borde:#c8c5bf;--borde-suave:#dcd9d3;
         --linea-rejilla:#d5d2cc;--texto:#000;--apagado:#3f3d39;--sombra:none;--acento-suave:#f2f6f8}
-  @page{size:A4;margin:16mm 14mm}
+  @page{size:A4;margin:15mm 14mm}
   *{animation:none!important;transition:none!important}
+  *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
   body{font-size:10.5pt;background-image:none}
   .contenedor{max-width:none;padding:0}
-  .acciones{display:none}
+  .acciones,.indice,.datos-grafico{display:none}
+  .malla,.diseno{display:block}
+  .columnas{grid-template-columns:1fr}
   .tarjeta,.indicador{break-inside:avoid;page-break-inside:avoid;box-shadow:none;padding:var(--e3) var(--e4)}
-  .malla{display:block}
   .tarjeta{margin:0 0 var(--e3)}
-  .tarjeta svg{max-height:170px}
-  .tarjeta.ancho-total svg{max-height:none}
+  .malla .tarjeta svg{max-height:190px}
+  .malla .tarjeta.ancho-total svg{max-height:none}
+  /* Una tarjeta mas alta que un A4 no puede evitar el corte: se deja partir y se protegen sus bloques. */
+  .permite-corte{break-inside:auto;page-break-inside:auto}
+  .permite-corte .grafico,.permite-corte .resultados,.permite-corte .tabla,.permite-corte .aviso{break-inside:avoid;page-break-inside:avoid}
   .borrador{padding:var(--e2) var(--e3);font-size:.78rem;margin-bottom:var(--e3)}
   h1{margin-bottom:var(--e2)}
   .entradilla{margin-bottom:var(--e2)}
-  thead{display:table-header-group}
-  tbody tr:hover{background:transparent}
-  /* En papel no hay scroll horizontal: la tabla se compacta hasta caber en el A4. */
   .indicadores{grid-template-columns:repeat(2,1fr)}
-  .tabla{overflow:visible}
-  table{min-width:0;font-size:8.2pt}
-  th,td{padding:5px 7px}
-  .distintivo{font-size:.62rem;padding:2px 7px}
+  thead{display:table-header-group}
   /* Chrome repite el tfoot en cada pagina; asi solo aparece al final. */
   tfoot{display:table-row-group}
-}
-
-@media print{
-  /* Los colores de los graficos y de las barras viajan al papel aunque no se
-     marque "graficos de fondo" en el dialogo de impresion. */
-  *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
+  tbody tr:hover{background:transparent}
+  /* En papel no hay scroll horizontal: la tabla se compacta hasta caber en el A4. */
+  .tabla{overflow:visible}
+  table{min-width:0;font-size:8.6pt}
+  th,td{padding:5px 7px}
+  .distintivo{font-size:.62rem;padding:2px 7px}
+  a{color:#000;text-decoration:none}
   p{orphans:3;widows:3}
   h1,h2,h3{break-after:avoid;page-break-after:avoid}
-  tr{break-inside:avoid;page-break-inside:avoid}
+  tr,.grafico,.aviso,.leyenda,.barras li,.cronologia li{break-inside:avoid;page-break-inside:avoid}
   caption{break-after:avoid}
-  .aviso,.leyenda,.barras li,.cronologia li{break-inside:avoid;page-break-inside:avoid}
 }
-</style>
-<style>
-.malla{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:var(--e3);align-items:start}
-.malla .ancho-total{grid-column:1/-1}
-.formula{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.78rem;color:var(--apagado);
-  background:var(--superficie-2);border:1px solid var(--borde-suave);border-radius:var(--radio-s);
-  padding:var(--e2) var(--e3);margin:var(--e3) 0 0;white-space:pre-wrap}
-.medidor .pista-arco{fill:none;stroke:var(--superficie-2);stroke-width:18;stroke-linecap:round}
-.medidor .arco{fill:none;stroke-width:18;stroke-linecap:round}
-.anillo circle{fill:none;stroke-width:24}
-.anillo .base{stroke:var(--superficie-2)}
-.centro-anillo{text-anchor:middle;fill:var(--texto);font-weight:670}
-.cascada .conector{stroke:var(--linea-rejilla);stroke-width:1;stroke-dasharray:3 3}
-.hoy{position:relative}
-.hoy::after{content:"";position:absolute;top:-6px;bottom:-6px;left:62%;width:2px;background:var(--riesgo)}
 </style>
 </head>
 <body>
 <main class="contenedor">
 
-  <p class="borrador"><span><strong>DRAFT</strong> &mdash; Galeria de demostracion de la biblioteca de componentes de la skill. Los datos son ficticios y sirven unicamente para comprobar el renderizado de cada forma grafica.</span></p>
+  <p class="borrador"><span><strong>DRAFT</strong> &mdash; Documento de trabajo generado en la plataforma. Las cifras, plazos y conclusiones deben ser verificados por un abogado o profesional colegiado antes de su firma, entrega o uso externo. No constituye asesoramiento juridico vinculante.</span></p>
 
   <header>
-    <p class="antetitulo">Skill reportes | Catalogo visual</p>
-    <h1>Las diez formas graficas de la biblioteca</h1>
-    <p class="entradilla">Cada tarjeta muestra una forma con datos de ejemplo y la formula exacta con la que se calculan sus coordenadas. Todo es SVG o CSS en linea: ni una sola dependencia externa.</p>
+    <p class="antetitulo">Skill reportes | Catalogo de formas</p>
+    <h1>Galeria de graficos del motor de reportes</h1>
+    <p class="entradilla">Cada grafico se declara con sus datos en el bloque datos-reporte y lo dibuja el motor de la base. Bajo cada uno estan su tabla de datos, la descarga en CSV y su fuente.</p>
+    <ul class="ficha">
+      <li><b>Tipos:</b> 11</li>
+    </ul>
   </header>
 
+  <div class="indicadores">
+    <div class="indicador">
+      <p class="rotulo">Indicador con minigrafico</p>
+      <p class="cifra" data-cifra="total"></p>
+      <p class="detalle">La cifra sale del grafico de cascada</p>
+      <div class="tendencia" data-grafico="tendencia"></div>
+    </div>
+  </div>
+
   <div class="malla">
-
     <section class="tarjeta">
-      <h2>1. Barras horizontales</h2>
-      <p class="subtitulo">Comparar partidas. Solo exige el porcentaje sobre el mayor</p>
-      <ul class="barras">
-        <li><p class="fila"><span>Factura 2025/118</span><span class="valor">18.400,00 EUR</span></p>
-          <div class="pista" role="img" aria-label="Factura 2025/118: 18.400 euros"><span style="width:100%"></span></div></li>
-        <li><p class="fila"><span>Factura 2025/131</span><span class="valor">11.250,00 EUR</span></p>
-          <div class="pista" role="img" aria-label="Factura 2025/131: 11.250 euros"><span style="width:61.1%"></span></div></li>
-        <li><p class="fila"><span>Factura 2025/147</span><span class="valor">7.930,00 EUR</span></p>
-          <div class="pista" role="img" aria-label="Factura 2025/147: 7.930 euros"><span style="width:43.1%"></span></div></li>
-      </ul>
-      <p class="formula">porcentaje = valor / valor_maximo * 100</p>
+      <h2>Barras horizontales</h2>
+      <p class="subtitulo">Comparar partidas. Ordenadas de mayor a menor. <code>"tipo": "barras"</code></p>
+      <figure class="grafico" data-grafico="barras"></figure>
     </section>
-
     <section class="tarjeta">
-      <h2>2. Barras verticales</h2>
-      <p class="subtitulo">Comparar pocas categorias con orden natural</p>
-      <svg viewBox="0 0 700 300" role="img" aria-label="Importe reclamado por trimestre, de 8.200 a 18.400 euros">
-        <line class="rejilla" x1="64" y1="44" x2="664" y2="44"></line>
-        <line class="rejilla" x1="64" y1="144" x2="664" y2="144"></line>
-        <line class="rejilla" x1="64" y1="244" x2="664" y2="244"></line>
-        <text class="eje" x="56" y="48" text-anchor="end">20.000</text>
-        <text class="eje" x="56" y="148" text-anchor="end">10.000</text>
-        <text class="eje" x="56" y="248" text-anchor="end">0</text>
-        <rect x="90.4" y="162.0" width="67.2" height="82.0" fill="var(--c1)" rx="3"></rect>
-        <text class="eje" x="124.0" y="264" text-anchor="middle">1T 2025</text>
-        <rect x="210.4" y="120.0" width="67.2" height="124.0" fill="var(--c1)" rx="3"></rect>
-        <text class="eje" x="244.0" y="264" text-anchor="middle">2T 2025</text>
-        <rect x="330.4" y="60.0" width="67.2" height="184.0" fill="var(--c1)" rx="3"></rect>
-        <text class="eje" x="364.0" y="264" text-anchor="middle">3T 2025</text>
-        <rect x="450.4" y="85.0" width="67.2" height="159.0" fill="var(--c1)" rx="3"></rect>
-        <text class="eje" x="484.0" y="264" text-anchor="middle">4T 2025</text>
-        <rect x="570.4" y="131.5" width="67.2" height="112.5" fill="var(--c1)" rx="3"></rect>
-        <text class="eje" x="604.0" y="264" text-anchor="middle">1T 2026</text>
-      </svg>
-      <p class="formula">banda = 600 / n ; ancho = banda * 0,56
-x(i)  = 64 + banda * (i + 0,5) - ancho / 2
-y(v)  = 244 - v / maximo * 200</p>
+      <h2>Columnas</h2>
+      <p class="subtitulo">Comparar pocos periodos o grupos, una o varias series. <code>"tipo": "columnas"</code></p>
+      <figure class="grafico" data-grafico="columnas"></figure>
     </section>
-
     <section class="tarjeta">
-      <h2>3. Barras apiladas</h2>
-      <p class="subtitulo">Composicion de cada periodo</p>
-      <svg viewBox="0 0 700 300" role="img" aria-label="Composicion trimestral entre principal, intereses y costas">
-        <line class="rejilla" x1="64" y1="44" x2="664" y2="44"></line>
-        <line class="rejilla" x1="64" y1="144" x2="664" y2="144"></line>
-        <line class="rejilla" x1="64" y1="244" x2="664" y2="244"></line>
-        <text class="eje" x="56" y="48" text-anchor="end">24.000</text>
-        <text class="eje" x="56" y="248" text-anchor="end">0</text>
-        <rect x="108.0" y="175.7" width="112.0" height="68.3" fill="var(--c1)"></rect>
-        <rect x="108.0" y="173.0" width="112.0" height="2.7" fill="var(--c2)"></rect>
-        <rect x="108.0" y="168.0" width="112.0" height="5.0" fill="var(--c4)"></rect>
-        <text class="eje" x="164.0" y="264" text-anchor="middle">1T</text>
-        <rect x="308.0" y="140.7" width="112.0" height="103.3" fill="var(--c1)"></rect>
-        <rect x="308.0" y="135.3" width="112.0" height="5.3" fill="var(--c2)"></rect>
-        <rect x="308.0" y="127.8" width="112.0" height="7.5" fill="var(--c4)"></rect>
-        <text class="eje" x="364.0" y="264" text-anchor="middle">2T</text>
-        <rect x="508.0" y="90.7" width="112.0" height="153.3" fill="var(--c1)"></rect>
-        <rect x="508.0" y="80.8" width="112.0" height="9.8" fill="var(--c2)"></rect>
-        <rect x="508.0" y="69.2" width="112.0" height="11.7" fill="var(--c4)"></rect>
-        <text class="eje" x="564.0" y="264" text-anchor="middle">3T</text>
-      </svg>
-      <ul class="leyenda">
-        <li><i style="background:var(--c1)"></i>Principal</li>
-        <li><i style="background:var(--c2)"></i>Intereses</li>
-        <li><i style="background:var(--c4)"></i>Costas estimadas</li>
-      </ul>
-      <p class="formula">y(k) = 244 - (acumulado(k) + valor(k)) / maximo * 200</p>
+      <h2>Columnas apiladas</h2>
+      <p class="subtitulo">Composicion de cada periodo, con el total encima. <code>"tipo": "apiladas"</code></p>
+      <figure class="grafico" data-grafico="apiladas"></figure>
     </section>
-
+    <section class="tarjeta">
+      <h2>Apiladas al cien por cien</h2>
+      <p class="subtitulo">Proporcion por periodo. Nunca cuando importa el volumen. <code>"tipo": "apiladas"</code></p>
+      <figure class="grafico" data-grafico="cien"></figure>
+    </section>
     <section class="tarjeta ancho-total">
-      <h2>4 y 5. Linea con area y banda de umbral</h2>
-      <p class="subtitulo">Evolucion frente a un limite pactado</p>
-      <svg viewBox="0 0 700 300" role="img" aria-label="El principal acumulado supera el umbral de 15.000 euros en febrero y llega a 42.180 en septiembre">
-        <defs>
-          <linearGradient id="degradado-area" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="var(--c1)" stop-opacity=".34"></stop>
-            <stop offset="100%" stop-color="var(--c1)" stop-opacity="0"></stop>
-          </linearGradient>
-        </defs>
-        <rect class="banda" x="64" y="184.0" width="600" height="60.0"></rect>
-        <line class="rejilla" x1="64" y1="44" x2="664" y2="44"></line>
-        <line class="rejilla" x1="64" y1="144" x2="664" y2="144"></line>
-        <line class="rejilla" x1="64" y1="244" x2="664" y2="244"></line>
-        <text class="eje" x="56" y="48" text-anchor="end">50.000</text>
-        <text class="eje" x="56" y="148" text-anchor="end">25.000</text>
-        <text class="eje" x="56" y="248" text-anchor="end">0</text>
-        <polygon class="area-1" points="64.0,194.4 214.0,156.8 364.0,128.4 514.0,99.2 664.0,75.3 664,244 64,244"></polygon>
-        <polyline class="serie-1" points="64.0,194.4 214.0,156.8 364.0,128.4 514.0,99.2 664.0,75.3"></polyline>
-        <polyline class="serie-2" points="64.0,244.0 214.0,235.6 364.0,235.6 514.0,221.6 664.0,221.6"></polyline>
-        <text class="eje" x="64" y="266">Enero</text>
-        <text class="eje" x="364" y="266" text-anchor="middle">Mayo</text>
-        <text class="eje" x="664" y="266" text-anchor="end">Septiembre</text>
-      </svg>
-      <ul class="leyenda">
-        <li><i style="background:var(--c1)"></i>Principal acumulado</li>
-        <li><i style="background:var(--c2)"></i>Importe cobrado</li>
-        <li><i style="background:var(--ok);opacity:.35"></i>Umbral asumido (15.000 EUR)</li>
-      </ul>
-      <p class="formula">area = puntos de la linea + "664,244 64,244"
-banda: y = 244 - limite / maximo * 200</p>
+      <h2>Linea con area, banda y anotaciones</h2>
+      <p class="subtitulo">Evolucion frente a un limite, con huecos y marcas de contexto. <code>"tipo": "linea"</code></p>
+      <figure class="grafico" data-grafico="linea"></figure>
     </section>
-
     <section class="tarjeta">
-      <h2>6. Minigrafico de tendencia</h2>
-      <p class="subtitulo">Cabe dentro de la tarjeta del indicador</p>
-      <div class="indicadores">
-        <div class="indicador">
-          <p class="rotulo">Principal acumulado</p>
-          <p class="cifra">42.180,50 EUR</p>
-          <p class="detalle">Nueve meses consecutivos al alza</p>
-          <svg class="chispa" viewBox="0 0 120 32" role="img" aria-label="Tendencia al alza durante nueve meses">
-            <polyline class="serie-1" style="stroke-width:2" points="1.0,30.0 30.5,21.2 60.0,14.5 89.5,7.6 119.0,2.0"></polyline>
-          </svg>
-        </div>
-      </div>
-      <p class="formula">x(i) = 1 + i / (n - 1) * 118
-y(v) = 30 - (v - minimo) / (maximo - minimo) * 28</p>
+      <h2>Medidor semicircular</h2>
+      <p class="subtitulo">Porcentaje de algo con maximo conocido. <code>"tipo": "medidor"</code></p>
+      <figure class="grafico" data-grafico="medidor"></figure>
     </section>
-
     <section class="tarjeta">
-      <h2>7. Medidor semicircular</h2>
-      <p class="subtitulo">Plazo consumido o porcentaje de avance</p>
-      <svg class="medidor" viewBox="0 0 240 150" role="img" aria-label="Plazo consumido al 68 por ciento">
-        <path class="pista-arco" d="M 30 125 A 90 90 0 0 1 210 125"></path>
-        <path class="arco" d="M 30 125 A 90 90 0 0 1 210 125" stroke="var(--aviso)" stroke-dasharray="192.3 90.5"></path>
-        <text x="120" y="112" text-anchor="middle" font-size="34" font-weight="670">68%</text>
-        <text class="eje" x="120" y="136" text-anchor="middle">del plazo consumido</text>
-        <text class="eje" x="30" y="145" text-anchor="middle">0</text>
-        <text class="eje" x="210" y="145" text-anchor="middle">20 dias</text>
-      </svg>
-      <p class="formula">longitud = pi * radio (90) = 282,7
-arco = porcentaje / 100 * longitud</p>
+      <h2>Cascada</h2>
+      <p class="subtitulo">Como se llega a un total; los saldos negativos bajan. <code>"tipo": "cascada"</code></p>
+      <figure class="grafico" data-grafico="cascada"></figure>
     </section>
-
     <section class="tarjeta">
-      <h2>8. Cascada de importes</h2>
-      <p class="subtitulo">Del principal al total reclamable</p>
-      <svg class="cascada" viewBox="0 0 460 280" role="img" aria-label="Principal 42.180, intereses 1.947, costas 3.100, total 47.228 euros">
-        <line class="rejilla" x1="40" y1="240" x2="440" y2="240"></line>
-        <rect x="52" y="61.4" width="72" height="178.6" fill="var(--c1)" rx="3"></rect>
-        <rect x="152" y="53.1" width="72" height="8.2" fill="var(--c2)" rx="3"></rect>
-        <rect x="252" y="40.0" width="72" height="13.1" fill="var(--c4)" rx="3"></rect>
-        <rect x="352" y="40.0" width="72" height="200.0" fill="var(--acento-fuerte)" rx="3"></rect>
-        <line class="conector" x1="124" y1="61.4" x2="152" y2="61.4"></line>
-        <line class="conector" x1="224" y1="53.1" x2="252" y2="53.1"></line>
-        <line class="conector" x1="324" y1="40.0" x2="352" y2="40.0"></line>
-        <text class="eje" x="88" y="258" text-anchor="middle">Principal</text>
-        <text class="eje" x="188" y="258" text-anchor="middle">Intereses</text>
-        <text class="eje" x="288" y="258" text-anchor="middle">Costas est.</text>
-        <text class="eje" x="388" y="258" text-anchor="middle">Total</text>
-        <text class="eje" x="88" y="54.4" text-anchor="middle">42.180</text>
-        <text class="eje" x="188" y="46.1" text-anchor="middle">1.947</text>
-        <text class="eje" x="288" y="33.0" text-anchor="middle">3.100</text>
-        <text class="eje" x="388" y="33.0" text-anchor="middle">47.228</text>
-      </svg>
-      <p class="formula">alto(k) = |fin - inicio| / total * 200
-y(k)    = 240 - mayor(inicio, fin) / total * 200</p>
+      <h2>Anillo</h2>
+      <p class="subtitulo">Peso de cada parte sobre el total, con la cifra en el centro. <code>"tipo": "anillo"</code></p>
+      <figure class="grafico" data-grafico="anillo"></figure>
     </section>
-
     <section class="tarjeta">
-      <h2>9. Matriz de riesgo e impacto</h2>
-      <p class="subtitulo">Que contingencias urgen</p>
-      <svg viewBox="0 0 420 300" role="img" aria-label="Dos contingencias en probabilidad alta: oposicion del deudor con impacto alto e insolvencia con impacto medio">
-        <rect x="120" y="40" width="130" height="80" fill="var(--aviso)" opacity=".16"></rect>
-        <rect x="250" y="40" width="130" height="80" fill="var(--riesgo)" opacity=".20"></rect>
-        <rect x="120" y="120" width="130" height="80" fill="var(--ok)" opacity=".16"></rect>
-        <rect x="250" y="120" width="130" height="80" fill="var(--aviso)" opacity=".16"></rect>
-        <text class="eje" x="185" y="84" text-anchor="middle">Vigilar</text>
-        <text class="eje" x="315" y="84" text-anchor="middle">Actuar ya</text>
-        <text class="eje" x="185" y="164" text-anchor="middle">Asumible</text>
-        <text class="eje" x="315" y="164" text-anchor="middle">Preparar plan</text>
-        <text class="eje" x="112" y="84" text-anchor="end">Probabilidad alta</text>
-        <text class="eje" x="112" y="164" text-anchor="end">Probabilidad baja</text>
-        <text class="eje" x="185" y="222" text-anchor="middle">Impacto medio</text>
-        <text class="eje" x="315" y="222" text-anchor="middle">Impacto alto</text>
-        <circle cx="300" cy="62" r="9" fill="var(--c4)"></circle>
-        <text x="300" y="66" text-anchor="middle" font-size="11" font-weight="670" fill="#fff">1</text>
-        <circle cx="170" cy="62" r="9" fill="var(--c5)"></circle>
-        <text x="170" y="66" text-anchor="middle" font-size="11" font-weight="670" fill="#fff">2</text>
-      </svg>
-      <ul class="leyenda">
-        <li><i style="background:var(--c4);border-radius:50%"></i>1. Oposicion del deudor al monitorio</li>
-        <li><i style="background:var(--c5);border-radius:50%"></i>2. Insolvencia sobrevenida</li>
-      </ul>
-      <p class="formula">tres o cuatro niveles por eje, nunca mas</p>
+      <h2>Tarta</h2>
+      <p class="subtitulo">Reparto en hasta seis porciones; el resto se agrupa en Otros. <code>"tipo": "tarta"</code></p>
+      <figure class="grafico" data-grafico="tarta"></figure>
     </section>
-
+    <section class="tarjeta">
+      <h2>Matriz de riesgo e impacto</h2>
+      <p class="subtitulo">Contingencias numeradas en su celda, con lo que hay que hacer. <code>"tipo": "matriz"</code></p>
+      <figure class="grafico" data-grafico="matriz"></figure>
+    </section>
     <section class="tarjeta ancho-total">
-      <h2>10. Diagrama de plazos con marca de hoy</h2>
-      <p class="subtitulo">Calendario compartido de septiembre a diciembre de 2026; la linea roja es la fecha de hoy</p>
-      <svg viewBox="0 0 700 210" role="img" aria-label="El requerimiento vence el 27 de septiembre, la peticion de monitorio se presenta a finales de septiembre, la contestacion corre hasta el 13 de noviembre y la ejecucion se preveria en diciembre">
-        <text class="eje" x="140" y="57" text-anchor="end">Requerimiento</text>
-        <rect x="218.8" y="44" width="42.9" height="18" rx="4" fill="var(--aviso)"></rect>
-        <text class="eje" x="140" y="95" text-anchor="end">Peticion monitorio</text>
-        <rect x="266.0" y="82" width="73.1" height="18" rx="4" fill="var(--c1)"></rect>
-        <text class="eje" x="140" y="133" text-anchor="end">Contestacion deudor</text>
-        <rect x="343.4" y="120" width="120.3" height="18" rx="4" fill="var(--c3)"></rect>
-        <text class="eje" x="140" y="171" text-anchor="end">Ejecucion prevista</text>
-        <rect x="468.0" y="158" width="133.2" height="18" rx="4" fill="var(--c5)"></rect>
-        <line x1="248.8" y1="30" x2="248.8" y2="196" stroke="var(--riesgo)" stroke-width="2" stroke-dasharray="4 3"></line>
-        <text class="eje" x="248.8" y="24" text-anchor="middle" fill="var(--riesgo)">hoy</text>
-        <line class="rejilla" x1="150" y1="182" x2="670" y2="182"></line>
-        <text class="eje" x="150" y="198">1 sep</text>
-        <text class="eje" x="278.9" y="198" text-anchor="middle">1 oct</text>
-        <text class="eje" x="412.1" y="198" text-anchor="middle">1 nov</text>
-        <text class="eje" x="670" y="198" text-anchor="end">31 dic</text>
-      </svg>
-      <p class="formula">x(fecha) = x0 + (fecha - inicio) / (fin - inicio) * ancho
-la marca de hoy cruza todas las filas: la escala es comun</p>
+      <h2>Diagrama de plazos</h2>
+      <p class="subtitulo">Varios plazos en una escala comun, con la marca de hoy. <code>"tipo": "plazos"</code></p>
+      <figure class="grafico" data-grafico="plazos"></figure>
     </section>
-
-    <section class="tarjeta">
-      <h2>11. Anillo de reparto</h2>
-      <p class="subtitulo">Peso de cada parte sobre el total</p>
-      <svg class="anillo" viewBox="0 0 230 190" role="img" aria-label="Reparto: suministro 44 por ciento, maquinaria 33, transporte 23">
-        <g transform="translate(115,95) rotate(-90)">
-          <circle class="base" cx="0" cy="0" r="62"></circle>
-          <circle cx="0" cy="0" r="62" stroke="var(--c1)" stroke-dasharray="171.4 218.2" stroke-dashoffset="0"></circle>
-          <circle cx="0" cy="0" r="62" stroke="var(--c2)" stroke-dasharray="128.6 261.0" stroke-dashoffset="-171.4"></circle>
-          <circle cx="0" cy="0" r="62" stroke="var(--c3)" stroke-dasharray="89.6 300.0" stroke-dashoffset="-300.0"></circle>
-        </g>
-        <text class="centro-anillo" x="115" y="92" font-size="27">44%</text>
-        <text class="centro-anillo eje" x="115" y="112" font-size="11">suministro</text>
-      </svg>
-      <ul class="leyenda">
-        <li><i style="background:var(--c1)"></i>Suministro (44%)</li>
-        <li><i style="background:var(--c2)"></i>Maquinaria (33%)</li>
-        <li><i style="background:var(--c3)"></i>Transporte (23%)</li>
-      </ul>
-      <p class="formula">C = 2 * pi * 62 = 389,6
-arco = porcentaje / 100 * C ; desplazamiento = -acumulado</p>
-    </section>
-
   </div>
 
   <div class="acciones">
@@ -447,12 +350,906 @@ arco = porcentaje / 100 * C ; desplazamiento = -acumulado</p>
   </div>
 
   <footer class="pie">
-    <p>Galeria de demostracion de la skill reportes. Datos ficticios.</p>
+    <p><b>Fuentes</b></p>
+    <ol class="fuentes-reporte" id="fuentes-reporte"></ol>
+    <p>Documento de trabajo. No sustituye al asesoramiento de un profesional colegiado ni a la liquidacion judicial de intereses.</p>
   </footer>
 
 </main>
+<script type="application/json" id="datos-reporte">
+{
+  "idioma": "es-ES",
+  "moneda": "EUR",
+  "cifras": {
+    "total": {
+      "de": "cascada",
+      "calculo": "suma",
+      "unidad": "eur"
+    }
+  },
+  "fuentes": {
+    "ejemplo": {
+      "nombre": "Datos ficticios de demostracion",
+      "consulta": "2026-10-11"
+    }
+  },
+  "graficos": {
+    "barras": {
+      "tipo": "barras",
+      "unidad": "eur",
+      "elementos": [
+        {
+          "rotulo": "Factura 2025/118",
+          "valor": 18400
+        },
+        {
+          "rotulo": "Factura 2025/131",
+          "valor": 11250
+        },
+        {
+          "rotulo": "Factura 2025/147",
+          "valor": 7930
+        },
+        {
+          "rotulo": "Resto (4 facturas)",
+          "valor": 4600.5
+        }
+      ],
+      "fuente": "ejemplo",
+      "resumen": "Barras horizontales: Comparar partidas. Ordenadas de mayor a menor."
+    },
+    "columnas": {
+      "tipo": "columnas",
+      "unidad": "eur",
+      "etiquetas": [
+        "1T",
+        "2T",
+        "3T",
+        "4T"
+      ],
+      "series": [
+        {
+          "nombre": "2025",
+          "valores": [
+            12000,
+            16000,
+            9000,
+            14000
+          ]
+        },
+        {
+          "nombre": "2026",
+          "valores": [
+            14000,
+            18500,
+            11000,
+            null
+          ]
+        }
+      ],
+      "fuente": "ejemplo",
+      "resumen": "Columnas: Comparar pocos periodos o grupos, una o varias series."
+    },
+    "apiladas": {
+      "tipo": "apiladas",
+      "unidad": "eur",
+      "etiquetas": [
+        "Enero",
+        "Febrero",
+        "Marzo"
+      ],
+      "series": [
+        {
+          "nombre": "Principal",
+          "valores": [
+            5000,
+            6000,
+            4000
+          ]
+        },
+        {
+          "nombre": "Intereses",
+          "valores": [
+            400,
+            520,
+            380
+          ]
+        }
+      ],
+      "fuente": "ejemplo",
+      "resumen": "Columnas apiladas: Composicion de cada periodo, con el total encima."
+    },
+    "cien": {
+      "tipo": "apiladas",
+      "cien": true,
+      "etiquetas": [
+        "2024",
+        "2025",
+        "2026"
+      ],
+      "series": [
+        {
+          "nombre": "Estimadas",
+          "valores": [
+            30,
+            42,
+            51
+          ]
+        },
+        {
+          "nombre": "Desestimadas",
+          "valores": [
+            10,
+            8,
+            6
+          ]
+        }
+      ],
+      "fuente": "ejemplo",
+      "resumen": "Apiladas al cien por cien: Proporcion por periodo. Nunca cuando importa el volumen."
+    },
+    "linea": {
+      "tipo": "linea",
+      "unidad": "num",
+      "etiquetas": [
+        "Ene",
+        "Feb",
+        "Mar",
+        "Abr",
+        "May",
+        "Jun",
+        "Jul",
+        "Ago",
+        "Sep"
+      ],
+      "series": [
+        {
+          "nombre": "Asuntos abiertos",
+          "valores": [
+            31,
+            29,
+            33,
+            null,
+            36,
+            37,
+            39,
+            40,
+            42
+          ]
+        },
+        {
+          "nombre": "Media del ano anterior",
+          "valores": [
+            30,
+            30,
+            31,
+            31,
+            31,
+            32,
+            32,
+            32,
+            32
+          ]
+        }
+      ],
+      "umbral": {
+        "desde": 25,
+        "hasta": 35,
+        "rotulo": "Capacidad del equipo"
+      },
+      "anotaciones": [
+        {
+          "indice": 4,
+          "texto": "Nuevo cliente"
+        }
+      ],
+      "destacar": [
+        "maximo"
+      ],
+      "fuente": "ejemplo",
+      "resumen": "Linea con area, banda y anotaciones: Evolucion frente a un limite, con huecos y marcas de contexto."
+    },
+    "medidor": {
+      "tipo": "medidor",
+      "valor": 68,
+      "rotulo": "plazo de prescripcion consumido",
+      "fuente": "ejemplo",
+      "resumen": "Medidor semicircular: Porcentaje de algo con maximo conocido."
+    },
+    "cascada": {
+      "tipo": "cascada",
+      "unidad": "eur",
+      "pasos": [
+        {
+          "rotulo": "Principal",
+          "valor": 12000
+        },
+        {
+          "rotulo": "Intereses",
+          "valor": 1450
+        },
+        {
+          "rotulo": "Costas",
+          "valor": 800
+        },
+        {
+          "rotulo": "Pagos",
+          "valor": -2000
+        }
+      ],
+      "total": {
+        "rotulo": "A reclamar"
+      },
+      "fuente": "ejemplo",
+      "resumen": "Cascada: Como se llega a un total; los saldos negativos bajan."
+    },
+    "anillo": {
+      "tipo": "anillo",
+      "unidad": "eur",
+      "porciones": [
+        {
+          "rotulo": "Principal",
+          "valor": 12000
+        },
+        {
+          "rotulo": "Intereses",
+          "valor": 1450
+        },
+        {
+          "rotulo": "Costas",
+          "valor": 800
+        }
+      ],
+      "centro": {
+        "rotulo": "total"
+      },
+      "fuente": "ejemplo",
+      "resumen": "Anillo: Peso de cada parte sobre el total, con la cifra en el centro."
+    },
+    "tarta": {
+      "tipo": "tarta",
+      "unidad": "num",
+      "porciones": [
+        {
+          "rotulo": "Madrid",
+          "valor": 30
+        },
+        {
+          "rotulo": "Cataluna",
+          "valor": 25
+        },
+        {
+          "rotulo": "Andalucia",
+          "valor": 20
+        },
+        {
+          "rotulo": "Valencia",
+          "valor": 10
+        },
+        {
+          "rotulo": "Galicia",
+          "valor": 6
+        },
+        {
+          "rotulo": "Pais Vasco",
+          "valor": 5
+        },
+        {
+          "rotulo": "Resto",
+          "valor": 4
+        }
+      ],
+      "fuente": "ejemplo",
+      "resumen": "Tarta: Reparto en hasta seis porciones; el resto se agrupa en Otros."
+    },
+    "matriz": {
+      "tipo": "matriz",
+      "filas": [
+        "Alta",
+        "Media",
+        "Baja"
+      ],
+      "columnas": [
+        "Bajo",
+        "Medio",
+        "Alto"
+      ],
+      "eje_filas": "Probabilidad",
+      "eje_columnas": "Impacto",
+      "elementos": [
+        {
+          "nombre": "Prescripcion de la accion",
+          "fila": "Alta",
+          "columna": "Alto"
+        },
+        {
+          "nombre": "Insolvencia del deudor",
+          "fila": "Media",
+          "columna": "Alto"
+        },
+        {
+          "nombre": "Prueba documental incompleta",
+          "fila": "Media",
+          "columna": "Medio"
+        }
+      ],
+      "fuente": "ejemplo",
+      "resumen": "Matriz de riesgo e impacto: Contingencias numeradas en su celda, con lo que hay que hacer."
+    },
+    "plazos": {
+      "tipo": "plazos",
+      "hoy": "2026-09-20",
+      "plazos": [
+        {
+          "rotulo": "Recurso de reposicion",
+          "inicio": "2026-08-01",
+          "fin": "2026-08-20"
+        },
+        {
+          "rotulo": "Requerimiento",
+          "inicio": "2026-09-01",
+          "fin": "2026-09-27"
+        },
+        {
+          "rotulo": "Contestacion a la demanda",
+          "inicio": "2026-10-01",
+          "fin": "2026-11-13"
+        }
+      ],
+      "fuente": "ejemplo",
+      "resumen": "Diagrama de plazos: Varios plazos en una escala comun, con la marca de hoy."
+    },
+    "tendencia": {
+      "tipo": "chispa",
+      "valores": [
+        10,
+        12,
+        18,
+        22,
+        30,
+        34
+      ],
+      "etiquetas": [
+        "Abril",
+        "Septiembre"
+      ]
+    }
+  }
+}
+</script>
 <script>
-document.getElementById("imprimir").addEventListener("click", function(){ window.print(); });
+/* Motor de graficos de la skill reportes. No se modifica: los graficos se
+   declaran en el bloque datos-reporte y aqui se dibujan. */
+(function(){
+"use strict";
+var NS = "http://www.w3.org/2000/svg", D = document;
+var datos = {};
+try { datos = JSON.parse(D.getElementById("datos-reporte").textContent || "{}"); }
+catch (e) { console.error("datos-reporte no es JSON valido: " + e.message); }
+var IDIOMA = datos.idioma || D.documentElement.lang || "es-ES";
+var MONEDA = datos.moneda || "EUR";
+var TEXTOS_BASE = {
+  es: {datos:"Ver los datos", csv:"Descargar CSV", fuente:"Fuente", fuentes:"Fuentes", consulta:"consultado el", otros:"Otros", hoy:"hoy", total:"Total", concepto:"Concepto", valor:"Valor", acumulado:"Acumulado", porcentaje:"Porcentaje", inicio:"Inicio", fin:"Fin", restantes:"Dias restantes", maximo:"Maximo", ok:"Asumir", aviso:"Vigilar", riesgo:"Actuar ya", error:"No se puede dibujar el grafico"},
+  en: {datos:"Show the data", csv:"Download CSV", fuente:"Source", fuentes:"Sources", consulta:"accessed on", otros:"Other", hoy:"today", total:"Total", concepto:"Item", valor:"Value", acumulado:"Running total", porcentaje:"Share", inicio:"Start", fin:"End", restantes:"Days left", maximo:"Maximum", ok:"Accept", aviso:"Monitor", riesgo:"Act now", error:"The chart cannot be drawn"}
+};
+var T = Object.assign({}, TEXTOS_BASE[IDIOMA.slice(0, 2)] || TEXTOS_BASE.es, datos.textos || {});
+var FUENTES = datos.fuentes || {};
+var usadas = [];
+
+/* ---------- utilidades ---------- */
+function svg(tag, at, padre, texto) {
+  var n = D.createElementNS(NS, tag);
+  for (var k in at) { if (at[k] !== undefined && at[k] !== null) n.setAttribute(k, at[k]); }
+  if (texto !== undefined) n.textContent = texto;
+  if (padre) padre.appendChild(n);
+  return n;
+}
+function html(tag, clase, padre, texto) {
+  var n = D.createElement(tag);
+  if (clase) n.className = clase;
+  if (texto !== undefined) n.textContent = texto;
+  if (padre) padre.appendChild(n);
+  return n;
+}
+function r1(v) { return Math.round(v * 10) / 10; }
+function num(v) { return typeof v === "number" && isFinite(v); }
+function suma(a) { return a.reduce(function (s, v) { return num(v) ? s + v : s; }, 0); }
+function maximo(a) { return Math.max.apply(null, a.filter(num)); }
+function minimo(a) { return Math.min.apply(null, a.filter(num)); }
+function consejo(nodo, texto) { svg("title", {}, nodo, texto); return nodo; }
+
+var formatos = {};
+function fmt(v, unidad, corto) {
+  if (!num(v)) return "\u2014";
+  unidad = unidad || "num";
+  var clave = unidad + (corto ? "|c" : ""), f = formatos[clave];
+  if (!f) {
+    var o = {maximumFractionDigits: 2};
+    if (unidad === "eur" || unidad === "moneda") o = {style: "currency", currency: MONEDA, minimumFractionDigits: 2, maximumFractionDigits: 2};
+    else if (unidad === "pct") o = {style: "percent", maximumFractionDigits: 1};
+    else if (unidad === "entero") o = {maximumFractionDigits: 0};
+    o.useGrouping = "always";  /* 7.300 y no 7300, tambien con cuatro cifras */
+    if (corto && unidad !== "pct") { o.notation = "compact"; o.minimumFractionDigits = 0; o.maximumFractionDigits = 1; }
+    f = formatos[clave] = new Intl.NumberFormat(IDIOMA, o);
+  }
+  var s = f.format(unidad === "pct" ? v / 100 : v);
+  var conocida = {eur: 1, moneda: 1, pct: 1, num: 1, entero: 1};
+  return conocida[unidad] ? s : s + "\u00a0" + unidad;
+}
+var fmtFecha = new Intl.DateTimeFormat(IDIOMA, {day: "numeric", month: "short", timeZone: "UTC"});
+var fmtFechaLarga = new Intl.DateTimeFormat(IDIOMA, {day: "numeric", month: "long", year: "numeric", timeZone: "UTC"});
+var fmtMes = new Intl.DateTimeFormat(IDIOMA, {month: "short", year: "2-digit", timeZone: "UTC"});
+function fecha(texto) {
+  var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(texto || "");
+  if (!m) throw new Error("fecha no valida (usa AAAA-MM-DD): " + texto);
+  return Date.UTC(+m[1], +m[2] - 1, +m[3]);
+}
+var DIA = 86400000;
+
+/* Tope del eje: la cifra legible inmediatamente superior al maximo, de modo que
+   los cuartos de la rejilla tambien sean cifras redondas. */
+function techo(v) {
+  if (!(v > 0)) return 1;
+  var m = Math.pow(10, Math.floor(Math.log10(v))), pasos = [1, 1.2, 1.6, 2, 2.4, 3, 4, 5, 6, 8, 10];
+  for (var i = 0; i < pasos.length; i++) { if (pasos[i] * m >= v * (1 - 1e-9)) return pasos[i] * m; }
+  return 10 * m;
+}
+function color(c, i) {
+  if (typeof c === "number") return "var(--c" + c + ")";
+  if (/^(ok|aviso|riesgo|acento|acento-fuerte)$/.test(c || "")) return "var(--" + c + ")";
+  if (/^#[0-9a-fA-F]{3,8}$/.test(c || "")) return c;
+  return "var(--c" + ((i % 6) + 1) + ")";
+}
+function lienzo(fig, ancho, alto, resumen) {
+  return svg("svg", {viewBox: "0 0 " + ancho + " " + alto, role: "img", "aria-label": resumen}, fig);
+}
+function leyenda(fig, elementos) {
+  var ul = html("ul", "leyenda", fig);
+  elementos.forEach(function (e) {
+    var li = html("li", "", ul), i = html("i", "", li);
+    i.style.background = e.color;
+    if (e.opacidad) i.style.opacity = e.opacidad;
+    li.appendChild(D.createTextNode(e.texto));
+    if (e.extra) html("span", "porcentaje", li, e.extra);
+  });
+}
+
+/* ---------- lienzo cartesiano comun: x de 64 a 664, y de 44 a 244 ---------- */
+/* El ancho W se mide en cada tarjeta (de 320 a 700) para que los rotulos
+   conserven su tamano real; al imprimir se dibuja siempre a 700. */
+var W = 700, X0 = 64, X1 = 664, Y0 = 44, Y1 = 244;
+function util() { return X1 - X0; }
+function rejilla(s, tope, unidad) {
+  for (var k = 0; k <= 4; k++) {
+    var y = Y1 - k * 50;
+    svg("line", {"class": "rejilla", x1: X0, y1: y, x2: X1, y2: y}, s);
+    svg("text", {"class": "eje", x: 56, y: y + 4, "text-anchor": "end"}, s, k ? fmt(tope * k / 4, unidad, true) : "0");
+  }
+}
+function rotulosX(s, etiquetas, xDe, extremos) {
+  /* En un eje temporal (extremos) se salta rotulos; en categorias se muestran todos. */
+  var n = etiquetas.length, paso = extremos ? Math.ceil(n / Math.max(3, Math.floor(util() / 72))) : 1;
+  /* Cada rotulo cabe en su hueco: si no, se recorta y el texto completo queda en el consejo. */
+  var cabe = Math.max(4, Math.floor(util() / Math.ceil(n / paso) / 6.4));
+  etiquetas.forEach(function (e, i) {
+    if (i % paso && i !== n - 1) return;
+    var ancla = "middle";
+    if (extremos && i === 0) ancla = "start";
+    if (extremos && i === n - 1) ancla = "end";
+    var corto = String(e).length > cabe ? String(e).slice(0, cabe - 1) + "\u2026" : String(e);
+    consejo(svg("text", {"class": "eje", x: r1(xDe(i)), y: 266, "text-anchor": ancla}, s, corto), String(e));
+  });
+}
+function yDe(v, tope) { return r1(Y1 - v / tope * 200); }
+
+/* ---------- tipos ---------- */
+var tipos = {};
+
+tipos.barras = function (fig, g) {
+  var el = (g.elementos || []).slice();
+  if (!el.length) throw new Error("faltan elementos");
+  if (g.orden !== "original") el.sort(function (a, b) { return b.valor - a.valor; });
+  var tope = maximo(el.map(function (e) { return e.valor; }));
+  var ul = html("ul", "barras", fig);
+  el.forEach(function (e, i) {
+    var li = html("li", "", ul), fila = html("p", "fila", li);
+    html("span", "", fila, e.rotulo);
+    html("span", "valor", fila, fmt(e.valor, g.unidad));
+    var pista = html("div", "pista", li), barra = html("span", "", pista);
+    pista.setAttribute("role", "img");
+    pista.setAttribute("aria-label", e.rotulo + ": " + fmt(e.valor, g.unidad));
+    var c = color(e.color, i);
+    barra.style.width = r1(tope > 0 ? e.valor / tope * 100 : 0) + "%";
+    barra.style.background = "linear-gradient(90deg," + c + ",color-mix(in srgb," + c + " 72%,white))";
+  });
+  return {cabecera: [T.concepto, g.nombre_valor || T.valor],
+          filas: el.map(function (e) { return [e.rotulo, e.valor]; })};
+};
+
+function columnasComun(fig, g, apilar, cien) {
+  var et = g.etiquetas || [], series = g.series || [], n = et.length;
+  if (!n || !series.length) throw new Error("faltan etiquetas o series");
+  var totales = et.map(function (_, i) { return suma(series.map(function (s) { return s.valores[i]; })); });
+  var unidad = cien ? "pct" : g.unidad;
+  var tope = cien ? 100 : techo(apilar ? maximo(totales) : maximo([].concat.apply([], series.map(function (s) { return s.valores; }))));
+  var s = lienzo(fig, W, 280, g.resumen || "");
+  rejilla(s, tope, unidad);
+  var banda = util() / n, anchoGrupo = banda * (apilar ? 0.56 : 0.7), ns = series.length;
+  et.forEach(function (eti, i) {
+    var acumulado = 0;
+    series.forEach(function (se, j) {
+      var v = se.valores[i];
+      if (!num(v)) return;
+      if (v < 0) throw new Error("las columnas no admiten valores negativos; usa barras divergentes");
+      if (cien) v = totales[i] ? v / totales[i] * 100 : 0;
+      var c = color(se.color, j), x, w, y, alto = v / tope * 200;
+      if (apilar) { w = anchoGrupo; x = X0 + banda * i + (banda - w) / 2; y = Y1 - (acumulado + v) / tope * 200; acumulado += v; }
+      else { w = anchoGrupo / ns; x = X0 + banda * i + (banda - anchoGrupo) / 2 + j * w; y = Y1 - alto; }
+      var r = svg("rect", {x: r1(x + (apilar ? 0 : 1)), y: r1(y), width: r1(Math.max(w - (apilar ? 0 : 2), 1)), height: r1(alto), fill: c, rx: apilar ? 0 : 3}, s);
+      consejo(r, eti + " \u00b7 " + se.nombre + ": " + fmt(cien ? v : se.valores[i], unidad));
+      if (!apilar && g.valores !== false && (ns === 1 ? n <= 12 : n * ns <= 6 && banda / ns >= 44)) {
+        svg("text", {"class": "valor-punto", x: r1(x + w / 2), y: r1(y - 6), "text-anchor": "middle"}, s, fmt(v, unidad, true));
+      }
+    });
+    if (apilar && !cien && g.valores !== false && n <= 12) {
+      svg("text", {"class": "valor-punto", x: r1(X0 + banda * (i + 0.5)), y: yDe(totales[i], tope) - 6, "text-anchor": "middle"}, s, fmt(totales[i], unidad, true));
+    }
+  });
+  rotulosX(s, et, function (i) { return X0 + banda * (i + 0.5); });
+  if (ns > 1) leyenda(fig, series.map(function (se, j) { return {color: color(se.color, j), texto: se.nombre}; }));
+  var cab = [g.nombre_etiqueta || T.concepto].concat(series.map(function (se) { return se.nombre; }));
+  if (apilar) cab.push(T.total);
+  return {cabecera: cab, filas: et.map(function (eti, i) {
+    var f = [eti].concat(series.map(function (se) { return se.valores[i]; }));
+    if (apilar) f.push(totales[i]);
+    return f;
+  }), unidad: g.unidad};
+}
+tipos.columnas = function (fig, g) { return columnasComun(fig, g, false, false); };
+tipos.apiladas = function (fig, g) { return columnasComun(fig, g, true, !!g.cien); };
+
+tipos.linea = function (fig, g, id) {
+  var et = g.etiquetas || [], series = g.series || [], n = et.length;
+  if (n < 2 || !series.length) throw new Error("hacen falta al menos dos etiquetas y una serie");
+  var todos = [].concat.apply([], series.map(function (s) { return s.valores; }));
+  if (minimo(todos) < 0) throw new Error("la linea con area no admite valores negativos");
+  var tope = techo(Math.max(maximo(todos), g.umbral ? g.umbral.hasta : 0));
+  var s = lienzo(fig, W, 280, g.resumen || "");
+  var xDe = function (i) { return X0 + i * util() / (n - 1); };
+  if (g.umbral) {
+    var u = g.umbral, yb = yDe(u.hasta, tope);
+    svg("rect", {"class": "banda", x: X0, y: yb, width: util(), height: r1((u.hasta - (u.desde || 0)) / tope * 200)}, s);
+  }
+  rejilla(s, tope, g.unidad);
+  var defs = svg("defs", {}, s);
+  series.forEach(function (se, j) {
+    var c = color(se.color, j), tramos = [[]];
+    se.valores.forEach(function (v, i) { if (num(v)) tramos[tramos.length - 1].push([r1(xDe(i)), yDe(v, tope), i]); else if (tramos[tramos.length - 1].length) tramos.push([]); });
+    var conArea = j === 0 && g.area !== false;
+    if (conArea) {
+      var gr = svg("linearGradient", {id: "degradado-" + id, x1: 0, y1: 0, x2: 0, y2: 1}, defs);
+      svg("stop", {offset: "0%", "stop-color": c, "stop-opacity": ".32"}, gr);
+      svg("stop", {offset: "100%", "stop-color": c, "stop-opacity": "0"}, gr);
+    }
+    tramos.forEach(function (t) {
+      if (!t.length) return;
+      var pts = t.map(function (p) { return p[0] + "," + p[1]; }).join(" ");
+      if (conArea && t.length > 1) svg("polygon", {points: pts + " " + t[t.length - 1][0] + "," + Y1 + " " + t[0][0] + "," + Y1, fill: "url(#degradado-" + id + ")"}, s);
+      svg("polyline", {points: pts, fill: "none", stroke: c, "stroke-width": j ? 2.4 : 2.6, "stroke-dasharray": j && g.discontinuas !== false ? "7 5" : null, "stroke-linejoin": "round", "stroke-linecap": "round"}, s);
+      t.forEach(function (p) {
+        consejo(svg("circle", {cx: p[0], cy: p[1], r: j ? 3 : 3.6, fill: c}, s), et[p[2]] + " \u00b7 " + se.nombre + ": " + fmt(se.valores[p[2]], g.unidad));
+      });
+    });
+    (se.destacar || (j === 0 ? g.destacar : null) || []).forEach(function (cual) {
+      var vals = se.valores, i = cual === "maximo" ? vals.indexOf(maximo(vals)) : cual === "minimo" ? vals.indexOf(minimo(vals)) : cual === "ultimo" ? vals.length - 1 : cual === "primero" ? 0 : -1;
+      if (i < 0 || !num(vals[i])) return;
+      svg("text", {"class": "valor-punto", x: r1(xDe(i)), y: yDe(vals[i], tope) - 9, "text-anchor": i === 0 ? "start" : i === n - 1 ? "end" : "middle"}, s, fmt(vals[i], g.unidad, true));
+    });
+  });
+  (g.anotaciones || []).forEach(function (a) {
+    var x = r1(xDe(a.indice));
+    svg("line", {"class": "anotacion", x1: x, y1: 30, x2: x, y2: Y1}, s);
+    svg("text", {"class": "texto-anotacion", x: x + (a.indice > n / 2 ? -4 : 4), y: 26, "text-anchor": a.indice > n / 2 ? "end" : "start"}, s, a.texto);
+  });
+  rotulosX(s, et, xDe, true);
+  var ley = series.map(function (se, j) { return {color: color(se.color, j), texto: se.nombre}; });
+  if (g.umbral && g.umbral.rotulo) ley.push({color: "var(--ok)", opacidad: ".35", texto: g.umbral.rotulo});
+  if (ley.length > 1) leyenda(fig, ley);
+  return {cabecera: [g.nombre_etiqueta || T.concepto].concat(series.map(function (se) { return se.nombre; })),
+          filas: et.map(function (eti, i) { return [eti].concat(series.map(function (se) { return se.valores[i]; })); }), unidad: g.unidad};
+};
+
+tipos.chispa = function (fig, g) {
+  var v = g.valores || [], n = v.length;
+  if (n < 2) throw new Error("hacen falta al menos dos valores");
+  var lo = minimo(v), hi = maximo(v), rango = (hi - lo) || 1;
+  var pts = v.map(function (x, i) { return r1(1 + i * 118 / (n - 1)) + "," + r1(30 - (x - lo) / rango * 28); }).join(" ");
+  var s = svg("svg", {"class": "chispa", viewBox: "0 0 120 32", preserveAspectRatio: "none", role: "img", "aria-label": g.resumen || ""}, fig);
+  svg("polygon", {"class": "chispa-area", points: pts + " 119,32 1,32"}, s);
+  svg("polyline", {"class": "chispa-linea", points: pts}, s);
+  svg("circle", {"class": "chispa-punto", cx: 119, cy: r1(30 - (v[n - 1] - lo) / rango * 28), r: 2.4}, s);
+  var nota = g.nota;
+  if (!nota && g.etiquetas && v[0]) {
+    var vari = (v[n - 1] - v[0]) / Math.abs(v[0]) * 100;
+    nota = g.etiquetas[0] + " \u2013 " + g.etiquetas[g.etiquetas.length - 1] + ": " + (vari > 0 ? "+" : "") + fmt(vari, "pct");
+  }
+  if (nota) html("p", "tendencia-nota", fig, nota);
+  return null;
+};
+
+tipos.medidor = function (fig, g) {
+  var tope = g.maximo || 100, p = Math.max(0, Math.min(100, (g.valor || 0) / tope * 100));
+  var tramos = g.tramos || [60, 85];
+  var c = g.color ? color(g.color) : p <= tramos[0] ? "var(--ok)" : p <= tramos[1] ? "var(--aviso)" : "var(--riesgo)";
+  var L = Math.PI * 90, arco = r1(p / 100 * L);
+  var s = svg("svg", {"class": "medidor", viewBox: "0 0 240 150", role: "img", "aria-label": g.resumen || ""}, fig);
+  svg("path", {"class": "pista-arco", d: "M 30 125 A 90 90 0 0 1 210 125"}, s);
+  svg("path", {"class": "arco", d: "M 30 125 A 90 90 0 0 1 210 125", stroke: c, "stroke-dasharray": arco + " " + r1(L - arco + 1)}, s);
+  svg("text", {x: 120, y: 112, "text-anchor": "middle", "font-size": 34, "font-weight": 670, fill: "var(--texto)"}, s, g.cifra || fmt(g.unidad === "pct" || !g.unidad ? p : g.valor, g.unidad || "pct"));
+  svg("text", {"class": "eje", x: 30, y: 146, "text-anchor": "middle"}, s, "0");
+  svg("text", {"class": "eje", x: 210, y: 146, "text-anchor": "middle"}, s, fmt(tope, g.unidad || "pct", true));
+  if (g.rotulo) html("p", "medidor-rotulo", fig, g.rotulo);
+  return {cabecera: [T.valor, T.maximo, T.porcentaje], filas: [[g.valor, tope, r1(p) + " %"]], unidad: g.unidad};
+};
+
+tipos.cascada = function (fig, g) {
+  var pasos = g.pasos || [];
+  if (!pasos.length) throw new Error("faltan pasos");
+  var acum = 0, col = pasos.map(function (p) { var a = acum; acum += p.valor; return {rotulo: p.rotulo, valor: p.valor, desde: a, hasta: acum, color: p.color}; });
+  col.push({rotulo: (g.total && g.total.rotulo) || T.total, valor: acum, desde: 0, hasta: acum, total: true});
+  var hi = techo(maximo(col.map(function (c) { return Math.max(c.desde, c.hasta); })));
+  var lo = Math.min(0, minimo(col.map(function (c) { return Math.min(c.desde, c.hasta); })));
+  if (lo < 0) lo = -techo(-lo);
+  var n = col.length, banda = util() / n, w = banda * 0.6;
+  var y = function (v) { return r1(244 - (v - lo) / (hi - lo) * 200); };
+  var s = lienzo(fig, W, 280, g.resumen || "");
+  svg("line", {"class": "rejilla", x1: X0, y1: 44, x2: X1, y2: 44}, s);
+  svg("line", {"class": lo < 0 ? "cero" : "rejilla", x1: X0, y1: y(0), x2: X1, y2: y(0)}, s);
+  col.forEach(function (c, i) {
+    var x = r1(X0 + banda * i + (banda - w) / 2), top = y(Math.max(c.desde, c.hasta)), alto = r1(Math.abs(y(c.desde) - y(c.hasta)));
+    var relleno = c.total ? "var(--acento-fuerte)" : c.valor < 0 ? "var(--riesgo)" : color(c.color, i);
+    consejo(svg("rect", {x: x, y: top, width: r1(w), height: Math.max(alto, 1), fill: relleno, rx: 3}, s), c.rotulo + ": " + fmt(c.valor, g.unidad));
+    svg("text", {"class": "valor-punto", x: r1(x + w / 2), y: top - 6, "text-anchor": "middle"}, s, (c.valor < 0 ? "" : !c.total && i ? "+" : "") + fmt(c.valor, g.unidad, true));
+    if (i < n - 1) svg("line", {"class": "conector", x1: r1(x + w), y1: y(c.hasta), x2: r1(x + banda), y2: y(c.hasta), stroke: "var(--linea-rejilla)", "stroke-dasharray": "3 3"}, s);
+  });
+  rotulosX(s, col.map(function (c) { return c.rotulo; }), function (i) { return X0 + banda * (i + 0.5); });
+  return {cabecera: [T.concepto, T.valor, T.acumulado], filas: col.map(function (c) { return [c.rotulo, c.valor, c.hasta]; }), unidad: g.unidad};
+};
+
+tipos.matriz = function (fig, g) {
+  var filas = g.filas || [], cols = g.columnas || [], nf = filas.length, nc = cols.length;
+  if (nf < 2 || nc < 2 || nf > 4 || nc > 4) throw new Error("la matriz necesita de dos a cuatro niveles por eje");
+  var zonas = Object.assign({ok: T.ok, aviso: T.aviso, riesgo: T.riesgo}, g.zonas || {});
+  var Wm = Math.min(W, 560), x0 = 96, y0 = 16, ancho = Wm - x0 - 14, alto = 216, cw = ancho / nc, ch = alto / nf;
+  var s = lienzo(fig, Wm, 290, g.resumen || "");
+  for (var f = 0; f < nf; f++) for (var c = 0; c < nc; c++) {
+    var nivel = ((nf - 1 - f) + c) / (nf + nc - 2), zona = nivel < 0.34 ? "ok" : nivel < 0.67 ? "aviso" : "riesgo";
+    svg("rect", {x: r1(x0 + c * cw), y: r1(y0 + f * ch), width: r1(cw - 2), height: r1(ch - 2), fill: "var(--" + zona + ")", opacity: zona === "riesgo" ? ".22" : ".16", rx: 4}, s);
+    svg("text", {"class": "zona", x: r1(x0 + c * cw + cw / 2), y: r1(y0 + f * ch + 15), "text-anchor": "middle"}, s, zonas[zona]);
+  }
+  filas.forEach(function (r, f) { svg("text", {"class": "eje", x: x0 - 8, y: r1(y0 + f * ch + ch / 2 + 4), "text-anchor": "end"}, s, r); });
+  cols.forEach(function (r, c) { svg("text", {"class": "eje", x: r1(x0 + c * cw + cw / 2), y: y0 + alto + 16, "text-anchor": "middle"}, s, r); });
+  if (g.eje_filas) svg("text", {"class": "eje", x: 12, y: y0 + alto / 2, "text-anchor": "middle", transform: "rotate(-90 12 " + (y0 + alto / 2) + ")"}, s, g.eje_filas);
+  if (g.eje_columnas) svg("text", {"class": "eje", x: x0 + ancho / 2, y: y0 + alto + 34, "text-anchor": "middle"}, s, g.eje_columnas);
+  var ocupadas = {};
+  var items = g.elementos || [];
+  items.forEach(function (e, i) {
+    var f = filas.indexOf(e.fila), c = cols.indexOf(e.columna);
+    if (f < 0 || c < 0) throw new Error("el elemento " + (i + 1) + " no esta en ninguna celda: " + e.fila + " / " + e.columna);
+    var k = f + "-" + c, orden = ocupadas[k] = (ocupadas[k] || 0) + 1;
+    var cx = r1(x0 + c * cw + cw / 2 + ((orden - 1) % 3 - 1) * 20), cy = r1(y0 + f * ch + ch / 2 + 8 + Math.floor((orden - 1) / 3) * 20);
+    consejo(svg("circle", {cx: cx, cy: cy, r: 8.5, fill: color(e.color, 3)}, s), (i + 1) + ". " + e.nombre);
+    svg("text", {"class": "numero-riesgo", x: cx, y: cy + 3.5, "text-anchor": "middle"}, s, String(i + 1));
+  });
+  if (items.length) {
+    var ol = html("ol", "leyenda", fig);
+    items.forEach(function (e) { html("li", "", ol, e.nombre); });
+    ol.style.display = "block";
+    ol.style.paddingLeft = "20px";
+  }
+  return {cabecera: ["#", T.concepto, g.eje_filas || "", g.eje_columnas || ""], filas: items.map(function (e, i) { return [i + 1, e.nombre, e.fila, e.columna]; })};
+};
+
+tipos.plazos = function (fig, g) {
+  var pl = g.plazos || [];
+  if (!pl.length) throw new Error("faltan plazos");
+  var hoy = fecha(g.hoy), ini = pl.map(function (p) { return fecha(p.inicio); }), fin = pl.map(function (p) { return fecha(p.fin); });
+  var desde = Math.min(hoy, minimo(ini)), hasta = Math.max(hoy, maximo(fin)), margen = Math.max((hasta - desde) * 0.04, DIA);
+  desde -= margen; hasta += margen;
+  var x0 = W < 520 ? 112 : 150, ancho = W - x0 - 30, corte = W < 520 ? 16 : 24, alto = 46 + pl.length * 38 + 34;
+  var x = function (t) { return r1(x0 + (t - desde) / (hasta - desde) * ancho); };
+  var s = lienzo(fig, W, alto, g.resumen || "");
+  var base = alto - 26, dias = (hasta - desde) / DIA;
+  svg("line", {"class": "rejilla", x1: x0, y1: base, x2: x0 + ancho, y2: base}, s);
+  var marcas = [];
+  if (dias <= 120) {
+    var paso = dias <= 14 ? 1 : dias <= 45 ? 7 : 14, t = desde - desde % DIA + DIA;
+    for (; t <= hasta; t += DIA * paso) marcas.push([t, fmtFecha.format(t)]);
+  } else {
+    var d = new Date(desde), salto = dias > 1100 ? 12 : dias > 540 ? 3 : 1;
+    d = Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 1);
+    while (d <= hasta) { marcas.push([d, fmtMes.format(d)]); var dd = new Date(d); d = Date.UTC(dd.getUTCFullYear(), dd.getUTCMonth() + salto, 1); }
+  }
+  var pasoMarca = Math.ceil(marcas.length / 9);
+  marcas.forEach(function (m, i) {
+    if (i % pasoMarca) return;
+    svg("line", {"class": "rejilla", x1: x(m[0]), y1: 40, x2: x(m[0]), y2: base}, s);
+    svg("text", {"class": "eje", x: x(m[0]), y: base + 16, "text-anchor": "middle"}, s, m[1]);
+  });
+  pl.forEach(function (p, i) {
+    var y = 46 + i * 38, a = ini[i], b = fin[i];
+    var c = p.color ? color(p.color, i) : b < hoy ? "var(--c6)" : a <= hoy ? "var(--aviso)" : color(null, i);
+    var rot = p.rotulo.length > corte ? p.rotulo.slice(0, corte - 1) + "\u2026" : p.rotulo;
+    consejo(svg("text", {"class": "eje", x: x0 - 10, y: y + 13, "text-anchor": "end"}, s, rot), p.rotulo);
+    consejo(svg("rect", {x: x(a), y: y, width: Math.max(r1(x(b) - x(a)), 3), height: 18, rx: 4, fill: c, opacity: b < hoy ? ".55" : null}, s),
+      p.rotulo + ": " + fmtFechaLarga.format(a) + " \u2013 " + fmtFechaLarga.format(b));
+    var dch = x(b) + 6 < x0 + ancho - 40;
+    svg("text", {"class": dch ? "fecha-fin" : "fecha-fin dentro", x: dch ? x(b) + 6 : x(b) - 6, y: y + 13, "text-anchor": dch ? "start" : "end"}, s, fmtFecha.format(b));
+  });
+  svg("line", {"class": "hoy", x1: x(hoy), y1: 30, x2: x(hoy), y2: base}, s);
+  svg("text", {"class": "texto-hoy", x: x(hoy), y: 24, "text-anchor": "middle"}, s, g.texto_hoy || T.hoy);
+  return {cabecera: [T.concepto, T.inicio, T.fin, T.restantes], filas: pl.map(function (p, i) {
+    return [p.rotulo, fmtFechaLarga.format(ini[i]), fmtFechaLarga.format(fin[i]), Math.max(0, Math.round((fin[i] - hoy) / DIA))];
+  })};
+};
+
+function sector(cx, cy, R, r, a0, a1) {
+  var gran = a1 - a0 > Math.PI ? 1 : 0;
+  var p = function (rad, a) { return r1(cx + rad * Math.cos(a)) + " " + r1(cy + rad * Math.sin(a)); };
+  if (a1 - a0 >= 2 * Math.PI - 1e-6) {
+    var anillo = "M " + p(R, a0) + " A " + R + " " + R + " 0 1 1 " + p(R, a0 + Math.PI) + " A " + R + " " + R + " 0 1 1 " + p(R, a0) + " Z";
+    return r ? anillo + " M " + p(r, a0) + " A " + r + " " + r + " 0 1 0 " + p(r, a0 + Math.PI) + " A " + r + " " + r + " 0 1 0 " + p(r, a0) + " Z" : anillo;
+  }
+  var d = "M " + p(R, a0) + " A " + R + " " + R + " 0 " + gran + " 1 " + p(R, a1);
+  return r ? d + " L " + p(r, a1) + " A " + r + " " + r + " 0 " + gran + " 0 " + p(r, a0) + " Z"
+           : d + " L " + r1(cx) + " " + r1(cy) + " Z";
+}
+function reparto(fig, g, hueco) {
+  var por = (g.porciones || []).filter(function (p) { return num(p.valor) && p.valor > 0; });
+  if (!por.length) throw new Error("faltan porciones con valor positivo");
+  var max = Math.min(g.maximo_porciones || 6, 6);
+  if (por.length > max) {
+    por.sort(function (a, b) { return b.valor - a.valor; });
+    var resto = por.slice(max - 1);
+    por = por.slice(0, max - 1).concat([{rotulo: g.texto_otros || T.otros, valor: suma(resto.map(function (p) { return p.valor; })), color: 6}]);
+  }
+  var total = suma(por.map(function (p) { return p.valor; }));
+  var s = lienzo(fig, 230, 190, g.resumen || ""), a = -Math.PI / 2;
+  s.setAttribute("class", "reparto");
+  por.forEach(function (p, i) {
+    var b = a + p.valor / total * 2 * Math.PI;
+    consejo(svg("path", {d: sector(115, 95, 80, hueco ? 52 : 0, a, b), fill: color(p.color, i), stroke: "var(--superficie)", "stroke-width": 2}, s),
+      p.rotulo + ": " + fmt(p.valor, g.unidad) + " (" + fmt(p.valor / total * 100, "pct") + ")");
+    a = b;
+  });
+  if (hueco) {
+    var centro = g.centro || {};
+    svg("text", {"class": "centro-anillo", x: 115, y: 99, "font-size": 21}, s, centro.cifra || fmt(total, g.unidad, true));
+    if (centro.rotulo) svg("text", {"class": "centro-anillo eje", x: 115, y: 117, "font-size": 11}, s, centro.rotulo);
+  }
+  leyenda(fig, por.map(function (p, i) { return {color: color(p.color, i), texto: p.rotulo, extra: fmt(p.valor / total * 100, "pct")}; }));
+  return {cabecera: [T.concepto, T.valor, T.porcentaje], filas: por.map(function (p) { return [p.rotulo, p.valor, fmt(p.valor / total * 100, "pct")]; }).concat([[T.total, total, "100 %"]]), unidad: g.unidad};
+}
+tipos.anillo = function (fig, g) { return reparto(fig, g, true); };
+tipos.tarta = function (fig, g) { return reparto(fig, g, false); };
+
+/* ---------- tabla de datos, CSV y fuentes ---------- */
+function tablaDatos(fig, tabla, id) {
+  var det = html("details", "datos-grafico", fig);
+  html("summary", "", det, T.datos);
+  var cont = html("div", "tabla", det), t = html("table", "", cont), fila = html("tr", "", html("thead", "", t));
+  tabla.cabecera.forEach(function (c, i) { html("th", i ? "cifra" : "", fila, c); });
+  var cuerpo = html("tbody", "", t);
+  tabla.filas.forEach(function (f) {
+    var tr = html("tr", "", cuerpo);
+    f.forEach(function (v, i) { html("td", i ? "cifra" : "", tr, num(v) ? fmt(v, tabla.unidad) : String(v === null || v === undefined ? "\u2014" : v)); });
+  });
+  var boton = html("button", "", det, T.csv);
+  boton.type = "button";
+  boton.addEventListener("click", function () {
+    var decimal = (1.5).toLocaleString(IDIOMA).indexOf(",") > -1 ? "," : ".";
+    var sep = decimal === "," ? ";" : ",";
+    var celda = function (v) { var s = num(v) ? String(v).replace(".", decimal) : String(v === null || v === undefined ? "" : v); return /[";,\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
+    var csv = [tabla.cabecera].concat(tabla.filas).map(function (f) { return f.map(celda).join(sep); }).join("\r\n");
+    var enlace = D.createElement("a");
+    enlace.href = URL.createObjectURL(new Blob(["\ufeff" + csv], {type: "text/csv;charset=utf-8"}));
+    enlace.download = id + ".csv";
+    D.body.appendChild(enlace); enlace.click(); enlace.remove();
+  });
+}
+function textoFuente(clave) {
+  var f = FUENTES[clave];
+  if (!f) { console.error("Fuente no declarada en datos-reporte: " + clave); return clave; }
+  var t = f.nombre;
+  if (f.url) t += " (" + f.url + ")";
+  if (f.consulta) t += ", " + T.consulta + " " + fmtFechaLarga.format(fecha(f.consulta));
+  return t;
+}
+function fuentesDe(g) {
+  var claves = [].concat(g.fuente || [], (g.series || []).map(function (s) { return s.fuente; })).filter(Boolean);
+  return claves.filter(function (c, i) { return claves.indexOf(c) === i; });
+}
+
+/* ---------- cifras sueltas del texto (data-cifra) ---------- */
+function valoresDe(g, serie) {
+  if (g.series) return (g.series[serie || 0] || {}).valores || [];
+  if (g.elementos) return g.elementos.map(function (e) { return e.valor; });
+  if (g.porciones) return g.porciones.map(function (e) { return e.valor; });
+  if (g.pasos) return g.pasos.map(function (e) { return e.valor; });
+  return g.valores || (num(g.valor) ? [g.valor] : []);
+}
+function cifra(def) {
+  if (num(def.valor)) return def.valor;
+  var g = (datos.graficos || {})[def.de];
+  if (!g) throw new Error("no hay grafico " + def.de);
+  var v = valoresDe(g, def.serie).filter(num);
+  switch (def.calculo) {
+    case "suma": return suma(v);
+    case "media": return suma(v) / v.length;
+    case "maximo": return maximo(v);
+    case "minimo": return minimo(v);
+    case "primero": return v[0];
+    case "ultimo": return v[v.length - 1];
+    case "cuenta": return v.length;
+    case "variacion": return (v[v.length - 1] - v[0]) / Math.abs(v[0]) * 100;
+    case "porcentaje":
+      var lista = g.porciones || g.elementos || g.pasos || [], elegido = lista.filter(function (e) { return e.rotulo === def.elemento; })[0];
+      if (!elegido) throw new Error("no hay elemento " + def.elemento + " en " + def.de);
+      return elegido.valor / suma(v) * 100;
+  }
+  throw new Error("calculo desconocido: " + def.calculo);
+}
+
+/* ---------- arranque ---------- */
+function dibujar(fig) {
+  var id = fig.getAttribute("data-grafico"), g = (datos.graficos || {})[id];
+  fig.textContent = "";
+  W = impresion ? 700 : Math.round(Math.min(700, Math.max(320, fig.clientWidth || 700)));
+  X1 = W - 36;
+  try {
+    if (!g) throw new Error("no hay datos con el nombre " + id);
+    if (!tipos[g.tipo]) throw new Error("tipo desconocido: " + g.tipo);
+    var tabla = tipos[g.tipo](fig, g, id);
+    if (tabla && g.tabla !== false) tablaDatos(fig, tabla, id);
+    var claves = fuentesDe(g);
+    claves.forEach(function (c) { if (usadas.indexOf(c) < 0) usadas.push(c); });
+    if (claves.length && g.tipo !== "chispa") html("p", "fuente-grafico", fig, (claves.length > 1 ? T.fuentes : T.fuente) + ": " + claves.map(textoFuente).join("; "));
+  } catch (e) {
+    console.error("Grafico " + id + ": " + e.message);
+    fig.textContent = "";
+    html("p", "error-grafico", fig, T.error + " \u00ab" + id + "\u00bb: " + e.message);
+  }
+}
+var impresion = false, anchos = [];
+function todos() { anchos = []; D.querySelectorAll("[data-grafico]").forEach(function (f) { dibujar(f); anchos.push(f.clientWidth); }); }
+todos();
+/* Se redibuja si cambia el ancho de alguna tarjeta y, al imprimir, a tamano fijo. */
+var espera;
+window.addEventListener("resize", function () {
+  clearTimeout(espera);
+  espera = setTimeout(function () {
+    var cambia = [].some.call(D.querySelectorAll("[data-grafico]"), function (f, i) { return Math.abs(f.clientWidth - anchos[i]) > 24; });
+    if (cambia) todos();
+  }, 150);
+});
+window.addEventListener("beforeprint", function () { impresion = true; todos(); });
+window.addEventListener("afterprint", function () { impresion = false; todos(); });
+D.querySelectorAll("[data-cifra]").forEach(function (n) {
+  var clave = n.getAttribute("data-cifra"), def = (datos.cifras || {})[clave];
+  try {
+    if (!def) throw new Error("no hay cifra " + clave);
+    n.textContent = fmt(cifra(def), def.unidad);
+  } catch (e) { console.error("Cifra " + clave + ": " + e.message); n.textContent = "{{" + clave + "}}"; }
+});
+var lista = D.getElementById("fuentes-reporte");
+if (lista) {
+  Object.keys(FUENTES).forEach(function (c) { if (usadas.indexOf(c) < 0) usadas.push(c); });
+  usadas.forEach(function (c) { html("li", "", lista, textoFuente(c)); });
+}
+var imprimir = D.getElementById("imprimir");
+if (imprimir) imprimir.addEventListener("click", function () { window.print(); });
+window.Reportes = {datos: datos, fmt: fmt, redibujar: function (id) { var f = D.querySelector('[data-grafico="' + id + '"]'); if (f) dibujar(f); }};
+})();
 </script>
 </body>
 </html>

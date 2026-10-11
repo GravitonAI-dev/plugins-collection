@@ -45,12 +45,12 @@ Generación de documentos visuales autocontenidos en HTML, del estilo de los que
 2. **Panel de datos:** rejilla de tarjetas con indicadores, minigráfico de tendencia, barras comparativas, anillo de reparto, evolución con área y umbral, cascada de importes, medidor de plazo y tabla con totales.
 3. **Herramienta interactiva:** calculadora o simulador que recalcula al instante, con medidor, desglose auditable y lista de verificación con progreso.
 
-Incluye una biblioteca propia de diez formas gráficas en SVG con la fórmula exacta de sus coordenadas, criterios de qué forma responde a cada pregunta y reglas de honestidad gráfica (eje desde cero, sin recortes, sin datos inventados).
+Los gráficos no se dibujan a mano: se declaran como datos y los dibuja un motor propio incluido en la plantilla base (barras, columnas simples, agrupadas y apiladas, línea con área, umbral y anotaciones, minigráfico, medidor, cascada, matriz de riesgo, diagrama de plazos, anillo y tarta). El motor calcula escalas, totales y porcentajes, añade a cada gráfico su tabla de datos con descarga en CSV y su fuente, y compone el pie de fuentes; las cifras del texto pueden salir del mismo bloque de datos, así que texto y gráfico no se contradicen. Se acompaña de criterios de qué forma responde a cada pregunta y reglas de honestidad gráfica (eje desde cero, sin recortes, sin datos inventados).
 
 - **Invocación:** `/asistente-general:reportes`
 - **Inputs principales:** Tipo de documento visual (V1), destino de uso —pantalla o impresión— (V2), origen de los datos (V3), identidad visual (V4), origen de la plantilla (V5), datos y parámetros a representar.
 - **Outputs:** Archivo `snake_case.html` en el espacio de trabajo, con tema claro y oscuro, diseño adaptable, estilos de impresión en A4 y aviso `DRAFT` visible.
-- **Ejemplos abribles:** `skills/reportes/ejemplos/` contiene cuatro documentos visuales completos con su PDF ya generado, incluida una galería con las diez formas gráficas.
+- **Ejemplos abribles:** `skills/reportes/ejemplos/` contiene cuatro documentos visuales completos con su PDF ya generado, incluida una galería con todos los tipos de gráfico del motor.
 
 ---
 
@@ -77,10 +77,9 @@ asistente-general/
     └── reportes/
         ├── SKILL.md
         ├── assets/
-        │   ├── template-informe-visual.md
-        │   ├── template-panel-datos.md
-        │   └── template-herramienta-interactiva.md
+        │   └── template-base-reportes.md      ← estilos, temas, impresión y motor de gráficos
         ├── references/
+        │   ├── maquetas-reportes.md           ← esqueleto de cada tipo de reporte
         │   ├── anatomia-documento-visual.md
         │   ├── biblioteca-componentes-visuales.md
         │   └── criterios-visualizacion-datos.md
