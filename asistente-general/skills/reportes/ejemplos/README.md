@@ -9,7 +9,8 @@ Reportes de demostracion generados con la base `../assets/template-base-reportes
 | `panel_reclamacion_cantidad.html` | `panel_datos` | Panel con indicadores, minigrafico de tendencia, barras comparativas, anillo de reparto, evolucion con area y umbral, cascada de importes, medidor de plazo y tabla con totales |
 | `informe_viabilidad_monitorio.html` | `informe_visual` (tema sobrio) | Informe de lectura con indice lateral, indicadores, secciones numeradas, tabla comparativa, diagrama de plazos, cronologia de hitos, avisos y firmas |
 | `simulador_intereses_demora.html` | `herramienta_interactiva` | Herramienta que recalcula al instante, con medidor, desglose y lista de verificacion con progreso |
-| `galeria_graficos.html` | base sin maqueta | Todos los tipos de grafico del motor, cada uno con su tabla de datos, su CSV y su fuente |
+| `presentacion_reclamacion_cliente.html` | `presentacion` + modulo de diagramas | 13 diapositivas para una reunion de cliente: portada, agenda, cifra enlazada a un grafico, cascada, barras, separador, diagrama de flujo, comparativa, cronologia, cita, proximos pasos, equipo y cierre; notas del orador y fuentes automaticas |
+| `galeria_graficos.html` | base sin maqueta + modulo de diagramas | Todos los tipos de grafico del motor y las cuatro disposiciones de diagrama, cada uno con su tabla de datos, su CSV y su fuente |
 
 El informe conserva a proposito el marcador `{{LETRADO_RESPONSABLE}}`: asi se ve como queda un dato que el usuario decide no aportar.
 

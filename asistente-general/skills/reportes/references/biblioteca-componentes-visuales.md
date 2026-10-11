@@ -151,6 +151,34 @@ Fechas en `AAAA-MM-DD`. Todos los plazos comparten escala, que es lo unico que d
 
 Maximo seis porciones: a partir de ahi el motor agrupa las menores en «Otros». Los porcentajes de la leyenda los calcula el motor. El anillo pone el total en el centro (o `centro.cifra`); la tarta no tiene centro. Para tres o cuatro partes es preferible el anillo; para comparar partidas entre si, siempre `barras`.
 
+### `bala` — real frente a objetivo
+
+```json
+{"tipo": "bala", "unidad": "eur",
+ "elementos": [{"rotulo": "Facturacion", "valor": 82000, "objetivo": 100000, "tramos": [60000, 90000, 120000]}]}
+```
+
+Una fila por elemento: la barra fina es el valor, la marca vertical el objetivo y los tramos de fondo (opcionales) la valoracion cualitativa, de malo a bueno. La tabla de datos anade el porcentaje de cumplimiento. Mejor que varios medidores cuando hay varios objetivos que comparar.
+
+### `divergentes` — saldos con signo alrededor de cero
+
+```json
+{"tipo": "divergentes", "unidad": "eur", "nombres": {"positivo": "Cobros", "negativo": "Pagos"},
+ "elementos": [{"rotulo": "Enero", "valor": 12000}, {"rotulo": "Febrero", "valor": -8000}]}
+```
+
+Los positivos van a la derecha en `--ok` y los negativos a la izquierda en `--riesgo`; `colores` (`{"positivo": 1, "negativo": 2}`) los cambia cuando el signo no es bueno ni malo (a favor y en contra de una tesis). La escala es simetrica.
+
+### `diagrama` — cajas y flechas
+
+Procesos, flujos, organigramas, estructuras societarias, relaciones entre partes y quien hace que. Va en un modulo aparte: contrato de datos y codigo en `modulos-motor.md`.
+
+### Cifras con variacion
+
+Una cifra de `cifras` con `"signo": true` se muestra con su signo y una flecha (▲ +4,2 % o ▼ -4,2 %), en verde si es favorable y en rojo si no. Por defecto subir es bueno; `"mejor": "bajar"` lo invierte (morosidad, plazos, costes). Variacion entre el primer y el ultimo valor de un grafico: `{"de": "evolucion", "calculo": "variacion", "unidad": "pct", "signo": true}`; diferencia en unidades: `"calculo": "diferencia"`.
+
+---
+
 ## Parte III. Componentes de contenido
 
 ### Fila de indicadores

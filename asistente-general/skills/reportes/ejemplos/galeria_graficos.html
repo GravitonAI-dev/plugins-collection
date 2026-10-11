@@ -158,6 +158,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 .grafico .hoy{stroke:var(--riesgo);stroke-width:2;stroke-dasharray:4 3}
 .grafico .texto-hoy{font-size:11px;fill:var(--riesgo);font-weight:650}
 ol.leyenda{display:block;padding-left:20px}
+[data-cifra].delta-bien{color:var(--ok)}
+[data-cifra].delta-mal{color:var(--riesgo)}
+.grafico .valor-punto.dentro{fill:#fff}
+.grafico .texto-nodo{font-size:12px;fill:var(--texto);font-weight:560}
+.grafico .texto-conexion{font-size:10.5px;fill:var(--apagado);font-weight:600}
 .leyenda .porcentaje{color:var(--texto);font-variant-numeric:tabular-nums;font-weight:620}
 .medidor-rotulo{text-align:center;font-size:.82rem;color:var(--apagado);margin:0 0 var(--e3)}
 .medidor .pista-arco{fill:none;stroke:var(--superficie-2);stroke-width:18;stroke-linecap:round}
@@ -219,7 +224,7 @@ ol.leyenda{display:block;padding-left:20px}
     <h1>Galeria de graficos del motor de reportes</h1>
     <p class="entradilla">Cada grafico se declara con sus datos en el bloque datos-reporte y lo dibuja el motor de la base. Bajo cada uno estan su tabla de datos, la descarga en CSV y su fuente.</p>
     <ul class="ficha">
-      <li><b>Tipos:</b> 11</li>
+      <li><b>Tipos:</b> 17</li>
     </ul>
   </header>
 
@@ -282,6 +287,36 @@ ol.leyenda{display:block;padding-left:20px}
       <h2>Matriz de riesgo e impacto</h2>
       <p class="subtitulo">Contingencias numeradas en su celda, con lo que hay que hacer. <code>"tipo": "matriz"</code></p>
       <figure class="grafico" data-grafico="matriz"></figure>
+    </section>
+    <section class="tarjeta ancho-total">
+      <h2>Bala: real frente a objetivo</h2>
+      <p class="subtitulo">Cumplimiento de un objetivo con tramos de valoracion de fondo. <code>"tipo": "bala"</code></p>
+      <figure class="grafico" data-grafico="bala"></figure>
+    </section>
+    <section class="tarjeta ancho-total">
+      <h2>Barras divergentes</h2>
+      <p class="subtitulo">Saldos con signo alrededor de cero: a favor y en contra. <code>"tipo": "divergentes"</code></p>
+      <figure class="grafico" data-grafico="divergentes"></figure>
+    </section>
+    <section class="tarjeta ancho-total">
+      <h2>Diagrama de flujo con conectores</h2>
+      <p class="subtitulo">Modulo de diagramas, disposicion por capas. <code>"tipo": "diagrama"</code></p>
+      <figure class="grafico" data-grafico="flujo"></figure>
+    </section>
+    <section class="tarjeta ancho-total">
+      <h2>Organigrama o estructura societaria</h2>
+      <p class="subtitulo">Modulo de diagramas, disposicion en arbol. <code>"tipo": "diagrama"</code></p>
+      <figure class="grafico" data-grafico="sociedades"></figure>
+    </section>
+    <section class="tarjeta ancho-total">
+      <h2>Mapa de relaciones entre partes</h2>
+      <p class="subtitulo">Modulo de diagramas, disposicion radial. <code>"tipo": "diagrama"</code></p>
+      <figure class="grafico" data-grafico="partes"></figure>
+    </section>
+    <section class="tarjeta ancho-total">
+      <h2>Quien hace que</h2>
+      <p class="subtitulo">Modulo de diagramas, disposicion por carriles. <code>"tipo": "diagrama"</code></p>
+      <figure class="grafico" data-grafico="carriles"></figure>
     </section>
     <section class="tarjeta ancho-total">
       <h2>Diagrama de plazos</h2>
@@ -622,6 +657,308 @@ ol.leyenda{display:block;padding-left:20px}
    "fuente": "ejemplo",
    "resumen": "Matriz de riesgo e impacto: Contingencias numeradas en su celda, con lo que hay que hacer."
   },
+  "bala": {
+   "tipo": "bala",
+   "unidad": "eur",
+   "elementos": [
+    {
+     "rotulo": "Facturacion",
+     "valor": 82000,
+     "objetivo": 100000,
+     "tramos": [
+      60000,
+      90000,
+      120000
+     ]
+    },
+    {
+     "rotulo": "Cobros",
+     "valor": 61000,
+     "objetivo": 80000,
+     "tramos": [
+      50000,
+      70000,
+      100000
+     ]
+    }
+   ],
+   "fuente": "ejemplo",
+   "resumen": "Bala: real frente a objetivo: Cumplimiento de un objetivo con tramos de valoracion de fondo."
+  },
+  "divergentes": {
+   "tipo": "divergentes",
+   "unidad": "eur",
+   "nombres": {
+    "positivo": "Cobros",
+    "negativo": "Pagos"
+   },
+   "elementos": [
+    {
+     "rotulo": "Enero",
+     "valor": 12000
+    },
+    {
+     "rotulo": "Febrero",
+     "valor": -8000
+    },
+    {
+     "rotulo": "Marzo",
+     "valor": 3000
+    },
+    {
+     "rotulo": "Abril",
+     "valor": -15000
+    }
+   ],
+   "fuente": "ejemplo",
+   "resumen": "Barras divergentes: Saldos con signo alrededor de cero: a favor y en contra."
+  },
+  "flujo": {
+   "tipo": "diagrama",
+   "disposicion": "capas",
+   "grupos": {
+    "1": "Via judicial",
+    "2": "Cierre",
+    "3": "Hechos"
+   },
+   "nodos": [
+    {
+     "id": "contrato",
+     "texto": "Contrato de suministro",
+     "forma": "inicio"
+    },
+    {
+     "id": "impago",
+     "texto": "Impago de siete facturas",
+     "grupo": 3
+    },
+    {
+     "id": "pago",
+     "texto": "¿Paga en el plazo del requerimiento?",
+     "forma": "decision"
+    },
+    {
+     "id": "fin",
+     "texto": "Archivo del expediente",
+     "forma": "inicio",
+     "grupo": 2
+    },
+    {
+     "id": "monitorio",
+     "texto": "Peticion de monitorio",
+     "grupo": 1
+    }
+   ],
+   "conexiones": [
+    {
+     "de": "contrato",
+     "a": "impago"
+    },
+    {
+     "de": "impago",
+     "a": "pago",
+     "texto": "burofax"
+    },
+    {
+     "de": "pago",
+     "a": "fin",
+     "texto": "si"
+    },
+    {
+     "de": "pago",
+     "a": "monitorio",
+     "texto": "no",
+     "estilo": "destacada"
+    }
+   ],
+   "fuente": "ejemplo",
+   "resumen": "Diagrama de flujo con conectores: Modulo de diagramas, disposicion por capas."
+  },
+  "sociedades": {
+   "tipo": "diagrama",
+   "disposicion": "arbol",
+   "nodos": [
+    {
+     "id": "h",
+     "texto": "Holding Delta, S.L."
+    },
+    {
+     "id": "a",
+     "texto": "Construcciones Delta, S.L.",
+     "grupo": 2
+    },
+    {
+     "id": "b",
+     "texto": "Delta Inmuebles, S.L.",
+     "grupo": 2
+    },
+    {
+     "id": "c",
+     "texto": "Delta Servicios, S.A.",
+     "grupo": 3
+    },
+    {
+     "id": "a1",
+     "texto": "Obras Norte, S.L.",
+     "grupo": 4
+    },
+    {
+     "id": "a2",
+     "texto": "Obras Sur, S.L.",
+     "grupo": 4
+    }
+   ],
+   "conexiones": [
+    {
+     "de": "h",
+     "a": "a",
+     "texto": "100 %"
+    },
+    {
+     "de": "h",
+     "a": "b",
+     "texto": "80 %"
+    },
+    {
+     "de": "h",
+     "a": "c",
+     "texto": "51 %"
+    },
+    {
+     "de": "a",
+     "a": "a1",
+     "texto": "100 %"
+    },
+    {
+     "de": "a",
+     "a": "a2",
+     "texto": "60 %"
+    }
+   ],
+   "fuente": "ejemplo",
+   "resumen": "Organigrama o estructura societaria: Modulo de diagramas, disposicion en arbol."
+  },
+  "partes": {
+   "tipo": "diagrama",
+   "disposicion": "radial",
+   "nodos": [
+    {
+     "id": "c",
+     "texto": "Cliente: Suministros Ibericos"
+    },
+    {
+     "id": "d",
+     "texto": "Deudor: Construcciones Delta",
+     "grupo": "riesgo"
+    },
+    {
+     "id": "av",
+     "texto": "Avalista",
+     "grupo": 3
+    },
+    {
+     "id": "ban",
+     "texto": "Banco pagador",
+     "grupo": 4
+    },
+    {
+     "id": "as",
+     "texto": "Aseguradora de credito",
+     "grupo": 2
+    }
+   ],
+   "conexiones": [
+    {
+     "de": "c",
+     "a": "d",
+     "texto": "reclama"
+    },
+    {
+     "de": "c",
+     "a": "av",
+     "texto": "aval"
+    },
+    {
+     "de": "c",
+     "a": "ban"
+    },
+    {
+     "de": "c",
+     "a": "as",
+     "texto": "poliza",
+     "estilo": "discontinua"
+    }
+   ],
+   "fuente": "ejemplo",
+   "resumen": "Mapa de relaciones entre partes: Modulo de diagramas, disposicion radial."
+  },
+  "carriles": {
+   "tipo": "diagrama",
+   "disposicion": "carriles",
+   "carriles": [
+    "Cliente",
+    "Despacho",
+    "Juzgado"
+   ],
+   "nodos": [
+    {
+     "id": "1",
+     "texto": "Entrega facturas",
+     "carril": "Cliente"
+    },
+    {
+     "id": "2",
+     "texto": "Redacta y envia burofax",
+     "carril": "Despacho"
+    },
+    {
+     "id": "3",
+     "texto": "Presenta monitorio",
+     "carril": "Despacho"
+    },
+    {
+     "id": "4",
+     "texto": "Requiere de pago al deudor",
+     "carril": "Juzgado"
+    },
+    {
+     "id": "5",
+     "texto": "Decreto de fin",
+     "carril": "Juzgado"
+    },
+    {
+     "id": "6",
+     "texto": "Informa al cliente",
+     "carril": "Despacho"
+    }
+   ],
+   "conexiones": [
+    {
+     "de": "1",
+     "a": "2"
+    },
+    {
+     "de": "2",
+     "a": "3",
+     "texto": "10 dias"
+    },
+    {
+     "de": "3",
+     "a": "4"
+    },
+    {
+     "de": "4",
+     "a": "5",
+     "texto": "20 dias"
+    },
+    {
+     "de": "5",
+     "a": "6"
+    }
+   ],
+   "fuente": "ejemplo",
+   "resumen": "Quien hace que: Modulo de diagramas, disposicion por carriles."
+  },
   "plazos": {
    "tipo": "plazos",
    "hoy": "2026-09-20",
@@ -676,8 +1013,8 @@ catch (e) { console.error("datos-reporte no es JSON valido: " + e.message); }
 var IDIOMA = datos.idioma || D.documentElement.lang || "es-ES";
 var MONEDA = datos.moneda || "EUR";
 var TEXTOS_BASE = {
-  es: {datos:"Ver los datos", csv:"Descargar CSV", fuente:"Fuente", fuentes:"Fuentes", consulta:"consultado el", otros:"Otros", hoy:"hoy", total:"Total", concepto:"Concepto", valor:"Valor", acumulado:"Acumulado", porcentaje:"Porcentaje", inicio:"Inicio", fin:"Fin", restantes:"Dias restantes", maximo:"Maximo", ok:"Asumir", aviso:"Vigilar", riesgo:"Actuar ya", error:"No se puede dibujar el grafico"},
-  en: {datos:"Show the data", csv:"Download CSV", fuente:"Source", fuentes:"Sources", consulta:"accessed on", otros:"Other", hoy:"today", total:"Total", concepto:"Item", valor:"Value", acumulado:"Running total", porcentaje:"Share", inicio:"Start", fin:"End", restantes:"Days left", maximo:"Maximum", ok:"Accept", aviso:"Monitor", riesgo:"Act now", error:"The chart cannot be drawn"}
+  es: {desde:"Desde", hacia:"Hacia", rotulo:"Rotulo", objetivo:"Objetivo", cumplimiento:"Cumplimiento", datos:"Ver los datos", csv:"Descargar CSV", fuente:"Fuente", fuentes:"Fuentes", consulta:"consultado el", otros:"Otros", hoy:"hoy", total:"Total", concepto:"Concepto", valor:"Valor", acumulado:"Acumulado", porcentaje:"Porcentaje", inicio:"Inicio", fin:"Fin", restantes:"Dias restantes", maximo:"Maximo", ok:"Asumir", aviso:"Vigilar", riesgo:"Actuar ya", error:"No se puede dibujar el grafico"},
+  en: {desde:"From", hacia:"To", rotulo:"Label", objetivo:"Target", cumplimiento:"Achieved", datos:"Show the data", csv:"Download CSV", fuente:"Source", fuentes:"Sources", consulta:"accessed on", otros:"Other", hoy:"today", total:"Total", concepto:"Item", valor:"Value", acumulado:"Running total", porcentaje:"Share", inicio:"Start", fin:"End", restantes:"Days left", maximo:"Maximum", ok:"Accept", aviso:"Monitor", riesgo:"Act now", error:"The chart cannot be drawn"}
 };
 var T = Object.assign({}, TEXTOS_BASE[IDIOMA.slice(0, 2)] || TEXTOS_BASE.es, datos.textos || {});
 var FUENTES = datos.fuentes || {};
@@ -1090,6 +1427,53 @@ function reparto(fig, g, hueco) {
 tipos.anillo = function (fig, g) { return reparto(fig, g, true); };
 tipos.tarta = function (fig, g) { return reparto(fig, g, false); };
 
+tipos.bala = function (fig, g) {
+  var el = g.elementos || [];
+  if (!el.length) throw new Error("faltan elementos");
+  var tope = techo(maximo([].concat.apply([], el.map(function (e) { return [e.valor, e.objetivo].concat(e.tramos || []); }))));
+  var x0 = W < 520 ? 110 : 150, ancho = W - x0 - 64, fila = 46, s = lienzo(fig, W, el.length * fila + 28, g.resumen || "");
+  var x = function (v) { return r1(x0 + Math.max(0, v) / tope * ancho); };
+  el.forEach(function (e, i) {
+    if (!num(e.valor)) throw new Error("el elemento " + (i + 1) + " no tiene valor");
+    var y = 6 + i * fila;
+    consejo(svg("text", {"class": "eje", x: x0 - 10, y: y + 19, "text-anchor": "end"}, s, recortar(e.rotulo, W < 520 ? 16 : 24)), e.rotulo);
+    /* Tramos cualitativos de fondo (malo, regular, bueno): el mayor, el mas claro. */
+    var tr = (e.tramos || []).slice().sort(function (a, b) { return b - a; });
+    (tr.length ? tr : [tope]).forEach(function (u, k) { svg("rect", {x: x0, y: y + 4, width: x(u) - x0, height: 22, fill: "var(--apagado)", opacity: r1(0.08 + k * 0.08)}, s); });
+    consejo(svg("rect", {x: x0, y: y + 10, width: Math.max(x(e.valor) - x0, 1), height: 10, rx: 2, fill: color(e.color, 0)}, s), e.rotulo + ": " + fmt(e.valor, g.unidad));
+    if (num(e.objetivo)) consejo(svg("rect", {x: x(e.objetivo) - 1.5, y: y + 1, width: 3, height: 28, fill: "var(--texto)"}, s), T.objetivo + ": " + fmt(e.objetivo, g.unidad));
+    svg("text", {"class": "valor-punto", x: x0 + ancho + 8, y: y + 19}, s, fmt(e.valor, g.unidad, true));
+  });
+  for (var k = 0; k <= 4; k++) svg("text", {"class": "eje", x: x(tope * k / 4), y: el.length * fila + 22, "text-anchor": "middle"}, s, k ? fmt(tope * k / 4, g.unidad, true) : "0");
+  return {cabecera: [T.concepto, T.valor, T.objetivo, T.cumplimiento], unidad: g.unidad, filas: el.map(function (e) {
+    return [e.rotulo, e.valor, num(e.objetivo) ? e.objetivo : null, num(e.objetivo) && e.objetivo ? fmt(e.valor / e.objetivo * 100, "pct") : "\u2014"];
+  })};
+};
+
+tipos.divergentes = function (fig, g) {
+  var el = g.elementos || [];
+  if (!el.length) throw new Error("faltan elementos");
+  if (el.some(function (e) { return !num(e.valor); })) throw new Error("todos los elementos necesitan valor numerico");
+  var tope = techo(maximo(el.map(function (e) { return Math.abs(e.valor); })));
+  var x0 = W < 520 ? 110 : 150, ancho = W - x0 - 16, centro = x0 + ancho / 2, fila = 30, colores = g.colores || {};
+  var s = lienzo(fig, W, el.length * fila + 30, g.resumen || "");
+  var x = function (v) { return r1(centro + v / tope * ancho / 2); };
+  el.forEach(function (e, i) {
+    var y = 6 + i * fila, v = e.valor, c = color(e.color || (v < 0 ? colores.negativo || "riesgo" : colores.positivo || "ok"), 0);
+    consejo(svg("text", {"class": "eje", x: x0 - 10, y: y + 13, "text-anchor": "end"}, s, recortar(e.rotulo, W < 520 ? 16 : 24)), e.rotulo);
+    consejo(svg("rect", {x: Math.min(x(v), centro), y: y, width: Math.max(Math.abs(x(v) - centro), 1), height: 18, rx: 3, fill: c}, s), e.rotulo + ": " + fmt(v, g.unidad));
+    /* La cifra va fuera de la barra; si no cabe junto al borde, dentro y en blanco. */
+    var fuera = v < 0 ? x(v) - 6 > x0 + 34 : x(v) + 6 < x0 + ancho - 34;
+    var xt = v < 0 ? (fuera ? x(v) - 5 : x(v) + 5) : (fuera ? x(v) + 5 : x(v) - 5);
+    svg("text", {"class": fuera ? "valor-punto" : "valor-punto dentro", x: xt, y: y + 13, "text-anchor": (v < 0) === fuera ? "end" : "start"}, s, (v > 0 ? "+" : "") + fmt(v, g.unidad, true));
+  });
+  var base = el.length * fila + 6;
+  svg("line", {"class": "cero", x1: centro, y1: 0, x2: centro, y2: base}, s);
+  [-tope, 0, tope].forEach(function (v) { svg("text", {"class": "eje", x: x(v), y: base + 16, "text-anchor": v < 0 ? "start" : v > 0 ? "end" : "middle"}, s, v ? fmt(v, g.unidad, true) : "0"); });
+  if (g.nombres) leyenda(fig, [{color: color(colores.positivo || "ok", 0), texto: g.nombres.positivo}, {color: color(colores.negativo || "riesgo", 0), texto: g.nombres.negativo}]);
+  return {cabecera: [T.concepto, T.valor], filas: el.map(function (e) { return [e.rotulo, e.valor]; }), unidad: g.unidad};
+};
+
 /* ---------- tabla de datos, CSV y fuentes ---------- */
 function tablaDatos(fig, tabla, id) {
   var det = html("details", "datos-grafico", fig);
@@ -1151,6 +1535,7 @@ function cifra(def) {
     case "ultimo": return v[v.length - 1];
     case "cuenta": return v.length;
     case "variacion": return (v[v.length - 1] - v[0]) / Math.abs(v[0]) * 100;
+    case "diferencia": return v[v.length - 1] - v[0];
     case "porcentaje":
       var lista = elementosDe(g) || [], elegido = lista.filter(function (e) { return e.rotulo === def.elemento; })[0];
       if (!elegido) throw new Error("no hay elemento " + def.elemento + " en " + def.de);
@@ -1160,15 +1545,19 @@ function cifra(def) {
 }
 
 /* ---------- arranque ---------- */
+function escala(fig) { return parseFloat(getComputedStyle(fig).getPropertyValue("--escala-grafico")) || 1; }
 function dibujar(fig, ancho) {
   var id = fig.getAttribute("data-grafico"), g = (datos.graficos || {})[id];
   fig.textContent = "";
-  W = impresion ? 700 : Math.round(Math.min(700, Math.max(320, ancho || 700)));
+  /* --escala-grafico (por ejemplo en una diapositiva) dibuja con un lienzo menor para que,
+     al ampliarse hasta el ancho de la figura, los rotulos salgan mas grandes. */
+  var esc = escala(fig);
+  W = Math.round(Math.min(700, Math.max(320, (impresion ? 700 : ancho || 700) / esc)));
   X1 = W - 36;
   try {
     if (!g) throw new Error("no hay datos con el nombre " + id);
     if (!tipos[g.tipo]) throw new Error("tipo desconocido: " + g.tipo);
-    var tabla = tipos[g.tipo](fig, g, id);
+    var tabla = tipos[g.tipo](fig, g, id, W);
     if (tabla && g.tabla !== false) tablaDatos(fig, tabla, id);
     var claves = fuentesDe(g);
     claves.forEach(function (c) { if (usadas.indexOf(c) < 0) usadas.push(c); });
@@ -1182,7 +1571,7 @@ function dibujar(fig, ancho) {
 }
 /* Los tipos de ancho fijo (viewBox propio o HTML) no se redibujan al cambiar el ancho. */
 ["barras", "chispa", "medidor", "anillo", "tarta"].forEach(function (t) { tipos[t].fijo = true; });
-var impresion = false, figuras = [].slice.call(D.querySelectorAll("[data-grafico]")), anchos = [];
+var impresion = false, figuras = [], anchos = [];
 function todos(soloVariables) {
   var medidas = figuras.map(function (f) { return f.clientWidth; });  /* se mide todo antes de escribir */
   figuras.forEach(function (f, i) {
@@ -1191,17 +1580,34 @@ function todos(soloVariables) {
   });
   anchos = medidas;
 }
+/* Cifras del texto. Con "signo": true se muestra la variacion con su signo y flecha,
+   en verde si es favorable (o en rojo; "mejor": "bajar" invierte el criterio). */
 function pintarCifras() {
   D.querySelectorAll("[data-cifra]").forEach(function (n) {
     var clave = n.getAttribute("data-cifra"), def = (datos.cifras || {})[clave];
     try {
       if (!def) throw new Error("no hay cifra " + clave);
-      n.textContent = fmt(cifra(def), def.unidad);
+      var v = cifra(def), texto = fmt(v, def.unidad);
+      if (def.signo) {
+        texto = (v > 0 ? "\u25b2 +" : v < 0 ? "\u25bc " : "") + texto;
+        var bien = (v >= 0) !== (def.mejor === "bajar");
+        n.classList.toggle("delta-bien", v !== 0 && bien);
+        n.classList.toggle("delta-mal", v !== 0 && !bien);
+      }
+      n.textContent = texto;
     } catch (e) { console.error("Cifra " + clave + ": " + e.message); n.textContent = "{{" + clave + "}}"; }
   });
 }
-todos();
-pintarCifras();
+function arrancar() {
+  figuras = [].slice.call(D.querySelectorAll("[data-grafico]"));
+  todos();
+  pintarCifras();
+  var lista = D.getElementById("fuentes-reporte");
+  if (lista) {
+    Object.keys(FUENTES).forEach(function (c) { if (usadas.indexOf(c) < 0) usadas.push(c); });
+    usadas.forEach(function (c) { html("li", "", lista, textoFuente(c)); });
+  }
+}
 /* Se redibuja si cambia el ancho de alguna tarjeta y, al imprimir, a tamano fijo. */
 var espera;
 window.addEventListener("resize", function () {
@@ -1212,20 +1618,229 @@ window.addEventListener("resize", function () {
 });
 window.addEventListener("beforeprint", function () { impresion = true; todos(true); });
 window.addEventListener("afterprint", function () { impresion = false; todos(true); });
-var lista = D.getElementById("fuentes-reporte");
-if (lista) {
-  Object.keys(FUENTES).forEach(function (c) { if (usadas.indexOf(c) < 0) usadas.push(c); });
-  usadas.forEach(function (c) { html("li", "", lista, textoFuente(c)); });
-}
 var imprimir = D.getElementById("imprimir");
 if (imprimir) imprimir.addEventListener("click", function () { window.print(); });
-/* Interfaz para el script de la herramienta interactiva: cambia los datos de un
-   grafico y lo redibuja junto con las cifras del texto. */
-window.Reportes = {datos: datos, fmt: fmt, actualizar: function (id, cambios) {
-  Object.assign(datos.graficos[id], cambios);
-  figuras.forEach(function (f) { if (f.getAttribute("data-grafico") === id) dibujar(f, f.clientWidth); });
-  pintarCifras();
-}};
+/* Interfaz para los modulos opcionales (que registran tipos en Reportes.tipos) y
+   para el script de una maqueta. actualizar cambia los datos de un grafico y lo
+   redibuja junto con las cifras del texto. */
+window.Reportes = {datos: datos, fmt: fmt, tipos: tipos, T: T, svg: svg, html: html, color: color, lienzo: lienzo,
+  recortar: recortar, consejo: consejo, escala: escala, leyenda: leyenda, techo: techo, r1: r1, num: num,
+  actualizar: function (id, cambios) {
+    Object.assign(datos.graficos[id], cambios);
+    figuras.forEach(function (f) { if (f.getAttribute("data-grafico") === id) dibujar(f, f.clientWidth); });
+    pintarCifras();
+  }};
+/* El dibujo espera a que acabe de cargar la pagina: asi los modulos y el script de
+   la maqueta, que van despues del motor, ya han registrado sus tipos o su contenido. */
+if (D.readyState === "loading") D.addEventListener("DOMContentLoaded", arrancar); else arrancar();
+})();
+</script>
+<script>
+/* Modulo de diagramas con conectores para el motor de reportes. Se copia integro,
+   despues del motor, solo en los reportes con algun grafico de tipo diagrama. */
+(function(){
+"use strict";
+var R = Reportes, svg = R.svg, r1 = R.r1, CAR = 6.7, LINEA = 15;
+function trocear(texto, max) {
+  var lineas = [], actual = "";
+  String(texto).split(/\s+/).forEach(function (p) {
+    if (actual && (actual + " " + p).length > max) { lineas.push(actual); actual = p; }
+    else actual = actual ? actual + " " + p : p;
+  });
+  if (actual) lineas.push(actual);
+  return lineas;
+}
+function medir(n) {
+  var decision = n.forma === "decision";
+  n.lineas = trocear(n.texto, decision ? 16 : 22);
+  var largo = Math.max.apply(null, n.lineas.map(function (l) { return l.length; }));
+  n.w = Math.max(84, Math.min(196, largo * CAR + 28));
+  n.h = n.lineas.length * LINEA + 20;
+  if (decision) { n.w = r1(n.w * 1.4); n.h = r1(n.h * 1.6); }
+}
+/* Marca las conexiones que cierran un ciclo para no seguirlas al calcular capas. */
+function marcarCiclos(nodos, conexiones, porId) {
+  var estado = {}, salen = {};
+  nodos.forEach(function (n) { salen[n.id] = []; });
+  conexiones.forEach(function (c) { salen[c.de].push(c); });
+  function visitar(id) {
+    estado[id] = 1;
+    salen[id].forEach(function (c) { if (estado[c.a] === 1) c.atras = true; else if (!estado[c.a]) visitar(c.a); });
+    estado[id] = 2;
+  }
+  nodos.forEach(function (n) { if (!estado[n.id]) visitar(n.id); });
+}
+/* Capa de cada nodo: el camino mas largo desde un origen. */
+function capas(nodos, conexiones, porId) {
+  nodos.forEach(function (n) { n.capa = 0; });
+  for (var k = 0; k < nodos.length; k++) {
+    var cambio = false;
+    conexiones.forEach(function (c) { if (!c.atras && porId[c.a].capa < porId[c.de].capa + 1) { porId[c.a].capa = porId[c.de].capa + 1; cambio = true; } });
+    if (!cambio) break;
+  }
+  var grupos = [];
+  nodos.forEach(function (n) { (grupos[n.capa] = grupos[n.capa] || []).push(n); });
+  /* Dos pasadas de baricentro para reducir cruces. */
+  for (var pasada = 0; pasada < 2; pasada++) {
+    grupos.forEach(function (capa, i) {
+      if (!i) return;
+      capa.forEach(function (n) {
+        var padres = conexiones.filter(function (c) { return c.a === n.id && !c.atras; }).map(function (c) { return grupos[porId[c.de].capa].indexOf(porId[c.de]); });
+        n.orden = padres.length ? padres.reduce(function (s, v) { return s + v; }, 0) / padres.length : capa.indexOf(n);
+      });
+      capa.sort(function (a, b) { return a.orden - b.orden; });
+    });
+  }
+  return grupos;
+}
+function colocarCapas(grupos, vertical) {
+  var hueco = 64, sep = 20, pos = 0;
+  var grosor = grupos.map(function (capa) { return Math.max.apply(null, capa.map(function (n) { return vertical ? n.h : n.w; })); });
+  var largo = grupos.map(function (capa) { return capa.reduce(function (s, n) { return s + (vertical ? n.w : n.h) + sep; }, -sep); });
+  var mayor = Math.max.apply(null, largo);
+  grupos.forEach(function (capa, i) {
+    var c = (mayor - largo[i]) / 2;
+    capa.forEach(function (n) {
+      var tam = vertical ? n.w : n.h;
+      if (vertical) { n.x = c + tam / 2; n.y = pos + grosor[i] / 2; } else { n.x = pos + grosor[i] / 2; n.y = c + tam / 2; }
+      c += tam + sep;
+    });
+    pos += grosor[i] + hueco;
+  });
+}
+function colocarArbol(nodos, conexiones, porId) {
+  var hijos = {}, padre = {}, cursor = 0, sep = 22;
+  nodos.forEach(function (n) { hijos[n.id] = []; });
+  conexiones.forEach(function (c) { if (!c.atras && !padre[c.a]) { padre[c.a] = c.de; hijos[c.de].push(porId[c.a]); } });
+  var filas = {};
+  function profundidad(n, d) { n.capa = d; filas[d] = Math.max(filas[d] || 0, n.h); hijos[n.id].forEach(function (h) { profundidad(h, d + 1); }); }
+  function colocar(n) {
+    if (!hijos[n.id].length) { n.x = cursor + n.w / 2; cursor += n.w + sep; return; }
+    hijos[n.id].forEach(colocar);
+    var a = hijos[n.id][0], b = hijos[n.id][hijos[n.id].length - 1];
+    n.x = (a.x + b.x) / 2;
+  }
+  nodos.filter(function (n) { return !padre[n.id]; }).forEach(function (raiz) { profundidad(raiz, 0); colocar(raiz); cursor += sep; });
+  var y = 0, alturas = [];
+  Object.keys(filas).sort(function (a, b) { return a - b; }).forEach(function (d) { alturas[d] = y + filas[d] / 2; y += filas[d] + 56; });
+  nodos.forEach(function (n) { n.y = alturas[n.capa]; });
+}
+function colocarRadial(nodos, centro) {
+  var resto = nodos.filter(function (n) { return n !== centro; });
+  var mw = Math.max.apply(null, resto.map(function (n) { return n.w; })), mh = Math.max.apply(null, resto.map(function (n) { return n.h; }));
+  /* Elipse que deja libre la caja central y crece con el numero de nodos. */
+  var crece = Math.max(1, resto.length / 6), rx = (centro.w / 2 + mw / 2 + 56) * crece, ry = (centro.h / 2 + mh / 2 + 48) * crece;
+  centro.x = 0; centro.y = 0;
+  resto.forEach(function (n, i) {
+    var a = -Math.PI / 2 + i * 2 * Math.PI / resto.length;
+    n.x = r1(Math.cos(a) * rx); n.y = r1(Math.sin(a) * ry);
+  });
+}
+function colocarCarriles(g, nodos, conexiones, porId) {
+  capas(nodos, conexiones, porId);
+  var carriles = g.carriles || nodos.map(function (n) { return n.carril; }).filter(function (c, i, a) { return c && a.indexOf(c) === i; });
+  var ancho = [], alto = [], y = 0;
+  nodos.forEach(function (n) {
+    n.fila = Math.max(0, carriles.indexOf(n.carril));
+    ancho[n.capa] = Math.max(ancho[n.capa] || 0, n.w);
+  });
+  var x = 120, xs = [];
+  ancho.forEach(function (w, i) { xs[i] = x + w / 2; x += w + 56; });
+  carriles.forEach(function (c, f) {
+    var aqui = nodos.filter(function (n) { return n.fila === f; }), pila = {};
+    var h = 0;
+    aqui.forEach(function (n) { var k = pila[n.capa] || 0; n.sub = k; pila[n.capa] = k + 1; h = Math.max(h, (k + 1) * (n.h + 14)); });
+    aqui.forEach(function (n) { n.x = xs[n.capa]; n.y = y + 18 + n.sub * (n.h + 14) + n.h / 2; });
+    alto[f] = [y, Math.max(h, 40) + 22];
+    y += alto[f][1];
+  });
+  return {carriles: carriles, franjas: alto, ancho: x};
+}
+/* Punto del borde de una caja en la direccion de otro punto. */
+function borde(n, hacia) {
+  var dx = hacia.x - n.x, dy = hacia.y - n.y;
+  if (!dx && !dy) return {x: n.x, y: n.y};
+  var e = Math.min(Math.abs(dx) ? n.w / 2 / Math.abs(dx) : Infinity, Math.abs(dy) ? n.h / 2 / Math.abs(dy) : Infinity);
+  return {x: r1(n.x + dx * e), y: r1(n.y + dy * e)};
+}
+R.tipos.diagrama = function (fig, g, id) {
+  var nodos = (g.nodos || []).map(function (n) { return Object.assign({}, n); }), porId = {};
+  if (!nodos.length) throw new Error("faltan nodos");
+  if (nodos.length > 24) throw new Error("mas de 24 nodos: divide el diagrama en dos");
+  nodos.forEach(function (n) { if (!n.id || porId[n.id]) throw new Error("cada nodo necesita un id unico"); porId[n.id] = n; medir(n); });
+  var conexiones = (g.conexiones || []).map(function (c) {
+    if (!porId[c.de] || !porId[c.a]) throw new Error("la conexion " + c.de + " -> " + c.a + " une un nodo que no existe");
+    return Object.assign({}, c);
+  });
+  marcarCiclos(nodos, conexiones, porId);
+  var disp = g.disposicion || "capas", vertical = disp === "arbol", carril = null;
+  if (disp === "arbol") colocarArbol(nodos, conexiones, porId);
+  else if (disp === "radial") { colocarRadial(nodos, porId[g.centro] || nodos[0]); }
+  else if (disp === "carriles") carril = colocarCarriles(g, nodos, conexiones, porId);
+  else {
+    var grupos = capas(nodos, conexiones, porId);
+    /* Sin direccion indicada, un flujo de mas de cinco pasos va en vertical: en horizontal no se leeria. */
+    vertical = g.direccion ? g.direccion === "vertical" : grupos.length > 5;
+    colocarCapas(grupos, vertical);
+  }
+  var x0 = Math.min.apply(null, nodos.map(function (n) { return n.x - n.w / 2; })) - 18;
+  var y0 = Math.min.apply(null, nodos.map(function (n) { return n.y - n.h / 2; })) - 18;
+  var x1 = Math.max.apply(null, nodos.map(function (n) { return n.x + n.w / 2; })) + 18;
+  var y1 = Math.max.apply(null, nodos.map(function (n) { return n.y + n.h / 2; })) + 18;
+  if (carril) { x0 = 0; y0 = 0; y1 = Math.max(y1, carril.franjas.reduce(function (s, f) { return s + f[1]; }, 0)); }
+  if (conexiones.some(function (c) { return c.atras; })) y1 += 44;
+  var ancho = r1(x1 - x0), alto = r1(y1 - y0);
+  var s = R.lienzo(fig, ancho, alto, g.resumen || "");
+  s.setAttribute("viewBox", r1(x0) + " " + r1(y0) + " " + ancho + " " + alto);
+  s.setAttribute("width", r1(ancho * R.escala(fig)));  /* tamano natural: solo se reduce si no cabe */
+  var defs = svg("defs", {}, s), flecha = svg("marker", {id: "flecha-" + id, viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 9, markerHeight: 9, markerUnits: "userSpaceOnUse", orient: "auto-start-reverse"}, defs);
+  svg("path", {d: "M0,0 L10,5 L0,10 z", fill: "var(--apagado)"}, flecha);
+  if (carril) carril.carriles.forEach(function (nombre, f) {
+    var fr = carril.franjas[f];
+    svg("rect", {x: 0, y: fr[0], width: ancho, height: fr[1], fill: f % 2 ? "var(--superficie)" : "var(--superficie-2)"}, s);
+    svg("text", {"class": "texto-nodo", x: 10, y: fr[0] + fr[1] / 2 + 4}, s, R.recortar(nombre, 14));
+  });
+  conexiones.forEach(function (c) {
+    var a = porId[c.de], b = porId[c.a], d, m;
+    if (c.atras) {
+      var yb = Math.max(a.y + a.h / 2, b.y + b.h / 2) + 34;
+      d = "M " + a.x + " " + (a.y + a.h / 2) + " C " + a.x + " " + yb + ", " + b.x + " " + yb + ", " + b.x + " " + (b.y + b.h / 2);
+      m = {x: (a.x + b.x) / 2, y: yb - 8};
+    } else if (disp === "radial") {
+      var p = borde(a, b), q = borde(b, a);
+      d = "M " + p.x + " " + p.y + " L " + q.x + " " + q.y;
+      m = {x: (p.x + q.x) / 2, y: (p.y + q.y) / 2};
+    } else if (vertical) {
+      var ya = a.y + a.h / 2, yb2 = b.y - b.h / 2, ym = (ya + yb2) / 2;
+      d = "M " + a.x + " " + ya + " C " + a.x + " " + ym + ", " + b.x + " " + ym + ", " + b.x + " " + yb2;
+      m = {x: (a.x + b.x) / 2, y: ym};
+    } else {
+      var xa = a.x + a.w / 2, xb = b.x - b.w / 2, xm = (xa + xb) / 2;
+      d = "M " + xa + " " + a.y + " C " + xm + " " + a.y + ", " + xm + " " + b.y + ", " + xb + " " + b.y;
+      m = {x: xm, y: (a.y + b.y) / 2};
+    }
+    var destacada = c.estilo === "destacada";
+    svg("path", {d: d, fill: "none", stroke: destacada ? "var(--acento)" : "var(--apagado)", "stroke-width": destacada ? 2.4 : 1.5,
+      "stroke-dasharray": c.estilo === "discontinua" ? "5 4" : null, "marker-end": "url(#flecha-" + id + ")"}, s);
+    if (c.texto) {
+      var w = String(c.texto).length * 6.2 + 12;
+      svg("rect", {x: r1(m.x - w / 2), y: r1(m.y - 9), width: r1(w), height: 18, rx: 9, fill: "var(--superficie)", stroke: "var(--borde)"}, s);
+      svg("text", {"class": "texto-conexion", x: r1(m.x), y: r1(m.y + 4), "text-anchor": "middle"}, s, c.texto);
+    }
+  });
+  nodos.forEach(function (n, i) {
+    var c = n.grupo === undefined ? "var(--acento)" : R.color(n.grupo, 0), grupo = svg("g", {}, s), x = r1(n.x - n.w / 2), y = r1(n.y - n.h / 2);
+    var comun = {fill: c, "fill-opacity": ".12", stroke: c, "stroke-width": 1.6};
+    if (n.forma === "decision") svg("polygon", Object.assign({points: [n.x + "," + y, (x + n.w) + "," + n.y, n.x + "," + (y + n.h), x + "," + n.y].join(" ")}, comun), grupo);
+    else svg("rect", Object.assign({x: x, y: y, width: n.w, height: n.h, rx: n.forma === "inicio" ? n.h / 2 : n.forma === "nota" ? 3 : 8,
+      "stroke-dasharray": n.forma === "nota" ? "4 3" : null}, comun), grupo);
+    var t = svg("text", {"class": "texto-nodo", x: n.x, y: r1(n.y - (n.lineas.length - 1) * LINEA / 2 + 4), "text-anchor": "middle"}, grupo);
+    n.lineas.forEach(function (l, k) { svg("tspan", {x: n.x, dy: k ? LINEA : 0}, t, l); });
+    R.consejo(grupo, n.texto);
+  });
+  if (g.grupos) R.leyenda(fig, Object.keys(g.grupos).map(function (k) { return {color: R.color(isNaN(k) ? k : +k, 0), texto: g.grupos[k]}; }));
+  return {cabecera: [R.T.desde, R.T.hacia, R.T.rotulo], filas: conexiones.map(function (c) { return [porId[c.de].texto, porId[c.a].texto, c.texto || "—"]; })};
+};
 })();
 </script>
 </body>

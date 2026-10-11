@@ -500,3 +500,232 @@ Se coloca despues del script del motor. `UNIDAD` es la unidad de los resultados 
 ```
 
 El bloque de calculo recibe el objeto de `leer()` y devuelve `{resultado1, resultado2, resultado3, medidor, desglose: [{concepto, importe, detalle}]}`. `medidor` es un porcentaje de 0 a 100; `totalDetalle` es opcional, porque sumar dias o porcentajes carece de sentido.
+
+---
+
+## 4. Presentacion (`presentacion`)
+
+**Ancho:** `1280px`. Slides en formato 16:9: en pantalla se ven de una en una, a pantalla completa si se quiere, con flechas, gestos y notas del orador; al imprimir o guardar en PDF sale una diapositiva por pagina en 16:9, el mismo formato de una presentacion de PowerPoint o Google Slides.
+
+**Las diapositivas no se escriben en HTML: se declaran como datos**, en la lista `diapositivas` del bloque `datos-reporte`, y el script de la maqueta las monta. Asi cada diapositiva tiene siempre la misma estructura y los mismos datos podran exportarse mas adelante a otras herramientas. Los graficos y diagramas de una diapositiva se declaran en `graficos` como en cualquier reporte y se citan por su nombre.
+
+Una idea por diapositiva y un titular que afirma («La deuda se concentra en tres facturas», no «Deuda»). Entre 8 y 15 diapositivas para una reunion de cliente. El pie de cada diapositiva lleva el aviso DRAFT y el numero; la ultima diapositiva, «Fuentes», la anade el script con las fuentes declaradas.
+
+| `maqueta` | Campos | Para que |
+| :--- | :--- | :--- |
+| `portada` | `antetitulo`, `titulo`, `subtitulo`, `fecha`, `autor` | Primera diapositiva |
+| `agenda` | `titulo`, `puntos` (lista) | Indice de la reunion |
+| `separador` | `numero`, `titulo`, `texto` | Abrir cada bloque |
+| `cifra` | `cifra` (texto) o `dato` (clave de `cifras`), `titulo`, `texto` | Un numero que lo dice todo |
+| `grafico` | `titulo`, `grafico` (nombre en `graficos`), `conclusion` | Un grafico o diagrama con su conclusion al lado |
+| `puntos` | `titulo`, `puntos` (lista), `grafico` opcional | Argumentos; maximo cinco puntos |
+| `dos_columnas` | `titulo`, `izquierda` y `derecha` (cada una con `titulo`, `texto` o `puntos`) | Antes y despues, hechos y derecho |
+| `comparativa` | `titulo`, `opciones` (cada una con `nombre`, `puntos`, `veredicto`, `estado`: `ok`, `atencion` o `riesgo`) | Dos a cuatro vias o escenarios |
+| `cronologia` | `titulo`, `hitos` (cada uno con `fecha`, `titulo`, `texto`) | Hasta seis hitos en horizontal |
+| `tabla` | `titulo`, `cabecera` (lista), `filas` (lista de listas), `nota` | Detalle que hay que ver junto |
+| `cita` | `cita`, `autor` | Frase de una resolucion, un contrato o el cliente |
+| `equipo` | `titulo`, `personas` (cada una con `nombre`, `cargo`, `texto`) | Quien lleva el asunto |
+| `proximos_pasos` | `titulo`, `pasos` (cada uno con `texto`, `responsable`, `fecha`) | Acciones con responsable y fecha |
+| `cierre` | `titulo`, `texto`, `contacto` | Ultima diapositiva propia |
+
+Cualquier diapositiva admite `notas`: el texto del orador, que se ve pulsando N (o el boton Notas) y nunca se imprime.
+
+### Ficha
+
+```html maqueta=presentacion parte=ficha
+<li><b>Diapositivas:</b> <span id="total-diapositivas"></span></li>
+```
+
+### Estilos
+
+```css maqueta=presentacion parte=estilos
+.contenedor>header,.pie>p:first-of-type{display:none}
+.escenario{position:relative;width:100%;overflow:hidden;border-radius:var(--radio);box-shadow:var(--sombra);background:var(--superficie)}
+.escenario:fullscreen{border-radius:0;display:flex;align-items:center;justify-content:center;background:#000}
+.diapositivas{position:relative;width:1280px;height:720px;transform-origin:0 0}
+.diapositiva{position:absolute;inset:0;padding:56px 72px 64px;background:var(--superficie);visibility:hidden;display:flex;flex-direction:column;overflow:hidden}
+.diapositiva.activa{visibility:visible}
+.diapositiva h2{font-size:40px;line-height:1.12;letter-spacing:-.02em;margin:0 0 28px;max-width:1040px}
+.diapositiva p,.diapositiva li{font-size:22px;line-height:1.45}
+.diapositiva .antetitulo{font-size:15px}
+.diapositiva .pie-diapositiva{position:absolute;left:72px;right:72px;bottom:22px;display:flex;justify-content:space-between;font-size:13px;color:var(--apagado)}
+.diapositiva .pie-diapositiva b{color:var(--aviso);letter-spacing:.06em}
+.diapositiva .cuerpo{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center}
+.diapositiva .grafico{--escala-grafico:1.5}
+.diapositiva .grafico svg{width:100%;max-height:440px}
+.diapositiva .barras .fila{font-size:19px}
+.diapositiva .pista{height:14px}
+.diapositiva .distintivo{font-size:14px;padding:4px 12px}
+.diapositiva .fuente-grafico{font-size:13px}
+.diapositiva .fuentes-reporte li{font-size:18px}
+.diapositiva .datos-grafico{display:none}
+.diapositiva .leyenda{font-size:16px}
+.maqueta-portada{justify-content:center;background:linear-gradient(135deg,var(--acento-suave),var(--superficie) 62%)}
+.maqueta-portada h2{font-size:64px;max-width:1000px}
+.maqueta-portada .subtitulo{font-size:26px;color:var(--apagado);max-width:900px}
+.maqueta-portada .firma-portada{margin-top:40px;font-size:18px;color:var(--apagado)}
+.maqueta-separador{justify-content:center;background:var(--acento-fuerte)}
+.maqueta-separador h2,.maqueta-separador p{color:#fff}
+.maqueta-separador .numero{font-size:140px;font-weight:750;line-height:1;color:rgba(255,255,255,.28);margin:0}
+.maqueta-separador .pie-diapositiva,.maqueta-separador .pie-diapositiva b{color:rgba(255,255,255,.75)}
+.maqueta-cifra .numero{font-size:128px;font-weight:720;letter-spacing:-.04em;line-height:1;color:var(--acento);margin:0 0 20px;font-variant-numeric:tabular-nums}
+.lista-grande{margin:0;padding:0;list-style:none;counter-reset:punto}
+.lista-grande li{position:relative;padding:14px 0 14px 64px;border-bottom:1px solid var(--borde-suave);counter-increment:punto}
+.lista-grande li::before{content:counter(punto);position:absolute;left:0;top:12px;width:40px;height:40px;border-radius:50%;background:var(--acento-suave);color:var(--acento-fuerte);font-weight:700;font-size:18px;display:flex;align-items:center;justify-content:center}
+.lado-a-lado{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:28px;align-items:start}
+.lado-a-lado>div{background:var(--superficie-2);border:1px solid var(--borde);border-radius:var(--radio-s);padding:24px 28px}
+.lado-a-lado h3{font-size:24px;margin:0 0 12px}
+.lado-a-lado ul{padding-left:22px;margin:0}
+.lado-a-lado .veredicto{margin-top:14px}
+.lado-a-lado .ok{border-top:5px solid var(--ok)}.lado-a-lado .atencion{border-top:5px solid var(--aviso)}.lado-a-lado .riesgo{border-top:5px solid var(--riesgo)}
+.grafico-y-texto{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:36px;align-items:center}
+.grafico-y-texto .conclusion{font-size:24px;font-weight:600;border-left:5px solid var(--acento);padding-left:20px}
+.linea-tiempo{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:20px;margin-top:20px;border-top:3px solid var(--borde);padding-top:28px;position:relative}
+.linea-tiempo>div{position:relative}
+.linea-tiempo>div::before{content:"";position:absolute;top:-38px;left:0;width:18px;height:18px;border-radius:50%;background:var(--acento);border:4px solid var(--superficie)}
+.linea-tiempo .fecha{font-size:15px;text-transform:uppercase;letter-spacing:.06em;color:var(--apagado)}
+.linea-tiempo h3{font-size:21px;margin:6px 0}
+.linea-tiempo p{font-size:17px;color:var(--apagado)}
+.maqueta-cita{justify-content:center}
+.maqueta-cita blockquote{margin:0;font-size:40px;line-height:1.3;font-weight:560;max-width:1000px;border-left:8px solid var(--acento);padding-left:36px}
+.maqueta-cita .autor{margin:28px 0 0 44px;color:var(--apagado)}
+.persona{text-align:center}
+.persona .iniciales{width:96px;height:96px;margin:0 auto 14px;border-radius:50%;background:var(--acento-suave);color:var(--acento-fuerte);font-size:34px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.persona p{font-size:17px}
+.pasos-tabla td,.pasos-tabla th{font-size:19px}
+.diapositiva table{min-width:0}
+.diapositiva td,.diapositiva th{font-size:18px;padding:12px 14px}
+.controles{display:flex;flex-wrap:wrap;align-items:center;gap:var(--e3);margin:var(--e3) 0 0}
+.controles .contador{font-variant-numeric:tabular-nums;color:var(--apagado);min-width:70px;text-align:center}
+.panel-notas{margin:var(--e3) 0 0;padding:var(--e4);border:1px dashed var(--borde);border-radius:var(--radio-s);background:var(--superficie-2)}
+.panel-notas[hidden]{display:none}
+.panel-notas .reloj{float:right;font-variant-numeric:tabular-nums;color:var(--apagado)}
+@media print{
+  @page{size:338.67mm 190.5mm;margin:0}
+  body{background:#fff}
+  .borrador,.controles,.panel-notas,.pie{display:none}
+  .escenario{box-shadow:none;border-radius:0;height:auto!important;overflow:visible}
+  .diapositivas{transform:none!important;width:auto;height:auto}
+  .diapositiva{position:relative;visibility:visible;width:1280px;height:720px;break-after:page;zoom:1}
+  .diapositiva:last-child{break-after:auto}
+}
+```
+
+### Contenido
+
+```html maqueta=presentacion parte=contenido
+<div class="escenario" id="escenario"><div class="diapositivas" id="diapositivas"></div></div>
+  <div class="controles">
+    <button type="button" id="anterior" aria-label="Diapositiva anterior">&larr;</button>
+    <span class="contador" id="contador" aria-live="polite"></span>
+    <button type="button" id="siguiente" aria-label="Diapositiva siguiente">&rarr;</button>
+    <button type="button" id="completa">Pantalla completa</button>
+    <button type="button" id="ver-notas">Notas</button>
+  </div>
+  <div class="panel-notas" id="panel-notas" hidden><span class="reloj" id="reloj">00:00</span><p id="texto-notas"></p></div>
+```
+
+### Datos
+
+```json maqueta=presentacion parte=datos
+{
+  "idioma": "es-ES",
+  "moneda": "EUR",
+  "fuentes": {
+    "cliente": {"nombre": "{{DESCRIPCION_FUENTE}}", "consulta": "{{FECHA_AAAA_MM_DD}}"}
+  },
+  "cifras": {},
+  "graficos": {},
+  "diapositivas": [
+    {"maqueta": "portada", "antetitulo": "{{ANTETITULO}}", "titulo": "{{TITULO}}", "subtitulo": "{{SUBTITULO}}", "fecha": "{{FECHA}}", "autor": "{{AUTOR}}"},
+    {"maqueta": "agenda", "titulo": "{{TITULO}}", "puntos": []},
+    {"maqueta": "cifra", "cifra": "{{CIFRA}}", "titulo": "{{TITULO}}", "texto": "{{TEXTO}}", "notas": "{{NOTAS}}"},
+    {"maqueta": "proximos_pasos", "titulo": "{{TITULO}}", "pasos": []}
+  ]
+}
+```
+
+### Script
+
+Se coloca despues del script del motor (y de los modulos, si los hay). Monta las diapositivas a partir de `diapositivas` antes de que el motor dibuje sus graficos.
+
+```js maqueta=presentacion parte=script
+<script>
+(function(){
+  "use strict";
+  var R = Reportes, D = document, lista = R.datos.diapositivas || [], cont = D.getElementById("diapositivas");
+  var titulo = D.title, actual = 0, inicio = Date.now();
+  function el(tag, clase, padre, texto) { return R.html(tag, clase, padre, texto); }
+  function puntos(padre, items, clase) { var ul = el("ul", clase || "", padre); (items || []).forEach(function (p) { el("li", "", ul, p); }); return ul; }
+  function figura(padre, nombre) { var f = el("figure", "grafico", padre); f.setAttribute("data-grafico", nombre); return f; }
+  function columna(padre, c) { var d = el("div", c.estado || "", padre); el("h3", "", d, c.titulo || c.nombre || ""); if (c.texto) el("p", "", d, c.texto); if (c.puntos) puntos(d, c.puntos); if (c.veredicto) { var v = el("p", "veredicto", d); el("span", "distintivo " + (c.estado || ""), v, c.veredicto); } }
+  var maquetas = {
+    portada: function (s, d) { if (d.antetitulo) el("p", "antetitulo", s, d.antetitulo); el("h2", "", s, d.titulo); if (d.subtitulo) el("p", "subtitulo", s, d.subtitulo); el("p", "firma-portada", s, [d.autor, d.fecha].filter(Boolean).join(" · ")); },
+    agenda: function (s, d, c) { el("h2", "", s, d.titulo); puntos(c, d.puntos, "lista-grande"); },
+    separador: function (s, d) { if (d.numero) el("p", "numero", s, d.numero); el("h2", "", s, d.titulo); if (d.texto) el("p", "", s, d.texto); },
+    cifra: function (s, d, c) { var n = el("p", "numero", c, d.cifra || ""); if (d.dato) n.setAttribute("data-cifra", d.dato); el("h2", "", c, d.titulo); if (d.texto) el("p", "", c, d.texto); },
+    grafico: function (s, d, c) { el("h2", "", s, d.titulo); var g = el("div", d.conclusion ? "grafico-y-texto" : "", c); figura(g, d.grafico); if (d.conclusion) el("p", "conclusion", g, d.conclusion); },
+    puntos: function (s, d, c) { el("h2", "", s, d.titulo); var g = el("div", d.grafico ? "grafico-y-texto" : "", c); puntos(g, d.puntos, "lista-grande"); if (d.grafico) figura(g, d.grafico); },
+    dos_columnas: function (s, d, c) { el("h2", "", s, d.titulo); var g = el("div", "lado-a-lado", c); columna(g, d.izquierda || {}); columna(g, d.derecha || {}); },
+    comparativa: function (s, d, c) { el("h2", "", s, d.titulo); var g = el("div", "lado-a-lado", c); (d.opciones || []).forEach(function (o) { columna(g, o); }); },
+    cronologia: function (s, d, c) { el("h2", "", s, d.titulo); var g = el("div", "linea-tiempo", c); (d.hitos || []).forEach(function (h) { var x = el("div", "", g); el("p", "fecha", x, h.fecha); el("h3", "", x, h.titulo); if (h.texto) el("p", "", x, h.texto); }); },
+    tabla: function (s, d, c) { el("h2", "", s, d.titulo); var t = el("table", "", el("div", "tabla", c)), f = el("tr", "", el("thead", "", t)); (d.cabecera || []).forEach(function (h) { el("th", "", f, h); }); var b = el("tbody", "", t); (d.filas || []).forEach(function (fila) { var tr = el("tr", "", b); fila.forEach(function (v) { el("td", "", tr, v); }); }); if (d.nota) el("p", "subtitulo", c, d.nota); },
+    cita: function (s, d) { el("blockquote", "", s, d.cita); if (d.autor) el("p", "autor", s, d.autor); },
+    equipo: function (s, d, c) { el("h2", "", s, d.titulo); var g = el("div", "lado-a-lado", c); (d.personas || []).forEach(function (p) { var x = el("div", "persona", g); el("div", "iniciales", x, p.nombre.split(/\s+/).map(function (w) { return w[0]; }).slice(0, 2).join("")); el("h3", "", x, p.nombre); el("p", "", x, p.cargo); if (p.texto) el("p", "", x, p.texto); }); },
+    proximos_pasos: function (s, d, c) { el("h2", "", s, d.titulo); var t = el("table", "pasos-tabla", el("div", "tabla", c)), b = el("tbody", "", t); (d.pasos || []).forEach(function (p, i) { var tr = el("tr", "", b); el("td", "", tr, (i + 1) + ". " + p.texto); el("td", "", tr, p.responsable || ""); el("td", "cifra", tr, p.fecha || ""); }); },
+    cierre: function (s, d) { el("h2", "", s, d.titulo); if (d.texto) el("p", "", s, d.texto); if (d.contacto) el("p", "subtitulo", s, d.contacto); },
+    fuentes: function (s, d, c) { el("h2", "", s, d.titulo); c.appendChild(D.getElementById("fuentes-reporte")); }
+  };
+  var todas = lista.concat([{maqueta: "fuentes", titulo: R.T.fuentes}]);
+  todas.forEach(function (d, i) {
+    var s = el("section", "diapositiva maqueta-" + d.maqueta, cont), c;
+    s.setAttribute("aria-roledescription", "diapositiva");
+    if (!maquetas[d.maqueta]) { console.error("Diapositiva " + (i + 1) + ": maqueta desconocida " + d.maqueta); el("p", "error-grafico", s, "Maqueta desconocida: " + d.maqueta); return; }
+    c = ["portada", "separador", "cita", "cierre"].indexOf(d.maqueta) < 0 ? el("div", "cuerpo", null) : null;
+    maquetas[d.maqueta](s, d, c);
+    if (c) s.appendChild(c);
+    var pie = el("div", "pie-diapositiva", s), izq = el("span", "", pie);
+    el("b", "", izq, "DRAFT"); izq.appendChild(D.createTextNode(" · " + titulo));
+    el("span", "", pie, (i + 1) + " / " + todas.length);
+    s.notas = d.notas || "";
+  });
+  var diapos = [].slice.call(cont.children), escenario = D.getElementById("escenario");
+  D.getElementById("total-diapositivas").textContent = diapos.length;
+  function escalar() {
+    var lleno = D.fullscreenElement === escenario;
+    var w = lleno ? window.innerWidth : escenario.clientWidth, h = lleno ? window.innerHeight : Infinity;
+    var e = Math.min(w / 1280, h / 720);
+    cont.style.transform = "scale(" + e + ")";
+    if (!lleno) escenario.style.height = Math.round(720 * e) + "px"; else escenario.style.height = "";
+  }
+  function ir(n) {
+    actual = Math.max(0, Math.min(diapos.length - 1, n));
+    diapos.forEach(function (s, i) { s.classList.toggle("activa", i === actual); s.setAttribute("aria-hidden", i !== actual); });
+    D.getElementById("contador").textContent = (actual + 1) + " / " + diapos.length;
+    D.getElementById("texto-notas").textContent = diapos[actual].notas || "—";
+  }
+  D.getElementById("anterior").addEventListener("click", function () { ir(actual - 1); });
+  D.getElementById("siguiente").addEventListener("click", function () { ir(actual + 1); });
+  D.getElementById("completa").addEventListener("click", function () { if (escenario.requestFullscreen) escenario.requestFullscreen(); });
+  function notas() { var p = D.getElementById("panel-notas"); p.hidden = !p.hidden; }
+  D.getElementById("ver-notas").addEventListener("click", notas);
+  D.addEventListener("keydown", function (e) {
+    if (/INPUT|SELECT|TEXTAREA/.test(e.target.tagName)) return;
+    if (["ArrowRight", "PageDown", " "].indexOf(e.key) > -1) { e.preventDefault(); ir(actual + 1); }
+    else if (["ArrowLeft", "PageUp"].indexOf(e.key) > -1) { e.preventDefault(); ir(actual - 1); }
+    else if (e.key === "Home") ir(0);
+    else if (e.key === "End") ir(diapos.length - 1);
+    else if (e.key === "n" || e.key === "N") notas();
+    else if (e.key === "f" || e.key === "F") D.getElementById("completa").click();
+  });
+  var x0 = null;
+  escenario.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; }, {passive: true});
+  escenario.addEventListener("touchend", function (e) { if (x0 === null) return; var dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) ir(actual + (dx < 0 ? 1 : -1)); x0 = null; });
+  window.addEventListener("resize", escalar);
+  D.addEventListener("fullscreenchange", escalar);
+  setInterval(function () { var s = Math.floor((Date.now() - inicio) / 1000); D.getElementById("reloj").textContent = String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); }, 1000);
+  escalar();
+  ir(0);
+})();
+</script>
+```
