@@ -296,74 +296,72 @@ Reglas: los valores se dan en bruto y el modulo calcula escalas, tramos y porcen
    del motor, solo en los reportes que usan alguno de estos tipos. */
 (function(){
 "use strict";
-var R = Reportes, svg = R.svg, r1 = R.r1, fmt = R.fmt, color = R.color, consejo = R.consejo, T = R.T;
-function num(v) { return typeof v === "number" && isFinite(v); }
-function max(a) { return Math.max.apply(null, a.filter(num)); }
-function min(a) { return Math.min.apply(null, a.filter(num)); }
-function techo(v) {
-  if (!(v > 0)) return 1;
-  var m = Math.pow(10, Math.floor(Math.log10(v))), p = [1, 1.2, 1.6, 2, 2.4, 3, 4, 5, 6, 8, 10];
-  for (var i = 0; i < p.length; i++) if (p[i] * m >= v * (1 - 1e-9)) return p[i] * m;
-  return 10 * m;
-}
+var R = Reportes, svg = R.svg, r1 = R.r1, fmt = R.fmt, color = R.color, consejo = R.consejo, num = R.num, max = R.maximo, min = R.minimo, techo = R.techo;
+var TX = Object.assign(/^en/.test(R.IDIOMA) ? {diferencia: "Difference"} : {diferencia: "Diferencia"}, R.T);
 function texto(s, at, contenido, clase) { return svg("text", Object.assign({"class": clase || "eje"}, at), s, contenido); }
-/* Ancho del lienzo: el que pasa el motor (que ya tiene en cuenta impresion y escala) o el de la figura. */
-function ancho(fig) { return Math.round(Math.min(700, Math.max(320, (fig.clientWidth || 700) / R.escala(fig)))); }
+function topeDe(listas) { return techo(max([].concat.apply([], listas))); }
+function sinNegativos(valores, tipo) { if (min(valores) < 0) throw new Error("el grafico " + tipo + " no admite valores negativos"); }
+function pct(v, total) { return fmt(v / total * 100, "pct"); }
 
 /* Dispersion y burbujas: relacion entre dos magnitudes; con "tamano", tercera magnitud. */
-R.tipos.dispersion = function (fig, g, id, Wb) {
+R.tipos.dispersion = function (fig, g, id, W) {
   var p = g.puntos || [], ex = g.eje_x || {}, ey = g.eje_y || {};
   if (p.length < 2) throw new Error("hacen falta al menos dos puntos");
-  var W = Wb || ancho(fig), x0 = 64, x1 = W - 24, y0 = 24, y1 = 244;
-  var tx = techo(max(p.map(function (d) { return d.x; }))), ty = techo(max(p.map(function (d) { return d.y; })));
+  p.forEach(function (d, i) { if (!num(d.x) || !num(d.y)) throw new Error("el punto " + (i + 1) + " necesita x e y numericos"); });
+  /* Ejes desde cero o desde el minimo negativo, con sitio a la derecha para los rotulos. */
+  var xs = p.map(function (d) { return d.x; }), ys = p.map(function (d) { return d.y; });
+  var x0 = 64, x1 = W - (g.rotulos === false ? 24 : 96), y0 = 44, y1 = 244;
+  var tx = techo(max(xs)), ty = techo(max(ys)), bx = min(xs) < 0 ? -techo(-min(xs)) : 0, by = min(ys) < 0 ? -techo(-min(ys)) : 0;
   var tt = max(p.map(function (d) { return d.tamano || 0; })) || 1;
-  var X = function (v) { return r1(x0 + v / tx * (x1 - x0)); }, Y = function (v) { return r1(y1 - v / ty * (y1 - y0)); };
-  var s = R.lienzo(fig, W, 290, g.resumen || "");
+  var X = function (v) { return r1(x0 + (v - bx) / (tx - bx) * (x1 - x0)); }, Y = function (v) { return r1(y1 - (v - by) / (ty - by) * (y1 - y0)); };
+  var s = R.lienzo(fig, W, 290, g.resumen);
   for (var k = 0; k <= 4; k++) {
-    svg("line", {"class": "rejilla", x1: x0, y1: Y(ty * k / 4), x2: x1, y2: Y(ty * k / 4)}, s);
-    texto(s, {x: x0 - 8, y: Y(ty * k / 4) + 4, "text-anchor": "end"}, k ? fmt(ty * k / 4, ey.unidad, true) : "0");
-    texto(s, {x: X(tx * k / 4), y: y1 + 16, "text-anchor": "middle"}, k ? fmt(tx * k / 4, ex.unidad, true) : "0");
+    var vy = by + (ty - by) * k / 4, vx = bx + (tx - bx) * k / 4;
+    svg("line", {"class": "rejilla", x1: x0, y1: Y(vy), x2: x1, y2: Y(vy)}, s);
+    texto(s, {x: x0 - 8, y: Y(vy) + 4, "text-anchor": "end"}, vy ? fmt(vy, ey.unidad, true) : "0");
+    texto(s, {x: X(vx), y: y1 + 16, "text-anchor": "middle"}, vx ? fmt(vx, ex.unidad, true) : "0");
   }
+  if (bx < 0) svg("line", {"class": "cero", x1: X(0), y1: y0, x2: X(0), y2: y1}, s);
+  if (by < 0) svg("line", {"class": "cero", x1: x0, y1: Y(0), x2: x1, y2: Y(0)}, s);
   if (ex.nombre) texto(s, {x: x1, y: y1 + 34, "text-anchor": "end"}, ex.nombre);
-  if (ey.nombre) texto(s, {x: x0, y: 14}, ey.nombre);
-  p.forEach(function (d, i) {
-    if (!num(d.x) || !num(d.y)) throw new Error("el punto " + (i + 1) + " necesita x e y numericos");
+  if (ey.nombre) texto(s, {x: x0, y: y0 - 14}, ey.nombre);
+  p.forEach(function (d) {
     var rad = d.tamano ? r1(5 + Math.sqrt(d.tamano / tt) * 20) : 5;
     consejo(svg("circle", {cx: X(d.x), cy: Y(d.y), r: rad, fill: color(d.color, 0), "fill-opacity": d.tamano ? ".45" : ".85", stroke: color(d.color, 0)}, s),
       (d.rotulo ? d.rotulo + ": " : "") + fmt(d.x, ex.unidad) + " · " + fmt(d.y, ey.unidad) + (d.tamano ? " · " + fmt(d.tamano, g.unidad_tamano) : ""));
-    if (d.rotulo && (g.rotulos !== false)) texto(s, {x: X(d.x) + rad + 4, y: Y(d.y) + 4}, R.recortar(d.rotulo, 18), "eje");
+    if (d.rotulo && g.rotulos !== false) texto(s, {x: X(d.x) + rad + 4, y: Y(d.y) + 4}, R.recortar(d.rotulo, 14));
   });
-  return {cabecera: [T.concepto, ex.nombre || "x", ey.nombre || "y"].concat(p.some(function (d) { return d.tamano; }) ? [g.nombre_tamano || T.valor] : []),
+  return {cabecera: [R.T.concepto, ex.nombre || "x", ey.nombre || "y"].concat(p.some(function (d) { return d.tamano; }) ? [g.nombre_tamano || R.T.valor] : []),
     filas: p.map(function (d) { return [d.rotulo || "—", d.x, d.y].concat(d.tamano ? [d.tamano] : []); })};
 };
 
 /* Histograma: reparto de valores sueltos en tramos de igual anchura. */
-R.tipos.histograma = function (fig, g, id, Wb) {
-  var v = (g.valores || []).filter(num);
-  if (v.length < 5) throw new Error("hacen falta al menos cinco valores");
-  var lo = num(g.desde) ? g.desde : min(v), hi = num(g.hasta) ? g.hasta : max(v), n = g.tramos || Math.ceil(Math.log2(v.length) + 1);
-  var paso = (hi - lo) / n || 1, cuenta = [];
+R.tipos.histograma = function (fig, g, id, W) {
+  var lo = num(g.desde) ? g.desde : min(g.valores || []), hi = num(g.hasta) ? g.hasta : max(g.valores || []);
+  var v = (g.valores || []).filter(function (x) { return num(x) && x >= lo && x <= hi; });  /* fuera del rango indicado no cuentan */
+  if (v.length < 5) throw new Error("hacen falta al menos cinco valores dentro del rango");
+  var n = g.tramos || Math.ceil(Math.log2(v.length) + 1), paso = (hi - lo) / n || 1, cuenta = [];
   for (var i = 0; i < n; i++) cuenta.push(0);
-  v.forEach(function (x) { cuenta[Math.min(n - 1, Math.max(0, Math.floor((x - lo) / paso)))]++; });
-  var W = Wb || ancho(fig), x0 = 64, x1 = W - 24, tope = techo(max(cuenta)), banda = (x1 - x0) / n;
-  var s = R.lienzo(fig, W, 280, g.resumen || "");
-  for (var k = 0; k <= 4; k++) { var y = 244 - k * 50; svg("line", {"class": "rejilla", x1: x0, y1: y, x2: x1, y2: y}, s); texto(s, {x: x0 - 8, y: y + 4, "text-anchor": "end"}, k ? fmt(tope * k / 4, "entero", true) : "0"); }
+  v.forEach(function (x) { cuenta[Math.min(n - 1, Math.floor((x - lo) / paso))]++; });
+  /* Recuentos: el tope es multiplo de 4 para que la rejilla marque numeros enteros. */
+  var tope = Math.max(4, Math.ceil(max(cuenta) / 4) * 4), banda = (W - 24 - 64) / n, s = R.lienzo(fig, W, 280, g.resumen);
+  R.rejilla(s, tope, "entero");
   var etiquetas = cuenta.map(function (c, i) { return fmt(lo + i * paso, g.unidad, true) + "–" + fmt(lo + (i + 1) * paso, g.unidad, true); });
   cuenta.forEach(function (c, i) {
-    var alto = c / tope * 200;
-    consejo(svg("rect", {x: r1(x0 + i * banda + 1), y: r1(244 - alto), width: r1(banda - 2), height: r1(alto), fill: color(g.color, 0)}, s), etiquetas[i] + ": " + c);
+    consejo(svg("rect", {x: r1(64 + i * banda + 1), y: R.yDe(c, tope), width: r1(banda - 2), height: r1(c / tope * 200), fill: color(g.color, 0)}, s), etiquetas[i] + ": " + c);
   });
-  [0, n].forEach(function (i) { texto(s, {x: r1(x0 + i * banda), y: 262, "text-anchor": i ? "end" : "start"}, fmt(lo + i * paso, g.unidad, true)); });
-  if (g.nombre) texto(s, {x: x1, y: 278, "text-anchor": "end"}, g.nombre);
-  return {cabecera: [T.concepto, T.valor], filas: etiquetas.map(function (e, i) { return [e, cuenta[i]]; }), unidad: "entero"};
+  [0, n].forEach(function (i) { texto(s, {x: r1(64 + i * banda), y: 262, "text-anchor": i ? "end" : "start"}, fmt(lo + i * paso, g.unidad, true)); });
+  if (g.nombre) texto(s, {x: W - 24, y: 278, "text-anchor": "end"}, g.nombre);
+  return {cabecera: [R.T.concepto, R.T.valor], filas: etiquetas.map(function (e, i) { return [e, cuenta[i]]; }), unidad: "entero"};
 };
 
 /* Radar: perfil de varias opciones sobre los mismos criterios (de 3 a 8 ejes). */
-R.tipos.radar = function (fig, g, id, Wb) {
+R.tipos.radar = function (fig, g) {
   var ejes = g.ejes || [], series = g.series || [], n = ejes.length;
   if (n < 3 || n > 8) throw new Error("el radar necesita de tres a ocho ejes");
-  var tope = g.maximo || techo(max([].concat.apply([], series.map(function (s) { return s.valores; })))), cx = 220, cy = 150, rad = 105;
-  var s = R.lienzo(fig, 440, 300, g.resumen || ""); s.style.maxWidth = "440px";
+  sinNegativos([].concat.apply([], series.map(function (s) { return s.valores; })), "radar");
+  var tope = g.maximo || topeDe(series.map(function (s) { return s.valores; })), cx = 220, cy = 150, rad = 105;
+  var s = R.lienzo(fig, 440, 300, g.resumen); s.style.maxWidth = "440px";
   var punto = function (i, v) { var a = -Math.PI / 2 + i * 2 * Math.PI / n; return [r1(cx + Math.cos(a) * rad * v / tope), r1(cy + Math.sin(a) * rad * v / tope)]; };
   for (var k = 1; k <= 4; k++) svg("polygon", {points: ejes.map(function (_, i) { return punto(i, tope * k / 4).join(","); }).join(" "), fill: "none", stroke: "var(--linea-rejilla)"}, s);
   ejes.forEach(function (e, i) {
@@ -377,147 +375,156 @@ R.tipos.radar = function (fig, g, id, Wb) {
     se.valores.forEach(function (v, i) { var p = punto(i, v || 0); consejo(svg("circle", {cx: p[0], cy: p[1], r: 3, fill: c}, s), se.nombre + " · " + ejes[i] + ": " + fmt(v, g.unidad)); });
   });
   R.leyenda(fig, series.map(function (se, j) { return {color: color(se.color, j), texto: se.nombre}; }));
-  return {cabecera: [T.concepto].concat(series.map(function (se) { return se.nombre; })), unidad: g.unidad,
+  return {cabecera: [R.T.concepto].concat(series.map(function (se) { return se.nombre; })), unidad: g.unidad,
     filas: ejes.map(function (e, i) { return [e].concat(series.map(function (se) { return se.valores[i]; })); })};
 };
 
 /* Embudo: cuantos llegan a cada etapa y que proporcion pasa de una a la siguiente. */
-R.tipos.embudo = function (fig, g, id, Wb) {
-  var et = g.etapas || [];
+R.tipos.embudo = function (fig, g, id, W) {
+  var et = g.etapas || [], tope = max(et.map(function (e) { return e.valor; }));
   if (et.length < 2) throw new Error("hacen falta al menos dos etapas");
-  var W = Wb || ancho(fig), tope = max(et.map(function (e) { return e.valor; })), fila = 44, centro = W / 2 + 40, util = W - 220;
-  var s = R.lienzo(fig, W, et.length * fila + 8, g.resumen || "");
+  if (!(tope > 0)) throw new Error("las etapas necesitan valores positivos");
+  var fila = 44, centro = W / 2 + 40, util = W - 220, s = R.lienzo(fig, W, et.length * fila + 8, g.resumen);
   et.forEach(function (e, i) {
-    var w = Math.max(r1(e.valor / tope * util), 6), y = 4 + i * fila;
+    var w = Math.max(r1(e.valor / tope * util), 6), y = 4 + i * fila, paso = i ? pct(e.valor, et[i - 1].valor) : null;
     texto(s, {x: 140, y: y + 23, "text-anchor": "end"}, R.recortar(e.rotulo, 20));
-    consejo(svg("rect", {x: r1(centro - w / 2), y: y, width: w, height: 34, rx: 5, fill: color(e.color, 0), "fill-opacity": r1(1 - i * 0.12)}, s), e.rotulo + ": " + fmt(e.valor, g.unidad));
-    texto(s, {x: centro, y: y + 22, "text-anchor": "middle", fill: "#fff", "font-weight": 650}, fmt(e.valor, g.unidad, true), "valor-punto dentro");
-    if (i) texto(s, {x: W - 8, y: y + 22, "text-anchor": "end"}, fmt(e.valor / et[i - 1].valor * 100, "pct"));
+    consejo(svg("rect", {x: r1(centro - w / 2), y: y, width: w, height: 34, rx: 5, fill: color(e.color, 0), "fill-opacity": r1(Math.max(0.5, 1 - i * 0.1))}, s), e.rotulo + ": " + fmt(e.valor, g.unidad));
+    /* La cifra va dentro si cabe; si la barra es estrecha, al lado y en color de texto. */
+    var dentro = w > 64;
+    texto(s, {x: dentro ? centro : r1(centro + w / 2 + 6), y: y + 22, "text-anchor": dentro ? "middle" : "start"}, fmt(e.valor, g.unidad, true), dentro ? "valor-punto dentro" : "valor-punto");
+    if (paso) texto(s, {x: W - 8, y: y + 22, "text-anchor": "end"}, paso);
+    e.paso = paso;
   });
-  return {cabecera: [T.concepto, T.valor, T.porcentaje], unidad: g.unidad,
-    filas: et.map(function (e, i) { return [e.rotulo, e.valor, i ? fmt(e.valor / et[i - 1].valor * 100, "pct") : "—"]; })};
+  return {cabecera: [R.T.concepto, R.T.valor, R.T.porcentaje], unidad: g.unidad, filas: et.map(function (e) { return [e.rotulo, e.valor, e.paso || "—"]; })};
 };
 
-/* Treemap: peso de muchas partidas a la vez (disposicion cuadrada aproximada). */
-R.tipos.treemap = function (fig, g, id, Wb) {
+/* Treemap: peso de muchas partidas a la vez (particion por cortes alternos). */
+R.tipos.treemap = function (fig, g, id, W) {
   var el = (g.elementos || []).filter(function (e) { return num(e.valor) && e.valor > 0; }).sort(function (a, b) { return b.valor - a.valor; });
   if (!el.length) throw new Error("faltan elementos con valor positivo");
-  var W = Wb || ancho(fig), H = 300, total = el.reduce(function (s, e) { return s + e.valor; }, 0);
-  var s = R.lienzo(fig, W, H, g.resumen || "");
-  /* Particion por cortes alternos: cada partida ocupa su proporcion del rectangulo restante. */
+  var H = 300, total = el.reduce(function (s, e) { return s + e.valor; }, 0), s = R.lienzo(fig, W, H, g.resumen);
+  el.forEach(function (e) { e.pct = pct(e.valor, total); });
   function partir(lista, x, y, w, h) {
     if (!lista.length) return;
     if (lista.length === 1) return pintar(lista[0], x, y, w, h);
     var suma = lista.reduce(function (s, e) { return s + e.valor; }, 0), acum = 0, corte = 0;
-    while (corte < lista.length - 1 && (acum + lista[corte].valor) <= suma / 2) acum += lista[corte++].valor;
+    while (corte < lista.length - 1 && acum + lista[corte].valor <= suma / 2) acum += lista[corte++].valor;
     if (!corte) { acum = lista[0].valor; corte = 1; }
     var f = acum / suma;
     if (w >= h) { partir(lista.slice(0, corte), x, y, w * f, h); partir(lista.slice(corte), x + w * f, y, w * (1 - f), h); }
     else { partir(lista.slice(0, corte), x, y, w, h * f); partir(lista.slice(corte), x, y + h * f, w, h * (1 - f)); }
   }
   function pintar(e, x, y, w, h) {
-    var i = el.indexOf(e);
-    consejo(svg("rect", {x: r1(x + 1), y: r1(y + 1), width: r1(Math.max(w - 2, 1)), height: r1(Math.max(h - 2, 1)), rx: 3, fill: color(e.color, i)}, s),
-      e.rotulo + ": " + fmt(e.valor, g.unidad) + " (" + fmt(e.valor / total * 100, "pct") + ")");
+    consejo(svg("rect", {x: r1(x + 1), y: r1(y + 1), width: r1(Math.max(w - 2, 1)), height: r1(Math.max(h - 2, 1)), rx: 3, fill: color(e.color, el.indexOf(e))}, s),
+      e.rotulo + ": " + fmt(e.valor, g.unidad) + " (" + e.pct + ")");
     if (w > 70 && h > 34) {
-      texto(s, {x: r1(x + 8), y: r1(y + 18), fill: "#fff", "font-weight": 650}, R.recortar(e.rotulo, Math.floor(w / 7)), "valor-punto dentro");
-      texto(s, {x: r1(x + 8), y: r1(y + 33), fill: "#fff"}, fmt(e.valor / total * 100, "pct"), "valor-punto dentro");
+      texto(s, {x: r1(x + 8), y: r1(y + 18), "font-weight": 650}, R.recortar(e.rotulo, Math.floor(w / 7)), "valor-punto dentro");
+      texto(s, {x: r1(x + 8), y: r1(y + 33)}, e.pct, "valor-punto dentro");
     }
   }
   partir(el, 0, 0, W, H);
-  return {cabecera: [T.concepto, T.valor, T.porcentaje], unidad: g.unidad, filas: el.map(function (e) { return [e.rotulo, e.valor, fmt(e.valor / total * 100, "pct")]; })};
+  return {cabecera: [R.T.concepto, R.T.valor, R.T.porcentaje], unidad: g.unidad, filas: el.map(function (e) { return [e.rotulo, e.valor, e.pct]; })};
 };
 
+/* Separa en vertical rotulos que caerian encima unos de otros (minimo "hueco" px). */
+function separar(ys, hueco) {
+  var orden = ys.map(function (y, i) { return [y, i]; }).sort(function (a, b) { return a[0] - b[0]; }), salida = ys.slice();
+  for (var k = 1; k < orden.length; k++) { var prev = salida[orden[k - 1][1]]; if (salida[orden[k][1]] - prev < hueco) salida[orden[k][1]] = prev + hueco; }
+  return salida;
+}
+
 /* Pendiente: como cambia cada partida entre dos momentos. */
-R.tipos.pendiente = function (fig, g, id, Wb) {
+R.tipos.pendiente = function (fig, g, id, W) {
   var el = g.elementos || [], et = g.etiquetas || ["", ""];
   if (!el.length) throw new Error("faltan elementos");
-  var W = Wb || ancho(fig), xa = Math.round(W * 0.22), xb = Math.round(W * 0.58), tope = techo(max([].concat.apply([], el.map(function (e) { return [e.antes, e.despues]; }))));
-  var Y = function (v) { return r1(260 - v / tope * 220); }, s = R.lienzo(fig, W, 290, g.resumen || "");
+  sinNegativos([].concat.apply([], el.map(function (e) { return [e.antes, e.despues]; })), "pendiente");
+  var xa = Math.round(W * 0.22), xb = Math.round(W * 0.58), tope = topeDe(el.map(function (e) { return [e.antes, e.despues]; }));
+  var Y = function (v) { return r1(260 - v / tope * 220); }, s = R.lienzo(fig, W, 290, g.resumen);
   texto(s, {x: xa, y: 20, "text-anchor": "middle", "font-weight": 650}, et[0]); texto(s, {x: xb, y: 20, "text-anchor": "middle", "font-weight": 650}, et[1]);
   [xa, xb].forEach(function (x) { svg("line", {"class": "rejilla", x1: x, y1: 36, x2: x, y2: 264}, s); });
+  var ia = separar(el.map(function (e) { return Y(e.antes); }), 13), ib = separar(el.map(function (e) { return Y(e.despues); }), 13);
   el.forEach(function (e, i) {
     var c = color(e.color, i);
     consejo(svg("line", {x1: xa, y1: Y(e.antes), x2: xb, y2: Y(e.despues), stroke: c, "stroke-width": 2.4}, s), e.rotulo + ": " + fmt(e.antes, g.unidad) + " → " + fmt(e.despues, g.unidad));
     svg("circle", {cx: xa, cy: Y(e.antes), r: 4, fill: c}, s); svg("circle", {cx: xb, cy: Y(e.despues), r: 4, fill: c}, s);
-    /* A la izquierda solo la cifra; a la derecha, cifra y nombre, que tienen sitio. */
-    texto(s, {x: xa - 10, y: Y(e.antes) + 4, "text-anchor": "end"}, fmt(e.antes, g.unidad, true));
-    texto(s, {x: xb + 10, y: Y(e.despues) + 4}, fmt(e.despues, g.unidad, true) + " · " + R.recortar(e.rotulo, Math.max(8, Math.floor((W - xb - 70) / 6.5))));
+    texto(s, {x: xa - 10, y: ia[i] + 4, "text-anchor": "end"}, fmt(e.antes, g.unidad, true));
+    texto(s, {x: xb + 10, y: ib[i] + 4}, fmt(e.despues, g.unidad, true) + " · " + R.recortar(e.rotulo, Math.max(8, Math.floor((W - xb - 70) / 6.5))));
   });
-  return {cabecera: [T.concepto, et[0], et[1]], unidad: g.unidad, filas: el.map(function (e) { return [e.rotulo, e.antes, e.despues]; })};
+  return {cabecera: [R.T.concepto, et[0], et[1]], unidad: g.unidad, filas: el.map(function (e) { return [e.rotulo, e.antes, e.despues]; })};
 };
 
 /* Halteras: la distancia entre dos valores de cada partida (pedido y concedido, propuesta y definitiva). */
-R.tipos.halteras = function (fig, g, id, Wb) {
+R.tipos.halteras = function (fig, g, id, W) {
   var el = g.elementos || [], nombres = g.nombres || {a: "A", b: "B"};
   if (!el.length) throw new Error("faltan elementos");
-  var W = Wb || ancho(fig), x0 = W < 520 ? 112 : 150, x1 = W - 60, fila = 34, tope = techo(max([].concat.apply([], el.map(function (e) { return [e.a, e.b]; }))));
-  var X = function (v) { return r1(x0 + v / tope * (x1 - x0)); }, s = R.lienzo(fig, W, el.length * fila + 30, g.resumen || "");
+  sinNegativos([].concat.apply([], el.map(function (e) { return [e.a, e.b]; })), "halteras");
+  var x0 = R.columnaRotulos(), x1 = W - 60, fila = 34, tope = topeDe(el.map(function (e) { return [e.a, e.b]; }));
+  var X = function (v) { return r1(x0 + v / tope * (x1 - x0)); }, s = R.lienzo(fig, W, el.length * fila + 30, g.resumen), ca = color(g.color_a || 6, 0), cb = color(g.color_b || 1, 0);
   el.forEach(function (e, i) {
     var y = 18 + i * fila;
-    texto(s, {x: x0 - 10, y: y + 4, "text-anchor": "end"}, R.recortar(e.rotulo, W < 520 ? 16 : 26));
+    R.rotuloFila(s, y + 4, e.rotulo);
     svg("line", {x1: X(e.a), y1: y, x2: X(e.b), y2: y, stroke: "var(--borde)", "stroke-width": 4, "stroke-linecap": "round"}, s);
-    consejo(svg("circle", {cx: X(e.a), cy: y, r: 6, fill: color(g.color_a || 6, 0)}, s), nombres.a + ": " + fmt(e.a, g.unidad));
-    consejo(svg("circle", {cx: X(e.b), cy: y, r: 6, fill: color(g.color_b || 1, 0)}, s), nombres.b + ": " + fmt(e.b, g.unidad));
+    consejo(svg("circle", {cx: X(e.a), cy: y, r: 6, fill: ca}, s), nombres.a + ": " + fmt(e.a, g.unidad));
+    consejo(svg("circle", {cx: X(e.b), cy: y, r: 6, fill: cb}, s), nombres.b + ": " + fmt(e.b, g.unidad));
     texto(s, {x: Math.max(X(e.a), X(e.b)) + 10, y: y + 4}, fmt(e.b - e.a, g.unidad, true), "valor-punto");
   });
   [0, tope / 2, tope].forEach(function (v) { texto(s, {x: X(v), y: el.length * fila + 26, "text-anchor": "middle"}, v ? fmt(v, g.unidad, true) : "0"); });
-  R.leyenda(fig, [{color: color(g.color_a || 6, 0), texto: nombres.a}, {color: color(g.color_b || 1, 0), texto: nombres.b}]);
-  return {cabecera: [T.concepto, nombres.a, nombres.b, T.diferencia || "Diferencia"], unidad: g.unidad, filas: el.map(function (e) { return [e.rotulo, e.a, e.b, e.b - e.a]; })};
+  R.leyenda(fig, [{color: ca, texto: nombres.a}, {color: cb, texto: nombres.b}]);
+  return {cabecera: [R.T.concepto, nombres.a, nombres.b, TX.diferencia], unidad: g.unidad, filas: el.map(function (e) { return [e.rotulo, e.a, e.b, e.b - e.a]; })};
 };
 
 /* Piramide: dos grupos enfrentados por tramos (edad, antiguedad, cuantia). */
-R.tipos.piramide = function (fig, g, id, Wb) {
-  var et = g.etiquetas || [], iz = g.izquierda || {}, de = g.derecha || {};
+R.tipos.piramide = function (fig, g, id, W) {
+  var et = g.etiquetas || [], iz = g.izquierda || {}, de = g.derecha || {}, va = iz.valores || [], vb = de.valores || [];
   if (!et.length) throw new Error("faltan etiquetas");
-  var W = Wb || ancho(fig), centro = W / 2, mitad = (W - 120) / 2, fila = 24, tope = techo(max((iz.valores || []).concat(de.valores || [])));
-  var s = R.lienzo(fig, W, et.length * fila + 40, g.resumen || "");
+  sinNegativos(va.concat(vb), "piramide");
+  var centro = W / 2, mitad = (W - 120) / 2, fila = 24, tope = topeDe([va, vb]), s = R.lienzo(fig, W, et.length * fila + 40, g.resumen);
   texto(s, {x: centro - 34, y: 14, "text-anchor": "end", "font-weight": 650}, iz.nombre || ""); texto(s, {x: centro + 34, y: 14, "font-weight": 650}, de.nombre || "");
   et.forEach(function (e, i) {
-    var y = 22 + i * fila, a = (iz.valores || [])[i] || 0, b = (de.valores || [])[i] || 0, wa = a / tope * (mitad - 30), wb = b / tope * (mitad - 30);
+    var y = 22 + i * fila, a = va[i] || 0, b = vb[i] || 0, wa = a / tope * (mitad - 30), wb = b / tope * (mitad - 30);
     consejo(svg("rect", {x: r1(centro - 30 - wa), y: y, width: r1(wa), height: fila - 4, fill: color(iz.color, 0)}, s), (iz.nombre || "") + " · " + e + ": " + fmt(a, g.unidad));
     consejo(svg("rect", {x: centro + 30, y: y, width: r1(wb), height: fila - 4, fill: color(de.color, 1)}, s), (de.nombre || "") + " · " + e + ": " + fmt(b, g.unidad));
     texto(s, {x: centro, y: y + 14, "text-anchor": "middle"}, R.recortar(e, 9));
   });
-  return {cabecera: [T.concepto, iz.nombre || "", de.nombre || ""], unidad: g.unidad, filas: et.map(function (e, i) { return [e, (iz.valores || [])[i], (de.valores || [])[i]]; })};
+  return {cabecera: [R.T.concepto, iz.nombre || "", de.nombre || ""], unidad: g.unidad, filas: et.map(function (e, i) { return [e, va[i], vb[i]]; })};
 };
 
-/* Calendario de calor: actividad o vencimientos por dia (semanas en columnas). */
-R.tipos.calendario = function (fig, g, id, Wb) {
-  var dias = g.dias || {}, claves = Object.keys(dias).sort();
+/* Calendario de calor: actividad o vencimientos por dia (semanas en columnas, de lunes a domingo). */
+R.tipos.calendario = function (fig, g) {
+  var dias = g.dias || {}, claves = Object.keys(dias).sort(), DIA = R.DIA;
   if (!claves.length) throw new Error("faltan dias");
-  var f = function (t) { var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(t); if (!m) throw new Error("fecha no valida: " + t); return Date.UTC(+m[1], +m[2] - 1, +m[3]); };
-  var D = 86400000, ini = f(g.desde || claves[0]), fin = f(g.hasta || claves[claves.length - 1]);
-  ini -= ((new Date(ini).getUTCDay() + 6) % 7) * D;  /* la semana empieza en lunes */
-  var semanas = Math.ceil((fin - ini + D) / (7 * D)), celda = 14, x0 = 34, y0 = 22, tope = max(claves.map(function (k) { return dias[k]; })) || 1;
-  var s = R.lienzo(fig, x0 + semanas * (celda + 2) + 8, y0 + 7 * (celda + 2) + 8, g.resumen || "");
-  s.setAttribute("width", x0 + semanas * (celda + 2) + 8);
-  var mes = new Intl.DateTimeFormat(document.documentElement.lang || "es", {month: "short", timeZone: "UTC"}), largo = new Intl.DateTimeFormat(document.documentElement.lang || "es", {day: "numeric", month: "long", timeZone: "UTC"});
-  ["L", "X", "V"].forEach(function (d, i) { texto(s, {x: x0 - 6, y: y0 + (i * 2) * (celda + 2) + 11, "text-anchor": "end"}, d); });
+  var ini = R.fecha(g.desde || claves[0]), fin = R.fecha(g.hasta || claves[claves.length - 1]);
+  ini -= ((new Date(ini).getUTCDay() + 6) % 7) * DIA;
+  var semanas = Math.ceil((fin - ini + DIA) / (7 * DIA)), celda = 14, x0 = 34, y0 = 22, tope = max(claves.map(function (k) { return dias[k]; })) || 1;
+  var ancho = x0 + semanas * (celda + 2) + 8, s = R.lienzo(fig, ancho, y0 + 7 * (celda + 2) + 8, g.resumen);
+  s.setAttribute("width", ancho);
+  var mes = new Intl.DateTimeFormat(R.IDIOMA, {month: "short", timeZone: "UTC"}), largo = new Intl.DateTimeFormat(R.IDIOMA, {day: "numeric", month: "long", timeZone: "UTC"});
+  var inicial = new Intl.DateTimeFormat(R.IDIOMA, {weekday: "narrow", timeZone: "UTC"});
+  [0, 2, 4].forEach(function (d) { texto(s, {x: x0 - 6, y: y0 + d * (celda + 2) + 11, "text-anchor": "end"}, inicial.format(Date.UTC(2026, 0, 5 + d))); });
   var ultimoMes = -1;
-  for (var t = ini; t <= fin; t += D) {
-    var i = Math.floor((t - ini) / (7 * D)), d = (new Date(t).getUTCDay() + 6) % 7, k = new Date(t).toISOString().slice(0, 10), v = dias[k] || 0;
-    if (new Date(t).getUTCMonth() !== ultimoMes && d === 0 && new Date(t).getUTCDate() <= 7) { ultimoMes = new Date(t).getUTCMonth(); texto(s, {x: x0 + i * (celda + 2), y: y0 - 8}, mes.format(t)); }
+  for (var t = ini; t <= fin; t += DIA) {
+    var f = new Date(t), i = Math.floor((t - ini) / (7 * DIA)), d = (f.getUTCDay() + 6) % 7, v = dias[f.toISOString().slice(0, 10)] || 0;
+    /* El mes se rotula en su primera semana (y siempre en la primera columna). */
+    if (d === 0 && f.getUTCMonth() !== ultimoMes && (i === 0 || f.getUTCDate() <= 7)) { ultimoMes = f.getUTCMonth(); texto(s, {x: x0 + i * (celda + 2), y: y0 - 8}, mes.format(t)); }
     consejo(svg("rect", {x: x0 + i * (celda + 2), y: y0 + d * (celda + 2), width: celda, height: celda, rx: 3,
       fill: v ? color(g.color || "acento", 0) : "var(--superficie-2)", "fill-opacity": v ? r1(0.2 + 0.8 * v / tope) : null, stroke: "var(--borde-suave)"}, s), largo.format(t) + ": " + v);
   }
-  return {cabecera: [T.concepto, T.valor], filas: claves.map(function (k) { return [largo.format(f(k)), dias[k]]; })};
+  return {cabecera: [R.T.concepto, R.T.valor], filas: claves.map(function (k) { return [largo.format(R.fecha(k)), dias[k]]; })};
 };
 
 /* Pictograma: una proporcion contada en figuras («3 de cada 10»). */
-R.tipos.pictograma = function (fig, g, id, Wb) {
+R.tipos.pictograma = function (fig, g) {
   var total = g.total || 10, parte = g.valor;
   if (!num(parte) || parte < 0 || parte > total) throw new Error("valor debe estar entre 0 y total");
-  var por = Math.min(total, 10), filas = Math.ceil(total / por), lado = 30;
-  var s = R.lienzo(fig, por * lado + 8, filas * lado + 8, g.resumen || ""); s.setAttribute("width", por * lado + 8);
+  var por = Math.min(total, 10), lado = 30, s = R.lienzo(fig, por * lado + 8, Math.ceil(total / por) * lado + 8, g.resumen);
+  s.setAttribute("width", por * lado + 8);
   for (var i = 0; i < total; i++) {
-    var x = 4 + (i % por) * lado, y = 4 + Math.floor(i / por) * lado, lleno = i < Math.round(parte);
-    var c = lleno ? color(g.color || 1, 0) : "var(--borde)";
+    var x = 4 + (i % por) * lado, y = 4 + Math.floor(i / por) * lado, c = i < Math.round(parte) ? color(g.color || 1, 0) : "var(--borde)";
     svg("circle", {cx: x + 15, cy: y + 9, r: 5.5, fill: c}, s);
     svg("path", {d: "M " + (x + 6) + " " + (y + 27) + " Q " + (x + 6) + " " + (y + 15) + " " + (x + 15) + " " + (y + 15) + " Q " + (x + 24) + " " + (y + 15) + " " + (x + 24) + " " + (y + 27) + " Z", fill: c}, s);
   }
   if (g.rotulo) R.html("p", "medidor-rotulo", fig, g.rotulo);
-  return {cabecera: [T.valor, T.total], filas: [[parte, total]]};
+  return {cabecera: [R.T.valor, R.T.total], filas: [[parte, total]]};
 };
 
 ["radar", "calendario", "pictograma"].forEach(function (t) { R.tipos[t].fijo = true; });
@@ -541,7 +548,6 @@ Uso con mesura: un icono acompana a un texto, nunca lo sustituye (el texto sigue
    reporte usa algun icono. */
 (function(){
 "use strict";
-var NS = "http://www.w3.org/2000/svg";
 var TRAZOS = {
   plazo: "M12 7v5l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z",
   calendario: "M4 6h16v14H4zM4 10h16M8 3v4M16 3v4",
@@ -563,11 +569,9 @@ var TRAZOS = {
 function pintar(nodo) {
   var d = TRAZOS[nodo.getAttribute("data-icono")];
   if (!d) { console.error("Icono desconocido: " + nodo.getAttribute("data-icono")); return; }
-  var s = document.createElementNS(NS, "svg"), p = document.createElementNS(NS, "path");
-  s.setAttribute("viewBox", "0 0 24 24"); s.setAttribute("aria-hidden", "true");
-  s.setAttribute("style", "width:1.1em;height:1.1em;vertical-align:-.18em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;display:inline-block;margin-right:.3em");
-  p.setAttribute("d", d); s.appendChild(p);
-  nodo.textContent = ""; nodo.appendChild(s);
+  nodo.textContent = "";
+  Reportes.svg("path", {d: d}, Reportes.svg("svg", {viewBox: "0 0 24 24", "aria-hidden": "true",
+    style: "width:1.1em;height:1.1em;vertical-align:-.18em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;display:inline-block;margin-right:.3em"}, nodo));
 }
 function todos() { document.querySelectorAll("[data-icono]").forEach(pintar); }
 /* Tras la carga, para incluir los iconos de las diapositivas que monta su script. */
@@ -716,6 +720,93 @@ R.tipos.qr = function (fig, g) {
   return null;
 };
 R.tipos.qr.fijo = true;
+})();
+</script>
+```
+
+
+---
+
+## Identidad del despacho (`marca`)
+
+Aplica los colores, el logo y el pie del despacho a partir del bloque `marca` de los datos, sin tocar el CSS. Es la forma de resolver `tema_personalizado`.
+
+```json
+"marca": {"nombre": "Lasheras & Gil Abogados", "acento": "#7a1f3d", "acento_fuerte": "#5c1730",
+          "serie": ["#7a1f3d", "#b8893b", "#3f6b5a", "#4b5d86", "#9a5a7c", "#6b7280"],
+          "oscuro": {"acento": "#e48aa6", "serie": ["#e48aa6", "#e0b36a", "#8fc2a8", "#9fb2e0", "#d49ab8", "#a0a7ad"]},
+          "logo": "data:image/svg+xml;base64,...", "pie": "Lasheras & Gil Abogados, S.L.P. · Zaragoza"}
+```
+
+- Colores en hexadecimal de 3, 4, 6 u 8 cifras; otro valor se ignora. Rigen en el tema claro y en papel.
+- `oscuro`: version para el tema oscuro. Un color corporativo oscuro (un granate, un azul marino) no se lee sobre fondo negro: si no se da, en tema oscuro se mantienen los colores del tema, que si contrastan.
+- `logo`: solo si lo aporta el usuario, como data URI de imagen de menos de 15 KB. Va en la cabecera o, en una presentacion, en la portada. Sobre la portada oscura del documento largo conviene una version clara.
+- `pie`: linea que se anade al pie del documento.
+
+```js modulo=marca
+<script>
+/* Identidad del despacho para los reportes. Se copia integro, despues del motor, solo si
+   los datos llevan el bloque marca. */
+(function(){
+"use strict";
+var R = Reportes, D = document, m = R.datos.marca, hex = /^#([0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i;
+if (!m) return;
+function variables(c) {
+  var v = "";
+  if (hex.test(c.acento || "")) v += "--acento:" + c.acento + ";--acento-fuerte:" + (hex.test(c.acento_fuerte || "") ? c.acento_fuerte : c.acento) +
+    ";--acento-suave:color-mix(in srgb," + c.acento + " 12%,var(--superficie));";
+  (c.serie || []).slice(0, 6).forEach(function (x, i) { if (hex.test(x)) v += "--c" + (i + 1) + ":" + x + ";"; });
+  return v;
+}
+/* En claro y en papel, los colores de marca; en oscuro, su version oscura o los del tema. */
+var css = "@media (prefers-color-scheme:light),print{:root{" + variables(m) + "}}";
+if (m.oscuro) css += "@media screen and (prefers-color-scheme:dark){:root{" + variables(m.oscuro) + "}}";
+R.html("style", "", D.head).textContent = css;
+if (m.pie) R.html("p", "", D.querySelector(".pie"), m.pie);
+function logo() {
+  if (!/^data:image\/(png|jpeg|svg\+xml|webp);base64,/.test(m.logo || "")) return;
+  var destino = D.querySelector(".maqueta-portada") || D.querySelector(".contenedor>header"), img = R.html("img", "", null);
+  img.src = m.logo; img.alt = m.nombre || "";
+  img.setAttribute("style", "display:block;max-height:52px;max-width:220px;margin:0 0 12px");
+  destino.insertBefore(img, destino.firstChild);
+}
+/* Tras la carga, para encontrar la portada de una presentacion, que monta su script. */
+if (D.readyState === "loading") D.addEventListener("DOMContentLoaded", logo); else logo();
+})();
+</script>
+```
+
+---
+
+## Plazos en dias habiles (`plazos`)
+
+Anade dos calculos a `cifras`:
+
+- `{"calculo": "dias_habiles", "desde": "2026-09-17", "hasta": "2026-10-05", "festivos": [...], "agosto_inhabil": true}`: los dias habiles entre dos fechas.
+- `{"calculo": "vencimiento", "desde": "2026-10-01", "dias": 20, "festivos": [...], "unidad": "fecha"}`: la fecha en que vence un plazo de tantos dias habiles, contados desde el dia siguiente.
+
+Se excluyen sabados y domingos. `festivos` es la lista de **todos los demas dias inhabiles** que correspondan (festivos nacionales, autonomicos y locales del lugar, y los que la norma procesal aplicable declare inhabiles), en `AAAA-MM-DD`, **aportados por el usuario o verificados en la sesion**: el modulo no trae ningun calendario. `agosto_inhabil` solo para plazos procesales en que agosto lo sea. Un vencimiento alimenta un diagrama de plazos con `"fin": "@clave"`. El resultado es orientativo y se dice asi en el bloque de supuestos.
+
+```js modulo=plazos
+<script>
+/* Plazos en dias habiles para los reportes. Se copia integro, despues del motor, solo si
+   alguna cifra usa dias_habiles o vencimiento. */
+(function(){
+"use strict";
+var R = Reportes, DIA = R.DIA;
+function habil(t, def) {
+  var d = new Date(t), s = d.getUTCDay();
+  return s !== 0 && s !== 6 && !(def.agosto_inhabil && d.getUTCMonth() === 7) && (def.festivos || []).indexOf(d.toISOString().slice(0, 10)) < 0;
+}
+R.calculos.dias_habiles = function (def) {
+  for (var t = R.fecha(def.desde), fin = R.fecha(def.hasta), n = 0; t < fin;) { t += DIA; if (habil(t, def)) n++; }
+  return n;
+};
+R.calculos.vencimiento = function (def) {
+  if (!(def.dias > 0)) throw new Error("el vencimiento necesita dias");
+  for (var t = R.fecha(def.desde), n = 0; n < def.dias;) { t += DIA; if (habil(t, def)) n++; }
+  return t;
+};
 })();
 </script>
 ```

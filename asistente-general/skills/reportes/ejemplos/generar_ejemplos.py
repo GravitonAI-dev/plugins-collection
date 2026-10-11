@@ -260,6 +260,7 @@ def white_paper():
     demo = {"demo": {"nombre": "Datos ficticios de demostracion", "consulta": "2026-10-11"}}
     datos = {"idioma": "es-ES", "moneda": "EUR", "fuentes": demo,
       "marca": {"nombre": "Despacho de ejemplo", "acento": "#7a2e3b", "acento_fuerte": "#5c1f2b", "serie": ["#7a2e3b", "#b07d3a", "#3f6b5a", "#4b5d86", "#9a5a7c", "#6b7280"],
+                "oscuro": {"acento": "#e48aa6", "serie": ["#e48aa6", "#e0b36a", "#8fc2a8", "#9fb2e0", "#d49ab8", "#a0a7ad"]},
                 "pie": "Despacho de ejemplo, S.L.P. · Documento de demostracion con identidad corporativa aplicada desde el bloque marca."},
       "cifras": {"plazo_2026": {"de": "plazos_pago", "calculo": "ultimo", "unidad": "dias", "decimales": 0},
                  "plazo_2022": {"de": "plazos_pago", "calculo": "primero", "unidad": "dias", "decimales": 0},
@@ -303,7 +304,7 @@ def white_paper():
       "SUBTITULO_CAPITULO_3": "Tres medidas que cambian el resultado", "PUNTO_1": "Aceptacion escrita de cada factura o albaran.", "PUNTO_2": "Requerimiento fehaciente a los treinta dias del vencimiento.",
       "TITULO_NOTAS": "Notas", "NOTA_1": "Todas las cifras de este documento son ficticias y sirven solo para mostrar el formato.",
     })
-    return componer("white_paper_morosidad_pymes.html", textos, datos, "documento_largo", contenido=contenido, modulos=["diagramas"])
+    return componer("white_paper_morosidad_pymes.html", textos, datos, "documento_largo", contenido=contenido, modulos=["diagramas", "marca"])
 
 def resumen():
     datos = {"idioma": "es-ES", "moneda": "EUR", "fuentes": FUENTE_CLIENTE,
@@ -460,7 +461,7 @@ def galeria():
       "ENTRADILLA": "Cada grafico se declara con sus datos en el bloque datos-reporte y lo dibuja el motor de la base. Bajo cada uno estan su tabla de datos, la descarga en CSV y su fuente.",
     })
     return componer("galeria_graficos.html", textos, datos, ficha='<li><b>Tipos:</b> %d</li>' % len(GALERIA),
-                    contenido=contenido, ancho="1120px", modulos=["diagramas", "avanzados", "iconos", "qr"])
+                    contenido=contenido, ancho="1120px", modulos=["diagramas", "avanzados", "iconos", "qr", "plazos"])
 
 # --------------------------------------------------------------------------- comprobacion e impresion
 def comprobar_y_imprimir(archivos, pdf):

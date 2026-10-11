@@ -37,8 +37,7 @@ El motor de la base dibuja el SVG, calcula escalas, ejes y porcentajes, rellena 
 - **`fuentes`**: cada fuente con `nombre`, `url` si viene de internet y `consulta` en formato `AAAA-MM-DD` (la fecha real de la consulta en la sesion, nunca inventada). Los graficos las citan por su clave.
 - **`cifras`**: cifras sueltas del texto. Cada una es `{"valor": 1234, "unidad": "eur"}`, una operacion entre otras dos cifras (o numeros) —`{"operacion": "porcentaje", "a": "cobrado", "b": "facturado", "unidad": "pct"}`, con `suma`, `diferencia`, `producto`, `cociente` o `porcentaje` (a sobre b por cien); el 30 % de una cifra es `producto` por 0.3— o un calculo sobre un grafico: `{"de": "grafico", "calculo": "suma", "serie": 0, "unidad": "eur"}`. Calculos: `suma`, `media`, `maximo`, `minimo`, `primero`, `ultimo`, `cuenta`, `variacion` (porcentaje entre el primero y el ultimo) y `porcentaje` (peso de `"elemento": "rotulo"` sobre el total). En el HTML se escriben con `<span data-cifra="principal"></span>`; en las diapositivas, con `{cifra:principal}` dentro del texto. `"decimales": 0` quita los decimales (una cifra grande de portada); por defecto los importes llevan dos. **Toda cifra que se obtiene de otras (un porcentaje de cumplimiento, una diferencia con el objetivo, un total) se declara asi y nunca se calcula a mano.**
 - **`fuentes[].consulta`** es la fecha en que se obtuvieron los datos: la de la consulta en internet, la de exportacion que indique el usuario o, si no indica ninguna, la fecha de la conversacion.
-- **`marca`**: identidad del despacho, que el motor aplica sin tocar el CSS: `{"nombre": "Ortega Lasheras Abogados", "acento": "#1f5f73", "acento_fuerte": "#154452", "serie": ["#1f5f73", "#8a6d3b", "#5b7f4a"], "logo": "data:image/svg+xml;base64,...", "pie": "Ortega Lasheras Abogados, S.L.P. · Zaragoza"}`. Colores en hexadecimal (se comprueba su contraste en claro y oscuro), logo como data URI de imagen de menos de 15 KB y solo si el usuario lo aporta. Es la forma de aplicar `tema_personalizado`.
-- **Plazos en dias habiles** como cifras: `{"calculo": "dias_habiles", "desde": "2026-09-17", "hasta": "2026-10-05", "festivos": [...], "agosto_inhabil": true}` cuenta los habiles entre dos fechas; `{"calculo": "vencimiento", "desde": "2026-09-17", "dias": 20, "festivos": [...], "agosto_inhabil": true, "unidad": "fecha"}` devuelve la fecha en que vence. Se excluyen sabados y domingos; los festivos (nacionales, autonomicos y locales del lugar que corresponda) **los aporta quien redacta, verificados en la sesion**: el motor no trae ningun calendario. `agosto_inhabil` solo para plazos procesales. Un vencimiento puede alimentar un diagrama de plazos con `"fin": "@vencimiento"`. El resultado es orientativo y se dice asi en el bloque de supuestos.
+- **`marca`** (identidad del despacho) y **plazos en dias habiles** (`dias_habiles`, `vencimiento`): modulos opcionales, contrato en `modulos-motor.md`.
 - **`textos`**: solo si el documento no esta en espanol ni en ingles, para traducir los rotulos que escribe el motor; las claves son las de `TEXTOS_BASE` en el script de la base (y las de `TX` en el modulo de diagramas).
 
 ### Campos comunes a todos los graficos
@@ -290,10 +289,6 @@ Para fundamentar con resoluciones, siempre verificadas en la sesion en el CENDOJ
 ```
 
 La referencia es la oficial (Roj o ECLI) y la URL de cada resolucion va en `fuentes`, que la recoge el pie. Relevancia: `ok` directa, `atencion` por analogia, `riesgo` en contra. Si se quiere que el lector en papel llegue a la resolucion, un QR con su URL.
-
-### Iconos
-
-Modulo opcional (`modulos-motor.md`): `<span class="icono" data-icono="plazo"></span>` delante del texto al que acompana.
 
 ### Pie del reporte
 

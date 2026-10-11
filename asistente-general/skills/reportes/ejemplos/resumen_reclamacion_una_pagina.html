@@ -158,7 +158,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 .grafico .hoy{stroke:var(--riesgo);stroke-width:2;stroke-dasharray:4 3}
 .grafico .texto-hoy{font-size:11px;fill:var(--riesgo);font-weight:650}
 ol.leyenda{display:block;padding-left:20px}
-.logo-marca{display:block;max-height:52px;max-width:220px;margin:0 0 var(--e3)}
 [data-cifra].delta-bien{color:var(--ok)}
 [data-cifra].delta-mal{color:var(--riesgo)}
 .grafico .valor-punto.dentro{fill:#fff}
@@ -436,7 +435,7 @@ function techo(v) {
 function color(c, i) {
   if (typeof c === "number") return "var(--c" + c + ")";
   if (/^(ok|aviso|riesgo|acento|acento-fuerte)$/.test(c || "")) return "var(--" + c + ")";
-  if (/^#[0-9a-fA-F]{3,8}$/.test(c || "")) return c;
+  if (/^#([0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(c || "")) return c;
   return "var(--c" + ((i % 6) + 1) + ")";
 }
 function lienzo(fig, ancho, alto, resumen, clase, estirar) {
@@ -891,23 +890,12 @@ function cifraDe(clave, pila) {
   if (!d) throw new Error("no hay cifra " + clave);
   return cifra(d, pila.concat([clave]));
 }
-/* Plazos en dias habiles: sin sabados, domingos ni los festivos que se indiquen (y sin
-   agosto si es inhabil). Los festivos los aporta quien redacta, verificados: no se suponen. */
-function habil(t, def) {
-  var d = new Date(t), s = d.getUTCDay();
-  return s !== 0 && s !== 6 && !(def.agosto_inhabil && d.getUTCMonth() === 7) && (def.festivos || []).indexOf(d.toISOString().slice(0, 10)) < 0;
-}
-function habiles(def) {
-  var t = fecha(def.desde), n = 0;
-  if (def.calculo === "dias_habiles") { for (var fin = fecha(def.hasta); t < fin;) { t += DIA; if (habil(t, def)) n++; } return n; }
-  if (!(def.dias > 0)) throw new Error("el vencimiento necesita dias");
-  while (n < def.dias) { t += DIA; if (habil(t, def)) n++; }
-  return t;
-}
+/* Calculos que anaden los modulos (por ejemplo, plazos en dias habiles). */
+var calculos = {};
 function cifra(def, pila) {
   pila = pila || [];
   if (num(def.valor)) return def.valor;
-  if (def.calculo === "dias_habiles" || def.calculo === "vencimiento") return habiles(def);
+  if (calculos[def.calculo]) return calculos[def.calculo](def);
   /* Operacion entre dos cifras (o numeros): porcentaje de cumplimiento, diferencia con un objetivo... */
   if (def.operacion) {
     var op = function (x) { return num(x) ? x : cifraDe(x, pila); };
@@ -1006,27 +994,7 @@ function pintarCifras() {
     } catch (e) { console.error("Cifra " + clave + ": " + e.message); n.textContent = "{{" + clave + "}}"; }
   });
 }
-/* Identidad del despacho: colores, logo y pie, sin tocar el CSS. Solo colores hexadecimales
-   y logos en data URI de imagen, para que nada externo entre en el documento. */
-function aplicarMarca(m) {
-  if (!m) return;
-  var raiz = D.documentElement.style, hex = /^#[0-9a-fA-F]{3,8}$/;
-  if (hex.test(m.acento || "")) {
-    raiz.setProperty("--acento", m.acento);
-    raiz.setProperty("--acento-fuerte", hex.test(m.acento_fuerte || "") ? m.acento_fuerte : m.acento);
-    raiz.setProperty("--acento-suave", "color-mix(in srgb," + m.acento + " 12%,var(--superficie))");
-  }
-  (m.serie || []).slice(0, 6).forEach(function (c, i) { if (hex.test(c)) raiz.setProperty("--c" + (i + 1), c); });
-  var cabecera = D.querySelector(".contenedor>header");
-  if (cabecera && /^data:image\/(png|jpeg|svg\+xml|webp);base64,/.test(m.logo || "")) {
-    var img = D.createElement("img");
-    img.src = m.logo; img.alt = m.nombre || ""; img.className = "logo-marca";
-    cabecera.insertBefore(img, cabecera.firstChild);
-  }
-  if (m.pie) html("p", "", D.querySelector(".pie"), m.pie);
-}
 function arrancar() {
-  aplicarMarca(datos.marca);
   figuras = [].slice.call(D.querySelectorAll("[data-grafico]"));
   todos();
   pintarCifras();
@@ -1052,7 +1020,9 @@ if (imprimir) imprimir.addEventListener("click", function () { window.print(); }
    para el script de una maqueta. actualizar cambia los datos de un grafico y lo
    redibuja junto con las cifras del texto. */
 window.Reportes = {datos: datos, fmt: fmt, tipos: tipos, T: T, svg: svg, html: html, color: color, lienzo: lienzo,
-  recortar: recortar, consejo: consejo, escala: escala, leyenda: leyenda, r1: r1,
+  recortar: recortar, consejo: consejo, escala: escala, leyenda: leyenda, r1: r1, num: num, maximo: maximo, minimo: minimo,
+  techo: techo, fecha: fecha, DIA: DIA, rejilla: rejilla, yDe: yDe, columnaRotulos: columnaRotulos, rotuloFila: rotuloFila,
+  calculos: calculos, IDIOMA: IDIOMA,
   actualizar: function (id, cambios) {
     Object.assign(datos.graficos[id], cambios);
     figuras.forEach(function (f) { if (f.getAttribute("data-grafico") === id) dibujar(f, f.clientWidth); });
