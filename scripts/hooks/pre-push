@@ -1,8 +1,21 @@
 #!/usr/bin/env bash
-# Corta el push si el control de calidad falla. Se activa una vez por clon:
+# Corta el push si el control de calidad falla o si el commit que se sube no esta
+# marcado como revisado con /simplify y /code-review (scripts/marcar_revisado.sh).
+# Se activa una vez por clon:
 #   git config core.hooksPath scripts/hooks
-# Se ejecuta sobre una copia limpia del commit que se sube, no sobre la carpeta de
-# trabajo: lo que no esta commiteado ni ayuda ni estorba.
+# El control se ejecuta sobre una copia limpia del commit que se sube, no sobre la
+# carpeta de trabajo: lo que no esta commiteado ni ayuda ni estorba.
+registro="$(git rev-parse --git-common-dir)/revisiones-ok"
+cero=0000000000000000000000000000000000000000
+while read -r ref_local sha_local ref_remota sha_remota; do
+  [ "$sha_local" = "$cero" ] && continue  # borrar una rama remota no sube codigo
+  if ! grep -q "^$sha_local " "$registro" 2>/dev/null; then
+    echo "PUSH CORTADO: $(git log -1 --format='%h %s' "$sha_local" | cut -c1-80)" >&2
+    echo "no esta marcado como revisado. Pasa /simplify y /code-review sobre el diff," >&2
+    echo "aplica lo que encuentren, commitea y ejecuta scripts/marcar_revisado.sh." >&2
+    exit 1
+  fi
+done
 copia=$(mktemp -d)
 git worktree add -q --detach "$copia" HEAD || exit 1
 (cd "$copia" && scripts/control_calidad.sh)

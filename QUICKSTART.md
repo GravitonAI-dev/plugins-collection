@@ -70,7 +70,7 @@ El builder **nunca** escribe un archivo sin tu confirmacion previa.
   - **MAJOR**: cambios incompatibles (schema que rompe, default que cambia).
   - **MINOR**: skills nuevas o capabilities additive.
   - **PATCH**: fixes descriptivos, typos, ajustes menores.
-- Antes de subir, pasa el control de calidad obligatorio: `scripts/control_calidad.sh` en verde, `/simplify` y `/code-review` sobre el diff, `git fetch` e integrar `origin/develop`, y PR a `develop`. GitHub no deja fusionar si el control esta en rojo. Detalle en el README, seccion 10.
+- Antes de subir, pasa el control de calidad obligatorio: `scripts/control_calidad.sh` en verde, `/simplify` y `/code-review` sobre el diff, `scripts/marcar_revisado.sh`, `git fetch` e integrar `origin/develop`, y PR a `develop`. GitHub no deja fusionar si el control esta en rojo. Detalle en el README, seccion 10.
 
 ---
 

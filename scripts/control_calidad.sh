@@ -22,4 +22,4 @@ if [ "$fallo" -ne 0 ]; then
   echo "CONTROL DE CALIDAD EN ROJO: corrige los FALLO de arriba antes de subir."
   exit 1
 fi
-echo "Control de calidad en verde. Antes de subir: /simplify y /code-review sobre el diff."
+echo "Control de calidad en verde. Antes de subir: /simplify y /code-review sobre el diff, y scripts/marcar_revisado.sh."
