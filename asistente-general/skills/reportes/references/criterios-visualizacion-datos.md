@@ -26,6 +26,7 @@ El valor de un reporte no esta en que tenga graficos, sino en que cada elemento 
 | Quien depende de quien (grupo societario, organigrama) | Diagrama en arbol | Tabla de participaciones sin estructura |
 | Que relacion tiene cada parte con el caso | Diagrama radial | Parrafo con todos los nombres |
 | Quien hace que en cada momento | Diagrama por carriles | Cronologia sin responsables |
+| Donde se concentra algo en el territorio | Mapa por comunidades o provincias, con tasas si las poblaciones son muy distintas | Tabla de diecisiete filas o barras sin orden geografico |
 | Que pasa si cambio un parametro | Herramienta interactiva con campos y recalculo | Tres tablas con escenarios fijos |
 | Que tengo que reunir o comprobar | Lista de verificacion con progreso | Parrafo con incisos |
 

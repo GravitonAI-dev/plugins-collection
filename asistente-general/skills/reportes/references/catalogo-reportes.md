@@ -68,7 +68,7 @@ Recetas de partida para los reportes que mas se piden: tipo de entregable (V1), 
 ### Informe de mercado o sector (`mercado_sector`)
 
 - **V1:** `informe_visual` o `documento_largo`.
-- **Bloques:** conclusion → tamano y evolucion (linea con anotaciones de cambios normativos) → reparto (tarta o barras) → comparativa territorial (barras) → tendencias → implicaciones para el cliente.
+- **Bloques:** conclusion → tamano y evolucion (linea con anotaciones de cambios normativos) → reparto (tarta o barras) → comparativa territorial (mapa por comunidades o provincias, y barras para el detalle) → tendencias → implicaciones para el cliente.
 - **Datos que pedir o buscar:** solo fuentes oficiales o publicas citadas con URL y fecha; si el fetch no puede leer un PDF o una hoja de calculo de la fuente, se dice y no se rellena de memoria.
 
 ---

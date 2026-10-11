@@ -427,6 +427,12 @@ GALERIA = [
    {"tipo": "pictograma", "valor": 3, "total": 10, "rotulo": "3 de cada 10 impagos acaban en juicio"}),
   ("qr", "Codigo QR", "Modulo QR: lleva al lector en papel a la fuente.",
    {"tipo": "qr", "texto": "https://www.boe.es", "rotulo": "Boletin Oficial del Estado"}),
+  ("mapa", "Mapa por comunidades autonomas", "Modulo mapa: donde se concentran los asuntos; Madrid, destacada.",
+   {"tipo": "mapa", "unidad": "asuntos", "destacar": ["ES-MD"], "valores": {"Andalucia": 412, "Cataluna": 388, "Comunidad de Madrid": 520, "Comunitat Valenciana": 301,
+     "Galicia": 120, "Castilla y Leon": 96, "Pais Vasco": 143, "Canarias": 88, "Aragon": 71, "Illes Balears": 55, "Region de Murcia": 64, "Ceuta": 4, "Melilla": 3}}),
+  ("provincias", "Mapa por provincias", "Modulo mapa_provincias: facturacion por provincia; las que no tienen dato, rayadas.",
+   {"tipo": "mapa", "nivel": "provincias", "unidad": "eur", "valores": {"Zaragoza": 182000, "Huesca": 41000, "Teruel": 18000, "Madrid": 260000, "Barcelona": 210000,
+     "Valencia": 99000, "Sevilla": 120000, "Malaga": 87000, "A Coruna": 40000, "Las Palmas": 33000}}),
   ("plazos", "Diagrama de plazos", "Varios plazos en una escala comun, con la marca de hoy.",
    {"tipo": "plazos", "hoy": "2026-09-20", "plazos": [{"rotulo": "Recurso de reposicion", "inicio": "2026-08-01", "fin": "2026-08-20"},
      {"rotulo": "Requerimiento", "inicio": "2026-09-01", "fin": "2026-09-27"},
@@ -461,7 +467,7 @@ def galeria():
       "ENTRADILLA": "Cada grafico se declara con sus datos en el bloque datos-reporte y lo dibuja el motor de la base. Bajo cada uno estan su tabla de datos, la descarga en CSV y su fuente.",
     })
     return componer("galeria_graficos.html", textos, datos, ficha='<li><b>Tipos:</b> %d</li>' % len(GALERIA),
-                    contenido=contenido, ancho="1120px", modulos=["diagramas", "avanzados", "iconos", "qr", "plazos"])
+                    contenido=contenido, ancho="1120px", modulos=["diagramas", "avanzados", "iconos", "qr", "plazos", "mapa", "mapa_provincias"])
 
 # --------------------------------------------------------------------------- comprobacion e impresion
 def comprobar_y_imprimir(archivos, pdf):
