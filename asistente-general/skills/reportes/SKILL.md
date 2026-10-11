@@ -164,13 +164,13 @@ Fijados los vectores de clasificacion, evalua la rama de ejecucion. `V2` esta fi
 1. Consulta `references/criterios-visualizacion-datos.md` para decidir que forma grafica responde a la pregunta del usuario, y `references/anatomia-documento-visual.md` para las reglas invariables del formato.
 2. Si `V3 = busqueda_web`, verifica los datos en fuentes oficiales mediante `web_search` antes de representarlos. **Regla de citas (obligatoria):** cada cifra obtenida de internet queda trazada a su fuente &mdash;nombre de la fuente, URL y fecha de consulta&mdash; y el documento visual lleva siempre su bloque de fuentes en el pie con esas referencias. Cada fuente se declara en `fuentes` del bloque de datos con su nombre, URL y fecha real de consulta (`AAAA-MM-DD`); el motor escribe la fuente bajo cada grafico y compone el pie de fuentes del documento. Una cifra sin fuente verificada en la sesion no entra en el documento: queda como `{{VARIABLE}}` o se omite el bloque que la necesitaba.
 3. Si `V3 = documento_del_workspace`, toma el contenido prioritariamente de la seccion `# WORKSPACE ACTIVE DOCUMENTS`.
-4. **Regla de enriquecimiento (obligatoria):** si los datos los aporta el usuario (`V3 = datos_del_chat` o `documento_del_workspace`), pregunta SIEMPRE, antes de crear el documento, si este se construye solo con sus datos o si se enriquece con documentacion buscada en internet. Si el usuario elige enriquecer: las cifras de internet cumplen la regla de citas del punto 2 y quedan diferenciadas de las del usuario (en el propio bloque o en el pie se dice que dato viene de cada origen); nunca se mezclan origenes sin marcarlos.
+4. **Regla de enriquecimiento (obligatoria):** si los datos los aporta el usuario (`V3 = datos_del_chat` o `documento_del_workspace`), pregunta SIEMPRE, antes de crear el documento, si este se construye solo con sus datos o si se enriquece con documentacion buscada en internet, salvo que ya lo haya dicho en la conversacion (escucha activa). Si el usuario elige enriquecer: las cifras de internet cumplen la regla de citas del punto 2 y quedan diferenciadas de las del usuario (en el propio bloque o en el pie se dice que dato viene de cada origen); nunca se mezclan origenes sin marcarlos.
 
 ### 2.2 Mensaje de Plan de Accion y Formulario de Seleccion de Plantilla
 En un unico turno, expon en el chat:
 1. **Que va a mostrar el documento visual:** la idea principal, los indicadores que encabezaran la pagina y que forma grafica se usara para cada pregunta, con una justificacion breve (por ejemplo, barras ordenadas para comparar partidas y linea para la evolucion mensual).
 2. **Que datos faltan** para completarlo, si los hay.
-3. **Propuesta de plantilla oficial del sistema** mencionada solo por su denominacion formal (informe visual, panel de datos o herramienta interactiva). Prohibido mostrar rutas de archivo y prohibido volcar el contenido de la plantilla.
+3. **Propuesta de plantilla oficial del sistema** mencionada solo por su denominacion formal (informe visual, panel de datos, herramienta interactiva o presentacion). Prohibido mostrar rutas de archivo y prohibido volcar el contenido de la plantilla.
 4. **Formulario preceptivo** `restricted_human_in_the_loop_request` con `id` `origen_plantilla` y las dos opciones canonicas de `REG-AST-01` (`plantilla_sistema` y `plantilla_usuario`).
 
 ### 2.3 Fijacion de V5 y Manejo de la Eleccion
@@ -204,11 +204,13 @@ Para cada bloque sustantivo: recogida de datos -> **descripcion en texto plano d
 #### 1. Encabezado e identificacion
 - Titulo del documento visual (afirma la idea principal, no etiqueta el contenido), entradilla de una o dos frases, etiqueta superior, referencia del expediente, fecha, destinatario y autoria.
 - Datos de personas y entidades resueltos conforme a `REG-CLI-01` a `REG-CLI-05` y volcados de inmediato en el encabezado y en el pie, sin confirmacion previa en el chat.
-- Ajuste del elemento `title` del documento: nombre corto y reconocible, porque es lo que se lee en la pestana del navegador.
+- Ajuste del elemento `title` del documento: nombre corto y reconocible, porque es lo que se lee en la pestana del navegador y el nombre que propone el PDF. Los caracteres especiales de HTML se escriben como entidades en cualquier texto del documento (`&amp;` para «&», `&lt;` para «<»); los acentos y la «ñ» se escriben tal cual.
 
 #### 2. Indicadores principales
 - Entre dos y cuatro cifras clave con su unidad, su fecha de referencia y una linea de detalle.
 - **Validacion obligatoria (REG-VAL-01):** comprueba que las cifras cuadran entre si y con las tablas antes de volcarlas. Si un total no coincide con la suma de sus partidas, dialoga en el chat y aclara la discrepancia antes de escribirla.
+- **Afirmaciones del usuario que sus datos no sostienen** (un «record» que no lo es, un total que no cuadra, un dato sin fecha o de alcance dudoso): no se reproducen en el documento como hechos. Se senalan en el chat pidiendo aclaracion y, mientras tanto, el documento no las afirma; si conviene que el lector lo sepa, va un aviso de verificacion visible. Un dato ambiguo (no consta la fecha o si forma parte de un total) no se combina con otros para sacar porcentajes hasta aclararlo.
+- **Cifras derivadas** (porcentajes de cumplimiento, diferencias con un objetivo, totales, variaciones): siempre declaradas en `cifras` como calculo u operacion, nunca calculadas a mano (`references/biblioteca-componentes-visuales.md`).
 - Si la cifra sale de un grafico, se escribe con `data-cifra` y se declara en `cifras` del bloque de datos, para que el indicador y el grafico no puedan contradecirse.
 - Uso de los modificadores de estado (`es-ok`, `es-atencion`, `es-riesgo`) solo cuando el dato expresa realmente una situacion favorable, de atencion o de riesgo.
 

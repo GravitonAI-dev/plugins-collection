@@ -35,7 +35,8 @@ El motor de la base dibuja el SVG, calcula escalas, ejes y porcentajes, rellena 
 
 - **`idioma`** y **`moneda`** fijan el formato de cifras y fechas (miles con punto en espanol, siempre, tambien con cuatro cifras).
 - **`fuentes`**: cada fuente con `nombre`, `url` si viene de internet y `consulta` en formato `AAAA-MM-DD` (la fecha real de la consulta en la sesion, nunca inventada). Los graficos las citan por su clave.
-- **`cifras`**: cifras sueltas del texto. Cada una es `{"valor": 1234, "unidad": "eur"}` o un calculo sobre un grafico: `{"de": "grafico", "calculo": "suma", "serie": 0, "unidad": "eur"}`. Calculos: `suma`, `media`, `maximo`, `minimo`, `primero`, `ultimo`, `cuenta`, `variacion` (porcentaje entre el primero y el ultimo) y `porcentaje` (peso de `"elemento": "rotulo"` sobre el total). En el HTML se escriben con `<span data-cifra="principal"></span>`.
+- **`cifras`**: cifras sueltas del texto. Cada una es `{"valor": 1234, "unidad": "eur"}`, una operacion entre otras dos cifras (o numeros) —`{"operacion": "porcentaje", "a": "cobrado", "b": "facturado", "unidad": "pct"}`, con `suma`, `diferencia`, `cociente` o `porcentaje` (a sobre b por cien)— o un calculo sobre un grafico: `{"de": "grafico", "calculo": "suma", "serie": 0, "unidad": "eur"}`. Calculos: `suma`, `media`, `maximo`, `minimo`, `primero`, `ultimo`, `cuenta`, `variacion` (porcentaje entre el primero y el ultimo) y `porcentaje` (peso de `"elemento": "rotulo"` sobre el total). En el HTML se escriben con `<span data-cifra="principal"></span>`; en las diapositivas, con `{cifra:principal}` dentro del texto. `"decimales": 0` quita los decimales (una cifra grande de portada); por defecto los importes llevan dos. **Toda cifra que se obtiene de otras (un porcentaje de cumplimiento, una diferencia con el objetivo, un total) se declara asi y nunca se calcula a mano.**
+- **`fuentes[].consulta`** es la fecha en que se obtuvieron los datos: la de la consulta en internet, la de exportacion que indique el usuario o, si no indica ninguna, la fecha de la conversacion.
 - **`textos`**: solo si el documento no esta en espanol ni en ingles, para traducir los rotulos del motor (`datos`, `csv`, `fuente`, `fuentes`, `consulta`, `otros`, `hoy`, `total`, `concepto`, `valor`, `acumulado`, `porcentaje`, `inicio`, `fin`, `restantes`, `maximo`, `ok`, `aviso`, `riesgo`, `error`).
 
 ### Campos comunes a todos los graficos
@@ -90,7 +91,7 @@ Mismo formato que `columnas`. Encima de cada columna aparece el total. Con `"cie
 ```
 
 - La primera serie lleva area degradada (`"area": false` la quita); las demas van con trazo discontinuo y sin area, para no taparse.
-- `umbral` dibuja una franja por debajo de las series (un limite legal, un pacto, un objetivo) y su rotulo entra en la leyenda.
+- `umbral` dibuja una franja por debajo de las series (un limite legal, un pacto, un objetivo) y su rotulo entra en la leyenda. Es verde por defecto (la zona correcta); `"color": "riesgo"` la marca como zona a evitar.
 - `anotaciones` marca con una linea vertical un hecho de contexto en el punto `indice` (base cero).
 - `destacar` escribe la cifra en `maximo`, `minimo`, `primero` o `ultimo`. Por serie: `series[].destacar`.
 - El eje empieza en cero y su tope es la cifra redonda inmediatamente superior. No admite negativos.
@@ -175,7 +176,7 @@ Procesos, flujos, organigramas, estructuras societarias, relaciones entre partes
 
 ### Cifras con variacion
 
-Una cifra de `cifras` con `"signo": true` se muestra con su signo y una flecha (▲ +4,2 % o ▼ -4,2 %), en verde si es favorable y en rojo si no. Por defecto subir es bueno; `"mejor": "bajar"` lo invierte (morosidad, plazos, costes). Variacion entre el primer y el ultimo valor de un grafico: `{"de": "evolucion", "calculo": "variacion", "unidad": "pct", "signo": true}`; diferencia en unidades: `"calculo": "diferencia"`.
+Una cifra de `cifras` con `"signo": true` se muestra con su signo y una flecha (▲ +4,2 % o ▼ -4,2 %), en verde si es favorable y en rojo si no. Por defecto subir es bueno; `"mejor": "bajar"` lo invierte (morosidad, plazos, costes) y `"mejor": "neutro"` muestra el signo sin color (mas asuntos abiertos no es bueno ni malo). Variacion entre el primer y el ultimo valor de un grafico: `{"de": "evolucion", "calculo": "variacion", "unidad": "pct", "signo": true}`; diferencia en unidades: `"calculo": "diferencia"`.
 
 ---
 

@@ -210,7 +210,7 @@ ol.leyenda{display:block;padding-left:20px}
   caption{break-after:avoid}
 }
 /* Estilos propios de la maqueta: se sustituye por los de su parte=estilos o se borra la linea. */
-.contenedor>header{display:none}
+.contenedor>header,.pie>p:first-of-type{display:none}
 .escenario{position:relative;width:100%;overflow:hidden;border-radius:var(--radio);box-shadow:var(--sombra);background:var(--superficie)}
 .escenario:fullscreen{border-radius:0;display:flex;align-items:center;justify-content:center;background:#000}
 .diapositivas{position:relative;width:1280px;height:720px;transform-origin:0 0}
@@ -239,6 +239,8 @@ ol.leyenda{display:block;padding-left:20px}
 .maqueta-separador h2,.maqueta-separador p{color:#fff}
 .maqueta-separador .numero{font-size:140px;font-weight:750;line-height:1;color:rgba(255,255,255,.28);margin:0}
 .maqueta-separador .pie-diapositiva,.maqueta-separador .pie-diapositiva b{color:rgba(255,255,255,.75)}
+.maqueta-cifra .numero.delta-bien{color:var(--ok)}
+.maqueta-cifra .numero.delta-mal{color:var(--riesgo)}
 .maqueta-cifra .numero{font-size:128px;font-weight:720;letter-spacing:-.04em;line-height:1;color:var(--acento);margin:0 0 20px;font-variant-numeric:tabular-nums}
 .lista-grande{margin:0;padding:0;list-style:none;counter-reset:punto}
 .lista-grande li{position:relative;padding:14px 0 14px 64px;border-bottom:1px solid var(--borde-suave);counter-increment:punto}
@@ -650,10 +652,10 @@ function minimo(a) { return Math.min.apply(null, a.filter(num)); }
 function consejo(nodo, texto) { svg("title", {}, nodo, texto); return nodo; }
 
 var formatos = {};
-function fmt(v, unidad, corto) {
+function fmt(v, unidad, corto, decimales) {
   if (!num(v)) return "\u2014";
   unidad = unidad || "num";
-  var clave = unidad + (corto ? "|c" : ""), f = formatos[clave];
+  var clave = unidad + (corto ? "|c" : "") + "|" + decimales, f = formatos[clave];
   if (!f) {
     var o = {maximumFractionDigits: 2};
     if (unidad === "eur" || unidad === "moneda") o = {style: "currency", currency: MONEDA, minimumFractionDigits: 2, maximumFractionDigits: 2};
@@ -661,6 +663,7 @@ function fmt(v, unidad, corto) {
     else if (unidad === "entero") o = {maximumFractionDigits: 0};
     o.useGrouping = "always";  /* 7.300 y no 7300, tambien con cuatro cifras */
     if (corto && unidad !== "pct") { o.notation = "compact"; o.minimumFractionDigits = 0; o.maximumFractionDigits = 1; }
+    if (num(decimales)) { o.minimumFractionDigits = decimales; o.maximumFractionDigits = decimales; }
     f = formatos[clave] = new Intl.NumberFormat(IDIOMA, o);
   }
   var s = f.format(unidad === "pct" ? v / 100 : v);
@@ -815,7 +818,7 @@ tipos.linea = function (fig, g, id) {
   var xDe = function (i) { return X0 + i * util() / (n - 1); };
   if (g.umbral) {
     var u = g.umbral, yb = yDe(u.hasta, tope);
-    svg("rect", {"class": "banda", x: X0, y: yb, width: util(), height: r1((u.hasta - (u.desde || 0)) / tope * 200)}, s);
+    svg("rect", {"class": "banda", x: X0, y: yb, width: util(), height: r1((u.hasta - (u.desde || 0)) / tope * 200), style: u.color ? "fill:" + color(u.color, 0) : null}, s);
   }
   rejilla(s, tope, g.unidad);
   var defs = svg("defs", {}, s);
@@ -850,7 +853,7 @@ tipos.linea = function (fig, g, id) {
   });
   rotulosX(s, et, xDe, true);
   var ley = leyendaSeries(series);
-  if (g.umbral && g.umbral.rotulo) ley.push({color: "var(--ok)", opacidad: ".35", texto: g.umbral.rotulo});
+  if (g.umbral && g.umbral.rotulo) ley.push({color: g.umbral.color ? color(g.umbral.color, 0) : "var(--ok)", opacidad: ".35", texto: g.umbral.rotulo});
   if (ley.length > 1) leyenda(fig, ley);
   return tablaSeries(g, et, series);
 };
@@ -1026,7 +1029,7 @@ function reparto(fig, g, hueco) {
   if (hueco) {
     var centro = g.centro || {};
     svg("text", {"class": "centro-anillo", x: 115, y: 99, "font-size": 21}, s, centro.cifra || fmt(total, g.unidad, true));
-    if (centro.rotulo) svg("text", {"class": "centro-anillo eje", x: 115, y: 117, "font-size": 11}, s, centro.rotulo);
+    if (centro.rotulo) consejo(svg("text", {"class": "centro-anillo eje", x: 115, y: 117, "font-size": 10.5}, s, recortar(centro.rotulo, 17)), centro.rotulo);
   }
   leyenda(fig, por.map(function (p, i) { return {color: color(p.color, i), texto: p.rotulo, extra: fmt(p.valor / total * 100, "pct")}; }));
   return {cabecera: [T.concepto, T.valor, T.porcentaje], filas: por.map(function (p) { return [p.rotulo, p.valor, fmt(p.valor / total * 100, "pct")]; }).concat([[T.total, total, "100 %"]]), unidad: g.unidad};
@@ -1051,7 +1054,8 @@ tipos.bala = function (fig, g) {
     if (num(e.objetivo)) consejo(svg("rect", {x: x(e.objetivo) - 1.5, y: y + 1, width: 3, height: 28, fill: "var(--texto)"}, s), T.objetivo + ": " + fmt(e.objetivo, g.unidad));
     svg("text", {"class": "valor-punto", x: x0 + ancho + 8, y: y + 19}, s, fmt(e.valor, g.unidad, true));
   });
-  for (var k = 0; k <= 4; k++) svg("text", {"class": "eje", x: x(tope * k / 4), y: el.length * fila + 22, "text-anchor": "middle"}, s, k ? fmt(tope * k / 4, g.unidad, true) : "0");
+  var marcas = W < 520 ? 2 : 4;  /* en una tarjeta estrecha, menos rotulos para que no se pisen */
+  for (var k = 0; k <= marcas; k++) svg("text", {"class": "eje", x: x(tope * k / marcas), y: el.length * fila + 22, "text-anchor": "middle"}, s, k ? fmt(tope * k / marcas, g.unidad, true) : "0");
   return {cabecera: [T.concepto, T.valor, T.objetivo, T.cumplimiento], unidad: g.unidad, filas: el.map(function (e) {
     return [e.rotulo, e.valor, num(e.objetivo) ? e.objetivo : null, num(e.objetivo) && e.objetivo ? fmt(e.valor / e.objetivo * 100, "pct") : "\u2014"];
   })};
@@ -1128,8 +1132,27 @@ function valoresDe(g, serie) {
   if (g.valores || num(g.valor)) return g.valores || [g.valor];
   throw new Error("el grafico " + g.tipo + " no tiene valores sobre los que calcular");
 }
-function cifra(def) {
+function cifra(def, pila) {
   if (num(def.valor)) return def.valor;
+  /* Operacion entre dos cifras (o numeros): porcentaje de cumplimiento, diferencia con un objetivo... */
+  if (def.operacion) {
+    pila = pila || [];
+    var op = function (x) {
+      if (num(x)) return x;
+      if (pila.indexOf(x) > -1) throw new Error("referencia circular en " + x);
+      var d = (datos.cifras || {})[x];
+      if (!d) throw new Error("no hay cifra " + x);
+      return cifra(d, pila.concat([x]));
+    };
+    var a = op(def.a), b = op(def.b);
+    switch (def.operacion) {
+      case "suma": return a + b;
+      case "diferencia": return a - b;
+      case "cociente": return a / b;
+      case "porcentaje": return a / b * 100;
+    }
+    throw new Error("operacion desconocida: " + def.operacion);
+  }
   var g = (datos.graficos || {})[def.de];
   if (!g) throw new Error("no hay grafico " + def.de);
   var v = valoresDe(g, def.serie).filter(num);
@@ -1194,12 +1217,12 @@ function pintarCifras() {
     var clave = n.getAttribute("data-cifra"), def = (datos.cifras || {})[clave];
     try {
       if (!def) throw new Error("no hay cifra " + clave);
-      var v = cifra(def), texto = fmt(v, def.unidad);
+      var v = cifra(def), texto = fmt(v, def.unidad, false, def.decimales);
       if (def.signo) {
         texto = (v > 0 ? "\u25b2 +" : v < 0 ? "\u25bc " : "") + texto;
-        var bien = (v >= 0) !== (def.mejor === "bajar");
-        n.classList.toggle("delta-bien", v !== 0 && bien);
-        n.classList.toggle("delta-mal", v !== 0 && !bien);
+        var bien = (v >= 0) !== (def.mejor === "bajar"), colorea = def.mejor !== "neutro" && v !== 0;
+        n.classList.toggle("delta-bien", colorea && bien);
+        n.classList.toggle("delta-mal", colorea && !bien);
       }
       n.textContent = texto;
     } catch (e) { console.error("Cifra " + clave + ": " + e.message); n.textContent = "{{" + clave + "}}"; }
@@ -1257,9 +1280,9 @@ function trocear(texto, max) {
   if (actual) lineas.push(actual);
   return lineas;
 }
-function medir(n) {
+function medir(n, estrecho) {
   var decision = n.forma === "decision";
-  n.lineas = trocear(n.texto, decision ? 16 : 22);
+  n.lineas = trocear(n.texto, estrecho ? (decision ? 12 : 14) : decision ? 16 : 22);
   var largo = Math.max.apply(null, n.lineas.map(function (l) { return l.length; }));
   n.w = Math.max(84, Math.min(196, largo * CAR + 28));
   n.h = n.lineas.length * LINEA + 20;
@@ -1301,7 +1324,7 @@ function capas(nodos, conexiones, porId) {
   return grupos;
 }
 function colocarCapas(grupos, vertical) {
-  var hueco = 64, sep = 20, pos = 0;
+  var hueco = !vertical && grupos.length > 4 ? 40 : 64, sep = 20, pos = 0;
   var grosor = grupos.map(function (capa) { return Math.max.apply(null, capa.map(function (n) { return vertical ? n.h : n.w; })); });
   var largo = grupos.map(function (capa) { return capa.reduce(function (s, n) { return s + (vertical ? n.w : n.h) + sep; }, -sep); });
   var mayor = Math.max.apply(null, largo);
@@ -1388,6 +1411,8 @@ R.tipos.diagrama = function (fig, g, id) {
     var grupos = capas(nodos, conexiones, porId);
     /* Sin direccion indicada, un flujo de mas de cinco pasos va en vertical: en horizontal no se leeria. */
     vertical = g.direccion ? g.direccion === "vertical" : grupos.length > 5;
+    /* En horizontal con muchos pasos, cajas mas estrechas para que el flujo quepa a lo ancho. */
+    if (!vertical && grupos.length > 4) nodos.forEach(function (n) { medir(n, true); });
     colocarCapas(grupos, vertical);
   }
   var x0 = Math.min.apply(null, nodos.map(function (n) { return n.x - n.w / 2; })) - 18;
@@ -1455,7 +1480,14 @@ R.tipos.diagrama = function (fig, g, id) {
   "use strict";
   var R = Reportes, D = document, lista = R.datos.diapositivas || [], cont = D.getElementById("diapositivas");
   var titulo = D.title, actual = 0, inicio = Date.now();
-  function el(tag, clase, padre, texto) { return R.html(tag, clase, padre, texto); }
+  /* Los textos admiten {cifra:clave}: se convierte en una cifra enlazada al bloque de datos. */
+  function el(tag, clase, padre, texto) {
+    var n = R.html(tag, clase, padre);
+    if (texto !== undefined) String(texto).split(/\{cifra:([\w-]+)\}/).forEach(function (trozo, i) {
+      if (i % 2) R.html("span", "", n).setAttribute("data-cifra", trozo); else if (trozo) n.appendChild(D.createTextNode(trozo));
+    });
+    return n;
+  }
   function puntos(padre, items, clase) { var ul = el("ul", clase || "", padre); (items || []).forEach(function (p) { el("li", "", ul, p); }); return ul; }
   function figura(padre, nombre) { var f = el("figure", "grafico", padre); f.setAttribute("data-grafico", nombre); return f; }
   function columna(padre, c) { var d = el("div", c.estado || "", padre); el("h3", "", d, c.titulo || c.nombre || ""); if (c.texto) el("p", "", d, c.texto); if (c.puntos) puntos(d, c.puntos); if (c.veredicto) { var v = el("p", "veredicto", d); el("span", "distintivo " + (c.estado || ""), v, c.veredicto); } }
@@ -1474,7 +1506,11 @@ R.tipos.diagrama = function (fig, g, id) {
     equipo: function (s, d, c) { el("h2", "", s, d.titulo); var g = el("div", "lado-a-lado", c); (d.personas || []).forEach(function (p) { var x = el("div", "persona", g); el("div", "iniciales", x, p.nombre.split(/\s+/).map(function (w) { return w[0]; }).slice(0, 2).join("")); el("h3", "", x, p.nombre); el("p", "", x, p.cargo); if (p.texto) el("p", "", x, p.texto); }); },
     proximos_pasos: function (s, d, c) { el("h2", "", s, d.titulo); var t = el("table", "pasos-tabla", el("div", "tabla", c)), b = el("tbody", "", t); (d.pasos || []).forEach(function (p, i) { var tr = el("tr", "", b); el("td", "", tr, (i + 1) + ". " + p.texto); el("td", "", tr, p.responsable || ""); el("td", "cifra", tr, p.fecha || ""); }); },
     cierre: function (s, d) { el("h2", "", s, d.titulo); if (d.texto) el("p", "", s, d.texto); if (d.contacto) el("p", "subtitulo", s, d.contacto); },
-    fuentes: function (s, d, c) { el("h2", "", s, d.titulo); c.appendChild(D.getElementById("fuentes-reporte")); }
+    fuentes: function (s, d, c) {
+      el("h2", "", s, d.titulo); c.appendChild(D.getElementById("fuentes-reporte"));
+      var aviso = D.querySelector(".pie > p:last-of-type");  /* el aviso legal del pie tambien se imprime */
+      if (aviso) el("p", "subtitulo", c, aviso.textContent);
+    }
   };
   var todas = lista.concat([{maqueta: "fuentes", titulo: R.T.fuentes}]);
   todas.forEach(function (d, i) {

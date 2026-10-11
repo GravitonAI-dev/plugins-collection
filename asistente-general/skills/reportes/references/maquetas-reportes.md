@@ -3,7 +3,7 @@
 Cada reporte se construye con dos piezas:
 
 1. **La base** (`assets/template-base-reportes.md`). Se copia integra: estilos, tema claro y oscuro, impresion, aviso DRAFT, cabecera, pie con fuentes y motor de graficos. No se resume ni se recorta.
-2. **La maqueta** del tipo de entregable elegido (este documento). Rellena los marcadores de la base:
+2. **La maqueta** del tipo de entregable elegido (este documento). Orden de montaje del archivo: base completa, con sus marcadores rellenos; despues del script del motor, los modulos que haga falta (`modulos-motor.md`); despues, el script de la maqueta si lo tiene. Rellena los marcadores de la base:
    - `{{ANCHO}}`: el ancho de la maqueta;
    - `{{FICHA}}` y `{{CONTENIDO}}`: sus partes `ficha` y `contenido`;
    - `{{ESTILOS_MAQUETA}}`: su parte `estilos`, o se borra la linea si no tiene;
@@ -15,7 +15,7 @@ Los graficos **no se dibujan a mano**. En el HTML solo se coloca el hueco, `<fig
 Reglas comunes a todas las maquetas:
 
 - El tema se fija en la etiqueta `html`: `data-tema="moderno"` o `data-tema="sobrio"`.
-- Los bloques se pueden repetir, quitar o reordenar. Lo que no cambia es la estructura de cada bloque: las clases son las de la base y no se renombran.
+- Los bloques se pueden repetir, quitar o reordenar, y **cualquier hueco de grafico admite cualquier tipo**: si en un panel no hay importe que descomponer, la tarjeta de la cascada pasa a ser una bala, unas divergentes o un diagrama. Las maquetas son un punto de partida, no un formulario que haya que llenar entero. Lo que no cambia es la estructura de cada bloque: las clases son las de la base y no se renombran.
 - Toda cifra del texto que salga de un grafico se escribe con `<span data-cifra="clave"></span>` y se declara en `cifras`. Asi el texto y el grafico no pueden contradecirse.
 - Las cifras que no salen de un grafico (un plazo en meses, una fecha) se escriben como texto.
 
@@ -530,6 +530,14 @@ Una idea por diapositiva y un titular que afirma («La deuda se concentra en tre
 
 Cualquier diapositiva admite `notas`: el texto del orador, que se ve pulsando N (o el boton Notas) y nunca se imprime.
 
+Notas de uso:
+
+- **Cifras dentro de los textos:** cualquier texto de una diapositiva admite `{cifra:clave}`, que se sustituye por la cifra `clave` de `cifras` (por ejemplo `"texto": "Son {cifra:exceso} por encima del objetivo"`). Asi las cifras derivadas tampoco se escriben a mano en una presentacion.
+- **Diapositiva `cifra`:** el numero va arriba, en grande, y el `titulo` debajo lo completa como frase («531.200 €» + «es el saldo vencido a 30 de septiembre»).
+- **Graficos y diagramas** se dibujan con letra de diapositiva. Un diagrama de flujo cabe a lo ancho hasta unos seis pasos; con mas, se divide en dos diapositivas. Un grafico sin `conclusion` ocupa todo el ancho.
+- **Cabecera de la base:** en la presentacion no se ve. `{{ETIQUETA_SUPERIOR}}` y `{{ENTRADILLA}}` se rellenan igualmente (con el contexto de la reunion) y `{{TITULO_DOCUMENTO}}` es el titulo corto que aparece en el pie de cada diapositiva y en la pestana.
+- **Aviso legal:** `{{PIE_AVISO_LEGAL}}` se imprime en la ultima diapositiva, junto a las fuentes; el aviso DRAFT va en el pie de cada diapositiva.
+
 ### Ficha
 
 ```html maqueta=presentacion parte=ficha
@@ -568,6 +576,8 @@ Cualquier diapositiva admite `notas`: el texto del orador, que se ve pulsando N 
 .maqueta-separador h2,.maqueta-separador p{color:#fff}
 .maqueta-separador .numero{font-size:140px;font-weight:750;line-height:1;color:rgba(255,255,255,.28);margin:0}
 .maqueta-separador .pie-diapositiva,.maqueta-separador .pie-diapositiva b{color:rgba(255,255,255,.75)}
+.maqueta-cifra .numero.delta-bien{color:var(--ok)}
+.maqueta-cifra .numero.delta-mal{color:var(--riesgo)}
 .maqueta-cifra .numero{font-size:128px;font-weight:720;letter-spacing:-.04em;line-height:1;color:var(--acento);margin:0 0 20px;font-variant-numeric:tabular-nums}
 .lista-grande{margin:0;padding:0;list-style:none;counter-reset:punto}
 .lista-grande li{position:relative;padding:14px 0 14px 64px;border-bottom:1px solid var(--borde-suave);counter-increment:punto}
@@ -655,7 +665,14 @@ Se coloca despues del script del motor (y de los modulos, si los hay). Monta las
   "use strict";
   var R = Reportes, D = document, lista = R.datos.diapositivas || [], cont = D.getElementById("diapositivas");
   var titulo = D.title, actual = 0, inicio = Date.now();
-  function el(tag, clase, padre, texto) { return R.html(tag, clase, padre, texto); }
+  /* Los textos admiten {cifra:clave}: se convierte en una cifra enlazada al bloque de datos. */
+  function el(tag, clase, padre, texto) {
+    var n = R.html(tag, clase, padre);
+    if (texto !== undefined) String(texto).split(/\{cifra:([\w-]+)\}/).forEach(function (trozo, i) {
+      if (i % 2) R.html("span", "", n).setAttribute("data-cifra", trozo); else if (trozo) n.appendChild(D.createTextNode(trozo));
+    });
+    return n;
+  }
   function puntos(padre, items, clase) { var ul = el("ul", clase || "", padre); (items || []).forEach(function (p) { el("li", "", ul, p); }); return ul; }
   function figura(padre, nombre) { var f = el("figure", "grafico", padre); f.setAttribute("data-grafico", nombre); return f; }
   function columna(padre, c) { var d = el("div", c.estado || "", padre); el("h3", "", d, c.titulo || c.nombre || ""); if (c.texto) el("p", "", d, c.texto); if (c.puntos) puntos(d, c.puntos); if (c.veredicto) { var v = el("p", "veredicto", d); el("span", "distintivo " + (c.estado || ""), v, c.veredicto); } }
@@ -674,7 +691,11 @@ Se coloca despues del script del motor (y de los modulos, si los hay). Monta las
     equipo: function (s, d, c) { el("h2", "", s, d.titulo); var g = el("div", "lado-a-lado", c); (d.personas || []).forEach(function (p) { var x = el("div", "persona", g); el("div", "iniciales", x, p.nombre.split(/\s+/).map(function (w) { return w[0]; }).slice(0, 2).join("")); el("h3", "", x, p.nombre); el("p", "", x, p.cargo); if (p.texto) el("p", "", x, p.texto); }); },
     proximos_pasos: function (s, d, c) { el("h2", "", s, d.titulo); var t = el("table", "pasos-tabla", el("div", "tabla", c)), b = el("tbody", "", t); (d.pasos || []).forEach(function (p, i) { var tr = el("tr", "", b); el("td", "", tr, (i + 1) + ". " + p.texto); el("td", "", tr, p.responsable || ""); el("td", "cifra", tr, p.fecha || ""); }); },
     cierre: function (s, d) { el("h2", "", s, d.titulo); if (d.texto) el("p", "", s, d.texto); if (d.contacto) el("p", "subtitulo", s, d.contacto); },
-    fuentes: function (s, d, c) { el("h2", "", s, d.titulo); c.appendChild(D.getElementById("fuentes-reporte")); }
+    fuentes: function (s, d, c) {
+      el("h2", "", s, d.titulo); c.appendChild(D.getElementById("fuentes-reporte"));
+      var aviso = D.querySelector(".pie > p:last-of-type");  /* el aviso legal del pie tambien se imprime */
+      if (aviso) el("p", "subtitulo", c, aviso.textContent);
+    }
   };
   var todas = lista.concat([{maqueta: "fuentes", titulo: R.T.fuentes}]);
   todas.forEach(function (d, i) {

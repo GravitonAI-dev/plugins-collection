@@ -62,9 +62,9 @@ function trocear(texto, max) {
   if (actual) lineas.push(actual);
   return lineas;
 }
-function medir(n) {
+function medir(n, estrecho) {
   var decision = n.forma === "decision";
-  n.lineas = trocear(n.texto, decision ? 16 : 22);
+  n.lineas = trocear(n.texto, estrecho ? (decision ? 12 : 14) : decision ? 16 : 22);
   var largo = Math.max.apply(null, n.lineas.map(function (l) { return l.length; }));
   n.w = Math.max(84, Math.min(196, largo * CAR + 28));
   n.h = n.lineas.length * LINEA + 20;
@@ -106,7 +106,7 @@ function capas(nodos, conexiones, porId) {
   return grupos;
 }
 function colocarCapas(grupos, vertical) {
-  var hueco = 64, sep = 20, pos = 0;
+  var hueco = !vertical && grupos.length > 4 ? 40 : 64, sep = 20, pos = 0;
   var grosor = grupos.map(function (capa) { return Math.max.apply(null, capa.map(function (n) { return vertical ? n.h : n.w; })); });
   var largo = grupos.map(function (capa) { return capa.reduce(function (s, n) { return s + (vertical ? n.w : n.h) + sep; }, -sep); });
   var mayor = Math.max.apply(null, largo);
@@ -193,6 +193,8 @@ R.tipos.diagrama = function (fig, g, id) {
     var grupos = capas(nodos, conexiones, porId);
     /* Sin direccion indicada, un flujo de mas de cinco pasos va en vertical: en horizontal no se leeria. */
     vertical = g.direccion ? g.direccion === "vertical" : grupos.length > 5;
+    /* En horizontal con muchos pasos, cajas mas estrechas para que el flujo quepa a lo ancho. */
+    if (!vertical && grupos.length > 4) nodos.forEach(function (n) { medir(n, true); });
     colocarCapas(grupos, vertical);
   }
   var x0 = Math.min.apply(null, nodos.map(function (n) { return n.x - n.w / 2; })) - 18;
