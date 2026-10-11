@@ -59,6 +59,7 @@ def componer(destino, textos, datos, maqueta=None, tema="moderno", ficha=None, c
 # --------------------------------------------------------------------------- datos del caso
 FUENTE_CLIENTE = {"cliente": {"nombre": "Mayor de clientes y facturas aportados por el cliente", "consulta": "2026-09-18"}}
 FACTURAS = [("Factura 2025/118", 18400), ("Factura 2025/131", 11250), ("Factura 2025/147", 7930), ("Resto (4 facturas)", 4600.5)]
+ELEMENTOS_FACTURAS = [{"rotulo": r, "valor": v} for r, v in FACTURAS]
 PRINCIPAL, INTERESES, COSTAS = 42180.50, 1947.32, 3100.00
 COMUN = {"PIE_AVISO_LEGAL": "Documento de trabajo. No sustituye al asesoramiento de un profesional colegiado ni a la liquidacion judicial de intereses."}
 
@@ -75,7 +76,7 @@ def panel():
         "tendencia": {"tipo": "chispa", "valores": [12400, 21800, 28900, 36200, 42180.5], "etiquetas": ["Enero", "Marzo", "Mayo", "Julio", "Septiembre"],
                       "resumen": "Principal acumulado de enero a septiembre: al alza", "fuente": "cliente"},
         "comparativa": {"tipo": "barras", "unidad": "eur", "fuente": "cliente",
-                        "elementos": [{"rotulo": r, "valor": v} for r, v in FACTURAS]},
+                        "elementos": ELEMENTOS_FACTURAS},
         "reparto": {"tipo": "anillo", "unidad": "pct", "fuente": "cliente",
                     "porciones": [{"rotulo": "Hasta 90 dias", "valor": 26}, {"rotulo": "De 91 a 180 dias", "valor": 38}, {"rotulo": "Mas de 180 dias", "valor": 36}],
                     "centro": {"cifra": "36 %", "rotulo": "mas de 180 dias"},
@@ -215,7 +216,7 @@ def presentacion():
         "cuantia": {"tipo": "cascada", "unidad": "eur", "fuente": "cliente",
                     "pasos": [{"rotulo": "Principal", "valor": PRINCIPAL}, {"rotulo": "Intereses", "valor": INTERESES}, {"rotulo": "Costas est.", "valor": COSTAS}],
                     "total": {"rotulo": "Total"}, "resumen": "Principal, intereses y costas estimadas suman el total reclamable"},
-        "facturas": {"tipo": "barras", "unidad": "eur", "fuente": "cliente", "elementos": [{"rotulo": r, "valor": v} for r, v in FACTURAS],
+        "facturas": {"tipo": "barras", "unidad": "eur", "fuente": "cliente", "elementos": ELEMENTOS_FACTURAS,
                      "resumen": "Tres facturas concentran la deuda"},
         "flujo": dict(FLUJO_MONITORIO, fuente="cliente", resumen="Si no paga en el plazo del burofax, se presenta el monitorio"),
       },
@@ -304,9 +305,13 @@ def white_paper():
 
 def resumen():
     datos = {"idioma": "es-ES", "moneda": "EUR", "fuentes": FUENTE_CLIENTE,
-      "cifras": {"indicador_1": {"valor": round(PRINCIPAL + INTERESES + COSTAS, 2), "unidad": "eur"}, "indicador_2": {"valor": 5600, "unidad": "eur"},
-                 "indicador_3": {"operacion": "porcentaje", "a": 37580, "b": PRINCIPAL, "unidad": "pct"}},
-      "graficos": {"principal": {"tipo": "barras", "unidad": "eur", "fuente": "cliente", "elementos": [{"rotulo": r, "valor": v} for r, v in FACTURAS],
+      "cifras": {"principal": {"valor": PRINCIPAL}, "intereses": {"valor": INTERESES}, "costas": {"valor": COSTAS},
+                 "principal_e_intereses": {"operacion": "suma", "a": "principal", "b": "intereses"},
+                 "indicador_1": {"operacion": "suma", "a": "principal_e_intereses", "b": "costas", "unidad": "eur"},
+                 "indicador_2": {"valor": 5600, "unidad": "eur"},
+                 "tres_mayores": {"operacion": "diferencia", "a": "principal", "b": FACTURAS[3][1]},
+                 "indicador_3": {"operacion": "porcentaje", "a": "tres_mayores", "b": "principal", "unidad": "pct"}},
+      "graficos": {"principal": {"tipo": "barras", "unidad": "eur", "fuente": "cliente", "elementos": ELEMENTOS_FACTURAS,
                                  "resumen": "Tres facturas concentran la deuda"}}}
     textos = dict(COMUN, **{
       "TITULO_CORTO": "Resumen reclamacion Delta", "TITULO_DOCUMENTO": "Recomendamos presentar el monitorio la semana que viene",
@@ -334,7 +339,7 @@ FLUJO_MONITORIO = {"tipo": "diagrama", "disposicion": "capas", "grupos": {"1": "
 
 GALERIA = [
   ("barras", "Barras horizontales", "Comparar partidas. Ordenadas de mayor a menor.",
-   {"tipo": "barras", "unidad": "eur", "elementos": [{"rotulo": r, "valor": v} for r, v in FACTURAS]}),
+   {"tipo": "barras", "unidad": "eur", "elementos": ELEMENTOS_FACTURAS}),
   ("columnas", "Columnas", "Comparar pocos periodos o grupos, una o varias series.",
    {"tipo": "columnas", "unidad": "eur", "etiquetas": ["1T", "2T", "3T", "4T"],
     "series": [{"nombre": "2025", "valores": [12000, 16000, 9000, 14000]}, {"nombre": "2026", "valores": [14000, 18500, 11000, None]}]}),

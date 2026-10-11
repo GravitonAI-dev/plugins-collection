@@ -1,10 +1,6 @@
 # Catalogo de reportes tipicos
 
-Recetas de los reportes que mas se piden. Cada receta fija el tipo de entregable (V1), la estructura de bloques, los graficos que funcionan y los datos que hay que pedir. Es un punto de partida: se adapta al caso, pero evita empezar de cero y olvidar lo que el lector espera encontrar.
-
-Uso en el flujo: si la peticion encaja con una receta (por las palabras del usuario o por la escucha activa), se fija `receta_reporte` en silencio y la receta resuelve V1. Si el usuario solo dice «un informe» o «un reporte» y no encaja con ninguna, se ofrece la lista en el formulario de la Fase 1 con la opcion «Otro reporte», que sigue el flujo normal.
-
-Todas las recetas comparten las reglas de la skill: titular que afirma, cifras derivadas declaradas en `cifras`, fuentes con fecha, aviso DRAFT y ningun dato inventado. Lo que falte para un bloque se pide en bloque con un formulario de datos; si el usuario no lo tiene, el bloque se quita en lugar de rellenarlo con supuestos.
+Recetas de partida para los reportes que mas se piden: tipo de entregable (V1), bloques, graficos que funcionan y datos que pedir. La receta se deduce de la peticion (V6 en `SKILL.md`); se adapta al caso y se aplican todas las reglas de la skill. Si falta un dato para un bloque y el usuario no lo tiene, el bloque se quita.
 
 ---
 
@@ -16,24 +12,20 @@ Todas las recetas comparten las reglas de la skill: titular que afirma, cifras d
 - **Pregunta que responde:** donde estamos, que nos pedian o pedimos, que viene ahora y cuando.
 - **Bloques:** indicadores (cuantia inicial, cuantia actual, diferencia, proximo vencimiento) → antecedentes en cuatro lineas → comparativa de importes (columnas agrupadas o cascada con `@clave`) → plazos (diagrama de plazos con fases abiertas y fechas aproximadas) y cronologia → quien es quien (diagrama en arbol o radial, si hay varias partes o sociedades) → proximos pasos con responsable → aviso de riesgo si corre un plazo.
 - **Datos que pedir:** partes y su relacion, cifras iniciales y actuales con su fecha, hitos con fecha cierta, plazo en curso, responsable.
-
-### Dossier de caso (`dossier_caso`)
-
-- **V1:** `informe_visual`, mas largo. Para preparar una reunion o una vista.
-- **Bloques:** resumen de una pagina → hechos (cronologia) → partes (diagrama radial) → pretensiones y cuantias (cascada) → prueba disponible (tabla con distintivos) → riesgos (matriz) → estrategia y siguientes pasos.
-- **Datos que pedir:** hechos con fecha, documentos de prueba y su estado, cuantias, riesgos identificados por el letrado.
+- **Version larga (dossier de caso, para preparar una reunion o una vista):** anade prueba disponible (tabla con distintivos), riesgos (matriz) y estrategia.
 
 ### Propuesta de honorarios (`propuesta_honorarios`)
 
 - **V1:** `informe_visual` o `presentacion` si se presenta en reunion.
 - **Bloques:** que necesita el cliente (en sus palabras) → como lo resolvemos (diagrama por carriles: cliente, despacho, juzgado u organismo) → fases y calendario (plazos con fechas aproximadas) → honorarios por fase (tabla con totales en `cifras`) → que incluye y que no → equipo → condiciones y validez.
 - **Datos que pedir:** alcance, fases, importe o criterio de cada fase, provisiones de fondos, equipo, validez de la oferta.
+- **Como pitch en reunion (`presentacion`):** portada, que nos han contado, lo que esta en juego (`cifra`), como lo resolvemos (`grafico` con diagrama), por que nosotros, equipo, honorarios (`tabla`), proximos pasos y cierre.
 
-### Informe de viabilidad (`viabilidad`)
+### Viabilidad o comparativa de opciones (`viabilidad`)
 
-- **V1:** `informe_visual`.
-- **Bloques:** conclusion en el titular → vias posibles (tabla comparativa o diapositiva `comparativa`) → coste y plazo de cada via (bala o columnas) → riesgos (matriz) → recomendacion y hoja de ruta (diagrama de flujo con la decision).
-- **Datos que pedir:** objetivo del cliente, cuantia, documentos, plazos de prescripcion o caducidad conocidos.
+- **V1:** `informe_visual`, o `presentacion` si se decide en una reunion.
+- **Bloques:** la recomendacion en el titular → criterios de decision → vias u opciones en tabla comparativa con distintivos (en diapositivas, `comparativa`) → coste y plazo de cada una (columnas agrupadas o bala) → riesgos (matriz) → recomendacion y hoja de ruta (diagrama de flujo con la decision).
+- **Datos que pedir:** objetivo del cliente, opciones y criterios, cuantia, coste y plazo de cada via, plazos de prescripcion o caducidad conocidos.
 
 ---
 
@@ -73,12 +65,6 @@ Todas las recetas comparten las reglas de la skill: titular que afirma, cifras d
 - **Bloques:** mapa de riesgos (matriz) → grado de cumplimiento por obligacion (bala o tabla con distintivos) → plazos regulatorios (diagrama de plazos) → responsables (carriles) → plan de accion.
 - **Datos que pedir:** obligaciones aplicables y su estado, riesgos con probabilidad e impacto valorados por el usuario, plazos y responsables.
 
-### Comparativa de opciones (`comparativa_opciones`)
-
-- **V1:** `informe_visual` o `presentacion`.
-- **Bloques:** la recomendacion en el titular → criterios de decision → tabla comparativa con distintivos → coste y plazo (columnas agrupadas o bala) → riesgos de cada opcion → recomendacion y condiciones.
-- **Datos que pedir:** opciones, criterios y su peso, datos de cada opcion.
-
 ### Informe de mercado o sector (`mercado_sector`)
 
 - **V1:** `informe_visual` o `documento_largo`.
@@ -103,18 +89,7 @@ Todas las recetas comparten las reglas de la skill: titular que afirma, cifras d
 
 ### Caso de exito (`caso_exito`)
 
-- **V1:** `informe_visual` de una o dos paginas, o `resumen_ejecutivo`.
+- **V1:** `resumen_ejecutivo`, o `informe_visual` si hace falta mas de una pagina.
 - **Bloques:** el reto → lo que hicimos (diagrama de flujo o cronologia) → el resultado en una cifra grande → cita del cliente (solo si la autoriza) → equipo.
 - **Datos que pedir:** autorizacion del cliente para citarlo o anonimizacion, resultado cuantificado, cita literal.
 
-### Pitch para cliente (`pitch_cliente`)
-
-- **V1:** `presentacion`.
-- **Diapositivas:** portada → que nos han contado (sus palabras) → lo que esta en juego (`cifra`) → como lo resolvemos (`grafico` con diagrama) → por que nosotros → equipo → propuesta y honorarios (`tabla`) → proximos pasos → cierre.
-- **Datos que pedir:** necesidad del cliente, cifras del caso, equipo, honorarios y validez.
-
-### Resumen ejecutivo de una pagina (`resumen_una_pagina`)
-
-- **V1:** `resumen_ejecutivo`. Para el consejo, un socio o un cliente con poco tiempo.
-- **Bloques:** titular con la conclusion → tres indicadores → un grafico que la sostiene → tres conclusiones y la decision que se pide.
-- **Datos que pedir:** la decision que se busca y las tres cifras que la justifican.

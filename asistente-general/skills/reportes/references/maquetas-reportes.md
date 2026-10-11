@@ -155,6 +155,13 @@ Reglas comunes a todas las maquetas:
 ### Estilos
 
 ```css maqueta=informe_visual parte=estilos
+.cronologia{list-style:none;margin:var(--e4) 0 0;padding:0 0 0 26px;border-left:2px solid var(--borde)}
+.cronologia li{position:relative;margin:0 0 var(--e4)}
+.cronologia li:last-child{margin-bottom:0}
+.cronologia li::before{content:"";position:absolute;left:-33px;top:6px;width:12px;height:12px;border-radius:50%;
+  background:var(--acento);border:3px solid var(--superficie);box-shadow:0 0 0 1px var(--borde)}
+.cronologia .fecha{display:block;font-size:.76rem;letter-spacing:.07em;text-transform:uppercase;color:var(--apagado)}
+.cronologia .hito{font-weight:650}
 .diseno{display:grid;grid-template-columns:196px minmax(0,1fr);gap:var(--e5);align-items:start}
 .indice{position:sticky;top:var(--e4);font-size:.85rem}
 .indice p{font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:var(--apagado);margin:0 0 var(--e2)}
@@ -758,7 +765,7 @@ Se coloca despues del script del motor (y de los modulos, si los hay). Monta las
 
 ## 5. Documento largo: white paper, memoria o estudio (`documento_largo`)
 
-**Ancho:** `860px`. Lectura de varias paginas con calidad editorial: portada a pagina completa, resumen ejecutivo, indice con enlaces, capitulos numerados que empiezan en pagina nueva, graficos y diagramas dentro del texto, notas, fuentes y anexo. Al imprimir lleva cabecera con el titulo corto y numero de pagina «3 / 12» en cada hoja, salvo en la portada.
+**Ancho:** `860px`. Lectura de varias paginas con calidad editorial: portada a pagina completa (es la cabecera de la base: antetitulo, titular, entradilla y ficha con autor y fecha), resumen ejecutivo, indice con enlaces, capitulos numerados que empiezan en pagina nueva, graficos y diagramas dentro del texto, notas, fuentes y anexo. Al imprimir lleva cabecera con el titulo corto y numero de pagina «3 / 12» en cada hoja, salvo en la portada.
 
 - El indice lo compone el script de la maqueta a partir de los titulos `h2` de los capitulos: no se escribe a mano. En el PDF sus entradas son enlaces que llevan al capitulo.
 - Cada capitulo es una `section class="capitulo"`; con `class="capitulo nueva-pagina"` empieza en pagina nueva al imprimir (recomendado a partir del segundo).
@@ -776,59 +783,53 @@ Se coloca despues del script del motor (y de los modulos, si los hay). Monta las
 ### Estilos
 
 ```css maqueta=documento_largo parte=estilos
-.contenedor>header{display:none}
-.portada{min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding:var(--e6) var(--e5);margin:0 0 var(--e5);border-radius:var(--radio);color:#fff;
+.cronologia{list-style:none;margin:var(--e4) 0 0;padding:0 0 0 26px;border-left:2px solid var(--borde)}
+.cronologia li{position:relative;margin:0 0 var(--e4)}
+.cronologia li:last-child{margin-bottom:0}
+.cronologia li::before{content:"";position:absolute;left:-33px;top:6px;width:12px;height:12px;border-radius:50%;
+  background:var(--acento);border:3px solid var(--superficie);box-shadow:0 0 0 1px var(--borde)}
+.cronologia .fecha{display:block;font-size:.76rem;letter-spacing:.07em;text-transform:uppercase;color:var(--apagado)}
+.cronologia .hito{font-weight:650}
+.contenedor>header{min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding:var(--e6) var(--e5);margin:0 0 var(--e5);border-radius:var(--radio);color:#fff;
   background:linear-gradient(150deg,var(--acento-fuerte),color-mix(in srgb,var(--acento) 70%,#000))}
-.portada .antetitulo{color:rgba(255,255,255,.8)}
-.portada h1{font-size:clamp(2.2rem,5vw,3.4rem);color:#fff;max-width:18ch}
-.portada .entradilla{color:rgba(255,255,255,.88);font-size:1.2rem}
-.portada .firma-portada{margin-top:auto;padding-top:var(--e6);color:rgba(255,255,255,.85)}
-.resumen-ejecutivo{border:1px solid var(--borde);border-top:5px solid var(--acento);border-radius:var(--radio-s);padding:var(--e4) var(--e5);background:var(--superficie);margin:0 0 var(--e5)}
-.resumen-ejecutivo h2{margin-bottom:var(--e3)}
+.contenedor>header .antetitulo,.contenedor>header .ficha,.contenedor>header .ficha b{color:rgba(255,255,255,.85)}
+.contenedor>header h1{font-size:clamp(2.2rem,5vw,3.4rem);color:#fff;max-width:18ch}
+.contenedor>header .entradilla{color:rgba(255,255,255,.88);font-size:1.2rem}
+.contenedor>header .ficha{margin-top:auto;padding-top:var(--e6)}
+.resumen-ejecutivo{border-top:5px solid var(--acento)}
 .resumen-ejecutivo ol{margin:0;padding-left:22px}
 .resumen-ejecutivo li{margin:0 0 var(--e2);font-size:1.02rem}
 .indice-documento{margin:0 0 var(--e5)}
-.indice-documento ol{list-style:none;margin:0;padding:0;counter-reset:cap}
-.indice-documento li{counter-increment:cap;border-bottom:1px dotted var(--borde);margin:0}
-.indice-documento a{display:flex;gap:var(--e3);padding:9px 0;color:var(--texto);text-decoration:none}
-.indice-documento a::before{content:counter(cap) ".";color:var(--acento);font-weight:650;min-width:1.6em}
+.indice-documento li::marker{color:var(--acento);font-weight:650}
+.indice-documento a{display:block;padding:7px 0;color:var(--texto);text-decoration:none;border-bottom:1px dotted var(--borde)}
+main{counter-reset:capitulo}
 .capitulo{margin:0 0 var(--e6)}
 .capitulo>h2{font-size:clamp(1.4rem,2.6vw,1.8rem);counter-increment:capitulo;border-bottom:2px solid var(--acento);padding-bottom:var(--e2);margin:0 0 var(--e4)}
-main{counter-reset:capitulo}
 .capitulo>h2::before{content:counter(capitulo) ". ";color:var(--acento)}
 .capitulo h3{font-size:1.12rem;margin:var(--e4) 0 var(--e2)}
 .capitulo p,.capitulo li{font-size:1.02rem;line-height:1.7}
-.capitulo .grafico{margin:var(--e4) 0;padding:var(--e4);border:1px solid var(--borde-suave);border-radius:var(--radio-s);background:var(--superficie)}
+.capitulo .grafico{margin:var(--e3) 0 var(--e4)}
 .destacado{font-size:1.25rem;line-height:1.45;font-weight:600;border-left:5px solid var(--acento);padding:var(--e2) 0 var(--e2) var(--e4);margin:var(--e5) 0}
 sup.nota{color:var(--acento);font-weight:650}
-.notas-documento li,.fuentes-documento li{font-size:.88rem;color:var(--apagado)}
+.notas-documento li{font-size:.88rem;color:var(--apagado)}
 @media print{
-  @page{size:A4;margin:20mm 18mm 22mm;
-    @bottom-right{content:counter(page) " / " counter(pages);font-size:8.5pt;color:#555}
-    @bottom-left{content:"DRAFT";font-size:8pt;color:#a8650f;font-weight:600}}
+  @page{margin:20mm 18mm 22mm;@bottom-left{content:"DRAFT";font-size:8pt;color:#a8650f;font-weight:600}}
   @page :first{margin:0;@bottom-right{content:none}@bottom-left{content:none}@top-left{content:none}}
-  body{font-size:10.5pt}
-  .portada{min-height:0;height:297mm;margin:0;border-radius:0;break-after:page;padding:40mm 24mm}
-  .borrador{display:none}
+  main{position:relative}
+  /* El aviso DRAFT va impreso sobre la portada, para que tambien conste en navegadores sin cajas de margen. */
+  .borrador{position:absolute;top:12mm;left:18mm;right:18mm;z-index:1;margin:0;background:rgba(255,255,255,.92)}
+  .contenedor>header{min-height:0;height:297mm;margin:0;border-radius:0;break-after:page;padding:40mm 24mm 24mm}
   .resumen-ejecutivo{break-inside:avoid}
   .indice-documento{break-after:page}
   .capitulo.nueva-pagina{break-before:page}
   .capitulo p,.capitulo li{font-size:10.5pt;line-height:1.55}
-  .capitulo .grafico{break-inside:avoid;border:none;padding:0}
 }
 ```
 
 ### Contenido
 
 ```html maqueta=documento_largo parte=contenido
-<section class="portada">
-    <p class="antetitulo">{{ETIQUETA_SUPERIOR}}</p>
-    <h1>{{TITULO_DOCUMENTO}}</h1>
-    <p class="entradilla">{{ENTRADILLA}}</p>
-    <p class="firma-portada">{{AUTOR}} &middot; {{FECHA_EMISION}}</p>
-  </section>
-
-  <section class="resumen-ejecutivo">
+<section class="tarjeta resumen-ejecutivo">
     <h2>{{TITULO_RESUMEN}}</h2>
     <ol>
       <li>{{CONCLUSION_1}}</li>
@@ -900,6 +901,7 @@ Se coloca despues del motor y de los modulos. Compone el indice con enlaces y po
   var D = document, indice = D.getElementById("indice-documento");
   [].forEach.call(D.querySelectorAll(".capitulo"), function (cap, i) {
     var h = cap.querySelector("h2");
+    if (!h) return;  /* un capitulo sin titular no entra en el indice */
     if (!cap.id) cap.id = "capitulo-" + (i + 1);
     var a = Reportes.html("a", "", Reportes.html("li", "", indice), h.textContent);
     a.href = "#" + cap.id;
@@ -931,20 +933,20 @@ Se coloca despues del motor y de los modulos. Compone el indice con enlaces y po
 .una-pagina{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:var(--e4);align-items:start}
 .una-pagina .conclusiones ol{margin:0;padding-left:20px}
 .una-pagina .conclusiones li{margin:0 0 var(--e3);font-size:.98rem}
-.decision{margin:var(--e4) 0 0;padding:var(--e3) var(--e4);border-radius:var(--radio-s);background:var(--acento-suave);border-left:5px solid var(--acento);font-weight:600}
-@media (max-width:760px){.una-pagina{grid-template-columns:1fr}}
+.decision{font-weight:600}
+@media screen and (max-width:760px){.una-pagina{grid-template-columns:1fr}}
 @media print{
-  @page{size:A4;margin:12mm 12mm 14mm}
-  .una-pagina{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:var(--e3)}
-  .indicadores{grid-template-columns:repeat(3,1fr);gap:var(--e2);margin-bottom:var(--e3)}
-  .borrador{margin-bottom:var(--e2)}
-  .datos-grafico,.fuente-grafico{display:none}
-  .pie p{margin:0 0 2px}
+  @page{margin:12mm 12mm 14mm}
   .contenedor{font-size:9.5pt}
+  .una-pagina{gap:var(--e3)}
+  .indicadores{grid-template-columns:repeat(3,1fr);gap:var(--e2);margin-bottom:var(--e3)}
   .indicador{padding:var(--e2) var(--e3)}
   .indicador .cifra{font-size:17pt}
-  .malla .tarjeta svg,.una-pagina svg{max-height:62mm}
+  .una-pagina svg{max-height:62mm}
+  .borrador{margin-bottom:var(--e2)}
+  .fuente-grafico{display:none}
   .pie{margin-top:var(--e3);padding-top:var(--e2);font-size:7.5pt}
+  .pie p{margin:0 0 2px}
 }
 ```
 
@@ -970,7 +972,7 @@ Los `data-cifra` de los tres indicadores apuntan a las claves que se declaren en
         <li>{{CONCLUSION_2}}</li>
         <li>{{CONCLUSION_3}}</li>
       </ol>
-      <p class="decision">{{DECISION_QUE_SE_PIDE}}</p>
+      <p class="aviso decision">{{DECISION_QUE_SE_PIDE}}</p>
     </section>
   </div>
 ```
@@ -999,13 +1001,28 @@ Se coloca despues del motor. Antes de imprimir mide el contenido a ancho de A4 y
 <script>
 (function(){
   "use strict";
-  var main = document.querySelector("main"), ALTO_A4 = 1010, ANCHO_A4 = 718;  /* area util en px a 96 ppp con 12 mm de margen */
+  /* Antes de imprimir se mide la pagina con las reglas de impresion aplicadas en pantalla y al
+     ancho util del A4; si pasa de una hoja, se reduce lo justo (Chrome no recoloca despues). */
+  var D = document, main = D.querySelector("main"), ANCHO = 703, ALTO = 1000;
+  function reglasImpresion() {
+    var css = "";
+    [].forEach.call(D.styleSheets, function (hoja) {
+      [].forEach.call(hoja.cssRules, function (r) {
+        if (r.media && /print/.test(r.media.mediaText)) [].forEach.call(r.cssRules, function (x) { if (x.selectorText) css += x.cssText + "\n"; });
+      });
+    });
+    return css;
+  }
   window.addEventListener("beforeprint", function () {
     main.style.zoom = "";
-    var ancho = main.style.width; main.style.width = ANCHO_A4 + "px";
-    var alto = main.scrollHeight;
-    main.style.width = ancho;
-    if (alto > ALTO_A4) main.style.zoom = Math.max(0.6, ALTO_A4 / alto).toFixed(3);
+    var prueba = D.createElement("style");
+    prueba.textContent = reglasImpresion();
+    D.head.appendChild(prueba);
+    D.body.style.width = ANCHO + "px";
+    var alto = main.getBoundingClientRect().height;
+    prueba.remove();
+    D.body.style.width = "";
+    if (alto > ALTO) main.style.zoom = Math.max(0.6, ALTO / alto).toFixed(3);
   });
   window.addEventListener("afterprint", function () { main.style.zoom = ""; });
 })();
