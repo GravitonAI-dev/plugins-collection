@@ -219,35 +219,7 @@ Presente en la maqueta de herramienta interactiva (`maquetas-reportes.md`). Cada
 
 ### Panel de entrada y recalculo
 
-Tres funciones separadas:
-
-- `leer()` recoge los valores del formulario y devuelve un objeto.
-- `calcular(d)` recibe ese objeto y devuelve `{ resultado1, resultado2, resultado3, medidor, desglose: [{concepto, importe, detalle}] }`. Es el unico bloque que cambia de un reporte a otro. `medidor` es un porcentaje de 0 a 100: el script lo guarda en el grafico `resultado` y llama a `Reportes.redibujar("resultado")`, de modo que el arco lo sigue dibujando el motor; `detalle` es texto ya formateado. La fila de totales suma la columna de importes; la tercera solo muestra total si el calculo devuelve ademas `totalDetalle`, porque sumar dias o porcentajes carece de sentido.
-- `pintar(r)` vuelca el resultado con `textContent`, nunca con `innerHTML`.
-
-Formato espanol siempre mediante `Intl.NumberFormat("es-ES", ...)`. La plantilla formatea `resultado1`, `resultado2` y los importes del desglose con `formatoMagnitud`, que por defecto es moneda: si la herramienta calcula otra magnitud (personas, dias, unidades), se sustituye ese formateador por el `Intl.NumberFormat` adecuado y se indica la unidad en los rotulos; `signDisplay:"exceptZero"` ayuda cuando el signo informa (saldos, variaciones).
-
-Ejemplo de bloque de calculo para intereses de demora:
-
-```js
-var base = d.campo1;
-var tipo = d.campo2 / 100;
-var dias = d.campo3;
-var recargo = d.campo4 === "comercial" ? base * 0.4 / 100 * dias / 365 : 0;
-var intereses = base * tipo * dias / 365;
-var total = base + intereses + recargo;
-return {
-  resultado1: total,
-  resultado2: intereses + recargo,
-  resultado3: dias,
-  medidor: total ? (intereses + recargo) * 100 / total : 0,
-  desglose: [
-    { concepto: "Principal reclamado", importe: base, detalle: "--" },
-    { concepto: "Intereses al tipo aplicado", importe: intereses, detalle: dias + " dias" },
-    { concepto: "Recargo por morosidad comercial", importe: recargo, detalle: dias + " dias" }
-  ]
-};
-```
+Estructura, script y contrato de `calcular` en la maqueta `herramienta_interactiva` de `maquetas-reportes.md`. Los valores introducidos se vuelcan siempre con `textContent`, nunca con `innerHTML`.
 
 ### Figura con fotografia
 
@@ -270,9 +242,4 @@ El `alt` describe la imagen; el `figcaption` la acredita **siempre** (autor, tit
 
 ### Pie del reporte
 
-```html
-<footer class="pie">
-  <p>Fuentes: documentacion aportada por el cliente el 12/03/2026 y calculo propio.</p>
-  <p>Documento de trabajo. No sustituye al asesoramiento de un profesional colegiado.</p>
-</footer>
-```
+Lo trae la base: la lista de fuentes la compone el motor a partir de `fuentes` y solo se rellena `{{PIE_AVISO_LEGAL}}`. No se anade otro pie.

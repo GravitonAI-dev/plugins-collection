@@ -24,69 +24,16 @@ Reglas tecnicas invariables del formato. Todo documento visual que produzca esta
 
 El `lang` es el idioma de la conversacion. El `<title>` es un nombre corto y reconocible, no un resumen: es lo que se ve en la pestana del navegador.
 
-## 3. Sistema de diseno por tokens
+## 3. Diseno, adaptabilidad e impresion: lo resuelve la base
 
-Todos los colores, espacios, radios y sombras se declaran como variables CSS en `:root`, en espanol, y se consumen con `var(--token)`. Nunca se escribe un color literal en una regla.
+La base ya trae el sistema de tokens (colores, espaciado, radios y sombras en `:root`, con su version oscura y el tema sobrio), la escala tipografica, las dos animaciones permitidas (anuladas con movimiento reducido y al imprimir), la rejilla adaptable sin desbordamiento horizontal y el bloque `@media print` completo: A4, fidelidad de color, tablas compactadas, `thead` repetido, `tfoot` sin duplicar, sin cortes de tarjeta ni titulos huerfanos. **No se toca.** Lo que si depende de quien rellena el reporte:
 
-- La paleta clara completa se define en `:root` sin condiciones.
-- El tema oscuro **solo redefine tokens** dentro de `@media (prefers-color-scheme: dark)`. Ningun color puede tener su unica definicion dentro del bloque oscuro.
-- `color-scheme: light dark` en `:root`, y `body` siempre con `background: var(--fondo)` explicito.
-
-| Grupo | Tokens |
-| :--- | :--- |
-| Superficies | `--fondo`, `--superficie`, `--superficie-2`, `--borde`, `--borde-suave` |
-| Texto | `--texto`, `--apagado` |
-| Acento y estado | `--acento`, `--acento-suave`, `--acento-fuerte`, `--ok`, `--aviso`, `--riesgo` |
-| Serie categorica | `--c1` a `--c6`, `--linea-rejilla` |
-| Espaciado | `--e1` 4px, `--e2` 8px, `--e3` 12px, `--e4` 20px, `--e5` 32px, `--e6` 52px |
-| Forma | `--radio`, `--radio-s`, `--sombra` |
-| Tipografia | `--fuente`, `--ancho` (ancho maximo del contenedor, propio de cada plantilla) |
-
-### Escala tipografica y profundidad
-
-- Titulo principal con `clamp(1.65rem, 3.6vw, 2.4rem)`, tracking `-.022em` y peso 680; cifras de indicador con `clamp(1.5rem, 2.5vw, 1.95rem)` y `font-variant-numeric: tabular-nums`.
-- Todo el espaciado sale de la escala `--e1` a `--e6`: no se escriben pixeles sueltos.
-- La sombra es de tres capas (contacto, media y ambiental) en un unico token, y desaparece en impresion.
-- El fondo lleva un degradado radial muy tenue derivado del acento (`color-mix`); si el navegador no soporta `color-mix`, la regla se ignora y queda el color plano.
-- Cada tarjeta de indicador lleva una linea superior de 3px con el color de su estado.
-
-### Movimiento
-
-Solo dos animaciones, ambas dentro de `@media (prefers-reduced-motion: no-preference)` y anuladas en impresion con `*{animation:none!important}`:
-
-- `.aparece`: entrada escalonada de las tarjetas (opacidad y 7px de desplazamiento, 0,55 s).
-- Las barras crecen desde la izquierda con `transform: scaleX()`, sin necesidad de JavaScript.
-
-### Nombres en espanol
-
-Clases e identificadores del documento estan en espanol y no se traducen ni se renombran: `.contenedor`, `.borrador`, `.antetitulo`, `.entradilla`, `.ficha`, `.indicadores`, `.indicador`, `.tarjeta`, `.malla`, `.aviso`, `.distintivo`, `.cronologia`, `.barras`, `.pista`, `.leyenda`, `.tabla`, `.cifra`, `.acciones`, `.pie`, `.medidor`, `.anillo`, `.cascada`, `.chispa`, `.verificacion`, `.progreso`, `.indice`, `.firma`. Identificadores del script: `imprimir`, `reiniciar`, `formulario`, `verificacion`, `resultado1` a `resultado3`, `cuerpo-desglose`, `barra-progreso`, `texto-progreso`, `arco-medidor`, `medidor-cifra`.
-
-## 4. Adaptabilidad y desbordamiento
-
-- Unidades relativas, `grid` con `repeat(auto-fit, minmax(...))` y `flex-wrap`. El cuerpo de la pagina nunca desborda en horizontal.
-- Todo contenido ancho (tablas, graficos, bloques de codigo) va dentro de un contenedor con `overflow-x: auto`.
-- **Los hijos de una rejilla llevan `min-width: 0`**. Sin esa regla, una tabla con `min-width` empuja su columna y toda la pagina desborda en horizontal aunque el contenedor tenga `overflow-x: auto`. Es el fallo de maquetacion mas frecuente y no se ve en pantalla ancha.
-- `svg { max-width: 100%; height: auto; }` y `viewBox` siempre presente para que el grafico escale.
-
-## 5. Impresion y exportacion a PDF
-
-El usuario imprime el documento visual o lo guarda como PDF desde el navegador (dialogo de impresion, destino *Guardar como PDF*). Es obligatorio:
-
-- Un bloque `@media print` que redefina los tokens a papel (`--fondo:#fff`, `--superficie:#fff`, `--texto:#000`, `--sombra:none`), quite el degradado de fondo (`background-image:none`), oculte los botones (`.acciones{display:none}`) y anule animaciones y transiciones.
-- `@page` con tamano y margen segun la plantilla: A4 vertical, con 16 mm de margen en el informe, 15 mm en la herramienta y 14 mm en el panel.
-- **Las rejillas se deshacen al imprimir** (`.malla{display:block}`, `.columnas{grid-template-columns:1fr}`): Chrome pagina mal dentro de una rejilla y deja medias paginas en blanco. En papel las tarjetas van una debajo de otra.
-- Al imprimir, el motor redibuja todos los graficos al ancho de la pagina (evento `beforeprint`) y los vuelve a ajustar a la pantalla al cerrar el dialogo. La tabla de datos desplegable de cada grafico no se imprime.
-- `break-inside: avoid` en tarjetas, indicadores y secciones; `break-after: avoid` en los encabezados.
-- `thead { display: table-header-group }` para que el encabezado de una tabla larga se repita en cada pagina.
-- En el informe, el indice lateral desaparece y el contenido pasa a una sola columna.
-- **Fidelidad de color en papel:** `*{-webkit-print-color-adjust:exact; print-color-adjust:exact}` dentro de `@media print`. Sin esto, quien imprima sin marcar *graficos de fondo* se lleva las barras y las areas en blanco, y el documento visual pierde justo lo que lo hacia util.
-- **Tipografia de pagina:** `p{orphans:3;widows:3}`, `h1,h2,h3{break-after:avoid}`, `tr{break-inside:avoid}`, y `break-inside:avoid` en avisos, leyendas, barras e hitos de cronologia. Una fila partida por la mitad o un titulo solo al pie de pagina delatan el documento.
-- **Tablas anchas en papel:** en pantalla una tabla ancha se desplaza dentro de `.tabla{overflow-x:auto}`; en papel no hay scroll y lo que no cabe se corta por el borde derecho sin aviso. En `@media print` la tabla se compacta hasta caber: `.tabla{overflow:visible}`, `table{min-width:0}` y, si hace falta, cuerpo de tabla mas pequeno y menos padding en `th,td`. Se comprueba en la vista previa que la ultima columna entra en el A4.
-- **El `tfoot` se repite:** Chrome pinta el pie de tabla al final de cada pagina, duplicando la fila de totales. En `@media print`, `tfoot{display:table-row-group}` lo deja solo al final.
-- **Tarjetas mas altas que una pagina:** `break-inside:avoid` en una tarjeta que no cabe en un A4 obliga a Chrome a partirla de todos modos, dejando antes una pagina medio vacia. A esa tarjeta se le da la clase `permite-corte` (en print: `break-inside:auto`) y se protegen sus bloques internos (medidor, resultados, tabla, avisos) con `break-inside:avoid`.
-- **Rotulos dentro de un SVG:** un `<text>` mas ancho que el `viewBox` se recorta por los lados sin aviso, en pantalla y en papel. Dentro del SVG solo van cifras y rotulos cortos; cualquier frase (el rotulo de un medidor, una aclaracion) va en HTML debajo del grafico.
-- Un boton visible en pantalla que invoque `window.print()`. El nombre del PDF que propone el navegador sale del `<title>`, asi que ese titulo es tambien el nombre del archivo.
-- **Cabeceras y pies repetidos en cada pagina: no.** Un elemento `position:fixed` parece la solucion evidente, pero Chrome lo coloca una sola vez y fuera de sitio —acaba al pie de la primera pagina y tapando la primera linea de la siguiente—. Si hace falta identificacion en cada hoja, se deja al dialogo de impresion del navegador (que anade cabecera, pie, fecha y numero de pagina) o se acepta que la identificacion viva en la cabecera del documento y en su pie final.
+- **Colores siempre con tokens** (`var(--c1)`, `var(--riesgo)`), nunca literales. Para un tema personalizado se redefinen los tokens en `:root` y tambien dentro del bloque oscuro.
+- **Nombres en espanol:** las clases e identificadores de la base y de las maquetas no se traducen ni se renombran. Lo que cambia de idioma es el texto visible.
+- **Tarjetas mas altas que un A4:** se les da la clase `permite-corte` (la herramienta ya la usa en su tarjeta de resultados), que deja partir la tarjeta y protege sus bloques internos.
+- **Texto dentro de un SVG:** solo cifras y rotulos cortos. Cualquier frase va en HTML junto al grafico, porque dentro del SVG se recorta sin aviso. El motor ya sigue esta regla.
+- **Cabeceras y pies repetidos en cada pagina: no.** Un elemento `position:fixed` parece la solucion, pero Chrome lo coloca una sola vez y fuera de sitio. La identificacion por pagina se deja al dialogo de impresion del navegador.
+- Un boton visible invoca `window.print()` (ya en la base). El nombre del PDF que propone el navegador sale del `<title>`, asi que ese titulo es tambien el nombre del archivo.
 
 ## 6. JavaScript permitido y prohibido
 

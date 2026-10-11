@@ -297,14 +297,15 @@ for _c in sorted(glob.glob('*/CLAUDE.md')):
 
 # ---------------------------------------------------------------- bloque datos-reporte de los reportes HTML
 # Los tipos validos se leen del propio motor (tipos.X = ...), asi no hay que mantener dos listas.
+_TIPOS_MOTOR=set()
 _DATOS=re.compile(r'<script type="application/json" id="datos-reporte">(.*?)</script>',re.S)
 for _h in sorted(glob.glob('*/skills/*/ejemplos/*.html')+glob.glob('*/skills/*/assets/*.md')):
     _t=open(_h,encoding='utf-8').read(); _m=_DATOS.search(_t)
     if not _m: continue
-    _tipos=set(re.findall(r'\btipos\.(\w+) = function',_t))
+    _tipos=set(re.findall(r'\btipos\.(\w+) = function',_t)); _TIPOS_MOTOR|=_tipos
     try: _d=json.loads(_m.group(1))
     except ValueError as _e: print(f"  FALLO datos-reporte no es JSON valido: {_h} ({_e})"); FALLOS+=1; continue
-    if len(_t.encode())>130000: print(f"  FALLO reporte de mas de 130 KB: {_h} ({len(_t.encode())} bytes)"); FALLOS+=1
+    if len(_t.encode())>122880: print(f"  FALLO reporte de mas de 120 KB: {_h} ({len(_t.encode())} bytes)"); FALLOS+=1
     _fu=_d.get('fuentes') or {}
     for _k,_f in _fu.items():
         if not (_f.get('nombre') and re.fullmatch(r'\d{4}-\d{2}-\d{2}',str(_f.get('consulta','')))):
@@ -315,11 +316,19 @@ for _h in sorted(glob.glob('*/skills/*/ejemplos/*.html')+glob.glob('*/skills/*/a
         _cl=[_g.get('fuente')]+[s.get('fuente') for s in _g.get('series') or []]
         for _c in filter(None,_cl):
             if _c not in _fu: print(f"  FALLO fuente no declarada en fuentes: {_h} {_id} {_c}"); FALLOS+=1
-        if _g.get('tipo') not in ('chispa','medidor','matriz','plazos') and not any(_cl):
+        if not any(_cl):
             print(f"  AVISO grafico sin fuente: {_h} {_id}")
         if _id not in _usados: print(f"  AVISO grafico declarado sin hueco data-grafico: {_h} {_id}")
     for _id in _usados-set(_d.get('graficos') or {}):
         print(f"  FALLO hueco data-grafico sin datos: {_h} {_id}"); FALLOS+=1
+
+# Las partes de datos de las maquetas (lo que copia el modelo) tambien se parsean.
+for _r in sorted(glob.glob('*/skills/*/references/*.md')):
+    for _maq,_js in re.findall(r'```json maqueta=(\w+) parte=datos\n(.*?)\n```',open(_r,encoding='utf-8').read(),re.S):
+        try: _d=json.loads(_js)
+        except ValueError as _e: print(f"  FALLO datos de la maqueta {_maq} no son JSON valido: {_r} ({_e})"); FALLOS+=1; continue
+        for _id,_g in (_d.get('graficos') or {}).items():
+            if _g.get('tipo') not in _TIPOS_MOTOR: print(f"  FALLO tipo de grafico desconocido en la maqueta {_maq}: {_id} {_g.get('tipo')}"); FALLOS+=1
 
 if TH or TC: FALLOS+=1
 print(("\nOK — catalogo coherente" if not FALLOS else f"\n{FALLOS} comprobaciones fallidas"))

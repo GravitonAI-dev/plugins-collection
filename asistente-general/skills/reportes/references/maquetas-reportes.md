@@ -3,13 +3,17 @@
 Cada reporte se construye con dos piezas:
 
 1. **La base** (`assets/template-base-reportes.md`). Se copia integra: estilos, tema claro y oscuro, impresion, aviso DRAFT, cabecera, pie con fuentes y motor de graficos. No se resume ni se recorta.
-2. **La maqueta** del tipo de entregable elegido (este documento). Sustituye a tres marcadores de la base: `{{FICHA}}`, `{{CONTENIDO}}` y el bloque `datos-reporte`.
+2. **La maqueta** del tipo de entregable elegido (este documento). Rellena los marcadores de la base:
+   - `{{ANCHO}}`: el ancho de la maqueta;
+   - `{{FICHA}}` y `{{CONTENIDO}}`: sus partes `ficha` y `contenido`;
+   - `{{ESTILOS_MAQUETA}}`: su parte `estilos`, o se borra la linea si no tiene;
+   - `{{ACCIONES}}`: su parte `acciones`, o se borra si no tiene;
+   - el bloque `datos-reporte`: su parte `datos`, completada con los datos del caso.
 
 Los graficos **no se dibujan a mano**. En el HTML solo se coloca el hueco, `<figure class="grafico" data-grafico="nombre"></figure>`, y en el bloque `datos-reporte` se declaran los datos con ese mismo nombre. El motor dibuja el grafico, su tabla de datos, su fuente y el pie de fuentes del documento. El contrato de datos de cada tipo de grafico esta en `biblioteca-componentes-visuales.md`.
 
 Reglas comunes a todas las maquetas:
 
-- El ancho del documento se fija en el `main`: `<main class="contenedor" style="--ancho:1120px">`. Cada maqueta indica el suyo.
 - El tema se fija en la etiqueta `html`: `data-tema="moderno"` o `data-tema="sobrio"`.
 - Los bloques se pueden repetir, quitar o reordenar. Lo que no cambia es la estructura de cada bloque: las clases son las de la base y no se renombran.
 - Toda cifra del texto que salga de un grafico se escribe con `<span data-cifra="clave"></span>` y se declara en `cifras`. Asi el texto y el grafico no pueden contradecirse.
@@ -19,7 +23,7 @@ Reglas comunes a todas las maquetas:
 
 ## 1. Panel de datos (`panel_datos`)
 
-Ancho `1120px`. Rejilla de tarjetas con indicadores, graficos y tabla de detalle.
+**Ancho:** `1120px`. Rejilla de tarjetas con indicadores, graficos y tabla de detalle.
 
 ### Ficha
 
@@ -135,7 +139,7 @@ Ancho `1120px`. Rejilla de tarjetas con indicadores, graficos y tabla de detalle
 
 ## 2. Informe visual (`informe_visual`)
 
-Ancho `1000px`. Lectura secuencial con indice lateral, secciones numeradas, tabla, cronologia, avisos y firmas. Admite graficos dentro de cualquier seccion.
+**Ancho:** `1000px`. Lectura secuencial con indice lateral, secciones numeradas, tabla, cronologia, avisos y firmas. Admite graficos dentro de cualquier seccion.
 
 ### Ficha
 
@@ -144,6 +148,32 @@ Ancho `1000px`. Lectura secuencial con indice lateral, secciones numeradas, tabl
       <li><b>Fecha:</b> {{FECHA_EMISION}}</li>
       <li><b>Destinatario:</b> {{DESTINATARIO}}</li>
       <li><b>Preparado por:</b> {{AUTOR}}</li>
+```
+
+### Estilos
+
+```css maqueta=informe_visual parte=estilos
+.diseno{display:grid;grid-template-columns:196px minmax(0,1fr);gap:var(--e5);align-items:start}
+.indice{position:sticky;top:var(--e4);font-size:.85rem}
+.indice p{font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:var(--apagado);margin:0 0 var(--e2)}
+.indice ol{list-style:none;margin:0;padding:0;border-left:2px solid var(--borde)}
+.indice li{margin:0}
+.indice a{display:block;padding:7px 0 7px 14px;color:var(--apagado);text-decoration:none;border-left:2px solid transparent;margin-left:-2px}
+.indice a:hover{color:var(--acento);border-left-color:var(--acento)}
+.bloque{margin:0 0 var(--e3)}
+.bloque h2{display:flex;gap:var(--e2);align-items:baseline}
+.bloque h2 .orden{color:var(--acento);font-variant-numeric:tabular-nums}
+.cronologia{list-style:none;margin:var(--e4) 0 0;padding:0 0 0 26px;border-left:2px solid var(--borde)}
+.cronologia li{position:relative;margin:0 0 var(--e4)}
+.cronologia li:last-child{margin-bottom:0}
+.cronologia li::before{content:"";position:absolute;left:-33px;top:6px;width:12px;height:12px;border-radius:50%;
+  background:var(--acento);border:3px solid var(--superficie);box-shadow:0 0 0 1px var(--borde)}
+.cronologia .fecha{display:block;font-size:.76rem;letter-spacing:.07em;text-transform:uppercase;color:var(--apagado)}
+.cronologia .hito{font-weight:650}
+.firma{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--e4);margin:var(--e4) 0 0;font-size:.9rem}
+.firma div{border-top:1px solid var(--borde);padding-top:var(--e2);color:var(--apagado)}
+@media (max-width:900px){.diseno{grid-template-columns:1fr}.indice{display:none}}
+@media print{.diseno{display:block}.indice{display:none}}
 ```
 
 ### Contenido
@@ -255,16 +285,56 @@ Ancho `1000px`. Lectura secuencial con indice lateral, secciones numeradas, tabl
 
 ## 3. Herramienta interactiva (`herramienta_interactiva`)
 
-Ancho `1020px`. Panel de entrada, recalculo inmediato, medidor que se mueve con el resultado, desglose y lista de verificacion.
+**Ancho:** `1020px`. Panel de entrada, recalculo inmediato, medidor que se mueve con el resultado, desglose y lista de verificacion.
 
-La herramienta es la unica maqueta que anade codigo: un **segundo** `<script>`, colocado justo despues del script del motor, con su bloque de calculo. En ese script solo cambia la funcion `calcular`. El medidor lo sigue dibujando el motor: el script actualiza su valor y llama a `Reportes.redibujar("resultado")`.
-
-En la barra de acciones de la base se anade, junto al boton de imprimir, `<button type="button" id="reiniciar">Restablecer valores</button>`.
+La herramienta es la unica maqueta que anade codigo: un **segundo** `<script>`, colocado justo despues del script del motor. En ese script solo cambia la funcion `calcular`. Las cifras se formatean con el motor (`Reportes.fmt`, que respeta el idioma y la moneda del bloque de datos) y el medidor lo sigue dibujando el motor: el script le pasa el nuevo valor con `Reportes.actualizar("resultado", {valor: ...})`.
 
 ### Ficha
 
 ```html maqueta=herramienta_interactiva parte=ficha
 <li><b>Referencia:</b> {{REFERENCIA_EXPEDIENTE}}</li>
+```
+
+### Estilos
+
+```css maqueta=herramienta_interactiva parte=estilos
+.columnas{display:grid;grid-template-columns:minmax(290px,1fr) minmax(320px,1.2fr);gap:var(--e3);align-items:start}
+.columnas .tarjeta + .tarjeta{margin-top:var(--e3)}
+.campo{margin:0 0 var(--e4)}
+.campo label{display:block;font-size:.86rem;font-weight:620;margin-bottom:6px}
+.campo .ayuda{display:block;font-size:.78rem;color:var(--apagado);margin-top:6px}
+input,select{width:100%;font:inherit;font-size:.95rem;color:var(--texto);background:var(--superficie-2);
+  border:1px solid var(--borde);border-radius:var(--radio-s);padding:10px 12px}
+input:focus,select:focus{border-color:var(--acento)}
+input[type=number]{font-variant-numeric:tabular-nums}
+.resultados{display:grid;grid-template-columns:repeat(auto-fit,minmax(126px,1fr));gap:var(--e3);margin:0 0 var(--e4)}
+.resultado{background:var(--superficie-2);border:1px solid var(--borde-suave);border-radius:var(--radio-s);padding:var(--e3) var(--e4)}
+.resultado .rotulo{font-size:.73rem;text-transform:uppercase;letter-spacing:.09em;color:var(--apagado);margin:0 0 5px}
+.resultado .cifra{font-size:clamp(1rem,1.45vw,1.3rem);white-space:nowrap;font-weight:670;letter-spacing:-.025em;margin:0;font-variant-numeric:tabular-nums}
+.resultado.principal{background:var(--acento-suave);border-color:var(--acento)}
+.resultado.principal .cifra{color:var(--acento-fuerte)}
+.verificacion{list-style:none;margin:0;padding:0}
+.verificacion li{display:flex;gap:var(--e3);align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--borde-suave)}
+.verificacion li:last-child{border-bottom:none}
+.verificacion input[type=checkbox]{width:17px;height:17px;margin-top:3px;flex:0 0 auto;accent-color:var(--acento)}
+.verificacion .texto{font-size:.93rem}
+.verificacion .texto small{display:block;color:var(--apagado);font-size:.8rem}
+.progreso{height:9px;border-radius:999px;background:var(--superficie-2);border:1px solid var(--borde-suave);overflow:hidden;margin:var(--e4) 0 6px}
+.progreso span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ok),color-mix(in srgb,var(--ok) 70%,white));transition:width .25s ease}
+.progreso-texto{font-size:.82rem;color:var(--apagado);margin:0}
+@media (max-width:760px){.columnas{grid-template-columns:1fr}}
+@media print{
+  .columnas{grid-template-columns:1fr}
+  /* Una tarjeta mas alta que un A4 no puede evitar el corte: se deja partir y se protegen sus bloques. */
+  .permite-corte{break-inside:auto}
+  .permite-corte .grafico,.permite-corte .resultados,.permite-corte .tabla,.permite-corte .aviso{break-inside:avoid}
+}
+```
+
+### Acciones
+
+```html maqueta=herramienta_interactiva parte=acciones
+<button type="button" id="reiniciar">Restablecer valores</button>
 ```
 
 ### Contenido
@@ -366,15 +436,14 @@ En la barra de acciones de la base se anade, junto al boton de imprimir, `<butto
 
 ### Script de calculo
 
-Se coloca despues del script del motor. `formatoMagnitud` es moneda por defecto: si la herramienta calcula otra magnitud (dias, personas, unidades), se cambia por el `Intl.NumberFormat` adecuado y se indica la unidad en los rotulos.
+Se coloca despues del script del motor. `UNIDAD` es la unidad de los resultados 1 y 2 y del desglose (`eur` por defecto; `dias`, `num` o cualquier texto si la herramienta calcula otra magnitud).
 
 ```js maqueta=herramienta_interactiva parte=script
 <script>
 (function(){
   "use strict";
-  var formatoMagnitud = new Intl.NumberFormat("es-ES", {style:"currency", currency:"EUR", maximumFractionDigits:2, useGrouping:"always"});
-  var numero = new Intl.NumberFormat("es-ES", {maximumFractionDigits:2, useGrouping:"always"});
-  var iniciales = {};
+  var UNIDAD = "eur", f = function(v, u){ return Reportes.fmt(v, u || UNIDAD); };
+  var formulario = document.getElementById("formulario");
 
   function leer(){
     return {
@@ -390,24 +459,20 @@ Se coloca despues del script del motor. `formatoMagnitud` es moneda por defecto:
   }
 
   function pintar(r){
-    document.getElementById("resultado1").textContent = formatoMagnitud.format(r.resultado1);
-    document.getElementById("resultado2").textContent = formatoMagnitud.format(r.resultado2);
-    document.getElementById("resultado3").textContent = numero.format(r.resultado3);
-    Reportes.datos.graficos.resultado.valor = Math.max(0, Math.min(100, r.medidor || 0));
-    Reportes.redibujar("resultado");
-    var cuerpo = document.getElementById("cuerpo-desglose");
+    document.getElementById("resultado1").textContent = f(r.resultado1);
+    document.getElementById("resultado2").textContent = f(r.resultado2);
+    document.getElementById("resultado3").textContent = f(r.resultado3, "num");
+    Reportes.actualizar("resultado", {valor: r.medidor || 0});
+    var cuerpo = document.getElementById("cuerpo-desglose"), total = 0;
     cuerpo.textContent = "";
-    var total = 0;
     r.desglose.forEach(function(fila){
-      var tr = document.createElement("tr");
-      var c1 = document.createElement("td"); c1.textContent = fila.concepto;
-      var c2 = document.createElement("td"); c2.className = "cifra"; c2.textContent = formatoMagnitud.format(fila.importe);
-      var c3 = document.createElement("td"); c3.className = "cifra"; c3.textContent = fila.detalle;
-      tr.appendChild(c1); tr.appendChild(c2); tr.appendChild(c3);
-      cuerpo.appendChild(tr);
+      var tr = cuerpo.insertRow();
+      [fila.concepto, f(fila.importe), fila.detalle].forEach(function(texto, i){
+        var celda = tr.insertCell(); celda.textContent = texto; if (i) celda.className = "cifra";
+      });
       total += fila.importe;
     });
-    document.getElementById("total-columna-2").textContent = formatoMagnitud.format(total);
+    document.getElementById("total-columna-2").textContent = f(total);
     document.getElementById("total-columna-3").textContent = (r.totalDetalle === undefined) ? "" : r.totalDetalle;
   }
 
@@ -415,22 +480,19 @@ Se coloca despues del script del motor. `formatoMagnitud` es moneda por defecto:
 
   function progreso(){
     var casillas = document.querySelectorAll("#verificacion input[type=checkbox]");
-    var hechos = 0;
-    casillas.forEach(function(c){ if(c.checked){ hechos += 1; } });
-    var porcentaje = casillas.length ? Math.round(hechos * 100 / casillas.length) : 0;
-    document.getElementById("barra-progreso").style.width = porcentaje + "%";
+    var hechos = document.querySelectorAll("#verificacion input:checked").length;
+    document.getElementById("barra-progreso").style.width = (casillas.length ? Math.round(hechos * 100 / casillas.length) : 0) + "%";
     document.getElementById("texto-progreso").textContent = hechos + " de " + casillas.length + " puntos verificados";
   }
 
-  document.getElementById("formulario").addEventListener("input", actualizar);
+  formulario.addEventListener("input", actualizar);
   document.getElementById("verificacion").addEventListener("change", progreso);
   document.getElementById("reiniciar").addEventListener("click", function(){
-    Object.keys(iniciales).forEach(function(id){ document.getElementById(id).value = iniciales[id]; });
+    formulario.reset();
     document.querySelectorAll("#verificacion input[type=checkbox]").forEach(function(c){ c.checked = false; });
     actualizar(); progreso();
   });
 
-  ["campo1","campo2","campo3","campo4"].forEach(function(id){ iniciales[id] = document.getElementById(id).value; });
   actualizar();
   progreso();
 })();

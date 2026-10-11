@@ -16,6 +16,7 @@ Uso:   python3 generar_ejemplos.py            (HTML, comprobacion y PDF)
        python3 generar_ejemplos.py --sin-pdf  (solo HTML y comprobacion)
 """
 import json, os, re, subprocess, sys, tempfile
+from concurrent.futures import ThreadPoolExecutor
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 SKILL = os.path.join(AQUI, "..")
@@ -25,35 +26,31 @@ CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 DATOS_VACIOS = re.compile(r'(<script type="application/json" id="datos-reporte">\n).*?(\n</script>)', re.S)
 
 # --------------------------------------------------------------------------- composicion
-def maquetas():
-    """Devuelve {(maqueta, parte): texto} a partir de los bloques de la referencia."""
+def _leer_maquetas():
+    """{(maqueta, parte): texto} de los bloques de la referencia, mas {maqueta: ancho}."""
     texto = open(MAQUETAS, encoding="utf-8").read()
-    bloques = re.findall(r"```\w+ maqueta=(\w+) parte=(\w+)\n(.*?)\n```", texto, re.S)
-    return {(m, p): cuerpo for m, p, cuerpo in bloques}
+    piezas = {(m, p): c for m, p, c in re.findall(r"```\w+ maqueta=(\w+) parte=(\w+)\n(.*?)\n```", texto, re.S)}
+    anchos = dict(re.findall(r"\(`(\w+)`\)\n\n\*\*Ancho:\*\* `(\w+)`", texto))
+    return piezas, anchos
+PIEZAS, ANCHOS = _leer_maquetas()
+BASE_HTML = open(BASE, encoding="utf-8").read()
 
-def componer(maqueta, destino, textos, datos, ancho, tema="moderno", extra_acciones="", sustituir=None):
-    piezas = maquetas()
-    html = open(BASE, encoding="utf-8").read()
-    html = html.replace('data-tema="moderno"', 'data-tema="%s"' % tema)
-    html = html.replace('<main class="contenedor">', '<main class="contenedor" style="--ancho:%s">' % ancho)
-    html = html.replace("{{FICHA}}", piezas[(maqueta, "ficha")])
-    html = html.replace("{{CONTENIDO}}", piezas[(maqueta, "contenido")])
-    html = DATOS_VACIOS.sub(lambda m: m.group(1) + json.dumps(datos, ensure_ascii=False, indent=2) + m.group(2), html)
-    if extra_acciones:
-        html = html.replace('id="imprimir">Imprimir o guardar en PDF</button>',
-                            'id="imprimir">Imprimir o guardar en PDF</button>\n    ' + extra_acciones)
-    if (maqueta, "script") in piezas:
-        html = html.replace("</body>", piezas[(maqueta, "script")] + "\n</body>")
-    for viejo, nuevo in (sustituir or {}).items():
-        assert viejo in html, "no aparece en la maqueta: " + viejo
-        html = html.replace(viejo, nuevo)
+def componer(destino, textos, datos, maqueta=None, tema="moderno", ficha=None, contenido=None, ancho=None):
+    """Compone un ejemplo como lo hara el modelo: base, partes de la maqueta y datos."""
+    parte = lambda nombre: PIEZAS.get((maqueta, nombre), "")
+    html = BASE_HTML.replace('data-tema="moderno"', 'data-tema="%s"' % tema)
+    html = html.replace("{{ANCHO}}", ancho or ANCHOS[maqueta])
+    html = html.replace("{{FICHA}}", ficha or parte("ficha")).replace("{{CONTENIDO}}", contenido or parte("contenido"))
+    html = html.replace("{{ESTILOS_MAQUETA}}", parte("estilos")).replace("{{ACCIONES}}", parte("acciones"))
+    html = DATOS_VACIOS.sub(lambda m: m.group(1) + json.dumps(datos, ensure_ascii=False, indent=1) + m.group(2), html)
+    if parte("script"):
+        html = html.replace("</body>", parte("script") + "\n</body>")
     for clave, valor in textos.items():
         html = html.replace("{{%s}}" % clave, valor)
     pendientes = sorted(set(re.findall(r"\{\{(\w+)\}\}", html)) - {"LETRADO_RESPONSABLE", "clave"})
-    ruta = os.path.join(AQUI, destino)
-    open(ruta, "w", encoding="utf-8").write(html)
+    open(os.path.join(AQUI, destino), "w", encoding="utf-8").write(html)
     print("  %-38s %6d bytes   pendientes: %s" % (destino, len(html.encode()), ", ".join(pendientes) or "ninguno"))
-    return not pendientes
+    return destino, not pendientes
 
 # --------------------------------------------------------------------------- datos del caso
 FUENTE_CLIENTE = {"cliente": {"nombre": "Mayor de clientes y facturas aportados por el cliente", "consulta": "2026-09-18"}}
@@ -72,7 +69,7 @@ def panel():
       },
       "graficos": {
         "tendencia": {"tipo": "chispa", "valores": [12400, 21800, 28900, 36200, 42180.5], "etiquetas": ["Enero", "Marzo", "Mayo", "Julio", "Septiembre"],
-                      "resumen": "Principal acumulado de enero a septiembre: al alza"},
+                      "resumen": "Principal acumulado de enero a septiembre: al alza", "fuente": "cliente"},
         "comparativa": {"tipo": "barras", "unidad": "eur", "fuente": "cliente",
                         "elementos": [{"rotulo": r, "valor": v} for r, v in FACTURAS]},
         "reparto": {"tipo": "anillo", "unidad": "pct", "fuente": "cliente",
@@ -90,7 +87,7 @@ def panel():
                            "pasos": [{"rotulo": "Principal", "valor": PRINCIPAL}, {"rotulo": "Intereses", "valor": INTERESES}, {"rotulo": "Costas est.", "valor": COSTAS}],
                            "total": {"rotulo": "Total"}, "resumen": "Principal, intereses y costas estimadas suman el total reclamable"},
         "medidor": {"tipo": "medidor", "valor": 7, "maximo": 10, "unidad": "dias", "cifra": "70 %", "rotulo": "del plazo de diez dias consumido",
-                    "resumen": "Plazo del requerimiento consumido al 70 por ciento: siete dias de diez"},
+                    "resumen": "Plazo del requerimiento consumido al 70 por ciento: siete dias de diez", "fuente": "cliente"},
       }}
     textos = dict(COMUN, **{
       "TITULO_DOCUMENTO": "La deuda se concentra en tres facturas de 2025",
@@ -114,7 +111,7 @@ def panel():
       "FILA_2_C1": "Factura 2025/131", "FILA_2_C2": "20/01/2026", "FILA_2_C3": "11.250,00", "FILA_2_C4": "247", "FILA_2_C5": "Requerida",
       "TOTAL_ROTULO": "Total de las dos mas antiguas", "TOTAL_C3": "29.650,00",
     })
-    return componer("panel_datos", "panel_reclamacion_cantidad.html", textos, datos, "1120px")
+    return componer("panel_reclamacion_cantidad.html", textos, datos, "panel_datos")
 
 def informe():
     datos = {"idioma": "es-ES", "moneda": "EUR", "fuentes": FUENTE_CLIENTE, "cifras": {},
@@ -156,7 +153,7 @@ def informe():
       "CONTENIDO_ADVERTENCIA": "Si el deudor se opone en plazo, el asunto se transforma en el juicio declarativo que corresponda por la cuantia, con la consiguiente necesidad de abogado y procurador y un plazo sensiblemente mayor.",
       "FIRMA_1": "Preparado por: Departamento de procesal civil", "FIRMA_2": "Revisado por: {{LETRADO_RESPONSABLE}}",
     })
-    return componer("informe_visual", "informe_viabilidad_monitorio.html", textos, datos, "1000px", tema="sobrio")
+    return componer("informe_viabilidad_monitorio.html", textos, datos, "informe_visual", tema="sobrio")
 
 def herramienta():
     calculo = """var base = d.campo1;
@@ -177,7 +174,7 @@ def herramienta():
       ]
     };"""
     datos = {"idioma": "es-ES", "moneda": "EUR", "fuentes": {"cliente": {"nombre": "Importes aportados por el cliente", "consulta": "2026-09-18"}}, "cifras": {},
-             "graficos": {"resultado": {"tipo": "medidor", "valor": 0, "maximo": 100, "tramos": [5, 15], "rotulo": "intereses sobre el total", "tabla": False,
+             "graficos": {"resultado": {"tipo": "medidor", "valor": 0, "maximo": 100, "tramos": [5, 15], "rotulo": "intereses sobre el total", "tabla": False, "fuente": "cliente",
                                         "resumen": "Peso de los intereses y el recargo sobre el total a reclamar"}}}
     textos = dict(COMUN, **{
       "TITULO_DOCUMENTO": "Simulador de intereses de demora",
@@ -204,8 +201,7 @@ def herramienta():
       "TITULO_ADVERTENCIA": "Caracter orientativo",
       "CONTENIDO_ADVERTENCIA": "El importe definitivo depende del tipo efectivamente aplicable a cada factura y de la fecha real de presentacion de la demanda. La liquidacion definitiva corresponde al letrado director del asunto.",
     })
-    return componer("herramienta_interactiva", "simulador_intereses_demora.html", textos, datos, "1020px",
-                    extra_acciones='<button type="button" id="reiniciar">Restablecer valores</button>')
+    return componer("simulador_intereses_demora.html", textos, datos, "herramienta_interactiva")
 
 # --------------------------------------------------------------------------- galeria
 GALERIA = [
@@ -258,7 +254,7 @@ def galeria():
         ancho = " ancho-total" if clave in ("linea", "plazos") else ""
         tarjetas.append('<section class="tarjeta%s">\n      <h2>%s</h2>\n      <p class="subtitulo">%s <code>"tipo": "%s"</code></p>\n'
                         '      <figure class="grafico" data-grafico="%s"></figure>\n    </section>' % (ancho, titulo, uso, g["tipo"], clave))
-    graficos["tendencia"] = {"tipo": "chispa", "valores": [10, 12, 18, 22, 30, 34], "etiquetas": ["Abril", "Septiembre"]}
+    graficos["tendencia"] = {"tipo": "chispa", "valores": [10, 12, 18, 22, 30, 34], "etiquetas": ["Abril", "Septiembre"], "fuente": "ejemplo"}
     datos = {"idioma": "es-ES", "moneda": "EUR", "cifras": {"total": {"de": "cascada", "calculo": "suma", "unidad": "eur"}},
              "fuentes": {"ejemplo": {"nombre": "Datos ficticios de demostracion", "consulta": "2026-10-11"}}, "graficos": graficos}
     contenido = ('<div class="indicadores">\n    <div class="indicador">\n      <p class="rotulo">Indicador con minigrafico</p>\n'
@@ -270,53 +266,42 @@ def galeria():
       "ETIQUETA_SUPERIOR": "Skill reportes | Catalogo de formas",
       "ENTRADILLA": "Cada grafico se declara con sus datos en el bloque datos-reporte y lo dibuja el motor de la base. Bajo cada uno estan su tabla de datos, la descarga en CSV y su fuente.",
     })
-    piezas_ficha = '<li><b>Tipos:</b> %d</li>' % len(GALERIA)
-    return componer_libre("galeria_graficos.html", contenido, piezas_ficha, textos, datos)
-
-def componer_libre(destino, contenido, ficha, textos, datos):
-    html = open(BASE, encoding="utf-8").read()
-    html = html.replace("{{FICHA}}", ficha).replace("{{CONTENIDO}}", contenido)
-    html = DATOS_VACIOS.sub(lambda m: m.group(1) + json.dumps(datos, ensure_ascii=False, indent=2) + m.group(2), html)
-    for clave, valor in textos.items():
-        html = html.replace("{{%s}}" % clave, valor)
-    pendientes = sorted(set(re.findall(r"\{\{(\w+)\}\}", html)) - {"clave"})
-    open(os.path.join(AQUI, destino), "w", encoding="utf-8").write(html)
-    print("  %-38s %6d bytes   pendientes: %s" % (destino, len(html.encode()), ", ".join(pendientes) or "ninguno"))
-    return not pendientes
+    return componer("galeria_graficos.html", textos, datos, ficha='<li><b>Tipos:</b> %d</li>' % len(GALERIA),
+                    contenido=contenido, ancho="1120px")
 
 # --------------------------------------------------------------------------- comprobacion e impresion
 def comprobar_y_imprimir(archivos, pdf):
+    """Abre los ejemplos en Chrome sin ventana, en paralelo, y falla si la consola registra errores."""
     if not os.path.exists(CHROME):
         print("\nChrome no encontrado: no se comprueba la consola ni se generan PDF.")
         return True
-    limpio = True
     print("\nComprobando en Chrome%s:" % (" e imprimiendo a PDF" if pdf else ""))
-    for archivo in archivos:
+    def abrir(archivo):
         ruta = os.path.join(AQUI, archivo)
-        perfil = tempfile.mkdtemp(prefix="reportes-chrome-")
-        orden = [CHROME, "--headless=new", "--disable-gpu", "--user-data-dir=" + perfil, "--enable-logging=stderr", "--v=0",
-                 "--virtual-time-budget=3000", "--no-pdf-header-footer"]
-        orden += ["--print-to-pdf=" + ruta.replace(".html", ".pdf")] if pdf else ["--dump-dom"]
-        salida = subprocess.run(orden + ["file://" + ruta], capture_output=True, text=True, check=False)
-        errores = [l for l in salida.stderr.splitlines() if ":CONSOLE" in l]
+        with tempfile.TemporaryDirectory(prefix="reportes-chrome-") as perfil:
+            orden = [CHROME, "--headless=new", "--disable-gpu", "--user-data-dir=" + perfil, "--enable-logging=stderr", "--v=0",
+                     "--virtual-time-budget=3000", "--no-pdf-header-footer"]
+            orden += ["--print-to-pdf=" + ruta.replace(".html", ".pdf")] if pdf else ["--dump-dom"]
+            salida = subprocess.run(orden + ["file://" + ruta], capture_output=True, text=True, check=False)
+        return [l for l in salida.stderr.splitlines() if ":CONSOLE" in l]
+    with ThreadPoolExecutor() as hilos:
+        resultados = list(hilos.map(abrir, archivos))
+    for archivo, errores in zip(archivos, resultados):
         estado = "sin errores" if not errores else "%d errores de consola" % len(errores)
         if pdf:
-            destino = ruta.replace(".html", ".pdf")
+            destino = os.path.join(AQUI, archivo.replace(".html", ".pdf"))
             estado += ", PDF de %d bytes" % os.path.getsize(destino) if os.path.exists(destino) else ", PDF NO GENERADO"
         print("  %-38s %s" % (archivo, estado))
         for e in errores:
             print("      " + e.split("CONSOLE")[-1][:200])
-        limpio = limpio and not errores
-    return limpio
+    return not any(resultados)
 
 # --------------------------------------------------------------------------- principal
 if __name__ == "__main__":
     print("Generando reportes de ejemplo:")
-    completos = [panel(), informe(), herramienta(), galeria()]
-    archivos = ["panel_reclamacion_cantidad.html", "informe_viabilidad_monitorio.html",
-                "simulador_intereses_demora.html", "galeria_graficos.html"]
-    limpio = comprobar_y_imprimir(archivos, "--sin-pdf" not in sys.argv)
-    if not all(completos) or not limpio:
+    hechos = [panel(), informe(), herramienta(), galeria()]
+    limpio = comprobar_y_imprimir([d for d, _ in hechos], "--sin-pdf" not in sys.argv)
+    if not all(ok for _, ok in hechos) or not limpio:
         print("\nFALLO: hay marcadores sin resolver o errores en la consola del navegador.")
         sys.exit(1)
     print("\nListo. El informe conserva {{LETRADO_RESPONSABLE}} a proposito: ejemplo de dato pendiente.")

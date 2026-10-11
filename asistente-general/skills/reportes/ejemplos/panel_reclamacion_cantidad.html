@@ -90,18 +90,10 @@ td.cifra,th.cifra{text-align:right;font-variant-numeric:tabular-nums;white-space
 .barras .fila{display:flex;justify-content:space-between;gap:var(--e3);font-size:.88rem;margin:0 0 5px}
 .barras .fila .valor{font-variant-numeric:tabular-nums;color:var(--apagado)}
 .pista{height:10px;border-radius:999px;background:var(--superficie-2);border:1px solid var(--borde-suave);overflow:hidden}
-.pista span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--c1),color-mix(in srgb,var(--c1) 72%,white))}
-.barras li:nth-child(2) .pista span{background:linear-gradient(90deg,var(--c2),color-mix(in srgb,var(--c2) 72%,white))}
-.barras li:nth-child(3) .pista span{background:linear-gradient(90deg,var(--c3),color-mix(in srgb,var(--c3) 72%,white))}
-.barras li:nth-child(4) .pista span{background:linear-gradient(90deg,var(--c4),color-mix(in srgb,var(--c4) 72%,white))}
-.barras li:nth-child(5) .pista span{background:linear-gradient(90deg,var(--c5),color-mix(in srgb,var(--c5) 72%,white))}
+.pista span{display:block;height:100%;border-radius:999px}
 svg{max-width:100%;height:auto;display:block}
 .eje{font-size:11px;fill:var(--apagado)}
 .rejilla{stroke:var(--linea-rejilla);stroke-width:1}
-.serie-1{fill:none;stroke:var(--c1);stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
-.serie-2{fill:none;stroke:var(--c2);stroke-width:2.4;stroke-dasharray:7 5;stroke-linejoin:round;stroke-linecap:round}
-.punto-1{fill:var(--c1)}
-.area-1{fill:url(#degradado-area);stroke:none}
 .banda{fill:var(--ok);opacity:.12}
 .leyenda{display:flex;flex-wrap:wrap;gap:var(--e2) var(--e4);list-style:none;margin:var(--e3) 0 0;padding:0;font-size:.83rem;color:var(--apagado)}
 .leyenda li{display:flex;align-items:center;gap:7px;margin:0}
@@ -144,49 +136,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 :root[data-tema="sobrio"] body{background-image:none}
 .malla{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:var(--e3);margin:0 0 var(--e3);align-items:start}
 .malla .ancho-total{grid-column:1/-1}
-.diseno{display:grid;grid-template-columns:196px minmax(0,1fr);gap:var(--e5);align-items:start}
-.indice{position:sticky;top:var(--e4);font-size:.85rem}
-.indice p{font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:var(--apagado);margin:0 0 var(--e2)}
-.indice ol{list-style:none;margin:0;padding:0;border-left:2px solid var(--borde)}
-.indice li{margin:0}
-.indice a{display:block;padding:7px 0 7px 14px;color:var(--apagado);text-decoration:none;border-left:2px solid transparent;margin-left:-2px}
-.indice a:hover{color:var(--acento);border-left-color:var(--acento)}
-.bloque{margin:0 0 var(--e3)}
-.bloque h2{display:flex;gap:var(--e2);align-items:baseline}
-.bloque h2 .orden{color:var(--acento);font-variant-numeric:tabular-nums}
-.cronologia{list-style:none;margin:var(--e4) 0 0;padding:0 0 0 26px;border-left:2px solid var(--borde)}
-.cronologia li{position:relative;margin:0 0 var(--e4)}
-.cronologia li:last-child{margin-bottom:0}
-.cronologia li::before{content:"";position:absolute;left:-33px;top:6px;width:12px;height:12px;border-radius:50%;
-  background:var(--acento);border:3px solid var(--superficie);box-shadow:0 0 0 1px var(--borde)}
-.cronologia .fecha{display:block;font-size:.76rem;letter-spacing:.07em;text-transform:uppercase;color:var(--apagado)}
-.cronologia .hito{font-weight:650}
-.firma{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--e4);margin:var(--e4) 0 0;font-size:.9rem}
-.firma div{border-top:1px solid var(--borde);padding-top:var(--e2);color:var(--apagado)}
-.columnas{display:grid;grid-template-columns:minmax(290px,1fr) minmax(320px,1.2fr);gap:var(--e3);align-items:start}
-.columnas .tarjeta + .tarjeta{margin-top:var(--e3)}
-.campo{margin:0 0 var(--e4)}
-.campo label{display:block;font-size:.86rem;font-weight:620;margin-bottom:6px}
-.campo .ayuda{display:block;font-size:.78rem;color:var(--apagado);margin-top:6px}
-input,select{width:100%;font:inherit;font-size:.95rem;color:var(--texto);background:var(--superficie-2);
-  border:1px solid var(--borde);border-radius:var(--radio-s);padding:10px 12px}
-input:focus,select:focus{border-color:var(--acento)}
-input[type=number]{font-variant-numeric:tabular-nums}
-.resultados{display:grid;grid-template-columns:repeat(auto-fit,minmax(126px,1fr));gap:var(--e3);margin:0 0 var(--e4)}
-.resultado{background:var(--superficie-2);border:1px solid var(--borde-suave);border-radius:var(--radio-s);padding:var(--e3) var(--e4)}
-.resultado .rotulo{font-size:.73rem;text-transform:uppercase;letter-spacing:.09em;color:var(--apagado);margin:0 0 5px}
-.resultado .cifra{font-size:clamp(1.1rem,1.7vw,1.45rem);overflow-wrap:anywhere;font-weight:670;letter-spacing:-.025em;margin:0;font-variant-numeric:tabular-nums}
-.resultado.principal{background:var(--acento-suave);border-color:var(--acento)}
-.resultado.principal .cifra{color:var(--acento-fuerte)}
-.verificacion{list-style:none;margin:0;padding:0}
-.verificacion li{display:flex;gap:var(--e3);align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--borde-suave)}
-.verificacion li:last-child{border-bottom:none}
-.verificacion input[type=checkbox]{width:17px;height:17px;margin-top:3px;flex:0 0 auto;accent-color:var(--acento)}
-.verificacion .texto{font-size:.93rem}
-.verificacion .texto small{display:block;color:var(--apagado);font-size:.8rem}
-.progreso{height:9px;border-radius:999px;background:var(--superficie-2);border:1px solid var(--borde-suave);overflow:hidden;margin:var(--e4) 0 6px}
-.progreso span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ok),color-mix(in srgb,var(--ok) 70%,white));transition:width .25s ease}
-.progreso-texto{font-size:.82rem;color:var(--apagado);margin:0}
 .grafico{margin:0;min-width:0}
 .tendencia{margin:var(--e3) 0 0;padding-top:var(--e2);border-top:1px solid var(--borde-suave)}
 .chispa{display:block;width:100%;height:30px}
@@ -202,16 +151,15 @@ input[type=number]{font-variant-numeric:tabular-nums}
 .grafico .anotacion{stroke:var(--apagado);stroke-width:1;stroke-dasharray:3 3}
 .grafico .texto-anotacion{font-size:10.5px;fill:var(--apagado)}
 .grafico .cero{stroke:var(--apagado);stroke-width:1}
-.grafico .hueco-tarta{fill:var(--superficie)}
 .grafico .zona{font-size:12px;fill:var(--apagado);font-weight:620}
 .grafico .numero-riesgo{font-size:11px;font-weight:700;fill:#fff}
 .grafico .fecha-fin{font-size:10.5px;fill:var(--apagado)}
 .grafico .fecha-fin.dentro{fill:#fff;font-weight:620}
 .grafico .hoy{stroke:var(--riesgo);stroke-width:2;stroke-dasharray:4 3}
 .grafico .texto-hoy{font-size:11px;fill:var(--riesgo);font-weight:650}
+ol.leyenda{display:block;padding-left:20px}
 .leyenda .porcentaje{color:var(--texto);font-variant-numeric:tabular-nums;font-weight:620}
 .medidor-rotulo{text-align:center;font-size:.82rem;color:var(--apagado);margin:0 0 var(--e3)}
-.medidor{margin:0 auto}
 .medidor .pista-arco{fill:none;stroke:var(--superficie-2);stroke-width:18;stroke-linecap:round}
 .medidor .arco{fill:none;stroke-width:18;stroke-linecap:round;transition:stroke-dasharray .35s ease}
 .fuente-grafico{font-size:.76rem;color:var(--apagado);margin:var(--e2) 0 0}
@@ -223,8 +171,6 @@ input[type=number]{font-variant-numeric:tabular-nums}
 .error-grafico{border:1px dashed var(--riesgo);color:var(--riesgo);border-radius:var(--radio-s);padding:var(--e3);font-size:.85rem;margin:0}
 .fuentes-reporte{margin:0 0 var(--e3);padding-left:20px}
 .fuentes-reporte li{margin:0 0 var(--e1)}
-@media (max-width:900px){.diseno{grid-template-columns:1fr}.indice{display:none}}
-@media (max-width:760px){.columnas{grid-template-columns:1fr}}
 @media print{
   :root,:root[data-tema="sobrio"]{--fondo:#fff;--superficie:#fff;--superficie-2:#fff;--borde:#c8c5bf;--borde-suave:#dcd9d3;
         --linea-rejilla:#d5d2cc;--texto:#000;--apagado:#3f3d39;--sombra:none;--acento-suave:#f2f6f8}
@@ -233,16 +179,12 @@ input[type=number]{font-variant-numeric:tabular-nums}
   *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
   body{font-size:10.5pt;background-image:none}
   .contenedor{max-width:none;padding:0}
-  .acciones,.indice,.datos-grafico{display:none}
-  .malla,.diseno{display:block}
-  .columnas{grid-template-columns:1fr}
-  .tarjeta,.indicador{break-inside:avoid;page-break-inside:avoid;box-shadow:none;padding:var(--e3) var(--e4)}
+  .acciones,.datos-grafico{display:none}
+  .malla{display:block}
+  .tarjeta,.indicador{break-inside:avoid;box-shadow:none;padding:var(--e3) var(--e4)}
   .tarjeta{margin:0 0 var(--e3)}
   .malla .tarjeta svg{max-height:190px}
   .malla .tarjeta.ancho-total svg{max-height:none}
-  /* Una tarjeta mas alta que un A4 no puede evitar el corte: se deja partir y se protegen sus bloques. */
-  .permite-corte{break-inside:auto;page-break-inside:auto}
-  .permite-corte .grafico,.permite-corte .resultados,.permite-corte .tabla,.permite-corte .aviso{break-inside:avoid;page-break-inside:avoid}
   .borrador{padding:var(--e2) var(--e3);font-size:.78rem;margin-bottom:var(--e3)}
   h1{margin-bottom:var(--e2)}
   .entradilla{margin-bottom:var(--e2)}
@@ -258,16 +200,19 @@ input[type=number]{font-variant-numeric:tabular-nums}
   .distintivo{font-size:.62rem;padding:2px 7px}
   a{color:#000;text-decoration:none}
   p{orphans:3;widows:3}
-  h1,h2,h3{break-after:avoid;page-break-after:avoid}
-  tr,.grafico,.aviso,.leyenda,.barras li,.cronologia li{break-inside:avoid;page-break-inside:avoid}
+  h1,h2,h3{break-after:avoid}
+  tr,.grafico,.aviso,.leyenda,.barras li,.cronologia li{break-inside:avoid}
   caption{break-after:avoid}
 }
+/* Estilos propios de la maqueta: se sustituye por los de su parte=estilos o se borra la linea. */
+
 </style>
 </head>
 <body>
 <main class="contenedor" style="--ancho:1120px">
 
   <p class="borrador"><span><strong>DRAFT</strong> &mdash; Documento de trabajo generado en la plataforma. Las cifras, plazos y conclusiones deben ser verificados por un abogado o profesional colegiado antes de su firma, entrega o uso externo. No constituye asesoramiento juridico vinculante.</span></p>
+  <noscript><p class="aviso riesgo">Los graficos y algunas cifras de este documento se dibujan con JavaScript. Activelo en el navegador para verlos; el texto y las tablas se leen igualmente.</p></noscript>
 
   <header>
     <p class="antetitulo">Reclamacion de cantidad | Expediente 2026/0417</p>
@@ -355,6 +300,7 @@ input[type=number]{font-variant-numeric:tabular-nums}
 
   <div class="acciones">
     <button type="button" id="imprimir">Imprimir o guardar en PDF</button>
+    
   </div>
 
   <footer class="pie">
@@ -366,187 +312,189 @@ input[type=number]{font-variant-numeric:tabular-nums}
 </main>
 <script type="application/json" id="datos-reporte">
 {
-  "idioma": "es-ES",
-  "moneda": "EUR",
-  "fuentes": {
-    "cliente": {
-      "nombre": "Mayor de clientes y facturas aportados por el cliente",
-      "consulta": "2026-09-18"
-    }
-  },
-  "cifras": {
-    "indicador_1": {
-      "de": "evolucion",
-      "calculo": "ultimo",
-      "serie": 0,
-      "unidad": "eur"
-    },
-    "indicador_2": {
-      "de": "descomposicion",
-      "calculo": "suma",
-      "unidad": "eur"
-    },
-    "indicador_4": {
-      "de": "evolucion",
-      "calculo": "ultimo",
-      "serie": 1,
-      "unidad": "eur"
-    },
-    "peso_tres": {
-      "de": "comparativa",
-      "calculo": "porcentaje",
-      "elemento": "Factura 2025/118",
-      "unidad": "pct"
-    }
-  },
-  "graficos": {
-    "tendencia": {
-      "tipo": "chispa",
-      "valores": [
-        12400,
-        21800,
-        28900,
-        36200,
-        42180.5
-      ],
-      "etiquetas": [
-        "Enero",
-        "Marzo",
-        "Mayo",
-        "Julio",
-        "Septiembre"
-      ],
-      "resumen": "Principal acumulado de enero a septiembre: al alza"
-    },
-    "comparativa": {
-      "tipo": "barras",
-      "unidad": "eur",
-      "fuente": "cliente",
-      "elementos": [
-        {
-          "rotulo": "Factura 2025/118",
-          "valor": 18400
-        },
-        {
-          "rotulo": "Factura 2025/131",
-          "valor": 11250
-        },
-        {
-          "rotulo": "Factura 2025/147",
-          "valor": 7930
-        },
-        {
-          "rotulo": "Resto (4 facturas)",
-          "valor": 4600.5
-        }
-      ]
-    },
-    "reparto": {
-      "tipo": "anillo",
-      "unidad": "pct",
-      "fuente": "cliente",
-      "porciones": [
-        {
-          "rotulo": "Hasta 90 dias",
-          "valor": 26
-        },
-        {
-          "rotulo": "De 91 a 180 dias",
-          "valor": 38
-        },
-        {
-          "rotulo": "Mas de 180 dias",
-          "valor": 36
-        }
-      ],
-      "centro": {
-        "cifra": "36 %",
-        "rotulo": "mas de 180 dias"
-      },
-      "resumen": "Reparto del principal por antiguedad: 26, 38 y 36 por ciento"
-    },
-    "evolucion": {
-      "tipo": "linea",
-      "unidad": "eur",
-      "fuente": "cliente",
-      "etiquetas": [
-        "Enero",
-        "Marzo",
-        "Mayo",
-        "Julio",
-        "Septiembre"
-      ],
-      "series": [
-        {
-          "nombre": "Principal acumulado",
-          "valores": [
-            12400,
-            21800,
-            28900,
-            36200,
-            42180.5
-          ]
-        },
-        {
-          "nombre": "Importe cobrado",
-          "valores": [
-            0,
-            2100,
-            2100,
-            5600,
-            5600
-          ]
-        }
-      ],
-      "umbral": {
-        "desde": 0,
-        "hasta": 15000,
-        "rotulo": "Umbral de riesgo asumido (15.000 EUR)"
-      },
-      "anotaciones": [
-        {
-          "indice": 2,
-          "texto": "Reconocimiento de deuda"
-        }
-      ],
-      "destacar": [
-        "ultimo"
-      ],
-      "resumen": "El principal acumulado pasa de 12.400 euros en enero a 42.180 en septiembre, mientras lo cobrado se detiene en 5.600 euros desde julio"
-    },
-    "descomposicion": {
-      "tipo": "cascada",
-      "unidad": "eur",
-      "fuente": "cliente",
-      "pasos": [
-        {
-          "rotulo": "Principal",
-          "valor": 42180.5
-        },
-        {
-          "rotulo": "Intereses",
-          "valor": 1947.32
-        },
-        {
-          "rotulo": "Costas est.",
-          "valor": 3100.0
-        }
-      ],
-      "total": {
-        "rotulo": "Total"
-      },
-      "resumen": "Principal, intereses y costas estimadas suman el total reclamable"
-    },
-    "medidor": {
-      "tipo": "medidor",
-      "valor": 7,
-      "maximo": 10,
-      "unidad": "dias",
-      "cifra": "70 %",
-      "rotulo": "del plazo de diez dias consumido",
-      "resumen": "Plazo del requerimiento consumido al 70 por ciento: siete dias de diez"
-    }
+ "idioma": "es-ES",
+ "moneda": "EUR",
+ "fuentes": {
+  "cliente": {
+   "nombre": "Mayor de clientes y facturas aportados por el cliente",
+   "consulta": "2026-09-18"
   }
+ },
+ "cifras": {
+  "indicador_1": {
+   "de": "evolucion",
+   "calculo": "ultimo",
+   "serie": 0,
+   "unidad": "eur"
+  },
+  "indicador_2": {
+   "de": "descomposicion",
+   "calculo": "suma",
+   "unidad": "eur"
+  },
+  "indicador_4": {
+   "de": "evolucion",
+   "calculo": "ultimo",
+   "serie": 1,
+   "unidad": "eur"
+  },
+  "peso_tres": {
+   "de": "comparativa",
+   "calculo": "porcentaje",
+   "elemento": "Factura 2025/118",
+   "unidad": "pct"
+  }
+ },
+ "graficos": {
+  "tendencia": {
+   "tipo": "chispa",
+   "valores": [
+    12400,
+    21800,
+    28900,
+    36200,
+    42180.5
+   ],
+   "etiquetas": [
+    "Enero",
+    "Marzo",
+    "Mayo",
+    "Julio",
+    "Septiembre"
+   ],
+   "resumen": "Principal acumulado de enero a septiembre: al alza",
+   "fuente": "cliente"
+  },
+  "comparativa": {
+   "tipo": "barras",
+   "unidad": "eur",
+   "fuente": "cliente",
+   "elementos": [
+    {
+     "rotulo": "Factura 2025/118",
+     "valor": 18400
+    },
+    {
+     "rotulo": "Factura 2025/131",
+     "valor": 11250
+    },
+    {
+     "rotulo": "Factura 2025/147",
+     "valor": 7930
+    },
+    {
+     "rotulo": "Resto (4 facturas)",
+     "valor": 4600.5
+    }
+   ]
+  },
+  "reparto": {
+   "tipo": "anillo",
+   "unidad": "pct",
+   "fuente": "cliente",
+   "porciones": [
+    {
+     "rotulo": "Hasta 90 dias",
+     "valor": 26
+    },
+    {
+     "rotulo": "De 91 a 180 dias",
+     "valor": 38
+    },
+    {
+     "rotulo": "Mas de 180 dias",
+     "valor": 36
+    }
+   ],
+   "centro": {
+    "cifra": "36 %",
+    "rotulo": "mas de 180 dias"
+   },
+   "resumen": "Reparto del principal por antiguedad: 26, 38 y 36 por ciento"
+  },
+  "evolucion": {
+   "tipo": "linea",
+   "unidad": "eur",
+   "fuente": "cliente",
+   "etiquetas": [
+    "Enero",
+    "Marzo",
+    "Mayo",
+    "Julio",
+    "Septiembre"
+   ],
+   "series": [
+    {
+     "nombre": "Principal acumulado",
+     "valores": [
+      12400,
+      21800,
+      28900,
+      36200,
+      42180.5
+     ]
+    },
+    {
+     "nombre": "Importe cobrado",
+     "valores": [
+      0,
+      2100,
+      2100,
+      5600,
+      5600
+     ]
+    }
+   ],
+   "umbral": {
+    "desde": 0,
+    "hasta": 15000,
+    "rotulo": "Umbral de riesgo asumido (15.000 EUR)"
+   },
+   "anotaciones": [
+    {
+     "indice": 2,
+     "texto": "Reconocimiento de deuda"
+    }
+   ],
+   "destacar": [
+    "ultimo"
+   ],
+   "resumen": "El principal acumulado pasa de 12.400 euros en enero a 42.180 en septiembre, mientras lo cobrado se detiene en 5.600 euros desde julio"
+  },
+  "descomposicion": {
+   "tipo": "cascada",
+   "unidad": "eur",
+   "fuente": "cliente",
+   "pasos": [
+    {
+     "rotulo": "Principal",
+     "valor": 42180.5
+    },
+    {
+     "rotulo": "Intereses",
+     "valor": 1947.32
+    },
+    {
+     "rotulo": "Costas est.",
+     "valor": 3100.0
+    }
+   ],
+   "total": {
+    "rotulo": "Total"
+   },
+   "resumen": "Principal, intereses y costas estimadas suman el total reclamable"
+  },
+  "medidor": {
+   "tipo": "medidor",
+   "valor": 7,
+   "maximo": 10,
+   "unidad": "dias",
+   "cifra": "70 %",
+   "rotulo": "del plazo de diez dias consumido",
+   "resumen": "Plazo del requerimiento consumido al 70 por ciento: siete dias de diez",
+   "fuente": "cliente"
+  }
+ }
 }
 </script>
 <script>
@@ -632,8 +580,20 @@ function color(c, i) {
   if (/^#[0-9a-fA-F]{3,8}$/.test(c || "")) return c;
   return "var(--c" + ((i % 6) + 1) + ")";
 }
-function lienzo(fig, ancho, alto, resumen) {
-  return svg("svg", {viewBox: "0 0 " + ancho + " " + alto, role: "img", "aria-label": resumen}, fig);
+function lienzo(fig, ancho, alto, resumen, clase, estirar) {
+  return svg("svg", {"class": clase, viewBox: "0 0 " + ancho + " " + alto, preserveAspectRatio: estirar ? "none" : null, role: "img", "aria-label": resumen}, fig);
+}
+function recortar(texto, n) { texto = String(texto); return texto.length > n ? texto.slice(0, n - 1) + "\u2026" : texto; }
+/* Leyenda y tabla de datos de los graficos por series (columnas y linea). */
+function leyendaSeries(series) { return series.map(function (se, j) { return {color: color(se.color, j), texto: se.nombre}; }); }
+function tablaSeries(g, et, series, totales) {
+  var cab = [g.nombre_etiqueta || T.concepto].concat(series.map(function (se) { return se.nombre; }));
+  if (totales) cab.push(T.total);
+  return {cabecera: cab, unidad: g.unidad, filas: et.map(function (eti, i) {
+    var f = [eti].concat(series.map(function (se) { return se.valores[i]; }));
+    if (totales) f.push(totales[i]);
+    return f;
+  })};
 }
 function leyenda(fig, elementos) {
   var ul = html("ul", "leyenda", fig);
@@ -668,8 +628,7 @@ function rotulosX(s, etiquetas, xDe, extremos) {
     var ancla = "middle";
     if (extremos && i === 0) ancla = "start";
     if (extremos && i === n - 1) ancla = "end";
-    var corto = String(e).length > cabe ? String(e).slice(0, cabe - 1) + "\u2026" : String(e);
-    consejo(svg("text", {"class": "eje", x: r1(xDe(i)), y: 266, "text-anchor": ancla}, s, corto), String(e));
+    consejo(svg("text", {"class": "eje", x: r1(xDe(i)), y: 266, "text-anchor": ancla}, s, recortar(e, cabe)), String(e));
   });
 }
 function yDe(v, tope) { return r1(Y1 - v / tope * 200); }
@@ -728,14 +687,8 @@ function columnasComun(fig, g, apilar, cien) {
     }
   });
   rotulosX(s, et, function (i) { return X0 + banda * (i + 0.5); });
-  if (ns > 1) leyenda(fig, series.map(function (se, j) { return {color: color(se.color, j), texto: se.nombre}; }));
-  var cab = [g.nombre_etiqueta || T.concepto].concat(series.map(function (se) { return se.nombre; }));
-  if (apilar) cab.push(T.total);
-  return {cabecera: cab, filas: et.map(function (eti, i) {
-    var f = [eti].concat(series.map(function (se) { return se.valores[i]; }));
-    if (apilar) f.push(totales[i]);
-    return f;
-  }), unidad: g.unidad};
+  if (ns > 1) leyenda(fig, leyendaSeries(series));
+  return tablaSeries(g, et, series, apilar && totales);
 }
 tipos.columnas = function (fig, g) { return columnasComun(fig, g, false, false); };
 tipos.apiladas = function (fig, g) { return columnasComun(fig, g, true, !!g.cien); };
@@ -784,11 +737,10 @@ tipos.linea = function (fig, g, id) {
     svg("text", {"class": "texto-anotacion", x: x + (a.indice > n / 2 ? -4 : 4), y: 26, "text-anchor": a.indice > n / 2 ? "end" : "start"}, s, a.texto);
   });
   rotulosX(s, et, xDe, true);
-  var ley = series.map(function (se, j) { return {color: color(se.color, j), texto: se.nombre}; });
+  var ley = leyendaSeries(series);
   if (g.umbral && g.umbral.rotulo) ley.push({color: "var(--ok)", opacidad: ".35", texto: g.umbral.rotulo});
   if (ley.length > 1) leyenda(fig, ley);
-  return {cabecera: [g.nombre_etiqueta || T.concepto].concat(series.map(function (se) { return se.nombre; })),
-          filas: et.map(function (eti, i) { return [eti].concat(series.map(function (se) { return se.valores[i]; })); }), unidad: g.unidad};
+  return tablaSeries(g, et, series);
 };
 
 tipos.chispa = function (fig, g) {
@@ -796,7 +748,7 @@ tipos.chispa = function (fig, g) {
   if (n < 2) throw new Error("hacen falta al menos dos valores");
   var lo = minimo(v), hi = maximo(v), rango = (hi - lo) || 1;
   var pts = v.map(function (x, i) { return r1(1 + i * 118 / (n - 1)) + "," + r1(30 - (x - lo) / rango * 28); }).join(" ");
-  var s = svg("svg", {"class": "chispa", viewBox: "0 0 120 32", preserveAspectRatio: "none", role: "img", "aria-label": g.resumen || ""}, fig);
+  var s = lienzo(fig, 120, 32, g.resumen || "", "chispa", true);
   svg("polygon", {"class": "chispa-area", points: pts + " 119,32 1,32"}, s);
   svg("polyline", {"class": "chispa-linea", points: pts}, s);
   svg("circle", {"class": "chispa-punto", cx: 119, cy: r1(30 - (v[n - 1] - lo) / rango * 28), r: 2.4}, s);
@@ -814,7 +766,7 @@ tipos.medidor = function (fig, g) {
   var tramos = g.tramos || [60, 85];
   var c = g.color ? color(g.color) : p <= tramos[0] ? "var(--ok)" : p <= tramos[1] ? "var(--aviso)" : "var(--riesgo)";
   var L = Math.PI * 90, arco = r1(p / 100 * L);
-  var s = svg("svg", {"class": "medidor", viewBox: "0 0 240 150", role: "img", "aria-label": g.resumen || ""}, fig);
+  var s = lienzo(fig, 240, 150, g.resumen || "", "medidor");
   svg("path", {"class": "pista-arco", d: "M 30 125 A 90 90 0 0 1 210 125"}, s);
   svg("path", {"class": "arco", d: "M 30 125 A 90 90 0 0 1 210 125", stroke: c, "stroke-dasharray": arco + " " + r1(L - arco + 1)}, s);
   svg("text", {x: 120, y: 112, "text-anchor": "middle", "font-size": 34, "font-weight": 670, fill: "var(--texto)"}, s, g.cifra || fmt(g.unidad === "pct" || !g.unidad ? p : g.valor, g.unidad || "pct"));
@@ -833,7 +785,7 @@ tipos.cascada = function (fig, g) {
   var lo = Math.min(0, minimo(col.map(function (c) { return Math.min(c.desde, c.hasta); })));
   if (lo < 0) lo = -techo(-lo);
   var n = col.length, banda = util() / n, w = banda * 0.6;
-  var y = function (v) { return r1(244 - (v - lo) / (hi - lo) * 200); };
+  var y = function (v) { return r1(Y1 - (v - lo) / (hi - lo) * (Y1 - Y0)); };
   var s = lienzo(fig, W, 280, g.resumen || "");
   svg("line", {"class": "rejilla", x1: X0, y1: 44, x2: X1, y2: 44}, s);
   svg("line", {"class": lo < 0 ? "cero" : "rejilla", x1: X0, y1: y(0), x2: X1, y2: y(0)}, s);
@@ -876,8 +828,6 @@ tipos.matriz = function (fig, g) {
   if (items.length) {
     var ol = html("ol", "leyenda", fig);
     items.forEach(function (e) { html("li", "", ol, e.nombre); });
-    ol.style.display = "block";
-    ol.style.paddingLeft = "20px";
   }
   return {cabecera: ["#", T.concepto, g.eje_filas || "", g.eje_columnas || ""], filas: items.map(function (e, i) { return [i + 1, e.nombre, e.fila, e.columna]; })};
 };
@@ -911,8 +861,7 @@ tipos.plazos = function (fig, g) {
   pl.forEach(function (p, i) {
     var y = 46 + i * 38, a = ini[i], b = fin[i];
     var c = p.color ? color(p.color, i) : b < hoy ? "var(--c6)" : a <= hoy ? "var(--aviso)" : color(null, i);
-    var rot = p.rotulo.length > corte ? p.rotulo.slice(0, corte - 1) + "\u2026" : p.rotulo;
-    consejo(svg("text", {"class": "eje", x: x0 - 10, y: y + 13, "text-anchor": "end"}, s, rot), p.rotulo);
+    consejo(svg("text", {"class": "eje", x: x0 - 10, y: y + 13, "text-anchor": "end"}, s, recortar(p.rotulo, corte)), p.rotulo);
     consejo(svg("rect", {x: x(a), y: y, width: Math.max(r1(x(b) - x(a)), 3), height: 18, rx: 4, fill: c, opacity: b < hoy ? ".55" : null}, s),
       p.rotulo + ": " + fmtFechaLarga.format(a) + " \u2013 " + fmtFechaLarga.format(b));
     var dch = x(b) + 6 < x0 + ancho - 40;
@@ -946,8 +895,7 @@ function reparto(fig, g, hueco) {
     por = por.slice(0, max - 1).concat([{rotulo: g.texto_otros || T.otros, valor: suma(resto.map(function (p) { return p.valor; })), color: 6}]);
   }
   var total = suma(por.map(function (p) { return p.valor; }));
-  var s = lienzo(fig, 230, 190, g.resumen || ""), a = -Math.PI / 2;
-  s.setAttribute("class", "reparto");
+  var s = lienzo(fig, 230, 190, g.resumen || "", "reparto"), a = -Math.PI / 2;
   por.forEach(function (p, i) {
     var b = a + p.valor / total * 2 * Math.PI;
     consejo(svg("path", {d: sector(115, 95, 80, hueco ? 52 : 0, a, b), fill: color(p.color, i), stroke: "var(--superficie)", "stroke-width": 2}, s),
@@ -1003,12 +951,13 @@ function fuentesDe(g) {
 }
 
 /* ---------- cifras sueltas del texto (data-cifra) ---------- */
+function elementosDe(g) { return g.elementos || g.porciones || g.pasos || null; }
 function valoresDe(g, serie) {
   if (g.series) return (g.series[serie || 0] || {}).valores || [];
-  if (g.elementos) return g.elementos.map(function (e) { return e.valor; });
-  if (g.porciones) return g.porciones.map(function (e) { return e.valor; });
-  if (g.pasos) return g.pasos.map(function (e) { return e.valor; });
-  return g.valores || (num(g.valor) ? [g.valor] : []);
+  var el = elementosDe(g);
+  if (el) return el.map(function (e) { return e.valor; });
+  if (g.valores || num(g.valor)) return g.valores || [g.valor];
+  throw new Error("el grafico " + g.tipo + " no tiene valores sobre los que calcular");
 }
 function cifra(def) {
   if (num(def.valor)) return def.valor;
@@ -1025,7 +974,7 @@ function cifra(def) {
     case "cuenta": return v.length;
     case "variacion": return (v[v.length - 1] - v[0]) / Math.abs(v[0]) * 100;
     case "porcentaje":
-      var lista = g.porciones || g.elementos || g.pasos || [], elegido = lista.filter(function (e) { return e.rotulo === def.elemento; })[0];
+      var lista = elementosDe(g) || [], elegido = lista.filter(function (e) { return e.rotulo === def.elemento; })[0];
       if (!elegido) throw new Error("no hay elemento " + def.elemento + " en " + def.de);
       return elegido.valor / suma(v) * 100;
   }
@@ -1033,10 +982,10 @@ function cifra(def) {
 }
 
 /* ---------- arranque ---------- */
-function dibujar(fig) {
+function dibujar(fig, ancho) {
   var id = fig.getAttribute("data-grafico"), g = (datos.graficos || {})[id];
   fig.textContent = "";
-  W = impresion ? 700 : Math.round(Math.min(700, Math.max(320, fig.clientWidth || 700)));
+  W = impresion ? 700 : Math.round(Math.min(700, Math.max(320, ancho || 700)));
   X1 = W - 36;
   try {
     if (!g) throw new Error("no hay datos con el nombre " + id);
@@ -1045,34 +994,46 @@ function dibujar(fig) {
     if (tabla && g.tabla !== false) tablaDatos(fig, tabla, id);
     var claves = fuentesDe(g);
     claves.forEach(function (c) { if (usadas.indexOf(c) < 0) usadas.push(c); });
-    if (claves.length && g.tipo !== "chispa") html("p", "fuente-grafico", fig, (claves.length > 1 ? T.fuentes : T.fuente) + ": " + claves.map(textoFuente).join("; "));
+    /* La linea de fuente va en las figuras; el minigrafico de un indicador no la lleva. */
+    if (claves.length && fig.tagName === "FIGURE") html("p", "fuente-grafico", fig, (claves.length > 1 ? T.fuentes : T.fuente) + ": " + claves.map(textoFuente).join("; "));
   } catch (e) {
     console.error("Grafico " + id + ": " + e.message);
     fig.textContent = "";
     html("p", "error-grafico", fig, T.error + " \u00ab" + id + "\u00bb: " + e.message);
   }
 }
-var impresion = false, anchos = [];
-function todos() { anchos = []; D.querySelectorAll("[data-grafico]").forEach(function (f) { dibujar(f); anchos.push(f.clientWidth); }); }
+/* Los tipos de ancho fijo (viewBox propio o HTML) no se redibujan al cambiar el ancho. */
+["barras", "chispa", "medidor", "anillo", "tarta"].forEach(function (t) { tipos[t].fijo = true; });
+var impresion = false, figuras = [].slice.call(D.querySelectorAll("[data-grafico]")), anchos = [];
+function todos(soloVariables) {
+  var medidas = figuras.map(function (f) { return f.clientWidth; });  /* se mide todo antes de escribir */
+  figuras.forEach(function (f, i) {
+    var g = (datos.graficos || {})[f.getAttribute("data-grafico")];
+    if (!soloVariables || !(g && tipos[g.tipo] && tipos[g.tipo].fijo)) dibujar(f, medidas[i]);
+  });
+  anchos = medidas;
+}
+function pintarCifras() {
+  D.querySelectorAll("[data-cifra]").forEach(function (n) {
+    var clave = n.getAttribute("data-cifra"), def = (datos.cifras || {})[clave];
+    try {
+      if (!def) throw new Error("no hay cifra " + clave);
+      n.textContent = fmt(cifra(def), def.unidad);
+    } catch (e) { console.error("Cifra " + clave + ": " + e.message); n.textContent = "{{" + clave + "}}"; }
+  });
+}
 todos();
+pintarCifras();
 /* Se redibuja si cambia el ancho de alguna tarjeta y, al imprimir, a tamano fijo. */
 var espera;
 window.addEventListener("resize", function () {
   clearTimeout(espera);
   espera = setTimeout(function () {
-    var cambia = [].some.call(D.querySelectorAll("[data-grafico]"), function (f, i) { return Math.abs(f.clientWidth - anchos[i]) > 24; });
-    if (cambia) todos();
+    if (figuras.some(function (f, i) { return Math.abs(f.clientWidth - anchos[i]) > 24; })) todos(true);
   }, 150);
 });
-window.addEventListener("beforeprint", function () { impresion = true; todos(); });
-window.addEventListener("afterprint", function () { impresion = false; todos(); });
-D.querySelectorAll("[data-cifra]").forEach(function (n) {
-  var clave = n.getAttribute("data-cifra"), def = (datos.cifras || {})[clave];
-  try {
-    if (!def) throw new Error("no hay cifra " + clave);
-    n.textContent = fmt(cifra(def), def.unidad);
-  } catch (e) { console.error("Cifra " + clave + ": " + e.message); n.textContent = "{{" + clave + "}}"; }
-});
+window.addEventListener("beforeprint", function () { impresion = true; todos(true); });
+window.addEventListener("afterprint", function () { impresion = false; todos(true); });
 var lista = D.getElementById("fuentes-reporte");
 if (lista) {
   Object.keys(FUENTES).forEach(function (c) { if (usadas.indexOf(c) < 0) usadas.push(c); });
@@ -1080,7 +1041,13 @@ if (lista) {
 }
 var imprimir = D.getElementById("imprimir");
 if (imprimir) imprimir.addEventListener("click", function () { window.print(); });
-window.Reportes = {datos: datos, fmt: fmt, redibujar: function (id) { var f = D.querySelector('[data-grafico="' + id + '"]'); if (f) dibujar(f); }};
+/* Interfaz para el script de la herramienta interactiva: cambia los datos de un
+   grafico y lo redibuja junto con las cifras del texto. */
+window.Reportes = {datos: datos, fmt: fmt, actualizar: function (id, cambios) {
+  Object.assign(datos.graficos[id], cambios);
+  figuras.forEach(function (f) { if (f.getAttribute("data-grafico") === id) dibujar(f, f.clientWidth); });
+  pintarCifras();
+}};
 })();
 </script>
 </body>
