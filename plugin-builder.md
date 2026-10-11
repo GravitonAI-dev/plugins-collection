@@ -561,7 +561,7 @@ Cuando todas las validaciones pasen (o el usuario decline fixes explicitamente):
 
 ### Proximos pasos sugeridos
 - Si quedaron IDs pendientes de tools, abrir ticket al equipo de desarrollo del orquestador para que los agregue a `agent_tools.json` raiz.
-- Antes de subir, quien suba el cambio completa el control de calidad de la seccion 10 del `README.md`: `/simplify` y `/code-review` sobre el diff, `scripts/marcar_revisado.sh`, refresco de `origin/develop` y PR a `develop`. GitHub no deja fusionar si el control esta en rojo.
+- Antes de subir, quien suba el cambio completa el control de calidad de la seccion 10 del `README.md`; el hook corta el push de lo que no este marcado como revisado.
 
 ¿Hay algo mas que quieras hacer en esta sesion, o cerramos?
 ```

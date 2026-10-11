@@ -442,10 +442,10 @@ Todo cambio en una skill o un plugin pasa por el mismo control de calidad, lo ha
 2. `/simplify` sobre el diff: que la skill no repita directivas del `CLAUDE.md` global ni del plugin.
 3. `/code-review` sobre el diff: contradicciones con el `CLAUDE.md` global, referencias mal copiadas, ramas incoherentes.
 4. Refrescar con `git fetch` e integrar `origin/develop`. Si trae cambios, repetir desde el paso 1.
-5. Commitear lo que hayan dejado las revisiones y marcar el commit con `scripts/marcar_revisado.sh`. Cualquier commit posterior exige revisar y marcar otra vez.
+5. Commitear lo que hayan dejado las revisiones y marcar el commit con `scripts/marcar_revisado.sh`, que vuelve a pasar el paso 1 y solo marca si sale en verde. Cualquier commit posterior exige revisar y marcar otra vez.
 6. Subir a una rama y abrir PR a `develop`.
 
-El control se impone en dos sitios. El hook `scripts/hooks/pre-push` corta el push en local si el control falla o si el commit que se sube no esta marcado como revisado; se activa una vez por clon con `git config core.hooksPath scripts/hooks`. La accion `.github/workflows/control-calidad.yml` lo ejecuta en cada PR a `develop` y `main`, y la proteccion de rama impide fusionar en rojo. Las lineas `FALLO` bloquean; las `AVISO` solo informan.
+El control se impone en dos sitios. El hook `scripts/hooks/pre-push` corta el push en local de todo commit no marcado como revisado (la marca es local: GitHub no la comprueba y `git push --no-verify` la salta, asi que depende de activar el hook y respetarlo); se activa una vez por clon con `git config core.hooksPath scripts/hooks`. La accion `.github/workflows/control-calidad.yml` lo ejecuta en cada PR a `develop` y `main`, y la proteccion de rama impide fusionar en rojo. Las lineas `FALLO` bloquean; las `AVISO` solo informan.
 
 ---
 
