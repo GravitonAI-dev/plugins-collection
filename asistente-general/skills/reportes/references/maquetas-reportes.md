@@ -530,7 +530,7 @@ Una idea por diapositiva y un titular que afirma («La deuda se concentra en tre
 | `proximos_pasos` | `titulo`, `pasos` (cada uno con `texto`, `responsable`, `fecha`) | Acciones con responsable y fecha |
 | `cierre` | `titulo`, `texto`, `contacto` | Ultima diapositiva propia |
 
-Cualquier diapositiva admite `notas`: el texto del orador, que se ve pulsando N (o el boton Notas) y nunca se imprime.
+Cualquier diapositiva admite `notas` (el texto del orador, que se ve pulsando N y nunca se imprime) y `aviso` (un recuadro de aviso o de supuestos, que si se imprime).
 
 Notas de uso:
 
@@ -683,12 +683,13 @@ Se coloca despues del script del motor (y de los modulos, si los hay). Monta las
     agenda: function (s, d, c) { puntos(c, d.puntos, "lista-grande"); },
     separador: function (s, d) { if (d.numero) el("p", "numero", s, d.numero); el("h2", "", s, d.titulo); if (d.texto) el("p", "", s, d.texto); },
     cifra: function (s, d, c) { var n = el("p", "numero", c, d.cifra || ""); if (d.dato) n.setAttribute("data-cifra", d.dato); el("h2", "", c, d.titulo); if (d.texto) el("p", "", c, d.texto); },
-    grafico: function (s, d, c) { var g = el("div", d.conclusion ? "grafico-y-texto" : "", c); figura(g, d.grafico); if (d.conclusion) el("p", "conclusion", g, d.conclusion); },
+    /* Un diagrama necesita todo el ancho: su conclusion va debajo y no al lado. */
+    grafico: function (s, d, c) { var diag = ((R.datos.graficos || {})[d.grafico] || {}).tipo === "diagrama", g = el("div", d.conclusion && !diag ? "grafico-y-texto" : "", c); figura(g, d.grafico); if (d.conclusion) el("p", "conclusion", g, d.conclusion); },
     puntos: function (s, d, c) { var g = el("div", d.grafico ? "grafico-y-texto" : "", c); puntos(g, d.puntos, "lista-grande"); if (d.grafico) figura(g, d.grafico); },
     dos_columnas: function (s, d, c) { var g = el("div", "lado-a-lado", c); columna(g, d.izquierda || {}); columna(g, d.derecha || {}); },
     comparativa: function (s, d, c) { var g = el("div", "lado-a-lado", c); (d.opciones || []).forEach(function (o) { columna(g, o); }); },
     cronologia: function (s, d, c) { var g = el("div", "linea-tiempo", c); (d.hitos || []).forEach(function (h) { var x = el("div", "", g); el("p", "fecha", x, h.fecha); el("h3", "", x, h.titulo); if (h.texto) el("p", "", x, h.texto); }); },
-    tabla: function (s, d, c) { var t = el("table", "", el("div", "tabla", c)), f = el("tr", "", el("thead", "", t)); (d.cabecera || []).forEach(function (h) { el("th", "", f, h); }); var b = el("tbody", "", t); (d.filas || []).forEach(function (fila) { var tr = el("tr", "", b); fila.forEach(function (v) { el("td", "", tr, v); }); }); if (d.nota) el("p", "subtitulo", c, d.nota); },
+    tabla: function (s, d, c) { var t = el("table", "", el("div", "tabla", c)), f = el("tr", "", el("thead", "", t)); (d.cabecera || []).forEach(function (h) { el("th", "", f, h); }); var b = el("tbody", "", t); (d.filas || []).forEach(function (fila) { var tr = el("tr", "", b); fila.forEach(function (v) { el("td", /^[\d\s.,%€+\u2212-]+$/.test(String(v)) ? "cifra" : "", tr, v); }); }); if (d.nota) el("p", "subtitulo", c, d.nota); },
     cita: function (s, d) { el("blockquote", "", s, d.cita); if (d.autor) el("p", "autor", s, d.autor); },
     equipo: function (s, d, c) { var g = el("div", "lado-a-lado", c); (d.personas || []).forEach(function (p) { var x = el("div", "persona", g); el("div", "iniciales", x, p.nombre.split(/\s+/).map(function (w) { return w[0]; }).slice(0, 2).join("")); el("h3", "", x, p.nombre); el("p", "", x, p.cargo); if (p.texto) el("p", "", x, p.texto); }); },
     proximos_pasos: function (s, d, c) { var t = el("table", "pasos-tabla", el("div", "tabla", c)), b = el("tbody", "", t); (d.pasos || []).forEach(function (p, i) { var tr = el("tr", "", b); el("td", "", tr, (i + 1) + ". " + p.texto); el("td", "", tr, p.responsable || ""); el("td", "cifra", tr, p.fecha || ""); }); },
@@ -707,7 +708,11 @@ Se coloca despues del script del motor (y de los modulos, si los hay). Monta las
     c = ["portada", "separador", "cita", "cierre"].indexOf(d.maqueta) < 0 ? el("div", "cuerpo", null) : null;
     /* Una diapositiva con datos mal declarados muestra su error sin romper las demas. */
     if (c && d.maqueta !== "cifra") el("h2", "", s, d.titulo);
-    try { maquetas[d.maqueta](s, d, c); if (c) s.appendChild(c); }
+    try {
+      maquetas[d.maqueta](s, d, c);
+      if (d.aviso) el("div", "aviso", c || s, d.aviso);  /* aviso o supuestos en cualquier diapositiva */
+      if (c) s.appendChild(c);
+    }
     catch (e) { console.error("Diapositiva " + (i + 1) + ": " + e.message); el("p", "error-grafico", s, "Diapositiva " + (i + 1) + ": " + e.message); }
     var pie = el("div", "pie-diapositiva", s), izq = el("span", "", pie);
     el("b", "", izq, "DRAFT"); izq.appendChild(D.createTextNode(" · " + titulo));
