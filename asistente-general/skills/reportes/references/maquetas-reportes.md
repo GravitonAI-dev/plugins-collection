@@ -612,7 +612,7 @@ Notas de uso:
 .panel-notas[hidden]{display:none}
 .panel-notas .reloj{float:right;font-variant-numeric:tabular-nums;color:var(--apagado)}
 @media print{
-  @page{size:338.67mm 190.5mm;margin:0}
+  @page{size:338.67mm 190.5mm;margin:0;@bottom-right{content:none}}
   body{background:#fff}
   .borrador,.controles,.panel-notas,.pie{display:none}
   .escenario{box-shadow:none;border-radius:0;height:auto!important;overflow:visible}
@@ -759,4 +759,244 @@ Se coloca despues del script del motor (y de los modulos, si los hay). Monta las
   ir(0);
 })();
 </script>
+```
+
+---
+
+## 5. Documento largo: white paper, memoria o estudio (`documento_largo`)
+
+**Ancho:** `860px`. Lectura de varias paginas con calidad editorial: portada a pagina completa, resumen ejecutivo, indice con enlaces, capitulos numerados que empiezan en pagina nueva, graficos y diagramas dentro del texto, notas, fuentes y anexo. Al imprimir lleva cabecera con el titulo corto y numero de pagina «3 / 12» en cada hoja, salvo en la portada.
+
+- El indice lo compone el script de la maqueta a partir de los titulos `h2` de los capitulos: no se escribe a mano. En el PDF sus entradas son enlaces que llevan al capitulo.
+- Cada capitulo es una `section class="capitulo"`; con `class="capitulo nueva-pagina"` empieza en pagina nueva al imprimir (recomendado a partir del segundo).
+- Los graficos y diagramas se declaran como en cualquier reporte y se colocan con su hueco `figure` dentro del capitulo que los usa, con un titulo que afirma.
+- Las notas se marcan con `<sup class="nota">1</sup>` en el texto y se desarrollan en la seccion de notas.
+- Extension orientativa: entre 6 y 20 paginas. Mas alla, conviene partirlo.
+
+### Ficha
+
+```html maqueta=documento_largo parte=ficha
+<li><b>Autor:</b> {{AUTOR}}</li>
+      <li><b>Fecha:</b> {{FECHA_EMISION}}</li>
+```
+
+### Estilos
+
+```css maqueta=documento_largo parte=estilos
+.contenedor>header{display:none}
+.portada{min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding:var(--e6) var(--e5);margin:0 0 var(--e5);border-radius:var(--radio);color:#fff;
+  background:linear-gradient(150deg,var(--acento-fuerte),color-mix(in srgb,var(--acento) 70%,#000))}
+.portada .antetitulo{color:rgba(255,255,255,.8)}
+.portada h1{font-size:clamp(2.2rem,5vw,3.4rem);color:#fff;max-width:18ch}
+.portada .entradilla{color:rgba(255,255,255,.88);font-size:1.2rem}
+.portada .firma-portada{margin-top:auto;padding-top:var(--e6);color:rgba(255,255,255,.85)}
+.resumen-ejecutivo{border:1px solid var(--borde);border-top:5px solid var(--acento);border-radius:var(--radio-s);padding:var(--e4) var(--e5);background:var(--superficie);margin:0 0 var(--e5)}
+.resumen-ejecutivo h2{margin-bottom:var(--e3)}
+.resumen-ejecutivo ol{margin:0;padding-left:22px}
+.resumen-ejecutivo li{margin:0 0 var(--e2);font-size:1.02rem}
+.indice-documento{margin:0 0 var(--e5)}
+.indice-documento ol{list-style:none;margin:0;padding:0;counter-reset:cap}
+.indice-documento li{counter-increment:cap;border-bottom:1px dotted var(--borde);margin:0}
+.indice-documento a{display:flex;gap:var(--e3);padding:9px 0;color:var(--texto);text-decoration:none}
+.indice-documento a::before{content:counter(cap) ".";color:var(--acento);font-weight:650;min-width:1.6em}
+.capitulo{margin:0 0 var(--e6)}
+.capitulo>h2{font-size:clamp(1.4rem,2.6vw,1.8rem);counter-increment:capitulo;border-bottom:2px solid var(--acento);padding-bottom:var(--e2);margin:0 0 var(--e4)}
+main{counter-reset:capitulo}
+.capitulo>h2::before{content:counter(capitulo) ". ";color:var(--acento)}
+.capitulo h3{font-size:1.12rem;margin:var(--e4) 0 var(--e2)}
+.capitulo p,.capitulo li{font-size:1.02rem;line-height:1.7}
+.capitulo .grafico{margin:var(--e4) 0;padding:var(--e4);border:1px solid var(--borde-suave);border-radius:var(--radio-s);background:var(--superficie)}
+.capitulo .grafico>.titulo-figura{font-weight:650;margin:0 0 var(--e3);font-size:.98rem}
+.destacado{font-size:1.25rem;line-height:1.45;font-weight:600;border-left:5px solid var(--acento);padding:var(--e2) 0 var(--e2) var(--e4);margin:var(--e5) 0}
+sup.nota{color:var(--acento);font-weight:650}
+.notas-documento li,.fuentes-documento li{font-size:.88rem;color:var(--apagado)}
+@media print{
+  @page{size:A4;margin:20mm 18mm 22mm;
+    @bottom-right{content:counter(page) " / " counter(pages);font-size:8.5pt;color:#555}
+    @bottom-left{content:"DRAFT";font-size:8pt;color:#a8650f;font-weight:600}}
+  @page :first{margin:0;@bottom-right{content:none}@bottom-left{content:none}@top-left{content:none}}
+  body{font-size:10.5pt}
+  .portada{min-height:0;height:297mm;margin:0;border-radius:0;break-after:page;padding:40mm 24mm}
+  .borrador{display:none}
+  .resumen-ejecutivo{break-inside:avoid}
+  .indice-documento{break-after:page}
+  .capitulo.nueva-pagina{break-before:page}
+  .capitulo p,.capitulo li{font-size:10.5pt;line-height:1.55}
+  .capitulo .grafico{break-inside:avoid;border:none;padding:0}
+}
+```
+
+### Contenido
+
+```html maqueta=documento_largo parte=contenido
+<section class="portada">
+    <p class="antetitulo">{{ETIQUETA_SUPERIOR}}</p>
+    <h1>{{TITULO_DOCUMENTO}}</h1>
+    <p class="entradilla">{{ENTRADILLA}}</p>
+    <p class="firma-portada">{{AUTOR}} &middot; {{FECHA_EMISION}}</p>
+  </section>
+
+  <section class="resumen-ejecutivo">
+    <h2>{{TITULO_RESUMEN}}</h2>
+    <ol>
+      <li>{{CONCLUSION_1}}</li>
+      <li>{{CONCLUSION_2}}</li>
+      <li>{{CONCLUSION_3}}</li>
+    </ol>
+  </section>
+
+  <nav class="indice-documento" aria-label="Indice">
+    <h2>{{TITULO_INDICE}}</h2>
+    <ol id="indice-documento"></ol>
+  </nav>
+
+  <section class="capitulo" id="capitulo-1">
+    <h2>{{TITULO_CAPITULO_1}}</h2>
+    <p>{{TEXTO_CAPITULO_1}}</p>
+    <p class="destacado">{{IDEA_DESTACADA_1}}</p>
+  </section>
+
+  <section class="capitulo nueva-pagina" id="capitulo-2">
+    <h2>{{TITULO_CAPITULO_2}}</h2>
+    <p>{{TEXTO_CAPITULO_2}}</p>
+    <figure class="grafico" data-grafico="figura_1"></figure>
+    <p>{{TEXTO_CAPITULO_2_CONTINUACION}}</p>
+  </section>
+
+  <section class="capitulo nueva-pagina" id="capitulo-3">
+    <h2>{{TITULO_CAPITULO_3}}</h2>
+    <p>{{TEXTO_CAPITULO_3}}</p>
+    <h3>{{SUBTITULO_CAPITULO_3}}</h3>
+    <ul>
+      <li>{{PUNTO_1}}</li>
+      <li>{{PUNTO_2}}</li>
+    </ul>
+  </section>
+
+  <section class="capitulo nueva-pagina" id="notas">
+    <h2>{{TITULO_NOTAS}}</h2>
+    <ol class="notas-documento">
+      <li>{{NOTA_1}}</li>
+    </ol>
+  </section>
+```
+
+### Datos
+
+```json maqueta=documento_largo parte=datos
+{
+  "idioma": "es-ES",
+  "moneda": "EUR",
+  "fuentes": {
+    "fuente_1": {"nombre": "{{DESCRIPCION_FUENTE}}", "url": "{{URL}}", "consulta": "{{FECHA_AAAA_MM_DD}}"}
+  },
+  "cifras": {},
+  "graficos": {
+    "figura_1": {"tipo": "linea", "unidad": "num", "fuente": "fuente_1", "etiquetas": [], "series": [], "resumen": "{{RESUMEN}}"}
+  }
+}
+```
+
+### Script
+
+Se coloca despues del motor y de los modulos. Compone el indice con enlaces y pone el titulo corto en la cabecera de cada pagina impresa.
+
+```js maqueta=documento_largo parte=script
+<script>
+(function(){
+  "use strict";
+  var D = document, indice = D.getElementById("indice-documento");
+  [].forEach.call(D.querySelectorAll(".capitulo"), function (cap, i) {
+    var h = cap.querySelector("h2");
+    if (!cap.id) cap.id = "capitulo-" + (i + 1);
+    var a = Reportes.html("a", "", Reportes.html("li", "", indice), h.textContent);
+    a.href = "#" + cap.id;
+  });
+  /* Cabecera de pagina impresa con el titulo corto (desde la segunda pagina). */
+  var estilo = D.createElement("style");
+  estilo.textContent = "@media print{@page{@top-left{content:" + JSON.stringify(D.title) + ";font-size:8.5pt;color:#555}}}";
+  D.head.appendChild(estilo);
+})();
+</script>
+```
+
+---
+
+## 6. Resumen ejecutivo de una pagina (`resumen_ejecutivo`)
+
+**Ancho:** `1000px`. Una sola pagina A4: titular con la conclusion, tres indicadores, un grafico que la sostiene y tres conclusiones con la decision que se pide. Para un consejo, un socio o un cliente con poco tiempo. Si el contenido no cabe en una pagina, sobra contenido: se recorta, no se encoge la letra.
+
+### Ficha
+
+```html maqueta=resumen_ejecutivo parte=ficha
+<li><b>Para:</b> {{DESTINATARIO}}</li>
+      <li><b>Fecha:</b> {{FECHA_EMISION}}</li>
+```
+
+### Estilos
+
+```css maqueta=resumen_ejecutivo parte=estilos
+.una-pagina{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:var(--e4);align-items:start}
+.una-pagina .conclusiones ol{margin:0;padding-left:20px}
+.una-pagina .conclusiones li{margin:0 0 var(--e3);font-size:.98rem}
+.decision{margin:var(--e4) 0 0;padding:var(--e3) var(--e4);border-radius:var(--radio-s);background:var(--acento-suave);border-left:5px solid var(--acento);font-weight:600}
+@media (max-width:760px){.una-pagina{grid-template-columns:1fr}}
+@media print{
+  @page{size:A4;margin:12mm 12mm 14mm}
+  .una-pagina{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:var(--e3)}
+  .indicadores{grid-template-columns:repeat(3,1fr);gap:var(--e2);margin-bottom:var(--e3)}
+  .borrador{margin-bottom:var(--e2)}
+  .datos-grafico,.fuente-grafico{display:none}
+  .pie p{margin:0 0 2px}
+  .contenedor{font-size:9.5pt}
+  .indicador{padding:var(--e2) var(--e3)}
+  .indicador .cifra{font-size:17pt}
+  .malla .tarjeta svg,.una-pagina svg{max-height:62mm}
+  .pie{margin-top:var(--e3);padding-top:var(--e2);font-size:7.5pt}
+}
+```
+
+### Contenido
+
+```html maqueta=resumen_ejecutivo parte=contenido
+<div class="indicadores">
+    <div class="indicador"><p class="rotulo">{{INDICADOR_1_ROTULO}}</p><p class="cifra" data-cifra="indicador_1"></p><p class="detalle">{{INDICADOR_1_DETALLE}}</p></div>
+    <div class="indicador"><p class="rotulo">{{INDICADOR_2_ROTULO}}</p><p class="cifra" data-cifra="indicador_2"></p><p class="detalle">{{INDICADOR_2_DETALLE}}</p></div>
+    <div class="indicador"><p class="rotulo">{{INDICADOR_3_ROTULO}}</p><p class="cifra" data-cifra="indicador_3"></p><p class="detalle">{{INDICADOR_3_DETALLE}}</p></div>
+  </div>
+  <div class="una-pagina">
+    <section class="tarjeta">
+      <h2>{{TITULO_GRAFICO}}</h2>
+      <figure class="grafico" data-grafico="principal"></figure>
+    </section>
+    <section class="tarjeta conclusiones">
+      <h2>{{TITULO_CONCLUSIONES}}</h2>
+      <ol>
+        <li>{{CONCLUSION_1}}</li>
+        <li>{{CONCLUSION_2}}</li>
+        <li>{{CONCLUSION_3}}</li>
+      </ol>
+      <p class="decision">{{DECISION_QUE_SE_PIDE}}</p>
+    </section>
+  </div>
+```
+
+### Datos
+
+```json maqueta=resumen_ejecutivo parte=datos
+{
+  "idioma": "es-ES",
+  "moneda": "EUR",
+  "fuentes": {
+    "cliente": {"nombre": "{{DESCRIPCION_FUENTE}}", "consulta": "{{FECHA_AAAA_MM_DD}}"}
+  },
+  "cifras": {
+    "indicador_1": {"valor": 0, "unidad": "eur"},
+    "indicador_2": {"valor": 0, "unidad": "eur"},
+    "indicador_3": {"valor": 0, "unidad": "pct"}
+  },
+  "graficos": {
+    "principal": {"tipo": "barras", "unidad": "eur", "fuente": "cliente", "elementos": [], "resumen": "{{RESUMEN}}"}
+  }
+}
 ```

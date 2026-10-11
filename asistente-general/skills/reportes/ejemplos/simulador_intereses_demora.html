@@ -177,7 +177,7 @@ ol.leyenda{display:block;padding-left:20px}
 @media print{
   :root,:root[data-tema="sobrio"]{--fondo:#fff;--superficie:#fff;--superficie-2:#fff;--borde:#c8c5bf;--borde-suave:#dcd9d3;
         --linea-rejilla:#d5d2cc;--texto:#000;--apagado:#3f3d39;--sombra:none;--acento-suave:#f2f6f8}
-  @page{size:A4;margin:15mm 14mm}
+  @page{size:A4;margin:15mm 14mm 17mm;@bottom-right{content:counter(page) " / " counter(pages);font-size:8pt;color:#666}}
   *{animation:none!important;transition:none!important}
   *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
   body{font-size:10.5pt;background-image:none}

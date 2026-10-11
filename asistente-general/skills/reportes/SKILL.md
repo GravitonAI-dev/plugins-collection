@@ -9,7 +9,8 @@ i18n:
       Generates self-contained single-file HTML visual documents that the user opens in a
       browser and prints or saves as PDF with one button: one-page visual reports and dossiers,
       data dashboards with indicators and charts, and interactive calculation, simulation and
-      verification tools, and slide presentations. Charts and connector diagrams are declared as data and drawn by its own built-in engine
+      verification tools, slide presentations, long documents such as white papers and annual reports
+      with cover, linked table of contents and numbered pages, and one-page executive summaries. Charts and connector diagrams are declared as data and drawn by its own built-in engine
       (horizontal, grouped and stacked bars, line with area, threshold band and annotations,
       sparkline, gauge, waterfall, risk matrix, deadline timeline, donut and pie), which computes
       scales, totals and percentages, adds a data table with CSV download and the source line
@@ -24,7 +25,9 @@ description: >
   Genera documentos visuales HTML autocontenidos de un solo archivo que el usuario abre directamente en su navegador
   y puede imprimir o guardar como PDF con un boton: informes visuales y dossieres de una pagina, paneles de datos
   con indicadores y graficos, herramientas interactivas de calculo, simulacion y verificacion, y presentaciones en
-  diapositivas 16:9 con notas del orador que se imprimen una por pagina. Los graficos se
+  diapositivas 16:9 con notas del orador que se imprimen una por pagina, documentos largos (white paper, memoria,
+  due diligence) con portada, indice con enlaces y paginas numeradas, y resumenes ejecutivos de una pagina, con un
+  catalogo de los reportes que mas se piden. Los graficos se
   declaran como datos y los dibuja un motor propio incluido en la plantilla (barras horizontales, columnas simples,
   agrupadas, apiladas y al cien por cien, linea con area, banda de umbral y anotaciones, minigrafico de tendencia,
   medidor semicircular, cascada de importes, matriz de riesgo e impacto, diagrama de plazos con marca de hoy, anillo
@@ -49,7 +52,8 @@ when_to_use: |
   - El usuario quiere convertir a formato visual un documento que ya existe en su espacio de trabajo.
   - El usuario necesita un entregable listo para imprimir o exportar a PDF con identidad visual cuidada.
 inputs:
-  - tipo_documento: informe_visual / panel_datos / herramienta_interactiva / presentacion / fuera_de_alcance (V1)
+  - tipo_documento: informe_visual / panel_datos / herramienta_interactiva / presentacion / documento_largo / resumen_ejecutivo / fuera_de_alcance (V1)
+  - receta_reporte: receta del catalogo de reportes tipicos, deducida de la peticion (V6)
   - destino_uso: fijado siempre en ambos, no se pregunta (V2)
   - origen_datos: datos_del_chat / documento_del_workspace / busqueda_web (V3)
   - identidad_visual: tema_moderno / tema_sobrio / tema_personalizado (V4)
@@ -60,6 +64,7 @@ inputs:
 outputs:
   - documento_visual_html: archivo unico en formato snake_case.html con nombre en el idioma del usuario, creado en el espacio de trabajo, autocontenido, con tema claro y oscuro, estilos de impresion en A4 y aviso DRAFT visible; se abre en el navegador con doble clic y se guarda como PDF desde su propio boton
 references:
+  - references/catalogo-reportes.md
   - references/maquetas-reportes.md
   - references/modulos-motor.md
   - references/anatomia-documento-visual.md
@@ -80,11 +85,12 @@ assets:
 Esta skill guia al usuario de manera consultiva y transparente a traves de un procedimiento estructurado en cinco fases secuenciales, hasta entregar un archivo que se abre en el navegador con un doble clic.
 
 ### Vectores de Estado (Uso Estrictamente Interno):
-- **V1 (Tipo de Documento visual):** `informe_visual` | `panel_datos` | `herramienta_interactiva` | `presentacion` | `fuera_de_alcance`.
+- **V1 (Tipo de Documento visual):** `informe_visual` | `panel_datos` | `herramienta_interactiva` | `presentacion` | `documento_largo` | `resumen_ejecutivo` | `fuera_de_alcance`.
 - **V2 (Destino de Uso):** fijado siempre en `ambos`. **No se pregunta nunca:** todo documento visual se entrega util en pantalla y listo para imprimir o guardar como PDF. Preguntarlo solo anadia un paso al asistente para una respuesta que casi siempre era la misma.
 - **V3 (Origen de los Datos):** `datos_del_chat` | `documento_del_workspace` | `busqueda_web`.
 - **V4 (Identidad Visual):** `tema_moderno` (paleta viva de producto, la de las plantillas) | `tema_sobrio` (paleta de despacho: azul petroleo y neutros calidos, para juzgado y cliente institucional) | `tema_personalizado` (colores corporativos aportados por el usuario).
 - **V5 (Origen Plantilla):** `plantilla_sistema` | `plantilla_usuario`.
+- **V6 (Receta):** una receta de `references/catalogo-reportes.md` (informe de situacion del expediente, KPIs mensuales, due diligence, white paper, pitch...) o `sin_receta`. **No se pregunta en el formulario:** se deduce de la peticion por escucha activa; la receta fija V1 y la estructura de bloques, y se menciona en el plan de la Fase 2 para que el usuario la confirme o la cambie.
 
 > **REGLA DE INVISIBILIDAD Y COMUNICACION AMIGABLE (Global CLAUDE.md):**
 > Los identificadores tecnicos de los vectores, las marcas de validacion interna y cualquier mencion a nombres de herramientas o a la arquitectura interna estan terminantemente prohibidos en el chat. Al referirte al resultado, habla del **documento visual**, del **editor** o de **tu espacio de trabajo**.
@@ -97,7 +103,7 @@ Esta skill guia al usuario de manera consultiva y transparente a traves de un pr
 ## FASE 1 — CLASIFICACION INICIAL (Resolucion de Vectores V1 a V4 mediante Formulario HITL — REG-TRI-01)
 
 ### 1.1 Escucha Activa Previa
-Evalua el mensaje inicial y el historial antes de abrir ningun formulario. Si el usuario ya ha indicado de forma inequivoca el tipo de entregable, su destino, de donde salen los datos o si aporta identidad corporativa, registra esos vectores en silencio y pregunta unicamente por lo que falte. Si no falta nada, avanza directamente a la Fase 2.
+Evalua el mensaje inicial y el historial antes de abrir ningun formulario. Si la peticion encaja con una receta de `references/catalogo-reportes.md`, fija V6 y, con ella, V1. Si el usuario ya ha indicado de forma inequivoca el tipo de entregable, su destino, de donde salen los datos o si aporta identidad corporativa, registra esos vectores en silencio y pregunta unicamente por lo que falte. Si no falta nada, avanza directamente a la Fase 2.
 
 **Correspondencia con el enrutamiento.** Los vectores de esta skill se nombran con los identificadores siguientes; cada uno se resuelve con la respuesta indicada. No preguntes de nuevo nada que ya este aqui:
 - `V1` — respuesta a `tipo_documento`
@@ -105,6 +111,7 @@ Evalua el mensaje inicial y el historial antes de abrir ningun formulario. Si el
 - `V3` — respuesta a `origen_datos`
 - `V4` — respuesta a `identidad_visual`
 - `V5` — respuesta a `origen_plantilla`, resuelto en la Fase 2 conforme a `REG-AST-01`
+- `V6` — receta del catalogo, deducida de la peticion por escucha activa (no se pregunta)
 
 ### 1.2 Formulario de Clasificacion (`restricted_human_in_the_loop_request`)
 
@@ -120,6 +127,8 @@ Evalua el mensaje inicial y el historial antes de abrir ningun formulario. Si el
         {"id": "panel_datos", "label": "Panel de datos con indicadores y graficos (evolucion, reparto y comparativas)"},
         {"id": "herramienta_interactiva", "label": "Herramienta interactiva: calculadora, simulador o lista de verificacion"},
         {"id": "presentacion", "label": "Presentacion en diapositivas para una reunion o un cliente"},
+        {"id": "documento_largo", "label": "Documento largo: white paper, memoria anual, estudio o due diligence"},
+        {"id": "resumen_ejecutivo", "label": "Resumen ejecutivo de una sola pagina"},
         {"id": "fuera_de_alcance", "label": "Otra cosa: un contrato o escrito, un archivo de ofimatica o una aplicacion con servidor"}
       ]
     },
@@ -154,6 +163,8 @@ Fijados los vectores de clasificacion, evalua la rama de ejecucion. `V2` esta fi
 * Si `V1 = panel_datos` -> Plantilla del sistema: la base `assets/template-base-reportes.md` con la maqueta `panel_datos` de `references/maquetas-reportes.md`. Rejilla de tarjetas con indicadores (uno con minigrafico de tendencia), barras comparativas, anillo de reparto, evolucion con area y banda de umbral, cascada de descomposicion del importe, medidor semicircular y tabla de detalle con totales. Procede a la Fase 2.
 * Si `V1 = herramienta_interactiva` -> Plantilla del sistema: la base `assets/template-base-reportes.md` con la maqueta `herramienta_interactiva` de `references/maquetas-reportes.md`. Panel de entrada con campos, recalculo inmediato, medidor semicircular que se mueve con el resultado, desglose tabular, lista de verificacion con progreso y bloque de supuestos. Procede a la Fase 2.
 * Si `V1 = presentacion` -> Plantilla del sistema: la base `assets/template-base-reportes.md` con la maqueta `presentacion` de `references/maquetas-reportes.md`. Diapositivas 16:9 declaradas como datos (portada, agenda, separadores, cifra, grafico con conclusion, comparativa, cronologia, tabla, cita, equipo, proximos pasos y cierre), con navegacion, pantalla completa, notas del orador y una diapositiva por pagina al imprimir. Procede a la Fase 2.
+* Si `V1 = documento_largo` -> Plantilla del sistema: la base `assets/template-base-reportes.md` con la maqueta `documento_largo` de `references/maquetas-reportes.md`. Portada a pagina completa, resumen ejecutivo con tres conclusiones, indice con enlaces, capitulos numerados que empiezan en pagina nueva, graficos y diagramas dentro del texto, notas, fuentes y, al imprimir, cabecera con el titulo corto y numero de pagina. Procede a la Fase 2.
+* Si `V1 = resumen_ejecutivo` -> Plantilla del sistema: la base `assets/template-base-reportes.md` con la maqueta `resumen_ejecutivo` de `references/maquetas-reportes.md`. Una sola pagina A4: titular con la conclusion, tres indicadores, un grafico, tres conclusiones y la decision que se pide. Procede a la Fase 2.
 * Si `V1 = fuera_de_alcance` -> Detener proceso: no crear documento visual. Explica en el chat que ese entregable corresponde a otra via (la skill vertical del catalogo si es un contrato o un escrito de tramitacion; un archivo de ofimatica si necesita documento de texto, hoja de calculo o presentacion; un desarrollo a medida si requiere servidor o conexion a servicios externos) y ofrece como alternativa el documento visual mas proximo a su necesidad.
 
 ---
@@ -170,7 +181,7 @@ Fijados los vectores de clasificacion, evalua la rama de ejecucion. `V2` esta fi
 En un unico turno, expon en el chat:
 1. **Que va a mostrar el documento visual:** la idea principal, los indicadores que encabezaran la pagina y que forma grafica se usara para cada pregunta, con una justificacion breve (por ejemplo, barras ordenadas para comparar partidas y linea para la evolucion mensual).
 2. **Que datos faltan** para completarlo, si los hay.
-3. **Propuesta de plantilla oficial del sistema** mencionada solo por su denominacion formal (informe visual, panel de datos, herramienta interactiva o presentacion). Prohibido mostrar rutas de archivo y prohibido volcar el contenido de la plantilla.
+3. **Propuesta de plantilla oficial del sistema** mencionada solo por su denominacion formal (informe visual, panel de datos, herramienta interactiva, presentacion, documento largo o resumen ejecutivo) y, si hay receta, por el nombre del reporte («informe de situacion del expediente»), con su estructura de bloques en una linea. Prohibido mostrar rutas de archivo y prohibido volcar el contenido de la plantilla.
 4. **Formulario preceptivo** `restricted_human_in_the_loop_request` con `id` `origen_plantilla` y las dos opciones canonicas de `REG-AST-01` (`plantilla_sistema` y `plantilla_usuario`).
 
 ### 2.3 Fijacion de V5 y Manejo de la Eleccion
@@ -219,6 +230,8 @@ Para cada bloque sustantivo: recogida de datos -> **descripcion en texto plano d
 - *Si `V1 = panel_datos`:* elige la forma grafica segun la pregunta que responde, conforme a la tabla de `references/criterios-visualizacion-datos.md`. Cada grafico se declara en el bloque `datos-reporte` con el contrato de `references/biblioteca-componentes-visuales.md` y se coloca con su hueco `data-grafico`; el motor calcula escalas, totales y porcentajes. **Nunca se escriben coordenadas, arcos, porcentajes ni totales a mano**, y cada grafico cita su fuente por clave.
 - *Si `V1 = informe_visual`:* las secciones admiten cualquier grafico del motor (el diagrama de plazos ya va en la maqueta); se declara igual que en el panel.
 - *Si `V1 = presentacion`:* cada bloque de la hoja de ruta es una o varias diapositivas de la lista `diapositivas`, con su maqueta de diapositiva (`references/maquetas-reportes.md`). Una idea por diapositiva y un titular que afirma; los graficos y diagramas se declaran en `graficos` y se citan por su nombre; las notas del orador recogen lo que se dira y no se ve. La vista previa en el chat describe cada diapositiva en una linea.
+- *Si `V1 = documento_largo`:* cada capitulo es un bloque de la hoja de ruta; el resumen ejecutivo se redacta al final, cuando las conclusiones ya estan confirmadas. Cada tesis del texto se sostiene con un dato, un grafico o una fuente verificada; ninguna cita normativa sin verificar en la sesion.
+- *Si `V1 = resumen_ejecutivo`:* todo debe caber en una pagina A4: si no cabe, sobra contenido. La vista previa enumera los tres indicadores, el grafico, las tres conclusiones y la decision.
 - *Diagramas con conectores (cualquier tipo de reporte):* procesos, flujos de un procedimiento, cadenas de hechos, organigramas o estructuras societarias, relaciones entre partes y quien hace que se declaran como grafico `diagrama` y requieren copiar el modulo de `references/modulos-motor.md` despues del motor. Nunca se dibujan cajas ni flechas a mano.
 - *Si `V1 = herramienta_interactiva`:* campos de entrada con etiqueta y texto de ayuda, bloque de calculo escrito en JavaScript nativo dentro del script de la maqueta que devuelve `{resultado1, resultado2, resultado3, medidor, desglose}`, resultados destacados, medidor semicircular dibujado por el motor y alimentado por el campo `medidor` (porcentaje de 0 a 100), desglose tabular y lista de verificacion con progreso.
 - En todos los casos, cada grafico lleva su alternativa textual accesible y un titulo que afirma algo. Los rotulos de ejes, leyendas, unidades y descripciones accesibles se escriben **en el idioma del usuario**; las clases y los identificadores del documento permanecen en espanol tal como vienen en la plantilla.

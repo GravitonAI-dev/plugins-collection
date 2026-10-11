@@ -32,7 +32,7 @@ La base ya trae el sistema de tokens (colores, espaciado, radios y sombras en `:
 - **Nombres en espanol:** las clases e identificadores de la base y de las maquetas no se traducen ni se renombran. Lo que cambia de idioma es el texto visible.
 - **Tarjetas mas altas que un A4:** se les da la clase `permite-corte` (la herramienta ya la usa en su tarjeta de resultados), que deja partir la tarjeta y protege sus bloques internos.
 - **Texto dentro de un SVG:** solo cifras y rotulos cortos. Cualquier frase va en HTML junto al grafico, porque dentro del SVG se recorta sin aviso. El motor ya sigue esta regla.
-- **Cabeceras y pies repetidos en cada pagina: no.** Un elemento `position:fixed` parece la solucion, pero Chrome lo coloca una sola vez y fuera de sitio. La identificacion por pagina se deja al dialogo de impresion del navegador.
+- **Numeracion y cabeceras de pagina:** la base numera las paginas impresas («3 / 12») con las cajas de margen de `@page`, y el documento largo anade cabecera con el titulo corto. Funciona en Chrome y Edge actuales; otros navegadores imprimen igual, sin numero. Nunca con `position:fixed`, que Chrome coloca una sola vez y fuera de sitio.
 - Un boton visible invoca `window.print()` (ya en la base). El nombre del PDF que propone el navegador sale del `<title>`, asi que ese titulo es tambien el nombre del archivo.
 
 ## 4. JavaScript permitido y prohibido

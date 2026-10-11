@@ -255,6 +255,75 @@ def presentacion():
                             "ENTRADILLA": "Presentacion para la reunion con el cliente."})
     return componer("presentacion_reclamacion_cliente.html", textos, datos, "presentacion", modulos=["diagramas"])
 
+def white_paper():
+    demo = {"demo": {"nombre": "Datos ficticios de demostracion", "consulta": "2026-10-11"}}
+    datos = {"idioma": "es-ES", "moneda": "EUR", "fuentes": demo,
+      "cifras": {"plazo_2026": {"de": "plazos_pago", "calculo": "ultimo", "unidad": "dias", "decimales": 0},
+                 "plazo_2022": {"de": "plazos_pago", "calculo": "primero", "unidad": "dias", "decimales": 0},
+                 "subida": {"operacion": "diferencia", "a": "plazo_2026", "b": "plazo_2022", "unidad": "dias", "decimales": 0, "signo": True, "mejor": "bajar"}},
+      "graficos": {
+        "plazos_pago": {"tipo": "linea", "unidad": "dias", "fuente": "demo", "etiquetas": ["2022", "2023", "2024", "2025", "2026"],
+                        "series": [{"nombre": "Plazo medio de pago a pymes", "valores": [71, 74, 78, 80, 83]}],
+                        "umbral": {"desde": 0, "hasta": 60, "rotulo": "Plazo de referencia (60 dias)"},
+                        "resumen": "El plazo medio de pago pasa de 71 a 83 dias entre 2022 y 2026, por encima de los 60 de referencia"},
+        "causas": {"tipo": "barras", "unidad": "pct", "fuente": "demo", "elementos": [{"rotulo": "Falta de liquidez del cliente", "valor": 41},
+                   {"rotulo": "Discrepancia en la factura", "valor": 23}, {"rotulo": "Factura sin aceptar", "valor": 18}, {"rotulo": "Otras causas", "valor": 18}],
+                   "resumen": "La falta de liquidez explica el 41 por ciento de los impagos"},
+        "protocolo": dict(FLUJO_MONITORIO, fuente="demo", resumen="Del impago al monitorio pasando por el requerimiento"),
+        "riesgos": {"tipo": "matriz", "fuente": "demo", "filas": ["Alta", "Media", "Baja"], "columnas": ["Bajo", "Medio", "Alto"],
+                    "eje_filas": "Probabilidad", "eje_columnas": "Impacto",
+                    "elementos": [{"nombre": "Cliente unico que concentra ventas", "fila": "Media", "columna": "Alto"},
+                                  {"nombre": "Facturas sin aceptacion escrita", "fila": "Alta", "columna": "Medio"},
+                                  {"nombre": "Prescripcion por inactividad", "fila": "Baja", "columna": "Alto"}]},
+      }}
+    contenido = PIEZAS[("documento_largo", "contenido")]
+    contenido = contenido.replace('<figure class="grafico" data-grafico="figura_1"></figure>',
+        '<figure class="grafico" data-grafico="plazos_pago"></figure>')
+    contenido = contenido.replace("    <p>{{TEXTO_CAPITULO_3}}</p>",
+        "    <p>{{TEXTO_CAPITULO_3}}</p>\n    <figure class=\"grafico\" data-grafico=\"causas\"></figure>\n"
+        "    <figure class=\"grafico\" data-grafico=\"protocolo\"></figure>\n    <figure class=\"grafico\" data-grafico=\"riesgos\"></figure>")
+    textos = dict(COMUN, **{
+      "TITULO_CORTO": "Morosidad en pymes 2026", "TITULO_DOCUMENTO": "Cobrar antes de reclamar: un protocolo para la morosidad de las pymes",
+      "ETIQUETA_SUPERIOR": "White paper | Derecho mercantil", "ENTRADILLA": "Por que los plazos de pago siguen creciendo y que puede hacer una empresa antes de llegar al juzgado.",
+      "AUTOR": "Departamento de procesal civil", "FECHA_EMISION": "octubre de 2026",
+      "TITULO_RESUMEN": "Resumen ejecutivo",
+      "CONCLUSION_1": 'El plazo medio de pago a pymes ha subido <span data-cifra="subida"></span> desde 2022 y sigue por encima del de referencia.',
+      "CONCLUSION_2": "La mayoria de los impagos no son insolvencias: son facturas discutidas o sin aceptar que un protocolo interno evita.",
+      "CONCLUSION_3": "Un requerimiento fehaciente a tiempo y la via monitoria resuelven la mayor parte de las reclamaciones sin juicio.",
+      "TITULO_INDICE": "Contenido",
+      "TITULO_CAPITULO_1": "El problema", "TEXTO_CAPITULO_1": "Las pymes financian a sus clientes sin quererlo. Cada dia de retraso en el cobro es circulante que no se puede destinar a la actividad.",
+      "IDEA_DESTACADA_1": "Cobrar no empieza cuando vence la factura: empieza cuando se firma el pedido.",
+      "TITULO_CAPITULO_2": "Los plazos de pago",
+      "TEXTO_CAPITULO_2": 'La serie de los ultimos cinco anos muestra una subida sostenida del plazo medio, de <span data-cifra="plazo_2022"></span> a <span data-cifra="plazo_2026"></span>.',
+      "TEXTO_CAPITULO_2_CONTINUACION": "La distancia frente al plazo de referencia no se ha cerrado en ningun ejercicio.",
+      "TITULO_CAPITULO_3": "Que puede hacer la empresa", "TEXTO_CAPITULO_3": "Las causas del impago marcan la respuesta: una discrepancia se resuelve con documentacion; una falta de liquidez, con garantias y con rapidez.",
+      "SUBTITULO_CAPITULO_3": "Tres medidas que cambian el resultado", "PUNTO_1": "Aceptacion escrita de cada factura o albaran.", "PUNTO_2": "Requerimiento fehaciente a los treinta dias del vencimiento.",
+      "TITULO_NOTAS": "Notas", "NOTA_1": "Todas las cifras de este documento son ficticias y sirven solo para mostrar el formato.",
+    })
+    return componer("white_paper_morosidad_pymes.html", textos, datos, "documento_largo", contenido=contenido, modulos=["diagramas"])
+
+def resumen():
+    datos = {"idioma": "es-ES", "moneda": "EUR", "fuentes": FUENTE_CLIENTE,
+      "cifras": {"indicador_1": {"valor": round(PRINCIPAL + INTERESES + COSTAS, 2), "unidad": "eur"}, "indicador_2": {"valor": 5600, "unidad": "eur"},
+                 "indicador_3": {"operacion": "porcentaje", "a": 37580, "b": PRINCIPAL, "unidad": "pct"}},
+      "graficos": {"principal": {"tipo": "barras", "unidad": "eur", "fuente": "cliente", "elementos": [{"rotulo": r, "valor": v} for r, v in FACTURAS],
+                                 "resumen": "Tres facturas concentran la deuda"}}}
+    textos = dict(COMUN, **{
+      "TITULO_CORTO": "Resumen reclamacion Delta", "TITULO_DOCUMENTO": "Recomendamos presentar el monitorio la semana que viene",
+      "ETIQUETA_SUPERIOR": "Resumen ejecutivo | Expediente 2026/0417",
+      "ENTRADILLA": "Construcciones Delta, S.L. no ha pagado en el plazo del burofax. La via monitoria es la mas rapida y no exige abogado ni procurador al inicio.",
+      "DESTINATARIO": "Direccion de Suministros Ibericos del Norte, S.L.", "FECHA_EMISION": "28 de septiembre de 2026",
+      "INDICADOR_1_ROTULO": "Total reclamable", "INDICADOR_1_DETALLE": "Principal, intereses y costas estimadas",
+      "INDICADOR_2_ROTULO": "Ya cobrado", "INDICADOR_2_DETALLE": "Dos pagos a cuenta",
+      "INDICADOR_3_ROTULO": "En tres facturas", "INDICADOR_3_DETALLE": "Peso sobre el principal",
+      "TITULO_GRAFICO": "Tres facturas concentran la deuda", "TITULO_CONCLUSIONES": "Conclusiones",
+      "CONCLUSION_1": "La deuda esta reconocida por escrito: el monitorio tiene base documental solida.",
+      "CONCLUSION_2": "Sin pagos desde julio, esperar solo aumenta el riesgo de insolvencia del deudor.",
+      "CONCLUSION_3": "Si hay oposicion, el asunto pasa al declarativo; la cuantia lo justifica.",
+      "DECISION_QUE_SE_PIDE": "Decision: autorizar la presentacion de la peticion de monitorio antes del 2 de octubre.",
+    })
+    return componer("resumen_reclamacion_una_pagina.html", textos, datos, "resumen_ejecutivo")
+
 # --------------------------------------------------------------------------- galeria
 FLUJO_MONITORIO = {"tipo": "diagrama", "disposicion": "capas", "grupos": {"1": "Via judicial", "2": "Cierre", "3": "Hechos"},
   "nodos": [{"id": "contrato", "texto": "Contrato de suministro", "forma": "inicio"}, {"id": "impago", "texto": "Impago de siete facturas", "grupo": 3},
@@ -387,7 +456,7 @@ def comprobar_y_imprimir(archivos, pdf):
 # --------------------------------------------------------------------------- principal
 if __name__ == "__main__":
     print("Generando reportes de ejemplo:")
-    hechos = [panel(), informe(), herramienta(), presentacion(), galeria()]
+    hechos = [panel(), informe(), herramienta(), presentacion(), white_paper(), resumen(), galeria()]
     limpio = comprobar_y_imprimir([d for d, _ in hechos], "--sin-pdf" not in sys.argv)
     if not all(ok for _, ok in hechos) or not limpio:
         print("\nFALLO: hay marcadores sin resolver o errores en la consola del navegador.")
