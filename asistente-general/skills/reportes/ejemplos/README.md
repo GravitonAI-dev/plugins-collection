@@ -27,4 +27,4 @@ El guion compone cada ejemplo igual que lo hara el modelo: copia la base, insert
 
 ## Contornos del mapa
 
-`generar_mapa.py` produce los contornos simplificados de los modulos `mapa` y `mapa_provincias` a partir de Natural Earth (`ne_10m_admin_1_states_provinces`, dominio publico): agrupa las provincias en comunidades, proyecta, simplifica, coloca Canarias en recuadro y deja Ceuta y Melilla como puntos. Necesita `pyshp` y `shapely` y el shapefile descargado de naturalearthdata.com en la misma carpeta. Solo hace falta si se quieren regenerar.
+`generar_mapa.py` produce los contornos simplificados de los bloques `mapa_ccaa` y `mapa_provincias` a partir de Natural Earth (`ne_10m_admin_1_states_provinces`, dominio publico): agrupa las provincias en comunidades, proyecta, simplifica, coloca Canarias en recuadro y deja Ceuta y Melilla como puntos. Necesita `pyshp` y `shapely` y el shapefile descargado de naturalearthdata.com en la misma carpeta. Solo hace falta si se quieren regenerar.

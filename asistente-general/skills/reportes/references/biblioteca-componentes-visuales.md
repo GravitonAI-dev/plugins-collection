@@ -53,7 +53,7 @@ El motor de la base dibuja el SVG, calcula escalas, ejes y porcentajes, rellena 
 
 Los valores que falten se escriben `null`: la linea se interrumpe y la columna no se pinta. Nunca se inventa un punto para cerrar una serie.
 
-**Valores calculados dentro de un grafico:** cualquier valor numerico de un grafico puede ser `"@clave"`, que el motor sustituye por la cifra `clave` de `cifras`. Asi una cascada de la propuesta a la liquidacion definitiva usa `"valor": "@baja_cuota"` con `baja_cuota` declarada como `{"operacion": "diferencia", "a": "cuota_definitiva", "b": "cuota_propuesta"}`, y ningun importe se escribe dos veces ni se resta a mano. Una cifra calculada sobre un grafico ignora los valores de ese grafico que sean referencias.
+**Valores calculados dentro de un grafico:** cualquier valor numerico de un grafico o de un modulo (tambien los `valores` del mapa o los puntos de una dispersion) puede ser `"@clave"`, que el motor sustituye por la cifra `clave` de `cifras`. Asi una cascada de la propuesta a la liquidacion definitiva usa `"valor": "@baja_cuota"` con `baja_cuota` declarada como `{"operacion": "diferencia", "a": "cuota_definitiva", "b": "cuota_propuesta"}`, y ningun importe se escribe dos veces ni se resta a mano. Una cifra calculada sobre un grafico ignora los valores de ese grafico que sean referencias.
 
 ---
 
