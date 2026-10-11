@@ -534,9 +534,9 @@ Cualquier diapositiva admite `notas`: el texto del orador, que se ve pulsando N 
 
 Notas de uso:
 
-- **Cifras dentro de los textos:** cualquier texto de una diapositiva admite `{cifra:clave}`, que se sustituye por la cifra `clave` de `cifras` (por ejemplo `"texto": "Son {cifra:exceso} por encima del objetivo"`). Asi las cifras derivadas tampoco se escriben a mano en una presentacion.
+- **Cifras dentro de los textos:** cualquier texto de una diapositiva admite `{cifra:clave}` (por ejemplo `"texto": "Son {cifra:exceso} por encima del objetivo"`); ver `cifras` en `biblioteca-componentes-visuales.md`.
 - **Diapositiva `cifra`:** el numero va arriba, en grande, y el `titulo` debajo lo completa como frase («531.200 €» + «es el saldo vencido a 30 de septiembre»).
-- **Graficos y diagramas** se dibujan con letra de diapositiva. Un diagrama de flujo cabe a lo ancho hasta unos seis pasos; con mas, se divide en dos diapositivas. Un grafico sin `conclusion` ocupa todo el ancho.
+- **Graficos y diagramas** se dibujan con letra de diapositiva. Los limites de un diagrama en una diapositiva estan en `modulos-motor.md`. Un grafico sin `conclusion` ocupa todo el ancho.
 - **Cabecera de la base:** en la presentacion no se ve. `{{ETIQUETA_SUPERIOR}}` y `{{ENTRADILLA}}` se rellenan igualmente (con el contexto de la reunion) y `{{TITULO_CORTO}}` es el que aparece en el pie de cada diapositiva y en la pestana.
 - **Aviso legal:** `{{PIE_AVISO_LEGAL}}` se imprime en la ultima diapositiva, junto a las fuentes; el aviso DRAFT va en el pie de cada diapositiva.
 
@@ -551,7 +551,7 @@ Notas de uso:
 ```css maqueta=presentacion parte=estilos
 .contenedor>header,.pie>p:first-of-type{display:none}
 .escenario{position:relative;width:100%;overflow:hidden;border-radius:var(--radio);box-shadow:var(--sombra);background:var(--superficie)}
-.escenario:fullscreen{border-radius:0;display:flex;align-items:center;justify-content:center;background:#000}
+.escenario:fullscreen{border-radius:0;background:#000}
 .diapositivas{position:relative;width:1280px;height:720px;transform-origin:0 0}
 .diapositiva{position:absolute;inset:0;padding:52px 72px 76px;background:var(--superficie);visibility:hidden;display:flex;flex-direction:column;overflow:hidden}
 .diapositiva.activa{visibility:visible}
@@ -578,9 +578,8 @@ Notas de uso:
 .maqueta-separador h2,.maqueta-separador p{color:#fff}
 .maqueta-separador .numero{font-size:140px;font-weight:750;line-height:1;color:rgba(255,255,255,.28);margin:0}
 .maqueta-separador .pie-diapositiva,.maqueta-separador .pie-diapositiva b{color:rgba(255,255,255,.75)}
-.maqueta-cifra .numero.delta-bien{color:var(--ok)}
-.maqueta-cifra .numero.delta-mal{color:var(--riesgo)}
-.maqueta-cifra .numero{font-size:128px;font-weight:720;letter-spacing:-.04em;line-height:1;color:var(--acento);margin:0 0 20px;font-variant-numeric:tabular-nums}
+.maqueta-cifra .numero:not(.delta-bien):not(.delta-mal){color:var(--acento)}
+.maqueta-cifra .numero{font-size:128px;font-weight:720;letter-spacing:-.04em;line-height:1;margin:0 0 20px;font-variant-numeric:tabular-nums}
 .lista-grande{margin:0;padding:0;list-style:none;counter-reset:punto}
 .lista-grande li{position:relative;padding:14px 0 14px 64px;border-bottom:1px solid var(--borde-suave);counter-increment:punto}
 .lista-grande li::before{content:counter(punto);position:absolute;left:0;top:12px;width:40px;height:40px;border-radius:50%;background:var(--acento-suave);color:var(--acento-fuerte);font-weight:700;font-size:18px;display:flex;align-items:center;justify-content:center}
@@ -589,7 +588,7 @@ Notas de uso:
 .lado-a-lado h3{font-size:24px;margin:0 0 12px}
 .lado-a-lado ul{padding-left:22px;margin:0}
 .lado-a-lado .veredicto{margin-top:14px}
-.lado-a-lado .ok{border-top:5px solid var(--ok)}.lado-a-lado .atencion{border-top:5px solid var(--aviso)}.lado-a-lado .riesgo{border-top:5px solid var(--riesgo)}
+.lado-a-lado>.ok{border-top:5px solid var(--ok)}.lado-a-lado>.atencion{border-top:5px solid var(--aviso)}.lado-a-lado>.riesgo{border-top:5px solid var(--riesgo)}
 .grafico-y-texto{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:36px;align-items:center}
 .grafico-y-texto .conclusion{font-size:24px;font-weight:600;border-left:5px solid var(--acento);padding-left:20px}
 .linea-tiempo{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:20px;margin-top:20px;border-top:3px solid var(--borde);padding-top:28px;position:relative}
@@ -680,21 +679,21 @@ Se coloca despues del script del motor (y de los modulos, si los hay). Monta las
   function columna(padre, c) { var d = el("div", c.estado || "", padre); el("h3", "", d, c.titulo || c.nombre || ""); if (c.texto) el("p", "", d, c.texto); if (c.puntos) puntos(d, c.puntos); if (c.veredicto) { var v = el("p", "veredicto", d); el("span", "distintivo " + (c.estado || ""), v, c.veredicto); } }
   var maquetas = {
     portada: function (s, d) { if (d.antetitulo) el("p", "antetitulo", s, d.antetitulo); el("h2", "", s, d.titulo); if (d.subtitulo) el("p", "subtitulo", s, d.subtitulo); el("p", "firma-portada", s, [d.autor, d.fecha].filter(Boolean).join(" · ")); },
-    agenda: function (s, d, c) { el("h2", "", s, d.titulo); puntos(c, d.puntos, "lista-grande"); },
+    agenda: function (s, d, c) { puntos(c, d.puntos, "lista-grande"); },
     separador: function (s, d) { if (d.numero) el("p", "numero", s, d.numero); el("h2", "", s, d.titulo); if (d.texto) el("p", "", s, d.texto); },
     cifra: function (s, d, c) { var n = el("p", "numero", c, d.cifra || ""); if (d.dato) n.setAttribute("data-cifra", d.dato); el("h2", "", c, d.titulo); if (d.texto) el("p", "", c, d.texto); },
-    grafico: function (s, d, c) { el("h2", "", s, d.titulo); var g = el("div", d.conclusion ? "grafico-y-texto" : "", c); figura(g, d.grafico); if (d.conclusion) el("p", "conclusion", g, d.conclusion); },
-    puntos: function (s, d, c) { el("h2", "", s, d.titulo); var g = el("div", d.grafico ? "grafico-y-texto" : "", c); puntos(g, d.puntos, "lista-grande"); if (d.grafico) figura(g, d.grafico); },
-    dos_columnas: function (s, d, c) { el("h2", "", s, d.titulo); var g = el("div", "lado-a-lado", c); columna(g, d.izquierda || {}); columna(g, d.derecha || {}); },
-    comparativa: function (s, d, c) { el("h2", "", s, d.titulo); var g = el("div", "lado-a-lado", c); (d.opciones || []).forEach(function (o) { columna(g, o); }); },
-    cronologia: function (s, d, c) { el("h2", "", s, d.titulo); var g = el("div", "linea-tiempo", c); (d.hitos || []).forEach(function (h) { var x = el("div", "", g); el("p", "fecha", x, h.fecha); el("h3", "", x, h.titulo); if (h.texto) el("p", "", x, h.texto); }); },
-    tabla: function (s, d, c) { el("h2", "", s, d.titulo); var t = el("table", "", el("div", "tabla", c)), f = el("tr", "", el("thead", "", t)); (d.cabecera || []).forEach(function (h) { el("th", "", f, h); }); var b = el("tbody", "", t); (d.filas || []).forEach(function (fila) { var tr = el("tr", "", b); fila.forEach(function (v) { el("td", "", tr, v); }); }); if (d.nota) el("p", "subtitulo", c, d.nota); },
+    grafico: function (s, d, c) { var g = el("div", d.conclusion ? "grafico-y-texto" : "", c); figura(g, d.grafico); if (d.conclusion) el("p", "conclusion", g, d.conclusion); },
+    puntos: function (s, d, c) { var g = el("div", d.grafico ? "grafico-y-texto" : "", c); puntos(g, d.puntos, "lista-grande"); if (d.grafico) figura(g, d.grafico); },
+    dos_columnas: function (s, d, c) { var g = el("div", "lado-a-lado", c); columna(g, d.izquierda || {}); columna(g, d.derecha || {}); },
+    comparativa: function (s, d, c) { var g = el("div", "lado-a-lado", c); (d.opciones || []).forEach(function (o) { columna(g, o); }); },
+    cronologia: function (s, d, c) { var g = el("div", "linea-tiempo", c); (d.hitos || []).forEach(function (h) { var x = el("div", "", g); el("p", "fecha", x, h.fecha); el("h3", "", x, h.titulo); if (h.texto) el("p", "", x, h.texto); }); },
+    tabla: function (s, d, c) { var t = el("table", "", el("div", "tabla", c)), f = el("tr", "", el("thead", "", t)); (d.cabecera || []).forEach(function (h) { el("th", "", f, h); }); var b = el("tbody", "", t); (d.filas || []).forEach(function (fila) { var tr = el("tr", "", b); fila.forEach(function (v) { el("td", "", tr, v); }); }); if (d.nota) el("p", "subtitulo", c, d.nota); },
     cita: function (s, d) { el("blockquote", "", s, d.cita); if (d.autor) el("p", "autor", s, d.autor); },
-    equipo: function (s, d, c) { el("h2", "", s, d.titulo); var g = el("div", "lado-a-lado", c); (d.personas || []).forEach(function (p) { var x = el("div", "persona", g); el("div", "iniciales", x, p.nombre.split(/\s+/).map(function (w) { return w[0]; }).slice(0, 2).join("")); el("h3", "", x, p.nombre); el("p", "", x, p.cargo); if (p.texto) el("p", "", x, p.texto); }); },
-    proximos_pasos: function (s, d, c) { el("h2", "", s, d.titulo); var t = el("table", "pasos-tabla", el("div", "tabla", c)), b = el("tbody", "", t); (d.pasos || []).forEach(function (p, i) { var tr = el("tr", "", b); el("td", "", tr, (i + 1) + ". " + p.texto); el("td", "", tr, p.responsable || ""); el("td", "cifra", tr, p.fecha || ""); }); },
+    equipo: function (s, d, c) { var g = el("div", "lado-a-lado", c); (d.personas || []).forEach(function (p) { var x = el("div", "persona", g); el("div", "iniciales", x, p.nombre.split(/\s+/).map(function (w) { return w[0]; }).slice(0, 2).join("")); el("h3", "", x, p.nombre); el("p", "", x, p.cargo); if (p.texto) el("p", "", x, p.texto); }); },
+    proximos_pasos: function (s, d, c) { var t = el("table", "pasos-tabla", el("div", "tabla", c)), b = el("tbody", "", t); (d.pasos || []).forEach(function (p, i) { var tr = el("tr", "", b); el("td", "", tr, (i + 1) + ". " + p.texto); el("td", "", tr, p.responsable || ""); el("td", "cifra", tr, p.fecha || ""); }); },
     cierre: function (s, d) { el("h2", "", s, d.titulo); if (d.texto) el("p", "", s, d.texto); if (d.contacto) el("p", "subtitulo", s, d.contacto); },
     fuentes: function (s, d, c) {
-      el("h2", "", s, d.titulo); c.appendChild(D.getElementById("fuentes-reporte"));
+      c.appendChild(D.getElementById("fuentes-reporte"));
       var aviso = D.querySelector(".pie > p:last-of-type");  /* el aviso legal del pie tambien se imprime */
       if (aviso) el("p", "subtitulo", c, aviso.textContent);
     }
@@ -705,8 +704,10 @@ Se coloca despues del script del motor (y de los modulos, si los hay). Monta las
     s.setAttribute("aria-roledescription", "diapositiva");
     if (!maquetas[d.maqueta]) { console.error("Diapositiva " + (i + 1) + ": maqueta desconocida " + d.maqueta); el("p", "error-grafico", s, "Maqueta desconocida: " + d.maqueta); return; }
     c = ["portada", "separador", "cita", "cierre"].indexOf(d.maqueta) < 0 ? el("div", "cuerpo", null) : null;
-    maquetas[d.maqueta](s, d, c);
-    if (c) s.appendChild(c);
+    /* Una diapositiva con datos mal declarados muestra su error sin romper las demas. */
+    if (c && d.maqueta !== "cifra") el("h2", "", s, d.titulo);
+    try { maquetas[d.maqueta](s, d, c); if (c) s.appendChild(c); }
+    catch (e) { console.error("Diapositiva " + (i + 1) + ": " + e.message); el("p", "error-grafico", s, "Diapositiva " + (i + 1) + ": " + e.message); }
     var pie = el("div", "pie-diapositiva", s), izq = el("span", "", pie);
     el("b", "", izq, "DRAFT"); izq.appendChild(D.createTextNode(" · " + titulo));
     el("span", "", pie, (i + 1) + " / " + todas.length);
@@ -718,8 +719,10 @@ Se coloca despues del script del motor (y de los modulos, si los hay). Monta las
     var lleno = D.fullscreenElement === escenario;
     var w = lleno ? window.innerWidth : escenario.clientWidth, h = lleno ? window.innerHeight : Infinity;
     var e = Math.min(w / 1280, h / 720);
-    cont.style.transform = "scale(" + e + ")";
-    if (!lleno) escenario.style.height = Math.round(720 * e) + "px"; else escenario.style.height = "";
+    /* A pantalla completa se centra a mano: el escalado parte de la esquina superior izquierda. */
+    var dx = lleno ? (w - 1280 * e) / 2 : 0, dy = lleno ? (h - 720 * e) / 2 : 0;
+    cont.style.transform = "translate(" + dx + "px," + dy + "px) scale(" + e + ")";
+    escenario.style.height = lleno ? "" : Math.round(720 * e) + "px";
   }
   function ir(n) {
     actual = Math.max(0, Math.min(diapos.length - 1, n));
@@ -739,7 +742,7 @@ Se coloca despues del script del motor (y de los modulos, si los hay). Monta las
   }
   D.getElementById("ver-notas").addEventListener("click", notas);
   D.addEventListener("keydown", function (e) {
-    if (/INPUT|SELECT|TEXTAREA/.test(e.target.tagName)) return;
+    if (/INPUT|SELECT|TEXTAREA/.test(e.target.tagName) || e.ctrlKey || e.metaKey || e.altKey) return;
     if (["ArrowRight", "PageDown", " "].indexOf(e.key) > -1) { e.preventDefault(); ir(actual + 1); }
     else if (["ArrowLeft", "PageUp"].indexOf(e.key) > -1) { e.preventDefault(); ir(actual - 1); }
     else if (e.key === "Home") ir(0);

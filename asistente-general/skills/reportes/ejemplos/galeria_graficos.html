@@ -161,8 +161,6 @@ ol.leyenda{display:block;padding-left:20px}
 [data-cifra].delta-bien{color:var(--ok)}
 [data-cifra].delta-mal{color:var(--riesgo)}
 .grafico .valor-punto.dentro{fill:#fff}
-.grafico .texto-nodo{font-size:12px;fill:var(--texto);font-weight:560}
-.grafico .texto-conexion{font-size:10.5px;fill:var(--apagado);font-weight:600}
 .leyenda .porcentaje{color:var(--texto);font-variant-numeric:tabular-nums;font-weight:620}
 .medidor-rotulo{text-align:center;font-size:.82rem;color:var(--apagado);margin:0 0 var(--e3)}
 .medidor .pista-arco{fill:none;stroke:var(--superficie-2);stroke-width:18;stroke-linecap:round}
@@ -1031,8 +1029,8 @@ catch (e) { console.error("datos-reporte no es JSON valido: " + e.message); }
 var IDIOMA = datos.idioma || D.documentElement.lang || "es-ES";
 var MONEDA = datos.moneda || "EUR";
 var TEXTOS_BASE = {
-  es: {en_curso:"en curso", desde:"Desde", hacia:"Hacia", rotulo:"Rotulo", objetivo:"Objetivo", cumplimiento:"Cumplimiento", datos:"Ver los datos", csv:"Descargar CSV", fuente:"Fuente", fuentes:"Fuentes", consulta:"consultado el", otros:"Otros", hoy:"hoy", total:"Total", concepto:"Concepto", valor:"Valor", acumulado:"Acumulado", porcentaje:"Porcentaje", inicio:"Inicio", fin:"Fin", restantes:"Dias restantes", maximo:"Maximo", ok:"Asumir", aviso:"Vigilar", riesgo:"Actuar ya", error:"No se puede dibujar el grafico"},
-  en: {en_curso:"ongoing", desde:"From", hacia:"To", rotulo:"Label", objetivo:"Target", cumplimiento:"Achieved", datos:"Show the data", csv:"Download CSV", fuente:"Source", fuentes:"Sources", consulta:"accessed on", otros:"Other", hoy:"today", total:"Total", concepto:"Item", valor:"Value", acumulado:"Running total", porcentaje:"Share", inicio:"Start", fin:"End", restantes:"Days left", maximo:"Maximum", ok:"Accept", aviso:"Monitor", riesgo:"Act now", error:"The chart cannot be drawn"}
+  es: {en_curso:"en curso", objetivo:"Objetivo", cumplimiento:"Cumplimiento", datos:"Ver los datos", csv:"Descargar CSV", fuente:"Fuente", fuentes:"Fuentes", consulta:"consultado el", otros:"Otros", hoy:"hoy", total:"Total", concepto:"Concepto", valor:"Valor", acumulado:"Acumulado", porcentaje:"Porcentaje", inicio:"Inicio", fin:"Fin", restantes:"Dias restantes", maximo:"Maximo", ok:"Asumir", aviso:"Vigilar", riesgo:"Actuar ya", error:"No se puede dibujar el grafico"},
+  en: {en_curso:"ongoing", objetivo:"Target", cumplimiento:"Achieved", datos:"Show the data", csv:"Download CSV", fuente:"Source", fuentes:"Sources", consulta:"accessed on", otros:"Other", hoy:"today", total:"Total", concepto:"Item", valor:"Value", acumulado:"Running total", porcentaje:"Share", inicio:"Start", fin:"End", restantes:"Days left", maximo:"Maximum", ok:"Accept", aviso:"Monitor", riesgo:"Act now", error:"The chart cannot be drawn"}
 };
 var T = Object.assign({}, TEXTOS_BASE[IDIOMA.slice(0, 2)] || TEXTOS_BASE.es, datos.textos || {});
 var FUENTES = datos.fuentes || {};
@@ -1154,6 +1152,9 @@ function rotulosX(s, etiquetas, xDe, extremos) {
     consejo(svg("text", {"class": "eje", x: r1(xDe(i)), y: 266, "text-anchor": ancla}, s, recortar(e, cabe)), String(e));
   });
 }
+/* Columna de rotulos a la izquierda (barras de bala, divergentes y plazos). */
+function columnaRotulos() { return W < 520 ? 112 : 150; }
+function rotuloFila(s, y, texto) { consejo(svg("text", {"class": "eje", x: columnaRotulos() - 10, y: y, "text-anchor": "end"}, s, recortar(texto, W < 520 ? 16 : 28)), texto); }
 function yDe(v, tope) { return r1(Y1 - v / tope * 200); }
 
 /* ---------- tipos ---------- */
@@ -1371,7 +1372,7 @@ tipos.plazos = function (fig, g) {
   var hoy = fecha(g.hoy), ini = pl.map(function (p) { return fecha(p.inicio); }), fin = pl.map(function (p) { return p.fin ? fecha(p.fin) : hoy; });  /* sin fin: fase abierta hasta hoy */
   var desde = Math.min(hoy, minimo(ini)), hasta = Math.max(hoy, maximo(fin)), margen = Math.max((hasta - desde) * 0.04, DIA);
   desde -= margen; hasta += margen;
-  var x0 = W < 520 ? 112 : 150, ancho = W - x0 - 30, corte = W < 520 ? 16 : 28, alto = 46 + pl.length * 38 + 34;
+  var x0 = columnaRotulos(), ancho = W - x0 - 30, alto = 46 + pl.length * 38 + 34;
   var x = function (t) { return r1(x0 + (t - desde) / (hasta - desde) * ancho); };
   var s = lienzo(fig, W, alto, g.resumen || "");
   var base = alto - 26, dias = (hasta - desde) / DIA;
@@ -1394,7 +1395,7 @@ tipos.plazos = function (fig, g) {
   pl.forEach(function (p, i) {
     var y = 46 + i * 38, a = ini[i], b = fin[i];
     var c = p.color ? color(p.color, i) : !p.fin ? "var(--aviso)" : b < hoy ? "var(--c6)" : a <= hoy ? "var(--aviso)" : color(null, i);
-    consejo(svg("text", {"class": "eje", x: x0 - 10, y: y + 13, "text-anchor": "end"}, s, recortar(p.rotulo, corte)), p.rotulo);
+    rotuloFila(s, y + 13, p.rotulo);
     /* Una fecha aproximada (prevista, no notificada) se dibuja con borde discontinuo y relleno claro. */
     consejo(svg("rect", {x: x(a), y: y, width: Math.max(r1(x(b) - x(a)), 3), height: 18, rx: 4, fill: c, opacity: b < hoy && p.fin ? ".55" : null,
       "fill-opacity": p.aproximada ? ".3" : null, stroke: p.aproximada ? c : null, "stroke-dasharray": p.aproximada ? "4 3" : null}, s),
@@ -1452,12 +1453,12 @@ tipos.bala = function (fig, g) {
   var el = g.elementos || [];
   if (!el.length) throw new Error("faltan elementos");
   var tope = techo(maximo([].concat.apply([], el.map(function (e) { return [e.valor, e.objetivo].concat(e.tramos || []); }))));
-  var x0 = W < 520 ? 110 : 150, ancho = W - x0 - 64, fila = 46, s = lienzo(fig, W, el.length * fila + 28, g.resumen || "");
+  var x0 = columnaRotulos(), ancho = W - x0 - 64, fila = 46, s = lienzo(fig, W, el.length * fila + 28, g.resumen || "");
   var x = function (v) { return r1(x0 + Math.max(0, v) / tope * ancho); };
   el.forEach(function (e, i) {
     if (!num(e.valor)) throw new Error("el elemento " + (i + 1) + " no tiene valor");
     var y = 6 + i * fila;
-    consejo(svg("text", {"class": "eje", x: x0 - 10, y: y + 19, "text-anchor": "end"}, s, recortar(e.rotulo, W < 520 ? 16 : 24)), e.rotulo);
+    rotuloFila(s, y + 19, e.rotulo);
     /* Tramos cualitativos de fondo (malo, regular, bueno): el mayor, el mas claro. */
     var tr = (e.tramos || []).slice().sort(function (a, b) { return b - a; });
     (tr.length ? tr : [tope]).forEach(function (u, k) { svg("rect", {x: x0, y: y + 4, width: x(u) - x0, height: 22, fill: "var(--apagado)", opacity: r1(0.08 + k * 0.08)}, s); });
@@ -1477,12 +1478,12 @@ tipos.divergentes = function (fig, g) {
   if (!el.length) throw new Error("faltan elementos");
   if (el.some(function (e) { return !num(e.valor); })) throw new Error("todos los elementos necesitan valor numerico");
   var tope = techo(maximo(el.map(function (e) { return Math.abs(e.valor); })));
-  var x0 = W < 520 ? 110 : 150, ancho = W - x0 - 16, centro = x0 + ancho / 2, fila = 30, colores = g.colores || {};
+  var x0 = columnaRotulos(), ancho = W - x0 - 16, centro = x0 + ancho / 2, fila = 30, colores = g.colores || {};
   var s = lienzo(fig, W, el.length * fila + 30, g.resumen || "");
   var x = function (v) { return r1(centro + v / tope * ancho / 2); };
   el.forEach(function (e, i) {
     var y = 6 + i * fila, v = e.valor, c = color(e.color || (v < 0 ? colores.negativo || "riesgo" : colores.positivo || "ok"), 0);
-    consejo(svg("text", {"class": "eje", x: x0 - 10, y: y + 13, "text-anchor": "end"}, s, recortar(e.rotulo, W < 520 ? 16 : 24)), e.rotulo);
+    rotuloFila(s, y + 13, e.rotulo);
     consejo(svg("rect", {x: Math.min(x(v), centro), y: y, width: Math.max(Math.abs(x(v) - centro), 1), height: 18, rx: 3, fill: c}, s), e.rotulo + ": " + fmt(v, g.unidad));
     /* La cifra va fuera de la barra; si no cabe junto al borde, dentro y en blanco. */
     var fuera = v < 0 ? x(v) - 6 > x0 + 34 : x(v) + 6 < x0 + ancho - 34;
@@ -1543,18 +1544,20 @@ function valoresDe(g, serie) {
   if (g.valores || num(g.valor)) return g.valores || [g.valor];
   throw new Error("el grafico " + g.tipo + " no tiene valores sobre los que calcular");
 }
+/* Cifra por su clave, con la pila de lo que se esta calculando para detectar ciclos. */
+function cifraDe(clave, pila) {
+  pila = pila || [];
+  if (pila.indexOf(clave) > -1) throw new Error("referencia circular en " + clave);
+  var d = (datos.cifras || {})[clave];
+  if (!d) throw new Error("no hay cifra " + clave);
+  return cifra(d, pila.concat([clave]));
+}
 function cifra(def, pila) {
+  pila = pila || [];
   if (num(def.valor)) return def.valor;
   /* Operacion entre dos cifras (o numeros): porcentaje de cumplimiento, diferencia con un objetivo... */
   if (def.operacion) {
-    pila = pila || [];
-    var op = function (x) {
-      if (num(x)) return x;
-      if (pila.indexOf(x) > -1) throw new Error("referencia circular en " + x);
-      var d = (datos.cifras || {})[x];
-      if (!d) throw new Error("no hay cifra " + x);
-      return cifra(d, pila.concat([x]));
-    };
+    var op = function (x) { return num(x) ? x : cifraDe(x, pila); };
     var a = op(def.a), b = op(def.b);
     switch (def.operacion) {
       case "suma": return a + b;
@@ -1567,7 +1570,9 @@ function cifra(def, pila) {
   }
   var g = (datos.graficos || {})[def.de];
   if (!g) throw new Error("no hay grafico " + def.de);
-  var v = valoresDe(g, def.serie).filter(num);
+  if (pila.indexOf("#" + def.de) > -1) throw new Error("referencia circular en el grafico " + def.de);
+  /* Los valores "@clave" del grafico se resuelven antes: la cifra y el grafico suman lo mismo. */
+  var v = valoresDe(referencias(g, pila.concat(["#" + def.de])), def.serie).filter(num);
   switch (def.calculo) {
     case "suma": return suma(v);
     case "media": return suma(v) / v.length;
@@ -1589,14 +1594,10 @@ function cifra(def, pila) {
 /* ---------- arranque ---------- */
 /* Un valor "@clave" dentro de un grafico se sustituye por la cifra clave de cifras: asi una
    diferencia o un total calculado alimenta tambien al grafico sin escribirlo a mano. */
-function referencias(x) {
-  if (typeof x === "string" && /^@[\w-]+$/.test(x)) {
-    var d = (datos.cifras || {})[x.slice(1)];
-    if (!d) throw new Error("no hay cifra " + x.slice(1));
-    return cifra(d);
-  }
-  if (Array.isArray(x)) return x.map(referencias);
-  if (x && typeof x === "object") { var o = {}; for (var k in x) o[k] = referencias(x[k]); return o; }
+function referencias(x, pila) {
+  if (typeof x === "string" && /^@[\w-]+$/.test(x)) return cifraDe(x.slice(1), pila);
+  if (Array.isArray(x)) return x.map(function (y) { return referencias(y, pila); });
+  if (x && typeof x === "object") { var o = {}; for (var k in x) o[k] = referencias(x[k], pila); return o; }
   return x;
 }
 function escala(fig) { return parseFloat(getComputedStyle(fig).getPropertyValue("--escala-grafico")) || 1; }
@@ -1606,13 +1607,13 @@ function dibujar(fig, ancho) {
   /* --escala-grafico (por ejemplo en una diapositiva) dibuja con un lienzo menor para que,
      al ampliarse hasta el ancho de la figura, los rotulos salgan mas grandes. */
   var esc = escala(fig);
-  W = Math.round(Math.min(700, Math.max(320, (impresion ? 700 : ancho || 700) / esc)));
+  W = Math.round(Math.min(700, Math.max(320, (impresion && esc === 1 ? 700 : ancho || 700) / esc)));
   X1 = W - 36;
   try {
     if (!g) throw new Error("no hay datos con el nombre " + id);
     if (!tipos[g.tipo]) throw new Error("tipo desconocido: " + g.tipo);
-    g = referencias(g);
-    var tabla = tipos[g.tipo](fig, g, id, W);
+    g = referencias(g, ["#" + id]);
+    var tabla = tipos[g.tipo](fig, g, id);
     if (tabla && g.tabla !== false) tablaDatos(fig, tabla, id);
     var claves = fuentesDe(g);
     claves.forEach(function (c) { if (usadas.indexOf(c) < 0) usadas.push(c); });
@@ -1639,10 +1640,9 @@ function todos(soloVariables) {
    en verde si es favorable (o en rojo; "mejor": "bajar" invierte el criterio). */
 function pintarCifras() {
   D.querySelectorAll("[data-cifra]").forEach(function (n) {
-    var clave = n.getAttribute("data-cifra"), def = (datos.cifras || {})[clave];
+    var clave = n.getAttribute("data-cifra"), def = (datos.cifras || {})[clave] || {};
     try {
-      if (!def) throw new Error("no hay cifra " + clave);
-      var v = cifra(def), texto = fmt(v, def.unidad, false, def.decimales);
+      var v = cifraDe(clave), texto = fmt(v, def.unidad, false, def.decimales);
       if (def.signo) {
         texto = (v > 0 ? "\u25b2 +" : v < 0 ? "\u25bc " : "") + texto;
         var bien = (v >= 0) !== (def.mejor === "bajar"), colorea = def.mejor !== "neutro" && v !== 0;
@@ -1679,7 +1679,7 @@ if (imprimir) imprimir.addEventListener("click", function () { window.print(); }
    para el script de una maqueta. actualizar cambia los datos de un grafico y lo
    redibuja junto con las cifras del texto. */
 window.Reportes = {datos: datos, fmt: fmt, tipos: tipos, T: T, svg: svg, html: html, color: color, lienzo: lienzo,
-  recortar: recortar, consejo: consejo, escala: escala, leyenda: leyenda, techo: techo, r1: r1, num: num,
+  recortar: recortar, consejo: consejo, escala: escala, leyenda: leyenda, r1: r1,
   actualizar: function (id, cambios) {
     Object.assign(datos.graficos[id], cambios);
     figuras.forEach(function (f) { if (f.getAttribute("data-grafico") === id) dibujar(f, f.clientWidth); });
@@ -1696,6 +1696,8 @@ if (D.readyState === "loading") D.addEventListener("DOMContentLoaded", arrancar)
 (function(){
 "use strict";
 var R = Reportes, svg = R.svg, r1 = R.r1, CAR = 6.7, LINEA = 15;
+var TX = Object.assign(/^en/.test(document.documentElement.lang) ? {desde: "From", hacia: "To", rotulo: "Label"} : {desde: "Desde", hacia: "Hacia", rotulo: "Rotulo"}, R.T);
+var LETRA_NODO = {"font-size": 12, fill: "var(--texto)", "font-weight": 560}, LETRA_CONEXION = {"font-size": 10.5, fill: "var(--apagado)", "font-weight": 600};
 function trocear(texto, max) {
   var lineas = [], actual = "";
   String(texto).split(/\s+/).forEach(function (p) {
@@ -1714,7 +1716,7 @@ function medir(n, estrecho) {
   if (decision) { n.w = r1(n.w * 1.4); n.h = r1(n.h * 1.6); }
 }
 /* Marca las conexiones que cierran un ciclo para no seguirlas al calcular capas. */
-function marcarCiclos(nodos, conexiones, porId) {
+function marcarCiclos(nodos, conexiones) {
   var estado = {}, salen = {};
   nodos.forEach(function (n) { salen[n.id] = []; });
   conexiones.forEach(function (c) { salen[c.de].push(c); });
@@ -1769,13 +1771,18 @@ function colocarArbol(nodos, conexiones, porId) {
   conexiones.forEach(function (c) { if (!c.atras && !padre[c.a]) { padre[c.a] = c.de; hijos[c.de].push(porId[c.a]); } });
   var filas = {};
   function profundidad(n, d) { n.capa = d; filas[d] = Math.max(filas[d] || 0, n.h); hijos[n.id].forEach(function (h) { profundidad(h, d + 1); }); }
-  function colocar(n) {
-    if (!hijos[n.id].length) { n.x = cursor + n.w / 2; cursor += n.w + sep; return; }
-    hijos[n.id].forEach(colocar);
-    var a = hijos[n.id][0], b = hijos[n.id][hijos[n.id].length - 1];
-    n.x = (a.x + b.x) / 2;
+  /* Cada subarbol ocupa lo que el mayor de su caja o de sus hijos: un padre ancho con un
+     solo hijo estrecho no invade a sus vecinos. */
+  function ancho(n) {
+    var hs = hijos[n.id], suma = hs.reduce(function (s, h) { return s + ancho(h); }, 0) + sep * Math.max(0, hs.length - 1);
+    return (n.span = Math.max(n.w, suma));
   }
-  nodos.filter(function (n) { return !padre[n.id]; }).forEach(function (raiz) { profundidad(raiz, 0); colocar(raiz); cursor += sep; });
+  function colocar(n, izq) {
+    var hs = hijos[n.id], ocupado = hs.reduce(function (s, h) { return s + h.span; }, 0) + sep * Math.max(0, hs.length - 1), x = izq + (n.span - ocupado) / 2;
+    hs.forEach(function (h) { colocar(h, x); x += h.span + sep; });
+    n.x = izq + n.span / 2;
+  }
+  nodos.filter(function (n) { return !padre[n.id]; }).forEach(function (raiz) { profundidad(raiz, 0); ancho(raiz); colocar(raiz, cursor); cursor += raiz.span + sep * 2; });
   var y = 0, alturas = [];
   Object.keys(filas).sort(function (a, b) { return a - b; }).forEach(function (d) { alturas[d] = y + filas[d] / 2; y += filas[d] + 56; });
   nodos.forEach(function (n) { n.y = alturas[n.capa]; });
@@ -1827,7 +1834,7 @@ R.tipos.diagrama = function (fig, g, id) {
     if (!porId[c.de] || !porId[c.a]) throw new Error("la conexion " + c.de + " -> " + c.a + " une un nodo que no existe");
     return Object.assign({}, c);
   });
-  marcarCiclos(nodos, conexiones, porId);
+  marcarCiclos(nodos, conexiones);
   var disp = g.disposicion || "capas", vertical = disp === "arbol", carril = null;
   if (disp === "arbol") colocarArbol(nodos, conexiones, porId);
   else if (disp === "radial") { colocarRadial(nodos, porId[g.centro] || nodos[0]); }
@@ -1840,10 +1847,8 @@ R.tipos.diagrama = function (fig, g, id) {
     if (!vertical && grupos.length > 4) nodos.forEach(function (n) { medir(n, true); });
     colocarCapas(grupos, vertical);
   }
-  var x0 = Math.min.apply(null, nodos.map(function (n) { return n.x - n.w / 2; })) - 18;
-  var y0 = Math.min.apply(null, nodos.map(function (n) { return n.y - n.h / 2; })) - 18;
-  var x1 = Math.max.apply(null, nodos.map(function (n) { return n.x + n.w / 2; })) + 18;
-  var y1 = Math.max.apply(null, nodos.map(function (n) { return n.y + n.h / 2; })) + 18;
+  var x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  nodos.forEach(function (n) { x0 = Math.min(x0, n.x - n.w / 2 - 18); y0 = Math.min(y0, n.y - n.h / 2 - 18); x1 = Math.max(x1, n.x + n.w / 2 + 18); y1 = Math.max(y1, n.y + n.h / 2 + 18); });
   if (carril) { x0 = 0; y0 = 0; y1 = Math.max(y1, carril.franjas.reduce(function (s, f) { return s + f[1]; }, 0)); }
   if (conexiones.some(function (c) { return c.atras; })) y1 += 44;
   var ancho = r1(x1 - x0), alto = r1(y1 - y0);
@@ -1855,7 +1860,7 @@ R.tipos.diagrama = function (fig, g, id) {
   if (carril) carril.carriles.forEach(function (nombre, f) {
     var fr = carril.franjas[f];
     svg("rect", {x: 0, y: fr[0], width: ancho, height: fr[1], fill: f % 2 ? "var(--superficie)" : "var(--superficie-2)"}, s);
-    svg("text", {"class": "texto-nodo", x: 10, y: fr[0] + fr[1] / 2 + 4}, s, R.recortar(nombre, 14));
+    svg("text", Object.assign({x: 10, y: fr[0] + fr[1] / 2 + 4}, LETRA_NODO), s, R.recortar(nombre, 14));
   });
   conexiones.forEach(function (c) {
     var a = porId[c.de], b = porId[c.a], d, m;
@@ -1882,22 +1887,24 @@ R.tipos.diagrama = function (fig, g, id) {
     if (c.texto) {
       var w = String(c.texto).length * 6.2 + 12;
       svg("rect", {x: r1(m.x - w / 2), y: r1(m.y - 9), width: r1(w), height: 18, rx: 9, fill: "var(--superficie)", stroke: "var(--borde)"}, s);
-      svg("text", {"class": "texto-conexion", x: r1(m.x), y: r1(m.y + 4), "text-anchor": "middle"}, s, c.texto);
+      svg("text", Object.assign({x: r1(m.x), y: r1(m.y + 4), "text-anchor": "middle"}, LETRA_CONEXION), s, c.texto);
     }
   });
   nodos.forEach(function (n, i) {
-    var c = n.grupo === undefined ? "var(--acento)" : R.color(n.grupo, 0), grupo = svg("g", {}, s), x = r1(n.x - n.w / 2), y = r1(n.y - n.h / 2);
+    /* grupo puede venir como numero o como texto ("2"): se normaliza igual que en la leyenda. */
+    var c = n.grupo === undefined ? "var(--acento)" : R.color(isNaN(n.grupo) ? n.grupo : +n.grupo, 0), grupo = svg("g", {}, s), x = r1(n.x - n.w / 2), y = r1(n.y - n.h / 2);
     var comun = {fill: c, "fill-opacity": ".12", stroke: c, "stroke-width": 1.6};
     if (n.forma === "decision") svg("polygon", Object.assign({points: [n.x + "," + y, (x + n.w) + "," + n.y, n.x + "," + (y + n.h), x + "," + n.y].join(" ")}, comun), grupo);
     else svg("rect", Object.assign({x: x, y: y, width: n.w, height: n.h, rx: n.forma === "inicio" ? n.h / 2 : n.forma === "nota" ? 3 : 8,
       "stroke-dasharray": n.forma === "nota" ? "4 3" : null}, comun), grupo);
-    var t = svg("text", {"class": "texto-nodo", x: n.x, y: r1(n.y - (n.lineas.length - 1) * LINEA / 2 + 4), "text-anchor": "middle"}, grupo);
+    var t = svg("text", Object.assign({x: n.x, y: r1(n.y - (n.lineas.length - 1) * LINEA / 2 + 4), "text-anchor": "middle"}, LETRA_NODO), grupo);
     n.lineas.forEach(function (l, k) { svg("tspan", {x: n.x, dy: k ? LINEA : 0}, t, l); });
     R.consejo(grupo, n.texto);
   });
   if (g.grupos) R.leyenda(fig, Object.keys(g.grupos).map(function (k) { return {color: R.color(isNaN(k) ? k : +k, 0), texto: g.grupos[k]}; }));
-  return {cabecera: [R.T.desde, R.T.hacia, R.T.rotulo], filas: conexiones.map(function (c) { return [porId[c.de].texto, porId[c.a].texto, c.texto || "—"]; })};
+  return {cabecera: [TX.desde, TX.hacia, TX.rotulo], filas: conexiones.map(function (c) { return [porId[c.de].texto, porId[c.a].texto, c.texto || "\u2014"]; })};
 };
+R.tipos.diagrama.fijo = true;  /* su tamano sale de su contenido: no se recalcula al cambiar el ancho */
 })();
 </script>
 </body>

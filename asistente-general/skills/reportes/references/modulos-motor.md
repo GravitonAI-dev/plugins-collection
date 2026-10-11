@@ -46,7 +46,7 @@ Reglas:
 - **Maximo 24 nodos.** Un diagrama mayor no se lee: se divide en dos o se resume.
 - Texto de cada caja corto, en una o dos lineas. Los detalles van en el texto del reporte, no dentro de la caja.
 - Una conexion que vuelve atras (un ciclo) se dibuja por fuera, curvada. Si hay muchas, el proceso esta mal descrito o necesita otra forma.
-- El diagrama va en una tarjeta `ancho-total` si tiene mas de tres pasos en horizontal.
+- El diagrama va en una tarjeta `ancho-total` si tiene mas de tres pasos en horizontal. En una diapositiva caben a lo ancho hasta cinco pasos; con mas, el modulo lo pasa a vertical o conviene dividirlo en dos diapositivas.
 
 ```js modulo=diagramas
 <script>
@@ -55,6 +55,8 @@ Reglas:
 (function(){
 "use strict";
 var R = Reportes, svg = R.svg, r1 = R.r1, CAR = 6.7, LINEA = 15;
+var TX = Object.assign(/^en/.test(document.documentElement.lang) ? {desde: "From", hacia: "To", rotulo: "Label"} : {desde: "Desde", hacia: "Hacia", rotulo: "Rotulo"}, R.T);
+var LETRA_NODO = {"font-size": 12, fill: "var(--texto)", "font-weight": 560}, LETRA_CONEXION = {"font-size": 10.5, fill: "var(--apagado)", "font-weight": 600};
 function trocear(texto, max) {
   var lineas = [], actual = "";
   String(texto).split(/\s+/).forEach(function (p) {
@@ -73,7 +75,7 @@ function medir(n, estrecho) {
   if (decision) { n.w = r1(n.w * 1.4); n.h = r1(n.h * 1.6); }
 }
 /* Marca las conexiones que cierran un ciclo para no seguirlas al calcular capas. */
-function marcarCiclos(nodos, conexiones, porId) {
+function marcarCiclos(nodos, conexiones) {
   var estado = {}, salen = {};
   nodos.forEach(function (n) { salen[n.id] = []; });
   conexiones.forEach(function (c) { salen[c.de].push(c); });
@@ -128,13 +130,18 @@ function colocarArbol(nodos, conexiones, porId) {
   conexiones.forEach(function (c) { if (!c.atras && !padre[c.a]) { padre[c.a] = c.de; hijos[c.de].push(porId[c.a]); } });
   var filas = {};
   function profundidad(n, d) { n.capa = d; filas[d] = Math.max(filas[d] || 0, n.h); hijos[n.id].forEach(function (h) { profundidad(h, d + 1); }); }
-  function colocar(n) {
-    if (!hijos[n.id].length) { n.x = cursor + n.w / 2; cursor += n.w + sep; return; }
-    hijos[n.id].forEach(colocar);
-    var a = hijos[n.id][0], b = hijos[n.id][hijos[n.id].length - 1];
-    n.x = (a.x + b.x) / 2;
+  /* Cada subarbol ocupa lo que el mayor de su caja o de sus hijos: un padre ancho con un
+     solo hijo estrecho no invade a sus vecinos. */
+  function ancho(n) {
+    var hs = hijos[n.id], suma = hs.reduce(function (s, h) { return s + ancho(h); }, 0) + sep * Math.max(0, hs.length - 1);
+    return (n.span = Math.max(n.w, suma));
   }
-  nodos.filter(function (n) { return !padre[n.id]; }).forEach(function (raiz) { profundidad(raiz, 0); colocar(raiz); cursor += sep; });
+  function colocar(n, izq) {
+    var hs = hijos[n.id], ocupado = hs.reduce(function (s, h) { return s + h.span; }, 0) + sep * Math.max(0, hs.length - 1), x = izq + (n.span - ocupado) / 2;
+    hs.forEach(function (h) { colocar(h, x); x += h.span + sep; });
+    n.x = izq + n.span / 2;
+  }
+  nodos.filter(function (n) { return !padre[n.id]; }).forEach(function (raiz) { profundidad(raiz, 0); ancho(raiz); colocar(raiz, cursor); cursor += raiz.span + sep * 2; });
   var y = 0, alturas = [];
   Object.keys(filas).sort(function (a, b) { return a - b; }).forEach(function (d) { alturas[d] = y + filas[d] / 2; y += filas[d] + 56; });
   nodos.forEach(function (n) { n.y = alturas[n.capa]; });
@@ -186,7 +193,7 @@ R.tipos.diagrama = function (fig, g, id) {
     if (!porId[c.de] || !porId[c.a]) throw new Error("la conexion " + c.de + " -> " + c.a + " une un nodo que no existe");
     return Object.assign({}, c);
   });
-  marcarCiclos(nodos, conexiones, porId);
+  marcarCiclos(nodos, conexiones);
   var disp = g.disposicion || "capas", vertical = disp === "arbol", carril = null;
   if (disp === "arbol") colocarArbol(nodos, conexiones, porId);
   else if (disp === "radial") { colocarRadial(nodos, porId[g.centro] || nodos[0]); }
@@ -199,10 +206,8 @@ R.tipos.diagrama = function (fig, g, id) {
     if (!vertical && grupos.length > 4) nodos.forEach(function (n) { medir(n, true); });
     colocarCapas(grupos, vertical);
   }
-  var x0 = Math.min.apply(null, nodos.map(function (n) { return n.x - n.w / 2; })) - 18;
-  var y0 = Math.min.apply(null, nodos.map(function (n) { return n.y - n.h / 2; })) - 18;
-  var x1 = Math.max.apply(null, nodos.map(function (n) { return n.x + n.w / 2; })) + 18;
-  var y1 = Math.max.apply(null, nodos.map(function (n) { return n.y + n.h / 2; })) + 18;
+  var x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  nodos.forEach(function (n) { x0 = Math.min(x0, n.x - n.w / 2 - 18); y0 = Math.min(y0, n.y - n.h / 2 - 18); x1 = Math.max(x1, n.x + n.w / 2 + 18); y1 = Math.max(y1, n.y + n.h / 2 + 18); });
   if (carril) { x0 = 0; y0 = 0; y1 = Math.max(y1, carril.franjas.reduce(function (s, f) { return s + f[1]; }, 0)); }
   if (conexiones.some(function (c) { return c.atras; })) y1 += 44;
   var ancho = r1(x1 - x0), alto = r1(y1 - y0);
@@ -214,7 +219,7 @@ R.tipos.diagrama = function (fig, g, id) {
   if (carril) carril.carriles.forEach(function (nombre, f) {
     var fr = carril.franjas[f];
     svg("rect", {x: 0, y: fr[0], width: ancho, height: fr[1], fill: f % 2 ? "var(--superficie)" : "var(--superficie-2)"}, s);
-    svg("text", {"class": "texto-nodo", x: 10, y: fr[0] + fr[1] / 2 + 4}, s, R.recortar(nombre, 14));
+    svg("text", Object.assign({x: 10, y: fr[0] + fr[1] / 2 + 4}, LETRA_NODO), s, R.recortar(nombre, 14));
   });
   conexiones.forEach(function (c) {
     var a = porId[c.de], b = porId[c.a], d, m;
@@ -241,22 +246,24 @@ R.tipos.diagrama = function (fig, g, id) {
     if (c.texto) {
       var w = String(c.texto).length * 6.2 + 12;
       svg("rect", {x: r1(m.x - w / 2), y: r1(m.y - 9), width: r1(w), height: 18, rx: 9, fill: "var(--superficie)", stroke: "var(--borde)"}, s);
-      svg("text", {"class": "texto-conexion", x: r1(m.x), y: r1(m.y + 4), "text-anchor": "middle"}, s, c.texto);
+      svg("text", Object.assign({x: r1(m.x), y: r1(m.y + 4), "text-anchor": "middle"}, LETRA_CONEXION), s, c.texto);
     }
   });
   nodos.forEach(function (n, i) {
-    var c = n.grupo === undefined ? "var(--acento)" : R.color(n.grupo, 0), grupo = svg("g", {}, s), x = r1(n.x - n.w / 2), y = r1(n.y - n.h / 2);
+    /* grupo puede venir como numero o como texto ("2"): se normaliza igual que en la leyenda. */
+    var c = n.grupo === undefined ? "var(--acento)" : R.color(isNaN(n.grupo) ? n.grupo : +n.grupo, 0), grupo = svg("g", {}, s), x = r1(n.x - n.w / 2), y = r1(n.y - n.h / 2);
     var comun = {fill: c, "fill-opacity": ".12", stroke: c, "stroke-width": 1.6};
     if (n.forma === "decision") svg("polygon", Object.assign({points: [n.x + "," + y, (x + n.w) + "," + n.y, n.x + "," + (y + n.h), x + "," + n.y].join(" ")}, comun), grupo);
     else svg("rect", Object.assign({x: x, y: y, width: n.w, height: n.h, rx: n.forma === "inicio" ? n.h / 2 : n.forma === "nota" ? 3 : 8,
       "stroke-dasharray": n.forma === "nota" ? "4 3" : null}, comun), grupo);
-    var t = svg("text", {"class": "texto-nodo", x: n.x, y: r1(n.y - (n.lineas.length - 1) * LINEA / 2 + 4), "text-anchor": "middle"}, grupo);
+    var t = svg("text", Object.assign({x: n.x, y: r1(n.y - (n.lineas.length - 1) * LINEA / 2 + 4), "text-anchor": "middle"}, LETRA_NODO), grupo);
     n.lineas.forEach(function (l, k) { svg("tspan", {x: n.x, dy: k ? LINEA : 0}, t, l); });
     R.consejo(grupo, n.texto);
   });
   if (g.grupos) R.leyenda(fig, Object.keys(g.grupos).map(function (k) { return {color: R.color(isNaN(k) ? k : +k, 0), texto: g.grupos[k]}; }));
-  return {cabecera: [R.T.desde, R.T.hacia, R.T.rotulo], filas: conexiones.map(function (c) { return [porId[c.de].texto, porId[c.a].texto, c.texto || "—"]; })};
+  return {cabecera: [TX.desde, TX.hacia, TX.rotulo], filas: conexiones.map(function (c) { return [porId[c.de].texto, porId[c.a].texto, c.texto || "\u2014"]; })};
 };
+R.tipos.diagrama.fijo = true;  /* su tamano sale de su contenido: no se recalcula al cambiar el ancho */
 })();
 </script>
 ```

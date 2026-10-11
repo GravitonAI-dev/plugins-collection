@@ -70,6 +70,6 @@ El documento visual se edita **siempre desde el chat**, pidiendo el cambio al as
 
 ## 9. Tamano
 
-El archivo completo no deberia superar unos **120 KB**; la base con el motor ocupa unos 50. Los documentos abiertos del espacio de trabajo se incorporan enteros al contexto de la conversacion y compiten por un presupuesto comun: un documento visual desmesurado desplaza a los documentos de trabajo del usuario. Si el volumen de datos es mayor, se resume la serie, se agrupa por tramos o se reparte en dos documentos visuales: un panel con lo esencial y un documento con el detalle.
+El archivo completo no deberia superar unos **120 KB**; la base con el motor ocupa unos 57. Los documentos abiertos del espacio de trabajo se incorporan enteros al contexto de la conversacion y compiten por un presupuesto comun: un documento visual desmesurado desplaza a los documentos de trabajo del usuario. Si el volumen de datos es mayor, se resume la serie, se agrupa por tramos o se reparte en dos documentos visuales: un panel con lo esencial y un documento con el detalle.
 
 Los reportes de ejemplo pesan entre 55 y 90 KB (la presentacion con el modulo de diagramas es la mayor), que es el orden de magnitud esperable.

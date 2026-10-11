@@ -161,8 +161,6 @@ ol.leyenda{display:block;padding-left:20px}
 [data-cifra].delta-bien{color:var(--ok)}
 [data-cifra].delta-mal{color:var(--riesgo)}
 .grafico .valor-punto.dentro{fill:#fff}
-.grafico .texto-nodo{font-size:12px;fill:var(--texto);font-weight:560}
-.grafico .texto-conexion{font-size:10.5px;fill:var(--apagado);font-weight:600}
 .leyenda .porcentaje{color:var(--texto);font-variant-numeric:tabular-nums;font-weight:620}
 .medidor-rotulo{text-align:center;font-size:.82rem;color:var(--apagado);margin:0 0 var(--e3)}
 .medidor .pista-arco{fill:none;stroke:var(--superficie-2);stroke-width:18;stroke-linecap:round}
@@ -514,8 +512,8 @@ catch (e) { console.error("datos-reporte no es JSON valido: " + e.message); }
 var IDIOMA = datos.idioma || D.documentElement.lang || "es-ES";
 var MONEDA = datos.moneda || "EUR";
 var TEXTOS_BASE = {
-  es: {en_curso:"en curso", desde:"Desde", hacia:"Hacia", rotulo:"Rotulo", objetivo:"Objetivo", cumplimiento:"Cumplimiento", datos:"Ver los datos", csv:"Descargar CSV", fuente:"Fuente", fuentes:"Fuentes", consulta:"consultado el", otros:"Otros", hoy:"hoy", total:"Total", concepto:"Concepto", valor:"Valor", acumulado:"Acumulado", porcentaje:"Porcentaje", inicio:"Inicio", fin:"Fin", restantes:"Dias restantes", maximo:"Maximo", ok:"Asumir", aviso:"Vigilar", riesgo:"Actuar ya", error:"No se puede dibujar el grafico"},
-  en: {en_curso:"ongoing", desde:"From", hacia:"To", rotulo:"Label", objetivo:"Target", cumplimiento:"Achieved", datos:"Show the data", csv:"Download CSV", fuente:"Source", fuentes:"Sources", consulta:"accessed on", otros:"Other", hoy:"today", total:"Total", concepto:"Item", valor:"Value", acumulado:"Running total", porcentaje:"Share", inicio:"Start", fin:"End", restantes:"Days left", maximo:"Maximum", ok:"Accept", aviso:"Monitor", riesgo:"Act now", error:"The chart cannot be drawn"}
+  es: {en_curso:"en curso", objetivo:"Objetivo", cumplimiento:"Cumplimiento", datos:"Ver los datos", csv:"Descargar CSV", fuente:"Fuente", fuentes:"Fuentes", consulta:"consultado el", otros:"Otros", hoy:"hoy", total:"Total", concepto:"Concepto", valor:"Valor", acumulado:"Acumulado", porcentaje:"Porcentaje", inicio:"Inicio", fin:"Fin", restantes:"Dias restantes", maximo:"Maximo", ok:"Asumir", aviso:"Vigilar", riesgo:"Actuar ya", error:"No se puede dibujar el grafico"},
+  en: {en_curso:"ongoing", objetivo:"Target", cumplimiento:"Achieved", datos:"Show the data", csv:"Download CSV", fuente:"Source", fuentes:"Sources", consulta:"accessed on", otros:"Other", hoy:"today", total:"Total", concepto:"Item", valor:"Value", acumulado:"Running total", porcentaje:"Share", inicio:"Start", fin:"End", restantes:"Days left", maximo:"Maximum", ok:"Accept", aviso:"Monitor", riesgo:"Act now", error:"The chart cannot be drawn"}
 };
 var T = Object.assign({}, TEXTOS_BASE[IDIOMA.slice(0, 2)] || TEXTOS_BASE.es, datos.textos || {});
 var FUENTES = datos.fuentes || {};
@@ -637,6 +635,9 @@ function rotulosX(s, etiquetas, xDe, extremos) {
     consejo(svg("text", {"class": "eje", x: r1(xDe(i)), y: 266, "text-anchor": ancla}, s, recortar(e, cabe)), String(e));
   });
 }
+/* Columna de rotulos a la izquierda (barras de bala, divergentes y plazos). */
+function columnaRotulos() { return W < 520 ? 112 : 150; }
+function rotuloFila(s, y, texto) { consejo(svg("text", {"class": "eje", x: columnaRotulos() - 10, y: y, "text-anchor": "end"}, s, recortar(texto, W < 520 ? 16 : 28)), texto); }
 function yDe(v, tope) { return r1(Y1 - v / tope * 200); }
 
 /* ---------- tipos ---------- */
@@ -854,7 +855,7 @@ tipos.plazos = function (fig, g) {
   var hoy = fecha(g.hoy), ini = pl.map(function (p) { return fecha(p.inicio); }), fin = pl.map(function (p) { return p.fin ? fecha(p.fin) : hoy; });  /* sin fin: fase abierta hasta hoy */
   var desde = Math.min(hoy, minimo(ini)), hasta = Math.max(hoy, maximo(fin)), margen = Math.max((hasta - desde) * 0.04, DIA);
   desde -= margen; hasta += margen;
-  var x0 = W < 520 ? 112 : 150, ancho = W - x0 - 30, corte = W < 520 ? 16 : 28, alto = 46 + pl.length * 38 + 34;
+  var x0 = columnaRotulos(), ancho = W - x0 - 30, alto = 46 + pl.length * 38 + 34;
   var x = function (t) { return r1(x0 + (t - desde) / (hasta - desde) * ancho); };
   var s = lienzo(fig, W, alto, g.resumen || "");
   var base = alto - 26, dias = (hasta - desde) / DIA;
@@ -877,7 +878,7 @@ tipos.plazos = function (fig, g) {
   pl.forEach(function (p, i) {
     var y = 46 + i * 38, a = ini[i], b = fin[i];
     var c = p.color ? color(p.color, i) : !p.fin ? "var(--aviso)" : b < hoy ? "var(--c6)" : a <= hoy ? "var(--aviso)" : color(null, i);
-    consejo(svg("text", {"class": "eje", x: x0 - 10, y: y + 13, "text-anchor": "end"}, s, recortar(p.rotulo, corte)), p.rotulo);
+    rotuloFila(s, y + 13, p.rotulo);
     /* Una fecha aproximada (prevista, no notificada) se dibuja con borde discontinuo y relleno claro. */
     consejo(svg("rect", {x: x(a), y: y, width: Math.max(r1(x(b) - x(a)), 3), height: 18, rx: 4, fill: c, opacity: b < hoy && p.fin ? ".55" : null,
       "fill-opacity": p.aproximada ? ".3" : null, stroke: p.aproximada ? c : null, "stroke-dasharray": p.aproximada ? "4 3" : null}, s),
@@ -935,12 +936,12 @@ tipos.bala = function (fig, g) {
   var el = g.elementos || [];
   if (!el.length) throw new Error("faltan elementos");
   var tope = techo(maximo([].concat.apply([], el.map(function (e) { return [e.valor, e.objetivo].concat(e.tramos || []); }))));
-  var x0 = W < 520 ? 110 : 150, ancho = W - x0 - 64, fila = 46, s = lienzo(fig, W, el.length * fila + 28, g.resumen || "");
+  var x0 = columnaRotulos(), ancho = W - x0 - 64, fila = 46, s = lienzo(fig, W, el.length * fila + 28, g.resumen || "");
   var x = function (v) { return r1(x0 + Math.max(0, v) / tope * ancho); };
   el.forEach(function (e, i) {
     if (!num(e.valor)) throw new Error("el elemento " + (i + 1) + " no tiene valor");
     var y = 6 + i * fila;
-    consejo(svg("text", {"class": "eje", x: x0 - 10, y: y + 19, "text-anchor": "end"}, s, recortar(e.rotulo, W < 520 ? 16 : 24)), e.rotulo);
+    rotuloFila(s, y + 19, e.rotulo);
     /* Tramos cualitativos de fondo (malo, regular, bueno): el mayor, el mas claro. */
     var tr = (e.tramos || []).slice().sort(function (a, b) { return b - a; });
     (tr.length ? tr : [tope]).forEach(function (u, k) { svg("rect", {x: x0, y: y + 4, width: x(u) - x0, height: 22, fill: "var(--apagado)", opacity: r1(0.08 + k * 0.08)}, s); });
@@ -960,12 +961,12 @@ tipos.divergentes = function (fig, g) {
   if (!el.length) throw new Error("faltan elementos");
   if (el.some(function (e) { return !num(e.valor); })) throw new Error("todos los elementos necesitan valor numerico");
   var tope = techo(maximo(el.map(function (e) { return Math.abs(e.valor); })));
-  var x0 = W < 520 ? 110 : 150, ancho = W - x0 - 16, centro = x0 + ancho / 2, fila = 30, colores = g.colores || {};
+  var x0 = columnaRotulos(), ancho = W - x0 - 16, centro = x0 + ancho / 2, fila = 30, colores = g.colores || {};
   var s = lienzo(fig, W, el.length * fila + 30, g.resumen || "");
   var x = function (v) { return r1(centro + v / tope * ancho / 2); };
   el.forEach(function (e, i) {
     var y = 6 + i * fila, v = e.valor, c = color(e.color || (v < 0 ? colores.negativo || "riesgo" : colores.positivo || "ok"), 0);
-    consejo(svg("text", {"class": "eje", x: x0 - 10, y: y + 13, "text-anchor": "end"}, s, recortar(e.rotulo, W < 520 ? 16 : 24)), e.rotulo);
+    rotuloFila(s, y + 13, e.rotulo);
     consejo(svg("rect", {x: Math.min(x(v), centro), y: y, width: Math.max(Math.abs(x(v) - centro), 1), height: 18, rx: 3, fill: c}, s), e.rotulo + ": " + fmt(v, g.unidad));
     /* La cifra va fuera de la barra; si no cabe junto al borde, dentro y en blanco. */
     var fuera = v < 0 ? x(v) - 6 > x0 + 34 : x(v) + 6 < x0 + ancho - 34;
@@ -1026,18 +1027,20 @@ function valoresDe(g, serie) {
   if (g.valores || num(g.valor)) return g.valores || [g.valor];
   throw new Error("el grafico " + g.tipo + " no tiene valores sobre los que calcular");
 }
+/* Cifra por su clave, con la pila de lo que se esta calculando para detectar ciclos. */
+function cifraDe(clave, pila) {
+  pila = pila || [];
+  if (pila.indexOf(clave) > -1) throw new Error("referencia circular en " + clave);
+  var d = (datos.cifras || {})[clave];
+  if (!d) throw new Error("no hay cifra " + clave);
+  return cifra(d, pila.concat([clave]));
+}
 function cifra(def, pila) {
+  pila = pila || [];
   if (num(def.valor)) return def.valor;
   /* Operacion entre dos cifras (o numeros): porcentaje de cumplimiento, diferencia con un objetivo... */
   if (def.operacion) {
-    pila = pila || [];
-    var op = function (x) {
-      if (num(x)) return x;
-      if (pila.indexOf(x) > -1) throw new Error("referencia circular en " + x);
-      var d = (datos.cifras || {})[x];
-      if (!d) throw new Error("no hay cifra " + x);
-      return cifra(d, pila.concat([x]));
-    };
+    var op = function (x) { return num(x) ? x : cifraDe(x, pila); };
     var a = op(def.a), b = op(def.b);
     switch (def.operacion) {
       case "suma": return a + b;
@@ -1050,7 +1053,9 @@ function cifra(def, pila) {
   }
   var g = (datos.graficos || {})[def.de];
   if (!g) throw new Error("no hay grafico " + def.de);
-  var v = valoresDe(g, def.serie).filter(num);
+  if (pila.indexOf("#" + def.de) > -1) throw new Error("referencia circular en el grafico " + def.de);
+  /* Los valores "@clave" del grafico se resuelven antes: la cifra y el grafico suman lo mismo. */
+  var v = valoresDe(referencias(g, pila.concat(["#" + def.de])), def.serie).filter(num);
   switch (def.calculo) {
     case "suma": return suma(v);
     case "media": return suma(v) / v.length;
@@ -1072,14 +1077,10 @@ function cifra(def, pila) {
 /* ---------- arranque ---------- */
 /* Un valor "@clave" dentro de un grafico se sustituye por la cifra clave de cifras: asi una
    diferencia o un total calculado alimenta tambien al grafico sin escribirlo a mano. */
-function referencias(x) {
-  if (typeof x === "string" && /^@[\w-]+$/.test(x)) {
-    var d = (datos.cifras || {})[x.slice(1)];
-    if (!d) throw new Error("no hay cifra " + x.slice(1));
-    return cifra(d);
-  }
-  if (Array.isArray(x)) return x.map(referencias);
-  if (x && typeof x === "object") { var o = {}; for (var k in x) o[k] = referencias(x[k]); return o; }
+function referencias(x, pila) {
+  if (typeof x === "string" && /^@[\w-]+$/.test(x)) return cifraDe(x.slice(1), pila);
+  if (Array.isArray(x)) return x.map(function (y) { return referencias(y, pila); });
+  if (x && typeof x === "object") { var o = {}; for (var k in x) o[k] = referencias(x[k], pila); return o; }
   return x;
 }
 function escala(fig) { return parseFloat(getComputedStyle(fig).getPropertyValue("--escala-grafico")) || 1; }
@@ -1089,13 +1090,13 @@ function dibujar(fig, ancho) {
   /* --escala-grafico (por ejemplo en una diapositiva) dibuja con un lienzo menor para que,
      al ampliarse hasta el ancho de la figura, los rotulos salgan mas grandes. */
   var esc = escala(fig);
-  W = Math.round(Math.min(700, Math.max(320, (impresion ? 700 : ancho || 700) / esc)));
+  W = Math.round(Math.min(700, Math.max(320, (impresion && esc === 1 ? 700 : ancho || 700) / esc)));
   X1 = W - 36;
   try {
     if (!g) throw new Error("no hay datos con el nombre " + id);
     if (!tipos[g.tipo]) throw new Error("tipo desconocido: " + g.tipo);
-    g = referencias(g);
-    var tabla = tipos[g.tipo](fig, g, id, W);
+    g = referencias(g, ["#" + id]);
+    var tabla = tipos[g.tipo](fig, g, id);
     if (tabla && g.tabla !== false) tablaDatos(fig, tabla, id);
     var claves = fuentesDe(g);
     claves.forEach(function (c) { if (usadas.indexOf(c) < 0) usadas.push(c); });
@@ -1122,10 +1123,9 @@ function todos(soloVariables) {
    en verde si es favorable (o en rojo; "mejor": "bajar" invierte el criterio). */
 function pintarCifras() {
   D.querySelectorAll("[data-cifra]").forEach(function (n) {
-    var clave = n.getAttribute("data-cifra"), def = (datos.cifras || {})[clave];
+    var clave = n.getAttribute("data-cifra"), def = (datos.cifras || {})[clave] || {};
     try {
-      if (!def) throw new Error("no hay cifra " + clave);
-      var v = cifra(def), texto = fmt(v, def.unidad, false, def.decimales);
+      var v = cifraDe(clave), texto = fmt(v, def.unidad, false, def.decimales);
       if (def.signo) {
         texto = (v > 0 ? "\u25b2 +" : v < 0 ? "\u25bc " : "") + texto;
         var bien = (v >= 0) !== (def.mejor === "bajar"), colorea = def.mejor !== "neutro" && v !== 0;
@@ -1162,7 +1162,7 @@ if (imprimir) imprimir.addEventListener("click", function () { window.print(); }
    para el script de una maqueta. actualizar cambia los datos de un grafico y lo
    redibuja junto con las cifras del texto. */
 window.Reportes = {datos: datos, fmt: fmt, tipos: tipos, T: T, svg: svg, html: html, color: color, lienzo: lienzo,
-  recortar: recortar, consejo: consejo, escala: escala, leyenda: leyenda, techo: techo, r1: r1, num: num,
+  recortar: recortar, consejo: consejo, escala: escala, leyenda: leyenda, r1: r1,
   actualizar: function (id, cambios) {
     Object.assign(datos.graficos[id], cambios);
     figuras.forEach(function (f) { if (f.getAttribute("data-grafico") === id) dibujar(f, f.clientWidth); });
