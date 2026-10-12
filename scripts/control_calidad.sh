@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #
 # Control de calidad del catalogo. Es la unica puerta de entrada para skills y
-# plugins: lo ejecutan el constructor al cerrar, el hook pre-push y GitHub en
-# cada PR. Si sale en rojo, no se sube ni se fusiona.
+# plugins: lo ejecutan el constructor al cerrar, scripts/marcar_revisado.sh antes
+# de marcar un commit y GitHub en cada PR. Si sale en rojo, no se marca ni se fusiona.
 #
 #   scripts/control_calidad.sh [rama_base]     (por defecto origin/develop)
 #
@@ -22,4 +22,4 @@ if [ "$fallo" -ne 0 ]; then
   echo "CONTROL DE CALIDAD EN ROJO: corrige los FALLO de arriba antes de subir."
   exit 1
 fi
-echo "Control de calidad en verde. Antes de subir: /simplify y /code-review sobre el diff."
+echo "Control de calidad en verde. Siguiente: /simplify y /code-review, y scripts/marcar_revisado.sh (README, seccion 10)."

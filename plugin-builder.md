@@ -470,7 +470,7 @@ Contenido que se escribira:
 scripts/control_calidad.sh
 ```
 
-Es el mismo control que corre el hook `pre-push` y que GitHub exige en cada PR a `develop` y `main`: si sale en rojo, el cambio no se puede fusionar. Comprueba el formato y los datos obligatorios de cada skill y plugin (`scripts/validar_skills.py`) y que todo plugin modificado sube su version (`scripts/comprobar_version.py`). Si no puedes ejecutar comandos, pide al usuario que lo ejecute y pegue la salida. Cada linea `FALLO` es un fallo de esta fase y se trata con el flujo de fixes de abajo. Las lineas `AVISO` se muestran al usuario pero no bloquean. **No pasas a la seccion 10 hasta que el control salga en verde**, salvo que el usuario rechace los fixes de forma expresa.
+Es el mismo control que corre `scripts/marcar_revisado.sh` antes de marcar un commit como revisado y que GitHub exige en cada PR a `develop` y `main`: si sale en rojo, el cambio no se puede fusionar. Comprueba el formato y los datos obligatorios de cada skill y plugin (`scripts/validar_skills.py`) y que todo plugin modificado sube su version (`scripts/comprobar_version.py`). Si no puedes ejecutar comandos, pide al usuario que lo ejecute y pegue la salida. Cada linea `FALLO` es un fallo de esta fase y se trata con el flujo de fixes de abajo. Las lineas `AVISO` se muestran al usuario pero no bloquean. **No pasas a la seccion 10 hasta que el control salga en verde**, salvo que el usuario rechace los fixes de forma expresa.
 
 El checklist siguiente explica lo que el control comprueba y sirve para presentar el resultado al usuario. No sustituye a la ejecucion del script.
 
@@ -561,7 +561,7 @@ Cuando todas las validaciones pasen (o el usuario decline fixes explicitamente):
 
 ### Proximos pasos sugeridos
 - Si quedaron IDs pendientes de tools, abrir ticket al equipo de desarrollo del orquestador para que los agregue a `agent_tools.json` raiz.
-- Antes de subir, quien suba el cambio completa el control de calidad de la seccion 10 del `README.md`: `/simplify` y `/code-review` sobre el diff, refresco de `origin/develop` y PR a `develop`. GitHub no deja fusionar si el control esta en rojo.
+- Antes de subir, quien suba el cambio completa el control de calidad de la seccion 10 del `README.md`; el hook corta el push de lo que no este marcado como revisado.
 
 ¿Hay algo mas que quieras hacer en esta sesion, o cerramos?
 ```
