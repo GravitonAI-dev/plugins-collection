@@ -255,7 +255,7 @@ Estructura, script y contrato de `calcular` en la maqueta `herramienta_interacti
 
 ### Figura con fotografia
 
-Cuando una foto aporta de verdad (portada de un informe, evidencia de un caso), se incrusta como `data:` URI conforme a las reglas de `anatomia-documento-visual.md` (JPEG comprimido, menos de 30 KB, licencia que permita el uso). Estilos con tokens, a anadir junto al resto del CSS:
+Cuando una foto aporta de verdad (portada de un informe, evidencia de un caso), se incrusta como `data:` URI conforme a las reglas de `anatomia-artefacto.md` (JPEG comprimido, menos de 30 KB, licencia que permita el uso). Estilos con tokens, a anadir junto al resto del CSS:
 
 ```css
 figure{margin:var(--e4) 0 0}

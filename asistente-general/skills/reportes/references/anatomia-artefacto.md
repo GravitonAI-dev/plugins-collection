@@ -1,11 +1,11 @@
-# Anatomia de un documento visual HTML autocontenido
+# Anatomia de un artefacto HTML autocontenido
 
-Reglas tecnicas invariables del formato. Todo documento visual que produzca esta skill debe cumplirlas sin excepcion, porque el archivo se abre directamente en el navegador del usuario desde su espacio de trabajo (esquema `file://`), sin servidor ni conexion garantizada.
+Reglas tecnicas invariables del formato. Todo artefacto que produzca esta skill debe cumplirlas sin excepcion, porque el archivo se abre directamente en el navegador del usuario desde su espacio de trabajo (esquema `file://`), sin servidor ni conexion garantizada.
 
 ## 1. Un unico archivo, cero dependencias externas
 
 - **Extension `.html`** y **un solo archivo**, construido copiando integra la base `assets/template-base-reportes.md` e insertando la maqueta del tipo de entregable (`maquetas-reportes.md`). Todo el CSS va en el unico `<style>` de la base. El JavaScript es el del motor de la base, que no se modifica; solo la herramienta interactiva anade un segundo `<script>` con su bloque de calculo, justo despues del motor.
-- **Prohibido** cualquier recurso remoto: `<script src="https://...">`, `<link rel="stylesheet" href="https://...">`, fuentes de Google Fonts, imagenes por URL, `fetch`, `XMLHttpRequest`, `import` de modulos remotos, iframes a terceros. Bajo `file://` fallan en silencio o los bloquea el navegador y el documento visual se ve roto.
+- **Prohibido** cualquier recurso remoto: `<script src="https://...">`, `<link rel="stylesheet" href="https://...">`, fuentes de Google Fonts, imagenes por URL, `fetch`, `XMLHttpRequest`, `import` de modulos remotos, iframes a terceros. Bajo `file://` fallan en silencio o los bloquea el navegador y el artefacto se ve roto.
 - **Prohibidas las librerias** (Chart.js, D3, Tailwind por CDN, React, jQuery). Los graficos los dibuja en SVG el motor propio que viaja dentro de la base, a partir del bloque de datos `datos-reporte` (contrato en `biblioteca-componentes-visuales.md`). Nunca se escriben coordenadas a mano.
 - Si hace falta una imagen, se incrusta como SVG en linea o como `data:` URI, y solo si es imprescindible.
 - **Fotografias:** se incrustan como `data:image/jpeg;base64,...` dentro de una `<figure>`, comprimidas antes a un ancho maximo de unos 520 px y calidad media (el objetivo es que la foto pese menos de 30 KB, porque cuenta para el limite de 120 KB del archivo). Toda foto lleva `alt` descriptivo y `<figcaption>` con su credito: autor, titulo, origen y licencia con URL. Solo se usan imagenes con licencia que permita el uso (dominio publico, CC0, CC BY, CC BY-SA) y nunca una foto sin fuente conocida.
@@ -19,7 +19,7 @@ Reglas tecnicas invariables del formato. Todo documento visual que produzca esta
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Titulo del documento visual</title>
+<title>Titulo del artefacto</title>
 ```
 
 El `lang` es el idioma de la conversacion. El `<title>` es un nombre corto y reconocible, no un resumen: es lo que se ve en la pestana del navegador.
@@ -60,16 +60,16 @@ La base ya trae el sistema de tokens (colores, espaciado, radios y sombras en `:
 
 ## 7. Edicion posterior
 
-El documento visual se edita **siempre desde el chat**, pidiendo el cambio al asistente, que lo aplica sobre el archivo. Nunca se edita a mano en el editor de texto de la plataforma: ese editor trabaja en markdown y al guardar reescribiria la pagina, perdiendo estilos, graficos y comportamiento.
+El artefacto se edita **siempre desde el chat**, pidiendo el cambio al asistente, que lo aplica sobre el archivo. Nunca se edita a mano en el editor de texto de la plataforma: ese editor trabaja en markdown y al guardar reescribiria la pagina, perdiendo estilos, graficos y comportamiento.
 
 ## 8. Datos y marcadores
 
 - Ningun dato inventado. Cifras, fechas, importes y referencias proceden de lo aportado por el usuario, de un documento de su espacio de trabajo o de una fuente verificada en la sesion.
 - Los datos que falten permanecen como `{{VARIABLE}}` visible en la pagina, nunca como un cero o un guion que simule un valor real.
-- Todo documento visual lleva su aviso DRAFT visible en la parte superior y el pie con fuentes y advertencia legal.
+- Todo artefacto lleva su aviso DRAFT visible en la parte superior y el pie con fuentes y advertencia legal.
 
 ## 9. Tamano
 
-El archivo completo no deberia superar unos **120 KB**; la base con el motor ocupa unos 57. Los documentos abiertos del espacio de trabajo se incorporan enteros al contexto de la conversacion y compiten por un presupuesto comun: un documento visual desmesurado desplaza a los documentos de trabajo del usuario. Si el volumen de datos es mayor, se resume la serie, se agrupa por tramos o se reparte en dos documentos visuales: un panel con lo esencial y un documento con el detalle.
+El archivo completo no deberia superar unos **120 KB**; la base con el motor ocupa unos 57. Los documentos abiertos del espacio de trabajo se incorporan enteros al contexto de la conversacion y compiten por un presupuesto comun: un artefacto desmesurado desplaza a los documentos de trabajo del usuario. Si el volumen de datos es mayor, se resume la serie, se agrupa por tramos o se reparte en dos artefactos: un panel con lo esencial y un documento con el detalle.
 
 Los reportes de ejemplo pesan entre 55 y 90 KB (la presentacion con el modulo de diagramas es la mayor), que es el orden de magnitud esperable.

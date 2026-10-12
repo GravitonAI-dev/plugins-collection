@@ -14,14 +14,14 @@ Sirve como el **fallback universal y asistente de primera línea** para orquesta
 - Analiza problemas legales y administrativos multidisciplinares, identificando la normativa aplicable, la viabilidad de pretensiones y los riesgos.
 - Detecta si la consulta encaja en una skill especializada del catálogo (`derecho-civil`, `gestoria`, etc.) y orienta al usuario hacia ella.
 - Genera y edita incrementalmente en el workspace informes formales (`informe_consulta_legal.md`, `memo_orientacion.md`) cuando el usuario lo solicita.
-- Produce documentos visuales autocontenidos en un único archivo `.html` que el usuario abre en su navegador con doble clic y puede imprimir o guardar como PDF: informes visuales, paneles de datos con gráficos y herramientas interactivas de cálculo.
+- Produce artefactos autocontenidos en un único archivo `.html` que el usuario abre en su navegador con doble clic y puede imprimir o guardar como PDF: informes visuales, paneles de datos con gráficos y herramientas interactivas de cálculo.
 
 ## Qué NO hace
 
 - No sustituye el asesoramiento ni la representación legal por un abogado o graduado social colegiado.
 - No redacta contratos hiper-especializados ni demandas tipificadas cuando existe una skill vertical propia (ej. `arrendamiento-urbano`, `monitorio`, etc.).
 - No fuerza la creación de documentos en disco ni cuestionarios interactivos innecesarios para dudas directas.
-- No construye aplicaciones web con servidor, base de datos o conexión a servicios externos: los documentos visuales son un único archivo estático sin dependencias.
+- No construye aplicaciones web con servidor, base de datos o conexión a servicios externos: los artefactos son un único archivo estático sin dependencias.
 
 ---
 
@@ -40,7 +40,7 @@ Asistente universal y versátil para el procesamiento de consultas no catalogada
 
 ### `reportes`
 
-Generación de documentos visuales autocontenidos en HTML, del estilo de los que el usuario ya conoce de otros asistentes, pero pensados para un despacho: sobrios, imprimibles y sin una sola dependencia externa (ni librerías, ni CDN, ni conexión). Seis formatos, y un catálogo con las recetas de los reportes que más se piden (situación del expediente, KPIs mensuales, due diligence, white paper, pitch, propuesta de honorarios...):
+Generación de artefactos autocontenidos en HTML, del estilo de los que el usuario ya conoce de otros asistentes, pero pensados para un despacho: sobrios, imprimibles y sin una sola dependencia externa (ni librerías, ni CDN, ni conexión). Seis formatos, y un catálogo con las recetas de los reportes que más se piden (situación del expediente, KPIs mensuales, due diligence, white paper, pitch, propuesta de honorarios...):
 1. **Informe visual:** dossier de lectura con índice lateral, indicadores, secciones numeradas, tabla comparativa, cronología de hitos y firmas.
 2. **Panel de datos:** rejilla de tarjetas con indicadores, minigráfico de tendencia, barras comparativas, anillo de reparto, evolución con área y umbral, cascada de importes, medidor de plazo y tabla con totales.
 3. **Herramienta interactiva:** calculadora o simulador que recalcula al instante, con medidor, desglose auditable y lista de verificación con progreso.
@@ -53,9 +53,9 @@ Incluye además módulos opcionales, que solo viajan en los reportes que los usa
 Los gráficos no se dibujan a mano: se declaran como datos y los dibuja un motor propio incluido en la plantilla base (barras, columnas simples, agrupadas y apiladas, línea con área, umbral y anotaciones, minigráfico, medidor, cascada, matriz de riesgo, diagrama de plazos, anillo y tarta). El motor calcula escalas, totales y porcentajes, añade a cada gráfico su tabla de datos con descarga en CSV y su fuente, y compone el pie de fuentes; las cifras del texto pueden salir del mismo bloque de datos, así que texto y gráfico no se contradicen. Se acompaña de criterios de qué forma responde a cada pregunta y reglas de honestidad gráfica (eje desde cero, sin recortes, sin datos inventados).
 
 - **Invocación:** `/asistente-general:reportes`
-- **Inputs principales:** Tipo de documento visual (V1), destino de uso —pantalla o impresión— (V2), origen de los datos (V3), identidad visual (V4), origen de la plantilla (V5), datos y parámetros a representar.
+- **Inputs principales:** Tipo de artefacto (V1), destino de uso —pantalla o impresión— (V2), origen de los datos (V3), identidad visual (V4), origen de la plantilla (V5), datos y parámetros a representar.
 - **Outputs:** Archivo `snake_case.html` en el espacio de trabajo, con tema claro y oscuro, diseño adaptable, estilos de impresión en A4 y aviso `DRAFT` visible.
-- **Ejemplos abribles:** `skills/reportes/ejemplos/` contiene cuatro documentos visuales completos con su PDF ya generado, incluida una galería con todos los tipos de gráfico del motor.
+- **Ejemplos abribles:** `skills/reportes/ejemplos/` contiene siete artefactos completos con su PDF ya generado, incluida una galería con todos los tipos de gráfico del motor.
 
 ---
 
@@ -87,7 +87,7 @@ asistente-general/
         │   ├── catalogo-reportes.md           ← recetas de los reportes típicos
         │   ├── maquetas-reportes.md           ← esqueleto de cada tipo de reporte
         │   ├── modulos-motor.md               ← módulos opcionales (diagramas, gráficos avanzados, iconos, QR)
-        │   ├── anatomia-documento-visual.md
+        │   ├── anatomia-artefacto.md
         │   ├── biblioteca-componentes-visuales.md
         │   └── criterios-visualizacion-datos.md
         └── ejemplos/
