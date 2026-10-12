@@ -26,7 +26,7 @@ El `lang` es el idioma de la conversacion. El `<title>` es un nombre corto y rec
 
 ## 3. Diseno, adaptabilidad e impresion: lo resuelve la base
 
-La base ya trae el sistema de tokens (colores, espaciado, radios y sombras en `:root`, con su version oscura y el tema sobrio), la escala tipografica, las dos animaciones permitidas (anuladas con movimiento reducido y al imprimir), la rejilla adaptable sin desbordamiento horizontal y el bloque `@media print` completo: A4, fidelidad de color, tablas compactadas, `thead` repetido, `tfoot` sin duplicar, sin cortes de tarjeta ni titulos huerfanos. **No se toca.** Lo que si depende de quien rellena el reporte:
+La base ya trae el sistema de tokens (colores, espaciado, radios y sombras en `:root`, con su version oscura y el tema sobrio), la escala tipografica, las dos animaciones permitidas (anuladas con movimiento reducido y al imprimir), la rejilla adaptable sin desbordamiento horizontal y el bloque `@media print` completo: A4, fidelidad de color, tablas compactadas, `thead` repetido, `tfoot` sin duplicar, sin cortes de tarjeta ni titulos huerfanos. **No se toca.** Lo que si depende de quien rellena el artefacto:
 
 - **Colores siempre con tokens** (`var(--c1)`, `var(--riesgo)`), nunca literales. Para un tema personalizado se redefinen los tokens en `:root` y tambien dentro del bloque oscuro.
 - **Nombres en espanol:** las clases e identificadores de la base y de las maquetas no se traducen ni se renombran. Lo que cambia de idioma es el texto visible.
@@ -72,4 +72,4 @@ El artefacto se edita **siempre desde el chat**, pidiendo el cambio al asistente
 
 El archivo completo no deberia superar unos **120 KB**; la base con el motor ocupa unos 57. Los documentos abiertos del espacio de trabajo se incorporan enteros al contexto de la conversacion y compiten por un presupuesto comun: un artefacto desmesurado desplaza a los documentos de trabajo del usuario. Si el volumen de datos es mayor, se resume la serie, se agrupa por tramos o se reparte en dos artefactos: un panel con lo esencial y un documento con el detalle.
 
-Los reportes de ejemplo pesan entre 55 y 90 KB (la presentacion con el modulo de diagramas es la mayor), que es el orden de magnitud esperable.
+Los artefactos de ejemplo pesan entre 55 y 90 KB (la presentacion con el modulo de diagramas es la mayor), que es el orden de magnitud esperable.

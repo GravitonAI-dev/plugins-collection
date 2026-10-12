@@ -1,6 +1,6 @@
 # Ejemplos de la skill `reportes`
 
-Reportes de demostracion generados con la base `../assets/template-base-reportes.md` y las maquetas de `../references/maquetas-reportes.md`. Se abren **con doble clic** en cualquier navegador: no necesitan servidor, ni conexion, ni instalar nada. El boton inferior de cada pagina la imprime o la guarda como PDF; al lado de cada `.html` esta ese PDF ya generado.
+Artefactos de demostracion generados con la base `../assets/template-base-reportes.md` y las maquetas de `../references/maquetas-reportes.md`. Se abren **con doble clic** en cualquier navegador: no necesitan servidor, ni conexion, ni instalar nada. El boton inferior de cada pagina la imprime o la guarda como PDF; al lado de cada `.html` esta ese PDF ya generado.
 
 > DRAFT — Los datos son ficticios y sirven unicamente para mostrar el formato. Ningun importe, plazo o conclusion de estos archivos es real.
 

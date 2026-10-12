@@ -40,7 +40,7 @@ Asistente universal y versátil para el procesamiento de consultas no catalogada
 
 ### `reportes`
 
-Generación de artefactos autocontenidos en HTML, del estilo de los que el usuario ya conoce de otros asistentes, pero pensados para un despacho: sobrios, imprimibles y sin una sola dependencia externa (ni librerías, ni CDN, ni conexión). Seis formatos, y un catálogo con las recetas de los reportes que más se piden (situación del expediente, KPIs mensuales, due diligence, white paper, pitch, propuesta de honorarios...):
+Generación de artefactos autocontenidos en HTML, del estilo de los que el usuario ya conoce de otros asistentes, pero pensados para un despacho: sobrios, imprimibles y sin una sola dependencia externa (ni librerías, ni CDN, ni conexión). Seis formatos, y un catálogo con las recetas de los artefactos que más se piden (situación del expediente, KPIs mensuales, due diligence, white paper, pitch, propuesta de honorarios...):
 1. **Informe visual:** dossier de lectura con índice lateral, indicadores, secciones numeradas, tabla comparativa, cronología de hitos y firmas.
 2. **Panel de datos:** rejilla de tarjetas con indicadores, minigráfico de tendencia, barras comparativas, anillo de reparto, evolución con área y umbral, cascada de importes, medidor de plazo y tabla con totales.
 3. **Herramienta interactiva:** calculadora o simulador que recalcula al instante, con medidor, desglose auditable y lista de verificación con progreso.
@@ -48,7 +48,7 @@ Generación de artefactos autocontenidos en HTML, del estilo de los que el usuar
 5. **Documento largo:** white paper, memoria anual o due diligence, con portada a página completa, resumen ejecutivo, índice con enlaces, capítulos que empiezan en página nueva y, al imprimir, cabecera y número de página.
 6. **Resumen ejecutivo:** una sola página A4 con la conclusión, tres indicadores, un gráfico y la decisión que se pide.
 
-Incluye además módulos opcionales, que solo viajan en los reportes que los usan: **diagramas con conectores** (flujos y procesos, organigramas y estructuras societarias, mapa de relaciones entre partes y quién hace qué), **gráficos avanzados** (dispersión y burbujas, histograma, radar, embudo, treemap, pendiente, halteras, pirámide, calendario de calor y pictograma), **mapa de España** por comunidades autónomas o por provincias, **iconos** propios y **código QR** generado dentro del documento. El motor aplica la **identidad del despacho** (colores, logo y pie) desde los datos y calcula **plazos en días hábiles** con los festivos que se le indiquen.
+Incluye además módulos opcionales, que solo viajan en los artefactos que los usan: **diagramas con conectores** (flujos y procesos, organigramas y estructuras societarias, mapa de relaciones entre partes y quién hace qué), **gráficos avanzados** (dispersión y burbujas, histograma, radar, embudo, treemap, pendiente, halteras, pirámide, calendario de calor y pictograma), **mapa de España** por comunidades autónomas o por provincias, **iconos** propios y **código QR** generado dentro del documento. El motor aplica la **identidad del despacho** (colores, logo y pie) desde los datos y calcula **plazos en días hábiles** con los festivos que se le indiquen.
 
 Los gráficos no se dibujan a mano: se declaran como datos y los dibuja un motor propio incluido en la plantilla base (barras, columnas simples, agrupadas y apiladas, línea con área, umbral y anotaciones, minigráfico, medidor, cascada, matriz de riesgo, diagrama de plazos, anillo y tarta). El motor calcula escalas, totales y porcentajes, añade a cada gráfico su tabla de datos con descarga en CSV y su fuente, y compone el pie de fuentes; las cifras del texto pueden salir del mismo bloque de datos, así que texto y gráfico no se contradicen. Se acompaña de criterios de qué forma responde a cada pregunta y reglas de honestidad gráfica (eje desde cero, sin recortes, sin datos inventados).
 
@@ -84,8 +84,8 @@ asistente-general/
         ├── assets/
         │   └── template-base-reportes.md      ← estilos, temas, impresión y motor de gráficos
         ├── references/
-        │   ├── catalogo-reportes.md           ← recetas de los reportes típicos
-        │   ├── maquetas-reportes.md           ← esqueleto de cada tipo de reporte
+        │   ├── catalogo-reportes.md           ← recetas de los artefactos típicos
+        │   ├── maquetas-reportes.md           ← esqueleto de cada tipo de artefacto
         │   ├── modulos-motor.md               ← módulos opcionales (diagramas, gráficos avanzados, iconos, QR)
         │   ├── anatomia-artefacto.md
         │   ├── biblioteca-componentes-visuales.md

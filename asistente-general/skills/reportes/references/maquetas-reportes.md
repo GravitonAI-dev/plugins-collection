@@ -1,6 +1,6 @@
-# Maquetas de reportes
+# Maquetas de artefactos
 
-Cada reporte se construye con dos piezas:
+Cada artefacto se construye con dos piezas:
 
 1. **La base** (`assets/template-base-reportes.md`). Se copia integra: estilos, tema claro y oscuro, impresion, aviso DRAFT, cabecera, pie con fuentes y motor de graficos. No se resume ni se recorta.
 2. **La maqueta** del tipo de entregable elegido (este documento). Orden de montaje del archivo: base completa, con sus marcadores rellenos; despues del script del motor, los modulos que haga falta (`modulos-motor.md`); despues, el script de la maqueta si lo tiene. Rellena los marcadores de la base:
@@ -509,7 +509,7 @@ El bloque de calculo recibe el objeto de `leer()` y devuelve `{resultado1, resul
 
 **Ancho:** `1280px`. Slides en formato 16:9: en pantalla se ven de una en una, a pantalla completa si se quiere, con flechas, gestos y notas del orador; al imprimir o guardar en PDF sale una diapositiva por pagina en 16:9, el mismo formato de una presentacion de PowerPoint o Google Slides.
 
-**Las diapositivas no se escriben en HTML: se declaran como datos**, en la lista `diapositivas` del bloque `datos-reporte`, y el script de la maqueta las monta. Asi cada diapositiva tiene siempre la misma estructura y los mismos datos podran exportarse mas adelante a otras herramientas. Los graficos y diagramas de una diapositiva se declaran en `graficos` como en cualquier reporte y se citan por su nombre.
+**Las diapositivas no se escriben en HTML: se declaran como datos**, en la lista `diapositivas` del bloque `datos-reporte`, y el script de la maqueta las monta. Asi cada diapositiva tiene siempre la misma estructura y los mismos datos podran exportarse mas adelante a otras herramientas. Los graficos y diagramas de una diapositiva se declaran en `graficos` como en cualquier artefacto y se citan por su nombre.
 
 Una idea por diapositiva y un titular que afirma («La deuda se concentra en tres facturas», no «Deuda»). Entre 8 y 15 diapositivas para una reunion de cliente. El pie de cada diapositiva lleva el aviso DRAFT y el numero; la ultima diapositiva, «Fuentes», la anade el script con las fuentes declaradas.
 
@@ -775,7 +775,7 @@ Se coloca despues del script del motor (y de los modulos, si los hay). Monta las
 
 - El indice lo compone el script de la maqueta a partir de los titulos `h2` de los capitulos: no se escribe a mano. En el PDF sus entradas son enlaces que llevan al capitulo.
 - Cada capitulo es una `section class="capitulo"`; con `class="capitulo nueva-pagina"` empieza en pagina nueva al imprimir (recomendado a partir del segundo).
-- Los graficos y diagramas se declaran como en cualquier reporte y se colocan con su hueco `figure` dentro del capitulo que los usa, precedido de un `h3` con un titulo que afirma (dentro del `figure` no se escribe nada: el motor lo rellena).
+- Los graficos y diagramas se declaran como en cualquier artefacto y se colocan con su hueco `figure` dentro del capitulo que los usa, precedido de un `h3` con un titulo que afirma (dentro del `figure` no se escribe nada: el motor lo rellena).
 - Las notas se marcan con `<sup class="nota">1</sup>` en el texto y se desarrollan en la seccion de notas.
 - Extension orientativa: entre 6 y 20 paginas. Mas alla, conviene partirlo.
 

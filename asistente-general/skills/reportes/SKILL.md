@@ -27,7 +27,7 @@ description: >
   con indicadores y graficos, herramientas interactivas de calculo, simulacion y verificacion, y presentaciones en
   diapositivas 16:9 con notas del orador que se imprimen una por pagina, documentos largos (white paper, memoria,
   due diligence) con portada, indice con enlaces y paginas numeradas, y resumenes ejecutivos de una pagina, con un
-  catalogo de los reportes que mas se piden. Los graficos se
+  catalogo de los artefactos que mas se piden. Los graficos se
   declaran como datos y los dibuja un motor propio incluido en la plantilla (barras horizontales, columnas simples,
   agrupadas, apiladas y al cien por cien, linea con area, banda de umbral y anotaciones, minigrafico de tendencia,
   medidor semicircular, cascada de importes, matriz de riesgo e impacto, diagrama de plazos con marca de hoy, anillo
@@ -53,7 +53,7 @@ when_to_use: |
   - El usuario necesita un entregable listo para imprimir o exportar a PDF con identidad visual cuidada.
 inputs:
   - tipo_documento: informe_visual / panel_datos / herramienta_interactiva / presentacion / documento_largo / resumen_ejecutivo / fuera_de_alcance (V1)
-  - receta_reporte: receta del catalogo de reportes tipicos, deducida de la peticion (V6)
+  - receta_reporte: receta del catalogo de artefactos tipicos, deducida de la peticion (V6)
   - destino_uso: fijado siempre en ambos, no se pregunta (V2)
   - origen_datos: datos_del_chat / documento_del_workspace / busqueda_web (V3)
   - identidad_visual: tema_moderno / tema_sobrio / tema_personalizado (V4)
@@ -181,7 +181,7 @@ Fijados los vectores de clasificacion, evalua la rama de ejecucion. `V2` esta fi
 En un unico turno, expon en el chat:
 1. **Que va a mostrar el artefacto:** la idea principal, los indicadores que encabezaran la pagina y que forma grafica se usara para cada pregunta, con una justificacion breve (por ejemplo, barras ordenadas para comparar partidas y linea para la evolucion mensual).
 2. **Que datos faltan** para completarlo, si los hay.
-3. **Propuesta de plantilla oficial del sistema** mencionada solo por su denominacion formal (informe visual, panel de datos, herramienta interactiva, presentacion, documento largo o resumen ejecutivo) y, si hay receta, por el nombre del reporte («informe de situacion del expediente»), con su estructura de bloques en una linea. Prohibido mostrar rutas de archivo y prohibido volcar el contenido de la plantilla.
+3. **Propuesta de plantilla oficial del sistema** mencionada solo por su denominacion formal (informe visual, panel de datos, herramienta interactiva, presentacion, documento largo o resumen ejecutivo) y, si hay receta, por el nombre del artefacto («informe de situacion del expediente»), con su estructura de bloques en una linea. Prohibido mostrar rutas de archivo y prohibido volcar el contenido de la plantilla.
 4. **Formulario preceptivo** `restricted_human_in_the_loop_request` con `id` `origen_plantilla` y las dos opciones canonicas de `REG-AST-01` (`plantilla_sistema` y `plantilla_usuario`).
 
 ### 2.3 Fijacion de V5 y Manejo de la Eleccion
@@ -232,8 +232,8 @@ Para cada bloque sustantivo: recogida de datos -> **descripcion en texto plano d
 - *Si `V1 = presentacion`:* cada bloque de la hoja de ruta es una o varias diapositivas de la lista `diapositivas`, con su maqueta de diapositiva (`references/maquetas-reportes.md`). Una idea por diapositiva y un titular que afirma; los graficos y diagramas se declaran en `graficos` y se citan por su nombre; las notas del orador recogen lo que se dira y no se ve. La vista previa en el chat describe cada diapositiva en una linea.
 - *Si `V1 = documento_largo`:* cada capitulo es un bloque de la hoja de ruta; el resumen ejecutivo se redacta al final, cuando las conclusiones ya estan confirmadas. Cada tesis del texto se sostiene con un dato, un grafico o una fuente verificada; ninguna cita normativa sin verificar en la sesion.
 - *Si `V1 = resumen_ejecutivo`:* la vista previa enumera lo que llevara la pagina; si hay que anadir avisos o bloques, se recorta otra cosa (al imprimir se reduce la escala para que quepa, pero no es para encajar contenido de mas).
-- *Modulos opcionales (cualquier tipo de reporte):* diagramas, graficos avanzados, mapa de Espana por comunidades o provincias (con tasas por zona), iconos, QR, identidad del despacho y plazos en dias habiles viven en `references/modulos-motor.md` y solo se copian si el reporte los usa.
-- *Diagramas con conectores (cualquier tipo de reporte):* procesos, flujos de un procedimiento, cadenas de hechos, organigramas o estructuras societarias, relaciones entre partes y quien hace que se declaran como grafico `diagrama` y requieren copiar el modulo de `references/modulos-motor.md` despues del motor. Nunca se dibujan cajas ni flechas a mano.
+- *Modulos opcionales (cualquier tipo de artefacto):* diagramas, graficos avanzados, mapa de Espana por comunidades o provincias (con tasas por zona), iconos, QR, identidad del despacho y plazos en dias habiles viven en `references/modulos-motor.md` y solo se copian si el artefacto los usa.
+- *Diagramas con conectores (cualquier tipo de artefacto):* procesos, flujos de un procedimiento, cadenas de hechos, organigramas o estructuras societarias, relaciones entre partes y quien hace que se declaran como grafico `diagrama` y requieren copiar el modulo de `references/modulos-motor.md` despues del motor. Nunca se dibujan cajas ni flechas a mano.
 - *Si `V1 = herramienta_interactiva`:* campos de entrada con etiqueta y texto de ayuda, bloque de calculo escrito en JavaScript nativo dentro del script de la maqueta que devuelve `{resultado1, resultado2, resultado3, medidor, desglose}`, resultados destacados, medidor semicircular dibujado por el motor y alimentado por el campo `medidor` (porcentaje de 0 a 100), desglose tabular y lista de verificacion con progreso.
 - En todos los casos, cada grafico lleva su alternativa textual accesible y un titulo que afirma algo. Los rotulos de ejes, leyendas, unidades y descripciones accesibles se escriben **en el idioma del usuario**; las clases y los identificadores del documento permanecen en espanol tal como vienen en la plantilla.
 

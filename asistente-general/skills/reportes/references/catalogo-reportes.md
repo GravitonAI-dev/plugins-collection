@@ -1,6 +1,6 @@
-# Catalogo de reportes tipicos
+# Catalogo de artefactos tipicos
 
-Recetas de partida para los reportes que mas se piden: tipo de entregable (V1), bloques, graficos que funcionan y datos que pedir. La receta se deduce de la peticion (V6 en `SKILL.md`); se adapta al caso y se aplican todas las reglas de la skill. Si falta un dato para un bloque y el usuario no lo tiene, el bloque se quita.
+Recetas de partida para los artefactos que mas se piden: tipo de entregable (V1), bloques, graficos que funcionan y datos que pedir. La receta se deduce de la peticion (V6 en `SKILL.md`); se adapta al caso y se aplican todas las reglas de la skill. Si falta un dato para un bloque y el usuario no lo tiene, el bloque se quita.
 
 ---
 

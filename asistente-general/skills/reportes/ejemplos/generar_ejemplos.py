@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Genera los reportes de ejemplo de la skill `reportes`.
+"""Genera los artefactos de ejemplo de la skill `reportes`.
 
 Compone cada ejemplo como lo hara el modelo: copia integra de la base
 (`../assets/template-base-reportes.md`), la maqueta del tipo de entregable
@@ -465,7 +465,7 @@ def galeria():
                  '      <p class="cifra" data-cifra="vencimiento_recurso"></p>\n      <p class="detalle">20 dias habiles desde el 17/9, sin el 12 de octubre</p>\n    </div>\n  </div>\n\n  <div class="malla">\n    '
                  + "\n    ".join(tarjetas) + "\n  </div>")
     textos = dict(COMUN, **{
-      "TITULO_DOCUMENTO": "Galeria de graficos del motor de reportes",
+      "TITULO_DOCUMENTO": "Galeria de graficos del motor de artefactos",
       "ETIQUETA_SUPERIOR": "Skill reportes | Catalogo de formas",
       "ENTRADILLA": "Cada grafico se declara con sus datos en el bloque datos-reporte y lo dibuja el motor de la base. Bajo cada uno estan su tabla de datos, la descarga en CSV y su fuente.",
     })
@@ -504,7 +504,7 @@ def comprobar_y_imprimir(archivos, pdf):
 
 # --------------------------------------------------------------------------- principal
 if __name__ == "__main__":
-    print("Generando reportes de ejemplo:")
+    print("Generando artefactos de ejemplo:")
     hechos = [panel(), informe(), herramienta(), presentacion(), white_paper(), resumen(), galeria()]
     limpio = comprobar_y_imprimir([d for d, _ in hechos], "--sin-pdf" not in sys.argv)
     if not all(ok for _, ok in hechos) or not limpio:

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Galeria de graficos del motor de reportes</title>
+<title>Galeria de graficos del motor de artefactos</title>
 <style>
 *,*::before,*::after{box-sizing:border-box}
 :root{
@@ -219,7 +219,7 @@ ol.leyenda{display:block;padding-left:20px}
 
   <header>
     <p class="antetitulo">Skill reportes | Catalogo de formas</p>
-    <h1>Galeria de graficos del motor de reportes</h1>
+    <h1>Galeria de graficos del motor de artefactos</h1>
     <p class="entradilla">Cada grafico se declara con sus datos en el bloque datos-reporte y lo dibuja el motor de la base. Bajo cada uno estan su tabla de datos, la descarga en CSV y su fuente.</p>
     <ul class="ficha">
       <li><b>Tipos:</b> 30</li>
@@ -2167,8 +2167,8 @@ if (D.readyState === "loading") D.addEventListener("DOMContentLoaded", arrancar)
 })();
 </script>
 <script>
-/* Modulo de diagramas con conectores para el motor de reportes. Se copia integro,
-   despues del motor, solo en los reportes con algun grafico de tipo diagrama. */
+/* Modulo de diagramas con conectores para el motor de artefactos. Se copia integro,
+   despues del motor, solo en los artefactos con algun grafico de tipo diagrama. */
 (function(){
 "use strict";
 var R = Reportes, svg = R.svg, r1 = R.r1, CAR = 6.7, LINEA = 15;
@@ -2384,8 +2384,8 @@ R.tipos.diagrama.fijo = true;  /* su tamano sale de su contenido: no se recalcul
 })();
 </script>
 <script>
-/* Modulo de graficos avanzados para el motor de reportes. Se copia integro, despues
-   del motor, solo en los reportes que usan alguno de estos tipos. */
+/* Modulo de graficos avanzados para el motor de artefactos. Se copia integro, despues
+   del motor, solo en los artefactos que usan alguno de estos tipos. */
 (function(){
 "use strict";
 var R = Reportes, svg = R.svg, r1 = R.r1, fmt = R.fmt, color = R.color, consejo = R.consejo, num = R.num, max = R.maximo, min = R.minimo, techo = R.techo;
@@ -2623,8 +2623,8 @@ R.tipos.pictograma = function (fig, g) {
 })();
 </script>
 <script>
-/* Iconos de trazo para los reportes. Se copia integro, despues del motor, solo si el
-   reporte usa algun icono. */
+/* Iconos de trazo para los artefactos. Se copia integro, despues del motor, solo si el
+   artefacto usa algun icono. */
 (function(){
 "use strict";
 var TRAZOS = {
@@ -2659,8 +2659,8 @@ Reportes.iconos = TRAZOS;
 })();
 </script>
 <script>
-/* Codigo QR para los reportes (modo byte, correccion M, versiones 1 a 10: hasta unos 210
-   caracteres). Se copia integro, despues del motor, solo si el reporte lleva un QR. */
+/* Codigo QR para los artefactos (modo byte, correccion M, versiones 1 a 10: hasta unos 210
+   caracteres). Se copia integro, despues del motor, solo si el artefacto lleva un QR. */
 (function(){
 "use strict";
 var R = Reportes;
@@ -2784,7 +2784,7 @@ R.tipos.qr.fijo = true;
 })();
 </script>
 <script>
-/* Plazos en dias habiles para los reportes. Se copia integro, despues del motor, solo si
+/* Plazos en dias habiles para los artefactos. Se copia integro, despues del motor, solo si
    alguna cifra usa dias_habiles o vencimiento. */
 (function(){
 "use strict";
@@ -2805,7 +2805,7 @@ R.calculos.vencimiento = function (def) {
 })();
 </script>
 <script>
-/* Mapa de Espana para el motor de reportes. Natural Earth, dominio publico. */
+/* Mapa de Espana para el motor de artefactos. Natural Earth, dominio publico. */
 (function(){
 "use strict";
 var R = Reportes, svg = R.svg, fmt = R.fmt, num = R.num, SIN = R.T.sin_dato || (/^en/.test(R.IDIOMA) ? "no data" : "sin dato");

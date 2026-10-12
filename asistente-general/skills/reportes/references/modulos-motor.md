@@ -1,8 +1,8 @@
 # Modulos opcionales del motor
 
-Algunos tipos de grafico pesan demasiado para ir en todos los reportes. Viven aqui como **modulos**: un `<script>` que se copia integro, sin modificarlo, **justo despues del script del motor** (antes de `</body>` y antes del script de la maqueta, si la maqueta tiene uno) y solo en los reportes que usan ese tipo. El modulo registra su tipo en el motor y, a partir de ahi, se declara en `datos-reporte` como cualquier otro grafico.
+Algunos tipos de grafico pesan demasiado para ir en todos los artefactos. Viven aqui como **modulos**: un `<script>` que se copia integro, sin modificarlo, **justo despues del script del motor** (antes de `</body>` y antes del script de la maqueta, si la maqueta tiene uno) y solo en los artefactos que usan ese tipo. El modulo registra su tipo en el motor y, a partir de ahi, se declara en `datos-reporte` como cualquier otro grafico.
 
-Si un reporte declara un tipo de modulo pero no copia el modulo, el grafico muestra el recuadro rojo «tipo desconocido».
+Si un artefacto declara un tipo de modulo pero no copia el modulo, el grafico muestra el recuadro rojo «tipo desconocido».
 
 ---
 
@@ -44,14 +44,14 @@ Reglas:
 - **Solo los pasos que ha descrito el usuario o que constan en el expediente.** Si el flujo queda incompleto (falta que pasa cuando si paga, por ejemplo), se pregunta en el chat; no se completa con pasos supuestos.
 - **Colores de grupo:** la serie `1` a `6` para distinguir fases o actores; `ok`, `aviso` y `riesgo` solo cuando el nodo es un resultado bueno, dudoso o malo (cobro, archivo, sancion).
 - **Maximo 24 nodos.** Un diagrama mayor no se lee: se divide en dos o se resume.
-- Texto de cada caja corto, en una o dos lineas. Los detalles van en el texto del reporte, no dentro de la caja.
+- Texto de cada caja corto, en una o dos lineas. Los detalles van en el texto del artefacto, no dentro de la caja.
 - Una conexion que vuelve atras (un ciclo) se dibuja por fuera, curvada. Si hay muchas, el proceso esta mal descrito o necesita otra forma.
 - El diagrama va en una tarjeta `ancho-total` si tiene mas de tres pasos en horizontal. En una diapositiva caben a lo ancho hasta cinco pasos; con mas, el modulo lo pasa a vertical o conviene dividirlo en dos diapositivas.
 
 ```js modulo=diagramas
 <script>
-/* Modulo de diagramas con conectores para el motor de reportes. Se copia integro,
-   despues del motor, solo en los reportes con algun grafico de tipo diagrama. */
+/* Modulo de diagramas con conectores para el motor de artefactos. Se copia integro,
+   despues del motor, solo en los artefactos con algun grafico de tipo diagrama. */
 (function(){
 "use strict";
 var R = Reportes, svg = R.svg, r1 = R.r1, CAR = 6.7, LINEA = 15;
@@ -273,7 +273,7 @@ R.tipos.diagrama.fijo = true;  /* su tamano sale de su contenido: no se recalcul
 
 ## Graficos avanzados (`dispersion`, `histograma`, `radar`, `embudo`, `treemap`, `pendiente`, `halteras`, `piramide`, `calendario`, `pictograma`)
 
-Formas menos frecuentes que las del motor de la base. Un solo modulo para todas: se copia si el reporte usa cualquiera de ellas.
+Formas menos frecuentes que las del motor de la base. Un solo modulo para todas: se copia si el artefacto usa cualquiera de ellas.
 
 | Tipo | Pregunta que responde | Datos |
 | :--- | :--- | :--- |
@@ -292,8 +292,8 @@ Reglas: los valores se dan en bruto y el modulo calcula escalas, tramos y porcen
 
 ```js modulo=avanzados
 <script>
-/* Modulo de graficos avanzados para el motor de reportes. Se copia integro, despues
-   del motor, solo en los reportes que usan alguno de estos tipos. */
+/* Modulo de graficos avanzados para el motor de artefactos. Se copia integro, despues
+   del motor, solo en los artefactos que usan alguno de estos tipos. */
 (function(){
 "use strict";
 var R = Reportes, svg = R.svg, r1 = R.r1, fmt = R.fmt, color = R.color, consejo = R.consejo, num = R.num, max = R.maximo, min = R.minimo, techo = R.techo;
@@ -544,8 +544,8 @@ Uso con mesura: un icono acompana a un texto, nunca lo sustituye (el texto sigue
 
 ```js modulo=iconos
 <script>
-/* Iconos de trazo para los reportes. Se copia integro, despues del motor, solo si el
-   reporte usa algun icono. */
+/* Iconos de trazo para los artefactos. Se copia integro, despues del motor, solo si el
+   artefacto usa algun icono. */
 (function(){
 "use strict";
 var TRAZOS = {
@@ -598,8 +598,8 @@ Un QR que lleva a la fuente, al expediente o a la version consolidada de una nor
 
 ```js modulo=qr
 <script>
-/* Codigo QR para los reportes (modo byte, correccion M, versiones 1 a 10: hasta unos 210
-   caracteres). Se copia integro, despues del motor, solo si el reporte lleva un QR. */
+/* Codigo QR para los artefactos (modo byte, correccion M, versiones 1 a 10: hasta unos 210
+   caracteres). Se copia integro, despues del motor, solo si el artefacto lleva un QR. */
 (function(){
 "use strict";
 var R = Reportes;
@@ -745,7 +745,7 @@ Aplica los colores, el logo y el pie del despacho a partir del bloque `marca` de
 
 ```js modulo=marca
 <script>
-/* Identidad del despacho para los reportes. Se copia integro, despues del motor, solo si
+/* Identidad del despacho para los artefactos. Se copia integro, despues del motor, solo si
    los datos llevan el bloque marca. */
 (function(){
 "use strict";
@@ -789,7 +789,7 @@ Se excluyen sabados y domingos. `festivos` es la lista de **todos los demas dias
 
 ```js modulo=plazos
 <script>
-/* Plazos en dias habiles para los reportes. Se copia integro, despues del motor, solo si
+/* Plazos en dias habiles para los artefactos. Se copia integro, despues del motor, solo si
    alguna cifra usa dias_habiles o vencimiento. */
 (function(){
 "use strict";
@@ -832,7 +832,7 @@ Se copian **dos** piezas: el modulo `mapa` (el codigo) y el bloque de contornos 
 
 ```js modulo=mapa
 <script>
-/* Mapa de Espana para el motor de reportes. Natural Earth, dominio publico. */
+/* Mapa de Espana para el motor de artefactos. Natural Earth, dominio publico. */
 (function(){
 "use strict";
 var R = Reportes, svg = R.svg, fmt = R.fmt, num = R.num, SIN = R.T.sin_dato || (/^en/.test(R.IDIOMA) ? "no data" : "sin dato");

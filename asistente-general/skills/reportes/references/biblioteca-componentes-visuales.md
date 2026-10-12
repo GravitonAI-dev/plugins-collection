@@ -1,6 +1,6 @@
 # Biblioteca de componentes visuales
 
-Todo lo que se inserta en un reporte usa los tokens de `:root` de la base (`--superficie`, `--borde`, `--acento`, `--c1` a `--c6`, escala `--e1` a `--e6`). Por eso hereda el tema claro, el oscuro, el sobrio y la impresion sin tocar nada. Las clases y los identificadores estan en espanol y **no se renombran**: lo que cambia de idioma es el texto visible.
+Todo lo que se inserta en un artefacto usa los tokens de `:root` de la base (`--superficie`, `--borde`, `--acento`, `--c1` a `--c6`, escala `--e1` a `--e6`). Por eso hereda el tema claro, el oscuro, el sobrio y la impresion sin tocar nada. Las clases y los identificadores estan en espanol y **no se renombran**: lo que cambia de idioma es el texto visible.
 
 ---
 
@@ -290,6 +290,6 @@ Para fundamentar con resoluciones, siempre verificadas en la sesion en el CENDOJ
 
 La referencia es la oficial (Roj o ECLI) y la URL de cada resolucion va en `fuentes`, que la recoge el pie. Relevancia: `ok` directa, `atencion` por analogia, `riesgo` en contra. Si se quiere que el lector en papel llegue a la resolucion, un QR con su URL.
 
-### Pie del reporte
+### Pie del artefacto
 
 Lo trae la base: la lista de fuentes la compone el motor a partir de `fuentes` y solo se rellena `{{PIE_AVISO_LEGAL}}`. No se anade otro pie.
