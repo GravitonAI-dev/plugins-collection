@@ -177,7 +177,7 @@ ol.leyenda{display:block;padding-left:20px}
 @media print{
   :root,:root[data-tema="sobrio"]{--fondo:#fff;--superficie:#fff;--superficie-2:#fff;--borde:#c8c5bf;--borde-suave:#dcd9d3;
         --linea-rejilla:#d5d2cc;--texto:#000;--apagado:#3f3d39;--sombra:none;--acento-suave:#f2f6f8}
-  @page{size:A4;margin:15mm 14mm}
+  @page{size:A4;margin:15mm 14mm 17mm;@bottom-right{content:counter(page) " / " counter(pages);font-size:8pt;color:#666}}
   *{animation:none!important;transition:none!important}
   *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
   body{font-size:10.5pt;background-image:none}
@@ -786,7 +786,7 @@ tipos.medidor = function (fig, g) {
   var s = lienzo(fig, 240, 150, g.resumen || "", "medidor");
   svg("path", {"class": "pista-arco", d: "M 30 125 A 90 90 0 0 1 210 125"}, s);
   svg("path", {"class": "arco", d: "M 30 125 A 90 90 0 0 1 210 125", stroke: c, "stroke-dasharray": arco + " " + r1(L - arco + 1)}, s);
-  svg("text", {x: 120, y: 112, "text-anchor": "middle", "font-size": 34, "font-weight": 670, fill: "var(--texto)"}, s, g.cifra || (g.unidad ? fmt(g.valor, g.unidad) : fmt(real, "pct")));
+  svg("text", {x: 120, y: 112, "text-anchor": "middle", "font-size": 34, "font-weight": 670, fill: "var(--texto)"}, s, num(g.cifra) ? fmt(g.cifra, g.unidad || "pct") : g.cifra || (g.unidad ? fmt(g.valor, g.unidad) : fmt(real, "pct")));
   svg("text", {"class": "eje", x: 30, y: 146, "text-anchor": "middle"}, s, "0");
   svg("text", {"class": "eje", x: 210, y: 146, "text-anchor": "middle"}, s, g.unidad ? fmt(tope, g.unidad, true) : "100\u00a0%");
   if (g.rotulo) html("p", "medidor-rotulo", fig, g.rotulo);
@@ -923,7 +923,8 @@ function reparto(fig, g, hueco) {
   });
   if (hueco) {
     var centro = g.centro || {};
-    svg("text", {"class": "centro-anillo", x: 115, y: 99, "font-size": 21}, s, centro.cifra || fmt(total, g.unidad, true));
+    /* La cifra central puede ser texto o un numero (tambien "@clave"), que se formatea con la unidad. */
+    svg("text", {"class": "centro-anillo", x: 115, y: 99, "font-size": 21}, s, num(centro.cifra) ? fmt(centro.cifra, g.unidad, true) : centro.cifra || fmt(total, g.unidad, true));
     if (centro.rotulo) consejo(svg("text", {"class": "centro-anillo eje", x: 115, y: 117, "font-size": 10.5}, s, recortar(centro.rotulo, 17)), centro.rotulo);
   }
   leyenda(fig, por.map(function (p, i) { return {color: color(p.color, i), texto: p.rotulo, extra: fmt(p.valor / total * 100, "pct")}; }));

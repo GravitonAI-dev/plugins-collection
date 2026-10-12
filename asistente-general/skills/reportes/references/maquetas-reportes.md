@@ -155,6 +155,13 @@ Reglas comunes a todas las maquetas:
 ### Estilos
 
 ```css maqueta=informe_visual parte=estilos
+.cronologia{list-style:none;margin:var(--e4) 0 0;padding:0 0 0 26px;border-left:2px solid var(--borde)}
+.cronologia li{position:relative;margin:0 0 var(--e4)}
+.cronologia li:last-child{margin-bottom:0}
+.cronologia li::before{content:"";position:absolute;left:-33px;top:6px;width:12px;height:12px;border-radius:50%;
+  background:var(--acento);border:3px solid var(--superficie);box-shadow:0 0 0 1px var(--borde)}
+.cronologia .fecha{display:block;font-size:.76rem;letter-spacing:.07em;text-transform:uppercase;color:var(--apagado)}
+.cronologia .hito{font-weight:650}
 .diseno{display:grid;grid-template-columns:196px minmax(0,1fr);gap:var(--e5);align-items:start}
 .indice{position:sticky;top:var(--e4);font-size:.85rem}
 .indice p{font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:var(--apagado);margin:0 0 var(--e2)}
@@ -165,13 +172,6 @@ Reglas comunes a todas las maquetas:
 .bloque{margin:0 0 var(--e3)}
 .bloque h2{display:flex;gap:var(--e2);align-items:baseline}
 .bloque h2 .orden{color:var(--acento);font-variant-numeric:tabular-nums}
-.cronologia{list-style:none;margin:var(--e4) 0 0;padding:0 0 0 26px;border-left:2px solid var(--borde)}
-.cronologia li{position:relative;margin:0 0 var(--e4)}
-.cronologia li:last-child{margin-bottom:0}
-.cronologia li::before{content:"";position:absolute;left:-33px;top:6px;width:12px;height:12px;border-radius:50%;
-  background:var(--acento);border:3px solid var(--superficie);box-shadow:0 0 0 1px var(--borde)}
-.cronologia .fecha{display:block;font-size:.76rem;letter-spacing:.07em;text-transform:uppercase;color:var(--apagado)}
-.cronologia .hito{font-weight:650}
 .firma{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--e4);margin:var(--e4) 0 0;font-size:.9rem}
 .firma div{border-top:1px solid var(--borde);padding-top:var(--e2);color:var(--apagado)}
 @media (max-width:900px){.diseno{grid-template-columns:1fr}.indice{display:none}}
@@ -612,7 +612,7 @@ Notas de uso:
 .panel-notas[hidden]{display:none}
 .panel-notas .reloj{float:right;font-variant-numeric:tabular-nums;color:var(--apagado)}
 @media print{
-  @page{size:338.67mm 190.5mm;margin:0}
+  @page{size:338.67mm 190.5mm;margin:0;@bottom-right{content:none}}
   body{background:#fff}
   .borrador,.controles,.panel-notas,.pie{display:none}
   .escenario{box-shadow:none;border-radius:0;height:auto!important;overflow:visible}
@@ -757,6 +757,274 @@ Se coloca despues del script del motor (y de los modulos, si los hay). Monta las
   D.addEventListener("fullscreenchange", escalar);
   escalar();
   ir(0);
+})();
+</script>
+```
+
+---
+
+## 5. Documento largo: white paper, memoria o estudio (`documento_largo`)
+
+**Ancho:** `860px`. Lectura de varias paginas con calidad editorial: portada a pagina completa (es la cabecera de la base: antetitulo, titular, entradilla y ficha con autor y fecha), resumen ejecutivo, indice con enlaces, capitulos numerados que empiezan en pagina nueva, graficos y diagramas dentro del texto, notas, fuentes y anexo. Al imprimir lleva cabecera con el titulo corto y numero de pagina «3 / 12» en cada hoja, salvo en la portada.
+
+- El indice lo compone el script de la maqueta a partir de los titulos `h2` de los capitulos: no se escribe a mano. En el PDF sus entradas son enlaces que llevan al capitulo.
+- Cada capitulo es una `section class="capitulo"`; con `class="capitulo nueva-pagina"` empieza en pagina nueva al imprimir (recomendado a partir del segundo).
+- Los graficos y diagramas se declaran como en cualquier reporte y se colocan con su hueco `figure` dentro del capitulo que los usa, precedido de un `h3` con un titulo que afirma (dentro del `figure` no se escribe nada: el motor lo rellena).
+- Las notas se marcan con `<sup class="nota">1</sup>` en el texto y se desarrollan en la seccion de notas.
+- Extension orientativa: entre 6 y 20 paginas. Mas alla, conviene partirlo.
+
+### Ficha
+
+```html maqueta=documento_largo parte=ficha
+<li><b>Autor:</b> {{AUTOR}}</li>
+      <li><b>Fecha:</b> {{FECHA_EMISION}}</li>
+```
+
+### Estilos
+
+```css maqueta=documento_largo parte=estilos
+.cronologia{list-style:none;margin:var(--e4) 0 0;padding:0 0 0 26px;border-left:2px solid var(--borde)}
+.cronologia li{position:relative;margin:0 0 var(--e4)}
+.cronologia li:last-child{margin-bottom:0}
+.cronologia li::before{content:"";position:absolute;left:-33px;top:6px;width:12px;height:12px;border-radius:50%;
+  background:var(--acento);border:3px solid var(--superficie);box-shadow:0 0 0 1px var(--borde)}
+.cronologia .fecha{display:block;font-size:.76rem;letter-spacing:.07em;text-transform:uppercase;color:var(--apagado)}
+.cronologia .hito{font-weight:650}
+.contenedor>header{min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding:var(--e6) var(--e5);margin:0 0 var(--e5);border-radius:var(--radio);color:#fff;
+  background:linear-gradient(150deg,var(--acento-fuerte),color-mix(in srgb,var(--acento) 70%,#000))}
+.contenedor>header .antetitulo,.contenedor>header .ficha,.contenedor>header .ficha b{color:rgba(255,255,255,.85)}
+.contenedor>header h1{font-size:clamp(2.2rem,5vw,3.4rem);color:#fff;max-width:18ch}
+.contenedor>header .entradilla{color:rgba(255,255,255,.88);font-size:1.2rem}
+.contenedor>header .ficha{margin-top:auto;padding-top:var(--e6)}
+.resumen-ejecutivo{border-top:5px solid var(--acento)}
+.resumen-ejecutivo ol{margin:0;padding-left:22px}
+.resumen-ejecutivo li{margin:0 0 var(--e2);font-size:1.02rem}
+.indice-documento{margin:0 0 var(--e5)}
+.indice-documento li::marker{color:var(--acento);font-weight:650}
+.indice-documento a{display:block;padding:7px 0;color:var(--texto);text-decoration:none;border-bottom:1px dotted var(--borde)}
+main{counter-reset:capitulo}
+.capitulo{margin:0 0 var(--e6)}
+.capitulo>h2{font-size:clamp(1.4rem,2.6vw,1.8rem);counter-increment:capitulo;border-bottom:2px solid var(--acento);padding-bottom:var(--e2);margin:0 0 var(--e4)}
+.capitulo>h2::before{content:counter(capitulo) ". ";color:var(--acento)}
+.capitulo h3{font-size:1.12rem;margin:var(--e4) 0 var(--e2)}
+.capitulo p,.capitulo li{font-size:1.02rem;line-height:1.7}
+.capitulo .grafico{margin:var(--e3) 0 var(--e4)}
+.destacado{font-size:1.25rem;line-height:1.45;font-weight:600;border-left:5px solid var(--acento);padding:var(--e2) 0 var(--e2) var(--e4);margin:var(--e5) 0}
+sup.nota{color:var(--acento);font-weight:650}
+.notas-documento li{font-size:.88rem;color:var(--apagado)}
+@media print{
+  @page{margin:20mm 18mm 22mm;@bottom-left{content:"DRAFT";font-size:8pt;color:#a8650f;font-weight:600}}
+  @page :first{margin:0;@bottom-right{content:none}@bottom-left{content:none}@top-left{content:none}}
+  main{position:relative}
+  /* El aviso DRAFT va impreso sobre la portada, para que tambien conste en navegadores sin cajas de margen. */
+  .borrador{position:absolute;top:12mm;left:18mm;right:18mm;z-index:1;margin:0;background:rgba(255,255,255,.92)}
+  .contenedor>header{min-height:0;height:297mm;margin:0;border-radius:0;break-after:page;padding:40mm 24mm 24mm}
+  .resumen-ejecutivo{break-inside:avoid}
+  .indice-documento{break-after:page}
+  .capitulo.nueva-pagina{break-before:page}
+  .capitulo p,.capitulo li{font-size:10.5pt;line-height:1.55}
+}
+```
+
+### Contenido
+
+```html maqueta=documento_largo parte=contenido
+<section class="tarjeta resumen-ejecutivo">
+    <h2>{{TITULO_RESUMEN}}</h2>
+    <ol>
+      <li>{{CONCLUSION_1}}</li>
+      <li>{{CONCLUSION_2}}</li>
+      <li>{{CONCLUSION_3}}</li>
+    </ol>
+  </section>
+
+  <nav class="indice-documento" aria-label="Indice">
+    <h2>{{TITULO_INDICE}}</h2>
+    <ol id="indice-documento"></ol>
+  </nav>
+
+  <section class="capitulo" id="capitulo-1">
+    <h2>{{TITULO_CAPITULO_1}}</h2>
+    <p>{{TEXTO_CAPITULO_1}}</p>
+    <p class="destacado">{{IDEA_DESTACADA_1}}</p>
+  </section>
+
+  <section class="capitulo nueva-pagina" id="capitulo-2">
+    <h2>{{TITULO_CAPITULO_2}}</h2>
+    <p>{{TEXTO_CAPITULO_2}}</p>
+    <figure class="grafico" data-grafico="figura_1"></figure>
+    <p>{{TEXTO_CAPITULO_2_CONTINUACION}}</p>
+  </section>
+
+  <section class="capitulo nueva-pagina" id="capitulo-3">
+    <h2>{{TITULO_CAPITULO_3}}</h2>
+    <p>{{TEXTO_CAPITULO_3}}</p>
+    <h3>{{SUBTITULO_CAPITULO_3}}</h3>
+    <ul>
+      <li>{{PUNTO_1}}</li>
+      <li>{{PUNTO_2}}</li>
+    </ul>
+  </section>
+
+  <section class="capitulo nueva-pagina" id="notas">
+    <h2>{{TITULO_NOTAS}}</h2>
+    <ol class="notas-documento">
+      <li>{{NOTA_1}}</li>
+    </ol>
+  </section>
+```
+
+### Datos
+
+```json maqueta=documento_largo parte=datos
+{
+  "idioma": "es-ES",
+  "moneda": "EUR",
+  "fuentes": {
+    "fuente_1": {"nombre": "{{DESCRIPCION_FUENTE}}", "url": "{{URL}}", "consulta": "{{FECHA_AAAA_MM_DD}}"}
+  },
+  "cifras": {},
+  "graficos": {
+    "figura_1": {"tipo": "linea", "unidad": "num", "fuente": "fuente_1", "etiquetas": [], "series": [], "resumen": "{{RESUMEN}}"}
+  }
+}
+```
+
+### Script
+
+Se coloca despues del motor y de los modulos. Compone el indice con enlaces y pone el titulo corto en la cabecera de cada pagina impresa.
+
+```js maqueta=documento_largo parte=script
+<script>
+(function(){
+  "use strict";
+  var D = document, indice = D.getElementById("indice-documento");
+  [].forEach.call(D.querySelectorAll(".capitulo"), function (cap, i) {
+    var h = cap.querySelector("h2");
+    if (!h) return;  /* un capitulo sin titular no entra en el indice */
+    if (!cap.id) cap.id = "capitulo-" + (i + 1);
+    var a = Reportes.html("a", "", Reportes.html("li", "", indice), h.textContent);
+    a.href = "#" + cap.id;
+  });
+  /* Cabecera de pagina impresa con el titulo corto (desde la segunda pagina). */
+  var estilo = D.createElement("style");
+  estilo.textContent = "@media print{@page{@top-left{content:" + JSON.stringify(D.title) + ";font-size:8.5pt;color:#555}}}";
+  D.head.appendChild(estilo);
+})();
+</script>
+```
+
+---
+
+## 6. Resumen ejecutivo de una pagina (`resumen_ejecutivo`)
+
+**Ancho:** `1000px`. Una sola pagina A4: titular con la conclusion, tres indicadores, un grafico que la sostiene y tres conclusiones con la decision que se pide. Para un consejo, un socio o un cliente con poco tiempo. Al imprimir, el script de la maqueta reduce la escala lo justo para que todo quepa en una hoja; aun asi, si hay que reducir mucho, sobra contenido: un aviso o un bloque mas es lo primero que se quita.
+
+### Ficha
+
+```html maqueta=resumen_ejecutivo parte=ficha
+<li><b>Para:</b> {{DESTINATARIO}}</li>
+      <li><b>Fecha:</b> {{FECHA_EMISION}}</li>
+```
+
+### Estilos
+
+```css maqueta=resumen_ejecutivo parte=estilos
+.una-pagina{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:var(--e4);align-items:start}
+.una-pagina .conclusiones ol{margin:0;padding-left:20px}
+.una-pagina .conclusiones li{margin:0 0 var(--e3);font-size:.98rem}
+.decision{font-weight:600}
+@media screen and (max-width:760px){.una-pagina{grid-template-columns:1fr}}
+@media print{
+  @page{margin:12mm 12mm 14mm}
+  .contenedor{font-size:9.5pt}
+  .una-pagina{gap:var(--e3)}
+  .indicadores{grid-template-columns:repeat(3,1fr);gap:var(--e2);margin-bottom:var(--e3)}
+  .indicador{padding:var(--e2) var(--e3)}
+  .indicador .cifra{font-size:17pt}
+  .una-pagina svg{max-height:62mm}
+  .borrador{margin-bottom:var(--e2)}
+  .fuente-grafico{display:none}
+  .pie{margin-top:var(--e3);padding-top:var(--e2);font-size:7.5pt}
+  .pie p{margin:0 0 2px}
+}
+```
+
+Los `data-cifra` de los tres indicadores apuntan a las claves que se declaren en `cifras` (los nombres `indicador_1` a `indicador_3` son de ejemplo).
+
+### Contenido
+
+```html maqueta=resumen_ejecutivo parte=contenido
+<div class="indicadores">
+    <div class="indicador"><p class="rotulo">{{INDICADOR_1_ROTULO}}</p><p class="cifra" data-cifra="indicador_1"></p><p class="detalle">{{INDICADOR_1_DETALLE}}</p></div>
+    <div class="indicador"><p class="rotulo">{{INDICADOR_2_ROTULO}}</p><p class="cifra" data-cifra="indicador_2"></p><p class="detalle">{{INDICADOR_2_DETALLE}}</p></div>
+    <div class="indicador"><p class="rotulo">{{INDICADOR_3_ROTULO}}</p><p class="cifra" data-cifra="indicador_3"></p><p class="detalle">{{INDICADOR_3_DETALLE}}</p></div>
+  </div>
+  <div class="una-pagina">
+    <section class="tarjeta">
+      <h2>{{TITULO_GRAFICO}}</h2>
+      <figure class="grafico" data-grafico="principal"></figure>
+    </section>
+    <section class="tarjeta conclusiones">
+      <h2>{{TITULO_CONCLUSIONES}}</h2>
+      <ol>
+        <li>{{CONCLUSION_1}}</li>
+        <li>{{CONCLUSION_2}}</li>
+        <li>{{CONCLUSION_3}}</li>
+      </ol>
+      <p class="aviso decision">{{DECISION_QUE_SE_PIDE}}</p>
+    </section>
+  </div>
+```
+
+### Datos
+
+```json maqueta=resumen_ejecutivo parte=datos
+{
+  "idioma": "es-ES",
+  "moneda": "EUR",
+  "fuentes": {
+    "cliente": {"nombre": "{{DESCRIPCION_FUENTE}}", "consulta": "{{FECHA_AAAA_MM_DD}}"}
+  },
+  "cifras": {},
+  "graficos": {
+    "principal": {"tipo": "barras", "unidad": "eur", "fuente": "cliente", "elementos": [], "resumen": "{{RESUMEN}}"}
+  }
+}
+```
+
+### Script
+
+Se coloca despues del motor. Antes de imprimir mide el contenido a ancho de A4 y, si pasa de una hoja, lo reduce lo justo.
+
+```js maqueta=resumen_ejecutivo parte=script
+<script>
+(function(){
+  "use strict";
+  /* Antes de imprimir se mide la pagina con las reglas de impresion aplicadas en pantalla y al
+     ancho util del A4; si pasa de una hoja, se reduce lo justo (Chrome no recoloca despues). */
+  var D = document, main = D.querySelector("main"), ANCHO = 703, ALTO = 1000;
+  function reglasImpresion() {
+    var css = "";
+    [].forEach.call(D.styleSheets, function (hoja) {
+      [].forEach.call(hoja.cssRules, function (r) {
+        if (r.media && /print/.test(r.media.mediaText)) [].forEach.call(r.cssRules, function (x) { if (x.selectorText) css += x.cssText + "\n"; });
+      });
+    });
+    return css;
+  }
+  window.addEventListener("beforeprint", function () {
+    main.style.zoom = "";
+    var prueba = D.createElement("style");
+    prueba.textContent = reglasImpresion();
+    D.head.appendChild(prueba);
+    D.body.style.width = ANCHO + "px";
+    var alto = main.getBoundingClientRect().height;
+    prueba.remove();
+    D.body.style.width = "";
+    if (alto > ALTO) main.style.zoom = Math.max(0.6, ALTO / alto).toFixed(3);
+  });
+  window.addEventListener("afterprint", function () { main.style.zoom = ""; });
 })();
 </script>
 ```
