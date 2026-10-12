@@ -19,6 +19,13 @@ El valor de un reporte no esta en que tenga graficos, sino en que cada elemento 
 | Que contingencias hay y cuales urgen | Matriz de riesgo e impacto | Lista de riesgos sin priorizar |
 | Cuando ocurre cada cosa y que plazo corre | Cronologia de hitos o diagrama de plazos con marca de hoy | Tabla de fechas sin orden |
 | Que opcion conviene entre varias vias | Tabla comparativa con distintivos | Texto corrido enumerando ventajas |
+| Cuanto falta para cada objetivo | Bala: valor, objetivo y tramos de fondo | Varios medidores sueltos |
+| Que meses o partidas suman y cuales restan | Barras divergentes alrededor de cero | Columnas con negativos sin eje en cero |
+| Como ha cambiado una cifra frente al periodo anterior | Cifra con variacion (`signo`) dentro del indicador | Dos cifras sueltas para que el lector reste |
+| Que pasos sigue un proceso y donde se decide | Diagrama por capas con rombos de decision | Lista numerada con «si..., entonces...» |
+| Quien depende de quien (grupo societario, organigrama) | Diagrama en arbol | Tabla de participaciones sin estructura |
+| Que relacion tiene cada parte con el caso | Diagrama radial | Parrafo con todos los nombres |
+| Quien hace que en cada momento | Diagrama por carriles | Cronologia sin responsables |
 | Que pasa si cambio un parametro | Herramienta interactiva con campos y recalculo | Tres tablas con escenarios fijos |
 | Que tengo que reunir o comprobar | Lista de verificacion con progreso | Parrafo con incisos |
 
@@ -46,6 +53,9 @@ Si la respuesta a la pregunta cabe en una frase, se escribe la frase. Un grafico
 | Cascada | Mezclar conceptos que no suman al total, u olvidar que un saldo negativo baja la columna |
 | Matriz de riesgo | Mas de cuatro niveles por eje, o celdas sin decir que hacer |
 | Diagrama de plazos | Barra sin fecha de vencimiento en el rotulo: no permite calcular |
+| Bala | Tramos de fondo que no son una valoracion real (inventar «bueno» y «malo» sin criterio) |
+| Divergentes | Colorear en verde y rojo un signo que no es bueno ni malo: usar `colores` |
+| Diagrama | Mas de 24 nodos, textos largos dentro de las cajas o flechas que se cruzan sin necesidad: dividir o cambiar la disposicion |
 | Anillo y tarta | Usarlos para comparar partidas entre si (para eso, barras) o con porciones casi iguales, que el ojo no distingue |
 | Cualquiera | Escribir a mano coordenadas, porcentajes o totales que el motor ya calcula: el grafico y el texto acaban contradiciendose |
 

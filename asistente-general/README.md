@@ -40,10 +40,13 @@ Asistente universal y versátil para el procesamiento de consultas no catalogada
 
 ### `reportes`
 
-Generación de documentos visuales autocontenidos en HTML, del estilo de los que el usuario ya conoce de otros asistentes, pero pensados para un despacho: sobrios, imprimibles y sin una sola dependencia externa (ni librerías, ni CDN, ni conexión). Tres formatos:
+Generación de documentos visuales autocontenidos en HTML, del estilo de los que el usuario ya conoce de otros asistentes, pero pensados para un despacho: sobrios, imprimibles y sin una sola dependencia externa (ni librerías, ni CDN, ni conexión). Cuatro formatos:
 1. **Informe visual:** dossier de lectura con índice lateral, indicadores, secciones numeradas, tabla comparativa, cronología de hitos y firmas.
 2. **Panel de datos:** rejilla de tarjetas con indicadores, minigráfico de tendencia, barras comparativas, anillo de reparto, evolución con área y umbral, cascada de importes, medidor de plazo y tabla con totales.
 3. **Herramienta interactiva:** calculadora o simulador que recalcula al instante, con medidor, desglose auditable y lista de verificación con progreso.
+4. **Presentación:** diapositivas 16:9 declaradas como datos (portada, agenda, cifra, gráfico con conclusión, comparativa, cronología, tabla, cita, equipo, próximos pasos), con navegación, pantalla completa y notas del orador; se imprimen una por página.
+
+Incluye además un módulo opcional de **diagramas con conectores** (flujos y procesos, organigramas y estructuras societarias, mapa de relaciones entre partes y quién hace qué), que coloca las cajas y traza las flechas solo.
 
 Los gráficos no se dibujan a mano: se declaran como datos y los dibuja un motor propio incluido en la plantilla base (barras, columnas simples, agrupadas y apiladas, línea con área, umbral y anotaciones, minigráfico, medidor, cascada, matriz de riesgo, diagrama de plazos, anillo y tarta). El motor calcula escalas, totales y porcentajes, añade a cada gráfico su tabla de datos con descarga en CSV y su fuente, y compone el pie de fuentes; las cifras del texto pueden salir del mismo bloque de datos, así que texto y gráfico no se contradicen. Se acompaña de criterios de qué forma responde a cada pregunta y reglas de honestidad gráfica (eje desde cero, sin recortes, sin datos inventados).
 
@@ -80,6 +83,7 @@ asistente-general/
         │   └── template-base-reportes.md      ← estilos, temas, impresión y motor de gráficos
         ├── references/
         │   ├── maquetas-reportes.md           ← esqueleto de cada tipo de reporte
+        │   ├── modulos-motor.md               ← módulos opcionales (diagramas con conectores)
         │   ├── anatomia-documento-visual.md
         │   ├── biblioteca-componentes-visuales.md
         │   └── criterios-visualizacion-datos.md
@@ -88,5 +92,6 @@ asistente-general/
             ├── panel_reclamacion_cantidad.html / .pdf
             ├── informe_viabilidad_monitorio.html / .pdf
             ├── simulador_intereses_demora.html / .pdf
+            ├── presentacion_reclamacion_cliente.html / .pdf
             └── galeria_graficos.html / .pdf
 ```

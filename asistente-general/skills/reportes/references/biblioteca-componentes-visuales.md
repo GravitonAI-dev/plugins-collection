@@ -35,8 +35,9 @@ El motor de la base dibuja el SVG, calcula escalas, ejes y porcentajes, rellena 
 
 - **`idioma`** y **`moneda`** fijan el formato de cifras y fechas (miles con punto en espanol, siempre, tambien con cuatro cifras).
 - **`fuentes`**: cada fuente con `nombre`, `url` si viene de internet y `consulta` en formato `AAAA-MM-DD` (la fecha real de la consulta en la sesion, nunca inventada). Los graficos las citan por su clave.
-- **`cifras`**: cifras sueltas del texto. Cada una es `{"valor": 1234, "unidad": "eur"}` o un calculo sobre un grafico: `{"de": "grafico", "calculo": "suma", "serie": 0, "unidad": "eur"}`. Calculos: `suma`, `media`, `maximo`, `minimo`, `primero`, `ultimo`, `cuenta`, `variacion` (porcentaje entre el primero y el ultimo) y `porcentaje` (peso de `"elemento": "rotulo"` sobre el total). En el HTML se escriben con `<span data-cifra="principal"></span>`.
-- **`textos`**: solo si el documento no esta en espanol ni en ingles, para traducir los rotulos del motor (`datos`, `csv`, `fuente`, `fuentes`, `consulta`, `otros`, `hoy`, `total`, `concepto`, `valor`, `acumulado`, `porcentaje`, `inicio`, `fin`, `restantes`, `maximo`, `ok`, `aviso`, `riesgo`, `error`).
+- **`cifras`**: cifras sueltas del texto. Cada una es `{"valor": 1234, "unidad": "eur"}`, una operacion entre otras dos cifras (o numeros) —`{"operacion": "porcentaje", "a": "cobrado", "b": "facturado", "unidad": "pct"}`, con `suma`, `diferencia`, `producto`, `cociente` o `porcentaje` (a sobre b por cien)— o un calculo sobre un grafico: `{"de": "grafico", "calculo": "suma", "serie": 0, "unidad": "eur"}`. Calculos: `suma`, `media`, `maximo`, `minimo`, `primero`, `ultimo`, `cuenta`, `variacion` (porcentaje entre el primero y el ultimo) y `porcentaje` (peso de `"elemento": "rotulo"` sobre el total). En el HTML se escriben con `<span data-cifra="principal"></span>`; en las diapositivas, con `{cifra:principal}` dentro del texto. `"decimales": 0` quita los decimales (una cifra grande de portada); por defecto los importes llevan dos. **Toda cifra que se obtiene de otras (un porcentaje de cumplimiento, una diferencia con el objetivo, un total) se declara asi y nunca se calcula a mano.**
+- **`fuentes[].consulta`** es la fecha en que se obtuvieron los datos: la de la consulta en internet, la de exportacion que indique el usuario o, si no indica ninguna, la fecha de la conversacion.
+- **`textos`**: solo si el documento no esta en espanol ni en ingles, para traducir los rotulos que escribe el motor; las claves son las de `TEXTOS_BASE` en el script de la base (y las de `TX` en el modulo de diagramas).
 
 ### Campos comunes a todos los graficos
 
@@ -50,6 +51,8 @@ El motor de la base dibuja el SVG, calcula escalas, ejes y porcentajes, rellena 
 | `tabla` | `false` para no anadir la tabla de datos desplegable |
 
 Los valores que falten se escriben `null`: la linea se interrumpe y la columna no se pinta. Nunca se inventa un punto para cerrar una serie.
+
+**Valores calculados dentro de un grafico:** cualquier valor numerico de un grafico puede ser `"@clave"`, que el motor sustituye por la cifra `clave` de `cifras`. Asi una cascada de la propuesta a la liquidacion definitiva usa `"valor": "@baja_cuota"` con `baja_cuota` declarada como `{"operacion": "diferencia", "a": "cuota_definitiva", "b": "cuota_propuesta"}`, y ningun importe se escribe dos veces ni se resta a mano. Una cifra calculada sobre un grafico ignora los valores de ese grafico que sean referencias.
 
 ---
 
@@ -90,7 +93,7 @@ Mismo formato que `columnas`. Encima de cada columna aparece el total. Con `"cie
 ```
 
 - La primera serie lleva area degradada (`"area": false` la quita); las demas van con trazo discontinuo y sin area, para no taparse.
-- `umbral` dibuja una franja por debajo de las series (un limite legal, un pacto, un objetivo) y su rotulo entra en la leyenda.
+- `umbral` dibuja una franja por debajo de las series (un limite legal, un pacto, un objetivo) y su rotulo entra en la leyenda. Es verde por defecto (la zona correcta); `"color": "riesgo"` la marca como zona a evitar.
 - `anotaciones` marca con una linea vertical un hecho de contexto en el punto `indice` (base cero).
 - `destacar` escribe la cifra en `maximo`, `minimo`, `primero` o `ultimo`. Por serie: `series[].destacar`.
 - El eje empieza en cero y su tope es la cifra redonda inmediatamente superior. No admite negativos.
@@ -139,7 +142,7 @@ De dos a cuatro niveles por eje: mas niveles no dan precision, solo ruido. `fila
  "plazos": [{"rotulo": "Plazo del burofax", "inicio": "2026-09-17", "fin": "2026-09-27"}]}
 ```
 
-Fechas en `AAAA-MM-DD`. Todos los plazos comparten escala, que es lo unico que da sentido a la linea de hoy. El motor colorea: vencido en gris, en curso en `--aviso`, futuro con la serie. Cada barra lleva su fecha de vencimiento. La tabla de datos anade los dias que quedan.
+Fechas en `AAAA-MM-DD`. Una fase abierta, sin fin conocido, se declara sin `fin`: llega hasta hoy y se rotula «en curso». Una fecha prevista y no notificada lleva `"aproximada": true`: barra con borde discontinuo y «≈» delante de la fecha. Todos los plazos comparten escala, que es lo unico que da sentido a la linea de hoy. El motor colorea: vencido en gris, en curso en `--aviso`, futuro con la serie. Cada barra lleva su fecha de vencimiento. La tabla de datos anade los dias que quedan.
 
 ### `anillo` y `tarta` — peso de cada parte sobre el total
 
@@ -150,6 +153,34 @@ Fechas en `AAAA-MM-DD`. Todos los plazos comparten escala, que es lo unico que d
 ```
 
 Maximo seis porciones: a partir de ahi el motor agrupa las menores en «Otros». Los porcentajes de la leyenda los calcula el motor. El anillo pone el total en el centro (o `centro.cifra`); la tarta no tiene centro. Para tres o cuatro partes es preferible el anillo; para comparar partidas entre si, siempre `barras`.
+
+### `bala` — real frente a objetivo
+
+```json
+{"tipo": "bala", "unidad": "eur",
+ "elementos": [{"rotulo": "Facturacion", "valor": 82000, "objetivo": 100000, "tramos": [60000, 90000, 120000]}]}
+```
+
+Una fila por elemento: la barra fina es el valor, la marca vertical el objetivo y los tramos de fondo (opcionales) la valoracion cualitativa, de malo a bueno. La tabla de datos anade el porcentaje de cumplimiento. Mejor que varios medidores cuando hay varios objetivos que comparar.
+
+### `divergentes` — saldos con signo alrededor de cero
+
+```json
+{"tipo": "divergentes", "unidad": "eur", "nombres": {"positivo": "Cobros", "negativo": "Pagos"},
+ "elementos": [{"rotulo": "Enero", "valor": 12000}, {"rotulo": "Febrero", "valor": -8000}]}
+```
+
+Los positivos van a la derecha en `--ok` y los negativos a la izquierda en `--riesgo`; `colores` (`{"positivo": 1, "negativo": 2}`) los cambia cuando el signo no es bueno ni malo (a favor y en contra de una tesis). La escala es simetrica.
+
+### `diagrama` — cajas y flechas
+
+Procesos, flujos, organigramas, estructuras societarias, relaciones entre partes y quien hace que. Va en un modulo aparte: contrato de datos y codigo en `modulos-motor.md`.
+
+### Cifras con variacion
+
+Una cifra de `cifras` con `"signo": true` se muestra con su signo y una flecha (▲ +4,2 % o ▼ -4,2 %), en verde si es favorable y en rojo si no. Por defecto subir es bueno; `"mejor": "bajar"` lo invierte (morosidad, plazos, costes) y `"mejor": "neutro"` muestra el signo sin color (mas asuntos abiertos no es bueno ni malo). Variacion entre el primer y el ultimo valor de un grafico: `{"de": "evolucion", "calculo": "variacion", "unidad": "pct", "signo": true}`; diferencia en unidades: `"calculo": "diferencia"`.
+
+---
 
 ## Parte III. Componentes de contenido
 

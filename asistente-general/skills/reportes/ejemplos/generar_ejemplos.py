@@ -33,9 +33,10 @@ def _leer_maquetas():
     anchos = dict(re.findall(r"\(`(\w+)`\)\n\n\*\*Ancho:\*\* `(\w+)`", texto))
     return piezas, anchos
 PIEZAS, ANCHOS = _leer_maquetas()
+MODULOS = dict(re.findall(r"```js modulo=(\w+)\n(.*?)\n```", open(os.path.join(SKILL, "references", "modulos-motor.md"), encoding="utf-8").read(), re.S))
 BASE_HTML = open(BASE, encoding="utf-8").read()
 
-def componer(destino, textos, datos, maqueta=None, tema="moderno", ficha=None, contenido=None, ancho=None):
+def componer(destino, textos, datos, maqueta=None, tema="moderno", ficha=None, contenido=None, ancho=None, modulos=()):
     """Compone un ejemplo como lo hara el modelo: base, partes de la maqueta y datos."""
     parte = lambda nombre: PIEZAS.get((maqueta, nombre), "")
     html = BASE_HTML.replace('data-tema="moderno"', 'data-tema="%s"' % tema)
@@ -43,8 +44,11 @@ def componer(destino, textos, datos, maqueta=None, tema="moderno", ficha=None, c
     html = html.replace("{{FICHA}}", ficha or parte("ficha")).replace("{{CONTENIDO}}", contenido or parte("contenido"))
     html = html.replace("{{ESTILOS_MAQUETA}}", parte("estilos")).replace("{{ACCIONES}}", parte("acciones"))
     html = DATOS_VACIOS.sub(lambda m: m.group(1) + json.dumps(datos, ensure_ascii=False, indent=1) + m.group(2), html)
+    for modulo in modulos:  # los modulos van despues del motor y antes del script de la maqueta
+        html = html.replace("</body>", MODULOS[modulo] + "\n</body>")
     if parte("script"):
         html = html.replace("</body>", parte("script") + "\n</body>")
+    textos = dict({"TITULO_CORTO": textos.get("TITULO_DOCUMENTO", "")}, **textos)
     for clave, valor in textos.items():
         html = html.replace("{{%s}}" % clave, valor)
     pendientes = sorted(set(re.findall(r"\{\{(\w+)\}\}", html)) - {"LETRADO_RESPONSABLE", "clave"})
@@ -203,7 +207,62 @@ def herramienta():
     })
     return componer("simulador_intereses_demora.html", textos, datos, "herramienta_interactiva")
 
+def presentacion():
+    datos = {
+      "idioma": "es-ES", "moneda": "EUR", "fuentes": FUENTE_CLIENTE,
+      "cifras": {"total": {"de": "cuantia", "calculo": "suma", "unidad": "eur"}},
+      "graficos": {
+        "cuantia": {"tipo": "cascada", "unidad": "eur", "fuente": "cliente",
+                    "pasos": [{"rotulo": "Principal", "valor": PRINCIPAL}, {"rotulo": "Intereses", "valor": INTERESES}, {"rotulo": "Costas est.", "valor": COSTAS}],
+                    "total": {"rotulo": "Total"}, "resumen": "Principal, intereses y costas estimadas suman el total reclamable"},
+        "facturas": {"tipo": "barras", "unidad": "eur", "fuente": "cliente", "elementos": [{"rotulo": r, "valor": v} for r, v in FACTURAS],
+                     "resumen": "Tres facturas concentran la deuda"},
+        "flujo": dict(FLUJO_MONITORIO, fuente="cliente", resumen="Si no paga en el plazo del burofax, se presenta el monitorio"),
+      },
+      "diapositivas": [
+        {"maqueta": "portada", "antetitulo": "Expediente 2026/0417", "titulo": "Como recuperar los 42.180 euros de Construcciones Delta",
+         "subtitulo": "Situacion de la deuda, via recomendada y proximos pasos", "fecha": "24 de septiembre de 2026", "autor": "Departamento de procesal civil",
+         "notas": "Agradecer la reunion. Objetivo: decidir hoy si presentamos el monitorio."},
+        {"maqueta": "agenda", "titulo": "Que vamos a decidir hoy", "puntos": ["Cuanto se puede reclamar", "Que via es la mas rapida", "Que riesgos hay", "Que hacemos esta semana"]},
+        {"maqueta": "cifra", "dato": "total", "titulo": "Es la cuantia total que se puede reclamar hoy",
+         "texto": "Principal de siete facturas, intereses al tipo legal y una estimacion de costas.", "notas": "La cifra sale de la descomposicion de la siguiente diapositiva."},
+        {"maqueta": "grafico", "titulo": "El principal explica casi toda la cuantia", "grafico": "cuantia",
+         "conclusion": "Los intereses y las costas suman menos del 11 por ciento: el monitorio no pierde valor por no reclamarlos aparte."},
+        {"maqueta": "puntos", "titulo": "Tres facturas concentran la deuda", "grafico": "facturas",
+         "puntos": ["La 2025/118 es la mas antigua y la mayor", "El deudor reconocio la deuda por escrito", "No hay pagos desde julio"]},
+        {"maqueta": "separador", "numero": "02", "titulo": "La via recomendada", "texto": "Monitorio, con el burofax ya enviado"},
+        {"maqueta": "grafico", "titulo": "Si no paga en diez dias, presentamos el monitorio", "grafico": "flujo"},
+        {"maqueta": "comparativa", "titulo": "El monitorio es mas rapido y mas barato", "opciones": [
+          {"nombre": "Monitorio", "puntos": ["Sin abogado ni procurador al inicio", "2 a 4 meses si no hay oposicion"], "veredicto": "Recomendado", "estado": "ok"},
+          {"nombre": "Juicio ordinario", "puntos": ["Abogado y procurador", "12 a 18 meses"], "veredicto": "Solo si hay oposicion", "estado": "atencion"},
+          {"nombre": "Acuerdo", "puntos": ["Depende del deudor", "Sin garantia de cobro"], "veredicto": "Incierto", "estado": "riesgo"}]},
+        {"maqueta": "cronologia", "titulo": "Los hechos que sostienen la reclamacion", "hitos": [
+          {"fecha": "15 nov 2025", "titulo": "Vence la primera factura", "texto": "18.400 euros impagados"},
+          {"fecha": "4 may 2026", "titulo": "Reconocimiento de deuda", "texto": "Correo del administrador"},
+          {"fecha": "17 sep 2026", "titulo": "Burofax", "texto": "Diez dias para pagar"},
+          {"fecha": "27 sep 2026", "titulo": "Vence el plazo", "texto": "Sin pago, monitorio"}]},
+        {"maqueta": "cita", "cita": "Reconocemos el saldo pendiente y proponemos un calendario de pagos a partir de junio.",
+         "autor": "Correo del administrador de Construcciones Delta, 4 de mayo de 2026"},
+        {"maqueta": "proximos_pasos", "titulo": "Lo que hacemos esta semana", "pasos": [
+          {"texto": "Confirmar que no ha habido pago", "responsable": "Cliente", "fecha": "28/09/2026"},
+          {"texto": "Presentar la peticion de monitorio", "responsable": "Despacho", "fecha": "02/10/2026"},
+          {"texto": "Informar del requerimiento judicial", "responsable": "Despacho", "fecha": "Al notificarse"}]},
+        {"maqueta": "equipo", "titulo": "Quien lleva el asunto", "personas": [
+          {"nombre": "Departamento procesal", "cargo": "Direccion del asunto"}, {"nombre": "Area de cobros", "cargo": "Seguimiento y contacto con el cliente"}]},
+        {"maqueta": "cierre", "titulo": "Gracias", "texto": "Documento de trabajo para la reunion con el cliente.", "contacto": "Departamento de procesal civil"},
+      ]}
+    textos = dict(COMUN, **{"TITULO_DOCUMENTO": "Reclamacion a Construcciones Delta", "ETIQUETA_SUPERIOR": "Presentacion al cliente",
+                            "ENTRADILLA": "Presentacion para la reunion con el cliente."})
+    return componer("presentacion_reclamacion_cliente.html", textos, datos, "presentacion", modulos=["diagramas"])
+
 # --------------------------------------------------------------------------- galeria
+FLUJO_MONITORIO = {"tipo": "diagrama", "disposicion": "capas", "grupos": {"1": "Via judicial", "2": "Cierre", "3": "Hechos"},
+  "nodos": [{"id": "contrato", "texto": "Contrato de suministro", "forma": "inicio"}, {"id": "impago", "texto": "Impago de siete facturas", "grupo": 3},
+            {"id": "pago", "texto": "¿Paga en el plazo del requerimiento?", "forma": "decision"}, {"id": "fin", "texto": "Archivo del expediente", "forma": "inicio", "grupo": 2},
+            {"id": "monitorio", "texto": "Peticion de monitorio", "grupo": 1}],
+  "conexiones": [{"de": "contrato", "a": "impago"}, {"de": "impago", "a": "pago", "texto": "burofax"}, {"de": "pago", "a": "fin", "texto": "si"},
+                 {"de": "pago", "a": "monitorio", "texto": "no", "estilo": "destacada"}]}
+
 GALERIA = [
   ("barras", "Barras horizontales", "Comparar partidas. Ordenadas de mayor a menor.",
    {"tipo": "barras", "unidad": "eur", "elementos": [{"rotulo": r, "valor": v} for r, v in FACTURAS]}),
@@ -226,7 +285,7 @@ GALERIA = [
    {"tipo": "medidor", "valor": 68, "rotulo": "plazo de prescripcion consumido"}),
   ("cascada", "Cascada", "Como se llega a un total; los saldos negativos bajan.",
    {"tipo": "cascada", "unidad": "eur", "pasos": [{"rotulo": "Principal", "valor": 12000}, {"rotulo": "Intereses", "valor": 1450},
-                                                  {"rotulo": "Costas", "valor": 800}, {"rotulo": "Pagos", "valor": -2000}],
+                                                  {"rotulo": "Costas", "valor": 800}, {"rotulo": "Pagos", "valor": "@pagos"}],
     "total": {"rotulo": "A reclamar"}}),
   ("anillo", "Anillo", "Peso de cada parte sobre el total, con la cifra en el centro.",
    {"tipo": "anillo", "unidad": "eur", "porciones": [{"rotulo": "Principal", "valor": 12000}, {"rotulo": "Intereses", "valor": 1450},
@@ -240,10 +299,35 @@ GALERIA = [
     "elementos": [{"nombre": "Prescripcion de la accion", "fila": "Alta", "columna": "Alto"},
                   {"nombre": "Insolvencia del deudor", "fila": "Media", "columna": "Alto"},
                   {"nombre": "Prueba documental incompleta", "fila": "Media", "columna": "Medio"}]}),
+  ("bala", "Bala: real frente a objetivo", "Cumplimiento de un objetivo con tramos de valoracion de fondo.",
+   {"tipo": "bala", "unidad": "eur", "elementos": [{"rotulo": "Facturacion", "valor": 82000, "objetivo": 100000, "tramos": [60000, 90000, 120000]},
+                                                   {"rotulo": "Cobros", "valor": 61000, "objetivo": 80000, "tramos": [50000, 70000, 100000]}]}),
+  ("divergentes", "Barras divergentes", "Saldos con signo alrededor de cero: a favor y en contra.",
+   {"tipo": "divergentes", "unidad": "eur", "nombres": {"positivo": "Cobros", "negativo": "Pagos"},
+    "elementos": [{"rotulo": "Enero", "valor": 12000}, {"rotulo": "Febrero", "valor": -8000}, {"rotulo": "Marzo", "valor": 3000}, {"rotulo": "Abril", "valor": -15000}]}),
+  ("flujo", "Diagrama de flujo con conectores", "Modulo de diagramas, disposicion por capas.", FLUJO_MONITORIO),
+  ("sociedades", "Organigrama o estructura societaria", "Modulo de diagramas, disposicion en arbol.",
+   {"tipo": "diagrama", "disposicion": "arbol", "nodos": [{"id": "h", "texto": "Holding Delta, S.L."}, {"id": "a", "texto": "Construcciones Delta, S.L.", "grupo": 2},
+     {"id": "b", "texto": "Delta Inmuebles, S.L.", "grupo": 2}, {"id": "c", "texto": "Delta Servicios, S.A.", "grupo": 3},
+     {"id": "a1", "texto": "Obras Norte, S.L.", "grupo": 4}, {"id": "a2", "texto": "Obras Sur, S.L.", "grupo": 4}],
+    "conexiones": [{"de": "h", "a": "a", "texto": "100 %"}, {"de": "h", "a": "b", "texto": "80 %"}, {"de": "h", "a": "c", "texto": "51 %"},
+                   {"de": "a", "a": "a1", "texto": "100 %"}, {"de": "a", "a": "a2", "texto": "60 %"}]}),
+  ("partes", "Mapa de relaciones entre partes", "Modulo de diagramas, disposicion radial.",
+   {"tipo": "diagrama", "disposicion": "radial", "nodos": [{"id": "c", "texto": "Cliente: Suministros Ibericos"}, {"id": "d", "texto": "Deudor: Construcciones Delta", "grupo": "riesgo"},
+     {"id": "av", "texto": "Avalista", "grupo": 3}, {"id": "ban", "texto": "Banco pagador", "grupo": 4}, {"id": "as", "texto": "Aseguradora de credito", "grupo": 2}],
+    "conexiones": [{"de": "c", "a": "d", "texto": "reclama"}, {"de": "c", "a": "av", "texto": "aval"}, {"de": "c", "a": "ban"}, {"de": "c", "a": "as", "texto": "poliza", "estilo": "discontinua"}]}),
+  ("carriles", "Quien hace que", "Modulo de diagramas, disposicion por carriles.",
+   {"tipo": "diagrama", "disposicion": "carriles", "carriles": ["Cliente", "Despacho", "Juzgado"],
+    "nodos": [{"id": "1", "texto": "Entrega facturas", "carril": "Cliente"}, {"id": "2", "texto": "Redacta y envia burofax", "carril": "Despacho"},
+              {"id": "3", "texto": "Presenta monitorio", "carril": "Despacho"}, {"id": "4", "texto": "Requiere de pago al deudor", "carril": "Juzgado"},
+              {"id": "5", "texto": "Decreto de fin", "carril": "Juzgado"}, {"id": "6", "texto": "Informa al cliente", "carril": "Despacho"}],
+    "conexiones": [{"de": "1", "a": "2"}, {"de": "2", "a": "3", "texto": "10 dias"}, {"de": "3", "a": "4"}, {"de": "4", "a": "5", "texto": "20 dias"}, {"de": "5", "a": "6"}]}),
   ("plazos", "Diagrama de plazos", "Varios plazos en una escala comun, con la marca de hoy.",
    {"tipo": "plazos", "hoy": "2026-09-20", "plazos": [{"rotulo": "Recurso de reposicion", "inicio": "2026-08-01", "fin": "2026-08-20"},
      {"rotulo": "Requerimiento", "inicio": "2026-09-01", "fin": "2026-09-27"},
-     {"rotulo": "Contestacion a la demanda", "inicio": "2026-10-01", "fin": "2026-11-13"}]}),
+     {"rotulo": "Contestacion a la demanda", "inicio": "2026-10-01", "fin": "2026-11-13"},
+     {"rotulo": "Negociacion con la contraria", "inicio": "2026-09-10"},
+     {"rotulo": "Vista prevista", "inicio": "2026-12-01", "fin": "2026-12-15", "aproximada": True}]}),
 ]
 
 def galeria():
@@ -251,11 +335,12 @@ def galeria():
     for clave, titulo, uso, g in GALERIA:
         g = dict(g, fuente="ejemplo", resumen=titulo + ": " + uso)
         graficos[clave] = g
-        ancho = " ancho-total" if clave in ("linea", "plazos") else ""
+        ancho = " ancho-total" if clave in ("linea", "plazos", "flujo", "sociedades", "partes", "carriles", "bala", "divergentes") else ""
         tarjetas.append('<section class="tarjeta%s">\n      <h2>%s</h2>\n      <p class="subtitulo">%s <code>"tipo": "%s"</code></p>\n'
                         '      <figure class="grafico" data-grafico="%s"></figure>\n    </section>' % (ancho, titulo, uso, g["tipo"], clave))
     graficos["tendencia"] = {"tipo": "chispa", "valores": [10, 12, 18, 22, 30, 34], "etiquetas": ["Abril", "Septiembre"], "fuente": "ejemplo"}
-    datos = {"idioma": "es-ES", "moneda": "EUR", "cifras": {"total": {"de": "cascada", "calculo": "suma", "unidad": "eur"}},
+    datos = {"idioma": "es-ES", "moneda": "EUR", "cifras": {"total": {"de": "cascada", "calculo": "suma", "unidad": "eur"},
+                                                           "pagado": {"valor": 2000}, "pagos": {"operacion": "producto", "a": "pagado", "b": -1}},
              "fuentes": {"ejemplo": {"nombre": "Datos ficticios de demostracion", "consulta": "2026-10-11"}}, "graficos": graficos}
     contenido = ('<div class="indicadores">\n    <div class="indicador">\n      <p class="rotulo">Indicador con minigrafico</p>\n'
                  '      <p class="cifra" data-cifra="total"></p>\n      <p class="detalle">La cifra sale del grafico de cascada</p>\n'
@@ -267,7 +352,7 @@ def galeria():
       "ENTRADILLA": "Cada grafico se declara con sus datos en el bloque datos-reporte y lo dibuja el motor de la base. Bajo cada uno estan su tabla de datos, la descarga en CSV y su fuente.",
     })
     return componer("galeria_graficos.html", textos, datos, ficha='<li><b>Tipos:</b> %d</li>' % len(GALERIA),
-                    contenido=contenido, ancho="1120px")
+                    contenido=contenido, ancho="1120px", modulos=["diagramas"])
 
 # --------------------------------------------------------------------------- comprobacion e impresion
 def comprobar_y_imprimir(archivos, pdf):
@@ -302,7 +387,7 @@ def comprobar_y_imprimir(archivos, pdf):
 # --------------------------------------------------------------------------- principal
 if __name__ == "__main__":
     print("Generando reportes de ejemplo:")
-    hechos = [panel(), informe(), herramienta(), galeria()]
+    hechos = [panel(), informe(), herramienta(), presentacion(), galeria()]
     limpio = comprobar_y_imprimir([d for d, _ in hechos], "--sin-pdf" not in sys.argv)
     if not all(ok for _, ok in hechos) or not limpio:
         print("\nFALLO: hay marcadores sin resolver o errores en la consola del navegador.")

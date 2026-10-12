@@ -35,7 +35,7 @@ La base ya trae el sistema de tokens (colores, espaciado, radios y sombras en `:
 - **Cabeceras y pies repetidos en cada pagina: no.** Un elemento `position:fixed` parece la solucion, pero Chrome lo coloca una sola vez y fuera de sitio. La identificacion por pagina se deja al dialogo de impresion del navegador.
 - Un boton visible invoca `window.print()` (ya en la base). El nombre del PDF que propone el navegador sale del `<title>`, asi que ese titulo es tambien el nombre del archivo.
 
-## 6. JavaScript permitido y prohibido
+## 4. JavaScript permitido y prohibido
 
 - Permitido: JavaScript nativo, envuelto en una funcion autoejecutada con `"use strict"`, que lee campos del formulario, calcula y actualiza el DOM.
 - **Prohibido**: `alert()`, `confirm()` y `prompt()` (bloquean la ventana), `eval()`, `new Function()`, `document.write()`, temporizadores infinitos y cualquier llamada de red.
@@ -43,7 +43,7 @@ La base ya trae el sistema de tokens (colores, espaciado, radios y sombras en `:
 - El almacenamiento del navegador (`localStorage`, `sessionStorage`) falla o lanza excepcion bajo `file://` en varios navegadores. No se usa; si excepcionalmente se usara, siempre dentro de `try/catch` y con la pagina funcionando igual sin el.
 - Los textos, indicadores escritos como texto y tablas van en el HTML y se leen aunque el JavaScript este desactivado. Los graficos y las cifras con `data-cifra` necesitan el motor: el aviso `noscript` de la base lo indica. Ningun dato debe existir solo dentro de un grafico: lo que importa se dice tambien en el texto o en una tabla.
 
-## 7. Accesibilidad
+## 5. Accesibilidad
 
 - Estructura semantica: `main`, `header`, `section`, `footer`, jerarquia de encabezados sin saltos (`h1` unico, luego `h2`, `h3`).
 - Todo grafico SVG lleva `role="img"` y un `aria-label` que resume el dato, o un `<title>` dentro del SVG. Un grafico sin texto alternativo es un grafico invisible.
@@ -52,24 +52,24 @@ La base ya trae el sistema de tokens (colores, espaciado, radios y sombras en `:
 - Estados de foco visibles: `:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }`.
 - Todo `input` y `select` tiene su `<label for="...">`.
 
-## 8. Nomenclatura y ubicacion
+## 6. Nomenclatura y ubicacion
 
 - Nombre de archivo descriptivo en `snake_case.html` (ej. `panel_reclamacion_cantidad.html`, `simulador_indemnizacion_despido.html`).
 - Se crea en la raiz del espacio de trabajo de la conversacion, igual que cualquier otro documento.
 - El idioma del nombre del archivo sigue al de la plantilla; el contenido visible sigue al idioma del usuario.
 
-## 8 bis. Edicion posterior
+## 7. Edicion posterior
 
 El documento visual se edita **siempre desde el chat**, pidiendo el cambio al asistente, que lo aplica sobre el archivo. Nunca se edita a mano en el editor de texto de la plataforma: ese editor trabaja en markdown y al guardar reescribiria la pagina, perdiendo estilos, graficos y comportamiento.
 
-## 9. Datos y marcadores
+## 8. Datos y marcadores
 
 - Ningun dato inventado. Cifras, fechas, importes y referencias proceden de lo aportado por el usuario, de un documento de su espacio de trabajo o de una fuente verificada en la sesion.
 - Los datos que falten permanecen como `{{VARIABLE}}` visible en la pagina, nunca como un cero o un guion que simule un valor real.
 - Todo documento visual lleva su aviso DRAFT visible en la parte superior y el pie con fuentes y advertencia legal.
 
-## 10. Tamano
+## 9. Tamano
 
-El archivo completo no deberia superar unos **120 KB**; la base con el motor ocupa unos 50. Los documentos abiertos del espacio de trabajo se incorporan enteros al contexto de la conversacion y compiten por un presupuesto comun: un documento visual desmesurado desplaza a los documentos de trabajo del usuario. Si el volumen de datos es mayor, se resume la serie, se agrupa por tramos o se reparte en dos documentos visuales: un panel con lo esencial y un documento con el detalle.
+El archivo completo no deberia superar unos **120 KB**; la base con el motor ocupa unos 57. Los documentos abiertos del espacio de trabajo se incorporan enteros al contexto de la conversacion y compiten por un presupuesto comun: un documento visual desmesurado desplaza a los documentos de trabajo del usuario. Si el volumen de datos es mayor, se resume la serie, se agrupa por tramos o se reparte en dos documentos visuales: un panel con lo esencial y un documento con el detalle.
 
-Los reportes de ejemplo pesan entre 58 y 62 KB con todos sus graficos, que es el orden de magnitud esperable.
+Los reportes de ejemplo pesan entre 55 y 90 KB (la presentacion con el modulo de diagramas es la mayor), que es el orden de magnitud esperable.

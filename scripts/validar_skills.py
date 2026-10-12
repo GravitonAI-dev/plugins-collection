@@ -301,6 +301,8 @@ for _c in sorted(glob.glob('*/CLAUDE.md')):
 # ---------------------------------------------------------------- bloque datos-reporte de los reportes HTML
 # Los tipos validos se leen del propio motor (tipos.X = ...), asi no hay que mantener dos listas.
 _TIPOS_MOTOR=set()
+# Tipos de los modulos opcionales (referencias), que un reporte puede copiar.
+for _r in glob.glob('*/skills/*/references/*.md'): _TIPOS_MOTOR|=set(re.findall(r'\btipos\.(\w+) = function',open(_r,encoding='utf-8').read()))
 _DATOS=re.compile(r'<script type="application/json" id="datos-reporte">(.*?)</script>',re.S)
 for _h in sorted(glob.glob('*/skills/*/ejemplos/*.html')+glob.glob('*/skills/*/assets/*.md')):
     _t=open(_h,encoding='utf-8').read(); _m=_DATOS.search(_t)
@@ -313,7 +315,7 @@ for _h in sorted(glob.glob('*/skills/*/ejemplos/*.html')+glob.glob('*/skills/*/a
     for _k,_f in _fu.items():
         if not (_f.get('nombre') and re.fullmatch(r'\d{4}-\d{2}-\d{2}',str(_f.get('consulta','')))):
             print(f"  FALLO fuente sin nombre o sin fecha de consulta AAAA-MM-DD: {_h} {_k}"); FALLOS+=1
-    _usados=set(re.findall(r'data-grafico="([\w-]+)"',_t))
+    _usados=set(re.findall(r'data-grafico="([\w-]+)"',_t))|{_x.get('grafico') for _x in _d.get('diapositivas') or [] if _x.get('grafico')}
     for _id,_g in (_d.get('graficos') or {}).items():
         if _g.get('tipo') not in _tipos: print(f"  FALLO tipo de grafico desconocido: {_h} {_id} {_g.get('tipo')}"); FALLOS+=1
         _cl=[_g.get('fuente')]+[s.get('fuente') for s in _g.get('series') or []]
