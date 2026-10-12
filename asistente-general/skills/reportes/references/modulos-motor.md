@@ -1,8 +1,8 @@
 # Modulos opcionales del motor
 
-Algunos tipos de grafico pesan demasiado para ir en todos los reportes. Viven aqui como **modulos**: un `<script>` que se copia integro, sin modificarlo, **justo despues del script del motor** (antes de `</body>` y antes del script de la maqueta, si la maqueta tiene uno) y solo en los reportes que usan ese tipo. El modulo registra su tipo en el motor y, a partir de ahi, se declara en `datos-reporte` como cualquier otro grafico.
+Algunos tipos de grafico pesan demasiado para ir en todos los artefactos. Viven aqui como **modulos**: un `<script>` que se copia integro, sin modificarlo, **justo despues del script del motor** (antes de `</body>` y antes del script de la maqueta, si la maqueta tiene uno) y solo en los artefactos que usan ese tipo. El modulo registra su tipo en el motor y, a partir de ahi, se declara en `datos-reporte` como cualquier otro grafico.
 
-Si un reporte declara un tipo de modulo pero no copia el modulo, el grafico muestra el recuadro rojo «tipo desconocido».
+Si un artefacto declara un tipo de modulo pero no copia el modulo, el grafico muestra el recuadro rojo «tipo desconocido».
 
 ---
 
@@ -44,14 +44,14 @@ Reglas:
 - **Solo los pasos que ha descrito el usuario o que constan en el expediente.** Si el flujo queda incompleto (falta que pasa cuando si paga, por ejemplo), se pregunta en el chat; no se completa con pasos supuestos.
 - **Colores de grupo:** la serie `1` a `6` para distinguir fases o actores; `ok`, `aviso` y `riesgo` solo cuando el nodo es un resultado bueno, dudoso o malo (cobro, archivo, sancion).
 - **Maximo 24 nodos.** Un diagrama mayor no se lee: se divide en dos o se resume.
-- Texto de cada caja corto, en una o dos lineas. Los detalles van en el texto del reporte, no dentro de la caja.
+- Texto de cada caja corto, en una o dos lineas. Los detalles van en el texto del artefacto, no dentro de la caja.
 - Una conexion que vuelve atras (un ciclo) se dibuja por fuera, curvada. Si hay muchas, el proceso esta mal descrito o necesita otra forma.
 - El diagrama va en una tarjeta `ancho-total` si tiene mas de tres pasos en horizontal. En una diapositiva caben a lo ancho hasta cinco pasos; con mas, el modulo lo pasa a vertical o conviene dividirlo en dos diapositivas.
 
 ```js modulo=diagramas
 <script>
-/* Modulo de diagramas con conectores para el motor de reportes. Se copia integro,
-   despues del motor, solo en los reportes con algun grafico de tipo diagrama. */
+/* Modulo de diagramas con conectores para el motor de artefactos. Se copia integro,
+   despues del motor, solo en los artefactos con algun grafico de tipo diagrama. */
 (function(){
 "use strict";
 var R = Reportes, svg = R.svg, r1 = R.r1, CAR = 6.7, LINEA = 15;
@@ -273,7 +273,7 @@ R.tipos.diagrama.fijo = true;  /* su tamano sale de su contenido: no se recalcul
 
 ## Graficos avanzados (`dispersion`, `histograma`, `radar`, `embudo`, `treemap`, `pendiente`, `halteras`, `piramide`, `calendario`, `pictograma`)
 
-Formas menos frecuentes que las del motor de la base. Un solo modulo para todas: se copia si el reporte usa cualquiera de ellas.
+Formas menos frecuentes que las del motor de la base. Un solo modulo para todas: se copia si el artefacto usa cualquiera de ellas.
 
 | Tipo | Pregunta que responde | Datos |
 | :--- | :--- | :--- |
@@ -292,8 +292,8 @@ Reglas: los valores se dan en bruto y el modulo calcula escalas, tramos y porcen
 
 ```js modulo=avanzados
 <script>
-/* Modulo de graficos avanzados para el motor de reportes. Se copia integro, despues
-   del motor, solo en los reportes que usan alguno de estos tipos. */
+/* Modulo de graficos avanzados para el motor de artefactos. Se copia integro, despues
+   del motor, solo en los artefactos que usan alguno de estos tipos. */
 (function(){
 "use strict";
 var R = Reportes, svg = R.svg, r1 = R.r1, fmt = R.fmt, color = R.color, consejo = R.consejo, num = R.num, max = R.maximo, min = R.minimo, techo = R.techo;
@@ -544,8 +544,8 @@ Uso con mesura: un icono acompana a un texto, nunca lo sustituye (el texto sigue
 
 ```js modulo=iconos
 <script>
-/* Iconos de trazo para los reportes. Se copia integro, despues del motor, solo si el
-   reporte usa algun icono. */
+/* Iconos de trazo para los artefactos. Se copia integro, despues del motor, solo si el
+   artefacto usa algun icono. */
 (function(){
 "use strict";
 var TRAZOS = {
@@ -598,8 +598,8 @@ Un QR que lleva a la fuente, al expediente o a la version consolidada de una nor
 
 ```js modulo=qr
 <script>
-/* Codigo QR para los reportes (modo byte, correccion M, versiones 1 a 10: hasta unos 210
-   caracteres). Se copia integro, despues del motor, solo si el reporte lleva un QR. */
+/* Codigo QR para los artefactos (modo byte, correccion M, versiones 1 a 10: hasta unos 210
+   caracteres). Se copia integro, despues del motor, solo si el artefacto lleva un QR. */
 (function(){
 "use strict";
 var R = Reportes;
@@ -745,7 +745,7 @@ Aplica los colores, el logo y el pie del despacho a partir del bloque `marca` de
 
 ```js modulo=marca
 <script>
-/* Identidad del despacho para los reportes. Se copia integro, despues del motor, solo si
+/* Identidad del despacho para los artefactos. Se copia integro, despues del motor, solo si
    los datos llevan el bloque marca. */
 (function(){
 "use strict";
@@ -789,7 +789,7 @@ Se excluyen sabados y domingos. `festivos` es la lista de **todos los demas dias
 
 ```js modulo=plazos
 <script>
-/* Plazos en dias habiles para los reportes. Se copia integro, despues del motor, solo si
+/* Plazos en dias habiles para los artefactos. Se copia integro, despues del motor, solo si
    alguna cifra usa dias_habiles o vencimiento. */
 (function(){
 "use strict";
@@ -808,5 +808,101 @@ R.calculos.vencimiento = function (def) {
   return t;
 };
 })();
+</script>
+```
+
+
+---
+
+## Mapa de Espana (`mapa`, con `mapa_ccaa` o `mapa_provincias`)
+
+Mapa de coropletas: cada comunidad autonoma o provincia se pinta con mas o menos intensidad segun su valor, en cinco tramos iguales desde cero con cifras redondas, con leyenda, recuadro de Canarias y Ceuta y Melilla como puntos. Las zonas sin dato salen rayadas. Contornos simplificados de Natural Earth (dominio publico).
+
+Se copian **dos** piezas: el modulo `mapa` (el codigo) y el bloque de contornos del nivel que se use: `mapa_ccaa` (unos 6 KB) o `mapa_provincias` (unos 11 KB).
+
+```json
+{"tipo": "mapa", "nivel": "ccaa", "unidad": "asuntos", "fuente": "cgpj",
+ "valores": {"Andalucia": 412, "Madrid": 520, "ES-CT": 388}, "destacar": ["Madrid"]}
+```
+
+- `valores`: por codigo ISO 3166-2 (siempre seguro: `ES-AN`, `ES-MD`, `ES-Z`...) o por nombre, con o sin tildes. Se aceptan el nombre oficial y los habituales: «Madrid» o «Comunidad de Madrid», «Murcia», «Comunidad Valenciana», «Baleares», «Asturias», «Navarra»; en provincias, «Vizcaya» o «Bizkaia», «Gerona» o «Girona», «La Coruna», «Alicante» o «Alacant»... Un nombre que no existe da error, no se ignora. Un valor `null` deja la zona sin dato.
+- `tasa`: en lugar de `valores`, `{"numerador": {...}, "denominador": {...}, "por": 1000}` calcula cada zona como numerador / denominador x por (reclamaciones por 1.000 polizas, asuntos por 100.000 habitantes). Para comparar zonas de tamano muy distinto se usan tasas, no totales. La unidad de una tasa se dice en el subtitulo y en `nombre_valor` («por 1.000 polizas»), con `"unidad": "num"`.
+- `nivel`: `ccaa` (por defecto) o `provincias`. `destacar`: zonas con el borde marcado, por codigo o nombre.
+- Solo valores no negativos. Cualquier valor puede ser `"@clave"` de `cifras`. La tabla de datos lista las zonas de mayor a menor.
+
+```js modulo=mapa
+<script>
+/* Mapa de Espana para el motor de artefactos. Natural Earth, dominio publico. */
+(function(){
+"use strict";
+var R = Reportes, svg = R.svg, fmt = R.fmt, num = R.num, SIN = R.T.sin_dato || (/^en/.test(R.IDIOMA) ? "no data" : "sin dato");
+var PUNTOS = {"ES-CE": ["Ceuta", 146, 368], "ES-ML": ["Melilla", 231, 396]}, RECUADRO = [303, 314, 183, 92];
+/* Otros nombres habituales de cada zona (sin tildes ni mayusculas). */
+var ALIAS = {
+  ccaa: {madrid: "ES-MD", murcia: "ES-MC", comunidadvalenciana: "ES-VC", valenciana: "ES-VC", islasbaleares: "ES-IB", baleares: "ES-IB",
+    principadodeasturias: "ES-AS", comunidadforaldenavarra: "ES-NC", catalunya: "ES-CT", euskadi: "ES-PV", islascanarias: "ES-CN", rioja: "ES-RI"},
+  provincias: {alava: "ES-VI", araba: "ES-VI", vizcaya: "ES-BI", bizkaia: "ES-BI", guipuzcoa: "ES-SS", gipuzkoa: "ES-SS", gerona: "ES-GI", lerida: "ES-L",
+    lacoruna: "ES-C", coruna: "ES-C", orense: "ES-OR", baleares: "ES-PM", islasbaleares: "ES-PM", alacant: "ES-A", castello: "ES-CS", rioja: "ES-LO",
+    tenerife: "ES-TF", navarra: "ES-NA", nafarroa: "ES-NA"}
+};
+function normal(s) { return String(s).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]/g, ""); }
+R.mapas = {};
+R.tipos.mapa = function (fig, g, id) {
+  var nivel = g.nivel || "ccaa", zonas = R.mapas[nivel];
+  if (!zonas) throw new Error("falta el bloque de contornos mapa_" + nivel);
+  var todas = Object.assign({}, zonas, PUNTOS), indice = Object.assign({}, ALIAS[nivel]);
+  Object.keys(todas).forEach(function (c) { indice[normal(todas[c][0])] = c; indice[normal(c)] = c; });
+  var zona = function (k) { var c = indice[normal(k)]; if (!c) throw new Error("no hay ninguna zona llamada " + k); return c; };
+  /* "tasa" calcula cada valor como numerador / denominador x por (reclamaciones por 1.000 polizas...). */
+  var origen = g.valores || {}, t = g.tasa;
+  if (t) {
+    origen = {};
+    Object.keys(t.numerador || {}).forEach(function (k) {
+      var d = (t.denominador || {})[k];
+      if (!num(d) || !d) throw new Error("falta el denominador de " + k);
+      origen[k] = t.numerador[k] / d * (t.por || 1);
+    });
+  }
+  var valores = {}, marcadas = (g.destacar || []).map(zona);
+  Object.keys(origen).forEach(function (k) { valores[zona(k)] = origen[k]; });
+  var lista = Object.keys(valores).map(function (c) { return valores[c]; }).filter(num);
+  if (!lista.length) throw new Error("faltan valores");
+  if (R.minimo(lista) < 0) throw new Error("el mapa no admite valores negativos");
+  /* Cinco tramos iguales desde cero, con un tope cuyos quintos son cifras redondas. */
+  var m = Math.pow(10, Math.floor(Math.log10(R.maximo(lista) || 1))), tope = m * [1, 2, 2.5, 3, 4, 5, 10].filter(function (p) { return p * m >= R.maximo(lista); })[0];
+  var opac = [0.22, 0.4, 0.58, 0.76, 0.94], tramo = function (v) { return Math.min(4, Math.floor(v / tope * 5)); };
+  var c0 = R.color(g.color || "acento", 0), s = R.lienzo(fig, 500, 420, g.resumen);
+  s.style.maxWidth = "560px";
+  /* Sin dato: rayado, para que no se confunda con el tramo mas bajo. */
+  var raya = svg("pattern", {id: "sin-dato-" + id, width: 6, height: 6, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)"}, svg("defs", {}, s));
+  svg("rect", {width: 6, height: 6, fill: "var(--superficie-2)"}, raya); svg("line", {x1: 0, y1: 0, x2: 0, y2: 6, stroke: "var(--borde)", "stroke-width": 2}, raya);
+  svg("rect", {x: RECUADRO[0], y: RECUADRO[1], width: RECUADRO[2], height: RECUADRO[3], rx: 4, fill: "none", stroke: "var(--borde)", "stroke-dasharray": "3 3"}, s);
+  Object.keys(todas).forEach(function (c) {
+    var v = valores[c], marca = marcadas.indexOf(c) > -1, at = num(v) ? {fill: c0, "fill-opacity": opac[tramo(v)]} : {fill: "url(#sin-dato-" + id + ")"};
+    Object.assign(at, {stroke: marca ? "var(--texto)" : PUNTOS[c] ? "var(--borde)" : "var(--superficie)", "stroke-width": marca ? 2 : 0.8});
+    var forma = PUNTOS[c] ? svg("circle", Object.assign({cx: PUNTOS[c][1], cy: PUNTOS[c][2], r: 5}, at), s) : svg("path", Object.assign({d: todas[c][1]}, at), s);
+    R.consejo(forma, todas[c][0] + ": " + (num(v) ? fmt(v, g.unidad) : SIN));
+  });
+  /* La unidad solo al final de cada tramo («0\u2013120 asuntos»), salvo moneda y porcentaje, que la llevan en cada cifra. */
+  var simbolo = /^(eur|moneda|pct)$/.test(g.unidad || ""), ini = function (v) { return fmt(v, simbolo ? g.unidad : "num", true); };
+  R.leyenda(fig, opac.map(function (o, i) { return {color: c0, opacidad: o, texto: ini(tope * i / 5) + "\u2013" + fmt(tope * (i + 1) / 5, g.unidad, true)}; })
+    .concat(lista.length < Object.keys(todas).length ? [{color: "repeating-linear-gradient(45deg,var(--superficie-2) 0 3px,var(--borde) 3px 5px)", texto: SIN}] : []));
+  return {cabecera: [R.T.concepto, g.nombre_valor || R.T.valor], unidad: g.unidad,
+    filas: Object.keys(valores).filter(function (c) { return num(valores[c]); }).sort(function (a, b) { return valores[b] - valores[a]; }).map(function (c) { return [todas[c][0], valores[c]]; })};
+};
+R.tipos.mapa.fijo = true;
+})();
+</script>
+```
+
+```js modulo=mapa_ccaa
+<script>
+Reportes.mapas.ccaa = {"ES-NC":["Navarra","M273 28l-3 3h-2l-1 4-3 3-1 4-7 2-2 9-1 1 1 3-2 1-2-1-3 3h3v5l12 2v2h3l4 6 6 2v4h-4l-3 3v2l12 5 5 1 3-6-2-4-1-5 5-14 2-1 2-4h4l1-3 4-2 3-7 3-1-2-1h-5l-12-5-1-3-2 4h-3l-2-2 3-3v-5l-5-2-2 2-2-2zM295 66v1h2l-1-2z"],"ES-PV":["Pais Vasco","M248 25l-7-3-1 2-2-3h-6l-4 3 1 3-3-2h-2l-1 2-5 1-5 3 1 4 6-3 4 1-1 7 3 1 2-2 1 2-1 1 2 2-2 2-7-2-2 3 2 2 4-2-1 5h4l7 5v4l3-2 2 4 4 2 3-2 3 2v-5l-2 1-1-2 3-2 2 1 2-1-1-3 1-1 2-9 7-2 1-4 3-3 1-4h2l3-3-2-5-4 3v1l-1-1-6 2z"],"ES-AR":["Aragon","M347 113v-2l3-3v-2l-3-1-1-3 10-9-1-3 3-3 2-5 1-10-2-7 3-5-4-5-9 1-2-2-3 3-3-3-8 2-2-2-2-3h-3l-3-2-3 2-4-1-1 2-6-5v-2l-3 1-2 6-5 3-1 3h-4l-2 4-2 1-5 14 1 5 3 3-3 5-1 2-5-1-11-4 2 7-1 3 2 4-1 2-6 3 1 8-3 2v-2l-2-1-3 4 1 8 3 1h4l5 3 7 7v4l2 2v10l-1 1-3-1-1 5-4 4 3 3v2h2l4 4h4v3h4l1-3 2 4 6 2-3 3v2h8l2 5 3-1-2-2 1-3 2-2 5-2 2-7 5-1 5-6-2-3 2-1-1-6-2-1-1-2 6-2 1-3 8 3 5-1 3-4v-3l1-5-3-5 5-6 1-5-2-3z"],"ES-CT":["Cataluna","M433 103l5-2 8-6 3-5-1-6-3-3v-4l1-2 4 1 2-3-5-2v-3l-9-2-8 3-2 1 1 2-4-1-2 1-8-4h-5l-3 3h-2l-2-4-8-3-7 4-2-1-2-2 2-1-2-1 1-3-3-5h-7l-2-3-15-3-1 4 3 6 2 1-3 5 2 4v6l-3 12-3 3 1 3-10 9 1 3 3 1v2l-3 3-1 4 2 3-1 5-5 5 3 6-1 5v3l-3 4 4 2v2l8 5 2-3 6-2-3 3h-2v1l3-1 7-6-4-3-3-1 11-11 3-2 3 1 2-2 11-4 18-4 4-3 5-6z"],"ES-EX":["Extremadura","M160 207l-8-9 2-5-1-4-5 2v-5l-3-1 1-10 1-1-1-6-6 2-6-4h-3l-1-2-4 2-6-3 1-2-6-4-10 6-2 4-8 1-2-1-3 1-3 3 1 3 2 1 2 4-1 7-3 2-1 5-19 1 2 4 7 6v6l2 3v3l3 2 1 3h5l1 4-3 5v2l-7 5v6l-4 8 9 12 6-1 5 1v3l7 1 1 3 3 1 2-2 3 2 6 3 8-3 1-5 3-3h4v4l5-2 2-4-1-9 7-7 2-1 4-3 1-2 6-2 2-6h3v-2l-3-2-1-4h4l-1-2 2-5 6 1-4-6 3-4-1-2-6 4z"],"ES-AN":["Andalucia","M181 254l-13-9-4-2-1-3-6-2-4 1-1 2-4 3-2 1-7 7 1 8v4l-6 3-1-4h-4l-3 3-1 5-8 3-6-3-3-2-2 2-3-1-1-3-7-1v-3l-5-1-3 8h-3l-2 2h-4l-1 6-5 6-2 6 3 19 12-1h-1l1-1 6 2-2-2 4-3-2 4 1 2 14 9 4 7h1v-4l5-1-5 2v4l-3 2 1 5 4 1 2 5h2l-2 2-1-2-2-1 6 10 4 6h4l5 4 3 1 3 3 6-2 1-6 3 2 1-6 4-7 10-4h9l2-3h2l5-7 6 1 13-2 4 1 5-1 6 2 3-2h14l7 3 3-1 3-5 3-1h6l5 5 4-2 2-5 4-3 3-12 6-8-3-3h-4l-6-10 1-9-7-2-6-6-7-2 4-5v-4l-2-2v-4l-3-1v-4l-6-1-5 3h-3l-1 2-2-3-3 2-6-2-5 4-3-2-2 2-6-1-4 2-12-1h-2v2z"],"ES-GA":["Galicia","M64 6v-1l-5 4h-1v2h-2l2-2-2-3-5 3v3l-1-1-5 4h-3l1 2-2 3 6-1-5 2 5 1-2 5-2-3-2-1-1 2-1-1-6 3-5 1-4-2-6 2 2 3-3-1-1 2h-3l-3 2 4 1-4 1-2 3 1 2-1 5 3-2 2 1 1 8 8-4-1 2-4 4-2 5 2 2 4-3h1l1-3 2 2 2-2-3 5v5l-2-1-2 1 3 3 7-2-4 5h-2l-2 4 7-2 2-3v3l-8 6 1 1-3 1 1 10 9-7 14-5 1 4h2l2 2-5 6 2 4h4l5-5 1 3 6-2 4 1v2l3-1h2v2l8-3 1-4 1-1 4 2 3-1v-3l-2-2 10-10v-3l-3-2v-4l-3-1h-5l2-6-1-3 6-5 1-5-1-3-4-1 5-6-1-2-3 2-1-3-3-2-2-6-2-1v-1l4-3 1-3h-8l-4-6-6-2-3 2v-3l-2 1z"],"ES-CL":["Castilla y Leon","M168 39l-3-3-1-3-2-3-6 3-2 3-9 1v2l-5 1-6-1-3 4-5-2-2-2-3-1-2 2h-3l-1 1-5-2-4 3 2 1-2 2h-7l-3 1-2-1-1 5-6 5 1 3-2 6h5l3 1v4l3 3-2 5-3 1-5 6 2 2v3l4 1 1-2 4 3 5-2v4h2l-2 6 1 4h6l6 4-4 7-6 6-5 1-6 10h-4l-1 2 5 7v10l-2 3 2 3-2 3 2 4-2 4 1 1 9-1 2-4 10-6 6 4-1 2 6 3 5-2v2h3l6 4 6-2 1 6 6 1 5-3 2 2 6-7h3l1 3h4l1-6 2 1 2-4 3-1 2-9 1 1 3-1 3-7 3-1 3-8 4-1 6-7 8-3-1-3h6l2-1h8l3-1 2 2h4l4 2 1 4 2-1 3 4h5l5-2 3 2v-4l-3-1-1-7 3-5 2 1v2l3-2-1-8 6-3 1-2-2-4 1-3-2-5-4 2-4-1-2-5 1-2h-5l-1-2-8 1-2 5-6-1v-4l-4 5-3-3-3-1-3-5 1-3-1-3 2-2v-3l-1-4-1-1 2-2v-2h8l-7-6h-4l1-5-4 2-2-2 2-3 5 2 4-2-2-2 1-1-1-2-2 2-3-1 1-7-4-1-7 3-7-2-4 4h-2l-5 4-1 4 2 1 3-2-2 4 3-1v3l-5 2h-1v-2l-2 2-4-1-1-1 2-2-3 1-1-5-4-2-2-3-10 2zM234 52v2l4 2 8 1v-1h-2l-1-1 2-2-2-1-7-1z"],"ES-VC":["Comunitat Valenciana","M351 154l-6-4v-2l-3-2-6 1-1-1-7-2-1 3-6 2 1 2 2 1 1 6-2 1 2 3-5 6-5 1-2 7-5 2-2 2-1 3 2 2-4 1v-4l-3-2-7 2-3 12h-4l-4 6-1 5 3 4 9 3-2 12 4 4h5l2 3-1 5 2 4-4 1v7l-2 4v2l3 2 1 3-2 9 3 6 5 5 5-7 1-8 4-2v-6l3-1 3-5 9-3 1-4 5-1v-1l5-4-3-4-6-2-3-3-4-8v-3l-3-6-1-8 9-17 18-25 3-6zM288 171l-1 2h-3l3 6 4 1 6-2-2-3-4-1-2-4z"],"ES-MC":["Region de Murcia","M308 278l-5-2-4-8 2-9-1-3-3-1v-3l2-3v-5v-3l-6-4-5 3-2-1-2 2-2 6 1 7-3 2-4 1-1-3h-2l-6 4h-4l-6 4-5 8 6 6 7 2-1 9 6 10h4l3 3 5-2 1-3 5-3 3-1 5 2v-2l6 1 7-2 1-2-4-1-1-4 2-3 1 1zM309 283l-1-1v4l1 1z"],"ES-AS":["Asturias","M86 19l2-3 2-1h10l5 1 2-1 8-1 6 1 6-1v-2l2-1 5 4 11 1-1 2 4-1 9 3 19 3v4l-1 2-2-1-4 1-1 4h-4l-2-3-6 3-2 3-9 1v2l-5 1-6-1-3 4-5-2-2-2-3-1-2 2h-3l-1 1-5-2-4 3 2 1-2 2h-7l-3 1-2-1-1-3-4-1 1-3 4-2-1-2v-1l-3 2-1-3-3-2-2-6-2-1v-1z"],"ES-CB":["Cantabria","M176 23l-1 5h-2l-4 1-1 3-4 1 1 3 3 5 11-1 2 2 4 2 1 4h3l-2 2 4 2 3-2v2h1l5-2v-3l-3 1 2-4-3 2-2-1 1-4 5-3 2-1 4-4 8 2v-5l4-2h4l2-2v-1l-2-2-9-1h-2l3-2-5-2-7 2 1 1-3 1-1-1 3-2h-2l-13 4z"],"ES-CN":["Canarias","M475 328l-1 1-9 4-3 8v1l3 1 3-4 8-3 2-10-2-1zM324 342h-4l-4 5 6 14 4-13zM457 349l-7 22-5 4-5 2v1l5 1 6-5 9-4 3-7 1-13-3-3zM373 369l1-5 9-9h-7l-7 7-9 3-3-1-2 1 8 17 5-2 4-5zM340 377l4 4 4-4v-2l-5-3-3 2zM408 378v-5l-2 2-9-1v4l-4 4v3l2 4 3 3 4 2 7-6v-7zM317 390l-2 3h-4v2l6 3 4-8-2-2z"],"ES-IB":["Illes Balears","M486 182l-4-6-1 2-2-2-10 1v2l1 1v2h5l9 6h2v-3l2 1zM451 191h-4l-2-2v-2l3-3-4 1v-2l4-2h-1l-13 4-16 12v3l1 1h2l2 3 2-3 4-1 2 1 2 7 6 1 4 4 6-5 3-7 4-6 1-4-4-2zM438 217l-1 1 2 2 1-3zM390 221l-2-1-5 2-3 2 1 3-3 1v3l6 2 1-3 7-6zM385 237l-2 2v3l3-2 4 1v-1l-3-1z"],"ES-RI":["La Rioja","M250 65l12 2v2h3l4 6 6 2v4h-4l-3 3 1 5-4 2-4-1-2-5 1-2h-5l-1-2-8 1-3 5-5-1 1-4h-2l-1 3-2 2-3-3-3-1-2-2-1-3 1-3-1-4 2-1v-7h-2l2-5h8v3l3-2 4 5 2 1 3-2z"],"ES-CM":["Castilla-La Mancha","M272 160l3-3 1-5 3 1 1-1v-10l-2-3v-3l-12-10h-4v4l-3-2-5 2h-5l-3-4-2 1-1-4-4-2h-4l-2-2-3 1h-8l-2 1h-6l1 3-5 2 4 4 1 3-4 10 2 1v4l5 2 1 5 3 1v3l2 2-2 6 1 1 2-1 1 1 1 7-1 1-4-1-5 2h-6l-11 7-2-1 9-6v-2l-19-9-5 3-2-4-6 5h-5l-1-3h-3l-6 7-3-2-4 3h-7l-1 10 3 1v5l4-2 2 3-2 6 11 11 6-4 1 1-3 5 4 6-6-1-2 5 1 2h-4l1 4 3 1v2l-3 1-2 6-2 1 6 2 1 3 4 2 10 8 6 2 1-2 13 1 4-2 6 1 2-2 3 2 5-4 6 2 3-2 2 3 1-2h3l5-3 2 1h3l1 4 3 1v4l2 2v4l-4 5 7 2 5-8 6-4h4l6-4h2l1 3 4-1 3-2-1-7 3-7 8-3 6 4h2l2-1-2-4 2-2-2-6-6 1-4-6 2-12-9-2-3-4 1-5 3-5 5-2 2-11 2-1v-2h-7l-3-6v-2l-4-1-4-4h-2z"],"ES-MD":["Comunidad de Madrid","M183 147l-1 2h3l-1-1zM226 170l-1-3-3 1 2-7-2-2v-3l-3-1-1-5-5-3v-3l-2-1 4-10-1-3-4-4-3 1-6 7-4 1-3 8-3 1-3 7-3 1-1-1-2 9-3 1-2 4-2-1-1 6h2l5-5 2 4 5-3 19 8v3l-9 6 3 1 10-7h6l5-2 4 1 1-1z"]};
+</script>
+```
+
+```js modulo=mapa_provincias
+<script>
+Reportes.mapas.provincias = {"ES-NA":["Navarra","M273 28h3l2 2 2-2 5 2v5l-3 3 2 2h3l2-4 1 3 12 5h5l2 1-3 1-3 7-4 2-1 3h-4l-2 4-2 1-5 14 1 5 2 4-3 6-5-1-12-5v-2l3-3h4v-4l-6-2-4-6h-3v-2l-12-2v-5h-3l3-3 2 1 2-1-1-3 1-1 2-9 7-2 1-4 3-3 1-4h2zM296 65l1 2v1l-2-1z"],"ES-SS":["Gipuzkoa","M272 24l1 4-3 3h-2l-1 5-7 8h-3l-3 2-2-2-9-2 2-2 2-9 3-2v-3l10 2 6-2 1 1v-1z"],"ES-HU":["Huesca","M309 45v2l6 5 1-2 4 1 3-2 3 2h3l2 3 2 2 8-2 3 3 3-3 2 2 9-1 4 5-3 5 2 7-1 10-2 5-3 3 1 3-10 9 1 3 3 1v2l-3 3v4l-4-1-4 3-7-1-4-10-2 1-8-7-2-5-4-5-7-2v-4l2 1 1-2 1-10-1-3-1-1-1 6h-4l3-5-2-3-1-10 2-1-1-2 2-6 1-2z"],"ES-L":["Lleida","M360 48l13 4 2 3h7l3 5-1 3 2 1-2 1 1 2 3 1 7-4 1 3 2 1 2 5-6 2 2 5-3 7 2 1-2 1-1 6-2 3-5-1v7l-2 1 1 2h-7l-1 4h-4l-3 6h-5l-7 3-2-2-2 2-2-2-1 3h-2l-1 2 1-5-2-3 1-4 3-3v-2l-3-1-1-3 10-9-1-3 3-3 3-12v-6l-2-4 3-5-2-1-3-6 1-4z"],"ES-GI":["Girona","M395 65l8 2 3 4 4-3h5l8 4 2-1 4 1-1-2 2-1 8-3 9 2v3l5 2-2 3-4-1-1 2v4l3 3-1 2 2 3-2 4-14 11-1-4h-7l-9-6 1-1h2l3-1-1-2 2-4-1-2-7-3h-7l-2-4 1-3-7-1-2-5-2-1z"],"ES-BA":["Badajoz","M79 243v-6l7-5v-2l3-5-1-4h-5l-1-3-3-3 5-7h2v3h1v-3l-1-2v-1l9 3 2 3-2 3 1 3h3l1-1 4 2 8-1v3l6 4 5-4v2l7-3 4 3 3-1 1-2-1-2 2-1 4 2h2l1-3 1-4h5l3-4 2 2 4-2 2 2 6-4 1 2-3 4 4 6-6-1-2 5 1 2h-4l1 4 3 1v2l-3 1-2 6-6 2-1 2-4 3-2 1-7 7 1 8v4l-6 3-1-4h-4l-3 3-1 5-8 3-6-3-3-2-2 2-3-1-1-3-7-1v-3l-5-1-6 1-9-12z"],"ES-CA":["Cadiz","M147 357l-3-2-1 6-6 2-3-3-3-1-5-4h-4l-4-6-6-10 3 3 2-2h-2l-2-5h-3l-2-4v-2l3-2v-4l4-1 5 2 7 1 2-4h4l2-2 4 2 3-6 2 1-1 4 4-3 3 3 4-3 2 4-1 3-3 1-3-2-1 1-1 1 1 3-1 5-10 6 2 2 5-1 3 8h2l1 2z"],"ES-OR":["Ourense","M46 85l-1-5 2-4-2 1-2-1-2-11 6-4 5 1 3-1 1 3 10 5h4l4-2 5 1 2 4 5-8h5l3 1v4l3 3-2 5-3 1-5 6 2 2v3l-3 1-4-2-1 1-1 4-8 3v-2h-2l-3 1v-2l-4-1-6 2-1-3-5 5h-4l-2-4 5-6-2-2z"],"ES-CC":["Caceres","M79 213l-2-3v-6l-5-4-4-6 19-1 1-5 3-2 1-7-2-4-3-2 1-4 5-2 2 1 8-1 2-4 10-6 6 4-1 2 6 3 4-2 1 2h3l6 4 6-2 1 6-1 1-1 10 3 1v5l5-2 1 4-2 5 9 9-4 2-2-2-3 4h-5l-1 4-1 3h-2l-4-2-2 1 1 2-1 2-3 1-4-3-7 3v-2l-5 4-6-4v-3l-8 1-4-2-1 1h-3l-1-3 2-3-2-3-9-3v1l1 2v3h-1v-3h-2l-3 5z"],"ES-SA":["Salamanca","M93 167l2-4-2-4 2-3-2-3 2-3v-10l-5-7 1-2 4-1 6-9 5-2 6 1 7 4h3v2l3 1 2-4h3l5-1 6 3h3v2l3 1 3-4 4 3-1 4 2 3-3 9-6 5-2 4-4 1 1 1h2l-1 4h-2v2l-2-2-4 2 1 3-2 3h-2l-1-2-4 2h-1l-5-3 1-2-6-4-10 6-2 4-8 1z"],"ES-ZA":["Zamora","M106 119l6-5 4-7-6-4h-6l-1-4 2-6h-2v-4l-5 2-4-3-1 2-4-1v-3l-2-2 5-6 3-1 1-1 10 3 6-1 4 3 6-1 3 2 2-2 1 2 4-1v1l3-1 4 4 1-2 1 5 2 1 1-3 1-1 4 3-1 5 1 3-4 2 4 8-1 2 3 1-4 3 1 10-1 2 1 1v3l-4-1v-2h-3l-6-3-5 1h-3l-1 3-3 1-1-3h-3l-7-4z"],"ES-PO":["Pontevedra","M45 80l-14 5-9 7-1-10 3-1-1-1 8-6v-2l-6 3-3 1 2-4h2l4-5-7 2-3-3 2-1 2 1v-5l4-6 4-2h5l2-2h2v-3l2 2 4-2 7 1v2l4 4-3 6-3 1-5-1-6 4 2 11 2 1 2-1z"],"ES-H":["Huelva","M73 309l-3-19 2-6 5-6 1-6h4l2-2h3l3-8 5 1v3l7 1 1 3 3 1 3-2 2 2 8 5v4l-3 1v3l-2-2-6 2-3 3v1l4 2 3 7-2 5 1 2-1 11 1 11h-1l-4-7-14-9-1-2 2-4-4 3 2 2-6-2-1 1h1z"],"ES-B":["Barcelona","M433 104l-17 8-5 6-4 3-15 4v-2h-2l2-3-5-6v-3l-3-1 1-3-2-1 2-2v-7l5 1 2-3 1-6 2-1-2-1 3-7-2-5 8-2 5 1-1 3 2 4h7l7 3 1 2-2 4 1 2-3 1h-2v2l4 1 4 4h7z"],"ES-T":["Tarragona","M392 125l-14 4-2 2-3-1-3 2-11 11 3 1 4 3-7 6-3 1v-1h2l3-3-6 2-2 3-8-5v-2l-4-2 3-4v-3l1-5-3-6 3-2 3-5h2v-3l3 2 2-2 2 2 7-3h5l3-6h4l1-4h8l-1 3 3 1v3l3 3 2 4-2 2h2z"],"ES-CS":["Castellon","M353 155l-6 11-10 12-9 14-5-3-4 3-3-3-4 2v-4l-2-1-1 2-3-4-1-3 3-3 5-2 3-8h4l5-6-2-3 2-1-1-6-2-1-1-2 6-2 1-3 7 2 1 1 6-1 3 2v2z"],"ES-V":["Valencia","M328 192l-5 10v6l4 9-1 1 1 4 7 9-7 1-3-1-4 3-6 1 3 2-4 2-4-2h-3l-4-1-1-8-6 1-4-6 2-11-9-3-3-4 1-6 4-5h4l2-12 2-1h8l1 5 4-1 3 3v-2l2 5 4-2 3 3 4-3zM289 170l2 4 5 2 1 2-6 2-5-2-2-5h4z"],"ES-A":["Alicante","M334 231l6 2 3 4-5 4v1l-5 1-1 4-9 3-3 5-3 1v6l-4 2-1 8-5 7-5-5-3-6 2-9-1-3-3-2v-2l2-4v-7l4-1-2-4 5 1h3l4 2 4-2-3-2 6-1 4-3 3 1z"],"ES-MU":["Murcia","M308 278v3l-1-1-2 3 1 4 4 1-1 2-7 2-6-1v2l-5-2-3 1-5 3-1 3-5 2-3-3h-4l-6-10 1-9-7-2-6-6 5-8 6-4h4l6-4h2l1 3 4-1 3-2-1-7 2-6 2-2 2 1 5-3 6 4v3v5l-2 3v3l3 1 1 3-2 9 4 8z"],"ES-AL":["Almeria","M277 300l-6 8-3 12-3 2-5 8-3-1-5-4-8 1-1 4-3 2-6-1-2-2h-7l-1-2 4-2-2-3 3-4v-5h2l2-4 1-4 7 3 1-8 5-5 5-2-1-4h2l1-11 3-3 8 3-1 9 6 10h4z"],"ES-GR":["Granada","M225 329h-8l-3 2-6-2-6 1v-3l-2-3-11-4-5-4-1-7 2-2 1-5 5-3 8 1 2-4 10-7 4 2 6-3 5 2h4l2-3 1-5 4-7 6-4v-2l2-1 7 2 5 5-3 3-1 11h-2l1 4-5 2-5 5-1 8-7-3-1 4-2 4h-2v5l-3 4 2 3-4 2z"],"ES-MA":["Malaga","M202 330h-23l-4 7h-2l-2 3h-9l-10 4-2 6-1-2h-2l-3-8-5 1-2-2 10-6 1-5-1-3 1-1 1-1 3 2 3-1 1-3-2-4 8-5-2-3 3 1 1-1 2 1 2-2v-3l4 1 3 2 3-3h2l5 11 4 4 11 4 2 3z"],"ES-SE":["Sevilla","M115 322l1-1-5 1-1-2 1-16-1-2 2-5-3-7-4-2v-1l3-3 6-2 2 2v-3l3-1v-4l-2-2 8-3 2-5 2-3h4l1 1-1 3 5-2 10 17v3l-4 1 1 3 13-4 5 12 3 5 3-1 2 5-3-1v3l-2 2-2-1-1 1-3-1 2 3-11 8-3-3-5 3 1-4-2-1-3 6-4-2-2 2h-4l-2 4-7-1z"],"ES-C":["A Coruna","M27 56l-2 2-2-2-1 3h-1l-4 3-2-2 2-5 4-4 1-2-8 4-1-8-2-1-3 2 1-5-1-2 2-3 4-1-4-1 3-2h3l1-2 3 1-2-3 6-2 4 2 5-1 6-3 1 1 1-2 2 1 2 3 2-5-5-1 5-2-6 1 2-3-1-2h3l5-4v1h1v-3l5-3 2 2-2 3h2v-2h1l5-4v6l-3 10-2 2h-2l-2 5-1 5 2 9-1 4-3 3-5-1-4 2-2-2v3z"],"ES-LU":["Lugo","M64 8l2-1v3l3-2 6 2 4 6h8l-1 3-4 3v1l2 1 2 6 3 2 1 3 3-2 1 2-5 6 5 2-1 7-6 5 1 3-2 5-5 9-2-4-5-1-4 2h-4l-10-5-1-3 3-6-4-4v-2l-1-1 3-5-2-10 3-10h2l2-2 3-10z"],"ES-O":["Asturias","M86 19l2-3 2-1h10l5 1 2-1 8-1 6 1 6-1v-2l2-1 5 4 11 1-1 2 4-1 9 3 19 3v4l-1 2-2-1-4 1-1 4h-4l-2-3-6 3-2 3-9 1v2l-5 1-6-1-3 4-5-2-2-2-3-1-2 2h-3l-1 1-5-2-4 3 2 1-2 2h-7l-3 1-2-1-1-3-4-1 1-3 4-2-1-2v-1l-3 2-1-3-3-2-2-6-2-1v-1z"],"ES-S":["Cantabria","M176 23l4 1 7-1 13-4h2l-3 2 1 1 3-1-1-1 8-2 4 2-3 2 11 1 2 2v1l-2 2h-4l-4 2v5l-8-2-4 4-2 1-5 3-1 4 2 1 3-2-2 4 3-1v3l-5 2h-1v-2l-3 2-4-2 2-2h-3l-1-4-4-2-2-2-11 1-3-5-1-3 4-1 1-3 4-1h2z"],"ES-BI":["Bizkaia","M224 25h2l3 2-1-3 3-2 6-1 3 3 1-2 9 4v3l-3 2v6h-5v3h-2l-7-1-2-2v-2l-2-3-1 2-3 1-5-3-6 3v-5l4-2 5-1z"],"ES-TF":["Santa Cruz de Tenerife","M319 388l2 2-4 8-6-3v-2h4zM341 372h3l4 3v2l-3 3h-2l-3-3zM372 375l-4 5-5 2-8-17 2-1 3 1 6-2 3-1 7-7h6l1 2-9 7zM325 344l1 4-4 13-5-15 3-4z"],"ES-GC":["Las Palmas","M408 380l1 1v7l-3 3-4 3-4-2-3-3-2-7 4-4v-4l9 1 2-2zM458 348l4-1 2 3-1 13-3 7-9 4-6 5-5-1v-1l5-2 5-4zM476 325l2 1-2 10-8 3-3 4-3-1 3-9 5-3 4-1zM476 322l-1 2-1 1 1-3z"],"ES-PM":["Illes Balears","M389 240h1v1l-4-1-3 2v-3l2-2zM391 221l1 3-7 6-1 3-6-2v-3l3-1-1-3 3-2 5-2zM453 189l4 2-1 4-4 6-3 7-6 5-4-4-6-1-2-7-2-1-4 1-2 3-2-3h-2l-1-1v-3l20-14 9-2h1l-4 2v2l4-1-3 3v2l3 2zM486 183l2 3-2-1v3h-2l-9-6h-5v-2l-1-1v-2l10-1 2 2 1-2zM440 218l-1 2h-1l-1-2 3-1z"],"ES-Z":["Zaragoza","M297 58l6-5v14l2 3-3 6 4-1 1-5h2l-1 13-1 2-2-1v4l7 2 4 5 2 5 8 7 2-1 4 10 7 1 4-3 4 1-1 1 2 3-1 4-5 5v2l-6 1-3-4-13-6-3-4h-2l2 6-4-4-1 3 1 3-3 3-2-2-1 3-3-2-3 3-5-4-2 2-3-1-1 4-5-1-2 6h-5l-12-10h-4l-3-1-1-7 2-4 2-1 1 3 3-2-1-8 6-3 1-2-2-4 1-3-2-7 11 4 5 1 4-7-3-3-1-4 3-7-1-3 3-6h2l2-4z"],"ES-LO":["La Rioja","M250 65l12 2v2h3l4 6 6 2v4h-4l-3 3 1 5-4 2-4-1-2-5 1-2h-5l-1-2-8 1-3 5-5-1 1-4h-2l-1 3-2 2-3-3-3-1-2-2-1-3 1-3-1-4 2-1v-7h-2l2-5h8v3l3-2 4 5 2 1 3-2z"],"ES-VI":["Araba/Alava","M235 59l-1-2-6-5h-4l1-5-4 2-2-2 2-3 5 2 4-1-2-3 1-1-1-2-2 2-3-1 1-3-1-2 1-1h4l1-2 2 3v2l2 2 9 1-1-2 4-1v3l-2 2 9 2 3 2 1 2-3 6 1 3-2 1-2-1-3 2 1 2 2-1v5l-3-2-3 2-4-2-2-4-2 2z"],"ES-AB":["Albacete","M299 241l-6-4-5 3-2-1-4 8 1 7-3 2-4 1-1-3h-2l-6 4h-4l-6 4-5 8-7-2 4-5v-4l-2-2v-4l-3-1v-4l-6-1v-3l2-2 2-4-4-4-1-3-4-2 3-6-1-4 4-6-1-2 8-1 5 5 2-3 1 3 4-3 5 1-2-4h3l1 3h7l1-1 9-5 2 3 9 2-2 12 4 5h5l2 3-1 5 2 4z"],"ES-TE":["Teruel","M294 181v-2l3-1-1-2-5-2-2-4-1 3h-4v-3h-4l-4-4h-2v-2l-3-3 4-4 1-5 3 1 1-1v-10l-2-3v-3h5v-3l3-3 4 1 1-4 3 1 2-2 5 4 3-3 3 2 1-3 2 2 3-3-1-3 1-3 4 3-2-5h3l2 4 13 6 3 4 6-1 3 4-1 8-3 4-5 1-8-3-1 3-6 2 1 2 2 1 1 6-2 1 2 3-5 6-5 1-2 7-5 2-2 2-1 3 2 2-3 1-2-5z"],"ES-CU":["Cuenca","M294 179v2l-2 1-2 11-4 1-2 2-2 4v6l-9 5-1 1h-7l-1-3h-3l2 4-5-1-4 3-1-3-2 3-5-5-8 1-2-4-3 2 1-2-3-3 1-8-7-11 1-5h-2l-1-3 4-2-1-3h3v-2l3 2 4-2v-9h3l3-2 4 1-1-5 2 1 3-1v-4l3 2 1-3 3 1 2-2 6 3h2l2 8 4 2 1 4h2l4 4h4v3l3 6z"],"ES-TO":["Toledo","M145 185l1-10 1-1 6 1 5-3 2 2 6-7h3l1 3h5l6-5 3 4 4-3 19 9v2l-9 6 2 1 11-7 12-1 1 4h2l-1 5 7 11-1 8-1 1h-3l-3-2-5 1-1 3-6 1-3 4-5 1-3-1-2 1-4-1v-3h-6l1-5h2v-5h-4l-1 3-2 1-6-1-2 1-2-3-3 5-5 1v-4l-4-2-2 7-9-9 2-5-1-4-5 2v-5z"],"ES-LE":["Leon","M162 30l2 3 1 3 3 5-2 1-4 6-1 5 2 2-1 15h-2v4h-3v1l-2-2-5 2-1 2-4 1v7l-1 1-4-3-1 2-2-1-2-3-3 1v-1l-4 1-1-2-2 2-3-2h-6l-4-2-6 1-8-2-2-1 1-4-3-3v-4l-3-1h-5l2-6-1-3 6-5 1-5 2 1 3-1h7l2-2-2-1 4-3 5 2 1-1h3l2-2 3 1 2 2 5 2 3-4 6 1 5-1v-2l9-1 2-3z"],"ES-SO":["Soria","M269 89l2 5-1 3 2 4-1 2-6 3 1 8-3 2v-2l-2-1-3 5 1 7 3 1v4l-3-2-5 2h-5l-3-4-2 1-1-4-4-2h-4l-2-2-6 1h-5l-5-4v-4l-7-4v-2h3l4-7 2-1v-4h1l3 3 3-4h2l3-6 5-1 1-4 2 1-1 3 6 1 2-5 8-1 1 2h5l-1 2 2 5 4 1z"],"ES-BU":["Burgos","M235 58h-8v2l-2 2 1 1 1 4v3l-2 2 1 3-1 3 3 5 4 1v2l-2 5-7 6-4-3v4l-2 1-4 7-3-1-1 2h-3l-3 3v2h-1l-1-2h-1l-7-6-1-7-1-4h3l4-4-1-1-4 1 2-4-4 1-1-4-3-1v-2l-2-1-1-8-2-1 1-3h2l-2-5 1-5 4-3h2l4-3v2h1l5-2v-3l-2 1-1-1 2-2v-1l-3 2-2-2 1-3 5-4h2l4-4 8 2 6-3 4 1-1 7 3 1 2-2 1 2-1 1 2 2-4 2-5-2-2 3 2 2 4-2-1 5h4zM238 51l7 1-2 3 1 1h2v2l-8-2-4-2 1-3z"],"ES-AV":["Avila","M171 170l-2-3h-3l-6 7h-2l-1-2-5 3-5-1-1-6-6 2-7-4 2-3-1-3 4-2 2 2v-2h2l1-4h-2l-1-1 4-1 2-4 6-5 3-6v-5l-2-2 2-3 4-1 5 3 5-3v3l5 7v5h3l2 9 6-1v-2l3 1-1 3h-3l-2 9-3 1-2 4-2-1-1 5z"],"ES-P":["Palencia","M191 52l-7 4-1 5 2 5h-2l-1 3 2 1 1 8 2 1v2l3 1 1 4h4l-2 3 4-1-3 5h-3l1 5-3-2-11 2h-2v-3l-2 1-3-4-5 4-3-5h-4l2-11h-3v-3v-3h2v-4h2l1-6-1-2 1-7-2-2 1-5 4-6 13-3 2 3 4 2 1 4h3l-2 2z"],"ES-CR":["Ciudad Real","M238 211l1 2-4 6 1 4-3 6 4 2 1 3 2 2 2 3-2 3-2 2v3l-5 3h-2l-2 2-2-3-3 2-6-2-5 4-3-2-2 2-6-1-4 2-13-1-2 2-5-2-10-8-4-2-1-3-6-2 2-1 2-6 3-1v-2l-3-1-1-4h4l-1-2 2-5 6 1-4-6 3-4-1-2h3l3-5 2 3 2-1 6 1 2-1 1-3h4v5h-2l-1 4 1 2 1-1h4v3l3 1 4-1 2 1 5-1 3-4 6-1 1-3 5-1 3 2 4-1 3 3-1 2 3-2zM163 200l5 3-1 4-4 2-2-2z"],"ES-CO":["Cordoba","M194 299l-8 2-1 6-2 2-2-2-1-2h-2l-3 3-4-2-2-5-2 1-2-1-4-8v-3l-3-5-12 4-2-1 1-3h3v-3l-10-16 2-5-2-8 8-8 2-1 4-3 1-2 4-1 6 2 1 3 4 2 10 8 7 3 3 9-4 6v9l4 5-2 4z"],"ES-GU":["Guadalajara","M265 152l-6-3-2 2-3-1-1 3-3-2v4l-3 1-2-1 1 5-4-1-3 2h-3l-1 9-3 2-3-2v2h-3l-1-5-3 1 2-7-2-2v-3l-3-1-1-5-5-3v-3l-2-1 4-10-1-3-4-4 5-2-1-3h6l2-1h8l2-1 3 2h4l4 2 1 4 2-1 3 4h5l5-2 3 2v-4h4l12 10v3l2 3 1 7-2 4-3-1-1 5-4 4-2-1-2-8z"],"ES-J":["Jaen","M245 268l-2 1v2l-6 4-4 7-1 5-2 3h-4l-5-2-6 3-4-2-10 7-2 4h-3l-10-11 2-4-4-5v-9l4-6-4-11h14l4-2 6 1 2-2 3 2 5-4 6 2 3-2 2 3 1-2h3l5-3 2 1h3l1 4 3 1v4l2 2v4z"],"ES-M":["Madrid","M184 148l1 1h-3l1-1zM226 172v4l-4-1-5 2h-6l-10 7-3-1 9-6v-3l-19-8-5 3-2-4-5 5h-2l1-6 2 1 2-4 3-1 2-9 1 1 3-1 3-7 3-1 3-8 4-1 6-7 3-1 4 4 1 3-4 10 2 1v3l5 3 1 5 3 1v3l2 2-2 7 3-1z"],"ES-SG":["Segovia","M188 148l-5-1-1 2-3 1-2-9h-3v-5l-5-7v-3l4-5v-2l4 1-1-5 17-5 1-3 9 5v-2l2-2 5-1 1 2h3v2l3 1v4l5 4-2 1h-6l1 3-8 3-6 7-4 1-3 8-3 1z"],"ES-VA":["Valladolid","M140 83l4 3-1 3-2-1zM148 74v2h-1l-1-1zM194 107l-1 3-17 5 1 5-4-1v2l-4 5-5 3-5-3-5 1-4-3-3 1 1-3-1-10 4-3-3-1 1-2-4-8 4-2-1-3 1-5-4-3v-7l4-1 1-2 5-2 2 2v-1h1v6h3v3l-3 7 1 1h4l3 5 5-4 3 4 2-1v3h2l11-2 3 2 1 6z"]};
 </script>
 ```

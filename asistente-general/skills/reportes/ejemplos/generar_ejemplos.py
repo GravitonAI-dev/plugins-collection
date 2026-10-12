@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Genera los reportes de ejemplo de la skill `reportes`.
+"""Genera los artefactos de ejemplo de la skill `reportes`.
 
 Compone cada ejemplo como lo hara el modelo: copia integra de la base
 (`../assets/template-base-reportes.md`), la maqueta del tipo de entregable
@@ -427,6 +427,15 @@ GALERIA = [
    {"tipo": "pictograma", "valor": 3, "total": 10, "rotulo": "3 de cada 10 impagos acaban en juicio"}),
   ("qr", "Codigo QR", "Modulo QR: lleva al lector en papel a la fuente.",
    {"tipo": "qr", "texto": "https://www.boe.es", "rotulo": "Boletin Oficial del Estado"}),
+  ("mapa", "Mapa por comunidades autonomas", "Modulo mapa con mapa_ccaa: asuntos por cada 1.000 clientes (tasa), con Madrid destacada.",
+   {"tipo": "mapa", "unidad": "num", "nombre_valor": "Asuntos por 1.000 clientes", "destacar": ["Madrid"],
+    "tasa": {"por": 1000, "numerador": {"Andalucia": 412, "Cataluna": 388, "Madrid": 520, "Comunidad Valenciana": 301, "Galicia": 120, "Castilla y Leon": 96,
+                                        "Pais Vasco": 143, "Canarias": 88, "Aragon": 71, "Baleares": 55, "Murcia": 64, "Ceuta": 4, "Melilla": 3},
+             "denominador": {"Andalucia": 41000, "Cataluna": 39500, "Madrid": 38000, "Comunidad Valenciana": 26000, "Galicia": 14000, "Castilla y Leon": 12000,
+                             "Pais Vasco": 9500, "Canarias": 7000, "Aragon": 6500, "Baleares": 4000, "Murcia": 6000, "Ceuta": 400, "Melilla": 350}}}),
+  ("provincias", "Mapa por provincias", "Modulo mapa con mapa_provincias: facturacion por provincia; las que no tienen dato, rayadas.",
+   {"tipo": "mapa", "nivel": "provincias", "unidad": "eur", "valores": {"Zaragoza": 182000, "Huesca": 41000, "Teruel": 18000, "Madrid": 260000, "Barcelona": 210000,
+     "Valencia": 99000, "Sevilla": 120000, "Malaga": 87000, "A Coruna": 40000, "Las Palmas": 33000}}),
   ("plazos", "Diagrama de plazos", "Varios plazos en una escala comun, con la marca de hoy.",
    {"tipo": "plazos", "hoy": "2026-09-20", "plazos": [{"rotulo": "Recurso de reposicion", "inicio": "2026-08-01", "fin": "2026-08-20"},
      {"rotulo": "Requerimiento", "inicio": "2026-09-01", "fin": "2026-09-27"},
@@ -456,12 +465,12 @@ def galeria():
                  '      <p class="cifra" data-cifra="vencimiento_recurso"></p>\n      <p class="detalle">20 dias habiles desde el 17/9, sin el 12 de octubre</p>\n    </div>\n  </div>\n\n  <div class="malla">\n    '
                  + "\n    ".join(tarjetas) + "\n  </div>")
     textos = dict(COMUN, **{
-      "TITULO_DOCUMENTO": "Galeria de graficos del motor de reportes",
+      "TITULO_DOCUMENTO": "Galeria de graficos del motor de artefactos",
       "ETIQUETA_SUPERIOR": "Skill reportes | Catalogo de formas",
       "ENTRADILLA": "Cada grafico se declara con sus datos en el bloque datos-reporte y lo dibuja el motor de la base. Bajo cada uno estan su tabla de datos, la descarga en CSV y su fuente.",
     })
     return componer("galeria_graficos.html", textos, datos, ficha='<li><b>Tipos:</b> %d</li>' % len(GALERIA),
-                    contenido=contenido, ancho="1120px", modulos=["diagramas", "avanzados", "iconos", "qr", "plazos"])
+                    contenido=contenido, ancho="1120px", modulos=["diagramas", "avanzados", "iconos", "qr", "plazos", "mapa", "mapa_ccaa", "mapa_provincias"])
 
 # --------------------------------------------------------------------------- comprobacion e impresion
 def comprobar_y_imprimir(archivos, pdf):
@@ -495,7 +504,7 @@ def comprobar_y_imprimir(archivos, pdf):
 
 # --------------------------------------------------------------------------- principal
 if __name__ == "__main__":
-    print("Generando reportes de ejemplo:")
+    print("Generando artefactos de ejemplo:")
     hechos = [panel(), informe(), herramienta(), presentacion(), white_paper(), resumen(), galeria()]
     limpio = comprobar_y_imprimir([d for d, _ in hechos], "--sin-pdf" not in sys.argv)
     if not all(ok for _, ok in hechos) or not limpio:

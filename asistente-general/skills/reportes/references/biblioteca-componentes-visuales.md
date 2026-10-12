@@ -1,6 +1,6 @@
 # Biblioteca de componentes visuales
 
-Todo lo que se inserta en un reporte usa los tokens de `:root` de la base (`--superficie`, `--borde`, `--acento`, `--c1` a `--c6`, escala `--e1` a `--e6`). Por eso hereda el tema claro, el oscuro, el sobrio y la impresion sin tocar nada. Las clases y los identificadores estan en espanol y **no se renombran**: lo que cambia de idioma es el texto visible.
+Todo lo que se inserta en un artefacto usa los tokens de `:root` de la base (`--superficie`, `--borde`, `--acento`, `--c1` a `--c6`, escala `--e1` a `--e6`). Por eso hereda el tema claro, el oscuro, el sobrio y la impresion sin tocar nada. Las clases y los identificadores estan en espanol y **no se renombran**: lo que cambia de idioma es el texto visible.
 
 ---
 
@@ -53,7 +53,7 @@ El motor de la base dibuja el SVG, calcula escalas, ejes y porcentajes, rellena 
 
 Los valores que falten se escriben `null`: la linea se interrumpe y la columna no se pinta. Nunca se inventa un punto para cerrar una serie.
 
-**Valores calculados dentro de un grafico:** cualquier valor numerico de un grafico puede ser `"@clave"`, que el motor sustituye por la cifra `clave` de `cifras`. Asi una cascada de la propuesta a la liquidacion definitiva usa `"valor": "@baja_cuota"` con `baja_cuota` declarada como `{"operacion": "diferencia", "a": "cuota_definitiva", "b": "cuota_propuesta"}`, y ningun importe se escribe dos veces ni se resta a mano. Una cifra calculada sobre un grafico ignora los valores de ese grafico que sean referencias.
+**Valores calculados dentro de un grafico:** cualquier valor numerico de un grafico o de un modulo (tambien los `valores` del mapa o los puntos de una dispersion) puede ser `"@clave"`, que el motor sustituye por la cifra `clave` de `cifras`. Asi una cascada de la propuesta a la liquidacion definitiva usa `"valor": "@baja_cuota"` con `baja_cuota` declarada como `{"operacion": "diferencia", "a": "cuota_definitiva", "b": "cuota_propuesta"}`, y ningun importe se escribe dos veces ni se resta a mano. Una cifra calculada sobre un grafico ignora los valores de ese grafico que sean referencias.
 
 ---
 
@@ -255,7 +255,7 @@ Estructura, script y contrato de `calcular` en la maqueta `herramienta_interacti
 
 ### Figura con fotografia
 
-Cuando una foto aporta de verdad (portada de un informe, evidencia de un caso), se incrusta como `data:` URI conforme a las reglas de `anatomia-documento-visual.md` (JPEG comprimido, menos de 30 KB, licencia que permita el uso). Estilos con tokens, a anadir junto al resto del CSS:
+Cuando una foto aporta de verdad (portada de un informe, evidencia de un caso), se incrusta como `data:` URI conforme a las reglas de `anatomia-artefacto.md` (JPEG comprimido, menos de 30 KB, licencia que permita el uso). Estilos con tokens, a anadir junto al resto del CSS:
 
 ```css
 figure{margin:var(--e4) 0 0}
@@ -290,6 +290,6 @@ Para fundamentar con resoluciones, siempre verificadas en la sesion en el CENDOJ
 
 La referencia es la oficial (Roj o ECLI) y la URL de cada resolucion va en `fuentes`, que la recoge el pie. Relevancia: `ok` directa, `atencion` por analogia, `riesgo` en contra. Si se quiere que el lector en papel llegue a la resolucion, un QR con su URL.
 
-### Pie del reporte
+### Pie del artefacto
 
 Lo trae la base: la lista de fuentes la compone el motor a partir de `fuentes` y solo se rellena `{{PIE_AVISO_LEGAL}}`. No se anade otro pie.
