@@ -267,3 +267,546 @@ R.tipos.diagrama.fijo = true;  /* su tamano sale de su contenido: no se recalcul
 })();
 </script>
 ```
+
+
+---
+
+## Graficos avanzados (`dispersion`, `histograma`, `radar`, `embudo`, `treemap`, `pendiente`, `halteras`, `piramide`, `calendario`, `pictograma`)
+
+Formas menos frecuentes que las del motor de la base. Un solo modulo para todas: se copia si el reporte usa cualquiera de ellas.
+
+| Tipo | Pregunta que responde | Datos |
+| :--- | :--- | :--- |
+| `dispersion` | ¿Hay relacion entre dos magnitudes? Con `tamano`, una tercera (burbujas) | `puntos: [{rotulo, x, y, tamano}]`, `eje_x: {nombre, unidad}`, `eje_y: {nombre, unidad}`, `nombre_tamano`, `unidad_tamano` |
+| `histograma` | ¿Como se reparten muchos valores sueltos? (dias de demora, cuantias) | `valores` en bruto, `tramos` (por defecto, regla de Sturges), `desde`, `hasta`, `unidad`, `nombre` |
+| `radar` | ¿Que perfil tiene cada opcion en varios criterios? (de 3 a 8) | `ejes`, `series: [{nombre, valores}]`, `maximo` (por ejemplo 10 si se puntua de 0 a 10) |
+| `embudo` | ¿Cuantos llegan a cada etapa y cuantos se pierden? | `etapas: [{rotulo, valor}]`; el modulo calcula el paso de cada etapa a la siguiente |
+| `treemap` | ¿Que peso tiene cada partida cuando son muchas? | `elementos: [{rotulo, valor}]`, `unidad` |
+| `pendiente` | ¿Como cambia cada partida entre dos momentos? | `etiquetas: ["antes", "despues"]`, `elementos: [{rotulo, antes, despues}]` |
+| `halteras` | ¿Que distancia hay entre dos valores de cada partida? (pedido y concedido) | `nombres: {a, b}`, `elementos: [{rotulo, a, b}]` |
+| `piramide` | ¿Como se comparan dos grupos por tramos? | `etiquetas`, `izquierda: {nombre, valores}`, `derecha: {nombre, valores}` |
+| `calendario` | ¿Que dias concentran la actividad o los vencimientos? | `dias: {"AAAA-MM-DD": numero}`, `desde`, `hasta` |
+| `pictograma` | Una proporcion contada en figuras («3 de cada 10») | `valor`, `total` (hasta 10 por fila), `rotulo` |
+
+Reglas: los valores se dan en bruto y el modulo calcula escalas, tramos y porcentajes; el radar puntua todas las opciones con la misma escala y el mismo criterio, explicado en el texto; el histograma necesita al menos cinco valores; el pictograma no sirve para mas de unas decenas de figuras.
+
+```js modulo=avanzados
+<script>
+/* Modulo de graficos avanzados para el motor de reportes. Se copia integro, despues
+   del motor, solo en los reportes que usan alguno de estos tipos. */
+(function(){
+"use strict";
+var R = Reportes, svg = R.svg, r1 = R.r1, fmt = R.fmt, color = R.color, consejo = R.consejo, num = R.num, max = R.maximo, min = R.minimo, techo = R.techo;
+var TX = Object.assign(/^en/.test(R.IDIOMA) ? {diferencia: "Difference"} : {diferencia: "Diferencia"}, R.T);
+function texto(s, at, contenido, clase) { return svg("text", Object.assign({"class": clase || "eje"}, at), s, contenido); }
+function topeDe(listas) { return techo(max([].concat.apply([], listas))); }
+function sinNegativos(valores, tipo) { if (min(valores) < 0) throw new Error("el grafico " + tipo + " no admite valores negativos"); }
+function pct(v, total) { return fmt(v / total * 100, "pct"); }
+
+/* Dispersion y burbujas: relacion entre dos magnitudes; con "tamano", tercera magnitud. */
+R.tipos.dispersion = function (fig, g, id, W) {
+  var p = g.puntos || [], ex = g.eje_x || {}, ey = g.eje_y || {};
+  if (p.length < 2) throw new Error("hacen falta al menos dos puntos");
+  p.forEach(function (d, i) { if (!num(d.x) || !num(d.y)) throw new Error("el punto " + (i + 1) + " necesita x e y numericos"); });
+  /* Ejes desde cero o desde el minimo negativo, con sitio a la derecha para los rotulos. */
+  var xs = p.map(function (d) { return d.x; }), ys = p.map(function (d) { return d.y; });
+  var x0 = 64, x1 = W - (g.rotulos === false ? 24 : 96), y0 = 44, y1 = 244;
+  var tx = techo(max(xs)), ty = techo(max(ys)), bx = min(xs) < 0 ? -techo(-min(xs)) : 0, by = min(ys) < 0 ? -techo(-min(ys)) : 0;
+  var tt = max(p.map(function (d) { return d.tamano || 0; })) || 1;
+  var X = function (v) { return r1(x0 + (v - bx) / (tx - bx) * (x1 - x0)); }, Y = function (v) { return r1(y1 - (v - by) / (ty - by) * (y1 - y0)); };
+  var s = R.lienzo(fig, W, 290, g.resumen);
+  for (var k = 0; k <= 4; k++) {
+    var vy = by + (ty - by) * k / 4, vx = bx + (tx - bx) * k / 4;
+    svg("line", {"class": "rejilla", x1: x0, y1: Y(vy), x2: x1, y2: Y(vy)}, s);
+    texto(s, {x: x0 - 8, y: Y(vy) + 4, "text-anchor": "end"}, vy ? fmt(vy, ey.unidad, true) : "0");
+    texto(s, {x: X(vx), y: y1 + 16, "text-anchor": "middle"}, vx ? fmt(vx, ex.unidad, true) : "0");
+  }
+  if (bx < 0) svg("line", {"class": "cero", x1: X(0), y1: y0, x2: X(0), y2: y1}, s);
+  if (by < 0) svg("line", {"class": "cero", x1: x0, y1: Y(0), x2: x1, y2: Y(0)}, s);
+  if (ex.nombre) texto(s, {x: x1, y: y1 + 34, "text-anchor": "end"}, ex.nombre);
+  if (ey.nombre) texto(s, {x: x0, y: y0 - 14}, ey.nombre);
+  p.forEach(function (d) {
+    var rad = d.tamano ? r1(5 + Math.sqrt(d.tamano / tt) * 20) : 5;
+    consejo(svg("circle", {cx: X(d.x), cy: Y(d.y), r: rad, fill: color(d.color, 0), "fill-opacity": d.tamano ? ".45" : ".85", stroke: color(d.color, 0)}, s),
+      (d.rotulo ? d.rotulo + ": " : "") + fmt(d.x, ex.unidad) + " · " + fmt(d.y, ey.unidad) + (d.tamano ? " · " + fmt(d.tamano, g.unidad_tamano) : ""));
+    if (d.rotulo && g.rotulos !== false) texto(s, {x: X(d.x) + rad + 4, y: Y(d.y) + 4}, R.recortar(d.rotulo, 14));
+  });
+  return {cabecera: [R.T.concepto, ex.nombre || "x", ey.nombre || "y"].concat(p.some(function (d) { return d.tamano; }) ? [g.nombre_tamano || R.T.valor] : []),
+    filas: p.map(function (d) { return [d.rotulo || "—", d.x, d.y].concat(d.tamano ? [d.tamano] : []); })};
+};
+
+/* Histograma: reparto de valores sueltos en tramos de igual anchura. */
+R.tipos.histograma = function (fig, g, id, W) {
+  var lo = num(g.desde) ? g.desde : min(g.valores || []), hi = num(g.hasta) ? g.hasta : max(g.valores || []);
+  var v = (g.valores || []).filter(function (x) { return num(x) && x >= lo && x <= hi; });  /* fuera del rango indicado no cuentan */
+  if (v.length < 5) throw new Error("hacen falta al menos cinco valores dentro del rango");
+  var n = g.tramos || Math.ceil(Math.log2(v.length) + 1), paso = (hi - lo) / n || 1, cuenta = [];
+  for (var i = 0; i < n; i++) cuenta.push(0);
+  v.forEach(function (x) { cuenta[Math.min(n - 1, Math.floor((x - lo) / paso))]++; });
+  /* Recuentos: el tope es multiplo de 4 para que la rejilla marque numeros enteros. */
+  var tope = Math.max(4, Math.ceil(max(cuenta) / 4) * 4), banda = (W - 24 - 64) / n, s = R.lienzo(fig, W, 280, g.resumen);
+  R.rejilla(s, tope, "entero");
+  var etiquetas = cuenta.map(function (c, i) { return fmt(lo + i * paso, g.unidad, true) + "–" + fmt(lo + (i + 1) * paso, g.unidad, true); });
+  cuenta.forEach(function (c, i) {
+    consejo(svg("rect", {x: r1(64 + i * banda + 1), y: R.yDe(c, tope), width: r1(banda - 2), height: r1(c / tope * 200), fill: color(g.color, 0)}, s), etiquetas[i] + ": " + c);
+  });
+  [0, n].forEach(function (i) { texto(s, {x: r1(64 + i * banda), y: 262, "text-anchor": i ? "end" : "start"}, fmt(lo + i * paso, g.unidad, true)); });
+  if (g.nombre) texto(s, {x: W - 24, y: 278, "text-anchor": "end"}, g.nombre);
+  return {cabecera: [R.T.concepto, R.T.valor], filas: etiquetas.map(function (e, i) { return [e, cuenta[i]]; }), unidad: "entero"};
+};
+
+/* Radar: perfil de varias opciones sobre los mismos criterios (de 3 a 8 ejes). */
+R.tipos.radar = function (fig, g) {
+  var ejes = g.ejes || [], series = g.series || [], n = ejes.length;
+  if (n < 3 || n > 8) throw new Error("el radar necesita de tres a ocho ejes");
+  sinNegativos([].concat.apply([], series.map(function (s) { return s.valores; })), "radar");
+  var tope = g.maximo || topeDe(series.map(function (s) { return s.valores; })), cx = 220, cy = 150, rad = 105;
+  var s = R.lienzo(fig, 440, 300, g.resumen); s.style.maxWidth = "440px";
+  var punto = function (i, v) { var a = -Math.PI / 2 + i * 2 * Math.PI / n; return [r1(cx + Math.cos(a) * rad * v / tope), r1(cy + Math.sin(a) * rad * v / tope)]; };
+  for (var k = 1; k <= 4; k++) svg("polygon", {points: ejes.map(function (_, i) { return punto(i, tope * k / 4).join(","); }).join(" "), fill: "none", stroke: "var(--linea-rejilla)"}, s);
+  ejes.forEach(function (e, i) {
+    var p = punto(i, tope), q = punto(i, tope * 1.18);
+    svg("line", {x1: cx, y1: cy, x2: p[0], y2: p[1], stroke: "var(--linea-rejilla)"}, s);
+    texto(s, {x: q[0], y: q[1] + 4, "text-anchor": Math.abs(q[0] - cx) < 8 ? "middle" : q[0] > cx ? "start" : "end"}, R.recortar(e, 16));
+  });
+  series.forEach(function (se, j) {
+    var c = color(se.color, j);
+    svg("polygon", {points: se.valores.map(function (v, i) { return punto(i, v || 0).join(","); }).join(" "), fill: c, "fill-opacity": ".16", stroke: c, "stroke-width": 2}, s);
+    se.valores.forEach(function (v, i) { var p = punto(i, v || 0); consejo(svg("circle", {cx: p[0], cy: p[1], r: 3, fill: c}, s), se.nombre + " · " + ejes[i] + ": " + fmt(v, g.unidad)); });
+  });
+  R.leyenda(fig, series.map(function (se, j) { return {color: color(se.color, j), texto: se.nombre}; }));
+  return {cabecera: [R.T.concepto].concat(series.map(function (se) { return se.nombre; })), unidad: g.unidad,
+    filas: ejes.map(function (e, i) { return [e].concat(series.map(function (se) { return se.valores[i]; })); })};
+};
+
+/* Embudo: cuantos llegan a cada etapa y que proporcion pasa de una a la siguiente. */
+R.tipos.embudo = function (fig, g, id, W) {
+  var et = g.etapas || [], tope = max(et.map(function (e) { return e.valor; }));
+  if (et.length < 2) throw new Error("hacen falta al menos dos etapas");
+  if (!(tope > 0)) throw new Error("las etapas necesitan valores positivos");
+  var fila = 44, centro = W / 2 + 40, util = W - 220, s = R.lienzo(fig, W, et.length * fila + 8, g.resumen);
+  et.forEach(function (e, i) {
+    var w = Math.max(r1(e.valor / tope * util), 6), y = 4 + i * fila, paso = i ? pct(e.valor, et[i - 1].valor) : null;
+    texto(s, {x: 140, y: y + 23, "text-anchor": "end"}, R.recortar(e.rotulo, 20));
+    consejo(svg("rect", {x: r1(centro - w / 2), y: y, width: w, height: 34, rx: 5, fill: color(e.color, 0), "fill-opacity": r1(Math.max(0.5, 1 - i * 0.1))}, s), e.rotulo + ": " + fmt(e.valor, g.unidad));
+    /* La cifra va dentro si cabe; si la barra es estrecha, al lado y en color de texto. */
+    var dentro = w > 64;
+    texto(s, {x: dentro ? centro : r1(centro + w / 2 + 6), y: y + 22, "text-anchor": dentro ? "middle" : "start"}, fmt(e.valor, g.unidad, true), dentro ? "valor-punto dentro" : "valor-punto");
+    if (paso) texto(s, {x: W - 8, y: y + 22, "text-anchor": "end"}, paso);
+    e.paso = paso;
+  });
+  return {cabecera: [R.T.concepto, R.T.valor, R.T.porcentaje], unidad: g.unidad, filas: et.map(function (e) { return [e.rotulo, e.valor, e.paso || "—"]; })};
+};
+
+/* Treemap: peso de muchas partidas a la vez (particion por cortes alternos). */
+R.tipos.treemap = function (fig, g, id, W) {
+  var el = (g.elementos || []).filter(function (e) { return num(e.valor) && e.valor > 0; }).sort(function (a, b) { return b.valor - a.valor; });
+  if (!el.length) throw new Error("faltan elementos con valor positivo");
+  var H = 300, total = el.reduce(function (s, e) { return s + e.valor; }, 0), s = R.lienzo(fig, W, H, g.resumen);
+  el.forEach(function (e) { e.pct = pct(e.valor, total); });
+  function partir(lista, x, y, w, h) {
+    if (!lista.length) return;
+    if (lista.length === 1) return pintar(lista[0], x, y, w, h);
+    var suma = lista.reduce(function (s, e) { return s + e.valor; }, 0), acum = 0, corte = 0;
+    while (corte < lista.length - 1 && acum + lista[corte].valor <= suma / 2) acum += lista[corte++].valor;
+    if (!corte) { acum = lista[0].valor; corte = 1; }
+    var f = acum / suma;
+    if (w >= h) { partir(lista.slice(0, corte), x, y, w * f, h); partir(lista.slice(corte), x + w * f, y, w * (1 - f), h); }
+    else { partir(lista.slice(0, corte), x, y, w, h * f); partir(lista.slice(corte), x, y + h * f, w, h * (1 - f)); }
+  }
+  function pintar(e, x, y, w, h) {
+    consejo(svg("rect", {x: r1(x + 1), y: r1(y + 1), width: r1(Math.max(w - 2, 1)), height: r1(Math.max(h - 2, 1)), rx: 3, fill: color(e.color, el.indexOf(e))}, s),
+      e.rotulo + ": " + fmt(e.valor, g.unidad) + " (" + e.pct + ")");
+    if (w > 70 && h > 34) {
+      texto(s, {x: r1(x + 8), y: r1(y + 18), "font-weight": 650}, R.recortar(e.rotulo, Math.floor(w / 7)), "valor-punto dentro");
+      texto(s, {x: r1(x + 8), y: r1(y + 33)}, e.pct, "valor-punto dentro");
+    }
+  }
+  partir(el, 0, 0, W, H);
+  return {cabecera: [R.T.concepto, R.T.valor, R.T.porcentaje], unidad: g.unidad, filas: el.map(function (e) { return [e.rotulo, e.valor, e.pct]; })};
+};
+
+/* Separa en vertical rotulos que caerian encima unos de otros (minimo "hueco" px). */
+function separar(ys, hueco) {
+  var orden = ys.map(function (y, i) { return [y, i]; }).sort(function (a, b) { return a[0] - b[0]; }), salida = ys.slice();
+  for (var k = 1; k < orden.length; k++) { var prev = salida[orden[k - 1][1]]; if (salida[orden[k][1]] - prev < hueco) salida[orden[k][1]] = prev + hueco; }
+  return salida;
+}
+
+/* Pendiente: como cambia cada partida entre dos momentos. */
+R.tipos.pendiente = function (fig, g, id, W) {
+  var el = g.elementos || [], et = g.etiquetas || ["", ""];
+  if (!el.length) throw new Error("faltan elementos");
+  sinNegativos([].concat.apply([], el.map(function (e) { return [e.antes, e.despues]; })), "pendiente");
+  var xa = Math.round(W * 0.22), xb = Math.round(W * 0.58), tope = topeDe(el.map(function (e) { return [e.antes, e.despues]; }));
+  var Y = function (v) { return r1(260 - v / tope * 220); }, s = R.lienzo(fig, W, 290, g.resumen);
+  texto(s, {x: xa, y: 20, "text-anchor": "middle", "font-weight": 650}, et[0]); texto(s, {x: xb, y: 20, "text-anchor": "middle", "font-weight": 650}, et[1]);
+  [xa, xb].forEach(function (x) { svg("line", {"class": "rejilla", x1: x, y1: 36, x2: x, y2: 264}, s); });
+  var ia = separar(el.map(function (e) { return Y(e.antes); }), 13), ib = separar(el.map(function (e) { return Y(e.despues); }), 13);
+  el.forEach(function (e, i) {
+    var c = color(e.color, i);
+    consejo(svg("line", {x1: xa, y1: Y(e.antes), x2: xb, y2: Y(e.despues), stroke: c, "stroke-width": 2.4}, s), e.rotulo + ": " + fmt(e.antes, g.unidad) + " → " + fmt(e.despues, g.unidad));
+    svg("circle", {cx: xa, cy: Y(e.antes), r: 4, fill: c}, s); svg("circle", {cx: xb, cy: Y(e.despues), r: 4, fill: c}, s);
+    texto(s, {x: xa - 10, y: ia[i] + 4, "text-anchor": "end"}, fmt(e.antes, g.unidad, true));
+    texto(s, {x: xb + 10, y: ib[i] + 4}, fmt(e.despues, g.unidad, true) + " · " + R.recortar(e.rotulo, Math.max(8, Math.floor((W - xb - 70) / 6.5))));
+  });
+  return {cabecera: [R.T.concepto, et[0], et[1]], unidad: g.unidad, filas: el.map(function (e) { return [e.rotulo, e.antes, e.despues]; })};
+};
+
+/* Halteras: la distancia entre dos valores de cada partida (pedido y concedido, propuesta y definitiva). */
+R.tipos.halteras = function (fig, g, id, W) {
+  var el = g.elementos || [], nombres = g.nombres || {a: "A", b: "B"};
+  if (!el.length) throw new Error("faltan elementos");
+  sinNegativos([].concat.apply([], el.map(function (e) { return [e.a, e.b]; })), "halteras");
+  var x0 = R.columnaRotulos(), x1 = W - 60, fila = 34, tope = topeDe(el.map(function (e) { return [e.a, e.b]; }));
+  var X = function (v) { return r1(x0 + v / tope * (x1 - x0)); }, s = R.lienzo(fig, W, el.length * fila + 30, g.resumen), ca = color(g.color_a || 6, 0), cb = color(g.color_b || 1, 0);
+  el.forEach(function (e, i) {
+    var y = 18 + i * fila;
+    R.rotuloFila(s, y + 4, e.rotulo);
+    svg("line", {x1: X(e.a), y1: y, x2: X(e.b), y2: y, stroke: "var(--borde)", "stroke-width": 4, "stroke-linecap": "round"}, s);
+    consejo(svg("circle", {cx: X(e.a), cy: y, r: 6, fill: ca}, s), nombres.a + ": " + fmt(e.a, g.unidad));
+    consejo(svg("circle", {cx: X(e.b), cy: y, r: 6, fill: cb}, s), nombres.b + ": " + fmt(e.b, g.unidad));
+    texto(s, {x: Math.max(X(e.a), X(e.b)) + 10, y: y + 4}, fmt(e.b - e.a, g.unidad, true), "valor-punto");
+  });
+  [0, tope / 2, tope].forEach(function (v) { texto(s, {x: X(v), y: el.length * fila + 26, "text-anchor": "middle"}, v ? fmt(v, g.unidad, true) : "0"); });
+  R.leyenda(fig, [{color: ca, texto: nombres.a}, {color: cb, texto: nombres.b}]);
+  return {cabecera: [R.T.concepto, nombres.a, nombres.b, TX.diferencia], unidad: g.unidad, filas: el.map(function (e) { return [e.rotulo, e.a, e.b, e.b - e.a]; })};
+};
+
+/* Piramide: dos grupos enfrentados por tramos (edad, antiguedad, cuantia). */
+R.tipos.piramide = function (fig, g, id, W) {
+  var et = g.etiquetas || [], iz = g.izquierda || {}, de = g.derecha || {}, va = iz.valores || [], vb = de.valores || [];
+  if (!et.length) throw new Error("faltan etiquetas");
+  sinNegativos(va.concat(vb), "piramide");
+  var centro = W / 2, mitad = (W - 120) / 2, fila = 24, tope = topeDe([va, vb]), s = R.lienzo(fig, W, et.length * fila + 40, g.resumen);
+  texto(s, {x: centro - 34, y: 14, "text-anchor": "end", "font-weight": 650}, iz.nombre || ""); texto(s, {x: centro + 34, y: 14, "font-weight": 650}, de.nombre || "");
+  et.forEach(function (e, i) {
+    var y = 22 + i * fila, a = va[i] || 0, b = vb[i] || 0, wa = a / tope * (mitad - 30), wb = b / tope * (mitad - 30);
+    consejo(svg("rect", {x: r1(centro - 30 - wa), y: y, width: r1(wa), height: fila - 4, fill: color(iz.color, 0)}, s), (iz.nombre || "") + " · " + e + ": " + fmt(a, g.unidad));
+    consejo(svg("rect", {x: centro + 30, y: y, width: r1(wb), height: fila - 4, fill: color(de.color, 1)}, s), (de.nombre || "") + " · " + e + ": " + fmt(b, g.unidad));
+    texto(s, {x: centro, y: y + 14, "text-anchor": "middle"}, R.recortar(e, 9));
+  });
+  return {cabecera: [R.T.concepto, iz.nombre || "", de.nombre || ""], unidad: g.unidad, filas: et.map(function (e, i) { return [e, va[i], vb[i]]; })};
+};
+
+/* Calendario de calor: actividad o vencimientos por dia (semanas en columnas, de lunes a domingo). */
+R.tipos.calendario = function (fig, g) {
+  var dias = g.dias || {}, claves = Object.keys(dias).sort(), DIA = R.DIA;
+  if (!claves.length) throw new Error("faltan dias");
+  var ini = R.fecha(g.desde || claves[0]), fin = R.fecha(g.hasta || claves[claves.length - 1]);
+  ini -= ((new Date(ini).getUTCDay() + 6) % 7) * DIA;
+  var semanas = Math.ceil((fin - ini + DIA) / (7 * DIA)), celda = 14, x0 = 34, y0 = 22, tope = max(claves.map(function (k) { return dias[k]; })) || 1;
+  var ancho = x0 + semanas * (celda + 2) + 8, s = R.lienzo(fig, ancho, y0 + 7 * (celda + 2) + 8, g.resumen);
+  s.setAttribute("width", ancho);
+  var mes = new Intl.DateTimeFormat(R.IDIOMA, {month: "short", timeZone: "UTC"}), largo = new Intl.DateTimeFormat(R.IDIOMA, {day: "numeric", month: "long", timeZone: "UTC"});
+  var inicial = new Intl.DateTimeFormat(R.IDIOMA, {weekday: "narrow", timeZone: "UTC"});
+  [0, 2, 4].forEach(function (d) { texto(s, {x: x0 - 6, y: y0 + d * (celda + 2) + 11, "text-anchor": "end"}, inicial.format(Date.UTC(2026, 0, 5 + d))); });
+  var ultimoMes = -1;
+  for (var t = ini; t <= fin; t += DIA) {
+    var f = new Date(t), i = Math.floor((t - ini) / (7 * DIA)), d = (f.getUTCDay() + 6) % 7, v = dias[f.toISOString().slice(0, 10)] || 0;
+    /* El mes se rotula en su primera semana (y siempre en la primera columna). */
+    if (d === 0 && f.getUTCMonth() !== ultimoMes && (i === 0 || f.getUTCDate() <= 7)) { ultimoMes = f.getUTCMonth(); texto(s, {x: x0 + i * (celda + 2), y: y0 - 8}, mes.format(t)); }
+    consejo(svg("rect", {x: x0 + i * (celda + 2), y: y0 + d * (celda + 2), width: celda, height: celda, rx: 3,
+      fill: v ? color(g.color || "acento", 0) : "var(--superficie-2)", "fill-opacity": v ? r1(0.2 + 0.8 * v / tope) : null, stroke: "var(--borde-suave)"}, s), largo.format(t) + ": " + v);
+  }
+  return {cabecera: [R.T.concepto, R.T.valor], filas: claves.map(function (k) { return [largo.format(R.fecha(k)), dias[k]]; })};
+};
+
+/* Pictograma: una proporcion contada en figuras («3 de cada 10»). */
+R.tipos.pictograma = function (fig, g) {
+  var total = g.total || 10, parte = g.valor;
+  if (!num(parte) || parte < 0 || parte > total) throw new Error("valor debe estar entre 0 y total");
+  var por = Math.min(total, 10), lado = 30, s = R.lienzo(fig, por * lado + 8, Math.ceil(total / por) * lado + 8, g.resumen);
+  s.setAttribute("width", por * lado + 8);
+  for (var i = 0; i < total; i++) {
+    var x = 4 + (i % por) * lado, y = 4 + Math.floor(i / por) * lado, c = i < Math.round(parte) ? color(g.color || 1, 0) : "var(--borde)";
+    svg("circle", {cx: x + 15, cy: y + 9, r: 5.5, fill: c}, s);
+    svg("path", {d: "M " + (x + 6) + " " + (y + 27) + " Q " + (x + 6) + " " + (y + 15) + " " + (x + 15) + " " + (y + 15) + " Q " + (x + 24) + " " + (y + 15) + " " + (x + 24) + " " + (y + 27) + " Z", fill: c}, s);
+  }
+  if (g.rotulo) R.html("p", "medidor-rotulo", fig, g.rotulo);
+  return {cabecera: [R.T.valor, R.T.total], filas: [[parte, total]]};
+};
+
+["radar", "calendario", "pictograma"].forEach(function (t) { R.tipos[t].fijo = true; });
+})();
+</script>
+```
+
+---
+
+## Iconos (`iconos`)
+
+Un juego propio de iconos de trazo, sin recursos externos, para indicadores, avisos, listas y diapositivas. Se escriben en el HTML con `<span class="icono" data-icono="nombre"></span>` (o, en una diapositiva, dentro de cualquier texto como `{icono:nombre}`) y toman el tamano y el color del texto que los rodea.
+
+Nombres: `plazo` (reloj), `calendario`, `juzgado`, `balanza`, `contrato`, `firma`, `euro`, `alerta`, `ok`, `persona`, `grupo`, `empresa`, `correo`, `telefono`, `ubicacion`, `candado`.
+
+Uso con mesura: un icono acompana a un texto, nunca lo sustituye (el texto sigue diciendo lo que es), y no mas de un icono por indicador o por punto de una lista.
+
+```js modulo=iconos
+<script>
+/* Iconos de trazo para los reportes. Se copia integro, despues del motor, solo si el
+   reporte usa algun icono. */
+(function(){
+"use strict";
+var TRAZOS = {
+  plazo: "M12 7v5l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z",
+  calendario: "M4 6h16v14H4zM4 10h16M8 3v4M16 3v4",
+  juzgado: "M3 9l9-5 9 5M5 9v9M10 9v9M14 9v9M19 9v9M3 20h18",
+  balanza: "M12 4v16M7 20h10M5 7h14M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z",
+  contrato: "M6 3h9l4 4v14H6zM14 3v5h5M9 12h7M9 16h5",
+  firma: "M3 18c3 0 4-8 7-8s1 7 4 7 3-3 5-3M3 21h18",
+  euro: "M18 6.5A7 7 0 1 0 18 17.5M4 10h10M4 14h10",
+  alerta: "M12 3l10 18H2zM12 10v4M12 17.5v.5",
+  ok: "M20 6L9 17l-5-5",
+  persona: "M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21c0-4 3.6-7 8-7s8 3 8 7",
+  grupo: "M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM2 20c0-3.5 3-6 7-6s7 2.5 7 6M16 4.5a3.5 3.5 0 0 1 0 6.5M18 14c2.5.8 4 3 4 6",
+  empresa: "M4 21V5l8-2v18M12 9h8v12M4 21h18M7 8h2M7 12h2M7 16h2M15 13h2M15 17h2",
+  correo: "M3 6h18v12H3zM3 7l9 6 9-6",
+  telefono: "M5 3h4l2 5-3 2a12 12 0 0 0 6 6l2-3 5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2z",
+  ubicacion: "M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12zM12 11.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z",
+  candado: "M6 11h12v10H6zM8 11V7a4 4 0 0 1 8 0v4"
+};
+function pintar(nodo) {
+  var d = TRAZOS[nodo.getAttribute("data-icono")];
+  if (!d) { console.error("Icono desconocido: " + nodo.getAttribute("data-icono")); return; }
+  nodo.textContent = "";
+  Reportes.svg("path", {d: d}, Reportes.svg("svg", {viewBox: "0 0 24 24", "aria-hidden": "true",
+    style: "width:1.1em;height:1.1em;vertical-align:-.18em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;display:inline-block;margin-right:.3em"}, nodo));
+}
+function todos() { document.querySelectorAll("[data-icono]").forEach(pintar); }
+/* Tras la carga, para incluir los iconos de las diapositivas que monta su script. */
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", todos); else todos();
+Reportes.iconos = TRAZOS;
+})();
+</script>
+```
+
+
+---
+
+## Codigo QR (`qr`)
+
+Un QR que lleva a la fuente, al expediente o a la version consolidada de una norma, para quien lee el documento en papel. Se genera dentro del documento, sin ningun servicio externo.
+
+```json
+{"tipo": "qr", "texto": "https://www.boe.es/buscar/act.php?id=BOE-A-2000-323", "rotulo": "Version consolidada de la norma citada", "tamano": 132}
+```
+
+- `texto`: la URL o el texto (hasta unos 210 caracteres). Solo URLs verificadas en la sesion o aportadas por el usuario.
+- `tamano`: lado en pixeles en pantalla (por defecto 132; al imprimir, unos 3,5 cm).
+- `rotulo`: lo que el lector encontrara al escanearlo. Un QR sin rotulo no dice a donde lleva.
+
+```js modulo=qr
+<script>
+/* Codigo QR para los reportes (modo byte, correccion M, versiones 1 a 10: hasta unos 210
+   caracteres). Se copia integro, despues del motor, solo si el reporte lleva un QR. */
+(function(){
+"use strict";
+var R = Reportes;
+var BLOQUES = [0, 1, 1, 1, 2, 2, 4, 4, 4, 5, 5], CORRECCION = [0, 10, 16, 26, 18, 24, 16, 18, 22, 22, 26];
+function modulosDatos(v) {
+  var n = (16 * v + 128) * v + 64;
+  if (v >= 2) { var a = Math.floor(v / 7) + 2; n -= (25 * a - 10) * a - 55; if (v >= 7) n -= 36; }
+  return n;
+}
+function mul(x, y) { var z = 0; for (var i = 7; i >= 0; i--) { z = (z << 1) ^ ((z >>> 7) * 0x11D); z ^= ((y >>> i) & 1) * x; } return z; }
+function divisor(g) {
+  var r = []; for (var i = 0; i < g - 1; i++) r.push(0); r.push(1);
+  for (var k = 0, raiz = 1; k < g; k++) { for (var j = 0; j < r.length; j++) { r[j] = mul(r[j], raiz); if (j + 1 < r.length) r[j] ^= r[j + 1]; } raiz = mul(raiz, 2); }
+  return r;
+}
+function resto(datos, div) {
+  var r = div.map(function () { return 0; });
+  datos.forEach(function (b) { var f = b ^ r.shift(); r.push(0); div.forEach(function (c, i) { r[i] ^= mul(c, f); }); });
+  return r;
+}
+function codificar(texto) {
+  var bytes = Array.from(new TextEncoder().encode(texto)), v, cap;
+  for (v = 1; v <= 10; v++) { cap = Math.floor(modulosDatos(v) / 8) - CORRECCION[v] * BLOQUES[v]; if (4 + (v < 10 ? 8 : 16) + bytes.length * 8 <= cap * 8) break; }
+  if (v > 10) throw new Error("el texto del QR es demasiado largo (maximo unos 210 caracteres)");
+  var bits = [], pon = function (val, n) { for (var i = n - 1; i >= 0; i--) bits.push((val >>> i) & 1); };
+  pon(4, 4); pon(bytes.length, v < 10 ? 8 : 16); bytes.forEach(function (b) { pon(b, 8); });
+  pon(0, Math.min(4, cap * 8 - bits.length)); pon(0, (8 - bits.length % 8) % 8);
+  for (var relleno = 0xEC; bits.length < cap * 8; relleno ^= 0xEC ^ 0x11) pon(relleno, 8);
+  var datos = []; for (var i = 0; i < bits.length; i += 8) { var b = 0; for (var j = 0; j < 8; j++) b = b << 1 | bits[i + j]; datos.push(b); }
+  /* Bloques con su correccion y entrelazado. */
+  var nb = BLOQUES[v], ec = CORRECCION[v], total = Math.floor(modulosDatos(v) / 8), cortos = nb - total % nb, largoCorto = Math.floor(total / nb);
+  var div = divisor(ec), bloques = [], k = 0;
+  for (i = 0; i < nb; i++) {
+    var d = datos.slice(k, k + largoCorto - ec + (i < cortos ? 0 : 1)); k += d.length;
+    var e = resto(d, div); if (i < cortos) d.push(0); bloques.push(d.concat(e));
+  }
+  var cw = [];
+  for (i = 0; i < bloques[0].length; i++) bloques.forEach(function (bl, j) { if (i !== largoCorto - ec || j >= cortos) cw.push(bl[i]); });
+  return {v: v, cw: cw};
+}
+function matriz(v, cw) {
+  var n = v * 4 + 17, m = [], f = [], x, y, i;
+  for (y = 0; y < n; y++) { m.push([]); f.push([]); for (x = 0; x < n; x++) { m[y].push(false); f[y].push(false); } }
+  var pon = function (x, y, o) { m[y][x] = o; f[y][x] = true; };
+  for (i = 0; i < n; i++) { pon(6, i, i % 2 === 0); pon(i, 6, i % 2 === 0); }
+  [[3, 3], [n - 4, 3], [3, n - 4]].forEach(function (c) {
+    for (var dy = -4; dy <= 4; dy++) for (var dx = -4; dx <= 4; dx++) {
+      var d = Math.max(Math.abs(dx), Math.abs(dy)), xx = c[0] + dx, yy = c[1] + dy;
+      if (xx >= 0 && xx < n && yy >= 0 && yy < n) pon(xx, yy, d !== 2 && d !== 4);
+    }
+  });
+  if (v > 1) {
+    var na = Math.floor(v / 7) + 2, paso = Math.ceil((v * 4 + 4) / (na * 2 - 2)) * 2, pos = [6];
+    for (i = 0, x = n - 7; i < na - 1; i++, x -= paso) pos.splice(1, 0, x);
+    pos.forEach(function (ay, a) { pos.forEach(function (ax, b) {
+      if ((a === 0 && b === 0) || (a === 0 && b === na - 1) || (a === na - 1 && b === 0)) return;
+      for (var dy = -2; dy <= 2; dy++) for (var dx = -2; dx <= 2; dx++) pon(ax + dx, ay + dy, Math.max(Math.abs(dx), Math.abs(dy)) !== 1);
+    }); });
+  }
+  var formato = function (mascara) {
+    var d = mascara, r = d; /* correccion M = 00 */
+    for (var j = 0; j < 10; j++) r = (r << 1) ^ ((r >>> 9) * 0x537);
+    var b = ((d << 10) | r) ^ 0x5412, bit = function (i) { return ((b >>> i) & 1) !== 0; };
+    for (j = 0; j <= 5; j++) pon(8, j, bit(j));
+    pon(8, 7, bit(6)); pon(8, 8, bit(7)); pon(7, 8, bit(8));
+    for (j = 9; j < 15; j++) pon(14 - j, 8, bit(j));
+    for (j = 0; j < 8; j++) pon(n - 1 - j, 8, bit(j));
+    for (j = 8; j < 15; j++) pon(8, n - 15 + j, bit(j));
+    pon(8, n - 8, true);
+  };
+  formato(0);
+  if (v >= 7) {
+    var r = v; for (i = 0; i < 12; i++) r = (r << 1) ^ ((r >>> 11) * 0x1F25);
+    var bv = v << 12 | r;
+    for (i = 0; i < 18; i++) { var o = ((bv >>> i) & 1) !== 0, a = n - 11 + i % 3, c = Math.floor(i / 3); pon(a, c, o); pon(c, a, o); }
+  }
+  for (var der = n - 1, idx = 0; der >= 1; der -= 2) {
+    if (der === 6) der = 5;
+    for (var vert = 0; vert < n; vert++) for (var j = 0; j < 2; j++) {
+      x = der - j; y = ((der + 1) & 2) === 0 ? n - 1 - vert : vert;
+      if (!f[y][x] && idx < cw.length * 8) { m[y][x] = ((cw[idx >>> 3] >>> (7 - (idx & 7))) & 1) !== 0; idx++; }
+    }
+  }
+  /* Mascara con menos penalizacion (rachas, bloques 2x2 y equilibrio de oscuros). */
+  var mascaras = [
+    function (x, y) { return (x + y) % 2 === 0; }, function (x, y) { return y % 2 === 0; }, function (x) { return x % 3 === 0; },
+    function (x, y) { return (x + y) % 3 === 0; }, function (x, y) { return (Math.floor(x / 3) + Math.floor(y / 2)) % 2 === 0; },
+    function (x, y) { return x * y % 2 + x * y % 3 === 0; }, function (x, y) { return (x * y % 2 + x * y % 3) % 2 === 0; },
+    function (x, y) { return ((x + y) % 2 + x * y % 3) % 2 === 0; }];
+  var aplicar = function (k) { for (y = 0; y < n; y++) for (x = 0; x < n; x++) if (!f[y][x] && mascaras[k](x, y)) m[y][x] = !m[y][x]; };
+  var penalizacion = function () {
+    var p = 0, oscuros = 0;
+    for (var a = 0; a < n; a++) for (var dir = 0; dir < 2; dir++) {
+      var racha = 1;
+      for (var b = 1; b < n; b++) {
+        var actual = dir ? m[b][a] : m[a][b], previo = dir ? m[b - 1][a] : m[a][b - 1];
+        if (actual === previo) { racha++; if (racha === 5) p += 3; else if (racha > 5) p++; } else racha = 1;
+      }
+    }
+    for (y = 0; y < n - 1; y++) for (x = 0; x < n - 1; x++) if (m[y][x] === m[y][x + 1] && m[y][x] === m[y + 1][x] && m[y][x] === m[y + 1][x + 1]) p += 3;
+    for (y = 0; y < n; y++) for (x = 0; x < n; x++) if (m[y][x]) oscuros++;
+    return p + Math.floor(Math.abs(oscuros * 20 - n * n * 10) / (n * n)) * 10;
+  };
+  var mejor = 0, menor = Infinity;
+  for (var k = 0; k < 8; k++) { aplicar(k); formato(k); var pn = penalizacion(); if (pn < menor) { menor = pn; mejor = k; } aplicar(k); }
+  aplicar(mejor); formato(mejor);
+  return m;
+}
+R.tipos.qr = function (fig, g) {
+  if (!g.texto) throw new Error("falta el texto o la URL del QR");
+  var c = codificar(String(g.texto)), m = matriz(c.v, c.cw), n = m.length, borde = 4, lado = n + borde * 2, d = "";
+  for (var y = 0; y < n; y++) for (var x = 0; x < n; x++) if (m[y][x]) d += "M" + (x + borde) + "," + (y + borde) + "h1v1h-1z";
+  var s = R.lienzo(fig, lado, lado, g.resumen || ("QR: " + g.texto));
+  s.setAttribute("width", g.tamano || 132); s.setAttribute("shape-rendering", "crispEdges"); s.style.margin = "0";
+  R.svg("rect", {width: lado, height: lado, fill: "#fff"}, s);
+  R.svg("path", {d: d, fill: "#000"}, s);
+  if (g.rotulo) R.html("p", "fuente-grafico", fig, g.rotulo);
+  return null;
+};
+R.tipos.qr.fijo = true;
+})();
+</script>
+```
+
+
+---
+
+## Identidad del despacho (`marca`)
+
+Aplica los colores, el logo y el pie del despacho a partir del bloque `marca` de los datos, sin tocar el CSS. Es la forma de resolver `tema_personalizado`.
+
+```json
+"marca": {"nombre": "Lasheras & Gil Abogados", "acento": "#7a1f3d", "acento_fuerte": "#5c1730",
+          "serie": ["#7a1f3d", "#b8893b", "#3f6b5a", "#4b5d86", "#9a5a7c", "#6b7280"],
+          "oscuro": {"acento": "#e48aa6", "serie": ["#e48aa6", "#e0b36a", "#8fc2a8", "#9fb2e0", "#d49ab8", "#a0a7ad"]},
+          "logo": "data:image/svg+xml;base64,...", "pie": "Lasheras & Gil Abogados, S.L.P. · Zaragoza"}
+```
+
+- Colores en hexadecimal de 3, 4, 6 u 8 cifras; otro valor se ignora. Rigen en el tema claro y en papel.
+- `oscuro`: version para el tema oscuro. Un color corporativo oscuro (un granate, un azul marino) no se lee sobre fondo negro: si no se da, en tema oscuro se mantienen los colores del tema, que si contrastan.
+- `logo`: solo si lo aporta el usuario, como data URI de imagen de menos de 15 KB. Va en la cabecera o, en una presentacion, en la portada. Sobre la portada oscura del documento largo conviene una version clara.
+- `pie`: linea que se anade al pie del documento.
+
+```js modulo=marca
+<script>
+/* Identidad del despacho para los reportes. Se copia integro, despues del motor, solo si
+   los datos llevan el bloque marca. */
+(function(){
+"use strict";
+var R = Reportes, D = document, m = R.datos.marca, hex = /^#([0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i;
+if (!m) return;
+function variables(c) {
+  var v = "";
+  if (hex.test(c.acento || "")) v += "--acento:" + c.acento + ";--acento-fuerte:" + (hex.test(c.acento_fuerte || "") ? c.acento_fuerte : c.acento) +
+    ";--acento-suave:color-mix(in srgb," + c.acento + " 12%,var(--superficie));";
+  (c.serie || []).slice(0, 6).forEach(function (x, i) { if (hex.test(x)) v += "--c" + (i + 1) + ":" + x + ";"; });
+  return v;
+}
+/* En claro y en papel, los colores de marca; en oscuro, su version oscura o los del tema. */
+var css = "@media (prefers-color-scheme:light),print{:root{" + variables(m) + "}}";
+if (m.oscuro) css += "@media screen and (prefers-color-scheme:dark){:root{" + variables(m.oscuro) + "}}";
+R.html("style", "", D.head).textContent = css;
+if (m.pie) R.html("p", "", D.querySelector(".pie"), m.pie);
+function logo() {
+  if (!/^data:image\/(png|jpeg|svg\+xml|webp);base64,/.test(m.logo || "")) return;
+  var destino = D.querySelector(".maqueta-portada") || D.querySelector(".contenedor>header"), img = R.html("img", "", null);
+  img.src = m.logo; img.alt = m.nombre || "";
+  img.setAttribute("style", "display:block;max-height:52px;max-width:220px;margin:0 0 12px");
+  destino.insertBefore(img, destino.firstChild);
+}
+/* Tras la carga, para encontrar la portada de una presentacion, que monta su script. */
+if (D.readyState === "loading") D.addEventListener("DOMContentLoaded", logo); else logo();
+})();
+</script>
+```
+
+---
+
+## Plazos en dias habiles (`plazos`)
+
+Anade dos calculos a `cifras`:
+
+- `{"calculo": "dias_habiles", "desde": "2026-09-17", "hasta": "2026-10-05", "festivos": [...], "agosto_inhabil": true}`: los dias habiles entre dos fechas.
+- `{"calculo": "vencimiento", "desde": "2026-10-01", "dias": 20, "festivos": [...], "unidad": "fecha"}`: la fecha en que vence un plazo de tantos dias habiles, contados desde el dia siguiente.
+
+Se excluyen sabados y domingos. `festivos` es la lista de **todos los demas dias inhabiles** que correspondan (festivos nacionales, autonomicos y locales del lugar, y los que la norma procesal aplicable declare inhabiles), en `AAAA-MM-DD`, **aportados por el usuario o verificados en la sesion**: el modulo no trae ningun calendario. `agosto_inhabil` solo para plazos procesales en que agosto lo sea. Un vencimiento alimenta un diagrama de plazos con `"fin": "@clave"`. El resultado es orientativo y se dice asi en el bloque de supuestos.
+
+```js modulo=plazos
+<script>
+/* Plazos en dias habiles para los reportes. Se copia integro, despues del motor, solo si
+   alguna cifra usa dias_habiles o vencimiento. */
+(function(){
+"use strict";
+var R = Reportes, DIA = R.DIA;
+function habil(t, def) {
+  var d = new Date(t), s = d.getUTCDay();
+  return s !== 0 && s !== 6 && !(def.agosto_inhabil && d.getUTCMonth() === 7) && (def.festivos || []).indexOf(d.toISOString().slice(0, 10)) < 0;
+}
+R.calculos.dias_habiles = function (def) {
+  for (var t = R.fecha(def.desde), fin = R.fecha(def.hasta), n = 0; t < fin;) { t += DIA; if (habil(t, def)) n++; }
+  return n;
+};
+R.calculos.vencimiento = function (def) {
+  if (!(def.dias > 0)) throw new Error("el vencimiento necesita dias");
+  for (var t = R.fecha(def.desde), n = 0; n < def.dias;) { t += DIA; if (habil(t, def)) n++; }
+  return t;
+};
+})();
+</script>
+```

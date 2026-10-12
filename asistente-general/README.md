@@ -48,7 +48,7 @@ Generación de documentos visuales autocontenidos en HTML, del estilo de los que
 5. **Documento largo:** white paper, memoria anual o due diligence, con portada a página completa, resumen ejecutivo, índice con enlaces, capítulos que empiezan en página nueva y, al imprimir, cabecera y número de página.
 6. **Resumen ejecutivo:** una sola página A4 con la conclusión, tres indicadores, un gráfico y la decisión que se pide.
 
-Incluye además un módulo opcional de **diagramas con conectores** (flujos y procesos, organigramas y estructuras societarias, mapa de relaciones entre partes y quién hace qué), que coloca las cajas y traza las flechas solo.
+Incluye además módulos opcionales, que solo viajan en los reportes que los usan: **diagramas con conectores** (flujos y procesos, organigramas y estructuras societarias, mapa de relaciones entre partes y quién hace qué), **gráficos avanzados** (dispersión y burbujas, histograma, radar, embudo, treemap, pendiente, halteras, pirámide, calendario de calor y pictograma), **iconos** propios y **código QR** generado dentro del documento. El motor aplica la **identidad del despacho** (colores, logo y pie) desde los datos y calcula **plazos en días hábiles** con los festivos que se le indiquen.
 
 Los gráficos no se dibujan a mano: se declaran como datos y los dibuja un motor propio incluido en la plantilla base (barras, columnas simples, agrupadas y apiladas, línea con área, umbral y anotaciones, minigráfico, medidor, cascada, matriz de riesgo, diagrama de plazos, anillo y tarta). El motor calcula escalas, totales y porcentajes, añade a cada gráfico su tabla de datos con descarga en CSV y su fuente, y compone el pie de fuentes; las cifras del texto pueden salir del mismo bloque de datos, así que texto y gráfico no se contradicen. Se acompaña de criterios de qué forma responde a cada pregunta y reglas de honestidad gráfica (eje desde cero, sin recortes, sin datos inventados).
 
@@ -86,7 +86,7 @@ asistente-general/
         ├── references/
         │   ├── catalogo-reportes.md           ← recetas de los reportes típicos
         │   ├── maquetas-reportes.md           ← esqueleto de cada tipo de reporte
-        │   ├── modulos-motor.md               ← módulos opcionales (diagramas con conectores)
+        │   ├── modulos-motor.md               ← módulos opcionales (diagramas, gráficos avanzados, iconos, QR)
         │   ├── anatomia-documento-visual.md
         │   ├── biblioteca-componentes-visuales.md
         │   └── criterios-visualizacion-datos.md

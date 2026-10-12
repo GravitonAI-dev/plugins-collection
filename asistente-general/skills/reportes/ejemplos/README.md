@@ -12,7 +12,7 @@ Reportes de demostracion generados con la base `../assets/template-base-reportes
 | `presentacion_reclamacion_cliente.html` | `presentacion` + modulo de diagramas | 13 diapositivas para una reunion de cliente: portada, agenda, cifra enlazada a un grafico, cascada, barras, separador, diagrama de flujo, comparativa, cronologia, cita, proximos pasos, equipo y cierre; notas del orador y fuentes automaticas |
 | `white_paper_morosidad_pymes.html` | `documento_largo` + modulo de diagramas | White paper de siete paginas: portada, resumen ejecutivo con cifra enlazada, indice con enlaces, capitulos en pagina nueva con linea, barras, diagrama y matriz, notas y fuentes; cabecera y numeracion al imprimir |
 | `resumen_reclamacion_una_pagina.html` | `resumen_ejecutivo` | Una sola pagina A4: titular con la recomendacion, tres indicadores (uno calculado), un grafico, conclusiones y la decision que se pide |
-| `galeria_graficos.html` | base sin maqueta + modulo de diagramas | Todos los tipos de grafico del motor y las cuatro disposiciones de diagrama, cada uno con su tabla de datos, su CSV y su fuente |
+| `galeria_graficos.html` | base sin maqueta + todos los modulos | Los 28 tipos: los del motor, las cuatro disposiciones de diagrama, los graficos avanzados, el QR, iconos y un vencimiento en dias habiles, cada uno con su tabla de datos, su CSV y su fuente |
 
 El informe conserva a proposito el marcador `{{LETRADO_RESPONSABLE}}`: asi se ve como queda un dato que el usuario decide no aportar.
 

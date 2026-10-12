@@ -37,6 +37,7 @@ El motor de la base dibuja el SVG, calcula escalas, ejes y porcentajes, rellena 
 - **`fuentes`**: cada fuente con `nombre`, `url` si viene de internet y `consulta` en formato `AAAA-MM-DD` (la fecha real de la consulta en la sesion, nunca inventada). Los graficos las citan por su clave.
 - **`cifras`**: cifras sueltas del texto. Cada una es `{"valor": 1234, "unidad": "eur"}`, una operacion entre otras dos cifras (o numeros) —`{"operacion": "porcentaje", "a": "cobrado", "b": "facturado", "unidad": "pct"}`, con `suma`, `diferencia`, `producto`, `cociente` o `porcentaje` (a sobre b por cien); el 30 % de una cifra es `producto` por 0.3— o un calculo sobre un grafico: `{"de": "grafico", "calculo": "suma", "serie": 0, "unidad": "eur"}`. Calculos: `suma`, `media`, `maximo`, `minimo`, `primero`, `ultimo`, `cuenta`, `variacion` (porcentaje entre el primero y el ultimo) y `porcentaje` (peso de `"elemento": "rotulo"` sobre el total). En el HTML se escriben con `<span data-cifra="principal"></span>`; en las diapositivas, con `{cifra:principal}` dentro del texto. `"decimales": 0` quita los decimales (una cifra grande de portada); por defecto los importes llevan dos. **Toda cifra que se obtiene de otras (un porcentaje de cumplimiento, una diferencia con el objetivo, un total) se declara asi y nunca se calcula a mano.**
 - **`fuentes[].consulta`** es la fecha en que se obtuvieron los datos: la de la consulta en internet, la de exportacion que indique el usuario o, si no indica ninguna, la fecha de la conversacion.
+- **`marca`** (identidad del despacho) y **plazos en dias habiles** (`dias_habiles`, `vencimiento`): modulos opcionales, contrato en `modulos-motor.md`.
 - **`textos`**: solo si el documento no esta en espanol ni en ingles, para traducir los rotulos que escribe el motor; las claves son las de `TEXTOS_BASE` en el script de la base (y las de `TX` en el modulo de diagramas).
 
 ### Campos comunes a todos los graficos
@@ -270,6 +271,24 @@ figcaption{font-size:.78rem;color:var(--apagado);margin-top:var(--e2);max-width:
 ```
 
 El `alt` describe la imagen; el `figcaption` la acredita **siempre** (autor, titulo, origen, licencia con URL), tambien cuando la licencia no lo exige.
+
+### Tabla de jurisprudencia
+
+Para fundamentar con resoluciones, siempre verificadas en la sesion en el CENDOJ u otra fuente oficial (si no se pueden verificar, no entran):
+
+```html
+<div class="tabla">
+  <table>
+    <caption>Resoluciones que sostienen la reclamacion</caption>
+    <thead><tr><th>Tribunal y fecha</th><th>Referencia</th><th>Que dice</th><th>Relevancia</th></tr></thead>
+    <tbody>
+      <tr><td>{{TRIBUNAL}}, {{FECHA}}</td><td>{{ROJ_O_ECLI}}</td><td>{{DOCTRINA_EN_UNA_FRASE}}</td><td><span class="distintivo ok">Directa</span></td></tr>
+    </tbody>
+  </table>
+</div>
+```
+
+La referencia es la oficial (Roj o ECLI) y la URL de cada resolucion va en `fuentes`, que la recoge el pie. Relevancia: `ok` directa, `atencion` por analogia, `riesgo` en contra. Si se quiere que el lector en papel llegue a la resolucion, un QR con su URL.
 
 ### Pie del reporte
 

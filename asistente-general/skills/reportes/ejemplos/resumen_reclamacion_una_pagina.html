@@ -364,8 +364,8 @@ catch (e) { console.error("datos-reporte no es JSON valido: " + e.message); }
 var IDIOMA = datos.idioma || D.documentElement.lang || "es-ES";
 var MONEDA = datos.moneda || "EUR";
 var TEXTOS_BASE = {
-  es: {en_curso:"en curso", objetivo:"Objetivo", cumplimiento:"Cumplimiento", datos:"Ver los datos", csv:"Descargar CSV", fuente:"Fuente", fuentes:"Fuentes", consulta:"consultado el", otros:"Otros", hoy:"hoy", total:"Total", concepto:"Concepto", valor:"Valor", acumulado:"Acumulado", porcentaje:"Porcentaje", inicio:"Inicio", fin:"Fin", restantes:"Dias restantes", maximo:"Maximo", ok:"Asumir", aviso:"Vigilar", riesgo:"Actuar ya", error:"No se puede dibujar el grafico"},
-  en: {en_curso:"ongoing", objetivo:"Target", cumplimiento:"Achieved", datos:"Show the data", csv:"Download CSV", fuente:"Source", fuentes:"Sources", consulta:"accessed on", otros:"Other", hoy:"today", total:"Total", concepto:"Item", valor:"Value", acumulado:"Running total", porcentaje:"Share", inicio:"Start", fin:"End", restantes:"Days left", maximo:"Maximum", ok:"Accept", aviso:"Monitor", riesgo:"Act now", error:"The chart cannot be drawn"}
+  es: {en_curso:"en curso", objetivo:"Objetivo", cumplimiento:"Cumplimiento", datos:"Ver los datos", csv:"Descargar CSV", fuente:"Fuente", fuentes:"Fuentes", consulta:"consultado el", otros:"Otros", hoy:"hoy", total:"Total", concepto:"Concepto", valor:"Valor", acumulado:"Acumulado", porcentaje:"Porcentaje", inicio:"Inicio", fin:"Fin", restantes:"Dias naturales restantes", maximo:"Maximo", ok:"Asumir", aviso:"Vigilar", riesgo:"Actuar ya", error:"No se puede dibujar el grafico"},
+  en: {en_curso:"ongoing", objetivo:"Target", cumplimiento:"Achieved", datos:"Show the data", csv:"Download CSV", fuente:"Source", fuentes:"Sources", consulta:"accessed on", otros:"Other", hoy:"today", total:"Total", concepto:"Item", valor:"Value", acumulado:"Running total", porcentaje:"Share", inicio:"Start", fin:"End", restantes:"Calendar days left", maximo:"Maximum", ok:"Accept", aviso:"Monitor", riesgo:"Act now", error:"The chart cannot be drawn"}
 };
 var T = Object.assign({}, TEXTOS_BASE[IDIOMA.slice(0, 2)] || TEXTOS_BASE.es, datos.textos || {});
 var FUENTES = datos.fuentes || {};
@@ -396,6 +396,7 @@ function consejo(nodo, texto) { svg("title", {}, nodo, texto); return nodo; }
 var formatos = {};
 function fmt(v, unidad, corto, decimales) {
   if (!num(v)) return "\u2014";
+  if (unidad === "fecha") return fmtFechaLarga.format(v);
   unidad = unidad || "num";
   var clave = unidad + (corto ? "|c" : "") + "|" + decimales, f = formatos[clave];
   if (!f) {
@@ -416,6 +417,7 @@ var fmtFecha = new Intl.DateTimeFormat(IDIOMA, {day: "numeric", month: "short", 
 var fmtFechaLarga = new Intl.DateTimeFormat(IDIOMA, {day: "numeric", month: "long", year: "numeric", timeZone: "UTC"});
 var fmtMes = new Intl.DateTimeFormat(IDIOMA, {month: "short", year: "2-digit", timeZone: "UTC"});
 function fecha(texto) {
+  if (num(texto)) return texto;  /* ya es una fecha calculada (por ejemplo, un vencimiento) */
   var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(texto || "");
   if (!m) throw new Error("fecha no valida (usa AAAA-MM-DD): " + texto);
   return Date.UTC(+m[1], +m[2] - 1, +m[3]);
@@ -433,7 +435,7 @@ function techo(v) {
 function color(c, i) {
   if (typeof c === "number") return "var(--c" + c + ")";
   if (/^(ok|aviso|riesgo|acento|acento-fuerte)$/.test(c || "")) return "var(--" + c + ")";
-  if (/^#[0-9a-fA-F]{3,8}$/.test(c || "")) return c;
+  if (/^#([0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(c || "")) return c;
   return "var(--c" + ((i % 6) + 1) + ")";
 }
 function lienzo(fig, ancho, alto, resumen, clase, estirar) {
@@ -888,9 +890,12 @@ function cifraDe(clave, pila) {
   if (!d) throw new Error("no hay cifra " + clave);
   return cifra(d, pila.concat([clave]));
 }
+/* Calculos que anaden los modulos (por ejemplo, plazos en dias habiles). */
+var calculos = {};
 function cifra(def, pila) {
   pila = pila || [];
   if (num(def.valor)) return def.valor;
+  if (calculos[def.calculo]) return calculos[def.calculo](def);
   /* Operacion entre dos cifras (o numeros): porcentaje de cumplimiento, diferencia con un objetivo... */
   if (def.operacion) {
     var op = function (x) { return num(x) ? x : cifraDe(x, pila); };
@@ -949,7 +954,7 @@ function dibujar(fig, ancho) {
     if (!g) throw new Error("no hay datos con el nombre " + id);
     if (!tipos[g.tipo]) throw new Error("tipo desconocido: " + g.tipo);
     g = referencias(g, ["#" + id]);
-    var tabla = tipos[g.tipo](fig, g, id);
+    var tabla = tipos[g.tipo](fig, g, id, W);  /* W: ancho del lienzo, para los tipos de los modulos */
     if (tabla && g.tabla !== false) tablaDatos(fig, tabla, id);
     var claves = fuentesDe(g);
     claves.forEach(function (c) { if (usadas.indexOf(c) < 0) usadas.push(c); });
@@ -1015,7 +1020,9 @@ if (imprimir) imprimir.addEventListener("click", function () { window.print(); }
    para el script de una maqueta. actualizar cambia los datos de un grafico y lo
    redibuja junto con las cifras del texto. */
 window.Reportes = {datos: datos, fmt: fmt, tipos: tipos, T: T, svg: svg, html: html, color: color, lienzo: lienzo,
-  recortar: recortar, consejo: consejo, escala: escala, leyenda: leyenda, r1: r1,
+  recortar: recortar, consejo: consejo, escala: escala, leyenda: leyenda, r1: r1, num: num, maximo: maximo, minimo: minimo,
+  techo: techo, fecha: fecha, DIA: DIA, rejilla: rejilla, yDe: yDe, columnaRotulos: columnaRotulos, rotuloFila: rotuloFila,
+  calculos: calculos, IDIOMA: IDIOMA,
   actualizar: function (id, cambios) {
     Object.assign(datos.graficos[id], cambios);
     figuras.forEach(function (f) { if (f.getAttribute("data-grafico") === id) dibujar(f, f.clientWidth); });

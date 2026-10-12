@@ -259,6 +259,9 @@ def presentacion():
 def white_paper():
     demo = {"demo": {"nombre": "Datos ficticios de demostracion", "consulta": "2026-10-11"}}
     datos = {"idioma": "es-ES", "moneda": "EUR", "fuentes": demo,
+      "marca": {"nombre": "Despacho de ejemplo", "acento": "#7a2e3b", "acento_fuerte": "#5c1f2b", "serie": ["#7a2e3b", "#b07d3a", "#3f6b5a", "#4b5d86", "#9a5a7c", "#6b7280"],
+                "oscuro": {"acento": "#e48aa6", "serie": ["#e48aa6", "#e0b36a", "#8fc2a8", "#9fb2e0", "#d49ab8", "#a0a7ad"]},
+                "pie": "Despacho de ejemplo, S.L.P. · Documento de demostracion con identidad corporativa aplicada desde el bloque marca."},
       "cifras": {"plazo_2026": {"de": "plazos_pago", "calculo": "ultimo", "unidad": "dias", "decimales": 0},
                  "plazo_2022": {"de": "plazos_pago", "calculo": "primero", "unidad": "dias", "decimales": 0},
                  "subida": {"operacion": "diferencia", "a": "plazo_2026", "b": "plazo_2022", "unidad": "dias", "decimales": 0, "signo": True, "mejor": "bajar"}},
@@ -301,7 +304,7 @@ def white_paper():
       "SUBTITULO_CAPITULO_3": "Tres medidas que cambian el resultado", "PUNTO_1": "Aceptacion escrita de cada factura o albaran.", "PUNTO_2": "Requerimiento fehaciente a los treinta dias del vencimiento.",
       "TITULO_NOTAS": "Notas", "NOTA_1": "Todas las cifras de este documento son ficticias y sirven solo para mostrar el formato.",
     })
-    return componer("white_paper_morosidad_pymes.html", textos, datos, "documento_largo", contenido=contenido, modulos=["diagramas"])
+    return componer("white_paper_morosidad_pymes.html", textos, datos, "documento_largo", contenido=contenido, modulos=["diagramas", "marca"])
 
 def resumen():
     datos = {"idioma": "es-ES", "moneda": "EUR", "fuentes": FUENTE_CLIENTE,
@@ -396,12 +399,41 @@ GALERIA = [
               {"id": "3", "texto": "Presenta monitorio", "carril": "Despacho"}, {"id": "4", "texto": "Requiere de pago al deudor", "carril": "Juzgado"},
               {"id": "5", "texto": "Decreto de fin", "carril": "Juzgado"}, {"id": "6", "texto": "Informa al cliente", "carril": "Despacho"}],
     "conexiones": [{"de": "1", "a": "2"}, {"de": "2", "a": "3", "texto": "10 dias"}, {"de": "3", "a": "4"}, {"de": "4", "a": "5", "texto": "20 dias"}, {"de": "5", "a": "6"}]}),
+  ("dispersion", "Dispersion y burbujas", "Modulo avanzado: relacion entre cuantia y duracion; el tamano, las costas.",
+   {"tipo": "dispersion", "eje_x": {"nombre": "Cuantia reclamada", "unidad": "eur"}, "eje_y": {"nombre": "Dias hasta sentencia", "unidad": "dias"}, "nombre_tamano": "Costas", "unidad_tamano": "eur",
+    "puntos": [{"rotulo": r, "x": x, "y": y, "tamano": c} for r, x, y, c in [("Asunto A", 12000, 210, 1800), ("Asunto B", 48000, 420, 5200), ("Asunto C", 7500, 150, 900),
+               ("Asunto D", 86000, 610, 9800), ("Asunto E", 31000, 300, 3100), ("Asunto F", 22000, 380, 2600)]]}),
+  ("histograma", "Histograma", "Modulo avanzado: como se reparten los dias de demora de 40 facturas.",
+   {"tipo": "histograma", "unidad": "dias", "nombre": "Dias de demora", "valores": [12, 25, 33, 41, 45, 52, 58, 60, 61, 67, 70, 72, 75, 80, 84, 88, 90, 93, 97, 101,
+     105, 110, 118, 121, 130, 138, 145, 151, 160, 172, 180, 195, 210, 230, 247, 262, 280, 301, 313, 340]}),
+  ("radar", "Radar", "Modulo avanzado: dos vias puntuadas de 0 a 10 con los mismos criterios.",
+   {"tipo": "radar", "maximo": 10, "ejes": ["Coste", "Rapidez", "Probabilidad de exito", "Riesgo reputacional", "Control del cliente"],
+    "series": [{"nombre": "Monitorio", "valores": [9, 8, 7, 8, 6]}, {"nombre": "Arbitraje", "valores": [4, 6, 8, 9, 9]}]}),
+  ("embudo", "Embudo", "Modulo avanzado: de la consulta al asunto cerrado.",
+   {"tipo": "embudo", "etapas": [{"rotulo": "Consultas", "valor": 420}, {"rotulo": "Presupuestos", "valor": 260}, {"rotulo": "Encargos", "valor": 118}, {"rotulo": "Cerrados", "valor": 97}]}),
+  ("treemap", "Treemap", "Modulo avanzado: peso de cada area cuando son muchas.",
+   {"tipo": "treemap", "unidad": "eur", "elementos": [{"rotulo": r, "valor": v} for r, v in [("Mercantil", 1060000), ("Litigacion", 753000), ("Laboral", 530000), ("Fiscal", 307000), ("Penal", 90000), ("Otros", 50000)]]}),
+  ("pendiente", "Pendiente", "Modulo avanzado: cada concepto, de la propuesta a la liquidacion definitiva.",
+   {"tipo": "pendiente", "unidad": "eur", "etiquetas": ["Propuesta", "Definitiva"], "elementos": [{"rotulo": "Cuota", "antes": 184600, "despues": 151200},
+     {"rotulo": "Intereses", "antes": 22900, "despues": 18700}, {"rotulo": "Sancion", "antes": 92300, "despues": 45400}]}),
+  ("halteras", "Halteras", "Modulo avanzado: lo pedido frente a lo concedido en cada partida.",
+   {"tipo": "halteras", "unidad": "eur", "nombres": {"a": "Pedido", "b": "Concedido"}, "elementos": [{"rotulo": "Danos materiales", "a": 48000, "b": 31000},
+     {"rotulo": "Lucro cesante", "a": 60000, "b": 22000}, {"rotulo": "Dano moral", "a": 15000, "b": 9000}]}),
+  ("piramide", "Piramide", "Modulo avanzado: plantilla por tramos de edad.",
+   {"tipo": "piramide", "etiquetas": ["< 30", "30-39", "40-49", "50-59", "60+"], "izquierda": {"nombre": "Hombres", "valores": [12, 30, 41, 28, 9]}, "derecha": {"nombre": "Mujeres", "valores": [15, 36, 38, 22, 6]}}),
+  ("calendario", "Calendario de calor", "Modulo avanzado: vencimientos por dia en el trimestre.",
+   {"tipo": "calendario", "desde": "2026-07-01", "hasta": "2026-09-30", "dias": {"2026-07-%02d" % d: (d * 7) % 5 for d in range(1, 31) if d % 3} }),
+  ("pictograma", "Pictograma", "Modulo avanzado: una proporcion contada en figuras.",
+   {"tipo": "pictograma", "valor": 3, "total": 10, "rotulo": "3 de cada 10 impagos acaban en juicio"}),
+  ("qr", "Codigo QR", "Modulo QR: lleva al lector en papel a la fuente.",
+   {"tipo": "qr", "texto": "https://www.boe.es", "rotulo": "Boletin Oficial del Estado"}),
   ("plazos", "Diagrama de plazos", "Varios plazos en una escala comun, con la marca de hoy.",
    {"tipo": "plazos", "hoy": "2026-09-20", "plazos": [{"rotulo": "Recurso de reposicion", "inicio": "2026-08-01", "fin": "2026-08-20"},
      {"rotulo": "Requerimiento", "inicio": "2026-09-01", "fin": "2026-09-27"},
      {"rotulo": "Contestacion a la demanda", "inicio": "2026-10-01", "fin": "2026-11-13"},
      {"rotulo": "Negociacion con la contraria", "inicio": "2026-09-10"},
-     {"rotulo": "Vista prevista", "inicio": "2026-12-01", "fin": "2026-12-15", "aproximada": True}]}),
+     {"rotulo": "Vista prevista", "inicio": "2026-12-01", "fin": "2026-12-15", "aproximada": True},
+     {"rotulo": "Recurso (20 dias habiles)", "inicio": "2026-09-17", "fin": "@vencimiento_recurso"}]}),
 ]
 
 def galeria():
@@ -409,16 +441,19 @@ def galeria():
     for clave, titulo, uso, g in GALERIA:
         g = dict(g, fuente="ejemplo", resumen=titulo + ": " + uso)
         graficos[clave] = g
-        ancho = " ancho-total" if clave in ("linea", "plazos", "flujo", "sociedades", "partes", "carriles", "bala", "divergentes") else ""
+        ancho = " ancho-total" if clave in ("linea", "plazos", "flujo", "sociedades", "partes", "carriles", "bala", "divergentes", "dispersion", "treemap", "calendario") else ""
         tarjetas.append('<section class="tarjeta%s">\n      <h2>%s</h2>\n      <p class="subtitulo">%s <code>"tipo": "%s"</code></p>\n'
                         '      <figure class="grafico" data-grafico="%s"></figure>\n    </section>' % (ancho, titulo, uso, g["tipo"], clave))
     graficos["tendencia"] = {"tipo": "chispa", "valores": [10, 12, 18, 22, 30, 34], "etiquetas": ["Abril", "Septiembre"], "fuente": "ejemplo"}
     datos = {"idioma": "es-ES", "moneda": "EUR", "cifras": {"total": {"de": "cascada", "calculo": "suma", "unidad": "eur"},
-                                                           "pagado": {"valor": 2000}, "pagos": {"operacion": "producto", "a": "pagado", "b": -1}},
+                                                           "pagado": {"valor": 2000}, "pagos": {"operacion": "producto", "a": "pagado", "b": -1},
+                                                           "vencimiento_recurso": {"calculo": "vencimiento", "desde": "2026-09-17", "dias": 20, "festivos": ["2026-10-12"], "unidad": "fecha"}},
              "fuentes": {"ejemplo": {"nombre": "Datos ficticios de demostracion", "consulta": "2026-10-11"}}, "graficos": graficos}
-    contenido = ('<div class="indicadores">\n    <div class="indicador">\n      <p class="rotulo">Indicador con minigrafico</p>\n'
+    contenido = ('<div class="indicadores">\n    <div class="indicador">\n      <p class="rotulo"><span class="icono" data-icono="euro"></span>Indicador con minigrafico</p>\n'
                  '      <p class="cifra" data-cifra="total"></p>\n      <p class="detalle">La cifra sale del grafico de cascada</p>\n'
-                 '      <div class="tendencia" data-grafico="tendencia"></div>\n    </div>\n  </div>\n\n  <div class="malla">\n    '
+                 '      <div class="tendencia" data-grafico="tendencia"></div>\n    </div>\n'
+                 '    <div class="indicador es-atencion">\n      <p class="rotulo"><span class="icono" data-icono="plazo"></span>Vence el recurso</p>\n'
+                 '      <p class="cifra" data-cifra="vencimiento_recurso"></p>\n      <p class="detalle">20 dias habiles desde el 17/9, sin el 12 de octubre</p>\n    </div>\n  </div>\n\n  <div class="malla">\n    '
                  + "\n    ".join(tarjetas) + "\n  </div>")
     textos = dict(COMUN, **{
       "TITULO_DOCUMENTO": "Galeria de graficos del motor de reportes",
@@ -426,7 +461,7 @@ def galeria():
       "ENTRADILLA": "Cada grafico se declara con sus datos en el bloque datos-reporte y lo dibuja el motor de la base. Bajo cada uno estan su tabla de datos, la descarga en CSV y su fuente.",
     })
     return componer("galeria_graficos.html", textos, datos, ficha='<li><b>Tipos:</b> %d</li>' % len(GALERIA),
-                    contenido=contenido, ancho="1120px", modulos=["diagramas"])
+                    contenido=contenido, ancho="1120px", modulos=["diagramas", "avanzados", "iconos", "qr", "plazos"])
 
 # --------------------------------------------------------------------------- comprobacion e impresion
 def comprobar_y_imprimir(archivos, pdf):
