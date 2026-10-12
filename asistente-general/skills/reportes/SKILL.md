@@ -9,9 +9,11 @@ i18n:
       Generates self-contained single-file HTML visual documents that the user opens in a
       browser and prints or saves as PDF with one button: one-page visual reports and dossiers,
       data dashboards with indicators and charts, and interactive calculation, simulation and
-      verification tools. It ships its own library of ten inline SVG chart shapes (bars, stacked
-      bars, line with area and threshold band, sparkline, gauge, waterfall, risk matrix,
-      timeline and donut), with light and dark themes, responsive layout, A4 print styles and
+      verification tools. Charts are declared as data and drawn by its own built-in engine
+      (horizontal, grouped and stacked bars, line with area, threshold band and annotations,
+      sparkline, gauge, waterfall, risk matrix, deadline timeline, donut and pie), which computes
+      scales, totals and percentages, adds a data table with CSV download and the source line
+      of each chart, with light, dark and sober themes, responsive layout, A4 print styles and
       accessible text alternatives, built with no external libraries or resources. All figures,
       dates and amounts come from the user, a workspace document or a source verified in the
       session. Do not use for contracts, claims, pleadings or procedural documents (which have
@@ -21,12 +23,13 @@ i18n:
 description: >
   Genera documentos visuales HTML autocontenidos de un solo archivo que el usuario abre directamente en su navegador
   y puede imprimir o guardar como PDF con un boton: informes visuales y dossieres de una pagina, paneles de datos
-  con indicadores y graficos, y herramientas interactivas de calculo, simulacion y verificacion. Dispone de una
-  biblioteca propia de diez formas graficas en SVG en linea (barras horizontales, verticales, apiladas y al cien
-  por cien, linea con area y banda de umbral, minigrafico de tendencia, medidor semicircular, cascada de importes,
-  matriz de riesgo e impacto, diagrama de plazos con marca de hoy y anillo de reparto), cada una con su formula de
-  calculo documentada. Todo se construye con HTML, CSS y SVG en linea, sin librerias ni recursos externos, con
-  tema claro y oscuro, diseno adaptable, animacion discreta de entrada, estilos de impresion en A4 y alternativas
+  con indicadores y graficos, y herramientas interactivas de calculo, simulacion y verificacion. Los graficos se
+  declaran como datos y los dibuja un motor propio incluido en la plantilla (barras horizontales, columnas simples,
+  agrupadas, apiladas y al cien por cien, linea con area, banda de umbral y anotaciones, minigrafico de tendencia,
+  medidor semicircular, cascada de importes, matriz de riesgo e impacto, diagrama de plazos con marca de hoy, anillo
+  y tarta), que calcula escalas, totales y porcentajes, anade a cada grafico su tabla de datos con descarga en CSV
+  y su fuente, y compone el pie de fuentes del documento. Todo se construye con HTML, CSS y SVG en linea, sin
+  librerias ni recursos externos, con tema claro, oscuro y sobrio, diseno adaptable, animacion discreta de entrada, estilos de impresion en A4 y alternativas
   textuales accesibles en cada grafico. Opera con la misma
   metodologia que el resto del catalogo: clasificacion inicial mediante formulario interactivo, plan de trabajo y
   eleccion de plantilla en el chat, creacion del archivo completo en el espacio de trabajo y edicion incremental
@@ -55,13 +58,12 @@ inputs:
 outputs:
   - documento_visual_html: archivo unico en formato snake_case.html con nombre en el idioma del usuario, creado en el espacio de trabajo, autocontenido, con tema claro y oscuro, estilos de impresion en A4 y aviso DRAFT visible; se abre en el navegador con doble clic y se guarda como PDF desde su propio boton
 references:
+  - references/maquetas-reportes.md
   - references/anatomia-documento-visual.md
   - references/biblioteca-componentes-visuales.md
   - references/criterios-visualizacion-datos.md
 assets:
-  - assets/template-informe-visual.md
-  - assets/template-panel-datos.md
-  - assets/template-herramienta-interactiva.md
+  - assets/template-base-reportes.md
 ---
 
 # Generacion de Documentos Visuales Autocontenidos
@@ -144,9 +146,9 @@ Evalua el mensaje inicial y el historial antes de abrir ningun formulario. Si el
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Fijados los vectores de clasificacion, evalua la rama de ejecucion. `V2` esta fijado en `ambos` y no se pregunta; `V3` y `V4` no abren rama propia: modulan el contenido de la Fase 4 dentro de la rama elegida.
 
-* Si `V1 = informe_visual` -> Plantilla del sistema: `assets/template-informe-visual.md`. Lectura secuencial con encabezado, indice lateral pegajoso, fila de indicadores, secciones numeradas, tabla, cronologia de hitos, avisos y bloque de firmas. Procede a la Fase 2.
-* Si `V1 = panel_datos` -> Plantilla del sistema: `assets/template-panel-datos.md`. Rejilla de tarjetas con indicadores (uno con minigrafico de tendencia), barras comparativas, anillo de reparto, evolucion con area y banda de umbral, cascada de descomposicion del importe, medidor semicircular y tabla de detalle con totales. Procede a la Fase 2.
-* Si `V1 = herramienta_interactiva` -> Plantilla del sistema: `assets/template-herramienta-interactiva.md`. Panel de entrada con campos, recalculo inmediato, medidor semicircular que se mueve con el resultado, desglose tabular, lista de verificacion con progreso y bloque de supuestos. Procede a la Fase 2.
+* Si `V1 = informe_visual` -> Plantilla del sistema: la base `assets/template-base-reportes.md` con la maqueta `informe_visual` de `references/maquetas-reportes.md`. Lectura secuencial con encabezado, indice lateral pegajoso, fila de indicadores, secciones numeradas, tabla, cronologia de hitos, avisos y bloque de firmas. Procede a la Fase 2.
+* Si `V1 = panel_datos` -> Plantilla del sistema: la base `assets/template-base-reportes.md` con la maqueta `panel_datos` de `references/maquetas-reportes.md`. Rejilla de tarjetas con indicadores (uno con minigrafico de tendencia), barras comparativas, anillo de reparto, evolucion con area y banda de umbral, cascada de descomposicion del importe, medidor semicircular y tabla de detalle con totales. Procede a la Fase 2.
+* Si `V1 = herramienta_interactiva` -> Plantilla del sistema: la base `assets/template-base-reportes.md` con la maqueta `herramienta_interactiva` de `references/maquetas-reportes.md`. Panel de entrada con campos, recalculo inmediato, medidor semicircular que se mueve con el resultado, desglose tabular, lista de verificacion con progreso y bloque de supuestos. Procede a la Fase 2.
 * Si `V1 = fuera_de_alcance` -> Detener proceso: no crear documento visual. Explica en el chat que ese entregable corresponde a otra via (la skill vertical del catalogo si es un contrato o un escrito de tramitacion; un archivo de ofimatica si necesita documento de texto, hoja de calculo o presentacion; un desarrollo a medida si requiere servidor o conexion a servicios externos) y ofrece como alternativa el documento visual mas proximo a su necesidad.
 
 ---
@@ -155,7 +157,7 @@ Fijados los vectores de clasificacion, evalua la rama de ejecucion. `V2` esta fi
 
 ### 2.1 Verificacion Previa
 1. Consulta `references/criterios-visualizacion-datos.md` para decidir que forma grafica responde a la pregunta del usuario, y `references/anatomia-documento-visual.md` para las reglas invariables del formato.
-2. Si `V3 = busqueda_web`, verifica los datos en fuentes oficiales mediante `web_search` antes de representarlos. **Regla de citas (obligatoria):** cada cifra obtenida de internet queda trazada a su fuente &mdash;nombre de la fuente, URL y fecha de consulta&mdash; y el documento visual lleva siempre su bloque de fuentes en el pie con esas referencias. Una cifra sin fuente verificada en la sesion no entra en el documento: queda como `{{VARIABLE}}` o se omite el bloque que la necesitaba.
+2. Si `V3 = busqueda_web`, verifica los datos en fuentes oficiales mediante `web_search` antes de representarlos. **Regla de citas (obligatoria):** cada cifra obtenida de internet queda trazada a su fuente &mdash;nombre de la fuente, URL y fecha de consulta&mdash; y el documento visual lleva siempre su bloque de fuentes en el pie con esas referencias. Cada fuente se declara en `fuentes` del bloque de datos con su nombre, URL y fecha real de consulta (`AAAA-MM-DD`); el motor escribe la fuente bajo cada grafico y compone el pie de fuentes del documento. Una cifra sin fuente verificada en la sesion no entra en el documento: queda como `{{VARIABLE}}` o se omite el bloque que la necesitaba.
 3. Si `V3 = documento_del_workspace`, toma el contenido prioritariamente de la seccion `# WORKSPACE ACTIVE DOCUMENTS`.
 4. **Regla de enriquecimiento (obligatoria):** si los datos los aporta el usuario (`V3 = datos_del_chat` o `documento_del_workspace`), pregunta SIEMPRE, antes de crear el documento, si este se construye solo con sus datos o si se enriquece con documentacion buscada en internet. Si el usuario elige enriquecer: las cifras de internet cumplen la regla de citas del punto 2 y quedan diferenciadas de las del usuario (en el propio bloque o en el pie se dice que dato viene de cada origen); nunca se mezclan origenes sin marcarlos.
 
@@ -174,10 +176,10 @@ En un unico turno, expon en el chat:
 
 ## FASE 3 — CREACION DEL ARTEFACTO BASE EN EL EDITOR (REG-DOC-01)
 
-1. **Escritura del archivo (`create_file`):** vuelca **integramente** el documento HTML de la plantilla acordada en un archivo con nombre descriptivo en formato `snake_case.html`. **El nombre se escribe en el idioma del usuario, sin acentos ni enes para evitar problemas de codificacion** (por ejemplo `panel_reclamacion_cantidad.html`, `informe_viabilidad_monitorio.html`, `simulador_intereses_demora.html`). El asset contiene el documento HTML completo: se copia tal cual, con su bloque de estilos, su aviso DRAFT y su script, sin resumirlo, sin fragmentarlo y sin envolverlo en marcas de codigo.
+1. **Escritura del archivo (`create_file`):** vuelca **integramente** la base `assets/template-base-reportes.md`, con los marcadores rellenos con las partes de la maqueta del tipo elegido (`{{ANCHO}}`, `{{FICHA}}`, `{{CONTENIDO}}`, `{{ESTILOS_MAQUETA}}` y `{{ACCIONES}}`, conforme a `references/maquetas-reportes.md`) y el bloque `datos-reporte` con lo que ya se conoce, en un archivo con nombre descriptivo en formato `snake_case.html`. **El nombre se escribe en el idioma del usuario, sin acentos ni enes para evitar problemas de codificacion** (por ejemplo `panel_reclamacion_cantidad.html`, `informe_viabilidad_monitorio.html`, `simulador_intereses_demora.html`). La base contiene el documento HTML completo: se copia tal cual, con su bloque de estilos, su aviso DRAFT y el motor de graficos, sin resumirlo, sin fragmentarlo, sin modificar el motor y sin envolverlo en marcas de codigo. En la herramienta interactiva se anade ademas el script de calculo de su maqueta, justo despues del motor.
 2. **Zero-Omission:** sustituye en ese mismo volcado **todos** los marcadores cuyo valor ya conoces: titulo, entradilla, etiqueta superior, fechas, referencia del expediente, destinatario, nombres de las partes resueltos conforme a `REG-CLI-01` a `REG-CLI-04`, e indicadores cuyas cifras ya constan. Prohibido crear el archivo con los marcadores en blanco si la informacion ya obra en la conversacion.
 3. **Marcadores pendientes:** los datos aun desconocidos permanecen visibles como `{{VARIABLE}}` y se resuelven en la Fase 4. Prohibido rellenarlos con ceros, guiones o cifras inventadas.
-4. **Aplicacion de V4:** si `V4 = tema_personalizado`, ajusta en el bloque de estilos los tokens `--accent`, `--accent-soft` y la serie `--c1` a `--c6` a los colores aportados, verificando el contraste en tema claro y oscuro, y coloca el nombre del despacho en la etiqueta superior. Si `V4 = tema_sistema`, conserva la paleta por defecto.
+4. **Aplicacion de V4:** el tema se fija en la etiqueta `html`: `data-tema="moderno"` (la paleta por defecto) o `data-tema="sobrio"` (azul petroleo y neutros calidos, con su version oscura). Si `V4 = tema_personalizado`, se parte del tema moderno y se ajustan en `:root` los tokens `--acento`, `--acento-suave`, `--acento-fuerte` y la serie `--c1` a `--c6` a los colores aportados, tambien dentro del bloque oscuro, verificando el contraste en ambos, y se coloca el nombre del despacho en la etiqueta superior.
 5. **Aplicacion de V2 (siempre `ambos`):** el documento visual tiene que sostener las dos lecturas a la vez, sin sacrificar ninguna. En pantalla: densidad de informacion, elementos manipulables y tema oscuro. En papel: bloque `@media print` completo, fidelidad de color, sin cortes de tarjeta ni titulos huerfanos. Si una decision favorece a una y perjudica a la otra, se busca la que sirva a ambas.
 6. **Confirmacion en el chat y encadenamiento:** informa de la ruta absoluta del documento visual creado y anade siempre estas dos indicaciones al usuario:
    - **Como se abre:** al seleccionarlo en su espacio de trabajo, la plataforma ofrece abrirlo en el navegador o mostrarlo en su carpeta; tambien se abre con un doble clic sobre el archivo. El boton inferior de la propia pagina lo imprime o lo guarda como PDF (destino *Guardar como PDF* en el dialogo de impresion, con los graficos de fondo activados si se quiere conservar el color).
@@ -202,12 +204,14 @@ Para cada bloque sustantivo: recogida de datos -> **descripcion en texto plano d
 #### 2. Indicadores principales
 - Entre dos y cuatro cifras clave con su unidad, su fecha de referencia y una linea de detalle.
 - **Validacion obligatoria (REG-VAL-01):** comprueba que las cifras cuadran entre si y con las tablas antes de volcarlas. Si un total no coincide con la suma de sus partidas, dialoga en el chat y aclara la discrepancia antes de escribirla.
-- Uso de los modificadores de estado (`is-ok`, `is-warn`, `is-risk`) solo cuando el dato expresa realmente una situacion favorable, de atencion o de riesgo.
+- Si la cifra sale de un grafico, se escribe con `data-cifra` y se declara en `cifras` del bloque de datos, para que el indicador y el grafico no puedan contradecirse.
+- Uso de los modificadores de estado (`es-ok`, `es-atencion`, `es-riesgo`) solo cuando el dato expresa realmente una situacion favorable, de atencion o de riesgo.
 
 #### 3. Cuerpo visual (segun V1)
 - *Si `V1 = informe_visual`:* secciones numeradas con texto, un aviso destacado cuando haya un plazo o un riesgo relevante, una tabla de detalle y un cronograma de hitos con fechas ciertas.
-- *Si `V1 = panel_datos`:* elige la forma grafica segun la pregunta que responde, conforme a la tabla de `references/criterios-visualizacion-datos.md`: barras horizontales para comparar partidas, barras verticales o apiladas para composicion por periodo, evolucion con area y banda de umbral para series temporales, anillo para reparto en tres o cuatro porciones, cascada para descomponer un importe (principal, intereses, costas, total), medidor semicircular para consumo de plazo o porcentaje de avance, matriz de riesgo e impacto para cruzar dos ejes cualitativos y diagrama de plazos con marca de hoy para vencimientos en curso. Las coordenadas, arcos y porcentajes se calculan **siempre** con las formulas de `references/biblioteca-componentes-visuales.md`; nunca se estiman a ojo.
-- *Si `V1 = herramienta_interactiva`:* campos de entrada con etiqueta y texto de ayuda, bloque de calculo escrito en JavaScript nativo que devuelve `{resultado1, resultado2, resultado3, medidor, desglose}`, resultados destacados, medidor semicircular alimentado por el campo `medidor` (porcentaje de 0 a 100), desglose tabular y lista de verificacion con progreso.
+- *Si `V1 = panel_datos`:* elige la forma grafica segun la pregunta que responde, conforme a la tabla de `references/criterios-visualizacion-datos.md`. Cada grafico se declara en el bloque `datos-reporte` con el contrato de `references/biblioteca-componentes-visuales.md` y se coloca con su hueco `data-grafico`; el motor calcula escalas, totales y porcentajes. **Nunca se escriben coordenadas, arcos, porcentajes ni totales a mano**, y cada grafico cita su fuente por clave.
+- *Si `V1 = informe_visual`:* las secciones admiten cualquier grafico del motor (el diagrama de plazos ya va en la maqueta); se declara igual que en el panel.
+- *Si `V1 = herramienta_interactiva`:* campos de entrada con etiqueta y texto de ayuda, bloque de calculo escrito en JavaScript nativo dentro del script de la maqueta que devuelve `{resultado1, resultado2, resultado3, medidor, desglose}`, resultados destacados, medidor semicircular dibujado por el motor y alimentado por el campo `medidor` (porcentaje de 0 a 100), desglose tabular y lista de verificacion con progreso.
 - En los tres casos, cada grafico lleva su alternativa textual accesible y un titulo que afirma algo. Los rotulos de ejes, leyendas, unidades y descripciones accesibles se escriben **en el idioma del usuario**; las clases y los identificadores del documento permanecen en espanol tal como vienen en la plantilla.
 
 #### 4. Supuestos, fuentes y advertencias
@@ -216,7 +220,7 @@ Para cada bloque sustantivo: recogida de datos -> **descripcion en texto plano d
 - Aviso destacado de riesgo cuando corran plazos de caducidad o prescripcion.
 
 #### 5. Control de calidad final
-Recorre la lista de verificacion de `references/criterios-visualizacion-datos.md`: ausencia de marcadores sin resolver, coherencia entre cifras del texto y de los graficos, legibilidad en tema claro y oscuro, ausencia de desbordamiento horizontal, vista de impresion correcta y presencia del aviso DRAFT.
+Recorre la lista de verificacion de `references/criterios-visualizacion-datos.md`: ausencia de marcadores sin resolver, coherencia entre cifras del texto y de los graficos, legibilidad en tema claro y oscuro, ausencia de desbordamiento horizontal, ningun grafico con el recuadro rojo de error, vista de impresion correcta y presencia del aviso DRAFT.
 
 ---
 
@@ -247,6 +251,6 @@ Recorre la lista de verificacion de `references/criterios-visualizacion-datos.md
 5. **Accesibilidad exigible:** contraste minimo 4.5 a 1, alternativa textual en cada grafico, etiquetas asociadas a cada campo y foco visible. El color nunca porta informacion en solitario.
 6. **Cero volcado de codigo en el chat:** el documento visual se describe en lenguaje natural; su codigo vive unicamente en el archivo.
 7. **Todo en el idioma del usuario:** nombre del archivo, titulo de la pestana, encabezados, rotulos, leyendas, unidades y alternativas accesibles. La estructura interna del HTML (clases e identificadores) esta en espanol y no se traduce ni se renombra.
-8. **Tamano contenido:** el documento visual se mantiene por debajo de unos 100 KB. Los documentos abiertos se incorporan enteros al contexto de la conversacion, de modo que un documento visual desmesurado desplaza al resto de documentos de trabajo. Si los datos no caben, se resume la serie o se reparte en dos documentos visuales.
+8. **Tamano contenido:** el documento visual se mantiene por debajo de unos 120 KB (la base con el motor ocupa unos 50). Los documentos abiertos se incorporan enteros al contexto de la conversacion, de modo que un documento visual desmesurado desplaza al resto de documentos de trabajo. Si los datos no caben, se resume la serie o se reparte en dos documentos visuales.
 9. **Impresion garantizada:** antes de dar el documento visual por bueno se comprueba la vista de impresion: sin botones, sin fondos oscuros, sin animacion, sin tarjetas partidas entre paginas y con el encabezado de las tablas repetido en cada pagina.
 10. **Delimitacion frente al catalogo:** los contratos, demandas, escritos y solicitudes de tramitacion se redactan en su skill vertical y en formato markdown. Esta skill visualiza, resume y calcula; no sustituye al documento formal ni al asesoramiento de un profesional colegiado.
