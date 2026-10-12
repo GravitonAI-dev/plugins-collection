@@ -19,7 +19,7 @@ España — Código Civil (CC), Ley de Enjuiciamiento Civil (LEC), Ley de Arrend
 
 ## Tono y Estilo (Mandatorio para todos los documentos)
 
-- **Lenguaje:** Jurídico formal, en español. Sin ambigüedad: cada obligación debe tener sujeto, verbo y consecuencia jurídica clara.
+- **Lenguaje:** Jurídico formal, en el idioma del documento que fija la sección 0 del CLAUDE.md global. Sin ambigüedad: cada obligación debe tener sujeto, verbo y consecuencia jurídica clara.
 - **Formato general:** Cláusulas y fundamentos numerados ordenadamente.
 - **Marca de Agua:** Incluye obligatoriamente un header al inicio de todo documento generado:
   `> DRAFT — para revisión por un abogado colegiado antes de su firma. No constituye asesoramiento jurídico definitivo.`

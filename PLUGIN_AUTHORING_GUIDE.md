@@ -106,6 +106,8 @@ assets:
 
 **Identidad e idiomas del frontmatter.** `name` es el id canónico y coincide SIEMPRE con el nombre de la carpeta: es lo que viaja al backend. `title` es el rótulo legible en español. `i18n.<lang>.name` es un alias que el backend resuelve al canónico (`/general-consultation` → `consulta-general`), así que debe ser kebab-case y único en todo el catálogo (ningún otro `name` ni alias puede repetirlo; lo comprueba `scripts/validar_skills.py`). `i18n.<lang>.title` y `i18n.<lang>.description` son lo que ve en la galería un usuario con la app en ese idioma. Añadir otro idioma es añadir otro bloque (`pt:`, `ca:`...) sin tocar código. El frontmatter completo debe ser YAML válido: si un valor contiene `: ` o `#`, entrecomíllalo.
 
+**Idioma de salida (no confundir con `i18n`).** El bloque `i18n` solo traduce lo que la app muestra en la galería (nombre, título y descripción); no decide en qué idioma conversa el asistente ni en qué idioma redacta el documento. Eso lo rige la sección 0 del `CLAUDE.md` global y es único para todo el catálogo: el chat y los formularios van siempre en el idioma del usuario, y el documento generado va en español salvo que la skill declare otra cosa con la clave opcional de primer nivel `document_language` (código ISO 639-1, p. ej. `document_language: en`), fuera del bloque `i18n`. Las skills actuales no la declaran porque todas producen instrumentos jurídicos españoles. No repitas la regla de idioma en el cuerpo de la skill: los textos fijos y los `label`/`question` de los formularios se escriben en español y el asistente los renderiza en el idioma del usuario.
+
 ```markdown
 # [Nombre de la Acción Principal]
 

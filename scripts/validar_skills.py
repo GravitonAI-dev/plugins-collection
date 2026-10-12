@@ -253,6 +253,9 @@ for _s in sorted(glob.glob('*/skills/*/SKILL.md')):
     _reclamar(_SIDS,_n,_n,'id de skill')
     if _y.get('name')!=_s.split('/')[2]: print(f"  FALLO name del frontmatter distinto de la carpeta: {_s.split('/')[2]} (name: {_y.get('name')})"); FALLOS+=1
     if not str(_y.get('title') or '').strip(): print(f"  FALLO skill sin title: {_n}"); FALLOS+=1
+    _dl=_y.get('document_language')
+    if _dl is not None and not re.fullmatch(r'[a-z]{2}', str(_dl)):
+        print(f"  FALLO document_language no es un codigo ISO 639-1 (ej. 'es', 'en'): {_n} ({_dl!r})"); FALLOS+=1
     _i=_y.get('i18n')
     if not isinstance(_i,dict) or not isinstance(_i.get('en'),dict):
         print(f"  FALLO skill sin bloque i18n.en: {_n}"); FALLOS+=1; continue

@@ -23,7 +23,7 @@ España — Estatuto de los Trabajadores (texto refundido aprobado por Real Decr
 
 ## Tono y Estilo (Mandatorio para todos los documentos)
 
-- **Lenguaje:** Jurídico-laboral formal, en español. Cada imputación, causa o pretensión debe expresarse con hechos concretos, fechados y verificables, nunca con fórmulas genéricas.
+- **Lenguaje:** Jurídico-laboral formal, en el idioma del documento que fija la sección 0 del CLAUDE.md global. Cada imputación, causa o pretensión debe expresarse con hechos concretos, fechados y verificables, nunca con fórmulas genéricas.
 - **Formato general:** Cartas y comunicaciones con encabezamiento de partes, cuerpo numerado y pie de firma con recibí del trabajador. Escritos judiciales con la estructura AL JUZGADO DE LO SOCIAL / HECHOS / FUNDAMENTOS DE DERECHO / SUPLICO.
 - **Marca de Agua:** Incluye obligatoriamente un header al inicio de todo documento generado:
   `> DRAFT — para revisión por un abogado o graduado social colegiado antes de su firma, entrega o presentación. No constituye asesoramiento jurídico definitivo.`
