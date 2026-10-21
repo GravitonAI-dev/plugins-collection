@@ -114,6 +114,7 @@ Invoca la herramienta con las opciones de triaje:
       "id": "estado_reclamacion",
       "rationale": "Resolver V2: si ya hay monitorio con oposición del deudor, el asunto continúa por el cauce del artículo 818 de la LEC.",
       "question": "Si es acreedor, ¿en qué estado está la reclamación?",
+      "show_if": {"question_id": "rol", "option_ids": ["acreedor"]},
       "options": [
         {"id": "sin_iniciar", "label": "Sin reclamación judicial iniciada"},
         {"id": "monitorio_con_oposicion", "label": "Ya se presentó monitorio y el deudor se ha opuesto"},

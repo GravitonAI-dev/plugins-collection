@@ -141,6 +141,7 @@ Invoca la herramienta con las opciones de triaje:
       "id": "supuesto_no_circulatorio",
       "rationale": "Resolver V3: determina el régimen de responsabilidad aplicable y la carga de la prueba fuera de la circulación.",
       "question": "Si no fue un accidente de circulación, ¿de qué supuesto se trata?",
+      "show_if": {"question_id": "ambito_hecho", "option_ids": ["otro_suceso"]},
       "options": [
         {"id": "caida", "label": "Caída en establecimiento o en vía pública"},
         {"id": "vicio_constructivo", "label": "Defecto o vicio de la construcción"},
@@ -162,6 +163,7 @@ Invoca la herramienta con las opciones de triaje:
       "id": "tipo_vehiculo",
       "rationale": "Resolver V5: el seguro obligatorio de los vehiculos personales ligeros no existia antes del 02/01/2026 y, despues, depende de los tres requisitos acumulativos de la disposicion adicional primera de la Ley 5/2025. Preguntar unicamente si V2 = circulacion.",
       "question": "Si fue un accidente de circulación, ¿qué clase de vehículo causó el daño?",
+      "show_if": {"question_id": "ambito_hecho", "option_ids": ["circulacion"]},
       "options": [
         {"id": "turismo_o_similar", "label": "Turismo, motocicleta, furgoneta o camión"},
         {"id": "vehiculo_personal_ligero", "label": "Patinete o vehículo de movilidad personal"},

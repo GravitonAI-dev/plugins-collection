@@ -127,6 +127,7 @@ Invoca la herramienta con las opciones de triaje:
       "id": "sentido",
       "rationale": "Resolver V2: la extinción de la pensión de alimentos enruta a su propio asset; el aumento y la reducción usan la demanda de modificación.",
       "question": "En las pensiones, ¿en qué sentido se pretende la modificación?",
+      "show_if": {"question_id": "medida_concreta", "option_ids": ["pension_alimentos", "pension_compensatoria", "varias"]},
       "options": [
         {"id": "aumentar", "label": "Aumentar su importe"},
         {"id": "reducir", "label": "Reducir su importe"},

@@ -157,6 +157,7 @@ Invoca la herramienta con las opciones de triaje:
       "id": "resultado_intento",
       "rationale": "Resolver V5: el acta y el acuerdo cambian por completo según el resultado, y el acuerdo parcial obliga a delimitar qué queda pendiente para el proceso.",
       "question": "Si el intento ya se ha producido, ¿cuál ha sido su resultado?",
+      "show_if": {"question_id": "tipo_documento", "option_ids": ["acta_intento", "oferta_vinculante", "acuerdo_transaccional"]},
       "options": [
         {"id": "acuerdo_total", "label": "Acuerdo sobre la totalidad de la controversia"},
         {"id": "acuerdo_parcial", "label": "Acuerdo sobre parte de la controversia"},

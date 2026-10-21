@@ -149,6 +149,7 @@ Invoca la herramienta con las preguntas de triaje:
       "id": "metodo_calculo_plusvalia",
       "rationale": "Resolver V3: el contribuyente puede optar por el metodo que le resulte mas favorable.",
       "question": "Si es plusvalía municipal, ¿conoce el valor por el que se adquirió antes el inmueble, para poder comparar el incremento real con el cálculo por coeficientes?",
+      "show_if": {"question_id": "documento", "option_ids": ["plusvalia_iivtnu", "rectificacion_devolucion"]},
       "options": [
         {"id": "incremento_real", "label": "Sí, dispongo de la escritura de adquisición anterior"},
         {"id": "objetivo_coeficientes", "label": "No, o prefiero el cálculo por coeficientes sobre el valor catastral"},

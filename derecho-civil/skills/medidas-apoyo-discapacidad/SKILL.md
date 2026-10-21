@@ -127,6 +127,7 @@ Invoca la herramienta con las opciones de triaje:
       "id": "tipo_curatela",
       "rationale": "Resolver V3: activa o desactiva los bloques de facultades representativas, que deben justificarse acto por acto.",
       "question": "Si se solicita curatela, ¿de qué tipo?",
+      "show_if": {"question_id": "finalidad", "option_ids": ["curatela"]},
       "options": [
         {"id": "asistencial", "label": "Asistencial: el curador acompaña y asiste en la toma de decisiones"},
         {"id": "representativa", "label": "Representativa para actos concretos, que deberán enumerarse y justificarse"},

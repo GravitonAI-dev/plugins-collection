@@ -118,6 +118,7 @@ Si el usuario ya ha identificado inequívocamente la modalidad, la pretensión y
       "id": "calificacion_pretendida",
       "rationale": "Resolver V2: la nulidad exige hechos indiciarios y cambia los efectos de la sentencia y la carga de la prueba.",
       "question": "En caso de despido, ¿qué calificación se pretende?",
+      "show_if": {"question_id": "modalidad_procesal", "option_ids": ["despido"]},
       "options": [
         {"id": "improcedencia", "label": "Improcedencia: la causa no existe o no está acreditada, o la carta es defectuosa"},
         {"id": "nulidad", "label": "Nulidad: móvil discriminatorio, represalia, o supuesto objetivo de protección"},

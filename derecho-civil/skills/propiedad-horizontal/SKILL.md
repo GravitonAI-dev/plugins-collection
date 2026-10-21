@@ -119,6 +119,7 @@ Invoca la herramienta con las opciones de triaje:
       "id": "acuerdo_liquidacion",
       "rationale": "Resolver V3: el acuerdo de la junta que aprueba la liquidación de la deuda y autoriza la reclamación es requisito legal previo del monitorio de cuotas.",
       "question": "Si el asunto es un impago de cuotas, ¿ha aprobado ya la junta la liquidación de la deuda y autorizado su reclamación?",
+      "show_if": {"question_id": "asunto", "option_ids": ["impago_cuotas"]},
       "options": [
         {"id": "si", "label": "Sí, hay acuerdo de junta"},
         {"id": "no", "label": "No, todavía no"},
@@ -129,6 +130,7 @@ Invoca la herramienta con las opciones de triaje:
       "id": "estado_requerimiento",
       "rationale": "Resolver V4: determina si procede el requerimiento de cesación o si el paso siguiente es ya la acción judicial de cesación, que exige autorización de la junta.",
       "question": "Si el asunto es una actividad molesta, ¿en qué estado está el requerimiento?",
+      "show_if": {"question_id": "asunto", "option_ids": ["actividad_molesta"]},
       "options": [
         {"id": "sin_requerir", "label": "No se ha requerido todavía"},
         {"id": "requerido_informalmente", "label": "Se ha requerido, pero sin constancia fehaciente"},
@@ -140,6 +142,7 @@ Invoca la herramienta con las opciones de triaje:
       "id": "sentido_del_voto",
       "rationale": "Resolver V5: solo esta legitimado para impugnar quien voto en contra, salvo su voto o estuvo ausente (articulo 18.2 de la Ley de Propiedad Horizontal). Preguntar unicamente si V2 = impugnacion_acuerdo.",
       "question": "Si el asunto es la impugnación de un acuerdo, ¿cuál fue la posición del cliente en la junta que lo adoptó?",
+      "show_if": {"question_id": "asunto", "option_ids": ["impugnacion_acuerdo"]},
       "options": [
         {"id": "voto_en_contra", "label": "Votó en contra"},
         {"id": "salvo_su_voto", "label": "Se abstuvo salvando su voto"},
@@ -152,6 +155,7 @@ Invoca la herramienta con las opciones de triaje:
       "id": "al_corriente_de_pago",
       "rationale": "Resolver V6: la impugnacion exige estar al corriente en el pago de las deudas vencidas con la comunidad, o haberlas consignado judicialmente (articulo 18.2 de la Ley de Propiedad Horizontal). Preguntar unicamente si V2 = impugnacion_acuerdo.",
       "question": "Si el asunto es la impugnación de un acuerdo, ¿está el cliente al corriente en el pago de las cuotas, o las ha consignado judicialmente?",
+      "show_if": {"question_id": "asunto", "option_ids": ["impugnacion_acuerdo"]},
       "options": [
         {"id": "si", "label": "Sí"},
         {"id": "no", "label": "No, tiene deudas pendientes"},

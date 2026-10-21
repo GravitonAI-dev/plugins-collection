@@ -120,6 +120,7 @@ Invoca la herramienta con las opciones de triaje:
       "id": "causa",
       "rationale": "Resolver V2: separa el desahucio por falta de pago, con enervación y posible acumulación de rentas, del de expiración del plazo.",
       "question": "Si existe arrendamiento, ¿por qué causa se pretende la recuperación?",
+      "show_if": {"question_id": "relacion_ocupante", "option_ids": ["arrendamiento"]},
       "options": [
         {"id": "falta_pago", "label": "Impago de rentas o cantidades asimiladas"},
         {"id": "expiracion_plazo", "label": "Expiración del plazo contractual o de sus prórrogas"},

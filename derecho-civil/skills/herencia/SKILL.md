@@ -124,6 +124,7 @@ Invoca la herramienta con las opciones de triaje:
       "id": "modo_aceptacion",
       "rationale": "Resolver V4: el beneficio de inventario limita la responsabilidad del heredero por las deudas y exige formalidades y plazos propios.",
       "question": "Si se acepta la herencia, ¿de qué modo?",
+      "show_if": {"question_id": "actuacion", "option_ids": ["solo_aceptacion", "partir_con_acuerdo", "partir_sin_acuerdo"]},
       "options": [
         {"id": "pura_y_simple", "label": "Pura y simple, respondiendo de las deudas también con el patrimonio propio"},
         {"id": "beneficio_inventario", "label": "A beneficio de inventario, limitando la responsabilidad al caudal hereditario"},

@@ -134,6 +134,7 @@ Invoca la herramienta con las preguntas de triaje:
       "id": "orden_sucesorio",
       "rationale": "Resolver V2 para determinar el orden de suceder y las cuotas que corresponden.",
       "question": "Si es declaración de herederos abintestato, ¿qué familiares sobreviven al fallecido?",
+      "show_if": {"question_id": "documento", "option_ids": ["acta_declaracion_herederos"]},
       "options": [
         {"id": "descendientes", "label": "Hijos o nietos"},
         {"id": "ascendientes_o_colaterales", "label": "No hay hijos: padres, hermanos, sobrinos, tíos o primos"},
@@ -145,6 +146,7 @@ Invoca la herramienta con las preguntas de triaje:
       "id": "testamento",
       "rationale": "Resolver V3: sin el certificado del Registro de Actos de Ultima Voluntad el notario no puede autorizar el acta.",
       "question": "Si es declaración de herederos, ¿han obtenido ya el certificado del Registro de Actos de Última Voluntad que acredita que no hay testamento?",
+      "show_if": {"question_id": "documento", "option_ids": ["acta_declaracion_herederos"]},
       "options": [
         {"id": "inexistencia_acreditada", "label": "Sí, ya lo tenemos y no hay testamento"},
         {"id": "pendiente_comprobar", "label": "No, todavía no lo hemos solicitado"},

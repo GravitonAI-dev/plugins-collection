@@ -134,6 +134,7 @@ Invoca la herramienta con las preguntas de triaje:
       "id": "posicion",
       "rationale": "Resolver V2: la estrategia y la carga argumental cambian segun se recurra o se defienda la sentencia.",
       "question": "Si se trata de apelación, ¿en qué posición está su cliente respecto de la sentencia?",
+      "show_if": {"question_id": "documento", "option_ids": ["recurso_apelacion", "oposicion_apelacion"]},
       "options": [
         {"id": "apelante", "label": "Le perjudica la sentencia y quiere recurrirla"},
         {"id": "apelado", "label": "Le favorece la sentencia y quiere defenderla"},
@@ -144,6 +145,7 @@ Invoca la herramienta con las preguntas de triaje:
       "id": "momento_cautelar",
       "rationale": "Resolver V3: la medida solicitada antes de la demanda exige urgencia y obliga a presentarla en veinte dias.",
       "question": "Si necesita medidas cautelares, ¿el pleito ya está iniciado o hay que pedirlas antes de demandar?",
+      "show_if": {"question_id": "documento", "option_ids": ["medidas_cautelares"]},
       "options": [
         {"id": "con_demanda", "label": "Con la demanda o con el proceso ya iniciado"},
         {"id": "antes_de_demanda", "label": "Antes de presentar la demanda, por urgencia"},

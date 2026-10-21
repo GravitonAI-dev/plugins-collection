@@ -125,6 +125,7 @@ Invoca la herramienta con las opciones de triaje:
       "id": "subtipo_no_judicial",
       "rationale": "Resolver V3: activa el bloque condicional correspondiente al tipo de título no judicial.",
       "question": "Si el título no es judicial, ¿de qué clase es?",
+      "show_if": {"question_id": "tipo_titulo", "option_ids": ["no_judicial"]},
       "options": [
         {"id": "escritura_publica", "label": "Escritura pública notarial"},
         {"id": "laudo_arbitral", "label": "Laudo arbitral"},

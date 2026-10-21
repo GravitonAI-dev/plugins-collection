@@ -156,6 +156,7 @@ Invoca la herramienta con las opciones de triaje:
       "id": "alcance",
       "rationale": "Resolver V5: determina si además del pacto se redacta la demanda conjunta para su aprobación judicial.",
       "question": "Si hay acuerdo, ¿qué alcance tiene el encargo?",
+      "show_if": {"question_id": "acuerdo", "option_ids": ["con_acuerdo"]},
       "options": [
         {"id": "solo_pacto", "label": "Solo el pacto de relaciones familiares"},
         {"id": "pacto_y_demanda", "label": "El pacto y la demanda conjunta para su aprobación judicial"},

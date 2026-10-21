@@ -117,6 +117,7 @@ Invoca la herramienta con las opciones de triaje:
       "id": "tipo_inmueble",
       "rationale": "Resolver V2: determina el título de la LAU aplicable, la fianza mínima legal y los plazos imperativos.",
       "question": "Si es un contrato nuevo, ¿qué se arrienda?",
+      "show_if": {"question_id": "tipo_gestion", "option_ids": ["contrato_nuevo"]},
       "options": [
         {"id": "vivienda_completa", "label": "Una vivienda completa"},
         {"id": "habitacion", "label": "Una habitación dentro de una vivienda (régimen del Código Civil)"},
@@ -128,6 +129,7 @@ Invoca la herramienta con las opciones de triaje:
       "id": "finalidad_uso",
       "rationale": "Resolver V1: distingue la vivienda habitual, sujeta a los plazos mínimos y a los límites de zona tensionada, del arrendamiento de temporada, y excluye el uso turístico.",
       "question": "Si es una vivienda completa, ¿a qué uso se destina?",
+      "show_if": {"question_id": "tipo_inmueble", "option_ids": ["vivienda_completa"]},
       "options": [
         {"id": "permanente", "label": "Residencia habitual y permanente del arrendatario"},
         {"id": "temporada", "label": "Temporada, con causa real y acreditable (trabajo, estudios, obras, verano)"},
@@ -139,6 +141,7 @@ Invoca la herramienta con las opciones de triaje:
       "id": "tipo_comunicacion",
       "rationale": "Resolver V7: cada comunicación tiene su propio asset, su plazo de preaviso y su validación de fechas.",
       "question": "Si es una comunicación sobre un contrato vigente, ¿de qué tipo?",
+      "show_if": {"question_id": "tipo_gestion", "option_ids": ["comunicacion_contrato_vigente"]},
       "options": [
         {"id": "actualizacion_renta", "label": "Actualización anual de la renta"},
         {"id": "no_renovacion", "label": "No renovación del contrato a su vencimiento"},
@@ -150,6 +153,7 @@ Invoca la herramienta con las opciones de triaje:
       "id": "remitente_comunicacion",
       "rationale": "Resolver V8: el plazo de preaviso del artículo 10.1 LAU es distinto según quién comunique, y la devolución de fianza solo la reclama el arrendatario.",
       "question": "Si es una comunicación, ¿quién la remite?",
+      "show_if": {"question_id": "tipo_gestion", "option_ids": ["comunicacion_contrato_vigente"]},
       "options": [
         {"id": "arrendador", "label": "El arrendador (propietario)"},
         {"id": "arrendatario", "label": "El arrendatario (inquilino)"},
@@ -160,6 +164,7 @@ Invoca la herramienta con las opciones de triaje:
       "id": "zona_tensionada",
       "rationale": "Resolver V6: los límites de renta y la prórroga extraordinaria de zona de mercado residencial tensionado dependen de este valor. Si el usuario no lo sabe, el agente lo verifica él mismo con `web_search` en el boletín oficial autonómico.",
       "question": "Si es un contrato nuevo de vivienda, ¿está el inmueble en zona de mercado residencial tensionado?",
+      "show_if": {"question_id": "tipo_inmueble", "option_ids": ["vivienda_completa"]},
       "options": [
         {"id": "si", "label": "Sí"},
         {"id": "no", "label": "No"},

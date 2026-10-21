@@ -136,6 +136,7 @@ Invoca la herramienta con las opciones de triaje:
       "id": "via",
       "rationale": "Resolver V4: en mutuo acuerdo sin hijos dependientes cabe la vía notarial, que no genera demanda.",
       "question": "Si hay mutuo acuerdo y no hay hijos dependientes, ¿qué vía prefiere?",
+      "show_if": {"question_id": "modalidad", "option_ids": ["mutuo_acuerdo"]},
       "options": [
         {"id": "judicial", "label": "Judicial, con presentación de demanda de mutuo acuerdo"},
         {"id": "notarial", "label": "Notarial, mediante escritura pública"},
@@ -146,6 +147,7 @@ Invoca la herramienta con las opciones de triaje:
       "id": "alcance",
       "rationale": "Resolver V5: determina si además del convenio se redacta la demanda de mutuo acuerdo.",
       "question": "Si la vía es judicial de mutuo acuerdo, ¿qué alcance tiene el encargo?",
+      "show_if": {"question_id": "modalidad", "option_ids": ["mutuo_acuerdo"]},
       "options": [
         {"id": "solo_convenio", "label": "Solo el convenio regulador"},
         {"id": "convenio_y_demanda", "label": "El convenio regulador y la demanda de mutuo acuerdo"},
