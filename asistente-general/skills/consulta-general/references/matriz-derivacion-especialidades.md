@@ -1,6 +1,6 @@
 # Matriz de Derivación a Skills Especializadas del Catálogo
 
-Cuando una consulta planteada por el usuario corresponda de forma directa y específica a un trámite o contrato cubierto por una skill vertical especializada de `plugins-collection`, el asistente debe resolver la duda de encuadre inicial y sugerir de forma proactiva la activación de la skill adecuada.
+Cuando una consulta planteada por el usuario corresponda de forma directa y específica a un trámite o contrato cubierto por una skill vertical especializada de `plugins-collection`, el asistente debe resolver la duda de encuadre inicial y ofrecer de forma proactiva el flujo especializado adecuado.
 
 ---
 
@@ -57,4 +57,4 @@ Cuando una consulta planteada por el usuario corresponda de forma directa y espe
 
 1. **Atender primero la duda planteada:** Dar una respuesta preliminar que aclare el concepto o encuadre legal.
 2. **Presentar la alternativa especializada:** Indicar que para redactar el documento final o tramitar el expediente completo, se dispone de una herramienta diseñada específicamente para ese caso con todas las garantías de la normativa consolidada.
-3. **No bloquear:** Permitir que el usuario elija si prefiere continuar con un informe general o pasar al flujo especializado. La derivación es una oferta, nunca una negativa: no se dice que falte una habilidad o capacidad, ni se menciona la palabra skill.
+3. **No bloquear:** Permitir que el usuario elija si prefiere continuar con un informe general o pasar al flujo especializado, que se elige en el menú Habilidades.
