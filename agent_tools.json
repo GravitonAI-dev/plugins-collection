@@ -719,6 +719,94 @@
       },
       "tags": ["crm", "clients", "save", "create", "update", "identity"],
       "side_effects": true
+    },
+    {
+      "id": "io.gravitonai.tools.search_boe",
+      "name": "search_boe",
+      "description": "Busca en la legislación consolidada del Boletín Oficial del Estado (España) y devuelve los artículos y disposiciones más relevantes, con su texto y su enlace oficial (block.url, con ancla al artículo). Úsala, antes que web_search, cuando la respuesta dependa de una norma española o el usuario cite una norma o un artículo (\"art. 10 LAU\", \"Ley 39/2015\", \"BOE-A-2015-10565\"). Una llamada por tema, consulta en español con los términos jurídicos; hasta 2 alt_queries con el término coloquial y el técnico; nombra la norma si la conoces. Cita siempre block.url y el título de la norma; si block.is_truncated es true y vas a citar literalmente, lee el bloque con get_boe_block; las footnotes son notas de modificación, no articulado; si hits está vacío, dilo y nunca inventes artículos. Incluye el aviso de texto consolidado meramente informativo (fuente: Agencia Estatal BOE). El esquema que ve el modelo es el del registro del backend (ConfAI-Desktop-App, specialized_tools/search_boe.py); este catálogo lo documenta.",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "query": { "type": "string", "description": "Consulta en lenguaje natural, en español. Llega ya anonimizada (sin PIIs)." },
+          "alt_queries": { "type": "array", "items": { "type": "string" }, "maxItems": 2, "description": "Hasta 2 reformulaciones (sinónimos, término técnico, referencia exacta)." },
+          "top_k": { "type": "integer", "minimum": 1, "maximum": 10, "default": 5, "description": "Número de resultados (1-10). Por defecto 5." },
+          "filters": {
+            "type": "object",
+            "properties": {
+              "scope": { "type": "string", "enum": ["estatal", "autonomico"] },
+              "in_force_only": { "type": "boolean", "default": true },
+              "norm_ids": { "type": "array", "items": { "type": "string" }, "description": "Restringe a normas concretas (BOE-A-…)." }
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": ["query"],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": {
+            "type": "object",
+            "properties": {
+              "hits": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "norm": { "type": "object", "description": "id (BOE-A-…), title, aliases, rank, official_number, scope, status, in_force, url_consolidada." },
+                    "block": { "type": "object", "description": "id, kind, title, breadcrumb, text, is_truncated, char_count, url (enlace oficial con ancla), effective_from, footnotes (máx. 3)." }
+                  }
+                }
+              },
+              "references": { "type": "array", "description": "Normas y artículos citados en la consulta que el motor resolvió (raw, type, norm_id, block_id, resolved)." },
+              "index_updated_at": { "type": "string" },
+              "norms_indexed": { "type": "integer" },
+              "disclaimer": { "type": "string" },
+              "note": { "type": "string", "description": "Solo cuando hits está vacío." }
+            }
+          },
+          "error": { "type": "string" },
+          "fallback": { "type": "string", "description": "\"web_search\" cuando el buscador del BOE no está disponible." }
+        }
+      },
+      "tags": ["retrieval", "legal", "boe", "legislation", "research"],
+      "side_effects": false
+    },
+    {
+      "id": "io.gravitonai.tools.get_boe_block",
+      "name": "get_boe_block",
+      "description": "Devuelve el texto completo de un artículo o disposición de la legislación consolidada del BOE, identificado por norm_id (norm.id de search_boe, BOE-A-…) y block_id (block.id de search_boe, p. ej. \"a9\"). Úsala solo cuando un hit de search_boe tenga block.is_truncated en true y vayas a citar o transcribir el artículo literalmente. No sirve para buscar (usa search_boe) y no admite ids inventados. Devuelve hasta 6.000 caracteres; si aún así is_truncated es true, cita la parte que tienes y enlaza block.url. El esquema que ve el modelo es el del registro del backend (ConfAI-Desktop-App, specialized_tools/get_boe_block.py).",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "norm_id": { "type": "string", "description": "Id de la norma, como norm.id de search_boe (p. ej. BOE-A-1994-26003)." },
+          "block_id": { "type": "string", "description": "Id del bloque, como block.id de search_boe (p. ej. a9)." }
+        },
+        "required": ["norm_id", "block_id"],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": {
+            "type": "object",
+            "properties": {
+              "norm_id": { "type": "string" },
+              "block": { "type": "object", "description": "id, kind, title, breadcrumb, text (completo, hasta 6.000 caracteres), is_truncated, char_count, url, effective_from, footnotes (máx. 3)." },
+              "disclaimer": { "type": "string" }
+            }
+          },
+          "error": { "type": "string" },
+          "fallback": { "type": "string" }
+        }
+      },
+      "tags": ["retrieval", "legal", "boe", "legislation"],
+      "side_effects": false
     }
   ]
 }
