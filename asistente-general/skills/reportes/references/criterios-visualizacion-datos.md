@@ -86,7 +86,7 @@ Si la respuesta a la pregunta cabe en una frase, se escribe la frase. Un grafico
 ## 6. Control de calidad antes de entregar
 
 1. El archivo abre en el navegador sin errores en la consola.
-2. No queda ningun `{{MARCADOR}}` salvo los que corresponden a datos que el usuario ha decidido expresamente no aportar.
+2. No queda ningun `{{MARCADOR}}` salvo los que corresponden a datos que el usuario ha decidido expresamente no aportar. Ningun grafico ni indicador tiene su serie a cero, vacia o `null` por un dato que se pidio buscar: en ese caso lleva la estimacion marcada del fallback de la Fase 2.1 de la skill.
 3. Se lee bien en tema claro y en tema oscuro.
 4. Se lee bien en una ventana estrecha: nada desborda en horizontal.
 5. La vista previa de impresion cabe en pagina, sin botones y sin fondos oscuros.
