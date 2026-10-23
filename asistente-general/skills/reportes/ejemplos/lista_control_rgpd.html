@@ -1,0 +1,1165 @@
+<!doctype html>
+<html lang="es" data-tema="tecnico">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lista de control RGPD</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  color-scheme:light dark;
+  --fondo:#f6f7fb;--superficie:#ffffff;--superficie-2:#f4f6fb;--borde:#e3e7f0;--borde-suave:#eef1f7;
+  --texto:#121722;--apagado:#5f6675;
+  --acento:#2f6ae8;--acento-suave:#eaf1ff;--acento-fuerte:#1c46ad;
+  --ok:#0f9d63;--aviso:#e08a12;--riesgo:#d1445a;--linea-rejilla:#e8ebf3;
+  --c1:#2f6ae8;--c2:#12b886;--c3:#f59e0b;--c4:#7c5cf0;--c5:#e35d9a;--c6:#64748b;
+  --e1:4px;--e2:8px;--e3:14px;--e4:22px;--e5:34px;--e6:56px;
+  --radio:20px;--radio-s:12px;
+  --sombra:0 1px 2px rgba(47,106,232,.07),0 8px 22px rgba(18,23,34,.07),0 28px 56px rgba(47,106,232,.07);
+  --fuente:ui-sans-serif,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --fondo:#0d1017;--superficie:#161b25;--superficie-2:#1d232f;--borde:#2a3240;--borde-suave:#222935;
+    --texto:#e9edf5;--apagado:#9aa4b8;
+    --acento:#7aa5ff;--acento-suave:#17233a;--acento-fuerte:#a9c4ff;
+    --ok:#3ddc97;--aviso:#f0b354;--riesgo:#ff7a90;--linea-rejilla:#242c39;
+    --c1:#7aa5ff;--c2:#3ddc97;--c3:#f0b354;--c4:#a78bfa;--c5:#f472b6;--c6:#94a3b8;
+    --sombra:0 1px 2px rgba(0,0,0,.5),0 10px 26px rgba(0,0,0,.45),0 30px 60px rgba(0,0,0,.4);
+  }
+}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--fondo);color:var(--texto);font-family:var(--fuente);font-size:16px;line-height:1.55;
+  /* El degradado de fondo es un token: cada tema lo cambia o lo quita con --degradado. */
+  background-image:var(--degradado,radial-gradient(900px 460px at 12% -8%,color-mix(in srgb,var(--acento) 13%,transparent),transparent 72%),radial-gradient(760px 420px at 92% 4%,color-mix(in srgb,var(--c2) 10%,transparent),transparent 70%));
+  background-attachment:fixed}
+.contenedor{max-width:var(--ancho);margin:0 auto;padding:var(--e5) var(--e4) var(--e6)}
+a{color:var(--acento)}
+.borrador{display:flex;gap:var(--e3);border:1px solid var(--borde);border-left:4px solid var(--aviso);
+  background:var(--superficie-2);border-radius:var(--radio);padding:var(--e3) var(--e4);
+  font-size:.86rem;color:var(--apagado);margin:0 0 var(--e5);box-shadow:var(--sombra)}
+.borrador strong{color:var(--texto);letter-spacing:.04em}
+.antetitulo{font-size:.73rem;letter-spacing:.16em;text-transform:uppercase;color:var(--acento);font-weight:650;margin:0 0 var(--e2)}
+h1{font-size:clamp(1.65rem,3.6vw,2.4rem);line-height:1.12;margin:0 0 var(--e3);letter-spacing:-.022em;font-weight:680}
+.entradilla{font-size:1.06rem;color:var(--apagado);margin:0 0 var(--e4);max-width:66ch}
+.ficha{display:flex;flex-wrap:wrap;gap:var(--e2) var(--e5);font-size:.84rem;color:var(--apagado);margin:0;padding:0;list-style:none}
+.ficha b{color:var(--texto);font-weight:620}
+.indicadores{display:grid;grid-template-columns:repeat(auto-fit,minmax(212px,1fr));gap:var(--e3);margin:0 0 var(--e4)}
+.indicador{background:var(--superficie);border:1px solid var(--borde);border-radius:var(--radio);
+  padding:calc(var(--e4) + var(--e1)) var(--e4) var(--e4);box-shadow:var(--sombra);position:relative;overflow:hidden}
+.indicador::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;
+  background:linear-gradient(90deg,var(--acento),color-mix(in srgb,var(--acento) 45%,var(--c2)))}
+.indicador.es-ok::before{background:var(--ok)}
+.indicador.es-atencion::before{background:var(--aviso)}
+.indicador.es-riesgo::before{background:var(--riesgo)}
+.indicador .rotulo{font-size:.74rem;text-transform:uppercase;letter-spacing:.09em;color:var(--apagado);margin:0 0 var(--e2)}
+.indicador .cifra{color:var(--color-cifra,var(--texto));font-size:clamp(1.6rem,2.3vw,2.25rem);font-weight:680;letter-spacing:-.032em;line-height:1.05;margin:0;
+  font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.indicador .detalle{font-size:.8rem;color:var(--apagado);margin:var(--e2) 0 0}
+.indicador.es-ok .cifra{color:var(--ok)}
+.indicador.es-atencion .cifra{color:var(--aviso)}
+.indicador.es-riesgo .cifra{color:var(--riesgo)}
+.tarjeta{background:var(--superficie);border:1px solid var(--borde);border-radius:var(--radio);
+  padding:calc(var(--e4) + var(--e2)) calc(var(--e4) + var(--e3));box-shadow:var(--sombra)}
+h2{font-size:clamp(1.02rem,1.5vw,1.16rem);margin:0 0 var(--e1);letter-spacing:-.012em;font-weight:660}
+.subtitulo{font-size:.84rem;color:var(--apagado);margin:0 0 var(--e4)}
+p{margin:0 0 var(--e3)}
+ul,ol{margin:0 0 var(--e3);padding-left:22px}
+li{margin:0 0 var(--e1)}
+.aviso{border:1px solid var(--borde);border-left:4px solid var(--acento);background:var(--acento-suave);
+  border-radius:var(--radio-s);padding:var(--e3) var(--e4);margin:var(--e4) 0 0;font-size:.93rem}
+.aviso.riesgo{border-left-color:var(--riesgo)}
+.aviso.favorable{border-left-color:var(--ok)}
+.aviso .titulo{display:block;font-weight:660;margin-bottom:var(--e1)}
+.tabla{overflow-x:auto;margin:var(--e3) 0 0;max-width:100%}
+.malla>*,.columnas>*,.diseno>*,.indicadores>*{min-width:0}
+table{border-collapse:collapse;width:100%;font-size:.91rem;min-width:460px}
+caption{caption-side:top;text-align:left;font-size:.82rem;color:var(--apagado);padding-bottom:var(--e2)}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--borde-suave);vertical-align:top}
+thead th{font-size:.73rem;text-transform:uppercase;letter-spacing:.07em;color:var(--apagado);border-bottom:1px solid var(--borde)}
+tbody tr:nth-child(even){background:var(--superficie-2)}
+tbody tr:hover{background:var(--acento-suave)}
+tfoot td{font-weight:660;border-top:1px solid var(--borde);border-bottom:none}
+td.cifra,th.cifra{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.distintivo{display:inline-block;font-size:.73rem;font-weight:630;padding:3px 10px;border-radius:999px;
+  border:1px solid var(--borde);background:var(--superficie-2);color:var(--apagado);white-space:nowrap}
+.distintivo.ok{color:var(--ok);border-color:var(--ok)}
+.distintivo.atencion{color:var(--aviso);border-color:var(--aviso)}
+.distintivo.riesgo{color:var(--riesgo);border-color:var(--riesgo)}
+.barras{list-style:none;margin:0;padding:0}
+.barras li{margin:0 0 var(--e3)}
+.barras .fila{display:flex;justify-content:space-between;gap:var(--e3);font-size:.88rem;margin:0 0 5px}
+.barras .fila .valor{font-variant-numeric:tabular-nums;color:var(--apagado)}
+.pista{height:10px;border-radius:999px;background:var(--superficie-2);border:1px solid var(--borde-suave);overflow:hidden}
+.pista span{display:block;height:100%;border-radius:999px}
+svg{max-width:100%;height:auto;display:block}
+.eje{font-size:11px;fill:var(--apagado)}
+.rejilla{stroke:var(--linea-rejilla);stroke-width:1}
+.banda{fill:var(--ok);opacity:.12}
+.leyenda{display:flex;flex-wrap:wrap;gap:var(--e2) var(--e4);list-style:none;margin:var(--e3) 0 0;padding:0;font-size:.83rem;color:var(--apagado)}
+.leyenda li{display:flex;align-items:center;gap:7px;margin:0}
+.leyenda i{width:11px;height:11px;border-radius:3px;display:inline-block}
+.acciones{display:flex;gap:var(--e3);flex-wrap:wrap;margin:var(--e5) 0 0}
+button{font:inherit;font-size:.9rem;font-weight:620;color:var(--texto);background:var(--superficie);
+  border:1px solid var(--borde);border-radius:var(--radio-s);padding:10px 18px;cursor:pointer;box-shadow:var(--sombra)}
+button:hover{border-color:var(--acento);color:var(--acento)}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
+.pie{margin-top:var(--e5);padding-top:var(--e4);border-top:1px solid var(--borde);font-size:.82rem;color:var(--apagado)}
+@media (prefers-reduced-motion:no-preference){
+  .aparece{animation:aparece .55s cubic-bezier(.22,.7,.3,1) both}
+  .aparece:nth-child(2){animation-delay:.05s}
+  .aparece:nth-child(3){animation-delay:.1s}
+  .aparece:nth-child(4){animation-delay:.15s}
+  .pista span{animation:crece .8s cubic-bezier(.22,.7,.3,1) both;transform-origin:left center}
+  @keyframes aparece{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+  @keyframes crece{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+}
+:root{--ancho:1080px}
+:root[data-tema="sobrio"]{
+  --fondo:#f7f6f3;--superficie:#ffffff;--superficie-2:#f3f1ec;--borde:#ddd8ce;--borde-suave:#ebe7df;
+  --texto:#1c1f24;--apagado:#585c63;
+  --acento:#1f5f73;--acento-suave:#e7f0f2;--acento-fuerte:#154452;
+  --ok:#2f7d4f;--aviso:#a8650f;--riesgo:#b23a48;--linea-rejilla:#e6e2da;
+  --c1:#1f5f73;--c2:#8a6d3b;--c3:#5b7f4a;--c4:#7a4e6e;--c5:#b0623d;--c6:#6b7280;
+  --radio:10px;--radio-s:7px;
+  --sombra:0 1px 2px rgba(28,31,36,.06),0 6px 18px rgba(28,31,36,.05);
+}
+@media (prefers-color-scheme:dark){
+  :root[data-tema="sobrio"]{
+    --fondo:#101417;--superficie:#171d21;--superficie-2:#1e252a;--borde:#2c353b;--borde-suave:#242c31;
+    --texto:#e8eaec;--apagado:#a0a7ad;
+    --acento:#6fb3c6;--acento-suave:#16262c;--acento-fuerte:#9fd0dd;
+    --ok:#6cc58f;--aviso:#e0a95a;--riesgo:#ef8590;--linea-rejilla:#252d33;
+    --c1:#6fb3c6;--c2:#d1b07a;--c3:#9cc28a;--c4:#c49ab8;--c5:#e39a78;--c6:#9aa3ad;
+    --sombra:0 1px 2px rgba(0,0,0,.5),0 8px 22px rgba(0,0,0,.4);
+  }
+}
+:root[data-tema="sobrio"]{--degradado:none}
+/* Estilos del tema elegido (temas-visuales.md): se sustituye por su bloque css, o se borra esta linea si el tema es moderno o sobrio. */
+:root[data-tema="tecnico"]{
+  --degradado:none;
+  --fondo:#f4f5f2;--superficie:#fbfbf9;--superficie-2:#eceee8;--borde:#c9cdc2;--borde-suave:#dde0d7;
+  --texto:#161a16;--apagado:#55605a;
+  --acento:#0f766e;--acento-suave:#e0f2ef;--acento-fuerte:#0a4f4a;
+  --ok:#2e7d32;--aviso:#a35b00;--riesgo:#b42318;--linea-rejilla:#dcdfd6;
+  --c1:#0f766e;--c2:#b45309;--c3:#4338ca;--c4:#6b7280;--c5:#be185d;--c6:#1f2937;
+  --radio:4px;--radio-s:3px;--sombra:none;
+  --fuente:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root[data-tema="tecnico"]{
+    --fondo:#0f1412;--superficie:#141a17;--superficie-2:#1a221e;--borde:#2b3530;--borde-suave:#222b26;
+    --texto:#dfe7e2;--apagado:#9baba3;
+    --acento:#5eead4;--acento-suave:#113a35;--acento-fuerte:#99f6e4;
+    --ok:#6fdc8c;--aviso:#f5b64a;--riesgo:#ff7b72;--linea-rejilla:#222b26;
+    --c1:#5eead4;--c2:#f5b64a;--c3:#a5b4fc;--c4:#9ca3af;--c5:#f9a8d4;--c6:#d1d5db;--sombra:none;
+  }
+}
+:root[data-tema="tecnico"] body{font-size:15px}
+:root[data-tema="tecnico"] h1{font-size:clamp(1.4rem,3vw,2rem);letter-spacing:0;font-weight:700}
+:root[data-tema="tecnico"] .antetitulo::before{content:"// "}
+:root[data-tema="tecnico"] .indicador::before{background:var(--acento);height:3px}
+:root[data-tema="tecnico"] .indicador .cifra{letter-spacing:-.01em;font-size:clamp(1.4rem,2vw,1.9rem)}
+:root[data-tema="tecnico"] .distintivo{border-radius:3px;text-transform:uppercase;letter-spacing:.04em}
+:root[data-tema="tecnico"] .tarjeta,:root[data-tema="tecnico"] .indicador{border-color:var(--borde)}
+:root[data-tema="tecnico"] .borrador{box-shadow:none}
+.malla{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:var(--e3);margin:0 0 var(--e3);align-items:start}
+.malla .ancho-total{grid-column:1/-1}
+.malla.dos{grid-template-columns:repeat(2,minmax(0,1fr))}
+.malla.tres{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:760px){.malla.dos,.malla.tres{grid-template-columns:1fr}}
+.grafico{margin:0;min-width:0}
+.tendencia{margin:var(--e3) 0 0;padding-top:var(--e2);border-top:1px solid var(--borde-suave)}
+.chispa{display:block;width:100%;height:30px}
+.chispa-area{fill:var(--acento);opacity:.13;stroke:none}
+.chispa-linea{fill:none;stroke:var(--acento);stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.chispa-punto{fill:var(--acento)}
+.tendencia-nota{font-size:.76rem;color:var(--apagado);margin:5px 0 0}
+.centro-anillo{text-anchor:middle;fill:var(--texto);font-weight:670}
+.grafico svg{margin:0 auto}
+.grafico svg.medidor{max-width:300px}
+.grafico svg.reparto{max-width:320px}
+.grafico .valor-punto{font-size:11px;fill:var(--texto);font-weight:620}
+.grafico .anotacion{stroke:var(--apagado);stroke-width:1;stroke-dasharray:3 3}
+.grafico .texto-anotacion{font-size:10.5px;fill:var(--apagado)}
+.grafico .cero{stroke:var(--apagado);stroke-width:1}
+.grafico .zona{font-size:12px;fill:var(--apagado);font-weight:620}
+.grafico .numero-riesgo{font-size:11px;font-weight:700;fill:var(--texto-sobre-serie,#fff)}
+.grafico .fecha-fin{font-size:10.5px;fill:var(--apagado)}
+.grafico .fecha-fin.dentro{fill:var(--texto-sobre-serie,#fff);font-weight:620}
+.grafico .hoy{stroke:var(--riesgo);stroke-width:2;stroke-dasharray:4 3}
+.grafico .texto-hoy{font-size:11px;fill:var(--riesgo);font-weight:650}
+ol.leyenda{display:block;padding-left:20px}
+[data-cifra].delta-bien{color:var(--ok)}
+[data-cifra].delta-mal{color:var(--riesgo)}
+.grafico .valor-punto.dentro{fill:var(--texto-sobre-serie,#fff)}
+.leyenda .porcentaje{color:var(--texto);font-variant-numeric:tabular-nums;font-weight:620}
+.medidor-rotulo{text-align:center;font-size:.82rem;color:var(--apagado);margin:0 0 var(--e3)}
+.medidor .pista-arco{fill:none;stroke:var(--superficie-2);stroke-width:18;stroke-linecap:round}
+.medidor .arco{fill:none;stroke-width:18;stroke-linecap:round;transition:stroke-dasharray .35s ease}
+.fuente-grafico{font-size:.76rem;color:var(--apagado);margin:var(--e2) 0 0}
+.datos-grafico{margin:var(--e3) 0 0;font-size:.82rem}
+.datos-grafico summary{cursor:pointer;color:var(--apagado);width:max-content}
+.datos-grafico summary:hover{color:var(--acento)}
+.datos-grafico table{min-width:0;font-size:.82rem;margin-top:var(--e2)}
+.datos-grafico button{font-size:.78rem;padding:6px 12px;margin-top:var(--e2);box-shadow:none}
+.error-grafico{border:1px dashed var(--riesgo);color:var(--riesgo);border-radius:var(--radio-s);padding:var(--e3);font-size:.85rem;margin:0}
+.fuentes-reporte{margin:0 0 var(--e3);padding-left:20px}
+.fuentes-reporte li{margin:0 0 var(--e1)}
+@media print{
+  :root,:root[data-tema]{--fondo:#fff;--superficie:#fff;--superficie-2:#fff;--borde:#c8c5bf;--borde-suave:#dcd9d3;
+        --linea-rejilla:#d5d2cc;--texto:#000;--apagado:#3f3d39;--sombra:none;--acento-suave:#f2f6f8;
+        color-scheme:light;--texto-sobre-serie:#fff;--ok:#2f7d4f;--aviso:#a8650f;--riesgo:#b23a48}
+  @page{size:A4;margin:15mm 14mm 17mm;@bottom-right{content:counter(page) " / " counter(pages);font-size:8pt;color:#666}}
+  *{animation:none!important;transition:none!important}
+  *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
+  body{font-size:10.5pt;background-image:none}
+  .indicador .cifra{text-shadow:none}
+  .contenedor{max-width:none;padding:0}
+  .acciones,.datos-grafico{display:none}
+  .malla{display:block}
+  .tarjeta,.indicador{break-inside:avoid;box-shadow:none;padding:var(--e3) var(--e4)}
+  .tarjeta{margin:0 0 var(--e3)}
+  .malla .tarjeta svg{max-height:190px}
+  .malla .tarjeta.ancho-total svg{max-height:none}
+  .borrador{padding:var(--e2) var(--e3);font-size:.78rem;margin-bottom:var(--e3)}
+  h1{margin-bottom:var(--e2)}
+  .entradilla{margin-bottom:var(--e2)}
+  .indicadores{grid-template-columns:repeat(2,1fr)}
+  thead{display:table-header-group}
+  /* Chrome repite el tfoot en cada pagina; asi solo aparece al final. */
+  tfoot{display:table-row-group}
+  tbody tr:hover{background:transparent}
+  /* En papel no hay scroll horizontal: la tabla se compacta hasta caber en el A4. */
+  .tabla{overflow:visible}
+  table{min-width:0;font-size:8.6pt}
+  th,td{padding:5px 7px}
+  .distintivo{font-size:.62rem;padding:2px 7px}
+  a{color:#000;text-decoration:none}
+  p{orphans:3;widows:3}
+  h1,h2,h3{break-after:avoid}
+  tr,.grafico,.aviso,.leyenda,.barras li,.cronologia li{break-inside:avoid}
+  caption{break-after:avoid}
+}
+/* Estilos propios de la maqueta: se sustituye por los de su parte=estilos o se borra la linea. */
+.tabla td:last-child{white-space:nowrap}
+</style>
+</head>
+<body>
+<main class="contenedor" style="--ancho:1080px">
+
+  <p class="borrador"><span><strong>DRAFT</strong> &mdash; Documento de trabajo generado en la plataforma. Las cifras, plazos y conclusiones deben ser verificados por un abogado o profesional colegiado antes de su firma, entrega o uso externo. No constituye asesoramiento juridico vinculante.</span></p>
+  <noscript><p class="aviso riesgo">Los graficos y algunas cifras de este documento se dibujan con JavaScript. Activelo en el navegador para verlos; el texto y las tablas se leen igualmente.</p></noscript>
+
+  <header>
+    <p class="antetitulo">Lista de control | Proteccion de datos</p>
+    <h1>Cumplimos el 70 % de los requisitos de proteccion de datos</h1>
+    <p class="entradilla">Revision de los requisitos del RGPD en una clinica dental. Los estados los ha fijado el responsable de cumplimiento.</p>
+    <ul class="ficha">
+      <li><b>Referencia:</b> AUD-2026-12</li>
+      <li><b>Fecha:</b> 10 de octubre de 2026</li>
+    </ul>
+  </header>
+
+  <div class="indicadores">
+    <div class="indicador aparece es-ok">
+      <p class="rotulo">Cumplimiento</p>
+      <p class="cifra" data-cifra="indicador_1"></p>
+      <p class="detalle">7 de 10 requisitos</p>
+    </div>
+    <div class="indicador aparece">
+      <p class="rotulo">Pendientes</p>
+      <p class="cifra">2</p>
+      <p class="detalle">Requieren accion</p>
+    </div>
+    <div class="indicador aparece es-riesgo">
+      <p class="rotulo">En riesgo</p>
+      <p class="cifra">1</p>
+      <p class="detalle">Accion inmediata</p>
+    </div>
+  </div>
+  <div class="malla dos">
+    <section class="tarjeta">
+      <h2>La seguridad es el bloque mas atrasado</h2>
+      <p class="subtitulo">Avance por bloque</p>
+      <figure class="grafico" data-grafico="bloques"></figure>
+    </section>
+    <section class="tarjeta">
+      <h2>Un requisito en riesgo</h2>
+      <p class="subtitulo">Estado de cada requisito clave</p>
+      <figure class="grafico" data-grafico="requisitos"></figure>
+    </section>
+    <section class="tarjeta ancho-total">
+      <h2>Evidencias revisadas</h2>
+      <p class="subtitulo">Lo que se ha comprobado y su estado</p>
+      <div class="tabla">
+        <table>
+          <thead><tr><th>Requisito</th><th>Evidencia</th><th>Estado</th></tr></thead>
+          <tbody>
+            <tr><td>Registro de actividades</td><td>Hoja de registro de marzo de 2026</td><td><span class="distintivo ok">Correcto</span></td></tr>
+            <tr><td>Contratos con encargados</td><td>Faltan dos proveedores</td><td><span class="distintivo atencion">Atencion</span></td></tr>
+            <tr><td>Evaluacion de impacto</td><td>No realizada para videovigilancia</td><td><span class="distintivo riesgo">Riesgo</span></td></tr>
+            <tr><td>Informacion a pacientes</td><td>Clausula en la ficha de alta</td><td><span class="distintivo ok">Correcto</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <div class="acciones">
+    <button type="button" id="imprimir">Imprimir o guardar en PDF</button>
+    
+  </div>
+
+  <footer class="pie">
+    <p><b>Fuentes</b></p>
+    <ol class="fuentes-reporte" id="fuentes-reporte"></ol>
+    <p>Datos ficticios de demostracion. No sustituye al asesoramiento de un profesional colegiado.</p>
+  </footer>
+
+</main>
+<script type="application/json" id="datos-reporte">
+{
+ "idioma": "es-ES",
+ "moneda": "EUR",
+ "fuentes": {
+  "demo": {
+   "nombre": "Datos ficticios de demostracion",
+   "consulta": "2026-10-11"
+  }
+ },
+ "cifras": {
+  "indicador_1": {
+   "operacion": "porcentaje",
+   "a": 7,
+   "b": 10,
+   "unidad": "pct"
+  }
+ },
+ "graficos": {
+  "bloques": {
+   "tipo": "progreso",
+   "unidad": "pct",
+   "tramos": [
+    50,
+    80
+   ],
+   "resumen": "Avance por bloque",
+   "elementos": [
+    {
+     "rotulo": "Gobernanza",
+     "valor": 100
+    },
+    {
+     "rotulo": "Informacion",
+     "valor": 85
+    },
+    {
+     "rotulo": "Encargados",
+     "valor": 60
+    },
+    {
+     "rotulo": "Seguridad",
+     "valor": 40
+    }
+   ],
+   "fuente": "demo"
+  },
+  "requisitos": {
+   "tipo": "semaforos",
+   "elementos": [
+    {
+     "rotulo": "Registro de actividades de tratamiento",
+     "estado": "ok",
+     "nota": "Actualizado en marzo de 2026"
+    },
+    {
+     "rotulo": "Contratos con encargados",
+     "estado": "aviso",
+     "nota": "Faltan dos proveedores"
+    },
+    {
+     "rotulo": "Evaluacion de impacto",
+     "estado": "riesgo",
+     "nota": "No realizada para el videoanalisis"
+    },
+    {
+     "rotulo": "Delegado de proteccion de datos",
+     "estado": "pendiente"
+    }
+   ],
+   "fuente": "demo"
+  }
+ }
+}
+</script>
+<script>
+/* Motor de graficos de la skill reportes. No se modifica: los graficos se
+   declaran en el bloque datos-reporte y aqui se dibujan. */
+(function(){
+"use strict";
+var NS = "http://www.w3.org/2000/svg", D = document;
+var datos = {};
+try { datos = JSON.parse(D.getElementById("datos-reporte").textContent || "{}"); }
+catch (e) { console.error("datos-reporte no es JSON valido: " + e.message); }
+var IDIOMA = datos.idioma || D.documentElement.lang || "es-ES";
+var MONEDA = datos.moneda || "EUR";
+var TEXTOS_BASE = {
+  es: {en_curso:"en curso", objetivo:"Objetivo", cumplimiento:"Cumplimiento", datos:"Ver los datos", csv:"Descargar CSV", fuente:"Fuente", fuentes:"Fuentes", consulta:"consultado el", otros:"Otros", hoy:"hoy", total:"Total", concepto:"Concepto", valor:"Valor", acumulado:"Acumulado", porcentaje:"Porcentaje", inicio:"Inicio", fin:"Fin", restantes:"Dias naturales restantes", maximo:"Maximo", ok:"Asumir", aviso:"Vigilar", riesgo:"Actuar ya", error:"No se puede dibujar el grafico"},
+  en: {en_curso:"ongoing", objetivo:"Target", cumplimiento:"Achieved", datos:"Show the data", csv:"Download CSV", fuente:"Source", fuentes:"Sources", consulta:"accessed on", otros:"Other", hoy:"today", total:"Total", concepto:"Item", valor:"Value", acumulado:"Running total", porcentaje:"Share", inicio:"Start", fin:"End", restantes:"Calendar days left", maximo:"Maximum", ok:"Accept", aviso:"Monitor", riesgo:"Act now", error:"The chart cannot be drawn"}
+};
+var T = Object.assign({}, TEXTOS_BASE[IDIOMA.slice(0, 2)] || TEXTOS_BASE.es, datos.textos || {});
+var FUENTES = datos.fuentes || {};
+var usadas = [];
+
+/* ---------- utilidades ---------- */
+function svg(tag, at, padre, texto) {
+  var n = D.createElementNS(NS, tag);
+  for (var k in at) { if (at[k] !== undefined && at[k] !== null) n.setAttribute(k, at[k]); }
+  if (texto !== undefined) n.textContent = texto;
+  if (padre) padre.appendChild(n);
+  return n;
+}
+function html(tag, clase, padre, texto) {
+  var n = D.createElement(tag);
+  if (clase) n.className = clase;
+  if (texto !== undefined) n.textContent = texto;
+  if (padre) padre.appendChild(n);
+  return n;
+}
+function r1(v) { return Math.round(v * 10) / 10; }
+function num(v) { return typeof v === "number" && isFinite(v); }
+function suma(a) { return a.reduce(function (s, v) { return num(v) ? s + v : s; }, 0); }
+function maximo(a) { return Math.max.apply(null, a.filter(num)); }
+function minimo(a) { return Math.min.apply(null, a.filter(num)); }
+function consejo(nodo, texto) { svg("title", {}, nodo, texto); return nodo; }
+
+var formatos = {};
+function fmt(v, unidad, corto, decimales) {
+  if (!num(v)) return "\u2014";
+  if (unidad === "fecha") return fmtFechaLarga.format(v);
+  unidad = unidad || "num";
+  var clave = unidad + (corto ? "|c" : "") + "|" + decimales, f = formatos[clave];
+  if (!f) {
+    var o = {maximumFractionDigits: 2};
+    if (unidad === "eur" || unidad === "moneda") o = {style: "currency", currency: MONEDA, minimumFractionDigits: 2, maximumFractionDigits: 2};
+    else if (unidad === "pct") o = {style: "percent", maximumFractionDigits: 1};
+    else if (unidad === "entero") o = {maximumFractionDigits: 0};
+    o.useGrouping = "always";  /* 7.300 y no 7300, tambien con cuatro cifras */
+    if (corto && unidad !== "pct") { o.notation = "compact"; o.minimumFractionDigits = 0; o.maximumFractionDigits = 1; }
+    if (num(decimales)) { o.minimumFractionDigits = decimales; o.maximumFractionDigits = decimales; }
+    f = formatos[clave] = new Intl.NumberFormat(IDIOMA, o);
+  }
+  var s = f.format(unidad === "pct" ? v / 100 : v);
+  var conocida = {eur: 1, moneda: 1, pct: 1, num: 1, entero: 1};
+  return conocida[unidad] ? s : s + "\u00a0" + unidad;
+}
+var fmtFecha = new Intl.DateTimeFormat(IDIOMA, {day: "numeric", month: "short", timeZone: "UTC"});
+var fmtFechaLarga = new Intl.DateTimeFormat(IDIOMA, {day: "numeric", month: "long", year: "numeric", timeZone: "UTC"});
+var fmtMes = new Intl.DateTimeFormat(IDIOMA, {month: "short", year: "2-digit", timeZone: "UTC"});
+function fecha(texto) {
+  if (num(texto)) return texto;  /* ya es una fecha calculada (por ejemplo, un vencimiento) */
+  var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(texto || "");
+  if (!m) throw new Error("fecha no valida (usa AAAA-MM-DD): " + texto);
+  return Date.UTC(+m[1], +m[2] - 1, +m[3]);
+}
+var DIA = 86400000;
+
+/* Tope del eje: la cifra legible inmediatamente superior al maximo, de modo que
+   los cuartos de la rejilla tambien sean cifras redondas. */
+function techo(v) {
+  if (!(v > 0)) return 1;
+  var m = Math.pow(10, Math.floor(Math.log10(v))), pasos = [1, 1.2, 1.6, 2, 2.4, 3, 4, 5, 6, 8, 10];
+  for (var i = 0; i < pasos.length; i++) { if (pasos[i] * m >= v * (1 - 1e-9)) return pasos[i] * m; }
+  return 10 * m;
+}
+function color(c, i) {
+  if (typeof c === "number") return "var(--c" + c + ")";
+  if (/^(ok|aviso|riesgo|acento|acento-fuerte)$/.test(c || "")) return "var(--" + c + ")";
+  if (/^#([0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(c || "")) return c;
+  return "var(--c" + ((i % 6) + 1) + ")";
+}
+function lienzo(fig, ancho, alto, resumen, clase, estirar) {
+  return svg("svg", {"class": clase, viewBox: "0 0 " + ancho + " " + alto, preserveAspectRatio: estirar ? "none" : null, role: "img", "aria-label": resumen}, fig);
+}
+function recortar(texto, n) { texto = String(texto); return texto.length > n ? texto.slice(0, n - 1) + "\u2026" : texto; }
+/* Leyenda y tabla de datos de los graficos por series (columnas y linea). */
+function leyendaSeries(series) { return series.map(function (se, j) { return {color: color(se.color, j), texto: se.nombre}; }); }
+function tablaSeries(g, et, series, totales) {
+  var cab = [g.nombre_etiqueta || T.concepto].concat(series.map(function (se) { return se.nombre; }));
+  if (totales) cab.push(T.total);
+  return {cabecera: cab, unidad: g.unidad, filas: et.map(function (eti, i) {
+    var f = [eti].concat(series.map(function (se) { return se.valores[i]; }));
+    if (totales) f.push(totales[i]);
+    return f;
+  })};
+}
+function leyenda(fig, elementos) {
+  var ul = html("ul", "leyenda", fig);
+  elementos.forEach(function (e) {
+    var li = html("li", "", ul), i = html("i", "", li);
+    i.style.background = e.color;
+    if (e.opacidad) i.style.opacity = e.opacidad;
+    li.appendChild(D.createTextNode(e.texto));
+    if (e.extra) html("span", "porcentaje", li, e.extra);
+  });
+}
+
+/* ---------- lienzo cartesiano comun: x de 64 a 664, y de 44 a 244 ---------- */
+/* El ancho W se mide en cada tarjeta (de 320 a 700) para que los rotulos
+   conserven su tamano real; al imprimir se dibuja siempre a 700. */
+var W = 700, X0 = 64, X1 = 664, Y0 = 44, Y1 = 244;
+function util() { return X1 - X0; }
+function rejilla(s, tope, unidad, x0, x1) {
+  x0 = num(x0) ? x0 : X0; x1 = num(x1) ? x1 : X1;  /* los modulos pueden acotar el ancho util */
+  for (var k = 0; k <= 4; k++) {
+    var y = Y1 - k * 50;
+    svg("line", {"class": "rejilla", x1: x0, y1: y, x2: x1, y2: y}, s);
+    svg("text", {"class": "eje", x: x0 - 8, y: y + 4, "text-anchor": "end"}, s, k ? fmt(tope * k / 4, unidad, true) : "0");
+  }
+}
+function rotulosX(s, etiquetas, xDe, extremos) {
+  /* En un eje temporal (extremos) se salta rotulos; en categorias se muestran todos. */
+  var n = etiquetas.length, paso = extremos ? Math.ceil(n / Math.max(3, Math.floor(util() / 72))) : 1;
+  /* Cada rotulo cabe en su hueco: si no, se recorta y el texto completo queda en el consejo. */
+  var cabe = Math.max(4, Math.floor(util() / Math.ceil(n / paso) / 6.4));
+  etiquetas.forEach(function (e, i) {
+    if (i % paso && i !== n - 1) return;
+    var ancla = "middle";
+    if (extremos && i === 0) ancla = "start";
+    if (extremos && i === n - 1) ancla = "end";
+    consejo(svg("text", {"class": "eje", x: r1(xDe(i)), y: 266, "text-anchor": ancla}, s, recortar(e, cabe)), String(e));
+  });
+}
+/* Columna de rotulos a la izquierda (barras de bala, divergentes y plazos). */
+function columnaRotulos() { return W < 520 ? 112 : 150; }
+function rotuloFila(s, y, texto) { consejo(svg("text", {"class": "eje", x: columnaRotulos() - 10, y: y, "text-anchor": "end"}, s, recortar(texto, W < 520 ? 16 : 28)), texto); }
+function yDe(v, tope) { return r1(Y1 - v / tope * 200); }
+
+/* ---------- tipos ---------- */
+var tipos = {};
+
+tipos.barras = function (fig, g) {
+  var el = (g.elementos || []).slice();
+  if (!el.length) throw new Error("faltan elementos");
+  if (el.some(function (e) { return !num(e.valor) || e.valor < 0; })) throw new Error("las barras necesitan valores numericos no negativos; para saldos con signo usa cascada");
+  if (g.orden !== "original") el.sort(function (a, b) { return b.valor - a.valor; });
+  var tope = maximo(el.map(function (e) { return e.valor; }));
+  var ul = html("ul", "barras", fig);
+  el.forEach(function (e, i) {
+    var li = html("li", "", ul), fila = html("p", "fila", li);
+    html("span", "", fila, e.rotulo);
+    html("span", "valor", fila, fmt(e.valor, g.unidad));
+    var pista = html("div", "pista", li), barra = html("span", "", pista);
+    pista.setAttribute("role", "img");
+    pista.setAttribute("aria-label", e.rotulo + ": " + fmt(e.valor, g.unidad));
+    var c = color(e.color, i);
+    barra.style.width = r1(tope > 0 ? e.valor / tope * 100 : 0) + "%";
+    barra.style.background = "linear-gradient(90deg," + c + ",color-mix(in srgb," + c + " 72%,white))";
+  });
+  return {cabecera: [T.concepto, g.nombre_valor || T.valor],
+          filas: el.map(function (e) { return [e.rotulo, e.valor]; })};
+};
+
+function columnasComun(fig, g, apilar, cien) {
+  var et = g.etiquetas || [], series = g.series || [], n = et.length;
+  if (!n || !series.length) throw new Error("faltan etiquetas o series");
+  var totales = et.map(function (_, i) { return suma(series.map(function (s) { return s.valores[i]; })); });
+  var unidad = cien ? "pct" : g.unidad;
+  var tope = cien ? 100 : techo(apilar ? maximo(totales) : maximo([].concat.apply([], series.map(function (s) { return s.valores; }))));
+  var s = lienzo(fig, W, 280, g.resumen || "");
+  rejilla(s, tope, unidad);
+  var banda = util() / n, anchoGrupo = banda * (apilar ? 0.56 : 0.7), ns = series.length;
+  et.forEach(function (eti, i) {
+    var acumulado = 0;
+    series.forEach(function (se, j) {
+      var v = se.valores[i];
+      if (!num(v)) return;
+      if (v < 0) throw new Error("las columnas no admiten valores negativos; usa cascada para saldos con signo");
+      if (cien) v = totales[i] ? v / totales[i] * 100 : 0;
+      var c = color(se.color, j), x, w, y, alto = v / tope * 200;
+      if (apilar) { w = anchoGrupo; x = X0 + banda * i + (banda - w) / 2; y = Y1 - (acumulado + v) / tope * 200; acumulado += v; }
+      else { w = anchoGrupo / ns; x = X0 + banda * i + (banda - anchoGrupo) / 2 + j * w; y = Y1 - alto; }
+      var r = svg("rect", {x: r1(x + (apilar ? 0 : 1)), y: r1(y), width: r1(Math.max(w - (apilar ? 0 : 2), 1)), height: r1(alto), fill: c, rx: apilar ? 0 : 3}, s);
+      consejo(r, eti + " \u00b7 " + se.nombre + ": " + fmt(cien ? v : se.valores[i], unidad));
+      if (!apilar && g.valores !== false && (ns === 1 ? n <= 12 : n * ns <= 6 && banda / ns >= 44)) {
+        svg("text", {"class": "valor-punto", x: r1(x + w / 2), y: r1(y - 6), "text-anchor": "middle"}, s, fmt(v, unidad, true));
+      }
+    });
+    if (apilar && !cien && g.valores !== false && n <= 12) {
+      svg("text", {"class": "valor-punto", x: r1(X0 + banda * (i + 0.5)), y: yDe(totales[i], tope) - 6, "text-anchor": "middle"}, s, fmt(totales[i], unidad, true));
+    }
+  });
+  rotulosX(s, et, function (i) { return X0 + banda * (i + 0.5); });
+  if (ns > 1) leyenda(fig, leyendaSeries(series));
+  return tablaSeries(g, et, series, apilar && totales);
+}
+tipos.columnas = function (fig, g) { return columnasComun(fig, g, false, false); };
+tipos.apiladas = function (fig, g) { return columnasComun(fig, g, true, !!g.cien); };
+
+tipos.linea = function (fig, g, id) {
+  var et = g.etiquetas || [], series = g.series || [], n = et.length;
+  if (n < 2 || !series.length) throw new Error("hacen falta al menos dos etiquetas y una serie");
+  var todos = [].concat.apply([], series.map(function (s) { return s.valores; }));
+  if (minimo(todos) < 0) throw new Error("la linea con area no admite valores negativos");
+  var tope = techo(Math.max(maximo(todos), g.umbral ? g.umbral.hasta : 0));
+  var s = lienzo(fig, W, 280, g.resumen || "");
+  var xDe = function (i) { return X0 + i * util() / (n - 1); };
+  if (g.umbral) {
+    var u = g.umbral, yb = yDe(u.hasta, tope);
+    svg("rect", {"class": "banda", x: X0, y: yb, width: util(), height: r1((u.hasta - (u.desde || 0)) / tope * 200), style: u.color ? "fill:" + color(u.color, 0) : null}, s);
+  }
+  rejilla(s, tope, g.unidad);
+  var defs = svg("defs", {}, s);
+  series.forEach(function (se, j) {
+    var c = color(se.color, j), tramos = [[]];
+    se.valores.forEach(function (v, i) { if (num(v)) tramos[tramos.length - 1].push([r1(xDe(i)), yDe(v, tope), i]); else if (tramos[tramos.length - 1].length) tramos.push([]); });
+    var conArea = j === 0 && g.area !== false;
+    if (conArea) {
+      var gr = svg("linearGradient", {id: "degradado-" + id, x1: 0, y1: 0, x2: 0, y2: 1}, defs);
+      svg("stop", {offset: "0%", "stop-color": c, "stop-opacity": ".32"}, gr);
+      svg("stop", {offset: "100%", "stop-color": c, "stop-opacity": "0"}, gr);
+    }
+    tramos.forEach(function (t) {
+      if (!t.length) return;
+      var pts = t.map(function (p) { return p[0] + "," + p[1]; }).join(" ");
+      if (conArea && t.length > 1) svg("polygon", {points: pts + " " + t[t.length - 1][0] + "," + Y1 + " " + t[0][0] + "," + Y1, fill: "url(#degradado-" + id + ")"}, s);
+      svg("polyline", {points: pts, fill: "none", stroke: c, "stroke-width": j ? 2.4 : 2.6, "stroke-dasharray": j && g.discontinuas !== false ? "7 5" : null, "stroke-linejoin": "round", "stroke-linecap": "round"}, s);
+      t.forEach(function (p) {
+        consejo(svg("circle", {cx: p[0], cy: p[1], r: j ? 3 : 3.6, fill: c}, s), et[p[2]] + " \u00b7 " + se.nombre + ": " + fmt(se.valores[p[2]], g.unidad));
+      });
+    });
+    (se.destacar || (j === 0 ? g.destacar : null) || []).forEach(function (cual) {
+      var vals = se.valores, i = cual === "maximo" ? vals.indexOf(maximo(vals)) : cual === "minimo" ? vals.indexOf(minimo(vals)) : cual === "ultimo" ? vals.length - 1 : cual === "primero" ? 0 : -1;
+      if (i < 0 || !num(vals[i])) return;
+      svg("text", {"class": "valor-punto", x: r1(xDe(i)), y: yDe(vals[i], tope) - 9, "text-anchor": i === 0 ? "start" : i === n - 1 ? "end" : "middle"}, s, fmt(vals[i], g.unidad, true));
+    });
+  });
+  (g.anotaciones || []).forEach(function (a) {
+    var x = r1(xDe(a.indice));
+    svg("line", {"class": "anotacion", x1: x, y1: 30, x2: x, y2: Y1}, s);
+    svg("text", {"class": "texto-anotacion", x: x + (a.indice > n / 2 ? -4 : 4), y: 26, "text-anchor": a.indice > n / 2 ? "end" : "start"}, s, a.texto);
+  });
+  rotulosX(s, et, xDe, true);
+  var ley = leyendaSeries(series);
+  if (g.umbral && g.umbral.rotulo) ley.push({color: g.umbral.color ? color(g.umbral.color, 0) : "var(--ok)", opacidad: ".35", texto: g.umbral.rotulo});
+  if (ley.length > 1) leyenda(fig, ley);
+  return tablaSeries(g, et, series);
+};
+
+tipos.chispa = function (fig, g) {
+  var v = g.valores || [], n = v.length, validos = v.filter(num);
+  if (n < 2 || validos.length < 2) throw new Error("hacen falta al menos dos valores numericos");
+  var lo = minimo(v), hi = maximo(v), rango = (hi - lo) || 1;
+  var x = function (i) { return r1(1 + i * 118 / (n - 1)); }, y = function (val) { return r1(30 - (val - lo) / rango * 28); };
+  var s = lienzo(fig, 120, 32, g.resumen || "", "chispa", true), tramo = [], ultimo = -1;
+  /* Un null interrumpe la linea, igual que en el grafico de linea. */
+  v.concat([null]).forEach(function (val, i) {
+    if (num(val)) { tramo.push([x(i), y(val)]); ultimo = i; return; }
+    if (tramo.length > 1) {
+      var pts = tramo.map(function (p) { return p.join(","); }).join(" ");
+      svg("polygon", {"class": "chispa-area", points: pts + " " + tramo[tramo.length - 1][0] + ",32 " + tramo[0][0] + ",32"}, s);
+      svg("polyline", {"class": "chispa-linea", points: pts}, s);
+    }
+    tramo = [];
+  });
+  svg("circle", {"class": "chispa-punto", cx: x(ultimo), cy: y(v[ultimo]), r: 2.4}, s);
+  var nota = g.nota;
+  if (!nota && g.etiquetas && validos[0]) {
+    var vari = (validos[validos.length - 1] - validos[0]) / Math.abs(validos[0]) * 100;
+    nota = g.etiquetas[0] + " \u2013 " + g.etiquetas[g.etiquetas.length - 1] + ": " + (vari > 0 ? "+" : "") + fmt(vari, "pct");
+  }
+  if (nota) html("p", "tendencia-nota", fig, nota);
+  return null;
+};
+
+tipos.medidor = function (fig, g) {
+  /* real puede pasar de 100 (un plazo excedido): el arco se limita, la cifra no. */
+  var tope = g.maximo || 100, real = (g.valor || 0) / tope * 100, p = Math.max(0, Math.min(100, real));
+  var tramos = g.tramos || [60, 85];
+  var c = g.color ? color(g.color) : real <= tramos[0] ? "var(--ok)" : real <= tramos[1] ? "var(--aviso)" : "var(--riesgo)";
+  var L = Math.PI * 90, arco = r1(p / 100 * L);
+  var s = lienzo(fig, 240, 150, g.resumen || "", "medidor");
+  svg("path", {"class": "pista-arco", d: "M 30 125 A 90 90 0 0 1 210 125"}, s);
+  svg("path", {"class": "arco", d: "M 30 125 A 90 90 0 0 1 210 125", stroke: c, "stroke-dasharray": arco + " " + r1(L - arco + 1)}, s);
+  svg("text", {x: 120, y: 112, "text-anchor": "middle", "font-size": 34, "font-weight": 670, fill: "var(--texto)"}, s, num(g.cifra) ? fmt(g.cifra, g.unidad || "pct") : g.cifra || (g.unidad ? fmt(g.valor, g.unidad) : fmt(real, "pct")));
+  svg("text", {"class": "eje", x: 30, y: 146, "text-anchor": "middle"}, s, "0");
+  svg("text", {"class": "eje", x: 210, y: 146, "text-anchor": "middle"}, s, g.unidad ? fmt(tope, g.unidad, true) : "100\u00a0%");
+  if (g.rotulo) html("p", "medidor-rotulo", fig, g.rotulo);
+  return {cabecera: [T.valor, T.maximo, T.porcentaje], filas: [[g.valor, tope, fmt(real, "pct")]], unidad: g.unidad};
+};
+
+tipos.cascada = function (fig, g) {
+  var pasos = g.pasos || [];
+  if (!pasos.length) throw new Error("faltan pasos");
+  var acum = 0, col = pasos.map(function (p) { var a = acum; acum += p.valor; return {rotulo: p.rotulo, valor: p.valor, desde: a, hasta: acum, color: p.color}; });
+  col.push({rotulo: (g.total && g.total.rotulo) || T.total, valor: acum, desde: 0, hasta: acum, total: true});
+  var hi = techo(maximo(col.map(function (c) { return Math.max(c.desde, c.hasta); })));
+  var lo = Math.min(0, minimo(col.map(function (c) { return Math.min(c.desde, c.hasta); })));
+  if (lo < 0) lo = -techo(-lo);
+  var n = col.length, banda = util() / n, w = banda * 0.6;
+  var y = function (v) { return r1(Y1 - (v - lo) / (hi - lo) * (Y1 - Y0)); };
+  var s = lienzo(fig, W, 280, g.resumen || "");
+  svg("line", {"class": "rejilla", x1: X0, y1: 44, x2: X1, y2: 44}, s);
+  svg("line", {"class": lo < 0 ? "cero" : "rejilla", x1: X0, y1: y(0), x2: X1, y2: y(0)}, s);
+  col.forEach(function (c, i) {
+    var x = r1(X0 + banda * i + (banda - w) / 2), top = y(Math.max(c.desde, c.hasta)), alto = r1(Math.abs(y(c.desde) - y(c.hasta)));
+    var relleno = c.total ? "var(--acento-fuerte)" : c.valor < 0 ? "var(--riesgo)" : color(c.color, i);
+    consejo(svg("rect", {x: x, y: top, width: r1(w), height: Math.max(alto, 1), fill: relleno, rx: 3}, s), c.rotulo + ": " + fmt(c.valor, g.unidad));
+    svg("text", {"class": "valor-punto", x: r1(x + w / 2), y: top - 6, "text-anchor": "middle"}, s, (c.valor < 0 ? "" : !c.total && i ? "+" : "") + fmt(c.valor, g.unidad, true));
+    if (i < n - 1) svg("line", {"class": "conector", x1: r1(x + w), y1: y(c.hasta), x2: r1(x + banda), y2: y(c.hasta), stroke: "var(--linea-rejilla)", "stroke-dasharray": "3 3"}, s);
+  });
+  rotulosX(s, col.map(function (c) { return c.rotulo; }), function (i) { return X0 + banda * (i + 0.5); });
+  return {cabecera: [T.concepto, T.valor, T.acumulado], filas: col.map(function (c) { return [c.rotulo, c.valor, c.hasta]; }), unidad: g.unidad};
+};
+
+tipos.matriz = function (fig, g) {
+  var filas = g.filas || [], cols = g.columnas || [], nf = filas.length, nc = cols.length;
+  if (nf < 2 || nc < 2 || nf > 4 || nc > 4) throw new Error("la matriz necesita de dos a cuatro niveles por eje");
+  var zonas = Object.assign({ok: T.ok, aviso: T.aviso, riesgo: T.riesgo}, g.zonas || {});
+  var Wm = Math.min(W, 560), x0 = 96, y0 = 16, ancho = Wm - x0 - 14, alto = 216, cw = ancho / nc, ch = alto / nf;
+  var s = lienzo(fig, Wm, 290, g.resumen || "");
+  for (var f = 0; f < nf; f++) for (var c = 0; c < nc; c++) {
+    var nivel = ((nf - 1 - f) + c) / (nf + nc - 2), zona = nivel < 0.34 ? "ok" : nivel < 0.67 ? "aviso" : "riesgo";
+    svg("rect", {x: r1(x0 + c * cw), y: r1(y0 + f * ch), width: r1(cw - 2), height: r1(ch - 2), fill: "var(--" + zona + ")", opacity: zona === "riesgo" ? ".22" : ".16", rx: 4}, s);
+    svg("text", {"class": "zona", x: r1(x0 + c * cw + cw / 2), y: r1(y0 + f * ch + 15), "text-anchor": "middle"}, s, zonas[zona]);
+  }
+  filas.forEach(function (r, f) { svg("text", {"class": "eje", x: x0 - 8, y: r1(y0 + f * ch + ch / 2 + 4), "text-anchor": "end"}, s, r); });
+  cols.forEach(function (r, c) { svg("text", {"class": "eje", x: r1(x0 + c * cw + cw / 2), y: y0 + alto + 16, "text-anchor": "middle"}, s, r); });
+  if (g.eje_filas) svg("text", {"class": "eje", x: 12, y: y0 + alto / 2, "text-anchor": "middle", transform: "rotate(-90 12 " + (y0 + alto / 2) + ")"}, s, g.eje_filas);
+  if (g.eje_columnas) svg("text", {"class": "eje", x: x0 + ancho / 2, y: y0 + alto + 34, "text-anchor": "middle"}, s, g.eje_columnas);
+  var ocupadas = {};
+  var items = g.elementos || [];
+  items.forEach(function (e, i) {
+    var f = filas.indexOf(e.fila), c = cols.indexOf(e.columna);
+    if (f < 0 || c < 0) throw new Error("el elemento " + (i + 1) + " no esta en ninguna celda: " + e.fila + " / " + e.columna);
+    var k = f + "-" + c, orden = ocupadas[k] = (ocupadas[k] || 0) + 1;
+    var cx = r1(x0 + c * cw + cw / 2 + ((orden - 1) % 3 - 1) * 20), cy = r1(y0 + f * ch + ch / 2 + 8 + Math.floor((orden - 1) / 3) * 20);
+    consejo(svg("circle", {cx: cx, cy: cy, r: 8.5, fill: color(e.color, 3)}, s), (i + 1) + ". " + e.nombre);
+    svg("text", {"class": "numero-riesgo", x: cx, y: cy + 3.5, "text-anchor": "middle"}, s, String(i + 1));
+  });
+  if (items.length) {
+    var ol = html("ol", "leyenda", fig);
+    items.forEach(function (e) { html("li", "", ol, e.nombre); });
+  }
+  return {cabecera: ["#", T.concepto, g.eje_filas || "", g.eje_columnas || ""], filas: items.map(function (e, i) { return [i + 1, e.nombre, e.fila, e.columna]; })};
+};
+
+tipos.plazos = function (fig, g) {
+  var pl = g.plazos || [];
+  if (!pl.length) throw new Error("faltan plazos");
+  var hoy = fecha(g.hoy), ini = pl.map(function (p) { return fecha(p.inicio); }), fin = pl.map(function (p) { return p.fin ? fecha(p.fin) : hoy; });  /* sin fin: fase abierta hasta hoy */
+  var desde = Math.min(hoy, minimo(ini)), hasta = Math.max(hoy, maximo(fin)), margen = Math.max((hasta - desde) * 0.04, DIA);
+  desde -= margen; hasta += margen;
+  var x0 = columnaRotulos(), ancho = W - x0 - 30, alto = 46 + pl.length * 38 + 34;
+  var x = function (t) { return r1(x0 + (t - desde) / (hasta - desde) * ancho); };
+  var s = lienzo(fig, W, alto, g.resumen || "");
+  var base = alto - 26, dias = (hasta - desde) / DIA;
+  svg("line", {"class": "rejilla", x1: x0, y1: base, x2: x0 + ancho, y2: base}, s);
+  var marcas = [];
+  if (dias <= 120) {
+    var paso = dias <= 14 ? 1 : dias <= 45 ? 7 : 14, t = desde - desde % DIA + DIA;
+    for (; t <= hasta; t += DIA * paso) marcas.push([t, fmtFecha.format(t)]);
+  } else {
+    var d = new Date(desde), salto = dias > 1100 ? 12 : dias > 540 ? 3 : 1;
+    d = Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 1);
+    while (d <= hasta) { marcas.push([d, fmtMes.format(d)]); var dd = new Date(d); d = Date.UTC(dd.getUTCFullYear(), dd.getUTCMonth() + salto, 1); }
+  }
+  var pasoMarca = Math.ceil(marcas.length / 9);
+  marcas.forEach(function (m, i) {
+    if (i % pasoMarca) return;
+    svg("line", {"class": "rejilla", x1: x(m[0]), y1: 40, x2: x(m[0]), y2: base}, s);
+    svg("text", {"class": "eje", x: x(m[0]), y: base + 16, "text-anchor": "middle"}, s, m[1]);
+  });
+  pl.forEach(function (p, i) {
+    var y = 46 + i * 38, a = ini[i], b = fin[i];
+    var c = p.color ? color(p.color, i) : !p.fin ? "var(--aviso)" : b < hoy ? "var(--c6)" : a <= hoy ? "var(--aviso)" : color(null, i);
+    rotuloFila(s, y + 13, p.rotulo);
+    /* Una fecha aproximada (prevista, no notificada) se dibuja con borde discontinuo y relleno claro. */
+    consejo(svg("rect", {x: x(a), y: y, width: Math.max(r1(x(b) - x(a)), 3), height: 18, rx: 4, fill: c, opacity: b < hoy && p.fin ? ".55" : null,
+      "fill-opacity": p.aproximada ? ".3" : null, stroke: p.aproximada ? c : null, "stroke-dasharray": p.aproximada ? "4 3" : null}, s),
+      p.rotulo + ": " + fmtFechaLarga.format(a) + " \u2013 " + (p.fin ? fmtFechaLarga.format(b) : T.en_curso));
+    var dch = x(b) + 6 < x0 + ancho - 40, etiqueta = !p.fin ? T.en_curso : (p.aproximada ? "\u2248 " : "") + fmtFecha.format(b);
+    svg("text", {"class": dch || p.aproximada ? "fecha-fin" : "fecha-fin dentro", x: dch ? x(b) + 6 : x(b) - 6, y: y + 13, "text-anchor": dch ? "start" : "end"}, s, etiqueta);
+  });
+  svg("line", {"class": "hoy", x1: x(hoy), y1: 30, x2: x(hoy), y2: base}, s);
+  svg("text", {"class": "texto-hoy", x: x(hoy), y: 24, "text-anchor": "middle"}, s, g.texto_hoy || T.hoy);
+  return {cabecera: [T.concepto, T.inicio, T.fin, T.restantes], filas: pl.map(function (p, i) {
+    return [p.rotulo, fmtFechaLarga.format(ini[i]), p.fin ? (p.aproximada ? "\u2248 " : "") + fmtFechaLarga.format(fin[i]) : T.en_curso, p.fin ? Math.max(0, Math.round((fin[i] - hoy) / DIA)) : "\u2014"];
+  })};
+};
+
+function sector(cx, cy, R, r, a0, a1) {
+  var gran = a1 - a0 > Math.PI ? 1 : 0;
+  var p = function (rad, a) { return r1(cx + rad * Math.cos(a)) + " " + r1(cy + rad * Math.sin(a)); };
+  if (a1 - a0 >= 2 * Math.PI - 1e-6) {
+    var anillo = "M " + p(R, a0) + " A " + R + " " + R + " 0 1 1 " + p(R, a0 + Math.PI) + " A " + R + " " + R + " 0 1 1 " + p(R, a0) + " Z";
+    return r ? anillo + " M " + p(r, a0) + " A " + r + " " + r + " 0 1 0 " + p(r, a0 + Math.PI) + " A " + r + " " + r + " 0 1 0 " + p(r, a0) + " Z" : anillo;
+  }
+  var d = "M " + p(R, a0) + " A " + R + " " + R + " 0 " + gran + " 1 " + p(R, a1);
+  return r ? d + " L " + p(r, a1) + " A " + r + " " + r + " 0 " + gran + " 0 " + p(r, a0) + " Z"
+           : d + " L " + r1(cx) + " " + r1(cy) + " Z";
+}
+function reparto(fig, g, hueco) {
+  var por = (g.porciones || []).filter(function (p) { return num(p.valor) && p.valor > 0; });
+  if (!por.length) throw new Error("faltan porciones con valor positivo");
+  var max = Math.min(g.maximo_porciones || 6, 6);
+  if (por.length > max) {
+    por.sort(function (a, b) { return b.valor - a.valor; });
+    var resto = por.slice(max - 1);
+    por = por.slice(0, max - 1).concat([{rotulo: g.texto_otros || T.otros, valor: suma(resto.map(function (p) { return p.valor; })), color: 6}]);
+  }
+  var total = suma(por.map(function (p) { return p.valor; }));
+  var s = lienzo(fig, 230, 190, g.resumen || "", "reparto"), a = -Math.PI / 2;
+  por.forEach(function (p, i) {
+    var b = a + p.valor / total * 2 * Math.PI;
+    consejo(svg("path", {d: sector(115, 95, 80, hueco ? 52 : 0, a, b), fill: color(p.color, i), stroke: "var(--superficie)", "stroke-width": 2}, s),
+      p.rotulo + ": " + fmt(p.valor, g.unidad) + " (" + fmt(p.valor / total * 100, "pct") + ")");
+    a = b;
+  });
+  if (hueco) {
+    var centro = g.centro || {};
+    /* La cifra central puede ser texto o un numero (tambien "@clave"), que se formatea con la unidad. */
+    svg("text", {"class": "centro-anillo", x: 115, y: 99, "font-size": 21}, s, num(centro.cifra) ? fmt(centro.cifra, g.unidad, true) : centro.cifra || fmt(total, g.unidad, true));
+    if (centro.rotulo) consejo(svg("text", {"class": "centro-anillo eje", x: 115, y: 117, "font-size": 10.5}, s, recortar(centro.rotulo, 17)), centro.rotulo);
+  }
+  leyenda(fig, por.map(function (p, i) { return {color: color(p.color, i), texto: p.rotulo, extra: fmt(p.valor / total * 100, "pct")}; }));
+  return {cabecera: [T.concepto, T.valor, T.porcentaje], filas: por.map(function (p) { return [p.rotulo, p.valor, fmt(p.valor / total * 100, "pct")]; }).concat([[T.total, total, "100 %"]]), unidad: g.unidad};
+}
+tipos.anillo = function (fig, g) { return reparto(fig, g, true); };
+tipos.tarta = function (fig, g) { return reparto(fig, g, false); };
+
+tipos.bala = function (fig, g) {
+  var el = g.elementos || [];
+  if (!el.length) throw new Error("faltan elementos");
+  var tope = techo(maximo([].concat.apply([], el.map(function (e) { return [e.valor, e.objetivo].concat(e.tramos || []); }))));
+  var x0 = columnaRotulos(), ancho = W - x0 - 64, fila = 46, s = lienzo(fig, W, el.length * fila + 28, g.resumen || "");
+  var x = function (v) { return r1(x0 + Math.max(0, v) / tope * ancho); };
+  el.forEach(function (e, i) {
+    if (!num(e.valor)) throw new Error("el elemento " + (i + 1) + " no tiene valor");
+    var y = 6 + i * fila;
+    rotuloFila(s, y + 19, e.rotulo);
+    /* Tramos cualitativos de fondo (malo, regular, bueno): el mayor, el mas claro. */
+    var tr = (e.tramos || []).slice().sort(function (a, b) { return b - a; });
+    (tr.length ? tr : [tope]).forEach(function (u, k) { svg("rect", {x: x0, y: y + 4, width: x(u) - x0, height: 22, fill: "var(--apagado)", opacity: r1(0.08 + k * 0.08)}, s); });
+    consejo(svg("rect", {x: x0, y: y + 10, width: Math.max(x(e.valor) - x0, 1), height: 10, rx: 2, fill: color(e.color, 0)}, s), e.rotulo + ": " + fmt(e.valor, g.unidad));
+    if (num(e.objetivo)) consejo(svg("rect", {x: x(e.objetivo) - 1.5, y: y + 1, width: 3, height: 28, fill: "var(--texto)"}, s), T.objetivo + ": " + fmt(e.objetivo, g.unidad));
+    svg("text", {"class": "valor-punto", x: x0 + ancho + 8, y: y + 19}, s, fmt(e.valor, g.unidad, true));
+  });
+  var marcas = W < 520 ? 2 : 4;  /* en una tarjeta estrecha, menos rotulos para que no se pisen */
+  for (var k = 0; k <= marcas; k++) svg("text", {"class": "eje", x: x(tope * k / marcas), y: el.length * fila + 22, "text-anchor": "middle"}, s, k ? fmt(tope * k / marcas, g.unidad, true) : "0");
+  return {cabecera: [T.concepto, T.valor, T.objetivo, T.cumplimiento], unidad: g.unidad, filas: el.map(function (e) {
+    return [e.rotulo, e.valor, num(e.objetivo) ? e.objetivo : null, num(e.objetivo) && e.objetivo ? fmt(e.valor / e.objetivo * 100, "pct") : "\u2014"];
+  })};
+};
+
+tipos.divergentes = function (fig, g) {
+  var el = g.elementos || [];
+  if (!el.length) throw new Error("faltan elementos");
+  if (el.some(function (e) { return !num(e.valor); })) throw new Error("todos los elementos necesitan valor numerico");
+  var tope = techo(maximo(el.map(function (e) { return Math.abs(e.valor); })));
+  var x0 = columnaRotulos(), ancho = W - x0 - 16, centro = x0 + ancho / 2, fila = 30, colores = g.colores || {};
+  var s = lienzo(fig, W, el.length * fila + 30, g.resumen || "");
+  var x = function (v) { return r1(centro + v / tope * ancho / 2); };
+  el.forEach(function (e, i) {
+    var y = 6 + i * fila, v = e.valor, c = color(e.color || (v < 0 ? colores.negativo || "riesgo" : colores.positivo || "ok"), 0);
+    rotuloFila(s, y + 13, e.rotulo);
+    consejo(svg("rect", {x: Math.min(x(v), centro), y: y, width: Math.max(Math.abs(x(v) - centro), 1), height: 18, rx: 3, fill: c}, s), e.rotulo + ": " + fmt(v, g.unidad));
+    /* La cifra va fuera de la barra; si no cabe junto al borde, dentro y en blanco. */
+    var fuera = v < 0 ? x(v) - 6 > x0 + 34 : x(v) + 6 < x0 + ancho - 34;
+    var xt = v < 0 ? (fuera ? x(v) - 5 : x(v) + 5) : (fuera ? x(v) + 5 : x(v) - 5);
+    svg("text", {"class": fuera ? "valor-punto" : "valor-punto dentro", x: xt, y: y + 13, "text-anchor": (v < 0) === fuera ? "end" : "start"}, s, (v > 0 ? "+" : "") + fmt(v, g.unidad, true));
+  });
+  var base = el.length * fila + 6;
+  svg("line", {"class": "cero", x1: centro, y1: 0, x2: centro, y2: base}, s);
+  [-tope, 0, tope].forEach(function (v) { svg("text", {"class": "eje", x: x(v), y: base + 16, "text-anchor": v < 0 ? "start" : v > 0 ? "end" : "middle"}, s, v ? fmt(v, g.unidad, true) : "0"); });
+  if (g.nombres) leyenda(fig, [{color: color(colores.positivo || "ok", 0), texto: g.nombres.positivo}, {color: color(colores.negativo || "riesgo", 0), texto: g.nombres.negativo}]);
+  return {cabecera: [T.concepto, T.valor], filas: el.map(function (e) { return [e.rotulo, e.valor]; }), unidad: g.unidad};
+};
+
+/* ---------- tabla de datos, CSV y fuentes ---------- */
+function tablaDatos(fig, tabla, id) {
+  var det = html("details", "datos-grafico", fig);
+  html("summary", "", det, T.datos);
+  var cont = html("div", "tabla", det), t = html("table", "", cont), fila = html("tr", "", html("thead", "", t));
+  tabla.cabecera.forEach(function (c, i) { html("th", i ? "cifra" : "", fila, c); });
+  var cuerpo = html("tbody", "", t);
+  tabla.filas.forEach(function (f) {
+    var tr = html("tr", "", cuerpo);
+    f.forEach(function (v, i) { html("td", i ? "cifra" : "", tr, num(v) ? fmt(v, tabla.unidad) : String(v === null || v === undefined ? "\u2014" : v)); });
+  });
+  var boton = html("button", "", det, T.csv);
+  boton.type = "button";
+  boton.addEventListener("click", function () {
+    var decimal = (1.5).toLocaleString(IDIOMA).indexOf(",") > -1 ? "," : ".";
+    var sep = decimal === "," ? ";" : ",";
+    var celda = function (v) { var s = num(v) ? String(v).replace(".", decimal) : String(v === null || v === undefined ? "" : v); return /[";,\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
+    var csv = [tabla.cabecera].concat(tabla.filas).map(function (f) { return f.map(celda).join(sep); }).join("\r\n");
+    var enlace = D.createElement("a");
+    enlace.href = URL.createObjectURL(new Blob(["\ufeff" + csv], {type: "text/csv;charset=utf-8"}));
+    enlace.download = id + ".csv";
+    D.body.appendChild(enlace); enlace.click(); enlace.remove();
+  });
+}
+function textoFuente(clave) {
+  var f = FUENTES[clave];
+  if (!f) { console.error("Fuente no declarada en datos-reporte: " + clave); return clave; }
+  var t = f.nombre;
+  if (f.url) t += " (" + f.url + ")";
+  /* Una fecha que no sea AAAA-MM-DD (o un marcador pendiente) se muestra tal cual: nunca rompe el motor. */
+  if (f.consulta) t += ", " + T.consulta + " " + (/^\d{4}-\d{2}-\d{2}$/.test(f.consulta) ? fmtFechaLarga.format(fecha(f.consulta)) : f.consulta);
+  return t;
+}
+function fuentesDe(g) {
+  var claves = [].concat(g.fuente || [], (g.series || []).map(function (s) { return s.fuente; })).filter(Boolean);
+  return claves.filter(function (c, i) { return claves.indexOf(c) === i; });
+}
+
+/* ---------- cifras sueltas del texto (data-cifra) ---------- */
+function elementosDe(g) { return g.elementos || g.porciones || g.pasos || g.etapas || null; }
+function valoresDe(g, serie) {
+  if (g.series) return (g.series[serie || 0] || {}).valores || [];
+  var el = elementosDe(g);
+  if (el) return el.map(function (e) { return e.valor; });
+  if (g.valores || num(g.valor)) return g.valores || [g.valor];
+  throw new Error("el grafico " + g.tipo + " no tiene valores sobre los que calcular");
+}
+/* Cifra por su clave, con la pila de lo que se esta calculando para detectar ciclos. */
+function cifraDe(clave, pila) {
+  pila = pila || [];
+  if (pila.indexOf(clave) > -1) throw new Error("referencia circular en " + clave);
+  var d = (datos.cifras || {})[clave];
+  if (!d) throw new Error("no hay cifra " + clave);
+  return cifra(d, pila.concat([clave]));
+}
+/* Calculos que anaden los modulos (por ejemplo, plazos en dias habiles). */
+var calculos = {};
+function cifra(def, pila) {
+  pila = pila || [];
+  if (num(def.valor)) return def.valor;
+  if (calculos[def.calculo]) return calculos[def.calculo](def);
+  /* Operacion entre dos cifras (o numeros): porcentaje de cumplimiento, diferencia con un objetivo... */
+  if (def.operacion) {
+    var op = function (x) { return num(x) ? x : cifraDe(x, pila); };
+    var a = op(def.a), b = op(def.b);
+    switch (def.operacion) {
+      case "suma": return a + b;
+      case "diferencia": return a - b;
+      case "cociente": return a / b;
+      case "porcentaje": return a / b * 100;
+      case "producto": return a * b;
+    }
+    throw new Error("operacion desconocida: " + def.operacion);
+  }
+  var g = (datos.graficos || {})[def.de];
+  if (!g) throw new Error("no hay grafico " + def.de);
+  if (pila.indexOf("#" + def.de) > -1) throw new Error("referencia circular en el grafico " + def.de);
+  /* Los valores "@clave" del grafico se resuelven antes: la cifra y el grafico suman lo mismo. */
+  var v = valoresDe(referencias(g, pila.concat(["#" + def.de])), def.serie).filter(num);
+  switch (def.calculo) {
+    case "suma": return suma(v);
+    case "media": return suma(v) / v.length;
+    case "maximo": return maximo(v);
+    case "minimo": return minimo(v);
+    case "primero": return v[0];
+    case "ultimo": return v[v.length - 1];
+    case "cuenta": return v.length;
+    case "variacion": return (v[v.length - 1] - v[0]) / Math.abs(v[0]) * 100;
+    case "diferencia": return v[v.length - 1] - v[0];
+    case "porcentaje":
+      var lista = elementosDe(g) || [], elegido = lista.filter(function (e) { return e.rotulo === def.elemento; })[0];
+      if (!elegido) throw new Error("no hay elemento " + def.elemento + " en " + def.de);
+      return elegido.valor / suma(v) * 100;
+  }
+  throw new Error("calculo desconocido: " + def.calculo);
+}
+
+/* ---------- arranque ---------- */
+/* Un valor "@clave" dentro de un grafico se sustituye por la cifra clave de cifras: asi una
+   diferencia o un total calculado alimenta tambien al grafico sin escribirlo a mano. */
+function referencias(x, pila) {
+  if (typeof x === "string" && /^@[\w-]+$/.test(x)) return cifraDe(x.slice(1), pila);
+  if (Array.isArray(x)) return x.map(function (y) { return referencias(y, pila); });
+  if (x && typeof x === "object") { var o = {}; for (var k in x) o[k] = referencias(x[k], pila); return o; }
+  return x;
+}
+function escala(fig) { return parseFloat(getComputedStyle(fig).getPropertyValue("--escala-grafico")) || 1; }
+function dibujar(fig, ancho) {
+  var id = fig.getAttribute("data-grafico"), g = (datos.graficos || {})[id];
+  fig.textContent = "";
+  /* --escala-grafico (por ejemplo en una diapositiva) dibuja con un lienzo menor para que,
+     al ampliarse hasta el ancho de la figura, los rotulos salgan mas grandes. */
+  var esc = escala(fig);
+  W = Math.round(Math.min(700, Math.max(320, (impresion && esc === 1 ? 700 : ancho || 700) / esc)));
+  X1 = W - 36;
+  try {
+    if (!g) throw new Error("no hay datos con el nombre " + id);
+    if (!tipos[g.tipo]) throw new Error("tipo desconocido: " + g.tipo);
+    g = referencias(g, ["#" + id]);
+    var tabla = tipos[g.tipo](fig, g, id, W);  /* W: ancho del lienzo, para los tipos de los modulos */
+    if (tabla && g.tabla !== false) tablaDatos(fig, tabla, id);
+    var claves = fuentesDe(g);
+    claves.forEach(function (c) { if (usadas.indexOf(c) < 0) usadas.push(c); });
+    /* La linea de fuente va en las figuras; el minigrafico de un indicador no la lleva. */
+    if (claves.length && fig.tagName === "FIGURE") html("p", "fuente-grafico", fig, (claves.length > 1 ? T.fuentes : T.fuente) + ": " + claves.map(textoFuente).join("; "));
+  } catch (e) {
+    console.error("Grafico " + id + ": " + e.message);
+    fig.textContent = "";
+    html("p", "error-grafico", fig, T.error + " \u00ab" + id + "\u00bb: " + e.message);
+  }
+}
+/* Los tipos de ancho fijo (viewBox propio o HTML) no se redibujan al cambiar el ancho. */
+["barras", "chispa", "medidor", "anillo", "tarta"].forEach(function (t) { tipos[t].fijo = true; });
+var impresion = false, figuras = [], anchos = [];
+function todos(soloVariables) {
+  var medidas = figuras.map(function (f) { return f.clientWidth; });  /* se mide todo antes de escribir */
+  figuras.forEach(function (f, i) {
+    var g = (datos.graficos || {})[f.getAttribute("data-grafico")];
+    if (!soloVariables || !(g && tipos[g.tipo] && tipos[g.tipo].fijo)) dibujar(f, medidas[i]);
+  });
+  anchos = medidas;
+}
+/* Cifras del texto. Con "signo": true se muestra la variacion con su signo y flecha,
+   en verde si es favorable (o en rojo; "mejor": "bajar" invierte el criterio). */
+function pintarCifras() {
+  D.querySelectorAll("[data-cifra]").forEach(function (n) {
+    var clave = n.getAttribute("data-cifra"), def = (datos.cifras || {})[clave] || {};
+    try {
+      var v = cifraDe(clave), texto = fmt(v, def.unidad, false, def.decimales);
+      if (def.signo) {
+        texto = (v > 0 ? "\u25b2 +" : v < 0 ? "\u25bc " : "") + texto;
+        var bien = (v >= 0) !== (def.mejor === "bajar"), colorea = def.mejor !== "neutro" && v !== 0;
+        n.classList.toggle("delta-bien", colorea && bien);
+        n.classList.toggle("delta-mal", colorea && !bien);
+      }
+      n.textContent = texto;
+    } catch (e) { console.error("Cifra " + clave + ": " + e.message); n.textContent = "{{" + clave + "}}"; }
+  });
+}
+function arrancar() {
+  figuras = [].slice.call(D.querySelectorAll("[data-grafico]"));
+  todos();
+  pintarCifras();
+  var lista = D.getElementById("fuentes-reporte");
+  if (lista) {
+    Object.keys(FUENTES).forEach(function (c) { if (usadas.indexOf(c) < 0) usadas.push(c); });
+    usadas.forEach(function (c) { html("li", "", lista, textoFuente(c)); });
+  }
+}
+/* Se redibuja si cambia el ancho de alguna tarjeta y, al imprimir, a tamano fijo. */
+var espera;
+window.addEventListener("resize", function () {
+  clearTimeout(espera);
+  espera = setTimeout(function () {
+    if (figuras.some(function (f, i) { return Math.abs(f.clientWidth - anchos[i]) > 24; })) todos(true);
+  }, 150);
+});
+window.addEventListener("beforeprint", function () { impresion = true; todos(true); });
+window.addEventListener("afterprint", function () { impresion = false; todos(true); });
+var imprimir = D.getElementById("imprimir");
+if (imprimir) imprimir.addEventListener("click", function () { window.print(); });
+/* Interfaz para los modulos opcionales (que registran tipos en Reportes.tipos) y
+   para el script de una maqueta. actualizar cambia los datos de un grafico y lo
+   redibuja junto con las cifras del texto. */
+window.Reportes = {datos: datos, fmt: fmt, tipos: tipos, T: T, svg: svg, html: html, color: color, lienzo: lienzo,
+  recortar: recortar, consejo: consejo, escala: escala, leyenda: leyenda, r1: r1, num: num, maximo: maximo, minimo: minimo,
+  techo: techo, fecha: fecha, DIA: DIA, rejilla: rejilla, yDe: yDe, columnaRotulos: columnaRotulos, rotuloFila: rotuloFila,
+  rotulosX: rotulosX, tablaSeries: tablaSeries, leyendaSeries: leyendaSeries,
+  calculos: calculos, IDIOMA: IDIOMA,
+  actualizar: function (id, cambios) {
+    Object.assign(datos.graficos[id], cambios);
+    figuras.forEach(function (f) { if (f.getAttribute("data-grafico") === id) dibujar(f, f.clientWidth); });
+    pintarCifras();
+  }};
+/* El dibujo espera a que acabe de cargar la pagina: asi los modulos y el script de
+   la maqueta, que van despues del motor, ya han registrado sus tipos o su contenido. */
+if (D.readyState === "loading") D.addEventListener("DOMContentLoaded", arrancar); else arrancar();
+})();
+</script>
+<script>
+/* Modulo de graficos de seguimiento para el motor de artefactos. Se copia integro, despues
+   del motor, solo en los artefactos que usan alguno de estos tipos. */
+(function(){
+"use strict";
+var R = Reportes, D = document, svg = R.svg, r1 = R.r1, fmt = R.fmt, color = R.color, consejo = R.consejo, num = R.num, T = R.T;
+var TX = Object.assign(/^en/.test(R.IDIOMA)
+  ? {estado: "Status", nota: "Note", fecha: "Date", ok: "Compliant", aviso: "Attention", riesgo: "At risk", pendiente: "Pending"}
+  : {estado: "Estado", nota: "Nota", fecha: "Fecha", ok: "Correcto", aviso: "Atencion", riesgo: "Riesgo", pendiente: "Pendiente"}, R.datos.textos || {});
+function texto(s, at, contenido, clase) { return svg("text", Object.assign({"class": clase || "eje"}, at), s, contenido); }
+var estilosSemaforos = ".semaforos{list-style:none;margin:0;padding:0}.semaforo{display:flex;align-items:flex-start;gap:12px;padding:9px 0;border-bottom:1px solid var(--borde-suave)}" +
+  ".semaforo .luz{flex:none;width:12px;height:12px;border-radius:50%;margin-top:6px;background:var(--apagado)}.semaforo-ok .luz{background:var(--ok)}.semaforo-aviso .luz{background:var(--aviso)}.semaforo-riesgo .luz{background:var(--riesgo)}" +
+  ".semaforo>div{flex:1;min-width:0}.semaforo .nota{display:block;font-size:.82rem;color:var(--apagado)}.semaforos-resumen{font-size:.82rem;color:var(--apagado);margin:var(--e2) 0 0}";
+/* Los estilos de los semaforos se anaden la primera vez que se dibuja uno, no en todo artefacto con el modulo. */
+function conEstilos() { if (estilosSemaforos) { R.html("style", "", D.head).textContent = estilosSemaforos; estilosSemaforos = null; } }
+var fechaCorta = new Intl.DateTimeFormat(R.IDIOMA, {day: "numeric", month: "short", year: "2-digit", timeZone: "UTC"});
+
+/* Progreso: barras de avance con porcentaje y, si se da, marca de objetivo. */
+R.tipos.progreso = function (fig, g, id, W) {
+  var el = g.elementos || [], tramos = g.tramos || null;
+  if (!el.length) throw new Error("faltan elementos");
+  var x0 = R.columnaRotulos(), x1 = W - 66, fila = 32, s = R.lienzo(fig, W, el.length * fila + 6, g.resumen);
+  el.forEach(function (e, i) {
+    var mx = num(e.maximo) ? e.maximo : 100;
+    if (!num(e.valor) || e.valor < 0) throw new Error(e.rotulo + ": valor numerico no negativo");
+    var p = e.valor / mx * 100, y = 6 + i * fila;
+    var c = e.color ? color(e.color, i) : tramos ? (p < tramos[0] ? "var(--riesgo)" : p < tramos[1] ? "var(--aviso)" : "var(--ok)") : color(g.color || "acento", 0);
+    R.rotuloFila(s, y + 14, e.rotulo);
+    svg("rect", {x: x0, y: y + 4, width: x1 - x0, height: 12, rx: 6, fill: "var(--superficie-2)", stroke: "var(--borde-suave)"}, s);
+    consejo(svg("rect", {x: x0, y: y + 4, width: r1(Math.max(0, (x1 - x0) * Math.min(100, p) / 100)), height: 12, rx: 6, fill: c}, s), e.rotulo + ": " + fmt(e.valor, g.unidad) + " / " + fmt(mx, g.unidad) + " (" + fmt(p, "pct") + ")");
+    if (num(e.objetivo)) { var xo = r1(x0 + (x1 - x0) * Math.min(1, e.objetivo / mx)); consejo(svg("line", {x1: xo, y1: y, x2: xo, y2: y + 20, stroke: "var(--texto)", "stroke-width": 2}, s), T.objetivo + ": " + fmt(e.objetivo, g.unidad)); }
+    texto(s, {x: x1 + 8, y: y + 14}, fmt(p, "pct"), "valor-punto");
+    e.pct = p;
+  });
+  return {cabecera: [T.concepto, T.valor, T.maximo, T.porcentaje], unidad: g.unidad, filas: el.map(function (e) { return [e.rotulo, e.valor, num(e.maximo) ? e.maximo : 100, fmt(e.pct, "pct")]; })};
+};
+
+/* Semaforos: estado de cada punto de control, en HTML, con recuento al pie. */
+R.tipos.semaforos = function (fig, g) {
+  var el = g.elementos || [], nombres = Object.assign({ok: TX.ok, aviso: TX.aviso, riesgo: TX.riesgo, pendiente: TX.pendiente}, g.nombres || {}), cuenta = {ok: 0, aviso: 0, riesgo: 0, pendiente: 0};
+  if (!el.length) throw new Error("faltan elementos");
+  conEstilos();
+  var ul = R.html("ul", "semaforos", fig);
+  el.forEach(function (e) {
+    if (!/^(ok|aviso|riesgo|pendiente)$/.test(e.estado || "")) throw new Error(e.rotulo + ": estado debe ser ok, aviso, riesgo o pendiente");
+    cuenta[e.estado]++;
+    var li = R.html("li", "semaforo semaforo-" + e.estado, ul);  /* prefijo: aviso y riesgo ya son clases de la base */
+    R.html("span", "luz", li).setAttribute("aria-hidden", "true");
+    var cuerpo = R.html("div", "", li);
+    R.html("b", "", cuerpo, e.rotulo);
+    if (e.nota) R.html("span", "nota", cuerpo, e.nota);
+    R.html("span", "distintivo " + (e.estado === "aviso" ? "atencion" : e.estado === "pendiente" ? "" : e.estado), li, nombres[e.estado]);
+  });
+  R.html("p", "semaforos-resumen", fig, ["ok", "aviso", "riesgo", "pendiente"].filter(function (k) { return cuenta[k]; }).map(function (k) { return cuenta[k] + " " + nombres[k].toLowerCase(); }).join(" · "));
+  return {cabecera: [T.concepto, TX.estado, TX.nota], filas: el.map(function (e) { return [e.rotulo, nombres[e.estado], e.nota || "—"]; })};
+};
+
+/* Linea de tiempo: hitos sobre una escala real de fechas, con la marca de hoy. */
+R.tipos.linea_tiempo = function (fig, g, id, W) {
+  var hitos = (g.hitos || []).map(function (h) { return Object.assign({}, h, {t: R.fecha(h.fecha)}); }).sort(function (a, b) { return a.t - b.t; });
+  if (hitos.length < 2) throw new Error("hacen falta al menos dos hitos con fecha");
+  var hoy = g.hoy ? R.fecha(g.hoy) : null, desde = hitos[0].t, hasta = hitos[hitos.length - 1].t;
+  if (hoy !== null) { desde = Math.min(desde, hoy); hasta = Math.max(hasta, hoy); }
+  var margen = (hasta - desde) * 0.06 || R.DIA; desde -= margen; hasta += margen;
+  var x0 = 24, x1 = W - 24, ym = 100, X = function (t) { return r1(x0 + (t - desde) / (hasta - desde) * (x1 - x0)); };
+  var s = R.lienzo(fig, W, 200, g.resumen), corta = fechaCorta, larga = {format: function (t) { return fmt(t, "fecha"); }};
+  svg("line", {x1: x0, y1: ym, x2: x1, y2: ym, stroke: "var(--borde)", "stroke-width": 2}, s);
+  if (hoy !== null) { svg("line", {"class": "hoy", x1: X(hoy), y1: ym - 80, x2: X(hoy), y2: ym + 80}, s); texto(s, {x: X(hoy) + 4, y: 14}, T.hoy, "texto-hoy"); }
+  var niveles = [-30, 36, -62, 68];
+  hitos.forEach(function (h, i) {
+    var x = X(h.t), yl = ym + niveles[i % 4], arriba = yl < ym, c = h.estado ? color(h.estado, i) : (hoy !== null && h.t < hoy ? "var(--apagado)" : color(g.color || "acento", 0));
+    var ancla = x < 90 ? "start" : x > W - 90 ? "end" : "middle";
+    /* Junto a la marca de hoy, el rotulo se aparta hacia el lado contrario para no pisarla. */
+    if (hoy !== null && ancla === "middle" && Math.abs(x - X(hoy)) < 60) ancla = x < X(hoy) ? "end" : "start";
+    svg("line", {x1: x, y1: ym, x2: x, y2: arriba ? yl + 16 : yl - 12, stroke: c, "stroke-width": 1}, s);
+    consejo(svg("circle", {cx: x, cy: ym, r: 6, fill: c, stroke: "var(--superficie)", "stroke-width": 2}, s), larga.format(h.t) + ": " + h.rotulo);
+    texto(s, {x: x, y: yl, "text-anchor": ancla, "font-weight": 650}, R.recortar(h.rotulo, 24), "valor-punto");
+    texto(s, {x: x, y: yl + 13, "text-anchor": ancla}, corta.format(h.t));
+  });
+  return {cabecera: [TX.fecha, T.concepto], filas: hitos.map(function (h) { return [larga.format(h.t), h.rotulo]; })};
+};
+
+["semaforos"].forEach(function (t) { R.tipos[t].fijo = true; });
+})();
+</script>
+</body>
+</html>

@@ -34,6 +34,7 @@ def _leer_maquetas():
     return piezas, anchos
 PIEZAS, ANCHOS = _leer_maquetas()
 MODULOS = dict(re.findall(r"```js modulo=(\w+)\n(.*?)\n```", open(os.path.join(SKILL, "references", "modulos-motor.md"), encoding="utf-8").read(), re.S))
+TEMAS = dict(re.findall(r"```css tema=(\w+)\n(.*?)\n```", open(os.path.join(SKILL, "references", "temas-visuales.md"), encoding="utf-8").read(), re.S))
 BASE_HTML = open(BASE, encoding="utf-8").read()
 
 def componer(destino, textos, datos, maqueta=None, tema="moderno", ficha=None, contenido=None, ancho=None, modulos=()):
@@ -43,6 +44,9 @@ def componer(destino, textos, datos, maqueta=None, tema="moderno", ficha=None, c
     html = html.replace("{{ANCHO}}", ancho or ANCHOS[maqueta])
     html = html.replace("{{FICHA}}", ficha or parte("ficha")).replace("{{CONTENIDO}}", contenido or parte("contenido"))
     html = html.replace("{{ESTILOS_MAQUETA}}", parte("estilos")).replace("{{ACCIONES}}", parte("acciones"))
+    if tema not in TEMAS and tema not in ("moderno", "sobrio"):
+        raise SystemExit("Tema desconocido en %s: %s (no esta en temas-visuales.md)" % (destino, tema))
+    html = html.replace("{{ESTILOS_TEMA}}", TEMAS.get(tema, ""))  # moderno y sobrio van en la base; los demas, en temas-visuales.md
     html = DATOS_VACIOS.sub(lambda m: m.group(1) + json.dumps(datos, ensure_ascii=False, indent=1) + m.group(2), html)
     for modulo in modulos:  # los modulos van despues del motor y antes del script de la maqueta
         html = html.replace("</body>", MODULOS[modulo] + "\n</body>")
@@ -63,7 +67,7 @@ ELEMENTOS_FACTURAS = [{"rotulo": r, "valor": v} for r, v in FACTURAS]
 PRINCIPAL, INTERESES, COSTAS = 42180.50, 1947.32, 3100.00
 COMUN = {"PIE_AVISO_LEGAL": "Documento de trabajo. No sustituye al asesoramiento de un profesional colegiado ni a la liquidacion judicial de intereses."}
 
-def panel():
+def datos_panel():
     datos = {
       "idioma": "es-ES", "moneda": "EUR", "fuentes": FUENTE_CLIENTE,
       "cifras": {
@@ -116,6 +120,10 @@ def panel():
       "FILA_2_C1": "Factura 2025/131", "FILA_2_C2": "20/01/2026", "FILA_2_C3": "11.250,00", "FILA_2_C4": "247", "FILA_2_C5": "Requerida",
       "TOTAL_ROTULO": "Total de las dos mas antiguas", "TOTAL_C3": "29.650,00",
     })
+    return textos, datos
+
+def panel():
+    textos, datos = datos_panel()
     return componer("panel_reclamacion_cantidad.html", textos, datos, "panel_datos")
 
 def informe():
@@ -304,7 +312,7 @@ def white_paper():
       "SUBTITULO_CAPITULO_3": "Tres medidas que cambian el resultado", "PUNTO_1": "Aceptacion escrita de cada factura o albaran.", "PUNTO_2": "Requerimiento fehaciente a los treinta dias del vencimiento.",
       "TITULO_NOTAS": "Notas", "NOTA_1": "Todas las cifras de este documento son ficticias y sirven solo para mostrar el formato.",
     })
-    return componer("white_paper_morosidad_pymes.html", textos, datos, "documento_largo", contenido=contenido, modulos=["diagramas", "marca"])
+    return componer("white_paper_morosidad_pymes.html", textos, datos, "documento_largo", tema="editorial", contenido=contenido, modulos=["diagramas", "marca"])
 
 def resumen():
     datos = {"idioma": "es-ES", "moneda": "EUR", "fuentes": FUENTE_CLIENTE,
@@ -330,7 +338,7 @@ def resumen():
       "CONCLUSION_3": "Si hay oposicion, el asunto pasa al declarativo; la cuantia lo justifica.",
       "DECISION_QUE_SE_PIDE": "Decision: autorizar la presentacion de la peticion de monitorio antes del 2 de octubre.",
     })
-    return componer("resumen_reclamacion_una_pagina.html", textos, datos, "resumen_ejecutivo")
+    return componer("resumen_reclamacion_una_pagina.html", textos, datos, "resumen_ejecutivo", tema="corporativo", modulos=["encaje"])
 
 # --------------------------------------------------------------------------- galeria
 FLUJO_MONITORIO = {"tipo": "diagrama", "disposicion": "capas", "grupos": {"1": "Via judicial", "2": "Cierre", "3": "Hechos"},
@@ -443,6 +451,51 @@ GALERIA = [
      {"rotulo": "Negociacion con la contraria", "inicio": "2026-09-10"},
      {"rotulo": "Vista prevista", "inicio": "2026-12-01", "fin": "2026-12-15", "aproximada": True},
      {"rotulo": "Recurso (20 dias habiles)", "inicio": "2026-09-17", "fin": "@vencimiento_recurso"}]}),
+  ("area_apilada", "Area apilada", "Modulo analitico: composicion de la cartera por antiguedad, mes a mes.",
+   {"tipo": "area_apilada", "unidad": "eur", "etiquetas": ["Abr", "May", "Jun", "Jul", "Ago", "Sep"],
+    "series": [{"nombre": "Hasta 90 dias", "valores": [9000, 8200, 7800, 6900, 6100, 5400]}, {"nombre": "De 91 a 180", "valores": [4000, 6500, 8800, 10900, 12200, 13600]},
+               {"nombre": "Mas de 180", "valores": [1500, 2400, 4100, 6300, 9200, 12900]}]}),
+  ("pareto", "Pareto", "Modulo analitico: cuatro deudores concentran el 80 por ciento de la deuda.",
+   {"tipo": "pareto", "unidad": "eur", "nombre": "Deuda", "elementos": [{"rotulo": r, "valor": v} for r, v in [("Construcciones Delta", 42180.5), ("Talleres Ebro", 18400), ("Hostal Mirador", 9300),
+     ("Fincas Soto", 7100), ("Bar Central", 3900), ("Clinica Vera", 2600), ("Resto (9 deudores)", 6200)]]}),
+  ("escalones", "Escalones", "Modulo analitico: tipo de interes legal y de demora, que rigen por anos.",
+   {"tipo": "escalones", "unidad": "pct", "etiquetas": ["2021", "2022", "2023", "2024", "2025", "2026"],
+    "series": [{"nombre": "Interes legal", "valores": [3, 3, 3.25, 3.25, 3.25, 3.25]}, {"nombre": "Demora operaciones comerciales", "valores": [8, 8, 10.5, 12.5, 11.15, 10.65]}]}),
+  ("cajas", "Cajas", "Modulo analitico: dias hasta sentencia en tres juzgados, con mediana, cuartiles y atipicos.",
+   {"tipo": "cajas", "unidad": "dias", "grupos": [{"rotulo": "Juzgado n. 3", "valores": [120, 135, 140, 150, 158, 162, 170, 181, 190, 240, 410]},
+     {"rotulo": "Juzgado n. 7", "valores": [95, 100, 108, 112, 120, 125, 130, 142, 150, 160]}, {"rotulo": "Juzgado n. 12", "valores": [200, 215, 230, 260, 275, 290, 310, 330, 360, 420, 480]}]}),
+  ("tornado", "Tornado", "Modulo analitico: que parametro mueve mas la indemnizacion estimada.",
+   {"tipo": "tornado", "unidad": "eur", "base": 48000, "nombres": {"bajo": "Escenario bajo", "alto": "Escenario alto"},
+    "elementos": [{"rotulo": "Dias de baja", "bajo": 36000, "alto": 61000}, {"rotulo": "Secuelas (puntos)", "bajo": 41000, "alto": 58000},
+                  {"rotulo": "Lucro cesante", "bajo": 44000, "alto": 53000}, {"rotulo": "Factor de correccion", "bajo": 46500, "alto": 50500}]}),
+  ("rango", "Rango", "Modulo analitico: donde cae la sancion propuesta dentro de la horquilla legal.",
+   {"tipo": "rango", "unidad": "eur", "minimo": 601, "maximo": 30000,
+    "tramos": [{"hasta": 6000, "rotulo": "Grado minimo", "color": "ok"}, {"hasta": 18000, "rotulo": "Grado medio", "color": "aviso"}, {"rotulo": "Grado maximo", "color": "riesgo"}],
+    "marcas": [{"rotulo": "Propuesta de la inspeccion", "valor": 12500}, {"rotulo": "Alegamos", "valor": 3000, "color": "ok"}]}),
+  ("mapa_calor", "Mapa de calor", "Modulo analitico: asuntos nuevos por area y mes.",
+   {"tipo": "mapa_calor", "unidad": "entero", "filas": ["Mercantil", "Laboral", "Civil", "Penal", "Fiscal"], "columnas": ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep"],
+    "valores": [[12, 15, 18, 14, 20, 22, 9, 4, 19], [8, 9, 11, 13, 12, 10, 7, 3, 14], [20, 18, 22, 25, 24, 21, 15, 6, 23], [3, 2, 4, 5, 3, 4, 2, 1, 3], [6, 14, 9, 21, 8, 7, 5, 2, 6]]}),
+  ("sankey", "Sankey", "Modulo analitico: de la consulta al resultado, por donde pasa cada asunto.",
+   {"tipo": "sankey", "unidad": "entero",
+    "nodos": [{"id": "con", "texto": "Consultas"}, {"id": "mon", "texto": "Monitorio"}, {"id": "neg", "texto": "Negociacion"}, {"id": "arc", "texto": "Archivo", "color": 6},
+              {"id": "cob", "texto": "Cobrado", "color": "ok"}, {"id": "jui", "texto": "Juicio", "color": "aviso"}],
+    "flujos": [{"de": "con", "a": "mon", "valor": 120}, {"de": "con", "a": "neg", "valor": 60}, {"de": "con", "a": "arc", "valor": 20},
+               {"de": "mon", "a": "cob", "valor": 80}, {"de": "mon", "a": "jui", "valor": 40}, {"de": "neg", "a": "cob", "valor": 45}, {"de": "neg", "a": "arc", "valor": 15}]}),
+  ("anillos", "Anillos", "Modulo analitico: avance de tres objetivos del trimestre.",
+   {"tipo": "anillos", "elementos": [{"rotulo": "Facturacion", "valor": 82000, "maximo": 100000}, {"rotulo": "Cobros", "valor": 61000, "maximo": 80000}, {"rotulo": "Asuntos cerrados", "valor": 97, "maximo": 110}]}),
+  ("puntuacion", "Puntuacion", "Modulo analitico: nota de cada criterio de 0 a 5.",
+   {"tipo": "puntuacion", "maximo": 5, "elementos": [{"rotulo": "Solidez documental", "valor": 4.5}, {"rotulo": "Solvencia del deudor", "valor": 2}, {"rotulo": "Rapidez esperada", "valor": 4}, {"rotulo": "Coste relativo", "valor": 3.5}]}),
+  ("progreso", "Progreso", "Modulo de seguimiento: avance por fase, con marca de objetivo y color por tramos.",
+   {"tipo": "progreso", "unidad": "pct", "tramos": [40, 75], "elementos": [{"rotulo": "Documentacion", "valor": 100}, {"rotulo": "Requerimiento", "valor": 80, "objetivo": 100},
+     {"rotulo": "Monitorio", "valor": 35, "objetivo": 60}, {"rotulo": "Ejecucion", "valor": 0}]}),
+  ("semaforos", "Semaforos", "Modulo de seguimiento: estado de cada punto de control de proteccion de datos.",
+   {"tipo": "semaforos", "elementos": [{"rotulo": "Registro de actividades de tratamiento", "estado": "ok", "nota": "Actualizado en marzo de 2026"},
+     {"rotulo": "Contratos con encargados", "estado": "aviso", "nota": "Faltan dos proveedores"}, {"rotulo": "Evaluacion de impacto", "estado": "riesgo", "nota": "No realizada para el videoanalisis"},
+     {"rotulo": "Delegado de proteccion de datos", "estado": "pendiente"}]}),
+  ("linea_tiempo", "Linea de tiempo", "Modulo de seguimiento: hitos del expediente sobre una escala real de fechas.",
+   {"tipo": "linea_tiempo", "hoy": "2026-09-24", "hitos": [{"fecha": "2025-11-15", "rotulo": "Vence la primera factura"}, {"fecha": "2026-01-20", "rotulo": "Vence la segunda"},
+     {"fecha": "2026-05-04", "rotulo": "Reconocimiento de deuda"}, {"fecha": "2026-07-02", "rotulo": "Ultimo pago parcial"}, {"fecha": "2026-09-17", "rotulo": "Burofax"},
+     {"fecha": "2026-10-09", "rotulo": "Presentacion del monitorio", "estado": "aviso"}]}),
 ]
 
 def galeria():
@@ -450,7 +503,8 @@ def galeria():
     for clave, titulo, uso, g in GALERIA:
         g = dict(g, fuente="ejemplo", resumen=titulo + ": " + uso)
         graficos[clave] = g
-        ancho = " ancho-total" if clave in ("linea", "plazos", "flujo", "sociedades", "partes", "carriles", "bala", "divergentes", "dispersion", "treemap", "calendario") else ""
+        ancho = " ancho-total" if clave in ("linea", "plazos", "flujo", "sociedades", "partes", "carriles", "bala", "divergentes", "dispersion", "treemap", "calendario",
+                                             "area_apilada", "pareto", "escalones", "cajas", "tornado", "rango", "mapa_calor", "sankey", "linea_tiempo") else ""
         tarjetas.append('<section class="tarjeta%s">\n      <h2>%s</h2>\n      <p class="subtitulo">%s <code>"tipo": "%s"</code></p>\n'
                         '      <figure class="grafico" data-grafico="%s"></figure>\n    </section>' % (ancho, titulo, uso, g["tipo"], clave))
     graficos["tendencia"] = {"tipo": "chispa", "valores": [10, 12, 18, 22, 30, 34], "etiquetas": ["Abril", "Septiembre"], "fuente": "ejemplo"}
@@ -470,7 +524,396 @@ def galeria():
       "ENTRADILLA": "Cada grafico se declara con sus datos en el bloque datos-reporte y lo dibuja el motor de la base. Bajo cada uno estan su tabla de datos, la descarga en CSV y su fuente.",
     })
     return componer("galeria_graficos.html", textos, datos, ficha='<li><b>Tipos:</b> %d</li>' % len(GALERIA),
-                    contenido=contenido, ancho="1120px", modulos=["diagramas", "avanzados", "iconos", "qr", "plazos", "mapa", "mapa_ccaa", "mapa_provincias"])
+                    contenido=contenido, ancho="1120px", modulos=["diagramas", "avanzados", "analiticos", "seguimiento", "iconos", "qr", "plazos", "mapa", "mapa_ccaa", "mapa_provincias"])
+
+GALERIA_DICT = {c: dict(g) for c, _, _, g in GALERIA}
+
+# --------------------------------------------------------------------------- maquetas de reporte nuevas
+DEMO = {"demo": {"nombre": "Datos ficticios de demostracion", "consulta": "2026-10-11"}}
+def _d(cifras, graficos, fuentes=None):
+    for g in graficos.values():
+        g.setdefault("fuente", "demo")
+    return {"idioma": "es-ES", "moneda": "EUR", "fuentes": fuentes or DEMO, "cifras": cifras, "graficos": graficos}
+def _ind(textos, n, rotulo, detalle, cifra=None):
+    textos["INDICADOR_%d_ROTULO" % n] = rotulo
+    textos["INDICADOR_%d_DETALLE" % n] = detalle
+    if cifra is not None:
+        textos["INDICADOR_%d_CIFRA" % n] = cifra
+def _tit(textos, clave, titulo, subtitulo):
+    textos["TITULO_" + clave] = titulo
+    textos["SUBTITULO_" + clave] = subtitulo
+PIE_DEMO = {"PIE_AVISO_LEGAL": "Datos ficticios de demostracion. No sustituye al asesoramiento de un profesional colegiado."}
+
+def cuadro_mando():
+    t = dict(PIE_DEMO, TITULO_DOCUMENTO="Septiembre cierra por encima del objetivo de facturacion", ETIQUETA_SUPERIOR="Cuadro de mando | Comite de direccion",
+             ENTRADILLA="La facturacion supera el objetivo mensual y el cobro mejora, pero el area laboral sigue por debajo de sus horas y dos areas acumulan saldo vencido.",
+             PERIODO="septiembre de 2026", FECHA_ACTUALIZACION="1 de octubre de 2026")
+    for n, r, d in [(1, "Facturacion", "frente a agosto"), (2, "Cobrado", "frente a agosto"), (3, "Saldo vencido", "frente a agosto"), (4, "Asuntos nuevos", "frente a agosto"),
+                    (5, "Horas facturables", "acumulado del ano"), (6, "Margen", "sobre facturacion"), (7, "Dias medios de cobro", "objetivo: 60 dias"), (8, "Clientes activos", "con asunto abierto")]:
+        _ind(t, n, r, d)
+    _tit(t, "OBJETIVOS", "Cobro y facturacion casi en objetivo", "Avance sobre el objetivo del trimestre")
+    _tit(t, "CUMPLIMIENTO", "Laboral, por debajo de sus horas", "Horas facturadas frente a objetivo por area")
+    _tit(t, "ESTADO", "Dos areas con saldo vencido", "Estado de cada area al cierre")
+    _tit(t, "TABLA", "Detalle por area", "Septiembre de 2026, en euros")
+    t.update(COLUMNA_1="Area", COLUMNA_2="Facturado", COLUMNA_3="Cobrado", COLUMNA_4="Pendiente",
+             FILA_1_C1="Mercantil", FILA_1_C2="96.400,00", FILA_1_C3="88.100,00", FILA_1_C4="8.300,00",
+             FILA_2_C1="Litigacion", FILA_2_C2="71.250,00", FILA_2_C3="52.900,00", FILA_2_C4="18.350,00",
+             FILA_3_C1="Laboral", FILA_3_C2="38.900,00", FILA_3_C3="31.200,00", FILA_3_C4="7.700,00")
+    cifras = {"indicador_1": {"valor": 206550, "unidad": "eur", "decimales": 0}, "indicador_2": {"valor": 172200, "unidad": "eur", "decimales": 0},
+              "indicador_3": {"valor": 34350, "unidad": "eur", "decimales": 0}, "indicador_4": {"valor": 31, "unidad": "entero"},
+              "indicador_5": {"valor": 9840, "unidad": "entero"}, "indicador_6": {"valor": 34.2, "unidad": "pct"}, "indicador_7": {"valor": 71, "unidad": "dias"},
+              "indicador_8": {"valor": 214, "unidad": "entero"},
+              "variacion_1": {"valor": 6.8, "unidad": "pct", "signo": True}, "variacion_2": {"valor": 11.2, "unidad": "pct", "signo": True},
+              "variacion_3": {"valor": -4.1, "unidad": "pct", "signo": True, "mejor": "bajar"}, "variacion_4": {"valor": 3, "unidad": "entero", "signo": True, "mejor": "neutro"}}
+    g = {"tendencia_1": {"tipo": "chispa", "valores": [168000, 175000, 181000, 172000, 193400, 206550], "etiquetas": ["Abril", "Septiembre"]},
+         "tendencia_5": {"tipo": "chispa", "valores": [1050, 1180, 1120, 1240, 980, 1310], "etiquetas": ["Abril", "Septiembre"]},
+         "objetivos": {"tipo": "anillos", "resumen": "Avance del trimestre", "elementos": [{"rotulo": "Facturacion", "valor": 581000, "maximo": 600000}, {"rotulo": "Cobro", "valor": 492000, "maximo": 540000}, {"rotulo": "Asuntos", "valor": 88, "maximo": 100}]},
+         "cumplimiento": {"tipo": "bala", "unidad": "horas", "resumen": "Horas por area frente a objetivo", "elementos": [{"rotulo": "Mercantil", "valor": 1420, "objetivo": 1300, "tramos": [900, 1200, 1600]},
+                          {"rotulo": "Litigacion", "valor": 1180, "objetivo": 1200, "tramos": [900, 1200, 1600]}, {"rotulo": "Laboral", "valor": 760, "objetivo": 1000, "tramos": [700, 950, 1300]}]},
+         "estado": {"tipo": "semaforos", "resumen": "Estado por area", "elementos": [{"rotulo": "Mercantil", "estado": "ok", "nota": "En objetivo de horas y cobro"},
+                    {"rotulo": "Litigacion", "estado": "aviso", "nota": "18.350 EUR pendientes de mas de 60 dias"}, {"rotulo": "Laboral", "estado": "riesgo", "nota": "24 % por debajo de sus horas"}]}}
+    return componer("cuadro_mando_comite.html", t, _d(cifras, g), "cuadro_mando", tema="dorado", modulos=["analiticos", "seguimiento"])
+
+def ficha_una_pagina():
+    t = dict(PIE_DEMO, TITULO_DOCUMENTO="Construcciones Delta, S.L.: deuda vencida y en reclamacion", TITULO_CORTO="Ficha Construcciones Delta", ETIQUETA_SUPERIOR="Ficha de cliente deudor",
+             ENTRADILLA="Datos clave del deudor y estado de la reclamacion a 24 de septiembre de 2026.", REFERENCIA="2026/0417", FECHA_EMISION="24 de septiembre de 2026")
+    for i, (r, v) in enumerate([("NIF", "B-50000000"), ("Domicilio", "Zaragoza"), ("Actividad", "Construccion"), ("Cliente desde", "2019"), ("Facturas impagadas", "7"), ("Via", "Monitorio")], 1):
+        t["DATO_%d_ROTULO" % i], t["DATO_%d_VALOR" % i] = r, v
+    _ind(t, 1, "Principal", "Siete facturas vencidas"); _ind(t, 2, "Cobrado", "Dos pagos a cuenta"); _ind(t, 3, "Pendiente", "Principal menos lo cobrado")
+    _tit(t, "GRAFICO", "Tres facturas concentran la deuda", "Principal por factura, en euros")
+    _tit(t, "ESTADO", "La reclamacion esta lista", "Estado de cada requisito")
+    cifras = {"indicador_1": {"de": "principal", "calculo": "suma", "unidad": "eur"}, "indicador_2": {"valor": 5600, "unidad": "eur"},
+              "indicador_3": {"operacion": "diferencia", "a": "indicador_1", "b": "indicador_2", "unidad": "eur"}}
+    g = {"principal": {"tipo": "barras", "unidad": "eur", "elementos": ELEMENTOS_FACTURAS, "resumen": "Principal por factura"},
+         "estado": {"tipo": "semaforos", "resumen": "Requisitos de la reclamacion", "elementos": [{"rotulo": "Reconocimiento de deuda", "estado": "ok", "nota": "Correo de 4 de mayo"},
+                    {"rotulo": "Requerimiento fehaciente", "estado": "ok", "nota": "Burofax de 17 de septiembre"}, {"rotulo": "Solvencia del deudor", "estado": "aviso", "nota": "Sin informe reciente"}]}}
+    return componer("ficha_deudor_una_pagina.html", t, _d(cifras, g, FUENTE_CLIENTE | DEMO), "ficha_una_pagina", tema="minimal", modulos=["seguimiento", "encaje"])
+
+def infografia():
+    t = dict(PIE_DEMO, TITULO_DOCUMENTO="La morosidad de las pymes, en tres cifras", TITULO_CORTO="Infografia morosidad", ETIQUETA_SUPERIOR="Infografia | Datos de demostracion",
+             ENTRADILLA="Que pasa cuando una factura no se cobra y cuanto tarda en resolverse.", FUENTE_BREVE="datos ficticios de demostracion",
+             FRASE_1="es la deuda media que una pyme deja de cobrar al ano", FRASE_2="dias tarda de media en cobrarse una factura reclamada", FRASE_3="se recuperan con un monitorio sin llegar a juicio",
+             TITULO_PROPORCION="3 de cada 10 impagos acaban en juicio", TITULO_AVANCE="Lo que se recupera, segun la via", TITULO_HITOS="Asi avanza una reclamacion tipica")
+    cifras = {"cifra_1": {"valor": 42180, "unidad": "eur", "decimales": 0}, "cifra_2": {"valor": 214, "unidad": "entero"}, "cifra_3": {"valor": 70, "unidad": "pct"}}
+    g = {"proporcion": {"tipo": "pictograma", "valor": 3, "total": 10, "rotulo": "de cada 10 impagos reclamados", "resumen": "3 de cada 10"},
+         "avance": {"tipo": "anillos", "resumen": "Porcentaje recuperado por via", "elementos": [{"rotulo": "Negociacion", "valor": 55}, {"rotulo": "Monitorio", "valor": 70}, {"rotulo": "Juicio", "valor": 82}]},
+         "hitos": {"tipo": "linea_tiempo", "resumen": "Hitos de una reclamacion", "hitos": [{"fecha": "2026-01-15", "rotulo": "Vence la factura"}, {"fecha": "2026-03-01", "rotulo": "Recordatorio"},
+                   {"fecha": "2026-05-04", "rotulo": "Burofax"}, {"fecha": "2026-06-20", "rotulo": "Monitorio"}, {"fecha": "2026-08-17", "rotulo": "Cobro"}]}}
+    return componer("infografia_morosidad.html", t, _d(cifras, g), "infografia", tema="menta", modulos=["avanzados", "analiticos", "seguimiento"])
+
+def comparativa():
+    t = dict(PIE_DEMO, TITULO_DOCUMENTO="El monitorio gana en coste y en rapidez", TITULO_CORTO="Comparativa de vias", ETIQUETA_SUPERIOR="Comparativa de opciones | Expediente 2026/0417",
+             ENTRADILLA="Tres vias para cobrar 42.180,50 euros de Construcciones Delta, puntuadas con los mismos criterios.", REFERENCIA="2026/0417", FECHA_EMISION="24 de septiembre de 2026",
+             TITULO_RECOMENDACION="Recomendacion", RECOMENDACION="Presentar el monitorio: es la via mas barata y rapida, y el reconocimiento de deuda la sostiene.",
+             CRITERIO_1="Coste inicial", CRITERIO_2="Plazo", CRITERIO_3="Exito esperado", CRITERIO_4="Abogado y procurador",
+             OPCION_1_NOMBRE="Monitorio", OPCION_1_VEREDICTO="Recomendada", OPCION_1_C1="Bajo", OPCION_1_C2="2 a 4 meses", OPCION_1_C3="Alto", OPCION_1_C4="No al inicio",
+             OPCION_2_NOMBRE="Negociacion", OPCION_2_VEREDICTO="Complementaria", OPCION_2_C1="Muy bajo", OPCION_2_C2="1 a 3 meses", OPCION_2_C3="Medio", OPCION_2_C4="No",
+             OPCION_3_NOMBRE="Juicio ordinario", OPCION_3_VEREDICTO="Si hay oposicion", OPCION_3_C1="Alto", OPCION_3_C2="12 a 18 meses", OPCION_3_C3="Alto", OPCION_3_C4="Si")
+    _tit(t, "PERFIL", "El monitorio tiene el perfil mas equilibrado", "Puntuacion de 0 a 10 en cada criterio")
+    _tit(t, "DISTANCIA", "La diferencia esta en el coste", "Coste estimado minimo y maximo, en euros")
+    g = {"perfil": {"tipo": "radar", "maximo": 10, "resumen": "Perfil de cada via", "ejes": ["Coste", "Rapidez", "Exito", "Control", "Riesgo"],
+                    "series": [{"nombre": "Monitorio", "valores": [9, 8, 7, 6, 8]}, {"nombre": "Negociacion", "valores": [10, 9, 5, 8, 7]}, {"nombre": "Juicio", "valores": [3, 2, 8, 6, 5]}]},
+         "distancia": {"tipo": "halteras", "unidad": "eur", "resumen": "Coste minimo y maximo", "nombres": {"a": "Minimo", "b": "Maximo"},
+                       "elementos": [{"rotulo": "Negociacion", "a": 300, "b": 900}, {"rotulo": "Monitorio", "a": 600, "b": 2400}, {"rotulo": "Juicio", "a": 4200, "b": 9800}]}}
+    return componer("comparativa_vias.html", t, _d({}, g), "comparativa", tema="corporativo", modulos=["avanzados"])
+
+def cronograma_expediente():
+    t = dict(PIE_DEMO, TITULO_DOCUMENTO="El monitorio se presenta el 9 de octubre", TITULO_CORTO="Cronograma 2026/0417", ETIQUETA_SUPERIOR="Cronograma del expediente | 2026/0417",
+             ENTRADILLA="Donde esta la reclamacion frente a Construcciones Delta, que plazo corre y que viene ahora.", REFERENCIA="2026/0417", FECHA_EMISION="24 de septiembre de 2026",
+             TITULO_AVISO="Plazo en curso", AVISO_PLAZO="El plazo del burofax vence el 27 de septiembre. Si no hay pago, se presenta el monitorio el 9 de octubre.",
+             TITULO_PASOS="Proximos pasos", SUBTITULO_PASOS="Con responsable y fecha",
+             PASO_1="Comprobar si llega el pago", RESPONSABLE_1="Cliente", FECHA_PASO_1="27 sept", PASO_2="Preparar la peticion de monitorio", RESPONSABLE_2="Despacho", FECHA_PASO_2="9 oct",
+             PASO_3="Seguir el requerimiento del juzgado", RESPONSABLE_3="Despacho", FECHA_PASO_3="nov")
+    _ind(t, 1, "Fase", "de cuatro", "Requerimiento"); _ind(t, 2, "Proximo vencimiento", "Plazo del burofax", "27/09/2026"); _ind(t, 3, "Dias que quedan", "Naturales", "3")
+    _tit(t, "HITOS", "Diez meses desde la primera factura", "Lo que ha pasado, en una escala real de fechas")
+    _tit(t, "PLAZOS", "Lo que corre ahora", "Plazos en curso y previstos, con la marca de hoy")
+    _tit(t, "FASES", "La reclamacion va por la mitad", "Avance por fase")
+    g = {"hitos": GALERIA_DICT["linea_tiempo"], "plazos": {"tipo": "plazos", "hoy": "2026-09-24", "resumen": "Plazos en curso", "plazos": [{"rotulo": "Plazo del burofax", "inicio": "2026-09-17", "fin": "2026-09-27"},
+               {"rotulo": "Preparar el monitorio", "inicio": "2026-09-28", "fin": "2026-10-09"}, {"rotulo": "Pago u oposicion", "inicio": "2026-10-20", "fin": "2026-11-10", "aproximada": True}]},
+         "fases": {"tipo": "progreso", "unidad": "pct", "resumen": "Avance por fase", "elementos": [{"rotulo": "Documentacion", "valor": 100}, {"rotulo": "Requerimiento", "valor": 70},
+                   {"rotulo": "Monitorio", "valor": 0, "objetivo": 100}, {"rotulo": "Cobro", "valor": 0}]}}
+    return componer("cronograma_expediente_0417.html", t, _d({}, g), "cronograma_expediente", tema="esmeralda_noche", modulos=["seguimiento"])
+
+def lista_control():
+    t = dict(PIE_DEMO, TITULO_DOCUMENTO="Cumplimos el 70 % de los requisitos de proteccion de datos", TITULO_CORTO="Lista de control RGPD", ETIQUETA_SUPERIOR="Lista de control | Proteccion de datos",
+             ENTRADILLA="Revision de los requisitos del RGPD en una clinica dental. Los estados los ha fijado el responsable de cumplimiento.", REFERENCIA="AUD-2026-12", FECHA_EMISION="10 de octubre de 2026",
+             COLUMNA_1="Requisito", COLUMNA_2="Evidencia", COLUMNA_3="Estado",
+             FILA_1_REQUISITO="Registro de actividades", FILA_1_EVIDENCIA="Hoja de registro de marzo de 2026", FILA_1_CLASE="ok", FILA_1_ESTADO="Correcto",
+             FILA_2_REQUISITO="Contratos con encargados", FILA_2_EVIDENCIA="Faltan dos proveedores", FILA_2_CLASE="atencion", FILA_2_ESTADO="Atencion",
+             FILA_3_REQUISITO="Evaluacion de impacto", FILA_3_EVIDENCIA="No realizada para videovigilancia", FILA_3_CLASE="riesgo", FILA_3_ESTADO="Riesgo",
+             FILA_4_REQUISITO="Informacion a pacientes", FILA_4_EVIDENCIA="Clausula en la ficha de alta", FILA_4_CLASE="ok", FILA_4_ESTADO="Correcto")
+    _ind(t, 1, "Cumplimiento", "7 de 10 requisitos"); _ind(t, 2, "Pendientes", "Requieren accion", "2"); _ind(t, 3, "En riesgo", "Accion inmediata", "1")
+    _tit(t, "BLOQUES", "La seguridad es el bloque mas atrasado", "Avance por bloque")
+    _tit(t, "REQUISITOS", "Un requisito en riesgo", "Estado de cada requisito clave")
+    _tit(t, "TABLA", "Evidencias revisadas", "Lo que se ha comprobado y su estado")
+    cifras = {"indicador_1": {"operacion": "porcentaje", "a": 7, "b": 10, "unidad": "pct"}}
+    g = {"bloques": {"tipo": "progreso", "unidad": "pct", "tramos": [50, 80], "resumen": "Avance por bloque", "elementos": [{"rotulo": "Gobernanza", "valor": 100}, {"rotulo": "Informacion", "valor": 85},
+                     {"rotulo": "Encargados", "valor": 60}, {"rotulo": "Seguridad", "valor": 40}]},
+         "requisitos": GALERIA_DICT["semaforos"]}
+    return componer("lista_control_rgpd.html", t, _d(cifras, g), "lista_control", tema="tecnico", modulos=["seguimiento"])
+
+def mapa_riesgos():
+    t = dict(PIE_DEMO, TITULO_DOCUMENTO="Dos riesgos concentran la exposicion de la operacion", TITULO_CORTO="Mapa de riesgos", ETIQUETA_SUPERIOR="Mapa de riesgos | Compra de Delta Servicios",
+             ENTRADILLA="Contingencias detectadas en la revision, valoradas por el equipo. La exposicion es la suma de los escenarios centrales.", REFERENCIA="DD-2026-03", FECHA_EMISION="15 de octubre de 2026")
+    _ind(t, 1, "Riesgos identificados", "En cinco areas", "8"); _ind(t, 2, "Criticos", "Actuar antes de firmar", "2"); _ind(t, 3, "Exposicion estimada", "Escenario central")
+    _tit(t, "MATRIZ", "Dos riesgos en zona roja", "Probabilidad por impacto")
+    _tit(t, "MEDIDAS", "Una medida sin empezar", "Estado de las medidas de mitigacion")
+    _tit(t, "IMPACTO", "La inspeccion fiscal es lo que mas mueve la cifra", "Impacto economico de cada riesgo, en euros")
+    _tit(t, "EXPOSICION", "La propuesta cae en grado medio", "Sancion propuesta dentro de la horquilla legal")
+    cifras = {"indicador_3": {"valor": 186000, "unidad": "eur", "decimales": 0}}
+    g = {"matriz": GALERIA_DICT["matriz"], "medidas": {"tipo": "semaforos", "resumen": "Medidas", "elementos": [
+             {"rotulo": "Garantia del vendedor", "estado": "ok", "nota": "Pactada en la oferta"}, {"rotulo": "Regularizacion fiscal", "estado": "aviso", "nota": "En negociacion"},
+             {"rotulo": "Auditoria laboral", "estado": "riesgo", "nota": "Sin empezar"}]},
+         "impacto": {"tipo": "tornado", "unidad": "eur", "base": 186000, "resumen": "Impacto de cada riesgo", "nombres": {"bajo": "Escenario favorable", "alto": "Escenario adverso"}, "color_bajo": "ok", "color_alto": "riesgo",
+                     "elementos": [{"rotulo": "Inspeccion fiscal", "bajo": 120000, "alto": 268000}, {"rotulo": "Contingencia laboral", "bajo": 158000, "alto": 231000},
+                                   {"rotulo": "Litigio con cliente", "bajo": 171000, "alto": 214000}, {"rotulo": "Garantias bancarias", "bajo": 180000, "alto": 199000}]},
+         "exposicion": GALERIA_DICT["rango"]}
+    return componer("mapa_riesgos_operacion.html", t, _d(cifras, g), "mapa_riesgos", tema="ambar", modulos=["analiticos", "seguimiento"])
+
+def escenarios():
+    t = dict(PIE_DEMO, TITULO_DOCUMENTO="La indemnizacion estara entre 36.000 y 61.000 euros", TITULO_CORTO="Escenarios indemnizacion", ETIQUETA_SUPERIOR="Escenarios | Reclamacion por accidente",
+             ENTRADILLA="Tres escenarios con los supuestos que se barajan. Los dias de baja son lo que mas mueve el resultado.", REFERENCIA="2026/0533", FECHA_EMISION="12 de octubre de 2026",
+             COLUMNA_1="Supuesto", COLUMNA_2="Bajo", COLUMNA_3="Central", COLUMNA_4="Alto",
+             FILA_1_C1="Dias de baja", FILA_1_C2="90", FILA_1_C3="140", FILA_1_C4="210", FILA_2_C1="Secuelas (puntos)", FILA_2_C2="4", FILA_2_C3="7", FILA_2_C4="10",
+             FILA_3_C1="Lucro cesante (meses)", FILA_3_C2="2", FILA_3_C3="4", FILA_3_C4="6")
+    _ind(t, 1, "Escenario central", "Con los supuestos centrales"); _ind(t, 2, "Minimo", "Escenario bajo"); _ind(t, 3, "Maximo", "Escenario alto")
+    _tit(t, "SUPUESTOS", "Que cambia en cada escenario", "Valores de cada supuesto")
+    _tit(t, "POR_ESCENARIO", "El escenario alto casi dobla al bajo", "Indemnizacion por partida y escenario, en euros")
+    _tit(t, "SENSIBILIDAD", "Los dias de baja mueven mas el resultado", "Resultado con cada supuesto en su extremo")
+    _tit(t, "HORQUILLA", "La oferta de la aseguradora queda por debajo", "Oferta y reclamacion dentro de la horquilla estimada")
+    cifras = {"indicador_1": {"valor": 48000, "unidad": "eur", "decimales": 0}, "indicador_2": {"valor": 36000, "unidad": "eur", "decimales": 0}, "indicador_3": {"valor": 61000, "unidad": "eur", "decimales": 0}}
+    g = {"por_escenario": {"tipo": "columnas", "unidad": "eur", "resumen": "Por escenario", "etiquetas": ["Bajo", "Central", "Alto"],
+                           "series": [{"nombre": "Baja", "valores": [14000, 21800, 32700]}, {"nombre": "Secuelas", "valores": [17000, 21200, 23300]}, {"nombre": "Lucro cesante", "valores": [5000, 5000, 5000]}]},
+         "sensibilidad": GALERIA_DICT["tornado"],
+         "horquilla": {"tipo": "rango", "unidad": "eur", "resumen": "Horquilla", "minimo": 36000, "maximo": 61000,
+                       "marcas": [{"rotulo": "Oferta aseguradora", "valor": 31000, "color": "riesgo"}, {"rotulo": "Reclamamos", "valor": 52000, "color": "ok"}]}}
+    return componer("escenarios_indemnizacion.html", t, _d(cifras, g), "escenarios", tema="oliva_oro", modulos=["analiticos"])
+
+def embudo_conversion():
+    t = dict(PIE_DEMO, TITULO_DOCUMENTO="Uno de cada cuatro contactos acaba en encargo", TITULO_CORTO="Embudo de captacion", ETIQUETA_SUPERIOR="Embudo de conversion | Captacion",
+             ENTRADILLA="De la primera consulta al asunto cerrado en el tercer trimestre. La mayor perdida esta entre presupuesto y encargo.", PERIODO="julio a septiembre de 2026", FECHA_ACTUALIZACION="1 de octubre de 2026")
+    _ind(t, 1, "Consultas", "Primer contacto"); _ind(t, 2, "Conversion", "frente al trimestre anterior"); _ind(t, 3, "Asuntos cerrados", "Con honorarios cobrados"); _ind(t, 4, "Mayor perdida", "Presupuesto a encargo", "55 %")
+    _tit(t, "EMBUDO", "La mayor caida esta en el presupuesto", "Asuntos en cada etapa")
+    _tit(t, "EVOLUCION", "Crecen las consultas de mas de 90 dias", "Cartera por antiguedad, mes a mes")
+    _tit(t, "FLUJOS", "La negociacion cierra casi tanto como el monitorio", "Por donde pasa cada asunto")
+    cifras = {"indicador_1": {"de": "embudo", "calculo": "maximo", "unidad": "entero"}, "indicador_3": {"de": "embudo", "calculo": "ultimo", "unidad": "entero"},
+              "indicador_2": {"operacion": "porcentaje", "a": "indicador_3", "b": "indicador_1", "unidad": "pct"}, "variacion_2": {"valor": 2.4, "unidad": "pct", "signo": True}}
+    g = {"embudo": GALERIA_DICT["embudo"], "evolucion": GALERIA_DICT["area_apilada"], "flujos": GALERIA_DICT["sankey"]}
+    return componer("embudo_captacion.html", t, _d(cifras, g), "embudo_conversion", tema="lima", modulos=["avanzados", "analiticos"])
+
+def actividad_equipo():
+    t = dict(PIE_DEMO, TITULO_DOCUMENTO="Civil y mercantil concentran la actividad del trimestre", TITULO_CORTO="Actividad del equipo", ETIQUETA_SUPERIOR="Actividad del equipo | Tercer trimestre",
+             ENTRADILLA="Asuntos nuevos, dias de mas carga, tiempos de resolucion y horas frente a objetivo, por area.", PERIODO="enero a septiembre de 2026", FECHA_ACTUALIZACION="1 de octubre de 2026")
+    _ind(t, 1, "Horas facturadas", "Todas las areas"); _ind(t, 2, "Asuntos nuevos", "En nueve meses"); _ind(t, 3, "Mediana de resolucion", "Dias hasta sentencia", "158 dias"); _ind(t, 4, "Area sobrecargada", "Por encima del 110 % de horas", "Civil")
+    _tit(t, "POR_AREA", "Civil marca el ritmo todos los meses", "Asuntos nuevos por area y mes")
+    _tit(t, "DIAS", "Julio concentra los vencimientos", "Vencimientos por dia en el trimestre")
+    _tit(t, "TIEMPOS", "El juzgado 12 tarda el doble", "Dias hasta sentencia por juzgado")
+    _tit(t, "HORAS", "Laboral, por debajo de su objetivo", "Horas frente a objetivo")
+    cifras = {"indicador_1": {"de": "horas", "calculo": "suma", "unidad": "entero"}, "indicador_2": {"valor": 512, "unidad": "entero"}}
+    g = {"por_area": GALERIA_DICT["mapa_calor"], "dias": GALERIA_DICT["calendario"], "tiempos": GALERIA_DICT["cajas"],
+         "horas": {"tipo": "bala", "unidad": "horas", "resumen": "Horas por area", "elementos": [{"rotulo": "Civil", "valor": 1520, "objetivo": 1350, "tramos": [900, 1200, 1700]},
+                   {"rotulo": "Mercantil", "valor": 1290, "objetivo": 1300, "tramos": [900, 1200, 1700]}, {"rotulo": "Laboral", "valor": 760, "objetivo": 1000, "tramos": [700, 950, 1300]}]}}
+    return componer("actividad_equipo_t3.html", t, _d(cifras, g), "actividad_equipo", tema="pizarra", modulos=["analiticos", "avanzados"])
+
+def informe_territorial():
+    t = dict(PIE_DEMO, TITULO_DOCUMENTO="Madrid tiene la tasa mas alta de asuntos por cliente", TITULO_CORTO="Informe territorial", ETIQUETA_SUPERIOR="Informe territorial | Asuntos por comunidad",
+             ENTRADILLA="Asuntos abiertos por cada 1.000 clientes en cada comunidad autonoma. Cuatro comunidades concentran el 70 % del volumen.", PERIODO="2026", FECHA_ACTUALIZACION="1 de octubre de 2026")
+    _ind(t, 1, "Asuntos abiertos", "En todas las comunidades"); _ind(t, 2, "Tasa mas alta", "Madrid, por 1.000 clientes", "13,7"); _ind(t, 3, "Concentracion", "Cuatro comunidades", "70 %")
+    _tit(t, "MAPA", "Madrid destaca por encima de la media", "Asuntos por cada 1.000 clientes")
+    _tit(t, "RANKING", "Madrid y Andalucia lideran en volumen", "Asuntos abiertos por comunidad")
+    _tit(t, "CONCENTRACION", "Cuatro comunidades suman el 70 %", "Asuntos ordenados con su porcentaje acumulado")
+    num = GALERIA_DICT["mapa"]["tasa"]["numerador"]
+    elementos = [{"rotulo": k, "valor": v} for k, v in sorted(num.items(), key=lambda kv: -kv[1])]
+    cifras = {"indicador_1": {"de": "ranking", "calculo": "suma", "unidad": "entero"}}
+    g = {"mapa": GALERIA_DICT["mapa"], "ranking": {"tipo": "barras", "unidad": "entero", "resumen": "Por comunidad", "elementos": elementos[:8]},
+         "concentracion": {"tipo": "pareto", "unidad": "entero", "nombre": "Asuntos", "resumen": "Concentracion", "elementos": elementos[:6] + [{"rotulo": "Resto", "valor": sum(e["valor"] for e in elementos[6:])}]}}
+    return componer("informe_territorial_asuntos.html", t, _d(cifras, g), "informe_territorial", tema="lavanda", modulos=["mapa", "mapa_ccaa", "analiticos"])
+
+def poster():
+    t = dict(PIE_DEMO, TITULO_DOCUMENTO="Reclamar a tiempo recupera el 70 % de la deuda", TITULO_CORTO="Poster morosidad", ETIQUETA_SUPERIOR="Jornada de morosidad | Octubre de 2026",
+             ENTRADILLA="Cuanto antes se requiere el pago, mas se cobra. Datos de las reclamaciones del despacho en 2026.", FUENTE_BREVE="datos ficticios de demostracion",
+             CIFRA_1_ROTULO="deuda media reclamada por cliente", CIFRA_2_ROTULO="dias de media hasta cobrar", CIFRA_3_ROTULO="de la deuda recuperada sin juicio", TITULO_GRAFICO="La deuda crece mientras el cobro se estanca")
+    cifras = {"cifra_1": {"valor": 42180, "unidad": "eur", "decimales": 0}, "cifra_2": {"valor": 214, "unidad": "entero"}, "cifra_3": {"valor": 70, "unidad": "pct"}}
+    _, datos_panel_ = datos_panel()
+    g = {"principal": dict(datos_panel_["graficos"]["evolucion"], fuente="demo")}
+    return componer("poster_morosidad.html", t, _d(cifras, g), "poster", tema="nocturno", modulos=["encaje"])
+
+NUEVAS = [cuadro_mando, ficha_una_pagina, infografia, comparativa, cronograma_expediente, lista_control, mapa_riesgos, escenarios, embudo_conversion, actividad_equipo, informe_territorial, poster]
+
+# --------------------------------------------------------------------------- galeria de temas
+TEMAS_GALERIA = [("moderno", "Moderno"), ("sobrio", "Sobrio"), ("editorial", "Editorial"), ("corporativo", "Corporativo"), ("minimal", "Minimal"),
+                 ("nocturno", "Nocturno"), ("tecnico", "Tecnico"), ("calido", "Calido"), ("institucional", "Institucional"), ("pizarra", "Pizarra"),
+                 ("suave", "Suave"), ("prensa", "Prensa"), ("alto_contraste", "Alto contraste"),
+                 ("dorado", "Dorado"), ("esmeralda_noche", "Esmeralda nocturno"), ("ambar", "Ambar"), ("oliva_oro", "Oliva y oro"), ("lima", "Lima"),
+                 ("menta", "Menta"), ("melocoton", "Melocoton"), ("lavanda", "Lavanda")]
+
+def forzar_esquemas(html):
+    """Solo para la galeria de temas: copia los bloques de tokens de modo que data-esquema="claro" u
+    "oscuro" en la etiqueta html fuerce ese modo, sin depender del sistema. Los artefactos reales no lo llevan."""
+    ini, fin = html.index("<style>") + 7, html.index("</style>")
+    css, extra, i = html[ini:fin], [], 0
+    cabeza = "@media (prefers-color-scheme:dark){"
+    while True:
+        j = css.find(cabeza, i)
+        if j < 0:
+            break
+        k = m = j + len(cabeza); hondo = 1
+        while hondo:
+            hondo += {"{": 1, "}": -1}.get(css[m], 0); m += 1
+        extra.append(css[k:m - 1].replace(":root", ':root[data-esquema="oscuro"]'))
+        i = m
+    for m in re.finditer(r'^(:root(?:\[data-tema="\w+"\])?)\{(.*?)\}', css, re.S | re.M):
+        extra.append(m.group(1) + '[data-esquema="claro"]{' + m.group(2) + "}")
+        if "color-scheme:dark" in m.group(2):  # tema siempre oscuro: el modo oscuro forzado no debe volver a los colores de la base
+            extra.append(m.group(1) + '[data-esquema="oscuro"]{' + m.group(2) + "}")
+    return html[:fin] + "\n/* Galeria: modos forzados */\n" + "\n".join(extra) + "\n" + html[fin:]
+
+def galeria_temas():
+    textos, datos = datos_panel()
+    textos = dict(textos, TITULO_DOCUMENTO="Galeria de temas: el mismo panel con los %d estilos" % len(TEMAS_GALERIA), TITULO_CORTO="Galeria de temas",
+                  ETIQUETA_SUPERIOR="Skill reportes | Catalogo de temas visuales",
+                  ENTRADILLA="Elija un tema y un modo con los botones. El contenido es el del panel de ejemplo; lo que cambia es el bloque de estilos del tema, que en un artefacto real se copia una sola vez.")
+    estilos = "\n".join(TEMAS[t] for t, _ in TEMAS_GALERIA if t in TEMAS) + """
+.selector-temas{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;background:var(--superficie);border:1px solid var(--borde);
+  border-radius:var(--radio-s);padding:10px 14px;margin:0 0 var(--e4);box-shadow:var(--sombra);font-size:.84rem}
+.selector-temas .rotulo{text-transform:uppercase;letter-spacing:.08em;font-size:.7rem;color:var(--apagado)}
+.selector-temas .botones{display:flex;flex-wrap:wrap;gap:6px}
+.selector-temas button{padding:5px 11px;font-size:.8rem;box-shadow:none;border-radius:var(--radio-s)}
+.selector-temas button[aria-pressed="true"]{background:var(--acento);color:var(--superficie);border-color:var(--acento)}
+@media print{.selector-temas{display:none}}"""
+    selector = """<div class="selector-temas" id="selector-temas">
+    <span class="rotulo">Tema</span><div class="botones" id="botones-tema"></div>
+    <span class="rotulo">Modo</span><div class="botones" id="botones-esquema"></div>
+  </div>
+
+  <header>"""
+    script = """<script>
+(function(){
+"use strict";
+var TEMAS = %s, ESQUEMAS = [["auto", "Sistema"], ["claro", "Claro"], ["oscuro", "Oscuro"]], H = document.documentElement, q = new URLSearchParams(location.search);
+function boton(cont, id, texto, grupo) { var b = document.createElement("button"); b.type = "button"; b.textContent = texto; b.dataset[grupo] = id; cont.appendChild(b); return b; }
+var bt = document.getElementById("botones-tema"), be = document.getElementById("botones-esquema");
+TEMAS.forEach(function (t) { boton(bt, t[0], t[1], "tema").addEventListener("click", function () { aplicar(t[0], null); }); });
+ESQUEMAS.forEach(function (e) { boton(be, e[0], e[1], "esquema").addEventListener("click", function () { aplicar(null, e[0]); }); });
+function aplicar(tema, esquema) {
+  if (tema) H.setAttribute("data-tema", tema);
+  if (esquema) { if (esquema === "auto") H.removeAttribute("data-esquema"); else H.setAttribute("data-esquema", esquema); H.style.colorScheme = esquema === "auto" ? "" : esquema === "oscuro" ? "dark" : "light"; }
+  var t = H.getAttribute("data-tema"), e = H.getAttribute("data-esquema") || "auto";
+  [].forEach.call(bt.children, function (b) { b.setAttribute("aria-pressed", b.dataset.tema === t); });
+  [].forEach.call(be.children, function (b) { b.setAttribute("aria-pressed", b.dataset.esquema === e); });
+  if (window.Reportes) window.dispatchEvent(new Event("resize"));
+}
+aplicar(q.get("tema") || "moderno", q.get("esquema") || "auto");
+})();
+</script>""" % json.dumps(TEMAS_GALERIA, ensure_ascii=False)
+    # Se compone a mano para incrustar todos los temas y el selector; forzar_esquemas no existe en los artefactos reales.
+    html = BASE_HTML.replace("{{ANCHO}}", ANCHOS["panel_datos"]).replace("{{FICHA}}", PIEZAS[("panel_datos", "ficha")]).replace("{{CONTENIDO}}", PIEZAS[("panel_datos", "contenido")])
+    html = html.replace("{{ESTILOS_MAQUETA}}", PIEZAS.get(("panel_datos", "estilos"), "")).replace("{{ACCIONES}}", "").replace("{{ESTILOS_TEMA}}", estilos)
+    html = DATOS_VACIOS.sub(lambda m: m.group(1) + json.dumps(datos, ensure_ascii=False, indent=1) + m.group(2), html)
+    html = html.replace("\n  <header>", "\n  " + selector, 1).replace("</body>", script + "\n</body>")
+    for clave, valor in textos.items():
+        html = html.replace("{{%s}}" % clave, valor)
+    html = forzar_esquemas(html)
+    pendientes = sorted(set(re.findall(r"\{\{(\w+)\}\}", html)))
+    destino = "galeria_temas.html"
+    open(os.path.join(AQUI, destino), "w", encoding="utf-8").write(html)
+    print("  %-38s %6d bytes   pendientes: %s" % (destino, len(html.encode()), ", ".join(pendientes) or "ninguno"))
+    return destino, not pendientes
+
+# --------------------------------------------------------------------------- galeria de maquetas
+FICHAS_MAQUETAS = [  # (archivo, maqueta, nombre, para que, familia)
+ ("panel_reclamacion_cantidad", "panel_datos", "Panel de datos", "Indicadores y graficos de un periodo o una cartera", "datos"),
+ ("cuadro_mando_comite", "cuadro_mando", "Cuadro de mando", "Ocho KPIs con variacion, objetivos y estado", "datos"),
+ ("embudo_captacion", "embudo_conversion", "Embudo de conversion", "Un proceso por etapas y sus perdidas", "datos"),
+ ("informe_territorial_asuntos", "informe_territorial", "Informe territorial", "Datos por comunidad o provincia", "datos"),
+ ("simulador_intereses_demora", "herramienta_interactiva", "Herramienta interactiva", "Calcular o simular moviendo parametros", "datos"),
+ ("cronograma_expediente_0417", "cronograma_expediente", "Cronograma del expediente", "Que paso, que corre y que viene", "seguimiento"),
+ ("lista_control_rgpd", "lista_control", "Lista de control", "Cumplimiento por bloque y requisito", "seguimiento"),
+ ("actividad_equipo_t3", "actividad_equipo", "Actividad del equipo", "Horas, asuntos y carga por area", "seguimiento"),
+ ("informe_viabilidad_monitorio", "informe_visual", "Informe visual", "Explicar un caso con secciones, plazos y cronologia", "decision"),
+ ("comparativa_vias", "comparativa", "Comparativa", "Dos a cuatro opciones frente a frente", "decision"),
+ ("mapa_riesgos_operacion", "mapa_riesgos", "Mapa de riesgos", "Matriz, impacto y exposicion", "decision"),
+ ("escenarios_indemnizacion", "escenarios", "Escenarios", "Que pasa si cambian los supuestos", "decision"),
+ ("resumen_reclamacion_una_pagina", "resumen_ejecutivo", "Resumen ejecutivo", "Una pagina con la conclusion y la decision", "pagina"),
+ ("ficha_deudor_una_pagina", "ficha_una_pagina", "Ficha de una pagina", "Datos clave de un asunto, cliente o sociedad", "pagina"),
+ ("poster_morosidad", "poster", "Poster", "Una hoja A3 apaisada para colgar", "pagina"),
+ ("infografia_morosidad", "infografia", "Infografia", "Tres cifras enormes y graficos para divulgar", "comunicacion"),
+ ("presentacion_reclamacion_cliente", "presentacion", "Presentacion", "Diapositivas 16:9 para una reunion", "comunicacion"),
+ ("white_paper_morosidad_pymes", "documento_largo", "Documento largo", "White paper o memoria con muchos graficos", "comunicacion"),
+]
+FAMILIAS = [("todas", "Todas"), ("datos", "Datos"), ("seguimiento", "Seguimiento"), ("decision", "Riesgo y decision"), ("pagina", "Una pagina"), ("comunicacion", "Comunicacion")]
+
+def miniaturas(archivos):
+    """Captura cada ejemplo con Chrome sin ventana y lo reduce a 590 px de ancho en ejemplos/miniaturas."""
+    try:
+        from PIL import Image
+    except ImportError:
+        print("  PIL no disponible: no se generan miniaturas.")
+        return
+    if not os.path.exists(CHROME):
+        return
+    destino = os.path.join(AQUI, "miniaturas")
+    os.makedirs(destino, exist_ok=True)
+    def una(archivo):
+        png = os.path.join(destino, archivo + ".png")
+        with tempfile.TemporaryDirectory(prefix="reportes-chrome-") as perfil:
+            try:  # un Chrome colgado deja ese ejemplo sin miniatura, no bloquea la generacion
+                subprocess.run([CHROME, "--headless=new", "--disable-gpu", "--user-data-dir=" + perfil, "--hide-scrollbars", "--window-size=1240,1000",
+                                "--virtual-time-budget=3000", "--screenshot=" + png, "file://" + os.path.join(AQUI, archivo + ".html")], capture_output=True, check=False, timeout=90)
+            except subprocess.TimeoutExpired:
+                print("  AVISO: Chrome no termino la miniatura de %s" % archivo)
+        if os.path.exists(png):
+            im = Image.open(png).convert("RGB")
+            im.resize((590, int(im.height * 590 / im.width)), Image.LANCZOS).save(png, optimize=True)
+    with ThreadPoolExecutor(6) as hilos:
+        list(hilos.map(una, archivos))
+    print("  miniaturas: %d en ejemplos/miniaturas" % len(archivos))
+
+def galeria_maquetas():
+    import html as H
+    filtro = "".join('<button type="button" data-familia="%s"%s>%s</button>' % (f, ' aria-pressed="true"' if f == "todas" else "", n) for f, n in FAMILIAS)
+    tarjetas = []
+    for archivo, maqueta, nombre, uso, familia in FICHAS_MAQUETAS:
+        tema = re.search(r'data-tema="([\w-]+)"', open(os.path.join(AQUI, archivo + ".html"), encoding="utf-8").read()).group(1)
+        tarjetas.append('<article class="tarjeta maqueta" data-familia="%s"><a href="%s.html"><img src="miniaturas/%s.png" alt="Ejemplo de %s" loading="lazy"></a>'
+                        '<h2>%s</h2><p class="subtitulo">%s</p><p class="pie-maqueta"><code>%s</code> · tema <code>%s</code> · <a href="%s.html">HTML</a> · <a href="%s.pdf">PDF</a></p></article>'
+                        % (familia, archivo, archivo, H.escape(nombre), H.escape(nombre), H.escape(uso), maqueta, tema, archivo, archivo))
+    estilos = """.filtro{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 var(--e4)}
+.filtro button{padding:6px 14px;font-size:.85rem;box-shadow:none}
+.filtro button[aria-pressed="true"]{background:var(--acento);color:var(--superficie);border-color:var(--acento)}
+.maquetas{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:var(--e3)}
+.maqueta{padding:var(--e3)}
+.maqueta img{display:block;width:100%;height:220px;object-fit:cover;object-position:top;border-radius:var(--radio-s);border:1px solid var(--borde);margin:0 0 var(--e3)}
+.maqueta[hidden]{display:none}
+.pie-maqueta{font-size:.78rem;color:var(--apagado);margin:0}
+.otras{margin:var(--e5) 0 0}
+@media print{.filtro{display:none}.maquetas{display:grid;grid-template-columns:repeat(3,1fr)}.maqueta{break-inside:avoid}.maqueta img{height:150px}}"""
+    contenido = ('<div class="filtro" id="filtro">%s</div>\n  <div class="maquetas">%s</div>\n  <p class="otras">Mas galerias: <a href="galeria_temas.html">los 21 estilos</a> · '
+                 '<a href="galeria_graficos.html">los 44 graficos</a>.</p>') % (filtro, "\n".join(tarjetas))
+    script = """<script>
+(function(){
+"use strict";
+var botones = document.querySelectorAll("#filtro button"), tarjetas = document.querySelectorAll(".maqueta");
+[].forEach.call(botones, function (b) { b.addEventListener("click", function () {
+  [].forEach.call(botones, function (x) { x.setAttribute("aria-pressed", x === b); });
+  [].forEach.call(tarjetas, function (t) { t.hidden = b.dataset.familia !== "todas" && t.dataset.familia !== b.dataset.familia; });
+}); });
+})();
+</script>"""
+    textos = {"TITULO_DOCUMENTO": "Galeria de maquetas: %d reportes con datos de ejemplo" % len(FICHAS_MAQUETAS), "TITULO_CORTO": "Galeria de maquetas",
+              "ETIQUETA_SUPERIOR": "Skill reportes | Catalogo de maquetas",
+              "ENTRADILLA": "Cada maqueta responde a una pregunta distinta. Todas son reportes de datos; los documentos de texto se redactan en Markdown con su skill.",
+              "PIE_AVISO_LEGAL": "Datos ficticios de demostracion."}
+    html = BASE_HTML.replace("{{ANCHO}}", "1180px").replace("{{FICHA}}", '<li><b>Maquetas:</b> %d</li>' % len(FICHAS_MAQUETAS)).replace("{{CONTENIDO}}", contenido)
+    html = html.replace("{{ESTILOS_MAQUETA}}", estilos).replace("{{ACCIONES}}", "").replace("{{ESTILOS_TEMA}}", "")
+    html = DATOS_VACIOS.sub(lambda m: m.group(1) + json.dumps({"idioma": "es-ES", "moneda": "EUR", "fuentes": {}, "cifras": {}, "graficos": {}}) + m.group(2), html)
+    html = html.replace("</body>", script + "\n</body>")
+    for clave, valor in textos.items():
+        html = html.replace("{{%s}}" % clave, valor)
+    pendientes = sorted(set(re.findall(r"\{\{(\w+)\}\}", html)))
+    open(os.path.join(AQUI, "galeria_maquetas.html"), "w", encoding="utf-8").write(html)
+    print("  %-38s %6d bytes   pendientes: %s" % ("galeria_maquetas.html", len(html.encode()), ", ".join(pendientes) or "ninguno"))
+    return "galeria_maquetas.html", not pendientes
 
 # --------------------------------------------------------------------------- comprobacion e impresion
 def comprobar_y_imprimir(archivos, pdf):
@@ -487,7 +930,10 @@ def comprobar_y_imprimir(archivos, pdf):
             orden = [CHROME, "--headless=new", "--disable-gpu", "--user-data-dir=" + perfil, "--enable-logging=stderr", "--v=0",
                      "--virtual-time-budget=3000", "--no-pdf-header-footer"]
             orden += ["--print-to-pdf=" + ruta.replace(".html", ".pdf")] if pdf else ["--dump-dom"]
-            salida = subprocess.run(orden + ["file://" + ruta], capture_output=True, text=True, check=False)
+            try:  # un Chrome colgado cuenta como error, no bloquea la generacion
+                salida = subprocess.run(orden + ["file://" + ruta], capture_output=True, text=True, check=False, timeout=90)
+            except subprocess.TimeoutExpired:
+                return [":CONSOLE Chrome no termino en 90 s"]
         return [l for l in salida.stderr.splitlines() if ":CONSOLE" in l]
     with ThreadPoolExecutor() as hilos:
         resultados = list(hilos.map(abrir, archivos))
@@ -505,7 +951,9 @@ def comprobar_y_imprimir(archivos, pdf):
 # --------------------------------------------------------------------------- principal
 if __name__ == "__main__":
     print("Generando artefactos de ejemplo:")
-    hechos = [panel(), informe(), herramienta(), presentacion(), white_paper(), resumen(), galeria()]
+    hechos = [panel(), informe(), herramienta(), presentacion(), white_paper(), resumen()] + [f() for f in NUEVAS] + [galeria(), galeria_temas()]
+    miniaturas([a for a, *_ in FICHAS_MAQUETAS])
+    hechos.append(galeria_maquetas())
     limpio = comprobar_y_imprimir([d for d, _ in hechos], "--sin-pdf" not in sys.argv)
     if not all(ok for _, ok in hechos) or not limpio:
         print("\nFALLO: hay marcadores sin resolver o errores en la consola del navegador.")

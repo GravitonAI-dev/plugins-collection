@@ -30,7 +30,8 @@
 }
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--fondo);color:var(--texto);font-family:var(--fuente);font-size:16px;line-height:1.55;
-  background-image:radial-gradient(900px 460px at 12% -8%,color-mix(in srgb,var(--acento) 13%,transparent),transparent 72%),radial-gradient(760px 420px at 92% 4%,color-mix(in srgb,var(--c2) 10%,transparent),transparent 70%);
+  /* El degradado de fondo es un token: cada tema lo cambia o lo quita con --degradado. */
+  background-image:var(--degradado,radial-gradient(900px 460px at 12% -8%,color-mix(in srgb,var(--acento) 13%,transparent),transparent 72%),radial-gradient(760px 420px at 92% 4%,color-mix(in srgb,var(--c2) 10%,transparent),transparent 70%));
   background-attachment:fixed}
 .contenedor{max-width:var(--ancho);margin:0 auto;padding:var(--e5) var(--e4) var(--e6)}
 a{color:var(--acento)}
@@ -52,7 +53,7 @@ h1{font-size:clamp(1.65rem,3.6vw,2.4rem);line-height:1.12;margin:0 0 var(--e3);l
 .indicador.es-atencion::before{background:var(--aviso)}
 .indicador.es-riesgo::before{background:var(--riesgo)}
 .indicador .rotulo{font-size:.74rem;text-transform:uppercase;letter-spacing:.09em;color:var(--apagado);margin:0 0 var(--e2)}
-.indicador .cifra{font-size:clamp(1.6rem,2.3vw,2.25rem);font-weight:680;letter-spacing:-.032em;line-height:1.05;margin:0;
+.indicador .cifra{color:var(--color-cifra,var(--texto));font-size:clamp(1.6rem,2.3vw,2.25rem);font-weight:680;letter-spacing:-.032em;line-height:1.05;margin:0;
   font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .indicador .detalle{font-size:.8rem;color:var(--apagado);margin:var(--e2) 0 0}
 .indicador.es-ok .cifra{color:var(--ok)}
@@ -133,9 +134,14 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
     --sombra:0 1px 2px rgba(0,0,0,.5),0 8px 22px rgba(0,0,0,.4);
   }
 }
-:root[data-tema="sobrio"] body{background-image:none}
+:root[data-tema="sobrio"]{--degradado:none}
+/* Estilos del tema elegido (temas-visuales.md): se sustituye por su bloque css, o se borra esta linea si el tema es moderno o sobrio. */
+
 .malla{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:var(--e3);margin:0 0 var(--e3);align-items:start}
 .malla .ancho-total{grid-column:1/-1}
+.malla.dos{grid-template-columns:repeat(2,minmax(0,1fr))}
+.malla.tres{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:760px){.malla.dos,.malla.tres{grid-template-columns:1fr}}
 .grafico{margin:0;min-width:0}
 .tendencia{margin:var(--e3) 0 0;padding-top:var(--e2);border-top:1px solid var(--borde-suave)}
 .chispa{display:block;width:100%;height:30px}
@@ -152,15 +158,15 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 .grafico .texto-anotacion{font-size:10.5px;fill:var(--apagado)}
 .grafico .cero{stroke:var(--apagado);stroke-width:1}
 .grafico .zona{font-size:12px;fill:var(--apagado);font-weight:620}
-.grafico .numero-riesgo{font-size:11px;font-weight:700;fill:#fff}
+.grafico .numero-riesgo{font-size:11px;font-weight:700;fill:var(--texto-sobre-serie,#fff)}
 .grafico .fecha-fin{font-size:10.5px;fill:var(--apagado)}
-.grafico .fecha-fin.dentro{fill:#fff;font-weight:620}
+.grafico .fecha-fin.dentro{fill:var(--texto-sobre-serie,#fff);font-weight:620}
 .grafico .hoy{stroke:var(--riesgo);stroke-width:2;stroke-dasharray:4 3}
 .grafico .texto-hoy{font-size:11px;fill:var(--riesgo);font-weight:650}
 ol.leyenda{display:block;padding-left:20px}
 [data-cifra].delta-bien{color:var(--ok)}
 [data-cifra].delta-mal{color:var(--riesgo)}
-.grafico .valor-punto.dentro{fill:#fff}
+.grafico .valor-punto.dentro{fill:var(--texto-sobre-serie,#fff)}
 .leyenda .porcentaje{color:var(--texto);font-variant-numeric:tabular-nums;font-weight:620}
 .medidor-rotulo{text-align:center;font-size:.82rem;color:var(--apagado);margin:0 0 var(--e3)}
 .medidor .pista-arco{fill:none;stroke:var(--superficie-2);stroke-width:18;stroke-linecap:round}
@@ -175,12 +181,14 @@ ol.leyenda{display:block;padding-left:20px}
 .fuentes-reporte{margin:0 0 var(--e3);padding-left:20px}
 .fuentes-reporte li{margin:0 0 var(--e1)}
 @media print{
-  :root,:root[data-tema="sobrio"]{--fondo:#fff;--superficie:#fff;--superficie-2:#fff;--borde:#c8c5bf;--borde-suave:#dcd9d3;
-        --linea-rejilla:#d5d2cc;--texto:#000;--apagado:#3f3d39;--sombra:none;--acento-suave:#f2f6f8}
+  :root,:root[data-tema]{--fondo:#fff;--superficie:#fff;--superficie-2:#fff;--borde:#c8c5bf;--borde-suave:#dcd9d3;
+        --linea-rejilla:#d5d2cc;--texto:#000;--apagado:#3f3d39;--sombra:none;--acento-suave:#f2f6f8;
+        color-scheme:light;--texto-sobre-serie:#fff;--ok:#2f7d4f;--aviso:#a8650f;--riesgo:#b23a48}
   @page{size:A4;margin:15mm 14mm 17mm;@bottom-right{content:counter(page) " / " counter(pages);font-size:8pt;color:#666}}
   *{animation:none!important;transition:none!important}
   *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
   body{font-size:10.5pt;background-image:none}
+  .indicador .cifra{text-shadow:none}
   .contenedor{max-width:none;padding:0}
   .acciones,.datos-grafico{display:none}
   .malla{display:block}
@@ -724,11 +732,12 @@ function leyenda(fig, elementos) {
    conserven su tamano real; al imprimir se dibuja siempre a 700. */
 var W = 700, X0 = 64, X1 = 664, Y0 = 44, Y1 = 244;
 function util() { return X1 - X0; }
-function rejilla(s, tope, unidad) {
+function rejilla(s, tope, unidad, x0, x1) {
+  x0 = num(x0) ? x0 : X0; x1 = num(x1) ? x1 : X1;  /* los modulos pueden acotar el ancho util */
   for (var k = 0; k <= 4; k++) {
     var y = Y1 - k * 50;
-    svg("line", {"class": "rejilla", x1: X0, y1: y, x2: X1, y2: y}, s);
-    svg("text", {"class": "eje", x: 56, y: y + 4, "text-anchor": "end"}, s, k ? fmt(tope * k / 4, unidad, true) : "0");
+    svg("line", {"class": "rejilla", x1: x0, y1: y, x2: x1, y2: y}, s);
+    svg("text", {"class": "eje", x: x0 - 8, y: y + 4, "text-anchor": "end"}, s, k ? fmt(tope * k / 4, unidad, true) : "0");
   }
 }
 function rotulosX(s, etiquetas, xDe, extremos) {
@@ -1129,7 +1138,7 @@ function fuentesDe(g) {
 }
 
 /* ---------- cifras sueltas del texto (data-cifra) ---------- */
-function elementosDe(g) { return g.elementos || g.porciones || g.pasos || null; }
+function elementosDe(g) { return g.elementos || g.porciones || g.pasos || g.etapas || null; }
 function valoresDe(g, serie) {
   if (g.series) return (g.series[serie || 0] || {}).valores || [];
   var el = elementosDe(g);
@@ -1277,6 +1286,7 @@ if (imprimir) imprimir.addEventListener("click", function () { window.print(); }
 window.Reportes = {datos: datos, fmt: fmt, tipos: tipos, T: T, svg: svg, html: html, color: color, lienzo: lienzo,
   recortar: recortar, consejo: consejo, escala: escala, leyenda: leyenda, r1: r1, num: num, maximo: maximo, minimo: minimo,
   techo: techo, fecha: fecha, DIA: DIA, rejilla: rejilla, yDe: yDe, columnaRotulos: columnaRotulos, rotuloFila: rotuloFila,
+  rotulosX: rotulosX, tablaSeries: tablaSeries, leyendaSeries: leyendaSeries,
   calculos: calculos, IDIOMA: IDIOMA,
   actualizar: function (id, cambios) {
     Object.assign(datos.graficos[id], cambios);

@@ -534,6 +534,501 @@ R.tipos.pictograma = function (fig, g) {
 
 ---
 
+## Graficos analiticos (`area_apilada`, `pareto`, `escalones`, `cajas`, `tornado`, `rango`, `mapa_calor`, `sankey`, `anillos`, `puntuacion`)
+
+Formas para analizar y comparar: composicion en el tiempo, concentracion, distribucion, sensibilidad y flujos. Un solo modulo para todas: se copia si el artefacto usa cualquiera de ellas.
+
+| Tipo | Pregunta que responde | Datos |
+| :--- | :--- | :--- |
+| `area_apilada` | ¿Como se compone el total a lo largo del tiempo? | `etiquetas`, `series: [{nombre, valores}]`, `unidad`; el total de cada periodo lo calcula el modulo |
+| `pareto` | ¿Que pocas partidas concentran casi todo? (deudores, causas, asuntos) | `elementos: [{rotulo, valor}]`, `unidad`, `umbral` (80 por defecto); el modulo ordena, acumula y atenua lo que queda por encima del umbral |
+| `escalones` | ¿Como cambia un valor que se mantiene a tramos? (tipo de interes, salario minimo, tasas) | `etiquetas`, `series: [{nombre, valores}]`, `unidad`; cada valor rige hasta la etiqueta siguiente |
+| `cajas` | ¿Como se distribuyen muchos valores en cada grupo? (dias de resolucion por juzgado) | `grupos: [{rotulo, valores}]` en bruto (al menos cinco por grupo), `unidad`; el modulo calcula minimo, cuartiles, mediana y valores atipicos |
+| `tornado` | ¿Que parametro mueve mas el resultado? (sensibilidad de una simulacion) | `base` (resultado central), `elementos: [{rotulo, bajo, alto}]` (resultado con cada parametro en su extremo), `nombres: {bajo, alto}`, `unidad` |
+| `rango` | ¿Donde cae una cifra dentro de una horquilla? (sancion entre minimo y maximo legal, oferta frente a tasacion) | `minimo`, `maximo`, `tramos: [{hasta, rotulo, color}]` (opcional), `marcas: [{rotulo, valor}]`, `unidad` |
+| `mapa_calor` | ¿Donde se concentra algo en dos dimensiones? (juzgado por mes, area por cliente) | `filas`, `columnas`, `valores` (una lista por fila), `unidad`, `color` |
+| `sankey` | ¿De donde a donde fluye el importe o el volumen? (de consultas a vias, reparto de un presupuesto) | `nodos: [{id, texto}]`, `flujos: [{de, a, valor}]`, `unidad`; hasta 16 nodos, sin ciclos |
+| `anillos` | ¿Que grado de avance o cumplimiento tienen hasta cuatro objetivos? | `elementos: [{rotulo, valor, maximo}]` (`maximo` 100 por defecto) |
+| `puntuacion` | ¿Que nota tiene cada criterio en una escala corta? | `elementos: [{rotulo, valor}]`, `maximo` (5 por defecto, hasta 10) |
+
+```json
+{"tipo": "pareto", "unidad": "eur", "fuente": "cliente", "umbral": 80,
+ "elementos": [{"rotulo": "Construcciones Delta", "valor": 42180.5}, {"rotulo": "Talleres Ebro", "valor": 18400},
+               {"rotulo": "Hostal Mirador", "valor": 9300}, {"rotulo": "Resto (11 deudores)", "valor": 12600}]}
+```
+
+```json
+{"tipo": "rango", "unidad": "eur", "minimo": 601, "maximo": 30000,
+ "tramos": [{"hasta": 6000, "rotulo": "Grado minimo", "color": "ok"}, {"hasta": 18000, "rotulo": "Grado medio", "color": "aviso"}, {"rotulo": "Grado maximo", "color": "riesgo"}],
+ "marcas": [{"rotulo": "Propuesta de la inspeccion", "valor": 12500}, {"rotulo": "Alegamos", "valor": 3000}]}
+```
+
+```json
+{"tipo": "sankey", "unidad": "num",
+ "nodos": [{"id": "con", "texto": "Consultas"}, {"id": "mon", "texto": "Monitorio"}, {"id": "neg", "texto": "Negociacion"}, {"id": "arc", "texto": "Archivo"},
+           {"id": "cob", "texto": "Cobrado"}, {"id": "jui", "texto": "Juicio"}],
+ "flujos": [{"de": "con", "a": "mon", "valor": 120}, {"de": "con", "a": "neg", "valor": 60}, {"de": "con", "a": "arc", "valor": 20},
+            {"de": "mon", "a": "cob", "valor": 80}, {"de": "mon", "a": "jui", "valor": 40}, {"de": "neg", "a": "cob", "valor": 45}, {"de": "neg", "a": "arc", "valor": 15}]}
+```
+
+Reglas: `area_apilada` y `escalones` no admiten negativos y arrancan en cero; `pareto` ordena siempre de mayor a menor (el orden es la informacion); `cajas` exige al menos cinco valores por grupo y muestra como puntos los valores que se alejan mas de 1,5 veces el rango intercuartilico; `tornado` ordena los parametros por amplitud, de mayor a menor; en `rango`, el ultimo tramo puede ir sin `hasta` (llega al maximo) y las marcas fuera de la horquilla se pegan a su extremo; `sankey` calcula la posicion de cada nodo y falla si los flujos forman un ciclo; `mapa_calor` necesita una lista de valores por fila con un valor por columna (`null` deja la celda vacia).
+
+```js modulo=analiticos
+<script>
+/* Modulo de graficos analiticos para el motor de artefactos. Se copia integro, despues
+   del motor, solo en los artefactos que usan alguno de estos tipos. */
+(function(){
+"use strict";
+var R = Reportes, svg = R.svg, r1 = R.r1, fmt = R.fmt, color = R.color, consejo = R.consejo, num = R.num, max = R.maximo, min = R.minimo, techo = R.techo, T = R.T;
+var TX = Object.assign(/^en/.test(R.IDIOMA)
+  ? {acumulado_pct: "Cumulative %", minimo: "Minimum", q1: "Q1", mediana: "Median", q3: "Q3", maximo: "Maximum", n: "Count", bajo: "Low", alto: "High", amplitud: "Swing", de: "From", a: "To", base: "Base", marca: "Marker", nota: "Note"}
+  : {acumulado_pct: "% acumulado", minimo: "Minimo", q1: "Q1", mediana: "Mediana", q3: "Q3", maximo: "Maximo", n: "Recuento", bajo: "Bajo", alto: "Alto", amplitud: "Amplitud", de: "Origen", a: "Destino", base: "Base", marca: "Marca", nota: "Nota"}, R.datos.textos || {});
+function texto(s, at, contenido, clase) { return svg("text", Object.assign({"class": clase || "eje"}, at), s, contenido); }
+function planos(listas) { return [].concat.apply([], listas); }
+function sinNegativos(v, tipo) { if (min(v) < 0) throw new Error("el grafico " + tipo + " no admite valores negativos"); }
+function pct(v, total) { return fmt(v / total * 100, "pct"); }
+/* Rejilla, rotulos del eje x, tabla y leyenda de series: los del motor (Reportes.rejilla, .rotulosX,
+   .tablaSeries y .leyendaSeries), para que estos graficos se comporten igual que la linea y las columnas. */
+var rejilla = R.rejilla, tablaSeries = R.tablaSeries, leyendaSeries = R.leyendaSeries;
+function rotulosX(s, et, xDe, W, extremos) { R.rotulosX(s, et, xDe, extremos); }
+
+/* Area apilada: composicion del total a lo largo del tiempo. */
+R.tipos.area_apilada = function (fig, g, id, W) {
+  var et = g.etiquetas || [], series = g.series || [], n = et.length;
+  if (n < 2 || !series.length) throw new Error("hacen falta al menos dos etiquetas y una serie");
+  sinNegativos(planos(series.map(function (se) { return se.valores.filter(num); })), "area_apilada");
+  var tot = et.map(function (_, i) { return series.reduce(function (a, se) { return a + (num(se.valores[i]) ? se.valores[i] : 0); }, 0); });
+  var tope = techo(max(tot)), x0 = 64, x1 = W - 36, X = function (i) { return r1(x0 + i * (x1 - x0) / (n - 1)); };
+  var s = R.lienzo(fig, W, 280, g.resumen), acum = et.map(function () { return 0; });
+  rejilla(s, tope, g.unidad, x0, x1);
+  series.forEach(function (se, j) {
+    var arriba = acum.map(function (a, i) { return a + (num(se.valores[i]) ? se.valores[i] : 0); }), c = color(se.color, j);
+    var pts = arriba.map(function (v, i) { return X(i) + "," + R.yDe(v, tope); }).concat(acum.map(function (v, i) { return X(i) + "," + R.yDe(v, tope); }).reverse()).join(" ");
+    consejo(svg("polygon", {points: pts, fill: c, "fill-opacity": ".55", stroke: c, "stroke-width": 1.5, "stroke-linejoin": "round"}, s), se.nombre);
+    acum = arriba;
+  });
+  tot.forEach(function (v, i) { if (g.valores !== false && (n <= 8 || i === 0 || i === n - 1)) texto(s, {x: X(i), y: R.yDe(v, tope) - 7, "text-anchor": i === 0 ? "start" : i === n - 1 ? "end" : "middle"}, fmt(v, g.unidad, true), "valor-punto"); });
+  rotulosX(s, et, X, W, true);
+  R.leyenda(fig, leyendaSeries(series));
+  return tablaSeries(g, et, series, tot);
+};
+
+/* Pareto: partidas de mayor a menor y porcentaje acumulado; lo que queda por encima del umbral se atenua. */
+R.tipos.pareto = function (fig, g, id, W) {
+  var el = (g.elementos || []).filter(function (e) { return num(e.valor) && e.valor >= 0; }).sort(function (a, b) { return b.valor - a.valor; });
+  if (el.length < 2) throw new Error("hacen falta al menos dos elementos con valor");
+  var total = el.reduce(function (a, e) { return a + e.valor; }, 0), tope = techo(max(el.map(function (e) { return e.valor; }))), umbral = num(g.umbral) ? g.umbral : 80;
+  if (!(total > 0)) throw new Error("el total debe ser positivo");
+  var x0 = 64, x1 = W - 60, banda = (x1 - x0) / el.length, s = R.lienzo(fig, W, 290, g.resumen), acum = 0, corte = null, puntos = [];
+  rejilla(s, tope, g.unidad, x0, x1);
+  [25, 50, 75, 100].forEach(function (p) { texto(s, {x: x1 + 8, y: r1(244 - p * 2) + 4}, p + " %"); });
+  var yu = r1(244 - umbral * 2);
+  svg("line", {x1: x0, y1: yu, x2: x1, y2: yu, stroke: "var(--aviso)", "stroke-dasharray": "4 3"}, s);
+  texto(s, {x: x1 - 4, y: yu - 5, "text-anchor": "end"}, fmt(umbral, "pct"), "texto-anotacion");
+  el.forEach(function (e, i) {
+    acum += e.valor; e.acum = acum / total * 100;
+    var x = r1(x0 + banda * i + banda * 0.15), y = R.yDe(e.valor, tope), despues = corte !== null;
+    if (corte === null && e.acum >= umbral) corte = i;
+    consejo(svg("rect", {x: x, y: y, width: r1(banda * 0.7), height: r1(244 - y), rx: 3, fill: color(e.color, 0), "fill-opacity": despues ? ".4" : "1"}, s), e.rotulo + ": " + fmt(e.valor, g.unidad) + " · " + fmt(e.acum, "pct"));
+    puntos.push([r1(x0 + banda * (i + 0.5)), r1(244 - e.acum * 2)]);
+  });
+  svg("polyline", {points: puntos.map(function (p) { return p.join(","); }).join(" "), fill: "none", stroke: "var(--texto)", "stroke-width": 2, "stroke-linejoin": "round"}, s);
+  puntos.forEach(function (p, i) { consejo(svg("circle", {cx: p[0], cy: p[1], r: 3.5, fill: "var(--texto)"}, s), el[i].rotulo + ": " + fmt(el[i].acum, "pct")); });
+  rotulosX(s, el.map(function (e) { return e.rotulo; }), function (i) { return x0 + banda * (i + 0.5); }, W);
+  R.leyenda(fig, [{color: color(g.color, 0), texto: g.nombre || T.valor}, {color: "var(--texto)", texto: TX.acumulado_pct}]);
+  return {cabecera: [T.concepto, T.valor, T.porcentaje, TX.acumulado_pct], unidad: g.unidad, filas: el.map(function (e) { return [e.rotulo, e.valor, pct(e.valor, total), fmt(e.acum, "pct")]; })};
+};
+
+/* Escalones: un valor que rige a tramos (tipo de interes, salario minimo); cada valor dura hasta la etiqueta siguiente. */
+R.tipos.escalones = function (fig, g, id, W) {
+  var et = g.etiquetas || [], series = g.series || [], n = et.length;
+  if (n < 2 || !series.length) throw new Error("hacen falta al menos dos etiquetas y una serie");
+  var todos = planos(series.map(function (se) { return se.valores; })).filter(num);
+  sinNegativos(todos, "escalones");
+  var tope = techo(max(todos)), x0 = 64, x1 = W - 36, X = function (i) { return r1(x0 + i * (x1 - x0) / n); };
+  var s = R.lienzo(fig, W, 280, g.resumen);
+  rejilla(s, tope, g.unidad, x0, x1);
+  series.forEach(function (se, j) {
+    var c = color(se.color, j), d = [], abierto = false;
+    se.valores.forEach(function (v, i) {
+      if (!num(v)) { abierto = false; return; }
+      var y = R.yDe(v, tope);
+      d.push((abierto ? "L" : "M") + X(i) + " " + y + " L" + X(i + 1) + " " + y);
+      abierto = true;
+    });
+    svg("path", {d: d.join(" "), fill: "none", stroke: c, "stroke-width": 2.5, "stroke-linejoin": "round", "stroke-dasharray": j ? "6 4" : null}, s);
+    se.valores.forEach(function (v, i) {
+      if (!num(v) || (i > 0 && v === se.valores[i - 1])) return;
+      consejo(svg("circle", {cx: X(i), cy: R.yDe(v, tope), r: 3.5, fill: c}, s), se.nombre + " · " + et[i] + ": " + fmt(v, g.unidad));
+      if (g.valores !== false) texto(s, {x: X(i) + 5, y: R.yDe(v, tope) - 7}, fmt(v, g.unidad, true), "valor-punto");
+    });
+  });
+  rotulosX(s, et, function (i) { return X(i) + (x1 - x0) / n / 2; }, W);
+  if (series.length > 1) R.leyenda(fig, leyendaSeries(series));
+  return tablaSeries(g, et, series);
+};
+
+/* Cajas: distribucion de muchos valores por grupo (minimo, cuartiles, mediana y atipicos). */
+function cuantil(v, p) { var k = (v.length - 1) * p, b = Math.floor(k), r = k - b; return v[b + 1] !== undefined ? v[b] + r * (v[b + 1] - v[b]) : v[b]; }
+R.tipos.cajas = function (fig, g, id, W) {
+  var gr = (g.grupos || []).map(function (q) {
+    var v = (q.valores || []).filter(num).sort(function (a, b) { return a - b; });
+    if (v.length < 5) throw new Error("el grupo " + q.rotulo + " necesita al menos cinco valores");
+    var q1 = cuantil(v, .25), me = cuantil(v, .5), q3 = cuantil(v, .75), iqr = q3 - q1, va = q1 - 1.5 * iqr, vb = q3 + 1.5 * iqr;
+    var dentro = v.filter(function (x) { return x >= va && x <= vb; });
+    return {rotulo: q.rotulo, color: q.color, v: v, q1: q1, me: me, q3: q3, lo: dentro[0], hi: dentro[dentro.length - 1], fuera: v.filter(function (x) { return x < va || x > vb; })};
+  });
+  if (!gr.length) throw new Error("faltan grupos");
+  var todos = planos(gr.map(function (q) { return q.v; })), base = Math.min(0, min(todos)), tope = techo(max(todos));
+  var x0 = R.columnaRotulos(), x1 = W - 24, fila = 40, alto = gr.length * fila, X = function (v) { return r1(x0 + (v - base) / (tope - base) * (x1 - x0)); };
+  var s = R.lienzo(fig, W, alto + 30, g.resumen);
+  [0, .25, .5, .75, 1].forEach(function (k) {
+    var v = base + (tope - base) * k, x = X(v);
+    svg("line", {"class": "rejilla", x1: x, y1: 4, x2: x, y2: alto + 6}, s);
+    texto(s, {x: x, y: alto + 22, "text-anchor": k === 1 ? "end" : k ? "middle" : "start"}, v ? fmt(v, g.unidad, true) : "0");
+  });
+  gr.forEach(function (q, i) {
+    var y = 8 + i * fila, c = color(q.color, i);
+    R.rotuloFila(s, y + 16, q.rotulo);
+    svg("line", {x1: X(q.lo), y1: y + 12, x2: X(q.hi), y2: y + 12, stroke: c, "stroke-width": 1.5}, s);
+    [q.lo, q.hi].forEach(function (v) { svg("line", {x1: X(v), y1: y + 5, x2: X(v), y2: y + 19, stroke: c, "stroke-width": 1.5}, s); });
+    consejo(svg("rect", {x: X(q.q1), y: y, width: Math.max(2, X(q.q3) - X(q.q1)), height: 24, rx: 3, fill: c, "fill-opacity": ".35", stroke: c}, s),
+      q.rotulo + ": " + TX.mediana + " " + fmt(q.me, g.unidad) + " · Q1 " + fmt(q.q1, g.unidad) + " · Q3 " + fmt(q.q3, g.unidad) + " · n = " + q.v.length);
+    svg("line", {x1: X(q.me), y1: y, x2: X(q.me), y2: y + 24, stroke: c, "stroke-width": 3}, s);
+    q.fuera.forEach(function (v) { consejo(svg("circle", {cx: X(v), cy: y + 12, r: 3, fill: "none", stroke: c, "stroke-width": 1.5}, s), fmt(v, g.unidad)); });
+  });
+  return {cabecera: [T.concepto, TX.n, TX.minimo, TX.q1, TX.mediana, TX.q3, TX.maximo], unidad: g.unidad,
+    filas: gr.map(function (q) { return [q.rotulo, String(q.v.length), q.v[0], q.q1, q.me, q.q3, q.v[q.v.length - 1]]; })};
+};
+
+/* Tornado: cuanto mueve el resultado cada parametro llevado a sus extremos, de mayor a menor amplitud. */
+R.tipos.tornado = function (fig, g, id, W) {
+  var base = g.base, el = (g.elementos || []).slice();
+  if (!num(base)) throw new Error("falta base: el resultado con todos los parametros en su valor central");
+  if (!el.length) throw new Error("faltan elementos");
+  el.forEach(function (e) { if (!num(e.bajo) || !num(e.alto)) throw new Error("el elemento " + e.rotulo + " necesita bajo y alto"); e.amp = Math.abs(e.alto - e.bajo); });
+  el.sort(function (a, b) { return b.amp - a.amp; });
+  var tope = techo(max(el.map(function (e) { return Math.max(Math.abs(e.alto - base), Math.abs(e.bajo - base)); })));
+  var x0 = R.columnaRotulos(), x1 = W - 24, centro = r1((x0 + x1) / 2), mitad = (x1 - x0) / 2 - 44, fila = 34;
+  var X = function (v) { return r1(centro + (v - base) / tope * mitad); }, s = R.lienzo(fig, W, el.length * fila + 36, g.resumen);
+  var nombres = Object.assign({bajo: TX.bajo, alto: TX.alto}, g.nombres || {}), cb = color(g.color_bajo || "riesgo", 0), ca = color(g.color_alto || "ok", 0);
+  svg("line", {"class": "cero", x1: centro, y1: 4, x2: centro, y2: el.length * fila + 8}, s);
+  el.forEach(function (e, i) {
+    var y = 10 + i * fila;
+    R.rotuloFila(s, y + 15, e.rotulo);
+    [["bajo", cb], ["alto", ca]].forEach(function (p) {
+      var v = e[p[0]], x = X(v), izq = v < base;
+      consejo(svg("rect", {x: izq ? x : centro, y: y, width: Math.max(1, Math.abs(x - centro)), height: 22, rx: 3, fill: p[1]}, s), e.rotulo + " · " + nombres[p[0]] + ": " + fmt(v, g.unidad));
+      texto(s, {x: izq ? x - 5 : x + 5, y: y + 15, "text-anchor": izq ? "end" : "start"}, fmt(v, g.unidad, true), "valor-punto");
+    });
+  });
+  texto(s, {x: centro, y: el.length * fila + 28, "text-anchor": "middle"}, TX.base + ": " + fmt(base, g.unidad));
+  R.leyenda(fig, [{color: cb, texto: nombres.bajo}, {color: ca, texto: nombres.alto}]);
+  return {cabecera: [T.concepto, nombres.bajo, nombres.alto, TX.amplitud], unidad: g.unidad, filas: el.map(function (e) { return [e.rotulo, e.bajo, e.alto, e.amp]; })};
+};
+
+/* Rango: donde cae cada marca dentro de una horquilla, con tramos opcionales. */
+R.tipos.rango = function (fig, g, id, W) {
+  var lo = g.minimo, hi = g.maximo, tramos = g.tramos || [], marcas = g.marcas || [];
+  if (!num(lo) || !num(hi) || hi <= lo) throw new Error("rango necesita minimo y maximo, con maximo mayor que minimo");
+  if (!marcas.length) throw new Error("faltan marcas");
+  var x0 = 40, x1 = W - 40, X = function (v) { return r1(x0 + (Math.min(hi, Math.max(lo, v)) - lo) / (hi - lo) * (x1 - x0)); };
+  var yb = 64, s = R.lienzo(fig, W, tramos.length ? 132 : 116, g.resumen), desde = lo;
+  if (tramos.length) tramos.forEach(function (t, i) {
+    var hasta = num(t.hasta) ? Math.min(hi, t.hasta) : hi;
+    consejo(svg("rect", {x: X(desde), y: yb, width: Math.max(0, X(hasta) - X(desde)), height: 16, fill: color(t.color, i), "fill-opacity": ".85"}, s), (t.rotulo || "") + ": " + fmt(desde, g.unidad) + " – " + fmt(hasta, g.unidad));
+    if (t.rotulo) texto(s, {x: r1((X(desde) + X(hasta)) / 2), y: yb + 32, "text-anchor": "middle"}, R.recortar(t.rotulo, Math.max(4, Math.floor((X(hasta) - X(desde)) / 6.4))));
+    desde = hasta;
+  });
+  else svg("rect", {x: x0, y: yb, width: x1 - x0, height: 16, rx: 8, fill: "var(--superficie-2)", stroke: "var(--borde)"}, s);
+  var ye = yb + (tramos.length ? 48 : 32);
+  texto(s, {x: x0, y: ye, "text-anchor": "start"}, fmt(lo, g.unidad, true)); texto(s, {x: x1, y: ye, "text-anchor": "end"}, fmt(hi, g.unidad, true));
+  marcas.forEach(function (m, i) {
+    if (!num(m.valor)) throw new Error("la marca " + m.rotulo + " necesita valor");
+    var x = X(m.valor), c = color(m.color || "acento", i), yt = i % 2 ? 44 : 20, ancla = x < 110 ? "start" : x > W - 110 ? "end" : "middle";
+    svg("path", {d: "M " + (x - 6) + " " + (yb - 12) + " L " + (x + 6) + " " + (yb - 12) + " L " + x + " " + (yb - 2) + " Z", fill: c}, s);
+    svg("line", {x1: x, y1: yb, x2: x, y2: yb + 16, stroke: c, "stroke-width": 2}, s);
+    consejo(texto(s, {x: ancla === "start" ? x - 6 : ancla === "end" ? x + 6 : x, y: yt, "text-anchor": ancla, "font-weight": 650}, R.recortar(m.rotulo, 30) + " · " + fmt(m.valor, g.unidad, true), "valor-punto"), m.rotulo + ": " + fmt(m.valor, g.unidad));
+  });
+  return {cabecera: [TX.marca, T.valor], unidad: g.unidad, filas: marcas.map(function (m) { return [m.rotulo, m.valor]; }).concat([[TX.minimo, lo], [TX.maximo, hi]])};
+};
+
+/* Mapa de calor: una magnitud en dos dimensiones (filas por columnas). */
+R.tipos.mapa_calor = function (fig, g, id, W) {
+  var filas = g.filas || [], cols = g.columnas || [], val = g.valores || [];
+  if (!filas.length || !cols.length) throw new Error("faltan filas o columnas");
+  if (val.length !== filas.length || val.some(function (f) { return !f || f.length !== cols.length; })) throw new Error("valores debe tener una lista por fila con un valor por columna");
+  var todos = planos(val).filter(num), tope = max(todos), base = Math.min(0, min(todos));
+  var x0 = R.columnaRotulos(), cw = (W - x0 - 12) / cols.length, ch = Math.min(34, Math.max(22, 260 / filas.length)), s = R.lienzo(fig, W, 22 + filas.length * ch + 6, g.resumen);
+  cols.forEach(function (c, j) { consejo(texto(s, {x: r1(x0 + cw * (j + 0.5)), y: 14, "text-anchor": "middle"}, R.recortar(c, Math.max(3, Math.floor(cw / 6.4)))), String(c)); });
+  filas.forEach(function (f, i) {
+    R.rotuloFila(s, r1(22 + i * ch + ch / 2 + 4), f);
+    cols.forEach(function (c, j) {
+      var v = val[i][j], hay = num(v), op = hay && tope > base ? 0.12 + 0.88 * (v - base) / (tope - base) : 0;
+      consejo(svg("rect", {x: r1(x0 + cw * j + 1), y: r1(22 + i * ch + 1), width: r1(cw - 2), height: r1(ch - 2), rx: 3,
+        fill: hay ? color(g.color || "acento", 0) : "var(--superficie-2)", "fill-opacity": hay ? r1(op) : 1, stroke: "var(--borde-suave)"}, s), f + " · " + c + ": " + fmt(v, g.unidad));
+      if (hay && cw > 40) texto(s, {x: r1(x0 + cw * (j + 0.5)), y: r1(22 + i * ch + ch / 2 + 4), "text-anchor": "middle"}, fmt(v, g.unidad, true), op > 0.6 ? "valor-punto dentro" : "valor-punto");
+    });
+  });
+  return {cabecera: [T.concepto].concat(cols), unidad: g.unidad, filas: filas.map(function (f, i) { return [f].concat(val[i]); })};
+};
+
+/* Sankey: flujos entre nodos por niveles; el modulo coloca los nodos y dibuja los cauces. */
+R.tipos.sankey = function (fig, g, id, W) {
+  var nodos = g.nodos || [], flujos = g.flujos || [], por = {};
+  if (nodos.length < 2 || !flujos.length) throw new Error("hacen falta nodos y flujos");
+  if (nodos.length > 16) throw new Error("mas de 16 nodos no se leen: agrupa");
+  nodos.forEach(function (n, i) { por[n.id] = Object.assign({entra: 0, sale: 0, nivel: 0, hijos: [], orden: i, ye: 0, ys: 0}, n); });
+  flujos.forEach(function (f) {
+    if (!por[f.de] || !por[f.a]) throw new Error("flujo con nodo desconocido: " + f.de + " → " + f.a);
+    if (!(f.valor > 0)) throw new Error("los flujos necesitan valor positivo");
+    por[f.de].sale += f.valor; por[f.a].entra += f.valor; por[f.de].hijos.push(f.a);
+  });
+  /* Recorrido en profundidad desde todos los nodos: detecta ciclos (tambien sin nodo origen) y deja
+     el orden inverso al topologico; recorrerlo al reves asigna cada nivel en una sola pasada. */
+  var estado = {}, orden = [];
+  function visitar(id) {
+    if (estado[id] === 1) throw new Error("los flujos forman un ciclo en " + id);
+    if (estado[id] === 2) return;
+    estado[id] = 1; por[id].hijos.forEach(visitar); estado[id] = 2; orden.push(id);
+  }
+  nodos.forEach(function (n) { visitar(n.id); });
+  orden.reverse().forEach(function (id) { por[id].hijos.forEach(function (h) { por[h].nivel = Math.max(por[h].nivel, por[id].nivel + 1); }); });
+  var niveles = max(nodos.map(function (n) { return por[n.id].nivel; })) + 1, H = 300, hueco = 10, ancho = 14, cols = [];
+  for (var k = 0; k < niveles; k++) cols.push([]);
+  nodos.forEach(function (n) { cols[por[n.id].nivel].push(por[n.id]); });
+  var peso = function (n) { return Math.max(n.entra, n.sale); };
+  var escala = min(cols.map(function (c) { return (H - 20 - (c.length - 1) * hueco) / c.reduce(function (a, n) { return a + peso(n); }, 0); }));
+  var s = R.lienzo(fig, W, H, g.resumen), paso = (W - 20 - ancho - 128) / Math.max(1, niveles - 1);
+  cols.forEach(function (c, k) {
+    var y = 10;
+    c.forEach(function (n) { n.x = r1(10 + k * paso); n.y = r1(y); n.h = Math.max(2, r1(peso(n) * escala)); y += n.h + hueco; });
+  });
+  /* Cada cauce sale de su nodo por orden de destino y entra por orden de origen, para que se crucen lo menos posible. */
+  flujos.slice().sort(function (a, b) { return (por[a.de].nivel - por[b.de].nivel) || (por[a.de].y - por[b.de].y) || (por[a.a].y - por[b.a].y); }).forEach(function (f, i) {
+    var o = por[f.de], d = por[f.a], w = Math.max(1.5, r1(f.valor * escala)), y0 = o.y + o.ys + w / 2, y1 = d.y + d.ye + w / 2, xa = o.x + ancho, xb = d.x, mx = r1((xa + xb) / 2);
+    o.ys += w; d.ye += w;
+    consejo(svg("path", {d: "M " + xa + " " + r1(y0) + " C " + mx + " " + r1(y0) + " " + mx + " " + r1(y1) + " " + xb + " " + r1(y1), fill: "none", stroke: color(o.color, o.orden), "stroke-width": w, "stroke-opacity": ".38"}, s),
+      o.texto + " → " + d.texto + ": " + fmt(f.valor, g.unidad) + " (" + pct(f.valor, o.sale) + ")");
+  });
+  nodos.forEach(function (n0) {
+    var n = por[n0.id];
+    consejo(svg("rect", {x: n.x, y: n.y, width: ancho, height: n.h, rx: 2, fill: color(n.color, n.orden)}, s), n.texto + ": " + fmt(peso(n), g.unidad));
+    /* El rotulo va a la derecha del nodo; la ultima columna tiene su margen reservado para que no pise ningun cauce. */
+    texto(s, {x: n.x + ancho + 6, y: r1(n.y + n.h / 2 + 4)}, R.recortar(n.texto, 17) + " · " + fmt(peso(n), g.unidad, true), "valor-punto");
+  });
+  return {cabecera: [TX.de, TX.a, T.valor, T.porcentaje], unidad: g.unidad, filas: flujos.map(function (f) { return [por[f.de].texto, por[f.a].texto, f.valor, pct(f.valor, por[f.de].sale)]; })};
+};
+
+/* Anillos: hasta cuatro porcentajes de avance en arcos concentricos. */
+R.tipos.anillos = function (fig, g) {
+  var el = g.elementos || [];
+  if (!el.length || el.length > 4) throw new Error("de uno a cuatro elementos");
+  var s = R.lienzo(fig, 300, 300, g.resumen, "reparto");
+  el.forEach(function (e, i) {
+    var mx = num(e.maximo) ? e.maximo : 100;
+    if (!num(e.valor) || e.valor < 0) throw new Error(e.rotulo + ": valor numerico no negativo");
+    var p = Math.min(1, e.valor / mx), r = 120 - i * 27, c = color(e.color, i), L = 2 * Math.PI * r;
+    e.pct = e.valor / mx * 100;
+    svg("circle", {cx: 150, cy: 150, r: r, fill: "none", stroke: "var(--superficie-2)", "stroke-width": 18}, s);
+    consejo(svg("circle", {cx: 150, cy: 150, r: r, fill: "none", stroke: c, "stroke-width": 18, "stroke-linecap": "round", "stroke-dasharray": r1(L * p) + " " + r1(L), transform: "rotate(-90 150 150)"}, s), e.rotulo + ": " + fmt(e.pct, "pct"));
+  });
+  if (el.length === 1) svg("text", {"class": "centro-anillo", x: 150, y: 160, "font-size": 34}, s, fmt(el[0].pct, "pct"));
+  R.leyenda(fig, el.map(function (e, i) { return {color: color(e.color, i), texto: e.rotulo, extra: fmt(e.pct, "pct")}; }));
+  return {cabecera: [T.concepto, T.valor, T.maximo, T.porcentaje], unidad: g.unidad, filas: el.map(function (e) { return [e.rotulo, e.valor, num(e.maximo) ? e.maximo : 100, fmt(e.pct, "pct")]; })};
+};
+
+/* Puntuacion: nota de cada criterio en una escala corta, contada en puntos. */
+R.tipos.puntuacion = function (fig, g, id, W) {
+  var el = g.elementos || [], mx = g.maximo || 5;
+  if (!el.length) throw new Error("faltan elementos");
+  if (mx > 10) throw new Error("maximo 10 puntos");
+  var x0 = R.columnaRotulos(), fila = 30, s = R.lienzo(fig, W, el.length * fila + 8, g.resumen);
+  /* Paso entre puntos: 26 px si caben; si no, lo que deje el ancho tras el rotulo «4,5 / 10». */
+  var paso = Math.min(26, (W - x0 - 12 - 58) / mx), rad = r1(Math.min(9, paso * 0.36));
+  el.forEach(function (e, i) {
+    if (!num(e.valor) || e.valor < 0 || e.valor > mx) throw new Error(e.rotulo + ": valor entre 0 y " + mx);
+    var y = 8 + i * fila, c = color(e.color || "acento", i);
+    R.rotuloFila(s, y + 15, e.rotulo);
+    for (var k = 0; k < mx; k++) {
+      var lleno = Math.max(0, Math.min(1, e.valor - k)), cx = r1(x0 + 12 + k * paso), cy = y + 11;
+      svg("circle", {cx: cx, cy: cy, r: rad, fill: "var(--superficie-2)", stroke: "var(--borde)"}, s);
+      if (lleno >= 1) svg("circle", {cx: cx, cy: cy, r: rad, fill: c}, s);
+      else if (lleno > 0) {
+        var a = -Math.PI / 2 + 2 * Math.PI * lleno;
+        svg("path", {d: "M " + cx + " " + cy + " L " + cx + " " + r1(cy - rad) + " A " + rad + " " + rad + " 0 " + (lleno > .5 ? 1 : 0) + " 1 " + r1(cx + rad * Math.cos(a)) + " " + r1(cy + rad * Math.sin(a)) + " Z", fill: c}, s);
+      }
+    }
+    consejo(texto(s, {x: r1(x0 + 12 + mx * paso + 2), y: y + 15}, fmt(e.valor, "num") + " / " + mx, "valor-punto"), e.rotulo + ": " + e.valor + " / " + mx);
+  });
+  return {cabecera: [T.concepto, T.valor, T.maximo], filas: el.map(function (e) { return [e.rotulo, e.valor, mx]; })};
+};
+
+["anillos"].forEach(function (t) { R.tipos[t].fijo = true; });
+})();
+</script>
+```
+
+---
+
+## Graficos de seguimiento (`progreso`, `semaforos`, `linea_tiempo`)
+
+Formas para el seguimiento de un expediente o de un plan: cuanto se ha avanzado, en que estado esta cada punto y que ha pasado cuando. Un solo modulo para las tres.
+
+| Tipo | Pregunta que responde | Datos |
+| :--- | :--- | :--- |
+| `progreso` | ¿Cuanto se ha avanzado en cada fase o cuanto se ha cobrado de cada partida? | `elementos: [{rotulo, valor, maximo, objetivo}]` (`maximo` 100 por defecto; `objetivo` dibuja una marca), `tramos: [60, 85]` opcional para colorear por porcentaje, `unidad` |
+| `semaforos` | ¿En que estado esta cada punto de un control o de una lista de requisitos? | `elementos: [{rotulo, estado, nota}]` con `estado` en `ok`, `aviso`, `riesgo` o `pendiente`; `nombres` opcional para los rotulos de estado |
+| `linea_tiempo` | ¿Que ocurrio y cuando, sobre una escala real de tiempo? | `hitos: [{fecha, rotulo, estado}]` en `AAAA-MM-DD`, `hoy` opcional; los hitos anteriores a hoy van en gris |
+
+```json
+{"tipo": "semaforos", "fuente": "cliente",
+ "elementos": [{"rotulo": "Registro de actividades de tratamiento", "estado": "ok", "nota": "Actualizado en marzo de 2026"},
+               {"rotulo": "Contratos con encargados", "estado": "aviso", "nota": "Faltan dos proveedores"},
+               {"rotulo": "Evaluacion de impacto", "estado": "riesgo", "nota": "No realizada para el videoanalisis"},
+               {"rotulo": "Delegado de proteccion de datos", "estado": "pendiente"}]}
+```
+
+```json
+{"tipo": "linea_tiempo", "hoy": "2026-09-24", "fuente": "cliente",
+ "hitos": [{"fecha": "2025-11-15", "rotulo": "Vence la primera factura"}, {"fecha": "2026-05-04", "rotulo": "Reconocimiento de deuda"},
+           {"fecha": "2026-09-17", "rotulo": "Burofax"}, {"fecha": "2026-10-09", "rotulo": "Presentacion del monitorio", "estado": "aviso"}]}
+```
+
+Reglas: `progreso` recorta al cien por cien lo que supere el maximo pero muestra el valor real en la tabla; `semaforos` se dibuja en HTML (no en SVG) y cuenta los estados al pie de la lista; `linea_tiempo` no representa duraciones (para eso, `plazos`), sino momentos, y alterna los rotulos arriba y abajo para que no se pisen.
+
+```js modulo=seguimiento
+<script>
+/* Modulo de graficos de seguimiento para el motor de artefactos. Se copia integro, despues
+   del motor, solo en los artefactos que usan alguno de estos tipos. */
+(function(){
+"use strict";
+var R = Reportes, D = document, svg = R.svg, r1 = R.r1, fmt = R.fmt, color = R.color, consejo = R.consejo, num = R.num, T = R.T;
+var TX = Object.assign(/^en/.test(R.IDIOMA)
+  ? {estado: "Status", nota: "Note", fecha: "Date", ok: "Compliant", aviso: "Attention", riesgo: "At risk", pendiente: "Pending"}
+  : {estado: "Estado", nota: "Nota", fecha: "Fecha", ok: "Correcto", aviso: "Atencion", riesgo: "Riesgo", pendiente: "Pendiente"}, R.datos.textos || {});
+function texto(s, at, contenido, clase) { return svg("text", Object.assign({"class": clase || "eje"}, at), s, contenido); }
+var estilosSemaforos = ".semaforos{list-style:none;margin:0;padding:0}.semaforo{display:flex;align-items:flex-start;gap:12px;padding:9px 0;border-bottom:1px solid var(--borde-suave)}" +
+  ".semaforo .luz{flex:none;width:12px;height:12px;border-radius:50%;margin-top:6px;background:var(--apagado)}.semaforo-ok .luz{background:var(--ok)}.semaforo-aviso .luz{background:var(--aviso)}.semaforo-riesgo .luz{background:var(--riesgo)}" +
+  ".semaforo>div{flex:1;min-width:0}.semaforo .nota{display:block;font-size:.82rem;color:var(--apagado)}.semaforos-resumen{font-size:.82rem;color:var(--apagado);margin:var(--e2) 0 0}";
+/* Los estilos de los semaforos se anaden la primera vez que se dibuja uno, no en todo artefacto con el modulo. */
+function conEstilos() { if (estilosSemaforos) { R.html("style", "", D.head).textContent = estilosSemaforos; estilosSemaforos = null; } }
+var fechaCorta = new Intl.DateTimeFormat(R.IDIOMA, {day: "numeric", month: "short", year: "2-digit", timeZone: "UTC"});
+
+/* Progreso: barras de avance con porcentaje y, si se da, marca de objetivo. */
+R.tipos.progreso = function (fig, g, id, W) {
+  var el = g.elementos || [], tramos = g.tramos || null;
+  if (!el.length) throw new Error("faltan elementos");
+  var x0 = R.columnaRotulos(), x1 = W - 66, fila = 32, s = R.lienzo(fig, W, el.length * fila + 6, g.resumen);
+  el.forEach(function (e, i) {
+    var mx = num(e.maximo) ? e.maximo : 100;
+    if (!num(e.valor) || e.valor < 0) throw new Error(e.rotulo + ": valor numerico no negativo");
+    var p = e.valor / mx * 100, y = 6 + i * fila;
+    var c = e.color ? color(e.color, i) : tramos ? (p < tramos[0] ? "var(--riesgo)" : p < tramos[1] ? "var(--aviso)" : "var(--ok)") : color(g.color || "acento", 0);
+    R.rotuloFila(s, y + 14, e.rotulo);
+    svg("rect", {x: x0, y: y + 4, width: x1 - x0, height: 12, rx: 6, fill: "var(--superficie-2)", stroke: "var(--borde-suave)"}, s);
+    consejo(svg("rect", {x: x0, y: y + 4, width: r1(Math.max(0, (x1 - x0) * Math.min(100, p) / 100)), height: 12, rx: 6, fill: c}, s), e.rotulo + ": " + fmt(e.valor, g.unidad) + " / " + fmt(mx, g.unidad) + " (" + fmt(p, "pct") + ")");
+    if (num(e.objetivo)) { var xo = r1(x0 + (x1 - x0) * Math.min(1, e.objetivo / mx)); consejo(svg("line", {x1: xo, y1: y, x2: xo, y2: y + 20, stroke: "var(--texto)", "stroke-width": 2}, s), T.objetivo + ": " + fmt(e.objetivo, g.unidad)); }
+    texto(s, {x: x1 + 8, y: y + 14}, fmt(p, "pct"), "valor-punto");
+    e.pct = p;
+  });
+  return {cabecera: [T.concepto, T.valor, T.maximo, T.porcentaje], unidad: g.unidad, filas: el.map(function (e) { return [e.rotulo, e.valor, num(e.maximo) ? e.maximo : 100, fmt(e.pct, "pct")]; })};
+};
+
+/* Semaforos: estado de cada punto de control, en HTML, con recuento al pie. */
+R.tipos.semaforos = function (fig, g) {
+  var el = g.elementos || [], nombres = Object.assign({ok: TX.ok, aviso: TX.aviso, riesgo: TX.riesgo, pendiente: TX.pendiente}, g.nombres || {}), cuenta = {ok: 0, aviso: 0, riesgo: 0, pendiente: 0};
+  if (!el.length) throw new Error("faltan elementos");
+  conEstilos();
+  var ul = R.html("ul", "semaforos", fig);
+  el.forEach(function (e) {
+    if (!/^(ok|aviso|riesgo|pendiente)$/.test(e.estado || "")) throw new Error(e.rotulo + ": estado debe ser ok, aviso, riesgo o pendiente");
+    cuenta[e.estado]++;
+    var li = R.html("li", "semaforo semaforo-" + e.estado, ul);  /* prefijo: aviso y riesgo ya son clases de la base */
+    R.html("span", "luz", li).setAttribute("aria-hidden", "true");
+    var cuerpo = R.html("div", "", li);
+    R.html("b", "", cuerpo, e.rotulo);
+    if (e.nota) R.html("span", "nota", cuerpo, e.nota);
+    R.html("span", "distintivo " + (e.estado === "aviso" ? "atencion" : e.estado === "pendiente" ? "" : e.estado), li, nombres[e.estado]);
+  });
+  R.html("p", "semaforos-resumen", fig, ["ok", "aviso", "riesgo", "pendiente"].filter(function (k) { return cuenta[k]; }).map(function (k) { return cuenta[k] + " " + nombres[k].toLowerCase(); }).join(" · "));
+  return {cabecera: [T.concepto, TX.estado, TX.nota], filas: el.map(function (e) { return [e.rotulo, nombres[e.estado], e.nota || "—"]; })};
+};
+
+/* Linea de tiempo: hitos sobre una escala real de fechas, con la marca de hoy. */
+R.tipos.linea_tiempo = function (fig, g, id, W) {
+  var hitos = (g.hitos || []).map(function (h) { return Object.assign({}, h, {t: R.fecha(h.fecha)}); }).sort(function (a, b) { return a.t - b.t; });
+  if (hitos.length < 2) throw new Error("hacen falta al menos dos hitos con fecha");
+  var hoy = g.hoy ? R.fecha(g.hoy) : null, desde = hitos[0].t, hasta = hitos[hitos.length - 1].t;
+  if (hoy !== null) { desde = Math.min(desde, hoy); hasta = Math.max(hasta, hoy); }
+  var margen = (hasta - desde) * 0.06 || R.DIA; desde -= margen; hasta += margen;
+  var x0 = 24, x1 = W - 24, ym = 100, X = function (t) { return r1(x0 + (t - desde) / (hasta - desde) * (x1 - x0)); };
+  var s = R.lienzo(fig, W, 200, g.resumen), corta = fechaCorta, larga = {format: function (t) { return fmt(t, "fecha"); }};
+  svg("line", {x1: x0, y1: ym, x2: x1, y2: ym, stroke: "var(--borde)", "stroke-width": 2}, s);
+  if (hoy !== null) { svg("line", {"class": "hoy", x1: X(hoy), y1: ym - 80, x2: X(hoy), y2: ym + 80}, s); texto(s, {x: X(hoy) + 4, y: 14}, T.hoy, "texto-hoy"); }
+  var niveles = [-30, 36, -62, 68];
+  hitos.forEach(function (h, i) {
+    var x = X(h.t), yl = ym + niveles[i % 4], arriba = yl < ym, c = h.estado ? color(h.estado, i) : (hoy !== null && h.t < hoy ? "var(--apagado)" : color(g.color || "acento", 0));
+    var ancla = x < 90 ? "start" : x > W - 90 ? "end" : "middle";
+    /* Junto a la marca de hoy, el rotulo se aparta hacia el lado contrario para no pisarla. */
+    if (hoy !== null && ancla === "middle" && Math.abs(x - X(hoy)) < 60) ancla = x < X(hoy) ? "end" : "start";
+    svg("line", {x1: x, y1: ym, x2: x, y2: arriba ? yl + 16 : yl - 12, stroke: c, "stroke-width": 1}, s);
+    consejo(svg("circle", {cx: x, cy: ym, r: 6, fill: c, stroke: "var(--superficie)", "stroke-width": 2}, s), larga.format(h.t) + ": " + h.rotulo);
+    texto(s, {x: x, y: yl, "text-anchor": ancla, "font-weight": 650}, R.recortar(h.rotulo, 24), "valor-punto");
+    texto(s, {x: x, y: yl + 13, "text-anchor": ancla}, corta.format(h.t));
+  });
+  return {cabecera: [TX.fecha, T.concepto], filas: hitos.map(function (h) { return [larga.format(h.t), h.rotulo]; })};
+};
+
+["semaforos"].forEach(function (t) { R.tipos[t].fijo = true; });
+})();
+</script>
+```
+
+---
+
+## Ajuste a una hoja (`encaje`)
+
+Para las maquetas de una sola hoja (`resumen_ejecutivo`, `ficha_una_pagina`, `poster`). Antes de imprimir mide el contenido al ancho util de la hoja y, si pasa de una, reduce la escala lo justo. La maqueta fija la hoja en sus estilos con `:root{--encaje:<ancho> <alto>}`, en px a 96 por pulgada: `703 1000` para A4 vertical con los margenes de la base, `1497 1032` para A3 apaisado con margenes de 12 mm. Si hay que reducir mucho, sobra contenido: se quita un bloque.
+
+```js modulo=encaje
+<script>
+(function(){
+  "use strict";
+  /* Antes de imprimir se mide la pagina con las reglas de impresion aplicadas en pantalla y al
+     ancho util de la hoja (--encaje: ancho y alto en px, lo fija la maqueta); si pasa de una
+     hoja, se reduce lo justo (Chrome no recoloca despues). */
+  var D = document, main = D.querySelector("main");
+  var hoja = getComputedStyle(D.documentElement).getPropertyValue("--encaje").trim().split(/\s+/).map(Number);
+  if (hoja.length !== 2 || !(hoja[0] > 0 && hoja[1] > 0)) return;
+  var ANCHO = hoja[0], ALTO = hoja[1];
+  function reglasImpresion() {
+    var css = "";
+    [].forEach.call(D.styleSheets, function (hoja) {
+      [].forEach.call(hoja.cssRules, function (r) {
+        if (r.media && /print/.test(r.media.mediaText)) [].forEach.call(r.cssRules, function (x) { if (x.selectorText) css += x.cssText + "\n"; });
+      });
+    });
+    return css;
+  }
+  window.addEventListener("beforeprint", function () {
+    main.style.zoom = "";
+    var prueba = D.createElement("style");
+    prueba.textContent = reglasImpresion();
+    D.head.appendChild(prueba);
+    D.body.style.width = ANCHO + "px";
+    var alto = main.getBoundingClientRect().height;
+    prueba.remove();
+    D.body.style.width = "";
+    if (alto > ALTO) main.style.zoom = Math.max(0.6, ALTO / alto).toFixed(3);
+  });
+  window.addEventListener("afterprint", function () { main.style.zoom = ""; });
+})();
+</script>
+```
+
+---
+
 ## Iconos (`iconos`)
 
 Un juego propio de iconos de trazo, sin recursos externos, para indicadores, avisos, listas y diapositivas. Se escriben en el HTML con `<span class="icono" data-icono="nombre"></span>` (o, en una diapositiva, dentro de cualquier texto como `{icono:nombre}`) y toman el tamano y el color del texto que los rodea.
@@ -758,9 +1253,17 @@ function variables(c) {
   (c.serie || []).slice(0, 6).forEach(function (x, i) { if (hex.test(x)) v += "--c" + (i + 1) + ":" + x + ";"; });
   return v;
 }
-/* En claro y en papel, los colores de marca; en oscuro, su version oscura o los del tema. */
-var css = "@media (prefers-color-scheme:light),print{:root{" + variables(m) + "}}";
-if (m.oscuro) css += "@media screen and (prefers-color-scheme:dark){:root{" + variables(m.oscuro) + "}}";
+/* En claro y en papel, los colores de marca; en oscuro, su version oscura o los del tema.
+   La hoja de la marca se anade despues de la de la base y del tema, con la misma especificidad
+   (:root[data-tema]): por orden, la marca se aplica encima del tema elegido. Con un tema siempre oscuro (color-scheme
+   dark) la pantalla es oscura aunque el sistema este en claro: alli rige la version oscura. */
+var R0 = ":root[data-tema]", siempreOscuro = getComputedStyle(D.documentElement).colorScheme === "dark";
+var css = "@media print{" + R0 + "{" + variables(m) + "}}";
+if (siempreOscuro) css += "@media screen{" + R0 + "{" + variables(m.oscuro || {}) + "}}";
+else {
+  css += "@media screen and (prefers-color-scheme:light){" + R0 + "{" + variables(m) + "}}";
+  if (m.oscuro) css += "@media screen and (prefers-color-scheme:dark){" + R0 + "{" + variables(m.oscuro) + "}}";
+}
 R.html("style", "", D.head).textContent = css;
 if (m.pie) R.html("p", "", D.querySelector(".pie"), m.pie);
 function logo() {
