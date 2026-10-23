@@ -915,6 +915,224 @@ var botones = document.querySelectorAll("#filtro button"), tarjetas = document.q
     print("  %-38s %6d bytes   pendientes: %s" % ("galeria_maquetas.html", len(html.encode()), ", ".join(pendientes) or "ninguno"))
     return "galeria_maquetas.html", not pendientes
 
+# --------------------------------------------------------------------------- catalogo visual de la skill
+def catalogo_visual():
+    G = sys.modules[__name__]
+    import html as H
+    GAL = {c: dict(g) for c, t, u, g in G.GALERIA}
+    GAL["chispa"] = {"tipo": "chispa", "valores": [10, 12, 18, 16, 24, 30, 34], "etiquetas": ["Abril", "Octubre"]}
+
+    GRUPOS = [
+     ("¿Qué es mayor?", [
+      ("barras", "Barras", "Comparar partidas ordenadas de mayor a menor: facturas, deudores, áreas."),
+      ("columnas", "Columnas", "Comparar pocos periodos o grupos, con una o varias series."),
+      ("pareto", "Pareto", "Ver qué pocos deudores o causas concentran casi todo."),
+      ("bala", "Bala", "Lo real frente al objetivo, con tramos de valoración."),
+      ("halteras", "Halteras", "Lo pedido frente a lo concedido en cada partida."),
+      ("pendiente", "Pendiente", "Cómo cambia cada partida entre dos momentos."),
+      ("divergentes", "Divergentes", "Saldos a favor y en contra alrededor de cero.")]),
+     ("¿Cómo evoluciona?", [
+      ("linea", "Línea", "Evolución en el tiempo, con umbral legal y anotaciones."),
+      ("area_apilada", "Área apilada", "Cómo se compone el total mes a mes."),
+      ("escalones", "Escalones", "Valores que rigen a tramos, como el interés legal."),
+      ("chispa", "Minigráfico", "La tendencia dentro de una cifra, sin ocupar sitio.")]),
+     ("¿Qué peso tiene cada parte?", [
+      ("anillo", "Anillo", "Tres o cuatro partes de un total, con la cifra en el centro."),
+      ("tarta", "Tarta", "Reparto en hasta seis porciones."),
+      ("apiladas", "Columnas apiladas", "Composición de cada periodo, con el total encima."),
+      ("cien", "Apiladas al 100 %", "Proporción por periodo, cuando no importa el volumen."),
+      ("treemap", "Treemap", "El peso de muchas partidas a la vez."),
+      ("pictograma", "Pictograma", "Una proporción contada en figuras: «3 de cada 10».")]),
+     ("¿Cuándo y qué plazo corre?", [
+      ("plazos", "Diagrama de plazos", "Varios plazos en un mismo calendario, con la marca de hoy."),
+      ("linea_tiempo", "Línea de tiempo", "Hitos del expediente sobre una escala real de fechas."),
+      ("calendario", "Calendario de calor", "Qué días concentran vencimientos o actividad.")]),
+     ("¿Cuánto llevamos y en qué estado?", [
+      ("medidor", "Medidor", "Porcentaje consumido de un plazo o alcanzado de un objetivo."),
+      ("progreso", "Progreso", "Avance por fase, con marca de objetivo."),
+      ("anillos", "Anillos", "Avance de hasta cuatro objetivos a la vez."),
+      ("semaforos", "Semáforos", "Estado de cada punto de control o requisito."),
+      ("puntuacion", "Puntuación", "Nota de cada criterio en una escala corta.")]),
+     ("¿Qué riesgo hay y qué conviene?", [
+      ("matriz", "Matriz de riesgo", "Probabilidad por impacto, con lo que hay que hacer."),
+      ("tornado", "Tornado", "Qué parámetro mueve más el resultado de una simulación."),
+      ("rango", "Rango", "Dónde cae una cifra dentro de la horquilla legal."),
+      ("radar", "Radar", "El perfil de cada opción en varios criterios.")]),
+     ("¿Cómo se reparten los valores?", [
+      ("histograma", "Histograma", "Cómo se reparten muchos valores sueltos, como días de demora."),
+      ("cajas", "Cajas", "Mediana y dispersión por grupo, como días por juzgado."),
+      ("dispersion", "Dispersión", "Relación entre dos magnitudes; las burbujas añaden una tercera."),
+      ("mapa_calor", "Mapa de calor", "Dónde se concentra algo en dos dimensiones."),
+      ("piramide", "Pirámide", "Dos grupos enfrentados por tramos.")]),
+     ("¿Por dónde pasa y cómo se organiza?", [
+      ("cascada", "Cascada", "Cómo se llega del principal al total, paso a paso."),
+      ("embudo", "Embudo", "Cuántos llegan a cada etapa y cuántos se pierden."),
+      ("sankey", "Sankey", "De dónde a dónde fluye un importe o un volumen."),
+      ("flujo", "Diagrama de flujo", "Pasos de un procedimiento y dónde se decide."),
+      ("sociedades", "Organigrama", "Estructura societaria o quién depende de quién."),
+      ("partes", "Mapa de relaciones", "Qué relación tiene cada parte con el caso."),
+      ("carriles", "Carriles", "Quién hace qué en cada momento.")]),
+     ("¿Dónde, en el territorio?", [
+      ("mapa", "Mapa por comunidades", "Concentración por comunidad autónoma, con tasas."),
+      ("provincias", "Mapa por provincias", "Detalle provincial; sin dato, rayado."),
+      ("qr", "Código QR", "Lleva al lector en papel a la fuente original.")]),
+    ]
+
+    graficos, secciones, n = {}, [], 0
+    for num_grupo, (titulo, items) in enumerate(GRUPOS, 1):
+        tarjetas = []
+        for clave, nombre, uso in items:
+            g = dict(GAL[clave], tabla=False, resumen=nombre + ": " + uso); g.pop("fuente", None)
+            graficos[clave] = g; n += 1
+            tarjetas.append('<article class="mini%s">' % (" ancha" if clave in ("sankey", "linea_tiempo", "plazos", "flujo", "carriles", "mapa_calor") else "") + '<div class="lienzo"><figure class="grafico" data-grafico="%s"></figure></div>'
+                            '<h3>%s</h3><p>%s</p></article>' % (clave, H.escape(nombre), H.escape(uso)))
+        secciones.append('<section class="grupo" id="grupo-%d"><h2>%s</h2><div class="minis">%s</div></section>' % (num_grupo, H.escape(titulo), "".join(tarjetas)))
+
+    # muestras de estilo a partir de los tokens reales de cada tema
+    base = G.BASE_HTML
+    def tokens(bloque):
+        return dict(re.findall(r"--([\w-]+):([^;]+);", bloque))
+    temas = [("moderno", "Moderno", "Paneles y presentaciones", tokens(re.search(r":root\{(.*?)\}", base, re.S).group(1))),
+             ("sobrio", "Sobrio", "Juzgado y cliente institucional", tokens(re.search(r':root\[data-tema="sobrio"\]\{(.*?)\}', base, re.S).group(1)))]
+    USOS = {"editorial": "Documentos para imprimir", "corporativo": "Memorias y comités", "minimal": "Resúmenes de una página", "nocturno": "Proyectar en pantalla",
+            "tecnico": "Auditorías y cumplimiento", "calido": "Particulares y familia", "institucional": "Administración y organismos", "pizarra": "Paneles densos",
+            "suave": "Boletines y comunicación", "prensa": "Novedades normativas", "alto_contraste": "Accesibilidad", "dorado": "Prestigio y dirección", "esmeralda_noche": "Paneles en pantalla",
+            "ambar": "Paneles operativos", "oliva_oro": "Rural y patrimonio", "lima": "Tecnología y datos", "menta": "Salud y particulares", "melocoton": "Familia y eventos", "lavanda": "Comunicación interna"}
+    NOMBRES = {"tecnico": "Técnico", "calido": "Cálido", "alto_contraste": "Alto contraste", "esmeralda_noche": "Esmeralda nocturno", "ambar": "Ámbar", "oliva_oro": "Oliva y oro", "melocoton": "Melocotón"}
+    for t, css in G.TEMAS.items():
+        tok = tokens(re.search(r':root\[data-tema="%s"\]\{(.*?)\}' % t, css, re.S).group(1))
+        temas.append((t, NOMBRES.get(t, t.capitalize()), USOS[t], tok))
+    muestras = []
+    fuente_base = temas[0][3]["fuente"]  # la del tema moderno, ya leida de la base
+    for t, nombre, uso, k in temas:
+        fuente = k.get("fuente", fuente_base)
+        barras = "".join('<i style="height:%d%%;background:%s"></i>' % (h, k["c%d" % (j + 1)]) for j, h in enumerate([92, 70, 54, 38, 26, 18]))
+        muestras.append(('<article class="tema"><div class="papel" style="background:%s;font-family:%s">'
+          '<div class="hoja" style="background:%s;border-color:%s;border-radius:%s;color:%s">'
+          '<b style="color:%s">42.180 €</b><span style="color:%s">Principal reclamado</span><div class="muestra-barras">%s</div></div></div>'
+          '<h3>%s</h3><p>%s</p></article>') % (k["fondo"], fuente, k["superficie"], k["borde"], k.get("radio", "12px"), k["texto"],
+           k["acento"], k["apagado"], barras, H.escape(nombre), H.escape(uso)))
+
+    estilos = """
+    .intro{max-width:70ch}
+    .bloque-titulo{font-size:.8rem;text-transform:uppercase;letter-spacing:.12em;color:var(--apagado);margin:var(--e5) 0 var(--e3);border-top:1px solid var(--borde);padding-top:var(--e4)}
+    .temas{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:var(--e3)}
+    .tema h3,.mini h3{font-size:.92rem;margin:var(--e2) 0 2px}
+    .tema p,.mini p{font-size:.8rem;color:var(--apagado);margin:0}
+    .papel{border-radius:10px;padding:12px;border:1px solid var(--borde)}
+    .hoja{border:1px solid;padding:10px;display:flex;flex-direction:column;gap:2px;font-size:.7rem}
+    .hoja b{font-size:1.05rem;letter-spacing:-.02em}
+    .muestra-barras{display:flex;align-items:flex-end;gap:3px;height:38px;margin-top:6px}
+    .muestra-barras i{flex:1;border-radius:2px}
+    .mini.ancha{grid-column:span 2}
+    @media (max-width:760px){.mini.ancha{grid-column:auto}}
+    .mini.ancha .lienzo{height:230px}.mini.ancha .lienzo svg{max-height:216px}
+    .grupo h2{font-size:1.05rem;margin:var(--e5) 0 var(--e3)}
+    .minis{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:var(--e3)}
+    .mini{background:var(--superficie);border:1px solid var(--borde);border-radius:var(--radio-s);padding:var(--e3);box-shadow:var(--sombra)}
+    .lienzo{height:190px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--superficie-2);border-radius:8px;padding:6px}
+    .lienzo .grafico{width:100%}
+.lienzo:has(.barras){align-items:flex-start}
+    .lienzo svg{max-height:176px;width:auto;margin:0 auto}
+    .lienzo .leyenda,.lienzo .medidor-rotulo,.lienzo .semaforos-resumen,.lienzo ol.leyenda{display:none}
+    .lienzo .semaforo{padding:3px 0;font-size:.72rem}.lienzo .semaforo .nota{display:none}
+    .lienzo .fuente-grafico,.lienzo .datos-grafico{display:none}
+    .formatos{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:var(--e3)}
+    .formato img{display:block;width:100%;height:170px;object-fit:cover;object-position:top;border-radius:var(--radio-s);border:1px solid var(--borde)}
+    .formato h3{font-size:.92rem;margin:var(--e2) 0 0}
+    /* Modo compacto (?solo=...): iconos pequenos, sin textos de uso, a 760 px, para la ficha de la app. */
+    .compacto,.compacto body{background:transparent!important}  /* fondo transparente: las tarjetas se ven sobre la ficha clara u oscura */
+    .compacto .contenedor{max-width:760px}
+    .compacto .minis{grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:10px}
+    .compacto .mini{padding:8px;box-shadow:none}
+    .compacto .mini p,.compacto .tema p{display:none}
+    .compacto .mini h3,.compacto .tema h3,.compacto .formato h3{font-size:.76rem;text-align:center;margin:6px 0 0;font-weight:620}
+    .compacto .lienzo,.compacto .mini.ancha .lienzo{height:86px;padding:4px}
+    .compacto .lienzo svg,.compacto .mini.ancha .lienzo svg{max-height:78px}
+    .compacto .lienzo:has(.barras) .grafico,.compacto .lienzo:has(.semaforos) .grafico{zoom:.42}
+    .compacto .temas{grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
+    .compacto .papel{padding:6px;border-radius:8px}
+    .compacto .hoja{padding:6px;font-size:.5rem}
+    .compacto .hoja b{font-size:.8rem}
+    .compacto .muestra-barras{height:20px;margin-top:4px}
+    .compacto .formatos{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    .compacto .formato img{height:128px}
+    """
+    ORDEN_FORMATOS = ["panel_datos", "cuadro_mando", "embudo_conversion", "informe_territorial", "herramienta_interactiva", "cronograma_expediente", "lista_control",
+                      "actividad_equipo", "informe_visual", "comparativa", "mapa_riesgos", "escenarios", "resumen_ejecutivo", "ficha_una_pagina", "poster", "infografia",
+                      "presentacion", "documento_largo"]
+    NOMBRES_FORMATO = {"Embudo de conversion": "Embudo de conversión", "Presentacion": "Presentación", "Infografia": "Infografía", "Poster": "Póster", "Ficha de una pagina": "Ficha de una página"}
+    por_maqueta = {m: (a, nm) for a, m, nm, _, _ in FICHAS_MAQUETAS}
+    formatos = "".join('<article class="formato"><img src="miniaturas/%s.png" alt="Ejemplo de %s"><h3>%s</h3></article>'
+                       % (por_maqueta[m][0], H.escape(NOMBRES_FORMATO.get(por_maqueta[m][1], por_maqueta[m][1])), H.escape(NOMBRES_FORMATO.get(por_maqueta[m][1], por_maqueta[m][1]))) for m in ORDEN_FORMATOS)
+    contenido = ('<p class="intro">Cada gráfico con su aspecto real, su nombre y para qué sirve. '
+      'Las miniaturas las dibuja el motor de la skill con datos de ejemplo; en el informe salen a tamaño completo, con su tabla de datos y su fuente.</p>'
+      '<p class="bloque-titulo">Formatos · %d</p><div class="formatos" id="formatos">%s</div>'
+      '<p class="bloque-titulo">Estilos · %d</p><div class="temas" id="temas">%s</div>'
+      '<p class="bloque-titulo">Gráficos · %d, según la pregunta que responden</p>%s') % (len(ORDEN_FORMATOS), formatos, len(temas), "".join(muestras), n, "".join(secciones))
+    datos = {"idioma": "es-ES", "moneda": "EUR", "fuentes": {}, "cifras": dict({"pagado": {"valor": 2000}, "pagos": {"operacion": "producto", "a": "pagado", "b": -1}, "vencimiento_recurso": {"calculo": "vencimiento", "desde": "2026-09-17", "dias": 20, "festivos": ["2026-10-12"], "unidad": "fecha"}}), "graficos": graficos}
+    textos = {"TITULO_DOCUMENTO": "Catálogo de estilos y gráficos", "TITULO_CORTO": "Catálogo Reportes", "ETIQUETA_SUPERIOR": "Skill Reportes | Qué puede elegir",
+              "ENTRADILLA": "Elija un estilo para el aspecto del documento y los gráficos que respondan a sus preguntas. Puede pedirlos por su nombre en el chat.",
+              "PIE_AVISO_LEGAL": "Datos ficticios de demostración."}
+    html = G.BASE_HTML.replace("{{ANCHO}}", "1180px").replace("{{FICHA}}", "").replace("{{CONTENIDO}}", contenido)
+    html = html.replace("{{ESTILOS_MAQUETA}}", estilos).replace("{{ACCIONES}}", "").replace("{{ESTILOS_TEMA}}", "")
+    html = G.DATOS_VACIOS.sub(lambda m: m.group(1) + json.dumps(datos, ensure_ascii=False) + m.group(2), html)
+    for mod in ["diagramas", "avanzados", "analiticos", "seguimiento", "qr", "plazos", "mapa", "mapa_ccaa", "mapa_provincias"]:
+        html = html.replace("</body>", G.MODULOS[mod] + "\n</body>")
+    html = html.replace("</body>", """<script>
+    (function(){
+    "use strict";
+    /* ?solo=<id> deja solo ese bloque (un grupo de graficos o los estilos): es lo que se fotografia para la descripcion de la skill. */
+    var solo = new URLSearchParams(location.search).get("solo"), D = document;
+    if (!solo || !D.getElementById(solo)) return;
+    D.documentElement.style.setProperty("--degradado", "none");
+    var c = D.querySelector(".contenedor"), b = D.getElementById(solo);
+    [].forEach.call(c.children, function (n) { if (!n.contains(b)) n.style.display = "none"; });
+    c.style.padding = "16px";
+    D.documentElement.classList.add("compacto");
+    c.style.setProperty("--ancho", "760px");
+var titulo = b.querySelector(":scope > h2");  /* el titulo del grupo ya va en el texto de la descripcion */
+if (titulo) titulo.style.display = "none";
+    })();
+    </script>
+    </body>""")
+    for k, v in textos.items(): html = html.replace("{{%s}}" % k, v)
+    pendientes = sorted(set(re.findall(r"\{\{(\w+)\}\}", html)))
+    open(os.path.join(AQUI, "galeria_catalogo.html"), "w", encoding="utf-8").write(html)
+    print("  %-38s %6d bytes   pendientes: %s" % ("galeria_catalogo.html", len(html.encode()), ", ".join(pendientes) or "ninguno"))
+    return "galeria_catalogo.html", not pendientes, ["formatos", "temas"] + ["grupo-%d" % i for i in range(1, len(GRUPOS) + 1)]
+
+def imagenes_catalogo(bloques):
+    """Una imagen por bloque del catalogo (estilos y cada grupo de graficos) en ejemplos/catalogo: la
+    descripcion de la skill las enlaza desde GitHub, porque la ficha de la app solo pinta imagenes por URL.
+    Van a 760 px y en modo compacto: la ficha las pinta a su tamano natural, sin ampliarlas."""
+    try:
+        from PIL import Image
+    except ImportError:
+        print("  PIL no disponible: no se generan las imagenes del catalogo.")
+        return
+    destino = os.path.join(AQUI, "catalogo")
+    os.makedirs(destino, exist_ok=True)
+    def una(bloque):
+        png = os.path.join(destino, bloque + ".png")
+        with tempfile.TemporaryDirectory(prefix="reportes-chrome-") as perfil:
+            try:
+                subprocess.run([CHROME, "--headless=new", "--disable-gpu", "--user-data-dir=" + perfil, "--hide-scrollbars", "--window-size=760,3000", "--default-background-color=00000000",
+                                "--virtual-time-budget=4000", "--screenshot=" + png, "file://" + os.path.join(AQUI, "galeria_catalogo.html") + "?solo=" + bloque],
+                               capture_output=True, check=False, timeout=90)
+            except subprocess.TimeoutExpired:
+                print("  AVISO: Chrome no termino la imagen %s" % bloque); return
+        if not os.path.exists(png):
+            print("  AVISO: Chrome no genero la imagen %s" % bloque); return
+        im = Image.open(png).convert("RGBA")
+        caja = im.getchannel("A").point(lambda v: 255 if v > 24 else 0).getbbox()  # lo transparente de abajo, sin contar sombras tenues
+        if caja:
+            im = im.crop((0, 0, im.width, min(im.height, caja[3] + 16)))
+        im.save(png, optimize=True)
+    with ThreadPoolExecutor(5) as hilos:
+        list(hilos.map(una, bloques))
+    print("  imagenes del catalogo: %d en ejemplos/catalogo" % len(bloques))
+
 # --------------------------------------------------------------------------- comprobacion e impresion
 def comprobar_y_imprimir(archivos, pdf):
     """Abre los ejemplos en Chrome sin ventana, en paralelo, y falla si la consola registra errores."""
@@ -953,6 +1171,9 @@ if __name__ == "__main__":
     print("Generando artefactos de ejemplo:")
     hechos = [panel(), informe(), herramienta(), presentacion(), white_paper(), resumen()] + [f() for f in NUEVAS] + [galeria(), galeria_temas()]
     miniaturas([a for a, *_ in FICHAS_MAQUETAS])
+    archivo_cat, ok_cat, bloques_cat = catalogo_visual()
+    imagenes_catalogo(bloques_cat)
+    hechos.append((archivo_cat, ok_cat))
     hechos.append(galeria_maquetas())
     limpio = comprobar_y_imprimir([d for d, _ in hechos], "--sin-pdf" not in sys.argv)
     if not all(ok for _, ok in hechos) or not limpio:
