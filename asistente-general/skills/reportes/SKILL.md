@@ -31,7 +31,63 @@ i18n:
 
       **Styles (21)**: light (Modern, Sober, Editorial, Corporate, Minimal, Technical, Warm, Institutional, Slate, Press, High contrast), dark (Night, Gold, Night emerald, Amber, Olive and gold, Lime) and pastel (Soft, Mint, Peach, Lavender).
 
-      **Charts (44)** by the question they answer: what is bigger (bars, columns, pareto, bullet, dumbbell, slope, diverging), how it evolves (line, stacked area, step, sparkline), what share each part has (donut, pie, stacked columns, treemap, pictogram), when and which deadline (deadline chart, timeline, calendar heat map), progress and status (gauge, progress, rings, status lights, score), risk and decision (risk matrix, tornado, range, radar), distribution (histogram, box plot, scatter, heat map, pyramid), flows and structure (waterfall, funnel, sankey, flow chart, org chart, relationship map, swimlanes) and territory (maps of Spain by region and province, QR code).
+      ![The 21 styles](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/temas.png)
+
+      **Charts (44)** by the question they answer:
+
+      **What is bigger**
+
+      ![what is bigger](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-1.png)
+
+      Bars, columns, pareto, bullet, dumbbell, slope, diverging.
+
+      **How it evolves**
+
+      ![how it evolves](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-2.png)
+
+      Line, stacked area, step, sparkline.
+
+      **What share each part has**
+
+      ![what share each part has](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-3.png)
+
+      Donut, pie, stacked columns, treemap, pictogram.
+
+      **When and which deadline**
+
+      ![when and which deadline](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-4.png)
+
+      Deadline chart, timeline, calendar heat map.
+
+      **Progress and status**
+
+      ![progress and status](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-5.png)
+
+      Gauge, progress, rings, status lights, score.
+
+      **Risk and decision**
+
+      ![risk and decision](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-6.png)
+
+      Risk matrix, tornado, range, radar.
+
+      **Distribution**
+
+      ![distribution](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-7.png)
+
+      Histogram, box plot, scatter, heat map, pyramid.
+
+      **Flows and structure**
+
+      ![flows and structure](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-8.png)
+
+      Waterfall, funnel, sankey, flow chart, org chart, relationship map, swimlanes.
+
+      **Territory**
+
+      ![territory](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-9.png)
+
+      Maps of Spain by region and province, QR code.
 
       Do not use for text documents (memos, proposals, guides, newsletters, contracts or pleadings), which are drafted in Markdown with their own skill; not for office files (.docx, .xlsx or .pptx) or web applications with a server, database or external services.
 description: |
@@ -64,17 +120,63 @@ description: |
   - *Oscuros*: **Nocturno** (para proyectar); **Dorado** (negro y oro, prestigio); **Esmeralda nocturno** (negro, esmeralda y oro); **Ámbar** (negro, ámbar y amarillo); **Oliva y oro** (verde oliva y oro); **Lima** (negro y lima, tecnología).
   - *Pastel*: **Suave** (lila); **Menta** (menta y melocotón); **Melocotón** (melocotón y rosa); **Lavanda** (lavanda y rosa).
 
+  ![Los 21 estilos](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/temas.png)
+
   **Gráficos (44)**, según la pregunta que responden:
 
-  - *¿Qué es mayor?* **Barras**: comparar partidas ordenadas de mayor a menor: facturas, deudores, áreas. **Columnas**: comparar pocos periodos o grupos, con una o varias series. **Pareto**: ver qué pocos deudores o causas concentran casi todo. **Bala**: lo real frente al objetivo, con tramos de valoración. **Halteras**: lo pedido frente a lo concedido en cada partida. **Pendiente**: cómo cambia cada partida entre dos momentos. **Divergentes**: saldos a favor y en contra alrededor de cero.
-  - *¿Cómo evoluciona?* **Línea**: evolución en el tiempo, con umbral legal y anotaciones. **Área apilada**: cómo se compone el total mes a mes. **Escalones**: valores que rigen a tramos, como el interés legal. **Minigráfico**: la tendencia dentro de una cifra, sin ocupar sitio.
-  - *¿Qué peso tiene cada parte?* **Anillo**: tres o cuatro partes de un total, con la cifra en el centro. **Tarta**: reparto en hasta seis porciones. **Columnas apiladas**: composición de cada periodo, con el total encima. **Apiladas al 100 %**: proporción por periodo, cuando no importa el volumen. **Treemap**: el peso de muchas partidas a la vez. **Pictograma**: una proporción contada en figuras: «3 de cada 10».
-  - *¿Cuándo y qué plazo corre?* **Diagrama de plazos**: varios plazos en un mismo calendario, con la marca de hoy. **Línea de tiempo**: hitos del expediente sobre una escala real de fechas. **Calendario de calor**: qué días concentran vencimientos o actividad.
-  - *¿Cuánto llevamos y en qué estado?* **Medidor**: porcentaje consumido de un plazo o alcanzado de un objetivo. **Progreso**: avance por fase, con marca de objetivo. **Anillos**: avance de hasta cuatro objetivos a la vez. **Semáforos**: estado de cada punto de control o requisito. **Puntuación**: nota de cada criterio en una escala corta.
-  - *¿Qué riesgo hay y qué conviene?* **Matriz de riesgo**: probabilidad por impacto, con lo que hay que hacer. **Tornado**: qué parámetro mueve más el resultado de una simulación. **Rango**: dónde cae una cifra dentro de la horquilla legal. **Radar**: el perfil de cada opción en varios criterios.
-  - *¿Cómo se reparten los valores?* **Histograma**: cómo se reparten muchos valores sueltos, como días de demora. **Cajas**: mediana y dispersión por grupo, como días por juzgado. **Dispersión**: relación entre dos magnitudes; las burbujas añaden una tercera. **Mapa de calor**: dónde se concentra algo en dos dimensiones. **Pirámide**: dos grupos enfrentados por tramos.
-  - *¿Por dónde pasa y cómo se organiza?* **Cascada**: cómo se llega del principal al total, paso a paso. **Embudo**: cuántos llegan a cada etapa y cuántos se pierden. **Sankey**: de dónde a dónde fluye un importe o un volumen. **Diagrama de flujo**: pasos de un procedimiento y dónde se decide. **Organigrama**: estructura societaria o quién depende de quién. **Mapa de relaciones**: qué relación tiene cada parte con el caso. **Carriles**: quién hace qué en cada momento.
-  - *¿Dónde, en el territorio?* **Mapa por comunidades**: concentración por comunidad autónoma, con tasas. **Mapa por provincias**: detalle provincial; sin dato, rayado. **Código QR**: lleva al lector en papel a la fuente original.
+  **¿Qué es mayor?**
+
+  ![¿Qué es mayor?](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-1.png)
+
+  **Barras**: comparar partidas ordenadas de mayor a menor: facturas, deudores, áreas. **Columnas**: comparar pocos periodos o grupos, con una o varias series. **Pareto**: ver qué pocos deudores o causas concentran casi todo. **Bala**: lo real frente al objetivo, con tramos de valoración. **Halteras**: lo pedido frente a lo concedido en cada partida. **Pendiente**: cómo cambia cada partida entre dos momentos. **Divergentes**: saldos a favor y en contra alrededor de cero.
+
+  **¿Cómo evoluciona?**
+
+  ![¿Cómo evoluciona?](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-2.png)
+
+  **Línea**: evolución en el tiempo, con umbral legal y anotaciones. **Área apilada**: cómo se compone el total mes a mes. **Escalones**: valores que rigen a tramos, como el interés legal. **Minigráfico**: la tendencia dentro de una cifra, sin ocupar sitio.
+
+  **¿Qué peso tiene cada parte?**
+
+  ![¿Qué peso tiene cada parte?](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-3.png)
+
+  **Anillo**: tres o cuatro partes de un total, con la cifra en el centro. **Tarta**: reparto en hasta seis porciones. **Columnas apiladas**: composición de cada periodo, con el total encima. **Apiladas al 100 %**: proporción por periodo, cuando no importa el volumen. **Treemap**: el peso de muchas partidas a la vez. **Pictograma**: una proporción contada en figuras: «3 de cada 10».
+
+  **¿Cuándo y qué plazo corre?**
+
+  ![¿Cuándo y qué plazo corre?](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-4.png)
+
+  **Diagrama de plazos**: varios plazos en un mismo calendario, con la marca de hoy. **Línea de tiempo**: hitos del expediente sobre una escala real de fechas. **Calendario de calor**: qué días concentran vencimientos o actividad.
+
+  **¿Cuánto llevamos y en qué estado?**
+
+  ![¿Cuánto llevamos y en qué estado?](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-5.png)
+
+  **Medidor**: porcentaje consumido de un plazo o alcanzado de un objetivo. **Progreso**: avance por fase, con marca de objetivo. **Anillos**: avance de hasta cuatro objetivos a la vez. **Semáforos**: estado de cada punto de control o requisito. **Puntuación**: nota de cada criterio en una escala corta.
+
+  **¿Qué riesgo hay y qué conviene?**
+
+  ![¿Qué riesgo hay y qué conviene?](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-6.png)
+
+  **Matriz de riesgo**: probabilidad por impacto, con lo que hay que hacer. **Tornado**: qué parámetro mueve más el resultado de una simulación. **Rango**: dónde cae una cifra dentro de la horquilla legal. **Radar**: el perfil de cada opción en varios criterios.
+
+  **¿Cómo se reparten los valores?**
+
+  ![¿Cómo se reparten los valores?](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-7.png)
+
+  **Histograma**: cómo se reparten muchos valores sueltos, como días de demora. **Cajas**: mediana y dispersión por grupo, como días por juzgado. **Dispersión**: relación entre dos magnitudes; las burbujas añaden una tercera. **Mapa de calor**: dónde se concentra algo en dos dimensiones. **Pirámide**: dos grupos enfrentados por tramos.
+
+  **¿Por dónde pasa y cómo se organiza?**
+
+  ![¿Por dónde pasa y cómo se organiza?](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-8.png)
+
+  **Cascada**: cómo se llega del principal al total, paso a paso. **Embudo**: cuántos llegan a cada etapa y cuántos se pierden. **Sankey**: de dónde a dónde fluye un importe o un volumen. **Diagrama de flujo**: pasos de un procedimiento y dónde se decide. **Organigrama**: estructura societaria o quién depende de quién. **Mapa de relaciones**: qué relación tiene cada parte con el caso. **Carriles**: quién hace qué en cada momento.
+
+  **¿Dónde, en el territorio?**
+
+  ![¿Dónde, en el territorio?](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-9.png)
+
+  **Mapa por comunidades**: concentración por comunidad autónoma, con tasas. **Mapa por provincias**: detalle provincial; sin dato, rayado. **Código QR**: lleva al lector en papel a la fuente original.
 
   NO usar para documentos de texto (memorandos, propuestas, guías, boletines, contratos, demandas o escritos): se redactan en Markdown con su skill. NO usar para archivos de ofimática (.docx, .xlsx o .pptx) ni para aplicaciones con servidor, base de datos o conexión a servicios externos.
 when_to_use: |

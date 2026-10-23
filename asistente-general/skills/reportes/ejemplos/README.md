@@ -25,6 +25,7 @@ Artefactos de demostracion generados con la base `../assets/template-base-report
 | `informe_territorial_asuntos.html` | `informe_territorial` (tema lavanda) | Mapa por comunidades con tasas, ranking y pareto |
 | `poster_morosidad.html` | `poster` (tema nocturno) | Tres cifras y un grafico grande; imprime en A3 apaisado |
 | `galeria_maquetas.html` | indice | Las 18 maquetas con su miniatura (carpeta `miniaturas/`), filtro por familia y enlaces al HTML y al PDF |
+| `galeria_catalogo.html` | indice | Catalogo visual de la skill: los 21 estilos y los 44 graficos con su caso de uso. Con `?solo=temas` o `?solo=grupo-N` deja un solo bloque; asi se generan las imagenes de `catalogo/`, que la descripcion de la skill enlaza desde GitHub (rama `main`) porque la ficha de la app solo pinta imagenes por URL |
 | `galeria_graficos.html` | base sin maqueta + todos los modulos | Los 43 tipos (con el mapa de Espana por comunidades y por provincias): los del motor, las cuatro disposiciones de diagrama, los graficos avanzados, analiticos y de seguimiento, el QR, iconos y un vencimiento en dias habiles, cada uno con su tabla de datos, su CSV y su fuente |
 | `galeria_temas.html` | `panel_datos` con los 21 temas y un selector | El mismo panel con cada tema de `../references/temas-visuales.md`, en claro y en oscuro, cambiando con los botones (o con `?tema=prensa&esquema=oscuro` en la URL). Solo esta galeria lleva todos los temas a la vez; un artefacto real copia uno. `galeria_temas.png` es la hoja de contacto de los 42 estados |
 
