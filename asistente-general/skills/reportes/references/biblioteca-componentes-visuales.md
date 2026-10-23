@@ -1,6 +1,6 @@
 # Biblioteca de componentes visuales
 
-Todo lo que se inserta en un artefacto usa los tokens de `:root` de la base (`--superficie`, `--borde`, `--acento`, `--c1` a `--c6`, escala `--e1` a `--e6`). Por eso hereda el tema claro, el oscuro, el sobrio y la impresion sin tocar nada. Las clases y los identificadores estan en espanol y **no se renombran**: lo que cambia de idioma es el texto visible.
+Todo lo que se inserta en un artefacto usa los tokens de `:root` de la base (`--superficie`, `--borde`, `--acento`, `--c1` a `--c6`, escala `--e1` a `--e6`). Por eso hereda cualquiera de los veintiun temas (`temas-visuales.md`), su version oscura y la impresion sin tocar nada. Las clases y los identificadores estan en espanol y **no se renombran**: lo que cambia de idioma es el texto visible.
 
 ---
 
@@ -176,6 +176,19 @@ Los positivos van a la derecha en `--ok` y los negativos a la izquierda en `--ri
 ### `diagrama` — cajas y flechas
 
 Procesos, flujos, organigramas, estructuras societarias, relaciones entre partes y quien hace que. Va en un modulo aparte: contrato de datos y codigo en `modulos-motor.md`.
+
+### Tipos de los modulos opcionales
+
+Se declaran igual que los anteriores (hueco `data-grafico` y datos en `graficos`), pero su codigo no va en la base: se copia el modulo correspondiente de `modulos-motor.md` despues del motor, solo en los artefactos que los usan. Contrato de datos de cada uno en esa referencia.
+
+| Modulo | Tipos | Para que |
+| :--- | :--- | :--- |
+| `avanzados` | `dispersion`, `histograma`, `radar`, `embudo`, `treemap`, `pendiente`, `halteras`, `piramide`, `calendario`, `pictograma` | Relaciones entre magnitudes, reparto de muchos valores, perfiles, etapas, muchas partidas, cambio entre dos momentos, dos grupos enfrentados, dias de actividad, una proporcion en figuras |
+| `analiticos` | `area_apilada`, `pareto`, `escalones`, `cajas`, `tornado`, `rango`, `mapa_calor`, `sankey`, `anillos`, `puntuacion` | Composicion en el tiempo, concentracion (80/20), valores que rigen a tramos, distribucion por grupos, sensibilidad, posicion en una horquilla legal, dos dimensiones, flujos, avance de varios objetivos, notas en escala corta |
+| `seguimiento` | `progreso`, `semaforos`, `linea_tiempo` | Avance por fase, estado de cada punto de control, hitos sobre una escala real de fechas |
+| `diagramas` | `diagrama` (capas, arbol, radial, carriles) | Procesos, organigramas, relaciones, quien hace que |
+| `mapa` (+ `mapa_ccaa` o `mapa_provincias`) | `mapa` | Donde se concentra algo en Espana |
+| `qr`, `iconos` | `qr`, iconos en linea | Llevar al lector en papel a una fuente; iconos en indicadores |
 
 ### Cifras con variacion
 

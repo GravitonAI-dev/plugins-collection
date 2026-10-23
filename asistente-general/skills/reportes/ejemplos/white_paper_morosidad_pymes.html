@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es" data-tema="moderno">
+<html lang="es" data-tema="editorial">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -134,8 +134,38 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   }
 }
 :root[data-tema="sobrio"] body{background-image:none}
+/* Estilos del tema elegido (temas-visuales.md): se sustituye por su bloque css, o se borra esta linea si el tema es moderno o sobrio. */
+:root[data-tema="editorial"]{
+  --fondo:#f9f6ef;--superficie:#fffdf8;--superficie-2:#f3eee3;--borde:#d9d2c3;--borde-suave:#e9e3d6;
+  --texto:#1b1a17;--apagado:#5c574d;
+  --acento:#8b2e2e;--acento-suave:#f4e6e3;--acento-fuerte:#5e1d1d;
+  --ok:#3b6e3f;--aviso:#9c6a12;--riesgo:#a62f3b;--linea-rejilla:#e4ded0;
+  --c1:#8b2e2e;--c2:#2f4f6f;--c3:#b7812b;--c4:#4f6b44;--c5:#6b4a7a;--c6:#7a7468;
+  --radio:4px;--radio-s:3px;--sombra:none;
+  --fuente:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme:dark){
+  :root[data-tema="editorial"]{
+    --fondo:#171511;--superficie:#1f1c17;--superficie-2:#27231d;--borde:#3a352c;--borde-suave:#2f2a23;
+    --texto:#ece6d8;--apagado:#a69e8e;
+    --acento:#e08a8a;--acento-suave:#33211f;--acento-fuerte:#f0b0b0;
+    --ok:#8cc48f;--aviso:#e2b35a;--riesgo:#f08a94;--linea-rejilla:#2e2922;
+    --c1:#e08a8a;--c2:#8fb3d6;--c3:#e0b86a;--c4:#9fc08f;--c5:#c4a0d4;--c6:#a09a8e;--sombra:none;
+  }
+}
+:root[data-tema="editorial"] body{background-image:none}
+:root[data-tema="editorial"] h1{font-weight:600;letter-spacing:-.01em;font-size:clamp(1.9rem,4vw,2.8rem)}
+:root[data-tema="editorial"] .antetitulo,:root[data-tema="editorial"] .indicador .rotulo,:root[data-tema="editorial"] thead th,:root[data-tema="editorial"] .distintivo,:root[data-tema="editorial"] .eje{font-family:ui-sans-serif,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+:root[data-tema="editorial"] .indicador::before{background:var(--texto);height:2px}
+:root[data-tema="editorial"] .indicador .cifra{font-weight:600}
+:root[data-tema="editorial"] .entradilla{font-style:italic;font-size:1.12rem}
+:root[data-tema="editorial"] .tarjeta{border-top:2px solid var(--texto)}
+:root[data-tema="editorial"] .distintivo{border-radius:3px}
 .malla{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:var(--e3);margin:0 0 var(--e3);align-items:start}
 .malla .ancho-total{grid-column:1/-1}
+.malla.dos{grid-template-columns:repeat(2,minmax(0,1fr))}
+.malla.tres{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:760px){.malla.dos,.malla.tres{grid-template-columns:1fr}}
 .grafico{margin:0;min-width:0}
 .tendencia{margin:var(--e3) 0 0;padding-top:var(--e2);border-top:1px solid var(--borde-suave)}
 .chispa{display:block;width:100%;height:30px}
@@ -175,7 +205,7 @@ ol.leyenda{display:block;padding-left:20px}
 .fuentes-reporte{margin:0 0 var(--e3);padding-left:20px}
 .fuentes-reporte li{margin:0 0 var(--e1)}
 @media print{
-  :root,:root[data-tema="sobrio"]{--fondo:#fff;--superficie:#fff;--superficie-2:#fff;--borde:#c8c5bf;--borde-suave:#dcd9d3;
+  :root,:root[data-tema]{--fondo:#fff;--superficie:#fff;--superficie-2:#fff;--borde:#c8c5bf;--borde-suave:#dcd9d3;
         --linea-rejilla:#d5d2cc;--texto:#000;--apagado:#3f3d39;--sombra:none;--acento-suave:#f2f6f8}
   @page{size:A4;margin:15mm 14mm 17mm;@bottom-right{content:counter(page) " / " counter(pages);font-size:8pt;color:#666}}
   *{animation:none!important;transition:none!important}
@@ -1058,7 +1088,7 @@ function fuentesDe(g) {
 }
 
 /* ---------- cifras sueltas del texto (data-cifra) ---------- */
-function elementosDe(g) { return g.elementos || g.porciones || g.pasos || null; }
+function elementosDe(g) { return g.elementos || g.porciones || g.pasos || g.etapas || null; }
 function valoresDe(g, serie) {
   if (g.series) return (g.series[serie || 0] || {}).valores || [];
   var el = elementosDe(g);

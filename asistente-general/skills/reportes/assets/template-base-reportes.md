@@ -134,8 +134,13 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   }
 }
 :root[data-tema="sobrio"] body{background-image:none}
+/* Estilos del tema elegido (temas-visuales.md): se sustituye por su bloque css, o se borra esta linea si el tema es moderno o sobrio. */
+{{ESTILOS_TEMA}}
 .malla{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:var(--e3);margin:0 0 var(--e3);align-items:start}
 .malla .ancho-total{grid-column:1/-1}
+.malla.dos{grid-template-columns:repeat(2,minmax(0,1fr))}
+.malla.tres{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:760px){.malla.dos,.malla.tres{grid-template-columns:1fr}}
 .grafico{margin:0;min-width:0}
 .tendencia{margin:var(--e3) 0 0;padding-top:var(--e2);border-top:1px solid var(--borde-suave)}
 .chispa{display:block;width:100%;height:30px}
@@ -175,7 +180,7 @@ ol.leyenda{display:block;padding-left:20px}
 .fuentes-reporte{margin:0 0 var(--e3);padding-left:20px}
 .fuentes-reporte li{margin:0 0 var(--e1)}
 @media print{
-  :root,:root[data-tema="sobrio"]{--fondo:#fff;--superficie:#fff;--superficie-2:#fff;--borde:#c8c5bf;--borde-suave:#dcd9d3;
+  :root,:root[data-tema]{--fondo:#fff;--superficie:#fff;--superficie-2:#fff;--borde:#c8c5bf;--borde-suave:#dcd9d3;
         --linea-rejilla:#d5d2cc;--texto:#000;--apagado:#3f3d39;--sombra:none;--acento-suave:#f2f6f8}
   @page{size:A4;margin:15mm 14mm 17mm;@bottom-right{content:counter(page) " / " counter(pages);font-size:8pt;color:#666}}
   *{animation:none!important;transition:none!important}
@@ -771,7 +776,7 @@ function fuentesDe(g) {
 }
 
 /* ---------- cifras sueltas del texto (data-cifra) ---------- */
-function elementosDe(g) { return g.elementos || g.porciones || g.pasos || null; }
+function elementosDe(g) { return g.elementos || g.porciones || g.pasos || g.etapas || null; }
 function valoresDe(g, serie) {
   if (g.series) return (g.series[serie || 0] || {}).valores || [];
   var el = elementosDe(g);

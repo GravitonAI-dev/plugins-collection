@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es" data-tema="moderno">
+<html lang="es" data-tema="corporativo">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -134,8 +134,39 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   }
 }
 :root[data-tema="sobrio"] body{background-image:none}
+/* Estilos del tema elegido (temas-visuales.md): se sustituye por su bloque css, o se borra esta linea si el tema es moderno o sobrio. */
+:root[data-tema="corporativo"]{
+  --fondo:#eef1f5;--superficie:#ffffff;--superficie-2:#f4f6f9;--borde:#cfd6e0;--borde-suave:#e1e6ed;
+  --texto:#0f1b2d;--apagado:#51607a;
+  --acento:#0b3d91;--acento-suave:#e4ebf7;--acento-fuerte:#072a66;
+  --ok:#1b7f4b;--aviso:#b26a00;--riesgo:#b3261e;--linea-rejilla:#dfe4eb;
+  --c1:#0b3d91;--c2:#4f81bd;--c3:#9bbb59;--c4:#8064a2;--c5:#f79646;--c6:#7f8c9b;
+  --radio:6px;--radio-s:4px;--sombra:0 1px 2px rgba(15,27,45,.08);
+}
+@media (prefers-color-scheme:dark){
+  :root[data-tema="corporativo"]{
+    --fondo:#0f1623;--superficie:#162032;--superficie-2:#1c283d;--borde:#2c3a52;--borde-suave:#243149;
+    --texto:#e6ebf4;--apagado:#9fb0c9;
+    --acento:#7ea6ea;--acento-suave:#1b2b47;--acento-fuerte:#a9c4f5;
+    --ok:#5ec98f;--aviso:#e3a74c;--riesgo:#ef7b74;--linea-rejilla:#243149;
+    --c1:#7ea6ea;--c2:#9dc0ea;--c3:#b6d37a;--c4:#b39ddb;--c5:#f9b27c;--c6:#9aa7b8;--sombra:0 1px 2px rgba(0,0,0,.5);
+  }
+}
+:root[data-tema="corporativo"] body{background-image:none}
+:root[data-tema="corporativo"] .contenedor>header{border-left:6px solid var(--acento);padding-left:var(--e4);margin-bottom:var(--e4)}
+:root[data-tema="corporativo"] .indicador::before{background:var(--acento)}
+:root[data-tema="corporativo"] h2{text-transform:uppercase;letter-spacing:.07em;font-size:.9rem}
+:root[data-tema="corporativo"] .indicador .cifra{color:var(--acento-fuerte)}
+:root[data-tema="corporativo"] .indicador.es-ok .cifra{color:var(--ok)}
+:root[data-tema="corporativo"] .indicador.es-atencion .cifra{color:var(--aviso)}
+:root[data-tema="corporativo"] .indicador.es-riesgo .cifra{color:var(--riesgo)}
+:root[data-tema="corporativo"] .distintivo{border-radius:4px}
+:root[data-tema="corporativo"] thead th{background:var(--superficie-2)}
 .malla{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:var(--e3);margin:0 0 var(--e3);align-items:start}
 .malla .ancho-total{grid-column:1/-1}
+.malla.dos{grid-template-columns:repeat(2,minmax(0,1fr))}
+.malla.tres{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:760px){.malla.dos,.malla.tres{grid-template-columns:1fr}}
 .grafico{margin:0;min-width:0}
 .tendencia{margin:var(--e3) 0 0;padding-top:var(--e2);border-top:1px solid var(--borde-suave)}
 .chispa{display:block;width:100%;height:30px}
@@ -175,7 +206,7 @@ ol.leyenda{display:block;padding-left:20px}
 .fuentes-reporte{margin:0 0 var(--e3);padding-left:20px}
 .fuentes-reporte li{margin:0 0 var(--e1)}
 @media print{
-  :root,:root[data-tema="sobrio"]{--fondo:#fff;--superficie:#fff;--superficie-2:#fff;--borde:#c8c5bf;--borde-suave:#dcd9d3;
+  :root,:root[data-tema]{--fondo:#fff;--superficie:#fff;--superficie-2:#fff;--borde:#c8c5bf;--borde-suave:#dcd9d3;
         --linea-rejilla:#d5d2cc;--texto:#000;--apagado:#3f3d39;--sombra:none;--acento-suave:#f2f6f8}
   @page{size:A4;margin:15mm 14mm 17mm;@bottom-right{content:counter(page) " / " counter(pages);font-size:8pt;color:#666}}
   *{animation:none!important;transition:none!important}
@@ -874,7 +905,7 @@ function fuentesDe(g) {
 }
 
 /* ---------- cifras sueltas del texto (data-cifra) ---------- */
-function elementosDe(g) { return g.elementos || g.porciones || g.pasos || null; }
+function elementosDe(g) { return g.elementos || g.porciones || g.pasos || g.etapas || null; }
 function valoresDe(g, serie) {
   if (g.series) return (g.series[serie || 0] || {}).valores || [];
   var el = elementosDe(g);

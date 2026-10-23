@@ -9,7 +9,7 @@ Reglas tecnicas invariables del formato. Todo artefacto que produzca esta skill 
 - **Prohibidas las librerias** (Chart.js, D3, Tailwind por CDN, React, jQuery). Los graficos los dibuja en SVG el motor propio que viaja dentro de la base, a partir del bloque de datos `datos-reporte` (contrato en `biblioteca-componentes-visuales.md`). Nunca se escriben coordenadas a mano.
 - Si hace falta una imagen, se incrusta como SVG en linea o como `data:` URI, y solo si es imprescindible.
 - **Fotografias:** se incrustan como `data:image/jpeg;base64,...` dentro de una `<figure>`, comprimidas antes a un ancho maximo de unos 520 px y calidad media (el objetivo es que la foto pese menos de 30 KB, porque cuenta para el limite de 120 KB del archivo). Toda foto lleva `alt` descriptivo y `<figcaption>` con su credito: autor, titulo, origen y licencia con URL. Solo se usan imagenes con licencia que permita el uso (dominio publico, CC0, CC BY, CC BY-SA) y nunca una foto sin fuente conocida.
-- Tipografia: pila de fuentes del sistema (`ui-sans-serif, -apple-system, "Segoe UI", Roboto, Arial, sans-serif`). Nunca fuentes descargadas.
+- Tipografia: pilas de fuentes del sistema (la sans de la base; serif o monoespaciada en los temas editorial, institucional, prensa y tecnico). Nunca fuentes descargadas.
 
 ## 2. Cabecera obligatoria
 
@@ -26,9 +26,9 @@ El `lang` es el idioma de la conversacion. El `<title>` es un nombre corto y rec
 
 ## 3. Diseno, adaptabilidad e impresion: lo resuelve la base
 
-La base ya trae el sistema de tokens (colores, espaciado, radios y sombras en `:root`, con su version oscura y el tema sobrio), la escala tipografica, las dos animaciones permitidas (anuladas con movimiento reducido y al imprimir), la rejilla adaptable sin desbordamiento horizontal y el bloque `@media print` completo: A4, fidelidad de color, tablas compactadas, `thead` repetido, `tfoot` sin duplicar, sin cortes de tarjeta ni titulos huerfanos. **No se toca.** Lo que si depende de quien rellena el artefacto:
+La base ya trae el sistema de tokens (colores, espaciado, radios y sombras en `:root`, con su version oscura, el tema sobrio y el marcador `{{ESTILOS_TEMA}}` donde se copia el bloque de cualquiera de los otros diecinueve temas de `temas-visuales.md`), la escala tipografica, las dos animaciones permitidas (anuladas con movimiento reducido y al imprimir), la rejilla adaptable sin desbordamiento horizontal y el bloque `@media print` completo: A4, fidelidad de color, tablas compactadas, `thead` repetido, `tfoot` sin duplicar, sin cortes de tarjeta ni titulos huerfanos. **No se toca.** Lo que si depende de quien rellena el artefacto:
 
-- **Colores siempre con tokens** (`var(--c1)`, `var(--riesgo)`), nunca literales. Para un tema personalizado se redefinen los tokens en `:root` y tambien dentro del bloque oscuro.
+- **Colores siempre con tokens** (`var(--c1)`, `var(--riesgo)`), nunca literales. Para otro aspecto se elige un tema del catalogo (`temas-visuales.md`) y se copia entero; para colores corporativos, el modulo `marca`. Nunca se redefinen tokens a mano ni se mezclan dos temas.
 - **Nombres en espanol:** las clases e identificadores de la base y de las maquetas no se traducen ni se renombran. Lo que cambia de idioma es el texto visible.
 - **Tarjetas mas altas que un A4:** se les da la clase `permite-corte` (la herramienta ya la usa en su tarjeta de resultados), que deja partir la tarjeta y protege sus bloques internos.
 - **Texto dentro de un SVG:** solo cifras y rotulos cortos. Cualquier frase va en HTML junto al grafico, porque dentro del SVG se recorta sin aviso. El motor ya sigue esta regla.

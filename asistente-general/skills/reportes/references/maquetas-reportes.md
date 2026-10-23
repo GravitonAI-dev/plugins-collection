@@ -14,12 +14,39 @@ Los graficos **no se dibujan a mano**. En el HTML solo se coloca el hueco, `<fig
 
 Reglas comunes a todas las maquetas:
 
-- El tema se fija en la etiqueta `html`: `data-tema="moderno"` o `data-tema="sobrio"`.
+- El tema se fija en la etiqueta `html` con `data-tema`: `moderno` o `sobrio` van en la base; para cualquiera de los otros once de `temas-visuales.md` se copia ademas su bloque `css` en el marcador `{{ESTILOS_TEMA}}` de la base (o se borra esa linea si no hace falta).
 - Los bloques se pueden repetir, quitar o reordenar, y **cualquier hueco de grafico admite cualquier tipo**: si en un panel no hay importe que descomponer, la tarjeta de la cascada pasa a ser una bala, unas divergentes o un diagrama. Las maquetas son un punto de partida, no un formulario que haya que llenar entero. Lo que no cambia es la estructura de cada bloque: las clases son las de la base y no se renombran.
 - Toda cifra del texto que salga de un grafico se escribe con `<span data-cifra="clave"></span>` y se declara en `cifras`. Asi el texto y el grafico no pueden contradecirse.
 - **Lo que falta:** una linea de la ficha cuyo dato no es esencial y no se ha dado (la referencia del expediente, el autor) se quita; si es esencial, se pregunta. Un hito sin fecha cierta se escribe como «Fecha por determinar» o «Prevista: noviembre de 2026», nunca con un dia inventado. Los marcadores `{{VARIABLE}}` solo quedan para datos que el usuario ha decidido no dar.
 - **Titulo:** `{{TITULO_CORTO}}` es el nombre de la pestana y del PDF; `{{TITULO_DOCUMENTO}}`, el titular que afirma.
 - Las cifras que no salen de un grafico (un plazo en meses, una fecha) se escriben como texto.
+
+---
+
+## Indice de maquetas
+
+Todas son **reportes**: cifras, graficos y datos que se ven en el navegador y se imprimen. Los documentos de texto (memorandos, propuestas, guias, boletines, contratos, escritos) se redactan en Markdown con su skill y no tienen maqueta aqui.
+
+| Maqueta | `id` | Para que | Familia |
+| :--- | :--- | :--- | :--- |
+| Panel de datos | `panel_datos` | Indicadores y graficos de un periodo o una cartera | Datos |
+| Informe visual | `informe_visual` | Explicar un caso con secciones, plazos y cronologia | Riesgo y decision |
+| Herramienta interactiva | `herramienta_interactiva` | Calcular o simular moviendo parametros | Datos |
+| Presentacion | `presentacion` | Diapositivas 16:9 para una reunion | Comunicacion |
+| Documento largo | `documento_largo` | White paper o memoria con muchos graficos | Comunicacion |
+| Resumen ejecutivo | `resumen_ejecutivo` | Una pagina con la conclusion y la decision | Una pagina |
+| Cuadro de mando | `cuadro_mando` | Ocho KPIs con variacion, objetivos y estado | Datos |
+| Ficha de una pagina | `ficha_una_pagina` | Datos clave de un asunto, cliente o sociedad | Una pagina |
+| Infografia | `infografia` | Tres cifras enormes y graficos para divulgar | Comunicacion |
+| Comparativa | `comparativa` | Dos a cuatro opciones frente a frente | Riesgo y decision |
+| Cronograma del expediente | `cronograma_expediente` | Que paso, que corre y que viene | Seguimiento |
+| Lista de control | `lista_control` | Cumplimiento por bloque y requisito | Seguimiento |
+| Mapa de riesgos | `mapa_riesgos` | Matriz, impacto y exposicion | Riesgo y decision |
+| Escenarios | `escenarios` | Que pasa si cambian los supuestos | Riesgo y decision |
+| Embudo de conversion | `embudo_conversion` | Un proceso por etapas y sus perdidas | Datos |
+| Actividad del equipo | `actividad_equipo` | Horas, asuntos y carga por area | Seguimiento |
+| Informe territorial | `informe_territorial` | Datos por comunidad o provincia | Datos |
+| Poster | `poster` | Una hoja A3 apaisada para colgar | Una pagina |
 
 ---
 
@@ -1034,3 +1061,1522 @@ Se coloca despues del motor. Antes de imprimir mide el contenido a ancho de A4 y
 })();
 </script>
 ```
+
+---
+
+## 7. Cuadro de mando (`cuadro_mando`)
+
+**Ancho:** `1200px`. Scorecard de dirección: ocho indicadores en dos filas (los cuatro primeros con su variación frente al periodo anterior y dos con minigráfico), objetivos en anillos, cumplimiento en bala, estado de cada área en semáforos y una tabla compacta. Para el comité o la reunión de socios que quiere ver el mes de un vistazo. No sirve para explicar un caso: para eso, informe visual.
+
+### Ficha
+
+```html maqueta=cuadro_mando parte=ficha
+<li><b>Periodo:</b> {{PERIODO}}</li>
+      <li><b>Actualizado:</b> {{FECHA_ACTUALIZACION}}</li>
+```
+
+### Estilos
+
+```css maqueta=cuadro_mando parte=estilos
+.contenedor>.indicadores{grid-template-columns:repeat(4,minmax(0,1fr))}
+.contenedor>.indicadores .indicador .cifra{font-size:clamp(1.3rem,1.9vw,1.85rem)}
+table.compacta th,table.compacta td{padding:7px 10px}
+@media (max-width:900px){.contenedor>.indicadores{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media print{.contenedor>.indicadores{grid-template-columns:repeat(4,1fr)}}
+```
+
+### Contenido
+
+```html maqueta=cuadro_mando parte=contenido
+<div class="indicadores">
+    <div class="indicador aparece">
+      <p class="rotulo">{{INDICADOR_1_ROTULO}}</p>
+      <p class="cifra" data-cifra="indicador_1"></p>
+      <p class="detalle"><span data-cifra="variacion_1"></span> {{INDICADOR_1_DETALLE}}</p>
+      <div class="tendencia" data-grafico="tendencia_1"></div>
+    </div>
+    <div class="indicador aparece">
+      <p class="rotulo">{{INDICADOR_2_ROTULO}}</p>
+      <p class="cifra" data-cifra="indicador_2"></p>
+      <p class="detalle"><span data-cifra="variacion_2"></span> {{INDICADOR_2_DETALLE}}</p>
+    </div>
+    <div class="indicador aparece">
+      <p class="rotulo">{{INDICADOR_3_ROTULO}}</p>
+      <p class="cifra" data-cifra="indicador_3"></p>
+      <p class="detalle"><span data-cifra="variacion_3"></span> {{INDICADOR_3_DETALLE}}</p>
+    </div>
+    <div class="indicador aparece">
+      <p class="rotulo">{{INDICADOR_4_ROTULO}}</p>
+      <p class="cifra" data-cifra="indicador_4"></p>
+      <p class="detalle"><span data-cifra="variacion_4"></span> {{INDICADOR_4_DETALLE}}</p>
+    </div>
+  </div>
+  <div class="indicadores">
+    <div class="indicador aparece">
+      <p class="rotulo">{{INDICADOR_5_ROTULO}}</p>
+      <p class="cifra" data-cifra="indicador_5"></p>
+      <p class="detalle">{{INDICADOR_5_DETALLE}}</p>
+      <div class="tendencia" data-grafico="tendencia_5"></div>
+    </div>
+    <div class="indicador aparece">
+      <p class="rotulo">{{INDICADOR_6_ROTULO}}</p>
+      <p class="cifra" data-cifra="indicador_6"></p>
+      <p class="detalle">{{INDICADOR_6_DETALLE}}</p>
+    </div>
+    <div class="indicador aparece es-atencion">
+      <p class="rotulo">{{INDICADOR_7_ROTULO}}</p>
+      <p class="cifra" data-cifra="indicador_7"></p>
+      <p class="detalle">{{INDICADOR_7_DETALLE}}</p>
+    </div>
+    <div class="indicador aparece">
+      <p class="rotulo">{{INDICADOR_8_ROTULO}}</p>
+      <p class="cifra" data-cifra="indicador_8"></p>
+      <p class="detalle">{{INDICADOR_8_DETALLE}}</p>
+    </div>
+  </div>
+
+  <div class="malla tres">
+    <section class="tarjeta">
+      <h2>{{TITULO_OBJETIVOS}}</h2>
+      <p class="subtitulo">{{SUBTITULO_OBJETIVOS}}</p>
+      <figure class="grafico" data-grafico="objetivos"></figure>
+    </section>
+    <section class="tarjeta">
+      <h2>{{TITULO_CUMPLIMIENTO}}</h2>
+      <p class="subtitulo">{{SUBTITULO_CUMPLIMIENTO}}</p>
+      <figure class="grafico" data-grafico="cumplimiento"></figure>
+    </section>
+    <section class="tarjeta">
+      <h2>{{TITULO_ESTADO}}</h2>
+      <p class="subtitulo">{{SUBTITULO_ESTADO}}</p>
+      <figure class="grafico" data-grafico="estado"></figure>
+    </section>
+    <section class="tarjeta ancho-total">
+      <h2>{{TITULO_TABLA}}</h2>
+      <p class="subtitulo">{{SUBTITULO_TABLA}}</p>
+      <div class="tabla">
+        <table class="compacta">
+          <thead><tr><th>{{COLUMNA_1}}</th><th class="cifra">{{COLUMNA_2}}</th><th class="cifra">{{COLUMNA_3}}</th><th class="cifra">{{COLUMNA_4}}</th></tr></thead>
+          <tbody>
+            <tr><td>{{FILA_1_C1}}</td><td class="cifra">{{FILA_1_C2}}</td><td class="cifra">{{FILA_1_C3}}</td><td class="cifra">{{FILA_1_C4}}</td></tr>
+            <tr><td>{{FILA_2_C1}}</td><td class="cifra">{{FILA_2_C2}}</td><td class="cifra">{{FILA_2_C3}}</td><td class="cifra">{{FILA_2_C4}}</td></tr>
+            <tr><td>{{FILA_3_C1}}</td><td class="cifra">{{FILA_3_C2}}</td><td class="cifra">{{FILA_3_C3}}</td><td class="cifra">{{FILA_3_C4}}</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+```
+
+### Datos
+
+```json maqueta=cuadro_mando parte=datos
+{
+  "idioma": "es-ES",
+  "moneda": "EUR",
+  "fuentes": {
+    "cliente": {
+      "nombre": "{{DESCRIPCION_FUENTE}}",
+      "consulta": "{{FECHA_AAAA_MM_DD}}"
+    }
+  },
+  "cifras": {
+    "indicador_1": {
+      "valor": 0,
+      "unidad": "eur"
+    },
+    "indicador_2": {
+      "valor": 0,
+      "unidad": "eur"
+    },
+    "indicador_3": {
+      "valor": 0,
+      "unidad": "eur"
+    },
+    "indicador_4": {
+      "valor": 0,
+      "unidad": "eur"
+    },
+    "indicador_5": {
+      "valor": 0,
+      "unidad": "eur"
+    },
+    "indicador_6": {
+      "valor": 0,
+      "unidad": "eur"
+    },
+    "indicador_7": {
+      "valor": 0,
+      "unidad": "eur"
+    },
+    "indicador_8": {
+      "valor": 0,
+      "unidad": "eur"
+    },
+    "variacion_1": {
+      "valor": 0,
+      "unidad": "pct",
+      "signo": true
+    },
+    "variacion_2": {
+      "valor": 0,
+      "unidad": "pct",
+      "signo": true
+    },
+    "variacion_3": {
+      "valor": 0,
+      "unidad": "pct",
+      "signo": true
+    },
+    "variacion_4": {
+      "valor": 0,
+      "unidad": "pct",
+      "signo": true
+    }
+  },
+  "graficos": {
+    "tendencia_1": {
+      "tipo": "chispa",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "valores": [],
+      "etiquetas": []
+    },
+    "tendencia_5": {
+      "tipo": "chispa",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "valores": [],
+      "etiquetas": []
+    },
+    "objetivos": {
+      "tipo": "anillos",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "elementos": []
+    },
+    "cumplimiento": {
+      "tipo": "bala",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "unidad": "eur",
+      "elementos": []
+    },
+    "estado": {
+      "tipo": "semaforos",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "elementos": []
+    }
+  }
+}
+```
+
+---
+
+## 8. Ficha de una pagina (`ficha_una_pagina`)
+
+**Ancho:** `1000px`. Ficha de datos de un asunto, un cliente, una finca o una sociedad: rejilla de datos clave, tres indicadores, un gráfico y el estado de cada punto en semáforos. Una sola página A4, como el resumen ejecutivo, pero describe en vez de recomendar. Si hay que argumentar una decisión, resumen ejecutivo.
+
+### Ficha
+
+```html maqueta=ficha_una_pagina parte=ficha
+<li><b>Referencia:</b> {{REFERENCIA}}</li>
+      <li><b>Fecha:</b> {{FECHA_EMISION}}</li>
+```
+
+### Estilos
+
+```css maqueta=ficha_una_pagina parte=estilos
+.datos-clave{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin:0 0 var(--e4);border:1px solid var(--borde);border-radius:var(--radio-s);overflow:hidden;background:var(--superficie)}
+.datos-clave div{padding:var(--e3) var(--e4);border-right:1px solid var(--borde-suave);border-bottom:1px solid var(--borde-suave)}
+.datos-clave div:nth-child(3n){border-right:0}
+.datos-clave div:nth-last-child(-n+3){border-bottom:0}
+.datos-clave dt{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--apagado);margin:0 0 2px}
+.datos-clave dd{margin:0;font-weight:620}
+.una-pagina{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:var(--e4);align-items:start}
+@media screen and (max-width:760px){.datos-clave{grid-template-columns:1fr 1fr}.una-pagina{grid-template-columns:1fr}}
+@media print{
+  @page{margin:12mm 12mm 14mm}
+  .contenedor{font-size:9.5pt}
+  .indicadores{grid-template-columns:repeat(3,1fr);gap:var(--e2);margin-bottom:var(--e3)}
+  .indicador{padding:var(--e2) var(--e3)}
+  .indicador .cifra{font-size:17pt}
+  .una-pagina svg{max-height:62mm}
+  .fuente-grafico{display:none}
+  .pie{margin-top:var(--e3);padding-top:var(--e2);font-size:7.5pt}
+}
+```
+
+### Contenido
+
+```html maqueta=ficha_una_pagina parte=contenido
+<dl class="datos-clave">
+    <div><dt>{{DATO_1_ROTULO}}</dt><dd>{{DATO_1_VALOR}}</dd></div>
+    <div><dt>{{DATO_2_ROTULO}}</dt><dd>{{DATO_2_VALOR}}</dd></div>
+    <div><dt>{{DATO_3_ROTULO}}</dt><dd>{{DATO_3_VALOR}}</dd></div>
+    <div><dt>{{DATO_4_ROTULO}}</dt><dd>{{DATO_4_VALOR}}</dd></div>
+    <div><dt>{{DATO_5_ROTULO}}</dt><dd>{{DATO_5_VALOR}}</dd></div>
+    <div><dt>{{DATO_6_ROTULO}}</dt><dd>{{DATO_6_VALOR}}</dd></div>
+  </dl>
+  <div class="indicadores">
+    <div class="indicador aparece">
+      <p class="rotulo">{{INDICADOR_1_ROTULO}}</p>
+      <p class="cifra" data-cifra="indicador_1"></p>
+      <p class="detalle">{{INDICADOR_1_DETALLE}}</p>
+    </div>
+    <div class="indicador aparece">
+      <p class="rotulo">{{INDICADOR_2_ROTULO}}</p>
+      <p class="cifra" data-cifra="indicador_2"></p>
+      <p class="detalle">{{INDICADOR_2_DETALLE}}</p>
+    </div>
+    <div class="indicador aparece es-atencion">
+      <p class="rotulo">{{INDICADOR_3_ROTULO}}</p>
+      <p class="cifra" data-cifra="indicador_3"></p>
+      <p class="detalle">{{INDICADOR_3_DETALLE}}</p>
+    </div>
+  </div>
+  <div class="una-pagina">
+    <section class="tarjeta">
+      <h2>{{TITULO_GRAFICO}}</h2>
+      <p class="subtitulo">{{SUBTITULO_GRAFICO}}</p>
+      <figure class="grafico" data-grafico="principal"></figure>
+    </section>
+    <section class="tarjeta">
+      <h2>{{TITULO_ESTADO}}</h2>
+      <p class="subtitulo">{{SUBTITULO_ESTADO}}</p>
+      <figure class="grafico" data-grafico="estado"></figure>
+    </section>
+  </div>
+```
+
+### Datos
+
+```json maqueta=ficha_una_pagina parte=datos
+{
+  "idioma": "es-ES",
+  "moneda": "EUR",
+  "fuentes": {
+    "cliente": {
+      "nombre": "{{DESCRIPCION_FUENTE}}",
+      "consulta": "{{FECHA_AAAA_MM_DD}}"
+    }
+  },
+  "cifras": {
+    "indicador_1": {
+      "valor": 0,
+      "unidad": "eur"
+    },
+    "indicador_2": {
+      "valor": 0,
+      "unidad": "eur"
+    },
+    "indicador_3": {
+      "valor": 0,
+      "unidad": "eur"
+    }
+  },
+  "graficos": {
+    "principal": {
+      "tipo": "barras",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "unidad": "eur",
+      "elementos": []
+    },
+    "estado": {
+      "tipo": "semaforos",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "elementos": []
+    }
+  }
+}
+```
+
+### Script
+
+El mismo del resumen ejecutivo: antes de imprimir reduce la escala lo justo para que quepa en una hoja.
+
+```js maqueta=ficha_una_pagina parte=script
+<script>
+(function(){
+  "use strict";
+  /* Antes de imprimir se mide la pagina con las reglas de impresion aplicadas en pantalla y al
+     ancho util del A4; si pasa de una hoja, se reduce lo justo (Chrome no recoloca despues). */
+  var D = document, main = D.querySelector("main"), ANCHO = 703, ALTO = 1000;
+  function reglasImpresion() {
+    var css = "";
+    [].forEach.call(D.styleSheets, function (hoja) {
+      [].forEach.call(hoja.cssRules, function (r) {
+        if (r.media && /print/.test(r.media.mediaText)) [].forEach.call(r.cssRules, function (x) { if (x.selectorText) css += x.cssText + "\n"; });
+      });
+    });
+    return css;
+  }
+  window.addEventListener("beforeprint", function () {
+    main.style.zoom = "";
+    var prueba = D.createElement("style");
+    prueba.textContent = reglasImpresion();
+    D.head.appendChild(prueba);
+    D.body.style.width = ANCHO + "px";
+    var alto = main.getBoundingClientRect().height;
+    prueba.remove();
+    D.body.style.width = "";
+    if (alto > ALTO) main.style.zoom = Math.max(0.6, ALTO / alto).toFixed(3);
+  });
+  window.addEventListener("afterprint", function () { main.style.zoom = ""; });
+})();
+</script>
+```
+
+---
+
+## 9. Infografia (`infografia`)
+
+**Ancho:** `760px`. Cifras para divulgar en vertical: tres cifras enormes con una frase cada una, una proporción en figuras, el avance en anillos y los hitos en una línea de tiempo. Para el cliente final, un boletín o redes. Una idea por bloque y nada de tablas; si hace falta detalle, panel de datos.
+
+### Ficha
+
+```html maqueta=infografia parte=ficha
+<li><b>Fuente:</b> {{FUENTE_BREVE}}</li>
+```
+
+### Estilos
+
+```css maqueta=infografia parte=estilos
+header{text-align:center}
+.entradilla{margin-left:auto;margin-right:auto}
+.ficha{justify-content:center}
+.bloque-info{text-align:center;padding:var(--e5) var(--e4);border-radius:var(--radio);margin:0 0 var(--e3);background:var(--superficie);border:1px solid var(--borde)}
+.bloque-info h2{margin-bottom:var(--e3)}
+.bloque-info.invertido{background:var(--acento);border-color:var(--acento);color:var(--superficie)}
+.cifra-grande{font-size:clamp(3rem,10vw,5.2rem);font-weight:760;letter-spacing:-.04em;line-height:1;margin:0 0 var(--e3);color:var(--acento);font-variant-numeric:tabular-nums}
+.invertido .cifra-grande{color:var(--superficie)}
+.frase{font-size:1.15rem;max-width:34ch;margin:0 auto}
+.bloque-info .leyenda{justify-content:center}
+@media print{.bloque-info{break-inside:avoid;padding:var(--e4)}.cifra-grande{font-size:40pt}}
+```
+
+### Contenido
+
+```html maqueta=infografia parte=contenido
+<section class="bloque-info">
+    <p class="cifra-grande" data-cifra="cifra_1"></p>
+    <p class="frase">{{FRASE_1}}</p>
+  </section>
+  <section class="bloque-info">
+    <h2>{{TITULO_PROPORCION}}</h2>
+    <figure class="grafico" data-grafico="proporcion"></figure>
+  </section>
+  <section class="bloque-info invertido">
+    <p class="cifra-grande" data-cifra="cifra_2"></p>
+    <p class="frase">{{FRASE_2}}</p>
+  </section>
+  <section class="bloque-info">
+    <h2>{{TITULO_AVANCE}}</h2>
+    <figure class="grafico" data-grafico="avance"></figure>
+  </section>
+  <section class="bloque-info">
+    <h2>{{TITULO_HITOS}}</h2>
+    <figure class="grafico" data-grafico="hitos"></figure>
+  </section>
+  <section class="bloque-info invertido">
+    <p class="cifra-grande" data-cifra="cifra_3"></p>
+    <p class="frase">{{FRASE_3}}</p>
+  </section>
+```
+
+### Datos
+
+```json maqueta=infografia parte=datos
+{
+  "idioma": "es-ES",
+  "moneda": "EUR",
+  "fuentes": {
+    "cliente": {
+      "nombre": "{{DESCRIPCION_FUENTE}}",
+      "consulta": "{{FECHA_AAAA_MM_DD}}"
+    }
+  },
+  "cifras": {
+    "cifra_1": {
+      "valor": 0,
+      "unidad": "eur",
+      "decimales": 0
+    },
+    "cifra_2": {
+      "valor": 0,
+      "unidad": "eur",
+      "decimales": 0
+    },
+    "cifra_3": {
+      "valor": 0,
+      "unidad": "eur",
+      "decimales": 0
+    }
+  },
+  "graficos": {
+    "proporcion": {
+      "tipo": "pictograma",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "valor": 0,
+      "total": 10,
+      "rotulo": "{{ROTULO}}"
+    },
+    "avance": {
+      "tipo": "anillos",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "elementos": []
+    },
+    "hitos": {
+      "tipo": "linea_tiempo",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "hitos": []
+    }
+  }
+}
+```
+
+---
+
+## 10. Comparativa de opciones (`comparativa`)
+
+**Ancho:** `1100px`. De dos a cuatro opciones frente a frente con los mismos criterios: una columna por opción con su veredicto, el perfil de cada una en radar y la distancia de coste o plazo en halteras. La recomendada va destacada. Para decidir entre vías, proveedores o estrategias. Con una sola opción no hay comparativa: ficha de una página.
+
+### Ficha
+
+```html maqueta=comparativa parte=ficha
+<li><b>Referencia:</b> {{REFERENCIA}}</li>
+      <li><b>Fecha:</b> {{FECHA_EMISION}}</li>
+```
+
+### Estilos
+
+```css maqueta=comparativa parte=estilos
+.recomendacion{margin:0 0 var(--e4)}
+.opciones{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--e3);margin:0 0 var(--e3)}
+.opcion dl{margin:var(--e3) 0 0}
+.opcion dl div{display:flex;justify-content:space-between;gap:var(--e3);padding:8px 0;border-top:1px solid var(--borde-suave);font-size:.9rem}
+.opcion dt{color:var(--apagado)}
+.opcion dd{margin:0;font-weight:620;text-align:right}
+.opcion .veredicto{margin:0 0 var(--e2)}
+.opcion.ganadora{border:2px solid var(--ok);box-shadow:0 0 0 4px color-mix(in srgb,var(--ok) 14%,transparent),var(--sombra)}
+@media print{.opciones{grid-template-columns:repeat(3,1fr)}.opcion{break-inside:avoid}}
+```
+
+### Contenido
+
+```html maqueta=comparativa parte=contenido
+<div class="aviso favorable recomendacion"><span class="titulo">{{TITULO_RECOMENDACION}}</span>{{RECOMENDACION}}</div>
+  <div class="opciones">
+    <section class="tarjeta opcion ganadora">
+      <p class="veredicto"><span class="distintivo ok">{{OPCION_1_VEREDICTO}}</span></p>
+      <h2>{{OPCION_1_NOMBRE}}</h2>
+      <dl>
+        <div><dt>{{CRITERIO_1}}</dt><dd>{{OPCION_1_C1}}</dd></div>
+        <div><dt>{{CRITERIO_2}}</dt><dd>{{OPCION_1_C2}}</dd></div>
+        <div><dt>{{CRITERIO_3}}</dt><dd>{{OPCION_1_C3}}</dd></div>
+        <div><dt>{{CRITERIO_4}}</dt><dd>{{OPCION_1_C4}}</dd></div>
+      </dl>
+    </section>
+    <section class="tarjeta opcion">
+      <p class="veredicto"><span class="distintivo ">{{OPCION_2_VEREDICTO}}</span></p>
+      <h2>{{OPCION_2_NOMBRE}}</h2>
+      <dl>
+        <div><dt>{{CRITERIO_1}}</dt><dd>{{OPCION_2_C1}}</dd></div>
+        <div><dt>{{CRITERIO_2}}</dt><dd>{{OPCION_2_C2}}</dd></div>
+        <div><dt>{{CRITERIO_3}}</dt><dd>{{OPCION_2_C3}}</dd></div>
+        <div><dt>{{CRITERIO_4}}</dt><dd>{{OPCION_2_C4}}</dd></div>
+      </dl>
+    </section>
+    <section class="tarjeta opcion">
+      <p class="veredicto"><span class="distintivo ">{{OPCION_3_VEREDICTO}}</span></p>
+      <h2>{{OPCION_3_NOMBRE}}</h2>
+      <dl>
+        <div><dt>{{CRITERIO_1}}</dt><dd>{{OPCION_3_C1}}</dd></div>
+        <div><dt>{{CRITERIO_2}}</dt><dd>{{OPCION_3_C2}}</dd></div>
+        <div><dt>{{CRITERIO_3}}</dt><dd>{{OPCION_3_C3}}</dd></div>
+        <div><dt>{{CRITERIO_4}}</dt><dd>{{OPCION_3_C4}}</dd></div>
+      </dl>
+    </section>
+  </div>
+  <div class="malla dos">
+    <section class="tarjeta">
+      <h2>{{TITULO_PERFIL}}</h2>
+      <p class="subtitulo">{{SUBTITULO_PERFIL}}</p>
+      <figure class="grafico" data-grafico="perfil"></figure>
+    </section>
+    <section class="tarjeta">
+      <h2>{{TITULO_DISTANCIA}}</h2>
+      <p class="subtitulo">{{SUBTITULO_DISTANCIA}}</p>
+      <figure class="grafico" data-grafico="distancia"></figure>
+    </section>
+  </div>
+```
+
+### Datos
+
+```json maqueta=comparativa parte=datos
+{
+  "idioma": "es-ES",
+  "moneda": "EUR",
+  "fuentes": {
+    "cliente": {
+      "nombre": "{{DESCRIPCION_FUENTE}}",
+      "consulta": "{{FECHA_AAAA_MM_DD}}"
+    }
+  },
+  "cifras": {},
+  "graficos": {
+    "perfil": {
+      "tipo": "radar",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "maximo": 10,
+      "ejes": [],
+      "series": []
+    },
+    "distancia": {
+      "tipo": "halteras",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "unidad": "eur",
+      "nombres": {
+        "a": "{{A}}",
+        "b": "{{B}}"
+      },
+      "elementos": []
+    }
+  }
+}
+```
+
+---
+
+## 11. Cronograma del expediente (`cronograma_expediente`)
+
+**Ancho:** `1080px`. Estado y calendario de un asunto: tres indicadores (fase, próximo vencimiento, días que quedan), lo que ha pasado en una línea de tiempo, lo que corre en el diagrama de plazos con la marca de hoy, el avance por fase y los próximos pasos con responsable. Para el cliente que pregunta «¿cómo va lo mío?». Si hay que explicar la estrategia, informe visual.
+
+### Ficha
+
+```html maqueta=cronograma_expediente parte=ficha
+<li><b>Referencia:</b> {{REFERENCIA}}</li>
+      <li><b>Fecha:</b> {{FECHA_EMISION}}</li>
+```
+
+### Estilos
+
+```css maqueta=cronograma_expediente parte=estilos
+.contenedor>.aviso{margin:0 0 var(--e3)}
+.pasos{list-style:none;counter-reset:paso;padding:0;margin:0}
+.pasos li{counter-increment:paso;display:grid;grid-template-columns:28px 1fr;column-gap:var(--e2);padding:10px 0;border-bottom:1px solid var(--borde-suave)}
+.pasos li::before{content:counter(paso);grid-row:span 2;width:24px;height:24px;border-radius:50%;background:var(--acento);color:var(--superficie);font-size:.78rem;font-weight:700;display:grid;place-items:center}
+.pasos span{font-size:.82rem;color:var(--apagado)}
+```
+
+### Contenido
+
+```html maqueta=cronograma_expediente parte=contenido
+<div class="indicadores">
+    <div class="indicador aparece">
+      <p class="rotulo">{{INDICADOR_1_ROTULO}}</p>
+      <p class="cifra">{{INDICADOR_1_CIFRA}}</p>
+      <p class="detalle">{{INDICADOR_1_DETALLE}}</p>
+    </div>
+    <div class="indicador aparece es-atencion">
+      <p class="rotulo">{{INDICADOR_2_ROTULO}}</p>
+      <p class="cifra">{{INDICADOR_2_CIFRA}}</p>
+      <p class="detalle">{{INDICADOR_2_DETALLE}}</p>
+    </div>
+    <div class="indicador aparece">
+      <p class="rotulo">{{INDICADOR_3_ROTULO}}</p>
+      <p class="cifra">{{INDICADOR_3_CIFRA}}</p>
+      <p class="detalle">{{INDICADOR_3_DETALLE}}</p>
+    </div>
+  </div>
+  <div class="aviso riesgo"><span class="titulo">{{TITULO_AVISO}}</span>{{AVISO_PLAZO}}</div>
+  <div class="malla dos">
+    <section class="tarjeta ancho-total">
+      <h2>{{TITULO_HITOS}}</h2>
+      <p class="subtitulo">{{SUBTITULO_HITOS}}</p>
+      <figure class="grafico" data-grafico="hitos"></figure>
+    </section>
+    <section class="tarjeta ancho-total">
+      <h2>{{TITULO_PLAZOS}}</h2>
+      <p class="subtitulo">{{SUBTITULO_PLAZOS}}</p>
+      <figure class="grafico" data-grafico="plazos"></figure>
+    </section>
+    <section class="tarjeta">
+      <h2>{{TITULO_FASES}}</h2>
+      <p class="subtitulo">{{SUBTITULO_FASES}}</p>
+      <figure class="grafico" data-grafico="fases"></figure>
+    </section>
+    <section class="tarjeta">
+      <h2>{{TITULO_PASOS}}</h2>
+      <p class="subtitulo">{{SUBTITULO_PASOS}}</p>
+      <ol class="pasos">
+        <li><b>{{PASO_1}}</b><span>{{RESPONSABLE_1}} · {{FECHA_PASO_1}}</span></li>
+        <li><b>{{PASO_2}}</b><span>{{RESPONSABLE_2}} · {{FECHA_PASO_2}}</span></li>
+        <li><b>{{PASO_3}}</b><span>{{RESPONSABLE_3}} · {{FECHA_PASO_3}}</span></li>
+      </ol>
+    </section>
+  </div>
+```
+
+### Datos
+
+```json maqueta=cronograma_expediente parte=datos
+{
+  "idioma": "es-ES",
+  "moneda": "EUR",
+  "fuentes": {
+    "cliente": {
+      "nombre": "{{DESCRIPCION_FUENTE}}",
+      "consulta": "{{FECHA_AAAA_MM_DD}}"
+    }
+  },
+  "cifras": {},
+  "graficos": {
+    "hitos": {
+      "tipo": "linea_tiempo",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "hoy": "{{AAAA-MM-DD}}",
+      "hitos": []
+    },
+    "plazos": {
+      "tipo": "plazos",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "hoy": "{{AAAA-MM-DD}}",
+      "plazos": []
+    },
+    "fases": {
+      "tipo": "progreso",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "unidad": "pct",
+      "elementos": []
+    }
+  }
+}
+```
+
+---
+
+## 12. Lista de control (`lista_control`)
+
+**Ancho:** `1080px`. Auditoría o checklist de cumplimiento: porcentaje global calculado, avance por bloque, estado de cada requisito en semáforos con su nota y la tabla de evidencias con distintivos. Para protección de datos, prevención de blanqueo, compliance o una due diligence corta. Los estados los fija el usuario; la skill no presume incumplimientos.
+
+### Ficha
+
+```html maqueta=lista_control parte=ficha
+<li><b>Referencia:</b> {{REFERENCIA}}</li>
+      <li><b>Fecha:</b> {{FECHA_EMISION}}</li>
+```
+
+### Estilos
+
+```css maqueta=lista_control parte=estilos
+.tabla td:last-child{white-space:nowrap}
+```
+
+### Contenido
+
+```html maqueta=lista_control parte=contenido
+<div class="indicadores">
+    <div class="indicador aparece es-ok">
+      <p class="rotulo">{{INDICADOR_1_ROTULO}}</p>
+      <p class="cifra" data-cifra="indicador_1"></p>
+      <p class="detalle">{{INDICADOR_1_DETALLE}}</p>
+    </div>
+    <div class="indicador aparece">
+      <p class="rotulo">{{INDICADOR_2_ROTULO}}</p>
+      <p class="cifra">{{INDICADOR_2_CIFRA}}</p>
+      <p class="detalle">{{INDICADOR_2_DETALLE}}</p>
+    </div>
+    <div class="indicador aparece es-riesgo">
+      <p class="rotulo">{{INDICADOR_3_ROTULO}}</p>
+      <p class="cifra">{{INDICADOR_3_CIFRA}}</p>
+      <p class="detalle">{{INDICADOR_3_DETALLE}}</p>
+    </div>
+  </div>
+  <div class="malla dos">
+    <section class="tarjeta">
+      <h2>{{TITULO_BLOQUES}}</h2>
+      <p class="subtitulo">{{SUBTITULO_BLOQUES}}</p>
+      <figure class="grafico" data-grafico="bloques"></figure>
+    </section>
+    <section class="tarjeta">
+      <h2>{{TITULO_REQUISITOS}}</h2>
+      <p class="subtitulo">{{SUBTITULO_REQUISITOS}}</p>
+      <figure class="grafico" data-grafico="requisitos"></figure>
+    </section>
+    <section class="tarjeta ancho-total">
+      <h2>{{TITULO_TABLA}}</h2>
+      <p class="subtitulo">{{SUBTITULO_TABLA}}</p>
+      <div class="tabla">
+        <table>
+          <thead><tr><th>{{COLUMNA_1}}</th><th>{{COLUMNA_2}}</th><th>{{COLUMNA_3}}</th></tr></thead>
+          <tbody>
+            <tr><td>{{FILA_1_REQUISITO}}</td><td>{{FILA_1_EVIDENCIA}}</td><td><span class="distintivo {{FILA_1_CLASE}}">{{FILA_1_ESTADO}}</span></td></tr>
+            <tr><td>{{FILA_2_REQUISITO}}</td><td>{{FILA_2_EVIDENCIA}}</td><td><span class="distintivo {{FILA_2_CLASE}}">{{FILA_2_ESTADO}}</span></td></tr>
+            <tr><td>{{FILA_3_REQUISITO}}</td><td>{{FILA_3_EVIDENCIA}}</td><td><span class="distintivo {{FILA_3_CLASE}}">{{FILA_3_ESTADO}}</span></td></tr>
+            <tr><td>{{FILA_4_REQUISITO}}</td><td>{{FILA_4_EVIDENCIA}}</td><td><span class="distintivo {{FILA_4_CLASE}}">{{FILA_4_ESTADO}}</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+```
+
+### Datos
+
+```json maqueta=lista_control parte=datos
+{
+  "idioma": "es-ES",
+  "moneda": "EUR",
+  "fuentes": {
+    "cliente": {
+      "nombre": "{{DESCRIPCION_FUENTE}}",
+      "consulta": "{{FECHA_AAAA_MM_DD}}"
+    }
+  },
+  "cifras": {
+    "indicador_1": {
+      "operacion": "porcentaje",
+      "a": "{{CORRECTOS}}",
+      "b": "{{TOTAL}}",
+      "unidad": "pct"
+    }
+  },
+  "graficos": {
+    "bloques": {
+      "tipo": "progreso",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "unidad": "pct",
+      "tramos": [
+        50,
+        80
+      ],
+      "elementos": []
+    },
+    "requisitos": {
+      "tipo": "semaforos",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "elementos": []
+    }
+  }
+}
+```
+
+---
+
+## 13. Mapa de riesgos (`mapa_riesgos`)
+
+**Ancho:** `1120px`. Riesgos y contingencias de una operación o un asunto: cuántos hay y cuántos son críticos, la matriz de probabilidad e impacto, el impacto económico de cada uno en un tornado, dónde cae la exposición dentro de su horquilla y el estado de las medidas. La probabilidad y el impacto los valora el usuario; la skill los representa, no los inventa.
+
+### Ficha
+
+```html maqueta=mapa_riesgos parte=ficha
+<li><b>Referencia:</b> {{REFERENCIA}}</li>
+      <li><b>Fecha:</b> {{FECHA_EMISION}}</li>
+```
+
+### Contenido
+
+```html maqueta=mapa_riesgos parte=contenido
+<div class="indicadores">
+    <div class="indicador aparece">
+      <p class="rotulo">{{INDICADOR_1_ROTULO}}</p>
+      <p class="cifra">{{INDICADOR_1_CIFRA}}</p>
+      <p class="detalle">{{INDICADOR_1_DETALLE}}</p>
+    </div>
+    <div class="indicador aparece es-riesgo">
+      <p class="rotulo">{{INDICADOR_2_ROTULO}}</p>
+      <p class="cifra">{{INDICADOR_2_CIFRA}}</p>
+      <p class="detalle">{{INDICADOR_2_DETALLE}}</p>
+    </div>
+    <div class="indicador aparece">
+      <p class="rotulo">{{INDICADOR_3_ROTULO}}</p>
+      <p class="cifra" data-cifra="indicador_3"></p>
+      <p class="detalle">{{INDICADOR_3_DETALLE}}</p>
+    </div>
+  </div>
+  <div class="malla dos">
+    <section class="tarjeta">
+      <h2>{{TITULO_MATRIZ}}</h2>
+      <p class="subtitulo">{{SUBTITULO_MATRIZ}}</p>
+      <figure class="grafico" data-grafico="matriz"></figure>
+    </section>
+    <section class="tarjeta">
+      <h2>{{TITULO_MEDIDAS}}</h2>
+      <p class="subtitulo">{{SUBTITULO_MEDIDAS}}</p>
+      <figure class="grafico" data-grafico="medidas"></figure>
+    </section>
+    <section class="tarjeta ancho-total">
+      <h2>{{TITULO_IMPACTO}}</h2>
+      <p class="subtitulo">{{SUBTITULO_IMPACTO}}</p>
+      <figure class="grafico" data-grafico="impacto"></figure>
+    </section>
+    <section class="tarjeta ancho-total">
+      <h2>{{TITULO_EXPOSICION}}</h2>
+      <p class="subtitulo">{{SUBTITULO_EXPOSICION}}</p>
+      <figure class="grafico" data-grafico="exposicion"></figure>
+    </section>
+  </div>
+```
+
+### Datos
+
+```json maqueta=mapa_riesgos parte=datos
+{
+  "idioma": "es-ES",
+  "moneda": "EUR",
+  "fuentes": {
+    "cliente": {
+      "nombre": "{{DESCRIPCION_FUENTE}}",
+      "consulta": "{{FECHA_AAAA_MM_DD}}"
+    }
+  },
+  "cifras": {
+    "indicador_3": {
+      "valor": 0,
+      "unidad": "eur",
+      "decimales": 0
+    }
+  },
+  "graficos": {
+    "matriz": {
+      "tipo": "matriz",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "filas": [
+        "Alta",
+        "Media",
+        "Baja"
+      ],
+      "columnas": [
+        "Bajo",
+        "Medio",
+        "Alto"
+      ],
+      "eje_filas": "Probabilidad",
+      "eje_columnas": "Impacto",
+      "elementos": []
+    },
+    "medidas": {
+      "tipo": "semaforos",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "elementos": []
+    },
+    "impacto": {
+      "tipo": "tornado",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "unidad": "eur",
+      "base": 0,
+      "elementos": []
+    },
+    "exposicion": {
+      "tipo": "rango",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "unidad": "eur",
+      "minimo": 0,
+      "maximo": 0,
+      "tramos": [],
+      "marcas": []
+    }
+  }
+}
+```
+
+---
+
+## 14. Escenarios (`escenarios`)
+
+**Ancho:** `1120px`. Simulación «qué pasa si»: el resultado en el escenario central, el mínimo y el máximo; la tabla de supuestos de cada escenario; el resultado por escenario en columnas; qué parámetro lo mueve más en un tornado, y dónde cae el resultado dentro de su horquilla. Los extremos de cada parámetro son los que de verdad se barajan y se dicen en los supuestos. Si el usuario quiere mover él los parámetros, herramienta interactiva.
+
+### Ficha
+
+```html maqueta=escenarios parte=ficha
+<li><b>Referencia:</b> {{REFERENCIA}}</li>
+      <li><b>Fecha:</b> {{FECHA_EMISION}}</li>
+```
+
+### Contenido
+
+```html maqueta=escenarios parte=contenido
+<div class="indicadores">
+    <div class="indicador aparece es-ok">
+      <p class="rotulo">{{INDICADOR_1_ROTULO}}</p>
+      <p class="cifra" data-cifra="indicador_1"></p>
+      <p class="detalle">{{INDICADOR_1_DETALLE}}</p>
+    </div>
+    <div class="indicador aparece">
+      <p class="rotulo">{{INDICADOR_2_ROTULO}}</p>
+      <p class="cifra" data-cifra="indicador_2"></p>
+      <p class="detalle">{{INDICADOR_2_DETALLE}}</p>
+    </div>
+    <div class="indicador aparece">
+      <p class="rotulo">{{INDICADOR_3_ROTULO}}</p>
+      <p class="cifra" data-cifra="indicador_3"></p>
+      <p class="detalle">{{INDICADOR_3_DETALLE}}</p>
+    </div>
+  </div>
+  <div class="malla dos">
+    <section class="tarjeta ancho-total">
+      <h2>{{TITULO_SUPUESTOS}}</h2>
+      <p class="subtitulo">{{SUBTITULO_SUPUESTOS}}</p>
+      <div class="tabla">
+        <table>
+          <thead><tr><th>{{COLUMNA_1}}</th><th class="cifra">{{COLUMNA_2}}</th><th class="cifra">{{COLUMNA_3}}</th><th class="cifra">{{COLUMNA_4}}</th></tr></thead>
+          <tbody>
+            <tr><td>{{FILA_1_C1}}</td><td class="cifra">{{FILA_1_C2}}</td><td class="cifra">{{FILA_1_C3}}</td><td class="cifra">{{FILA_1_C4}}</td></tr>
+            <tr><td>{{FILA_2_C1}}</td><td class="cifra">{{FILA_2_C2}}</td><td class="cifra">{{FILA_2_C3}}</td><td class="cifra">{{FILA_2_C4}}</td></tr>
+            <tr><td>{{FILA_3_C1}}</td><td class="cifra">{{FILA_3_C2}}</td><td class="cifra">{{FILA_3_C3}}</td><td class="cifra">{{FILA_3_C4}}</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section class="tarjeta">
+      <h2>{{TITULO_POR_ESCENARIO}}</h2>
+      <p class="subtitulo">{{SUBTITULO_POR_ESCENARIO}}</p>
+      <figure class="grafico" data-grafico="por_escenario"></figure>
+    </section>
+    <section class="tarjeta">
+      <h2>{{TITULO_SENSIBILIDAD}}</h2>
+      <p class="subtitulo">{{SUBTITULO_SENSIBILIDAD}}</p>
+      <figure class="grafico" data-grafico="sensibilidad"></figure>
+    </section>
+    <section class="tarjeta ancho-total">
+      <h2>{{TITULO_HORQUILLA}}</h2>
+      <p class="subtitulo">{{SUBTITULO_HORQUILLA}}</p>
+      <figure class="grafico" data-grafico="horquilla"></figure>
+    </section>
+  </div>
+```
+
+### Datos
+
+```json maqueta=escenarios parte=datos
+{
+  "idioma": "es-ES",
+  "moneda": "EUR",
+  "fuentes": {
+    "cliente": {
+      "nombre": "{{DESCRIPCION_FUENTE}}",
+      "consulta": "{{FECHA_AAAA_MM_DD}}"
+    }
+  },
+  "cifras": {
+    "indicador_1": {
+      "de": "por_escenario",
+      "calculo": "primero",
+      "unidad": "eur"
+    },
+    "indicador_2": {
+      "de": "por_escenario",
+      "calculo": "minimo",
+      "unidad": "eur"
+    },
+    "indicador_3": {
+      "de": "por_escenario",
+      "calculo": "maximo",
+      "unidad": "eur"
+    }
+  },
+  "graficos": {
+    "por_escenario": {
+      "tipo": "columnas",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "unidad": "eur",
+      "etiquetas": [],
+      "series": []
+    },
+    "sensibilidad": {
+      "tipo": "tornado",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "unidad": "eur",
+      "base": 0,
+      "elementos": []
+    },
+    "horquilla": {
+      "tipo": "rango",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "unidad": "eur",
+      "minimo": 0,
+      "maximo": 0,
+      "marcas": []
+    }
+  }
+}
+```
+
+---
+
+## 15. Embudo de conversion (`embudo_conversion`)
+
+**Ancho:** `1120px`. Un proceso por etapas: captación de clientes, recobro de deuda o tramitación. Cuántos entran, qué porcentaje llega al final (con su variación), cuántos se pierden en cada etapa en el embudo, por dónde pasa cada asunto en el sankey y cómo ha evolucionado la composición en área apilada. Si no hay etapas sino partidas, panel de datos.
+
+### Ficha
+
+```html maqueta=embudo_conversion parte=ficha
+<li><b>Periodo:</b> {{PERIODO}}</li>
+      <li><b>Actualizado:</b> {{FECHA_ACTUALIZACION}}</li>
+```
+
+### Contenido
+
+```html maqueta=embudo_conversion parte=contenido
+<div class="indicadores">
+    <div class="indicador aparece">
+      <p class="rotulo">{{INDICADOR_1_ROTULO}}</p>
+      <p class="cifra" data-cifra="indicador_1"></p>
+      <p class="detalle">{{INDICADOR_1_DETALLE}}</p>
+    </div>
+    <div class="indicador aparece">
+      <p class="rotulo">{{INDICADOR_2_ROTULO}}</p>
+      <p class="cifra" data-cifra="indicador_2"></p>
+      <p class="detalle"><span data-cifra="variacion_2"></span> {{INDICADOR_2_DETALLE}}</p>
+    </div>
+    <div class="indicador aparece">
+      <p class="rotulo">{{INDICADOR_3_ROTULO}}</p>
+      <p class="cifra" data-cifra="indicador_3"></p>
+      <p class="detalle">{{INDICADOR_3_DETALLE}}</p>
+    </div>
+    <div class="indicador aparece">
+      <p class="rotulo">{{INDICADOR_4_ROTULO}}</p>
+      <p class="cifra">{{INDICADOR_4_CIFRA}}</p>
+      <p class="detalle">{{INDICADOR_4_DETALLE}}</p>
+    </div>
+  </div>
+  <div class="malla dos">
+    <section class="tarjeta">
+      <h2>{{TITULO_EMBUDO}}</h2>
+      <p class="subtitulo">{{SUBTITULO_EMBUDO}}</p>
+      <figure class="grafico" data-grafico="embudo"></figure>
+    </section>
+    <section class="tarjeta">
+      <h2>{{TITULO_EVOLUCION}}</h2>
+      <p class="subtitulo">{{SUBTITULO_EVOLUCION}}</p>
+      <figure class="grafico" data-grafico="evolucion"></figure>
+    </section>
+    <section class="tarjeta ancho-total">
+      <h2>{{TITULO_FLUJOS}}</h2>
+      <p class="subtitulo">{{SUBTITULO_FLUJOS}}</p>
+      <figure class="grafico" data-grafico="flujos"></figure>
+    </section>
+  </div>
+```
+
+### Datos
+
+```json maqueta=embudo_conversion parte=datos
+{
+  "idioma": "es-ES",
+  "moneda": "EUR",
+  "fuentes": {
+    "cliente": {
+      "nombre": "{{DESCRIPCION_FUENTE}}",
+      "consulta": "{{FECHA_AAAA_MM_DD}}"
+    }
+  },
+  "cifras": {
+    "indicador_1": {
+      "de": "embudo",
+      "calculo": "maximo",
+      "unidad": "entero"
+    },
+    "indicador_2": {
+      "operacion": "porcentaje",
+      "a": "indicador_3",
+      "b": "indicador_1",
+      "unidad": "pct"
+    },
+    "indicador_3": {
+      "de": "embudo",
+      "calculo": "ultimo",
+      "unidad": "entero"
+    },
+    "variacion_2": {
+      "valor": 0,
+      "unidad": "pct",
+      "signo": true
+    }
+  },
+  "graficos": {
+    "embudo": {
+      "tipo": "embudo",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "etapas": []
+    },
+    "evolucion": {
+      "tipo": "area_apilada",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "etiquetas": [],
+      "series": []
+    },
+    "flujos": {
+      "tipo": "sankey",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "nodos": [],
+      "flujos": []
+    }
+  }
+}
+```
+
+---
+
+## 16. Actividad del equipo (`actividad_equipo`)
+
+**Ancho:** `1120px`. Horas, asuntos y carga por área o por persona: totales del periodo, asuntos nuevos por área y mes en un mapa de calor, los días de más actividad en el calendario, el reparto de tiempos de resolución en cajas y las horas frente al objetivo en bala. Para la gestión interna del despacho; datos agregados, nunca un ranking de personas sin que el usuario lo pida.
+
+### Ficha
+
+```html maqueta=actividad_equipo parte=ficha
+<li><b>Periodo:</b> {{PERIODO}}</li>
+      <li><b>Actualizado:</b> {{FECHA_ACTUALIZACION}}</li>
+```
+
+### Contenido
+
+```html maqueta=actividad_equipo parte=contenido
+<div class="indicadores">
+    <div class="indicador aparece">
+      <p class="rotulo">{{INDICADOR_1_ROTULO}}</p>
+      <p class="cifra" data-cifra="indicador_1"></p>
+      <p class="detalle">{{INDICADOR_1_DETALLE}}</p>
+    </div>
+    <div class="indicador aparece">
+      <p class="rotulo">{{INDICADOR_2_ROTULO}}</p>
+      <p class="cifra" data-cifra="indicador_2"></p>
+      <p class="detalle">{{INDICADOR_2_DETALLE}}</p>
+    </div>
+    <div class="indicador aparece">
+      <p class="rotulo">{{INDICADOR_3_ROTULO}}</p>
+      <p class="cifra">{{INDICADOR_3_CIFRA}}</p>
+      <p class="detalle">{{INDICADOR_3_DETALLE}}</p>
+    </div>
+    <div class="indicador aparece es-atencion">
+      <p class="rotulo">{{INDICADOR_4_ROTULO}}</p>
+      <p class="cifra">{{INDICADOR_4_CIFRA}}</p>
+      <p class="detalle">{{INDICADOR_4_DETALLE}}</p>
+    </div>
+  </div>
+  <div class="malla dos">
+    <section class="tarjeta ancho-total">
+      <h2>{{TITULO_POR_AREA}}</h2>
+      <p class="subtitulo">{{SUBTITULO_POR_AREA}}</p>
+      <figure class="grafico" data-grafico="por_area"></figure>
+    </section>
+    <section class="tarjeta ancho-total">
+      <h2>{{TITULO_DIAS}}</h2>
+      <p class="subtitulo">{{SUBTITULO_DIAS}}</p>
+      <figure class="grafico" data-grafico="dias"></figure>
+    </section>
+    <section class="tarjeta">
+      <h2>{{TITULO_TIEMPOS}}</h2>
+      <p class="subtitulo">{{SUBTITULO_TIEMPOS}}</p>
+      <figure class="grafico" data-grafico="tiempos"></figure>
+    </section>
+    <section class="tarjeta">
+      <h2>{{TITULO_HORAS}}</h2>
+      <p class="subtitulo">{{SUBTITULO_HORAS}}</p>
+      <figure class="grafico" data-grafico="horas"></figure>
+    </section>
+  </div>
+```
+
+### Datos
+
+```json maqueta=actividad_equipo parte=datos
+{
+  "idioma": "es-ES",
+  "moneda": "EUR",
+  "fuentes": {
+    "cliente": {
+      "nombre": "{{DESCRIPCION_FUENTE}}",
+      "consulta": "{{FECHA_AAAA_MM_DD}}"
+    }
+  },
+  "cifras": {
+    "indicador_1": {
+      "de": "horas",
+      "calculo": "suma",
+      "unidad": "entero"
+    },
+    "indicador_2": {
+      "valor": 0,
+      "unidad": "entero"
+    }
+  },
+  "graficos": {
+    "por_area": {
+      "tipo": "mapa_calor",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "unidad": "entero",
+      "filas": [],
+      "columnas": [],
+      "valores": []
+    },
+    "dias": {
+      "tipo": "calendario",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "dias": {}
+    },
+    "tiempos": {
+      "tipo": "cajas",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "unidad": "dias",
+      "grupos": []
+    },
+    "horas": {
+      "tipo": "bala",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "unidad": "horas",
+      "elementos": []
+    }
+  }
+}
+```
+
+---
+
+## 17. Informe territorial (`informe_territorial`)
+
+**Ancho:** `1120px`. Datos por comunidad autónoma o provincia: el mapa con tasas cuando las poblaciones son muy distintas, las zonas ordenadas en barras y la concentración en pareto. Requiere copiar los módulos `mapa` y `mapa_ccaa` o `mapa_provincias`. Si las zonas no son de España, barras ordenadas sin mapa.
+
+### Ficha
+
+```html maqueta=informe_territorial parte=ficha
+<li><b>Periodo:</b> {{PERIODO}}</li>
+      <li><b>Actualizado:</b> {{FECHA_ACTUALIZACION}}</li>
+```
+
+### Contenido
+
+```html maqueta=informe_territorial parte=contenido
+<div class="indicadores">
+    <div class="indicador aparece">
+      <p class="rotulo">{{INDICADOR_1_ROTULO}}</p>
+      <p class="cifra" data-cifra="indicador_1"></p>
+      <p class="detalle">{{INDICADOR_1_DETALLE}}</p>
+    </div>
+    <div class="indicador aparece">
+      <p class="rotulo">{{INDICADOR_2_ROTULO}}</p>
+      <p class="cifra">{{INDICADOR_2_CIFRA}}</p>
+      <p class="detalle">{{INDICADOR_2_DETALLE}}</p>
+    </div>
+    <div class="indicador aparece">
+      <p class="rotulo">{{INDICADOR_3_ROTULO}}</p>
+      <p class="cifra">{{INDICADOR_3_CIFRA}}</p>
+      <p class="detalle">{{INDICADOR_3_DETALLE}}</p>
+    </div>
+  </div>
+  <div class="malla dos">
+    <section class="tarjeta ancho-total">
+      <h2>{{TITULO_MAPA}}</h2>
+      <p class="subtitulo">{{SUBTITULO_MAPA}}</p>
+      <figure class="grafico" data-grafico="mapa"></figure>
+    </section>
+    <section class="tarjeta">
+      <h2>{{TITULO_RANKING}}</h2>
+      <p class="subtitulo">{{SUBTITULO_RANKING}}</p>
+      <figure class="grafico" data-grafico="ranking"></figure>
+    </section>
+    <section class="tarjeta">
+      <h2>{{TITULO_CONCENTRACION}}</h2>
+      <p class="subtitulo">{{SUBTITULO_CONCENTRACION}}</p>
+      <figure class="grafico" data-grafico="concentracion"></figure>
+    </section>
+  </div>
+```
+
+### Datos
+
+```json maqueta=informe_territorial parte=datos
+{
+  "idioma": "es-ES",
+  "moneda": "EUR",
+  "fuentes": {
+    "cliente": {
+      "nombre": "{{DESCRIPCION_FUENTE}}",
+      "consulta": "{{FECHA_AAAA_MM_DD}}"
+    }
+  },
+  "cifras": {
+    "indicador_1": {
+      "de": "ranking",
+      "calculo": "suma",
+      "unidad": "entero"
+    }
+  },
+  "graficos": {
+    "mapa": {
+      "tipo": "mapa",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "unidad": "num",
+      "valores": {}
+    },
+    "ranking": {
+      "tipo": "barras",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "unidad": "entero",
+      "elementos": []
+    },
+    "concentracion": {
+      "tipo": "pareto",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "unidad": "entero",
+      "elementos": []
+    }
+  }
+}
+```
+
+---
+
+## 18. Poster (`poster`)
+
+**Ancho:** `1400px`. Una hoja A3 apaisada para colgar en una sala, una jornada o una pared: titular grande, tres cifras en columna y un gráfico que ocupa el resto. Nada que obligue a acercarse: sin tablas ni textos largos. Al imprimir, el script reduce la escala para que todo quepa en un A3 apaisado.
+
+### Ficha
+
+```html maqueta=poster parte=ficha
+<li><b>Fuente:</b> {{FUENTE_BREVE}}</li>
+```
+
+### Estilos
+
+```css maqueta=poster parte=estilos
+h1{font-size:clamp(2.2rem,5vw,3.8rem)}
+.entradilla{font-size:1.25rem;max-width:80ch}
+.poster{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.4fr);gap:var(--e5);align-items:stretch}
+.poster-cifras{display:flex;flex-direction:column;justify-content:space-between;gap:var(--e4)}
+.poster-cifras div{border-left:6px solid var(--acento);padding-left:var(--e4)}
+.poster-cifras p{margin:0;font-size:1.05rem;color:var(--apagado)}
+.cifra-poster{font-size:clamp(2.6rem,5vw,4.4rem)!important;font-weight:760;letter-spacing:-.04em;line-height:1.05;color:var(--texto)!important;font-variant-numeric:tabular-nums}
+.poster-grafico svg{max-height:none}
+@media (max-width:900px){.poster{grid-template-columns:1fr}}
+@media print{@page{size:A3 landscape;margin:12mm}.poster{grid-template-columns:1fr 2.4fr}.cifra-poster{font-size:44pt!important}.datos-grafico,.fuente-grafico{display:none}}
+```
+
+### Contenido
+
+```html maqueta=poster parte=contenido
+<div class="poster">
+    <div class="poster-cifras">
+      <div><p class="cifra-poster" data-cifra="cifra_1"></p><p>{{CIFRA_1_ROTULO}}</p></div>
+      <div><p class="cifra-poster" data-cifra="cifra_2"></p><p>{{CIFRA_2_ROTULO}}</p></div>
+      <div><p class="cifra-poster" data-cifra="cifra_3"></p><p>{{CIFRA_3_ROTULO}}</p></div>
+    </div>
+    <section class="tarjeta poster-grafico">
+      <h2>{{TITULO_GRAFICO}}</h2>
+      <figure class="grafico" data-grafico="principal"></figure>
+    </section>
+  </div>
+```
+
+### Datos
+
+```json maqueta=poster parte=datos
+{
+  "idioma": "es-ES",
+  "moneda": "EUR",
+  "fuentes": {
+    "cliente": {
+      "nombre": "{{DESCRIPCION_FUENTE}}",
+      "consulta": "{{FECHA_AAAA_MM_DD}}"
+    }
+  },
+  "cifras": {
+    "cifra_1": {
+      "valor": 0,
+      "unidad": "eur",
+      "decimales": 0
+    },
+    "cifra_2": {
+      "valor": 0,
+      "unidad": "eur",
+      "decimales": 0
+    },
+    "cifra_3": {
+      "valor": 0,
+      "unidad": "eur",
+      "decimales": 0
+    }
+  },
+  "graficos": {
+    "principal": {
+      "tipo": "linea",
+      "fuente": "cliente",
+      "resumen": "{{RESUMEN}}",
+      "unidad": "eur",
+      "etiquetas": [],
+      "series": []
+    }
+  }
+}
+```
+
+### Script
+
+El mismo del resumen ejecutivo: antes de imprimir reduce la escala lo justo para que quepa en un A3 apaisado.
+
+```js maqueta=poster parte=script
+<script>
+(function(){
+  "use strict";
+  /* Antes de imprimir se mide la pagina con las reglas de impresion aplicadas en pantalla y al
+     ancho util del A4; si pasa de una hoja, se reduce lo justo (Chrome no recoloca despues). */
+  var D = document, main = D.querySelector("main"), ANCHO = 1540, ALTO = 1060;
+  function reglasImpresion() {
+    var css = "";
+    [].forEach.call(D.styleSheets, function (hoja) {
+      [].forEach.call(hoja.cssRules, function (r) {
+        if (r.media && /print/.test(r.media.mediaText)) [].forEach.call(r.cssRules, function (x) { if (x.selectorText) css += x.cssText + "\n"; });
+      });
+    });
+    return css;
+  }
+  window.addEventListener("beforeprint", function () {
+    main.style.zoom = "";
+    var prueba = D.createElement("style");
+    prueba.textContent = reglasImpresion();
+    D.head.appendChild(prueba);
+    D.body.style.width = ANCHO + "px";
+    var alto = main.getBoundingClientRect().height;
+    prueba.remove();
+    D.body.style.width = "";
+    if (alto > ALTO) main.style.zoom = Math.max(0.6, ALTO / alto).toFixed(3);
+  });
+  window.addEventListener("afterprint", function () { main.style.zoom = ""; });
+})();
+</script>
+```
+
+---
+

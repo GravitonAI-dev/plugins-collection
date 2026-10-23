@@ -5,45 +5,78 @@ i18n:
   en:
     name: reports
     title: Reports
-    description: >
-      Generates self-contained single-file HTML artifacts that the user opens in a
-      browser and prints or saves as PDF with one button: one-page visual reports and dossiers,
-      data dashboards with indicators and charts, and interactive calculation, simulation and
-      verification tools, slide presentations, long documents such as white papers and annual reports
-      with cover, linked table of contents and numbered pages, and one-page executive summaries. Charts and connector diagrams are declared as data and drawn by its own built-in engine
-      (horizontal, grouped and stacked bars, line with area, threshold band and annotations,
-      sparkline, gauge, waterfall, risk matrix, deadline timeline, donut and pie), which computes
-      scales, totals and percentages, adds a data table with CSV download and the source line
-      of each chart, with light, dark and sober themes, responsive layout, A4 print styles and
-      accessible text alternatives, built with no external libraries or resources. All figures,
-      dates and amounts come from the user, a workspace document or a source verified in the
-      session (and, when that source cannot be read, a clearly labelled estimate: never zeros or blanks). Do not use for contracts, claims, pleadings or procedural documents (which have
-      their own vertical skill and are delivered in markdown), for office files (.docx, .xlsx or
-      .pptx), or for web applications with a server, database or
-      external services.
-description: >
-  Genera artefactos HTML autocontenidos de un solo archivo que el usuario abre directamente en su navegador
-  y puede imprimir o guardar como PDF con un boton: informes visuales y dossieres de una pagina, paneles de datos
-  con indicadores y graficos, herramientas interactivas de calculo, simulacion y verificacion, y presentaciones en
-  diapositivas 16:9 con notas del orador que se imprimen una por pagina, documentos largos (white paper, memoria,
-  due diligence) con portada, indice con enlaces y paginas numeradas, y resumenes ejecutivos de una pagina, con un
-  catalogo de los artefactos que mas se piden. Los graficos se
-  declaran como datos y los dibuja un motor propio incluido en la plantilla (barras horizontales, columnas simples,
-  agrupadas, apiladas y al cien por cien, linea con area, banda de umbral y anotaciones, minigrafico de tendencia,
-  medidor semicircular, cascada de importes, matriz de riesgo e impacto, diagrama de plazos con marca de hoy, anillo
-  tarta, bala de objetivo y barras divergentes, mas diagramas con conectores por capas, arbol, radial y carriles),
-  que calcula escalas, totales y porcentajes, anade a cada grafico su tabla de datos con descarga en CSV
-  y su fuente, y compone el pie de fuentes del documento. Todo se construye con HTML, CSS y SVG en linea, sin
-  librerias ni recursos externos, con tema claro, oscuro y sobrio, diseno adaptable, animacion discreta de entrada, estilos de impresion en A4 y alternativas
-  textuales accesibles en cada grafico. Opera con la misma
-  metodologia que el resto del catalogo: clasificacion inicial mediante formulario interactivo, plan de trabajo y
-  eleccion de plantilla en el chat, creacion del archivo completo en el espacio de trabajo y edicion incremental
-  bloque a bloque con vista previa y confirmacion. Las cifras, fechas e importes proceden siempre de los datos
-  aportados por el usuario, de un documento de su espacio de trabajo o de una fuente verificada en la sesion (y, si esa fuente no se puede leer, de una estimacion marcada como tal: nunca ceros ni huecos).
-  NO usar para redactar contratos, demandas, escritos ni documentos de tramitacion (que disponen de skill vertical
-  propia y se entregan en markdown), NO usar para producir archivos de ofimatica (.docx, .xlsx o .pptx; las
-  presentaciones en diapositivas si se hacen, en HTML), y NO usar para construir aplicaciones web con servidor, base de datos o conexion a
-  servicios externos.
+    description: |
+      Creates **visual reports**: data reports, dashboards and presentations that open in the browser with a double click and print or save as PDF with one button. You choose the **format**, the **style** and the **charts**; every figure comes from your data, a workspace document or a source verified in the session (and, when that source cannot be read, a clearly labelled estimate: never zeros or blanks), and every chart carries its data table and source.
+
+      **Formats (18)**
+
+      - **Data dashboard**: indicators and charts for a period or a portfolio.
+      - **Scorecard**: eight KPIs with change, targets and status by area; for the management committee.
+      - **Conversion funnel**: a staged process and where it loses volume.
+      - **Regional report**: data by Spanish region or province on a map, with ranking and concentration.
+      - **Interactive tool**: a calculator or simulator that recalculates as you type.
+      - **Case timeline**: what happened, which deadline is running and what comes next.
+      - **Checklist**: compliance by block and requirement, with evidence.
+      - **Team activity**: hours, matters and workload by area and month.
+      - **Visual report**: a case explained with sections, indicators, deadlines and a chronology.
+      - **Comparison**: two to four options side by side with the recommended one highlighted.
+      - **Risk map**: probability-impact matrix, financial impact and exposure.
+      - **Scenarios**: what if the assumptions change: result range and its main driver.
+      - **Executive summary**: one A4 page with the conclusion, three figures and the decision requested.
+      - **One-page fact sheet**: key data on a matter, client or company.
+      - **Poster**: one landscape A3 sheet with three figures and a large chart.
+      - **Infographic**: three huge figures and simple charts, vertical, to share.
+      - **Presentation**: 16:9 slides with speaker notes.
+      - **Long document**: white paper or annual report with cover, contents and many charts.
+
+      **Styles (21)**: light (Modern, Sober, Editorial, Corporate, Minimal, Technical, Warm, Institutional, Slate, Press, High contrast), dark (Night, Gold, Night emerald, Amber, Olive and gold, Lime) and pastel (Soft, Mint, Peach, Lavender).
+
+      **Charts (44)** by the question they answer: what is bigger (bars, columns, pareto, bullet, dumbbell, slope, diverging), how it evolves (line, stacked area, step, sparkline), what share each part has (donut, pie, stacked columns, treemap, pictogram), when and which deadline (deadline chart, timeline, calendar heat map), progress and status (gauge, progress, rings, status lights, score), risk and decision (risk matrix, tornado, range, radar), distribution (histogram, box plot, scatter, heat map, pyramid), flows and structure (waterfall, funnel, sankey, flow chart, org chart, relationship map, swimlanes) and territory (maps of Spain by region and province, QR code).
+
+      Do not use for text documents (memos, proposals, guides, newsletters, contracts or pleadings), which are drafted in Markdown with their own skill; not for office files (.docx, .xlsx or .pptx) or web applications with a server, database or external services.
+description: |
+  Crea **reportes visuales**: informes de datos, paneles y presentaciones que se abren en el navegador con un doble clic y se imprimen o guardan en PDF con un botón. Usted elige el **formato**, el **estilo** y los **gráficos**; las cifras salen siempre de sus datos, de un documento de su espacio de trabajo o de una fuente verificada (y, si esa fuente no se puede leer, de una estimación marcada como tal: nunca ceros ni huecos), y cada gráfico lleva su tabla de datos y su fuente.
+
+  **Formatos (18)**
+
+  - **Panel de datos**: indicadores y gráficos de un periodo o una cartera; seguimiento de facturación o deuda.
+  - **Cuadro de mando**: ocho KPIs con su variación, objetivos y estado por área; para el comité de dirección.
+  - **Embudo de conversión**: un proceso por etapas y dónde se pierde; captación, recobro o tramitación.
+  - **Informe territorial**: datos por comunidad autónoma o provincia en un mapa, con ranking y concentración.
+  - **Herramienta interactiva**: calculadora o simulador que recalcula al cambiar los datos.
+  - **Cronograma del expediente**: qué ha pasado, qué plazo corre y qué viene; para el cliente que pregunta cómo va lo suyo.
+  - **Lista de control**: cumplimiento por bloque y por requisito, con sus evidencias; auditorías y compliance.
+  - **Actividad del equipo**: horas, asuntos y carga por área y por mes.
+  - **Informe visual**: un caso explicado con secciones, indicadores, plazos y cronología.
+  - **Comparativa**: dos a cuatro opciones frente a frente con los mismos criterios y la recomendada destacada.
+  - **Mapa de riesgos**: matriz de probabilidad e impacto, impacto económico y exposición.
+  - **Escenarios**: qué pasa si cambian los supuestos: horquilla del resultado y qué lo mueve más.
+  - **Resumen ejecutivo**: una página A4 con la conclusión, tres cifras y la decisión que se pide.
+  - **Ficha de una página**: datos clave de un asunto, un cliente o una sociedad en una página A4.
+  - **Póster**: una hoja A3 apaisada con tres cifras y un gráfico grande, para colgar.
+  - **Infografía**: tres cifras enormes y gráficos sencillos en vertical, para divulgar.
+  - **Presentación**: diapositivas 16:9 con notas del orador para una reunión.
+  - **Documento largo**: white paper o memoria con portada, índice y muchos gráficos.
+
+  **Estilos (21)**, cada uno en versión clara y oscura salvo los oscuros, que lo son siempre:
+
+  - *Claros*: **Moderno** (colores vivos); **Sobrio** (despacho e instituciones); **Editorial** (para imprimir); **Corporativo** (memorias y comités); **Minimal** (blanco, negro y un acento); **Técnico** (auditorías); **Cálido** (particulares); **Institucional** (organismos); **Pizarra** (paneles densos); **Prensa** (estilo periódico); **Alto contraste** (accesibilidad).
+  - *Oscuros*: **Nocturno** (para proyectar); **Dorado** (negro y oro, prestigio); **Esmeralda nocturno** (negro, esmeralda y oro); **Ámbar** (negro, ámbar y amarillo); **Oliva y oro** (verde oliva y oro); **Lima** (negro y lima, tecnología).
+  - *Pastel*: **Suave** (lila); **Menta** (menta y melocotón); **Melocotón** (melocotón y rosa); **Lavanda** (lavanda y rosa).
+
+  **Gráficos (44)**, según la pregunta que responden:
+
+  - *¿Qué es mayor?* **Barras**: comparar partidas ordenadas de mayor a menor: facturas, deudores, áreas. **Columnas**: comparar pocos periodos o grupos, con una o varias series. **Pareto**: ver qué pocos deudores o causas concentran casi todo. **Bala**: lo real frente al objetivo, con tramos de valoración. **Halteras**: lo pedido frente a lo concedido en cada partida. **Pendiente**: cómo cambia cada partida entre dos momentos. **Divergentes**: saldos a favor y en contra alrededor de cero.
+  - *¿Cómo evoluciona?* **Línea**: evolución en el tiempo, con umbral legal y anotaciones. **Área apilada**: cómo se compone el total mes a mes. **Escalones**: valores que rigen a tramos, como el interés legal. **Minigráfico**: la tendencia dentro de una cifra, sin ocupar sitio.
+  - *¿Qué peso tiene cada parte?* **Anillo**: tres o cuatro partes de un total, con la cifra en el centro. **Tarta**: reparto en hasta seis porciones. **Columnas apiladas**: composición de cada periodo, con el total encima. **Apiladas al 100 %**: proporción por periodo, cuando no importa el volumen. **Treemap**: el peso de muchas partidas a la vez. **Pictograma**: una proporción contada en figuras: «3 de cada 10».
+  - *¿Cuándo y qué plazo corre?* **Diagrama de plazos**: varios plazos en un mismo calendario, con la marca de hoy. **Línea de tiempo**: hitos del expediente sobre una escala real de fechas. **Calendario de calor**: qué días concentran vencimientos o actividad.
+  - *¿Cuánto llevamos y en qué estado?* **Medidor**: porcentaje consumido de un plazo o alcanzado de un objetivo. **Progreso**: avance por fase, con marca de objetivo. **Anillos**: avance de hasta cuatro objetivos a la vez. **Semáforos**: estado de cada punto de control o requisito. **Puntuación**: nota de cada criterio en una escala corta.
+  - *¿Qué riesgo hay y qué conviene?* **Matriz de riesgo**: probabilidad por impacto, con lo que hay que hacer. **Tornado**: qué parámetro mueve más el resultado de una simulación. **Rango**: dónde cae una cifra dentro de la horquilla legal. **Radar**: el perfil de cada opción en varios criterios.
+  - *¿Cómo se reparten los valores?* **Histograma**: cómo se reparten muchos valores sueltos, como días de demora. **Cajas**: mediana y dispersión por grupo, como días por juzgado. **Dispersión**: relación entre dos magnitudes; las burbujas añaden una tercera. **Mapa de calor**: dónde se concentra algo en dos dimensiones. **Pirámide**: dos grupos enfrentados por tramos.
+  - *¿Por dónde pasa y cómo se organiza?* **Cascada**: cómo se llega del principal al total, paso a paso. **Embudo**: cuántos llegan a cada etapa y cuántos se pierden. **Sankey**: de dónde a dónde fluye un importe o un volumen. **Diagrama de flujo**: pasos de un procedimiento y dónde se decide. **Organigrama**: estructura societaria o quién depende de quién. **Mapa de relaciones**: qué relación tiene cada parte con el caso. **Carriles**: quién hace qué en cada momento.
+  - *¿Dónde, en el territorio?* **Mapa por comunidades**: concentración por comunidad autónoma, con tasas. **Mapa por provincias**: detalle provincial; sin dato, rayado. **Código QR**: lleva al lector en papel a la fuente original.
+
+  NO usar para documentos de texto (memorandos, propuestas, guías, boletines, contratos, demandas o escritos): se redactan en Markdown con su skill. NO usar para archivos de ofimática (.docx, .xlsx o .pptx) ni para aplicaciones con servidor, base de datos o conexión a servicios externos.
 when_to_use: |
   - El usuario pide un informe, resumen o dossier "visual", "bonito", "presentable" o "para enseñar al cliente".
   - El usuario pide un panel, cuadro de mando, dashboard o grafico a partir de datos, importes o plazos.
@@ -51,12 +84,17 @@ when_to_use: |
   - El usuario pide expresamente un artefacto, una pagina web, un HTML o algo "que se abra en el navegador".
   - El usuario quiere convertir a formato visual un documento que ya existe en su espacio de trabajo.
   - El usuario necesita un entregable listo para imprimir o exportar a PDF con identidad visual cuidada.
+  - El usuario pide un cuadro de mando, un scorecard o los KPIs del mes para direccion.
+  - El usuario pide una infografia, un poster o una ficha de una pagina con datos.
+  - El usuario pide un mapa de riesgos, una comparativa de opciones o escenarios de "que pasa si".
+  - El usuario pide el embudo de captacion o de recobro, la actividad o carga del equipo, o datos por comunidades o provincias.
+  - El usuario pide el cronograma de un expediente o una lista de control de cumplimiento.
 inputs:
-  - tipo_documento: informe_visual / panel_datos / herramienta_interactiva / presentacion / documento_largo / resumen_ejecutivo / fuera_de_alcance (V1)
+  - tipo_documento: informe_visual / panel_datos / herramienta_interactiva / presentacion / documento_largo / resumen_ejecutivo / cuadro_mando / ficha_una_pagina / infografia / comparativa / cronograma_expediente / lista_control / mapa_riesgos / escenarios / embudo_conversion / actividad_equipo / informe_territorial / poster / fuera_de_alcance (V1)
   - receta_reporte: receta del catalogo de artefactos tipicos, deducida de la peticion (V6)
   - destino_uso: fijado siempre en ambos, no se pregunta (V2)
   - origen_datos: datos_del_chat / documento_del_workspace / busqueda_web (V3)
-  - identidad_visual: tema_moderno / tema_sobrio / tema_personalizado (V4)
+  - identidad_visual: uno de los veintiun temas del catalogo (tema_moderno, tema_sobrio, tema_editorial, tema_corporativo, tema_minimal, tema_nocturno, tema_tecnico, tema_calido, tema_institucional, tema_pizarra, tema_suave, tema_prensa, tema_alto_contraste, tema_dorado, tema_esmeralda_noche, tema_ambar, tema_oliva_oro, tema_lima, tema_menta, tema_melocoton, tema_lavanda) o tema_personalizado (V4)
   - origen_plantilla: plantilla estandar del sistema / plantilla propia del usuario (V5)
   - titulo_y_proposito: titulo del artefacto, destinatario y pregunta que debe responder
   - datos_de_contenido: cifras, fechas, importes, series, hitos, conceptos o criterios a representar
@@ -67,6 +105,7 @@ references:
   - references/catalogo-reportes.md
   - references/maquetas-reportes.md
   - references/modulos-motor.md
+  - references/temas-visuales.md
   - references/anatomia-artefacto.md
   - references/biblioteca-componentes-visuales.md
   - references/criterios-visualizacion-datos.md
@@ -85,10 +124,10 @@ assets:
 Esta skill guia al usuario de manera consultiva y transparente a traves de un procedimiento estructurado en cinco fases secuenciales, hasta entregar un archivo que se abre en el navegador con un doble clic.
 
 ### Vectores de Estado (Uso Estrictamente Interno):
-- **V1 (Tipo de Artefacto):** `informe_visual` | `panel_datos` | `herramienta_interactiva` | `presentacion` | `documento_largo` | `resumen_ejecutivo` | `fuera_de_alcance`.
+- **V1 (Tipo de Artefacto):** `informe_visual` | `panel_datos` | `herramienta_interactiva` | `presentacion` | `documento_largo` | `resumen_ejecutivo` | `cuadro_mando` | `ficha_una_pagina` | `infografia` | `comparativa` | `cronograma_expediente` | `lista_control` | `mapa_riesgos` | `escenarios` | `embudo_conversion` | `actividad_equipo` | `informe_territorial` | `poster` | `fuera_de_alcance`. Todas son **reportes** de datos (indice y familias en `references/maquetas-reportes.md`); un documento de texto es siempre `fuera_de_alcance`.
 - **V2 (Destino de Uso):** fijado siempre en `ambos`. **No se pregunta nunca:** todo artefacto se entrega util en pantalla y listo para imprimir o guardar como PDF. Preguntarlo solo anadia un paso al asistente para una respuesta que casi siempre era la misma.
 - **V3 (Origen de los Datos):** `datos_del_chat` | `documento_del_workspace` | `busqueda_web`.
-- **V4 (Identidad Visual):** `tema_moderno` (paleta viva de producto, la de las plantillas) | `tema_sobrio` (paleta de despacho: azul petroleo y neutros calidos, para juzgado y cliente institucional) | `tema_personalizado` (colores corporativos aportados por el usuario).
+- **V4 (Identidad Visual):** uno de los veintiun temas de `references/temas-visuales.md` —`tema_moderno` (por defecto), `tema_sobrio`, `tema_editorial`, `tema_corporativo`, `tema_minimal`, `tema_nocturno`, `tema_tecnico`, `tema_calido`, `tema_institucional`, `tema_pizarra`, `tema_suave`, `tema_prensa`, `tema_alto_contraste`, los oscuros `tema_dorado`, `tema_esmeralda_noche`, `tema_ambar`, `tema_oliva_oro` y `tema_lima`, y los pastel `tema_menta`, `tema_melocoton` y `tema_lavanda`— o `tema_personalizado` (colores corporativos aportados por el usuario, aplicados con el modulo `marca` sobre cualquiera de los veintiuno). La tabla «Como elegir» de esa referencia fija que tema corresponde a cada destinatario y soporte.
 - **V5 (Origen Plantilla):** `plantilla_sistema` | `plantilla_usuario`.
 - **V6 (Receta):** una receta de `references/catalogo-reportes.md` (informe de situacion del expediente, KPIs mensuales, due diligence, white paper, propuesta de honorarios...) o `sin_receta`. **No se pregunta en el formulario:** se deduce de la peticion por escucha activa; la receta fija V1 y la estructura de bloques, y se menciona en el plan de la Fase 2 para que el usuario la confirme o la cambie.
 
@@ -103,7 +142,25 @@ Esta skill guia al usuario de manera consultiva y transparente a traves de un pr
 ## FASE 1 — CLASIFICACION INICIAL (Resolucion de Vectores V1 a V4 mediante Formulario HITL — REG-TRI-01)
 
 ### 1.1 Escucha Activa Previa
-Evalua el mensaje inicial y el historial antes de abrir ningun formulario. Si la peticion encaja con una receta de `references/catalogo-reportes.md`, fija V6 y, con ella, V1: entonces el formulario no pregunta `tipo_documento`. Si el usuario ya ha indicado de forma inequivoca el tipo de entregable, su destino, de donde salen los datos o si aporta identidad corporativa, registra esos vectores en silencio y pregunta unicamente por lo que falte. Si no falta nada, avanza directamente a la Fase 2.
+Evalua el mensaje inicial y el historial antes de abrir ningun formulario. Si la peticion encaja con una receta de `references/catalogo-reportes.md`, fija V6 y, con ella, V1: entonces el formulario no pregunta `tipo_documento`. Si el usuario ya ha indicado de forma inequivoca el tipo de entregable, su destino, de donde salen los datos o si aporta identidad corporativa, registra esos vectores en silencio y pregunta unicamente por lo que falte. Lo mismo con el aspecto: si describe un estilo con sus palabras («tipo periodico», «muy limpio y sin adornos», «en oscuro para proyectar», «con letra de maquina», «para un ayuntamiento»), asigna el tema que corresponde segun la tabla de `references/temas-visuales.md` (prensa, minimal, nocturno, tecnico, institucional) sin preguntarlo. Y con el formato, que se deduce de las palabras de la peticion sin preguntarlo:
+
+| Palabras del usuario | Maqueta |
+| :--- | :--- |
+| dashboard, cuadro de mando, scorecard, KPIs del mes | `cuadro_mando` |
+| ficha, hoja de datos, factsheet | `ficha_una_pagina` |
+| infografia, para redes, para divulgar | `infografia` |
+| comparar opciones, vias o proveedores, cual nos conviene | `comparativa` |
+| como va el expediente, plazos y proximos pasos | `cronograma_expediente` |
+| checklist, auditoria, grado de cumplimiento | `lista_control` |
+| riesgos, contingencias, exposicion | `mapa_riesgos` |
+| que pasa si, escenarios, sensibilidad | `escenarios` |
+| embudo, conversion, captacion, recobro por etapas | `embudo_conversion` |
+| horas, carga de trabajo, actividad del equipo | `actividad_equipo` |
+| por comunidades, por provincias, mapa | `informe_territorial` |
+| poster, cartel, para colgar, A3 | `poster` |
+| memorando, propuesta, guia, boletin, carta, contrato, escrito | `fuera_de_alcance`: documento de texto, se redacta en Markdown con su skill |
+
+Si no falta nada, avanza directamente a la Fase 2.
 
 **Correspondencia con el enrutamiento.** Los vectores de esta skill se nombran con los identificadores siguientes; cada uno se resuelve con la respuesta indicada. No preguntes de nuevo nada que ya este aqui:
 - `V1` — respuesta a `tipo_documento`
@@ -129,7 +186,8 @@ Evalua el mensaje inicial y el historial antes de abrir ningun formulario. Si la
         {"id": "presentacion", "label": "Presentacion en diapositivas para una reunion o un cliente"},
         {"id": "documento_largo", "label": "Documento largo: white paper, memoria anual, estudio o due diligence"},
         {"id": "resumen_ejecutivo", "label": "Resumen ejecutivo de una sola pagina"},
-        {"id": "fuera_de_alcance", "label": "Otra cosa: un contrato o escrito, un archivo de ofimatica o una aplicacion con servidor"}
+        {"id": "otro_formato", "label": "Otro reporte: cuadro de mando, ficha, infografia, comparativa, cronograma, lista de control, mapa de riesgos, escenarios, embudo, actividad, territorial o poster"},
+        {"id": "fuera_de_alcance", "label": "Otra cosa: un documento de texto (memorando, propuesta, guia, contrato o escrito), un archivo de ofimatica o una aplicacion con servidor"}
       ]
     },
     {
@@ -144,17 +202,86 @@ Evalua el mensaje inicial y el historial antes de abrir ningun formulario. Si la
     },
     {
       "id": "identidad_visual",
-      "rationale": "Resolver V4 para fijar la paleta, el radio de las tarjetas y el encabezado del artefacto.",
+      "rationale": "Resolver V4 para fijar la paleta, la tipografia, el radio de las tarjetas y el encabezado del artefacto.",
       "question": "¿Que aspecto prefiere para el artefacto?",
       "options": [
         {"id": "tema_moderno", "label": "Moderno: cifras grandes, colores vivos y mucho aire"},
         {"id": "tema_sobrio", "label": "Sobrio de despacho: azules apagados y neutros calidos"},
+        {"id": "tema_editorial", "label": "Editorial: tipografia con serifa y papel crema, para imprimir"},
+        {"id": "tema_corporativo", "label": "Corporativo: azul marino, tarjetas cuadradas, para memorias y comites"},
+        {"id": "tema_nocturno", "label": "Nocturno: siempre en oscuro, para proyectar en pantalla"},
+        {"id": "tema_oscuro_dorado", "label": "Oscuro con dorados y verdes: negro y oro, esmeralda, ambar, oliva o lima"},
+        {"id": "tema_pastel", "label": "Pastel: menta, melocoton, lavanda o suave"},
+        {"id": "tema_otro", "label": "Otro estilo del catalogo (minimal, tecnico, calido, institucional, pizarra, prensa o alto contraste)"},
         {"id": "tema_personalizado", "label": "Los colores y el nombre de mi despacho o empresa"}
       ]
     }
   ]
 }
 ```
+
+### 1.2 ter. Segundo formulario de formato (solo si `tipo_documento = otro_formato`)
+
+Formulario atomico `restricted_human_in_the_loop_request` con las doce maquetas de reporte del catalogo, descritas por su uso. Si ademas falta el estilo, se pregunta despues, en su propio formulario.
+
+```json
+{
+  "form_data": [
+    {
+      "id": "formato_catalogo",
+      "rationale": "Resolver V1 entre las maquetas de reporte que no caben en el primer formulario.",
+      "question": "¿Que reporte necesita?",
+      "options": [
+        {"id": "cuadro_mando", "label": "Cuadro de mando: ocho KPIs con variacion, objetivos y estado, para direccion"},
+        {"id": "ficha_una_pagina", "label": "Ficha de una pagina: datos clave de un asunto, cliente o sociedad"},
+        {"id": "infografia", "label": "Infografia: tres cifras grandes y graficos sencillos para divulgar"},
+        {"id": "comparativa", "label": "Comparativa: dos a cuatro opciones frente a frente"},
+        {"id": "cronograma_expediente", "label": "Cronograma del expediente: que paso, que corre y que viene"},
+        {"id": "lista_control", "label": "Lista de control: cumplimiento por bloque y requisito"},
+        {"id": "mapa_riesgos", "label": "Mapa de riesgos: matriz, impacto economico y exposicion"},
+        {"id": "escenarios", "label": "Escenarios: que pasa si cambian los supuestos"},
+        {"id": "embudo_conversion", "label": "Embudo: un proceso por etapas y donde se pierde"},
+        {"id": "actividad_equipo", "label": "Actividad del equipo: horas, asuntos y carga por area"},
+        {"id": "informe_territorial", "label": "Informe territorial: datos por comunidad o provincia"},
+        {"id": "poster", "label": "Poster: una hoja A3 apaisada para colgar"},
+        {"id": "no_procede", "label": "Ninguno de estos"}
+      ]
+    }
+  ]
+}
+```
+
+Con `no_procede` se vuelve al primer formulario sin el campo `tipo_documento` resuelto y se pregunta en el chat que quiere mostrar el reporte.
+
+### 1.2 bis. Segundo formulario de estilo (solo si `identidad_visual = tema_otro`)
+
+Si el usuario elige «otro estilo del catalogo», convoca de inmediato un segundo `restricted_human_in_the_loop_request` atomico con el resto de temas de `references/temas-visuales.md`, cada uno descrito por su uso y no por su nombre tecnico:
+
+```json
+{
+  "form_data": [
+    {
+      "id": "estilo_catalogo",
+      "rationale": "Resolver V4 entre los temas del catalogo que no caben en el primer formulario.",
+      "question": "¿Cual de estos estilos se ajusta mejor al destinatario?",
+      "options": [
+        {"id": "tema_minimal", "label": "Minimal: blanco y negro con un solo acento, sin bordes; resumenes de una pagina"},
+        {"id": "tema_tecnico", "label": "Tecnico: letra monoespaciada y bordes finos; auditorias y cumplimiento"},
+        {"id": "tema_calido", "label": "Calido: tierras y arena; particulares, inmobiliario y familia"},
+        {"id": "tema_institucional", "label": "Institucional: granate y dorado con titulares en serifa; administracion y organismos"},
+        {"id": "tema_pizarra", "label": "Pizarra: grises con acento cian y tablas compactas; paneles densos de seguimiento"},
+        {"id": "tema_suave", "label": "Suave: pasteles y radios grandes; boletines y comunicacion"},
+        {"id": "tema_prensa", "label": "Prensa: serifa de periodico, blanco y negro con rojo; boletines normativos"},
+        {"id": "tema_alto_contraste", "label": "Alto contraste: negro, blanco y amarillo, bordes gruesos; accesibilidad y proyeccion"}
+      ]
+    }
+  ]
+}
+```
+
+Si elige `tema_oscuro_dorado` o `tema_pastel`, el segundo formulario se convoca con solo los temas de esa familia: `dorado` (negro y oro, prestigio y direccion), `esmeralda_noche` (negro, esmeralda y oro, paneles en pantalla), `ambar` (negro, ambar y amarillo, paneles operativos), `oliva_oro` (verde oliva y oro, rural y patrimonio) y `lima` (negro y lima, tecnologia); o `menta`, `melocoton`, `lavanda` y `suave`. Las palabras «negro y dorado», «golden», «oscuro elegante», «pastel» o «colores suaves» en el mensaje fijan la familia por escucha activa.
+
+Con la respuesta, V4 queda fijado y se continua en 1.3 sin mas preguntas. Si el usuario describe en el chat lo que quiere en vez de elegir, se asigna el tema por escucha activa.
 
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Fijados los vectores de clasificacion, evalua la rama de ejecucion. `V2` esta fijado en `ambos` y no se pregunta; `V3` y `V4` no abren rama propia: modulan el contenido de la Fase 4 dentro de la rama elegida.
@@ -165,7 +292,20 @@ Fijados los vectores de clasificacion, evalua la rama de ejecucion. `V2` esta fi
 * Si `V1 = presentacion` -> Plantilla del sistema: la base `assets/template-base-reportes.md` con la maqueta `presentacion` de `references/maquetas-reportes.md`. Diapositivas 16:9 declaradas como datos (portada, agenda, separadores, cifra, grafico con conclusion, comparativa, cronologia, tabla, cita, equipo, proximos pasos y cierre), con navegacion, pantalla completa, notas del orador y una diapositiva por pagina al imprimir. Procede a la Fase 2.
 * Si `V1 = documento_largo` -> Plantilla del sistema: la base `assets/template-base-reportes.md` con la maqueta `documento_largo` de `references/maquetas-reportes.md`. White paper, memoria o due diligence con portada, indice y paginas numeradas. Procede a la Fase 2.
 * Si `V1 = resumen_ejecutivo` -> Plantilla del sistema: la base `assets/template-base-reportes.md` con la maqueta `resumen_ejecutivo` de `references/maquetas-reportes.md`. Una sola pagina A4. Procede a la Fase 2.
-* Si `V1 = fuera_de_alcance` -> Detener proceso: no crear artefacto. Explica en el chat que ese entregable corresponde a otra via (la skill vertical del catalogo si es un contrato o un escrito de tramitacion; un archivo de ofimatica si necesita documento de texto, hoja de calculo o presentacion; un desarrollo a medida si requiere servidor o conexion a servicios externos) y ofrece como alternativa el artefacto mas proximo a su necesidad.
+* Si `V1 = cuadro_mando` -> Plantilla del sistema: la base `assets/template-base-reportes.md` con la maqueta `cuadro_mando` de `references/maquetas-reportes.md` (bloques y graficos en su cabecera). Procede a la Fase 2.
+* Si `V1 = ficha_una_pagina` -> Plantilla del sistema: la base `assets/template-base-reportes.md` con la maqueta `ficha_una_pagina` de `references/maquetas-reportes.md` (bloques y graficos en su cabecera). Procede a la Fase 2.
+* Si `V1 = infografia` -> Plantilla del sistema: la base `assets/template-base-reportes.md` con la maqueta `infografia` de `references/maquetas-reportes.md` (bloques y graficos en su cabecera). Procede a la Fase 2.
+* Si `V1 = comparativa` -> Plantilla del sistema: la base `assets/template-base-reportes.md` con la maqueta `comparativa` de `references/maquetas-reportes.md` (bloques y graficos en su cabecera). Procede a la Fase 2.
+* Si `V1 = cronograma_expediente` -> Plantilla del sistema: la base `assets/template-base-reportes.md` con la maqueta `cronograma_expediente` de `references/maquetas-reportes.md` (bloques y graficos en su cabecera). Procede a la Fase 2.
+* Si `V1 = lista_control` -> Plantilla del sistema: la base `assets/template-base-reportes.md` con la maqueta `lista_control` de `references/maquetas-reportes.md` (bloques y graficos en su cabecera). Procede a la Fase 2.
+* Si `V1 = mapa_riesgos` -> Plantilla del sistema: la base `assets/template-base-reportes.md` con la maqueta `mapa_riesgos` de `references/maquetas-reportes.md` (bloques y graficos en su cabecera). Procede a la Fase 2.
+* Si `V1 = escenarios` -> Plantilla del sistema: la base `assets/template-base-reportes.md` con la maqueta `escenarios` de `references/maquetas-reportes.md` (bloques y graficos en su cabecera). Procede a la Fase 2.
+* Si `V1 = embudo_conversion` -> Plantilla del sistema: la base `assets/template-base-reportes.md` con la maqueta `embudo_conversion` de `references/maquetas-reportes.md` (bloques y graficos en su cabecera). Procede a la Fase 2.
+* Si `V1 = actividad_equipo` -> Plantilla del sistema: la base `assets/template-base-reportes.md` con la maqueta `actividad_equipo` de `references/maquetas-reportes.md` (bloques y graficos en su cabecera). Procede a la Fase 2.
+* Si `V1 = informe_territorial` -> Plantilla del sistema: la base `assets/template-base-reportes.md` con la maqueta `informe_territorial` de `references/maquetas-reportes.md` (bloques y graficos en su cabecera). Procede a la Fase 2.
+* Si `V1 = poster` -> Plantilla del sistema: la base `assets/template-base-reportes.md` con la maqueta `poster` de `references/maquetas-reportes.md` (bloques y graficos en su cabecera). Procede a la Fase 2.
+* Si `V1 = otro_formato` -> Plantilla del sistema: la base `assets/template-base-reportes.md` con la maqueta que el usuario elija en el formulario `formato_catalogo` de 1.2 ter, de `references/maquetas-reportes.md`. Procede a la Fase 2.
+* Si `V1 = fuera_de_alcance` -> Detener proceso: no crear artefacto. Explica en el chat que ese entregable corresponde a otra via (si es un documento de texto —memorando, propuesta, guia, boletin, carta—, se redacta en Markdown con la skill de redaccion de documentos; la skill vertical del catalogo si es un contrato o un escrito de tramitacion; un archivo de ofimatica si necesita documento de texto, hoja de calculo o presentacion; un desarrollo a medida si requiere servidor o conexion a servicios externos) y ofrece como alternativa el artefacto mas proximo a su necesidad.
 
 ---
 
@@ -195,7 +335,7 @@ En un unico turno, expon en el chat:
 1. **Escritura del archivo (`create_file`):** vuelca **integramente** la base `assets/template-base-reportes.md`, con los marcadores rellenos con las partes de la maqueta del tipo elegido (`{{ANCHO}}`, `{{FICHA}}`, `{{CONTENIDO}}`, `{{ESTILOS_MAQUETA}}` y `{{ACCIONES}}`, conforme a `references/maquetas-reportes.md`; los dos ultimos se borran si la maqueta no tiene esas partes) y el bloque `datos-reporte` con lo que ya se conoce, en un archivo con nombre descriptivo en formato `snake_case.html`. **El nombre se escribe en el idioma del usuario, sin acentos ni enes para evitar problemas de codificacion** (por ejemplo `panel_reclamacion_cantidad.html`, `informe_viabilidad_monitorio.html`, `simulador_intereses_demora.html`). La base contiene el documento HTML completo: se copia tal cual, con su bloque de estilos, su aviso DRAFT y el motor de graficos, sin resumirlo, sin fragmentarlo, sin modificar el motor y sin envolverlo en marcas de codigo. En la herramienta interactiva se anade ademas el script de calculo de su maqueta, justo despues del motor.
 2. **Zero-Omission:** sustituye en ese mismo volcado **todos** los marcadores cuyo valor ya conoces: titulo, entradilla, etiqueta superior, fechas, referencia del expediente, destinatario, nombres de las partes resueltos conforme a `REG-CLI-01` a `REG-CLI-04`, e indicadores cuyas cifras ya constan. Prohibido crear el archivo con los marcadores en blanco si la informacion ya obra en la conversacion.
 3. **Datos que faltan:** un dato esencial se pide (formulario en bloque); uno no esencial se quita del documento junto con su linea o bloque; el marcador `{{VARIABLE}}` solo queda visible para lo que el usuario ha decidido no dar (REG-INS-01). Nunca se rellena con ceros, guiones o cifras inventadas. Lo que falta porque una busqueda no pudo leer la fuente no es un dato que falte: sigue el fallback de la Fase 2.1 (estimacion marcada), y el artefacto se entrega completo.
-4. **Aplicacion de V4:** el tema se fija en la etiqueta `html`: `data-tema="moderno"` (la paleta por defecto) o `data-tema="sobrio"` (azul petroleo y neutros calidos, con su version oscura). Si `V4 = tema_personalizado`, se parte del tema moderno y se declara el bloque `marca` del bloque de datos (colores, version oscura, logo si lo aporta el usuario, pie) y se copia el modulo `marca` de `references/modulos-motor.md`, verificando el contraste en claro y oscuro; el nombre del despacho va tambien en la etiqueta superior.
+4. **Aplicacion de V4:** el tema se fija en la etiqueta `html` con `data-tema` y su nombre. `moderno` y `sobrio` van incorporados en la base y no necesitan nada mas (se borra la linea del marcador `{{ESTILOS_TEMA}}`). Para cualquiera de los otros diecinueve temas se copia **integro** su bloque `css` de `references/temas-visuales.md` en el marcador `{{ESTILOS_TEMA}}` de la base (dentro del `<style>`, tras el tema sobrio): un tema es una pieza unica, no se mezclan dos ni se retocan sus colores. Si `V4 = tema_personalizado`, se parte del tema que mejor case con el destinatario (por defecto, moderno) y se declara el bloque `marca` del bloque de datos (colores, version oscura, logo si lo aporta el usuario, pie) copiando el modulo `marca` de `references/modulos-motor.md`, verificando el contraste en claro y oscuro; el nombre del despacho va tambien en la etiqueta superior.
 5. **Aplicacion de V2 (siempre `ambos`):** el artefacto tiene que sostener las dos lecturas a la vez, sin sacrificar ninguna. En pantalla: densidad de informacion, elementos manipulables y tema oscuro. En papel: bloque `@media print` completo, fidelidad de color, sin cortes de tarjeta ni titulos huerfanos. Si una decision favorece a una y perjudica a la otra, se busca la que sirva a ambas.
 6. **Confirmacion en el chat y encadenamiento:** informa de la ruta absoluta del artefacto creado y anade siempre estas dos indicaciones al usuario:
    - **Como se abre:** al seleccionarlo en su espacio de trabajo, la plataforma ofrece abrirlo en el navegador o mostrarlo en su carpeta; tambien se abre con un doble clic sobre el archivo. El boton inferior de la propia pagina lo imprime o lo guarda como PDF (destino *Guardar como PDF* en el dialogo de impresion, con los graficos de fondo activados si se quiere conservar el color).
@@ -232,7 +372,12 @@ Para cada bloque sustantivo: recogida de datos -> **descripcion en texto plano d
 - *Si `V1 = presentacion`:* cada bloque de la hoja de ruta es una o varias diapositivas de la lista `diapositivas`, con su maqueta de diapositiva (`references/maquetas-reportes.md`). Una idea por diapositiva y un titular que afirma; los graficos y diagramas se declaran en `graficos` y se citan por su nombre; las notas del orador recogen lo que se dira y no se ve. La vista previa en el chat describe cada diapositiva en una linea.
 - *Si `V1 = documento_largo`:* cada capitulo es un bloque de la hoja de ruta; el resumen ejecutivo se redacta al final, cuando las conclusiones ya estan confirmadas. Cada tesis del texto se sostiene con un dato, un grafico o una fuente verificada; ninguna cita normativa sin verificar en la sesion.
 - *Si `V1 = resumen_ejecutivo`:* la vista previa enumera lo que llevara la pagina; si hay que anadir avisos o bloques, se recorta otra cosa (al imprimir se reduce la escala para que quepa, pero no es para encajar contenido de mas).
-- *Modulos opcionales (cualquier tipo de artefacto):* diagramas, graficos avanzados, mapa de Espana por comunidades o provincias (con tasas por zona), iconos, QR, identidad del despacho y plazos en dias habiles viven en `references/modulos-motor.md` y solo se copian si el artefacto los usa.
+- *Maquetas de reporte del catalogo (`cuadro_mando`, `ficha_una_pagina`, `infografia`, `comparativa`, `cronograma_expediente`, `lista_control`, `mapa_riesgos`, `escenarios`, `embudo_conversion`, `actividad_equipo`, `informe_territorial`, `poster`):* cada bloque de la maqueta es un bloque de la hoja de ruta, en el orden de la maqueta: indicadores, despues cada tarjeta con su grafico y por ultimo la tabla o la lista. La cabecera de cada maqueta en `references/maquetas-reportes.md` dice que grafico va en cada hueco, que modulos hay que copiar y cuando no conviene. El texto se limita a titulares que afirman y una o dos frases por bloque: si el usuario necesita argumentar por escrito, el documento de texto va aparte, en Markdown.
+  - `ficha_una_pagina` y `poster` caben en una hoja (A4 y A3 apaisado): la vista previa enumera lo que llevara y, si sobra, se quita un bloque.
+  - `lista_control` y `mapa_riesgos` representan estados y valoraciones **que fija el usuario**; nunca se presume un incumplimiento ni una probabilidad.
+  - `escenarios` declara en la tabla de supuestos los valores de cada escenario; el resultado sale de `cifras` y de los graficos, nunca a mano.
+  - `informe_territorial` requiere los modulos `mapa` y `mapa_ccaa` o `mapa_provincias`.
+- *Modulos opcionales (cualquier tipo de artefacto):* diagramas, graficos avanzados (dispersion, histograma, radar, embudo, treemap, pendiente, halteras, piramide, calendario, pictograma), graficos analiticos (area apilada, pareto, escalones, cajas, tornado, rango, mapa de calor, sankey, anillos, puntuacion), graficos de seguimiento (progreso, semaforos, linea de tiempo), mapa de Espana por comunidades o provincias (con tasas por zona), iconos, QR, identidad del despacho y plazos en dias habiles viven en `references/modulos-motor.md` y solo se copian si el artefacto los usa. La tabla de `references/criterios-visualizacion-datos.md` dice que forma responde a cada pregunta; con 43 formas disponibles, la eleccion sigue siendo una por pregunta, nunca una coleccion.
 - *Diagramas con conectores (cualquier tipo de artefacto):* procesos, flujos de un procedimiento, cadenas de hechos, organigramas o estructuras societarias, relaciones entre partes y quien hace que se declaran como grafico `diagrama` y requieren copiar el modulo de `references/modulos-motor.md` despues del motor. Nunca se dibujan cajas ni flechas a mano.
 - *Si `V1 = herramienta_interactiva`:* campos de entrada con etiqueta y texto de ayuda, bloque de calculo escrito en JavaScript nativo dentro del script de la maqueta que devuelve `{resultado1, resultado2, resultado3, medidor, desglose}`, resultados destacados, medidor semicircular dibujado por el motor y alimentado por el campo `medidor` (porcentaje de 0 a 100), desglose tabular y lista de verificacion con progreso.
 - En todos los casos, cada grafico lleva su alternativa textual accesible y un titulo que afirma algo. Los rotulos de ejes, leyendas, unidades y descripciones accesibles se escriben **en el idioma del usuario**; las clases y los identificadores del documento permanecen en espanol tal como vienen en la plantilla.
