@@ -6,177 +6,189 @@ i18n:
     name: reports
     title: Reports
     description: |
-      Creates **visual reports**: data reports, dashboards and presentations that open in the browser with a double click and print or save as PDF with one button. You choose the **format**, the **style** and the **charts**; every figure comes from your data, a workspace document or a source verified in the session (and, when that source cannot be read, a clearly labelled estimate: never zeros or blanks), and every chart carries its data table and source.
+      Creates **visual reports** from your data: reports, dashboards and presentations that open in the browser with a double click and save as PDF with one button. You choose the **format**, the **style** and the **charts**. Every figure comes from your data, a workspace document or a source verified in the session (and, when that source cannot be read, a clearly labelled estimate: never zeros or blanks), and every chart carries its data table and source.
 
-      **Formats (18)**
+      ### Formats (18)
 
-      - **Data dashboard**: indicators and charts for a period or a portfolio.
-      - **Scorecard**: eight KPIs with change, targets and status by area; for the management committee.
-      - **Conversion funnel**: a staged process and where it loses volume.
-      - **Regional report**: data by Spanish region or province on a map, with ranking and concentration.
-      - **Interactive tool**: a calculator or simulator that recalculates as you type.
-      - **Case timeline**: what happened, which deadline is running and what comes next.
-      - **Checklist**: compliance by block and requirement, with evidence.
-      - **Team activity**: hours, matters and workload by area and month.
-      - **Visual report**: a case explained with sections, indicators, deadlines and a chronology.
-      - **Comparison**: two to four options side by side with the recommended one highlighted.
-      - **Risk map**: probability-impact matrix, financial impact and exposure.
-      - **Scenarios**: what if the assumptions change: result range and its main driver.
-      - **Executive summary**: one A4 page with the conclusion, three figures and the decision requested.
-      - **One-page fact sheet**: key data on a matter, client or company.
-      - **Poster**: one landscape A3 sheet with three figures and a large chart.
-      - **Infographic**: three huge figures and simple charts, vertical, to share.
-      - **Presentation**: 16:9 slides with speaker notes.
-      - **Long document**: white paper or annual report with cover, contents and many charts.
+      ![The 18 report formats](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/develop/asistente-general/skills/reportes/ejemplos/catalogo/formatos.png)
 
-      **Styles (21)**: light (Modern, Sober, Editorial, Corporate, Minimal, Technical, Warm, Institutional, Slate, Press, High contrast), dark (Night, Gold, Night emerald, Amber, Olive and gold, Lime) and pastel (Soft, Mint, Peach, Lavender).
+      | Format | What for |
+      | :--- | :--- |
+      | **Data dashboard** | Indicators and charts for a period or a portfolio |
+      | **Scorecard** | Eight KPIs with change, targets and status by area; for the management committee |
+      | **Conversion funnel** | A staged process and where it loses volume |
+      | **Regional report** | Data by Spanish region or province on a map, with ranking and concentration |
+      | **Interactive tool** | A calculator or simulator that recalculates as you type |
+      | **Case timeline** | What happened, which deadline is running and what comes next |
+      | **Checklist** | Compliance by block and requirement, with evidence |
+      | **Team activity** | Hours, matters and workload by area and month |
+      | **Visual report** | A case explained with sections, indicators, deadlines and a chronology |
+      | **Comparison** | Two to four options side by side with the recommended one highlighted |
+      | **Risk map** | Probability-impact matrix, financial impact and exposure |
+      | **Scenarios** | What if the assumptions change: result range and its main driver |
+      | **Executive summary** | One A4 page with the conclusion, three figures and the decision requested |
+      | **One-page fact sheet** | Key data on a matter, client or company |
+      | **Poster** | One landscape A3 sheet with three figures and a large chart |
+      | **Infographic** | Three huge figures and simple charts, vertical, to share |
+      | **Presentation** | 16:9 slides with speaker notes |
+      | **Long document** | White paper or annual report with cover, contents and many charts |
 
-      ![The 21 styles](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/temas.png)
+      ### Styles (21)
 
-      **Charts (44)** by the question they answer:
+      ![The 21 styles](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/develop/asistente-general/skills/reportes/ejemplos/catalogo/temas.png)
 
-      **What is bigger**
+      Light for the office and print, dark with gold and green accents for screens and management, and pastel for friendly communications. All print on white.
 
-      ![what is bigger](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-1.png)
+      ### Charts (44)
 
-      Bars, columns, pareto, bullet, dumbbell, slope, diverging.
+      Each question has its chart. Ask for it by name or let the assistant choose.
 
-      **How it evolves**
+      #### What is bigger
 
-      ![how it evolves](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-2.png)
+      ![What is bigger](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/develop/asistente-general/skills/reportes/ejemplos/catalogo/grupo-1.png)
 
-      Line, stacked area, step, sparkline.
+      Bars, columns, pareto, bullet, dumbbell, slope, diverging
 
-      **What share each part has**
+      #### How it evolves
 
-      ![what share each part has](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-3.png)
+      ![How it evolves](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/develop/asistente-general/skills/reportes/ejemplos/catalogo/grupo-2.png)
 
-      Donut, pie, stacked columns, treemap, pictogram.
+      Line, stacked area, step, sparkline
 
-      **When and which deadline**
+      #### What share each part has
 
-      ![when and which deadline](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-4.png)
+      ![What share each part has](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/develop/asistente-general/skills/reportes/ejemplos/catalogo/grupo-3.png)
 
-      Deadline chart, timeline, calendar heat map.
+      Donut, pie, stacked columns, treemap, pictogram
 
-      **Progress and status**
+      #### When and which deadline
 
-      ![progress and status](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-5.png)
+      ![When and which deadline](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/develop/asistente-general/skills/reportes/ejemplos/catalogo/grupo-4.png)
 
-      Gauge, progress, rings, status lights, score.
+      Deadline chart, timeline, calendar heat map
 
-      **Risk and decision**
+      #### Progress and status
 
-      ![risk and decision](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-6.png)
+      ![Progress and status](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/develop/asistente-general/skills/reportes/ejemplos/catalogo/grupo-5.png)
 
-      Risk matrix, tornado, range, radar.
+      Gauge, progress, rings, status lights, score
 
-      **Distribution**
+      #### Risk and decision
 
-      ![distribution](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-7.png)
+      ![Risk and decision](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/develop/asistente-general/skills/reportes/ejemplos/catalogo/grupo-6.png)
 
-      Histogram, box plot, scatter, heat map, pyramid.
+      Risk matrix, tornado, range, radar
 
-      **Flows and structure**
+      #### Distribution
 
-      ![flows and structure](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-8.png)
+      ![Distribution](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/develop/asistente-general/skills/reportes/ejemplos/catalogo/grupo-7.png)
 
-      Waterfall, funnel, sankey, flow chart, org chart, relationship map, swimlanes.
+      Histogram, box plot, scatter, heat map, pyramid
 
-      **Territory**
+      #### Flows and structure
 
-      ![territory](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-9.png)
+      ![Flows and structure](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/develop/asistente-general/skills/reportes/ejemplos/catalogo/grupo-8.png)
 
-      Maps of Spain by region and province, QR code.
+      Waterfall, funnel, sankey, flow chart, org chart, relationship map, swimlanes
+
+      #### Territory
+
+      ![Territory](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/develop/asistente-general/skills/reportes/ejemplos/catalogo/grupo-9.png)
+
+      Maps of Spain by region and province, QR code
 
       Do not use for text documents (memos, proposals, guides, newsletters, contracts or pleadings), which are drafted in Markdown with their own skill; not for office files (.docx, .xlsx or .pptx) or web applications with a server, database or external services.
 description: |
-  Crea **reportes visuales**: informes de datos, paneles y presentaciones que se abren en el navegador con un doble clic y se imprimen o guardan en PDF con un botón. Usted elige el **formato**, el **estilo** y los **gráficos**; las cifras salen siempre de sus datos, de un documento de su espacio de trabajo o de una fuente verificada (y, si esa fuente no se puede leer, de una estimación marcada como tal: nunca ceros ni huecos), y cada gráfico lleva su tabla de datos y su fuente.
+  Crea **reportes visuales** a partir de sus datos: informes, paneles y presentaciones que se abren en el navegador con un doble clic y se guardan en PDF con un botón. Usted elige el **formato**, el **estilo** y los **gráficos**. Las cifras salen siempre de sus datos, de un documento de su espacio de trabajo o de una fuente verificada (y, si esa fuente no se puede leer, de una estimación marcada como tal: nunca ceros ni huecos), y cada gráfico lleva su tabla de datos y su fuente.
 
-  **Formatos (18)**
+  ### Formatos (18)
 
-  - **Panel de datos**: indicadores y gráficos de un periodo o una cartera; seguimiento de facturación o deuda.
-  - **Cuadro de mando**: ocho KPIs con su variación, objetivos y estado por área; para el comité de dirección.
-  - **Embudo de conversión**: un proceso por etapas y dónde se pierde; captación, recobro o tramitación.
-  - **Informe territorial**: datos por comunidad autónoma o provincia en un mapa, con ranking y concentración.
-  - **Herramienta interactiva**: calculadora o simulador que recalcula al cambiar los datos.
-  - **Cronograma del expediente**: qué ha pasado, qué plazo corre y qué viene; para el cliente que pregunta cómo va lo suyo.
-  - **Lista de control**: cumplimiento por bloque y por requisito, con sus evidencias; auditorías y compliance.
-  - **Actividad del equipo**: horas, asuntos y carga por área y por mes.
-  - **Informe visual**: un caso explicado con secciones, indicadores, plazos y cronología.
-  - **Comparativa**: dos a cuatro opciones frente a frente con los mismos criterios y la recomendada destacada.
-  - **Mapa de riesgos**: matriz de probabilidad e impacto, impacto económico y exposición.
-  - **Escenarios**: qué pasa si cambian los supuestos: horquilla del resultado y qué lo mueve más.
-  - **Resumen ejecutivo**: una página A4 con la conclusión, tres cifras y la decisión que se pide.
-  - **Ficha de una página**: datos clave de un asunto, un cliente o una sociedad en una página A4.
-  - **Póster**: una hoja A3 apaisada con tres cifras y un gráfico grande, para colgar.
-  - **Infografía**: tres cifras enormes y gráficos sencillos en vertical, para divulgar.
-  - **Presentación**: diapositivas 16:9 con notas del orador para una reunión.
-  - **Documento largo**: white paper o memoria con portada, índice y muchos gráficos.
+  ![Los 18 formatos de reporte](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/develop/asistente-general/skills/reportes/ejemplos/catalogo/formatos.png)
 
-  **Estilos (21)**, cada uno en versión clara y oscura salvo los oscuros, que lo son siempre:
+  | Formato | Para qué |
+  | :--- | :--- |
+  | **Panel de datos** | Indicadores y gráficos de un periodo o una cartera; seguimiento de facturación o deuda |
+  | **Cuadro de mando** | Ocho KPIs con su variación, objetivos y estado por área; para el comité de dirección |
+  | **Embudo de conversión** | Un proceso por etapas y dónde se pierde; captación, recobro o tramitación |
+  | **Informe territorial** | Datos por comunidad autónoma o provincia en un mapa, con ranking y concentración |
+  | **Herramienta interactiva** | Calculadora o simulador que recalcula al cambiar los datos |
+  | **Cronograma del expediente** | Qué ha pasado, qué plazo corre y qué viene; para el cliente que pregunta cómo va lo suyo |
+  | **Lista de control** | Cumplimiento por bloque y por requisito, con sus evidencias; auditorías y compliance |
+  | **Actividad del equipo** | Horas, asuntos y carga por área y por mes |
+  | **Informe visual** | Un caso explicado con secciones, indicadores, plazos y cronología |
+  | **Comparativa** | Dos a cuatro opciones frente a frente con los mismos criterios y la recomendada destacada |
+  | **Mapa de riesgos** | Matriz de probabilidad e impacto, impacto económico y exposición |
+  | **Escenarios** | Qué pasa si cambian los supuestos: horquilla del resultado y qué lo mueve más |
+  | **Resumen ejecutivo** | Una página A4 con la conclusión, tres cifras y la decisión que se pide |
+  | **Ficha de una página** | Datos clave de un asunto, un cliente o una sociedad en una página A4 |
+  | **Póster** | Una hoja A3 apaisada con tres cifras y un gráfico grande, para colgar |
+  | **Infografía** | Tres cifras enormes y gráficos sencillos en vertical, para divulgar |
+  | **Presentación** | Diapositivas 16:9 con notas del orador para una reunión |
+  | **Documento largo** | White paper o memoria con portada, índice y muchos gráficos |
 
-  - *Claros*: **Moderno** (colores vivos); **Sobrio** (despacho e instituciones); **Editorial** (para imprimir); **Corporativo** (memorias y comités); **Minimal** (blanco, negro y un acento); **Técnico** (auditorías); **Cálido** (particulares); **Institucional** (organismos); **Pizarra** (paneles densos); **Prensa** (estilo periódico); **Alto contraste** (accesibilidad).
-  - *Oscuros*: **Nocturno** (para proyectar); **Dorado** (negro y oro, prestigio); **Esmeralda nocturno** (negro, esmeralda y oro); **Ámbar** (negro, ámbar y amarillo); **Oliva y oro** (verde oliva y oro); **Lima** (negro y lima, tecnología).
-  - *Pastel*: **Suave** (lila); **Menta** (menta y melocotón); **Melocotón** (melocotón y rosa); **Lavanda** (lavanda y rosa).
+  ### Estilos (21)
 
-  ![Los 21 estilos](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/temas.png)
+  ![Los 21 estilos](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/develop/asistente-general/skills/reportes/ejemplos/catalogo/temas.png)
 
-  **Gráficos (44)**, según la pregunta que responden:
+  Claros para despacho e impresión, oscuros con dorados y verdes para pantalla y dirección, y pastel para comunicaciones cercanas. Todos imprimen en blanco.
 
-  **¿Qué es mayor?**
+  ### Gráficos (44)
 
-  ![¿Qué es mayor?](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-1.png)
+  Cada pregunta tiene su gráfico. Pídalo por su nombre o deje que el asistente lo elija.
 
-  **Barras**: comparar partidas ordenadas de mayor a menor: facturas, deudores, áreas. **Columnas**: comparar pocos periodos o grupos, con una o varias series. **Pareto**: ver qué pocos deudores o causas concentran casi todo. **Bala**: lo real frente al objetivo, con tramos de valoración. **Halteras**: lo pedido frente a lo concedido en cada partida. **Pendiente**: cómo cambia cada partida entre dos momentos. **Divergentes**: saldos a favor y en contra alrededor de cero.
+  #### ¿Qué es mayor?
 
-  **¿Cómo evoluciona?**
+  ![¿Qué es mayor?](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/develop/asistente-general/skills/reportes/ejemplos/catalogo/grupo-1.png)
 
-  ![¿Cómo evoluciona?](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-2.png)
+  **Barras** · **Columnas** · **Pareto** · **Bala** · **Halteras** · **Pendiente** · **Divergentes**
 
-  **Línea**: evolución en el tiempo, con umbral legal y anotaciones. **Área apilada**: cómo se compone el total mes a mes. **Escalones**: valores que rigen a tramos, como el interés legal. **Minigráfico**: la tendencia dentro de una cifra, sin ocupar sitio.
+  #### ¿Cómo evoluciona?
 
-  **¿Qué peso tiene cada parte?**
+  ![¿Cómo evoluciona?](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/develop/asistente-general/skills/reportes/ejemplos/catalogo/grupo-2.png)
 
-  ![¿Qué peso tiene cada parte?](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-3.png)
+  **Línea** · **Área apilada** · **Escalones** · **Minigráfico**
 
-  **Anillo**: tres o cuatro partes de un total, con la cifra en el centro. **Tarta**: reparto en hasta seis porciones. **Columnas apiladas**: composición de cada periodo, con el total encima. **Apiladas al 100 %**: proporción por periodo, cuando no importa el volumen. **Treemap**: el peso de muchas partidas a la vez. **Pictograma**: una proporción contada en figuras: «3 de cada 10».
+  #### ¿Qué peso tiene cada parte?
 
-  **¿Cuándo y qué plazo corre?**
+  ![¿Qué peso tiene cada parte?](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/develop/asistente-general/skills/reportes/ejemplos/catalogo/grupo-3.png)
 
-  ![¿Cuándo y qué plazo corre?](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-4.png)
+  **Anillo** · **Tarta** · **Columnas apiladas** · **Apiladas al 100 %** · **Treemap** · **Pictograma**
 
-  **Diagrama de plazos**: varios plazos en un mismo calendario, con la marca de hoy. **Línea de tiempo**: hitos del expediente sobre una escala real de fechas. **Calendario de calor**: qué días concentran vencimientos o actividad.
+  #### ¿Cuándo y qué plazo corre?
 
-  **¿Cuánto llevamos y en qué estado?**
+  ![¿Cuándo y qué plazo corre?](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/develop/asistente-general/skills/reportes/ejemplos/catalogo/grupo-4.png)
 
-  ![¿Cuánto llevamos y en qué estado?](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-5.png)
+  **Diagrama de plazos** · **Línea de tiempo** · **Calendario de calor**
 
-  **Medidor**: porcentaje consumido de un plazo o alcanzado de un objetivo. **Progreso**: avance por fase, con marca de objetivo. **Anillos**: avance de hasta cuatro objetivos a la vez. **Semáforos**: estado de cada punto de control o requisito. **Puntuación**: nota de cada criterio en una escala corta.
+  #### ¿Cuánto llevamos y en qué estado?
 
-  **¿Qué riesgo hay y qué conviene?**
+  ![¿Cuánto llevamos y en qué estado?](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/develop/asistente-general/skills/reportes/ejemplos/catalogo/grupo-5.png)
 
-  ![¿Qué riesgo hay y qué conviene?](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-6.png)
+  **Medidor** · **Progreso** · **Anillos** · **Semáforos** · **Puntuación**
 
-  **Matriz de riesgo**: probabilidad por impacto, con lo que hay que hacer. **Tornado**: qué parámetro mueve más el resultado de una simulación. **Rango**: dónde cae una cifra dentro de la horquilla legal. **Radar**: el perfil de cada opción en varios criterios.
+  #### ¿Qué riesgo hay y qué conviene?
 
-  **¿Cómo se reparten los valores?**
+  ![¿Qué riesgo hay y qué conviene?](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/develop/asistente-general/skills/reportes/ejemplos/catalogo/grupo-6.png)
 
-  ![¿Cómo se reparten los valores?](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-7.png)
+  **Matriz de riesgo** · **Tornado** · **Rango** · **Radar**
 
-  **Histograma**: cómo se reparten muchos valores sueltos, como días de demora. **Cajas**: mediana y dispersión por grupo, como días por juzgado. **Dispersión**: relación entre dos magnitudes; las burbujas añaden una tercera. **Mapa de calor**: dónde se concentra algo en dos dimensiones. **Pirámide**: dos grupos enfrentados por tramos.
+  #### ¿Cómo se reparten los valores?
 
-  **¿Por dónde pasa y cómo se organiza?**
+  ![¿Cómo se reparten los valores?](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/develop/asistente-general/skills/reportes/ejemplos/catalogo/grupo-7.png)
 
-  ![¿Por dónde pasa y cómo se organiza?](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-8.png)
+  **Histograma** · **Cajas** · **Dispersión** · **Mapa de calor** · **Pirámide**
 
-  **Cascada**: cómo se llega del principal al total, paso a paso. **Embudo**: cuántos llegan a cada etapa y cuántos se pierden. **Sankey**: de dónde a dónde fluye un importe o un volumen. **Diagrama de flujo**: pasos de un procedimiento y dónde se decide. **Organigrama**: estructura societaria o quién depende de quién. **Mapa de relaciones**: qué relación tiene cada parte con el caso. **Carriles**: quién hace qué en cada momento.
+  #### ¿Por dónde pasa y cómo se organiza?
 
-  **¿Dónde, en el territorio?**
+  ![¿Por dónde pasa y cómo se organiza?](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/develop/asistente-general/skills/reportes/ejemplos/catalogo/grupo-8.png)
 
-  ![¿Dónde, en el territorio?](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/main/asistente-general/skills/reportes/ejemplos/catalogo/grupo-9.png)
+  **Cascada** · **Embudo** · **Sankey** · **Diagrama de flujo** · **Organigrama** · **Mapa de relaciones** · **Carriles**
 
-  **Mapa por comunidades**: concentración por comunidad autónoma, con tasas. **Mapa por provincias**: detalle provincial; sin dato, rayado. **Código QR**: lleva al lector en papel a la fuente original.
+  #### ¿Dónde, en el territorio?
+
+  ![¿Dónde, en el territorio?](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/develop/asistente-general/skills/reportes/ejemplos/catalogo/grupo-9.png)
+
+  **Mapa por comunidades** · **Mapa por provincias** · **Código QR**
 
   NO usar para documentos de texto (memorandos, propuestas, guías, boletines, contratos, demandas o escritos): se redactan en Markdown con su skill. NO usar para archivos de ofimática (.docx, .xlsx o .pptx) ni para aplicaciones con servidor, base de datos o conexión a servicios externos.
 when_to_use: |
