@@ -1003,13 +1003,14 @@ def catalogo_visual():
         tok = tokens(re.search(r':root\[data-tema="%s"\]\{(.*?)\}' % t, css, re.S).group(1))
         temas.append((t, NOMBRES.get(t, t.capitalize()), USOS[t], tok))
     muestras = []
+    fuente_base = temas[0][3]["fuente"]  # la del tema moderno, ya leida de la base
     for t, nombre, uso, k in temas:
-        fuente = k.get("fuente", base_f) if (base_f := tokens(re.search(r":root\{(.*?)\}", base, re.S).group(1))["fuente"]) else ""
+        fuente = k.get("fuente", fuente_base)
         barras = "".join('<i style="height:%d%%;background:%s"></i>' % (h, k["c%d" % (j + 1)]) for j, h in enumerate([92, 70, 54, 38, 26, 18]))
         muestras.append(('<article class="tema"><div class="papel" style="background:%s;font-family:%s">'
           '<div class="hoja" style="background:%s;border-color:%s;border-radius:%s;color:%s">'
           '<b style="color:%s">42.180 €</b><span style="color:%s">Principal reclamado</span><div class="muestra-barras">%s</div></div></div>'
-          '<h3>%s</h3><p>%s</p></article>') % (k["fondo"], fuente, k["superficie"], k["borde"], k.get("radio", "12px").replace("0;", "0"), k["texto"],
+          '<h3>%s</h3><p>%s</p></article>') % (k["fondo"], fuente, k["superficie"], k["borde"], k.get("radio", "12px"), k["texto"],
            k["acento"], k["apagado"], barras, H.escape(nombre), H.escape(uso)))
 
     estilos = """
@@ -1090,6 +1091,8 @@ def imagenes_catalogo(bloques):
                                capture_output=True, check=False, timeout=90)
             except subprocess.TimeoutExpired:
                 print("  AVISO: Chrome no termino la imagen %s" % bloque); return
+        if not os.path.exists(png):
+            print("  AVISO: Chrome no genero la imagen %s" % bloque); return
         im = Image.open(png).convert("RGB")
         fondo = Image.new("RGB", im.size, im.getpixel((2, im.height - 2)))
         caja = ImageChops.difference(im, fondo).convert("L").point(lambda v: 255 if v > 12 else 0).getbbox()  # fondo vacio de abajo, sin contar sombras tenues
