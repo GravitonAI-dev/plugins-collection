@@ -30,7 +30,8 @@
 }
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--fondo);color:var(--texto);font-family:var(--fuente);font-size:16px;line-height:1.55;
-  background-image:radial-gradient(900px 460px at 12% -8%,color-mix(in srgb,var(--acento) 13%,transparent),transparent 72%),radial-gradient(760px 420px at 92% 4%,color-mix(in srgb,var(--c2) 10%,transparent),transparent 70%);
+  /* El degradado de fondo es un token: cada tema lo cambia o lo quita con --degradado. */
+  background-image:var(--degradado,radial-gradient(900px 460px at 12% -8%,color-mix(in srgb,var(--acento) 13%,transparent),transparent 72%),radial-gradient(760px 420px at 92% 4%,color-mix(in srgb,var(--c2) 10%,transparent),transparent 70%));
   background-attachment:fixed}
 .contenedor{max-width:var(--ancho);margin:0 auto;padding:var(--e5) var(--e4) var(--e6)}
 a{color:var(--acento)}
@@ -52,7 +53,7 @@ h1{font-size:clamp(1.65rem,3.6vw,2.4rem);line-height:1.12;margin:0 0 var(--e3);l
 .indicador.es-atencion::before{background:var(--aviso)}
 .indicador.es-riesgo::before{background:var(--riesgo)}
 .indicador .rotulo{font-size:.74rem;text-transform:uppercase;letter-spacing:.09em;color:var(--apagado);margin:0 0 var(--e2)}
-.indicador .cifra{font-size:clamp(1.6rem,2.3vw,2.25rem);font-weight:680;letter-spacing:-.032em;line-height:1.05;margin:0;
+.indicador .cifra{color:var(--color-cifra,var(--texto));font-size:clamp(1.6rem,2.3vw,2.25rem);font-weight:680;letter-spacing:-.032em;line-height:1.05;margin:0;
   font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .indicador .detalle{font-size:.8rem;color:var(--apagado);margin:var(--e2) 0 0}
 .indicador.es-ok .cifra{color:var(--ok)}
@@ -133,9 +134,10 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
     --sombra:0 1px 2px rgba(0,0,0,.5),0 8px 22px rgba(0,0,0,.4);
   }
 }
-:root[data-tema="sobrio"] body{background-image:none}
+:root[data-tema="sobrio"]{--degradado:none}
 /* Estilos del tema elegido (temas-visuales.md): se sustituye por su bloque css, o se borra esta linea si el tema es moderno o sobrio. */
 :root[data-tema="esmeralda_noche"]{
+  --degradado:radial-gradient(800px 420px at 8% -10%,rgba(52,211,153,.14),transparent 70%),radial-gradient(700px 380px at 95% 0,rgba(212,175,55,.10),transparent 70%);--texto-sobre-serie:#07110d;
   color-scheme:dark;
   --fondo:#07110d;--superficie:#0e1a15;--superficie-2:#13231c;--borde:#1f3a2e;--borde-suave:#182d24;
   --texto:#e6f2ec;--apagado:#9db8ab;
@@ -144,16 +146,10 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   --c1:#34d399;--c2:#d4af37;--c3:#a3e635;--c4:#2dd4bf;--c5:#fbbf24;--c6:#94a3b8;
   --radio:14px;--radio-s:9px;--sombra:0 0 0 1px rgba(52,211,153,.08),0 12px 32px rgba(0,0,0,.55);
 }
-:root[data-tema="esmeralda_noche"] body{background-image:radial-gradient(800px 420px at 8% -10%,rgba(52,211,153,.14),transparent 70%),radial-gradient(700px 380px at 95% 0,rgba(212,175,55,.10),transparent 70%)}
 :root[data-tema="esmeralda_noche"] .indicador::before{background:linear-gradient(90deg,var(--c1),var(--c2))}
-:root[data-tema="esmeralda_noche"] .borrador{background:#10201a}
-:root[data-tema="esmeralda_noche"] .grafico .valor-punto.dentro,:root[data-tema="esmeralda_noche"] .grafico .numero-riesgo,:root[data-tema="esmeralda_noche"] .grafico .fecha-fin.dentro{fill:#07110d}
-/* En papel: fondo blanco (regla comun de la base) y estos colores, que contrastan sobre blanco. */
+/* En papel: la base pone fondo blanco, texto negro y estados legibles; el tema solo da su acento y su serie de papel. */
 @media print{
-  :root[data-tema="esmeralda_noche"]{color-scheme:light;--acento:#0f7a55;--acento-fuerte:#0b5c40;--acento-suave:#f3f3f3;--ok:#2f7d4f;--aviso:#a8650f;--riesgo:#b23a48;--c1:#0f7a55;--c2:#9a7b1c;--c3:#5b8a1e;--c4:#0e7470;--c5:#b07a0f;--c6:#64748b;}
-  :root[data-tema="esmeralda_noche"] .borrador{background:#fff}
-  :root[data-tema="esmeralda_noche"] .indicador .cifra{text-shadow:none}
-  :root[data-tema="esmeralda_noche"] .grafico .valor-punto.dentro,:root[data-tema="esmeralda_noche"] .grafico .numero-riesgo,:root[data-tema="esmeralda_noche"] .grafico .fecha-fin.dentro{fill:#fff}
+  :root[data-tema="esmeralda_noche"]{--acento:#0f7a55;--acento-fuerte:#0b5c40;--c1:#0f7a55;--c2:#9a7b1c;--c3:#5b8a1e;--c4:#0e7470;--c5:#b07a0f;--c6:#64748b;}
 }
 .malla{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:var(--e3);margin:0 0 var(--e3);align-items:start}
 .malla .ancho-total{grid-column:1/-1}
@@ -176,15 +172,15 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 .grafico .texto-anotacion{font-size:10.5px;fill:var(--apagado)}
 .grafico .cero{stroke:var(--apagado);stroke-width:1}
 .grafico .zona{font-size:12px;fill:var(--apagado);font-weight:620}
-.grafico .numero-riesgo{font-size:11px;font-weight:700;fill:#fff}
+.grafico .numero-riesgo{font-size:11px;font-weight:700;fill:var(--texto-sobre-serie,#fff)}
 .grafico .fecha-fin{font-size:10.5px;fill:var(--apagado)}
-.grafico .fecha-fin.dentro{fill:#fff;font-weight:620}
+.grafico .fecha-fin.dentro{fill:var(--texto-sobre-serie,#fff);font-weight:620}
 .grafico .hoy{stroke:var(--riesgo);stroke-width:2;stroke-dasharray:4 3}
 .grafico .texto-hoy{font-size:11px;fill:var(--riesgo);font-weight:650}
 ol.leyenda{display:block;padding-left:20px}
 [data-cifra].delta-bien{color:var(--ok)}
 [data-cifra].delta-mal{color:var(--riesgo)}
-.grafico .valor-punto.dentro{fill:#fff}
+.grafico .valor-punto.dentro{fill:var(--texto-sobre-serie,#fff)}
 .leyenda .porcentaje{color:var(--texto);font-variant-numeric:tabular-nums;font-weight:620}
 .medidor-rotulo{text-align:center;font-size:.82rem;color:var(--apagado);margin:0 0 var(--e3)}
 .medidor .pista-arco{fill:none;stroke:var(--superficie-2);stroke-width:18;stroke-linecap:round}
@@ -200,11 +196,13 @@ ol.leyenda{display:block;padding-left:20px}
 .fuentes-reporte li{margin:0 0 var(--e1)}
 @media print{
   :root,:root[data-tema]{--fondo:#fff;--superficie:#fff;--superficie-2:#fff;--borde:#c8c5bf;--borde-suave:#dcd9d3;
-        --linea-rejilla:#d5d2cc;--texto:#000;--apagado:#3f3d39;--sombra:none;--acento-suave:#f2f6f8}
+        --linea-rejilla:#d5d2cc;--texto:#000;--apagado:#3f3d39;--sombra:none;--acento-suave:#f2f6f8;
+        color-scheme:light;--texto-sobre-serie:#fff;--ok:#2f7d4f;--aviso:#a8650f;--riesgo:#b23a48}
   @page{size:A4;margin:15mm 14mm 17mm;@bottom-right{content:counter(page) " / " counter(pages);font-size:8pt;color:#666}}
   *{animation:none!important;transition:none!important}
   *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
-  body{font-size:10.5pt;background-image:none!important}  /* tambien con los degradados de los temas */
+  body{font-size:10.5pt;background-image:none}
+  .indicador .cifra{text-shadow:none}
   .contenedor{max-width:none;padding:0}
   .acciones,.datos-grafico{display:none}
   .malla{display:block}
@@ -525,11 +523,12 @@ function leyenda(fig, elementos) {
    conserven su tamano real; al imprimir se dibuja siempre a 700. */
 var W = 700, X0 = 64, X1 = 664, Y0 = 44, Y1 = 244;
 function util() { return X1 - X0; }
-function rejilla(s, tope, unidad) {
+function rejilla(s, tope, unidad, x0, x1) {
+  x0 = num(x0) ? x0 : X0; x1 = num(x1) ? x1 : X1;  /* los modulos pueden acotar el ancho util */
   for (var k = 0; k <= 4; k++) {
     var y = Y1 - k * 50;
-    svg("line", {"class": "rejilla", x1: X0, y1: y, x2: X1, y2: y}, s);
-    svg("text", {"class": "eje", x: 56, y: y + 4, "text-anchor": "end"}, s, k ? fmt(tope * k / 4, unidad, true) : "0");
+    svg("line", {"class": "rejilla", x1: x0, y1: y, x2: x1, y2: y}, s);
+    svg("text", {"class": "eje", x: x0 - 8, y: y + 4, "text-anchor": "end"}, s, k ? fmt(tope * k / 4, unidad, true) : "0");
   }
 }
 function rotulosX(s, etiquetas, xDe, extremos) {
@@ -1078,6 +1077,7 @@ if (imprimir) imprimir.addEventListener("click", function () { window.print(); }
 window.Reportes = {datos: datos, fmt: fmt, tipos: tipos, T: T, svg: svg, html: html, color: color, lienzo: lienzo,
   recortar: recortar, consejo: consejo, escala: escala, leyenda: leyenda, r1: r1, num: num, maximo: maximo, minimo: minimo,
   techo: techo, fecha: fecha, DIA: DIA, rejilla: rejilla, yDe: yDe, columnaRotulos: columnaRotulos, rotuloFila: rotuloFila,
+  rotulosX: rotulosX, tablaSeries: tablaSeries, leyendaSeries: leyendaSeries,
   calculos: calculos, IDIOMA: IDIOMA,
   actualizar: function (id, cambios) {
     Object.assign(datos.graficos[id], cambios);
@@ -1099,9 +1099,12 @@ var TX = Object.assign(/^en/.test(R.IDIOMA)
   ? {estado: "Status", nota: "Note", fecha: "Date", ok: "Compliant", aviso: "Attention", riesgo: "At risk", pendiente: "Pending"}
   : {estado: "Estado", nota: "Nota", fecha: "Fecha", ok: "Correcto", aviso: "Atencion", riesgo: "Riesgo", pendiente: "Pendiente"}, R.datos.textos || {});
 function texto(s, at, contenido, clase) { return svg("text", Object.assign({"class": clase || "eje"}, at), s, contenido); }
-R.html("style", "", D.head).textContent = ".semaforos{list-style:none;margin:0;padding:0}.semaforo{display:flex;align-items:flex-start;gap:12px;padding:9px 0;border-bottom:1px solid var(--borde-suave)}" +
+var estilosSemaforos = ".semaforos{list-style:none;margin:0;padding:0}.semaforo{display:flex;align-items:flex-start;gap:12px;padding:9px 0;border-bottom:1px solid var(--borde-suave)}" +
   ".semaforo .luz{flex:none;width:12px;height:12px;border-radius:50%;margin-top:6px;background:var(--apagado)}.semaforo-ok .luz{background:var(--ok)}.semaforo-aviso .luz{background:var(--aviso)}.semaforo-riesgo .luz{background:var(--riesgo)}" +
   ".semaforo>div{flex:1;min-width:0}.semaforo .nota{display:block;font-size:.82rem;color:var(--apagado)}.semaforos-resumen{font-size:.82rem;color:var(--apagado);margin:var(--e2) 0 0}";
+/* Los estilos de los semaforos se anaden la primera vez que se dibuja uno, no en todo artefacto con el modulo. */
+function conEstilos() { if (estilosSemaforos) { R.html("style", "", D.head).textContent = estilosSemaforos; estilosSemaforos = null; } }
+var fechaCorta = new Intl.DateTimeFormat(R.IDIOMA, {day: "numeric", month: "short", year: "2-digit", timeZone: "UTC"});
 
 /* Progreso: barras de avance con porcentaje y, si se da, marca de objetivo. */
 R.tipos.progreso = function (fig, g, id, W) {
@@ -1127,6 +1130,7 @@ R.tipos.progreso = function (fig, g, id, W) {
 R.tipos.semaforos = function (fig, g) {
   var el = g.elementos || [], nombres = Object.assign({ok: TX.ok, aviso: TX.aviso, riesgo: TX.riesgo, pendiente: TX.pendiente}, g.nombres || {}), cuenta = {ok: 0, aviso: 0, riesgo: 0, pendiente: 0};
   if (!el.length) throw new Error("faltan elementos");
+  conEstilos();
   var ul = R.html("ul", "semaforos", fig);
   el.forEach(function (e) {
     if (!/^(ok|aviso|riesgo|pendiente)$/.test(e.estado || "")) throw new Error(e.rotulo + ": estado debe ser ok, aviso, riesgo o pendiente");
@@ -1150,7 +1154,7 @@ R.tipos.linea_tiempo = function (fig, g, id, W) {
   if (hoy !== null) { desde = Math.min(desde, hoy); hasta = Math.max(hasta, hoy); }
   var margen = (hasta - desde) * 0.06 || R.DIA; desde -= margen; hasta += margen;
   var x0 = 24, x1 = W - 24, ym = 100, X = function (t) { return r1(x0 + (t - desde) / (hasta - desde) * (x1 - x0)); };
-  var s = R.lienzo(fig, W, 200, g.resumen), corta = new Intl.DateTimeFormat(R.IDIOMA, {day: "numeric", month: "short", year: "2-digit", timeZone: "UTC"}), larga = new Intl.DateTimeFormat(R.IDIOMA, {day: "numeric", month: "long", year: "numeric", timeZone: "UTC"});
+  var s = R.lienzo(fig, W, 200, g.resumen), corta = fechaCorta, larga = {format: function (t) { return fmt(t, "fecha"); }};
   svg("line", {x1: x0, y1: ym, x2: x1, y2: ym, stroke: "var(--borde)", "stroke-width": 2}, s);
   if (hoy !== null) { svg("line", {"class": "hoy", x1: X(hoy), y1: ym - 80, x2: X(hoy), y2: ym + 80}, s); texto(s, {x: X(hoy) + 4, y: 14}, T.hoy, "texto-hoy"); }
   var niveles = [-30, 36, -62, 68];

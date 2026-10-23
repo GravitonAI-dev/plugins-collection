@@ -338,7 +338,7 @@ def resumen():
       "CONCLUSION_3": "Si hay oposicion, el asunto pasa al declarativo; la cuantia lo justifica.",
       "DECISION_QUE_SE_PIDE": "Decision: autorizar la presentacion de la peticion de monitorio antes del 2 de octubre.",
     })
-    return componer("resumen_reclamacion_una_pagina.html", textos, datos, "resumen_ejecutivo", tema="corporativo")
+    return componer("resumen_reclamacion_una_pagina.html", textos, datos, "resumen_ejecutivo", tema="corporativo", modulos=["encaje"])
 
 # --------------------------------------------------------------------------- galeria
 FLUJO_MONITORIO = {"tipo": "diagrama", "disposicion": "capas", "grupos": {"1": "Via judicial", "2": "Cierre", "3": "Hechos"},
@@ -587,7 +587,7 @@ def ficha_una_pagina():
     g = {"principal": {"tipo": "barras", "unidad": "eur", "elementos": ELEMENTOS_FACTURAS, "resumen": "Principal por factura"},
          "estado": {"tipo": "semaforos", "resumen": "Requisitos de la reclamacion", "elementos": [{"rotulo": "Reconocimiento de deuda", "estado": "ok", "nota": "Correo de 4 de mayo"},
                     {"rotulo": "Requerimiento fehaciente", "estado": "ok", "nota": "Burofax de 17 de septiembre"}, {"rotulo": "Solvencia del deudor", "estado": "aviso", "nota": "Sin informe reciente"}]}}
-    return componer("ficha_deudor_una_pagina.html", t, _d(cifras, g, FUENTE_CLIENTE | DEMO), "ficha_una_pagina", tema="minimal", modulos=["seguimiento"])
+    return componer("ficha_deudor_una_pagina.html", t, _d(cifras, g, FUENTE_CLIENTE | DEMO), "ficha_una_pagina", tema="minimal", modulos=["seguimiento", "encaje"])
 
 def infografia():
     t = dict(PIE_DEMO, TITULO_DOCUMENTO="La morosidad de las pymes, en tres cifras", TITULO_CORTO="Infografia morosidad", ETIQUETA_SUPERIOR="Infografia | Datos de demostracion",
@@ -736,7 +736,7 @@ def poster():
     cifras = {"cifra_1": {"valor": 42180, "unidad": "eur", "decimales": 0}, "cifra_2": {"valor": 214, "unidad": "entero"}, "cifra_3": {"valor": 70, "unidad": "pct"}}
     _, datos_panel_ = datos_panel()
     g = {"principal": dict(datos_panel_["graficos"]["evolucion"], fuente="demo")}
-    return componer("poster_morosidad.html", t, _d(cifras, g), "poster", tema="nocturno")
+    return componer("poster_morosidad.html", t, _d(cifras, g), "poster", tema="nocturno", modulos=["encaje"])
 
 NUEVAS = [cuadro_mando, ficha_una_pagina, infografia, comparativa, cronograma_expediente, lista_control, mapa_riesgos, escenarios, embudo_conversion, actividad_equipo, informe_territorial, poster]
 

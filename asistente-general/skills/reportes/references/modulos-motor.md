@@ -587,31 +587,10 @@ function texto(s, at, contenido, clase) { return svg("text", Object.assign({"cla
 function planos(listas) { return [].concat.apply([], listas); }
 function sinNegativos(v, tipo) { if (min(v) < 0) throw new Error("el grafico " + tipo + " no admite valores negativos"); }
 function pct(v, total) { return fmt(v / total * 100, "pct"); }
-/* Rejilla cartesiana propia (y de 44 a 244), con el ancho que indique cada tipo. */
-function rejilla(s, tope, unidad, x0, x1) {
-  for (var k = 0; k <= 4; k++) {
-    var y = 244 - k * 50;
-    svg("line", {"class": "rejilla", x1: x0, y1: y, x2: x1, y2: y}, s);
-    texto(s, {x: x0 - 8, y: y + 4, "text-anchor": "end"}, k ? fmt(tope * k / 4, unidad, true) : "0");
-  }
-}
-/* Rotulos del eje x: recortados para que quepan en su hueco; en los extremos se anclan hacia dentro. */
-function rotulosX(s, et, xDe, W, extremos) {
-  var cabe = Math.max(4, Math.floor((W - 100) / et.length / 6.4)), n = et.length;
-  et.forEach(function (e, i) {
-    var ancla = extremos && i === 0 ? "start" : extremos && i === n - 1 ? "end" : "middle";
-    consejo(texto(s, {x: r1(xDe(i)), y: 266, "text-anchor": ancla}, R.recortar(e, cabe)), String(e));
-  });
-}
-function tablaSeries(g, et, series, totales) {
-  var cab = [g.nombre_etiqueta || T.concepto].concat(series.map(function (se) { return se.nombre; }));
-  if (totales) cab.push(T.total);
-  return {cabecera: cab, unidad: g.unidad, filas: et.map(function (e, i) {
-    var f = [e].concat(series.map(function (se) { return se.valores[i]; }));
-    if (totales) f.push(totales[i]);
-    return f;
-  })};
-}
+/* Rejilla, rotulos del eje x, tabla y leyenda de series: los del motor (Reportes.rejilla, .rotulosX,
+   .tablaSeries y .leyendaSeries), para que estos graficos se comporten igual que la linea y las columnas. */
+var rejilla = R.rejilla, tablaSeries = R.tablaSeries, leyendaSeries = R.leyendaSeries;
+function rotulosX(s, et, xDe, W, extremos) { R.rotulosX(s, et, xDe, extremos); }
 
 /* Area apilada: composicion del total a lo largo del tiempo. */
 R.tipos.area_apilada = function (fig, g, id, W) {
@@ -630,7 +609,7 @@ R.tipos.area_apilada = function (fig, g, id, W) {
   });
   tot.forEach(function (v, i) { if (g.valores !== false && (n <= 8 || i === 0 || i === n - 1)) texto(s, {x: X(i), y: R.yDe(v, tope) - 7, "text-anchor": i === 0 ? "start" : i === n - 1 ? "end" : "middle"}, fmt(v, g.unidad, true), "valor-punto"); });
   rotulosX(s, et, X, W, true);
-  R.leyenda(fig, series.map(function (se, j) { return {color: color(se.color, j), texto: se.nombre}; }));
+  R.leyenda(fig, leyendaSeries(series));
   return tablaSeries(g, et, series, tot);
 };
 
@@ -685,7 +664,7 @@ R.tipos.escalones = function (fig, g, id, W) {
     });
   });
   rotulosX(s, et, function (i) { return X(i) + (x1 - x0) / n / 2; }, W);
-  if (series.length > 1) R.leyenda(fig, series.map(function (se, j) { return {color: color(se.color, j), texto: se.nombre}; }));
+  if (series.length > 1) R.leyenda(fig, leyendaSeries(series));
   return tablaSeries(g, et, series);
 };
 
@@ -695,9 +674,9 @@ R.tipos.cajas = function (fig, g, id, W) {
   var gr = (g.grupos || []).map(function (q) {
     var v = (q.valores || []).filter(num).sort(function (a, b) { return a - b; });
     if (v.length < 5) throw new Error("el grupo " + q.rotulo + " necesita al menos cinco valores");
-    var q1 = cuantil(v, .25), me = cuantil(v, .5), q3 = cuantil(v, .75), iqr = q3 - q1;
-    var dentro = v.filter(function (x) { return x >= q1 - 1.5 * iqr && x <= q3 + 1.5 * iqr; });
-    return {rotulo: q.rotulo, color: q.color, v: v, q1: q1, me: me, q3: q3, lo: dentro[0], hi: dentro[dentro.length - 1], fuera: v.filter(function (x) { return dentro.indexOf(x) < 0; })};
+    var q1 = cuantil(v, .25), me = cuantil(v, .5), q3 = cuantil(v, .75), iqr = q3 - q1, va = q1 - 1.5 * iqr, vb = q3 + 1.5 * iqr;
+    var dentro = v.filter(function (x) { return x >= va && x <= vb; });
+    return {rotulo: q.rotulo, color: q.color, v: v, q1: q1, me: me, q3: q3, lo: dentro[0], hi: dentro[dentro.length - 1], fuera: v.filter(function (x) { return x < va || x > vb; })};
   });
   if (!gr.length) throw new Error("faltan grupos");
   var todos = planos(gr.map(function (q) { return q.v; })), base = Math.min(0, min(todos)), tope = techo(max(todos));
@@ -805,19 +784,16 @@ R.tipos.sankey = function (fig, g, id, W) {
     if (!(f.valor > 0)) throw new Error("los flujos necesitan valor positivo");
     por[f.de].sale += f.valor; por[f.a].entra += f.valor; por[f.de].hijos.push(f.a);
   });
-  /* Ciclos: recorrido en profundidad desde todos los nodos, tambien los que no son origen. */
-  var estado = {};
+  /* Recorrido en profundidad desde todos los nodos: detecta ciclos (tambien sin nodo origen) y deja
+     el orden inverso al topologico; recorrerlo al reves asigna cada nivel en una sola pasada. */
+  var estado = {}, orden = [];
   function visitar(id) {
     if (estado[id] === 1) throw new Error("los flujos forman un ciclo en " + id);
     if (estado[id] === 2) return;
-    estado[id] = 1; por[id].hijos.forEach(visitar); estado[id] = 2;
+    estado[id] = 1; por[id].hijos.forEach(visitar); estado[id] = 2; orden.push(id);
   }
   nodos.forEach(function (n) { visitar(n.id); });
-  function nivel(id, pila) {
-    if (pila.indexOf(id) > -1) throw new Error("los flujos forman un ciclo en " + id);
-    por[id].hijos.forEach(function (h) { if (por[h].nivel < por[id].nivel + 1) { por[h].nivel = por[id].nivel + 1; nivel(h, pila.concat([id])); } });
-  }
-  nodos.forEach(function (n) { if (!por[n.id].entra) nivel(n.id, []); });
+  orden.reverse().forEach(function (id) { por[id].hijos.forEach(function (h) { por[h].nivel = Math.max(por[h].nivel, por[id].nivel + 1); }); });
   var niveles = max(nodos.map(function (n) { return por[n.id].nivel; })) + 1, H = 300, hueco = 10, ancho = 14, cols = [];
   for (var k = 0; k < niveles; k++) cols.push([]);
   nodos.forEach(function (n) { cols[por[n.id].nivel].push(por[n.id]); });
@@ -932,9 +908,12 @@ var TX = Object.assign(/^en/.test(R.IDIOMA)
   ? {estado: "Status", nota: "Note", fecha: "Date", ok: "Compliant", aviso: "Attention", riesgo: "At risk", pendiente: "Pending"}
   : {estado: "Estado", nota: "Nota", fecha: "Fecha", ok: "Correcto", aviso: "Atencion", riesgo: "Riesgo", pendiente: "Pendiente"}, R.datos.textos || {});
 function texto(s, at, contenido, clase) { return svg("text", Object.assign({"class": clase || "eje"}, at), s, contenido); }
-R.html("style", "", D.head).textContent = ".semaforos{list-style:none;margin:0;padding:0}.semaforo{display:flex;align-items:flex-start;gap:12px;padding:9px 0;border-bottom:1px solid var(--borde-suave)}" +
+var estilosSemaforos = ".semaforos{list-style:none;margin:0;padding:0}.semaforo{display:flex;align-items:flex-start;gap:12px;padding:9px 0;border-bottom:1px solid var(--borde-suave)}" +
   ".semaforo .luz{flex:none;width:12px;height:12px;border-radius:50%;margin-top:6px;background:var(--apagado)}.semaforo-ok .luz{background:var(--ok)}.semaforo-aviso .luz{background:var(--aviso)}.semaforo-riesgo .luz{background:var(--riesgo)}" +
   ".semaforo>div{flex:1;min-width:0}.semaforo .nota{display:block;font-size:.82rem;color:var(--apagado)}.semaforos-resumen{font-size:.82rem;color:var(--apagado);margin:var(--e2) 0 0}";
+/* Los estilos de los semaforos se anaden la primera vez que se dibuja uno, no en todo artefacto con el modulo. */
+function conEstilos() { if (estilosSemaforos) { R.html("style", "", D.head).textContent = estilosSemaforos; estilosSemaforos = null; } }
+var fechaCorta = new Intl.DateTimeFormat(R.IDIOMA, {day: "numeric", month: "short", year: "2-digit", timeZone: "UTC"});
 
 /* Progreso: barras de avance con porcentaje y, si se da, marca de objetivo. */
 R.tipos.progreso = function (fig, g, id, W) {
@@ -960,6 +939,7 @@ R.tipos.progreso = function (fig, g, id, W) {
 R.tipos.semaforos = function (fig, g) {
   var el = g.elementos || [], nombres = Object.assign({ok: TX.ok, aviso: TX.aviso, riesgo: TX.riesgo, pendiente: TX.pendiente}, g.nombres || {}), cuenta = {ok: 0, aviso: 0, riesgo: 0, pendiente: 0};
   if (!el.length) throw new Error("faltan elementos");
+  conEstilos();
   var ul = R.html("ul", "semaforos", fig);
   el.forEach(function (e) {
     if (!/^(ok|aviso|riesgo|pendiente)$/.test(e.estado || "")) throw new Error(e.rotulo + ": estado debe ser ok, aviso, riesgo o pendiente");
@@ -983,7 +963,7 @@ R.tipos.linea_tiempo = function (fig, g, id, W) {
   if (hoy !== null) { desde = Math.min(desde, hoy); hasta = Math.max(hasta, hoy); }
   var margen = (hasta - desde) * 0.06 || R.DIA; desde -= margen; hasta += margen;
   var x0 = 24, x1 = W - 24, ym = 100, X = function (t) { return r1(x0 + (t - desde) / (hasta - desde) * (x1 - x0)); };
-  var s = R.lienzo(fig, W, 200, g.resumen), corta = new Intl.DateTimeFormat(R.IDIOMA, {day: "numeric", month: "short", year: "2-digit", timeZone: "UTC"}), larga = new Intl.DateTimeFormat(R.IDIOMA, {day: "numeric", month: "long", year: "numeric", timeZone: "UTC"});
+  var s = R.lienzo(fig, W, 200, g.resumen), corta = fechaCorta, larga = {format: function (t) { return fmt(t, "fecha"); }};
   svg("line", {x1: x0, y1: ym, x2: x1, y2: ym, stroke: "var(--borde)", "stroke-width": 2}, s);
   if (hoy !== null) { svg("line", {"class": "hoy", x1: X(hoy), y1: ym - 80, x2: X(hoy), y2: ym + 80}, s); texto(s, {x: X(hoy) + 4, y: 14}, T.hoy, "texto-hoy"); }
   var niveles = [-30, 36, -62, 68];
@@ -1001,6 +981,48 @@ R.tipos.linea_tiempo = function (fig, g, id, W) {
 };
 
 ["semaforos"].forEach(function (t) { R.tipos[t].fijo = true; });
+})();
+</script>
+```
+
+---
+
+## Ajuste a una hoja (`encaje`)
+
+Para las maquetas de una sola hoja (`resumen_ejecutivo`, `ficha_una_pagina`, `poster`). Antes de imprimir mide el contenido al ancho util de la hoja y, si pasa de una, reduce la escala lo justo. La maqueta fija la hoja en sus estilos con `:root{--encaje:<ancho> <alto>}`, en px a 96 por pulgada: `703 1000` para A4 vertical con los margenes de la base, `1497 1032` para A3 apaisado con margenes de 12 mm. Si hay que reducir mucho, sobra contenido: se quita un bloque.
+
+```js modulo=encaje
+<script>
+(function(){
+  "use strict";
+  /* Antes de imprimir se mide la pagina con las reglas de impresion aplicadas en pantalla y al
+     ancho util de la hoja (--encaje: ancho y alto en px, lo fija la maqueta); si pasa de una
+     hoja, se reduce lo justo (Chrome no recoloca despues). */
+  var D = document, main = D.querySelector("main");
+  var hoja = getComputedStyle(D.documentElement).getPropertyValue("--encaje").trim().split(/\s+/).map(Number);
+  if (hoja.length !== 2 || !(hoja[0] > 0 && hoja[1] > 0)) return;
+  var ANCHO = hoja[0], ALTO = hoja[1];
+  function reglasImpresion() {
+    var css = "";
+    [].forEach.call(D.styleSheets, function (hoja) {
+      [].forEach.call(hoja.cssRules, function (r) {
+        if (r.media && /print/.test(r.media.mediaText)) [].forEach.call(r.cssRules, function (x) { if (x.selectorText) css += x.cssText + "\n"; });
+      });
+    });
+    return css;
+  }
+  window.addEventListener("beforeprint", function () {
+    main.style.zoom = "";
+    var prueba = D.createElement("style");
+    prueba.textContent = reglasImpresion();
+    D.head.appendChild(prueba);
+    D.body.style.width = ANCHO + "px";
+    var alto = main.getBoundingClientRect().height;
+    prueba.remove();
+    D.body.style.width = "";
+    if (alto > ALTO) main.style.zoom = Math.max(0.6, ALTO / alto).toFixed(3);
+  });
+  window.addEventListener("afterprint", function () { main.style.zoom = ""; });
 })();
 </script>
 ```
@@ -1232,10 +1254,10 @@ function variables(c) {
   return v;
 }
 /* En claro y en papel, los colores de marca; en oscuro, su version oscura o los del tema.
-   El selector :root:root[data-tema] pesa mas que el de cualquier tema (:root[data-tema="x"]),
-   asi que la marca se aplica encima del tema elegido. Con un tema siempre oscuro (color-scheme
+   La hoja de la marca se anade despues de la de la base y del tema, con la misma especificidad
+   (:root[data-tema]): por orden, la marca se aplica encima del tema elegido. Con un tema siempre oscuro (color-scheme
    dark) la pantalla es oscura aunque el sistema este en claro: alli rige la version oscura. */
-var R0 = ":root:root[data-tema]", siempreOscuro = getComputedStyle(D.documentElement).colorScheme === "dark";
+var R0 = ":root[data-tema]", siempreOscuro = getComputedStyle(D.documentElement).colorScheme === "dark";
 var css = "@media print{" + R0 + "{" + variables(m) + "}}";
 if (siempreOscuro) css += "@media screen{" + R0 + "{" + variables(m.oscuro || {}) + "}}";
 else {

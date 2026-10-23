@@ -14,7 +14,7 @@ Los graficos **no se dibujan a mano**. En el HTML solo se coloca el hueco, `<fig
 
 Reglas comunes a todas las maquetas:
 
-- El tema se fija en la etiqueta `html` con `data-tema`: `moderno` o `sobrio` van en la base; para cualquiera de los otros once de `temas-visuales.md` se copia ademas su bloque `css` en el marcador `{{ESTILOS_TEMA}}` de la base (o se borra esa linea si no hace falta).
+- El tema se fija en la etiqueta `html` con `data-tema`: `moderno` o `sobrio` van en la base; para cualquier otro tema de `temas-visuales.md` se copia ademas su bloque `css` en el marcador `{{ESTILOS_TEMA}}` de la base (o se borra esa linea si no hace falta).
 - Los bloques se pueden repetir, quitar o reordenar, y **cualquier hueco de grafico admite cualquier tipo**: si en un panel no hay importe que descomponer, la tarjeta de la cascada pasa a ser una bala, unas divergentes o un diagrama. Las maquetas son un punto de partida, no un formulario que haya que llenar entero. Lo que no cambia es la estructura de cada bloque: las clases son las de la base y no se renombran.
 - Toda cifra del texto que salga de un grafico se escribe con `<span data-cifra="clave"></span>` y se declara en `cifras`. Asi el texto y el grafico no pueden contradecirse.
 - **Lo que falta:** una linea de la ficha cuyo dato no es esencial y no se ha dado (la referencia del expediente, el autor) se quita; si es esencial, se pregunta. Un hito sin fecha cierta se escribe como «Fecha por determinar» o «Prevista: noviembre de 2026», nunca con un dia inventado. Los marcadores `{{VARIABLE}}` solo quedan para datos que el usuario ha decidido no dar.
@@ -951,7 +951,7 @@ Se coloca despues del motor y de los modulos. Compone el indice con enlaces y po
 
 ## 6. Resumen ejecutivo de una pagina (`resumen_ejecutivo`)
 
-**Ancho:** `1000px`. Una sola pagina A4: titular con la conclusion, tres indicadores, un grafico que la sostiene y tres conclusiones con la decision que se pide. Para un consejo, un socio o un cliente con poco tiempo. Al imprimir, el script de la maqueta reduce la escala lo justo para que todo quepa en una hoja; aun asi, si hay que reducir mucho, sobra contenido: un aviso o un bloque mas es lo primero que se quita.
+**Ancho:** `1000px`. Una sola pagina A4: titular con la conclusion, tres indicadores, un grafico que la sostiene y tres conclusiones con la decision que se pide. Para un consejo, un socio o un cliente con poco tiempo. Al imprimir, el modulo `encaje` (`modulos-motor.md`) reduce la escala lo justo para que todo quepa en una hoja; aun asi, si hay que reducir mucho, sobra contenido: un aviso o un bloque mas es lo primero que se quita.
 
 ### Ficha
 
@@ -963,6 +963,7 @@ Se coloca despues del motor y de los modulos. Compone el indice con enlaces y po
 ### Estilos
 
 ```css maqueta=resumen_ejecutivo parte=estilos
+:root{--encaje:703 1000}  /* ancho y alto utiles de la hoja, en px: lo lee el modulo encaje */
 .una-pagina{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:var(--e4);align-items:start}
 .una-pagina .conclusiones ol{margin:0;padding-left:20px}
 .una-pagina .conclusiones li{margin:0 0 var(--e3);font-size:.98rem}
@@ -1024,42 +1025,6 @@ Los `data-cifra` de los tres indicadores apuntan a las claves que se declaren en
     "principal": {"tipo": "barras", "unidad": "eur", "fuente": "cliente", "elementos": [], "resumen": "{{RESUMEN}}"}
   }
 }
-```
-
-### Script
-
-Se coloca despues del motor. Antes de imprimir mide el contenido a ancho de A4 y, si pasa de una hoja, lo reduce lo justo.
-
-```js maqueta=resumen_ejecutivo parte=script
-<script>
-(function(){
-  "use strict";
-  /* Antes de imprimir se mide la pagina con las reglas de impresion aplicadas en pantalla y al
-     ancho util del A4; si pasa de una hoja, se reduce lo justo (Chrome no recoloca despues). */
-  var D = document, main = D.querySelector("main"), ANCHO = 703, ALTO = 1000;
-  function reglasImpresion() {
-    var css = "";
-    [].forEach.call(D.styleSheets, function (hoja) {
-      [].forEach.call(hoja.cssRules, function (r) {
-        if (r.media && /print/.test(r.media.mediaText)) [].forEach.call(r.cssRules, function (x) { if (x.selectorText) css += x.cssText + "\n"; });
-      });
-    });
-    return css;
-  }
-  window.addEventListener("beforeprint", function () {
-    main.style.zoom = "";
-    var prueba = D.createElement("style");
-    prueba.textContent = reglasImpresion();
-    D.head.appendChild(prueba);
-    D.body.style.width = ANCHO + "px";
-    var alto = main.getBoundingClientRect().height;
-    prueba.remove();
-    D.body.style.width = "";
-    if (alto > ALTO) main.style.zoom = Math.max(0.6, ALTO / alto).toFixed(3);
-  });
-  window.addEventListener("afterprint", function () { main.style.zoom = ""; });
-})();
-</script>
 ```
 
 ---
@@ -1288,6 +1253,7 @@ table.compacta th,table.compacta td{padding:7px 10px}
 ### Estilos
 
 ```css maqueta=ficha_una_pagina parte=estilos
+:root{--encaje:703 1000}  /* ancho y alto utiles de la hoja, en px: lo lee el modulo encaje */
 .datos-clave{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin:0 0 var(--e4);border:1px solid var(--borde);border-radius:var(--radio-s);overflow:hidden;background:var(--superficie)}
 .datos-clave div{padding:var(--e3) var(--e4);border-right:1px solid var(--borde-suave);border-bottom:1px solid var(--borde-suave)}
 .datos-clave div:nth-child(3n){border-right:0}
@@ -1392,42 +1358,6 @@ table.compacta th,table.compacta td{padding:7px 10px}
     }
   }
 }
-```
-
-### Script
-
-El mismo del resumen ejecutivo: antes de imprimir reduce la escala lo justo para que quepa en una hoja.
-
-```js maqueta=ficha_una_pagina parte=script
-<script>
-(function(){
-  "use strict";
-  /* Antes de imprimir se mide la pagina con las reglas de impresion aplicadas en pantalla y al
-     ancho util del A4; si pasa de una hoja, se reduce lo justo (Chrome no recoloca despues). */
-  var D = document, main = D.querySelector("main"), ANCHO = 703, ALTO = 1000;
-  function reglasImpresion() {
-    var css = "";
-    [].forEach.call(D.styleSheets, function (hoja) {
-      [].forEach.call(hoja.cssRules, function (r) {
-        if (r.media && /print/.test(r.media.mediaText)) [].forEach.call(r.cssRules, function (x) { if (x.selectorText) css += x.cssText + "\n"; });
-      });
-    });
-    return css;
-  }
-  window.addEventListener("beforeprint", function () {
-    main.style.zoom = "";
-    var prueba = D.createElement("style");
-    prueba.textContent = reglasImpresion();
-    D.head.appendChild(prueba);
-    D.body.style.width = ANCHO + "px";
-    var alto = main.getBoundingClientRect().height;
-    prueba.remove();
-    D.body.style.width = "";
-    if (alto > ALTO) main.style.zoom = Math.max(0.6, ALTO / alto).toFixed(3);
-  });
-  window.addEventListener("afterprint", function () { main.style.zoom = ""; });
-})();
-</script>
 ```
 
 ---
@@ -2461,7 +2391,7 @@ header{text-align:center}
 
 ## 18. Poster (`poster`)
 
-**Ancho:** `1400px`. Una hoja A3 apaisada para colgar en una sala, una jornada o una pared: titular grande, tres cifras en columna y un gráfico que ocupa el resto. Nada que obligue a acercarse: sin tablas ni textos largos. Al imprimir, el script reduce la escala para que todo quepa en un A3 apaisado.
+**Ancho:** `1400px`. Una hoja A3 apaisada para colgar en una sala, una jornada o una pared: titular grande, tres cifras en columna y un gráfico que ocupa el resto. Nada que obligue a acercarse: sin tablas ni textos largos. Al imprimir, el modulo `encaje` reduce la escala para que todo quepa en un A3 apaisado.
 
 ### Ficha
 
@@ -2472,6 +2402,7 @@ header{text-align:center}
 ### Estilos
 
 ```css maqueta=poster parte=estilos
+:root{--encaje:1497 1032}  /* ancho y alto utiles de la hoja, en px: lo lee el modulo encaje */
 h1{font-size:clamp(2.2rem,5vw,3.8rem)}
 .entradilla{font-size:1.25rem;max-width:80ch}
 .poster{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.4fr);gap:var(--e5);align-items:stretch}
@@ -2540,43 +2471,6 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}
     }
   }
 }
-```
-
-### Script
-
-El mismo del resumen ejecutivo: antes de imprimir reduce la escala lo justo para que quepa en un A3 apaisado.
-
-```js maqueta=poster parte=script
-<script>
-(function(){
-  "use strict";
-  /* Antes de imprimir se mide la pagina con las reglas de impresion aplicadas en pantalla y al
-     ancho util del A3 apaisado (396 x 273 mm con margenes de 12 mm, a 96 px por pulgada); si pasa
-     de una hoja, se reduce lo justo (Chrome no recoloca despues). */
-  var D = document, main = D.querySelector("main"), ANCHO = 1497, ALTO = 1032;
-  function reglasImpresion() {
-    var css = "";
-    [].forEach.call(D.styleSheets, function (hoja) {
-      [].forEach.call(hoja.cssRules, function (r) {
-        if (r.media && /print/.test(r.media.mediaText)) [].forEach.call(r.cssRules, function (x) { if (x.selectorText) css += x.cssText + "\n"; });
-      });
-    });
-    return css;
-  }
-  window.addEventListener("beforeprint", function () {
-    main.style.zoom = "";
-    var prueba = D.createElement("style");
-    prueba.textContent = reglasImpresion();
-    D.head.appendChild(prueba);
-    D.body.style.width = ANCHO + "px";
-    var alto = main.getBoundingClientRect().height;
-    prueba.remove();
-    D.body.style.width = "";
-    if (alto > ALTO) main.style.zoom = Math.max(0.6, ALTO / alto).toFixed(3);
-  });
-  window.addEventListener("afterprint", function () { main.style.zoom = ""; });
-})();
-</script>
 ```
 
 ---

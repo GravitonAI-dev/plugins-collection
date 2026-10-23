@@ -1,6 +1,6 @@
 # Catalogo de artefactos tipicos
 
-Recetas de partida para los artefactos que mas se piden: tipo de entregable (V1), bloques, graficos que funcionan y datos que pedir. La receta se deduce de la peticion (V6 en `SKILL.md`); se adapta al caso y se aplican todas las reglas de la skill. Si falta un dato para un bloque y el usuario no lo tiene, el bloque se quita.
+Recetas de partida para los artefactos que mas se piden: tipo de entregable (V1), bloques, graficos que funcionan y datos que pedir. La receta se deduce de la peticion (V6 en `SKILL.md`); se adapta al caso y se aplican todas las reglas de la skill. Si falta un dato para un bloque y el usuario no lo tiene, el bloque se quita. Las propuestas de honorarios, los boletines y cualquier otro documento de texto no tienen receta aqui: se redactan en Markdown con su skill.
 
 ---
 
@@ -13,10 +13,6 @@ Recetas de partida para los artefactos que mas se piden: tipo de entregable (V1)
 - **Bloques:** indicadores (cuantia inicial, cuantia actual, diferencia, proximo vencimiento) → antecedentes en cuatro lineas → comparativa de importes (columnas agrupadas o cascada con `@clave`) → plazos (diagrama de plazos con fases abiertas y fechas aproximadas) y cronologia → quien es quien (diagrama en arbol o radial, si hay varias partes o sociedades) → proximos pasos con responsable → aviso de riesgo si corre un plazo.
 - **Datos que pedir:** partes y su relacion, cifras iniciales y actuales con su fecha, hitos con fecha cierta, plazo en curso, responsable.
 - **Version larga (dossier de caso, para preparar una reunion o una vista):** anade prueba disponible (tabla con distintivos), riesgos (matriz) y estrategia.
-
-### Propuesta de honorarios
-
-Es un **documento de texto**: se redacta en Markdown con la skill de redaccion de documentos, no aqui. Si el despacho quiere ademas un reporte visual de la propuesta (fases y calendario, honorarios por fase), se usa `cronograma_expediente` o `comparativa`.
 
 ### Viabilidad o comparativa de opciones (`viabilidad`)
 
@@ -77,10 +73,6 @@ Es un **documento de texto**: se redacta en Markdown con la skill de redaccion d
 - **V1:** `documento_largo`.
 - **Bloques:** portada → resumen ejecutivo (tres conclusiones) → contexto y problema → analisis por capitulos, con un grafico o diagrama que sostenga cada tesis → que deberian hacer las empresas → metodologia y fuentes → sobre el despacho.
 - **Datos que pedir:** tema, tesis, publico, datos propios o fuentes que se autorizan; normativa solo verificada en la sesion.
-
-### Boletin normativo
-
-Es un **documento de texto**: se redacta en Markdown. Si se quiere acompanar de cifras (plazos de entrada en vigor, a quien afecta), `infografia` o `cronograma_expediente`.
 
 ### Caso de exito (`caso_exito`)
 

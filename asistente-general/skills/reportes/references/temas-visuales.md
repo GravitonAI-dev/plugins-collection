@@ -1,10 +1,10 @@
 # Temas visuales
 
-La base trae dos temas incorporados, `moderno` y `sobrio`, que se eligen solo con la etiqueta `html` (`data-tema="moderno"` o `data-tema="sobrio"`). Los diecinueve temas de este documento se anaden **copiando su bloque `css` integro en el marcador `{{ESTILOS_TEMA}}` de la base** (dentro del unico `<style>`, justo despues del tema sobrio) y fijando `data-tema` con su nombre. Un tema es una sola pieza: no se mezclan dos ni se copia la mitad de uno.
+La base trae dos temas incorporados, `moderno` y `sobrio`, que se eligen solo con la etiqueta `html` (`data-tema="moderno"` o `data-tema="sobrio"`). Los demas temas de este documento se anaden **copiando su bloque `css` integro en el marcador `{{ESTILOS_TEMA}}` de la base** (dentro del unico `<style>`, justo despues del tema sobrio) y fijando `data-tema` con su nombre. Un tema es una sola pieza: no se mezclan dos ni se copia la mitad de uno.
 
 Cada tema redefine los tokens de `:root` (colores, radios, sombra y, en algunos, la pila de fuentes), trae su version para el modo oscuro del sistema y, cuando el estilo lo pide, unas pocas reglas de forma (cabecera, tarjetas, titulares). Todos imprimen en blanco con la misma regla `@media print` de la base, que quita tambien los degradados de fondo; los temas siempre oscuros traen ademas su paleta de papel, con acentos y series que contrastan sobre blanco. Todos cumplen el contraste minimo 4.5:1 en claro y en oscuro.
 
-Con un tema personalizado (`tema_personalizado`) se parte de cualquiera de los veintiuno y se aplica encima el modulo `marca` (`modulos-motor.md`), que sustituye el acento y la serie por los colores corporativos.
+Con un tema personalizado (`tema_personalizado`) se parte de cualquier tema y se aplica encima el modulo `marca` (`modulos-motor.md`), que sustituye el acento y la serie por los colores corporativos.
 
 ## Catalogo
 
@@ -42,6 +42,7 @@ Con un tema personalizado (`tema_personalizado`) se parte de cualquiera de los v
 
 ```css tema=editorial
 :root[data-tema="editorial"]{
+  --degradado:none;
   --fondo:#f9f6ef;--superficie:#fffdf8;--superficie-2:#f3eee3;--borde:#d9d2c3;--borde-suave:#e9e3d6;
   --texto:#1b1a17;--apagado:#5c574d;
   --acento:#8b2e2e;--acento-suave:#f4e6e3;--acento-fuerte:#5e1d1d;
@@ -59,7 +60,6 @@ Con un tema personalizado (`tema_personalizado`) se parte de cualquiera de los v
     --c1:#e08a8a;--c2:#8fb3d6;--c3:#e0b86a;--c4:#9fc08f;--c5:#c4a0d4;--c6:#a09a8e;--sombra:none;
   }
 }
-:root[data-tema="editorial"] body{background-image:none}
 :root[data-tema="editorial"] h1{font-weight:600;letter-spacing:-.01em;font-size:clamp(1.9rem,4vw,2.8rem)}
 :root[data-tema="editorial"] .antetitulo,:root[data-tema="editorial"] .indicador .rotulo,:root[data-tema="editorial"] thead th,:root[data-tema="editorial"] .distintivo,:root[data-tema="editorial"] .eje{font-family:ui-sans-serif,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
 :root[data-tema="editorial"] .indicador::before{background:var(--texto);height:2px}
@@ -73,6 +73,7 @@ Con un tema personalizado (`tema_personalizado`) se parte de cualquiera de los v
 
 ```css tema=corporativo
 :root[data-tema="corporativo"]{
+  --degradado:none;--color-cifra:var(--acento-fuerte);
   --fondo:#eef1f5;--superficie:#ffffff;--superficie-2:#f4f6f9;--borde:#cfd6e0;--borde-suave:#e1e6ed;
   --texto:#0f1b2d;--apagado:#51607a;
   --acento:#0b3d91;--acento-suave:#e4ebf7;--acento-fuerte:#072a66;
@@ -89,14 +90,9 @@ Con un tema personalizado (`tema_personalizado`) se parte de cualquiera de los v
     --c1:#7ea6ea;--c2:#9dc0ea;--c3:#b6d37a;--c4:#b39ddb;--c5:#f9b27c;--c6:#9aa7b8;--sombra:0 1px 2px rgba(0,0,0,.5);
   }
 }
-:root[data-tema="corporativo"] body{background-image:none}
 :root[data-tema="corporativo"] .contenedor>header{border-left:6px solid var(--acento);padding-left:var(--e4);margin-bottom:var(--e4)}
 :root[data-tema="corporativo"] .indicador::before{background:var(--acento)}
 :root[data-tema="corporativo"] h2{text-transform:uppercase;letter-spacing:.07em;font-size:.9rem}
-:root[data-tema="corporativo"] .indicador .cifra{color:var(--acento-fuerte)}
-:root[data-tema="corporativo"] .indicador.es-ok .cifra{color:var(--ok)}
-:root[data-tema="corporativo"] .indicador.es-atencion .cifra{color:var(--aviso)}
-:root[data-tema="corporativo"] .indicador.es-riesgo .cifra{color:var(--riesgo)}
 :root[data-tema="corporativo"] .distintivo{border-radius:4px}
 :root[data-tema="corporativo"] thead th{background:var(--superficie-2)}
 ```
@@ -105,6 +101,7 @@ Con un tema personalizado (`tema_personalizado`) se parte de cualquiera de los v
 
 ```css tema=minimal
 :root[data-tema="minimal"]{
+  --degradado:none;
   --fondo:#ffffff;--superficie:#ffffff;--superficie-2:#f6f6f6;--borde:#e4e4e4;--borde-suave:#efefef;
   --texto:#111111;--apagado:#5f5f5f;
   --acento:#e4531b;--acento-suave:#fdeee7;--acento-fuerte:#b33a0b;
@@ -121,7 +118,6 @@ Con un tema personalizado (`tema_personalizado`) se parte de cualquiera de los v
     --c1:#f2f2f2;--c2:#ff7a47;--c3:#9a9a9a;--c4:#555555;--c5:#cfcfcf;--c6:#737373;--sombra:none;
   }
 }
-:root[data-tema="minimal"] body{background-image:none}
 :root[data-tema="minimal"] .indicador,:root[data-tema="minimal"] .tarjeta{border:0;border-top:1px solid var(--texto);border-radius:0;padding-left:0;padding-right:0;background:transparent}
 :root[data-tema="minimal"] .indicador::before{display:none}
 :root[data-tema="minimal"] .borrador{box-shadow:none;background:transparent;border-left-width:2px}
@@ -136,6 +132,7 @@ Con un tema personalizado (`tema_personalizado`) se parte de cualquiera de los v
 
 ```css tema=nocturno
 :root[data-tema="nocturno"]{
+  --degradado:radial-gradient(800px 420px at 10% -10%,rgba(94,234,212,.16),transparent 70%),radial-gradient(700px 380px at 90% 0,rgba(129,140,248,.16),transparent 70%);--texto-sobre-serie:#0b0f1a;
   color-scheme:dark;
   --fondo:#0b0f1a;--superficie:#121829;--superficie-2:#182036;--borde:#263050;--borde-suave:#1e2740;
   --texto:#e6ecff;--apagado:#a3aecf;
@@ -144,17 +141,11 @@ Con un tema personalizado (`tema_personalizado`) se parte de cualquiera de los v
   --c1:#5eead4;--c2:#818cf8;--c3:#fbbf24;--c4:#f472b6;--c5:#60a5fa;--c6:#94a3b8;
   --radio:16px;--radio-s:10px;--sombra:0 0 0 1px rgba(94,234,212,.08),0 12px 32px rgba(0,0,0,.55);
 }
-:root[data-tema="nocturno"] body{background-image:radial-gradient(800px 420px at 10% -10%,rgba(94,234,212,.16),transparent 70%),radial-gradient(700px 380px at 90% 0,rgba(129,140,248,.16),transparent 70%)}
 :root[data-tema="nocturno"] .indicador::before{background:linear-gradient(90deg,var(--c1),var(--c2))}
 :root[data-tema="nocturno"] .indicador .cifra{text-shadow:0 0 24px color-mix(in srgb,var(--acento) 35%,transparent)}
-:root[data-tema="nocturno"] .borrador{background:#1a1f2e}
-:root[data-tema="nocturno"] .grafico .valor-punto.dentro,:root[data-tema="nocturno"] .grafico .numero-riesgo,:root[data-tema="nocturno"] .grafico .fecha-fin.dentro{fill:#0b0f1a}
-/* En papel: fondo blanco (regla comun de la base) y estos colores, que contrastan sobre blanco. */
+/* En papel: la base pone fondo blanco, texto negro y estados legibles; el tema solo da su acento y su serie de papel. */
 @media print{
-  :root[data-tema="nocturno"]{color-scheme:light;--acento:#0f766e;--acento-fuerte:#0b5a54;--acento-suave:#f3f3f3;--ok:#2f7d4f;--aviso:#a8650f;--riesgo:#b23a48;--c1:#0f766e;--c2:#4f46e5;--c3:#b45309;--c4:#be185d;--c5:#1d4ed8;--c6:#64748b;}
-  :root[data-tema="nocturno"] .borrador{background:#fff}
-  :root[data-tema="nocturno"] .indicador .cifra{text-shadow:none}
-  :root[data-tema="nocturno"] .grafico .valor-punto.dentro,:root[data-tema="nocturno"] .grafico .numero-riesgo,:root[data-tema="nocturno"] .grafico .fecha-fin.dentro{fill:#fff}
+  :root[data-tema="nocturno"]{--acento:#0f766e;--acento-fuerte:#0b5a54;--c1:#0f766e;--c2:#4f46e5;--c3:#b45309;--c4:#be185d;--c5:#1d4ed8;--c6:#64748b;}
 }
 ```
 
@@ -162,6 +153,7 @@ Con un tema personalizado (`tema_personalizado`) se parte de cualquiera de los v
 
 ```css tema=tecnico
 :root[data-tema="tecnico"]{
+  --degradado:none;
   --fondo:#f4f5f2;--superficie:#fbfbf9;--superficie-2:#eceee8;--borde:#c9cdc2;--borde-suave:#dde0d7;
   --texto:#161a16;--apagado:#55605a;
   --acento:#0f766e;--acento-suave:#e0f2ef;--acento-fuerte:#0a4f4a;
@@ -179,7 +171,7 @@ Con un tema personalizado (`tema_personalizado`) se parte de cualquiera de los v
     --c1:#5eead4;--c2:#f5b64a;--c3:#a5b4fc;--c4:#9ca3af;--c5:#f9a8d4;--c6:#d1d5db;--sombra:none;
   }
 }
-:root[data-tema="tecnico"] body{background-image:none;font-size:15px}
+:root[data-tema="tecnico"] body{font-size:15px}
 :root[data-tema="tecnico"] h1{font-size:clamp(1.4rem,3vw,2rem);letter-spacing:0;font-weight:700}
 :root[data-tema="tecnico"] .antetitulo::before{content:"// "}
 :root[data-tema="tecnico"] .indicador::before{background:var(--acento);height:3px}
@@ -193,6 +185,7 @@ Con un tema personalizado (`tema_personalizado`) se parte de cualquiera de los v
 
 ```css tema=calido
 :root[data-tema="calido"]{
+  --degradado:radial-gradient(900px 460px at 8% -8%,color-mix(in srgb,var(--c3) 16%,transparent),transparent 70%),radial-gradient(760px 420px at 95% 2%,color-mix(in srgb,var(--c1) 10%,transparent),transparent 70%);
   --fondo:#f8f1e7;--superficie:#fffaf3;--superficie-2:#f3e9da;--borde:#e2d3bd;--borde-suave:#ecdfcc;
   --texto:#2b2118;--apagado:#6b5a4a;
   --acento:#c2410c;--acento-suave:#fbe9df;--acento-fuerte:#8f2f08;
@@ -209,7 +202,6 @@ Con un tema personalizado (`tema_personalizado`) se parte de cualquiera de los v
     --c1:#fb923c;--c2:#a3d96b;--c3:#f2c94c;--c4:#d98fb0;--c5:#7cc0e0;--c6:#b0a08f;--sombra:0 2px 6px rgba(0,0,0,.4),0 12px 28px rgba(0,0,0,.35);
   }
 }
-:root[data-tema="calido"] body{background-image:radial-gradient(900px 460px at 8% -8%,color-mix(in srgb,var(--c3) 16%,transparent),transparent 70%),radial-gradient(760px 420px at 95% 2%,color-mix(in srgb,var(--c1) 10%,transparent),transparent 70%)}
 :root[data-tema="calido"] .indicador::before{background:linear-gradient(90deg,var(--c1),var(--c3))}
 :root[data-tema="calido"] h1{font-weight:640}
 ```
@@ -218,6 +210,7 @@ Con un tema personalizado (`tema_personalizado`) se parte de cualquiera de los v
 
 ```css tema=institucional
 :root[data-tema="institucional"]{
+  --degradado:none;
   --fondo:#f5f3f0;--superficie:#ffffff;--superficie-2:#f1ede8;--borde:#d6cfc6;--borde-suave:#e6e0d8;
   --texto:#1f1a1a;--apagado:#5f5651;
   --acento:#6b1f2a;--acento-suave:#f3e4e6;--acento-fuerte:#48141c;
@@ -234,7 +227,6 @@ Con un tema personalizado (`tema_personalizado`) se parte de cualquiera de los v
     --c1:#e39aa5;--c2:#dcc27a;--c3:#90aed0;--c4:#a3c48f;--c5:#cfa0c4;--c6:#a8a09a;--sombra:0 1px 2px rgba(0,0,0,.5);
   }
 }
-:root[data-tema="institucional"] body{background-image:none}
 :root[data-tema="institucional"] h1,:root[data-tema="institucional"] h2{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;font-weight:600}
 :root[data-tema="institucional"] h1{font-size:clamp(1.8rem,3.8vw,2.6rem)}
 :root[data-tema="institucional"] .contenedor>header{border-bottom:3px double var(--acento);padding-bottom:var(--e4);margin-bottom:var(--e4)}
@@ -246,6 +238,7 @@ Con un tema personalizado (`tema_personalizado`) se parte de cualquiera de los v
 
 ```css tema=pizarra
 :root[data-tema="pizarra"]{
+  --degradado:none;
   --fondo:#e9edf0;--superficie:#f7f9fa;--superficie-2:#eef2f4;--borde:#c9d3d9;--borde-suave:#dae2e7;
   --texto:#152028;--apagado:#546470;
   --acento:#0e7490;--acento-suave:#dff3f8;--acento-fuerte:#0a4f61;
@@ -262,7 +255,6 @@ Con un tema personalizado (`tema_personalizado`) se parte de cualquiera de los v
     --c1:#67d3ee;--c2:#b5c4d0;--c3:#5fd4c6;--c4:#8ea2b1;--c5:#c4a7f8;--c6:#7f93a1;--sombra:0 1px 3px rgba(0,0,0,.4);
   }
 }
-:root[data-tema="pizarra"] body{background-image:none}
 :root[data-tema="pizarra"] .indicador{border-left:4px solid var(--acento);padding-top:var(--e4)}
 :root[data-tema="pizarra"] .indicador::before{display:none}
 :root[data-tema="pizarra"] .indicador.es-ok{border-left-color:var(--ok)}
@@ -277,6 +269,7 @@ Con un tema personalizado (`tema_personalizado`) se parte de cualquiera de los v
 
 ```css tema=suave
 :root[data-tema="suave"]{
+  --degradado:radial-gradient(900px 460px at 10% -8%,color-mix(in srgb,var(--c1) 14%,transparent),transparent 72%),radial-gradient(760px 420px at 92% 4%,color-mix(in srgb,var(--c4) 10%,transparent),transparent 70%);
   --fondo:#f7f5fb;--superficie:#ffffff;--superficie-2:#f3f0fa;--borde:#e4dff0;--borde-suave:#ede9f6;
   --texto:#2a2440;--apagado:#655e80;
   --acento:#7c5cbf;--acento-suave:#efe9fb;--acento-fuerte:#58409a;
@@ -293,7 +286,6 @@ Con un tema personalizado (`tema_personalizado`) se parte de cualquiera de los v
     --c1:#b39ae8;--c2:#7fd3ca;--c3:#f7bf85;--c4:#f0a3c0;--c5:#8fb3f0;--c6:#9a95ad;--sombra:0 2px 4px rgba(0,0,0,.4),0 14px 34px rgba(0,0,0,.35);
   }
 }
-:root[data-tema="suave"] body{background-image:radial-gradient(900px 460px at 10% -8%,color-mix(in srgb,var(--c1) 14%,transparent),transparent 72%),radial-gradient(760px 420px at 92% 4%,color-mix(in srgb,var(--c4) 10%,transparent),transparent 70%)}
 :root[data-tema="suave"] .indicador::before{background:linear-gradient(90deg,var(--c1),var(--c4))}
 :root[data-tema="suave"] .borrador{border-radius:var(--radio-s)}
 :root[data-tema="suave"] button{border-radius:999px}
@@ -303,6 +295,7 @@ Con un tema personalizado (`tema_personalizado`) se parte de cualquiera de los v
 
 ```css tema=prensa
 :root[data-tema="prensa"]{
+  --degradado:none;
   --fondo:#ffffff;--superficie:#ffffff;--superficie-2:#f4f4f4;--borde:#1a1a1a;--borde-suave:#cfcfcf;
   --texto:#111111;--apagado:#4a4a4a;
   --acento:#c8102e;--acento-suave:#fbe9ec;--acento-fuerte:#8e0b20;
@@ -320,7 +313,6 @@ Con un tema personalizado (`tema_personalizado`) se parte de cualquiera de los v
     --c1:#f0f0f0;--c2:#ff5a73;--c3:#a5a5a5;--c4:#6a6a6a;--c5:#cfcfcf;--c6:#474747;--sombra:none;
   }
 }
-:root[data-tema="prensa"] body{background-image:none}
 :root[data-tema="prensa"] .contenedor>header{border-top:4px solid var(--texto);border-bottom:1px solid var(--texto);padding:var(--e3) 0 var(--e3);margin-bottom:var(--e4)}
 :root[data-tema="prensa"] h1{font-weight:700;font-size:clamp(2rem,4.4vw,3rem);letter-spacing:-.015em}
 :root[data-tema="prensa"] .entradilla{font-style:italic;font-size:1.1rem}
@@ -338,6 +330,7 @@ Con un tema personalizado (`tema_personalizado`) se parte de cualquiera de los v
 
 ```css tema=alto_contraste
 :root[data-tema="alto_contraste"]{
+  --degradado:none;--texto-sobre-serie:var(--fondo);
   --fondo:#ffffff;--superficie:#ffffff;--superficie-2:#f0f0f0;--borde:#000000;--borde-suave:#555555;
   --texto:#000000;--apagado:#222222;
   --acento:#0000d6;--acento-suave:#e8e8ff;--acento-fuerte:#000080;
@@ -354,14 +347,12 @@ Con un tema personalizado (`tema_personalizado`) se parte de cualquiera de los v
     --c1:#ffff00;--c2:#00ff7f;--c3:#ffb000;--c4:#d8a0ff;--c5:#ff6070;--c6:#cccccc;--sombra:none;
   }
 }
-:root[data-tema="alto_contraste"] body{background-image:none}
 :root[data-tema="alto_contraste"] .indicador,:root[data-tema="alto_contraste"] .tarjeta,:root[data-tema="alto_contraste"] .aviso,:root[data-tema="alto_contraste"] .borrador,:root[data-tema="alto_contraste"] button,:root[data-tema="alto_contraste"] .distintivo{border-width:2px}
 :root[data-tema="alto_contraste"] .aviso,:root[data-tema="alto_contraste"] .borrador{border-left-width:8px}
 :root[data-tema="alto_contraste"] .indicador::before{height:6px;background:var(--acento)}
 :root[data-tema="alto_contraste"] .indicador .rotulo,:root[data-tema="alto_contraste"] thead th,:root[data-tema="alto_contraste"] .subtitulo,:root[data-tema="alto_contraste"] .leyenda,:root[data-tema="alto_contraste"] .eje{color:var(--texto);fill:var(--texto);font-weight:700}
 :root[data-tema="alto_contraste"] .distintivo{font-weight:700}
-:root[data-tema="alto_contraste"] .grafico .numero-riesgo,:root[data-tema="alto_contraste"] .grafico .valor-punto.dentro,:root[data-tema="alto_contraste"] .grafico .fecha-fin.dentro{fill:var(--fondo)}
-:root[data-tema="alto_contraste"] a{text-decoration:underline}
+:root[data-tema="alto_contraste"] .grafico .numero-riesgo,:root[data-tema="alto_contraste"] a{text-decoration:underline}
 ```
 
 ---
@@ -374,6 +365,7 @@ Los cinco temas siguientes son **siempre oscuros**, como `nocturno`: no cambian 
 
 ```css tema=dorado
 :root[data-tema="dorado"]{
+  --degradado:radial-gradient(900px 460px at 10% -10%,rgba(212,175,55,.14),transparent 70%),radial-gradient(700px 380px at 92% 0,rgba(143,191,106,.08),transparent 70%);--texto-sobre-serie:#0b0a08;--color-cifra:var(--acento-fuerte);
   color-scheme:dark;
   --fondo:#0b0a08;--superficie:#15130f;--superficie-2:#1d1a14;--borde:#332d22;--borde-suave:#26221a;
   --texto:#f3ecdc;--apagado:#b3a88f;
@@ -382,19 +374,13 @@ Los cinco temas siguientes son **siempre oscuros**, como `nocturno`: no cambian 
   --c1:#d4af37;--c2:#8fbf6a;--c3:#f5d76e;--c4:#c08a3e;--c5:#6fb8a8;--c6:#a39b88;
   --radio:12px;--radio-s:8px;--sombra:0 0 0 1px rgba(212,175,55,.10),0 14px 34px rgba(0,0,0,.6);
 }
-:root[data-tema="dorado"] body{background-image:radial-gradient(900px 460px at 10% -10%,rgba(212,175,55,.14),transparent 70%),radial-gradient(700px 380px at 92% 0,rgba(143,191,106,.08),transparent 70%)}
 :root[data-tema="dorado"] h1,:root[data-tema="dorado"] h2{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-weight:600}
 :root[data-tema="dorado"] .indicador::before{background:linear-gradient(90deg,#8a6d1f,var(--acento),#f0d27a)}
-:root[data-tema="dorado"] .indicador .cifra{color:var(--acento-fuerte);text-shadow:0 0 22px rgba(212,175,55,.25)}
+:root[data-tema="dorado"] .indicador .cifra{text-shadow:0 0 22px rgba(212,175,55,.25)}
 :root[data-tema="dorado"] .antetitulo{letter-spacing:.24em}
-:root[data-tema="dorado"] .borrador{background:#1a1712}
-:root[data-tema="dorado"] .grafico .valor-punto.dentro,:root[data-tema="dorado"] .grafico .numero-riesgo,:root[data-tema="dorado"] .grafico .fecha-fin.dentro{fill:#0b0a08}
-/* En papel: fondo blanco (regla comun de la base) y estos colores, que contrastan sobre blanco. */
+/* En papel: la base pone fondo blanco, texto negro y estados legibles; el tema solo da su acento y su serie de papel. */
 @media print{
-  :root[data-tema="dorado"]{color-scheme:light;--acento:#8a6d1f;--acento-fuerte:#6b5416;--acento-suave:#f3f3f3;--ok:#2f7d4f;--aviso:#a8650f;--riesgo:#b23a48;--c1:#9a7b1c;--c2:#4f7a3a;--c3:#b8902a;--c4:#8a5a22;--c5:#2f6f63;--c6:#6b6455;}
-  :root[data-tema="dorado"] .borrador{background:#fff}
-  :root[data-tema="dorado"] .indicador .cifra{text-shadow:none}
-  :root[data-tema="dorado"] .grafico .valor-punto.dentro,:root[data-tema="dorado"] .grafico .numero-riesgo,:root[data-tema="dorado"] .grafico .fecha-fin.dentro{fill:#fff}
+  :root[data-tema="dorado"]{--acento:#8a6d1f;--acento-fuerte:#6b5416;--c1:#9a7b1c;--c2:#4f7a3a;--c3:#b8902a;--c4:#8a5a22;--c5:#2f6f63;--c6:#6b6455;}
 }
 ```
 
@@ -402,6 +388,7 @@ Los cinco temas siguientes son **siempre oscuros**, como `nocturno`: no cambian 
 
 ```css tema=esmeralda_noche
 :root[data-tema="esmeralda_noche"]{
+  --degradado:radial-gradient(800px 420px at 8% -10%,rgba(52,211,153,.14),transparent 70%),radial-gradient(700px 380px at 95% 0,rgba(212,175,55,.10),transparent 70%);--texto-sobre-serie:#07110d;
   color-scheme:dark;
   --fondo:#07110d;--superficie:#0e1a15;--superficie-2:#13231c;--borde:#1f3a2e;--borde-suave:#182d24;
   --texto:#e6f2ec;--apagado:#9db8ab;
@@ -410,16 +397,10 @@ Los cinco temas siguientes son **siempre oscuros**, como `nocturno`: no cambian 
   --c1:#34d399;--c2:#d4af37;--c3:#a3e635;--c4:#2dd4bf;--c5:#fbbf24;--c6:#94a3b8;
   --radio:14px;--radio-s:9px;--sombra:0 0 0 1px rgba(52,211,153,.08),0 12px 32px rgba(0,0,0,.55);
 }
-:root[data-tema="esmeralda_noche"] body{background-image:radial-gradient(800px 420px at 8% -10%,rgba(52,211,153,.14),transparent 70%),radial-gradient(700px 380px at 95% 0,rgba(212,175,55,.10),transparent 70%)}
 :root[data-tema="esmeralda_noche"] .indicador::before{background:linear-gradient(90deg,var(--c1),var(--c2))}
-:root[data-tema="esmeralda_noche"] .borrador{background:#10201a}
-:root[data-tema="esmeralda_noche"] .grafico .valor-punto.dentro,:root[data-tema="esmeralda_noche"] .grafico .numero-riesgo,:root[data-tema="esmeralda_noche"] .grafico .fecha-fin.dentro{fill:#07110d}
-/* En papel: fondo blanco (regla comun de la base) y estos colores, que contrastan sobre blanco. */
+/* En papel: la base pone fondo blanco, texto negro y estados legibles; el tema solo da su acento y su serie de papel. */
 @media print{
-  :root[data-tema="esmeralda_noche"]{color-scheme:light;--acento:#0f7a55;--acento-fuerte:#0b5c40;--acento-suave:#f3f3f3;--ok:#2f7d4f;--aviso:#a8650f;--riesgo:#b23a48;--c1:#0f7a55;--c2:#9a7b1c;--c3:#5b8a1e;--c4:#0e7470;--c5:#b07a0f;--c6:#64748b;}
-  :root[data-tema="esmeralda_noche"] .borrador{background:#fff}
-  :root[data-tema="esmeralda_noche"] .indicador .cifra{text-shadow:none}
-  :root[data-tema="esmeralda_noche"] .grafico .valor-punto.dentro,:root[data-tema="esmeralda_noche"] .grafico .numero-riesgo,:root[data-tema="esmeralda_noche"] .grafico .fecha-fin.dentro{fill:#fff}
+  :root[data-tema="esmeralda_noche"]{--acento:#0f7a55;--acento-fuerte:#0b5c40;--c1:#0f7a55;--c2:#9a7b1c;--c3:#5b8a1e;--c4:#0e7470;--c5:#b07a0f;--c6:#64748b;}
 }
 ```
 
@@ -427,6 +408,7 @@ Los cinco temas siguientes son **siempre oscuros**, como `nocturno`: no cambian 
 
 ```css tema=ambar
 :root[data-tema="ambar"]{
+  --degradado:radial-gradient(900px 440px at 50% -12%,rgba(251,191,36,.13),transparent 70%);--texto-sobre-serie:#0c0b07;--color-cifra:var(--acento);
   color-scheme:dark;
   --fondo:#0c0b07;--superficie:#16140d;--superficie-2:#1e1b12;--borde:#36301c;--borde-suave:#292414;
   --texto:#f7f1de;--apagado:#b9ae8c;
@@ -435,20 +417,11 @@ Los cinco temas siguientes son **siempre oscuros**, como `nocturno`: no cambian 
   --c1:#fbbf24;--c2:#84cc16;--c3:#fde68a;--c4:#f97316;--c5:#22d3ee;--c6:#a8a29e;
   --radio:10px;--radio-s:6px;--sombra:0 0 0 1px rgba(251,191,36,.10),0 12px 30px rgba(0,0,0,.6);
 }
-:root[data-tema="ambar"] body{background-image:radial-gradient(900px 440px at 50% -12%,rgba(251,191,36,.13),transparent 70%)}
 :root[data-tema="ambar"] .indicador::before{background:var(--acento);height:3px}
-:root[data-tema="ambar"] .indicador .cifra{color:var(--acento)}
-:root[data-tema="ambar"] .indicador.es-ok .cifra{color:var(--ok)}
-:root[data-tema="ambar"] .indicador.es-riesgo .cifra{color:var(--riesgo)}
 :root[data-tema="ambar"] h2{text-transform:uppercase;letter-spacing:.06em;font-size:.92rem}
-:root[data-tema="ambar"] .borrador{background:#1b180f}
-:root[data-tema="ambar"] .grafico .valor-punto.dentro,:root[data-tema="ambar"] .grafico .numero-riesgo,:root[data-tema="ambar"] .grafico .fecha-fin.dentro{fill:#0c0b07}
-/* En papel: fondo blanco (regla comun de la base) y estos colores, que contrastan sobre blanco. */
+/* En papel: la base pone fondo blanco, texto negro y estados legibles; el tema solo da su acento y su serie de papel. */
 @media print{
-  :root[data-tema="ambar"]{color-scheme:light;--acento:#a86a00;--acento-fuerte:#7f5000;--acento-suave:#f3f3f3;--ok:#2f7d4f;--aviso:#a8650f;--riesgo:#b23a48;--c1:#b07a00;--c2:#4d7c0f;--c3:#c49a2c;--c4:#c2410c;--c5:#0e7490;--c6:#78716c;}
-  :root[data-tema="ambar"] .borrador{background:#fff}
-  :root[data-tema="ambar"] .indicador .cifra{text-shadow:none}
-  :root[data-tema="ambar"] .grafico .valor-punto.dentro,:root[data-tema="ambar"] .grafico .numero-riesgo,:root[data-tema="ambar"] .grafico .fecha-fin.dentro{fill:#fff}
+  :root[data-tema="ambar"]{--acento:#a86a00;--acento-fuerte:#7f5000;--c1:#b07a00;--c2:#4d7c0f;--c3:#c49a2c;--c4:#c2410c;--c5:#0e7490;--c6:#78716c;}
 }
 ```
 
@@ -456,6 +429,7 @@ Los cinco temas siguientes son **siempre oscuros**, como `nocturno`: no cambian 
 
 ```css tema=oliva_oro
 :root[data-tema="oliva_oro"]{
+  --degradado:radial-gradient(900px 460px at 10% -8%,rgba(227,179,65,.12),transparent 70%),radial-gradient(760px 420px at 95% 2%,rgba(155,191,76,.10),transparent 70%);--texto-sobre-serie:#10140b;
   color-scheme:dark;
   --fondo:#10140b;--superficie:#181e11;--superficie-2:#1f2717;--borde:#33402a;--borde-suave:#28331f;
   --texto:#eef1e4;--apagado:#aeb79a;
@@ -464,17 +438,11 @@ Los cinco temas siguientes son **siempre oscuros**, como `nocturno`: no cambian 
   --c1:#e3b341;--c2:#9bbf4c;--c3:#d9e07a;--c4:#6b9e5a;--c5:#c97b3d;--c6:#9aa08a;
   --radio:16px;--radio-s:10px;--sombra:0 2px 6px rgba(0,0,0,.4),0 14px 32px rgba(0,0,0,.45);
 }
-:root[data-tema="oliva_oro"] body{background-image:radial-gradient(900px 460px at 10% -8%,rgba(227,179,65,.12),transparent 70%),radial-gradient(760px 420px at 95% 2%,rgba(155,191,76,.10),transparent 70%)}
 :root[data-tema="oliva_oro"] h1{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-weight:600}
 :root[data-tema="oliva_oro"] .indicador::before{background:linear-gradient(90deg,var(--c2),var(--c1))}
-:root[data-tema="oliva_oro"] .borrador{background:#1c2314}
-:root[data-tema="oliva_oro"] .grafico .valor-punto.dentro,:root[data-tema="oliva_oro"] .grafico .numero-riesgo,:root[data-tema="oliva_oro"] .grafico .fecha-fin.dentro{fill:#10140b}
-/* En papel: fondo blanco (regla comun de la base) y estos colores, que contrastan sobre blanco. */
+/* En papel: la base pone fondo blanco, texto negro y estados legibles; el tema solo da su acento y su serie de papel. */
 @media print{
-  :root[data-tema="oliva_oro"]{color-scheme:light;--acento:#8a6a14;--acento-fuerte:#6b5210;--acento-suave:#f3f3f3;--ok:#2f7d4f;--aviso:#a8650f;--riesgo:#b23a48;--c1:#a8841f;--c2:#5b7a2a;--c3:#8c8f2e;--c4:#3f6b34;--c5:#9a5a24;--c6:#6b6f5d;}
-  :root[data-tema="oliva_oro"] .borrador{background:#fff}
-  :root[data-tema="oliva_oro"] .indicador .cifra{text-shadow:none}
-  :root[data-tema="oliva_oro"] .grafico .valor-punto.dentro,:root[data-tema="oliva_oro"] .grafico .numero-riesgo,:root[data-tema="oliva_oro"] .grafico .fecha-fin.dentro{fill:#fff}
+  :root[data-tema="oliva_oro"]{--acento:#8a6a14;--acento-fuerte:#6b5210;--c1:#a8841f;--c2:#5b7a2a;--c3:#8c8f2e;--c4:#3f6b34;--c5:#9a5a24;--c6:#6b6f5d;}
 }
 ```
 
@@ -482,6 +450,7 @@ Los cinco temas siguientes son **siempre oscuros**, como `nocturno`: no cambian 
 
 ```css tema=lima
 :root[data-tema="lima"]{
+  --degradado:none;--texto-sobre-serie:#090b08;
   color-scheme:dark;
   --fondo:#090b08;--superficie:#111410;--superficie-2:#171b15;--borde:#283024;--borde-suave:#1e241b;
   --texto:#ecf2e6;--apagado:#a3ae98;
@@ -491,18 +460,12 @@ Los cinco temas siguientes son **siempre oscuros**, como `nocturno`: no cambian 
   --radio:6px;--radio-s:4px;--sombra:0 0 0 1px rgba(163,230,53,.10),0 10px 28px rgba(0,0,0,.6);
   --fuente:ui-sans-serif,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 }
-:root[data-tema="lima"] body{background-image:none}
 :root[data-tema="lima"] .indicador::before{background:var(--acento);height:2px}
 :root[data-tema="lima"] .indicador .cifra,:root[data-tema="lima"] td.cifra{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;letter-spacing:-.02em}
 :root[data-tema="lima"] .antetitulo::before{content:"● ";color:var(--acento)}
-:root[data-tema="lima"] .borrador{background:#141812}
-:root[data-tema="lima"] .grafico .valor-punto.dentro,:root[data-tema="lima"] .grafico .numero-riesgo,:root[data-tema="lima"] .grafico .fecha-fin.dentro{fill:#090b08}
-/* En papel: fondo blanco (regla comun de la base) y estos colores, que contrastan sobre blanco. */
+/* En papel: la base pone fondo blanco, texto negro y estados legibles; el tema solo da su acento y su serie de papel. */
 @media print{
-  :root[data-tema="lima"]{color-scheme:light;--acento:#4d7c0f;--acento-fuerte:#3a5e0b;--acento-suave:#f3f3f3;--ok:#2f7d4f;--aviso:#a8650f;--riesgo:#b23a48;--c1:#4d7c0f;--c2:#a16207;--c3:#15803d;--c4:#475569;--c5:#0369a1;--c6:#57534e;}
-  :root[data-tema="lima"] .borrador{background:#fff}
-  :root[data-tema="lima"] .indicador .cifra{text-shadow:none}
-  :root[data-tema="lima"] .grafico .valor-punto.dentro,:root[data-tema="lima"] .grafico .numero-riesgo,:root[data-tema="lima"] .grafico .fecha-fin.dentro{fill:#fff}
+  :root[data-tema="lima"]{--acento:#4d7c0f;--acento-fuerte:#3a5e0b;--c1:#4d7c0f;--c2:#a16207;--c3:#15803d;--c4:#475569;--c5:#0369a1;--c6:#57534e;}
 }
 ```
 
@@ -516,6 +479,7 @@ Tres paletas pastel con version clara y oscura. Los colores de serie son suaves;
 
 ```css tema=menta
 :root[data-tema="menta"]{
+  --degradado:radial-gradient(900px 460px at 10% -8%,rgba(127,209,178,.22),transparent 72%),radial-gradient(760px 420px at 92% 4%,rgba(255,198,168,.18),transparent 70%);--texto-sobre-serie:#1d2b26;
   --fondo:#f2faf6;--superficie:#ffffff;--superficie-2:#eaf6f0;--borde:#d2eadf;--borde-suave:#e3f2eb;
   --texto:#1d2b26;--apagado:#5b6f67;
   --acento:#2a8a68;--acento-suave:#dff3ea;--acento-fuerte:#1c6a4f;
@@ -533,9 +497,7 @@ Tres paletas pastel con version clara y oscura. Los colores de serie son suaves;
     --sombra:0 2px 4px rgba(0,0,0,.4),0 14px 34px rgba(0,0,0,.35);
   }
 }
-:root[data-tema="menta"] body{background-image:radial-gradient(900px 460px at 10% -8%,rgba(127,209,178,.22),transparent 72%),radial-gradient(760px 420px at 92% 4%,rgba(255,198,168,.18),transparent 70%)}
 :root[data-tema="menta"] .indicador::before{background:linear-gradient(90deg,var(--c1),var(--c2))}
-:root[data-tema="menta"] .grafico .valor-punto.dentro,:root[data-tema="menta"] .grafico .numero-riesgo,:root[data-tema="menta"] .grafico .fecha-fin.dentro{fill:#1d2b26}
 :root[data-tema="menta"] button{border-radius:999px}
 ```
 
@@ -543,6 +505,7 @@ Tres paletas pastel con version clara y oscura. Los colores de serie son suaves;
 
 ```css tema=melocoton
 :root[data-tema="melocoton"]{
+  --degradado:radial-gradient(900px 460px at 10% -8%,rgba(255,179,143,.24),transparent 72%),radial-gradient(760px 420px at 92% 4%,rgba(242,168,192,.16),transparent 70%);--texto-sobre-serie:#2e2320;
   --fondo:#fff6f1;--superficie:#ffffff;--superficie-2:#fdeee6;--borde:#f3dccf;--borde-suave:#f8e8df;
   --texto:#2e2320;--apagado:#76625a;
   --acento:#c4572e;--acento-suave:#fde6da;--acento-fuerte:#9a3f1d;
@@ -560,9 +523,7 @@ Tres paletas pastel con version clara y oscura. Los colores de serie son suaves;
     --sombra:0 2px 4px rgba(0,0,0,.4),0 14px 34px rgba(0,0,0,.35);
   }
 }
-:root[data-tema="melocoton"] body{background-image:radial-gradient(900px 460px at 10% -8%,rgba(255,179,143,.24),transparent 72%),radial-gradient(760px 420px at 92% 4%,rgba(242,168,192,.16),transparent 70%)}
 :root[data-tema="melocoton"] .indicador::before{background:linear-gradient(90deg,var(--c1),var(--c4))}
-:root[data-tema="melocoton"] .grafico .valor-punto.dentro,:root[data-tema="melocoton"] .grafico .numero-riesgo,:root[data-tema="melocoton"] .grafico .fecha-fin.dentro{fill:#2e2320}
 :root[data-tema="melocoton"] button{border-radius:999px}
 ```
 
@@ -570,6 +531,7 @@ Tres paletas pastel con version clara y oscura. Los colores de serie son suaves;
 
 ```css tema=lavanda
 :root[data-tema="lavanda"]{
+  --degradado:radial-gradient(900px 460px at 10% -8%,rgba(184,166,245,.24),transparent 72%),radial-gradient(760px 420px at 92% 4%,rgba(245,184,212,.16),transparent 70%);--texto-sobre-serie:#24203a;
   --fondo:#f7f5ff;--superficie:#ffffff;--superficie-2:#f0edfd;--borde:#e0daf7;--borde-suave:#ebe7fb;
   --texto:#24203a;--apagado:#635d80;
   --acento:#6a4fc4;--acento-suave:#ece6ff;--acento-fuerte:#4e379c;
@@ -587,8 +549,6 @@ Tres paletas pastel con version clara y oscura. Los colores de serie son suaves;
     --sombra:0 2px 4px rgba(0,0,0,.4),0 14px 34px rgba(0,0,0,.35);
   }
 }
-:root[data-tema="lavanda"] body{background-image:radial-gradient(900px 460px at 10% -8%,rgba(184,166,245,.24),transparent 72%),radial-gradient(760px 420px at 92% 4%,rgba(245,184,212,.16),transparent 70%)}
 :root[data-tema="lavanda"] .indicador::before{background:linear-gradient(90deg,var(--c1),var(--c2))}
-:root[data-tema="lavanda"] .grafico .valor-punto.dentro,:root[data-tema="lavanda"] .grafico .numero-riesgo,:root[data-tema="lavanda"] .grafico .fecha-fin.dentro{fill:#24203a}
 :root[data-tema="lavanda"] button{border-radius:999px}
 ```

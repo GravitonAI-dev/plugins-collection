@@ -30,7 +30,8 @@
 }
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--fondo);color:var(--texto);font-family:var(--fuente);font-size:16px;line-height:1.55;
-  background-image:radial-gradient(900px 460px at 12% -8%,color-mix(in srgb,var(--acento) 13%,transparent),transparent 72%),radial-gradient(760px 420px at 92% 4%,color-mix(in srgb,var(--c2) 10%,transparent),transparent 70%);
+  /* El degradado de fondo es un token: cada tema lo cambia o lo quita con --degradado. */
+  background-image:var(--degradado,radial-gradient(900px 460px at 12% -8%,color-mix(in srgb,var(--acento) 13%,transparent),transparent 72%),radial-gradient(760px 420px at 92% 4%,color-mix(in srgb,var(--c2) 10%,transparent),transparent 70%));
   background-attachment:fixed}
 .contenedor{max-width:var(--ancho);margin:0 auto;padding:var(--e5) var(--e4) var(--e6)}
 a{color:var(--acento)}
@@ -52,7 +53,7 @@ h1{font-size:clamp(1.65rem,3.6vw,2.4rem);line-height:1.12;margin:0 0 var(--e3);l
 .indicador.es-atencion::before{background:var(--aviso)}
 .indicador.es-riesgo::before{background:var(--riesgo)}
 .indicador .rotulo{font-size:.74rem;text-transform:uppercase;letter-spacing:.09em;color:var(--apagado);margin:0 0 var(--e2)}
-.indicador .cifra{font-size:clamp(1.6rem,2.3vw,2.25rem);font-weight:680;letter-spacing:-.032em;line-height:1.05;margin:0;
+.indicador .cifra{color:var(--color-cifra,var(--texto));font-size:clamp(1.6rem,2.3vw,2.25rem);font-weight:680;letter-spacing:-.032em;line-height:1.05;margin:0;
   font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .indicador .detalle{font-size:.8rem;color:var(--apagado);margin:var(--e2) 0 0}
 .indicador.es-ok .cifra{color:var(--ok)}
@@ -133,9 +134,10 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
     --sombra:0 1px 2px rgba(0,0,0,.5),0 8px 22px rgba(0,0,0,.4);
   }
 }
-:root[data-tema="sobrio"] body{background-image:none}
+:root[data-tema="sobrio"]{--degradado:none}
 /* Estilos del tema elegido (temas-visuales.md): se sustituye por su bloque css, o se borra esta linea si el tema es moderno o sobrio. */
 :root[data-tema="corporativo"]{
+  --degradado:none;--color-cifra:var(--acento-fuerte);
   --fondo:#eef1f5;--superficie:#ffffff;--superficie-2:#f4f6f9;--borde:#cfd6e0;--borde-suave:#e1e6ed;
   --texto:#0f1b2d;--apagado:#51607a;
   --acento:#0b3d91;--acento-suave:#e4ebf7;--acento-fuerte:#072a66;
@@ -152,14 +154,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
     --c1:#7ea6ea;--c2:#9dc0ea;--c3:#b6d37a;--c4:#b39ddb;--c5:#f9b27c;--c6:#9aa7b8;--sombra:0 1px 2px rgba(0,0,0,.5);
   }
 }
-:root[data-tema="corporativo"] body{background-image:none}
 :root[data-tema="corporativo"] .contenedor>header{border-left:6px solid var(--acento);padding-left:var(--e4);margin-bottom:var(--e4)}
 :root[data-tema="corporativo"] .indicador::before{background:var(--acento)}
 :root[data-tema="corporativo"] h2{text-transform:uppercase;letter-spacing:.07em;font-size:.9rem}
-:root[data-tema="corporativo"] .indicador .cifra{color:var(--acento-fuerte)}
-:root[data-tema="corporativo"] .indicador.es-ok .cifra{color:var(--ok)}
-:root[data-tema="corporativo"] .indicador.es-atencion .cifra{color:var(--aviso)}
-:root[data-tema="corporativo"] .indicador.es-riesgo .cifra{color:var(--riesgo)}
 :root[data-tema="corporativo"] .distintivo{border-radius:4px}
 :root[data-tema="corporativo"] thead th{background:var(--superficie-2)}
 .malla{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:var(--e3);margin:0 0 var(--e3);align-items:start}
@@ -183,15 +180,15 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 .grafico .texto-anotacion{font-size:10.5px;fill:var(--apagado)}
 .grafico .cero{stroke:var(--apagado);stroke-width:1}
 .grafico .zona{font-size:12px;fill:var(--apagado);font-weight:620}
-.grafico .numero-riesgo{font-size:11px;font-weight:700;fill:#fff}
+.grafico .numero-riesgo{font-size:11px;font-weight:700;fill:var(--texto-sobre-serie,#fff)}
 .grafico .fecha-fin{font-size:10.5px;fill:var(--apagado)}
-.grafico .fecha-fin.dentro{fill:#fff;font-weight:620}
+.grafico .fecha-fin.dentro{fill:var(--texto-sobre-serie,#fff);font-weight:620}
 .grafico .hoy{stroke:var(--riesgo);stroke-width:2;stroke-dasharray:4 3}
 .grafico .texto-hoy{font-size:11px;fill:var(--riesgo);font-weight:650}
 ol.leyenda{display:block;padding-left:20px}
 [data-cifra].delta-bien{color:var(--ok)}
 [data-cifra].delta-mal{color:var(--riesgo)}
-.grafico .valor-punto.dentro{fill:#fff}
+.grafico .valor-punto.dentro{fill:var(--texto-sobre-serie,#fff)}
 .leyenda .porcentaje{color:var(--texto);font-variant-numeric:tabular-nums;font-weight:620}
 .medidor-rotulo{text-align:center;font-size:.82rem;color:var(--apagado);margin:0 0 var(--e3)}
 .medidor .pista-arco{fill:none;stroke:var(--superficie-2);stroke-width:18;stroke-linecap:round}
@@ -207,11 +204,13 @@ ol.leyenda{display:block;padding-left:20px}
 .fuentes-reporte li{margin:0 0 var(--e1)}
 @media print{
   :root,:root[data-tema]{--fondo:#fff;--superficie:#fff;--superficie-2:#fff;--borde:#c8c5bf;--borde-suave:#dcd9d3;
-        --linea-rejilla:#d5d2cc;--texto:#000;--apagado:#3f3d39;--sombra:none;--acento-suave:#f2f6f8}
+        --linea-rejilla:#d5d2cc;--texto:#000;--apagado:#3f3d39;--sombra:none;--acento-suave:#f2f6f8;
+        color-scheme:light;--texto-sobre-serie:#fff;--ok:#2f7d4f;--aviso:#a8650f;--riesgo:#b23a48}
   @page{size:A4;margin:15mm 14mm 17mm;@bottom-right{content:counter(page) " / " counter(pages);font-size:8pt;color:#666}}
   *{animation:none!important;transition:none!important}
   *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
-  body{font-size:10.5pt;background-image:none!important}  /* tambien con los degradados de los temas */
+  body{font-size:10.5pt;background-image:none}
+  .indicador .cifra{text-shadow:none}
   .contenedor{max-width:none;padding:0}
   .acciones,.datos-grafico{display:none}
   .malla{display:block}
@@ -239,6 +238,7 @@ ol.leyenda{display:block;padding-left:20px}
   caption{break-after:avoid}
 }
 /* Estilos propios de la maqueta: se sustituye por los de su parte=estilos o se borra la linea. */
+:root{--encaje:703 1000}  /* ancho y alto utiles de la hoja, en px: lo lee el modulo encaje */
 .una-pagina{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:var(--e4);align-items:start}
 .una-pagina .conclusiones ol{margin:0;padding-left:20px}
 .una-pagina .conclusiones li{margin:0 0 var(--e3);font-size:.98rem}
@@ -500,11 +500,12 @@ function leyenda(fig, elementos) {
    conserven su tamano real; al imprimir se dibuja siempre a 700. */
 var W = 700, X0 = 64, X1 = 664, Y0 = 44, Y1 = 244;
 function util() { return X1 - X0; }
-function rejilla(s, tope, unidad) {
+function rejilla(s, tope, unidad, x0, x1) {
+  x0 = num(x0) ? x0 : X0; x1 = num(x1) ? x1 : X1;  /* los modulos pueden acotar el ancho util */
   for (var k = 0; k <= 4; k++) {
     var y = Y1 - k * 50;
-    svg("line", {"class": "rejilla", x1: X0, y1: y, x2: X1, y2: y}, s);
-    svg("text", {"class": "eje", x: 56, y: y + 4, "text-anchor": "end"}, s, k ? fmt(tope * k / 4, unidad, true) : "0");
+    svg("line", {"class": "rejilla", x1: x0, y1: y, x2: x1, y2: y}, s);
+    svg("text", {"class": "eje", x: x0 - 8, y: y + 4, "text-anchor": "end"}, s, k ? fmt(tope * k / 4, unidad, true) : "0");
   }
 }
 function rotulosX(s, etiquetas, xDe, extremos) {
@@ -1053,6 +1054,7 @@ if (imprimir) imprimir.addEventListener("click", function () { window.print(); }
 window.Reportes = {datos: datos, fmt: fmt, tipos: tipos, T: T, svg: svg, html: html, color: color, lienzo: lienzo,
   recortar: recortar, consejo: consejo, escala: escala, leyenda: leyenda, r1: r1, num: num, maximo: maximo, minimo: minimo,
   techo: techo, fecha: fecha, DIA: DIA, rejilla: rejilla, yDe: yDe, columnaRotulos: columnaRotulos, rotuloFila: rotuloFila,
+  rotulosX: rotulosX, tablaSeries: tablaSeries, leyendaSeries: leyendaSeries,
   calculos: calculos, IDIOMA: IDIOMA,
   actualizar: function (id, cambios) {
     Object.assign(datos.graficos[id], cambios);
@@ -1068,8 +1070,12 @@ if (D.readyState === "loading") D.addEventListener("DOMContentLoaded", arrancar)
 (function(){
   "use strict";
   /* Antes de imprimir se mide la pagina con las reglas de impresion aplicadas en pantalla y al
-     ancho util del A4; si pasa de una hoja, se reduce lo justo (Chrome no recoloca despues). */
-  var D = document, main = D.querySelector("main"), ANCHO = 703, ALTO = 1000;
+     ancho util de la hoja (--encaje: ancho y alto en px, lo fija la maqueta); si pasa de una
+     hoja, se reduce lo justo (Chrome no recoloca despues). */
+  var D = document, main = D.querySelector("main");
+  var hoja = getComputedStyle(D.documentElement).getPropertyValue("--encaje").trim().split(/\s+/).map(Number);
+  if (hoja.length !== 2 || !(hoja[0] > 0 && hoja[1] > 0)) return;
+  var ANCHO = hoja[0], ALTO = hoja[1];
   function reglasImpresion() {
     var css = "";
     [].forEach.call(D.styleSheets, function (hoja) {
