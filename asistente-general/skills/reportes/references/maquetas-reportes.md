@@ -2551,8 +2551,9 @@ El mismo del resumen ejecutivo: antes de imprimir reduce la escala lo justo para
 (function(){
   "use strict";
   /* Antes de imprimir se mide la pagina con las reglas de impresion aplicadas en pantalla y al
-     ancho util del A4; si pasa de una hoja, se reduce lo justo (Chrome no recoloca despues). */
-  var D = document, main = D.querySelector("main"), ANCHO = 1540, ALTO = 1060;
+     ancho util del A3 apaisado (396 x 273 mm con margenes de 12 mm, a 96 px por pulgada); si pasa
+     de una hoja, se reduce lo justo (Chrome no recoloca despues). */
+  var D = document, main = D.querySelector("main"), ANCHO = 1497, ALTO = 1032;
   function reglasImpresion() {
     var css = "";
     [].forEach.call(D.styleSheets, function (hoja) {

@@ -149,6 +149,13 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 :root[data-tema="nocturno"] .indicador .cifra{text-shadow:0 0 24px color-mix(in srgb,var(--acento) 35%,transparent)}
 :root[data-tema="nocturno"] .borrador{background:#1a1f2e}
 :root[data-tema="nocturno"] .grafico .valor-punto.dentro,:root[data-tema="nocturno"] .grafico .numero-riesgo,:root[data-tema="nocturno"] .grafico .fecha-fin.dentro{fill:#0b0f1a}
+/* En papel: fondo blanco (regla comun de la base) y estos colores, que contrastan sobre blanco. */
+@media print{
+  :root[data-tema="nocturno"]{color-scheme:light;--acento:#0f766e;--acento-fuerte:#0b5a54;--acento-suave:#f3f3f3;--ok:#2f7d4f;--aviso:#a8650f;--riesgo:#b23a48;--c1:#0f766e;--c2:#4f46e5;--c3:#b45309;--c4:#be185d;--c5:#1d4ed8;--c6:#64748b;}
+  :root[data-tema="nocturno"] .borrador{background:#fff}
+  :root[data-tema="nocturno"] .indicador .cifra{text-shadow:none}
+  :root[data-tema="nocturno"] .grafico .valor-punto.dentro,:root[data-tema="nocturno"] .grafico .numero-riesgo,:root[data-tema="nocturno"] .grafico .fecha-fin.dentro{fill:#fff}
+}
 .malla{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:var(--e3);margin:0 0 var(--e3);align-items:start}
 .malla .ancho-total{grid-column:1/-1}
 .malla.dos{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -198,7 +205,7 @@ ol.leyenda{display:block;padding-left:20px}
   @page{size:A4;margin:15mm 14mm 17mm;@bottom-right{content:counter(page) " / " counter(pages);font-size:8pt;color:#666}}
   *{animation:none!important;transition:none!important}
   *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
-  body{font-size:10.5pt;background-image:none}
+  body{font-size:10.5pt;background-image:none!important}  /* tambien con los degradados de los temas */
   .contenedor{max-width:none;padding:0}
   .acciones,.datos-grafico{display:none}
   .malla{display:block}
@@ -1040,8 +1047,9 @@ if (D.readyState === "loading") D.addEventListener("DOMContentLoaded", arrancar)
 (function(){
   "use strict";
   /* Antes de imprimir se mide la pagina con las reglas de impresion aplicadas en pantalla y al
-     ancho util del A4; si pasa de una hoja, se reduce lo justo (Chrome no recoloca despues). */
-  var D = document, main = D.querySelector("main"), ANCHO = 1540, ALTO = 1060;
+     ancho util del A3 apaisado (396 x 273 mm con margenes de 12 mm, a 96 px por pulgada); si pasa
+     de una hoja, se reduce lo justo (Chrome no recoloca despues). */
+  var D = document, main = D.querySelector("main"), ANCHO = 1497, ALTO = 1032;
   function reglasImpresion() {
     var css = "";
     [].forEach.call(D.styleSheets, function (hoja) {

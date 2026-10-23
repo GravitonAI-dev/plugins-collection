@@ -129,7 +129,7 @@ Esta skill guia al usuario de manera consultiva y transparente a traves de un pr
 - **V3 (Origen de los Datos):** `datos_del_chat` | `documento_del_workspace` | `busqueda_web`.
 - **V4 (Identidad Visual):** uno de los veintiun temas de `references/temas-visuales.md` —`tema_moderno` (por defecto), `tema_sobrio`, `tema_editorial`, `tema_corporativo`, `tema_minimal`, `tema_nocturno`, `tema_tecnico`, `tema_calido`, `tema_institucional`, `tema_pizarra`, `tema_suave`, `tema_prensa`, `tema_alto_contraste`, los oscuros `tema_dorado`, `tema_esmeralda_noche`, `tema_ambar`, `tema_oliva_oro` y `tema_lima`, y los pastel `tema_menta`, `tema_melocoton` y `tema_lavanda`— o `tema_personalizado` (colores corporativos aportados por el usuario, aplicados con el modulo `marca` sobre cualquiera de los veintiuno). La tabla «Como elegir» de esa referencia fija que tema corresponde a cada destinatario y soporte.
 - **V5 (Origen Plantilla):** `plantilla_sistema` | `plantilla_usuario`.
-- **V6 (Receta):** una receta de `references/catalogo-reportes.md` (informe de situacion del expediente, KPIs mensuales, due diligence, white paper, propuesta de honorarios...) o `sin_receta`. **No se pregunta en el formulario:** se deduce de la peticion por escucha activa; la receta fija V1 y la estructura de bloques, y se menciona en el plan de la Fase 2 para que el usuario la confirme o la cambie.
+- **V6 (Receta):** una receta de `references/catalogo-reportes.md` (informe de situacion del expediente, KPIs mensuales, due diligence, white paper, captacion y conversion...) o `sin_receta`. **No se pregunta en el formulario:** se deduce de la peticion por escucha activa; la receta fija V1 y la estructura de bloques, y se menciona en el plan de la Fase 2 para que el usuario la confirme o la cambie.
 
 > **REGLA DE INVISIBILIDAD Y COMUNICACION AMIGABLE (Global CLAUDE.md):**
 > Los identificadores tecnicos de los vectores, las marcas de validacion interna y cualquier mencion a nombres de herramientas o a la arquitectura interna estan terminantemente prohibidos en el chat. Al referirte al resultado, habla del **artefacto**, del **editor** o de **tu espacio de trabajo**.
@@ -272,14 +272,32 @@ Si el usuario elige «otro estilo del catalogo», convoca de inmediato un segund
         {"id": "tema_pizarra", "label": "Pizarra: grises con acento cian y tablas compactas; paneles densos de seguimiento"},
         {"id": "tema_suave", "label": "Suave: pasteles y radios grandes; boletines y comunicacion"},
         {"id": "tema_prensa", "label": "Prensa: serifa de periodico, blanco y negro con rojo; boletines normativos"},
-        {"id": "tema_alto_contraste", "label": "Alto contraste: negro, blanco y amarillo, bordes gruesos; accesibilidad y proyeccion"}
+        {"id": "tema_alto_contraste", "label": "Alto contraste: negro, blanco y amarillo, bordes gruesos; accesibilidad y proyeccion"},
+        {"id": "no_procede", "label": "Ninguno de estos: prefiero el estilo moderno"}
       ]
     }
   ]
 }
 ```
 
-Si elige `tema_oscuro_dorado` o `tema_pastel`, el segundo formulario se convoca con solo los temas de esa familia: `dorado` (negro y oro, prestigio y direccion), `esmeralda_noche` (negro, esmeralda y oro, paneles en pantalla), `ambar` (negro, ambar y amarillo, paneles operativos), `oliva_oro` (verde oliva y oro, rural y patrimonio) y `lima` (negro y lima, tecnologia); o `menta`, `melocoton`, `lavanda` y `suave`. Las palabras «negro y dorado», «golden», «oscuro elegante», «pastel» o «colores suaves» en el mensaje fijan la familia por escucha activa.
+Si elige `tema_oscuro_dorado` o `tema_pastel`, el segundo formulario se convoca con solo los temas de esa familia: `dorado` (negro y oro, prestigio y direccion), `esmeralda_noche` (negro, esmeralda y oro, paneles en pantalla), `ambar` (negro, ambar y amarillo, paneles operativos), `oliva_oro` (verde oliva y oro, rural y patrimonio) y `lima` (negro y lima, tecnologia); o `menta`, `melocoton`, `lavanda` y `suave`. Las palabras «negro y dorado», «golden», «oscuro elegante», «pastel» o «colores suaves» en el mensaje fijan la familia por escucha activa. Formularios de familia:
+
+```json
+{"form_data": [{"id": "estilo_oscuro", "rationale": "Resolver V4 dentro de los temas siempre oscuros.", "question": "¿Que tono oscuro prefiere?",
+  "options": [{"id": "tema_dorado", "label": "Negro y oro: prestigio y direccion"}, {"id": "tema_esmeralda_noche", "label": "Negro, esmeralda y oro: paneles en pantalla"},
+              {"id": "tema_ambar", "label": "Negro, ambar y amarillo: paneles operativos"}, {"id": "tema_oliva_oro", "label": "Verde oliva y oro: rural y patrimonio"},
+              {"id": "tema_lima", "label": "Negro y lima: tecnologia y datos"}, {"id": "tema_nocturno", "label": "Nocturno: turquesa e indigo para proyectar"},
+              {"id": "no_procede", "label": "Ninguno de estos: prefiero el estilo moderno"}]}]}
+```
+
+```json
+{"form_data": [{"id": "estilo_pastel", "rationale": "Resolver V4 dentro de los temas pastel.", "question": "¿Que paleta pastel prefiere?",
+  "options": [{"id": "tema_menta", "label": "Menta y melocoton: salud y particulares"}, {"id": "tema_melocoton", "label": "Melocoton, rosa y verde agua: familia y eventos"},
+              {"id": "tema_lavanda", "label": "Lavanda y rosa: comunicacion interna"}, {"id": "tema_suave", "label": "Suave: lila con radios grandes"},
+              {"id": "no_procede", "label": "Ninguno de estos: prefiero el estilo moderno"}]}]}
+```
+
+En los tres formularios de estilo, `no_procede` fija `tema_moderno` y se continua sin mas preguntas.
 
 Con la respuesta, V4 queda fijado y se continua en 1.3 sin mas preguntas. Si el usuario describe en el chat lo que quiere en vez de elegir, se asigna el tema por escucha activa.
 

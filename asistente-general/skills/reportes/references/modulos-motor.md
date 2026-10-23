@@ -805,6 +805,14 @@ R.tipos.sankey = function (fig, g, id, W) {
     if (!(f.valor > 0)) throw new Error("los flujos necesitan valor positivo");
     por[f.de].sale += f.valor; por[f.a].entra += f.valor; por[f.de].hijos.push(f.a);
   });
+  /* Ciclos: recorrido en profundidad desde todos los nodos, tambien los que no son origen. */
+  var estado = {};
+  function visitar(id) {
+    if (estado[id] === 1) throw new Error("los flujos forman un ciclo en " + id);
+    if (estado[id] === 2) return;
+    estado[id] = 1; por[id].hijos.forEach(visitar); estado[id] = 2;
+  }
+  nodos.forEach(function (n) { visitar(n.id); });
   function nivel(id, pila) {
     if (pila.indexOf(id) > -1) throw new Error("los flujos forman un ciclo en " + id);
     por[id].hijos.forEach(function (h) { if (por[h].nivel < por[id].nivel + 1) { por[h].nivel = por[id].nivel + 1; nivel(h, pila.concat([id])); } });
@@ -860,20 +868,22 @@ R.tipos.puntuacion = function (fig, g, id, W) {
   if (!el.length) throw new Error("faltan elementos");
   if (mx > 10) throw new Error("maximo 10 puntos");
   var x0 = R.columnaRotulos(), fila = 30, s = R.lienzo(fig, W, el.length * fila + 8, g.resumen);
+  /* Paso entre puntos: 26 px si caben; si no, lo que deje el ancho tras el rotulo «4,5 / 10». */
+  var paso = Math.min(26, (W - x0 - 12 - 58) / mx), rad = r1(Math.min(9, paso * 0.36));
   el.forEach(function (e, i) {
     if (!num(e.valor) || e.valor < 0 || e.valor > mx) throw new Error(e.rotulo + ": valor entre 0 y " + mx);
     var y = 8 + i * fila, c = color(e.color || "acento", i);
     R.rotuloFila(s, y + 15, e.rotulo);
     for (var k = 0; k < mx; k++) {
-      var lleno = Math.max(0, Math.min(1, e.valor - k)), cx = x0 + 12 + k * 26, cy = y + 11;
-      svg("circle", {cx: cx, cy: cy, r: 9, fill: "var(--superficie-2)", stroke: "var(--borde)"}, s);
-      if (lleno >= 1) svg("circle", {cx: cx, cy: cy, r: 9, fill: c}, s);
+      var lleno = Math.max(0, Math.min(1, e.valor - k)), cx = r1(x0 + 12 + k * paso), cy = y + 11;
+      svg("circle", {cx: cx, cy: cy, r: rad, fill: "var(--superficie-2)", stroke: "var(--borde)"}, s);
+      if (lleno >= 1) svg("circle", {cx: cx, cy: cy, r: rad, fill: c}, s);
       else if (lleno > 0) {
         var a = -Math.PI / 2 + 2 * Math.PI * lleno;
-        svg("path", {d: "M " + cx + " " + cy + " L " + cx + " " + (cy - 9) + " A 9 9 0 " + (lleno > .5 ? 1 : 0) + " 1 " + r1(cx + 9 * Math.cos(a)) + " " + r1(cy + 9 * Math.sin(a)) + " Z", fill: c}, s);
+        svg("path", {d: "M " + cx + " " + cy + " L " + cx + " " + r1(cy - rad) + " A " + rad + " " + rad + " 0 " + (lleno > .5 ? 1 : 0) + " 1 " + r1(cx + rad * Math.cos(a)) + " " + r1(cy + rad * Math.sin(a)) + " Z", fill: c}, s);
       }
     }
-    consejo(texto(s, {x: x0 + 12 + mx * 26 + 2, y: y + 15}, fmt(e.valor, "num") + " / " + mx, "valor-punto"), e.rotulo + ": " + e.valor + " / " + mx);
+    consejo(texto(s, {x: r1(x0 + 12 + mx * paso + 2), y: y + 15}, fmt(e.valor, "num") + " / " + mx, "valor-punto"), e.rotulo + ": " + e.valor + " / " + mx);
   });
   return {cabecera: [T.concepto, T.valor, T.maximo], filas: el.map(function (e) { return [e.rotulo, e.valor, mx]; })};
 };
@@ -1221,9 +1231,17 @@ function variables(c) {
   (c.serie || []).slice(0, 6).forEach(function (x, i) { if (hex.test(x)) v += "--c" + (i + 1) + ":" + x + ";"; });
   return v;
 }
-/* En claro y en papel, los colores de marca; en oscuro, su version oscura o los del tema. */
-var css = "@media (prefers-color-scheme:light),print{:root{" + variables(m) + "}}";
-if (m.oscuro) css += "@media screen and (prefers-color-scheme:dark){:root{" + variables(m.oscuro) + "}}";
+/* En claro y en papel, los colores de marca; en oscuro, su version oscura o los del tema.
+   El selector :root:root[data-tema] pesa mas que el de cualquier tema (:root[data-tema="x"]),
+   asi que la marca se aplica encima del tema elegido. Con un tema siempre oscuro (color-scheme
+   dark) la pantalla es oscura aunque el sistema este en claro: alli rige la version oscura. */
+var R0 = ":root:root[data-tema]", siempreOscuro = getComputedStyle(D.documentElement).colorScheme === "dark";
+var css = "@media print{" + R0 + "{" + variables(m) + "}}";
+if (siempreOscuro) css += "@media screen{" + R0 + "{" + variables(m.oscuro || {}) + "}}";
+else {
+  css += "@media screen and (prefers-color-scheme:light){" + R0 + "{" + variables(m) + "}}";
+  if (m.oscuro) css += "@media screen and (prefers-color-scheme:dark){" + R0 + "{" + variables(m.oscuro) + "}}";
+}
 R.html("style", "", D.head).textContent = css;
 if (m.pie) R.html("p", "", D.querySelector(".pie"), m.pie);
 function logo() {

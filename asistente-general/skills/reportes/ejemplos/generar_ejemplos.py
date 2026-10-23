@@ -44,6 +44,8 @@ def componer(destino, textos, datos, maqueta=None, tema="moderno", ficha=None, c
     html = html.replace("{{ANCHO}}", ancho or ANCHOS[maqueta])
     html = html.replace("{{FICHA}}", ficha or parte("ficha")).replace("{{CONTENIDO}}", contenido or parte("contenido"))
     html = html.replace("{{ESTILOS_MAQUETA}}", parte("estilos")).replace("{{ACCIONES}}", parte("acciones"))
+    if tema not in TEMAS and tema not in ("moderno", "sobrio"):
+        raise SystemExit("Tema desconocido en %s: %s (no esta en temas-visuales.md)" % (destino, tema))
     html = html.replace("{{ESTILOS_TEMA}}", TEMAS.get(tema, ""))  # moderno y sobrio van en la base; los demas, en temas-visuales.md
     html = DATOS_VACIOS.sub(lambda m: m.group(1) + json.dumps(datos, ensure_ascii=False, indent=1) + m.group(2), html)
     for modulo in modulos:  # los modulos van despues del motor y antes del script de la maqueta
@@ -855,8 +857,11 @@ def miniaturas(archivos):
     def una(archivo):
         png = os.path.join(destino, archivo + ".png")
         with tempfile.TemporaryDirectory(prefix="reportes-chrome-") as perfil:
-            subprocess.run([CHROME, "--headless=new", "--disable-gpu", "--user-data-dir=" + perfil, "--hide-scrollbars", "--window-size=1240,1000",
-                            "--virtual-time-budget=3000", "--screenshot=" + png, "file://" + os.path.join(AQUI, archivo + ".html")], capture_output=True, check=False)
+            try:  # un Chrome colgado deja ese ejemplo sin miniatura, no bloquea la generacion
+                subprocess.run([CHROME, "--headless=new", "--disable-gpu", "--user-data-dir=" + perfil, "--hide-scrollbars", "--window-size=1240,1000",
+                                "--virtual-time-budget=3000", "--screenshot=" + png, "file://" + os.path.join(AQUI, archivo + ".html")], capture_output=True, check=False, timeout=90)
+            except subprocess.TimeoutExpired:
+                print("  AVISO: Chrome no termino la miniatura de %s" % archivo)
         if os.path.exists(png):
             im = Image.open(png).convert("RGB")
             im.resize((590, int(im.height * 590 / im.width)), Image.LANCZOS).save(png, optimize=True)

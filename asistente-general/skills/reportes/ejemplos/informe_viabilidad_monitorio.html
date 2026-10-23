@@ -185,7 +185,7 @@ ol.leyenda{display:block;padding-left:20px}
   @page{size:A4;margin:15mm 14mm 17mm;@bottom-right{content:counter(page) " / " counter(pages);font-size:8pt;color:#666}}
   *{animation:none!important;transition:none!important}
   *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
-  body{font-size:10.5pt;background-image:none}
+  body{font-size:10.5pt;background-image:none!important}  /* tambien con los degradados de los temas */
   .contenedor{max-width:none;padding:0}
   .acciones,.datos-grafico{display:none}
   .malla{display:block}

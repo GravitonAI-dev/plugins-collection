@@ -2,7 +2,7 @@
 
 La base trae dos temas incorporados, `moderno` y `sobrio`, que se eligen solo con la etiqueta `html` (`data-tema="moderno"` o `data-tema="sobrio"`). Los diecinueve temas de este documento se anaden **copiando su bloque `css` integro en el marcador `{{ESTILOS_TEMA}}` de la base** (dentro del unico `<style>`, justo despues del tema sobrio) y fijando `data-tema` con su nombre. Un tema es una sola pieza: no se mezclan dos ni se copia la mitad de uno.
 
-Cada tema redefine los tokens de `:root` (colores, radios, sombra y, en algunos, la pila de fuentes), trae su version para el modo oscuro del sistema y, cuando el estilo lo pide, unas pocas reglas de forma (cabecera, tarjetas, titulares). Todos imprimen en blanco con la misma regla `@media print` de la base, y todos cumplen el contraste minimo 4.5:1 en claro y en oscuro.
+Cada tema redefine los tokens de `:root` (colores, radios, sombra y, en algunos, la pila de fuentes), trae su version para el modo oscuro del sistema y, cuando el estilo lo pide, unas pocas reglas de forma (cabecera, tarjetas, titulares). Todos imprimen en blanco con la misma regla `@media print` de la base, que quita tambien los degradados de fondo; los temas siempre oscuros traen ademas su paleta de papel, con acentos y series que contrastan sobre blanco. Todos cumplen el contraste minimo 4.5:1 en claro y en oscuro.
 
 Con un tema personalizado (`tema_personalizado`) se parte de cualquiera de los veintiuno y se aplica encima el modulo `marca` (`modulos-motor.md`), que sustituye el acento y la serie por los colores corporativos.
 
@@ -149,6 +149,13 @@ Con un tema personalizado (`tema_personalizado`) se parte de cualquiera de los v
 :root[data-tema="nocturno"] .indicador .cifra{text-shadow:0 0 24px color-mix(in srgb,var(--acento) 35%,transparent)}
 :root[data-tema="nocturno"] .borrador{background:#1a1f2e}
 :root[data-tema="nocturno"] .grafico .valor-punto.dentro,:root[data-tema="nocturno"] .grafico .numero-riesgo,:root[data-tema="nocturno"] .grafico .fecha-fin.dentro{fill:#0b0f1a}
+/* En papel: fondo blanco (regla comun de la base) y estos colores, que contrastan sobre blanco. */
+@media print{
+  :root[data-tema="nocturno"]{color-scheme:light;--acento:#0f766e;--acento-fuerte:#0b5a54;--acento-suave:#f3f3f3;--ok:#2f7d4f;--aviso:#a8650f;--riesgo:#b23a48;--c1:#0f766e;--c2:#4f46e5;--c3:#b45309;--c4:#be185d;--c5:#1d4ed8;--c6:#64748b;}
+  :root[data-tema="nocturno"] .borrador{background:#fff}
+  :root[data-tema="nocturno"] .indicador .cifra{text-shadow:none}
+  :root[data-tema="nocturno"] .grafico .valor-punto.dentro,:root[data-tema="nocturno"] .grafico .numero-riesgo,:root[data-tema="nocturno"] .grafico .fecha-fin.dentro{fill:#fff}
+}
 ```
 
 ## Tecnico (`tecnico`)
@@ -382,6 +389,13 @@ Los cinco temas siguientes son **siempre oscuros**, como `nocturno`: no cambian 
 :root[data-tema="dorado"] .antetitulo{letter-spacing:.24em}
 :root[data-tema="dorado"] .borrador{background:#1a1712}
 :root[data-tema="dorado"] .grafico .valor-punto.dentro,:root[data-tema="dorado"] .grafico .numero-riesgo,:root[data-tema="dorado"] .grafico .fecha-fin.dentro{fill:#0b0a08}
+/* En papel: fondo blanco (regla comun de la base) y estos colores, que contrastan sobre blanco. */
+@media print{
+  :root[data-tema="dorado"]{color-scheme:light;--acento:#8a6d1f;--acento-fuerte:#6b5416;--acento-suave:#f3f3f3;--ok:#2f7d4f;--aviso:#a8650f;--riesgo:#b23a48;--c1:#9a7b1c;--c2:#4f7a3a;--c3:#b8902a;--c4:#8a5a22;--c5:#2f6f63;--c6:#6b6455;}
+  :root[data-tema="dorado"] .borrador{background:#fff}
+  :root[data-tema="dorado"] .indicador .cifra{text-shadow:none}
+  :root[data-tema="dorado"] .grafico .valor-punto.dentro,:root[data-tema="dorado"] .grafico .numero-riesgo,:root[data-tema="dorado"] .grafico .fecha-fin.dentro{fill:#fff}
+}
 ```
 
 ## Esmeralda nocturno (`esmeralda_noche`)
@@ -400,6 +414,13 @@ Los cinco temas siguientes son **siempre oscuros**, como `nocturno`: no cambian 
 :root[data-tema="esmeralda_noche"] .indicador::before{background:linear-gradient(90deg,var(--c1),var(--c2))}
 :root[data-tema="esmeralda_noche"] .borrador{background:#10201a}
 :root[data-tema="esmeralda_noche"] .grafico .valor-punto.dentro,:root[data-tema="esmeralda_noche"] .grafico .numero-riesgo,:root[data-tema="esmeralda_noche"] .grafico .fecha-fin.dentro{fill:#07110d}
+/* En papel: fondo blanco (regla comun de la base) y estos colores, que contrastan sobre blanco. */
+@media print{
+  :root[data-tema="esmeralda_noche"]{color-scheme:light;--acento:#0f7a55;--acento-fuerte:#0b5c40;--acento-suave:#f3f3f3;--ok:#2f7d4f;--aviso:#a8650f;--riesgo:#b23a48;--c1:#0f7a55;--c2:#9a7b1c;--c3:#5b8a1e;--c4:#0e7470;--c5:#b07a0f;--c6:#64748b;}
+  :root[data-tema="esmeralda_noche"] .borrador{background:#fff}
+  :root[data-tema="esmeralda_noche"] .indicador .cifra{text-shadow:none}
+  :root[data-tema="esmeralda_noche"] .grafico .valor-punto.dentro,:root[data-tema="esmeralda_noche"] .grafico .numero-riesgo,:root[data-tema="esmeralda_noche"] .grafico .fecha-fin.dentro{fill:#fff}
+}
 ```
 
 ## Ambar (`ambar`)
@@ -422,6 +443,13 @@ Los cinco temas siguientes son **siempre oscuros**, como `nocturno`: no cambian 
 :root[data-tema="ambar"] h2{text-transform:uppercase;letter-spacing:.06em;font-size:.92rem}
 :root[data-tema="ambar"] .borrador{background:#1b180f}
 :root[data-tema="ambar"] .grafico .valor-punto.dentro,:root[data-tema="ambar"] .grafico .numero-riesgo,:root[data-tema="ambar"] .grafico .fecha-fin.dentro{fill:#0c0b07}
+/* En papel: fondo blanco (regla comun de la base) y estos colores, que contrastan sobre blanco. */
+@media print{
+  :root[data-tema="ambar"]{color-scheme:light;--acento:#a86a00;--acento-fuerte:#7f5000;--acento-suave:#f3f3f3;--ok:#2f7d4f;--aviso:#a8650f;--riesgo:#b23a48;--c1:#b07a00;--c2:#4d7c0f;--c3:#c49a2c;--c4:#c2410c;--c5:#0e7490;--c6:#78716c;}
+  :root[data-tema="ambar"] .borrador{background:#fff}
+  :root[data-tema="ambar"] .indicador .cifra{text-shadow:none}
+  :root[data-tema="ambar"] .grafico .valor-punto.dentro,:root[data-tema="ambar"] .grafico .numero-riesgo,:root[data-tema="ambar"] .grafico .fecha-fin.dentro{fill:#fff}
+}
 ```
 
 ## Oliva y oro (`oliva_oro`)
@@ -441,6 +469,13 @@ Los cinco temas siguientes son **siempre oscuros**, como `nocturno`: no cambian 
 :root[data-tema="oliva_oro"] .indicador::before{background:linear-gradient(90deg,var(--c2),var(--c1))}
 :root[data-tema="oliva_oro"] .borrador{background:#1c2314}
 :root[data-tema="oliva_oro"] .grafico .valor-punto.dentro,:root[data-tema="oliva_oro"] .grafico .numero-riesgo,:root[data-tema="oliva_oro"] .grafico .fecha-fin.dentro{fill:#10140b}
+/* En papel: fondo blanco (regla comun de la base) y estos colores, que contrastan sobre blanco. */
+@media print{
+  :root[data-tema="oliva_oro"]{color-scheme:light;--acento:#8a6a14;--acento-fuerte:#6b5210;--acento-suave:#f3f3f3;--ok:#2f7d4f;--aviso:#a8650f;--riesgo:#b23a48;--c1:#a8841f;--c2:#5b7a2a;--c3:#8c8f2e;--c4:#3f6b34;--c5:#9a5a24;--c6:#6b6f5d;}
+  :root[data-tema="oliva_oro"] .borrador{background:#fff}
+  :root[data-tema="oliva_oro"] .indicador .cifra{text-shadow:none}
+  :root[data-tema="oliva_oro"] .grafico .valor-punto.dentro,:root[data-tema="oliva_oro"] .grafico .numero-riesgo,:root[data-tema="oliva_oro"] .grafico .fecha-fin.dentro{fill:#fff}
+}
 ```
 
 ## Lima (`lima`)
@@ -462,6 +497,13 @@ Los cinco temas siguientes son **siempre oscuros**, como `nocturno`: no cambian 
 :root[data-tema="lima"] .antetitulo::before{content:"● ";color:var(--acento)}
 :root[data-tema="lima"] .borrador{background:#141812}
 :root[data-tema="lima"] .grafico .valor-punto.dentro,:root[data-tema="lima"] .grafico .numero-riesgo,:root[data-tema="lima"] .grafico .fecha-fin.dentro{fill:#090b08}
+/* En papel: fondo blanco (regla comun de la base) y estos colores, que contrastan sobre blanco. */
+@media print{
+  :root[data-tema="lima"]{color-scheme:light;--acento:#4d7c0f;--acento-fuerte:#3a5e0b;--acento-suave:#f3f3f3;--ok:#2f7d4f;--aviso:#a8650f;--riesgo:#b23a48;--c1:#4d7c0f;--c2:#a16207;--c3:#15803d;--c4:#475569;--c5:#0369a1;--c6:#57534e;}
+  :root[data-tema="lima"] .borrador{background:#fff}
+  :root[data-tema="lima"] .indicador .cifra{text-shadow:none}
+  :root[data-tema="lima"] .grafico .valor-punto.dentro,:root[data-tema="lima"] .grafico .numero-riesgo,:root[data-tema="lima"] .grafico .fecha-fin.dentro{fill:#fff}
+}
 ```
 
 ---
