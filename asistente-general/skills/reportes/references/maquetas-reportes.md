@@ -29,24 +29,24 @@ Todas son **reportes**: cifras, graficos y datos que se ven en el navegador y se
 
 | Maqueta | `id` | Para que | Familia |
 | :--- | :--- | :--- | :--- |
-| Panel de datos | `panel_datos` | Indicadores y graficos de un periodo o una cartera | Datos |
-| Informe visual | `informe_visual` | Explicar un caso con secciones, plazos y cronologia | Riesgo y decision |
-| Herramienta interactiva | `herramienta_interactiva` | Calcular o simular moviendo parametros | Datos |
-| Presentacion | `presentacion` | Diapositivas 16:9 para una reunion | Comunicacion |
-| Documento largo | `documento_largo` | White paper o memoria con muchos graficos | Comunicacion |
-| Resumen ejecutivo | `resumen_ejecutivo` | Una pagina con la conclusion y la decision | Una pagina |
-| Cuadro de mando | `cuadro_mando` | Ocho KPIs con variacion, objetivos y estado | Datos |
-| Ficha de una pagina | `ficha_una_pagina` | Datos clave de un asunto, cliente o sociedad | Una pagina |
-| Infografia | `infografia` | Tres cifras enormes y graficos para divulgar | Comunicacion |
-| Comparativa | `comparativa` | Dos a cuatro opciones frente a frente | Riesgo y decision |
-| Cronograma del expediente | `cronograma_expediente` | Que paso, que corre y que viene | Seguimiento |
-| Lista de control | `lista_control` | Cumplimiento por bloque y requisito | Seguimiento |
-| Mapa de riesgos | `mapa_riesgos` | Matriz, impacto y exposicion | Riesgo y decision |
-| Escenarios | `escenarios` | Que pasa si cambian los supuestos | Riesgo y decision |
-| Embudo de conversion | `embudo_conversion` | Un proceso por etapas y sus perdidas | Datos |
-| Actividad del equipo | `actividad_equipo` | Horas, asuntos y carga por area | Seguimiento |
-| Informe territorial | `informe_territorial` | Datos por comunidad o provincia | Datos |
-| Poster | `poster` | Una hoja A3 apaisada para colgar | Una pagina |
+| Panel de datos | `panel_datos` | Indicadores y gráficos de un periodo o una cartera; seguimiento de facturación o deuda | Datos |
+| Informe visual | `informe_visual` | Un caso explicado con secciones, indicadores, plazos y cronología | Riesgo y decision |
+| Herramienta interactiva | `herramienta_interactiva` | Calculadora o simulador que recalcula al cambiar los datos | Datos |
+| Presentacion | `presentacion` | Diapositivas 16:9 con notas del orador para una reunión | Comunicacion |
+| Documento largo | `documento_largo` | White paper o memoria con portada, índice y muchos gráficos | Comunicacion |
+| Resumen ejecutivo | `resumen_ejecutivo` | Una página A4 con la conclusión, tres cifras y la decisión que se pide | Una pagina |
+| Cuadro de mando | `cuadro_mando` | Ocho KPIs con su variación, objetivos y estado por área; para el comité de dirección | Datos |
+| Ficha de una pagina | `ficha_una_pagina` | Datos clave de un asunto, un cliente o una sociedad en una página A4 | Una pagina |
+| Infografia | `infografia` | Tres cifras enormes y gráficos sencillos en vertical, para divulgar | Comunicacion |
+| Comparativa | `comparativa` | Dos a cuatro opciones frente a frente con los mismos criterios y la recomendada destacada | Riesgo y decision |
+| Cronograma del expediente | `cronograma_expediente` | Qué ha pasado, qué plazo corre y qué viene; para el cliente que pregunta cómo va lo suyo | Seguimiento |
+| Lista de control | `lista_control` | Cumplimiento por bloque y por requisito, con sus evidencias; auditorías y compliance | Seguimiento |
+| Mapa de riesgos | `mapa_riesgos` | Matriz de probabilidad e impacto, impacto económico y exposición | Riesgo y decision |
+| Escenarios | `escenarios` | Qué pasa si cambian los supuestos: horquilla del resultado y qué lo mueve más | Riesgo y decision |
+| Embudo de conversion | `embudo_conversion` | Un proceso por etapas y dónde se pierde; captación, recobro o tramitación | Datos |
+| Actividad del equipo | `actividad_equipo` | Horas, asuntos y carga por área y por mes | Seguimiento |
+| Informe territorial | `informe_territorial` | Datos por comunidad autónoma o provincia en un mapa, con ranking y concentración | Datos |
+| Poster | `poster` | Una hoja A3 apaisada con tres cifras y un gráfico grande, para colgar | Una pagina |
 
 ---
 
