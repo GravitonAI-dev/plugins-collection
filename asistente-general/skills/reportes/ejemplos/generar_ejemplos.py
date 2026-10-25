@@ -980,7 +980,7 @@ def catalogo_visual():
         temas.append((t, NOMBRES.get(t, t.capitalize()), USOS[t], tok))
     # la pregunta de estilo de SKILL.md (1.2) ofrece estos mismos temas, en este orden y con este nombre y uso
     form = json.loads(re.search(r"### 1\.2 Formulario.*?```json\n(.*?)\n```", open(os.path.join(SKILL, "SKILL.md"), encoding="utf-8").read(), re.S).group(1))
-    opciones = [(o["id"], o["label"]) for q in form["form_data"] if q["id"] == "identidad_visual" for o in q["options"] if o["id"] != "tema_personalizado"]
+    opciones = [(o["id"], o["label"]) for q in form["form_data"] if q["id"] == "identidad_visual" for o in q["options"]]
     esperadas = [("tema_" + t, "%s: %s" % (nombre, uso[0].lower() + uso[1:])) for t, nombre, uso, _ in temas]
     if opciones != esperadas:
         print("  AVISO la pregunta identidad_visual de SKILL.md no coincide con los temas del catalogo; deberia ser:")
@@ -1113,6 +1113,64 @@ def imagenes_catalogo(bloques):
         list(hilos.map(una, bloques))
     print("  imagenes del catalogo: %d en ejemplos/catalogo" % len(bloques))
 
+# --------------------------------------------------------------------------- miniaturas del cuestionario
+MARCA_MUESTRA = {"nombre": "Despacho de ejemplo", "acento": "#7a1f3d", "acento_fuerte": "#5c1730",
+                 "serie": ["#7a1f3d", "#b8893b", "#3f6b5a", "#4b5d86", "#9a5a7c", "#6b7280"],
+                 "oscuro": {"acento": "#e48aa6", "serie": ["#e48aa6", "#e0b36a", "#8fc2a8", "#9fb2e0", "#d49ab8", "#a0a7ad"]}}
+
+def vistas_cuestionario():
+    """Una miniatura por opcion de las preguntas identidad_visual y colores_reporte de SKILL.md, en
+    ../assets/vista-<id>.png: la primera pantalla del panel de ejemplo con ese tema o esos colores. La app
+    las pinta como galeria (el backend solo sirve archivos de primer nivel de assets/)."""
+    try:
+        from PIL import Image
+    except ImportError:
+        print("  PIL no disponible: no se generan las miniaturas del cuestionario.")
+        return
+    if not os.path.exists(CHROME):
+        return
+    panel = open(os.path.join(AQUI, "panel_reclamacion_cantidad.html"), encoding="utf-8").read()
+    def variante(tema, modo=None, marca=None):
+        html = panel.replace('data-tema="moderno"', 'data-tema="%s"%s' % (tema, ' data-modo="%s"' % modo if modo else ""), 1)
+        if marca:
+            html = html.replace('<script type="application/json" id="datos-reporte">\n{', '<script type="application/json" id="datos-reporte">\n{"marca": %s,' % json.dumps(marca), 1)
+        # Sin aviso DRAFT ni entradilla, para que en la primera pantalla entren tambien los graficos.
+        return html.replace("</head>", "<style>.aparece,.pista span{animation:none!important}.borrador,.entradilla{display:none}</style>\n</head>", 1)
+    oscuros = set(re.findall(r'\{"id": "(\w+)"[^}]*"siempre_oscuro": true\}', BASE_HTML))
+    vistas = {"tema_" + t: variante(t, None if t in oscuros else "claro") for t in TEMAS}
+    vistas.update({"modo_claro": variante("moderno", "claro"), "modo_oscuro": variante("moderno", "oscuro"),
+                   "colores_despacho": variante("moderno", "claro", MARCA_MUESTRA)})
+    form = json.loads(re.search(r"### 1\.2 Formulario.*?```json\n(.*?)\n```", open(os.path.join(SKILL, "SKILL.md"), encoding="utf-8").read(), re.S).group(1))
+    opciones = {o["id"] for q in form["form_data"] if q["id"] in ("identidad_visual", "colores_reporte") for o in q["options"]}
+    if opciones != set(vistas) | {"modo_sistema"}:
+        print("  AVISO las opciones de identidad_visual y colores_reporte de SKILL.md no coinciden con las miniaturas: %s" % sorted(opciones ^ (set(vistas) | {"modo_sistema"})))
+    destino = os.path.join(SKILL, "assets")
+    def captura(nombre, html):
+        with tempfile.TemporaryDirectory(prefix="reportes-vista-") as tmp:
+            pagina, png = os.path.join(AQUI, ".vista-%s.html" % nombre), os.path.join(tmp, "v.png")
+            open(pagina, "w", encoding="utf-8").write(html)
+            try:
+                subprocess.run([CHROME, "--headless=new", "--disable-gpu", "--user-data-dir=" + tmp, "--hide-scrollbars", "--window-size=1120,700",
+                                "--virtual-time-budget=3000", "--screenshot=" + png, "file://" + pagina], capture_output=True, check=False, timeout=90)
+            except subprocess.TimeoutExpired:
+                print("  AVISO: Chrome no termino la miniatura %s" % nombre)
+            finally:
+                os.remove(pagina)
+            return Image.open(png).convert("RGB").resize((480, 300), Image.LANCZOS) if os.path.exists(png) else None
+    with ThreadPoolExecutor(6) as hilos:
+        imagenes = dict(zip(vistas, hilos.map(lambda kv: captura(*kv), vistas.items())))
+    # El modo del sistema: mitad clara y mitad oscura, en diagonal.
+    if imagenes.get("modo_claro") and imagenes.get("modo_oscuro"):
+        mascara = Image.new("L", (480, 300), 0)
+        mascara.putdata([255 if x * 300 + y * 480 > 480 * 300 else 0 for y in range(300) for x in range(480)])
+        imagenes["modo_sistema"] = Image.composite(imagenes["modo_oscuro"], imagenes["modo_claro"], mascara)
+    for nombre, im in imagenes.items():
+        if im is None:
+            continue
+        ruta = os.path.join(destino, "vista-%s.png" % nombre)
+        im.quantize(colors=128, method=Image.MEDIANCUT, dither=Image.NONE).save(ruta, optimize=True)
+    print("  miniaturas del cuestionario: %d en assets/ (la mayor, %d KB)" % (len(imagenes), max(os.path.getsize(os.path.join(destino, "vista-%s.png" % n)) for n in imagenes if imagenes[n]) // 1024))
+
 # --------------------------------------------------------------------------- comprobacion e impresion
 def comprobar_y_imprimir(archivos, pdf):
     """Abre los ejemplos en Chrome sin ventana, en paralelo, y falla si la consola registra errores."""
@@ -1151,6 +1209,7 @@ if __name__ == "__main__":
     print("Generando artefactos de ejemplo:")
     hechos = [panel(), informe(), herramienta(), presentacion(), white_paper(), resumen()] + [f() for f in NUEVAS] + [galeria(), galeria_temas()]
     miniaturas([a for a, *_ in FICHAS_MAQUETAS])
+    vistas_cuestionario()
     archivo_cat, ok_cat, bloques_cat = catalogo_visual()
     imagenes_catalogo(bloques_cat)
     hechos.append((archivo_cat, ok_cat))

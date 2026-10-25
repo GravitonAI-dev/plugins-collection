@@ -38,6 +38,8 @@ python3 generar_ejemplos.py            # HTML y PDF (necesita Google Chrome para
 python3 generar_ejemplos.py --sin-pdf  # HTML y comprobacion en Chrome, sin PDF
 ```
 
+Ademas saca las miniaturas del cuestionario, `../assets/vista-<id>.png`: una por opcion de las preguntas `identidad_visual` (los 21 estilos) y `colores_reporte` (modo del sistema, claro, oscuro y colores del despacho) de SKILL.md, a 480 × 300, con la primera pantalla del panel de ejemplo. La app las ensena como galeria; avisa si las opciones de SKILL.md y las miniaturas no coinciden.
+
 El guion compone cada ejemplo igual que lo hara el modelo: copia la base, inserta la maqueta leida de la referencia y escribe el bloque de datos. Despues abre cada archivo en Chrome sin ventana y **falla** si la consola registra algun error (un grafico mal declarado, una fuente sin declarar) o si queda algun marcador sin resolver. Si se cambia la base o una maqueta, basta con volver a ejecutarlo para que los ejemplos y sus PDF queden al dia.
 
 ```bash
