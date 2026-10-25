@@ -199,7 +199,7 @@ Esta skill guia al usuario de manera consultiva y transparente a traves de un pr
 - **V1 (Tipo de Artefacto):** el `id` de una de las maquetas del indice de `references/maquetas-reportes.md`, o `fuera_de_alcance`. Todas son **reportes** de datos; un documento de texto es siempre `fuera_de_alcance`.
 - **V2 (Destino de Uso):** fijado siempre en `ambos`. **No se pregunta nunca:** todo artefacto se entrega util en pantalla y listo para imprimir o guardar como PDF. Preguntarlo solo anadia un paso al asistente para una respuesta que casi siempre era la misma.
 - **V3 (Origen de los Datos):** `datos_del_chat` | `documento_del_workspace` | `busqueda_web`.
-- **V4 (Identidad Visual):** un tema del catalogo de `references/temas-visuales.md` (`tema_<id>`, por defecto `tema_moderno`), elegido en los formularios de estilo, o `tema_personalizado` (colores corporativos del usuario, aplicados con el modulo `marca` encima de cualquier tema). La tabla «Como elegir» de esa referencia fija que tema corresponde a cada destinatario y soporte.
+- **V4 (Identidad Visual):** un tema del catalogo de `references/temas-visuales.md` (`tema_<id>`) o `tema_personalizado` (colores corporativos del usuario, aplicados con el modulo `marca` encima del tema moderno), elegido por el usuario en la pregunta `identidad_visual` (1.2). La tabla «Como orientar» de esa referencia solo sirve para recomendarle uno si duda.
 - **V5 (Origen Plantilla):** `plantilla_sistema` | `plantilla_usuario`.
 - **V6 (Receta):** una receta de `references/catalogo-reportes.md` (informe de situacion del expediente, KPIs mensuales, due diligence, white paper, captacion y conversion...) o `sin_receta`. **No se pregunta en el formulario:** se deduce de la peticion por escucha activa; la receta fija V1 y la estructura de bloques, y se menciona en el plan de la Fase 2 para que el usuario la confirme o la cambie.
 
@@ -214,7 +214,7 @@ Esta skill guia al usuario de manera consultiva y transparente a traves de un pr
 ## FASE 1 — CLASIFICACION INICIAL (Resolucion de Vectores V1 a V4 mediante Formulario HITL — REG-TRI-01)
 
 ### 1.1 Escucha Activa Previa
-Evalua el mensaje inicial y el historial antes de abrir ningun formulario. Si la peticion encaja con una receta de `references/catalogo-reportes.md`, fija V6 y, con ella, V1: entonces el formulario no pregunta `tipo_documento`. Si el usuario ya ha indicado de forma inequivoca el tipo de entregable, su destino, de donde salen los datos o si aporta identidad corporativa, registra esos vectores en silencio y pregunta unicamente por lo que falte. Lo mismo con el aspecto: si describe un estilo con sus palabras («tipo periodico», «muy limpio y sin adornos», «en oscuro para proyectar», «con letra de maquina», «para un ayuntamiento»), asigna el tema que corresponde segun la tabla de `references/temas-visuales.md` (prensa, minimal, nocturno, tecnico, institucional) sin preguntarlo. Y con el formato, que se deduce de las palabras de la peticion sin preguntarlo:
+Evalua el mensaje inicial y el historial antes de abrir ningun formulario. Si la peticion encaja con una receta de `references/catalogo-reportes.md`, fija V6 y, con ella, V1: entonces el formulario no pregunta `tipo_documento`. Si el usuario ya ha indicado de forma inequivoca el tipo de entregable, su destino o de donde salen los datos, registra esos vectores en silencio y pregunta unicamente por lo que falte. El estilo no se deduce del mensaje inicial: se pregunta siempre (ver 1.2). Y con el formato, que se deduce de las palabras de la peticion sin preguntarlo:
 
 | Palabras del usuario | Maqueta |
 | :--- | :--- |
@@ -232,7 +232,7 @@ Evalua el mensaje inicial y el historial antes de abrir ningun formulario. Si la
 | poster, cartel, para colgar, A3 | `poster` |
 | memorando, propuesta, guia, boletin, carta, contrato, escrito | `fuera_de_alcance`: documento de texto, se redacta en Markdown con su skill |
 
-Si no falta nada, avanza directamente a la Fase 2.
+Si no falta nada mas, el formulario lleva solo la pregunta de estilo; se pasa directamente a la Fase 2 unicamente cuando tampoco hace falta preguntar el estilo (ver 1.2).
 
 **Correspondencia con el enrutamiento.** Los vectores de esta skill se nombran con los identificadores siguientes; cada uno se resuelve con la respuesta indicada. No preguntes de nuevo nada que ya este aqui:
 - `V1` — respuesta a `tipo_documento`
@@ -244,9 +244,40 @@ Si no falta nada, avanza directamente a la Fase 2.
 
 ### 1.2 Formulario de Clasificacion (`restricted_human_in_the_loop_request`)
 
+**El estilo se pregunta siempre, al cargar la skill.** `identidad_visual` va primera y ofrece todos los estilos del catalogo de `references/temas-visuales.md`, cada uno como una opcion, mas los colores del despacho; si es lo unico que falta, el formulario lleva solo esta pregunta. Se omite solo si el usuario ya nombro un estilo del catalogo por su nombre (por ejemplo «en estilo prensa») o ya aporto los colores de su despacho (`tema_personalizado`). Solo si el usuario cierra este formulario y describe el aspecto en el chat en vez de elegir, se le asigna el tema que corresponde.
+
 ```json
 {
   "form_data": [
+    {
+      "id": "identidad_visual",
+      "rationale": "Resolver V4 al cargar la skill: el usuario elige uno de los 21 estilos del catalogo (paleta, tipografia, radios y encabezado del artefacto) o los colores de su despacho.",
+      "question": "¿Qué estilo quiere para el reporte?",
+      "options": [
+        {"id": "tema_moderno", "label": "Moderno: paneles y presentaciones"},
+        {"id": "tema_sobrio", "label": "Sobrio: juzgado y cliente institucional"},
+        {"id": "tema_editorial", "label": "Editorial: documentos para imprimir"},
+        {"id": "tema_corporativo", "label": "Corporativo: memorias y comités"},
+        {"id": "tema_minimal", "label": "Minimal: resúmenes de una página"},
+        {"id": "tema_nocturno", "label": "Nocturno: proyectar en pantalla"},
+        {"id": "tema_tecnico", "label": "Técnico: auditorías y cumplimiento"},
+        {"id": "tema_calido", "label": "Cálido: particulares y familia"},
+        {"id": "tema_institucional", "label": "Institucional: administración y organismos"},
+        {"id": "tema_pizarra", "label": "Pizarra: paneles densos"},
+        {"id": "tema_suave", "label": "Suave: boletines y comunicación"},
+        {"id": "tema_prensa", "label": "Prensa: novedades normativas"},
+        {"id": "tema_alto_contraste", "label": "Alto contraste: accesibilidad"},
+        {"id": "tema_dorado", "label": "Dorado: prestigio y dirección"},
+        {"id": "tema_esmeralda_noche", "label": "Esmeralda nocturno: paneles en pantalla"},
+        {"id": "tema_ambar", "label": "Ámbar: paneles operativos"},
+        {"id": "tema_oliva_oro", "label": "Oliva y oro: rural y patrimonio"},
+        {"id": "tema_lima", "label": "Lima: tecnología y datos"},
+        {"id": "tema_menta", "label": "Menta: salud y particulares"},
+        {"id": "tema_melocoton", "label": "Melocotón: familia y eventos"},
+        {"id": "tema_lavanda", "label": "Lavanda: comunicación interna"},
+        {"id": "tema_personalizado", "label": "Los colores de mi despacho o empresa"}
+      ]
+    },
     {
       "id": "tipo_documento",
       "rationale": "Resolver V1 para determinar la plantilla base y la estructura visual del artefacto.",
@@ -271,22 +302,6 @@ Si no falta nada, avanza directamente a la Fase 2.
         {"id": "documento_del_workspace", "label": "Estan en un documento de mi espacio de trabajo"},
         {"id": "busqueda_web", "label": "Hay que consultarlos en fuentes oficiales o publicas"}
       ]
-    },
-    {
-      "id": "identidad_visual",
-      "rationale": "Resolver V4 para fijar la paleta, la tipografia, el radio de las tarjetas y el encabezado del artefacto.",
-      "question": "¿Que aspecto prefiere para el artefacto?",
-      "options": [
-        {"id": "tema_moderno", "label": "Moderno: cifras grandes, colores vivos y mucho aire"},
-        {"id": "tema_sobrio", "label": "Sobrio de despacho: azules apagados y neutros calidos"},
-        {"id": "tema_editorial", "label": "Editorial: tipografia con serifa y papel crema, para imprimir"},
-        {"id": "tema_corporativo", "label": "Corporativo: azul marino, tarjetas cuadradas, para memorias y comites"},
-        {"id": "tema_nocturno", "label": "Nocturno: siempre en oscuro, para proyectar en pantalla"},
-        {"id": "tema_oscuro_dorado", "label": "Oscuro con dorados y verdes: negro y oro, esmeralda, ambar, oliva o lima"},
-        {"id": "tema_pastel", "label": "Pastel: menta, melocoton, lavanda o suave"},
-        {"id": "tema_otro", "label": "Otro estilo del catalogo (minimal, tecnico, calido, institucional, pizarra, prensa o alto contraste)"},
-        {"id": "tema_personalizado", "label": "Los colores y el nombre de mi despacho o empresa"}
-      ]
     }
   ]
 }
@@ -294,7 +309,7 @@ Si no falta nada, avanza directamente a la Fase 2.
 
 ### 1.2 ter. Segundo formulario de formato (solo si `tipo_documento = otro_formato`)
 
-Formulario atomico `restricted_human_in_the_loop_request` con las doce maquetas de reporte del catalogo, descritas por su uso. Si ademas falta el estilo, se pregunta despues, en su propio formulario.
+Formulario atomico `restricted_human_in_the_loop_request` con las doce maquetas de reporte del catalogo, descritas por su uso.
 
 ```json
 {
@@ -324,54 +339,6 @@ Formulario atomico `restricted_human_in_the_loop_request` con las doce maquetas 
 ```
 
 Con `no_procede` se vuelve al primer formulario sin el campo `tipo_documento` resuelto y se pregunta en el chat que quiere mostrar el reporte.
-
-### 1.2 bis. Segundo formulario de estilo (solo si `identidad_visual = tema_otro`)
-
-Si el usuario elige «otro estilo del catalogo», convoca de inmediato un segundo `restricted_human_in_the_loop_request` atomico con el resto de temas de `references/temas-visuales.md`, cada uno descrito por su uso y no por su nombre tecnico:
-
-```json
-{
-  "form_data": [
-    {
-      "id": "estilo_catalogo",
-      "rationale": "Resolver V4 entre los temas del catalogo que no caben en el primer formulario.",
-      "question": "¿Cual de estos estilos se ajusta mejor al destinatario?",
-      "options": [
-        {"id": "tema_minimal", "label": "Minimal: blanco y negro con un solo acento, sin bordes; resumenes de una pagina"},
-        {"id": "tema_tecnico", "label": "Tecnico: letra monoespaciada y bordes finos; auditorias y cumplimiento"},
-        {"id": "tema_calido", "label": "Calido: tierras y arena; particulares, inmobiliario y familia"},
-        {"id": "tema_institucional", "label": "Institucional: granate y dorado con titulares en serifa; administracion y organismos"},
-        {"id": "tema_pizarra", "label": "Pizarra: grises con acento cian y tablas compactas; paneles densos de seguimiento"},
-        {"id": "tema_suave", "label": "Suave: pasteles y radios grandes; boletines y comunicacion"},
-        {"id": "tema_prensa", "label": "Prensa: serifa de periodico, blanco y negro con rojo; boletines normativos"},
-        {"id": "tema_alto_contraste", "label": "Alto contraste: negro, blanco y amarillo, bordes gruesos; accesibilidad y proyeccion"},
-        {"id": "no_procede", "label": "Ninguno de estos: prefiero el estilo moderno"}
-      ]
-    }
-  ]
-}
-```
-
-Si elige `tema_oscuro_dorado` o `tema_pastel`, el segundo formulario es el de esa familia. Las palabras «negro y dorado», «golden», «oscuro elegante», «pastel» o «colores suaves» en el mensaje fijan la familia por escucha activa. Formularios de familia:
-
-```json
-{"form_data": [{"id": "estilo_oscuro", "rationale": "Resolver V4 dentro de los temas siempre oscuros.", "question": "¿Que tono oscuro prefiere?",
-  "options": [{"id": "tema_dorado", "label": "Negro y oro: prestigio y direccion"}, {"id": "tema_esmeralda_noche", "label": "Negro, esmeralda y oro: paneles en pantalla"},
-              {"id": "tema_ambar", "label": "Negro, ambar y amarillo: paneles operativos"}, {"id": "tema_oliva_oro", "label": "Verde oliva y oro: rural y patrimonio"},
-              {"id": "tema_lima", "label": "Negro y lima: tecnologia y datos"}, {"id": "tema_nocturno", "label": "Nocturno: turquesa e indigo para proyectar"},
-              {"id": "no_procede", "label": "Ninguno de estos: prefiero el estilo moderno"}]}]}
-```
-
-```json
-{"form_data": [{"id": "estilo_pastel", "rationale": "Resolver V4 dentro de los temas pastel.", "question": "¿Que paleta pastel prefiere?",
-  "options": [{"id": "tema_menta", "label": "Menta y melocoton: salud y particulares"}, {"id": "tema_melocoton", "label": "Melocoton, rosa y verde agua: familia y eventos"},
-              {"id": "tema_lavanda", "label": "Lavanda y rosa: comunicacion interna"}, {"id": "tema_suave", "label": "Suave: lila con radios grandes"},
-              {"id": "no_procede", "label": "Ninguno de estos: prefiero el estilo moderno"}]}]}
-```
-
-En los tres formularios de estilo, `no_procede` fija `tema_moderno` y se continua sin mas preguntas.
-
-Con la respuesta, V4 queda fijado y se continua en 1.3 sin mas preguntas. Si el usuario describe en el chat lo que quiere en vez de elegir, se asigna el tema por escucha activa.
 
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Fijados los vectores de clasificacion, evalua la rama de ejecucion. `V2` esta fijado en `ambos` y no se pregunta; `V3` y `V4` no abren rama propia: modulan el contenido de la Fase 4 dentro de la rama elegida.
@@ -414,7 +381,7 @@ En un unico turno, expon en el chat:
 1. **Escritura del archivo (`create_file`):** vuelca **integramente** la base `assets/template-base-reportes.md`, con los marcadores rellenos con las partes de la maqueta del tipo elegido (`{{ANCHO}}`, `{{FICHA}}`, `{{CONTENIDO}}`, `{{ESTILOS_MAQUETA}}` y `{{ACCIONES}}`, conforme a `references/maquetas-reportes.md`; los dos ultimos se borran si la maqueta no tiene esas partes) y el bloque `datos-reporte` con lo que ya se conoce, en un archivo con nombre descriptivo en formato `snake_case.html`. **El nombre se escribe en el idioma del usuario, sin acentos ni enes para evitar problemas de codificacion** (por ejemplo `panel_reclamacion_cantidad.html`, `informe_viabilidad_monitorio.html`, `simulador_intereses_demora.html`). La base contiene el documento HTML completo: se copia tal cual, con su bloque de estilos, su aviso DRAFT y el motor de graficos, sin resumirlo, sin fragmentarlo, sin modificar el motor y sin envolverlo en marcas de codigo. En la herramienta interactiva se anade ademas el script de calculo de su maqueta, justo despues del motor.
 2. **Zero-Omission:** sustituye en ese mismo volcado **todos** los marcadores cuyo valor ya conoces: titulo, entradilla, etiqueta superior, fechas, referencia del expediente, destinatario, nombres de las partes resueltos conforme a `REG-CLI-01` a `REG-CLI-04`, e indicadores cuyas cifras ya constan. Prohibido crear el archivo con los marcadores en blanco si la informacion ya obra en la conversacion.
 3. **Datos que faltan:** un dato esencial se pide (formulario en bloque); uno no esencial se quita del documento junto con su linea o bloque; el marcador `{{VARIABLE}}` solo queda visible para lo que el usuario ha decidido no dar (REG-INS-01). Nunca se rellena con ceros, guiones o cifras inventadas. Lo que falta porque una busqueda no pudo leer la fuente no es un dato que falte: sigue el fallback de la Fase 2.1 (estimacion marcada), y el artefacto se entrega completo.
-4. **Aplicacion de V4:** el tema se fija en la etiqueta `html` con `data-tema` y su nombre. `moderno` y `sobrio` van incorporados en la base y no necesitan nada mas (se borra la linea del marcador `{{ESTILOS_TEMA}}`). Para cualquier otro tema del catalogo se copia **integro** su bloque `css` de `references/temas-visuales.md` en el marcador `{{ESTILOS_TEMA}}` de la base (dentro del `<style>`, tras el tema sobrio): un tema es una pieza unica, no se mezclan dos ni se retocan sus colores. Si `V4 = tema_personalizado`, se parte del tema que mejor case con el destinatario (por defecto, moderno) y se declara el bloque `marca` del bloque de datos (colores, version oscura, logo si lo aporta el usuario, pie) copiando el modulo `marca` de `references/modulos-motor.md`, verificando el contraste en claro y oscuro; el nombre del despacho va tambien en la etiqueta superior.
+4. **Aplicacion de V4:** el tema se fija en la etiqueta `html` con `data-tema` y su nombre. `moderno` y `sobrio` van incorporados en la base y no necesitan nada mas (se borra la linea del marcador `{{ESTILOS_TEMA}}`). Para cualquier otro tema del catalogo se copia **integro** su bloque `css` de `references/temas-visuales.md` en el marcador `{{ESTILOS_TEMA}}` de la base (dentro del `<style>`, tras el tema sobrio): un tema es una pieza unica, no se mezclan dos ni se retocan sus colores. Si `V4 = tema_personalizado`, se parte del tema moderno y se declara el bloque `marca` del bloque de datos (colores, version oscura, logo si lo aporta el usuario, pie) copiando el modulo `marca` de `references/modulos-motor.md`, verificando el contraste en claro y oscuro; el nombre del despacho va tambien en la etiqueta superior.
 5. **Aplicacion de V2 (siempre `ambos`):** el artefacto tiene que sostener las dos lecturas a la vez, sin sacrificar ninguna. En pantalla: densidad de informacion, elementos manipulables y tema oscuro. En papel: bloque `@media print` completo, fidelidad de color, sin cortes de tarjeta ni titulos huerfanos. Si una decision favorece a una y perjudica a la otra, se busca la que sirva a ambas.
 6. **Confirmacion en el chat y encadenamiento:** informa de la ruta absoluta del artefacto creado y anade siempre estas dos indicaciones al usuario:
    - **Como se abre:** al seleccionarlo en su espacio de trabajo, la plataforma ofrece abrirlo en el navegador o mostrarlo en su carpeta; tambien se abre con un doble clic sobre el archivo. El boton inferior de la propia pagina lo imprime o lo guarda como PDF (destino *Guardar como PDF* en el dialogo de impresion, con los graficos de fondo activados si se quiere conservar el color).
