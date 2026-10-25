@@ -1040,7 +1040,8 @@ def catalogo_visual():
     .formatos{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:var(--e3)}
     .formato img{display:block;width:100%;height:170px;object-fit:cover;object-position:top;border-radius:var(--radio-s);border:1px solid var(--borde)}
     .formato h3{font-size:.92rem;margin:var(--e2) 0 0}
-    /* Modo compacto (?solo=...): iconos pequenos, sin textos de uso, a 760 px, para la ficha de la app. */
+    .formato p{font-size:.8rem;color:var(--texto-2);margin:4px 0 0;line-height:1.35}
+    /* Modo compacto (?solo=...): iconos pequenos, a 760 px, para la ficha de la app. Los graficos y estilos van sin texto de uso; los formatos lo llevan debajo del nombre. */
     .compacto,.compacto body{background:transparent!important}  /* fondo transparente: las tarjetas se ven sobre la ficha clara u oscura */
     .compacto .contenedor{max-width:760px}
     .compacto .minis{grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:10px}
@@ -1055,16 +1056,37 @@ def catalogo_visual():
     .compacto .hoja{padding:6px;font-size:.5rem}
     .compacto .hoja b{font-size:.8rem}
     .compacto .muestra-barras{height:20px;margin-top:4px}
-    .compacto .formatos{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    .compacto .formatos{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 12px}
     .compacto .formato img{height:128px}
+    .compacto .formato p{display:block;font-size:.66rem;text-align:center;margin:3px 0 0;line-height:1.3}
     """
     ORDEN_FORMATOS = ["panel_datos", "cuadro_mando", "embudo_conversion", "informe_territorial", "herramienta_interactiva", "cronograma_expediente", "lista_control",
                       "actividad_equipo", "informe_visual", "comparativa", "mapa_riesgos", "escenarios", "resumen_ejecutivo", "ficha_una_pagina", "poster", "infografia",
                       "presentacion", "documento_largo"]
     NOMBRES_FORMATO = {"Embudo de conversion": "Embudo de conversión", "Presentacion": "Presentación", "Infografia": "Infografía", "Poster": "Póster", "Ficha de una pagina": "Ficha de una página"}
+    USOS_FORMATO = {  # para que sirve cada formato: va debajo de su nombre, tambien en la imagen de la ficha de la app
+        "panel_datos": "Indicadores y gráficos de un periodo o una cartera; seguimiento de facturación o deuda",
+        "cuadro_mando": "Ocho KPIs con su variación, objetivos y estado por área; para el comité de dirección",
+        "embudo_conversion": "Un proceso por etapas y dónde se pierde; captación, recobro o tramitación",
+        "informe_territorial": "Datos por comunidad autónoma o provincia en un mapa, con ranking y concentración",
+        "herramienta_interactiva": "Calculadora o simulador que recalcula al cambiar los datos",
+        "cronograma_expediente": "Qué ha pasado, qué plazo corre y qué viene; para el cliente que pregunta cómo va lo suyo",
+        "lista_control": "Cumplimiento por bloque y por requisito, con sus evidencias; auditorías y compliance",
+        "actividad_equipo": "Horas, asuntos y carga por área y por mes",
+        "informe_visual": "Un caso explicado con secciones, indicadores, plazos y cronología",
+        "comparativa": "Dos a cuatro opciones frente a frente con los mismos criterios y la recomendada destacada",
+        "mapa_riesgos": "Matriz de probabilidad e impacto, impacto económico y exposición",
+        "escenarios": "Qué pasa si cambian los supuestos: horquilla del resultado y qué lo mueve más",
+        "resumen_ejecutivo": "Una página A4 con la conclusión, tres cifras y la decisión que se pide",
+        "ficha_una_pagina": "Datos clave de un asunto, un cliente o una sociedad en una página A4",
+        "poster": "Una hoja A3 apaisada con tres cifras y un gráfico grande, para colgar",
+        "infografia": "Tres cifras enormes y gráficos sencillos en vertical, para divulgar",
+        "presentacion": "Diapositivas 16:9 con notas del orador para una reunión",
+        "documento_largo": "White paper o memoria con portada, índice y muchos gráficos",
+    }
     por_maqueta = {m: (a, nm) for a, m, nm, _, _ in FICHAS_MAQUETAS}
-    formatos = "".join('<article class="formato"><img src="miniaturas/%s.png" alt="Ejemplo de %s"><h3>%s</h3></article>'
-                       % (por_maqueta[m][0], H.escape(NOMBRES_FORMATO.get(por_maqueta[m][1], por_maqueta[m][1])), H.escape(NOMBRES_FORMATO.get(por_maqueta[m][1], por_maqueta[m][1]))) for m in ORDEN_FORMATOS)
+    formatos = "".join('<article class="formato"><img src="miniaturas/%s.png" alt="Ejemplo de %s"><h3>%s</h3><p>%s</p></article>'
+                       % (por_maqueta[m][0], H.escape(NOMBRES_FORMATO.get(por_maqueta[m][1], por_maqueta[m][1])), H.escape(NOMBRES_FORMATO.get(por_maqueta[m][1], por_maqueta[m][1])), H.escape(USOS_FORMATO[m])) for m in ORDEN_FORMATOS)
     contenido = ('<p class="intro">Cada gráfico con su aspecto real, su nombre y para qué sirve. '
       'Las miniaturas las dibuja el motor de la skill con datos de ejemplo; en el informe salen a tamaño completo, con su tabla de datos y su fuente.</p>'
       '<p class="bloque-titulo">Formatos · %d</p><div class="formatos" id="formatos">%s</div>'

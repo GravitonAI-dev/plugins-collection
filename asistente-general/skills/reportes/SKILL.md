@@ -12,27 +12,6 @@ i18n:
 
       ![The 18 report formats](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/develop/asistente-general/skills/reportes/ejemplos/catalogo/formatos.png)
 
-      | Format | What for |
-      | :--- | :--- |
-      | **Data dashboard** | Indicators and charts for a period or a portfolio |
-      | **Scorecard** | Eight KPIs with change, targets and status by area; for the management committee |
-      | **Conversion funnel** | A staged process and where it loses volume |
-      | **Regional report** | Data by Spanish region or province on a map, with ranking and concentration |
-      | **Interactive tool** | A calculator or simulator that recalculates as you type |
-      | **Case timeline** | What happened, which deadline is running and what comes next |
-      | **Checklist** | Compliance by block and requirement, with evidence |
-      | **Team activity** | Hours, matters and workload by area and month |
-      | **Visual report** | A case explained with sections, indicators, deadlines and a chronology |
-      | **Comparison** | Two to four options side by side with the recommended one highlighted |
-      | **Risk map** | Probability-impact matrix, financial impact and exposure |
-      | **Scenarios** | What if the assumptions change: result range and its main driver |
-      | **Executive summary** | One A4 page with the conclusion, three figures and the decision requested |
-      | **One-page fact sheet** | Key data on a matter, client or company |
-      | **Poster** | One landscape A3 sheet with three figures and a large chart |
-      | **Infographic** | Three huge figures and simple charts, vertical, to share |
-      | **Presentation** | 16:9 slides with speaker notes |
-      | **Long document** | White paper or annual report with cover, contents and many charts |
-
       ### Styles (21)
 
       ![The 21 styles](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/develop/asistente-general/skills/reportes/ejemplos/catalogo/temas.png)
@@ -104,27 +83,6 @@ description: |
   ### Formatos (18)
 
   ![Los 18 formatos de reporte](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/develop/asistente-general/skills/reportes/ejemplos/catalogo/formatos.png)
-
-  | Formato | Para qué |
-  | :--- | :--- |
-  | **Panel de datos** | Indicadores y gráficos de un periodo o una cartera; seguimiento de facturación o deuda |
-  | **Cuadro de mando** | Ocho KPIs con su variación, objetivos y estado por área; para el comité de dirección |
-  | **Embudo de conversión** | Un proceso por etapas y dónde se pierde; captación, recobro o tramitación |
-  | **Informe territorial** | Datos por comunidad autónoma o provincia en un mapa, con ranking y concentración |
-  | **Herramienta interactiva** | Calculadora o simulador que recalcula al cambiar los datos |
-  | **Cronograma del expediente** | Qué ha pasado, qué plazo corre y qué viene; para el cliente que pregunta cómo va lo suyo |
-  | **Lista de control** | Cumplimiento por bloque y por requisito, con sus evidencias; auditorías y compliance |
-  | **Actividad del equipo** | Horas, asuntos y carga por área y por mes |
-  | **Informe visual** | Un caso explicado con secciones, indicadores, plazos y cronología |
-  | **Comparativa** | Dos a cuatro opciones frente a frente con los mismos criterios y la recomendada destacada |
-  | **Mapa de riesgos** | Matriz de probabilidad e impacto, impacto económico y exposición |
-  | **Escenarios** | Qué pasa si cambian los supuestos: horquilla del resultado y qué lo mueve más |
-  | **Resumen ejecutivo** | Una página A4 con la conclusión, tres cifras y la decisión que se pide |
-  | **Ficha de una página** | Datos clave de un asunto, un cliente o una sociedad en una página A4 |
-  | **Póster** | Una hoja A3 apaisada con tres cifras y un gráfico grande, para colgar |
-  | **Infografía** | Tres cifras enormes y gráficos sencillos en vertical, para divulgar |
-  | **Presentación** | Diapositivas 16:9 con notas del orador para una reunión |
-  | **Documento largo** | White paper o memoria con portada, índice y muchos gráficos |
 
   ### Estilos (21)
 
