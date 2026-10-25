@@ -4,6 +4,8 @@ Algunos tipos de grafico pesan demasiado para ir en todos los artefactos. Viven 
 
 Si un artefacto declara un tipo de modulo pero no copia el modulo, el grafico muestra el recuadro rojo «tipo desconocido».
 
+Un modulo que anade algo fuera del hueco del grafico (por ejemplo, su `<style>` en el `head`) le pone `data-generado`: el visor de la app guarda el DOM tal cual y el motor quita esos nodos al cargar, antes de que el modulo los vuelva a anadir (`anatomia-artefacto.md`, seccion 7).
+
 ---
 
 ## Diagramas con conectores (`diagrama`)
@@ -912,7 +914,7 @@ var estilosSemaforos = ".semaforos{list-style:none;margin:0;padding:0}.semaforo{
   ".semaforo .luz{flex:none;width:12px;height:12px;border-radius:50%;margin-top:6px;background:var(--apagado)}.semaforo-ok .luz{background:var(--ok)}.semaforo-aviso .luz{background:var(--aviso)}.semaforo-riesgo .luz{background:var(--riesgo)}" +
   ".semaforo>div{flex:1;min-width:0}.semaforo .nota{display:block;font-size:.82rem;color:var(--apagado)}.semaforos-resumen{font-size:.82rem;color:var(--apagado);margin:var(--e2) 0 0}";
 /* Los estilos de los semaforos se anaden la primera vez que se dibuja uno, no en todo artefacto con el modulo. */
-function conEstilos() { if (estilosSemaforos) { R.html("style", "", D.head).textContent = estilosSemaforos; estilosSemaforos = null; } }
+function conEstilos() { if (estilosSemaforos) { var e = R.html("style", "", D.head, estilosSemaforos); e.setAttribute("data-generado", ""); estilosSemaforos = null; } }
 var fechaCorta = new Intl.DateTimeFormat(R.IDIOMA, {day: "numeric", month: "short", year: "2-digit", timeZone: "UTC"});
 
 /* Progreso: barras de avance con porcentaje y, si se da, marca de objetivo. */

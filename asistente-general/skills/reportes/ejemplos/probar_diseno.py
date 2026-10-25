@@ -7,6 +7,9 @@ usa la app (`window.Reportes`): recorre los 21 temas en modo claro, oscuro y del
 sistema y comprueba el fondo; pone y quita los colores del despacho; cambia cada
 grafico por cada una de sus alternativas y comprueba que se dibuja; y al final
 `restaurar()` debe dejarlo todo como estaba. Lo repite con el sistema en oscuro.
+Tambien guarda el documento como lo guarda el visor (el DOM serializado, tras una
+vista previa con otro tema, modo y marca) y comprueba que al reabrirlo no se
+duplica nada de lo que anaden el motor, los modulos o la maqueta.
 Despues imprime a PDF unos ejemplos con el modo oscuro fijado y comprueba que el
 papel sale en blanco.
 
@@ -37,12 +40,20 @@ function lum(c) {
 var sonda = D.createElement("i"); sonda.style.color = "var(--acento)";
 function acento() { return getComputedStyle(sonda).color; }
 function fondo() { return lum(getComputedStyle(D.body).backgroundColor); }
+function cuentas() {
+  var c = {}, q = {generado: "[data-generado]", marca: '[data-generado="marca"]', estilos: "style", imagenes: "img", fuentes: "#fuentes-reporte li",
+                   diapositivas: ".diapositiva", indice: "#indice-documento li", pie: ".pie p"};
+  for (var k in q) c[k] = D.querySelectorAll(q[k]).length;
+  return c;
+}
 function errores() { return [].map.call(D.querySelectorAll(".error-grafico"), function (n) { return n.textContent; }); }
 function terminar() { sonda.remove(); var p = D.createElement("pre"); p.id = "prueba-diseno"; p.textContent = JSON.stringify(r); D.body.appendChild(p); }
 /* Despues de la carga y de que el motor dibuje, como la app. */
 window.addEventListener("load", function () { setTimeout(probar, 50); });
 function probar() {
 try {
+  r.cuentas = cuentas();
+  r.estado = R && R.estado();
   errores().forEach(function (e) { fallo("al cargar: " + e); });
   if (!D.querySelector('meta[name="reportes-diseno"]')) fallo("falta la etiqueta reportes-diseno");
   D.body.appendChild(sonda);
@@ -99,25 +110,49 @@ terminar();
 </body>"""
 
 
-def probar(archivo, oscuro):
-    """Abre una copia del ejemplo con el script de prueba y devuelve su resultado."""
-    html = open(os.path.join(AQUI, archivo), encoding="utf-8").read()
+GUARDAR = r"""<script>
+(function(){
+var yo = document.currentScript;
+window.addEventListener("load", function () { setTimeout(function () {
+  yo.remove();
+  Reportes.vistaPrevia({tema: "prensa", modo: "oscuro", marca: {acento: "#7a1f3d", pie: "Pie de prueba"}});
+}, 50); });
+})();
+</script>
+</body>"""
+
+
+def chrome(html, archivo, oscuro=False):
+    """DOM serializado de una copia del ejemplo, tras cargarla en Chrome sin ventana."""
     with tempfile.TemporaryDirectory(prefix="reportes-prueba-") as tmp:
-        copia = os.path.join(AQUI, ".prueba-%s-%s" % ("oscuro" if oscuro else "claro", archivo))  # junto al original, por si enlaza otros archivos
-        open(copia, "w", encoding="utf-8").write(html.replace("</body>", PRUEBA, 1))
+        copia = os.path.join(AQUI, ".prueba-%s-%s" % (os.path.basename(tmp), archivo))  # junto al original, por si enlaza otros archivos
+        open(copia, "w", encoding="utf-8").write(html)
         try:
             orden = [CHROME, "--headless=new", "--disable-gpu", "--user-data-dir=" + tmp, "--virtual-time-budget=6000", "--dump-dom"]
             if oscuro:
                 orden.append("--force-dark-mode")
-            salida = subprocess.run(orden + ["file://" + copia], capture_output=True, text=True, check=False, timeout=180).stdout
+            return subprocess.run(orden + ["file://" + copia], capture_output=True, text=True, check=False, timeout=180).stdout
         except subprocess.TimeoutExpired:
-            return {"fallos": ["Chrome no termino en 180 s"]}
+            return ""
         finally:
             os.remove(copia)
+
+
+def probar(archivo, oscuro, html=None):
+    """Abre una copia del ejemplo con el script de prueba y devuelve su resultado."""
+    html = html or open(os.path.join(AQUI, archivo), encoding="utf-8").read()
+    salida = chrome(html.replace("</body>", PRUEBA, 1), archivo, oscuro)
     m = re.search(r'<pre id="prueba-diseno">(.*?)</pre>', salida, re.S)
     if not m:
         return {"fallos": ["la prueba no termino (sin resultado en el DOM)"]}
     return json.loads(m.group(1).replace("&lt;", "<").replace("&gt;", ">").replace("&quot;", '"').replace("&amp;", "&"))
+
+
+def guardar_y_reabrir(archivo):
+    """Guarda el ejemplo como el visor (DOM serializado tras una vista previa) y lo prueba de nuevo."""
+    html = open(os.path.join(AQUI, archivo), encoding="utf-8").read()
+    guardado = "<!doctype html>\n" + chrome(html.replace("</body>", GUARDAR, 1), archivo)
+    return probar(archivo, False, guardado)
 
 
 def brillo_papel(archivo, tema=None, modo=None, sistema_oscuro=True):
@@ -154,6 +189,20 @@ if __name__ == "__main__":
         if oscuro and r.get("sistemaOscuro") is False:
             print("      AVISO: --force-dark-mode no puso el sistema en oscuro")
         mal = mal or bool(r["fallos"])
+    print("\nGuardado como el visor y reabierto (nada se duplica; tema y modo, los de la vista previa):")
+    with ThreadPoolExecutor(6) as hilos:
+        reabiertos = list(hilos.map(guardar_y_reabrir, archivos))
+    for archivo, antes, despues in zip(archivos, [r for (a, o), r in zip(trabajos, resultados) if not o], reabiertos):
+        fallos = list(despues["fallos"])
+        if despues.get("cuentas") != antes.get("cuentas"):
+            fallos.append("al cargar %s, al reabrir %s" % (antes.get("cuentas"), despues.get("cuentas")))
+        e = despues.get("estado") or {}
+        if (e.get("tema"), e.get("modo")) != ("prensa", "oscuro"):
+            fallos.append("tema y modo al reabrir: %s/%s" % (e.get("tema"), e.get("modo")))
+        print("  %-38s %s" % (archivo, "sin fallos" if not fallos else "%d fallos" % len(fallos)))
+        for f in fallos:
+            print("      " + f[:300])
+        mal = mal or bool(fallos)
     print("\nTitulos que ve la app (estado().graficos[].titulo):")
     for (archivo, oscuro), r in zip(trabajos, resultados):
         if not oscuro and r.get("titulos"):

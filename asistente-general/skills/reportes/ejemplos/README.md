@@ -46,7 +46,7 @@ El guion compone cada ejemplo igual que lo hara el modelo: copia la base, insert
 python3 probar_diseno.py               # diseno editable de todos los ejemplos
 ```
 
-`probar_diseno.py` prueba en Chrome sin ventana lo que hace la app con un reporte abierto (`window.Reportes`): los 21 temas en modo claro, oscuro y del sistema, los colores del despacho puestos y quitados, cada grafico cambiado por cada una de sus alternativas y `restaurar()`, con el sistema en claro y en oscuro. Despues comprueba que el papel sale igual con cualquier modo. Falla si algo no cuadra.
+`probar_diseno.py` prueba en Chrome sin ventana lo que hace la app con un reporte abierto (`window.Reportes`): los 21 temas en modo claro, oscuro y del sistema, los colores del despacho puestos y quitados, cada grafico cambiado por cada una de sus alternativas y `restaurar()`, con el sistema en claro y en oscuro. Tambien guarda cada ejemplo como lo guarda el visor (el DOM serializado, tras una vista previa con otro tema, modo y marca), lo reabre y comprueba que no se duplica nada de lo que anaden el motor, los modulos o la maqueta. Despues comprueba que el papel sale igual con cualquier modo. Falla si algo no cuadra.
 
 ## Contornos del mapa
 

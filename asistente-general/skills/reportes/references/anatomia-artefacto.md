@@ -74,6 +74,8 @@ El artefacto se edita **siempre desde el chat**, pidiendo el cambio al asistente
 | `actualizar(id, {tipo})` | Redibuja el grafico con otro tipo |
 | `restaurar()` | Vuelve al diseno con el que cargo la pagina |
 
+**El visor guarda lo que ve.** Al guardar, la app serializa el DOM (`outerHTML`), asi que lo que los scripts anaden al cargar acaba en el archivo. Por eso todo nodo que un script anade fuera de un grafico (un `<style>` en el `head`, una diapositiva, una linea del indice, el pie o el logo de la marca) lleva `data-generado`, y el motor, que se ejecuta antes que los modulos y la maqueta, quita al arrancar todos los `[data-generado]` que vengan del archivo; la hoja de la marca tiene ademas el id fijo `estilo-marca`. Lo que se dibuja dentro de un hueco `data-grafico` no lo necesita: el motor vacia el hueco antes de dibujar. Un script nuevo de maqueta o de modulo sigue la misma regla.
+
 Por eso el catalogo, la etiqueta `reportes-diseno` y los 21 temas no se quitan nunca de la base, y un grafico que se quiera poder cambiar de forma usa un tipo de una familia (`biblioteca-componentes-visuales.md`). Si se usa un tipo de un modulo, el modulo tiene que ir copiado para que aparezca como alternativa.
 
 ## 8. Datos y marcadores

@@ -731,6 +731,7 @@ Se coloca despues del script del motor (y de los modulos, si los hay). Monta las
   todas.forEach(function (d, i) {
     var s = el("section", "diapositiva maqueta-" + d.maqueta, cont), c;
     s.setAttribute("aria-roledescription", "diapositiva");
+    s.setAttribute("data-generado", "");  /* el motor la quita si el documento se guardo con ella */
     if (!maquetas[d.maqueta]) { console.error("Diapositiva " + (i + 1) + ": maqueta desconocida " + d.maqueta); el("p", "error-grafico", s, "Maqueta desconocida: " + d.maqueta); return; }
     c = ["portada", "separador", "cita", "cierre"].indexOf(d.maqueta) < 0 ? el("div", "cuerpo", null) : null;
     /* Una diapositiva con datos mal declarados muestra su error sin romper las demas. */
@@ -936,11 +937,13 @@ Se coloca despues del motor y de los modulos. Compone el indice con enlaces y po
     var h = cap.querySelector("h2");
     if (!h) return;  /* un capitulo sin titular no entra en el indice */
     if (!cap.id) cap.id = "capitulo-" + (i + 1);
-    var a = Reportes.html("a", "", Reportes.html("li", "", indice), h.textContent);
+    var li = Reportes.html("li", "", indice), a = Reportes.html("a", "", li, h.textContent);
+    li.setAttribute("data-generado", "");  /* el motor la quita si el documento se guardo con ella */
     a.href = "#" + cap.id;
   });
   /* Cabecera de pagina impresa con el titulo corto (desde la segunda pagina). */
   var estilo = D.createElement("style");
+  estilo.setAttribute("data-generado", "");
   estilo.textContent = "@media print{@page{@top-left{content:" + JSON.stringify(D.title) + ";font-size:8.5pt;color:#555}}}";
   D.head.appendChild(estilo);
 })();
