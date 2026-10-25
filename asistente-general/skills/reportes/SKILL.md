@@ -38,7 +38,7 @@ i18n:
 
       ![What share each part has](https://raw.githubusercontent.com/GravitonAI-dev/plugins-collection/develop/asistente-general/skills/reportes/ejemplos/catalogo/grupo-3.png)
 
-      Donut, pie, stacked columns, treemap, pictogram
+      Donut, pie, stacked columns, 100% stacked, treemap, pictogram
 
       #### When and which deadline
 
@@ -200,7 +200,7 @@ Esta skill guia al usuario de manera consultiva y transparente a traves de un pr
 - **V1 (Tipo de Artefacto):** el `id` de una de las maquetas del indice de `references/maquetas-reportes.md`, o `fuera_de_alcance`. Todas son **reportes** de datos; un documento de texto es siempre `fuera_de_alcance`.
 - **V2 (Destino de Uso):** fijado siempre en `ambos`. **No se pregunta nunca:** todo artefacto se entrega util en pantalla y listo para imprimir o guardar como PDF. Preguntarlo solo anadia un paso al asistente para una respuesta que casi siempre era la misma.
 - **V3 (Origen de los Datos):** `datos_del_chat` | `documento_del_workspace` | `busqueda_web`.
-- **V4 (Identidad Visual):** un tema del catalogo de `references/temas-visuales.md` (`tema_<id>`), elegido por el usuario en la pregunta `identidad_visual` (1.2). La tabla «Como orientar» de esa referencia solo sirve para recomendarle uno si duda.
+- **V4 (Identidad Visual):** un tema del catalogo de `references/temas-visuales.md` (`tema_<id>`), elegido por el usuario en la pregunta `identidad_visual` (1.2). El parrafo «Como orientar» de esa referencia solo sirve para recomendarle uno si duda.
 - **V5 (Origen Plantilla):** `plantilla_sistema` | `plantilla_usuario`.
 - **V6 (Receta):** una receta de `references/catalogo-reportes.md` (informe de situacion del expediente, KPIs mensuales, due diligence, white paper, captacion y conversion...) o `sin_receta`. **No se pregunta en el formulario:** se deduce de la peticion por escucha activa; la receta fija V1 y la estructura de bloques, y se menciona en el plan de la Fase 2 para que el usuario la confirme o la cambie.
 - **V7 (Colores):** `modo_sistema` (por defecto: claro de dia, oscuro de noche) | `modo_claro` | `modo_oscuro` | `colores_despacho` (los colores corporativos del usuario, aplicados con el bloque `marca` encima del tema de V4, que sigue al sistema), elegido en la pregunta `colores_reporte` (1.2). Es independiente del tema: cualquier tema admite cualquier opcion, salvo que los temas siempre oscuros ignoran el modo.
@@ -216,7 +216,7 @@ Esta skill guia al usuario de manera consultiva y transparente a traves de un pr
 ## FASE 1 — CLASIFICACION INICIAL (Resolucion de Vectores V1 a V4 y V7 mediante Formulario HITL — REG-TRI-01)
 
 ### 1.1 Escucha Activa Previa
-Evalua el mensaje inicial y el historial antes de abrir ningun formulario. Si la peticion encaja con una receta de `references/catalogo-reportes.md`, fija V6 y, con ella, V1: entonces el formulario no pregunta `tipo_documento`. Si el usuario ya ha indicado de forma inequivoca el tipo de entregable, su destino o de donde salen los datos, registra esos vectores en silencio y pregunta unicamente por lo que falte. El estilo y los colores no se deducen del mensaje inicial: se preguntan siempre (ver 1.2). Y con el formato, que se deduce de las palabras de la peticion sin preguntarlo:
+Evalua el mensaje inicial y el historial antes de abrir ningun formulario. Si la peticion encaja con una receta de `references/catalogo-reportes.md`, fija V6 y, con ella, V1: entonces el formulario no pregunta `tipo_documento`. Si el usuario ya ha indicado de forma inequivoca el tipo de entregable, su destino o de donde salen los datos, registra esos vectores en silencio y pregunta unicamente por lo que falte. El estilo y los colores no se deducen del mensaje inicial: se preguntan siempre, salvo en los casos que enumera 1.2 (el usuario ya nombro un estilo del catalogo, ya dijo el modo o ya dio los colores de su despacho). Y con el formato, que se deduce de las palabras de la peticion sin preguntarlo:
 
 | Palabras del usuario | Maqueta |
 | :--- | :--- |
@@ -251,7 +251,7 @@ Si no falta nada mas, el formulario lleva solo las preguntas de estilo y colores
 
 La app enseña estas dos preguntas como una galeria de miniaturas: por cada opcion, la imagen `assets/vista-<id de la opcion>.png` de esta skill, que anade el backend. Por eso los `id` de opcion se escriben exactamente como aqui y no se inventan otros; las etiquetas siguen siendo descriptivas porque una app anterior solo muestra el texto.
 
-**Si elige `colores_despacho` y no ha dado los colores**, se piden en ese momento con `slot_filling_request` (color principal en hexadecimal o descrito, «el granate de nuestro logo»; opcionalmente un segundo color, el logo y la linea de pie) y se aplican con el bloque `marca` (Fase 3, punto 4). Si no los da, el reporte sale con los colores del tema y se le dice que puede ponerlos despues desde el boton «Colores del reporte» del visor.
+**Si elige `colores_despacho` y no ha dado los colores**, se piden en ese momento con `slot_filling_request` (color principal en hexadecimal o descrito, «el granate de nuestro logo»; opcionalmente un segundo color, el logo y la linea de pie) y se aplican con el bloque `marca` (Fase 3, punto 4). Si no los da, el reporte sale con los colores del tema y se le dice que puede ponerlos despues desde el boton «Colores del reporte» del visor (en la app de macOS y Windows; en Linux, pidiendolo en el chat).
 
 ```json
 {
@@ -439,7 +439,7 @@ Para cada bloque sustantivo: recogida de datos -> **descripcion en texto plano d
   - `lista_control` y `mapa_riesgos` representan estados y valoraciones **que fija el usuario**; nunca se presume un incumplimiento ni una probabilidad.
   - `escenarios` declara en la tabla de supuestos los valores de cada escenario; el resultado sale de `cifras` y de los graficos, nunca a mano.
   - `informe_territorial` requiere los modulos `mapa` y `mapa_ccaa` o `mapa_provincias`.
-- *Modulos opcionales (cualquier tipo de artefacto):* diagramas, graficos avanzados (dispersion, histograma, radar, embudo, treemap, pendiente, halteras, piramide, calendario, pictograma), graficos analiticos (area apilada, pareto, escalones, cajas, tornado, rango, mapa de calor, sankey, anillos, puntuacion), graficos de seguimiento (progreso, semaforos, linea de tiempo), ajuste a una hoja (`encaje`), mapa de Espana por comunidades o provincias (con tasas por zona), iconos, QR, identidad del despacho y plazos en dias habiles viven en `references/modulos-motor.md` y solo se copian si el artefacto los usa. La tabla de `references/criterios-visualizacion-datos.md` dice que forma responde a cada pregunta; la eleccion es una forma por pregunta, nunca una coleccion.
+- *Modulos opcionales (cualquier tipo de artefacto):* diagramas, graficos avanzados (dispersion, histograma, radar, embudo, treemap, pendiente, halteras, piramide, calendario, pictograma), graficos analiticos (area apilada, pareto, escalones, cajas, tornado, rango, mapa de calor, sankey, anillos, puntuacion), graficos de seguimiento (progreso, semaforos, linea de tiempo), ajuste a una hoja (`encaje`), mapa de Espana por comunidades o provincias (con tasas por zona), iconos, QR y plazos en dias habiles viven en `references/modulos-motor.md` y solo se copian si el artefacto los usa. La identidad del despacho (bloque `marca`) no se copia: va dentro del motor. La tabla de `references/criterios-visualizacion-datos.md` dice que forma responde a cada pregunta; la eleccion es una forma por pregunta, nunca una coleccion.
 - *Diagramas con conectores (cualquier tipo de artefacto):* procesos, flujos de un procedimiento, cadenas de hechos, organigramas o estructuras societarias, relaciones entre partes y quien hace que se declaran como grafico `diagrama` y requieren copiar el modulo de `references/modulos-motor.md` despues del motor. Nunca se dibujan cajas ni flechas a mano.
 - *Si `V1 = herramienta_interactiva`:* campos de entrada con etiqueta y texto de ayuda, bloque de calculo escrito en JavaScript nativo dentro del script de la maqueta que devuelve `{resultado1, resultado2, resultado3, medidor, desglose}`, resultados destacados, medidor semicircular dibujado por el motor y alimentado por el campo `medidor` (porcentaje de 0 a 100), desglose tabular y lista de verificacion con progreso.
 - En todos los casos, cada grafico lleva su alternativa textual accesible y un titulo que afirma algo. Los rotulos de ejes, leyendas, unidades y descripciones accesibles se escriben **en el idioma del usuario**; las clases y los identificadores del documento permanecen en espanol tal como vienen en la plantilla.
@@ -481,6 +481,6 @@ Recorre la lista de verificacion de `references/criterios-visualizacion-datos.md
 5. **Accesibilidad exigible:** contraste minimo 4.5 a 1, alternativa textual en cada grafico, etiquetas asociadas a cada campo y foco visible. El color nunca porta informacion en solitario.
 6. **Cero volcado de codigo en el chat:** el artefacto se describe en lenguaje natural; su codigo vive unicamente en el archivo.
 7. **Todo en el idioma del usuario:** nombre del archivo, titulo de la pestana, encabezados, rotulos, leyendas, unidades y alternativas accesibles. La estructura interna del HTML (clases e identificadores) esta en espanol y no se traduce ni se renombra.
-8. **Tamano contenido:** el artefacto se mantiene por debajo de unos 120 KB (la base con el motor ocupa unos 57). Los documentos abiertos se incorporan enteros al contexto de la conversacion, de modo que un artefacto desmesurado desplaza al resto de documentos de trabajo. Si los datos no caben, se resume la serie o se reparte en dos artefactos.
+8. **Tamano contenido:** el artefacto se mantiene por debajo de unos 170 KB (la base con el motor y los 21 temas ocupa unos 100). Los documentos abiertos se incorporan enteros al contexto de la conversacion, de modo que un artefacto desmesurado desplaza al resto de documentos de trabajo. Si los datos no caben, se resume la serie o se reparte en dos artefactos.
 9. **Impresion garantizada:** antes de dar el artefacto por bueno se comprueba la vista de impresion: sin botones, sin fondos oscuros, sin animacion, sin tarjetas partidas entre paginas y con el encabezado de las tablas repetido en cada pagina.
 10. **Delimitacion frente al catalogo:** los contratos, demandas, escritos y solicitudes de tramitacion se redactan en su skill vertical y en formato markdown. Esta skill visualiza, resume y calcula; no sustituye al documento formal ni al asesoramiento de un profesional colegiado.

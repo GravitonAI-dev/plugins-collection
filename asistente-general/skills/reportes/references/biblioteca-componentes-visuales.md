@@ -205,7 +205,7 @@ El usuario puede cambiar la forma de un grafico desde el visor de la app, sin la
 | `porciones` | `porciones: [{rotulo, valor}]` | `anillo`, `tarta` |
 | `avance` | `elementos: [{rotulo, valor, maximo}]`, avance sobre un maximo | `progreso`, `anillos` |
 
-Los campos propios de un tipo (`umbral` de la linea, `cien` de las apiladas, `nombres` de las divergentes) se conservan y los demas tipos los ignoran. `bala` y `puntuacion` tambien llevan `elementos`, pero su valor significa otra cosa (frente a un objetivo, una nota en una escala): quedan fuera. Al elegir, la app avisa si un tipo no conviene con estos datos (una tarta con mas de seis porciones, un pareto con menos de tres partidas, unas divergentes sin negativos, unas columnas con mas de doce categorias) o si no se puede dibujar. Las alternativas que ofrece son las cargadas en el motor: `area_apilada`, `escalones`, `pareto` y `treemap` solo aparecen si su modulo va copiado.
+Los campos propios de un tipo (`umbral` de la linea, `cien` de las apiladas, `nombres` de las divergentes) se conservan y los demas tipos los ignoran. `bala` y `puntuacion` tambien llevan `elementos`, pero su valor significa otra cosa (frente a un objetivo, una nota en una escala): quedan fuera. Al elegir, la app avisa si un tipo no conviene con estos datos (una tarta con mas de seis porciones, un pareto con menos de tres partidas, unas divergentes sin negativos, unas columnas con mas de doce categorias) o si no se puede dibujar. Las alternativas que ofrece son las cargadas en el motor: los tipos de modulo solo aparecen si su modulo va copiado: `area_apilada`, `escalones`, `pareto` y `anillos` (analiticos), `treemap` (avanzados) y `progreso` (seguimiento).
 
 ---
 

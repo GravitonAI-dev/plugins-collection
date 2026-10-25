@@ -50,7 +50,7 @@ La base ya trae el sistema de tokens (colores, espaciado, radios y sombras en `:
 - Todo grafico SVG lleva `role="img"` y un `aria-label` que resume el dato, o un `<title>` dentro del SVG. Un grafico sin texto alternativo es un grafico invisible.
 - El color nunca es el unico portador de informacion: se acompana de etiqueta, cifra o icono textual.
 - Contraste minimo 4.5:1 en texto normal, verificado en tema claro y oscuro.
-- Estados de foco visibles: `:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }`.
+- Estados de foco visibles: `:focus-visible { outline: 2px solid var(--acento); outline-offset: 2px }`.
 - Todo `input` y `select` tiene su `<label for="...">`.
 
 ## 6. Nomenclatura y ubicacion
@@ -76,7 +76,7 @@ El artefacto se edita **siempre desde el chat**, pidiendo el cambio al asistente
 
 **El visor guarda lo que ve.** Al guardar, la app serializa el DOM (`outerHTML`), asi que lo que los scripts anaden al cargar acaba en el archivo. Por eso todo nodo que un script anade fuera de un grafico (un `<style>` en el `head`, una diapositiva, una linea del indice, el pie o el logo de la marca) lleva `data-generado`, y el motor, que se ejecuta antes que los modulos y la maqueta, quita al arrancar todos los `[data-generado]` que vengan del archivo; la hoja de la marca tiene ademas el id fijo `estilo-marca`. Lo que se dibuja dentro de un hueco `data-grafico` no lo necesita: el motor vacia el hueco antes de dibujar. Un script nuevo de maqueta o de modulo sigue la misma regla.
 
-Por eso el catalogo, la etiqueta `reportes-diseno` y los 21 temas no se quitan nunca de la base, y un grafico que se quiera poder cambiar de forma usa un tipo de una familia (`biblioteca-componentes-visuales.md`). Si se usa un tipo de un modulo, el modulo tiene que ir copiado para que aparezca como alternativa.
+Por eso el catalogo, la etiqueta `reportes-diseno` y los 21 temas no se quitan nunca de la base, y un grafico que se quiera poder cambiar de forma usa un tipo de una familia (`biblioteca-componentes-visuales.md`). Los tipos de modulo de las familias (`area_apilada`, `escalones`, `pareto`, `anillos`, `treemap` y `progreso`) solo aparecen como alternativa si su modulo va copiado.
 
 ## 8. Datos y marcadores
 

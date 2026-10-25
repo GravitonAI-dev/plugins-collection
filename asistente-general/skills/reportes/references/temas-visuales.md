@@ -12,7 +12,7 @@ Cada tema redefine los tokens de `:root` (colores, radios, sombra y, en algunos,
 
 | Tema | `data-tema` | Para quien y para que | Rasgos |
 | :--- | :--- | :--- | :--- |
-| Moderno | `moderno` | Paneles de datos, herramientas, presentaciones; cliente empresa o startup | Azul vivo, degradado de fondo, tarjetas muy redondeadas con sombra, cifras grandes. Es la base de los colores propios del despacho |
+| Moderno | `moderno` | Paneles de datos, herramientas, presentaciones; cliente empresa o startup | Azul vivo, degradado de fondo, tarjetas muy redondeadas con sombra, cifras grandes |
 | Sobrio de despacho | `sobrio` | Informes de viabilidad y dictamenes; juzgado, cliente institucional | Azul petroleo y neutros calidos, radios cortos, sin degradado |
 | Editorial | `editorial` | White papers, memorias, dossieres largos que se van a imprimir | Serif de sistema, papel crema, filetes finos, sin sombras, titulares grandes |
 | Corporativo | `corporativo` | Memorias anuales, informes de KPIs, comites de direccion | Azul marino y gris, tarjetas cuadradas con borde marcado, cabecera con filete lateral, titulos de seccion en mayusculas |
