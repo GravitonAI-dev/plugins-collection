@@ -970,6 +970,17 @@ sup.nota{color:var(--acento);font-weight:650}
 (function(){
 "use strict";
 var NS = "http://www.w3.org/2000/svg", D = document;
+/* El visor de la app guarda el documento tal como esta en pantalla. Lo que el motor, los modulos o la
+   maqueta anaden al cargar lleva data-generado y se quita aqui, antes de que lo vuelvan a anadir (el
+   motor va primero). La lista de fuentes que la presentacion mueve a una diapositiva vuelve al pie. */
+(function () {
+  var lista = D.getElementById("fuentes-reporte"), pie = D.querySelector(".pie");
+  if (lista && pie && lista.closest("[data-generado]")) {
+    var fijos = pie.querySelectorAll(":scope>p:not([data-generado])");
+    pie.insertBefore(lista, fijos.length ? fijos[fijos.length - 1] : null);
+  }
+  [].forEach.call(D.querySelectorAll("[data-generado]"), function (n) { if (n.parentNode) n.parentNode.removeChild(n); });
+})();
 var datos = {};
 try { datos = JSON.parse(D.getElementById("datos-reporte").textContent || "{}"); }
 catch (e) { console.error("datos-reporte no es JSON valido: " + e.message); }
@@ -1620,10 +1631,12 @@ function arrancar() {
   pintarCifras();
   var lista = D.getElementById("fuentes-reporte");
   if (lista) {
+    lista.textContent = "";
     Object.keys(FUENTES).forEach(function (c) { if (usadas.indexOf(c) < 0) usadas.push(c); });
     usadas.forEach(function (c) { html("li", "", lista, textoFuente(c)); });
   }
   inicial = estado();
+  atributos = {tema: H.getAttribute("data-tema"), modo: H.getAttribute("data-modo")};
 }
 /* Se redibuja si cambia el ancho de alguna tarjeta y, al imprimir, a tamano fijo. */
 var espera;
@@ -1668,20 +1681,23 @@ function pantallaOscura() {
   return cs === "dark" || (cs !== "light" && !!OSCURO && OSCURO.matches);
 }
 function aplicarMarca() {
-  [].forEach.call(D.querySelectorAll("[data-marca]"), function (n) { n.parentNode.removeChild(n); });
+  [].forEach.call(D.querySelectorAll('[data-generado="marca"]'), function (n) { n.parentNode.removeChild(n); });
   var m = datos.marca;
   if (!m) return;
   var R0 = ":root[data-tema]", pantalla = !pantallaOscura() ? variablesMarca(m) : m.oscuro ? variablesMarca(m.oscuro) : variablesMarca(m, true);
-  html("style", "", D.head, "@media print{" + R0 + "{" + variablesMarca(m) + "}}@media screen{" + R0 + "{" + pantalla + "}}").setAttribute("data-marca", "");
+  var hoja = D.getElementById("estilo-marca") || html("style", "", D.head);
+  hoja.id = "estilo-marca";
+  hoja.setAttribute("data-generado", "marca");
+  hoja.textContent = "@media print{" + R0 + "{" + variablesMarca(m) + "}}@media screen{" + R0 + "{" + pantalla + "}}";
   var pie = D.querySelector(".pie");
-  if (m.pie && pie) html("p", "", pie, m.pie).setAttribute("data-marca", "");
+  if (m.pie && pie) html("p", "", pie, m.pie).setAttribute("data-generado", "marca");
   /* El logo, en la portada de una presentacion o de un documento largo, o en la cabecera. */
   var destino = D.querySelector(".maqueta-portada") || D.querySelector(".contenedor>header");
   if (destino && /^data:image\/(png|jpeg|svg\+xml|webp);base64,/.test(m.logo || "")) {
     var img = html("img", "", null);
     img.src = m.logo; img.alt = m.nombre || "";
     img.setAttribute("style", "display:block;max-height:52px;max-width:220px;margin:0 0 12px");
-    img.setAttribute("data-marca", "");
+    img.setAttribute("data-generado", "marca");
     destino.insertBefore(img, destino.firstChild);
   }
 }
@@ -1762,11 +1778,15 @@ function alternativas(id) {
     return {tipo: t.tipo, nombre: t.nombre, pregunta: t.pregunta, actual: t.tipo === g.tipo, aviso: avisoDe(t.tipo, resuelto, id)};
   });
 }
-/* Vuelve al diseno con el que cargo la pagina. */
-var inicial = null;
+/* Vuelve al diseno con el que cargo la pagina, con data-tema y data-modo tal como venian. */
+var inicial = null, atributos = null;
 function restaurar() {
   if (!inicial) return;
   fijar(inicial.tema, inicial.modo, inicial.marca);
+  ["tema", "modo"].forEach(function (k) {
+    var v = atributos[k];
+    if (v === null) H.removeAttribute("data-" + k); else H.setAttribute("data-" + k, v);
+  });
   aplicarMarca();
   inicial.graficos.forEach(function (g) { var d = datos.graficos[g.id]; if (d && d.tipo !== g.tipo) actualizar(g.id, {tipo: g.tipo}); });
   reajustar();
@@ -2011,11 +2031,13 @@ R.tipos.diagrama.fijo = true;  /* su tamano sale de su contenido: no se recalcul
     var h = cap.querySelector("h2");
     if (!h) return;  /* un capitulo sin titular no entra en el indice */
     if (!cap.id) cap.id = "capitulo-" + (i + 1);
-    var a = Reportes.html("a", "", Reportes.html("li", "", indice), h.textContent);
+    var li = Reportes.html("li", "", indice), a = Reportes.html("a", "", li, h.textContent);
+    li.setAttribute("data-generado", "");  /* el motor la quita si el documento se guardo con ella */
     a.href = "#" + cap.id;
   });
   /* Cabecera de pagina impresa con el titulo corto (desde la segunda pagina). */
   var estilo = D.createElement("style");
+  estilo.setAttribute("data-generado", "");
   estilo.textContent = "@media print{@page{@top-left{content:" + JSON.stringify(D.title) + ";font-size:8.5pt;color:#555}}}";
   D.head.appendChild(estilo);
 })();
