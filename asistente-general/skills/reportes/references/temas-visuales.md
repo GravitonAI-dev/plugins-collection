@@ -4,7 +4,7 @@ La base trae dos temas incorporados, `moderno` y `sobrio`, que se eligen solo co
 
 Cada tema redefine los tokens de `:root` (colores, radios, sombra y, en algunos, la pila de fuentes), trae su version para el modo oscuro del sistema y, cuando el estilo lo pide, unas pocas reglas de forma (cabecera, tarjetas, titulares). Todos imprimen en blanco con la misma regla `@media print` de la base, que quita tambien los degradados de fondo; los temas siempre oscuros traen ademas su paleta de papel, con acentos y series que contrastan sobre blanco. Todos cumplen el contraste minimo 4.5:1 en claro y en oscuro.
 
-Con un tema personalizado (`tema_personalizado`) se parte de cualquier tema y se aplica encima el modulo `marca` (`modulos-motor.md`), que sustituye el acento y la serie por los colores corporativos.
+Con un tema personalizado (`tema_personalizado`) se parte del tema moderno y se aplica encima el modulo `marca` (`modulos-motor.md`), que sustituye el acento y la serie por los colores corporativos.
 
 ## Catalogo
 

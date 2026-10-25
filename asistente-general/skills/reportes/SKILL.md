@@ -214,7 +214,7 @@ Esta skill guia al usuario de manera consultiva y transparente a traves de un pr
 ## FASE 1 — CLASIFICACION INICIAL (Resolucion de Vectores V1 a V4 mediante Formulario HITL — REG-TRI-01)
 
 ### 1.1 Escucha Activa Previa
-Evalua el mensaje inicial y el historial antes de abrir ningun formulario. Si la peticion encaja con una receta de `references/catalogo-reportes.md`, fija V6 y, con ella, V1: entonces el formulario no pregunta `tipo_documento`. Si el usuario ya ha indicado de forma inequivoca el tipo de entregable, su destino, de donde salen los datos, registra esos vectores en silencio y pregunta unicamente por lo que falte. El estilo no se deduce: se pregunta siempre (ver 1.2). Y con el formato, que se deduce de las palabras de la peticion sin preguntarlo:
+Evalua el mensaje inicial y el historial antes de abrir ningun formulario. Si la peticion encaja con una receta de `references/catalogo-reportes.md`, fija V6 y, con ella, V1: entonces el formulario no pregunta `tipo_documento`. Si el usuario ya ha indicado de forma inequivoca el tipo de entregable, su destino o de donde salen los datos, registra esos vectores en silencio y pregunta unicamente por lo que falte. El estilo no se deduce del mensaje inicial: se pregunta siempre (ver 1.2). Y con el formato, que se deduce de las palabras de la peticion sin preguntarlo:
 
 | Palabras del usuario | Maqueta |
 | :--- | :--- |
@@ -244,7 +244,7 @@ Si no falta nada mas, el formulario lleva solo la pregunta de estilo; se pasa di
 
 ### 1.2 Formulario de Clasificacion (`restricted_human_in_the_loop_request`)
 
-**El estilo se pregunta siempre, al cargar la skill.** `identidad_visual` va primera y ofrece todos los estilos del catalogo de `references/temas-visuales.md`, cada uno como una opcion, mas los colores del despacho; si es lo unico que falta, el formulario lleva solo esta pregunta. Se omite solo si el usuario ya nombro un estilo del catalogo por su nombre (por ejemplo «en estilo prensa») o ya aporto los colores de su despacho (`tema_personalizado`). Si cierra el formulario y describe el aspecto en el chat, se le asigna el tema que corresponde.
+**El estilo se pregunta siempre, al cargar la skill.** `identidad_visual` va primera y ofrece todos los estilos del catalogo de `references/temas-visuales.md`, cada uno como una opcion, mas los colores del despacho; si es lo unico que falta, el formulario lleva solo esta pregunta. Se omite solo si el usuario ya nombro un estilo del catalogo por su nombre (por ejemplo «en estilo prensa») o ya aporto los colores de su despacho (`tema_personalizado`). Solo si el usuario cierra este formulario y describe el aspecto en el chat en vez de elegir, se le asigna el tema que corresponde.
 
 ```json
 {
