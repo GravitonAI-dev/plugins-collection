@@ -1501,7 +1501,7 @@ catch (e) { console.error("catalogo-reporte no es JSON valido: " + e.message); }
 function copia(x) { return x === undefined || x === null ? null : JSON.parse(JSON.stringify(x)); }
 
 /* Colores del despacho (bloque marca de los datos), encima del tema: una hoja que va despues de la
-   del tema con su misma especificidad (:root[data-tema]). Rigen en papel y en pantalla clara; en
+   del tema con su misma especificidad (:root:root, que vale tambien sin data-tema). Rigen en papel y en pantalla clara; en
    pantalla oscura, su version oscura o, si no se da, el acento aclarado, porque un granate o un azul
    marino no se leen sobre fondo negro. Se vuelve a aplicar al cambiar el tema o el modo. */
 var HEX = /^#([0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i, OSCURO = window.matchMedia ? window.matchMedia("(prefers-color-scheme:dark)") : null;
@@ -1515,6 +1515,11 @@ function variablesMarca(c, aclarar) {
   if (!aclarar) (c.serie || []).slice(0, 6).forEach(function (x, i) { if (HEX.test(x)) v += "--c" + (i + 1) + ":" + x + ";"; });
   return v;
 }
+/* Si una marca trae algo que aplicar: un color valido, el logo o el pie. */
+function marcaAplicable(m) {
+  var colores = function (c) { return !!c && (HEX.test(c.acento || "") || (c.serie || []).some(function (x) { return HEX.test(x); })); };
+  return !!m && typeof m === "object" && (colores(m) || colores(m.oscuro) || /^data:image\//.test(m.logo || "") || !!String(m.pie || "").trim());
+}
 /* Oscura si el tema es siempre oscuro, si data-modo la fija o si sigue al sistema y este esta en oscuro. */
 function pantallaOscura() {
   var cs = getComputedStyle(H).colorScheme || "";
@@ -1524,7 +1529,7 @@ function aplicarMarca() {
   [].forEach.call(D.querySelectorAll('[data-generado="marca"]'), function (n) { n.parentNode.removeChild(n); });
   var m = datos.marca;
   if (!m) return;
-  var R0 = ":root[data-tema]", pantalla = !pantallaOscura() ? variablesMarca(m) : m.oscuro ? variablesMarca(m.oscuro) : variablesMarca(m, true);
+  var R0 = ":root:root", pantalla = !pantallaOscura() ? variablesMarca(m) : m.oscuro ? variablesMarca(m.oscuro) : variablesMarca(m, true);
   var hoja = D.getElementById("estilo-marca") || html("style", "", D.head);
   hoja.id = "estilo-marca";
   hoja.setAttribute("data-generado", "marca");
@@ -1563,6 +1568,8 @@ function tituloDe(fig, id) {
   }
   return resumen || id;
 }
+/* Un data-tema que no esta en el catalogo no aplica ningun bloque: se ve el moderno, el de :root. */
+function temaConocido(id) { return (CATALOGO.temas || []).some(function (t) { return t.id === id; }); }
 function estado() {
   var vistos = {}, graficos = [], modo = H.getAttribute("data-modo");
   [].forEach.call(D.querySelectorAll("[data-grafico]"), function (f) {
@@ -1571,7 +1578,7 @@ function estado() {
     vistos[id] = true;
     graficos.push({id: id, tipo: g.tipo || null, titulo: tituloDe(f, id)});
   });
-  return {tema: H.getAttribute("data-tema") || "moderno", modo: modo === "claro" || modo === "oscuro" ? modo : "sistema",
+  return {tema: temaConocido(H.getAttribute("data-tema")) ? H.getAttribute("data-tema") : "moderno", modo: modo === "claro" || modo === "oscuro" ? modo : "sistema",
           marca: copia(datos.marca), graficos: graficos};
 }
 function fijar(tema, modo, marca) {
@@ -1579,13 +1586,14 @@ function fijar(tema, modo, marca) {
   if (modo === "sistema") H.removeAttribute("data-modo"); else H.setAttribute("data-modo", modo);
   if (marca) datos.marca = copia(marca); else delete datos.marca;
 }
-/* Aplica en pantalla, sin guardar: tema, modo (claro, oscuro o sistema) y marca (null la quita). */
+/* Aplica en pantalla, sin guardar: tema, modo (claro, oscuro o sistema) y marca (null la quita, y una
+   marca sin nada que aplicar cuenta como null). */
 function vistaPrevia(o) {
   o = o || {};
   var actual = estado();
-  if (o.tema !== undefined && !(CATALOGO.temas || []).some(function (t) { return t.id === o.tema; })) throw new Error("tema desconocido: " + o.tema);
+  if (o.tema !== undefined && !temaConocido(o.tema)) throw new Error("tema desconocido: " + o.tema);
   if (o.modo !== undefined && !/^(claro|oscuro|sistema)$/.test(o.modo)) throw new Error("modo desconocido: " + o.modo);
-  fijar(o.tema !== undefined ? o.tema : actual.tema, o.modo !== undefined ? o.modo : actual.modo, o.marca !== undefined ? o.marca : datos.marca);
+  fijar(o.tema !== undefined ? o.tema : actual.tema, o.modo !== undefined ? o.modo : actual.modo, o.marca !== undefined ? (marcaAplicable(o.marca) ? o.marca : null) : datos.marca);
   aplicarMarca();
   reajustar();
 }
@@ -1610,7 +1618,7 @@ function avisoDe(tipo, g, id) {
 }
 function alternativas(id) {
   var g = (datos.graficos || {})[id];
-  if (!g) throw new Error("no hay grafico " + id);
+  if (!g) return [];
   var familia = familiaDe(g.tipo), resuelto = g;
   if (!familia) return [];
   try { resuelto = referencias(g, ["#" + id]); } catch (e) { /* el grafico ya muestra su error */ }
