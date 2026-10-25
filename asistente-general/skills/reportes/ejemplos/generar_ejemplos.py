@@ -34,8 +34,8 @@ def _leer_maquetas():
     return piezas, anchos
 PIEZAS, ANCHOS = _leer_maquetas()
 MODULOS = dict(re.findall(r"```js modulo=(\w+)\n(.*?)\n```", open(os.path.join(SKILL, "references", "modulos-motor.md"), encoding="utf-8").read(), re.S))
-TEMAS = dict(re.findall(r"```css tema=(\w+)\n(.*?)\n```", open(os.path.join(SKILL, "references", "temas-visuales.md"), encoding="utf-8").read(), re.S))
 BASE_HTML = open(BASE, encoding="utf-8").read()
+TEMAS = ["moderno"] + re.findall(r'^:root\[data-tema="(\w+)"\]\{$', BASE_HTML, re.M)  # todos van en la base
 
 def componer(destino, textos, datos, maqueta=None, tema="moderno", ficha=None, contenido=None, ancho=None, modulos=()):
     """Compone un ejemplo como lo hara el modelo: base, partes de la maqueta y datos."""
@@ -44,9 +44,8 @@ def componer(destino, textos, datos, maqueta=None, tema="moderno", ficha=None, c
     html = html.replace("{{ANCHO}}", ancho or ANCHOS[maqueta])
     html = html.replace("{{FICHA}}", ficha or parte("ficha")).replace("{{CONTENIDO}}", contenido or parte("contenido"))
     html = html.replace("{{ESTILOS_MAQUETA}}", parte("estilos")).replace("{{ACCIONES}}", parte("acciones"))
-    if tema not in TEMAS and tema not in ("moderno", "sobrio"):
-        raise SystemExit("Tema desconocido en %s: %s (no esta en temas-visuales.md)" % (destino, tema))
-    html = html.replace("{{ESTILOS_TEMA}}", TEMAS.get(tema, ""))  # moderno y sobrio van en la base; los demas, en temas-visuales.md
+    if tema not in TEMAS:
+        raise SystemExit("Tema desconocido en %s: %s (no esta en la base)" % (destino, tema))
     html = DATOS_VACIOS.sub(lambda m: m.group(1) + json.dumps(datos, ensure_ascii=False, indent=1) + m.group(2), html)
     for modulo in modulos:  # los modulos van despues del motor y antes del script de la maqueta
         html = html.replace("</body>", MODULOS[modulo] + "\n</body>")
@@ -262,7 +261,7 @@ def presentacion():
       ]}
     textos = dict(COMUN, **{"TITULO_DOCUMENTO": "Reclamacion a Construcciones Delta", "ETIQUETA_SUPERIOR": "Presentacion al cliente",
                             "ENTRADILLA": "Presentacion para la reunion con el cliente."})
-    return componer("presentacion_reclamacion_cliente.html", textos, datos, "presentacion", modulos=["diagramas"])
+    return componer("presentacion_reclamacion_cliente.html", textos, datos, "presentacion", modulos=["diagramas", "marca"])
 
 def white_paper():
     demo = {"demo": {"nombre": "Datos ficticios de demostracion", "consulta": "2026-10-11"}}
@@ -312,7 +311,7 @@ def white_paper():
       "SUBTITULO_CAPITULO_3": "Tres medidas que cambian el resultado", "PUNTO_1": "Aceptacion escrita de cada factura o albaran.", "PUNTO_2": "Requerimiento fehaciente a los treinta dias del vencimiento.",
       "TITULO_NOTAS": "Notas", "NOTA_1": "Todas las cifras de este documento son ficticias y sirven solo para mostrar el formato.",
     })
-    return componer("white_paper_morosidad_pymes.html", textos, datos, "documento_largo", tema="editorial", contenido=contenido, modulos=["diagramas", "marca"])
+    return componer("white_paper_morosidad_pymes.html", textos, datos, "documento_largo", tema="editorial", contenido=contenido, modulos=["diagramas"])
 
 def resumen():
     datos = {"idioma": "es-ES", "moneda": "EUR", "fuentes": FUENTE_CLIENTE,
@@ -747,34 +746,12 @@ TEMAS_GALERIA = [("moderno", "Moderno"), ("sobrio", "Sobrio"), ("editorial", "Ed
                  ("dorado", "Dorado"), ("esmeralda_noche", "Esmeralda nocturno"), ("ambar", "Ambar"), ("oliva_oro", "Oliva y oro"), ("lima", "Lima"),
                  ("menta", "Menta"), ("melocoton", "Melocoton"), ("lavanda", "Lavanda")]
 
-def forzar_esquemas(html):
-    """Solo para la galeria de temas: copia los bloques de tokens de modo que data-esquema="claro" u
-    "oscuro" en la etiqueta html fuerce ese modo, sin depender del sistema. Los artefactos reales no lo llevan."""
-    ini, fin = html.index("<style>") + 7, html.index("</style>")
-    css, extra, i = html[ini:fin], [], 0
-    cabeza = "@media (prefers-color-scheme:dark){"
-    while True:
-        j = css.find(cabeza, i)
-        if j < 0:
-            break
-        k = m = j + len(cabeza); hondo = 1
-        while hondo:
-            hondo += {"{": 1, "}": -1}.get(css[m], 0); m += 1
-        extra.append(css[k:m - 1].replace(":root", ':root[data-esquema="oscuro"]'))
-        i = m
-    for m in re.finditer(r'^(:root(?:\[data-tema="\w+"\])?)\{(.*?)\}', css, re.S | re.M):
-        extra.append(m.group(1) + '[data-esquema="claro"]{' + m.group(2) + "}")
-        if "color-scheme:dark" in m.group(2):  # tema siempre oscuro: el modo oscuro forzado no debe volver a los colores de la base
-            extra.append(m.group(1) + '[data-esquema="oscuro"]{' + m.group(2) + "}")
-    return html[:fin] + "\n/* Galeria: modos forzados */\n" + "\n".join(extra) + "\n" + html[fin:]
-
 def galeria_temas():
     textos, datos = datos_panel()
     textos = dict(textos, TITULO_DOCUMENTO="Galeria de temas: el mismo panel con los %d estilos" % len(TEMAS_GALERIA), TITULO_CORTO="Galeria de temas",
                   ETIQUETA_SUPERIOR="Skill reportes | Catalogo de temas visuales",
-                  ENTRADILLA="Elija un tema y un modo con los botones. El contenido es el del panel de ejemplo; lo que cambia es el bloque de estilos del tema, que en un artefacto real se copia una sola vez.")
-    estilos = "\n".join(TEMAS[t] for t, _ in TEMAS_GALERIA if t in TEMAS) + """
-.selector-temas{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;background:var(--superficie);border:1px solid var(--borde);
+                  ENTRADILLA="Elija un tema y un modo con los botones. El contenido es el del panel de ejemplo; lo que cambia son los atributos data-tema y data-modo de la etiqueta html, como en cualquier artefacto.")
+    estilos = """.selector-temas{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;background:var(--superficie);border:1px solid var(--borde);
   border-radius:var(--radio-s);padding:10px 14px;margin:0 0 var(--e4);box-shadow:var(--sombra);font-size:.84rem}
 .selector-temas .rotulo{text-transform:uppercase;letter-spacing:.08em;font-size:.7rem;color:var(--apagado)}
 .selector-temas .botones{display:flex;flex-wrap:wrap;gap:6px}
@@ -783,37 +760,36 @@ def galeria_temas():
 @media print{.selector-temas{display:none}}"""
     selector = """<div class="selector-temas" id="selector-temas">
     <span class="rotulo">Tema</span><div class="botones" id="botones-tema"></div>
-    <span class="rotulo">Modo</span><div class="botones" id="botones-esquema"></div>
+    <span class="rotulo">Modo</span><div class="botones" id="botones-modo"></div>
   </div>
 
   <header>"""
     script = """<script>
 (function(){
 "use strict";
-var TEMAS = %s, ESQUEMAS = [["auto", "Sistema"], ["claro", "Claro"], ["oscuro", "Oscuro"]], H = document.documentElement, q = new URLSearchParams(location.search);
+var TEMAS = %s, MODOS = [["sistema", "Sistema"], ["claro", "Claro"], ["oscuro", "Oscuro"]], H = document.documentElement, q = new URLSearchParams(location.search);
 function boton(cont, id, texto, grupo) { var b = document.createElement("button"); b.type = "button"; b.textContent = texto; b.dataset[grupo] = id; cont.appendChild(b); return b; }
-var bt = document.getElementById("botones-tema"), be = document.getElementById("botones-esquema");
+var bt = document.getElementById("botones-tema"), bm = document.getElementById("botones-modo");
 TEMAS.forEach(function (t) { boton(bt, t[0], t[1], "tema").addEventListener("click", function () { aplicar(t[0], null); }); });
-ESQUEMAS.forEach(function (e) { boton(be, e[0], e[1], "esquema").addEventListener("click", function () { aplicar(null, e[0]); }); });
-function aplicar(tema, esquema) {
+MODOS.forEach(function (m) { boton(bm, m[0], m[1], "modo").addEventListener("click", function () { aplicar(null, m[0]); }); });
+function aplicar(tema, modo) {
   if (tema) H.setAttribute("data-tema", tema);
-  if (esquema) { if (esquema === "auto") H.removeAttribute("data-esquema"); else H.setAttribute("data-esquema", esquema); H.style.colorScheme = esquema === "auto" ? "" : esquema === "oscuro" ? "dark" : "light"; }
-  var t = H.getAttribute("data-tema"), e = H.getAttribute("data-esquema") || "auto";
+  if (modo) { if (modo === "sistema") H.removeAttribute("data-modo"); else H.setAttribute("data-modo", modo); }
+  var t = H.getAttribute("data-tema"), m = H.getAttribute("data-modo") || "sistema";
   [].forEach.call(bt.children, function (b) { b.setAttribute("aria-pressed", b.dataset.tema === t); });
-  [].forEach.call(be.children, function (b) { b.setAttribute("aria-pressed", b.dataset.esquema === e); });
+  [].forEach.call(bm.children, function (b) { b.setAttribute("aria-pressed", b.dataset.modo === m); });
   if (window.Reportes) window.dispatchEvent(new Event("resize"));
 }
-aplicar(q.get("tema") || "moderno", q.get("esquema") || "auto");
+aplicar(q.get("tema") || "moderno", q.get("modo") || "sistema");
 })();
 </script>""" % json.dumps(TEMAS_GALERIA, ensure_ascii=False)
-    # Se compone a mano para incrustar todos los temas y el selector; forzar_esquemas no existe en los artefactos reales.
+    # Se compone a mano para anadir el selector.
     html = BASE_HTML.replace("{{ANCHO}}", ANCHOS["panel_datos"]).replace("{{FICHA}}", PIEZAS[("panel_datos", "ficha")]).replace("{{CONTENIDO}}", PIEZAS[("panel_datos", "contenido")])
-    html = html.replace("{{ESTILOS_MAQUETA}}", PIEZAS.get(("panel_datos", "estilos"), "")).replace("{{ACCIONES}}", "").replace("{{ESTILOS_TEMA}}", estilos)
+    html = html.replace("{{ESTILOS_MAQUETA}}", PIEZAS.get(("panel_datos", "estilos"), "")).replace("{{ACCIONES}}", "")
     html = DATOS_VACIOS.sub(lambda m: m.group(1) + json.dumps(datos, ensure_ascii=False, indent=1) + m.group(2), html)
     html = html.replace("\n  <header>", "\n  " + selector, 1).replace("</body>", script + "\n</body>")
     for clave, valor in textos.items():
         html = html.replace("{{%s}}" % clave, valor)
-    html = forzar_esquemas(html)
     pendientes = sorted(set(re.findall(r"\{\{(\w+)\}\}", html)))
     destino = "galeria_temas.html"
     open(os.path.join(AQUI, destino), "w", encoding="utf-8").write(html)
@@ -905,7 +881,7 @@ var botones = document.querySelectorAll("#filtro button"), tarjetas = document.q
               "ENTRADILLA": "Cada maqueta responde a una pregunta distinta. Todas son reportes de datos; los documentos de texto se redactan en Markdown con su skill.",
               "PIE_AVISO_LEGAL": "Datos ficticios de demostracion."}
     html = BASE_HTML.replace("{{ANCHO}}", "1180px").replace("{{FICHA}}", '<li><b>Maquetas:</b> %d</li>' % len(FICHAS_MAQUETAS)).replace("{{CONTENIDO}}", contenido)
-    html = html.replace("{{ESTILOS_MAQUETA}}", estilos).replace("{{ACCIONES}}", "").replace("{{ESTILOS_TEMA}}", "")
+    html = html.replace("{{ESTILOS_MAQUETA}}", estilos).replace("{{ACCIONES}}", "")
     html = DATOS_VACIOS.sub(lambda m: m.group(1) + json.dumps({"idioma": "es-ES", "moneda": "EUR", "fuentes": {}, "cifras": {}, "graficos": {}}) + m.group(2), html)
     html = html.replace("</body>", script + "\n</body>")
     for clave, valor in textos.items():
@@ -999,8 +975,8 @@ def catalogo_visual():
             "suave": "Boletines y comunicación", "prensa": "Novedades normativas", "alto_contraste": "Accesibilidad", "dorado": "Prestigio y dirección", "esmeralda_noche": "Paneles en pantalla",
             "ambar": "Paneles operativos", "oliva_oro": "Rural y patrimonio", "lima": "Tecnología y datos", "menta": "Salud y particulares", "melocoton": "Familia y eventos", "lavanda": "Comunicación interna"}
     NOMBRES = {"tecnico": "Técnico", "calido": "Cálido", "alto_contraste": "Alto contraste", "esmeralda_noche": "Esmeralda nocturno", "ambar": "Ámbar", "oliva_oro": "Oliva y oro", "melocoton": "Melocotón"}
-    for t, css in G.TEMAS.items():
-        tok = tokens(re.search(r':root\[data-tema="%s"\]\{(.*?)\}' % t, css, re.S).group(1))
+    for t, _ in G.TEMAS_GALERIA[2:]:  # moderno y sobrio, arriba; en el orden del catalogo
+        tok = tokens(re.search(r':root\[data-tema="%s"\]\{(.*?)\}' % t, base, re.S).group(1))
         temas.append((t, NOMBRES.get(t, t.capitalize()), USOS[t], tok))
     # la pregunta de estilo de SKILL.md (1.2) ofrece estos mismos temas, en este orden y con este nombre y uso
     form = json.loads(re.search(r"### 1\.2 Formulario.*?```json\n(.*?)\n```", open(os.path.join(SKILL, "SKILL.md"), encoding="utf-8").read(), re.S).group(1))
@@ -1079,7 +1055,7 @@ def catalogo_visual():
               "ENTRADILLA": "Elija un estilo para el aspecto del documento y los gráficos que respondan a sus preguntas. Puede pedirlos por su nombre en el chat.",
               "PIE_AVISO_LEGAL": "Datos ficticios de demostración."}
     html = G.BASE_HTML.replace("{{ANCHO}}", "1180px").replace("{{FICHA}}", "").replace("{{CONTENIDO}}", contenido)
-    html = html.replace("{{ESTILOS_MAQUETA}}", estilos).replace("{{ACCIONES}}", "").replace("{{ESTILOS_TEMA}}", "")
+    html = html.replace("{{ESTILOS_MAQUETA}}", estilos).replace("{{ACCIONES}}", "")
     html = G.DATOS_VACIOS.sub(lambda m: m.group(1) + json.dumps(datos, ensure_ascii=False) + m.group(2), html)
     for mod in ["diagramas", "avanzados", "analiticos", "seguimiento", "qr", "plazos", "mapa", "mapa_ccaa", "mapa_provincias"]:
         html = html.replace("</body>", G.MODULOS[mod] + "\n</body>")
