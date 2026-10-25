@@ -15,20 +15,21 @@ Reglas tecnicas invariables del formato. Todo artefacto que produzca esta skill 
 
 ```html
 <!doctype html>
-<html lang="es">
+<html lang="es" data-tema="moderno">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="reportes-diseno" content="1">
 <title>Titulo del artefacto</title>
 ```
 
-El `lang` es el idioma de la conversacion. El `<title>` es un nombre corto y reconocible, no un resumen: es lo que se ve en la pestana del navegador.
+El `lang` es el idioma de la conversacion. `data-tema` es el tema elegido y, si el usuario fijo el modo, va al lado `data-modo="claro"` u `"oscuro"`. La etiqueta `reportes-diseno` dice a la app que el diseno del reporte se puede cambiar desde el visor (seccion 7): no se quita. El `<title>` es un nombre corto y reconocible, no un resumen: es lo que se ve en la pestana del navegador.
 
 ## 3. Diseno, adaptabilidad e impresion: lo resuelve la base
 
 La base ya trae el sistema de tokens (colores, espaciado, radios y sombras en `:root`, con su version oscura, y los 21 temas de `temas-visuales.md`, que se eligen con `data-tema` y `data-modo`), la escala tipografica, las dos animaciones permitidas (anuladas con movimiento reducido y al imprimir), la rejilla adaptable sin desbordamiento horizontal y el bloque `@media print` completo: A4, fidelidad de color, tablas compactadas, `thead` repetido, `tfoot` sin duplicar, sin cortes de tarjeta ni titulos huerfanos. **No se toca.** Lo que si depende de quien rellena el artefacto:
 
-- **Colores siempre con tokens** (`var(--c1)`, `var(--riesgo)`), nunca literales. Para otro aspecto se elige un tema del catalogo (`temas-visuales.md`) con `data-tema`; para colores corporativos, el modulo `marca`. Nunca se redefinen tokens a mano ni se mezclan dos temas.
+- **Colores siempre con tokens** (`var(--c1)`, `var(--riesgo)`), nunca literales. Para otro aspecto se elige un tema del catalogo (`temas-visuales.md`) con `data-tema`; para colores corporativos, el bloque `marca` de los datos. Nunca se redefinen tokens a mano ni se mezclan dos temas.
 - **Nombres en espanol:** las clases e identificadores de la base y de las maquetas no se traducen ni se renombran. Lo que cambia de idioma es el texto visible.
 - **Tarjetas mas altas que un A4:** se les da la clase `permite-corte` (la herramienta ya la usa en su tarjeta de resultados), que deja partir la tarjeta y protege sus bloques internos.
 - **Texto dentro de un SVG:** solo cifras y rotulos cortos. Cualquier frase va en HTML junto al grafico, porque dentro del SVG se recorta sin aviso. El motor ya sigue esta regla.
@@ -62,6 +63,19 @@ La base ya trae el sistema de tokens (colores, espaciado, radios y sombras en `:
 
 El artefacto se edita **siempre desde el chat**, pidiendo el cambio al asistente, que lo aplica sobre el archivo. Nunca se edita a mano en el editor de texto de la plataforma: ese editor trabaja en markdown y al guardar reescribiria la pagina, perdiendo estilos, graficos y comportamiento.
 
+**Diseno editable desde el visor.** El estilo, el modo claro u oscuro, los colores del despacho y la forma de un grafico se cambian tambien sin la IA: el visor de la app (macOS y Windows) tiene los botones «Estilo» y «Colores del reporte» y, con el boton derecho sobre un grafico, «Cambiar gráfico». La app escribe solo `data-tema` y `data-modo` de la etiqueta `html` y las claves `marca` y `graficos.<id>.tipo` del bloque `datos-reporte`; las cifras no cambian. Para eso la base lleva el catalogo `catalogo-reporte` (los 21 temas y las familias de graficos que se pueden intercambiar porque leen los mismos datos) y el motor expone en `window.Reportes`:
+
+| Llamada | Que hace |
+| :--- | :--- |
+| `catalogo` | El JSON de `catalogo-reporte` |
+| `estado()` | `{tema, modo, marca, graficos: [{id, tipo, titulo}]}`; `modo` es `claro`, `oscuro` o `sistema`, y `titulo`, el encabezado visible del grafico |
+| `vistaPrevia({tema, modo, marca})` | Lo aplica en pantalla sin guardar nada; `marca: null` quita los colores del despacho |
+| `alternativas(id)` | Los tipos de la familia del grafico cargados en el motor: `[{tipo, nombre, pregunta, actual, aviso}]`, con `aviso` en el idioma del documento si ese tipo no conviene con estos datos; `[]` si el tipo no tiene familia |
+| `actualizar(id, {tipo})` | Redibuja el grafico con otro tipo |
+| `restaurar()` | Vuelve al diseno con el que cargo la pagina |
+
+Por eso el catalogo, la etiqueta `reportes-diseno` y los 21 temas no se quitan nunca de la base, y un grafico que se quiera poder cambiar de forma usa un tipo de una familia (`biblioteca-componentes-visuales.md`). Si se usa un tipo de un modulo, el modulo tiene que ir copiado para que aparezca como alternativa.
+
 ## 8. Datos y marcadores
 
 - Ningun dato inventado. Cifras, fechas, importes y referencias proceden de lo aportado por el usuario, de un documento de su espacio de trabajo o de una fuente verificada en la sesion.
@@ -70,6 +84,6 @@ El artefacto se edita **siempre desde el chat**, pidiendo el cambio al asistente
 
 ## 9. Tamano
 
-El archivo completo no deberia superar unos **120 KB**; la base con el motor ocupa unos 57. Los documentos abiertos del espacio de trabajo se incorporan enteros al contexto de la conversacion y compiten por un presupuesto comun: un artefacto desmesurado desplaza a los documentos de trabajo del usuario. Si el volumen de datos es mayor, se resume la serie, se agrupa por tramos o se reparte en dos artefactos: un panel con lo esencial y un documento con el detalle.
+El archivo completo no deberia superar unos **170 KB**; la base con el motor ocupa unos 100, de los que unos 35 son los 21 temas y el catalogo que permiten cambiar el diseno desde la app. Los documentos abiertos del espacio de trabajo se incorporan enteros al contexto de la conversacion y compiten por un presupuesto comun: un artefacto desmesurado desplaza a los documentos de trabajo del usuario. Si el volumen de datos es mayor, se resume la serie, se agrupa por tramos o se reparte en dos artefactos: un panel con lo esencial y un documento con el detalle.
 
-Los artefactos de ejemplo pesan entre 55 y 90 KB (la presentacion con el modulo de diagramas es la mayor), que es el orden de magnitud esperable.
+Los artefactos de ejemplo pesan entre 105 y 155 KB (los que llevan varios modulos son los mayores), que es el orden de magnitud esperable.

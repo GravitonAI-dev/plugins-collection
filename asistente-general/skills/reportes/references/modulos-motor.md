@@ -1224,7 +1224,7 @@ R.tipos.qr.fijo = true;
 
 ## Identidad del despacho (`marca`)
 
-Aplica los colores, el logo y el pie del despacho a partir del bloque `marca` de los datos, sin tocar el CSS. Es la forma de resolver `tema_personalizado`.
+Aplica los colores, el logo y el pie del despacho a partir del bloque `marca` de los datos, sin tocar el CSS. **No es un modulo que se copie: va dentro del motor de la base**, para que la app pueda poner o quitar los colores del despacho sin la IA. Si los datos no traen `marca`, no hace nada. Es la forma de resolver `colores_despacho` (SKILL.md, 1.2), sobre cualquier tema.
 
 ```json
 "marca": {"nombre": "Lasheras & Gil Abogados", "acento": "#7a1f3d", "acento_fuerte": "#5c1730",
@@ -1233,51 +1233,11 @@ Aplica los colores, el logo y el pie del despacho a partir del bloque `marca` de
           "logo": "data:image/svg+xml;base64,...", "pie": "Lasheras & Gil Abogados, S.L.P. · Zaragoza"}
 ```
 
-- Colores en hexadecimal de 3, 4, 6 u 8 cifras; otro valor se ignora. Rigen en el tema claro y en papel.
-- `oscuro`: version para el tema oscuro. Un color corporativo oscuro (un granate, un azul marino) no se lee sobre fondo negro: si no se da, en tema oscuro se mantienen los colores del tema, que si contrastan.
+- Colores en hexadecimal de 3, 4, 6 u 8 cifras; otro valor se ignora. Rigen en pantalla clara y en papel. Basta con `acento`; el resto es opcional.
+- `oscuro`: version para la pantalla oscura (la del sistema, la fijada con `data-modo="oscuro"` o la de un tema siempre oscuro). Un color corporativo oscuro (un granate, un azul marino) no se lee sobre fondo negro: si no se da, el motor usa el acento aclarado y deja la serie del tema, que si contrasta.
 - `logo`: solo si lo aporta el usuario, como data URI de imagen de menos de 15 KB. Va en la cabecera o, en una presentacion, en la portada. Sobre la portada oscura del documento largo conviene una version clara.
 - `pie`: linea que se anade al pie del documento.
-
-```js modulo=marca
-<script>
-/* Identidad del despacho para los artefactos. Se copia integro, despues del motor, solo si
-   los datos llevan el bloque marca. */
-(function(){
-"use strict";
-var R = Reportes, D = document, m = R.datos.marca, hex = /^#([0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i;
-if (!m) return;
-function variables(c) {
-  var v = "";
-  if (hex.test(c.acento || "")) v += "--acento:" + c.acento + ";--acento-fuerte:" + (hex.test(c.acento_fuerte || "") ? c.acento_fuerte : c.acento) +
-    ";--acento-suave:color-mix(in srgb," + c.acento + " 12%,var(--superficie));";
-  (c.serie || []).slice(0, 6).forEach(function (x, i) { if (hex.test(x)) v += "--c" + (i + 1) + ":" + x + ";"; });
-  return v;
-}
-/* En claro y en papel, los colores de marca; en oscuro, su version oscura o los del tema.
-   La hoja de la marca se anade despues de la de la base y del tema, con la misma especificidad
-   (:root[data-tema]): por orden, la marca se aplica encima del tema elegido. Con un tema siempre oscuro (color-scheme
-   dark) la pantalla es oscura aunque el sistema este en claro: alli rige la version oscura. */
-var R0 = ":root[data-tema]", siempreOscuro = getComputedStyle(D.documentElement).colorScheme === "dark";
-var css = "@media print{" + R0 + "{" + variables(m) + "}}";
-if (siempreOscuro) css += "@media screen{" + R0 + "{" + variables(m.oscuro || {}) + "}}";
-else {
-  css += "@media screen and (prefers-color-scheme:light){" + R0 + "{" + variables(m) + "}}";
-  if (m.oscuro) css += "@media screen and (prefers-color-scheme:dark){" + R0 + "{" + variables(m.oscuro) + "}}";
-}
-R.html("style", "", D.head).textContent = css;
-if (m.pie) R.html("p", "", D.querySelector(".pie"), m.pie);
-function logo() {
-  if (!/^data:image\/(png|jpeg|svg\+xml|webp);base64,/.test(m.logo || "")) return;
-  var destino = D.querySelector(".maqueta-portada") || D.querySelector(".contenedor>header"), img = R.html("img", "", null);
-  img.src = m.logo; img.alt = m.nombre || "";
-  img.setAttribute("style", "display:block;max-height:52px;max-width:220px;margin:0 0 12px");
-  destino.insertBefore(img, destino.firstChild);
-}
-/* Tras la carga, para encontrar la portada de una presentacion, que monta su script. */
-if (D.readyState === "loading") D.addEventListener("DOMContentLoaded", logo); else logo();
-})();
-</script>
-```
+- La app lo cambia en vivo con `Reportes.vistaPrevia({marca: {...}})` o lo quita con `marca: null` (`anatomia-artefacto.md`, «Diseno editable»).
 
 ---
 

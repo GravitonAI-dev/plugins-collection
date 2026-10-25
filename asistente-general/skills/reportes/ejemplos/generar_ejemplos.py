@@ -261,7 +261,7 @@ def presentacion():
       ]}
     textos = dict(COMUN, **{"TITULO_DOCUMENTO": "Reclamacion a Construcciones Delta", "ETIQUETA_SUPERIOR": "Presentacion al cliente",
                             "ENTRADILLA": "Presentacion para la reunion con el cliente."})
-    return componer("presentacion_reclamacion_cliente.html", textos, datos, "presentacion", modulos=["diagramas", "marca"])
+    return componer("presentacion_reclamacion_cliente.html", textos, datos, "presentacion", modulos=["diagramas"])
 
 def white_paper():
     demo = {"demo": {"nombre": "Datos ficticios de demostracion", "consulta": "2026-10-11"}}

@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="reportes-diseno" content="1">
 <title>{{TITULO_CORTO}}</title>
 <style>
 *,*::before,*::after{box-sizing:border-box}
@@ -618,6 +619,55 @@ ol.leyenda{display:block;padding-left:20px}
   </footer>
 
 </main>
+<!-- Catalogo del diseno editable: lo lee la app para ofrecer estilos y graficos. No se edita. -->
+<script type="application/json" id="catalogo-reporte">
+{"temas": [
+ {"id": "moderno", "nombre": "Moderno", "familia": "claro", "para": "Paneles y presentaciones", "siempre_oscuro": false},
+ {"id": "sobrio", "nombre": "Sobrio", "familia": "claro", "para": "Juzgado y cliente institucional", "siempre_oscuro": false},
+ {"id": "editorial", "nombre": "Editorial", "familia": "claro", "para": "Documentos para imprimir", "siempre_oscuro": false},
+ {"id": "corporativo", "nombre": "Corporativo", "familia": "claro", "para": "Memorias y comit\u00e9s", "siempre_oscuro": false},
+ {"id": "minimal", "nombre": "Minimal", "familia": "claro", "para": "Res\u00famenes de una p\u00e1gina", "siempre_oscuro": false},
+ {"id": "nocturno", "nombre": "Nocturno", "familia": "oscuro", "para": "Proyectar en pantalla", "siempre_oscuro": true},
+ {"id": "tecnico", "nombre": "T\u00e9cnico", "familia": "claro", "para": "Auditor\u00edas y cumplimiento", "siempre_oscuro": false},
+ {"id": "calido", "nombre": "C\u00e1lido", "familia": "claro", "para": "Particulares y familia", "siempre_oscuro": false},
+ {"id": "institucional", "nombre": "Institucional", "familia": "claro", "para": "Administraci\u00f3n y organismos", "siempre_oscuro": false},
+ {"id": "pizarra", "nombre": "Pizarra", "familia": "claro", "para": "Paneles densos", "siempre_oscuro": false},
+ {"id": "suave", "nombre": "Suave", "familia": "pastel", "para": "Boletines y comunicaci\u00f3n", "siempre_oscuro": false},
+ {"id": "prensa", "nombre": "Prensa", "familia": "claro", "para": "Novedades normativas", "siempre_oscuro": false},
+ {"id": "alto_contraste", "nombre": "Alto contraste", "familia": "claro", "para": "Accesibilidad", "siempre_oscuro": false},
+ {"id": "dorado", "nombre": "Dorado", "familia": "oscuro", "para": "Prestigio y direcci\u00f3n", "siempre_oscuro": true},
+ {"id": "esmeralda_noche", "nombre": "Esmeralda nocturno", "familia": "oscuro", "para": "Paneles en pantalla", "siempre_oscuro": true},
+ {"id": "ambar", "nombre": "\u00c1mbar", "familia": "oscuro", "para": "Paneles operativos", "siempre_oscuro": true},
+ {"id": "oliva_oro", "nombre": "Oliva y oro", "familia": "oscuro", "para": "Rural y patrimonio", "siempre_oscuro": true},
+ {"id": "lima", "nombre": "Lima", "familia": "oscuro", "para": "Tecnolog\u00eda y datos", "siempre_oscuro": true},
+ {"id": "menta", "nombre": "Menta", "familia": "pastel", "para": "Salud y particulares", "siempre_oscuro": false},
+ {"id": "melocoton", "nombre": "Melocot\u00f3n", "familia": "pastel", "para": "Familia y eventos", "siempre_oscuro": false},
+ {"id": "lavanda", "nombre": "Lavanda", "familia": "pastel", "para": "Comunicaci\u00f3n interna", "siempre_oscuro": false}
+ ],
+ "familias_graficos": [
+  {"id": "series", "tipos": [
+   {"tipo": "columnas", "nombre": "Columnas", "pregunta": "\u00bfQu\u00e9 es mayor?"},
+   {"tipo": "apiladas", "nombre": "Columnas apiladas", "pregunta": "\u00bfQu\u00e9 peso tiene cada parte?"},
+   {"tipo": "linea", "nombre": "L\u00ednea", "pregunta": "\u00bfC\u00f3mo evoluciona?"},
+   {"tipo": "area_apilada", "nombre": "\u00c1rea apilada", "pregunta": "\u00bfC\u00f3mo evoluciona?"},
+   {"tipo": "escalones", "nombre": "Escalones", "pregunta": "\u00bfC\u00f3mo evoluciona?"}
+  ]},
+  {"id": "partidas", "tipos": [
+   {"tipo": "barras", "nombre": "Barras", "pregunta": "\u00bfQu\u00e9 es mayor?"},
+   {"tipo": "pareto", "nombre": "Pareto", "pregunta": "\u00bfQu\u00e9 es mayor?"},
+   {"tipo": "divergentes", "nombre": "Divergentes", "pregunta": "\u00bfQu\u00e9 es mayor?"},
+   {"tipo": "treemap", "nombre": "Treemap", "pregunta": "\u00bfQu\u00e9 peso tiene cada parte?"}
+  ]},
+  {"id": "porciones", "tipos": [
+   {"tipo": "anillo", "nombre": "Anillo", "pregunta": "\u00bfQu\u00e9 peso tiene cada parte?"},
+   {"tipo": "tarta", "nombre": "Tarta", "pregunta": "\u00bfQu\u00e9 peso tiene cada parte?"}
+  ]},
+  {"id": "avance", "tipos": [
+   {"tipo": "progreso", "nombre": "Progreso", "pregunta": "\u00bfCu\u00e1nto llevamos y en qu\u00e9 estado?"},
+   {"tipo": "anillos", "nombre": "Anillos", "pregunta": "\u00bfCu\u00e1nto llevamos y en qu\u00e9 estado?"}
+  ]}
+ ]}
+</script>
 <script type="application/json" id="datos-reporte">
 {
   "idioma": "es-ES",
@@ -639,8 +689,14 @@ catch (e) { console.error("datos-reporte no es JSON valido: " + e.message); }
 var IDIOMA = datos.idioma || D.documentElement.lang || "es-ES";
 var MONEDA = datos.moneda || "EUR";
 var TEXTOS_BASE = {
-  es: {en_curso:"en curso", objetivo:"Objetivo", cumplimiento:"Cumplimiento", datos:"Ver los datos", csv:"Descargar CSV", fuente:"Fuente", fuentes:"Fuentes", consulta:"consultado el", otros:"Otros", hoy:"hoy", total:"Total", concepto:"Concepto", valor:"Valor", acumulado:"Acumulado", porcentaje:"Porcentaje", inicio:"Inicio", fin:"Fin", restantes:"Dias naturales restantes", maximo:"Maximo", ok:"Asumir", aviso:"Vigilar", riesgo:"Actuar ya", error:"No se puede dibujar el grafico"},
-  en: {en_curso:"ongoing", objetivo:"Target", cumplimiento:"Achieved", datos:"Show the data", csv:"Download CSV", fuente:"Source", fuentes:"Sources", consulta:"accessed on", otros:"Other", hoy:"today", total:"Total", concepto:"Item", valor:"Value", acumulado:"Running total", porcentaje:"Share", inicio:"Start", fin:"End", restantes:"Calendar days left", maximo:"Maximum", ok:"Accept", aviso:"Monitor", riesgo:"Act now", error:"The chart cannot be drawn"}
+  es: {en_curso:"en curso", objetivo:"Objetivo", cumplimiento:"Cumplimiento", datos:"Ver los datos", csv:"Descargar CSV", fuente:"Fuente", fuentes:"Fuentes", consulta:"consultado el", otros:"Otros", hoy:"hoy", total:"Total", concepto:"Concepto", valor:"Valor", acumulado:"Acumulado", porcentaje:"Porcentaje", inicio:"Inicio", fin:"Fin", restantes:"Dias naturales restantes", maximo:"Maximo", ok:"Asumir", aviso:"Vigilar", riesgo:"Actuar ya", error:"No se puede dibujar el grafico",
+       no_dibuja:"No se puede dibujar con estos datos", porciones:"M\u00e1s de 6 porciones: las menores se juntan en \u00abOtros\u00bb", pocas_partidas:"Con menos de 3 partidas no hay concentraci\u00f3n que ver",
+       sin_negativos:"Sin valores negativos no hay nada a la izquierda del cero", muchas_categorias:"M\u00e1s de 12 categor\u00edas: los r\u00f3tulos dejan de leerse", una_serie:"Con una sola serie no hay nada que apilar",
+       pocos_periodos:"Con menos de 3 periodos no se ve una evoluci\u00f3n", muchos_objetivos:"Admite hasta 4 objetivos"},
+  en: {en_curso:"ongoing", objetivo:"Target", cumplimiento:"Achieved", datos:"Show the data", csv:"Download CSV", fuente:"Source", fuentes:"Sources", consulta:"accessed on", otros:"Other", hoy:"today", total:"Total", concepto:"Item", valor:"Value", acumulado:"Running total", porcentaje:"Share", inicio:"Start", fin:"End", restantes:"Calendar days left", maximo:"Maximum", ok:"Accept", aviso:"Monitor", riesgo:"Act now", error:"The chart cannot be drawn",
+       no_dibuja:"Cannot be drawn with this data", porciones:"More than 6 slices: the smallest are grouped into \u201cOther\u201d", pocas_partidas:"With fewer than 3 items there is no concentration to show",
+       sin_negativos:"Without negative values there is nothing left of zero", muchas_categorias:"More than 12 categories: the labels become unreadable", una_serie:"With a single series there is nothing to stack",
+       pocos_periodos:"With fewer than 3 periods no trend shows", muchos_objetivos:"Takes up to 4 targets"}
 };
 var T = Object.assign({}, TEXTOS_BASE[IDIOMA.slice(0, 2)] || TEXTOS_BASE.es, datos.textos || {});
 var FUENTES = datos.fuentes || {};
@@ -1271,6 +1327,7 @@ function pintarCifras() {
   });
 }
 function arrancar() {
+  aplicarMarca();
   figuras = [].slice.call(D.querySelectorAll("[data-grafico]"));
   todos();
   pintarCifras();
@@ -1279,34 +1336,166 @@ function arrancar() {
     Object.keys(FUENTES).forEach(function (c) { if (usadas.indexOf(c) < 0) usadas.push(c); });
     usadas.forEach(function (c) { html("li", "", lista, textoFuente(c)); });
   }
+  inicial = estado();
 }
 /* Se redibuja si cambia el ancho de alguna tarjeta y, al imprimir, a tamano fijo. */
 var espera;
-window.addEventListener("resize", function () {
-  clearTimeout(espera);
-  espera = setTimeout(function () {
-    if (figuras.some(function (f, i) { return Math.abs(f.clientWidth - anchos[i]) > 24; })) todos(true);
-  }, 150);
-});
+function reajustar() { if (figuras.some(function (f, i) { return Math.abs(f.clientWidth - anchos[i]) > 24; })) todos(true); }
+window.addEventListener("resize", function () { clearTimeout(espera); espera = setTimeout(reajustar, 150); });
 window.addEventListener("beforeprint", function () { impresion = true; todos(true); });
 window.addEventListener("afterprint", function () { impresion = false; todos(true); });
 var imprimir = D.getElementById("imprimir");
 if (imprimir) imprimir.addEventListener("click", function () { window.print(); });
-/* Interfaz para los modulos opcionales (que registran tipos en Reportes.tipos) y
-   para el script de una maqueta. actualizar cambia los datos de un grafico y lo
-   redibuja junto con las cifras del texto. */
+function actualizar(id, cambios) {
+  Object.assign(datos.graficos[id], cambios);
+  figuras.forEach(function (f) { if (f.getAttribute("data-grafico") === id) dibujar(f, f.clientWidth); });
+  pintarCifras();
+}
+
+/* ---------- diseno editable: tema, modo, colores del despacho y forma de los graficos ---------- */
+/* La app cambia el diseno sin la IA: lee el catalogo, prueba en pantalla con vistaPrevia y restaurar
+   (que no guardan nada) y escribe en el archivo data-tema, data-modo, marca y graficos.<id>.tipo. */
+var H = D.documentElement, CATALOGO = {};
+try { CATALOGO = JSON.parse((D.getElementById("catalogo-reporte") || {}).textContent || "{}"); }
+catch (e) { console.error("catalogo-reporte no es JSON valido: " + e.message); }
+function copia(x) { return x === undefined || x === null ? null : JSON.parse(JSON.stringify(x)); }
+
+/* Colores del despacho (bloque marca de los datos), encima del tema: una hoja que va despues de la
+   del tema con su misma especificidad (:root[data-tema]). Rigen en papel y en pantalla clara; en
+   pantalla oscura, su version oscura o, si no se da, el acento aclarado, porque un granate o un azul
+   marino no se leen sobre fondo negro. Se vuelve a aplicar al cambiar el tema o el modo. */
+var HEX = /^#([0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i, OSCURO = window.matchMedia ? window.matchMedia("(prefers-color-scheme:dark)") : null;
+function variablesMarca(c, aclarar) {
+  var v = "", a = c.acento;
+  if (HEX.test(a || "")) {
+    var fuerte = HEX.test(c.acento_fuerte || "") ? c.acento_fuerte : a;
+    if (aclarar) { fuerte = "color-mix(in srgb," + a + " 35%,#fff)"; a = "color-mix(in srgb," + a + " 55%,#fff)"; }
+    v += "--acento:" + a + ";--acento-fuerte:" + fuerte + ";--acento-suave:color-mix(in srgb," + a + " 12%,var(--superficie));";
+  }
+  if (!aclarar) (c.serie || []).slice(0, 6).forEach(function (x, i) { if (HEX.test(x)) v += "--c" + (i + 1) + ":" + x + ";"; });
+  return v;
+}
+/* Oscura si el tema es siempre oscuro, si data-modo la fija o si sigue al sistema y este esta en oscuro. */
+function pantallaOscura() {
+  var cs = getComputedStyle(H).colorScheme || "";
+  return cs === "dark" || (cs !== "light" && !!OSCURO && OSCURO.matches);
+}
+function aplicarMarca() {
+  [].forEach.call(D.querySelectorAll("[data-marca]"), function (n) { n.parentNode.removeChild(n); });
+  var m = datos.marca;
+  if (!m) return;
+  var R0 = ":root[data-tema]", pantalla = !pantallaOscura() ? variablesMarca(m) : m.oscuro ? variablesMarca(m.oscuro) : variablesMarca(m, true);
+  html("style", "", D.head, "@media print{" + R0 + "{" + variablesMarca(m) + "}}@media screen{" + R0 + "{" + pantalla + "}}").setAttribute("data-marca", "");
+  var pie = D.querySelector(".pie");
+  if (m.pie && pie) html("p", "", pie, m.pie).setAttribute("data-marca", "");
+  /* El logo, en la portada de una presentacion o de un documento largo, o en la cabecera. */
+  var destino = D.querySelector(".maqueta-portada") || D.querySelector(".contenedor>header");
+  if (destino && /^data:image\/(png|jpeg|svg\+xml|webp);base64,/.test(m.logo || "")) {
+    var img = html("img", "", null);
+    img.src = m.logo; img.alt = m.nombre || "";
+    img.setAttribute("style", "display:block;max-height:52px;max-width:220px;margin:0 0 12px");
+    img.setAttribute("data-marca", "");
+    destino.insertBefore(img, destino.firstChild);
+  }
+}
+if (OSCURO) {
+  var alCambiarSistema = function () { if (datos.marca) aplicarMarca(); };
+  if (OSCURO.addEventListener) OSCURO.addEventListener("change", alCambiarSistema); else if (OSCURO.addListener) OSCURO.addListener(alCambiarSistema);
+}
+
+/* Titulo visible de un grafico: el encabezado que lo precede en su tarjeta (o el rotulo de su
+   indicador), subiendo como mucho tres niveles. Si ese encabezado es tambien el de otro grafico
+   anterior, o no hay, vale mas su resumen; y si no tiene, su nombre. */
+function tituloDe(fig, id) {
+  var resumen = ((datos.graficos || {})[id] || {}).resumen;
+  for (var n = fig, k = 0; n && n !== D.body && k < 3; n = n.parentElement, k++) {
+    for (var p = n.previousElementSibling, otros = 0; p; p = p.previousElementSibling) {
+      if (p.matches("[data-grafico]")) otros++;
+      if (!p.matches("h1,h2,h3,h4,figcaption,.rotulo")) continue;
+      var c = p.cloneNode(true);
+      [].forEach.call(c.querySelectorAll(".orden"), function (x) { x.parentNode.removeChild(x); });
+      var t = c.textContent.replace(/\s+/g, " ").trim();
+      if (t) return otros && resumen ? resumen : t;
+    }
+  }
+  return resumen || id;
+}
+function estado() {
+  var vistos = {}, graficos = [], modo = H.getAttribute("data-modo");
+  [].forEach.call(D.querySelectorAll("[data-grafico]"), function (f) {
+    var id = f.getAttribute("data-grafico"), g = (datos.graficos || {})[id];
+    if (!g || vistos[id]) return;
+    vistos[id] = true;
+    graficos.push({id: id, tipo: g.tipo || null, titulo: tituloDe(f, id)});
+  });
+  return {tema: H.getAttribute("data-tema") || "moderno", modo: modo === "claro" || modo === "oscuro" ? modo : "sistema",
+          marca: copia(datos.marca), graficos: graficos};
+}
+function fijar(tema, modo, marca) {
+  H.setAttribute("data-tema", tema);
+  if (modo === "sistema") H.removeAttribute("data-modo"); else H.setAttribute("data-modo", modo);
+  if (marca) datos.marca = copia(marca); else delete datos.marca;
+}
+/* Aplica en pantalla, sin guardar: tema, modo (claro, oscuro o sistema) y marca (null la quita). */
+function vistaPrevia(o) {
+  o = o || {};
+  var actual = estado();
+  if (o.tema !== undefined && !(CATALOGO.temas || []).some(function (t) { return t.id === o.tema; })) throw new Error("tema desconocido: " + o.tema);
+  if (o.modo !== undefined && !/^(claro|oscuro|sistema)$/.test(o.modo)) throw new Error("modo desconocido: " + o.modo);
+  fijar(o.tema !== undefined ? o.tema : actual.tema, o.modo !== undefined ? o.modo : actual.modo, o.marca !== undefined ? o.marca : datos.marca);
+  aplicarMarca();
+  reajustar();
+}
+
+/* Tipos que leen la misma forma de datos (familias del catalogo): se cambian entre si sin tocar los datos. */
+function familiaDe(tipo) {
+  return (CATALOGO.familias_graficos || []).filter(function (f) { return f.tipos.some(function (t) { return t.tipo === tipo; }); })[0] || null;
+}
+/* Por que un tipo no conviene con estos datos, o null. Primero, si no se puede ni dibujar. */
+function avisoDe(tipo, g, id) {
+  var el = g.elementos || [], et = g.etiquetas || [], series = g.series || [];
+  if (tipo === "anillos" && el.length > 4) return T.muchos_objetivos;
+  try { tipos[tipo](D.createElement("figure"), Object.assign({}, g, {tipo: tipo}), id + "-prueba", W); }
+  catch (e) { return T.no_dibuja; }
+  if ((tipo === "tarta" || tipo === "anillo") && (g.porciones || []).length > 6) return T.porciones;
+  if ((tipo === "pareto" || tipo === "treemap") && el.length < 3) return T.pocas_partidas;
+  if (tipo === "divergentes" && !el.some(function (e) { return e.valor < 0; })) return T.sin_negativos;
+  if ((tipo === "columnas" || tipo === "apiladas") && et.length > 12) return T.muchas_categorias;
+  if ((tipo === "apiladas" || tipo === "area_apilada") && series.length < 2) return T.una_serie;
+  if ((tipo === "linea" || tipo === "area_apilada" || tipo === "escalones") && et.length < 3) return T.pocos_periodos;
+  return null;
+}
+function alternativas(id) {
+  var g = (datos.graficos || {})[id];
+  if (!g) throw new Error("no hay grafico " + id);
+  var familia = familiaDe(g.tipo), resuelto = g;
+  if (!familia) return [];
+  try { resuelto = referencias(g, ["#" + id]); } catch (e) { /* el grafico ya muestra su error */ }
+  return familia.tipos.filter(function (t) { return tipos[t.tipo]; }).map(function (t) {
+    return {tipo: t.tipo, nombre: t.nombre, pregunta: t.pregunta, actual: t.tipo === g.tipo, aviso: avisoDe(t.tipo, resuelto, id)};
+  });
+}
+/* Vuelve al diseno con el que cargo la pagina. */
+var inicial = null;
+function restaurar() {
+  if (!inicial) return;
+  fijar(inicial.tema, inicial.modo, inicial.marca);
+  aplicarMarca();
+  inicial.graficos.forEach(function (g) { var d = datos.graficos[g.id]; if (d && d.tipo !== g.tipo) actualizar(g.id, {tipo: g.tipo}); });
+  reajustar();
+}
+
+/* Interfaz para los modulos opcionales (que registran tipos en Reportes.tipos), para el script de una
+   maqueta y para la app. actualizar cambia los datos de un grafico (tambien su tipo) y lo redibuja
+   junto con las cifras del texto. */
 window.Reportes = {datos: datos, fmt: fmt, tipos: tipos, T: T, svg: svg, html: html, color: color, lienzo: lienzo,
   recortar: recortar, consejo: consejo, escala: escala, leyenda: leyenda, r1: r1, num: num, maximo: maximo, minimo: minimo,
   techo: techo, fecha: fecha, DIA: DIA, rejilla: rejilla, yDe: yDe, columnaRotulos: columnaRotulos, rotuloFila: rotuloFila,
   rotulosX: rotulosX, tablaSeries: tablaSeries, leyendaSeries: leyendaSeries,
-  calculos: calculos, IDIOMA: IDIOMA,
-  actualizar: function (id, cambios) {
-    Object.assign(datos.graficos[id], cambios);
-    figuras.forEach(function (f) { if (f.getAttribute("data-grafico") === id) dibujar(f, f.clientWidth); });
-    pintarCifras();
-  }};
-/* El dibujo espera a que acabe de cargar la pagina: asi los modulos y el script de
-   la maqueta, que van despues del motor, ya han registrado sus tipos o su contenido. */
+  calculos: calculos, IDIOMA: IDIOMA, actualizar: actualizar,
+  catalogo: CATALOGO, estado: estado, vistaPrevia: vistaPrevia, alternativas: alternativas, restaurar: restaurar};
+/* El dibujo espera a que acabe de cargar la pagina: asi los modulos y el script de la maqueta, que van
+   despues del motor, ya han registrado sus tipos o su contenido. */
 if (D.readyState === "loading") D.addEventListener("DOMContentLoaded", arrancar); else arrancar();
 })();
 </script>

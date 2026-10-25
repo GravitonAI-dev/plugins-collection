@@ -40,6 +40,12 @@ python3 generar_ejemplos.py --sin-pdf  # HTML y comprobacion en Chrome, sin PDF
 
 El guion compone cada ejemplo igual que lo hara el modelo: copia la base, inserta la maqueta leida de la referencia y escribe el bloque de datos. Despues abre cada archivo en Chrome sin ventana y **falla** si la consola registra algun error (un grafico mal declarado, una fuente sin declarar) o si queda algun marcador sin resolver. Si se cambia la base o una maqueta, basta con volver a ejecutarlo para que los ejemplos y sus PDF queden al dia.
 
+```bash
+python3 probar_diseno.py               # diseno editable de todos los ejemplos
+```
+
+`probar_diseno.py` prueba en Chrome sin ventana lo que hace la app con un reporte abierto (`window.Reportes`): los 21 temas en modo claro, oscuro y del sistema, los colores del despacho puestos y quitados, cada grafico cambiado por cada una de sus alternativas y `restaurar()`, con el sistema en claro y en oscuro. Despues comprueba que el papel sale igual con cualquier modo. Falla si algo no cuadra.
+
 ## Contornos del mapa
 
 `generar_mapa.py` produce los contornos simplificados de los bloques `mapa_ccaa` y `mapa_provincias` a partir de Natural Earth (`ne_10m_admin_1_states_provinces`, dominio publico): agrupa las provincias en comunidades, proyecta, simplifica, coloca Canarias en recuadro y deja Ceuta y Melilla como puntos. Necesita `pyshp` y `shapely` y el shapefile descargado de naturalearthdata.com en la misma carpeta. Solo hace falta si se quieren regenerar.
