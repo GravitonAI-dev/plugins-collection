@@ -68,9 +68,9 @@ El artefacto se edita **siempre desde el chat**, pidiendo el cambio al asistente
 | Llamada | Que hace |
 | :--- | :--- |
 | `catalogo` | El JSON de `catalogo-reporte` |
-| `estado()` | `{tema, modo, marca, graficos: [{id, tipo, titulo}]}`; `modo` es `claro`, `oscuro` o `sistema`, y `titulo`, el encabezado visible del grafico |
-| `vistaPrevia({tema, modo, marca})` | Lo aplica en pantalla sin guardar nada; `marca: null` quita los colores del despacho |
-| `alternativas(id)` | Los tipos de la familia del grafico cargados en el motor: `[{tipo, nombre, pregunta, actual, aviso}]`, con `aviso` en el idioma del documento si ese tipo no conviene con estos datos; `[]` si el tipo no tiene familia |
+| `estado()` | `{tema, modo, marca, graficos: [{id, tipo, titulo}]}`; `tema` es el que se ve (`moderno` si `data-tema` falta o no esta en el catalogo), `modo` es `claro`, `oscuro` o `sistema`, y `titulo`, el encabezado visible del grafico |
+| `vistaPrevia({tema, modo, marca})` | Lo aplica en pantalla sin guardar nada; `marca: null` quita los colores del despacho, y una marca sin nada aplicable (ni color hexadecimal valido, ni logo, ni pie) cuenta como `null` |
+| `alternativas(id)` | Los tipos de la familia del grafico cargados en el motor: `[{tipo, nombre, pregunta, actual, aviso}]`, con `aviso` en el idioma del documento si ese tipo no conviene con estos datos; `[]` si el tipo no tiene familia o el grafico no existe |
 | `actualizar(id, {tipo})` | Redibuja el grafico con otro tipo |
 | `restaurar()` | Vuelve al diseno con el que cargo la pagina |
 

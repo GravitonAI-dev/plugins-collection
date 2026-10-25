@@ -83,6 +83,16 @@ try {
   R.vistaPrevia({tema: "sobrio", modo: "claro", marca: null});
   if (acento() !== delTema) fallo("marca: null no devuelve el acento del tema: " + acento());
   if (R.estado().marca !== null) fallo("estado con marca tras quitarla");
+  /* Casos limite: marca sin data-tema, marca sin nada aplicable, tema desconocido y grafico que no existe. */
+  R.vistaPrevia({modo: "claro", marca: {acento: "#7a1f3d"}});
+  H.removeAttribute("data-tema");
+  if (acento() !== "rgb(122, 31, 61)") fallo("marca sin data-tema: " + acento());
+  R.vistaPrevia({tema: "sobrio", marca: {acento: "rojo"}});
+  if (R.estado().marca !== null) fallo("una marca sin nada aplicable no cuenta como null");
+  H.setAttribute("data-tema", "inexistente");
+  if (R.estado().tema !== "moderno") fallo("tema desconocido: estado().tema = " + R.estado().tema);
+  R.vistaPrevia({tema: "sobrio", marca: null});
+  if (JSON.stringify(R.alternativas("no-existe")) !== "[]") fallo("alternativas de un grafico que no existe");
   /* Graficos: cada alternativa se dibuja sin error. */
   inicial.graficos.forEach(function (g) {
     r.titulos[g.id] = g.titulo;
