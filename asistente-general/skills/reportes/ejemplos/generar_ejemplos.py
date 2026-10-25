@@ -1002,6 +1002,13 @@ def catalogo_visual():
     for t, css in G.TEMAS.items():
         tok = tokens(re.search(r':root\[data-tema="%s"\]\{(.*?)\}' % t, css, re.S).group(1))
         temas.append((t, NOMBRES.get(t, t.capitalize()), USOS[t], tok))
+    # la pregunta de estilo de SKILL.md (1.2) ofrece estos mismos temas, en este orden y con este nombre y uso
+    form = json.loads(re.search(r"### 1\.2 Formulario.*?```json\n(.*?)\n```", open(os.path.join(SKILL, "SKILL.md"), encoding="utf-8").read(), re.S).group(1))
+    opciones = [(o["id"], o["label"]) for q in form["form_data"] if q["id"] == "identidad_visual" for o in q["options"] if o["id"] != "tema_personalizado"]
+    esperadas = [("tema_" + t, "%s: %s" % (nombre, uso[0].lower() + uso[1:])) for t, nombre, uso, _ in temas]
+    if opciones != esperadas:
+        print("  AVISO la pregunta identidad_visual de SKILL.md no coincide con los temas del catalogo; deberia ser:")
+        for i, l in esperadas: print('        {"id": "%s", "label": "%s"},' % (i, l))
     muestras = []
     fuente_base = temas[0][3]["fuente"]  # la del tema moderno, ya leida de la base
     for t, nombre, uso, k in temas:

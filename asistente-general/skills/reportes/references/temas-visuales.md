@@ -10,7 +10,7 @@ Con un tema personalizado (`tema_personalizado`) se parte de cualquier tema y se
 
 | Tema | `data-tema` | Para quien y para que | Rasgos |
 | :--- | :--- | :--- | :--- |
-| Moderno | `moderno` | Paneles de datos, herramientas, presentaciones; cliente empresa o startup | Azul vivo, degradado de fondo, tarjetas muy redondeadas con sombra, cifras grandes. Es el tema por defecto |
+| Moderno | `moderno` | Paneles de datos, herramientas, presentaciones; cliente empresa o startup | Azul vivo, degradado de fondo, tarjetas muy redondeadas con sombra, cifras grandes. Es la base de los colores propios del despacho |
 | Sobrio de despacho | `sobrio` | Informes de viabilidad y dictamenes; juzgado, cliente institucional | Azul petroleo y neutros calidos, radios cortos, sin degradado |
 | Editorial | `editorial` | White papers, memorias, dossieres largos que se van a imprimir | Serif de sistema, papel crema, filetes finos, sin sombras, titulares grandes |
 | Corporativo | `corporativo` | Memorias anuales, informes de KPIs, comites de direccion | Azul marino y gris, tarjetas cuadradas con borde marcado, cabecera con filete lateral, titulos de seccion en mayusculas |
@@ -32,7 +32,7 @@ Con un tema personalizado (`tema_personalizado`) se parte de cualquier tema y se
 | Melocoton | `melocoton` | Familia, educacion, eventos, boletines cercanos | Pastel: melocoton, rosa y verde agua |
 | Lavanda | `lavanda` | Comunicacion interna, RR. HH., formacion | Pastel: lavanda y rosa con verde agua |
 
-**Como elegir.** El tema sigue al destinatario y al soporte, no al gusto del redactor: a un juzgado o a un organismo, `sobrio` o `institucional`; a una direccion financiera, `corporativo` o `pizarra`; a un particular, `calido` o `suave`; a una sala con proyector o una pantalla, `nocturno`, `dorado`, `esmeralda_noche`, `ambar`, `lima` o `alto_contraste`; a un comunicado cercano, `suave`, `menta`, `melocoton` o `lavanda`; a papel, `editorial`, `prensa` o `minimal`. El estilo se pregunta siempre al cargar la skill, con los 21 temas como opciones; solo se asigna sin preguntar si el usuario ya nombro uno por su nombre. Esta tabla sirve para orientarle si duda entre dos.
+**Como orientar.** La eleccion la hace el usuario (SKILL.md, 1.2); si duda, se le recomienda segun el destinatario y el soporte: a un juzgado o a un organismo, `sobrio` o `institucional`; a una direccion financiera, `corporativo` o `pizarra`; a un particular, `calido` o `suave`; a una sala con proyector o una pantalla, `nocturno`, `dorado`, `esmeralda_noche`, `ambar`, `lima` o `alto_contraste`; a un comunicado cercano, `suave`, `menta`, `melocoton` o `lavanda`; a papel, `editorial`, `prensa` o `minimal`.
 
 **Lo que no cambia con el tema.** Los graficos usan los tokens (`--c1` a `--c6`, `--ok`, `--aviso`, `--riesgo`) y por eso heredan la paleta solos; las clases y la estructura de las maquetas son las mismas; la regla de impresion es comun. Un tema nunca se edita para un caso: si hacen falta otros colores, se usa el modulo `marca`.
 
