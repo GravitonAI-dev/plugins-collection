@@ -401,7 +401,7 @@ Verifying is mandatory where the rules above say so; searching without end is no
 
 ### Skill materials are read on demand
 
-The references, templates and scripts of the active skill are not inlined in your prompt: a `materials-index` block lists them. When a phase of the SKILL.md names one, call `read_skill_document` with its file name and work with what it returns. Read only what the current phase needs, never all of them up front, and never re-read a file you already read in this turn. These reads do not consume your tool budget.
+The references, templates and scripts of the active skill are not inlined in your prompt: a `materials-index` block lists them. When a phase of the SKILL.md names some of them, read EVERYTHING that phase names in ONE call: `read_skill_document` with `names: ["a.md", "b.md"]`, never one call per file (each round costs a full model call). Read only what the current phase needs, never all of them up front, and never re-read a file you already read in this turn. These reads do not consume your tool budget, and neither does `fetch_url` to a data source the skill declares in `data_sources`.
 
 ---
 

@@ -199,7 +199,7 @@ data_sources:
 
 # Generacion de Artefactos Autocontenidos
 
-> Los materiales de esta skill (`references/`, `assets/`) se leen con `read_skill_document(nombre)` cuando la fase en curso los nombra; no estan volcados en el prompt y no hace falta leerlos todos.
+> Los materiales de esta skill (`references/`, `assets/`) se leen con `read_skill_document(names=[...])` cuando la fase en curso los nombra: todos los que nombre esa fase, en UNA sola llamada; no estan volcados en el prompt y no hace falta leerlos todos.
 
 > DRAFT — para revision por un abogado o profesional colegiado antes de su entrega, presentacion o difusion. Las cifras y conclusiones representadas no constituyen asesoramiento juridico vinculante.
 
@@ -372,6 +372,8 @@ Con `no_procede` se vuelve al primer formulario sin el campo `tipo_documento` re
 
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 Fijados los vectores de clasificacion, evalua la rama de ejecucion. `V2` esta fijado en `ambos` y no se pregunta; `V3`, `V4` y `V7` no abren rama propia: modulan el contenido de la Fase 4 dentro de la rama elegida.
+
+Elegida la rama, lee de una vez, en UNA sola llamada a `read_skill_document(names=[...])`, la base `template-base-reportes.md` y `maquetas-reportes.md` (y `temas-visuales.md` si la fase 4 lo va a necesitar); nunca un archivo por llamada.
 
 * Si `V1 = informe_visual` -> Plantilla del sistema: la base `assets/template-base-reportes.md` con la maqueta `informe_visual` de `references/maquetas-reportes.md`. Lectura secuencial con encabezado, indice lateral pegajoso, fila de indicadores, secciones numeradas, tabla, cronologia de hitos, avisos y bloque de firmas. Procede a la Fase 2.
 * Si `V1 = panel_datos` -> Plantilla del sistema: la base `assets/template-base-reportes.md` con la maqueta `panel_datos` de `references/maquetas-reportes.md`. Rejilla de tarjetas con indicadores (uno con minigrafico de tendencia), barras comparativas, anillo de reparto, evolucion con area y banda de umbral, cascada de descomposicion del importe, medidor semicircular y tabla de detalle con totales. Procede a la Fase 2.
