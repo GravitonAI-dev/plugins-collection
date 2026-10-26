@@ -14,7 +14,7 @@ Los graficos **no se dibujan a mano**. En el HTML solo se coloca el hueco, `<fig
 
 Reglas comunes a todas las maquetas:
 
-- El tema se fija en la etiqueta `html` con `data-tema`: `moderno` o `sobrio` van en la base; para cualquier otro tema de `temas-visuales.md` se copia ademas su bloque `css` en el marcador `{{ESTILOS_TEMA}}` de la base (o se borra esa linea si no hace falta).
+- El tema se fija en la etiqueta `html` con `data-tema` y el modo, si el usuario lo pidio, con `data-modo` (`temas-visuales.md`): los 21 temas van en la base y no se copia nada mas.
 - Los bloques se pueden repetir, quitar o reordenar, y **cualquier hueco de grafico admite cualquier tipo**: si en un panel no hay importe que descomponer, la tarjeta de la cascada pasa a ser una bala, unas divergentes o un diagrama. Las maquetas son un punto de partida, no un formulario que haya que llenar entero. Lo que no cambia es la estructura de cada bloque: las clases son las de la base y no se renombran.
 - Toda cifra del texto que salga de un grafico se escribe con `<span data-cifra="clave"></span>` y se declara en `cifras`. Asi el texto y el grafico no pueden contradecirse.
 - **Lo que falta:** una linea de la ficha cuyo dato no es esencial y no se ha dado (la referencia del expediente, el autor) se quita; si es esencial, se pregunta. Un hito sin fecha cierta se escribe como «Fecha por determinar» o «Prevista: noviembre de 2026», nunca con un dia inventado. Los marcadores `{{VARIABLE}}` solo quedan para datos que el usuario ha decidido no dar.
@@ -731,6 +731,7 @@ Se coloca despues del script del motor (y de los modulos, si los hay). Monta las
   todas.forEach(function (d, i) {
     var s = el("section", "diapositiva maqueta-" + d.maqueta, cont), c;
     s.setAttribute("aria-roledescription", "diapositiva");
+    s.setAttribute("data-generado", "");  /* el motor la quita si el documento se guardo con ella */
     if (!maquetas[d.maqueta]) { console.error("Diapositiva " + (i + 1) + ": maqueta desconocida " + d.maqueta); el("p", "error-grafico", s, "Maqueta desconocida: " + d.maqueta); return; }
     c = ["portada", "separador", "cita", "cierre"].indexOf(d.maqueta) < 0 ? el("div", "cuerpo", null) : null;
     /* Una diapositiva con datos mal declarados muestra su error sin romper las demas. */
@@ -936,11 +937,13 @@ Se coloca despues del motor y de los modulos. Compone el indice con enlaces y po
     var h = cap.querySelector("h2");
     if (!h) return;  /* un capitulo sin titular no entra en el indice */
     if (!cap.id) cap.id = "capitulo-" + (i + 1);
-    var a = Reportes.html("a", "", Reportes.html("li", "", indice), h.textContent);
+    var li = Reportes.html("li", "", indice), a = Reportes.html("a", "", li, h.textContent);
+    li.setAttribute("data-generado", "");  /* el motor la quita si el documento se guardo con ella */
     a.href = "#" + cap.id;
   });
   /* Cabecera de pagina impresa con el titulo corto (desde la segunda pagina). */
   var estilo = D.createElement("style");
+  estilo.setAttribute("data-generado", "");
   estilo.textContent = "@media print{@page{@top-left{content:" + JSON.stringify(D.title) + ";font-size:8.5pt;color:#555}}}";
   D.head.appendChild(estilo);
 })();
