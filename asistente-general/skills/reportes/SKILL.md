@@ -184,9 +184,22 @@ references:
   - references/criterios-visualizacion-datos.md
 assets:
   - assets/template-base-reportes.md
+data_sources:
+  - name: INE, API JSON de INEbase (Tempus3)
+    url: https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/{id_tabla}?nult={n}
+    format: json
+    description: Datos de una tabla de INEbase (series por periodo) en JSON; sirve para poblacion por edad y sexo, Cifras de Poblacion, Estadistica Continua de Poblacion y cualquier tabla con id numerico.
+    notes: id_tabla es el numero que aparece en la URL de la tabla en INEbase (p. ej. t=... en jaxiT3/Tabla.htm); nult = ultimos n periodos. Si el id no se conoce, DATOS_SERIE/{codigo_serie} o la busqueda de la tabla con web_search; URL y parametros pendientes de confirmar por quien mantiene la skill.
+  - name: INE, Cifras de Poblacion (ultimo dato, texto plano)
+    url: https://www.ine.es/jaxiT3/files/t/es/csv_bdsc/{id_tabla}.csv
+    format: csv
+    description: Exportacion CSV de una tabla de INEbase; alternativa cuando la API no responde.
+    notes: Mismo id_tabla que la API; pendiente de confirmar por quien mantiene la skill.
 ---
 
 # Generacion de Artefactos Autocontenidos
+
+> Los materiales de esta skill (`references/`, `assets/`) se leen con `read_skill_document(nombre)` cuando la fase en curso los nombra; no estan volcados en el prompt y no hace falta leerlos todos.
 
 > DRAFT — para revision por un abogado o profesional colegiado antes de su entrega, presentacion o difusion. Las cifras y conclusiones representadas no constituyen asesoramiento juridico vinculante.
 
@@ -376,7 +389,7 @@ Fijados los vectores de clasificacion, evalua la rama de ejecucion. `V2` esta fi
 
 ### 2.1 Verificacion Previa
 1. Consulta `references/criterios-visualizacion-datos.md` para decidir que forma grafica responde a la pregunta del usuario, y `references/anatomia-artefacto.md` para las reglas invariables del formato.
-2. Si `V3 = busqueda_web`, verifica los datos en fuentes oficiales mediante `web_search` antes de representarlos. **Regla de citas (obligatoria):** cada cifra obtenida de internet queda trazada a su fuente &mdash;nombre de la fuente, URL y fecha de consulta&mdash; y el artefacto lleva siempre su bloque de fuentes en el pie con esas referencias. Cada fuente se declara en `fuentes` del bloque de datos con su nombre, URL y fecha real de consulta (`AAAA-MM-DD`); el motor escribe la fuente bajo cada grafico y compone el pie de fuentes del documento. **Fallback si la fuente no es accesible (obligatorio).** Si tras dos o tres busquedas la cifra oficial no se puede leer (tabla dinamica, PDF o pagina que devuelve error), el artefacto se termina igualmente con la mejor cifra disponible, por este orden: (a) la de una fuente secundaria consultada en la sesion, citada como tal; (b) una estimacion del asistente a partir de la ultima serie oficial que conozca, con su anyo de referencia. Toda cifra estimada se marca como tal en la linea de fuente del grafico o indicador («Estimacion a partir de INE, Cifras de Poblacion 2024; pendiente de verificar») y en el pie de fuentes, y en el chat se enumeran las cifras estimadas y la fuente donde el usuario puede sustituirlas. Prohibido entregar un grafico o indicador con ceros, valores `null` o marcadores `{{VARIABLE}}` por un dato que se pidio buscar, y prohibido pedir al usuario que aporte esos datos como unica salida: se le ofrecen como mejora opcional sobre un artefacto ya completo.
+2. Si `V3 = busqueda_web`, obtiene los datos en este orden y no se sale de el: **(1) las `data_sources` declaradas en el frontmatter**, con `fetch_url` (son JSON o CSV legibles; una tabla dinamica de una web oficial no lo es); **(2) si la fuente declarada falla o no cubre el dato, `web_search`, con un maximo de dos busquedas por dato y todas las busquedas pendientes en una sola ronda**; **(3) si tampoco, el fallback de abajo**. Nunca se busca dos veces lo mismo ni se vuelve a verificar una cifra ya obtenida. **Regla de citas (obligatoria):** cada cifra obtenida de internet queda trazada a su fuente &mdash;nombre de la fuente, URL y fecha de consulta&mdash; y el artefacto lleva siempre su bloque de fuentes en el pie con esas referencias. Cada fuente se declara en `fuentes` del bloque de datos con su nombre, URL y fecha real de consulta (`AAAA-MM-DD`); el motor escribe la fuente bajo cada grafico y compone el pie de fuentes del documento. **Fallback si la fuente no es accesible (obligatorio).** Si tras dos o tres busquedas la cifra oficial no se puede leer (tabla dinamica, PDF o pagina que devuelve error), el artefacto se termina igualmente con la mejor cifra disponible, por este orden: (a) la de una fuente secundaria consultada en la sesion, citada como tal; (b) una estimacion del asistente a partir de la ultima serie oficial que conozca, con su anyo de referencia. Toda cifra estimada se marca como tal en la linea de fuente del grafico o indicador («Estimacion a partir de INE, Cifras de Poblacion 2024; pendiente de verificar») y en el pie de fuentes, y en el chat se enumeran las cifras estimadas y la fuente donde el usuario puede sustituirlas. Prohibido entregar un grafico o indicador con ceros, valores `null` o marcadores `{{VARIABLE}}` por un dato que se pidio buscar, y prohibido pedir al usuario que aporte esos datos como unica salida: se le ofrecen como mejora opcional sobre un artefacto ya completo.
 3. Si `V3 = documento_del_workspace`, toma el contenido prioritariamente de la seccion `# WORKSPACE ACTIVE DOCUMENTS`.
 4. **Regla de enriquecimiento (obligatoria):** si los datos los aporta el usuario (`V3 = datos_del_chat` o `documento_del_workspace`), pregunta SIEMPRE, antes de crear el documento, si este se construye solo con sus datos o si se enriquece con documentacion buscada en internet, salvo que ya lo haya dicho en la conversacion (escucha activa). Si el usuario elige enriquecer: las cifras de internet cumplen la regla de citas del punto 2 y quedan diferenciadas de las del usuario (en el propio bloque o en el pie se dice que dato viene de cada origen); nunca se mezclan origenes sin marcarlos.
 

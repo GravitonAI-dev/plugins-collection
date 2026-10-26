@@ -107,7 +107,7 @@
     {
       "id": "io.gravitonai.tools.web_search",
       "name": "web_search",
-      "description": "Realiza una búsqueda en la web abierta y devuelve hasta N resultados con título, URL, fragmento (snippet) y un breve extracto de contenido (~800 caracteres por resultado). Cada resultado es un objeto con las claves: title (str), url (str), snippet (str), content (str).\n\nREGLAS DE USO — ESTRICTAMENTE OBLIGATORIAS:\n- DEBES EVITAR usar esta herramienta a menos que sea ESTRICTAMENTE necesario.\n- PRIMERO, determina si puedes responder a la consulta del usuario utilizando tus propios conocimientos sin búsqueda web. La búsqueda web es una operación costosa, úsala ÚNICAMENTE si es estrictamente necesaria.\n- Realiza como máximo entre 1 y 4 llamadas a web_search por turno. NUNCA emitas 5 o más llamadas con temas superpuestos.\n- Cada llamada DEBE tener un ID único y un par (query, num_results) único. Las llamadas duplicadas se descartan silenciosamente y devuelven resultados vacíos.\n- `query` es OBLIGATORIO y DEBE ser una cadena no vacía. Las llamadas con query vacía o ausente se descartan silenciosamente.\n- Usa `num_results` entre 3 y 5. Solicita hasta 10 ÚNICAMENTE cuando el tema sea amplio y realmente necesites mayor cobertura.\n- Cada resultado ya incluye título, url, snippet y un extracto de contenido breve. NO vuelvas a llamar a web_search para obtener la misma página completa; cita las URLs en su lugar.\n- Si necesitas información sobre varios aspectos, prefiere UNA consulta específica por llamada en lugar de muchas llamadas paralelas similares.\n- Por defecto, los resultados NO están restringidos por fecha. Establece `recency` ÚNICAMENTE para temas sensibles al tiempo (noticias de última hora, precios, lanzamientos recientes, 'esta semana/hoy'). Para temas permanentes/atemporales (leyes, definiciones, historia, hechos consolidados), OMITE `recency` — restringir el rango de fechas en estos casos perjudica la calidad de los resultados.\n\nÚtil para jurisprudencia, regulación, hechos actuales o cualquier información que requiera datos públicos en tiempo real.",
+      "description": "Realiza una búsqueda en la web abierta y devuelve hasta N resultados con título, URL, fragmento (snippet) y un breve extracto de contenido (hasta 2500 caracteres por resultado, con los pasajes más relevantes de la página). Cada resultado es un objeto con las claves: title (str), url (str), snippet (str), content (str).\n\nREGLAS DE USO — ESTRICTAMENTE OBLIGATORIAS:\n- DEBES EVITAR usar esta herramienta a menos que sea ESTRICTAMENTE necesario.\n- PRIMERO, determina si puedes responder a la consulta del usuario utilizando tus propios conocimientos sin búsqueda web. La búsqueda web es una operación costosa, úsala ÚNICAMENTE si es estrictamente necesaria.\n- Planifica primero: enumera los datos que necesitas y lanza TODAS sus búsquedas en UNA sola ronda (una consulta concreta por dato, en paralelo). El presupuesto de investigación es de 8 llamadas salientes por turno (web_search + fetch_url + search_boe + get_boe_block); al agotarse, esas herramientas desaparecen y hay que entregar con lo que se tiene. Nunca repitas una consulta (igual o parecida) ni busques para re-verificar una cifra que ya obtuviste. Si la skill activa declara data_sources, usa fetch_url sobre ellas antes de buscar.\n- Cada llamada DEBE tener un ID único y un par (query, num_results) único. Las llamadas duplicadas se descartan silenciosamente y devuelven resultados vacíos.\n- `query` es OBLIGATORIO y DEBE ser una cadena no vacía. Las llamadas con query vacía o ausente se descartan silenciosamente.\n- Usa `num_results` entre 3 y 5. Solicita hasta 10 ÚNICAMENTE cuando el tema sea amplio y realmente necesites mayor cobertura.\n- Cada resultado ya incluye título, url, snippet y un extracto de contenido breve. NO vuelvas a llamar a web_search para obtener la misma página completa; cita las URLs en su lugar.\n- Si necesitas información sobre varios aspectos, prefiere UNA consulta específica por llamada en lugar de muchas llamadas paralelas similares.\n- Por defecto, los resultados NO están restringidos por fecha. Establece `recency` ÚNICAMENTE para temas sensibles al tiempo (noticias de última hora, precios, lanzamientos recientes, 'esta semana/hoy'). Para temas permanentes/atemporales (leyes, definiciones, historia, hechos consolidados), OMITE `recency` — restringir el rango de fechas en estos casos perjudica la calidad de los resultados.\n\nÚtil para jurisprudencia, regulación, hechos actuales o cualquier información que requiera datos públicos en tiempo real.",
       "version": "1.0.0",
       "input_schema": {
         "type": "object",
@@ -118,8 +118,8 @@
           },
           "num_results": {
             "type": "integer",
-            "default": 3,
-            "description": "Número de resultados a devolver (1-10). Por defecto 3. Usar 3–5 para la mayoría de consultas."
+            "default": 5,
+            "description": "Número de resultados a devolver (1-10). Por defecto 5. Usar 3–5 para la mayoría de consultas."
           },
           "recency": {
             "type": "string",
@@ -142,6 +142,39 @@
           },
           "required": ["title", "url", "snippet", "content"]
         }
+      },
+      "tags": ["retrieval", "web", "research"],
+      "side_effects": false
+    },
+    {
+      "id": "io.gravitonai.tools.fetch_url",
+      "name": "fetch_url",
+      "description": "Lee una página web pública, un PDF o un endpoint de datos (JSON, CSV, XML) y devuelve los pasajes más relevantes para `query` (~4000 caracteres; los endpoints de datos se devuelven desde el principio, tal cual). Devuelve un objeto con url, content y content_status (\"ok\", \"pdf\" o \"data\" = leído; \"failed\" = no se pudo leer, con un campo `fallback` que dice qué hacer en su lugar).\n\nREGLAS DE USO:\n- Si la skill activa declara data_sources, lee PRIMERO esas URL en vez de buscar en la web el mismo dato.\n- Úsala para leer una URL devuelta por web_search (o dada por el usuario) cuando su extracto falta o es demasiado corto para sostener las cifras, artículos o resoluciones que vas a citar.\n- Como máximo 2 páginas por dato, solo las más autorizadas (boletines oficiales, institutos de estadística, tribunales, documentación del proveedor). Comparte el presupuesto de 8 llamadas salientes por turno con web_search.\n- Si falla (403, 404, tabla dinámica sin texto), no reintentes la misma URL ni busques el mismo dato en otro sitio: cita el fragmento como no verificado o aplica el fallback de la skill (estimaciones marcadas).",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "URL absoluta http(s) de una página pública, PDF o endpoint de datos. El texto debe llegar ya anonimizado (sin PIIs)."
+          },
+          "query": {
+            "type": "string",
+            "description": "Qué se busca en la página; se usa para elegir los pasajes relevantes. Ignorado en endpoints de datos."
+          }
+        },
+        "required": ["url", "query"],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "url": {"type": "string", "description": "URL leída."},
+          "content": {"type": "string", "description": "Pasajes relevantes de la página, o los datos desde el principio si es un endpoint JSON/CSV/XML."},
+          "content_status": {"type": "string", "enum": ["ok", "pdf", "data", "failed"], "description": "Si la página se pudo leer y de qué tipo era."},
+          "fallback": {"type": "string", "description": "Solo cuando content_status es failed: qué hacer en lugar de reintentar."}
+        },
+        "required": ["url", "content", "content_status"]
       },
       "tags": ["retrieval", "web", "research"],
       "side_effects": false

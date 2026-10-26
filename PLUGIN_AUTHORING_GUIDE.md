@@ -101,8 +101,18 @@ references:
 assets:
   - assets/template-[plantilla_base_1].md
   - assets/template-[plantilla_base_2].md
+data_sources:                         # opcional: fuentes de datos legibles por maquina
+  - name: [Nombre de la fuente, ej. Estadistica oficial (API JSON)]
+    url: [https://.../{parametro}]     # fetch_url la lee; los {parametros} los rellena el asistente
+    format: [json | csv | xml | html]
+    description: [que datos da y con que granularidad]
+    notes: [como rellenar los parametros, limites, fecha de referencia]
 ---
 ```
+
+**Fuentes de datos (`data_sources`, opcional).** Si la skill necesita datos externos (estadisticas, indices, tasas), declara aqui las fuentes que `fetch_url` puede leer de verdad: una API JSON o un CSV exportable, no una pagina con tablas dinamicas que devuelve 403. El backend las muestra al asistente con la orden de usarlas **antes** de buscar en la web; el orden que sigue es fuente declarada → `web_search` (maximo 2 por dato, dentro del presupuesto de 8 llamadas por turno) → el fallback de la skill (estimacion marcada, nunca ceros ni marcadores). Que fuente es la adecuada lo decide la skill: el backend no sabe nada del INE, del BOE ni de ningun proveedor.
+
+**Materiales bajo demanda.** `references/`, `assets/` y `scripts/` NO se vuelcan en el prompt: el asistente ve un indice (`materials-index`) y lee cada archivo con `read_skill_document(nombre)` cuando una fase lo nombra. Escribe las fases nombrando el archivo exacto que hay que consultar en cada paso («Consulta `references/maquetas-reportes.md`»), y no asumas que todo el material esta en contexto. Una skill que de verdad necesite todo el material en cada llamada puede declarar `inline_materials: true` en el frontmatter, a costa de que cada llamada al modelo cargue ese material entero.
 
 **Identidad e idiomas del frontmatter.** `name` es el id canónico y coincide SIEMPRE con el nombre de la carpeta: es lo que viaja al backend. `title` es el rótulo legible en español. `i18n.<lang>.name` es un alias que el backend resuelve al canónico (`/general-consultation` → `consulta-general`), así que debe ser kebab-case y único en todo el catálogo (ningún otro `name` ni alias puede repetirlo; lo comprueba `scripts/validar_skills.py`). `i18n.<lang>.title` y `i18n.<lang>.description` son lo que ve en la galería un usuario con la app en ese idioma. Añadir otro idioma es añadir otro bloque (`pt:`, `ca:`...) sin tocar código. El frontmatter completo debe ser YAML válido: si un valor contiene `: ` o `#`, entrecomíllalo.
 
