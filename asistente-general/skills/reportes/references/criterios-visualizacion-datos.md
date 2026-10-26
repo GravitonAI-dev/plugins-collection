@@ -29,6 +29,19 @@ El valor de un artefacto no esta en que tenga graficos, sino en que cada element
 | Donde se concentra algo en el territorio | Mapa por comunidades o provincias, con tasas si las poblaciones son muy distintas | Tabla de diecisiete filas o barras sin orden geografico |
 | Que pasa si cambio un parametro | Herramienta interactiva con campos y recalculo | Tres tablas con escenarios fijos |
 | Que tengo que reunir o comprobar | Lista de verificacion con progreso | Parrafo con incisos |
+| Como se compone el total a lo largo del tiempo | Area apilada | Varias lineas que se cruzan, o apiladas al cien por cien si importa el volumen |
+| Que pocas partidas concentran casi todo (deudores, causas) | Pareto: barras ordenadas con porcentaje acumulado | Tarta con doce porciones |
+| Como ha cambiado un valor que rige a tramos (tipo de interes, salario minimo) | Escalones | Linea que interpola entre dos tipos como si subiera poco a poco |
+| Como se distribuyen muchos valores en cada grupo (dias por juzgado) | Cajas (mediana, cuartiles y atipicos) | Media por grupo, que oculta la dispersion |
+| Que parametro mueve mas el resultado de una simulacion | Tornado | Tres escenarios en tabla |
+| Donde cae una cifra dentro de una horquilla legal (sancion, oferta frente a tasacion) | Rango con tramos y marcas | Cifra suelta sin decir el minimo y el maximo |
+| Donde se concentra algo en dos dimensiones (juzgado por mes) | Mapa de calor | Tabla de cifras sin color ni orden |
+| De donde a donde fluye el importe o el volumen | Sankey | Varios anillos encadenados |
+| Que grado de avance tienen dos, tres o cuatro objetivos | Anillos concentricos | Cuatro medidores sueltos |
+| Que nota tiene cada criterio en una escala corta | Puntuacion en puntos | Radar para una sola opcion |
+| Cuanto se ha avanzado en cada fase o cobrado de cada partida | Progreso con marca de objetivo | Porcentajes en texto corrido |
+| En que estado esta cada punto de un control o requisito | Semaforos con nota | Tabla con «si» y «no» sin matiz |
+| Que ocurrio y cuando, sobre una escala real de tiempo | Linea de tiempo con marca de hoy | Cronologia de hitos cuando importa la distancia real entre fechas |
 
 Si la respuesta a la pregunta cabe en una frase, se escribe la frase. Un grafico que ilustra un unico numero resta, no suma.
 
@@ -58,6 +71,19 @@ Si la respuesta a la pregunta cabe en una frase, se escribe la frase. Un grafico
 | Divergentes | Colorear en verde y rojo un signo que no es bueno ni malo: usar `colores` |
 | Diagrama | Mas de 24 nodos, textos largos dentro de las cajas o flechas que se cruzan sin necesidad: dividir o cambiar la disposicion |
 | Anillo y tarta | Usarlos para comparar partidas entre si (para eso, barras) o con porciones casi iguales, que el ojo no distingue |
+| Area apilada | Leer una serie intermedia por su borde superior: solo la de abajo y el total se leen directos; para comparar series, linea |
+| Pareto | Cambiar el orden de mayor a menor, o fijar un umbral distinto del 80 por ciento sin decir por que |
+| Escalones | Usarlo para valores que cambian de forma continua: ahi va la linea |
+| Cajas | Menos de cinco valores por grupo, o presentar la mediana como si fuera la media |
+| Tornado | Elegir extremos arbitrarios para cada parametro: los extremos son los que de verdad se barajan y se dicen en los supuestos |
+| Rango | Marcas fuera de la horquilla sin explicar que se pegan al extremo; tramos sin criterio legal o pactado |
+| Mapa de calor | Mas de doce columnas, o celdas sin la cifra cuando caben |
+| Sankey | Mas de dieciseis nodos, flujos que no conservan el total o un ciclo |
+| Anillos | Mas de cuatro, o porcentajes de bases distintas sin decirlo en la leyenda |
+| Puntuacion | Escalas distintas entre criterios, o mas de diez puntos |
+| Progreso | Barras que superan el cien por cien recortadas sin que la tabla muestre el valor real |
+| Semaforos | Estados sin nota que explique el aviso o el riesgo |
+| Linea de tiempo | Usarla para plazos con duracion: para eso, el diagrama de plazos |
 | Cualquiera | Escribir a mano coordenadas, porcentajes o totales que el motor ya calcula: el grafico y el texto acaban contradiciendose |
 
 ## 3. Color
@@ -67,9 +93,11 @@ Si la respuesta a la pregunta cabe en una frase, se escribe la frase. Un grafico
 - Maximo seis colores simultaneos. A partir de ahi se agrupa en una categoria "otros".
 - El color nunca porta la informacion en solitario: siempre hay etiqueta, cifra o distintivo textual.
 - Las paletas se comprueban en tema claro **y** en oscuro antes de dar el artefacto por bueno.
+- El tema (`temas-visuales.md`) lo fija el destinatario y el soporte, una vez por artefacto; los graficos no llevan colores propios fuera de la serie y el semaforo del tema. Con un tema de serie monocroma (minimal, prensa) no se representan mas de tres series por grafico.
 
 ## 4. Jerarquia y composicion
 
+- La maqueta la fija la pregunta del reporte (¿como va el mes?, ¿que riesgo hay?, ¿que pasa si?) y el tema, el destinatario. Un reporte es datos: si lo que hay que entregar es sobre todo texto, es un documento y se redacta en Markdown.
 - Una sola idea principal por artefacto, enunciada en el titulo y sostenida por la entradilla.
 - Orden descendente de importancia: indicadores primero, despues el grafico que sostiene la tesis, luego el detalle tabular y por ultimo los supuestos y advertencias.
 - Entre cuatro y siete bloques de contenido. Un artefacto que exige desplazarse cinco pantallas es un informe; conviene dividirlo.
