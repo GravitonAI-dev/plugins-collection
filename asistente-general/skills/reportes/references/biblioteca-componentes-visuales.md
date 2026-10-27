@@ -1,6 +1,6 @@
 # Biblioteca de componentes visuales
 
-Todo lo que se inserta en un artefacto usa los tokens de `:root` de la base (`--superficie`, `--borde`, `--acento`, `--c1` a `--c6`, escala `--e1` a `--e6`). Por eso hereda el tema claro, el oscuro, el sobrio y la impresion sin tocar nada. Las clases y los identificadores estan en espanol y **no se renombran**: lo que cambia de idioma es el texto visible.
+Todo lo que se inserta en un artefacto usa los tokens de `:root` de la base (`--superficie`, `--borde`, `--acento`, `--c1` a `--c6`, escala `--e1` a `--e6`). Por eso hereda cualquier tema (`temas-visuales.md`), su version oscura y la impresion sin tocar nada. Las clases y los identificadores estan en espanol y **no se renombran**: lo que cambia de idioma es el texto visible.
 
 ---
 
@@ -37,7 +37,7 @@ El motor de la base dibuja el SVG, calcula escalas, ejes y porcentajes, rellena 
 - **`fuentes`**: cada fuente con `nombre`, `url` si viene de internet y `consulta` en formato `AAAA-MM-DD` (la fecha real de la consulta en la sesion, nunca inventada). Los graficos las citan por su clave.
 - **`cifras`**: cifras sueltas del texto. Cada una es `{"valor": 1234, "unidad": "eur"}`, una operacion entre otras dos cifras (o numeros) —`{"operacion": "porcentaje", "a": "cobrado", "b": "facturado", "unidad": "pct"}`, con `suma`, `diferencia`, `producto`, `cociente` o `porcentaje` (a sobre b por cien); el 30 % de una cifra es `producto` por 0.3— o un calculo sobre un grafico: `{"de": "grafico", "calculo": "suma", "serie": 0, "unidad": "eur"}`. Calculos: `suma`, `media`, `maximo`, `minimo`, `primero`, `ultimo`, `cuenta`, `variacion` (porcentaje entre el primero y el ultimo) y `porcentaje` (peso de `"elemento": "rotulo"` sobre el total). En el HTML se escriben con `<span data-cifra="principal"></span>`; en las diapositivas, con `{cifra:principal}` dentro del texto. `"decimales": 0` quita los decimales (una cifra grande de portada); por defecto los importes llevan dos. **Toda cifra que se obtiene de otras (un porcentaje de cumplimiento, una diferencia con el objetivo, un total) se declara asi y nunca se calcula a mano.**
 - **`fuentes[].consulta`** es la fecha en que se obtuvieron los datos: la de la consulta en internet, la de exportacion que indique el usuario o, si no indica ninguna, la fecha de la conversacion.
-- **`marca`** (identidad del despacho) y **plazos en dias habiles** (`dias_habiles`, `vencimiento`): modulos opcionales, contrato en `modulos-motor.md`.
+- **`marca`** (colores, logo y pie del despacho): va en el motor de la base, contrato en `modulos-motor.md`. **Plazos en dias habiles** (`dias_habiles`, `vencimiento`): modulo opcional, contrato en el mismo documento.
 - **`textos`**: solo si el documento no esta en espanol ni en ingles, para traducir los rotulos que escribe el motor; las claves son las de `TEXTOS_BASE` en el script de la base (y las de `TX` en el modulo de diagramas).
 
 ### Campos comunes a todos los graficos
@@ -177,9 +177,35 @@ Los positivos van a la derecha en `--ok` y los negativos a la izquierda en `--ri
 
 Procesos, flujos, organigramas, estructuras societarias, relaciones entre partes y quien hace que. Va en un modulo aparte: contrato de datos y codigo en `modulos-motor.md`.
 
+### Tipos de los modulos opcionales
+
+Se declaran igual que los anteriores (hueco `data-grafico` y datos en `graficos`), pero su codigo no va en la base: se copia el modulo correspondiente de `modulos-motor.md` despues del motor, solo en los artefactos que los usan. Contrato de datos de cada uno en esa referencia.
+
+| Modulo | Tipos | Para que |
+| :--- | :--- | :--- |
+| `avanzados` | `dispersion`, `histograma`, `radar`, `embudo`, `treemap`, `pendiente`, `halteras`, `piramide`, `calendario`, `pictograma` | Relaciones entre magnitudes, reparto de muchos valores, perfiles, etapas, muchas partidas, cambio entre dos momentos, dos grupos enfrentados, dias de actividad, una proporcion en figuras |
+| `analiticos` | `area_apilada`, `pareto`, `escalones`, `cajas`, `tornado`, `rango`, `mapa_calor`, `sankey`, `anillos`, `puntuacion` | Composicion en el tiempo, concentracion (80/20), valores que rigen a tramos, distribucion por grupos, sensibilidad, posicion en una horquilla legal, dos dimensiones, flujos, avance de varios objetivos, notas en escala corta |
+| `seguimiento` | `progreso`, `semaforos`, `linea_tiempo` | Avance por fase, estado de cada punto de control, hitos sobre una escala real de fechas |
+| `diagramas` | `diagrama` (capas, arbol, radial, carriles) | Procesos, organigramas, relaciones, quien hace que |
+| `mapa` (+ `mapa_ccaa` o `mapa_provincias`) | `mapa` | Donde se concentra algo en Espana |
+| `qr`, `iconos` | `qr`, iconos en linea | Llevar al lector en papel a una fuente; iconos en indicadores |
+
 ### Cifras con variacion
 
 Una cifra de `cifras` con `"signo": true` se muestra con su signo y una flecha (▲ +4,2 % o ▼ -4,2 %), en verde si es favorable y en rojo si no. Por defecto subir es bueno; `"mejor": "bajar"` lo invierte (morosidad, plazos, costes) y `"mejor": "neutro"` muestra el signo sin color (mas asuntos abiertos no es bueno ni malo). Variacion entre el primer y el ultimo valor de un grafico: `{"de": "evolucion", "calculo": "variacion", "unidad": "pct", "signo": true}`; diferencia en unidades: `"calculo": "diferencia"`.
+
+### Familias: graficos que se cambian entre si
+
+El usuario puede cambiar la forma de un grafico desde el visor de la app, sin la IA, pero solo por otro tipo que lea **exactamente los mismos datos**: no se convierte nada. Estas son las familias del catalogo `catalogo-reporte` de la base; un tipo que no esta en ninguna no se puede cambiar asi (se pide en el chat).
+
+| Familia | Datos que comparten | Tipos |
+| :--- | :--- | :--- |
+| `series` | `etiquetas` y `series: [{nombre, valores}]` | `columnas`, `apiladas`, `linea`, `area_apilada`, `escalones` |
+| `partidas` | `elementos: [{rotulo, valor}]`, magnitudes que se comparan | `barras`, `pareto`, `divergentes`, `treemap` |
+| `porciones` | `porciones: [{rotulo, valor}]` | `anillo`, `tarta` |
+| `avance` | `elementos: [{rotulo, valor, maximo}]`, avance sobre un maximo | `progreso`, `anillos` |
+
+Los campos propios de un tipo (`umbral` de la linea, `cien` de las apiladas, `nombres` de las divergentes) se conservan y los demas tipos los ignoran. `bala` y `puntuacion` tambien llevan `elementos`, pero su valor significa otra cosa (frente a un objetivo, una nota en una escala): quedan fuera. Al elegir, la app avisa si un tipo no conviene con estos datos (una tarta con mas de seis porciones, un pareto con menos de tres partidas, unas divergentes sin negativos, unas columnas con mas de doce categorias) o si no se puede dibujar. Las alternativas que ofrece son las cargadas en el motor: los tipos de modulo solo aparecen si su modulo va copiado: `area_apilada`, `escalones`, `pareto` y `anillos` (analiticos), `treemap` (avanzados) y `progreso` (seguimiento).
 
 ---
 
