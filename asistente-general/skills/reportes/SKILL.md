@@ -168,7 +168,7 @@ inputs:
   - origen_datos: datos_del_chat / documento_del_workspace / busqueda_web (V3)
   - identidad_visual: un tema del catalogo de references/temas-visuales.md (tema_<id>) (V4)
   - colores_reporte: modo_sistema / modo_claro / modo_oscuro / colores_despacho (V7)
-  - origen_plantilla: plantilla estandar del sistema / plantilla propia del usuario (V5)
+  - origen_plantilla: plantilla estandar del sistema / plantilla propia del usuario (V5); solo se pregunta si el usuario ha mencionado o aportado una maqueta propia
   - titulo_y_proposito: titulo del artefacto, destinatario y pregunta que debe responder
   - datos_de_contenido: cifras, fechas, importes, series, hitos, conceptos o criterios a representar
   - parametros_calculo: variables de entrada, formulas y supuestos cuando se trata de una herramienta interactiva
@@ -219,7 +219,7 @@ Esta skill guia al usuario de manera consultiva y transparente a traves de un pr
 - **V2 (Destino de Uso):** fijado siempre en `ambos`. **No se pregunta nunca:** todo artefacto se entrega util en pantalla y listo para imprimir o guardar como PDF. Preguntarlo solo anadia un paso al asistente para una respuesta que casi siempre era la misma.
 - **V3 (Origen de los Datos):** `datos_del_chat` | `documento_del_workspace` | `busqueda_web`.
 - **V4 (Identidad Visual):** un tema del catalogo de `references/temas-visuales.md` (`tema_<id>`), elegido por el usuario en la pregunta `identidad_visual` (1.2). El parrafo «Como orientar» de esa referencia solo sirve para recomendarle uno si duda.
-- **V5 (Origen Plantilla):** `plantilla_sistema` | `plantilla_usuario`.
+- **V5 (Origen Plantilla):** `plantilla_sistema` | `plantilla_usuario`. Por defecto `plantilla_sistema`, sin preguntar: `origen_plantilla` solo se abre cuando hay senal de maqueta propia (2.2).
 - **V6 (Receta):** una receta de `references/catalogo-reportes.md` (informe de situacion del expediente, KPIs mensuales, due diligence, white paper, captacion y conversion...) o `sin_receta`. **No se pregunta en el formulario:** se deduce de la peticion por escucha activa; la receta fija V1 y la estructura de bloques, y se menciona en el plan de la Fase 2 para que el usuario la confirme o la cambie.
 - **V7 (Colores):** `modo_sistema` (por defecto: claro de dia, oscuro de noche) | `modo_claro` | `modo_oscuro` | `colores_despacho` (los colores corporativos del usuario, aplicados con el bloque `marca` encima del tema de V4, que sigue al sistema), elegido en la pregunta `colores_reporte` (1.2). Es independiente del tema: cualquier tema admite cualquier opcion, salvo que los temas siempre oscuros ignoran el modo.
 
@@ -260,7 +260,7 @@ Si no falta nada mas, el formulario lleva solo las preguntas de estilo y colores
 - `V3` — respuesta a `origen_datos`
 - `V4` — respuesta a `identidad_visual`
 - `V7` — respuesta a `colores_reporte`
-- `V5` — respuesta a `origen_plantilla`, resuelto en la Fase 2 conforme a `REG-AST-01`
+- `V5` — `plantilla_sistema` salvo senal de maqueta propia; entonces, respuesta a `origen_plantilla` (Fase 2.2, `REG-AST-01`)
 - `V6` — receta del catalogo, deducida de la peticion por escucha activa (no se pregunta)
 
 ### 1.2 Formulario de Clasificacion (`restricted_human_in_the_loop_request`)
@@ -404,11 +404,11 @@ Elegida la rama, lee SOLO la maqueta elegida: `read_skill_document(names=["maque
 En un unico turno, expon en el chat:
 1. **Que va a mostrar el artefacto:** la idea principal, los indicadores que encabezaran la pagina y que forma grafica se usara para cada pregunta, con una justificacion breve (por ejemplo, barras ordenadas para comparar partidas y linea para la evolucion mensual).
 2. **Que datos faltan** para completarlo, si los hay.
-3. **Propuesta de plantilla oficial del sistema** mencionada solo por su denominacion formal (columna Maqueta del indice de `references/maquetas-reportes.md`) y, si hay receta, por el nombre del artefacto («informe de situacion del expediente»), con su estructura de bloques en una linea. Prohibido mostrar rutas de archivo y prohibido volcar el contenido de la plantilla.
-4. **Formulario preceptivo** `restricted_human_in_the_loop_request` con `id` `origen_plantilla` y las dos opciones canonicas de `REG-AST-01` (`plantilla_sistema` y `plantilla_usuario`).
+3. **Propuesta de plantilla oficial del sistema** mencionada solo por su denominacion formal (columna Maqueta del indice de `references/maquetas-reportes.md`) y, si hay receta, por el nombre del artefacto («informe de situacion del expediente»), con su estructura de bloques en una linea. Prohibido mostrar rutas de archivo y prohibido volcar el contenido de la plantilla. El mensaje termina con una linea de salida, no con una pregunta: «Si prefieres partir de tu propia maqueta, pegala en el chat o dimelo».
+4. **`origen_plantilla` solo con senal (escucha activa, como el resto de vectores).** `V5` es `plantilla_sistema` por defecto y NO se pregunta: el usuario pidio un reporte, ya eligio estilo y colores, y cada formulario cuesta un turno. El formulario `restricted_human_in_the_loop_request` con `id` `origen_plantilla` y las dos opciones canonicas de `REG-AST-01` (`plantilla_sistema` y `plantilla_usuario`) se abre unicamente si hay senal de maqueta propia: el usuario menciona su maqueta, plantilla, modelo o documento base; ha pegado un HTML en el chat; o el workspace contiene un artefacto HTML que no creo esta skill. Sin senal, el plan de accion se expone y **en el mismo turno** se avanza a la Fase 3 (la Fase 2.3 ya tiene V5 fijado).
 
 ### 2.3 Fijacion de V5 y Manejo de la Eleccion
-- Si `V5 = plantilla_sistema`: toma integra la plantilla enrutada en la Fase 1.3 y avanza a la Fase 3.
+- Si `V5 = plantilla_sistema` (el caso por defecto, sin formulario): toma integra la plantilla enrutada en la Fase 1.3 y avanza a la Fase 3 en el mismo turno.
 - Si `V5 = plantilla_usuario`: pide que pegue su maqueta o su documento base si aun no lo ha aportado, comprueba que cumple las reglas invariables de `references/anatomia-artefacto.md` (archivo unico, sin recursos externos, sin librerias, con tema oscuro y estilos de impresion), advierte en el chat de los incumplimientos detectados proponiendo la correccion, adopta la version corregida como base y avanza a la Fase 3.
 
 ---
