@@ -20,57 +20,57 @@ i18n:
       jurisdictions, or for enforcement of a final judgment.
 description: >
   Genera los escritos de segunda instancia y de tutela cautelar del proceso civil conforme a la **Ley
-  1/2000 de Enjuiciamiento Civil**, que regula el recurso de apelacion y su oposicion (Arts. 455 a
-  465) y las medidas cautelares con sus presupuestos y su caucion (Arts. 721 a 747), y al **Codigo
+  1/2000 de Enjuiciamiento Civil**, que regula el recurso de apelación y su oposición (Arts. 455 a
+  465) y las medidas cautelares con sus presupuestos y su caución (Arts. 721 a 747), y al **Código
   Civil** en cuanto al derecho material que se invoca.
 
 
-  Genera tres documentos: el recurso de apelacion contra la sentencia de primera instancia, el escrito
-  de oposicion al recurso interpuesto de contrario con su eventual impugnacion, y la solicitud de
-  medidas cautelares con su ofrecimiento de caucion.
+  Genera tres documentos: el recurso de apelación contra la sentencia de primera instancia, el escrito
+  de oposición al recurso interpuesto de contrario con su eventual impugnación, y la solicitud de
+  medidas cautelares con su ofrecimiento de caución.
 
 
-  Computa el plazo de veinte dias habiles para interponer la apelacion y el de diez para oponerse,
-  distingue los tres motivos utiles del recurso (infraccion procesal, error en la valoracion de la
-  prueba e infraccion sustantiva), advierte del deposito para recurrir y de la ejecucion provisional
-  de la sentencia recurrida, y en la via cautelar acredita la apariencia de buen derecho, el peligro
+  Computa el plazo de veinte días hábiles para interponer la apelación y el de diez para oponerse,
+  distingue los tres motivos útiles del recurso (infracción procesal, error en la valoración de la
+  prueba e infracción sustantiva), advierte del depósito para recurrir y de la ejecución provisional
+  de la sentencia recurrida, y en la vía cautelar acredita la apariencia de buen derecho, el peligro
   por la mora procesal y la proporcionalidad de la medida.
 
 
-  NO usar para el recurso de casacion ni para el recurso extraordinario por infraccion procesal, que
+  NO usar para el recurso de casación ni para el recurso extraordinario por infracción procesal, que
   exigen requisitos de acceso propios, ni para recursos en el orden social, penal o
-  contencioso-administrativo, ni para la ejecucion de la sentencia firme.
+  contencioso-administrativo, ni para la ejecución de la sentencia firme.
 
 
   Normas aplicadas, en su texto consolidado en el BOE:
   [Ley 1/2000 de Enjuiciamiento Civil](https://www.boe.es/buscar/act.php?id=BOE-A-2000-323) y
-  [Codigo Civil](https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763).
+  [Código Civil](https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763).
 when_to_use: |
   - Al usuario le han desestimado la demanda o le han estimado parcialmente y quiere recurrir.
   - La parte contraria ha recurrido la sentencia y hay que oponerse al recurso.
-  - El usuario quiere impugnar tambien la sentencia al oponerse al recurso de la otra parte.
-  - El usuario necesita asegurar el resultado del pleito antes de que termine (embargo preventivo, anotacion de demanda).
-  - El usuario pregunta cuanto tiempo tiene para recurrir una sentencia civil.
+  - El usuario quiere impugnar también la sentencia al oponerse al recurso de la otra parte.
+  - El usuario necesita asegurar el resultado del pleito antes de que termine (embargo preventivo, anotación de demanda).
+  - El usuario pregunta cuánto tiempo tiene para recurrir una sentencia civil.
   - El usuario pregunta si la sentencia recurrida se puede ejecutar mientras se resuelve el recurso.
 inputs:
-  - documento: recurso de apelacion / oposicion al recurso / medidas cautelares (V1)
+  - documento: recurso de apelación / oposición al recurso / medidas cautelares (V1)
   - posicion: apelante / apelado (V2)
   - momento_cautelar: con la demanda o durante el proceso / antes de la demanda (V3)
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - datos_partes: identidad, NIF y domicilio de las partes, procurador y letrado de cada una
-  - datos_procedimiento: juzgado, numero de autos, clase de juicio, cuantia y objeto del pleito
-  - datos_resolucion: fecha de la sentencia, fallo, fecha de su notificacion y pronunciamiento sobre costas
-  - motivos_recurso: infracciones procesales, errores en la valoracion de la prueba e infracciones sustantivas
-  - prueba_controvertida: documentos y pruebas cuya valoracion se discute, con su folio en autos
-  - pretension_recurso: pronunciamiento que se solicita del tribunal de apelacion
+  - datos_procedimiento: juzgado, número de autos, clase de juicio, cuantía y objeto del pleito
+  - datos_resolucion: fecha de la sentencia, fallo, fecha de su notificación y pronunciamiento sobre costas
+  - motivos_recurso: infracciones procesales, errores en la valoración de la prueba e infracciones sustantivas
+  - prueba_controvertida: documentos y pruebas cuya valoración se discute, con su folio en autos
+  - pretension_recurso: pronunciamiento que se solicita del tribunal de apelación
   - medida_solicitada: medida cautelar concreta que se pide y bien o actividad sobre la que recae
   - fundamento_cautelar: apariencia de buen derecho, peligro por la mora y proporcionalidad
-  - caucion_ofrecida: tipo e importe de la caucion que se ofrece
+  - caucion_ofrecida: tipo e importe de la caución que se ofrece
 outputs:
-  - recurso_apelacion: recurso de apelacion contra sentencia civil, DRAFT
-  - oposicion_recurso_apelacion: escrito de oposicion y, en su caso, de impugnacion, DRAFT
-  - solicitud_medidas_cautelares: solicitud de medidas cautelares con ofrecimiento de caucion, DRAFT
-  - checklist_plazos_y_deposito: computo de plazos, deposito para recurrir y efectos de la ejecucion provisional
+  - recurso_apelacion: recurso de apelación contra sentencia civil, DRAFT
+  - oposicion_recurso_apelacion: escrito de oposición y, en su caso, de impugnación, DRAFT
+  - solicitud_medidas_cautelares: solicitud de medidas cautelares con ofrecimiento de caución, DRAFT
+  - checklist_plazos_y_deposito: cómputo de plazos, depósito para recurrir y efectos de la ejecución provisional
 references:
   - references/lec-apelacion-motivos-y-plazos.md
   - references/lec-medidas-cautelares-y-caucion.md
@@ -132,7 +132,7 @@ Invoca la herramienta con las preguntas de triaje:
     },
     {
       "id": "posicion",
-      "rationale": "Resolver V2: la estrategia y la carga argumental cambian segun se recurra o se defienda la sentencia.",
+      "rationale": "Resolver V2: la estrategia y la carga argumental cambian según se recurra o se defienda la sentencia.",
       "question": "Si se trata de apelación, ¿en qué posición está su cliente respecto de la sentencia?",
       "show_if": {"question_id": "documento", "option_ids": ["recurso_apelacion", "oposicion_apelacion"]},
       "options": [
@@ -143,7 +143,7 @@ Invoca la herramienta con las preguntas de triaje:
     },
     {
       "id": "momento_cautelar",
-      "rationale": "Resolver V3: la medida solicitada antes de la demanda exige urgencia y obliga a presentarla en veinte dias.",
+      "rationale": "Resolver V3: la medida solicitada antes de la demanda exige urgencia y obliga a presentarla en veinte días.",
       "question": "Si necesita medidas cautelares, ¿el pleito ya está iniciado o hay que pedirlas antes de demandar?",
       "show_if": {"question_id": "documento", "option_ids": ["medidas_cautelares"]},
       "options": [

@@ -20,59 +20,59 @@ i18n:
       skill), or for successions governed by regional civil law or with an international
       element.
 description: >
-  Prepara los dos documentos que el catalogo de sucesiones no cubria conforme al **Codigo Civil**, que
-  fija el orden de suceder cuando no hay testamento (Arts. 912 a 958) y los derechos del conyuge
-  viudo, y a la **Ley 41/2002** basica reguladora de la autonomia del paciente, que reconoce el
-  derecho a dejar instrucciones previas sobre los cuidados y el tratamiento medico.
+  Prepara los dos documentos que el catálogo de sucesiones no cubría conforme al **Código Civil**, que
+  fija el orden de suceder cuando no hay testamento (Arts. 912 a 958) y los derechos del cónyuge
+  viudo, y a la **Ley 41/2002** básica reguladora de la autonomía del paciente, que reconoce el
+  derecho a dejar instrucciones previas sobre los cuidados y el tratamiento médico.
 
 
-  Genera dos documentos: el requerimiento al notario para el acta de notoriedad de declaracion de
-  herederos abintestato, con la acreditacion del parentesco y de la inexistencia de testamento, y el
-  documento de voluntades anticipadas o instrucciones previas, con la designacion de representante y
-  su inscripcion registral.
+  Genera dos documentos: el requerimiento al notario para el acta de notoriedad de declaración de
+  herederos abintestato, con la acreditación del parentesco y de la inexistencia de testamento, y el
+  documento de voluntades anticipadas o instrucciones previas, con la designación de representante y
+  su inscripción registral.
 
 
-  Determina el orden sucesorio aplicable y quien excluye a quien, calcula la cuota que corresponde a
-  cada llamado y el usufructo del conyuge viudo, identifica el notario territorialmente competente y
-  la documentacion imprescindible, computa el plazo de veinte dias habiles de tramitacion del acta, y
-  advierte de los limites de las voluntades anticipadas y de su prevalencia sobre la decision de los
+  Determina el orden sucesorio aplicable y quién excluye a quién, calcula la cuota que corresponde a
+  cada llamado y el usufructo del cónyuge viudo, identifica el notario territorialmente competente y
+  la documentación imprescindible, computa el plazo de veinte días hábiles de tramitación del acta, y
+  advierte de los límites de las voluntades anticipadas y de su prevalencia sobre la decisión de los
   familiares.
 
 
-  NO usar para redactar testamentos ni para la planificacion sucesoria, que corresponde a la skill de
-  testamento y planificacion, ni para aceptar o partir la herencia, que corresponde a la skill de
+  NO usar para redactar testamentos ni para la planificación sucesoria, que corresponde a la skill de
+  testamento y planificación, ni para aceptar o partir la herencia, que corresponde a la skill de
   herencia, ni para sucesiones regidas por derechos civiles forales o con elemento internacional.
 
 
   Normas aplicadas, en su texto consolidado en el BOE:
-  [Codigo Civil](https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763) y
-  [Ley 41/2002 de autonomia del paciente](https://www.boe.es/buscar/act.php?id=BOE-A-2002-22188).
+  [Código Civil](https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763) y
+  [Ley 41/2002 de autonomía del paciente](https://www.boe.es/buscar/act.php?id=BOE-A-2002-22188).
 when_to_use: |
-  - Ha fallecido un familiar sin testamento y hay que acreditar quienes son los herederos.
-  - El usuario pregunta quien hereda si no hay testamento y en que proporcion.
-  - El usuario pregunta que le corresponde al conyuge viudo cuando no hay testamento.
-  - El usuario quiere dejar instrucciones sobre los tratamientos medicos que acepta o rechaza.
+  - Ha fallecido un familiar sin testamento y hay que acreditar quiénes son los herederos.
+  - El usuario pregunta quién hereda si no hay testamento y en que proporción.
+  - El usuario pregunta qué le corresponde al cónyuge viudo cuando no hay testamento.
+  - El usuario quiere dejar instrucciones sobre los tratamientos médicos que acepta o rechaza.
   - El usuario quiere designar a alguien que decida por el si no puede expresarse.
-  - El usuario pregunta donde se inscriben las voluntades anticipadas para que los medicos las vean.
+  - El usuario pregunta dónde se inscriben las voluntades anticipadas para que los médicos las vean.
 inputs:
-  - documento: acta de declaracion de herederos / voluntades anticipadas (V1)
-  - orden_sucesorio: descendientes / ascendientes o colaterales / conyuge o pareja (V2)
+  - documento: acta de declaración de herederos / voluntades anticipadas (V1)
+  - orden_sucesorio: descendientes / ascendientes o colaterales / cónyuge o pareja (V2)
   - testamento: acreditada la inexistencia de testamento / pendiente de comprobar (V3)
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
-  - datos_causante: nombre, NIF, ultimo domicilio, fecha y lugar de fallecimiento, estado civil
-  - datos_requirente: nombre, NIF, domicilio, telefono y correo, y parentesco con el causante
+  - datos_causante: nombre, NIF, último domicilio, fecha y lugar de fallecimiento, estado civil
+  - datos_requirente: nombre, NIF, domicilio, teléfono y correo, y parentesco con el causante
   - parentesco_llamados: identidad, NIF, domicilio y parentesco de todos los posibles herederos
-  - documentacion_estado_civil: certificados de defuncion, nacimiento, matrimonio y libro de familia
-  - certificado_ultimas_voluntades: resultado del certificado del Registro de Actos de Ultima Voluntad
+  - documentacion_estado_civil: certificados de defunción, nacimiento, matrimonio y libro de familia
+  - certificado_ultimas_voluntades: resultado del certificado del Registro de Actos de Última Voluntad
   - testigos: identidad y NIF de los testigos que conocen a la familia del causante
-  - patrimonio_relevante: bienes principales y su ubicacion, a efectos de competencia notarial
+  - patrimonio_relevante: bienes principales y su ubicación, a efectos de competencia notarial
   - datos_otorgante_voluntades: nombre, NIF, domicilio y capacidad del otorgante
   - instrucciones_medicas: tratamientos que acepta y que rechaza, y situaciones previstas
   - representante_designado: identidad, NIF y contacto del representante y de su sustituto
 outputs:
   - requerimiento_acta_declaracion_herederos: requerimiento al notario para el acta de notoriedad, DRAFT
   - documento_voluntades_anticipadas: documento de instrucciones previas con representante, DRAFT
-  - checklist_documentacion: documentacion, notario competente, plazos e inscripciones registrales
+  - checklist_documentacion: documentación, notario competente, plazos e inscripciones registrales
 references:
   - references/cc-orden-sucesorio-abintestato.md
   - references/acta-notarial-y-voluntades-anticipadas.md
@@ -122,7 +122,7 @@ Invoca la herramienta con las preguntas de triaje:
   "form_data": [
     {
       "id": "documento",
-      "rationale": "Resolver V1 para determinar cual de los dos documentos se prepara.",
+      "rationale": "Resolver V1 para determinar cuál de los dos documentos se prepara.",
       "question": "¿Qué necesita preparar?",
       "options": [
         {"id": "acta_declaracion_herederos", "label": "Acreditar quiénes son los herederos de un fallecido sin testamento"},
@@ -144,7 +144,7 @@ Invoca la herramienta con las preguntas de triaje:
     },
     {
       "id": "testamento",
-      "rationale": "Resolver V3: sin el certificado del Registro de Actos de Ultima Voluntad el notario no puede autorizar el acta.",
+      "rationale": "Resolver V3: sin el certificado del Registro de Actos de Última Voluntad el notario no puede autorizar el acta.",
       "question": "Si es declaración de herederos, ¿han obtenido ya el certificado del Registro de Actos de Última Voluntad que acredita que no hay testamento?",
       "show_if": {"question_id": "documento", "option_ids": ["acta_declaracion_herederos"]},
       "options": [

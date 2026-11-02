@@ -1,6 +1,6 @@
 # {{TITULO_DEL_DOCUMENTO}}
 
-> DRAFT — Para revision letrada colegiada antes de su firma o presentacion formal.
+> DRAFT — Para revisión letrada colegiada antes de su firma o presentación formal.
 
 **Fecha:** {{FECHA_ACTUAL}}
 **De:** {{NOMBRE_REMITENTE}}
@@ -16,7 +16,7 @@
 
 {{CUERPO_PRINCIPAL}}
 
-## 3. Conclusiones / Proximos Pasos
+## 3. Conclusiones / Próximos Pasos
 
 {{CONCLUSIONES}}
 

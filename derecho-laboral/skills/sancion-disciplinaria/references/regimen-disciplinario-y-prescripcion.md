@@ -52,7 +52,7 @@ La conducta debe encajarse en el tipo **concreto** del convenio, citando su núm
 
 1. **Tipicidad:** la conducta debe encajar en una falta prevista.
 2. **Proporcionalidad:** la sanción debe corresponder a la gravedad tipificada y a las circunstancias concurrentes. La desproporción se corrige en juicio.
-3. ***Non bis in idem*:** un mismo hecho no puede sancionarse dos veces, ni puede agravarse una sanción ya impuesta y notificada.
+3. ***Non bis in ídem*:** un mismo hecho no puede sancionarse dos veces, ni puede agravarse una sanción ya impuesta y notificada.
 4. **Individualización:** no cabe sancionar colectivamente a un grupo sin imputar a cada trabajador su conducta concreta.
 5. **Irretroactividad de la calificación:** la falta se califica conforme al convenio vigente en el momento de los hechos.
 6. **Carga de la prueba:** corresponde a la empresa acreditar los hechos imputados. Lo no escrito en la carta no podrá probarse después.

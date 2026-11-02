@@ -1,57 +1,57 @@
 # LAU — Vivienda: Plazos, Renta y Fianza
 
 > Material de referencia para la skill `derecho-civil-arrendamiento`. Basado en la LAU 29/1994,
-> texto consolidado (ultima modificacion conocida: 25/05/2023, Ley 12/2023).
-> La skill verifica siempre la version vigente en el BOE antes de aplicar estos datos.
+> texto consolidado (última modificación conocida: 25/05/2023, Ley 12/2023).
+> La skill verifica siempre la versión vigente en el BOE antes de aplicar estos datos.
 
 ---
 
-## Duracion del contrato (Art. 9 LAU)
+## Duración del contrato (Art. 9 LAU)
 
-### Plazo minimo
+### Plazo mínimo
 
-| Arrendador | Plazo minimo |
+| Arrendador | Plazo mínimo |
 |---|---|
-| Persona fisica | 5 anos |
-| Persona juridica | 7 anos |
+| Persona física | 5 años |
+| Persona jurídica | 7 años |
 
-Si el contrato se pacta por duracion inferior al minimo, se prorroga obligatoriamente por plazos anuales hasta alcanzar el minimo legal, salvo que el arrendatario comunique su voluntad de no renovar con al menos 30 dias de antelacion a cada vencimiento.
+Si el contrato se pacta por duración inferior al mínimo, se prorroga obligatoriamente por plazos anuales hasta alcanzar el mínimo legal, salvo que el arrendatario comunique su voluntad de no renovar con al menos 30 días de antelación a cada vencimiento.
 
-El plazo comienza desde la fecha del contrato o desde la puesta del inmueble a disposicion del arrendatario si esta es posterior.
+El plazo comienza desde la fecha del contrato o desde la puesta del inmueble a disposición del arrendatario si esta es posterior.
 
-Los contratos sin plazo estipulado o con plazo indeterminado se consideran celebrados por 1 ano, con prorroga anual hasta el minimo.
+Los contratos sin plazo estipulado o con plazo indeterminado se consideran celebrados por 1 año, con prórroga anual hasta el mínimo.
 
-### Recuperacion de la vivienda por el arrendador (Art. 9.3)
+### Recuperación de la vivienda por el arrendador (Art. 9.3)
 
-Una vez transcurrido el primer ano, el arrendador persona fisica puede recuperar la vivienda sin necesidad de prorroga si:
+Una vez transcurrido el primer año, el arrendador persona física puede recuperar la vivienda sin necesidad de prórroga si:
 - Lo hizo constar expresamente en el contrato al firmarlo.
-- La necesita para uso como vivienda permanente propia, de familiares en primer grado o conyuge en supuestos de separacion/divorcio.
-- Comunica al arrendatario con al menos 2 meses de antelacion.
+- La necesita para uso como vivienda permanente propia, de familiares en primer grado o cónyuge en supuestos de separacion/divorcio.
+- Comunica al arrendatario con al menos 2 meses de antelación.
 
-Si no ocupa la vivienda en 3 meses desde el desalojo, el arrendatario puede optar por ser repuesto o indemnizado (1 mensualidad por ano pendiente hasta completar 5 anos).
+Si no ocupa la vivienda en 3 meses desde el desalojo, el arrendatario puede optar por ser repuesto o indemnizado (1 mensualidad por año pendiente hasta completar 5 años).
 
 ---
 
-## Prorroga del contrato (Art. 10 LAU)
+## Prórroga del contrato (Art. 10 LAU)
 
-### Prorroga tacita ordinaria
+### Prórroga tácita ordinaria
 
-Tras el plazo minimo (5 o 7 anos), si ninguna parte notifica su voluntad de no renovar:
-- Arrendador: con 4 meses de antelacion minima.
-- Arrendatario: con 2 meses de antelacion minima.
+Tras el plazo mínimo (5 o 7 años), si ninguna parte notifica su voluntad de no renovar:
+- Arrendador: con 4 meses de antelación mínima.
+- Arrendatario: con 2 meses de antelación mínima.
 
-El contrato se prorroga obligatoriamente por plazos anuales hasta un maximo de 3 anos adicionales.
+El contrato se prorroga obligatoriamente por plazos anuales hasta un máximo de 3 años adicionales.
 
-### Prorroga extraordinaria por vulnerabilidad (Art. 10.2)
+### Prórroga extraordinaria por vulnerabilidad (Art. 10.2)
 
-El arrendatario puede solicitar prorroga extraordinaria de 1 ano adicional al finalizar la prorroga obligatoria o tacita, si acredita situacion de vulnerabilidad social y economica mediante informe de servicios sociales emitido en el ultimo ano.
+El arrendatario puede solicitar prórroga extraordinaria de 1 año adicional al finalizar la prórroga obligatoria o tácita, si acredita situación de vulnerabilidad social y económica mediante informe de servicios sociales emitido en el último año.
 
-El arrendador que sea gran tenedor de vivienda (segun Ley 12/2023) debe aceptarla obligatoriamente.
+El arrendador que sea gran tenedor de vivienda (según Ley 12/2023) debe aceptarla obligatoriamente.
 
-### Prorroga extraordinaria en zonas tensionadas (Art. 10.3)
+### Prórroga extraordinaria en zonas tensionadas (Art. 10.3)
 
-En zonas de mercado residencial tensionado, el arrendatario puede solicitar prorroga extraordinaria de hasta 3 anos adicionales. El arrendador debe aceptarla salvo que:
-- Haya fijado nuevas condiciones conforme a los limites del Art. 17.
+En zonas de mercado residencial tensionado, el arrendatario puede solicitar prórroga extraordinaria de hasta 3 años adicionales. El arrendador debe aceptarla salvo que:
+- Haya fijado nuevas condiciones conforme a los límites del Art. 17.
 - Haya comunicado necesidad de ocupar la vivienda (Art. 9.3).
 
 ---
@@ -60,46 +60,46 @@ En zonas de mercado residencial tensionado, el arrendatario puede solicitar pror
 
 El arrendatario puede desistir:
 - Tras transcurridos al menos 6 meses desde el inicio del contrato.
-- Comunicando al arrendador con al menos 30 dias de antelacion.
+- Comunicando al arrendador con al menos 30 días de antelación.
 
-Indemnizacion (si se pacta en el contrato): 1 mensualidad de renta en vigor por cada ano del contrato que reste por cumplir. Los periodos inferiores al ano, a prorrata.
+Indemnización (si se pacta en el contrato): 1 mensualidad de renta en vigor por cada año del contrato que reste por cumplir. Los periodos inferiores al año, a prorrata.
 
-Si no se pacta indemnizacion, el arrendatario puede desistir sin coste tras 6 meses.
+Si no se pacta indemnización, el arrendatario puede desistir sin coste tras 6 meses.
 
 ---
 
 ## Renta (Art. 17-20 LAU)
 
-### Determinacion (Art. 17)
+### Determinación (Art. 17)
 
 - La renta es de libre pacto entre las partes.
-- Pago mensual, en los primeros 7 dias del mes. El arrendador no puede exigir mas de 1 mensualidad anticipada.
-- Pago preferentemente por medios electronicos. En caso de que alguna de las partes carezca de cuenta bancaria, puede pactarse en metalico en la vivienda arrendada.
+- Pago mensual, en los primeros 7 días del mes. El arrendador no puede exigir más de 1 mensualidad anticipada.
+- Pago preferentemente por medios electrónicos. En caso de que alguna de las partes carezca de cuenta bancaria, puede pactarse en metálico en la vivienda arrendada.
 - El arrendador entrega recibo de pago (o documento acreditativo equivalente).
 
 **Zona de mercado residencial tensionado (Art. 17.6 y 17.7):**
 La renta pactada en el nuevo contrato no puede exceder de:
-- La ultima renta del contrato anterior en la misma vivienda en los ultimos 5 anos (con actualizacion incluida), sin poder fijar gastos nuevos no recogidos en ese contrato anterior.
-- Con la unica posibilidad de incremento del 10% si: la vivienda ha sido rehabilitada en los 2 anos anteriores; se han realizado mejoras de eficiencia energetica acreditadas (ahorro del 30%); mejoras de accesibilidad; o se firma por 10 o mas anos.
+- La última renta del contrato anterior en la misma vivienda en los últimos 5 años (con actualización incluida), sin poder fijar gastos nuevos no recogidos en ese contrato anterior.
+- Con la única posibilidad de incremento del 10% si: la vivienda ha sido rehabilitada en los 2 años anteriores; se han realizado mejoras de eficiencia energética acreditadas (ahorro del 30%); mejoras de accesibilidad; o se firma por 10 o más años.
 
-Si el arrendador es gran tenedor (Ley 12/2023), la renta ademas no puede superar el indice de referencia de precios para esa vivienda y zona.
+Si el arrendador es gran tenedor (Ley 12/2023), la renta además no puede superar el índice de referencia de precios para esa vivienda y zona.
 
-### Actualizacion (Art. 18)
+### Actualización (Art. 18)
 
-- Solo se actualiza si hay pacto expreso en el contrato. Sin pacto, no hay actualizacion.
-- **Contratos de vivienda celebrados desde el 26/05/2023:** el incremento anual no puede superar el IRAV (Indice de Referencia para la Actualizacion de los Arrendamientos de Vivienda), publicado mensualmente por el INE y aplicable desde el 01/01/2025 (Resolucion INE de 18/12/2024, BOE-A-2024-26685, por mandato de la Ley 12/2023). El IRAV es el minimo entre la variacion anual del IPC, la del IPC subyacente y una tasa media ajustada.
-- Contratos anteriores al 26/05/2023: rige lo pactado; en defecto de pacto sobre el indice, el Indice de Garantia de Competitividad (IGC), con tope en el IPC.
-- La actualizacion se notifica por escrito a la otra parte expresando el porcentaje aplicado; la renta actualizada es exigible a partir del mes siguiente a la notificacion (Art. 18.2).
+- Solo se actualiza si hay pacto expreso en el contrato. Sin pacto, no hay actualización.
+- **Contratos de vivienda celebrados desde el 26/05/2023:** el incremento anual no puede superar el IRAV (Índice de Referencia para la Actualización de los Arrendamientos de Vivienda), publicado mensualmente por el INE y aplicable desde el 01/01/2025 (Resolución INE de 18/12/2024, BOE-A-2024-26685, por mandato de la Ley 12/2023). El IRAV es el mínimo entre la variación anual del IPC, la del IPC subyacente y una tasa media ajustada.
+- Contratos anteriores al 26/05/2023: rige lo pactado; en defecto de pacto sobre el índice, el Índice de Garantía de Competitividad (IGC), con tope en el IPC.
+- La actualización se notifica por escrito a la otra parte expresando el porcentaje aplicado; la renta actualizada es exigible a partir del mes siguiente a la notificación (Art. 18.2).
 
-### Elevacion por mejoras del arrendador (Art. 19)
+### Elevación por mejoras del arrendador (Art. 19)
 
-Tras 5 anos de contrato (7 si arrendador persona juridica), el arrendador que realice obras de mejora puede elevar la renta anual en el importe resultante de aplicar al capital invertido el tipo de interes legal del dinero en el momento de terminacion de las obras incrementado en 3 puntos, sin exceder el 20% de la renta vigente.
+Tras 5 años de contrato (7 si arrendador persona jurídica), el arrendador que realice obras de mejora puede elevar la renta anual en el importe resultante de aplicar al capital invertido el tipo de interés legal del dinero en el momento de terminación de las obras incrementado en 3 puntos, sin exceder el 20% de la renta vigente.
 
 ### Gastos generales (Art. 20)
 
 - Pueden pactarse a cargo del arrendatario los gastos generales del inmueble (comunidad, IBI, seguros del edificio).
 - Requisito: pacto expreso por escrito determinando el importe anual a la fecha del contrato.
-- Los gastos de gestion inmobiliaria y formalizacion del contrato son SIEMPRE a cargo del arrendador. No admiten pacto en contrario.
+- Los gastos de gestión inmobiliaria y formalización del contrato son SIEMPRE a cargo del arrendador. No admiten pacto en contrario.
 - Servicios individualizados por contador (agua, gas, electricidad): siempre a cargo del arrendatario.
 
 ---
@@ -112,21 +112,21 @@ Tras 5 anos de contrato (7 si arrendador persona juridica), el arrendador que re
 | Uso distinto de vivienda | 2 mensualidades de renta |
 
 - La fianza es obligatoria. No puede pactarse un importe inferior.
-- Durante los primeros 5 anos (7 si arrendador persona juridica), la fianza no se actualiza aunque se actualice la renta.
-- Las partes pueden pactar garantias adicionales (aval bancario, seguro de impago) ademas de la fianza legal.
-- El arrendador debe depositar la fianza ante el organismo autonomico competente (obligatorio en todas las CCAA, con procedimientos distintos).
-- Al finalizar el contrato, el arrendador debe devolver la fianza en el plazo de 1 mes desde la entrega de llaves. Si no la devuelve en plazo, debe abonar el interes legal del dinero.
+- Durante los primeros 5 años (7 si arrendador persona jurídica), la fianza no se actualiza aunque se actualice la renta.
+- Las partes pueden pactar garantías adicionales (aval bancario, seguro de impago) además de la fianza legal.
+- El arrendador debe depositar la fianza ante el organismo autonómico competente (obligatorio en todas las CCAA, con procedimientos distintos).
+- Al finalizar el contrato, el arrendador debe devolver la fianza en el plazo de 1 mes desde la entrega de llaves. Si no la devuelve en plazo, debe abonar el interés legal del dinero.
 
 ---
 
-## Deposito de fianza por comunidad autonoma
+## Depósito de fianza por comunidad autónoma
 
-| Comunidad Autonoma | Organismo | Plazo deposito |
+| Comunidad Autónoma | Organismo | Plazo depósito |
 |---|---|---|
 | Madrid | Agencia de Vivienda Social (AVS) | 1 mes desde firma |
-| Cataluna | INCASOL | 1 mes desde firma |
-| Andalucia | Agencia de Vivienda y Rehabilitacion de Andalucia (AVRA) | 2 meses desde firma |
+| Cataluña | INCASOL | 1 mes desde firma |
+| Andalucía | Agencia de Vivienda y Rehabilitación de Andalucía (AVRA) | 2 meses desde firma |
 | Valencia | Conselleria de Vivienda | 1 mes desde firma |
-| Pais Vasco | Gobierno Vasco | 1 mes desde firma |
+| País Vasco | Gobierno Vasco | 1 mes desde firma |
 
 Para otras CCAA, verificar con web_search el organismo competente.

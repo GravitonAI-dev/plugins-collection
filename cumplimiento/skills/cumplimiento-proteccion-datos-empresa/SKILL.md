@@ -21,61 +21,61 @@ i18n:
       standard contractual clauses or binding corporate rules, or for the law firm's own data
       protection package, which belongs to the firm data protection skill.
 description: >
-  Prepara la documentacion de proteccion de datos que debe tener una empresa cliente conforme al
-  **Reglamento (UE) 2016/679** general de proteccion de datos, que impone el registro de actividades de
-  tratamiento, el contrato con el encargado y la notificacion de brechas, y a la **Ley Organica
-  3/2018** de proteccion de datos personales y garantia de los derechos digitales, que lo desarrolla en
-  Espana y fija los supuestos de delegado de proteccion de datos obligatorio.
+  Prepara la documentación de protección de datos que debe tener una empresa cliente conforme al
+  **Reglamento (UE) 2016/679** general de protección de datos, que impone el registro de actividades de
+  tratamiento, el contrato con el encargado y la notificación de brechas, y a la **Ley Orgánica
+  3/2018** de protección de datos personales y garantía de los derechos digitales, que lo desarrolla en
+  España y fija los supuestos de delegado de protección de datos obligatorio.
 
 
   Genera tres documentos: el registro de actividades de tratamiento con su base de licitud y sus
-  plazos de conservacion, el contrato de encargado del tratamiento con el contenido minimo exigido, y
-  la notificacion de violacion de seguridad a la Agencia Espanola de Proteccion de Datos con su
-  comunicacion a los interesados.
+  plazos de conservación, el contrato de encargado del tratamiento con el contenido mínimo exigido, y
+  la notificación de violación de seguridad a la Agencia Española de Protección de Datos con su
+  comunicación a los interesados.
 
 
   Determina la base de licitud de cada tratamiento, distingue responsable de encargado, computa el
   plazo de setenta y dos horas para notificar una brecha y el de un mes para atender los derechos de
-  los interesados, y advierte de cuando la designacion de delegado de proteccion de datos o la
-  evaluacion de impacto dejan de ser opcionales.
+  los interesados, y advierte de cuando la designación de delegado de protección de datos o la
+  evaluación de impacto dejan de ser opcionales.
 
 
   NO usar para la defensa ante un expediente sancionador ya abierto por la autoridad de control, ni
-  para transferencias internacionales que exijan clausulas contractuales tipo o normas corporativas
-  vinculantes, ni para el paquete de proteccion de datos del propio despacho, que corresponde a la
-  skill de proteccion de datos del despacho.
+  para transferencias internacionales que exijan cláusulas contractuales tipo o normas corporativas
+  vinculantes, ni para el paquete de protección de datos del propio despacho, que corresponde a la
+  skill de protección de datos del despacho.
 
 
   Normas aplicadas, en su texto consolidado:
-  [Reglamento General de Proteccion de Datos](https://eur-lex.europa.eu/legal-content/ES/TXT/?uri=CELEX:32016R0679)
-  en el Diario Oficial de la Union Europea, y
-  [Ley Organica 3/2018](https://www.boe.es/buscar/act.php?id=BOE-A-2018-16673) en el BOE.
+  [Reglamento General de Protección de Datos](https://eur-lex.europa.eu/legal-content/ES/TXT/?uri=CELEX:32016R0679)
+  en el Diario Oficial de la Unión Europea, y
+  [Ley Orgánica 3/2018](https://www.boe.es/buscar/act.php?id=BOE-A-2018-16673) en el BOE.
 when_to_use: |
   - La empresa no tiene registro de actividades de tratamiento y necesita crearlo.
-  - La empresa va a contratar un proveedor que accedera a datos personales y necesita el contrato de encargado.
+  - La empresa va a contratar un proveedor que accederá a datos personales y necesita el contrato de encargado.
   - La empresa ha sufrido una brecha de seguridad y hay que notificarla.
-  - El usuario pregunta que base legal ampara un tratamiento concreto o cuanto tiempo puede conservar los datos.
-  - El usuario pregunta si su empresa esta obligada a tener delegado de proteccion de datos.
-  - El usuario pregunta que hacer ante una solicitud de acceso, supresion u oposicion de un cliente o empleado.
+  - El usuario pregunta qué base legal ampara un tratamiento concreto o cuánto tiempo puede conservar los datos.
+  - El usuario pregunta si su empresa está obligada a tener delegado de protección de datos.
+  - El usuario pregunta qué hacer ante una solicitud de acceso, supresión u oposición de un cliente o empleado.
 inputs:
-  - documento: registro de actividades / contrato de encargado / notificacion de brecha (V1)
+  - documento: registro de actividades / contrato de encargado / notificación de brecha (V1)
   - papel_entidad: responsable del tratamiento / encargado del tratamiento (V2)
-  - nivel_riesgo: tratamiento ordinario / categorias especiales o alto riesgo (V3)
+  - nivel_riesgo: tratamiento ordinario / categorías especiales o alto riesgo (V3)
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
-  - datos_entidad: razon social, CIF, domicilio, actividad y numero de personas trabajadoras
-  - datos_contacto_privacidad: responsable interno, delegado de proteccion de datos si existe, y correo de contacto
-  - tratamientos: finalidades, categorias de interesados y de datos, y origen de los datos
-  - bases_licitud: base juridica de cada tratamiento y, si es consentimiento, forma de obtenerlo
+  - datos_entidad: razón social, CIF, domicilio, actividad y número de personas trabajadoras
+  - datos_contacto_privacidad: responsable interno, delegado de protección de datos si existe, y correo de contacto
+  - tratamientos: finalidades, categorías de interesados y de datos, y origen de los datos
+  - bases_licitud: base jurídica de cada tratamiento y, si es consentimiento, forma de obtenerlo
   - destinatarios: cesiones previstas, encargados y transferencias internacionales
-  - plazos_conservacion: plazo o criterio de conservacion de cada tratamiento
-  - medidas_seguridad: medidas tecnicas y organizativas implantadas
-  - datos_encargado: razon social del proveedor, servicio prestado, subencargados y ubicacion de los datos
-  - datos_brecha: fecha y hora de deteccion, naturaleza del incidente, datos y personas afectadas, medidas adoptadas
+  - plazos_conservacion: plazo o criterio de conservación de cada tratamiento
+  - medidas_seguridad: medidas técnicas y organizativas implantadas
+  - datos_encargado: razón social del proveedor, servicio prestado, subencargados y ubicación de los datos
+  - datos_brecha: fecha y hora de detección, naturaleza del incidente, datos y personas afectadas, medidas adoptadas
 outputs:
   - registro_actividades_tratamiento: registro de actividades de tratamiento por finalidad, DRAFT
-  - contrato_encargado_tratamiento: contrato de encargado del tratamiento con contenido minimo, DRAFT
-  - notificacion_brecha: notificacion de violacion de seguridad a la autoridad y comunicacion a interesados, DRAFT
-  - checklist_cumplimiento: obligaciones exigibles segun plantilla y riesgo, con sus plazos
+  - contrato_encargado_tratamiento: contrato de encargado del tratamiento con contenido mínimo, DRAFT
+  - notificacion_brecha: notificación de violación de seguridad a la autoridad y comunicación a interesados, DRAFT
+  - checklist_cumplimiento: obligaciones exigibles según plantilla y riesgo, con sus plazos
 references:
   - references/rgpd-registro-encargado-y-brechas.md
   - references/bases-licitud-plazos-y-derechos.md
@@ -126,7 +126,7 @@ Invoca la herramienta con las preguntas de triaje:
   "form_data": [
     {
       "id": "documento",
-      "rationale": "Resolver V1 para determinar cual de los tres documentos de proteccion de datos se prepara.",
+      "rationale": "Resolver V1 para determinar cuál de los tres documentos de protección de datos se prepara.",
       "question": "¿Qué documento necesita?",
       "options": [
         {"id": "registro_actividades", "label": "Registro de actividades de tratamiento de la empresa"},
@@ -137,7 +137,7 @@ Invoca la herramienta con las preguntas de triaje:
     },
     {
       "id": "papel_entidad",
-      "rationale": "Resolver V2: responsable y encargado tienen obligaciones distintas y el contrato se redacta desde una posicion u otra.",
+      "rationale": "Resolver V2: responsable y encargado tienen obligaciones distintas y el contrato se redacta desde una posición u otra.",
       "question": "¿En esta relación su empresa decide para qué se usan los datos, o los trata por cuenta de otra empresa?",
       "options": [
         {"id": "responsable", "label": "Decide las finalidades (responsable del tratamiento)"},
@@ -146,7 +146,7 @@ Invoca la herramienta con las preguntas de triaje:
     },
     {
       "id": "nivel_riesgo",
-      "rationale": "Resolver V3 para advertir de la evaluacion de impacto y del delegado de proteccion de datos obligatorio.",
+      "rationale": "Resolver V3 para advertir de la evaluación de impacto y del delegado de protección de datos obligatorio.",
       "question": "¿Se tratan datos de salud, biométricos, ideológicos, de menores, o se elaboran perfiles con efectos relevantes?",
       "options": [
         {"id": "tratamiento_ordinario", "label": "No: datos identificativos, de contacto, laborales o de facturación"},

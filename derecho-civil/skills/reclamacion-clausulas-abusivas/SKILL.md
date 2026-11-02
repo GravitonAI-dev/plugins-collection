@@ -18,33 +18,33 @@ i18n:
       businesses with no consumer, for individually negotiated terms, or for claims outside
       consumer law.
 description: >
-  Genera escritos para reclamar la nulidad de clausulas abusivas en contratos con consumidores y la
-  restitucion de las cantidades indebidamente cobradas, conforme al **Texto Refundido de la Ley General
-  para la Defensa de los Consumidores y Usuarios (TRLGDCU, Real Decreto Legislativo 1/2007)**, que define los derechos basicos del consumidor y el control de las clausulas abusivas, la **Ley
-  7/1998 de Condiciones Generales de la Contratacion (LCGC)** y la **Directiva 93/13/CEE**, en su version
-  consolidada vigente verificada en el BOE. Produce, a eleccion del usuario, una RECLAMACION
-  EXTRAJUDICIAL a la entidad o empresa, o una DEMANDA de nulidad con restitucion de cantidades e
-  intereses. Cubre gastos de formalizacion de hipoteca, clausula suelo, IRPH, comision de apertura,
-  interes de demora, tarjeta revolving u otras condiciones no negociadas individualmente. NO usar para
-  contratos entre empresarios sin consumidor, para clausulas negociadas individualmente, ni para
+  Genera escritos para reclamar la nulidad de cláusulas abusivas en contratos con consumidores y la
+  restitución de las cantidades indebidamente cobradas, conforme al **Texto Refundido de la Ley General
+  para la Defensa de los Consumidores y Usuarios (TRLGDCU, Real Decreto Legislativo 1/2007)**, que define los derechos básicos del consumidor y el control de las cláusulas abusivas, la **Ley
+  7/1998 de Condiciones Generales de la Contratación (LCGC)** y la **Directiva 93/13/CEE**, en su versión
+  consolidada vigente verificada en el BOE. Produce, a elección del usuario, una RECLAMACIÓN
+  EXTRAJUDICIAL a la entidad o empresa, o una DEMANDA de nulidad con restitución de cantidades e
+  intereses. Cubre gastos de formalización de hipoteca, cláusula suelo, IRPH, comisión de apertura,
+  interés de demora, tarjeta revolving u otras condiciones no negociadas individualmente. NO usar para
+  contratos entre empresarios sin consumidor, para cláusulas negociadas individualmente, ni para
   reclamaciones ajenas al derecho de consumo.
 when_to_use: |
-  - El usuario es un consumidor (o su representante) que quiere impugnar una clausula predispuesta de un contrato de adhesion.
-  - El usuario quiere recuperar cantidades cobradas en virtud de una clausula que considera abusiva (gastos, comisiones, intereses).
-  - El usuario pide una reclamacion previa a la entidad/empresa o una demanda de nulidad de clausula abusiva con restitucion.
+  - El usuario es un consumidor (o su representante) que quiere impugnar una cláusula predispuesta de un contrato de adhesión.
+  - El usuario quiere recuperar cantidades cobradas en virtud de una cláusula que considera abusiva (gastos, comisiones, intereses).
+  - El usuario pide una reclamación previa a la entidad/empresa o una demanda de nulidad de cláusula abusiva con restitución.
 inputs:
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
-  - alcance: reclamacion extrajudicial / demanda de nulidad con restitucion
-  - tipo_clausula: gastos de formalizacion de hipoteca / clausula suelo / IRPH / comision de apertura / interes de demora / tarjeta revolving / otra
-  - naturaleza_reclamante: consumidor persona fisica (o representante legal)
+  - alcance: reclamación extrajudicial / demanda de nulidad con restitución
+  - tipo_clausula: gastos de formalización de hipoteca / cláusula suelo / IRPH / comisión de apertura / interés de demora / tarjeta revolving / otra
+  - naturaleza_reclamante: consumidor persona física (o representante legal)
   - datos_reclamante: nombre, NIF, domicilio a efectos de notificaciones
   - datos_predisponente: entidad o empresa (banco, financiera, prestador de servicios), CIF, domicilio
-  - datos_contrato: tipo de contrato, fecha, numero, notaria y protocolo si es escritura, y clausula concreta impugnada
-  - cantidades_reclamadas: importes cobrados en virtud de la clausula y su desglose documental
-  - comunidad_autonoma: para fuero y para servicios de consumo autonomicos
+  - datos_contrato: tipo de contrato, fecha, número, notaría y protocolo si es escritura, y cláusula concreta impugnada
+  - cantidades_reclamadas: importes cobrados en virtud de la cláusula y su desglose documental
+  - comunidad_autonoma: para fuero y para servicios de consumo autonómicos
 outputs:
-  - reclamacion_extrajudicial: opcional, escrito de reclamacion previa a la entidad o empresa en markdown, DRAFT
-  - demanda_nulidad: opcional, demanda de nulidad de clausula abusiva con restitucion de cantidades e intereses en markdown, DRAFT
+  - reclamacion_extrajudicial: opcional, escrito de reclamación previa a la entidad o empresa en markdown, DRAFT
+  - demanda_nulidad: opcional, demanda de nulidad de cláusula abusiva con restitución de cantidades e intereses en markdown, DRAFT
 references:
   - references/estilo-redaccion-escritos.md
   - references/fuentes-plantillas-validadas.md
@@ -56,7 +56,7 @@ assets:
   - assets/template-reclamacion-extrajudicial-clausula-abusiva.md
 ---
 
-# Reclamacion de Clausulas Abusivas en Contratos con Consumidores
+# Reclamación de Cláusulas Abusivas en Contratos con Consumidores
 
 > DRAFT — para revisión por un abogado colegiado antes de su firma. No constituye asesoramiento jurídico definitivo.
 
@@ -132,15 +132,15 @@ Invoca la herramienta con las opciones de triaje:
 - `V3` — `condicion_reclamante`
 
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
-Una vez resueltos los vectores, evalua en este orden:
+Una vez resueltos los vectores, evalúa en este orden:
 
-- Si **V3 = empresario_profesional o profesional** → **DETENER**. El control de contenido de las clausulas abusivas del texto refundido de la Ley General para la Defensa de los Consumidores y Usuarios exige la condicion de consumidor. Fuera de ella solo caben el control de incorporacion y el de transparencia de la Ley 7/1998 sobre condiciones generales de la contratacion, con un resultado muy distinto. Explicarlo, no dar falsas expectativas y escalar a letrado. No crear documento.
+- Si **V3 = empresario_profesional o profesional** → **DETENER**. El control de contenido de las cláusulas abusivas del texto refundido de la Ley General para la Defensa de los Consumidores y Usuarios exige la condición de consumidor. Fuera de ella solo caben el control de incorporación y el de transparencia de la Ley 7/1998 sobre condiciones generales de la contratación, con un resultado muy distinto. Explicarlo, no dar falsas expectativas y escalar a letrado. No crear documento.
 - Si **V3 = consumidor** y **V1 = extrajudicial** → **HOJA EXTRAJUDICIAL**: `assets/template-reclamacion-extrajudicial-clausula-abusiva.md`.
-- Si **V3 = consumidor** y **V1 = demanda_nulidad** → **HOJA DEMANDA**: `assets/template-demanda-nulidad-clausula-abusiva.md`. Si **no consta reclamacion previa a la entidad ni intento de un medio adecuado de solucion de controversias**, generar **ANTES** `assets/template-reclamacion-extrajudicial-clausula-abusiva.md`: es requisito de procedibilidad de la demanda (Arts. 264.4.º y 403.2 LEC) y su omision determina la inadmision. Advertir al cliente y ofrecer preparar la demanda despues.
-- V2 no elige asset: activa dentro de la hoja elegida el bloque de fundamentacion propio del tipo de clausula (gastos de constitucion de la hipoteca, clausula suelo, IRPH, comision de apertura, interes de demora o credito revolving).
-- Si **V2 = IRPH o revolving** → antes de fundamentar, **verificar con `web_search` la doctrina vigente** del Tribunal de Justicia de la Union Europea y del Tribunal Supremo: es materia en evolucion y una cita desactualizada compromete la reclamacion. No afirmar el sentido de ninguna resolucion que no se haya verificado en esta sesion.
-- Si la clausula fue objeto de un **acuerdo transaccional o novacion posterior** suscrito por el cliente → advertir de que su validez depende del control de transparencia de esa novacion y **escalar**: la viabilidad exige examinar el documento.
-- Si la pretension principal **no es la nulidad de una clausula** sino el cobro de una cantidad ya reconocida → **DETENER** y derivar a `reclamacion-cantidad`.
+- Si **V3 = consumidor** y **V1 = demanda_nulidad** → **HOJA DEMANDA**: `assets/template-demanda-nulidad-clausula-abusiva.md`. Si **no consta reclamación previa a la entidad ni intento de un medio adecuado de solución de controversias**, generar **ANTES** `assets/template-reclamacion-extrajudicial-clausula-abusiva.md`: es requisito de procedibilidad de la demanda (Arts. 264.4.º y 403.2 LEC) y su omisión determina la inadmisión. Advertir al cliente y ofrecer preparar la demanda después.
+- V2 no elige asset: activa dentro de la hoja elegida el bloque de fundamentación propio del tipo de cláusula (gastos de constitución de la hipoteca, cláusula suelo, IRPH, comisión de apertura, interés de demora o crédito revolving).
+- Si **V2 = IRPH o revolving** → antes de fundamentar, **verificar con `web_search` la doctrina vigente** del Tribunal de Justicia de la Unión Europea y del Tribunal Supremo: es materia en evolución y una cita desactualizada compromete la reclamación. No afirmar el sentido de ninguna resolución que no se haya verificado en esta sesión.
+- Si la cláusula fue objeto de un **acuerdo transaccional o novación posterior** suscrito por el cliente → advertir de que su validez depende del control de transparencia de esa novación y **escalar**: la viabilidad exige examinar el documento.
+- Si la pretensión principal **no es la nulidad de una cláusula** sino el cobro de una cantidad ya reconocida → **DETENER** y derivar a `reclamacion-cantidad`.
 
 ---
 
@@ -152,44 +152,44 @@ En esta fase compartes en el chat el plan de trabajo y marco legal, y consultas 
 Ejecuta esta secuencia completa; en esta materia la verificación no es opcional:
 
 
-La skill verifica las fuentes oficiales en cada lanzamiento y, si detecta una version posterior, aplica la redaccion vigente al documento que redacta en el workspace del usuario, sin modificar sus propios archivos de plugin. En esta materia, ademas, verifica la jurisprudencia reciente porque es determinante y cambia con frecuencia. Ejecutar SIEMPRE esta secuencia:
+La skill verifica las fuentes oficiales en cada lanzamiento y, si detecta una versión posterior, aplica la redacción vigente al documento que redacta en el workspace del usuario, sin modificar sus propios archivos de plugin. En esta materia, además, verifica la jurisprudencia reciente porque es determinante y cambia con frecuencia. Ejecutar SIEMPRE esta secuencia:
 
-- **Leer la fecha/version registrada localmente.** Consultar `references/fuentes-plantillas-validadas.md`, que llega cargada en tu contexto, y anotar la version y la fecha registradas de cada norma, para poder contrastarlas despues con la fuente oficial.
+- **Leer la fecha/versión registrada localmente.** Consultar `references/fuentes-plantillas-validadas.md`, que llega cargada en tu contexto, y anotar la versión y la fecha registradas de cada norma, para poder contrastarlas después con la fuente oficial.
 - **Consultar la fuente oficial vigente en vivo.** Invocar:
 ```
 web_search(...)
 ```
-Extraer: fecha del texto consolidado vigente del TRLGDCU; redaccion actual de los arts. 80 a 91 (control de incorporacion, concepto de clausula abusiva, nulidad y no integracion, lista de clausulas abusivas).
+Extraer: fecha del texto consolidado vigente del TRLGDCU; redacción actual de los arts. 80 a 91 (control de incorporación, concepto de cláusula abusiva, nulidad y no integración, lista de cláusulas abusivas).
 
-Consultar tambien la LCGC:
+Consultar también la LCGC:
 ```
 web_search(...)
 ```
-Extraer: redaccion vigente sobre control de incorporacion (Arts. 5 y 7), nulidad (Arts. 8 y 9), Registro de Condiciones Generales y accion de cesacion (Arts. 11 y 12).
+Extraer: redacción vigente sobre control de incorporación (Arts. 5 y 7), nulidad (Arts. 8 y 9), Registro de Condiciones Generales y acción de cesación (Arts. 11 y 12).
 
 Y la LEC para la demanda (competencia, procedimiento y control de oficio):
 ```
 web_search(...)
 ```
 
-- **Verificar la JURISPRUDENCIA RECIENTE del tipo de clausula (OBLIGATORIO en esta materia).** La doctrina del TJUE y del Tribunal Supremo cambia con frecuencia y determina el resultado. Antes de redactar, invocar web_search especifica para el tipo de clausula reclamado, por ejemplo:
+- **Verificar la JURISPRUDENCIA RECIENTE del tipo de cláusula (OBLIGATORIO en esta materia).** La doctrina del TJUE y del Tribunal Supremo cambia con frecuencia y determina el resultado. Antes de redactar, invocar web_search específica para el tipo de cláusula reclamado, por ejemplo:
 ```
-web_search("TJUE Tribunal Supremo clausula <tipo> jurisprudencia reciente <ano actual> nulidad restitucion")
+web_search("TJUE Tribunal Supremo cláusula <tipo> jurisprudencia reciente <año actual> nulidad restitución")
 ```
-Ejemplos de terminos por tipo: "gastos hipotecarios distribucion notaria registro gestoria", "clausula suelo transparencia retroactividad", "IRPH control transparencia", "comision de apertura", "interes de demora abusivo prestamo personal", "tarjeta revolving usura TAE". Anotar solo los criterios verificados; si una sentencia no se puede confirmar, no citarla y marcar `{{VERIFICAR}}`.
+Ejemplos de términos por tipo: "gastos hipotecarios distribución notaría registro gestoría", "cláusula suelo transparencia retroactividad", "IRPH control transparencia", "comisión de apertura", "interés de demora abusivo préstamo personal", "tarjeta revolving usura TAE". Anotar solo los criterios verificados; si una sentencia no se puede confirmar, no citarla y marcar `{{VERIFICAR}}`.
 
-- **Comparar y aplicar cambios.** Contrastar la version oficial y jurisprudencia con la registrada en `fuentes-plantillas-validadas.md` y con las referencias del prompt (`trlgdcu-clausulas-abusivas.md`, `lcgc-condiciones-generales.md`, `jurisprudencia-tjue-ts-clausulas.md`). Si hay modificaciones:
-- Aplicar en memoria la redaccion y doctrina vigente para adaptar la fundamentacion del escrito.
-- Informar brevemente al usuario de que se detecto y aplico una version o doctrina mas reciente (norma/sentencia y fecha).
+- **Comparar y aplicar cambios.** Contrastar la versión oficial y jurisprudencia con la registrada en `fuentes-plantillas-validadas.md` y con las referencias del prompt (`trlgdcu-clausulas-abusivas.md`, `lcgc-condiciones-generales.md`, `jurisprudencia-tjue-ts-clausulas.md`). Si hay modificaciones:
+- Aplicar en memoria la redacción y doctrina vigente para adaptar la fundamentación del escrito.
+- Informar brevemente al usuario de que se detectó y aplico una versión o doctrina más reciente (norma/sentencia y fecha).
 
-No redactar ningun documento hasta haber completado esta actualizacion. Nunca usar una version desactualizada.
+No redactar ningún documento hasta haber completado esta actualización. Nunca usar una versión desactualizada.
 
 - **Fallback si la fuente no es accesible.** Si `web_search` no devuelve la fuente oficial:
 ```
-web_search("texto refundido Ley General Defensa Consumidores Usuarios clausulas abusivas articulos 80 82 83 BOE consolidado")
+web_search("texto refundido Ley General Defensa Consumidores Usuarios cláusulas abusivas artículos 80 82 83 BOE consolidado")
 ```
-Si tambien falla: usar las references locales como respaldo y notificar al usuario:
-"No se pudo verificar la version vigente del TRLGDCU/LCGC en el BOE. El escrito se genera con la version de referencia y con la advertencia de jurisprudencia no verificada. Verificar manualmente antes de presentar."
+Si también falla: usar las references locales como respaldo y notificar al usuario:
+"No se pudo verificar la versión vigente del TRLGDCU/LCGC en el BOE. El escrito se genera con la versión de referencia y con la advertencia de jurisprudencia no verificada. Verificar manualmente antes de presentar."
 
 ### 2.2 Mensaje de Plan de Acción y Elección de Plantilla
 Envía un mensaje estructurado y formal que contenga:
@@ -197,7 +197,7 @@ Envía un mensaje estructurado y formal que contenga:
 2. **Orientación Legal del Caso:**
    Informa al usuario, en registro formal, de la norma y los artículos aplicables a la ruta resuelta, con la versión vigente verificada en la Fase 2.1 y el enlace de la fuente consultada.
 
-3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** (menciónala por su denominación formal, sin mostrar rutas internas ni volcar su contenido). Si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la seccion de assets.
+3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** (menciónala por su denominación formal, sin mostrar rutas internas ni volcar su contenido). Si el enrutamiento asigno varios documentos, nómbralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la sección de assets.
 4. **Elección de Plantilla Base:** Aplica el protocolo universal de `REG-AST-01` (`CLAUDE.md`), convocando en ese mismo turno el formulario interactivo `restricted_human_in_the_loop_request` para que el usuario elija entre la plantilla del sistema o aportar su propia minuta.
 
 ### 2.3 Manejo Determinista de la Elección
@@ -240,11 +240,11 @@ Aplica rigurosamente las directivas `REG-FDB-01` y `REG-CLO-01` de `CLAUDE.md`:
 
 ## Límites Legales y Guardrails de Dominio (Gobernados por Vectores)
 
-1. Verificar siempre el TRLGDCU, la LCGC y la LEC en el BOE antes de redactar. Sin verificacion, no proceder.
+1. Verificar siempre el TRLGDCU, la LCGC y la LEC en el BOE antes de redactar. Sin verificación, no proceder.
 2. Verificar siempre la versión consolidada vigente de la norma en el BOE antes de redactar. Si se detectan cambios normativos, aplicar la redacción vigente en el documento a generar en el workspace sin usar versiones desactualizadas.
-3. La materia se aplica SOLO a consumidores (Art. 3 TRLGDCU) frente a un predisponente (empresario) y SOLO a clausulas no negociadas individualmente (Art. 82). Si la clausula fue negociada, o ambas partes son empresarios, no procede esta via: advertir y ofrecer escalacion.
-4. La jurisprudencia del TJUE (Directiva 93/13/CEE) y del Tribunal Supremo en esta materia es CAMBIANTE y decisiva. Antes de redactar, verificar SIEMPRE con web_search la jurisprudencia reciente del tipo de clausula reclamado (ver la Fase 2.1). No citar ninguna sentencia sin haberla verificado en esa consulta.
-5. Posicion conservadora: no afirmar que una clausula es nula con caracter automatico o generalizado. La abusividad exige el control de incorporacion y de transparencia caso por caso (Arts. 80, 82, 83 TRLGDCU; Directiva 93/13). Presentar la pretension de nulidad como fundada, no como cosa juzgada.
-6. Nunca inventar sentencias, numeros de resolucion, fechas ni doctrina. Marcar con `{{VERIFICAR}}` (doble llave, nunca corchete simple `[verificar]`: colisiona con los identificadores de privacidad `[PERSON_1]`) todo claim factual o jurisprudencial no confirmado en la Fase 1.
-7. Los campos a rellenar usan el placeholder propio del asset en doble llave, p. ej. `{{CUANTIA_RECLAMADA}}` (NUNCA corchete simple `[DATO]`). Si hace falta marcar un hueco suelto sin placeholder propio, usa `{{DATO_FALTANTE}}` una sola vez por documento: nunca lo repitas para dos datos distintos, porque el `edit_file` posterior necesita un `oldString` unico. Nunca inventar datos, cuantias, fechas ni numeros de contrato.
-8. La accion de nulidad de clausula abusiva es imprescriptible; la accion de restitucion tiene su propio regimen de prescripcion segun la jurisprudencia vigente (verificar en la Fase 1). No afirmar plazos de restitucion sin verificar.
+3. La materia se aplica SOLO a consumidores (Art. 3 TRLGDCU) frente a un predisponente (empresario) y SOLO a cláusulas no negociadas individualmente (Art. 82). Si la cláusula fue negociada, o ambas partes son empresarios, no procede esta vía: advertir y ofrecer escalación.
+4. La jurisprudencia del TJUE (Directiva 93/13/CEE) y del Tribunal Supremo en esta materia es CAMBIANTE y decisiva. Antes de redactar, verificar SIEMPRE con web_search la jurisprudencia reciente del tipo de cláusula reclamado (ver la Fase 2.1). No citar ninguna sentencia sin haberla verificado en esa consulta.
+5. Posición conservadora: no afirmar que una cláusula es nula con carácter automático o generalizado. La abusividad exige el control de incorporación y de transparencia caso por caso (Arts. 80, 82, 83 TRLGDCU; Directiva 93/13). Presentar la pretensión de nulidad como fundada, no como cosa juzgada.
+6. Nunca inventar sentencias, números de resolución, fechas ni doctrina. Marcar con `{{VERIFICAR}}` (doble llave, nunca corchete simple `[verificar]`: colisiona con los identificadores de privacidad `[PERSON_1]`) todo claim factual o jurisprudencial no confirmado en la Fase 1.
+7. Los campos a rellenar usan el placeholder propio del asset en doble llave, p. ej. `{{CUANTIA_RECLAMADA}}` (NUNCA corchete simple `[DATO]`). Si hace falta marcar un hueco suelto sin placeholder propio, usa `{{DATO_FALTANTE}}` una sola vez por documento: nunca lo repitas para dos datos distintos, porque el `edit_file` posterior necesita un `oldString` único. Nunca inventar datos, cuantías, fechas ni números de contrato.
+8. La acción de nulidad de cláusula abusiva es imprescriptible; la acción de restitución tiene su propio régimen de prescripción según la jurisprudencia vigente (verificar en la Fase 1). No afirmar plazos de restitución sin verificar.

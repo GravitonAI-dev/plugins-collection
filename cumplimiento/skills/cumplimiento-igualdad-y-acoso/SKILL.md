@@ -21,59 +21,59 @@ i18n:
       proceedings, or for defence before the labour inspectorate or against a discrimination
       claim.
 description: >
-  Prepara la documentacion de igualdad y prevencion del acoso que la ley exige a una empresa conforme
-  a la **Ley Organica 3/2007** para la igualdad efectiva de mujeres y hombres, que obliga a toda
-  empresa a adoptar medidas frente al acoso sexual y por razon de sexo y a las de cincuenta o mas
+  Prepara la documentación de igualdad y prevención del acoso que la ley exige a una empresa conforme
+  a la **Ley Orgánica 3/2007** para la igualdad efectiva de mujeres y hombres, que obliga a toda
+  empresa a adoptar medidas frente al acoso sexual y por razón de sexo y a las de cincuenta o más
   personas trabajadoras a tener plan de igualdad, y a su desarrollo reglamentario en materia de planes
   de igualdad y de igualdad retributiva, que impone el registro retributivo a todas las empresas y la
-  auditoria retributiva a las que tienen plan.
+  auditoría retributiva a las que tienen plan.
 
 
-  Genera tres documentos: el protocolo de prevencion y actuacion frente al acoso sexual, por razon de
-  sexo y por razon de orientacion e identidad, el plan de igualdad con su diagnostico y su comision
-  negociadora, y el registro retributivo con la estructura de la auditoria retributiva.
+  Genera tres documentos: el protocolo de prevención y actuación frente al acoso sexual, por razón de
+  sexo y por razón de orientación e identidad, el plan de igualdad con su diagnóstico y su comisión
+  negociadora, y el registro retributivo con la estructura de la auditoría retributiva.
 
 
-  Comprueba que obligaciones son exigibles segun la plantilla (el protocolo de acoso y el registro
-  retributivo lo son sin umbral; el plan de igualdad y la auditoria retributiva a partir de cincuenta
-  personas), articula la negociacion con la representacion legal, advierte del plazo de vigencia y de
-  la inscripcion registral del plan, y del deber de actuacion inmediata del empresario ante una
+  Comprueba qué obligaciones son exigibles según la plantilla (el protocolo de acoso y el registro
+  retributivo lo son sin umbral; el plan de igualdad y la auditoría retributiva a partir de cincuenta
+  personas), articula la negociación con la representación legal, advierte del plazo de vigencia y de
+  la inscripción registral del plan, y del deber de actuación inmediata del empresario ante una
   denuncia.
 
 
-  NO usar cuando exista un caso de acoso actual o una denuncia ya presentada, que exige actuacion
-  inmediata y direccion letrada, ni para expedientes disciplinarios, ni para la defensa ante la
-  inspeccion de trabajo o ante una demanda por discriminacion.
+  NO usar cuando exista un caso de acoso actual o una denuncia ya presentada, que exige actuación
+  inmediata y dirección letrada, ni para expedientes disciplinarios, ni para la defensa ante la
+  inspección de trabajo o ante una demanda por discriminación.
 
 
   Normas aplicadas, en su texto consolidado en el BOE:
-  [Ley Organica 3/2007 para la igualdad efectiva de mujeres y hombres](https://www.boe.es/buscar/act.php?id=BOE-A-2007-6115).
+  [Ley Orgánica 3/2007 para la igualdad efectiva de mujeres y hombres](https://www.boe.es/buscar/act.php?id=BOE-A-2007-6115).
 when_to_use: |
   - La empresa no tiene protocolo de acoso y quiere implantarlo.
   - La empresa ha alcanzado cincuenta personas trabajadoras y debe negociar un plan de igualdad.
-  - La empresa necesita el registro retributivo o la auditoria retributiva.
-  - El usuario pregunta que obligaciones de igualdad tiene segun el tamano de su plantilla.
-  - El usuario pregunta como se calcula la brecha salarial y cuando hay que justificarla.
+  - La empresa necesita el registro retributivo o la auditoría retributiva.
+  - El usuario pregunta qué obligaciones de igualdad tiene según el tamaño de su plantilla.
+  - El usuario pregunta cómo se calcula la brecha salarial y cuando hay que justificarla.
   - El usuario pregunta si debe tener medidas y protocolo frente al acoso de personas LGTBI.
 inputs:
   - documento: protocolo de acoso / plan de igualdad / registro retributivo (V1)
-  - plantilla: menos de cincuenta personas / cincuenta o mas personas (V2)
-  - representacion_legal: con representacion legal / sin representacion legal (V3)
+  - plantilla: menos de cincuenta personas / cincuenta o más personas (V2)
+  - representacion_legal: con representación legal / sin representación legal (V3)
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
-  - datos_entidad: razon social, CIF, domicilio, actividad, convenio colectivo aplicable y centros de trabajo
-  - datos_plantilla: numero de personas trabajadoras por sexo, grupo profesional, puesto y tipo de contrato
-  - representacion: composicion de la representacion legal y sindicatos con legitimacion
+  - datos_entidad: razón social, CIF, domicilio, actividad, convenio colectivo aplicable y centros de trabajo
+  - datos_plantilla: número de personas trabajadoras por sexo, grupo profesional, puesto y tipo de contrato
+  - representacion: composición de la representación legal y sindicatos con legitimación
   - datos_retributivos: retribuciones por grupo, puesto y sexo, con salario base, complementos y percepciones extrasalariales
-  - sistema_valoracion: sistema de valoracion de puestos de trabajo utilizado o previsto
-  - responsables_protocolo: personas o comision instructora del protocolo y sus suplentes
-  - canales_denuncia: canales de comunicacion de situaciones de acoso y su acceso
-  - medidas_prevencion: acciones de formacion, informacion y evaluacion de riesgos psicosociales
-  - vigencia_y_seguimiento: vigencia prevista, comision de seguimiento y periodicidad de evaluacion
+  - sistema_valoracion: sistema de valoración de puestos de trabajo utilizado o previsto
+  - responsables_protocolo: personas o comisión instructora del protocolo y sus suplentes
+  - canales_denuncia: canales de comunicación de situaciones de acoso y su acceso
+  - medidas_prevencion: acciones de formación, información y evaluación de riesgos psicosociales
+  - vigencia_y_seguimiento: vigencia prevista, comisión de seguimiento y periodicidad de evaluación
 outputs:
-  - protocolo_acoso: protocolo de prevencion y actuacion frente al acoso, DRAFT
-  - plan_igualdad: plan de igualdad con diagnostico, medidas e indicadores, DRAFT
-  - registro_retributivo: registro retributivo y estructura de la auditoria retributiva, DRAFT
-  - checklist_obligaciones: obligaciones exigibles segun plantilla, con plazos, negociacion y registro
+  - protocolo_acoso: protocolo de prevención y actuación frente al acoso, DRAFT
+  - plan_igualdad: plan de igualdad con diagnóstico, medidas e indicadores, DRAFT
+  - registro_retributivo: registro retributivo y estructura de la auditoría retributiva, DRAFT
+  - checklist_obligaciones: obligaciones exigibles según plantilla, con plazos, negociación y registro
 references:
   - references/igualdad-plan-protocolo-y-umbrales.md
   - references/registro-y-auditoria-retributiva.md
@@ -124,7 +124,7 @@ Invoca la herramienta con las preguntas de triaje:
   "form_data": [
     {
       "id": "documento",
-      "rationale": "Resolver V1 para determinar cual de los tres documentos de igualdad se prepara.",
+      "rationale": "Resolver V1 para determinar cuál de los tres documentos de igualdad se prepara.",
       "question": "¿Qué documento necesita?",
       "options": [
         {"id": "protocolo_acoso", "label": "Protocolo de prevención y actuación frente al acoso"},
@@ -135,7 +135,7 @@ Invoca la herramienta con las preguntas de triaje:
     },
     {
       "id": "plantilla",
-      "rationale": "Resolver V2: el plan de igualdad y la auditoria retributiva se exigen a partir de cincuenta personas trabajadoras.",
+      "rationale": "Resolver V2: el plan de igualdad y la auditoría retributiva se exigen a partir de cincuenta personas trabajadoras.",
       "question": "¿Cuántas personas trabajadoras tiene la empresa, contando todos sus centros de trabajo?",
       "options": [
         {"id": "menos_de_cincuenta", "label": "Menos de cincuenta"},
@@ -144,7 +144,7 @@ Invoca la herramienta con las preguntas de triaje:
     },
     {
       "id": "representacion_legal",
-      "rationale": "Resolver V3: la negociacion del plan y del protocolo cambia segun exista o no representacion legal.",
+      "rationale": "Resolver V3: la negociación del plan y del protocolo cambia según exista o no representación legal.",
       "question": "¿Existe representación legal de las personas trabajadoras (delegados de personal o comité de empresa)?",
       "options": [
         {"id": "con_representacion", "label": "Sí, hay representación legal"},

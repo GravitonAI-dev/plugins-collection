@@ -149,7 +149,7 @@ Si el usuario ya ha identificado inequívocamente el documento, la causa extinti
 * **Si `[V1 = acuerdo_mutuo_acuerdo]` → Plantilla: `assets/template-acuerdo-extincion-mutuo-acuerdo.md`.** **Advertencia obligatoria en el chat:** la extinción por mutuo acuerdo **no da derecho a la prestación por desempleo**, porque no constituye situación legal de desempleo. Si lo que las partes quieren es documentar un despido con indemnización pactada, el documento correcto es otro y el cauce habitual es el acuerdo en conciliación. Explícalo antes de continuar y confirma con el usuario.
 * **Si `[V1 = baja_voluntaria]` → Plantilla: `assets/template-carta-baja-voluntaria.md`.** **Advertencia obligatoria:** la baja voluntaria no genera indemnización ni derecho a prestación por desempleo, y el incumplimiento del preaviso del convenio faculta a la empresa para descontar del finiquito los días no preavisados.
 * **Si `[V4 = trabajador]` → Enfoque de revisión.** Antes de redactar nada, si el trabajador ya ha recibido un finiquito, ofrece revisarlo concepto a concepto y advierte de que **no debe firmarlo sin la salvedad "no conforme"** si discrepa de algún importe o si no ha podido comprobarlo.
-- `V2` no elige plantilla: determina que conceptos integran la liquidacion, si procede indemnizacion y si se hace constar la situacion legal de desempleo.
+- `V2` no elige plantilla: determina qué conceptos integran la liquidación, si procede indemnización y si se hace constar la situación legal de desempleo.
 
 ---
 
@@ -166,7 +166,7 @@ En esta fase compartes en el chat el plan de trabajo y marco legal, y consultas 
 Envía un mensaje formal que contenga:
 1. **Conceptos que integrarán la liquidación** según la causa extintiva y el convenio, enumerados.
 2. **Advertencias específicas de la causa:** derecho o no a indemnización, derecho o no a prestación por desempleo, y preaviso exigible.
-3. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Menciónala por su denominación formal (sin mostrar rutas internas ni volcar su contenido); si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
+3. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Menciónala por su denominación formal (sin mostrar rutas internas ni volcar su contenido); si el enrutamiento asigno varios documentos, nómbralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
 4. **Elección de Plantilla Base:** Aplica el protocolo universal de `REG-AST-01` (`CLAUDE.md`), convocando en ese mismo turno el formulario interactivo `restricted_human_in_the_loop_request` para que el usuario elija entre la plantilla del sistema o aportar su propia minuta.
 
 ### 2.3 Manejo Determinista de la Elección

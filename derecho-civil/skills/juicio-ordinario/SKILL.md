@@ -19,40 +19,40 @@ i18n:
       or for drafting the defendant's answer, counterclaim or appeals.
 description: >
   Prepara de principio a fin un juicio ordinario civil conforme a la **Ley 1/2000 de Enjuiciamiento Civil (LEC)**, que regula el procedimiento declarativo ordinario desde la demanda hasta la sentencia,
-  en su version consolidada vigente verificada en el BOE. Cubre el ciclo completo por fases y genera el
-  documento de cada una: intake del caso, comprobacion de admisibilidad (ambito del Art. 249, cuantia,
-  competencia, postulacion de abogado y procurador, y requisito de MASC de la LO 1/2025), demanda del
-  Art. 399 con sus documentos, guion de la audiencia previa (Arts. 414-430), proposicion de prueba
+  en su versión consolidada vigente verificada en el BOE. Cubre el ciclo completo por fases y genera el
+  documento de cada una: intake del caso, comprobación de admisibilidad (ámbito del Art. 249, cuantía,
+  competencia, postulación de abogado y procurador, y requisito de MASC de la LO 1/2025), demanda del
+  Art. 399 con sus documentos, guion de la audiencia previa (Arts. 414-430), proposición de prueba
   (Art. 429 y 281-386) y minuta de conclusiones (Art. 433). NO usar para asuntos atribuidos al juicio
-  verbal por la materia o por cuantia igual o inferior a 15.000 euros, para procesos especiales
-  (familia, sucesiones contenciosas, division de patrimonios, monitorio, cambiario), ni para redactar
-  la contestacion, la reconvencion o los recursos del demandado.
+  verbal por la materia o por cuantía igual o inferior a 15.000 euros, para procesos especiales
+  (familia, sucesiones contenciosas, división de patrimonios, monitorio, cambiario), ni para redactar
+  la contestación, la reconvención o los recursos del demandado.
 when_to_use: |
-  - El usuario quiere demandar en un juicio ordinario civil (cuantia superior a 15.000 euros o materia del Art. 249.1).
+  - El usuario quiere demandar en un juicio ordinario civil (cuantía superior a 15.000 euros o materia del Art. 249.1).
   - El usuario necesita determinar si su asunto se tramita por juicio ordinario y preparar la demanda.
-  - El usuario esta en un juicio ordinario ya iniciado y necesita el guion de la audiencia previa, la proposicion de prueba o las conclusiones.
+  - El usuario está en un juicio ordinario ya iniciado y necesita el guion de la audiencia previa, la proposición de prueba o las conclusiones.
   - El usuario pide una demanda de juicio ordinario del Art. 399 LEC con sus documentos.
 inputs:
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - fase: intake / admisibilidad / demanda / audiencia-previa / proposicion-prueba / conclusiones (o ciclo completo)
-  - materia: descripcion de la pretension y de la accion que se ejercita
-  - via_ordinario: por la materia (Art. 249.1) / por la cuantia (Art. 249.2, superior a 15.000 euros)
-  - naturaleza_actor: persona fisica o persona juridica
-  - datos_actor: nombre o razon social, NIF o CIF, domicilio a efectos de notificaciones
-  - naturaleza_demandado: persona fisica o persona juridica
-  - datos_demandado: nombre o razon social, NIF o CIF, domicilio donde pueda ser emplazado
-  - hechos: relato ordenado de los hechos en que se funda la pretension
-  - cuantia: interes economico de la demanda y su justificacion (Arts. 251-253)
-  - documentos: documentos fundamentales de la accion y dictamenes periciales disponibles (Arts. 265, 336)
+  - materia: descripción de la pretensión y de la acción que se ejercita
+  - via_ordinario: por la materia (Art. 249.1) / por la cuantía (Art. 249.2, superior a 15.000 euros)
+  - naturaleza_actor: persona física o persona jurídica
+  - datos_actor: nombre o razón social, NIF o CIF, domicilio a efectos de notificaciones
+  - naturaleza_demandado: persona física o persona jurídica
+  - datos_demandado: nombre o razón social, NIF o CIF, domicilio donde pueda ser emplazado
+  - hechos: relato ordenado de los hechos en que se funda la pretensión
+  - cuantia: interés económico de la demanda y su justificación (Arts. 251-253)
+  - documentos: documentos fundamentales de la acción y dictámenes periciales disponibles (Arts. 265, 336)
   - partido_judicial: fuero aplicable (domicilio del demandado, lugar del inmueble, domicilio del consumidor, etc.)
   - postulacion: datos del procurador y del abogado (preceptivos, Arts. 23 y 31)
-  - masc_intentado: si se ha intentado un medio adecuado de solucion de controversias (si / no)
+  - masc_intentado: si se ha intentado un medio adecuado de solución de controversias (sí / no)
   - hechos_controvertidos: solo para audiencia previa, prueba y conclusiones; hechos discutidos por el demandado
 outputs:
-  - checklist_admisibilidad: comprobacion de ambito, cuantia, competencia, postulacion y MASC, en markdown, DRAFT
+  - checklist_admisibilidad: comprobación de ámbito, cuantía, competencia, postulación y MASC, en markdown, DRAFT
   - demanda_juicio_ordinario: demanda del Art. 399 LEC en markdown, DRAFT
-  - guion_audiencia_previa: guion / escrito de preparacion de la audiencia previa en markdown, DRAFT
-  - proposicion_prueba: proposicion de prueba ordenada por medios en markdown, DRAFT
+  - guion_audiencia_previa: guion / escrito de preparación de la audiencia previa en markdown, DRAFT
+  - proposicion_prueba: proposición de prueba ordenada por medios en markdown, DRAFT
   - escrito_conclusiones: minuta de conclusiones (Art. 433) en markdown, DRAFT
 references:
   - references/admisibilidad-competencia-postulacion-masc.md
@@ -145,31 +145,31 @@ Invoca la herramienta con las opciones de triaje:
 - `V3` — `naturaleza_actor`
 
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
-Una vez resueltos los vectores, asigna la plantilla segun **V1**:
+Una vez resueltos los vectores, asigna la plantilla según **V1**:
 
 - **V1 = admisibilidad** → `assets/template-checklist-admisibilidad.md`.
 - **V1 = demanda** → `assets/template-demanda-juicio-ordinario.md`.
 - **V1 = audiencia previa** → `assets/template-guion-audiencia-previa.md`.
 - **V1 = proposicion_prueba** → `assets/template-proposicion-de-prueba.md`.
 - **V1 = conclusiones** → `assets/template-escrito-de-conclusiones.md`.
-- **V1 = ciclo completo** → los cinco assets, **un documento por etapa procesal y en este orden**: comprobacion de admisibilidad, demanda, guion de la audiencia previa, proposicion de prueba y escrito de conclusiones. No se redacta la etapa siguiente hasta cerrar la anterior, y los datos ya recogidos no se vuelven a preguntar.
-- V2 no elige asset: determina la justificacion de la clase de juicio y la expresion de la cuantia dentro del documento elegido.
-- V3 no elige asset: determina la variante del encabezamiento de comparecencia y la acreditacion de la representacion.
+- **V1 = ciclo completo** → los cinco assets, **un documento por etapa procesal y en este orden**: comprobación de admisibilidad, demanda, guion de la audiencia previa, proposición de prueba y escrito de conclusiones. No se redacta la etapa siguiente hasta cerrar la anterior, y los datos ya recogidos no se vuelven a preguntar.
+- V2 no elige asset: determina la justificación de la clase de juicio y la expresión de la cuantía dentro del documento elegido.
+- V3 no elige asset: determina la variante del encabezamiento de comparecencia y la acreditación de la representación.
 
-Antes de redactar la demanda, completar la comprobacion de admisibilidad (asset `assets/template-checklist-admisibilidad.md`) validando:
+Antes de redactar la demanda, completar la comprobación de admisibilidad (asset `assets/template-checklist-admisibilidad.md`) validando:
 
-a) **Clase de juicio (Art. 249):** confirmar que procede el ordinario, por la materia (Art. 249.1) o por cuantia superior a 15.000 euros o interes incalculable (Art. 249.2). Si corresponde al verbal, no procede esta skill: advertir y derivar (para reclamaciones de renta o desahucio, derivar a `desahucio`; para deuda dineraria liquida por monitorio, a `monitorio`).
+a) **Clase de juicio (Art. 249):** confirmar que procede el ordinario, por la materia (Art. 249.1) o por cuantía superior a 15.000 euros o interés incalculable (Art. 249.2). Si corresponde al verbal, no procede esta skill: advertir y derivar (para reclamaciones de renta o desahucio, derivar a `desahucio`; para deuda dineraria líquida por monitorio, a `monitorio`).
 
-b) **Determinacion de la cuantia (Arts. 251-253):** fijar el interes economico y justificarlo. La cuantia se expresa en la demanda (Art. 253).
+b) **Determinación de la cuantía (Arts. 251-253):** fijar el interés económico y justificarlo. La cuantía se expresa en la demanda (Art. 253).
 
-c) **Competencia (Arts. 45, 50-52):** identificar el organo (Juzgado de Primera Instancia o, en su caso, de lo Mercantil) y el fuero territorial. Advertir de los fueros imperativos (inmuebles, consumidores) donde no cabe sumision.
+c) **Competencia (Arts. 45, 50-52):** identificar el órgano (Juzgado de Primera Instancia o, en su caso, de lo Mercantil) y el fuero territorial. Advertir de los fueros imperativos (inmuebles, consumidores) donde no cabe sumisión.
 
-d) **Postulacion (Arts. 23 y 31):** confirmar que se cuenta con procurador y abogado. Sin ellos, no puede seguirse el ordinario.
+d) **Postulación (Arts. 23 y 31):** confirmar que se cuenta con procurador y abogado. Sin ellos, no puede seguirse el ordinario.
 
-e) **MASC (Art. 403.2, 264.4, 399.3 — LO 1/2025):** confirmar el intento previo o la concurrencia de una excepcion. Por defecto conservador, recomendar acreditar el intento previo para evitar la inadmision.
+e) **MASC (Art. 403.2, 264.4, 399.3 — LO 1/2025):** confirmar el intento previo o la concurrencia de una excepción. Por defecto conservador, recomendar acreditar el intento previo para evitar la inadmisión.
 
-f) **Documentos (Arts. 264-266, 336) y preclusion (Art. 269):** verificar que se dispone de los documentos fundamentales y de los dictamenes periciales para acompanarlos con la demanda.
-- **Requisito de procedibilidad (Ley Organica 1/2025).** Si el intento previo de un medio adecuado de solucion de controversias no esta acreditado y esta skill no genera por si misma el documento que lo acredita, **deriva a `masc-acuerdos`**, que produce el requerimiento de negociacion, el acta del intento, la oferta vinculante, el acuerdo transaccional y la declaracion responsable de imposibilidad. Ofrece encadenar con ella antes de continuar, y advierte de que sin ese documento la demanda no se admite a tramite.
+f) **Documentos (Arts. 264-266, 336) y preclusion (Art. 269):** verificar que se dispone de los documentos fundamentales y de los dictámenes periciales para acompañarlos con la demanda.
+- **Requisito de procedibilidad (Ley Orgánica 1/2025).** Si el intento previo de un medio adecuado de solución de controversias no está acreditado y esta skill no genera por sí misma el documento que lo acredita, **deriva a `masc-acuerdos`**, que produce el requerimiento de negociación, el acta del intento, la oferta vinculante, el acuerdo transaccional y la declaración responsable de imposibilidad. Ofrece encadenar con ella antes de continuar, y advierte de que sin ese documento la demanda no se admite a trámite.
 
 ---
 
@@ -181,38 +181,38 @@ En esta fase compartes en el chat el plan de trabajo y marco legal, y consultas 
 Ejecuta esta secuencia completa; en esta materia la verificación no es opcional:
 
 
-La skill verifica las fuentes oficiales en cada lanzamiento y, si detecta una version posterior, aplica la redaccion vigente al documento que redacta en el workspace del usuario, sin modificar sus propios archivos de plugin. Ejecutar SIEMPRE esta secuencia:
+La skill verifica las fuentes oficiales en cada lanzamiento y, si detecta una versión posterior, aplica la redacción vigente al documento que redacta en el workspace del usuario, sin modificar sus propios archivos de plugin. Ejecutar SIEMPRE esta secuencia:
 
-- **Leer la fecha/version registrada localmente.** Consultar `references/fuentes-plantillas-validadas.md`, que llega cargada en tu contexto, y anotar la version y la fecha registradas de cada norma, para poder contrastarlas despues con la fuente oficial.
+- **Leer la fecha/versión registrada localmente.** Consultar `references/fuentes-plantillas-validadas.md`, que llega cargada en tu contexto, y anotar la versión y la fecha registradas de cada norma, para poder contrastarlas después con la fuente oficial.
 - **Consultar la fuente oficial vigente en vivo.** Invocar:
 ```
 web_search(...)
 ```
-Extraer: fecha del texto consolidado vigente de la LEC; redaccion actual de los arts. 248-255 (ambito y cuantia), 23 y 31 (postulacion), 45 y 50-52 (competencia), 399 y 264-266, 269-270, 336 (demanda y documentos), 414-430 (audiencia previa), 217 y 281-386, 429 (prueba) y 433 (conclusiones); el umbral vigente de cuantia entre juicio verbal y ordinario; y el estado de aplicacion de la LO 1/2025 (BOE-A-2025-76) sobre el requisito de MASC (arts. 403.2, 264.4 y 399.3).
+Extraer: fecha del texto consolidado vigente de la LEC; redacción actual de los arts. 248-255 (ámbito y cuantía), 23 y 31 (postulación), 45 y 50-52 (competencia), 399 y 264-266, 269-270, 336 (demanda y documentos), 414-430 (audiencia previa), 217 y 281-386, 429 (prueba) y 433 (conclusiones); el umbral vigente de cuantía entre juicio verbal y ordinario; y el estado de aplicación de la LO 1/2025 (BOE-A-2025-76) sobre el requisito de MASC (arts. 403.2, 264.4 y 399.3).
 
-Consultar tambien sobre MASC:
+Consultar también sobre MASC:
 ```
-web_search("BOE-A-2025-76 LO 1/2025 MASC requisito procedibilidad articulo 403 264 399 LEC texto consolidado")
+web_search("BOE-A-2025-76 LO 1/2025 MASC requisito procedibilidad artículo 403 264 399 LEC texto consolidado")
 ```
 
-- **Comparar.** Contrastar la version oficial con la registrada en `fuentes-plantillas-validadas.md` y con las referencias del prompt (`lec-ambito-y-cuantia.md`, `admisibilidad-competencia-postulacion-masc.md`, `lec-demanda-y-documentos.md`, `lec-audiencia-previa.md`, `lec-prueba-y-conclusiones.md`). Prestar especial atencion al umbral de cuantia del Art. 249.2 y al requisito de MASC.
+- **Comparar.** Contrastar la versión oficial con la registrada en `fuentes-plantillas-validadas.md` y con las referencias del prompt (`lec-ambito-y-cuantia.md`, `admisibilidad-competencia-postulacion-masc.md`, `lec-demanda-y-documentos.md`, `lec-audiencia-previa.md`, `lec-prueba-y-conclusiones.md`). Prestar especial atención al umbral de cuantía del Art. 249.2 y al requisito de MASC.
 
-- **Aplicar cambios normativos.** Si la version oficial es posterior o el texto de los articulos ha cambiado:
-- Aplicar en memoria la redaccion vigente para adaptar los tramites, fases procesales y fundamentacion de los escritos.
-- Informar brevemente al usuario de que se detecto y aplico una version mas reciente (norma y fecha).
+- **Aplicar cambios normativos.** Si la versión oficial es posterior o el texto de los artículos ha cambiado:
+- Aplicar en memoria la redacción vigente para adaptar los trámites, fases procesales y fundamentación de los escritos.
+- Informar brevemente al usuario de que se detectó y aplico una versión más reciente (norma y fecha).
 
-No redactar ningun documento hasta haber completado esta actualizacion. Nunca usar una version desactualizada.
+No redactar ningún documento hasta haber completado esta actualización. Nunca usar una versión desactualizada.
 
 - **Fallback si la fuente no es accesible.** Si `web_search` no devuelve la fuente oficial:
 ```
-web_search("Ley Enjuiciamiento Civil juicio ordinario articulo 249 399 audiencia previa 414 texto consolidado BOE")
+web_search("Ley Enjuiciamiento Civil juicio ordinario artículo 249 399 audiencia previa 414 texto consolidado BOE")
 ```
 y
 ```
-web_search("LO 1/2025 MASC requisito procedibilidad articulo 403 264 399 LEC texto consolidado")
+web_search("LO 1/2025 MASC requisito procedibilidad artículo 403 264 399 LEC texto consolidado")
 ```
-Si tambien falla: usar las references locales como respaldo y notificar al usuario:
-"No se pudo verificar la version vigente de la LEC en el BOE. Los documentos se generan con la version de referencia. Verificar manualmente antes de presentar."
+Si también falla: usar las references locales como respaldo y notificar al usuario:
+"No se pudo verificar la versión vigente de la LEC en el BOE. Los documentos se generan con la versión de referencia. Verificar manualmente antes de presentar."
 
 ### 2.2 Mensaje de Plan de Acción y Elección de Plantilla
 Envía un mensaje estructurado y formal que contenga:
@@ -220,7 +220,7 @@ Envía un mensaje estructurado y formal que contenga:
 2. **Orientación Legal del Caso:**
    Informa al usuario, en registro formal, de la norma y los artículos aplicables a la ruta resuelta, con la versión vigente verificada en la Fase 2.1 y el enlace de la fuente consultada.
 
-3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** (menciónala por su denominación formal, sin mostrar rutas internas ni volcar su contenido). Si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la seccion de assets.
+3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** (menciónala por su denominación formal, sin mostrar rutas internas ni volcar su contenido). Si el enrutamiento asigno varios documentos, nómbralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la sección de assets.
 4. **Elección de Plantilla Base:** Aplica el protocolo universal de `REG-AST-01` (`CLAUDE.md`), convocando en ese mismo turno el formulario interactivo `restricted_human_in_the_loop_request` para que el usuario elija entre la plantilla del sistema o aportar su propia minuta.
 
 ### 2.3 Manejo Determinista de la Elección
@@ -267,12 +267,12 @@ Aplica rigurosamente las directivas `REG-FDB-01` y `REG-CLO-01` de `CLAUDE.md`:
 
 ## Límites Legales y Guardrails de Dominio (Gobernados por Vectores)
 
-1. Verificar siempre la LEC en el BOE antes de redactar. Sin verificacion, no proceder.
-2. Si se detecta en el BOE una version de la LEC posterior a la registrada en las references, aplicar la redacción vigente directamente sobre el documento a redactar en el workspace del usuario. No usar una version desactualizada. El umbral de cuantia (15.000 euros desde el 20/03/2024, RDL 6/2023) y el requisito de MASC (LO 1/2025) han cambiado recientemente: confirmar siempre la redaccion vigente.
-3. Determinar correctamente la clase de juicio: procede el ordinario por la materia (Art. 249.1) o por cuantia superior a 15.000 euros o de interes incalculable (Art. 249.2). Si el asunto corresponde al juicio verbal (materia del Art. 250.1 o cuantia igual o inferior a 15.000 euros), no usar esta skill: advertir y derivar.
-4. Postulacion preceptiva: en el juicio ordinario son obligatorios abogado y procurador (Arts. 23 y 31). Nunca redactar la demanda como si pudiera presentarse sin ellos.
-5. Competencia: identificar el fuero aplicable (Arts. 45, 50-52). No admitir sumision en fueros imperativos (inmuebles, consumidores). Marcar la jurisdiccion asumida.
-6. Posicion conservadora sobre el MASC: la LO 1/2025 exige acreditar el intento previo de un medio adecuado de solucion de controversias como requisito de procedibilidad (Art. 403.2 LEC). Ante la duda, recomendar e integrar el intento previo y advertir de la cuestion (riesgo de inadmision, Art. 403.2).
-7. Documentos y preclusion: advertir SIEMPRE de que los documentos fundamentales de la accion y los dictamenes periciales deben acompanarse con la demanda (Arts. 265, 336) y de la preclusion del Art. 269. No admitir aportacion tardia salvo los supuestos del Art. 270.
-8. Carga de la prueba (Art. 217): al preparar la prueba y las conclusiones, atribuir a cada parte la carga que le corresponde. Nunca afirmar que un hecho esta probado sin base en las pruebas practicadas.
-9. Los campos a rellenar usan el placeholder propio del asset en doble llave, p. ej. `{{CUANTIA_RECLAMADA}}` (NUNCA corchete simple `[DATO]`: colisiona con los identificadores de privacidad `[PERSON_1]`). Si hace falta marcar un hueco suelto sin placeholder propio, usa `{{DATO_FALTANTE}}` una sola vez por documento: nunca lo repitas para dos datos distintos, porque el `edit_file` posterior necesita un `oldString` unico. Nunca inventar datos, cuantias, fechas ni referencias catastrales. Nunca inventar jurisprudencia.
+1. Verificar siempre la LEC en el BOE antes de redactar. Sin verificación, no proceder.
+2. Si se detecta en el BOE una versión de la LEC posterior a la registrada en las references, aplicar la redacción vigente directamente sobre el documento a redactar en el workspace del usuario. No usar una versión desactualizada. El umbral de cuantía (15.000 euros desde el 20/03/2024, RDL 6/2023) y el requisito de MASC (LO 1/2025) han cambiado recientemente: confirmar siempre la redacción vigente.
+3. Determinar correctamente la clase de juicio: procede el ordinario por la materia (Art. 249.1) o por cuantía superior a 15.000 euros o de interés incalculable (Art. 249.2). Si el asunto corresponde al juicio verbal (materia del Art. 250.1 o cuantía igual o inferior a 15.000 euros), no usar esta skill: advertir y derivar.
+4. Postulación preceptiva: en el juicio ordinario son obligatorios abogado y procurador (Arts. 23 y 31). Nunca redactar la demanda como si pudiera presentarse sin ellos.
+5. Competencia: identificar el fuero aplicable (Arts. 45, 50-52). No admitir sumisión en fueros imperativos (inmuebles, consumidores). Marcar la jurisdicción asumida.
+6. Posición conservadora sobre el MASC: la LO 1/2025 exige acreditar el intento previo de un medio adecuado de solución de controversias como requisito de procedibilidad (Art. 403.2 LEC). Ante la duda, recomendar e integrar el intento previo y advertir de la cuestión (riesgo de inadmisión, Art. 403.2).
+7. Documentos y preclusion: advertir SIEMPRE de que los documentos fundamentales de la acción y los dictámenes periciales deben acompañarse con la demanda (Arts. 265, 336) y de la preclusion del Art. 269. No admitir aportación tardía salvo los supuestos del Art. 270.
+8. Carga de la prueba (Art. 217): al preparar la prueba y las conclusiones, atribuir a cada parte la carga que le corresponde. Nunca afirmar que un hecho está probado sin base en las pruebas practicadas.
+9. Los campos a rellenar usan el placeholder propio del asset en doble llave, p. ej. `{{CUANTIA_RECLAMADA}}` (NUNCA corchete simple `[DATO]`: colisiona con los identificadores de privacidad `[PERSON_1]`). Si hace falta marcar un hueco suelto sin placeholder propio, usa `{{DATO_FALTANTE}}` una sola vez por documento: nunca lo repitas para dos datos distintos, porque el `edit_file` posterior necesita un `oldString` único. Nunca inventar datos, cuantías, fechas ni referencias catastrales. Nunca inventar jurisprudencia.

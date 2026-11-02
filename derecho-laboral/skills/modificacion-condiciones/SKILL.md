@@ -152,7 +152,7 @@ Si el usuario ya ha identificado inequívocamente la medida, la materia afectada
 * **Si `[V1 = traslado_art40]` → Plantilla: `assets/template-comunicacion-traslado-art40.md`.** Preaviso: **30 días** de antelación a la fecha de efectividad en el traslado. Distingue el traslado (definitivo, o desplazamiento superior a doce meses en un periodo de tres años) del desplazamiento temporal, con preaviso de cinco días laborables si excede de tres meses.
 * **Si `[V1 = movilidad_funcional_art39]` → Plantilla: `assets/template-comunicacion-movilidad-funcional-art39.md`.** Distingue la movilidad **dentro del grupo profesional**, que no exige causa ni preaviso, de la que excede del grupo, que exige razones técnicas u organizativas y se limita al tiempo imprescindible. Si la encomienda de funciones excede de los límites del artículo 39, la medida se reconduce al artículo 41 y cambia de ruta.
 * **Si `[V1 = respuesta_trabajador]` → Plantilla: `assets/template-escrito-trabajador-opcion-extincion.md`.** Determina primero qué comunicación ha recibido, en qué fecha y qué materia afecta, porque de ello depende que exista o no derecho de rescisión indemnizada.
-- `V4` no elige plantilla por si solo: determina si se redacta la comunicacion de la empresa o el escrito de respuesta del trabajador sobre la plantilla enrutada.
+- `V4` no elige plantilla por si solo: determina si se redacta la comunicación de la empresa o el escrito de respuesta del trabajador sobre la plantilla enrutada.
 
 ---
 
@@ -171,7 +171,7 @@ Envía un mensaje formal que contenga:
 2. **Calendario de la operación:** fecha de la comunicación, preaviso exigible y fecha de efectividad más temprana posible. Advierte de que una fecha de efectos anterior al vencimiento del preaviso vicia la medida.
 3. **Plazos que se abren al trabajador:** 20 días hábiles de caducidad para impugnar (artículo 138 de la Ley 36/2011), y el plazo para optar por la extinción indemnizada cuando proceda.
 4. **Cálculo económico preliminar desglosado** de la indemnización por rescisión, cuando la materia afectada la genere.
-5. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Menciónala por su denominación formal (sin mostrar rutas internas ni volcar su contenido); si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
+5. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Menciónala por su denominación formal (sin mostrar rutas internas ni volcar su contenido); si el enrutamiento asigno varios documentos, nómbralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
 6. **Elección de Plantilla Base:** Aplica el protocolo universal de `REG-AST-01` (`CLAUDE.md`), convocando en ese mismo turno el formulario interactivo `restricted_human_in_the_loop_request` para que el usuario elija entre la plantilla del sistema o aportar su propia minuta.
 
 ### 2.3 Manejo Determinista de la Elección

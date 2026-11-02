@@ -21,57 +21,57 @@ i18n:
       (community property liquidation skill), or for succession agreements under regional civil
       law.
 description: >
-  Redacta la minuta de capitulaciones matrimoniales conforme al **Codigo Civil**, que permite a los
-  conyuges estipular, modificar o sustituir el regimen economico de su matrimonio y exige para ello
-  escritura publica (Arts. 1315 a 1335), y a la **Ley 1/2000 de Enjuiciamiento Civil** en lo relativo
-  al inventario y la liquidacion del regimen que se sustituye.
+  Redacta la minuta de capitulaciones matrimoniales conforme al **Código Civil**, que permite a los
+  cónyuges estipular, modificar o sustituir el régimen económico de su matrimonio y exige para ello
+  escritura pública (Arts. 1315 a 1335), y a la **Ley 1/2000 de Enjuiciamiento Civil** en lo relativo
+  al inventario y la liquidación del régimen que se sustituye.
 
 
-  Genera dos documentos: la minuta de capitulaciones para el notario, con la eleccion del regimen de
-  separacion de bienes o de participacion y los pactos que la acompanan, y el inventario y propuesta
-  de liquidacion del regimen anterior cuando se sustituye una sociedad de gananciales ya existente.
+  Genera dos documentos: la minuta de capitulaciones para el notario, con la elección del régimen de
+  separación de bienes o de participación y los pactos que la acompañan, y el inventario y propuesta
+  de liquidación del régimen anterior cuando se sustituye una sociedad de gananciales ya existente.
 
 
-  Trata la eleccion entre separacion de bienes, participacion y gananciales con sus consecuencias
-  practicas, los pactos sobre atribucion de la vivienda y sobre cargas del matrimonio, la validez y
-  los limites de los pactos en prevision de una futura ruptura, la publicidad frente a terceros
-  mediante la inscripcion en el Registro Civil y, cuando proceda, en el Registro de la Propiedad y en
-  el Registro Mercantil, y la proteccion de los acreedores anteriores.
+  Trata la elección entre separación de bienes, participación y gananciales con sus consecuencias
+  prácticas, los pactos sobre atribución de la vivienda y sobre cargas del matrimonio, la validez y
+  los límites de los pactos en previsión de una futura ruptura, la publicidad frente a terceros
+  mediante la inscripción en el Registro Civil y, cuando proceda, en el Registro de la Propiedad y en
+  el Registro Mercantil, y la protección de los acreedores anteriores.
 
 
-  NO usar para el convenio regulador de un divorcio o separacion, que corresponde a la skill de
+  NO usar para el convenio regulador de un divorcio o separación, que corresponde a la skill de
   divorcio, ni para liquidar de forma contenciosa la sociedad de gananciales, que corresponde a la
-  skill de liquidacion de gananciales, ni para pactos sucesorios propios de los derechos civiles
+  skill de liquidación de gananciales, ni para pactos sucesorios propios de los derechos civiles
   forales.
 
 
   Normas aplicadas, en su texto consolidado en el BOE:
-  [Codigo Civil](https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763) y
+  [Código Civil](https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763) y
   [Ley 1/2000 de Enjuiciamiento Civil](https://www.boe.es/buscar/act.php?id=BOE-A-2000-323).
 when_to_use: |
-  - Una pareja va a casarse y quiere pactar separacion de bienes antes de la boda.
-  - Un matrimonio en gananciales quiere cambiar a separacion de bienes.
-  - Uno de los conyuges va a iniciar una actividad empresarial y quiere proteger el patrimonio familiar.
-  - El usuario pregunta las diferencias practicas entre gananciales, separacion de bienes y participacion.
-  - El usuario quiere pactar de antemano que ocurrira con la vivienda o con las cargas si la relacion termina.
-  - El usuario pregunta desde cuando afecta a terceros el cambio de regimen economico.
+  - Una pareja va a casarse y quiere pactar separación de bienes antes de la boda.
+  - Un matrimonio en gananciales quiere cambiar a separación de bienes.
+  - Uno de los cónyuges va a iniciar una actividad empresarial y quiere proteger el patrimonio familiar.
+  - El usuario pregunta las diferencias prácticas entre gananciales, separación de bienes y participación.
+  - El usuario quiere pactar de antemano que ocurrirá con la vivienda o con las cargas si la relación termina.
+  - El usuario pregunta desde cuando afecta a terceros el cambio de régimen económico.
 inputs:
-  - documento: minuta de capitulaciones / inventario y liquidacion del regimen anterior (V1)
+  - documento: minuta de capitulaciones / inventario y liquidación del régimen anterior (V1)
   - momento: antes del matrimonio / durante el matrimonio (V2)
-  - regimen_elegido: separacion de bienes / participacion / gananciales con pactos (V3)
+  - regimen_elegido: separación de bienes / participación / gananciales con pactos (V3)
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - datos_conyuges: nombre, NIF/NIE, domicilio, estado civil, nacionalidad y vecindad civil de cada uno
-  - datos_matrimonio: fecha y lugar del matrimonio, y datos de su inscripcion en el Registro Civil
-  - regimen_vigente: regimen economico actual y titulo del que resulta
-  - inventario_bienes: bienes y derechos de cada conyuge y comunes, con su titulo y valor
-  - deudas: deudas de cada conyuge y comunes, con acreedor e importe pendiente
-  - vivienda_familiar: identificacion de la vivienda, titularidad y pacto que se desea sobre ella
+  - datos_matrimonio: fecha y lugar del matrimonio, y datos de su inscripción en el Registro Civil
+  - regimen_vigente: régimen económico actual y título del que resulta
+  - inventario_bienes: bienes y derechos de cada cónyuge y comunes, con su título y valor
+  - deudas: deudas de cada cónyuge y comunes, con acreedor e importe pendiente
+  - vivienda_familiar: identificación de la vivienda, titularidad y pacto que se desea sobre ella
   - pactos_cargas: forma de contribuir a las cargas del matrimonio y a los gastos comunes
   - pactos_prevision_ruptura: pactos que se desean para el caso de futura ruptura
-  - hijos: existencia de hijos comunes o de relaciones anteriores y su situacion
+  - hijos: existencia de hijos comunes o de relaciones anteriores y su situación
 outputs:
   - minuta_capitulaciones: minuta de escritura de capitulaciones matrimoniales para el notario, DRAFT
-  - inventario_liquidacion_regimen: inventario y propuesta de liquidacion del regimen que se sustituye, DRAFT
+  - inventario_liquidacion_regimen: inventario y propuesta de liquidación del régimen que se sustituye, DRAFT
   - checklist_inscripciones: inscripciones y comunicaciones necesarias para la eficacia frente a terceros
 references:
   - references/cc-regimenes-economicos-y-capitulaciones.md
@@ -122,7 +122,7 @@ Invoca la herramienta con las preguntas de triaje:
   "form_data": [
     {
       "id": "documento",
-      "rationale": "Resolver V1 para determinar si se prepara la minuta de capitulaciones o el inventario del regimen que se sustituye.",
+      "rationale": "Resolver V1 para determinar si se prepara la minuta de capitulaciones o el inventario del régimen que se sustituye.",
       "question": "¿Qué documento necesita?",
       "options": [
         {"id": "minuta_capitulaciones", "label": "Minuta de capitulaciones matrimoniales para el notario"},
@@ -132,7 +132,7 @@ Invoca la herramienta con las preguntas de triaje:
     },
     {
       "id": "momento",
-      "rationale": "Resolver V2: las capitulaciones anteriores al matrimonio caducan si este no se celebra en el plazo legal, y las posteriores exigen liquidar el regimen anterior.",
+      "rationale": "Resolver V2: las capitulaciones anteriores al matrimonio caducan si este no se celebra en el plazo legal, y las posteriores exigen liquidar el régimen anterior.",
       "question": "¿Están ya casados o van a casarse?",
       "options": [
         {"id": "antes_del_matrimonio", "label": "Vamos a casarnos (capitulaciones prenupciales)"},
@@ -141,7 +141,7 @@ Invoca la herramienta con las preguntas de triaje:
     },
     {
       "id": "regimen_elegido",
-      "rationale": "Resolver V3 para redactar el articulado del regimen que se pacta.",
+      "rationale": "Resolver V3 para redactar el articulado del régimen que se pacta.",
       "question": "¿Qué régimen económico desean pactar?",
       "options": [
         {"id": "separacion_de_bienes", "label": "Separación de bienes: cada uno conserva y administra lo suyo"},

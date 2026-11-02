@@ -165,7 +165,7 @@ Antes de redactar, resuelve y comunica en el chat estos cinco extremos:
 * **Si `[V1 = sancion]` → Plantilla: `assets/template-demanda-impugnacion-sancion.md`.**
 * **Si `[V1 = modificacion_art138]` → Plantilla: `assets/template-demanda-modificacion-sustancial.md`.** Recuerda que es proceso urgente y de tramitación preferente, exceptuado de conciliación previa, con plazo de caducidad de veinte días hábiles.
 * **Si `[V1 = tutela_derechos_fundamentales]` → Plantilla: `assets/template-demanda-tutela-derechos-fundamentales.md`.** Advierte de que la demanda debe expresar con claridad los **hechos constitutivos de la vulneración** y la cuantía de la indemnización pretendida con las bases de su cálculo, y de que el Ministerio Fiscal será siempre parte.
-- `V2` no elige plantilla: determina si la demanda pide la improcedencia o la nulidad, y con ello el bloque de hechos indiciarios, la inversion de la carga de la prueba y los efectos que se solicitan en el suplico.
+- `V2` no elige plantilla: determina si la demanda pide la improcedencia o la nulidad, y con ello el bloque de hechos indiciarios, la inversión de la carga de la prueba y los efectos que se solicitan en el suplico.
 
 ---
 
@@ -186,7 +186,7 @@ Envía un mensaje formal que contenga:
 3. **Cómputo del plazo** con la fecha límite.
 4. **Mapa de partes demandadas** y su fundamento de responsabilidad.
 5. **Estructura de la demanda** que se va a construir y prueba que conviene ir preparando.
-6. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Menciónala por su denominación formal (sin mostrar rutas internas ni volcar su contenido); si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
+6. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Menciónala por su denominación formal (sin mostrar rutas internas ni volcar su contenido); si el enrutamiento asigno varios documentos, nómbralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
 7. **Elección de Plantilla Base:** Aplica el protocolo universal de `REG-AST-01` (`CLAUDE.md`), convocando en ese mismo turno el formulario interactivo `restricted_human_in_the_loop_request` para que el usuario elija entre la plantilla del sistema o aportar su propia minuta.
 
 ### 2.3 Manejo Determinista de la Elección

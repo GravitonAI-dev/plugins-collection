@@ -17,31 +17,31 @@ i18n:
       visa applications from abroad, for Spanish nationality, asylum or international
       protection, or for judicial review appeals against refusals.
 description: >
-  Prepara el tramite administrativo de solicitud del Numero de Identidad de Extranjero (NIE) o de
-  autorizacion de residencia (residencia temporal no lucrativa, residencia por arraigo, reagrupacion
-  familiar u otra) ante la Oficina de Extranjeria, conforme a la **Ley Organica 4/2000 de Extranjeria (LOEX)**, que regula los derechos y la situacion administrativa de los extranjeros en Espana, y al
-  **Reglamento de Extranjeria (RD 1155/2024, en vigor desde el 20/05/2025)**, que desarrolla los procedimientos de autorizacion y sus requisitos, verificados en el BOE.
-  Opera bajo el flujo de 5 fases canonicas con clasificacion HITL, consulta de assets, creacion
-  zero-vacios en workspace y edicion incremental seccion a seccion. Genera la hoja de datos para el
+  Prepara el trámite administrativo de solicitud del Número de Identidad de Extranjero (NIE) o de
+  autorización de residencia (residencia temporal no lucrativa, residencia por arraigo, reagrupación
+  familiar u otra) ante la Oficina de Extranjería, conforme a la **Ley Orgánica 4/2000 de Extranjería (LOEX)**, que regula los derechos y la situación administrativa de los extranjeros en España, y al
+  **Reglamento de Extranjería (RD 1155/2024, en vigor desde el 20/05/2025)**, que desarrolla los procedimientos de autorización y sus requisitos, verificados en el BOE.
+  Opera bajo el flujo de 5 fases canónicas con clasificación HITL, consulta de assets, creación
+  zero-vacíos en workspace y edición incremental sección a sección. Genera la hoja de datos para el
   formulario EX correspondiente, el escrito motivado de solicitud, el checklist de documentos y la
   tasa oficial (modelo 790). NO usar para solicitar visados consulares desde el extranjero, ni para
-  nacionalidad espanola, asilo o proteccion internacional, ni para recursos contenciosos contra denegaciones.
+  nacionalidad española, asilo o protección internacional, ni para recursos contenciosos contra denegaciones.
 when_to_use: |
-  - El usuario (extranjero o su representante) quiere obtener el NIE por interes economico, profesional o social.
-  - El usuario quiere solicitar una autorizacion de residencia: no lucrativa, por arraigo o por reagrupacion familiar.
-  - El usuario pide preparar el formulario EX, el checklist de documentos y la tasa de un tramite de extranjeria.
+  - El usuario (extranjero o su representante) quiere obtener el NIE por interés económico, profesional o social.
+  - El usuario quiere solicitar una autorización de residencia: no lucrativa, por arraigo o por reagrupación familiar.
+  - El usuario pide preparar el formulario EX, el checklist de documentos y la tasa de un trámite de extranjería.
 inputs:
   - tipo_tramite: nie / residencia_no_lucrativa / residencia_arraigo / reagrupacion_familiar (V1)
   - tipo_arraigo_subtipo: social / sociolaboral / socioformativo / familiar / segunda_oportunidad / general (V2)
   - naturaleza_solicitante: persona_fisica (V3)
   - via_presentacion_lugar: en_espana_oficina_extranjeria / desde_extranjero_consulado (V4)
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
-  - datos_extranjero: nombre y apellidos, nacionalidad, numero de pasaporte, fecha de nacimiento
-  - nie_previo: si el extranjero ya tiene NIE asignado (si / no)
+  - datos_extranjero: nombre y apellidos, nacionalidad, número de pasaporte, fecha de nacimiento
+  - nie_previo: si el extranjero ya tiene NIE asignado (sí / no)
   - motivo: motivo del NIE o de la residencia
-  - domicilio_espana: domicilio en Espana a efectos de notificaciones, si lo hay
-  - datos_apoyo: medios economicos, seguro medico, tiempo de permanencia, familiar reagrupante, contrato u oferta de trabajo
-  - representante: si actua un representante (gestor, abogado, familiar) y sus datos
+  - domicilio_espana: domicilio en España a efectos de notificaciones, si lo hay
+  - datos_apoyo: medios económicos, seguro médico, tiempo de permanencia, familiar reagrupante, contrato u oferta de trabajo
+  - representante: si actúa un representante (gestor, abogado, familiar) y sus datos
 outputs:
   - hoja_datos_ex: hoja de datos para el formulario EX, checklist de documentos, organismo y tasa, en markdown, DRAFT
   - escrito_solicitud: escrito formal de solicitud y alegaciones de residencia en markdown, DRAFT
@@ -147,7 +147,7 @@ Envía un mensaje estructurado y pedagógico:
    - Detallar los requisitos sustantivos según el trámite: carecer de antecedentes penales en España y países de residencia anterior (5 años), seguro médico privado sin copagos (en no lucrativa), acreditación de fondos (400% del IPREM anual en no lucrativa) o permanencia mínima y vínculos en arraigo.
 2. **Propuesta de Plantilla Oficial del Sistema:**
    - Presentar la hoja de datos para el formulario EX (identificando el modelo: EX-15 para NIE, EX-10 para arraigo, EX-01 para no lucrativa, EX-02 para reagrupación) y el escrito formal de solicitud.
-   - Menciona por su denominación formal (sin mostrar rutas internas ni volcar su contenido) la hoja **que ha resuelto el enrutamiento de la Fase 1.3**; si el enrutamiento asigno varias, nombralas todas y en el orden en que se van a rellenar. **No propongas una hoja distinta de la enrutada.**
+   - Menciona por su denominación formal (sin mostrar rutas internas ni volcar su contenido) la hoja **que ha resuelto el enrutamiento de la Fase 1.3**; si el enrutamiento asigno varias, nómbralas todas y en el orden en que se van a rellenar. **No propongas una hoja distinta de la enrutada.**
 3. **Elección de Plantilla Base:** Aplica el protocolo universal de `REG-AST-01` (`CLAUDE.md`), convocando en ese mismo turno el formulario interactivo `restricted_human_in_the_loop_request` para que el usuario elija entre la plantilla del sistema o aportar su propia minuta.
 
 ### 2.3 Manejo Determinista de la Elección

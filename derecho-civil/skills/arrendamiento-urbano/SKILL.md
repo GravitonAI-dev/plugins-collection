@@ -17,43 +17,43 @@ i18n:
       tourist accommodation (Art. 5.e LAU), military housing or caretaker housing.
 description: >
   Genera los documentos del ciclo completo del arrendamiento urbano: contratos nuevos (vivienda
-  habitual, local de negocio, vivienda por temporada y habitacion) y comunicaciones sobre contratos
-  vigentes (actualizacion anual de la renta, no renovacion a vencimiento y requerimiento de
-  devolucion de fianza). Aplica la **Ley 29/1994 de Arrendamientos Urbanos (LAU)**, que rige los alquileres de vivienda y de uso distinto (duracion, prorrogas, renta y fianza), la **Ley 12/2023 por
-  el derecho a la vivienda** (zonas de mercado residencial tensionado, IRAV) y el **Codigo Civil**
-  (habitacion, arts. 1542 y ss.), en sus versiones consolidadas vigentes verificadas en el BOE.
-  Adapta las clausulas segun la naturaleza de las partes (persona fisica o juridica) y la ubicacion
-  del inmueble. NO usar para arrendamientos de finca rustica, viviendas turisticas (Art. 5.e LAU),
+  habitual, local de negocio, vivienda por temporada y habitación) y comunicaciones sobre contratos
+  vigentes (actualización anual de la renta, no renovación a vencimiento y requerimiento de
+  devolución de fianza). Aplica la **Ley 29/1994 de Arrendamientos Urbanos (LAU)**, que rige los alquileres de vivienda y de uso distinto (duración, prórrogas, renta y fianza), la **Ley 12/2023 por
+  el derecho a la vivienda** (zonas de mercado residencial tensionado, IRAV) y el **Código Civil**
+  (habitación, arts. 1542 y ss.), en sus versiones consolidadas vigentes verificadas en el BOE.
+  Adapta las cláusulas según la naturaleza de las partes (persona física o jurídica) y la ubicación
+  del inmueble. NO usar para arrendamientos de finca rustica, viviendas turísticas (Art. 5.e LAU),
   viviendas militares, ni viviendas de porteros o guardas.
 when_to_use: |
-  - El usuario quiere redactar un contrato de alquiler de vivienda, de local, de temporada o de habitacion.
-  - El usuario quiere comunicar a la otra parte la actualizacion de la renta, la no renovacion del contrato, o requerir la devolucion de la fianza de un contrato ya extinguido.
+  - El usuario quiere redactar un contrato de alquiler de vivienda, de local, de temporada o de habitación.
+  - El usuario quiere comunicar a la otra parte la actualización de la renta, la no renovación del contrato, o requerir la devolución de la fianza de un contrato ya extinguido.
   - El usuario proporciona datos de arrendador, arrendatario e inmueble.
   - El usuario pide que el documento cumpla con la LAU o la normativa de vivienda vigente.
 inputs:
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
-  - tipo_gestion: contrato nuevo o comunicacion sobre contrato vigente
-  - tipo_inmueble: vivienda (completa o habitacion) o local de negocio / uso distinto de vivienda
-  - finalidad_uso: permanente o temporal (temporada); turistico queda fuera de alcance
-  - zona_tensionada: si / no / no lo se (solo vivienda habitual; verificable por el agente)
-  - tipo_comunicacion: actualizacion de renta, no renovacion o devolucion de fianza (solo si comunicacion)
-  - remitente_comunicacion: arrendador o arrendatario (solo si comunicacion)
-  - naturaleza_arrendador: persona fisica o persona juridica
-  - naturaleza_arrendatario: persona fisica o persona juridica
-  - datos_arrendador: nombre o razon social, NIF o CIF, domicilio
-  - datos_arrendatario: nombre o razon social, NIF o CIF, domicilio
-  - datos_inmueble: direccion completa, referencia catastral, descripcion, comunidad autonoma, municipio
+  - tipo_gestion: contrato nuevo o comunicación sobre contrato vigente
+  - tipo_inmueble: vivienda (completa o habitación) o local de negocio / uso distinto de vivienda
+  - finalidad_uso: permanente o temporal (temporada); turístico queda fuera de alcance
+  - zona_tensionada: sí / no / no lo sé (solo vivienda habitual; verificable por el agente)
+  - tipo_comunicacion: actualización de renta, no renovación o devolución de fianza (solo si comunicación)
+  - remitente_comunicacion: arrendador o arrendatario (solo si comunicación)
+  - naturaleza_arrendador: persona física o persona jurídica
+  - naturaleza_arrendatario: persona física o persona jurídica
+  - datos_arrendador: nombre o razón social, NIF o CIF, domicilio
+  - datos_arrendatario: nombre o razón social, NIF o CIF, domicilio
+  - datos_inmueble: dirección completa, referencia catastral, descripción, comunidad autónoma, municipio
   - causa_temporada: causa real y acreditable de la temporalidad (solo temporada)
-  - datos_habitacion: identificacion de la habitacion, zonas comunes, normas de convivencia (solo habitacion)
+  - datos_habitacion: identificación de la habitación, zonas comunes, normas de convivencia (solo habitación)
   - renta_mensual: importe en euros
-  - duracion: anos pactados o "minimo legal" (contratos); fechas de inicio y fin (temporada y habitacion)
-  - fianza: mensualidades o "segun ley"
+  - duracion: años pactados o "mínimo legal" (contratos); fechas de inicio y fin (temporada y habitación)
+  - fianza: mensualidades o "según ley"
   - fecha_inicio: fecha de inicio del contrato
-  - datos_contrato_vigente: fecha del contrato, vencimiento, renta vigente, fechas de extincion y entrega de llaves (solo comunicaciones)
-  - clausulas_adicionales: opcionales, a peticion del usuario
+  - datos_contrato_vigente: fecha del contrato, vencimiento, renta vigente, fechas de extinción y entrega de llaves (solo comunicaciones)
+  - clausulas_adicionales: opcionales, a petición del usuario
 outputs:
-  - contrato_arrendamiento: contrato completo en markdown, DRAFT, con las clausulas del regimen legal aplicable
-  - comunicacion_arrendaticia: carta breve en markdown, DRAFT, lista para envio por burofax
+  - contrato_arrendamiento: contrato completo en markdown, DRAFT, con las cláusulas del régimen legal aplicable
+  - comunicacion_arrendaticia: carta breve en markdown, DRAFT, lista para envío por burofax
 references:
   - references/fuentes-plantillas-validadas.md
   - references/lau-arrendamiento-local-negocio.md
@@ -192,13 +192,13 @@ Una vez resueltos los vectores necesarios, evalúa:
 - Si [V0 = comunicacion_contrato_vigente] y [V7 = no_renovacion] -> Plantilla a usar: `assets/template-comunicacion-no-renovacion.md`.
 - Si [V0 = comunicacion_contrato_vigente] y [V7 = devolucion_fianza] -> Plantilla a usar: `assets/template-requerimiento-devolucion-fianza.md` (remitente: arrendatario. Si quien consulta es el arrendador que quiere CONTESTAR a un requerimiento recibido, detén el proceso y deriva a derivación formal).
 - Si [V0 = contrato_nuevo] y [V2 = local_uso_distinto] -> Plantilla a usar: `assets/template-contrato-arrendamiento-local.md` (Fianza mínima: 2 mensualidades). La duración del local es de libre pacto (Título III LAU): no aplica V1.
-- Si [V0 = contrato_nuevo] y [V2 = habitacion] -> Plantilla a usar: `assets/template-contrato-arrendamiento-habitacion.md` (régimen del Código Civil, arts. 1542 y ss.; fianza de libre pacto). No aplican V1 ni V6.
+- Si [V0 = contrato_nuevo] y [V2 = habitación] -> Plantilla a usar: `assets/template-contrato-arrendamiento-habitacion.md` (régimen del Código Civil, arts. 1542 y ss.; fianza de libre pacto). No aplican V1 ni V6.
 - Si [V0 = contrato_nuevo] y [V2 = vivienda_completa] y [V1 = permanente] -> Plantilla a usar: `assets/template-contrato-arrendamiento-vivienda.md` (Fianza mínima: 1 mensualidad). V6 determina los bloques de zona tensionada del asset (Arts. 10.3, 17.6 LAU); si V6 = No lo sé, se resuelve en la sección 1 de la edición incremental.
 - Si [V0 = contrato_nuevo] y [V2 = vivienda_completa] y [V1 = temporada] -> Plantilla a usar: `assets/template-contrato-arrendamiento-temporada.md` (uso distinto de vivienda, Art. 3.2 LAU; fianza mínima: 2 mensualidades). Exige causa de temporalidad real (Guardrail 8).
 - Si [V0 = contrato_nuevo] y [V2 = no_procede] -> Detén la elección de plantilla: la respuesta es incoherente, porque se pide un contrato nuevo sin indicar qué se arrienda. Aclara en el chat (REG-VAL-01) si es una vivienda completa, una habitación o un local, o si en realidad se trata de una comunicación sobre un contrato vigente, y vuelve a resolver V2 o V0. No crees documento hasta resolverlo.
 - Si [V0 = contrato_nuevo] y [V2 = vivienda_completa] y [V1 = no_procede] -> Detén la elección de plantilla: la respuesta es incoherente, porque se arrienda una vivienda completa sin indicar su uso. Aclara en el chat (REG-VAL-01) si el uso es permanente, de temporada o turístico, y vuelve a resolver V1. No crees documento hasta resolverlo.
 - Si [V0 = comunicacion_contrato_vigente] y [V7 = no_procede] -> Detén la elección de plantilla: la respuesta es incoherente, porque se pide una comunicación sin indicar de qué tipo. Aclara en el chat (REG-VAL-01) si es una actualización de renta, una no renovación o una devolución de fianza, o si en realidad se trata de un contrato nuevo, y vuelve a resolver V7 o V0. No crees documento hasta resolverlo.
-- Si [V1 = turistico] -> Detén el proceso: vivienda turística excluida expresamente de la LAU (Art. 5.e), sujeta a normativa turística autonómica. No crees documento.
+- Si [V1 = turístico] -> Detén el proceso: vivienda turística excluida expresamente de la LAU (Art. 5.e), sujeta a normativa turística autonómica. No crees documento.
 
 ---
 
@@ -213,7 +213,7 @@ En esta fase compartes en el chat el plan de trabajo y marco legal, y consultas 
 ### 2.2 Mensaje de Plan de Acción y Elección de Plantilla
 Envía un mensaje estructurado y formal que contenga:
 1. **Marco Legal Aplicable:** Normativa civil y procesal aplicable consolidada y verificada en el BOE.
-2. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** (menciónala por su denominación formal, sin mostrar rutas internas ni volcar su contenido). Si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la seccion de assets.
+2. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** (menciónala por su denominación formal, sin mostrar rutas internas ni volcar su contenido). Si el enrutamiento asigno varios documentos, nómbralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la sección de assets.
 3. **Elección de Plantilla Base:** Aplica el protocolo universal de `REG-AST-01` (`CLAUDE.md`), convocando en ese mismo turno el formulario interactivo `restricted_human_in_the_loop_request` para que el usuario elija entre la plantilla del sistema o aportar su propia minuta.
 
 ### 2.3 Manejo Determinista de la Elección
@@ -296,15 +296,15 @@ Aplica rigurosamente las directivas `REG-FDB-01` y `REG-CLO-01` de `CLAUDE.md`:
 
 ## Límites Legales y Guardrails de Dominio (Gobernados por Vectores)
 
-1. Verificar siempre la normativa aplicable en el BOE antes de redactar (LAU; Ley 12/2023 e IRAV si vivienda habitual; Codigo Civil si habitacion). Sin verificacion, no proceder.
+1. Verificar siempre la normativa aplicable en el BOE antes de redactar (LAU; Ley 12/2023 e IRAV si vivienda habitual; Código Civil si habitación). Sin verificación, no proceder.
 2. Verificar siempre la versión consolidada vigente de la norma en el BOE antes de redactar. Si se detectan cambios normativos, aplicar la redacción vigente en el documento a generar en el workspace sin usar versiones desactualizadas.
-3. Duracion minima en vivienda habitual: 5 anos si el arrendador es persona fisica, 7 anos si es persona juridica (Art. 9.1 LAU). No pactar plazos inferiores sin advertir de la prorroga obligatoria. En temporada, habitacion y local NO aplican los plazos minimos ni las prorrogas del Titulo II.
-4. Gastos de gestion y formalizacion del contrato de vivienda siempre a cargo del arrendador (Art. 20.1 LAU).
-5. En zonas de mercado residencial tensionado, aplicar los limites de renta de los Arts. 17.6 y 17.7 LAU y advertir de la prorroga extraordinaria del Art. 10.3 LAU. La declaracion de zona es un dato publico verificable (boletin oficial autonomico): contrastarla siempre, aunque el cliente crea conocer la respuesta.
-6. Actualizacion de renta en vivienda habitual: en contratos celebrados desde el 26/05/2023, el incremento anual no puede superar el IRAV publicado por el INE (Resolucion INE 18/12/2024, BOE-A-2024-26685, vigente desde 01/01/2025). No redactar clausulas de actualizacion por encima de ese limite ni comunicaciones de actualizacion con porcentaje superior al IRAV vigente.
-7. Fianza minima legal: 1 mensualidad en vivienda habitual, 2 mensualidades en local y en temporada (uso distinto de vivienda, Art. 36.1 LAU). No admitir fianzas inferiores. En habitacion (Codigo Civil) la fianza es de libre pacto. Garantias adicionales en vivienda de hasta 5/7 anos: maximo 2 mensualidades (Art. 36.5 LAU).
-8. Arrendamiento de temporada: exigir una causa de temporalidad real y acreditable. NUNCA redactar un contrato de temporada para encubrir una residencia habitual y permanente (fraude de ley): si se detecta esa intencion, rechazar, explicar la recalificacion como vivienda (Titulo II LAU) y ofrecer el contrato de vivienda.
-9. Comunicacion de no renovacion (Art. 10.1 LAU): preaviso minimo de 4 meses si comunica el arrendador y 2 meses si comunica el arrendatario, contados desde el vencimiento hacia atras. Verificar SIEMPRE las fechas antes de redactar; si el preaviso ya no llega, advertir de que la comunicacion seria extemporanea y de que el contrato se prorrogaria.
-10. Requerimiento de devolucion de fianza: solo procede transcurrido 1 mes desde la entrega de llaves (Art. 36.4 LAU). Verificar las fechas; antes de ese mes, no redactar el requerimiento sin advertirlo.
+3. Duración mínima en vivienda habitual: 5 años si el arrendador es persona física, 7 años si es persona jurídica (Art. 9.1 LAU). No pactar plazos inferiores sin advertir de la prórroga obligatoria. En temporada, habitación y local NO aplican los plazos mínimos ni las prórrogas del Título II.
+4. Gastos de gestión y formalización del contrato de vivienda siempre a cargo del arrendador (Art. 20.1 LAU).
+5. En zonas de mercado residencial tensionado, aplicar los límites de renta de los Arts. 17.6 y 17.7 LAU y advertir de la prórroga extraordinaria del Art. 10.3 LAU. La declaración de zona es un dato público verificable (boletín oficial autonómico): contrastarla siempre, aunque el cliente crea conocer la respuesta.
+6. Actualización de renta en vivienda habitual: en contratos celebrados desde el 26/05/2023, el incremento anual no puede superar el IRAV publicado por el INE (Resolución INE 18/12/2024, BOE-A-2024-26685, vigente desde 01/01/2025). No redactar cláusulas de actualización por encima de ese límite ni comunicaciones de actualización con porcentaje superior al IRAV vigente.
+7. Fianza mínima legal: 1 mensualidad en vivienda habitual, 2 mensualidades en local y en temporada (uso distinto de vivienda, Art. 36.1 LAU). No admitir fianzas inferiores. En habitación (Código Civil) la fianza es de libre pacto. Garantías adicionales en vivienda de hasta 5/7 años: máximo 2 mensualidades (Art. 36.5 LAU).
+8. Arrendamiento de temporada: exigir una causa de temporalidad real y acreditable. NUNCA redactar un contrato de temporada para encubrir una residencia habitual y permanente (fraude de ley): si se detecta esa intención, rechazar, explicar la recalificación como vivienda (Título II LAU) y ofrecer el contrato de vivienda.
+9. Comunicación de no renovación (Art. 10.1 LAU): preaviso mínimo de 4 meses si comunica el arrendador y 2 meses si comunica el arrendatario, contados desde el vencimiento hacia atrás. Verificar SIEMPRE las fechas antes de redactar; si el preaviso ya no llega, advertir de que la comunicación sería extemporánea y de que el contrato se prorrogaría.
+10. Requerimiento de devolución de fianza: solo procede transcurrido 1 mes desde la entrega de llaves (Art. 36.4 LAU). Verificar las fechas; antes de ese mes, no redactar el requerimiento sin advertirlo.
 11. Marcar todos los campos a rellenar como placeholder pendiente. Use el nombre propio de la plantilla (p. ej. `{{NOMBRE_ARRENDADOR}}`, `{{REFERENCIA_CATASTRAL}}`): NO lo sustituya por un literal genérico como `{{DATO_FALTANTE}}`, que se repetiría idéntico en múltiples campos y rompería la precisión quirúrgica del `edit_file` (oldString ambiguo) al rellenar cada uno por separado. Nunca inventar datos, rentas, fechas ni referencia catastral.
-12. Nunca redactar clausulas que contravengan normas imperativas de la ley aplicable. Nunca inventar jurisprudencia.
+12. Nunca redactar cláusulas que contravengan normas imperativas de la ley aplicable. Nunca inventar jurisprudencia.

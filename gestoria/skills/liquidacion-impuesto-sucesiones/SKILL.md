@@ -16,38 +16,38 @@ i18n:
       tax (IIVTNU). Do not use for the legal partition of the estate (civil law inheritance
       skill), for inter vivos gifts, or to set the tax due with final binding effect.
 description: >
-  Prepara la autoliquidacion del Impuesto sobre Sucesiones y Donaciones (modelo 650, adquisiciones
+  Prepara la autoliquidación del Impuesto sobre Sucesiones y Donaciones (modelo 650, adquisiciones
   mortis causa) de un heredero conforme a la **Ley 29/1987 del Impuesto sobre Sucesiones y Donaciones (LISD)**, que regula el hecho imponible, las reducciones y la cuota del impuesto, y a su **Reglamento (RD 1629/1991)**
-  en su version consolidada vigente verificada en el BOE, combinada con la normativa autonomica vigente
-  de la comunidad autonoma competente verificada en vivo. Opera bajo el flujo de 5 fases canonicas con
-  clasificacion HITL, consulta de assets, creacion zero-vacios en workspace y edicion incremental seccion
-  a seccion. Genera el borrador de autoliquidacion del modelo 650 con inventario, reducciones autonómicas
-  y cuota estimada debidamente senalada con advertencia de verificacion, checklist documental, organismo
-  competente y aviso imperativo de plusvalia municipal (IIVTNU). NO usar para la particion juridica de la
+  en su versión consolidada vigente verificada en el BOE, combinada con la normativa autonómica vigente
+  de la comunidad autónoma competente verificada en vivo. Opera bajo el flujo de 5 fases canónicas con
+  clasificación HITL, consulta de assets, creación zero-vacíos en workspace y edición incremental sección
+  a sección. Genera el borrador de autoliquidación del modelo 650 con inventario, reducciones autonómicas
+  y cuota estimada debidamente señalada con advertencia de verificación, checklist documental, organismo
+  competente y aviso imperativo de plusvalía municipal (IIVTNU). NO usar para la partición jurídica de la
   herencia (usar la skill herencia de derecho-civil), para donaciones inter vivos ni para fijar la cuota
-  tributaria con caracter definitivo vinculante.
+  tributaria con carácter definitivo vinculante.
 when_to_use: |
-  - El usuario ya sabe que heredero es y que recibe, y necesita preparar la autoliquidacion del Impuesto de Sucesiones (modelo 650).
-  - El usuario dispone del inventario y los valores de la herencia (propios o del cuaderno particional) y quiere saber base, estimacion de cuota, plazo y organismo.
-  - El usuario pide el checklist de documentos y tasas para presentar el Impuesto de Sucesiones y saber donde se presenta.
+  - El usuario ya sabe qué heredero es y que recibe, y necesita preparar la autoliquidación del Impuesto de Sucesiones (modelo 650).
+  - El usuario dispone del inventario y los valores de la herencia (propios o del cuaderno particional) y quiere saber base, estimación de cuota, plazo y organismo.
+  - El usuario pide el checklist de documentos y tasas para presentar el Impuesto de Sucesiones y saber dónde se presenta.
 inputs:
   - modalidad_transmision: adquisicion_mortis_causa_modelo_650 (V1)
   - grupo_parentesco: grupo_i / grupo_ii / grupo_iii / grupo_iv (V2)
   - naturaleza_causahabiente: persona_fisica (V3)
   - comunidad_autonoma: CCAA de residencia habitual del causante (clave de bonificaciones) (V4)
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
-  - datos_causante: nombre, NIF, fecha y lugar de fallecimiento, ultimo domicilio, CCAA de residencia habitual
+  - datos_causante: nombre, NIF, fecha y lugar de fallecimiento, último domicilio, CCAA de residencia habitual
   - datos_heredero: nombre, NIF, domicilio, parentesco con el causante y grupo (I a IV)
   - caudal_hereditario: inventario de bienes y sus valores (del cuaderno particional si existe)
-  - cargas_deudas: cargas, deudas deducibles y gastos (ultima enfermedad, entierro y funeral)
+  - cargas_deudas: cargas, deudas deducibles y gastos (última enfermedad, entierro y funeral)
   - seguros_vida: importe de seguros de vida cuyo beneficiario sea el heredero, si los hay
   - ajuar_domestico: valor declarado del ajuar, o aplicar el 3% del caudal relicto (Art. 15) salvo prueba
-  - vivienda_habitual: si el heredero adquiere la vivienda habitual del causante (reduccion Art. 20.2.c)
-  - empresa_familiar: si se adquiere empresa individual, negocio o participaciones (reduccion Art. 20.2.c)
-  - discapacidad: grado de discapacidad del heredero, si procede reduccion
+  - vivienda_habitual: si el heredero adquiere la vivienda habitual del causante (reducción Art. 20.2.c)
+  - empresa_familiar: si se adquiere empresa individual, negocio o participaciones (reducción Art. 20.2.c)
+  - discapacidad: grado de discapacidad del heredero, si procede reducción
 outputs:
   - borrador_autoliquidacion_650: hoja de datos y borrador del modelo 650 con base, reducciones y cuota estimada en markdown, DRAFT
-  - checklist_documentacion: checklist de documentos, tasas, organismo y plazo para la presentacion en markdown, DRAFT
+  - checklist_documentacion: checklist de documentos, tasas, organismo y plazo para la presentación en markdown, DRAFT
 references:
   - references/isd-ley-29-1987.md
   - references/isd-normativa-autonomica.md
@@ -128,8 +128,8 @@ Invoca la herramienta con las preguntas de conexión territorial y parentesco:
 **Correspondencia con el enrutamiento.** Los vectores de esta skill se nombran con los identificadores siguientes; cada uno se resuelve con la respuesta indicada. No preguntes de nuevo nada que ya esté aquí:
 - `V1` — `modalidad_transmision`
 - `V2` — `grupo_parentesco`
-- `V3` — naturaleza del causahabiente: no se pregunta, es siempre persona fisica
-- `V4` — `comunidad_autonoma`, clave de las bonificaciones autonomicas
+- `V3` — naturaleza del causahabiente: no se pregunta, es siempre persona física
+- `V4` — `comunidad_autonoma`, clave de las bonificaciones autonómicas
 
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
 - Plantillas del sistema propuestas: `assets/template-borrador-autoliquidacion-650.md` y `assets/template-checklist-documentacion-sucesiones.md`.
@@ -153,7 +153,7 @@ Envía un mensaje estructurado y pedagógico:
    - Recordar el plazo legal imperativo de **6 meses desde el fallecimiento** para presentar la autoliquidación (con posibilidad de solicitar prórroga por otros 6 meses dentro de los primeros 5 meses).
 2. **Propuesta de Plantilla Oficial del Sistema:**
    - Detallar que dispones de las plantillas oficiales adaptadas: borrador del modelo 650 y checklist documental integral.
-   - Menciona por su denominación formal (sin mostrar rutas internas ni volcar su contenido) la hoja **que ha resuelto el enrutamiento de la Fase 1.3**; si el enrutamiento asigno varias, nombralas todas y en el orden en que se van a rellenar. **No propongas una hoja distinta de la enrutada.**
+   - Menciona por su denominación formal (sin mostrar rutas internas ni volcar su contenido) la hoja **que ha resuelto el enrutamiento de la Fase 1.3**; si el enrutamiento asigno varias, nómbralas todas y en el orden en que se van a rellenar. **No propongas una hoja distinta de la enrutada.**
 3. **Elección de Plantilla Base:** Aplica el protocolo universal de `REG-AST-01` (`CLAUDE.md`), convocando en ese mismo turno el formulario interactivo `restricted_human_in_the_loop_request` para que el usuario elija entre la plantilla del sistema o aportar su propia minuta.
 
 ### 2.3 Manejo Determinista de la Elección

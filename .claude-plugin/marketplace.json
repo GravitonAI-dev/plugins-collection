@@ -9,8 +9,8 @@
       "name": "derecho-civil",
       "displayName": "Derecho Civil",
       "source": "./derecho-civil",
-      "version": "0.10.2",
-      "description": "Generacion de documentos de derecho civil espanol, siempre en su version consolidada vigente verificada en el BOE: arrendamiento urbano, compraventa de inmuebles, contratos entre particulares, propiedad horizontal, desahucios, ejecucion de titulos, reclamacion de cantidad, monitorio y juicio ordinario, familia (divorcio, medidas sobre hijos no matrimoniales, modificacion de medidas, liquidacion de gananciales y parejas de hecho), sucesiones (herencia y planificacion testamentaria), clausulas abusivas de consumo, responsabilidad civil y medidas de apoyo a personas con discapacidad. Incluye la produccion de los documentos del medio adecuado de solucion de controversias exigido por la Ley Organica 1/2025. Incorpora ademas la extincion de condominio y la division de la cosa comun, las capitulaciones matrimoniales con la liquidacion del regimen que sustituyen, la declaracion de herederos abintestato y las voluntades anticipadas, y los escritos de segunda instancia y de tutela cautelar (apelacion, oposicion y medidas cautelares).",
+      "version": "0.10.3",
+      "description": "Generación de documentos de derecho civil español, siempre en su versión consolidada vigente verificada en el BOE: arrendamiento urbano, compraventa de inmuebles, contratos entre particulares, propiedad horizontal, desahucios, ejecución de títulos, reclamación de cantidad, monitorio y juicio ordinario, familia (divorcio, medidas sobre hijos no matrimoniales, modificación de medidas, liquidación de gananciales y parejas de hecho), sucesiones (herencia y planificación testamentaria), cláusulas abusivas de consumo, responsabilidad civil y medidas de apoyo a personas con discapacidad. Incluye la producción de los documentos del medio adecuado de solución de controversias exigido por la Ley Orgánica 1/2025. Incorpora además la extinción de condominio y la división de la cosa común, las capitulaciones matrimoniales con la liquidación del régimen que sustituyen, la declaración de herederos abintestato y las voluntades anticipadas, y los escritos de segunda instancia y de tutela cautelar (apelación, oposición y medidas cautelares).",
       "author": {
         "name": "GravitonAI"
       }
@@ -19,7 +19,7 @@
       "name": "derecho-laboral",
       "displayName": "Derecho Laboral",
       "source": "./derecho-laboral",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "description": "Generación de documentos del ciclo completo de la relación laboral española, siempre en su versión consolidada vigente verificada en el BOE y contrastada con el convenio colectivo aplicable: contratos de trabajo y acuerdos de trabajo a distancia, modificación sustancial de condiciones y movilidad geográfica, sanciones disciplinarias y expediente contradictorio, cartas de despido (disciplinario, objetivo, periodo de prueba y fin de contrato temporal), recibo de finiquito y liquidación, burofax de reclamación y papeleta de conciliación previa, demanda ante el Juzgado de lo Social (despido, cantidad, sanción y modificación sustancial) y reclamación previa y demanda en materia de prestaciones de Seguridad Social.",
       "author": {
         "name": "GravitonAI"
@@ -29,7 +29,7 @@
       "name": "derecho-consumo",
       "displayName": "Derecho de Consumo",
       "source": "./derecho-consumo",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "description": "Generación de documentos de reclamación de consumo en España, siempre en su versión consolidada vigente verificada en el BOE y contrastada con la normativa autonómica de consumo, que fija el modelo de hoja y el organismo competente: reclamación previa dirigida a la empresa, hoja oficial de quejas y reclamaciones, escrito ante la administración autonómica o municipal de consumo y solicitud de arbitraje conforme al Reglamento aprobado por Real Decreto 713/2024. Cubre además las reclamaciones de los tres sectores de mayor volumen con régimen propio: transporte aéreo conforme al Reglamento (CE) 261/2004, suministros y telecomunicaciones con su escalado al organismo sectorial, y desistimiento de compras a distancia. Deriva a la vía judicial cuando esta procede.",
       "author": {
         "name": "GravitonAI"
@@ -39,7 +39,7 @@
       "name": "derecho-mercantil",
       "displayName": "Derecho Mercantil y Societario",
       "source": "./derecho-mercantil",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Generación de documentos societarios y contractuales de empresa en España conforme al Real Decreto Legislativo 1/2010, texto refundido de la Ley de Sociedades de Capital, en su versión consolidada vigente verificada en el BOE: constitución de sociedad de responsabilidad limitada (solicitud de certificación de denominación al Registro Mercantil Central, estatutos sociales y minuta de escritura), pacto de socios con permanencia, arrastre, acompañamiento y no competencia, vida societaria ordinaria (convocatoria de junta general, junta universal, acta y certificación de acuerdos) y contratos entre empresas (prestación de servicios, confidencialidad, agencia conforme a la Ley 12/1992 y distribución). No cubre sociedades cotizadas, modificaciones estructurales ni concurso de acreedores.",
       "author": {
         "name": "GravitonAI"
@@ -49,8 +49,8 @@
       "name": "gestoria",
       "displayName": "Gestoria",
       "source": "./gestoria",
-      "version": "0.4.1",
-      "description": "Generacion de documentos y solicitudes para tramites administrativos de gestoria en Espana (trafico y DGT, alta y baja de autonomo, altas y bajas en la Seguridad Social, impuesto de sucesiones, impuestos de la transmision de un inmueble y defensa frente a sanciones de trafico), con verificacion de la normativa vigente en el BOE, checklist de documentos y organismo de presentacion. Los tramites de extranjeria y nacionalidad se han trasladado al plugin `extranjeria`. Salida DRAFT en markdown para revision profesional. Incorpora ademas los recursos administrativos generales (alzada y reposicion), la responsabilidad patrimonial y el acceso a la informacion publica frente a cualquier Administracion.",
+      "version": "0.4.2",
+      "description": "Generación de documentos y solicitudes para trámites administrativos de gestoría en España (tráfico y DGT, alta y baja de autónomo, altas y bajas en la Seguridad Social, impuesto de sucesiones, impuestos de la transmisión de un inmueble y defensa frente a sanciones de tráfico), con verificación de la normativa vigente en el BOE, checklist de documentos y organismo de presentación. Los trámites de extranjería y nacionalidad se han trasladado al plugin `extranjería`. Salida DRAFT en markdown para revisión profesional. Incorpora además los recursos administrativos generales (alzada y reposición), la responsabilidad patrimonial y el acceso a la información publica frente a cualquier Administración.",
       "author": {
         "name": "GravitonAI"
       }
@@ -59,8 +59,8 @@
       "name": "extranjeria",
       "displayName": "Extranjería y Nacionalidad",
       "source": "./extranjeria",
-      "version": "0.2.2",
-      "description": "Generación de documentos de extranjería y nacionalidad en España conforme a la Ley Orgánica 4/2000 y al Reglamento aprobado por Real Decreto 1155/2024, en vigor desde el 20 de mayo de 2025, que derogó el Real Decreto 557/2011: solicitud de número de identidad de extranjero, autorizaciones de residencia por arraigo en sus cinco modalidades, residencia no lucrativa, reagrupación familiar, y solicitud de nacionalidad española por residencia con su expediente completo, sus pruebas y su juramento. Cada skill verifica la versión consolidada vigente en el BOE y las instrucciones de la Secretaría de Estado de Migraciones antes de redactar. Incorpora ademas la proteccion internacional (asilo, proteccion subsidiaria y razones humanitarias) y los recursos administrativos generales contra resoluciones de extranjeria.",
+      "version": "0.2.3",
+      "description": "Generación de documentos de extranjería y nacionalidad en España conforme a la Ley Orgánica 4/2000 y al Reglamento aprobado por Real Decreto 1155/2024, en vigor desde el 20 de mayo de 2025, que derogó el Real Decreto 557/2011: solicitud de número de identidad de extranjero, autorizaciones de residencia por arraigo en sus cinco modalidades, residencia no lucrativa, reagrupación familiar, y solicitud de nacionalidad española por residencia con su expediente completo, sus pruebas y su juramento. Cada skill verifica la versión consolidada vigente en el BOE y las instrucciones de la Secretaría de Estado de Migraciones antes de redactar. Incorpora además la protección internacional (asilo, protección subsidiaria y razones humanitarias) y los recursos administrativos generales contra resoluciones de extranjería.",
       "author": {
         "name": "GravitonAI"
       }
@@ -69,7 +69,7 @@
       "name": "cumplimiento",
       "displayName": "Cumplimiento Normativo de Empresa",
       "source": "./cumplimiento",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Generación de la documentación de cumplimiento que la ley exige a una empresa y cuya ausencia es infracción por sí misma, en su versión consolidada vigente verificada en el BOE: protección de datos conforme al Reglamento (UE) 2016/679 y a la Ley Orgánica 3/2018 (registro de actividades de tratamiento, contrato de encargado y notificación de brechas a la Agencia Española de Protección de Datos), sistema interno de información y canal de denuncias conforme a la Ley 2/2023 (política, procedimiento de gestión y designación del responsable), e igualdad y prevención del acoso conforme a la Ley Orgánica 3/2007 y a su desarrollo reglamentario (protocolo de acoso, plan de igualdad y registro retributivo). Comprueba en cada caso los umbrales de plantilla que determinan qué obligaciones son exigibles. No cubre investigaciones internas en curso, expedientes sancionadores ni defensa ante la autoridad de control.",
       "author": {
         "name": "GravitonAI"
@@ -79,7 +79,7 @@
       "name": "despacho",
       "displayName": "Gestión del Despacho",
       "source": "./despacho",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "description": "Generación de los documentos que el propio despacho profesional necesita para sí mismo, con la normativa vigente verificada en el BOE: hoja de encargo profesional con presupuesto de honorarios y su comunicación de finalización, minuta de honorarios, requerimiento previo de pago y solicitud de jura de cuentas del artículo 35 de la Ley de Enjuiciamiento Civil, minuta de poder general para pleitos y designación de representación, expediente de diligencia debida en prevención del blanqueo de capitales conforme a la Ley 10/2010, y paquete de protección de datos del despacho (registro de actividades de tratamiento, contrato de encargado, cláusula informativa, deber de secreto y registro de brechas de seguridad).",
       "author": {
         "name": "GravitonAI"
@@ -89,8 +89,8 @@
       "name": "gestion-plantillas",
       "displayName": "Gestion de Plantillas",
       "source": "./gestion-plantillas",
-      "version": "0.2.0",
-      "description": "Herramientas y skills para la creacion, parametrizacion, actualizacion y registro de plantillas personalizadas (assets) para skills del sistema o de usuario global mediante set_skill_template, update_user_template y save_user_template.",
+      "version": "0.2.1",
+      "description": "Herramientas y skills para la creación, parametrizacion, actualización y registro de plantillas personalizadas (assets) para skills del sistema o de usuario global mediante set_skill_template, update_user_template y save_user_template.",
       "author": {
         "name": "GravitonAI"
       }
@@ -99,8 +99,8 @@
       "name": "asistente-general",
       "displayName": "Asistente General",
       "source": "./asistente-general",
-      "version": "1.10.1",
-      "description": "Asistente universal de primera linea y fallback para consultas generales, orientacion juridica y administrativa multidisciplinar, busquedas web, analisis de hechos y generacion bajo demanda de informes y memorandums tecnicos. Incorpora ademas la generacion de artefactos autocontenidos en un unico archivo HTML que el usuario abre en su navegador y exporta a PDF con fidelidad de color desde su propio boton: informes y dossieres visuales, paneles de datos y herramientas interactivas de calculo, presentaciones en diapositivas con notas del orador, documentos largos (white paper, memoria) con portada, indice y paginas numeradas, resumenes de una pagina, un catalogo de reportes tipicos y un motor de graficos propio que los dibuja a partir de datos (barras, columnas, apiladas, linea con umbral y anotaciones, minigrafico, medidor, cascada, matriz de riesgo, plazos, anillo, tarta, bala y divergentes, mas diagramas con conectores, graficos avanzados, mapa de Espana, iconos y QR), con su tabla de datos, su fuente y su descarga en CSV, sin librerias ni recursos externos.",
+      "version": "1.10.2",
+      "description": "Asistente universal de primera línea y fallback para consultas generales, orientación jurídica y administrativa multidisciplinar, búsquedas web, análisis de hechos y generación bajo demanda de informes y memorandums técnicos. Incorpora además la generación de artefactos autocontenidos en un único archivo HTML que el usuario abre en su navegador y exporta a PDF con fidelidad de color desde su propio botón: informes y dossieres visuales, paneles de datos y herramientas interactivas de calculo, presentaciones en diapositivas con notas del orador, documentos largos (white paper, memoria) con portada, índice y paginas numeradas, resúmenes de una página, un catálogo de reportes típicos y un motor de gráficos propio que los dibuja a partir de datos (barras, columnas, apiladas, línea con umbral y anotaciones, minigráfico, medidor, cascada, matriz de riesgo, plazos, anillo, tarta, bala y divergentes, más diagramas con conectores, gráficos avanzados, mapa de España, iconos y QR), con su tabla de datos, su fuente y su descarga en CSV, sin librerías ni recursos externos.",
       "author": {
         "name": "GravitonAI"
       }

@@ -20,57 +20,57 @@ i18n:
       for corporate disputes already open, or for amending the articles, which requires a public
       deed and registration.
 description: >
-  Redacta el pacto de socios (pacto parasocial) de una sociedad limitada espanola al amparo del
-  **Codigo Civil** (Arts. 1091, 1255 y 1258), que consagra la libertad de pactos y su fuerza
+  Redacta el pacto de socios (pacto parasocial) de una sociedad limitada española al amparo del
+  **Código Civil** (Arts. 1091, 1255 y 1258), que consagra la libertad de pactos y su fuerza
   obligatoria entre las partes, y del **Real Decreto Legislativo 1/2010**, texto refundido de la Ley
   de Sociedades de Capital (Art. 29 LSC), que declara los pactos reservados no oponibles a la
   sociedad.
 
 
   Genera dos documentos: el pacto entre socios fundadores (permanencia y devengo progresivo de
-  participaciones, dedicacion, no competencia, propiedad intelectual, mayorias reforzadas y regimen de
-  salida) y el pacto de entrada de inversor (aportacion y valoracion, derechos de informacion y veto,
-  antidilucion, arrastre y acompanamiento, preferencia en liquidacion).
+  participaciones, dedicación, no competencia, propiedad intelectual, mayorías reforzadas y régimen de
+  salida) y el pacto de entrada de inversor (aportación y valoración, derechos de información y veto,
+  antidilución, arrastre y acompañamiento, preferencia en liquidación).
 
 
-  Explica que clausulas necesitan trasladarse a estatutos para ganar eficacia frente a la sociedad y
-  frente a terceros, y advierte de los limites de validez de la permanencia, de la no competencia y de
-  la clausula penal.
+  Explica qué cláusulas necesitan trasladarse a estatutos para ganar eficacia frente a la sociedad y
+  frente a terceros, y advierte de los límites de validez de la permanencia, de la no competencia y de
+  la cláusula penal.
 
 
-  NO usar para sociedades cotizadas, para protocolos de sociedad anonima con acciones sindicadas, para
-  conflictos societarios ya abiertos ni para la modificacion de estatutos, que exige escritura publica
-  e inscripcion.
+  NO usar para sociedades cotizadas, para protocolos de sociedad anónima con acciones sindicadas, para
+  conflictos societarios ya abiertos ni para la modificación de estatutos, que exige escritura pública
+  e inscripción.
 
 
   Normas aplicadas, en su texto consolidado en el BOE:
-  [Codigo Civil](https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763) y
+  [Código Civil](https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763) y
   [Ley de Sociedades de Capital](https://www.boe.es/buscar/act.php?id=BOE-A-2010-10544).
 when_to_use: |
   - Varios socios crean una sociedad y quieren regular entre ellos lo que los estatutos no pueden o no conviene publicar.
-  - Un inversor va a entrar en el capital y exige derechos de veto, informacion, antidilucion o arrastre.
-  - Los socios quieren pactar permanencia, dedicacion exclusiva o no competencia entre ellos.
-  - El usuario pregunta que pasa si un socio se marcha pronto o deja de trabajar en el proyecto.
+  - Un inversor va a entrar en el capital y exige derechos de veto, información, antidilución o arrastre.
+  - Los socios quieren pactar permanencia, dedicación exclusiva o no competencia entre ellos.
+  - El usuario pregunta qué pasa si un socio se marcha pronto o deja de trabajar en el proyecto.
   - El usuario pregunta la diferencia entre pacto de socios y estatutos, o si el pacto obliga a la sociedad.
-  - El usuario quiere fijar como se decide en caso de bloqueo o empate entre socios.
+  - El usuario quiere fijar cómo se decide en caso de bloqueo o empate entre socios.
 inputs:
   - documento: pacto de fundadores / pacto de entrada de inversor (V1)
   - alcance_firmantes: todos los socios / solo algunos socios (V2)
   - permanencia: con permanencia y devengo progresivo / sin permanencia (V3)
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
-  - datos_sociedad: denominacion, domicilio, CIF y datos registrales de la sociedad
-  - datos_socios: nombre o razon social, NIF/NIE/CIF, domicilio y participaciones de cada firmante
-  - reparto_capital: participaciones y porcentaje de cada socio antes y despues de la operacion
-  - aportacion_inversor: importe, valoracion pre y post money y forma de desembolso
-  - materias_reservadas: decisiones que exigiran mayoria reforzada o veto del inversor
+  - datos_sociedad: denominación, domicilio, CIF y datos registrales de la sociedad
+  - datos_socios: nombre o razón social, NIF/NIE/CIF, domicilio y participaciones de cada firmante
+  - reparto_capital: participaciones y porcentaje de cada socio antes y después de la operación
+  - aportacion_inversor: importe, valoración pre y post money y forma de desembolso
+  - materias_reservadas: decisiones que exigirán mayoría reforzada o veto del inversor
   - permanencia_plazos: plazo de permanencia, calendario de devengo y consecuencias de la salida
-  - no_competencia: ambito material, territorial y temporal de la prohibicion de competir
-  - clausula_penal: importe o formula de la penalizacion por incumplimiento
-  - regimen_salida: arrastre, acompanamiento, derecho de adquisicion preferente y valoracion
+  - no_competencia: ámbito material, territorial y temporal de la prohibición de competir
+  - clausula_penal: importe o fórmula de la penalización por incumplimiento
+  - regimen_salida: arrastre, acompañamiento, derecho de adquisición preferente y valoración
 outputs:
   - pacto_socios_fundadores: pacto entre socios fundadores completo por estipulaciones, DRAFT
   - pacto_entrada_inversor: pacto de socios con entrada de inversor completo por estipulaciones, DRAFT
-  - cuadro_estatutos_vs_pacto: relacion de clausulas que conviene trasladar a estatutos y por que
+  - cuadro_estatutos_vs_pacto: relación de cláusulas que conviene trasladar a estatutos y por qué
 references:
   - references/lsc-pactos-parasociales.md
   - references/limites-permanencia-competencia-penal.md
@@ -130,7 +130,7 @@ Invoca la herramienta con las preguntas de triaje:
     },
     {
       "id": "alcance_firmantes",
-      "rationale": "Resolver V2: el pacto omnilateral (todos los socios) tiene mayor eficacia practica que el parcial.",
+      "rationale": "Resolver V2: el pacto omnilateral (todos los socios) tiene mayor eficacia práctica que el parcial.",
       "question": "¿Van a firmar el pacto todos los socios de la sociedad, o solo algunos?",
       "options": [
         {"id": "todos_los_socios", "label": "Todos los socios (pacto omnilateral)"},

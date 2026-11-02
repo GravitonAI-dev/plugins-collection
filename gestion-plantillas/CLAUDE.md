@@ -22,7 +22,7 @@ Explícitamente NO cubre la tramitación sustantiva de expedientes legales o adm
 
 ## Contexto del Dominio / Entorno
 - Entorno de plantillas en Markdown estandarizado para GravitonAI.
-- Marcadores de variables en sintaxis `{{NOMBRE_VARIABLE}}` (o `{{NOMBRE_VARIABLE: descripcion}}`): en MAYÚSCULAS, con guion bajo entre palabras y dobles llaves.
+- Marcadores de variables en sintaxis `{{NOMBRE_VARIABLE}}` (o `{{NOMBRE_VARIABLE: descripción}}`): en MAYÚSCULAS, con guion bajo entre palabras y dobles llaves.
 - Principio de Assets Limpios: las plantillas son puramente estructurales, sin comentarios HTML condicionales ni pseudocódigo de control de flujo.
 - Persistencia a través de las herramientas del sistema:
   - `set_skill_template(skill_name, asset_name, template_content)`: para plantillas asignadas a una skill del catálogo.

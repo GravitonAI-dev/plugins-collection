@@ -1,54 +1,54 @@
-# Estilo de Redaccion de la Extincion de Condominio
+# Estilo de Redacción de la Extinción de Condominio
 
 > Material de referencia para la skill `derecho-civil-extincion-condominio`. Reglas de estilo aplicables al
-> requerimiento previo, a la minuta de escritura de extincion de condominio y a la demanda de division
-> de la cosa comun. La skill aplica estas reglas al redactar; no forman parte del output al usuario.
+> requerimiento previo, a la minuta de escritura de extinción de condominio y a la demanda de división
+> de la cosa común. La skill aplica estas reglas al redactar; no forman parte del output al usuario.
 
 ---
 
 ## Fuentes
 
-| Guia | Organismo |
+| Guía | Organismo |
 |---|---|
 | Libro de estilo de la Justicia | RAE / CGPJ |
-| Recomendaciones de lenguaje juridico claro | Consejo General de la Abogacia Espanola |
-| Practica notarial de division de comunidad | Consejo General del Notariado |
+| Recomendaciones de lenguaje jurídico claro | Consejo General de la Abogacía Española |
+| Práctica notarial de división de comunidad | Consejo General del Notariado |
 
 ---
 
-## Estructura segun el documento
+## Estructura según el documento
 
-- **Requerimiento**: identificacion de los comuneros y sus cuotas, propuesta de valoracion y adjudicacion, plazo de respuesta y advertencia de la via judicial.
-- **Minuta de escritura**: COMPARECENCIA de todos los comuneros, EXPONEN (cuotas, titulo, indivisibilidad), OTORGAN (extincion, adjudicacion, compensacion, tratamiento de la hipoteca, liquidacion de gastos).
-- **Demanda de division**: HECHOS numerados (titulo, cuotas, indivisibilidad, gestiones previas), FUNDAMENTOS (Arts. 400-406 CC), SUPLICO (adjudicacion con compensacion o, subsidiariamente, venta en subasta).
+- **Requerimiento**: identificación de los comuneros y sus cuotas, propuesta de valoración y adjudicación, plazo de respuesta y advertencia de la vía judicial.
+- **Minuta de escritura**: COMPARECENCIA de todos los comuneros, EXPONEN (cuotas, título, indivisibilidad), OTORGAN (extinción, adjudicación, compensación, tratamiento de la hipoteca, liquidación de gastos).
+- **Demanda de división**: HECHOS numerados (título, cuotas, indivisibilidad, gestiones previas), FUNDAMENTOS (Arts. 400-406 CC), SUPLICO (adjudicación con compensación o, subsidiariamente, venta en subasta).
 
 ---
 
 ## Reglas de claridad y lenguaje
 
-- Cada clausula transmite una sola idea, sin ambiguedad.
-- Cifras siempre en numero y letra cuando se trate de compensaciones o precios.
-- Voz activa; frases y parrafos cortos.
-- Precision terminologica: "comunero" o "copropietario", nunca "socio"; "extincion de condominio" o "division de la cosa comun", no "particion" (reservado a herencias).
-- No abusar de mayusculas, subrayados ni negritas.
+- Cada cláusula transmite una sola idea, sin ambigüedad.
+- Cifras siempre en número y letra cuando se trate de compensaciones o precios.
+- Voz activa; frases y párrafos cortos.
+- Precisión terminológica: "comunero" o "copropietario", nunca "socio"; "extinción de condominio" o "división de la cosa común", no "partición" (reservado a herencias).
+- No abusar de mayúsculas, subrayados ni negritas.
 
 ---
 
-## Reglas de coherencia numerica (criticas)
+## Reglas de coherencia numérica (criticas)
 
 - Las cuotas de todos los comuneros deben sumar la unidad.
-- La compensacion en metalico debe corresponderse con el valor atribuido al inmueble multiplicado por la cuota de quien la recibe.
-- Si hay hipoteca pendiente, el capital consignado debe ser el vigente a la fecha del documento, nunca el original del prestamo.
+- La compensación en metálico debe corresponderse con el valor atribuido al inmueble multiplicado por la cuota de quien la recibe.
+- Si hay hipoteca pendiente, el capital consignado debe ser el vigente a la fecha del documento, nunca el original del préstamo.
 
 ---
 
 ## Formato (recomendado)
 
 - Tipo de letra legible, interlineado 1,5.
-- Encabezados sobrios de cada apartado (VALORACION, ADJUDICACION, COMPENSACION, HIPOTECA).
+- Encabezados sobrios de cada apartado (VALORACIÓN, ADJUDICACIÓN, COMPENSACIÓN, HIPOTECA).
 
 ---
 
-## Aplicacion en esta skill
+## Aplicación en esta skill
 
-Al rellenar los assets, identificar el inmueble con su referencia catastral y datos registrales completos; mantener la coherencia numerica entre cuotas, valoracion y compensacion; tratar la hipoteca pendiente de forma expresa y separada de la titularidad; y evitar formulas grandilocuentes y latinismos innecesarios.
+Al rellenar los assets, identificar el inmueble con su referencia catastral y datos registrales completos; mantener la coherencia numérica entre cuotas, valoración y compensación; tratar la hipoteca pendiente de forma expresa y separada de la titularidad; y evitar fórmulas grandilocuentes y latinismos innecesarios.

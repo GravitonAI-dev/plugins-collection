@@ -47,7 +47,7 @@ def condiciones(linea, dom):
         if vals: cond.setdefault(v,set()).update(vals)
     return cond
 ASSET=re.compile(r'assets/[\w.-]+\.md')
-PARO=re.compile(r'DETENER|DETEN\b|DETENCION|no cre(ar|es|ir)|DERIVAR|Deriva a|det[eé]n el proceso|det[eé]n la redacci|detener proceso|no procede', re.I)
+PARO=re.compile(r'DETENER|DET[EÉ]N\b|DETENCI[OÓ]N|no cre(ar|es|ir)|DERIVAR|Deriva a|det[eé]n el proceso|det[eé]n la redacci|detener proceso|no procede', re.I)
 ADIC=re.compile(r'generar ademas|generar además|Documento adicional|se genera despues|se genera después|ademas ANTES|además ANTES|se generan DOS|dos documentos|los cinco assets', re.I)
 COMOD=re.compile(r'todos los dem[aá]s casos|en cualquier otro caso|resto de casos', re.I)
 CORTE=re.compile(r'->|→')
@@ -88,7 +88,7 @@ for f in sorted(glob.glob('*/skills/*/SKILL.md')):
         cas=[(t,l) for c,t,l in br if all(a[v] in vv for v,vv in c.items() if v in a)]
         prod={l for t,l in cas if t in ('asset','adicional')}
         excl={l for t,l in cas if t=='asset'}
-        cuant={l for t,l in cas if 'uantia' in l}
+        cuant={l for t,l in cas if re.search(r'uant[ií]a', l)}
         if not cas: hue.append(a)
         elif not prod and not any(t in ('paro','comodin') for t,_ in cas): hue.append(a)
         elif len(excl)>1 and not cuant: con.append((a,sorted(excl)))

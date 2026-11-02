@@ -1,53 +1,53 @@
-# Estilo de Redaccion — Proteccion Internacional y Recursos de Extranjeria
+# Estilo de Redacción — Protección Internacional y Recursos de Extranjería
 
 > Material de referencia para la skill `extranjeria-asilo-y-recursos`. Reglas de estilo aplicables al
-> relato de persecucion que acompana la solicitud de proteccion internacional y al recurso
-> administrativo contra una resolucion de extranjeria. Basado en la Ley 39/2015 del Procedimiento
-> Administrativo Comun y en guias de lenguaje administrativo claro. La skill aplica estas reglas al
+> relato de persecución que acompaña la solicitud de protección internacional y al recurso
+> administrativo contra una resolución de extranjería. Basado en la Ley 39/2015 del Procedimiento
+> Administrativo Común y en guías de lenguaje administrativo claro. La skill aplica estas reglas al
 > redactar; no forman parte del output al usuario.
 
 ---
 
 ## Fuentes
 
-| Guia | Organismo |
+| Guía | Organismo |
 |---|---|
-| Ley 39/2015, del Procedimiento Administrativo Comun de las Administraciones Publicas | Estado |
-| Recomendaciones de lenguaje administrativo claro | Ministerio de Politica Territorial / Funcion Publica |
-| Manual de estilo del lenguaje administrativo | Administracion General del Estado |
+| Ley 39/2015, del Procedimiento Administrativo Común de las Administraciones Públicas | Estado |
+| Recomendaciones de lenguaje administrativo claro | Ministerio de Política Territorial / Función Pública |
+| Manual de estilo del lenguaje administrativo | Administración General del Estado |
 
 ---
 
-## Estructura segun el documento
+## Estructura según el documento
 
-- **Relato de persecucion**: identidad y datos personales, situacion familiar, itinerario, relato cronologico de los hechos, motivo legal invocado, agente perseguidor y ausencia de proteccion estatal, temor fundado, prueba.
-- **Recurso administrativo**: datos del interesado, resolucion que se recurre, computo del plazo, antecedentes, motivos de forma y de fondo, peticion.
+- **Relato de persecución**: identidad y datos personales, situación familiar, itinerario, relato cronológico de los hechos, motivo legal invocado, agente perseguidor y ausencia de protección estatal, temor fundado, prueba.
+- **Recurso administrativo**: datos del interesado, resolución que se recurre, cómputo del plazo, antecedentes, motivos de forma y de fondo, petición.
 
 ---
 
 ## Reglas de claridad y lenguaje
 
-- Cada frase transmite una sola idea, sin ambiguedad.
-- Frases y parrafos cortos; voz activa.
-- Lenguaje formal pero llano: evitar formulas grandilocuentes, latinismos y arcaismos administrativos.
-- Precision en los datos: fechas, numeros de expediente y documentos exactos; cuando una fecha no se recuerde con exactitud, consignarla expresamente como aproximada en lugar de forzar una precision falsa.
-- No abusar de mayusculas, subrayados ni negritas.
+- Cada frase transmite una sola idea, sin ambigüedad.
+- Frases y párrafos cortos; voz activa.
+- Lenguaje formal pero llano: evitar fórmulas grandilocuentes, latinismos y arcaísmos administrativos.
+- Precisión en los datos: fechas, números de expediente y documentos exactos; cuando una fecha no se recuerde con exactitud, consignarla expresamente como aproximada en lugar de forzar una precisión falsa.
+- No abusar de mayúsculas, subrayados ni negritas.
 
 ---
 
-## Reglas especificas del relato de persecucion
+## Reglas específicas del relato de persecución
 
-- El relato es el de la persona: no se completa, no se adorna y no se inventa ningun hecho ni fecha.
-- Preguntar de forma abierta, sin sugerir respuestas, y sin exigir detalles innecesarios de episodios traumaticos.
-- Senalar las contradicciones detectadas con tacto, como necesidad tecnica del escrito, nunca cuestionando la credibilidad de la persona en el chat.
-- Citar informes de pais con su fuente y su fecha, y solo si se han consultado realmente en la sesion.
+- El relato es el de la persona: no se completa, no se adorna y no se inventa ningún hecho ni fecha.
+- Preguntar de forma abierta, sin sugerir respuestas, y sin exigir detalles innecesarios de episodios traumáticos.
+- Señalar las contradicciones detectadas con tacto, como necesidad técnica del escrito, nunca cuestionando la credibilidad de la persona en el chat.
+- Citar informes de país con su fuente y su fecha, y solo si se han consultado realmente en la sesión.
 
 ---
 
-## Reglas especificas del recurso administrativo
+## Reglas específicas del recurso administrativo
 
-- No afirmar que el recurso se estimara: la resolucion corresponde al organo competente. Redactar en terminos de peticion fundada, no de resultado garantizado.
-- Distinguir con rigor "alzada" de "reposicion" segun lo que indique la propia notificacion.
+- No afirmar que el recurso se estimara: la resolución corresponde al órgano competente. Redactar en términos de petición fundada, no de resultado garantizado.
+- Distinguir con rigor "alzada" de "reposición" según lo que indique la propia notificación.
 - Relacionar cada documento aportado con el requisito o el defecto que subsana.
 
 ---
@@ -56,10 +56,10 @@
 
 - Tipo de letra legible, interlineado sencillo o 1,5.
 - Un espacio entre apartados; encabezados sobrios.
-- Numeracion de paginas si el escrito supera una hoja.
+- Numeración de paginas si el escrito supera una hoja.
 
 ---
 
-## Aplicacion en esta skill
+## Aplicación en esta skill
 
-Al rellenar los assets, mantener la cronologia del relato y verificarla contra el itinerario declarado; encuadrar los hechos en el motivo legal correspondiente sin forzar la calificacion; y, en el recurso, calcular siempre el plazo desde la fecha exacta de notificacion antes de redactar. Evitar formulas grandilocuentes y no anticipar el sentido de la resolucion.
+Al rellenar los assets, mantener la cronología del relato y verificarla contra el itinerario declarado; encuadrar los hechos en el motivo legal correspondiente sin forzar la calificación; y, en el recurso, calcular siempre el plazo desde la fecha exacta de notificación antes de redactar. Evitar fórmulas grandilocuentes y no anticipar el sentido de la resolución.

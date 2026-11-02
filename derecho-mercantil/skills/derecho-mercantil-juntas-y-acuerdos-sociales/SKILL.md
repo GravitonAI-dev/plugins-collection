@@ -20,57 +20,57 @@ i18n:
       resolutions or liability actions against directors, for listed public companies, or for
       structural modifications such as mergers or spin-offs.
 description: >
-  Genera los documentos de la vida societaria ordinaria de una sociedad limitada espanola conforme al
+  Genera los documentos de la vida societaria ordinaria de una sociedad limitada española conforme al
   **Real Decreto Legislativo 1/2010**, texto refundido de la Ley de Sociedades de Capital (LSC), que
-  regula la junta general, su convocatoria, las mayorias y el acta, y al **Real Decreto 1784/1996**,
-  Reglamento del Registro Mercantil, que fija los requisitos de la certificacion y elevacion a publico
+  regula la junta general, su convocatoria, las mayorías y el acta, y al **Real Decreto 1784/1996**,
+  Reglamento del Registro Mercantil, que fija los requisitos de la certificación y elevación a público
   de los acuerdos.
 
 
-  Genera tres documentos: el anuncio o comunicacion de convocatoria de junta general con su orden del
-  dia, el acta de la junta (universal u ordinaria convocada) con los acuerdos adoptados y sus
-  mayorias, y la certificacion de acuerdos sociales expedida por el organo de administracion para su
-  elevacion a publico o inscripcion.
+  Genera tres documentos: el anuncio o comunicación de convocatoria de junta general con su orden del
+  día, el acta de la junta (universal u ordinaria convocada) con los acuerdos adoptados y sus
+  mayorías, y la certificación de acuerdos sociales expedida por el órgano de administración para su
+  elevación a público o inscripción.
 
 
-  Calcula y comunica los plazos de convocatoria y de aprobacion y deposito de cuentas, aplica las
-  mayorias reforzadas de los Arts. 199 y 201 LSC, y advierte del conflicto de interes del Art. 190
+  Calcula y comunica los plazos de convocatoria y de aprobación y depósito de cuentas, aplica las
+  mayorías reforzadas de los Arts. 199 y 201 LSC, y advierte del conflicto de interés del Art. 190
   LSC.
 
 
-  NO usar para la impugnacion de acuerdos sociales ni para acciones de responsabilidad contra
-  administradores, para sociedades anonimas cotizadas, ni para modificaciones estructurales como
-  fusion o escision.
+  NO usar para la impugnación de acuerdos sociales ni para acciones de responsabilidad contra
+  administradores, para sociedades anónimas cotizadas, ni para modificaciones estructurales como
+  fusión o escisión.
 
 
   Normas aplicadas, en su texto consolidado en el BOE:
   [Ley de Sociedades de Capital](https://www.boe.es/buscar/act.php?id=BOE-A-2010-10544) y
   [Reglamento del Registro Mercantil](https://www.boe.es/buscar/act.php?id=BOE-A-1996-17533).
 when_to_use: |
-  - El usuario tiene que convocar una junta general y necesita el anuncio o la comunicacion con su orden del dia.
+  - El usuario tiene que convocar una junta general y necesita el anuncio o la comunicación con su orden del día.
   - El usuario ha celebrado una junta y necesita redactar el acta con los acuerdos adoptados.
-  - El usuario necesita una certificacion de acuerdos para el notario, el banco o el Registro Mercantil.
-  - El usuario va a aprobar las cuentas anuales y pregunta por plazos y por el deposito registral.
-  - El usuario va a cesar o nombrar administrador y pregunta como documentarlo.
-  - El usuario pregunta que mayoria hace falta para un acuerdo concreto o si puede celebrar junta universal.
+  - El usuario necesita una certificación de acuerdos para el notario, el banco o el Registro Mercantil.
+  - El usuario va a aprobar las cuentas anuales y pregunta por plazos y por el depósito registral.
+  - El usuario va a cesar o nombrar administrador y pregunta cómo documentarlo.
+  - El usuario pregunta qué mayoría hace falta para un acuerdo concreto o si puede celebrar junta universal.
 inputs:
-  - documento: convocatoria / acta de junta / certificacion de acuerdos (V1)
+  - documento: convocatoria / acta de junta / certificación de acuerdos (V1)
   - tipo_junta: universal / convocada (V2)
-  - naturaleza_acuerdo: aprobacion de cuentas / modificacion de estatutos / cambio de administrador / otros acuerdos (V3)
+  - naturaleza_acuerdo: aprobación de cuentas / modificación de estatutos / cambio de administrador / otros acuerdos (V3)
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
-  - datos_sociedad: denominacion, domicilio, CIF y datos registrales
+  - datos_sociedad: denominación, domicilio, CIF y datos registrales
   - datos_socios: identidad de los socios, participaciones y porcentaje de cada uno
-  - organo_administracion: composicion actual del organo y identidad de quien convoca o certifica
-  - fecha_hora_lugar: fecha, hora y lugar de celebracion de la junta y, en su caso, segunda convocatoria
-  - orden_del_dia: puntos del orden del dia en su redaccion definitiva
+  - organo_administracion: composición actual del órgano y identidad de quien convoca o certifica
+  - fecha_hora_lugar: fecha, hora y lugar de celebración de la junta y, en su caso, segunda convocatoria
+  - orden_del_dia: puntos del orden del día en su redacción definitiva
   - acuerdos_adoptados: texto de cada acuerdo, votos a favor, en contra y abstenciones
-  - datos_cuentas: ejercicio, fecha de cierre, resultado y propuesta de aplicacion
+  - datos_cuentas: ejercicio, fecha de cierre, resultado y propuesta de aplicación
   - datos_administrador: identidad, NIF, domicilio y cargo del administrador nombrado o cesado
 outputs:
-  - convocatoria_junta: anuncio o comunicacion individual de convocatoria con orden del dia, DRAFT
-  - acta_junta_general: acta de la junta general con asistentes, acuerdos y mayorias, DRAFT
-  - certificacion_acuerdos: certificacion de acuerdos sociales firmada por el organo de administracion, DRAFT
-  - calendario_plazos: computo de los plazos de convocatoria, aprobacion y deposito de cuentas
+  - convocatoria_junta: anuncio o comunicación individual de convocatoria con orden del día, DRAFT
+  - acta_junta_general: acta de la junta general con asistentes, acuerdos y mayorías, DRAFT
+  - certificacion_acuerdos: certificación de acuerdos sociales firmada por el órgano de administración, DRAFT
+  - calendario_plazos: cómputo de los plazos de convocatoria, aprobación y depósito de cuentas
 references:
   - references/lsc-junta-general-y-acuerdos.md
   - references/rrm-certificacion-y-deposito-cuentas.md
@@ -121,7 +121,7 @@ Invoca la herramienta con las preguntas de triaje:
   "form_data": [
     {
       "id": "documento",
-      "rationale": "Resolver V1 para determinar cual de los tres documentos societarios se prepara.",
+      "rationale": "Resolver V1 para determinar cuál de los tres documentos societarios se prepara.",
       "question": "¿Qué documento necesita preparar?",
       "options": [
         {"id": "convocatoria_junta", "label": "Convocatoria de la junta general con su orden del día"},
@@ -141,7 +141,7 @@ Invoca la herramienta con las preguntas de triaje:
     },
     {
       "id": "naturaleza_acuerdo",
-      "rationale": "Resolver V3 para aplicar la mayoria exigible y las advertencias de forma publica e inscripcion.",
+      "rationale": "Resolver V3 para aplicar la mayoría exigible y las advertencias de forma pública e inscripción.",
       "question": "¿Cuál es el acuerdo principal que se va a adoptar o que se adoptó?",
       "options": [
         {"id": "aprobacion_cuentas", "label": "Aprobación de cuentas anuales y aplicación del resultado"},

@@ -21,59 +21,59 @@ i18n:
       residence skill), for Spanish nationality, or for expulsion or return proceedings, which
       require urgent legal counsel.
 description: >
-  Prepara los dos escritos de extranjeria que el catalogo no cubria conforme a la **Ley 12/2009**,
-  reguladora del derecho de asilo y de la proteccion subsidiaria, que fija los requisitos de la
-  proteccion internacional y las garantias del solicitante, y a la **Ley Organica 4/2000** de
-  Extranjeria, que remite el regimen de impugnacion de las resoluciones a las leyes generales del
+  Prepara los dos escritos de extranjería que el catálogo no cubría conforme a la **Ley 12/2009**,
+  reguladora del derecho de asilo y de la protección subsidiaria, que fija los requisitos de la
+  protección internacional y las garantías del solicitante, y a la **Ley Orgánica 4/2000** de
+  Extranjería, que remite el régimen de impugnación de las resoluciones a las leyes generales del
   procedimiento administrativo.
 
 
-  Genera dos documentos: el escrito de alegaciones y relato de persecucion que acompana la solicitud de
-  proteccion internacional, y el recurso administrativo contra la denegacion, la inadmision o el
-  archivo de un expediente de extranjeria.
+  Genera dos documentos: el escrito de alegaciones y relato de persecución que acompaña la solicitud de
+  protección internacional, y el recurso administrativo contra la denegación, la inadmisión o el
+  archivo de un expediente de extranjería.
 
 
-  Distingue el asilo de la proteccion subsidiaria y de las razones humanitarias, estructura el relato
-  de persecucion en torno a los cinco motivos legales y al agente perseguidor, computa los plazos
-  brevisimos del procedimiento en frontera y en centro de internamiento y los del recurso, y determina
-  si contra la resolucion cabe alzada o reposicion segun lo que indique su propia notificacion.
+  Distingue el asilo de la protección subsidiaria y de las razones humanitarias, estructura el relato
+  de persecución en torno a los cinco motivos legales y al agente perseguidor, computa los plazos
+  brevísimos del procedimiento en frontera y en centro de internamiento y los del recurso, y determina
+  si contra la resolución cabe alzada o reposición según lo que indique su propia notificación.
 
 
   NO usar para el recurso contencioso-administrativo ante los tribunales, ni para solicitar el NIE o
-  las autorizaciones de residencia, que corresponden a la skill de extranjeria y residencia, ni para
-  la nacionalidad espanola, ni para expedientes de expulsion o devolucion, que exigen direccion
+  las autorizaciones de residencia, que corresponden a la skill de extranjería y residencia, ni para
+  la nacionalidad española, ni para expedientes de expulsión o devolución, que exigen dirección
   letrada urgente.
 
 
   Normas aplicadas, en su texto consolidado en el BOE:
   [Ley 12/2009 del derecho de asilo](https://www.boe.es/buscar/act.php?id=BOE-A-2009-17242) y
-  [Ley Organica 4/2000 de Extranjeria](https://www.boe.es/buscar/act.php?id=BOE-A-2000-544).
+  [Ley Orgánica 4/2000 de Extranjería](https://www.boe.es/buscar/act.php?id=BOE-A-2000-544).
 when_to_use: |
-  - El usuario ha huido de su pais y quiere solicitar asilo o proteccion internacional en Espana.
-  - El usuario necesita redactar el relato de persecucion que sustenta su solicitud de asilo.
-  - Al usuario le han denegado o inadmitido la solicitud de proteccion internacional.
-  - Al usuario le han denegado una autorizacion de residencia y quiere recurrir en via administrativa.
-  - El usuario pregunta la diferencia entre asilo, proteccion subsidiaria y razones humanitarias.
-  - El usuario pregunta que plazo tiene para recurrir una resolucion de extranjeria.
+  - El usuario ha huido de su país y quiere solicitar asilo o protección internacional en España.
+  - El usuario necesita redactar el relato de persecución que sustenta su solicitud de asilo.
+  - Al usuario le han denegado o inadmitido la solicitud de protección internacional.
+  - Al usuario le han denegado una autorización de residencia y quiere recurrir en vía administrativa.
+  - El usuario pregunta la diferencia entre asilo, protección subsidiaria y razones humanitarias.
+  - El usuario pregunta qué plazo tiene para recurrir una resolución de extranjería.
 inputs:
-  - documento: alegaciones de proteccion internacional / recurso contra resolucion de extranjeria (V1)
-  - lugar_solicitud: en territorio espanol / en frontera o en centro de internamiento (V2)
-  - recurso_procedente: recurso de alzada / recurso de reposicion (V3)
+  - documento: alegaciones de protección internacional / recurso contra resolución de extranjería (V1)
+  - lugar_solicitud: en territorio español / en frontera o en centro de internamiento (V2)
+  - recurso_procedente: recurso de alzada / recurso de reposición (V3)
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - datos_solicitante: nombre y apellidos, nacionalidad, fecha de nacimiento, documento de identidad y domicilio
-  - datos_familiares: familiares que acompanan o que permanecen en el pais de origen, con su situacion
-  - datos_expediente: numero de expediente, oficina o organo, fechas de presentacion y de resolucion
-  - relato_persecucion: hechos de persecucion sufridos o temidos, con fechas, lugares y autores
-  - motivo_proteccion: motivo legal en que se funda (raza, religion, nacionalidad, opiniones politicas, pertenencia a grupo social, genero u orientacion sexual)
-  - agente_perseguidor: identidad del agente perseguidor y su relacion con el Estado
-  - proteccion_estatal: gestiones realizadas ante las autoridades del pais de origen y su resultado
-  - prueba_disponible: documentos, informes de pais, certificados medicos, testigos y publicaciones
-  - motivos_recurso: motivos de fondo y de forma de la impugnacion
-  - situacion_actual: situacion documental, laboral y de arraigo del interesado en Espana
+  - datos_familiares: familiares que acompañan o que permanecen en el país de origen, con su situación
+  - datos_expediente: número de expediente, oficina o órgano, fechas de presentación y de resolución
+  - relato_persecucion: hechos de persecución sufridos o temidos, con fechas, lugares y autores
+  - motivo_proteccion: motivo legal en que se funda (raza, religión, nacionalidad, opiniones políticas, pertenencia a grupo social, género u orientación sexual)
+  - agente_perseguidor: identidad del agente perseguidor y su relación con el Estado
+  - proteccion_estatal: gestiones realizadas ante las autoridades del país de origen y su resultado
+  - prueba_disponible: documentos, informes de país, certificados médicos, testigos y publicaciones
+  - motivos_recurso: motivos de fondo y de forma de la impugnación
+  - situacion_actual: situación documental, laboral y de arraigo del interesado en España
 outputs:
-  - alegaciones_proteccion_internacional: escrito de alegaciones y relato de persecucion, DRAFT
-  - recurso_resolucion_extranjeria: recurso administrativo contra la resolucion desfavorable, DRAFT
-  - checklist_plazos_y_garantias: plazos aplicables, garantias del solicitante y organismos de apoyo
+  - alegaciones_proteccion_internacional: escrito de alegaciones y relato de persecución, DRAFT
+  - recurso_resolucion_extranjeria: recurso administrativo contra la resolución desfavorable, DRAFT
+  - checklist_plazos_y_garantias: plazos aplicables, garantías del solicitante y organismos de apoyo
 references:
   - references/ley-12-2009-proteccion-internacional.md
   - references/recursos-en-extranjeria-y-plazos.md
@@ -123,7 +123,7 @@ Invoca la herramienta con las preguntas de triaje:
   "form_data": [
     {
       "id": "documento",
-      "rationale": "Resolver V1 para determinar si se prepara la solicitud de proteccion o el recurso contra una resolucion.",
+      "rationale": "Resolver V1 para determinar si se prepara la solicitud de protección o el recurso contra una resolución.",
       "question": "¿Qué necesita preparar?",
       "options": [
         {"id": "alegaciones_proteccion", "label": "Solicitud de asilo o protección internacional, con su relato"},
@@ -133,7 +133,7 @@ Invoca la herramienta con las preguntas de triaje:
     },
     {
       "id": "lugar_solicitud",
-      "rationale": "Resolver V2: el procedimiento en frontera y en centro de internamiento tiene plazos de dias, no de meses.",
+      "rationale": "Resolver V2: el procedimiento en frontera y en centro de internamiento tiene plazos de días, no de meses.",
       "question": "Si es solicitud de protección internacional, ¿dónde se encuentra la persona?",
       "show_if": {"question_id": "documento", "option_ids": ["alegaciones_proteccion"]},
       "options": [
@@ -144,7 +144,7 @@ Invoca la herramienta con las preguntas de triaje:
     },
     {
       "id": "recurso_procedente",
-      "rationale": "Resolver V3: el recurso depende de si el acto agota o no la via administrativa, segun indique su notificacion.",
+      "rationale": "Resolver V3: el recurso depende de si el acto agota o no la vía administrativa, según indique su notificación.",
       "question": "Si es un recurso, ¿qué recurso indica la notificación de la resolución que quiere impugnar?",
       "show_if": {"question_id": "documento", "option_ids": ["recurso_extranjeria"]},
       "options": [

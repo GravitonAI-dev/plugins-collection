@@ -228,7 +228,7 @@ Envía un mensaje formal que contenga:
 1. **Función del documento:** qué acredita, ante quién y con qué eficacia, con cita del precepto que lo ampara.
 2. **Cómputo del plazo:** días consumidos, días restantes, fecha límite y efecto del MASC sobre la prescripción o la caducidad.
 3. **Medio de remisión:** el que se empleará y por qué debe dejar constancia fehaciente del contenido, de la fecha y de la recepción.
-4. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Menciónala por su denominación formal (sin mostrar rutas internas ni volcar su contenido); si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
+4. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Menciónala por su denominación formal (sin mostrar rutas internas ni volcar su contenido); si el enrutamiento asigno varios documentos, nómbralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
 5. **Elección de Plantilla Base:** Aplica el protocolo universal de `REG-AST-01` (`CLAUDE.md`), convocando en ese mismo turno el formulario interactivo `restricted_human_in_the_loop_request` para que el usuario elija entre la plantilla del sistema o aportar su propia minuta.
 
 ### 2.3 Manejo Determinista de la Elección

@@ -1,9 +1,9 @@
-# BORRADOR DE AUTOLIQUIDACION DEL IMPUESTO DE SUCESIONES (MODELO 650)
+# BORRADOR DE AUTOLIQUIDACIÓN DEL IMPUESTO DE SUCESIONES (MODELO 650)
 
-> **DRAFT — para revision por un gestor o asesor fiscal antes de su presentacion. No constituye asesoramiento fiscal ni juridico.**
-> Version de la Ley 29/1987 verificada en el BOE: {{FECHA_VERIFICACION_ISD}}
-> Comunidad autonoma competente: {{COMUNIDAD_AUTONOMA}}
-> IMPORTANTE: la cuota es una ESTIMACION , no la cuota definitiva.
+> **DRAFT — para revisión por un gestor o asesor fiscal antes de su presentación. No constituye asesoramiento fiscal ni jurídico.**
+> Versión de la Ley 29/1987 verificada en el BOE: {{FECHA_VERIFICACION_ISD}}
+> Comunidad autónoma competente: {{COMUNIDAD_AUTONOMA}}
+> IMPORTANTE: la cuota es una ESTIMACIÓN , no la cuota definitiva.
 
 ---
 
@@ -12,11 +12,11 @@
 | Campo | Valor |
 |---|---|
 | Tributo | Impuesto sobre Sucesiones y Donaciones (adquisiciones mortis causa) |
-| Modelo | 650 (o modelo autonomico equivalente {{MODELO_AUTONOMICO}} ) |
-| Organismo competente | Hacienda autonomica de {{COMUNIDAD_AUTONOMA}} |
-| Sede de presentacion | {{SEDE_PRESENTACION}} |
+| Modelo | 650 (o modelo autonómico equivalente {{MODELO_AUTONOMICO}} ) |
+| Organismo competente | Hacienda autonómica de {{COMUNIDAD_AUTONOMA}} |
+| Sede de presentación | {{SEDE_PRESENTACION}} |
 | Plazo | 6 meses desde el fallecimiento, prorrogable por otros 6 (solicitud dentro de los 5 primeros meses) |
-| Fecha limite estimada | {{FECHA_LIMITE}} |
+| Fecha límite estimada | {{FECHA_LIMITE}} |
 
 ## 2. Causante
 
@@ -26,7 +26,7 @@
 | NIF | {{NIF_CAUSANTE}} |
 | Fecha de fallecimiento | {{FECHA_FALLECIMIENTO}} |
 | Lugar de fallecimiento | {{LUGAR_FALLECIMIENTO}} |
-| Ultimo domicilio | {{ULTIMO_DOMICILIO_CAUSANTE}} |
+| Último domicilio | {{ULTIMO_DOMICILIO_CAUSANTE}} |
 | CCAA de residencia habitual | {{COMUNIDAD_AUTONOMA}} |
 
 ## 3. Sujeto pasivo (heredero)
@@ -44,13 +44,13 @@
 
 **A) Activo (bienes y derechos):**
 
-| N. | Bien / derecho | Referencia / identificacion | Valor (EUR) |
+| N. | Bien / derecho | Referencia / identificación | Valor (EUR) |
 |---|---|---|---|
 | {{NUMERO_ORDEN_ACTIVO: número de orden}} | {{DESCRIPCION_BIEN: bien o derecho inventariado}} | {{IDENTIFICACION_BIEN: referencia catastral, matrícula, IBAN o dato que lo identifique}} | {{VALOR_BIEN: importe en euros}} |
 
 (Repetir una fila por cada bien o derecho del caudal relicto.)
 
-Ajuar domestico (Art. 15; 3% del caudal relicto salvo prueba): {{VALOR_AJUAR}} EUR 
+Ajuar doméstico (Art. 15; 3% del caudal relicto salvo prueba): {{VALOR_AJUAR}} EUR 
 
 Total caudal relicto: {{TOTAL_CAUDAL_RELICTO}} EUR
 
@@ -66,36 +66,36 @@ Total deducible: {{TOTAL_DEDUCIBLE}} EUR
 
 **C) Seguros de vida (beneficiario el heredero):** {{IMPORTE_SEGUROS_VIDA}} EUR
 
-## 5. Calculo estimado (todos los importes )
+## 5. Cálculo estimado (todos los importes )
 
 | Concepto | Importe (EUR) |
 |---|---|
 | Masa hereditaria neta (caudal relicto - deducible) | {{MASA_NETA}} |
-| Porcion individual del heredero | {{PORCION_INDIVIDUAL}} |
+| Porción individual del heredero | {{PORCION_INDIVIDUAL}} |
 | (+) Seguros de vida acumulados | {{IMPORTE_SEGUROS_VIDA}} |
 | Base imponible | {{BASE_IMPONIBLE}} |
-| (-) Reduccion por parentesco (Grupo {{GRUPO_PARENTESCO}}) | {{REDUCCION_PARENTESCO}} |
-| (-) Reduccion por seguros de vida (Art. 20.2.b) | {{REDUCCION_SEGUROS}} |
-| (-) Reduccion vivienda habitual (Art. 20.2.c) | {{REDUCCION_VIVIENDA}} |
-| (-) Reduccion empresa familiar (Art. 20.2.c) | {{REDUCCION_EMPRESA}} |
-| (-) Reduccion por discapacidad | {{REDUCCION_DISCAPACIDAD}} |
+| (-) Reducción por parentesco (Grupo {{GRUPO_PARENTESCO}}) | {{REDUCCION_PARENTESCO}} |
+| (-) Reducción por seguros de vida (Art. 20.2.b) | {{REDUCCION_SEGUROS}} |
+| (-) Reducción vivienda habitual (Art. 20.2.c) | {{REDUCCION_VIVIENDA}} |
+| (-) Reducción empresa familiar (Art. 20.2.c) | {{REDUCCION_EMPRESA}} |
+| (-) Reducción por discapacidad | {{REDUCCION_DISCAPACIDAD}} |
 | Base liquidable | {{BASE_LIQUIDABLE}} |
-| Cuota integra (tarifa aplicada) | {{CUOTA_INTEGRA}} |
+| Cuota íntegra (tarifa aplicada) | {{CUOTA_INTEGRA}} |
 | Coeficiente multiplicador (grupo / patrimonio) | {{COEFICIENTE_MULTIPLICADOR}} |
 | Cuota tributaria | {{CUOTA_TRIBUTARIA}} |
-| (-) Bonificacion autonomica de la cuota | {{BONIFICACION_AUTONOMICA}} |
+| (-) Bonificación autonómica de la cuota | {{BONIFICACION_AUTONOMICA}} |
 | **Cuota estimada a ingresar** | **{{CUOTA_A_INGRESAR}} ** |
 
-Regimen autonomico aplicado (fuente verificada): {{FUENTE_NORMATIVA_AUTONOMICA}} 
+Régimen autonómico aplicado (fuente verificada): {{FUENTE_NORMATIVA_AUTONOMICA}} 
 
-## 6. Plusvalia municipal (IIVTNU)
+## 6. Plusvalía municipal (IIVTNU)
 
 ---
 
 > **Advertencias:**
-> 1. Este documento es un DRAFT generado automaticamente. Debe ser revisado por un gestor o asesor fiscal antes de su presentacion.
-> 2. La cuota es una ESTIMACION , no la cuota definitiva. Los importes, reducciones y bonificaciones dependen de la CCAA {{COMUNIDAD_AUTONOMA}} y del ejercicio.
-> 3. Version de la Ley 29/1987 verificada: {{FECHA_VERIFICACION_ISD}}.
+> 1. Este documento es un DRAFT generado automáticamente. Debe ser revisado por un gestor o asesor fiscal antes de su presentación.
+> 2. La cuota es una ESTIMACIÓN , no la cuota definitiva. Los importes, reducciones y bonificaciones dependen de la CCAA {{COMUNIDAD_AUTONOMA}} y del ejercicio.
+> 3. Versión de la Ley 29/1987 verificada: {{FECHA_VERIFICACION_ISD}}.
 > 4. Plazo: 6 meses desde el fallecimiento, prorrogable por otros 6 (solicitud dentro de los 5 primeros meses).
-> 5. Organismo: Hacienda autonomica de {{COMUNIDAD_AUTONOMA}}. Modelo 650 o el autonomico equivalente .
-> 6. Si hay inmuebles urbanos, liquidar ademas la plusvalia municipal (IIVTNU) en el ayuntamiento correspondiente.
+> 5. Organismo: Hacienda autonómica de {{COMUNIDAD_AUTONOMA}}. Modelo 650 o el autonómico equivalente .
+> 6. Si hay inmuebles urbanos, liquidar además la plusvalía municipal (IIVTNU) en el ayuntamiento correspondiente.

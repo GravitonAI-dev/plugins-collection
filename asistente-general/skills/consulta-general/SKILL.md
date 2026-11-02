@@ -15,14 +15,14 @@ i18n:
       skill in the catalogue (urban lease, order for payment, eviction, self-employed
       registration, etc.), to which it proactively refers the user.
 description: >
-  Atiende y procesa consultas abiertas, orientacion juridica y administrativa multidisciplinar,
-  analisis de hechos, busquedas de informacion y evaluaciones de viabilidad que no clasifican en una skill
-  especializada preexistente. Opera como el asistente universal de primera linea y fallback en LangGraph.
+  Atiende y procesa consultas abiertas, orientación jurídica y administrativa multidisciplinar,
+  análisis de hechos, búsquedas de información y evaluaciones de viabilidad que no clasifican en una skill
+  especializada preexistente. Opera como el asistente universal de primera línea y fallback en LangGraph.
   Gestiona de forma fluida y adaptativa tanto respuestas directas e informativas en chat (cero burocracia)
-  como la generacion y edicion incremental bajo demanda de informes y dictamenes formales en el workspace
-  conforme al marco legal vigente verificado en el BOE y fuentes oficiales. NO usar para la redaccion
-  final de contratos o tramites que dispongan de skill vertical propia en el catalogo (arrendamiento urbano,
-  monitorio, desahucio, alta/baja de autonomo, etc.), hacia las cuales orienta proactivamente.
+  como la generación y edición incremental bajo demanda de informes y dictámenes formales en el workspace
+  conforme al marco legal vigente verificado en el BOE y fuentes oficiales. NO usar para la redacción
+  final de contratos o trámites que dispongan de skill vertical propia en el catálogo (arrendamiento urbano,
+  monitorio, desahucio, alta/baja de autónomo, etc.), hacia las cuales orienta proactivamente.
 when_to_use: |
   - El sistema no clasifica la solicitud del usuario en ninguna skill vertical especializada (default fallback).
   - El usuario plantea una duda legal, técnica, fiscal o administrativa multidisciplinar o no catalogada.
@@ -78,10 +78,10 @@ Para garantizar un análisis riguroso y una correcta estructuración del razonam
 Tu primer objetivo es evaluar la consulta mediante **escucha activa** y determinar la modalidad de atención.
 
 **Correspondencia con el enrutamiento.** Los vectores de esta skill se nombran con los identificadores siguientes; cada uno se resuelve con la respuesta indicada. No preguntes de nuevo nada que ya esté aquí:
-- `V1` — naturaleza de la consulta, resuelta en el triaje de la seccion 1.1
-- `V2` — materia o area tematica implicada
+- `V1` — naturaleza de la consulta, resuelta en el triaje de la sección 1.1
+- `V2` — materia o área temática implicada
 - `V3` — necesidad o no de documento formal en el workspace
-- `V4` — existencia de una skill vertical del catalogo a la que derivar
+- `V4` — existencia de una skill vertical del catálogo a la que derivar
 
 ### 1.1 Evaluación del Tipo de Consulta (Escucha Activa)
 

@@ -22,28 +22,28 @@ i18n:
       claim skill), for nullity of unfair terms, for personal injury in transport accidents, or
       for business-to-business disputes.
 description: >
-  Genera las reclamaciones de consumo de los tres sectores con regimen propio y mayor volumen en
-  Espana, conforme al **Real Decreto Legislativo 1/2007**, texto refundido de la Ley General para la
-  Defensa de los Consumidores y Usuarios, que regula el derecho de desistimiento y la atencion de
-  reclamaciones, y al **Reglamento (CE) 261/2004**, que fija la compensacion y asistencia a los
-  pasajeros aereos en caso de denegacion de embarque, cancelacion y gran retraso.
+  Genera las reclamaciones de consumo de los tres sectores con régimen propio y mayor volumen en
+  España, conforme al **Real Decreto Legislativo 1/2007**, texto refundido de la Ley General para la
+  Defensa de los Consumidores y Usuarios, que regula el derecho de desistimiento y la atención de
+  reclamaciones, y al **Reglamento (CE) 261/2004**, que fija la compensación y asistencia a los
+  pasajeros aéreos en caso de denegación de embarque, cancelación y gran retraso.
 
 
-  Genera tres documentos: la reclamacion a la compania aerea por vuelo cancelado, retrasado o embarque
-  denegado con su escalado a la Agencia Estatal de Seguridad Aerea, la reclamacion en materia de
-  suministros y telecomunicaciones (facturacion indebida, baja no atendida, portabilidad o
-  permanencia) con su escalado al organismo sectorial, y la comunicacion de desistimiento de una
+  Genera tres documentos: la reclamación a la compañía aérea por vuelo cancelado, retrasado o embarque
+  denegado con su escalado a la Agencia Estatal de Seguridad Aérea, la reclamación en materia de
+  suministros y telecomunicaciones (facturación indebida, baja no atendida, portabilidad o
+  permanencia) con su escalado al organismo sectorial, y la comunicación de desistimiento de una
   compra a distancia con la solicitud de reembolso.
 
 
-  Calcula la compensacion que corresponde por distancia de vuelo, distingue el retraso indemnizable de
-  la circunstancia extraordinaria que exonera, computa el plazo de catorce dias naturales del
-  desistimiento y su ampliacion cuando la empresa no informo del derecho, y en cada caso identifica el
-  organismo que continua la reclamacion cuando la empresa no responde.
+  Calcula la compensación que corresponde por distancia de vuelo, distingue el retraso indemnizable de
+  la circunstancia extraordinaria que exonera, computa el plazo de catorce días naturales del
+  desistimiento y su ampliación cuando la empresa no informó del derecho, y en cada caso identifica el
+  organismo que continúa la reclamación cuando la empresa no responde.
 
 
-  NO usar para la reclamacion judicial de la cantidad, que corresponde a la skill de reclamacion de
-  cantidad de derecho civil, ni para la nulidad de clausulas abusivas, ni para danos personales en
+  NO usar para la reclamación judicial de la cantidad, que corresponde a la skill de reclamación de
+  cantidad de derecho civil, ni para la nulidad de cláusulas abusivas, ni para daños personales en
   accidente de transporte, ni para reclamaciones entre empresas, que no son relaciones de consumo.
 
 
@@ -51,32 +51,32 @@ description: >
   [Ley General para la Defensa de los Consumidores y Usuarios](https://www.boe.es/buscar/act.php?id=BOE-A-2007-20555)
   en el BOE, y
   [Reglamento (CE) 261/2004](https://eur-lex.europa.eu/legal-content/ES/TXT/?uri=CELEX:32004R0261)
-  en el Diario Oficial de la Union Europea.
+  en el Diario Oficial de la Unión Europea.
 when_to_use: |
   - Al usuario le han cancelado o retrasado un vuelo, o le han denegado el embarque, y quiere reclamar.
-  - Al usuario le han perdido o danado el equipaje y pregunta que puede reclamar.
-  - El usuario tiene una factura de luz, gas, agua, telefono o internet que considera indebida.
-  - El usuario pidio la baja de un servicio y la empresa sigue facturando, o le reclaman penalizacion por permanencia.
+  - Al usuario le han perdido o dañado el equipaje y pregunta qué puede reclamar.
+  - El usuario tiene una factura de luz, gas, agua, teléfono o internet que considera indebida.
+  - El usuario pidió la baja de un servicio y la empresa sigue facturando, o le reclaman penalización por permanencia.
   - El usuario ha comprado online y quiere devolverlo dentro del plazo de desistimiento.
-  - El usuario reclamo a la empresa y no le han contestado, y pregunta a donde acudir ahora.
+  - El usuario reclamó a la empresa y no le han contestado, y pregunta a dónde acudir ahora.
 inputs:
-  - documento: transporte aereo / suministros y telecomunicaciones / desistimiento de compra a distancia (V1)
+  - documento: transporte aéreo / suministros y telecomunicaciones / desistimiento de compra a distancia (V1)
   - modalidad_contratacion: a distancia u online / presencial (V2)
-  - fase_reclamacion: primera reclamacion a la empresa / la empresa ya respondio o no contesto (V3)
+  - fase_reclamacion: primera reclamación a la empresa / la empresa ya respondió o no contesto (V3)
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
-  - datos_consumidor: nombre y apellidos, NIF/NIE, domicilio, telefono y correo electronico
-  - datos_empresa: razon social, CIF si se conoce, domicilio y direccion de atencion al cliente
-  - datos_contrato: numero de contrato, de reserva, de linea o de pedido, y fecha de contratacion
-  - hechos: descripcion de lo ocurrido con sus fechas, importes y comunicaciones previas
-  - datos_vuelo: numero de vuelo, origen, destino, fecha, hora prevista y hora real, y motivo alegado por la compania
-  - distancia_vuelo: distancia ortodromica entre origen y destino en kilometros
-  - importes_reclamados: compensacion, reembolso, gastos acreditados e indemnizacion por danos
-  - datos_pedido: fecha del pedido, fecha de recepcion, importe y medio de pago
+  - datos_consumidor: nombre y apellidos, NIF/NIE, domicilio, teléfono y correo electrónico
+  - datos_empresa: razón social, CIF si se conoce, domicilio y dirección de atención al cliente
+  - datos_contrato: número de contrato, de reserva, de línea o de pedido, y fecha de contratación
+  - hechos: descripción de lo ocurrido con sus fechas, importes y comunicaciones previas
+  - datos_vuelo: número de vuelo, origen, destino, fecha, hora prevista y hora real, y motivo alegado por la compañía
+  - distancia_vuelo: distancia ortodrómica entre origen y destino en kilómetros
+  - importes_reclamados: compensación, reembolso, gastos acreditados e indemnización por daños
+  - datos_pedido: fecha del pedido, fecha de recepción, importe y medio de pago
   - prueba: billetes, facturas, tarjetas de embarque, capturas, partes de irregularidad y comunicaciones
 outputs:
-  - reclamacion_transporte_aereo: reclamacion a la compania aerea con escalado a la Agencia Estatal de Seguridad Aerea, DRAFT
-  - reclamacion_suministros: reclamacion de suministros y telecomunicaciones con escalado sectorial, DRAFT
-  - comunicacion_desistimiento: comunicacion de desistimiento de compra a distancia con solicitud de reembolso, DRAFT
+  - reclamacion_transporte_aereo: reclamación a la compañía aérea con escalado a la Agencia Estatal de Seguridad Aérea, DRAFT
+  - reclamacion_suministros: reclamación de suministros y telecomunicaciones con escalado sectorial, DRAFT
+  - comunicacion_desistimiento: comunicación de desistimiento de compra a distancia con solicitud de reembolso, DRAFT
   - checklist_plazos_y_organismos: plazos aplicables, organismo competente en cada fase y prueba a conservar
 references:
   - references/transporte-aereo-compensacion-y-aesa.md
@@ -128,7 +128,7 @@ Invoca la herramienta con las preguntas de triaje:
   "form_data": [
     {
       "id": "documento",
-      "rationale": "Resolver V1 para determinar el sector y su regimen y organismo propios.",
+      "rationale": "Resolver V1 para determinar el sector y su régimen y organismo propios.",
       "question": "¿Sobre qué es su reclamación?",
       "options": [
         {"id": "transporte_aereo", "label": "Un vuelo: cancelación, retraso, embarque denegado o equipaje"},
@@ -139,7 +139,7 @@ Invoca la herramienta con las preguntas de triaje:
     },
     {
       "id": "modalidad_contratacion",
-      "rationale": "Resolver V2: el derecho de desistimiento solo nace en la contratacion a distancia o fuera de establecimiento.",
+      "rationale": "Resolver V2: el derecho de desistimiento solo nace en la contratación a distancia o fuera de establecimiento.",
       "question": "¿Cómo contrató o compró?",
       "options": [
         {"id": "a_distancia", "label": "Por internet, teléfono o fuera del establecimiento"},
@@ -148,7 +148,7 @@ Invoca la herramienta con las preguntas de triaje:
     },
     {
       "id": "fase_reclamacion",
-      "rationale": "Resolver V3: el escalado al organismo sectorial exige acreditar la reclamacion previa a la empresa.",
+      "rationale": "Resolver V3: el escalado al organismo sectorial exige acreditar la reclamación previa a la empresa.",
       "question": "¿Ha reclamado ya a la empresa?",
       "options": [
         {"id": "primera_reclamacion", "label": "No, esta es la primera reclamación"},

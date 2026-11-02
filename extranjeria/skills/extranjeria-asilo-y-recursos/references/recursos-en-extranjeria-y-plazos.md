@@ -36,7 +36,7 @@ Como en el régimen general, el acto es **ejecutivo** desde su notificación, y 
 ### 5.1 De forma
 
 - **Requerimiento de subsanación indebido**: exigir un documento que ya constaba en el expediente o que no es legalmente exigible para ese trámite.
-- **Falta de trámite de audiencia** antes de resolver desfavorablemente, quando la norma lo exige.
+- **Falta de trámite de audiencia** antes de resolver desfavorablemente, cuando la norma lo exige.
 - **Falta de motivación**, especialmente relevante porque muchas resoluciones se limitan a citar el precepto sin explicar por qué no se cumple en el caso concreto.
 - **Incongruencia**: la resolución no responde a lo solicitado o resuelve sobre una cuestión distinta.
 

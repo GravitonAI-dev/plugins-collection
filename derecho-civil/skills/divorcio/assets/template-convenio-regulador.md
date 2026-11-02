@@ -1,8 +1,8 @@
 # CONVENIO REGULADOR DE {{TIPO_RUPTURA}} DE MUTUO ACUERDO
 
-> **DRAFT — para revision por un abogado antes de su presentacion o firma. No constituye asesoramiento juridico.**  
-> Version del Codigo Civil verificada en el BOE: {{FECHA_VERIFICACION_CC}}  
-> Contenido conforme al articulo 90 del Codigo Civil.
+> **DRAFT — para revisión por un abogado antes de su presentación o firma. No constituye asesoramiento jurídico.**  
+> Versión del Código Civil verificada en el BOE: {{FECHA_VERIFICACION_CC}}  
+> Contenido conforme al artículo 90 del Código Civil.
 
 ---
 
@@ -18,19 +18,19 @@ Ambos se reconocen mutuamente capacidad legal suficiente para otorgar el present
 
 ## EXPONEN
 
-**PRIMERO.** Que contrajeron matrimonio el dia {{FECHA_MATRIMONIO}} en {{LUGAR_MATRIMONIO}}, inscrito en el Registro Civil de {{REGISTRO_CIVIL}}.
+**PRIMERO.** Que contrajeron matrimonio el día {{FECHA_MATRIMONIO}} en {{LUGAR_MATRIMONIO}}, inscrito en el Registro Civil de {{REGISTRO_CIVIL}}.
 
-**SEGUNDO.** Que su matrimonio se rige por el regimen economico de {{REGIMEN_ECONOMICO}}.
+**SEGUNDO.** Que su matrimonio se rige por el régimen económico de {{REGIMEN_ECONOMICO}}.
 
-**CUARTO.** Que, transcurridos mas de tres meses desde la celebracion del matrimonio, es voluntad comun e inequivoca de ambos poner fin a la convivencia mediante la {{TIPO_RUPTURA}} de mutuo acuerdo, para lo cual suscriben el presente convenio regulador con arreglo a las siguientes
+**CUARTO.** Que, transcurridos más de tres meses desde la celebración del matrimonio, es voluntad común e inequívoca de ambos poner fin a la convivencia mediante la {{TIPO_RUPTURA}} de mutuo acuerdo, para lo cual suscriben el presente convenio regulador con arreglo a las siguientes
 
-## CLAUSULAS
+## CLÁUSULAS
 
 **{{NUMERO_CLAUSULA_VIVIENDA}} — Uso de la vivienda y del ajuar familiar.** La vivienda familiar, sita en {{DIRECCION_VIVIENDA}}, es {{TITULARIDAD_VIVIENDA}}. Su uso se atribuye a {{USO_VIVIENDA}}, junto con el ajuar familiar, {{PLAZO_USO_VIVIENDA}}.
 
-**{{NUMERO_CLAUSULA_CARGAS}} — Cargas y gastos comunes.** Las deudas y cargas comunes pendientes se abonaran {{REPARTO_CARGAS}}. Cada conyuge asumira desde la firma sus propios gastos personales.
+**{{NUMERO_CLAUSULA_CARGAS}} — Cargas y gastos comunes.** Las deudas y cargas comunes pendientes se abonaran {{REPARTO_CARGAS}}. Cada cónyuge asumirá desde la firma sus propios gastos personales.
 
-**{{NUMERO_CLAUSULA_APROBACION}} — Eficacia y aprobacion.** 
+**{{NUMERO_CLAUSULA_APROBACION}} — Eficacia y aprobación.** 
  
 Y en prueba de conformidad, ambos firman el presente convenio por duplicado en el lugar y fecha indicados.
 
@@ -46,8 +46,8 @@ ___________________________
 ---
 
 > **Advertencias:**  
-> 1. Este documento es un DRAFT generado automaticamente. Debe ser revisado por un abogado antes de su presentacion o firma.  
-> 2. Version del Codigo Civil verificada: {{FECHA_VERIFICACION_CC}}.  
-> 3. El convenio no produce plenos efectos hasta su aprobacion por sentencia (via judicial) o su formalizacion ante notario o Letrado de la Administracion de Justicia (via extrajudicial).  
-> 4. Con hijos menores o con discapacidad dependientes, la via es judicial y el Ministerio Fiscal informa sobre las medidas que les afectan (Art. 777 LEC).  
-> 5. No se aprobaran clausulas daninas para los hijos ni gravemente perjudiciales para un conyuge (Art. 90.2 CC).
+> 1. Este documento es un DRAFT generado automáticamente. Debe ser revisado por un abogado antes de su presentación o firma.  
+> 2. Versión del Código Civil verificada: {{FECHA_VERIFICACION_CC}}.  
+> 3. El convenio no produce plenos efectos hasta su aprobación por sentencia (vía judicial) o su formalización ante notario o Letrado de la Administración de Justicia (vía extrajudicial).  
+> 4. Con hijos menores o con discapacidad dependientes, la vía es judicial y el Ministerio Fiscal informa sobre las medidas que les afectan (Art. 777 LEC).  
+> 5. No se aprobaran cláusulas dañinas para los hijos ni gravemente perjudiciales para un cónyuge (Art. 90.2 CC).

@@ -20,59 +20,59 @@ i18n:
       defence before the Independent Whistleblower Protection Authority, or for disciplinary
       proceedings arising from a report, which require legal counsel.
 description: >
-  Prepara el sistema interno de informacion y canal de denuncias que exige la **Ley 2/2023**,
-  reguladora de la proteccion de las personas que informen sobre infracciones normativas y de lucha
-  contra la corrupcion, que obliga a las empresas de cincuenta o mas personas trabajadoras a
+  Prepara el sistema interno de información y canal de denuncias que exige la **Ley 2/2023**,
+  reguladora de la protección de las personas que informen sobre infracciones normativas y de lucha
+  contra la corrupción, que obliga a las empresas de cincuenta o más personas trabajadoras a
   implantarlo, designar un responsable del sistema y garantizar la ausencia de represalias, con el
-  tratamiento de datos sujeto al **Reglamento (UE) 2016/679** general de proteccion de datos.
+  tratamiento de datos sujeto al **Reglamento (UE) 2016/679** general de protección de datos.
 
 
-  Genera tres documentos: la politica del sistema interno de informacion aprobada por el organo de
-  administracion, el procedimiento de gestion de las informaciones recibidas con sus plazos y
-  garantias, y el acuerdo de designacion del responsable del sistema con sus funciones.
+  Genera tres documentos: la política del sistema interno de información aprobada por el órgano de
+  administración, el procedimiento de gestión de las informaciones recibidas con sus plazos y
+  garantías, y el acuerdo de designación del responsable del sistema con sus funciones.
 
 
-  Comprueba si la empresa esta obligada segun su plantilla y su actividad, computa el plazo de siete
-  dias naturales para acusar recibo y el maximo de tres meses de instruccion, articula la admision de
-  informaciones anonimas, fija los plazos de conservacion y advierte de la prohibicion de represalias
-  con su inversion de la carga de la prueba.
+  Comprueba si la empresa está obligada según su plantilla y su actividad, computa el plazo de siete
+  días naturales para acusar recibo y el máximo de tres meses de instrucción, articula la admisión de
+  informaciones anónimas, fija los plazos de conservación y advierte de la prohibición de represalias
+  con su inversión de la carga de la prueba.
 
 
-  NO usar cuando ya se ha recibido una informacion y hay una investigacion interna en curso, ni para
-  la defensa ante la Autoridad Independiente de Proteccion del Informante, ni para expedientes
-  disciplinarios derivados de una denuncia, que exigen direccion letrada.
+  NO usar cuando ya se ha recibido una información y hay una investigación interna en curso, ni para
+  la defensa ante la Autoridad Independiente de Protección del Informante, ni para expedientes
+  disciplinarios derivados de una denuncia, que exigen dirección letrada.
 
 
   Normas aplicadas, en su texto consolidado:
   [Ley 2/2023](https://www.boe.es/buscar/act.php?id=BOE-A-2023-4513) en el BOE, y
-  [Reglamento General de Proteccion de Datos](https://eur-lex.europa.eu/legal-content/ES/TXT/?uri=CELEX:32016R0679)
-  en el Diario Oficial de la Union Europea.
+  [Reglamento General de Protección de Datos](https://eur-lex.europa.eu/legal-content/ES/TXT/?uri=CELEX:32016R0679)
+  en el Diario Oficial de la Unión Europea.
 when_to_use: |
-  - La empresa tiene cincuenta o mas personas trabajadoras y no tiene canal de denuncias.
-  - El usuario pregunta si su empresa esta obligada a tener un sistema interno de informacion.
-  - La empresa necesita la politica del sistema y el procedimiento de gestion de informaciones.
-  - La empresa necesita designar formalmente al responsable del sistema interno de informacion.
-  - El usuario pregunta si el canal debe admitir denuncias anonimas y como se protege al informante.
-  - El usuario pregunta que plazos tiene para responder a una informacion recibida.
+  - La empresa tiene cincuenta o más personas trabajadoras y no tiene canal de denuncias.
+  - El usuario pregunta si su empresa está obligada a tener un sistema interno de información.
+  - La empresa necesita la política del sistema y el procedimiento de gestión de informaciones.
+  - La empresa necesita designar formalmente al responsable del sistema interno de información.
+  - El usuario pregunta si el canal debe admitir denuncias anónimas y como se protege al informante.
+  - El usuario pregunta qué plazos tiene para responder a una información recibida.
 inputs:
-  - documento: politica del sistema / procedimiento de gestion / designacion del responsable (V1)
-  - obligacion: obligada por plantilla o actividad / implantacion voluntaria (V2)
-  - gestion_sistema: gestion interna / gestion externalizada en tercero (V3)
+  - documento: política del sistema / procedimiento de gestión / designación del responsable (V1)
+  - obligacion: obligada por plantilla o actividad / implantación voluntaria (V2)
+  - gestion_sistema: gestión interna / gestión externalizada en tercero (V3)
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
-  - datos_entidad: razon social, CIF, domicilio, actividad y numero de personas trabajadoras
-  - organo_administracion: composicion del organo que aprueba y fecha prevista de aprobacion
-  - datos_responsable_sistema: identidad, cargo, dependencia jerarquica y medios asignados
-  - canales_habilitados: canales de recepcion (escrito, verbal, reunion presencial) y sus direcciones
+  - datos_entidad: razón social, CIF, domicilio, actividad y número de personas trabajadoras
+  - organo_administracion: composición del órgano que aprueba y fecha prevista de aprobación
+  - datos_responsable_sistema: identidad, cargo, dependencia jerárquica y medios asignados
+  - canales_habilitados: canales de recepción (escrito, verbal, reunión presencial) y sus direcciones
   - ambito_subjetivo: personas que pueden informar (personal, becarios, candidatos, contratistas, socios)
   - materias_incluidas: infracciones que pueden comunicarse por el sistema
   - proveedor_externo: identidad del tercero que gestiona el sistema, si aplica
-  - plazos_y_conservacion: plazos internos de tramitacion y politica de conservacion de la informacion
-  - representacion_legal: forma de consulta a la representacion legal de las personas trabajadoras
+  - plazos_y_conservacion: plazos internos de tramitación y política de conservación de la información
+  - representacion_legal: forma de consulta a la representación legal de las personas trabajadoras
 outputs:
-  - politica_sistema_informacion: politica del sistema interno de informacion, DRAFT
-  - procedimiento_gestion_informaciones: procedimiento de gestion de informaciones con plazos y garantias, DRAFT
-  - designacion_responsable_sistema: acuerdo de designacion del responsable del sistema y sus funciones, DRAFT
-  - checklist_implantacion: obligaciones exigibles, plazos y evidencias de implantacion
+  - politica_sistema_informacion: política del sistema interno de información, DRAFT
+  - procedimiento_gestion_informaciones: procedimiento de gestión de informaciones con plazos y garantías, DRAFT
+  - designacion_responsable_sistema: acuerdo de designación del responsable del sistema y sus funciones, DRAFT
+  - checklist_implantacion: obligaciones exigibles, plazos y evidencias de implantación
 references:
   - references/ley-2-2023-sistema-interno-informacion.md
   - references/proteccion-informante-y-datos-personales.md
@@ -123,7 +123,7 @@ Invoca la herramienta con las preguntas de triaje:
   "form_data": [
     {
       "id": "documento",
-      "rationale": "Resolver V1 para determinar cual de los tres documentos del sistema se prepara.",
+      "rationale": "Resolver V1 para determinar cuál de los tres documentos del sistema se prepara.",
       "question": "¿Qué documento necesita?",
       "options": [
         {"id": "politica_sistema", "label": "Política del sistema interno de información, para su aprobación"},
@@ -134,7 +134,7 @@ Invoca la herramienta con las preguntas de triaje:
     },
     {
       "id": "obligacion",
-      "rationale": "Resolver V2: la obligacion legal impone requisitos que la implantacion voluntaria puede modular.",
+      "rationale": "Resolver V2: la obligación legal impone requisitos que la implantación voluntaria puede modular.",
       "question": "¿La empresa tiene cincuenta o más personas trabajadoras, o pertenece a un sector con obligación específica?",
       "options": [
         {"id": "obligada", "label": "Sí, está obligada"},
@@ -143,7 +143,7 @@ Invoca la herramienta con las preguntas de triaje:
     },
     {
       "id": "gestion_sistema",
-      "rationale": "Resolver V3: la gestion por tercero exige contrato de encargado y garantias adicionales de independencia.",
+      "rationale": "Resolver V3: la gestión por tercero exige contrato de encargado y garantías adicionales de independencia.",
       "question": "¿Quién va a gestionar el canal?",
       "options": [
         {"id": "gestion_interna", "label": "Una persona o unidad de la propia empresa"},

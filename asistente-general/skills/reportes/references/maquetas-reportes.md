@@ -2,57 +2,57 @@
 
 Cada artefacto se construye con dos piezas:
 
-1. **La base** (`assets/template-base-reportes.md`). Se copia integra: estilos, tema claro y oscuro, impresion, aviso DRAFT, cabecera, pie con fuentes y motor de graficos. No se resume ni se recorta.
-2. **La maqueta** del tipo de entregable elegido (este documento). Orden de montaje del archivo: base completa, con sus marcadores rellenos; despues del script del motor, los modulos que haga falta (`modulos-motor.md`); despues, el script de la maqueta si lo tiene. Rellena los marcadores de la base:
+1. **La base** (`assets/template-base-reportes.md`). Se copia íntegra: estilos, tema claro y oscuro, impresión, aviso DRAFT, cabecera, pie con fuentes y motor de gráficos. No se resume ni se recorta.
+2. **La maqueta** del tipo de entregable elegido (este documento). Orden de montaje del archivo: base completa, con sus marcadores rellenos; después del script del motor, los módulos que haga falta (`modulos-motor.md`); después, el script de la maqueta si lo tiene. Rellena los marcadores de la base:
    - `{{ANCHO}}`: el ancho de la maqueta;
    - `{{FICHA}}` y `{{CONTENIDO}}`: sus partes `ficha` y `contenido`;
-   - `{{ESTILOS_MAQUETA}}`: su parte `estilos`, o se borra la linea si no tiene;
+   - `{{ESTILOS_MAQUETA}}`: su parte `estilos`, o se borra la línea si no tiene;
    - `{{ACCIONES}}`: su parte `acciones`, o se borra si no tiene;
    - el bloque `datos-reporte`: su parte `datos`, completada con los datos del caso.
 
-Los graficos **no se dibujan a mano**. En el HTML solo se coloca el hueco, `<figure class="grafico" data-grafico="nombre"></figure>`, y en el bloque `datos-reporte` se declaran los datos con ese mismo nombre. El motor dibuja el grafico, su tabla de datos, su fuente y el pie de fuentes del documento. El contrato de datos de cada tipo de grafico esta en `biblioteca-componentes-visuales.md`.
+Los gráficos **no se dibujan a mano**. En el HTML solo se coloca el hueco, `<figure class="grafico" data-grafico="nombre"></figure>`, y en el bloque `datos-reporte` se declaran los datos con ese mismo nombre. El motor dibuja el gráfico, su tabla de datos, su fuente y el pie de fuentes del documento. El contrato de datos de cada tipo de gráfico está en `biblioteca-componentes-visuales.md`.
 
 Reglas comunes a todas las maquetas:
 
-- El tema se fija en la etiqueta `html` con `data-tema` y el modo, si el usuario lo pidio, con `data-modo` (`temas-visuales.md`): los 21 temas van en la base y no se copia nada mas.
-- Los bloques se pueden repetir, quitar o reordenar, y **cualquier hueco de grafico admite cualquier tipo**: si en un panel no hay importe que descomponer, la tarjeta de la cascada pasa a ser una bala, unas divergentes o un diagrama. Las maquetas son un punto de partida, no un formulario que haya que llenar entero. Lo que no cambia es la estructura de cada bloque: las clases son las de la base y no se renombran.
-- Toda cifra del texto que salga de un grafico se escribe con `<span data-cifra="clave"></span>` y se declara en `cifras`. Asi el texto y el grafico no pueden contradecirse.
-- **Lo que falta:** una linea de la ficha cuyo dato no es esencial y no se ha dado (la referencia del expediente, el autor) se quita; si es esencial, se pregunta. Un hito sin fecha cierta se escribe como «Fecha por determinar» o «Prevista: noviembre de 2026», nunca con un dia inventado. Los marcadores `{{VARIABLE}}` solo quedan para datos que el usuario ha decidido no dar.
-- **Titulo:** `{{TITULO_CORTO}}` es el nombre de la pestana y del PDF; `{{TITULO_DOCUMENTO}}`, el titular que afirma.
-- Las cifras que no salen de un grafico (un plazo en meses, una fecha) se escriben como texto.
+- El tema se fija en la etiqueta `html` con `data-tema` y el modo, si el usuario lo pidió, con `data-modo` (`temas-visuales.md`): los 21 temas van en la base y no se copia nada más.
+- Los bloques se pueden repetir, quitar o reordenar, y **cualquier hueco de gráfico admite cualquier tipo**: si en un panel no hay importe que descomponer, la tarjeta de la cascada pasa a ser una bala, unas divergentes o un diagrama. Las maquetas son un punto de partida, no un formulario que haya que llenar entero. Lo que no cambia es la estructura de cada bloque: las clases son las de la base y no se renombran.
+- Toda cifra del texto que salga de un gráfico se escribe con `<span data-cifra="clave"></span>` y se declara en `cifras`. Así el texto y el gráfico no pueden contradecirse.
+- **Lo que falta:** una línea de la ficha cuyo dato no es esencial y no se ha dado (la referencia del expediente, el autor) se quita; si es esencial, se pregunta. Un hito sin fecha cierta se escribe como «Fecha por determinar» o «Prevista: noviembre de 2026», nunca con un día inventado. Los marcadores `{{VARIABLE}}` solo quedan para datos que el usuario ha decidido no dar.
+- **Título:** `{{TITULO_CORTO}}` es el nombre de la pestaña y del PDF; `{{TITULO_DOCUMENTO}}`, el titular que afirma.
+- Las cifras que no salen de un gráfico (un plazo en meses, una fecha) se escriben como texto.
 
 ---
 
-## Indice de maquetas
+## Índice de maquetas
 
-Todas son **reportes**: cifras, graficos y datos que se ven en el navegador y se imprimen. Los documentos de texto (memorandos, propuestas, guias, boletines, contratos, escritos) se redactan en Markdown con su skill y no tienen maqueta aqui.
+Todas son **reportes**: cifras, gráficos y datos que se ven en el navegador y se imprimen. Los documentos de texto (memorandos, propuestas, guías, boletines, contratos, escritos) se redactan en Markdown con su skill y no tienen maqueta aquí.
 
 | Maqueta | `id` | Para que | Familia |
 | :--- | :--- | :--- | :--- |
 | Panel de datos | `panel_datos` | Indicadores y gráficos de un periodo o una cartera; seguimiento de facturación o deuda | Datos |
-| Informe visual | `informe_visual` | Un caso explicado con secciones, indicadores, plazos y cronología | Riesgo y decision |
+| Informe visual | `informe_visual` | Un caso explicado con secciones, indicadores, plazos y cronología | Riesgo y decisión |
 | Herramienta interactiva | `herramienta_interactiva` | Calculadora o simulador que recalcula al cambiar los datos | Datos |
-| Presentacion | `presentacion` | Diapositivas 16:9 con notas del orador para una reunión | Comunicacion |
-| Documento largo | `documento_largo` | White paper o memoria con portada, índice y muchos gráficos | Comunicacion |
-| Resumen ejecutivo | `resumen_ejecutivo` | Una página A4 con la conclusión, tres cifras y la decisión que se pide | Una pagina |
+| Presentación | `presentacion` | Diapositivas 16:9 con notas del orador para una reunión | Comunicación |
+| Documento largo | `documento_largo` | White paper o memoria con portada, índice y muchos gráficos | Comunicación |
+| Resumen ejecutivo | `resumen_ejecutivo` | Una página A4 con la conclusión, tres cifras y la decisión que se pide | Una página |
 | Cuadro de mando | `cuadro_mando` | Ocho KPIs con su variación, objetivos y estado por área; para el comité de dirección | Datos |
-| Ficha de una pagina | `ficha_una_pagina` | Datos clave de un asunto, un cliente o una sociedad en una página A4 | Una pagina |
-| Infografia | `infografia` | Tres cifras enormes y gráficos sencillos en vertical, para divulgar | Comunicacion |
-| Comparativa | `comparativa` | Dos a cuatro opciones frente a frente con los mismos criterios y la recomendada destacada | Riesgo y decision |
+| Ficha de una página | `ficha_una_pagina` | Datos clave de un asunto, un cliente o una sociedad en una página A4 | Una página |
+| Infografía | `infografia` | Tres cifras enormes y gráficos sencillos en vertical, para divulgar | Comunicación |
+| Comparativa | `comparativa` | Dos a cuatro opciones frente a frente con los mismos criterios y la recomendada destacada | Riesgo y decisión |
 | Cronograma del expediente | `cronograma_expediente` | Qué ha pasado, qué plazo corre y qué viene; para el cliente que pregunta cómo va lo suyo | Seguimiento |
 | Lista de control | `lista_control` | Cumplimiento por bloque y por requisito, con sus evidencias; auditorías y compliance | Seguimiento |
-| Mapa de riesgos | `mapa_riesgos` | Matriz de probabilidad e impacto, impacto económico y exposición | Riesgo y decision |
-| Escenarios | `escenarios` | Qué pasa si cambian los supuestos: horquilla del resultado y qué lo mueve más | Riesgo y decision |
-| Embudo de conversion | `embudo_conversion` | Un proceso por etapas y dónde se pierde; captación, recobro o tramitación | Datos |
+| Mapa de riesgos | `mapa_riesgos` | Matriz de probabilidad e impacto, impacto económico y exposición | Riesgo y decisión |
+| Escenarios | `escenarios` | Qué pasa si cambian los supuestos: horquilla del resultado y qué lo mueve más | Riesgo y decisión |
+| Embudo de conversión | `embudo_conversion` | Un proceso por etapas y dónde se pierde; captación, recobro o tramitación | Datos |
 | Actividad del equipo | `actividad_equipo` | Horas, asuntos y carga por área y por mes | Seguimiento |
 | Informe territorial | `informe_territorial` | Datos por comunidad autónoma o provincia en un mapa, con ranking y concentración | Datos |
-| Poster | `poster` | Una hoja A3 apaisada con tres cifras y un gráfico grande, para colgar | Una pagina |
+| Poster | `poster` | Una hoja A3 apaisada con tres cifras y un gráfico grande, para colgar | Una página |
 
 ---
 
 ## 1. Panel de datos (`panel_datos`)
 
-**Ancho:** `1120px`. Rejilla de tarjetas con indicadores, graficos y tabla de detalle.
+**Ancho:** `1120px`. Rejilla de tarjetas con indicadores, gráficos y tabla de detalle.
 
 ### Ficha
 
@@ -168,7 +168,7 @@ Todas son **reportes**: cifras, graficos y datos que se ven en el navegador y se
 
 ## 2. Informe visual (`informe_visual`)
 
-**Ancho:** `1000px`. Lectura secuencial con indice lateral, secciones numeradas, tabla, cronologia, avisos y firmas. Admite graficos dentro de cualquier seccion.
+**Ancho:** `1000px`. Lectura secuencial con índice lateral, secciones numeradas, tabla, cronología, avisos y firmas. Admite gráficos dentro de cualquier sección.
 
 ### Ficha
 
@@ -314,9 +314,9 @@ Todas son **reportes**: cifras, graficos y datos que se ven en el navegador y se
 
 ## 3. Herramienta interactiva (`herramienta_interactiva`)
 
-**Ancho:** `1020px`. Panel de entrada, recalculo inmediato, medidor que se mueve con el resultado, desglose y lista de verificacion.
+**Ancho:** `1020px`. Panel de entrada, recálculo inmediato, medidor que se mueve con el resultado, desglose y lista de verificación.
 
-La herramienta es la unica maqueta que anade codigo: un **segundo** `<script>`, colocado justo despues del script del motor. En ese script solo cambia la funcion `calcular`. Las cifras se formatean con el motor (`Reportes.fmt`, que respeta el idioma y la moneda del bloque de datos) y el medidor lo sigue dibujando el motor: el script le pasa el nuevo valor con `Reportes.actualizar("resultado", {valor: ...})`.
+La herramienta es la única maqueta que añade código: un **segundo** `<script>`, colocado justo después del script del motor. En ese script solo cambia la función `calcular`. Las cifras se formatean con el motor (`Reportes.fmt`, que respeta el idioma y la moneda del bloque de datos) y el medidor lo sigue dibujando el motor: el script le pasa el nuevo valor con `Reportes.actualizar("resultado", {valor: ...})`.
 
 ### Ficha
 
@@ -463,9 +463,9 @@ input[type=number]{font-variant-numeric:tabular-nums}
 }
 ```
 
-### Script de calculo
+### Script de cálculo
 
-Se coloca despues del script del motor. `UNIDAD` es la unidad de los resultados 1 y 2 y del desglose (`eur` por defecto; `dias`, `num` o cualquier texto si la herramienta calcula otra magnitud).
+Se coloca después del script del motor. `UNIDAD` es la unidad de los resultados 1 y 2 y del desglose (`eur` por defecto; `dias`, `num` o cualquier texto si la herramienta calcula otra magnitud).
 
 ```js maqueta=herramienta_interactiva parte=script
 <script>
@@ -528,44 +528,44 @@ Se coloca despues del script del motor. `UNIDAD` es la unidad de los resultados 
 </script>
 ```
 
-El bloque de calculo recibe el objeto de `leer()` y devuelve `{resultado1, resultado2, resultado3, medidor, desglose: [{concepto, importe, detalle}]}`. `medidor` es un porcentaje de 0 a 100; `totalDetalle` es opcional, porque sumar dias o porcentajes carece de sentido.
+El bloque de cálculo recibe el objeto de `leer()` y devuelve `{resultado1, resultado2, resultado3, medidor, desglose: [{concepto, importe, detalle}]}`. `medidor` es un porcentaje de 0 a 100; `totalDetalle` es opcional, porque sumar días o porcentajes carece de sentido.
 
 ---
 
-## 4. Presentacion (`presentacion`)
+## 4. Presentación (`presentacion`)
 
-**Ancho:** `1280px`. Slides en formato 16:9: en pantalla se ven de una en una, a pantalla completa si se quiere, con flechas, gestos y notas del orador; al imprimir o guardar en PDF sale una diapositiva por pagina en 16:9, el mismo formato de una presentacion de PowerPoint o Google Slides.
+**Ancho:** `1280px`. Slides en formato 16:9: en pantalla se ven de una en una, a pantalla completa si se quiere, con flechas, gestos y notas del orador; al imprimir o guardar en PDF sale una diapositiva por página en 16:9, el mismo formato de una presentación de PowerPoint o Google Slides.
 
-**Las diapositivas no se escriben en HTML: se declaran como datos**, en la lista `diapositivas` del bloque `datos-reporte`, y el script de la maqueta las monta. Asi cada diapositiva tiene siempre la misma estructura y los mismos datos podran exportarse mas adelante a otras herramientas. Los graficos y diagramas de una diapositiva se declaran en `graficos` como en cualquier artefacto y se citan por su nombre.
+**Las diapositivas no se escriben en HTML: se declaran como datos**, en la lista `diapositivas` del bloque `datos-reporte`, y el script de la maqueta las monta. Así cada diapositiva tiene siempre la misma estructura y los mismos datos podrán exportarse más adelante a otras herramientas. Los gráficos y diagramas de una diapositiva se declaran en `graficos` como en cualquier artefacto y se citan por su nombre.
 
-Una idea por diapositiva y un titular que afirma («La deuda se concentra en tres facturas», no «Deuda»). Entre 8 y 15 diapositivas para una reunion de cliente. El pie de cada diapositiva lleva el aviso DRAFT y el numero; la ultima diapositiva, «Fuentes», la anade el script con las fuentes declaradas.
+Una idea por diapositiva y un titular que afirma («La deuda se concentra en tres facturas», no «Deuda»). Entre 8 y 15 diapositivas para una reunión de cliente. El pie de cada diapositiva lleva el aviso DRAFT y el número; la última diapositiva, «Fuentes», la añade el script con las fuentes declaradas.
 
 | `maqueta` | Campos | Para que |
 | :--- | :--- | :--- |
 | `portada` | `antetitulo`, `titulo`, `subtitulo`, `fecha`, `autor` | Primera diapositiva |
-| `agenda` | `titulo`, `puntos` (lista) | Indice de la reunion |
+| `agenda` | `titulo`, `puntos` (lista) | Índice de la reunión |
 | `separador` | `numero`, `titulo`, `texto` | Abrir cada bloque |
-| `cifra` | `cifra` (texto) o `dato` (clave de `cifras`), `titulo`, `texto` | Un numero que lo dice todo |
-| `grafico` | `titulo`, `grafico` (nombre en `graficos`), `conclusion` | Un grafico o diagrama con su conclusion al lado |
-| `puntos` | `titulo`, `puntos` (lista), `grafico` opcional | Argumentos; maximo cinco puntos |
-| `dos_columnas` | `titulo`, `izquierda` y `derecha` (cada una con `titulo`, `texto` o `puntos`) | Antes y despues, hechos y derecho |
-| `comparativa` | `titulo`, `opciones` (cada una con `nombre`, `puntos`, `veredicto`, `estado`: `ok`, `atencion` o `riesgo`) | Dos a cuatro vias o escenarios |
+| `cifra` | `cifra` (texto) o `dato` (clave de `cifras`), `titulo`, `texto` | Un número que lo dice todo |
+| `grafico` | `titulo`, `grafico` (nombre en `graficos`), `conclusion` | Un gráfico o diagrama con su conclusión al lado |
+| `puntos` | `titulo`, `puntos` (lista), `grafico` opcional | Argumentos; máximo cinco puntos |
+| `dos_columnas` | `titulo`, `izquierda` y `derecha` (cada una con `titulo`, `texto` o `puntos`) | Antes y después, hechos y derecho |
+| `comparativa` | `titulo`, `opciones` (cada una con `nombre`, `puntos`, `veredicto`, `estado`: `ok`, `atencion` o `riesgo`) | Dos a cuatro vías o escenarios |
 | `cronologia` | `titulo`, `hitos` (cada uno con `fecha`, `titulo`, `texto`) | Hasta seis hitos en horizontal |
 | `tabla` | `titulo`, `cabecera` (lista), `filas` (lista de listas), `nota` | Detalle que hay que ver junto |
-| `cita` | `cita`, `autor` | Frase de una resolucion, un contrato o el cliente |
-| `equipo` | `titulo`, `personas` (cada una con `nombre`, `cargo`, `texto`) | Quien lleva el asunto |
+| `cita` | `cita`, `autor` | Frase de una resolución, un contrato o el cliente |
+| `equipo` | `titulo`, `personas` (cada una con `nombre`, `cargo`, `texto`) | Quién lleva el asunto |
 | `proximos_pasos` | `titulo`, `pasos` (cada uno con `texto`, `responsable`, `fecha`) | Acciones con responsable y fecha |
-| `cierre` | `titulo`, `texto`, `contacto` | Ultima diapositiva propia |
+| `cierre` | `titulo`, `texto`, `contacto` | Última diapositiva propia |
 
 Cualquier diapositiva admite `notas` (el texto del orador, que se ve pulsando N y nunca se imprime) y `aviso` (un recuadro de aviso o de supuestos, que si se imprime).
 
 Notas de uso:
 
 - **Cifras dentro de los textos:** cualquier texto de una diapositiva admite `{cifra:clave}` (por ejemplo `"texto": "Son {cifra:exceso} por encima del objetivo"`); ver `cifras` en `biblioteca-componentes-visuales.md`.
-- **Diapositiva `cifra`:** el numero va arriba, en grande, y el `titulo` debajo lo completa como frase («531.200 €» + «es el saldo vencido a 30 de septiembre»).
-- **Graficos y diagramas** se dibujan con letra de diapositiva. Los limites de un diagrama en una diapositiva estan en `modulos-motor.md`. Un grafico sin `conclusion` ocupa todo el ancho.
-- **Cabecera de la base:** en la presentacion no se ve. `{{ETIQUETA_SUPERIOR}}` y `{{ENTRADILLA}}` se rellenan igualmente (con el contexto de la reunion) y `{{TITULO_CORTO}}` es el que aparece en el pie de cada diapositiva y en la pestana.
-- **Aviso legal:** `{{PIE_AVISO_LEGAL}}` se imprime en la ultima diapositiva, junto a las fuentes; el aviso DRAFT va en el pie de cada diapositiva.
+- **Diapositiva `cifra`:** el número va arriba, en grande, y el `titulo` debajo lo completa como frase («531.200 €» + «es el saldo vencido a 30 de septiembre»).
+- **Gráficos y diagramas** se dibujan con letra de diapositiva. Los límites de un diagrama en una diapositiva están en `modulos-motor.md`. Un gráfico sin `conclusion` ocupa todo el ancho.
+- **Cabecera de la base:** en la presentación no se ve. `{{ETIQUETA_SUPERIOR}}` y `{{ENTRADILLA}}` se rellenan igualmente (con el contexto de la reunión) y `{{TITULO_CORTO}}` es el que aparece en el pie de cada diapositiva y en la pestaña.
+- **Aviso legal:** `{{PIE_AVISO_LEGAL}}` se imprime en la última diapositiva, junto a las fuentes; el aviso DRAFT va en el pie de cada diapositiva.
 
 ### Ficha
 
@@ -685,7 +685,7 @@ Notas de uso:
 
 ### Script
 
-Se coloca despues del script del motor (y de los modulos, si los hay). Monta las diapositivas a partir de `diapositivas` antes de que el motor dibuje sus graficos.
+Se coloca después del script del motor (y de los módulos, si los hay). Monta las diapositivas a partir de `diapositivas` antes de que el motor dibuje sus gráficos.
 
 ```js maqueta=presentacion parte=script
 <script>
@@ -799,13 +799,13 @@ Se coloca despues del script del motor (y de los modulos, si los hay). Monta las
 
 ## 5. Documento largo: white paper, memoria o estudio (`documento_largo`)
 
-**Ancho:** `860px`. Lectura de varias paginas con calidad editorial: portada a pagina completa (es la cabecera de la base: antetitulo, titular, entradilla y ficha con autor y fecha), resumen ejecutivo, indice con enlaces, capitulos numerados que empiezan en pagina nueva, graficos y diagramas dentro del texto, notas, fuentes y anexo. Al imprimir lleva cabecera con el titulo corto y numero de pagina «3 / 12» en cada hoja, salvo en la portada.
+**Ancho:** `860px`. Lectura de varias paginas con calidad editorial: portada a página completa (es la cabecera de la base: antetitulo, titular, entradilla y ficha con autor y fecha), resumen ejecutivo, índice con enlaces, capítulos numerados que empiezan en página nueva, gráficos y diagramas dentro del texto, notas, fuentes y anexo. Al imprimir lleva cabecera con el título corto y número de página «3 / 12» en cada hoja, salvo en la portada.
 
-- El indice lo compone el script de la maqueta a partir de los titulos `h2` de los capitulos: no se escribe a mano. En el PDF sus entradas son enlaces que llevan al capitulo.
-- Cada capitulo es una `section class="capitulo"`; con `class="capitulo nueva-pagina"` empieza en pagina nueva al imprimir (recomendado a partir del segundo).
-- Los graficos y diagramas se declaran como en cualquier artefacto y se colocan con su hueco `figure` dentro del capitulo que los usa, precedido de un `h3` con un titulo que afirma (dentro del `figure` no se escribe nada: el motor lo rellena).
-- Las notas se marcan con `<sup class="nota">1</sup>` en el texto y se desarrollan en la seccion de notas.
-- Extension orientativa: entre 6 y 20 paginas. Mas alla, conviene partirlo.
+- El índice lo compone el script de la maqueta a partir de los títulos `h2` de los capítulos: no se escribe a mano. En el PDF sus entradas son enlaces que llevan al capítulo.
+- Cada capítulo es una `section class="capitulo"`; con `class="capitulo nueva-pagina"` empieza en página nueva al imprimir (recomendado a partir del segundo).
+- Los gráficos y diagramas se declaran como en cualquier artefacto y se colocan con su hueco `figure` dentro del capítulo que los usa, precedido de un `h3` con un título que afirma (dentro del `figure` no se escribe nada: el motor lo rellena).
+- Las notas se marcan con `<sup class="nota">1</sup>` en el texto y se desarrollan en la sección de notas.
+- Extensión orientativa: entre 6 y 20 paginas. Más allá, conviene partirlo.
 
 ### Ficha
 
@@ -926,7 +926,7 @@ sup.nota{color:var(--acento);font-weight:650}
 
 ### Script
 
-Se coloca despues del motor y de los modulos. Compone el indice con enlaces y pone el titulo corto en la cabecera de cada pagina impresa.
+Se coloca después del motor y de los módulos. Compone el índice con enlaces y pone el título corto en la cabecera de cada página impresa.
 
 ```js maqueta=documento_largo parte=script
 <script>
@@ -952,9 +952,9 @@ Se coloca despues del motor y de los modulos. Compone el indice con enlaces y po
 
 ---
 
-## 6. Resumen ejecutivo de una pagina (`resumen_ejecutivo`)
+## 6. Resumen ejecutivo de una página (`resumen_ejecutivo`)
 
-**Ancho:** `1000px`. Una sola pagina A4: titular con la conclusion, tres indicadores, un grafico que la sostiene y tres conclusiones con la decision que se pide. Para un consejo, un socio o un cliente con poco tiempo. Al imprimir, el modulo `encaje` (`modulos-motor.md`) reduce la escala lo justo para que todo quepa en una hoja; aun asi, si hay que reducir mucho, sobra contenido: un aviso o un bloque mas es lo primero que se quita.
+**Ancho:** `1000px`. Una sola página A4: titular con la conclusión, tres indicadores, un gráfico que la sostiene y tres conclusiones con la decisión que se pide. Para un consejo, un socio o un cliente con poco tiempo. Al imprimir, el módulo `encaje` (`modulos-motor.md`) reduce la escala lo justo para que todo quepa en una hoja; aun así, si hay que reducir mucho, sobra contenido: un aviso o un bloque más es lo primero que se quita.
 
 ### Ficha
 
@@ -1242,7 +1242,7 @@ table.compacta th,table.compacta td{padding:7px 10px}
 
 ---
 
-## 8. Ficha de una pagina (`ficha_una_pagina`)
+## 8. Ficha de una página (`ficha_una_pagina`)
 
 **Ancho:** `1000px`. Ficha de datos de un asunto, un cliente, una finca o una sociedad: rejilla de datos clave, tres indicadores, un gráfico y el estado de cada punto en semáforos. Una sola página A4, como el resumen ejecutivo, pero describe en vez de recomendar. Si hay que argumentar una decisión, resumen ejecutivo.
 
@@ -1365,7 +1365,7 @@ table.compacta th,table.compacta td{padding:7px 10px}
 
 ---
 
-## 9. Infografia (`infografia`)
+## 9. Infografía (`infografia`)
 
 **Ancho:** `760px`. Cifras para divulgar en vertical: tres cifras enormes con una frase cada una, una proporción en figuras, el avance en anillos y los hitos en una línea de tiempo. Para el cliente final, un boletín o redes. Una idea por bloque y nada de tablas; si hace falta detalle, panel de datos.
 
@@ -2059,7 +2059,7 @@ header{text-align:center}
 
 ---
 
-## 15. Embudo de conversion (`embudo_conversion`)
+## 15. Embudo de conversión (`embudo_conversion`)
 
 **Ancho:** `1120px`. Un proceso por etapas: captación de clientes, recobro de deuda o tramitación. Cuántos entran, qué porcentaje llega al final (con su variación), cuántos se pierden en cada etapa en el embudo, por dónde pasa cada asunto en el sankey y cómo ha evolucionado la composición en área apilada. Si no hay etapas sino partidas, panel de datos.
 
@@ -2394,7 +2394,7 @@ header{text-align:center}
 
 ## 18. Poster (`poster`)
 
-**Ancho:** `1400px`. Una hoja A3 apaisada para colgar en una sala, una jornada o una pared: titular grande, tres cifras en columna y un gráfico que ocupa el resto. Nada que obligue a acercarse: sin tablas ni textos largos. Al imprimir, el modulo `encaje` reduce la escala para que todo quepa en un A3 apaisado.
+**Ancho:** `1400px`. Una hoja A3 apaisada para colgar en una sala, una jornada o una pared: titular grande, tres cifras en columna y un gráfico que ocupa el resto. Nada que obligue a acercarse: sin tablas ni textos largos. Al imprimir, el módulo `encaje` reduce la escala para que todo quepa en un A3 apaisado.
 
 ### Ficha
 
