@@ -221,7 +221,7 @@ Anuncios fijos:
    - *Fin de contrato temporal:* calcula la indemnización de **12 días de salario por año de servicio** (artículo 49.1.c), advirtiendo de que no procede en los contratos formativos ni en el contrato de sustitución.
    - *Disciplinario y periodo de prueba:* no procede indemnización. Explícalo y advierte de que ello no exime de la liquidación de partes proporcionales.
    - En todas las modalidades, recuerda que debe entregarse el **finiquito** con la liquidación de salarios pendientes, vacaciones no disfrutadas y pagas extraordinarias devengadas, y ofrece continuar con la skill `finiquito-liquidacion`.
-6. **Entrega, acuse de recibo y documentación [dato objetivo].** Fija la fórmula de entrega en mano con firma de recibí, y la alternativa de burofax con certificación de texto y acuse de recibo al domicilio del trabajador si este se niega a firmar o no acude. Advierte de que la negativa a firmar no impide la eficacia de la entrega si se acredita ante dos testigos. Recuerda las obligaciones anejas: entrega del certificado de empresa a la Seguridad Social, baja en el sistema con efectos de la fecha de extinción y, en el despido objetivo por causas del artículo 52.c, entrega de copia de la comunicación a la representación legal de los trabajadores.
+6. **Entrega, acuse de recibo y documentación [dato objetivo].** Fija la fórmula de entrega en mano con firma de recibí, y la alternativa de burofax con certificación de texto y acuse de recibo al domicilio del trabajador si este se niega a firmar o no acude. Advierte de que la negativa a firmar no impide la eficacia de la entrega si se acredita ante dos testigos. Recuerda las obligaciones anexas: entrega del certificado de empresa a la Seguridad Social, baja en el sistema con efectos de la fecha de extinción y, en el despido objetivo por causas del artículo 52.c, entrega de copia de la comunicación a la representación legal de los trabajadores.
 
 ---
 
@@ -239,7 +239,7 @@ Una vez completadas todas las secciones, presenta el menú:
 ### Advertencias Legales Preceptivas de Cierre
 - **Carácter DRAFT:** el documento es un borrador profesional que debe ser revisado por un abogado o graduado social colegiado antes de su firma y entrega.
 - **Plazo de impugnación:** el trabajador dispone de 20 días hábiles desde la fecha de efectos para presentar papeleta de conciliación; recuerda la fecha límite calculada.
-- **Obligaciones anejas a la extinción:** entrega del finiquito, certificado de empresa, baja en la Seguridad Social en plazo, y liquidación de la indemnización puesta a disposición.
+- **Obligaciones anexas a la extinción:** entrega del finiquito, certificado de empresa, baja en la Seguridad Social en plazo, y liquidación de la indemnización puesta a disposición.
 - **Conservación de la prueba:** conserva el acuse de recibo firmado o el justificante del burofax y todos los medios de acreditación de los hechos imputados, que serán la única base admisible de la defensa en juicio.
 
 ---

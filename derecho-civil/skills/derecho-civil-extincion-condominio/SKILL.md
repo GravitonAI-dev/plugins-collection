@@ -59,7 +59,7 @@ inputs:
   - hipoteca: con préstamo hipotecario pendiente / sin carga hipotecaria (V3)
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - datos_comuneros: nombre, NIF/NIE, domicilio, estado civil y cuota de participación de cada comunero
-  - datos_inmueble: dirección, referencia catastral, superficie, datos registrales y anejos
+  - datos_inmueble: dirección, referencia catastral, superficie, datos registrales y anexos
   - titulo_adquisicion: título por el que se adquirió la copropiedad, fecha y notario
   - valoracion: valor atribuido al inmueble y forma de determinarlo, con tasación si existe
   - adjudicacion: comunero al que se adjudica el inmueble y compensación en metálico a los demás
@@ -214,7 +214,7 @@ Recorre de forma secuencial las secciones del documento respetando rigurosamente
 ### Hoja de Ruta de Secciones — RAMA REQUERIMIENTO PREVIO:
 
 1. **Comuneros y cuotas** *(confirmación agrupada)*: identidad completa, NIF, domicilio y cuota de cada comunero, con el título por el que adquirieron.
-2. **Inmueble y situación registral**: dirección, referencia catastral, superficie, datos registrales, anejos y cargas inscritas.
+2. **Inmueble y situación registral**: dirección, referencia catastral, superficie, datos registrales, anexos y cargas inscritas.
 3. **Situación actual de la comunidad**: quién usa el inmueble y desde cuándo, quién atiende los pagos, y estado del préstamo hipotecario si existe.
 4. **Propuesta de extinción**: valoración del inmueble con su fundamento, comunero al que se propone la adjudicación, compensación en metálico y forma de pago, y tratamiento del préstamo pendiente.
 5. **Liquidación de gastos y uso**: gastos de hipoteca, IBI, comunidad, seguros y obras soportados por cada comunero, con la compensación que se reclama; y, en su caso, compensación por el uso exclusivo del inmueble.
