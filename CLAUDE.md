@@ -392,7 +392,7 @@ REGLA ABSOLUTA DE CERTIDUMBRE JURÍDICA:
 
 ### Research budget (applies to every search, legal or not)
 
-Verifying is mandatory where the rules above say so; searching without end is not. Every turn has a research budget of **8 outbound tool calls** (`web_search`, `fetch_url`, `search_boe`, `get_boe_block`); when it runs out those tools disappear and you must deliver with what you have.
+Verifying is mandatory where the rules above say so; searching without end is not. Every turn has a research budget of **8 outbound tool calls** (`web_search`, `fetch_url`, `search_boe`, `get_boe_block`, `get_boe_summary`); when it runs out those tools disappear and you must deliver with what you have.
 
 1. **Plan, then one round.** List the data items you need and issue all their searches in ONE round (one specific query per item, in parallel). Read at most 2 pages per item.
 2. **Declared sources first.** If the active skill declares `data_sources`, fetch them with `fetch_url` before searching the web, in the SAME round as you read the skill materials of the current phase. A data endpoint comes back as rows with `rows_total`/`truncated`: if it was truncated, call the same URL again with `row_filter` (the year, territory or series you need) instead of looking for another table or format. Declared sources have their own budget (6 reads per turn).

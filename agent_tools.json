@@ -154,7 +154,7 @@
     {
       "id": "io.gravitonai.tools.web_search",
       "name": "web_search",
-      "description": "Realiza una búsqueda en la web abierta y devuelve hasta N resultados con título, URL, fragmento (snippet) y un breve extracto de contenido (hasta 2500 caracteres por resultado, con los pasajes más relevantes de la página). Cada resultado es un objeto con las claves: title (str), url (str), snippet (str), content (str).\n\nREGLAS DE USO — ESTRICTAMENTE OBLIGATORIAS:\n- DEBES EVITAR usar esta herramienta a menos que sea ESTRICTAMENTE necesario.\n- PRIMERO, determina si puedes responder a la consulta del usuario utilizando tus propios conocimientos sin búsqueda web. La búsqueda web es una operación costosa, úsala ÚNICAMENTE si es estrictamente necesaria.\n- Planifica primero: enumera los datos que necesitas y lanza TODAS sus búsquedas en UNA sola ronda (una consulta concreta por dato, en paralelo). El presupuesto de investigación es de 8 llamadas salientes por turno (web_search + fetch_url + search_boe + get_boe_block); al agotarse, esas herramientas desaparecen y hay que entregar con lo que se tiene. Nunca repitas una consulta (igual o parecida) ni busques para re-verificar una cifra que ya obtuviste. Si la skill activa declara data_sources, usa fetch_url sobre ellas antes de buscar.\n- Cada llamada DEBE tener un ID único y un par (query, num_results) único. Las llamadas duplicadas se descartan silenciosamente y devuelven resultados vacíos.\n- `query` es OBLIGATORIO y DEBE ser una cadena no vacía. Las llamadas con query vacía o ausente se descartan silenciosamente.\n- Usa `num_results` entre 3 y 5. Solicita hasta 10 ÚNICAMENTE cuando el tema sea amplio y realmente necesites mayor cobertura.\n- Cada resultado ya incluye título, url, snippet y un extracto de contenido breve. NO vuelvas a llamar a web_search para obtener la misma página completa; cita las URLs en su lugar.\n- Si necesitas información sobre varios aspectos, prefiere UNA consulta específica por llamada en lugar de muchas llamadas paralelas similares.\n- Por defecto, los resultados NO están restringidos por fecha. Establece `recency` ÚNICAMENTE para temas sensibles al tiempo (noticias de última hora, precios, lanzamientos recientes, 'esta semana/hoy'). Para temas permanentes/atemporales (leyes, definiciones, historia, hechos consolidados), OMITE `recency` — restringir el rango de fechas en estos casos perjudica la calidad de los resultados.\n\nÚtil para jurisprudencia, regulación, hechos actuales o cualquier información que requiera datos públicos en tiempo real.",
+      "description": "Realiza una búsqueda en la web abierta y devuelve hasta N resultados con título, URL, fragmento (snippet) y un breve extracto de contenido (hasta 2500 caracteres por resultado, con los pasajes más relevantes de la página). Cada resultado es un objeto con las claves: title (str), url (str), snippet (str), content (str).\n\nREGLAS DE USO — ESTRICTAMENTE OBLIGATORIAS:\n- DEBES EVITAR usar esta herramienta a menos que sea ESTRICTAMENTE necesario.\n- PRIMERO, determina si puedes responder a la consulta del usuario utilizando tus propios conocimientos sin búsqueda web. La búsqueda web es una operación costosa, úsala ÚNICAMENTE si es estrictamente necesaria.\n- Planifica primero: enumera los datos que necesitas y lanza TODAS sus búsquedas en UNA sola ronda (una consulta concreta por dato, en paralelo). El presupuesto de investigación es de 8 llamadas salientes por turno (web_search + fetch_url + search_boe + get_boe_block + get_boe_summary); al agotarse, esas herramientas desaparecen y hay que entregar con lo que se tiene. Nunca repitas una consulta (igual o parecida) ni busques para re-verificar una cifra que ya obtuviste. Si la skill activa declara data_sources, usa fetch_url sobre ellas antes de buscar.\n- Cada llamada DEBE tener un ID único y un par (query, num_results) único. Las llamadas duplicadas se descartan silenciosamente y devuelven resultados vacíos.\n- `query` es OBLIGATORIO y DEBE ser una cadena no vacía. Las llamadas con query vacía o ausente se descartan silenciosamente.\n- Usa `num_results` entre 3 y 5. Solicita hasta 10 ÚNICAMENTE cuando el tema sea amplio y realmente necesites mayor cobertura.\n- Cada resultado ya incluye título, url, snippet y un extracto de contenido breve. NO vuelvas a llamar a web_search para obtener la misma página completa; cita las URLs en su lugar.\n- Si necesitas información sobre varios aspectos, prefiere UNA consulta específica por llamada en lugar de muchas llamadas paralelas similares.\n- Por defecto, los resultados NO están restringidos por fecha. Establece `recency` ÚNICAMENTE para temas sensibles al tiempo (noticias de última hora, precios, lanzamientos recientes, 'esta semana/hoy'). Para temas permanentes/atemporales (leyes, definiciones, historia, hechos consolidados), OMITE `recency` — restringir el rango de fechas en estos casos perjudica la calidad de los resultados.\n\nÚtil para jurisprudencia, regulación, hechos actuales o cualquier información que requiera datos públicos en tiempo real.",
       "version": "1.0.0",
       "input_schema": {
         "type": "object",
@@ -932,6 +932,76 @@
         }
       },
       "tags": ["retrieval", "legal", "boe", "legislation"],
+      "side_effects": false
+    },
+    {
+      "id": "io.gravitonai.tools.get_boe_summary",
+      "name": "get_boe_summary",
+      "description": "Lista lo PUBLICADO en el Boletín Oficial del Estado en unas fechas, a partir del sumario diario oficial (API de datos abiertos del BOE). Úsala cuando el usuario pregunte qué ha salido en el BOE en una fecha o un periodo (\"hoy\", \"esta semana\", \"en octubre\"); no sirve para saber qué dice una ley (para eso, search_boe). Una sola llamada con el periodo entero; por defecto lista la Sección I (disposiciones generales) y `query` filtra por palabras del título, departamento o epígrafe. Enlaza la url de cada disposición que menciones y cita la fuente (Agencia Estatal BOE). Es nativa: está en todos los chats sin declararla en el plugin. El esquema que ve el modelo es el del registro del backend (ConfAI-Desktop-App, native_tools/get_boe_summary.py); este catálogo lo documenta.",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "date_from": {
+            "type": "string",
+            "description": "Primer día del periodo (YYYY-MM-DD)."
+          },
+          "date_to": {
+            "type": "string",
+            "description": "Último día del periodo (YYYY-MM-DD). Por defecto, hoy."
+          },
+          "sections": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "1",
+                "2A",
+                "2B",
+                "3",
+                "4",
+                "5A",
+                "5B",
+                "5C",
+                "T"
+              ]
+            },
+            "description": "Secciones del BOE. Por defecto [\"1\"]."
+          },
+          "query": {
+            "type": "string",
+            "description": "Palabras que deben aparecer en el título, departamento o epígrafe."
+          }
+        },
+        "required": [
+          "date_from"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "description": "date_from, date_to, sections, query, days (por día: published, error, counts_by_section; con más de 31 días, totales), matched, items (date, section, department, heading, id, title, url), omitted, truncated, source."
+          },
+          "error": {
+            "type": "string"
+          },
+          "fallback": {
+            "type": "string"
+          }
+        }
+      },
+      "tags": [
+        "retrieval",
+        "legal",
+        "boe",
+        "research"
+      ],
       "side_effects": false
     }
   ]
