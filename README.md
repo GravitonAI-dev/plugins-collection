@@ -224,7 +224,7 @@ plugins-collection/                       ← raíz del marketplace
 
 **Regla clave**: las reglas de un plugin solo pueden **estrechar** las reglas globales, nunca ampliarlas.
 
-**Núcleo y capas**: el `CLAUDE.md` raíz es solo el núcleo (≤ 5.000 caracteres, lo vigila `scripts/validar_skills.py`) y entra siempre en el system prompt, con cualquier plugin. Lo demás vive en capas, `prompts/<capa>.md`, que el orquestador añade detrás del núcleo únicamente a los plugins que las declaran en `plugin.json` con `"prompt_layers": ["<capa>"]`. Hoy hay una, `documentos-legales` (triaje completo, clientes y partes, cláusulas, ciclo de archivos, epistemología jurídica, fuentes), que declaran todos los plugins de documentos; `asistente-general` no la declara para no pagar sus 59 KB en cada llamada. Una capa nueva es un fichero más en `prompts/` y su nombre en los `plugin.json` que la necesiten.
+**Núcleo y capas**: el `CLAUDE.md` raíz es solo el núcleo (≤ 6.000 caracteres, lo vigila `scripts/validar_skills.py`) y entra siempre en el system prompt, con cualquier plugin. Lo demás vive en capas, `prompts/<capa>.md`, que el orquestador añade detrás del núcleo únicamente a los plugins que las declaran en `plugin.json` con `"prompt_layers": ["<capa>"]`. Hoy hay una, `documentos-legales` (triaje completo, clientes y partes, cláusulas, ciclo de archivos, epistemología jurídica, fuentes), que declaran todos los plugins de documentos; una skill concreta que no redacte documentos jurídicos se excluye con `prompt_layers: []` en el frontmatter de su `SKILL.md` (lo hace `reportes`, que así no paga la capa en cada llamada). Una capa nueva es un fichero más en `prompts/` y su nombre en los `plugin.json` que la necesiten.
 
 ### 6.5 `README.md`
 

@@ -1,6 +1,6 @@
 # CLAUDE.md — Global System Prompt
 
-> Prevails over plugin `CLAUDE.md` and `SKILL.md`. Legal-document plugins also get `prompts/documentos-legales.md`.
+> Prevails over plugin `CLAUDE.md` and `SKILL.md`. Plugins that produce legal documents also receive the extended legal-document rules; where those are more specific than sections 2 to 5 here, they prevail.
 
 ## 0. Output language
 

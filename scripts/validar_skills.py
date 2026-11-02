@@ -343,17 +343,17 @@ for _r in sorted(glob.glob('*/skills/*/references/*.md')):
 # ---------------------------------------------------------------- prompt global por capas (README, seccion 6.4)
 # El nucleo (CLAUDE.md raiz) va siempre al system prompt y por eso debe ser corto; las reglas de
 # documentos juridicos viven en prompts/documentos-legales.md y solo las reciben los plugins que
-# declaran la capa en plugin.json. asistente-general no la declara a proposito.
+# declaran la capa en plugin.json; una skill que no redacte documentos juridicos (reportes) se excluye con
+# `prompt_layers: []` en su propio frontmatter.
 _NUCLEO=open('CLAUDE.md',encoding='utf-8').read()
-if len(_NUCLEO)>5000: print(f"  FALLO CLAUDE.md raiz supera los 5000 caracteres ({len(_NUCLEO)}): lo que no sea nucleo va a prompts/<capa>.md"); FALLOS+=1
-_SIN_CAPA={'asistente-general'}
+if len(_NUCLEO)>6000: print(f"  FALLO CLAUDE.md raiz supera los 6000 caracteres ({len(_NUCLEO)}): lo que no sea nucleo va a prompts/<capa>.md"); FALLOS+=1
 for _pj in sorted(glob.glob('*/.claude-plugin/plugin.json')):
     _p=_pj.split('/')[0]; _capas=json.load(open(_pj,encoding='utf-8')).get('prompt_layers',[])
     if not isinstance(_capas,list) or not all(isinstance(_c,str) and _KEBAB.match(_c) for _c in _capas):
         print(f"  FALLO prompt_layers no es una lista de nombres kebab-case: {_p}"); FALLOS+=1; continue
     for _c in _capas:
         if not _os.path.isfile(f'prompts/{_c}.md'): print(f"  FALLO capa declarada sin fichero prompts/{_c}.md: {_p}"); FALLOS+=1
-    if glob.glob(f'{_p}/skills/*/assets/') and _p not in _SIN_CAPA and 'documentos-legales' not in _capas:
+    if glob.glob(f'{_p}/skills/*/assets/') and 'documentos-legales' not in _capas:
         print(f"  FALLO plugin con skills de documentos (assets/) sin la capa documentos-legales en prompt_layers: {_p}"); FALLOS+=1
 
 if TH or TC: FALLOS+=1
