@@ -285,7 +285,7 @@ Recorre de forma secuencial las secciones del documento respetando rigurosamente
 #### 2. [Nombre de la Sección 2 - Ej. Objeto y Alcance]
 - **Recogida con `slot_filling_request` (si hay datos identificativos):** Dirección, referencia catastral, superficie, etc.
 - **Condicional [Elementos Accesorios / Variantes]:**
-  - *Si incluye variantes opcionales:* Insertar estipulación detallando los anejos o prestaciones complementarias.
+  - *Si incluye variantes opcionales:* Insertar estipulación detallando los anexos o prestaciones complementarias.
 - **Vista previa y confirmación en chat:** `¿Confirmamos esta cláusula?` $\rightarrow$ `edit_file`.
 
 #### 3. [Nombre de la Sección 3 - Ej. Duración y Plazos]

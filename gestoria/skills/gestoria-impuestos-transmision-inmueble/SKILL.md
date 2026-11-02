@@ -221,7 +221,7 @@ Recorre de forma secuencial las secciones del documento respetando rigurosamente
 
 1. **Obligado tributario y presentador** *(confirmación agrupada)*: identidad del adquirente con su NIF/NIE, domicilio fiscal, teléfono y correo, y datos del presentador o representante si difiere.
 2. **Transmitente y título de la operación**: identidad y NIF del transmitente, fecha del documento, notario y número de protocolo, y naturaleza del negocio.
-3. **Identificación del inmueble**: dirección completa, referencia catastral, superficie, valor catastral y, en su caso, anejos y cuota de participación.
+3. **Identificación del inmueble**: dirección completa, referencia catastral, superficie, valor catastral y, en su caso, anexos y cuota de participación.
 4. **Base imponible**: comparación entre el precio declarado y el valor de referencia de Catastro, con aplicación del mayor de los dos, y explicación de que el valor de referencia puede impugnarse por el cauce de la rectificación si se considera superior al valor de mercado.
 5. **Tipo de gravamen, bonificaciones y cuota**: tipo autonómico verificado, aplicación de tipos reducidos si concurren los requisitos (vivienda habitual, edad, familia numerosa, discapacidad, según la comunidad) y cálculo de la cuota resultante.
 6. **Presentación y plazos**: sede de presentación de la comunidad autónoma, forma telemática, documentación a adjuntar y cómputo expreso del plazo de treinta días hábiles con su fecha límite.

@@ -62,7 +62,7 @@ Superficie construida y de parcela: {{SUPERFICIES}}
 
 Valor catastral total: {{VALOR_CATASTRAL_TOTAL}}
 
-Anejos incluidos (garaje, trastero) y sus referencias: {{ANEJOS}}
+Anexos incluidos (garaje, trastero) y sus referencias: {{ANEXOS}}
 
 Datos registrales: {{DATOS_REGISTRALES}}
 
