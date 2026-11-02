@@ -132,7 +132,9 @@ plugins-collection/                       ← raíz del marketplace
 ├── mcp_servers.json                      ← catálogo global de servidores MCP
 ├── agent_tools.json                      ← catálogo global de tools
 │
-├── CLAUDE.md                             ← system prompt global
+├── CLAUDE.md                             ← system prompt global (núcleo, va siempre)
+├── prompts/
+│   └── documentos-legales.md             ← capa de reglas de documentos jurídicos (solo plugins que la declaran)
 ├── README.md                             ← este archivo
 ├── .gitignore
 │
@@ -164,7 +166,8 @@ plugins-collection/                       ← raíz del marketplace
 |---|---|---|---|
 | Marketplace | `.claude-plugin/marketplace.json` | Orquestador | "Qué plugins hay y dónde están" |
 | Catálogos globales | `mcp_servers.json`, `agent_tools.json` | Orquestador + validadores | Fuente única de verdad sobre servers y tools |
-| System prompt global | `CLAUDE.md` raíz | Agente | Guardrails, idioma, tono, convenciones |
+| System prompt global | `CLAUDE.md` raíz | Agente | Núcleo: idioma, identidad, triaje, forma de respuesta, archivos, fuentes |
+| Capas de prompt | `prompts/<capa>.md` | Agente (si el plugin la declara) | Reglas extra por familia de plugins; hoy `documentos-legales` |
 | Plugin manifest | `<plugin>/.claude-plugin/plugin.json` | Orquestador | Identidad, skills listadas, autor |
 | Plugin MCP ref | `<plugin>/.mcp.json` | Orquestador | Qué servers necesita este plugin |
 | Plugin tools ref | `<plugin>/agent_tools.json` | Orquestador | Qué tools necesita este plugin (referencias por id) |
@@ -221,6 +224,8 @@ plugins-collection/                       ← raíz del marketplace
 
 **Regla clave**: las reglas de un plugin solo pueden **estrechar** las reglas globales, nunca ampliarlas.
 
+**Núcleo y capas**: el `CLAUDE.md` raíz es solo el núcleo (≤ 5.000 caracteres, lo vigila `scripts/validar_skills.py`) y entra siempre en el system prompt, con cualquier plugin. Lo demás vive en capas, `prompts/<capa>.md`, que el orquestador añade detrás del núcleo únicamente a los plugins que las declaran en `plugin.json` con `"prompt_layers": ["<capa>"]`. Hoy hay una, `documentos-legales` (triaje completo, clientes y partes, cláusulas, ciclo de archivos, epistemología jurídica, fuentes), que declaran todos los plugins de documentos; `asistente-general` no la declara para no pagar sus 59 KB en cada llamada. Una capa nueva es un fichero más en `prompts/` y su nombre en los `plugin.json` que la necesiten.
+
 ### 6.5 `README.md`
 
 **Rol en el flujo**: este archivo. Documentación principal para humanos. No es leído por el agente.
@@ -254,13 +259,14 @@ Un plugin es una unidad de **dominio vertical** (legal comercial, privacidad, pr
   "version": "0.1.0",
   "description": "...",
   "author": { "name": "GravitonAI" },
+  "prompt_layers": ["documentos-legales"],
   "skills": ["./skills/nda-review"],
   "agents": [],
   "hooks": []
 }
 ```
 
-`name` es el id canónico (coincide con la carpeta) y `displayName`/`description` son los textos en español. `i18n.<lang>` aporta el alias (`name`, kebab-case y único entre plugins), el `displayName` y la `description` en otro idioma; la app muestra el bloque del idioma del usuario y el backend acepta el alias como sinónimo del id. Los arrays `agents` y `hooks` están **vacíos** en este punto (no implementados). Quedan reservados para la fase 2.
+`name` es el id canónico (coincide con la carpeta) y `displayName`/`description` son los textos en español. `i18n.<lang>` aporta el alias (`name`, kebab-case y único entre plugins), el `displayName` y la `description` en otro idioma; la app muestra el bloque del idioma del usuario y el backend acepta el alias como sinónimo del id. `prompt_layers` (opcional) enumera las capas de `prompts/` que el plugin recibe detrás del núcleo `CLAUDE.md`; un plugin de documentos declara `documentos-legales` (sección 6.4). Los arrays `agents` y `hooks` están **vacíos** en este punto (no implementados). Quedan reservados para la fase 2.
 
 ### 7.2 `.mcp.json`
 
