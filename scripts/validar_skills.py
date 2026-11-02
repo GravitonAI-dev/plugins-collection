@@ -10,6 +10,10 @@ Comprueba, sobre cada `*/skills/*/SKILL.md`:
   3. Ramas        — enumera el producto cartesiano de los dominios de los vectores
                     que consume la Fase 1.3 y verifica que ninguna combinacion se
                     quede sin rama, y que ninguna reciba dos plantillas exclusivas.
+  4. Capas        — el nucleo `CLAUDE.md` raiz no pasa de 5000 caracteres, cada capa
+                    declarada en `prompt_layers` existe en `prompts/<capa>.md` y todo
+                    plugin con skills de documentos (assets/) declara `documentos-legales`
+                    salvo `asistente-general`.
 
 Uso:  python3 scripts/validar_skills.py   (desde la raiz del repositorio)
 Salida: informe por skill y codigo de salida 1 si hay algun fallo.
@@ -335,6 +339,22 @@ for _r in sorted(glob.glob('*/skills/*/references/*.md')):
         except ValueError as _e: print(f"  FALLO datos de la maqueta {_maq} no son JSON valido: {_r} ({_e})"); FALLOS+=1; continue
         for _id,_g in (_d.get('graficos') or {}).items():
             if _g.get('tipo') not in _TIPOS_MOTOR: print(f"  FALLO tipo de grafico desconocido en la maqueta {_maq}: {_id} {_g.get('tipo')}"); FALLOS+=1
+
+# ---------------------------------------------------------------- prompt global por capas (README, seccion 6.4)
+# El nucleo (CLAUDE.md raiz) va siempre al system prompt y por eso debe ser corto; las reglas de
+# documentos juridicos viven en prompts/documentos-legales.md y solo las reciben los plugins que
+# declaran la capa en plugin.json. asistente-general no la declara a proposito.
+_NUCLEO=open('CLAUDE.md',encoding='utf-8').read()
+if len(_NUCLEO)>5000: print(f"  FALLO CLAUDE.md raiz supera los 5000 caracteres ({len(_NUCLEO)}): lo que no sea nucleo va a prompts/<capa>.md"); FALLOS+=1
+_SIN_CAPA={'asistente-general'}
+for _pj in sorted(glob.glob('*/.claude-plugin/plugin.json')):
+    _p=_pj.split('/')[0]; _capas=json.load(open(_pj,encoding='utf-8')).get('prompt_layers',[])
+    if not isinstance(_capas,list) or not all(isinstance(_c,str) and _KEBAB.match(_c) for _c in _capas):
+        print(f"  FALLO prompt_layers no es una lista de nombres kebab-case: {_p}"); FALLOS+=1; continue
+    for _c in _capas:
+        if not _os.path.isfile(f'prompts/{_c}.md'): print(f"  FALLO capa declarada sin fichero prompts/{_c}.md: {_p}"); FALLOS+=1
+    if glob.glob(f'{_p}/skills/*/assets/') and _p not in _SIN_CAPA and 'documentos-legales' not in _capas:
+        print(f"  FALLO plugin con skills de documentos (assets/) sin la capa documentos-legales en prompt_layers: {_p}"); FALLOS+=1
 
 if TH or TC: FALLOS+=1
 print(("\nOK — catalogo coherente" if not FALLOS else f"\n{FALLOS} comprobaciones fallidas"))
