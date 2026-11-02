@@ -1165,6 +1165,8 @@ def vistas_cuestionario():
     # Los formatos: la miniatura de su ejemplo (ya capturada en ejemplos/miniaturas), recortada por arriba a 480x300.
     for maqueta, archivo in formatos.items():
         png = os.path.join(AQUI, "miniaturas", archivo + ".png")
+        if not os.path.exists(png):
+            print("  AVISO: falta la miniatura %s; la vista del formato %s no se actualiza" % (png, maqueta))
         if os.path.exists(png):
             im = Image.open(png).convert("RGB")
             im = im.resize((480, int(im.height * 480 / im.width)), Image.LANCZOS)

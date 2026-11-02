@@ -18,7 +18,7 @@ Comprueba, sobre cada `*/skills/*/SKILL.md`:
 Uso:  python3 scripts/validar_skills.py   (desde la raiz del repositorio)
 Salida: informe por skill y codigo de salida 1 si hay algun fallo.
 """
-import re,glob,json,unicodedata,itertools
+import re,glob,json,unicodedata,itertools,os
 def norm(s):
     s=unicodedata.normalize('NFKD',s).encode('ascii','ignore').decode().lower()
     return re.sub(r'[^a-z0-9]+','_',s).strip('_')
@@ -123,19 +123,35 @@ for f in sorted(glob.glob('*/skills/*/SKILL.md')):
         print(f"  FALLO frontmatter incompleto: {nombre}"); FALLOS+=1
     if len(re.findall(r'^## FASE [1-5]', t, re.M))!=5:
         print(f"  FALLO no tiene cinco fases: {nombre}"); FALLOS+=1
-    m=re.search(r'### 1\.2[^\n]*\n(.*?)(?=### 1\.3)', t, re.S)
-    jb=re.search(r'```json\n(.*?)\n```', m.group(1), re.S) if m else None
-    if jb:
+    # Todo bloque JSON con form_data del SKILL.md: cada pregunta lleva id, rationale y question, y
+    # o bien sus options (>= 2) o bien options_from (las opciones las pone el servidor desde
+    # assets/opciones-formulario.json de la skill, que debe tener esa clave).
+    _catalogo_opciones={}
+    _cop=os.path.join(os.path.dirname(f),'assets','opciones-formulario.json')
+    if os.path.exists(_cop):
+        try: _catalogo_opciones=json.load(open(_cop,encoding='utf-8'))
+        except Exception as e: print(f"  FALLO opciones-formulario.json invalido: {nombre} ({e})"); FALLOS+=1
+    for jb in re.finditer(r'```json\n(\{\s*"form_data".*?)\n```', t, re.S):
         try: d=json.loads(jb.group(1))
         except Exception as e:
-            print(f"  FALLO formulario JSON invalido: {nombre} ({e})"); FALLOS+=1; d=None
-        if d:
-            for q in d["form_data"]:
-                if not {"id","rationale","question","options"} <= set(q) or len(q["options"])<2:
-                    print(f"  FALLO pregunta mal formada: {nombre}/{q.get('id')}"); FALLOS+=1
-            for q in d["form_data"][1:]:
-                if q.get('question','').lower().startswith('si ') and not any(o.get('id') in ('no_procede','no_aplica') for o in q.get('options',[])):
-                    print(f"  AVISO pregunta condicional sin opcion no_procede (REG-TRI-01): {nombre}/{q.get('id')}")
+            print(f"  FALLO formulario JSON invalido: {nombre} ({e})"); FALLOS+=1; continue
+        for q in d.get("form_data",[]):
+            if not {"id","rationale","question"} <= set(q):
+                print(f"  FALLO pregunta mal formada: {nombre}/{q.get('id')}"); FALLOS+=1
+            elif q.get("options_from"):
+                if q["options_from"] not in _catalogo_opciones or len(_catalogo_opciones[q["options_from"]].get("options",[]))<2:
+                    print(f"  FALLO options_from sin clave en assets/opciones-formulario.json: {nombre}/{q['id']} ({q['options_from']})"); FALLOS+=1
+            elif len(q.get("options",[]))<2:
+                print(f"  FALLO pregunta mal formada: {nombre}/{q.get('id')}"); FALLOS+=1
+        for q in d.get("form_data",[])[1:]:
+            if q.get('question','').lower().startswith('si ') and not any(o.get('id') in ('no_procede','no_aplica') for o in q.get('options',[])):
+                print(f"  AVISO pregunta condicional sin opcion no_procede (REG-TRI-01): {nombre}/{q.get('id')}")
+    # tools: del frontmatter: nombres del catalogo raiz agent_tools.json
+    _fmt=re.search(r'^tools:\n((?:  - .*\n)+)', t, re.M)
+    if _fmt:
+        _nombres={x['name'] for x in json.load(open('agent_tools.json',encoding='utf-8'))['tools']}
+        for _tn in re.findall(r'^  - (\S+)', _fmt.group(1), re.M):
+            if _tn not in _nombres: print(f"  FALLO tool del frontmatter que no esta en agent_tools.json: {nombre}/{_tn}"); FALLOS+=1
     c=re.search(r'Correspondencia con el enrutamiento(.*?)\n\n', t, re.S)
     if c:
         decl=set(re.findall(r'`(V\d+(?:\.[a-z]|-bis|b)?)`', c.group(1)))

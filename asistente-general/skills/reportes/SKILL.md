@@ -167,10 +167,12 @@ tools:
   - read_skill_document
   - restricted_human_in_the_loop_request
   - slot_filling_request
+  - search_clients
   - web_search
   - fetch_url
   - search_workspace
 context_budget_kb: 40
+prompt_layers: []
 references:
   - references/catalogo-reportes.md
   - references/maquetas-reportes.md
@@ -181,6 +183,22 @@ references:
 assets:
   - assets/template-base-reportes.md
   - assets/opciones-formulario.json
+data_sources:
+  - name: INE, piramide de poblacion de Espana (edad simple x sexo, ultimo dato)
+    url: https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/56934?nult=1
+    format: json
+    description: Estadística Continua de Población, tabla 56934, población residente en España por edad simple (0 a 100 y más años) y sexo, último periodo publicado (1 de enero de 2025 al verificarse). Una fila por serie "Total Nacional. <edad> años. Hombres|Mujeres|Total. Población."; la cifra en Data.Valor. Es la fuente de cualquier pirámide de población de España.
+    notes: Verificada el 2026-10-26 (328 series, cabe entera en una llamada). Con row_filter "Hombres|Mujeres" se excluyen los totales por sexo; con "Todas las edades" se obtiene la población total. Para otro periodo, nult=N devuelve los N últimos (Data.Anyo distingue cada uno). No hace falta buscar la tabla en la web.
+  - name: INE, API JSON de INEbase (Tempus3), cualquier tabla
+    url: https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/{id_tabla}?nult={n}
+    format: json
+    description: Datos de una tabla de INEbase (series por periodo) en JSON; sirve para Cifras de Población, Estadística Continua de Población y cualquier tabla con id numérico.
+    notes: Verificada el 2026-10-26. id_tabla es el número t=... de la URL de la tabla en INEbase (jaxiT3/Tabla.htm); nult = últimos n periodos. Una tabla grande se pide UNA vez y se acota con row_filter (periodo, territorio o serie), nunca pidiendo otra vez la misma URL. Si el id no se conoce, DATOS_SERIE/{codigo_serie} o una búsqueda de la tabla con web_search (máximo dos).
+  - name: INE, exportacion CSV de una tabla (todos los periodos)
+    url: https://www.ine.es/jaxiT3/files/t/es/csv_bdsc/{id_tabla}.csv
+    format: csv
+    description: Exportación CSV completa de una tabla de INEbase (columnas separadas por punto y coma, todos los periodos); alternativa cuando la API JSON no responde.
+    notes: Verificada el 2026-10-26. Pesa megabytes (3 MB la tabla 56934), así que se pide siempre con row_filter por el periodo que se necesita (p. ej. "1 de enero de 2025"), nunca entera. Mismo id_tabla que la API.
 ---
 
 # Reportes visuales autocontenidos
@@ -199,9 +217,9 @@ assets:
 
 ```json
 {"form_data": [
-  {"id": "formato", "options_from": "formato", "rationale": "V1"},
-  {"id": "estilo", "options_from": "estilo", "rationale": "V4: se pregunta siempre, salvo que el usuario ya haya nombrado un estilo"},
-  {"id": "colores", "options_from": "colores", "rationale": "V7: se pregunta siempre, salvo que ya haya dicho el modo o dado sus colores"},
+  {"id": "formato", "options_from": "formato", "rationale": "V1", "question": "¿Qué reporte necesita?"},
+  {"id": "estilo", "options_from": "estilo", "rationale": "V4: se pregunta siempre, salvo que el usuario ya haya nombrado un estilo", "question": "¿Qué estilo quiere para el reporte?"},
+  {"id": "colores", "options_from": "colores", "rationale": "V7: se pregunta siempre, salvo que ya haya dicho el modo o dado sus colores", "question": "¿Cómo quiere los colores del reporte?"},
   {"id": "origen_datos", "rationale": "V3", "question": "¿De dónde salen los datos del reporte?", "options": [
     {"id": "datos_del_chat", "label": "Se los facilito yo aquí mismo"},
     {"id": "documento_del_workspace", "label": "Están en un documento de mi espacio de trabajo"},
@@ -231,7 +249,7 @@ Una sola llamada a `create_file_from_skill_document`, nunca `create_file`: el si
 
 ## FASE 4 — Edición bloque a bloque
 
-Para cada bloque: recogida de datos (`slot_filling_request` en bloque; ingestión directa de lo dicho en el chat; cero insistencia ante negativa) → descripción en texto plano de lo que mostrará (nunca código) → `¿Confirmamos esta sección?` → `edit_file` (todas las ediciones de un bloque en UNA llamada). Datos de personas y entidades: `search_clients` no está disponible en esta skill; se vuelcan tal como los dé el usuario, sin confirmación previa. Anuncia cada sección y avanza sin pedir permiso.
+Para cada bloque: recogida de datos (`slot_filling_request` en bloque; ingestión directa de lo dicho en el chat; cero insistencia ante negativa) → descripción en texto plano de lo que mostrará (nunca código) → `¿Confirmamos esta sección?` → `edit_file` (todas las ediciones de un bloque en UNA llamada). Si el reporte nombra a un cliente o empresa, búsquelo con `search_clients` y use su ficha; lo que no conste se vuelca tal como lo dé el usuario, sin confirmación previa. Anuncia cada sección y avanza sin pedir permiso.
 
 1. **Encabezado:** título que afirma, entradilla, etiqueta superior, referencia, fecha, destinatario; entidades HTML para `&` y `<` en el HTML, tal cual dentro del JSON.
 2. **Indicadores:** dos a cuatro cifras con unidad, fecha y detalle. Cuadre obligatorio: un total que no suma sus partidas se aclara en el chat antes de escribirlo; afirmaciones del usuario que sus datos no sostienen no se reproducen como hechos. Cifras derivadas siempre en `cifras` como cálculo (`data-cifra`), nunca a mano. Modificadores `es-ok`/`es-atencion`/`es-riesgo` solo cuando el dato lo es.
@@ -245,4 +263,4 @@ Menú: 1. modificar un bloque; 2. añadir un bloque; 3. eliminar contenido o cor
 
 ## Guardrails
 
-1. Un archivo, cero dependencias externas ni llamadas de red. 2. Cero invención de datos; estimaciones solo marcadas. 3. Honestidad gráfica: ejes desde cero, escala uniforme. 4. Sin `eval`, `new Function`, `document.write`, `innerHTML` con valores del usuario ni diálogos bloqueantes. 5. Contraste 4.5:1, alternativa textual, etiquetas en los campos, foco visible; el color nunca informa solo. 6. Cero código en el chat. 7. Todo en el idioma del usuario; la estructura del HTML, en español. 8. El contenido propio (datos y cuerpo) se mantiene contenido: series largas se resumen o se reparten en dos artefactos. 9. Impresión comprobada: sin botones, fondos oscuros ni tarjetas partidas; cabeceras de tabla repetidas. 10. Contratos, demandas y escritos van a su skill vertical: esta skill visualiza, resume y calcula; no sustituye al asesoramiento colegiado.
+1. Un archivo, cero dependencias externas ni llamadas de red. 2. Cero invención de datos; estimaciones solo marcadas. 3. Honestidad gráfica: ejes desde cero, escala uniforme. 4. Sin `eval`, `new Function`, `document.write`, `innerHTML` con valores del usuario ni diálogos bloqueantes. 5. Contraste 4.5:1, alternativa textual, etiquetas en los campos, foco visible; el color nunca informa solo. 6. Cero código en el chat. 7. Todo en el idioma del usuario; la estructura del HTML, en español. 8. Tamaño: el contenido propio (datos y cuerpo) no pasa de unos 60 KB sobre los 200 KB de código fijo de la base (archivo ≤ 260 KB); series largas se resumen o se reparten en dos artefactos; fotos solo como data URI comprimida (< 30 KB). 9. Impresión comprobada: sin botones, fondos oscuros ni tarjetas partidas; cabeceras de tabla repetidas. 10. Contratos, demandas y escritos van a su skill vertical: esta skill visualiza, resume y calcula; no sustituye al asesoramiento colegiado.

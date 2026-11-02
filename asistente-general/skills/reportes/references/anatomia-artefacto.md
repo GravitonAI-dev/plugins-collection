@@ -4,7 +4,7 @@ Reglas técnicas invariables del formato. Todo artefacto que produzca esta skill
 
 ## 1. Un único archivo, cero dependencias externas
 
-- **Extensión `.html`** y **un solo archivo**, construido copiando íntegra la base `assets/template-base-reportes.md` e insertando la maqueta del tipo de entregable (`maquetas-reportes.md`). Todo el CSS va en el único `<style>` de la base. El JavaScript es el del motor de la base, que no se modifica; solo la herramienta interactiva añade un segundo `<script>` con su bloque de cálculo, justo después del motor.
+- **Extensión `.html`** y **un solo archivo**, construido copiando íntegra la base `assets/template-base-reportes.md` e insertando la maqueta del tipo de entregable (`maquetas-reportes.md`). Todo el CSS va en el único `<style>` de la base. El JavaScript fijo (motor y módulos de gráficos, marcados `data-fijo`) viene en la base y no se modifica; las maquetas con script propio (herramienta interactiva, presentación, documento largo) lo colocan en el hueco `{{SCRIPT_MAQUETA}}`, después de los módulos, nunca antes.
 - **Prohibido** cualquier recurso remoto: `<script src="https://...">`, `<link rel="stylesheet" href="https://...">`, fuentes de Google Fonts, imágenes por URL, `fetch`, `XMLHttpRequest`, `import` de módulos remotos, iframes a terceros. Bajo `file://` fallan en silencio o los bloquea el navegador y el artefacto se ve roto.
 - **Prohibidas las librerías** (Chart.js, D3, Tailwind por CDN, React, jQuery). Los gráficos los dibuja en SVG el motor propio que viaja dentro de la base, a partir del bloque de datos `datos-reporte` (contrato en `catalogo-graficos.md`). Nunca se escriben coordenadas a mano.
 - Si hace falta una imagen, se incrusta como SVG en línea o como `data:` URI, y solo si es imprescindible.
