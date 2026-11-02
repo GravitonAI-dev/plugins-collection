@@ -20,45 +20,45 @@ i18n:
       members without legal review, for the final calculation of contributions, or for automatic
       electronic filing with the e-office.
 description: >
-  Prepara el alta y la baja de trabajador autonomo en Espana: (1) el alta o la baja censal en la AEAT
-  mediante el modelo 036 (declaracion censal en el censo de empresarios, profesionales y retenedores;
-  en el alta con epigrafe IAE y eleccion de regimen de IVA e IRPF; en la baja con la fecha efectiva de
+  Prepara el alta y la baja de trabajador autónomo en España: (1) el alta o la baja censal en la AEAT
+  mediante el modelo 036 (declaración censal en el censo de empresarios, profesionales y retenedores;
+  en el alta con epígrafe IAE y elección de régimen de IVA e IRPF; en la baja con la fecha efectiva de
   cese y sus efectos en IVA e IRPF) y (2) el alta o la baja en el RETA de la Seguridad Social (en el alta,
-  eleccion de base segun rendimientos netos previstos y tarifa plana; en la baja, comunicacion del cese
-  y efectos en la cuota), conforme a la **Ley 20/2007 del Estatuto del Trabajo Autonomo (LETA)**, que regula el regimen profesional del trabajador autonomo, y al **RD-ley 13/2022**, que establece la cotizacion por ingresos reales, en su version consolidada
-  verificada en el BOE. Opera bajo el flujo de 5 fases canonicas con clasificacion HITL, consulta de assets,
-  creacion zero-vacios en workspace y edicion incremental seccion a seccion. NO usar para altas ni bajas de
-  sociedades mercantiles (SL/SA), autonomos societarios o colaboradores sin revision letrada, ni para el calculo
-  definitivo de cuotas ni para la presentacion telematica automatica ante la sede electronica.
+  elección de base según rendimientos netos previstos y tarifa plana; en la baja, comunicación del cese
+  y efectos en la cuota), conforme a la **Ley 20/2007 del Estatuto del Trabajo Autónomo (LETA)**, que regula el régimen profesional del trabajador autónomo, y al **RD-ley 13/2022**, que establece la cotización por ingresos reales, en su versión consolidada
+  verificada en el BOE. Opera bajo el flujo de 5 fases canónicas con clasificación HITL, consulta de assets,
+  creación zero-vacíos en workspace y edición incremental sección a sección. NO usar para altas ni bajas de
+  sociedades mercantiles (SL/SA), autónomos societarios o colaboradores sin revisión letrada, ni para el cálculo
+  definitivo de cuotas ni para la presentación telemática automática ante la sede electrónica.
 when_to_use: |
-  - El usuario va a darse de alta como autonomo (trabajador por cuenta propia) por primera vez o de nuevo.
-  - El usuario va a cesar su actividad y darse de baja como autonomo (baja censal 036 y baja en el RETA).
+  - El usuario va a darse de alta como autónomo (trabajador por cuenta propia) por primera vez o de nuevo.
+  - El usuario va a cesar su actividad y darse de baja como autónomo (baja censal 036 y baja en el RETA).
   - El usuario necesita preparar el modelo 036 (alta o baja censal en Hacienda) y el alta o la baja en el RETA.
-  - El usuario quiere saber que epigrafe IAE, regimen de IVA/IRPF y tramo de cuota le corresponden.
-  - El usuario pregunta por la tarifa plana, los plazos de alta o de baja, los efectos del cese en la cuota o la documentacion necesaria.
+  - El usuario quiere saber qué epígrafe IAE, régimen de IVA/IRPF y tramo de cuota le corresponden.
+  - El usuario pregunta por la tarifa plana, los plazos de alta o de baja, los efectos del cese en la cuota o la documentación necesaria.
 inputs:
   - tipo_operacion: alta / baja (V1)
-  - tipo_actividad: empresarial / profesional / artistica (V2)
+  - tipo_actividad: empresarial / profesional / artística (V2)
   - naturaleza_titular: persona_fisica (V3)
   - regimen_cotizacion: reta_general / reta_tarifa_plana / reta_societario_colaborador (V4)
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
-  - datos_interesado: nombre y apellidos, NIF, domicilio fiscal, telefono y correo de contacto
-  - actividad: descripcion de la actividad economica (alta que va a ejercer; baja que cesa)
-  - epigrafe_iae: epigrafe del IAE si lo conoce (empresarial o profesional)
+  - datos_interesado: nombre y apellidos, NIF, domicilio fiscal, teléfono y correo de contacto
+  - actividad: descripción de la actividad económica (alta que va a ejercer; baja que cesa)
+  - epigrafe_iae: epígrafe del IAE si lo conoce (empresarial o profesional)
   - fecha_inicio: fecha prevista de inicio de la actividad (solo para el alta)
   - fecha_cese: fecha de cese de la actividad (solo para la baja)
-  - rendimientos_previstos: rendimientos netos mensuales previstos en euros (alta para el tramo de cotizacion)
-  - regimen_iva: regimen de IVA aplicable (general / recargo de equivalencia / exento) si lo conoce
-  - regimen_irpf: metodo de estimacion de IRPF (directa simplificada / directa normal / objetiva-modulos)
-  - tarifa_plana: si cumple los requisitos de la cuota reducida de inicio de actividad (si / no / desconocido)
+  - rendimientos_previstos: rendimientos netos mensuales previstos en euros (alta para el tramo de cotización)
+  - regimen_iva: régimen de IVA aplicable (general / recargo de equivalencia / exento) si lo conoce
+  - regimen_irpf: método de estimación de IRPF (directa simplificada / directa normal / objetiva-modulos)
+  - tarifa_plana: si cumple los requisitos de la cuota reducida de inicio de actividad (sí / no / desconocido)
   - domicilio_actividad: lugar donde ejerce la actividad, si difiere del domicilio fiscal
-  - obligaciones_pendientes: declaraciones o cuotas del periodo aun no presentadas (baja para el aviso de cierre fiscal)
+  - obligaciones_pendientes: declaraciones o cuotas del periodo aún no presentadas (baja para el aviso de cierre fiscal)
 outputs:
-  - hoja_datos_alta_censal: hoja de datos para el alta en el modelo 036 con epigrafe IAE y regimenes, DRAFT
+  - hoja_datos_alta_censal: hoja de datos para el alta en el modelo 036 con epígrafe IAE y regímenes, DRAFT
   - hoja_datos_alta_reta: hoja de datos para el alta en RETA con tramo y cuota estimada, DRAFT
   - hoja_datos_baja_censal: hoja de datos para la baja en el modelo 036 con fecha de cese y efectos en IVA/IRPF, DRAFT
   - hoja_datos_baja_reta: hoja de datos para la baja en el RETA con fecha de cese y efectos en la cuota, DRAFT
-  - checklist_documentos: relacion de documentos, sedes y plazos de cada tramite
+  - checklist_documentos: relación de documentos, sedes y plazos de cada trámite
 references:
   - references/censo-036-037-aeat.md
   - references/reta-cotizacion-ingresos-reales.md
@@ -156,7 +156,7 @@ Invoca la herramienta con las preguntas de triaje:
   - Hojas de datos propuestas del sistema: `assets/template-hoja-datos-alta-censal-036.md` y `assets/template-hoja-datos-alta-reta.md`. Proceder a la **Fase 2**.
 - **Si `V1 = baja`:**
   - Hojas de datos propuestas del sistema: `assets/template-hoja-datos-baja-censal-036.md` y `assets/template-hoja-datos-baja-reta.md`. Proceder a la **Fase 2**.
-- `V2` no elige hoja: delimita la naturaleza del epigrafe del IAE y el regimen de retenciones de IRPF que se consignan.
+- `V2` no elige hoja: delimita la naturaleza del epígrafe del IAE y el régimen de retenciones de IRPF que se consignan.
 
 ---
 
@@ -175,7 +175,7 @@ Envía un mensaje estructurado y pedagógico:
    - Para BAJA: Explicar que la baja en el RETA debe comunicarse en Import@ss en los **3 días naturales** siguientes al cese, y la baja censal en la AEAT en el plazo de **1 mes**.
 2. **Propuesta de Plantilla Oficial del Sistema:**
    - Detallar que dispones de las hojas de datos estructuradas oficiales para volcar la información requerida por la Sede Electrónica de la AEAT y el portal Import@ss de la Seguridad Social.
-   - Menciona por su denominación formal (sin mostrar rutas internas ni volcar su contenido) la hoja **que ha resuelto el enrutamiento de la Fase 1.3**; si el enrutamiento asigno varias, nombralas todas y en el orden en que se van a rellenar. **No propongas una hoja distinta de la enrutada.**
+   - Menciona por su denominación formal (sin mostrar rutas internas ni volcar su contenido) la hoja **que ha resuelto el enrutamiento de la Fase 1.3**; si el enrutamiento asigno varias, nómbralas todas y en el orden en que se van a rellenar. **No propongas una hoja distinta de la enrutada.**
 3. **Elección de Plantilla Base:** Aplica el protocolo universal de `REG-AST-01` (`CLAUDE.md`), convocando en ese mismo turno el formulario interactivo `restricted_human_in_the_loop_request` para que el usuario elija entre la plantilla del sistema o aportar su propia minuta.
 
 ### 2.3 Manejo Determinista de la Elección

@@ -20,37 +20,37 @@ i18n:
       skill), for the final calculation of contributions, regularisation files, Labour
       Inspectorate reports or appeals before the Social Security Treasury.
 description: >
-  Prepara altas y bajas en la Seguridad Social (Regimen General) que corresponden al empleador y al
-  trabajador por cuenta ajena en Espana: (1) afiliacion inicial y numero de la Seguridad Social (NUSS)
-  con el modelo TA.1; (2) inscripcion de empresa y apertura del Codigo de Cuenta de Cotizacion (CCC),
+  Prepara altas y bajas en la Seguridad Social (Régimen General) que corresponden al empleador y al
+  trabajador por cuenta ajena en España: (1) afiliación inicial y número de la Seguridad Social (NUSS)
+  con el modelo TA.1; (2) inscripción de empresa y apertura del Código de Cuenta de Cotización (CCC),
   y sus variaciones o baja, con el modelo TA.6; (3) alta y baja de trabajadores por cuenta ajena en el
-  Regimen General por el empleador via Sistema RED o Import@ss; (4) alta y baja de empleadas de hogar
-  (Sistema Especial del Regimen General), conforme al **texto refundido de la Ley General de la Seguridad Social (LGSS, RD-legislativo 8/2015)**, que regula la afiliacion, las altas y las bajas de trabajadores y empresas,
-  y al **Reglamento general de inscripcion, afiliacion, altas y bajas (RD 84/1996)**, en su version consolidada
-  vigente verificada en el BOE. Opera bajo el flujo de 5 fases canonicas con clasificacion HITL, consulta de assets,
-  creacion zero-vacios en workspace y edicion incremental seccion a seccion. NO usar para el alta de autonomos en el
-  RETA (usar la skill alta-baja-autonomo), ni para el calculo definitivo de cuotas, expedientes de
-  regularizacion, actas de la Inspeccion de Trabajo o recursos ante la TGSS.
+  Régimen General por el empleador vía Sistema RED o Import@ss; (4) alta y baja de empleadas de hogar
+  (Sistema Especial del Régimen General), conforme al **texto refundido de la Ley General de la Seguridad Social (LGSS, RD-legislativo 8/2015)**, que regula la afiliación, las altas y las bajas de trabajadores y empresas,
+  y al **Reglamento general de inscripción, afiliación, altas y bajas (RD 84/1996)**, en su versión consolidada
+  vigente verificada en el BOE. Opera bajo el flujo de 5 fases canónicas con clasificación HITL, consulta de assets,
+  creación zero-vacíos en workspace y edición incremental sección a sección. NO usar para el alta de autónomos en el
+  RETA (usar la skill alta-baja-autonomo), ni para el cálculo definitivo de cuotas, expedientes de
+  regularización, actas de la Inspección de Trabajo o recursos ante la TGSS.
 when_to_use: |
-  - El empleador va a dar de alta o de baja a un trabajador por cuenta ajena en el Regimen General.
-  - Un trabajador necesita su afiliacion inicial y numero de la Seguridad Social (NUSS) por primera vez.
-  - Una empresa va a inscribirse y abrir su Codigo de Cuenta de Cotizacion (CCC), o darlo de baja.
+  - El empleador va a dar de alta o de baja a un trabajador por cuenta ajena en el Régimen General.
+  - Un trabajador necesita su afiliación inicial y número de la Seguridad Social (NUSS) por primera vez.
+  - Una empresa va a inscribirse y abrir su Código de Cuenta de Cotización (CCC), o darlo de baja.
   - Un empleador de hogar va a dar de alta o de baja a una empleada de hogar.
-  - El usuario pregunta por los plazos del alta previa, de la baja o por la documentacion y la via (RED / Import@ss).
+  - El usuario pregunta por los plazos del alta previa, de la baja o por la documentación y la vía (RED / Import@ss).
 inputs:
   - tipo_operacion: alta / baja (V1)
   - tipo_sujeto_tramite: cuenta_ajena_regimen_general / empleada_hogar / afiliacion_nuss_ta1 / inscripcion_empresa_ccc_ta6 (V2)
   - naturaleza_empleador: persona_fisica / persona_juridica (V3)
   - naturaleza_trabajador: persona_fisica (V4)
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
-  - datos_empleador: razon social o nombre, CIF o NIF, domicilio, CCC si ya existe
-  - datos_trabajador: nombre y apellidos, NIF, NUSS si lo tiene, grupo de cotizacion
-  - fecha_efectos: fecha de inicio de la relacion laboral (alta) o de cese (baja)
+  - datos_empleador: razón social o nombre, CIF o NIF, domicilio, CCC si ya existe
+  - datos_trabajador: nombre y apellidos, NIF, NUSS si lo tiene, grupo de cotización
+  - fecha_efectos: fecha de inicio de la relación laboral (alta) o de cese (baja)
   - tipo_contrato: modalidad de contrato y tipo de jornada (para el alta)
-  - via_presentacion: Sistema RED (autorizado) / Import@ss (sin autorizacion RED) si lo conoce
+  - via_presentacion: Sistema RED (autorizado) / Import@ss (sin autorización RED) si lo conoce
 outputs:
   - hoja_datos_ta: hoja de datos del modelo TA correspondiente (TA.1, TA.6 o alta-baja de trabajador), DRAFT
-  - checklist_documentos: relacion de documentos, organismo, via de presentacion y plazo del tramite
+  - checklist_documentos: relación de documentos, organismo, vía de presentación y plazo del trámite
 references:
   - references/lgss-y-reglamento-afiliacion.md
   - references/tramites-tgss-modelos-ta.md
@@ -137,7 +137,7 @@ Invoca la herramienta con las preguntas de triaje:
   - Hoja de datos propuesta: `assets/template-hoja-datos-inscripcion-empresa-ccc.md`. Proceder a la **Fase 2**.
 - **Si `V2 = cuenta_ajena_regimen_general` o `V2 = empleada_hogar`:**
   - Hoja de datos propuesta: `assets/template-hoja-datos-alta-baja-trabajador.md`. Proceder a la **Fase 2**.
-- `V1` no elige hoja por si solo: determina si se preparan los tramites de alta y afiliacion o los de cese y baja.
+- `V1` no elige hoja por si solo: determina si se preparan los trámites de alta y afiliación o los de cese y baja.
 
 ---
 
@@ -157,7 +157,7 @@ Envía un mensaje estructurado y pedagógico:
    - **Canal Telemático:** Explicar si el trámite se cursará a través del Sistema RED (empresas con autorización) o del portal Import@ss (empleadores de hogar y particulares).
 2. **Propuesta de Plantilla Oficial del Sistema:**
    - Presentar la hoja de datos oficial correspondiente (`template-hoja-datos-afiliacion-ta1.md`, `template-hoja-datos-alta-baja-trabajador.md` o `template-hoja-datos-inscripcion-empresa-ccc.md`).
-   - Menciona por su denominación formal (sin mostrar rutas internas ni volcar su contenido) la hoja **que ha resuelto el enrutamiento de la Fase 1.3**; si el enrutamiento asigno varias, nombralas todas y en el orden en que se van a rellenar. **No propongas una hoja distinta de la enrutada.**
+   - Menciona por su denominación formal (sin mostrar rutas internas ni volcar su contenido) la hoja **que ha resuelto el enrutamiento de la Fase 1.3**; si el enrutamiento asigno varias, nómbralas todas y en el orden en que se van a rellenar. **No propongas una hoja distinta de la enrutada.**
 3. **Elección de Plantilla Base:** Aplica el protocolo universal de `REG-AST-01` (`CLAUDE.md`), convocando en ese mismo turno el formulario interactivo `restricted_human_in_the_loop_request` para que el usuario elija entre la plantilla del sistema o aportar su propia minuta.
 
 ### 2.3 Manejo Determinista de la Elección

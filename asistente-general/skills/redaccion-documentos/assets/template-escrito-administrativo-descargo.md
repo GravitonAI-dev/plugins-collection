@@ -1,22 +1,22 @@
 # ESCRITO DE ALEGACIONES Y DESCARGO ADMINISTRATIVO
 
-> DRAFT — Para revision letrada colegiada antes de su firma o presentacion formal.
+> DRAFT — Para revisión letrada colegiada antes de su firma o presentación formal.
 
 ---
 
-**ORGANO DESTINATARIO:** {{ORGANO_DESTINATARIO}}
+**ÓRGANO DESTINATARIO:** {{ORGANO_DESTINATARIO}}
 
-**NUMERO DE EXPEDIENTE:** {{NUMERO_EXPEDIENTE}}
+**NÚMERO DE EXPEDIENTE:** {{NUMERO_EXPEDIENTE}}
 
 ---
 
 ## COMPARECENCIA
 
-D./Dña. {{NOMBRE_INTERESADO}}, mayor de edad, con DNI/NIF {{NIF_INTERESADO}}, con domicilio a efectos de notificaciones en {{DOMICILIO_INTERESADO}}, codigo postal {{CODIGO_POSTAL_INTERESADO}}, localidad {{LOCALIDAD_INTERESADO}}, provincia {{PROVINCIA_INTERESADO}}, telefono {{TELEFONO_INTERESADO}} y correo electronico {{EMAIL_INTERESADO}}, ante este organo comparece y como mejor proceda en Derecho,
+D./Dña. {{NOMBRE_INTERESADO}}, mayor de edad, con DNI/NIF {{NIF_INTERESADO}}, con domicilio a efectos de notificaciones en {{DOMICILIO_INTERESADO}}, código postal {{CODIGO_POSTAL_INTERESADO}}, localidad {{LOCALIDAD_INTERESADO}}, provincia {{PROVINCIA_INTERESADO}}, teléfono {{TELEFONO_INTERESADO}} y correo electrónico {{EMAIL_INTERESADO}}, ante este órgano comparece y como mejor proceda en Derecho,
 
 **EXPONE:**
 
-Que, habiendo tenido conocimiento del procedimiento sancionador/incoado por este organo con el numero de expediente arriba indicado, y dentro del plazo conferido para la formulacion de alegaciones, por medio del presente escrito viene a formular **ALEGACIONES DE DESCARGO** en base a los siguientes,
+Que, habiendo tenido conocimiento del procedimiento sancionador/incoado por este órgano con el número de expediente arriba indicado, y dentro del plazo conferido para la formulación de alegaciones, por medio del presente escrito viene a formular **ALEGACIONES DE DESCARGO** en base a los siguientes,
 
 ---
 
@@ -48,9 +48,9 @@ Que, habiendo tenido conocimiento del procedimiento sancionador/incoado por este
 
 ---
 
-## PROPOSICION DE PRUEBA
+## PROPOSICIÓN DE PRUEBA
 
-A los solos efectos de acreditar los hechos alegados, se propone la practica de las siguientes pruebas:
+A los solos efectos de acreditar los hechos alegados, se propone la práctica de las siguientes pruebas:
 
 1. {{PRUEBA_PRIMERA}}
 2. {{PRUEBA_SEGUNDA}}
@@ -60,11 +60,11 @@ A los solos efectos de acreditar los hechos alegados, se propone la practica de 
 
 ## SUPICO
 
-Que, teniendo por presentado este escrito junto con los documentos que se acompanan, se sirva admitirlo, tener por formuladas **ALEGACIONES DE DESCARGO** dentro del plazo legalmente establecido, y en su virtud:
+Que, teniendo por presentado este escrito junto con los documentos que se acompañan, se sirva admitirlo, tener por formuladas **ALEGACIONES DE DESCARGO** dentro del plazo legalmente establecido, y en su virtud:
 
 - Que se tengan por acreditados los hechos relatados y los fundamentos de derecho invocados.
-- Que se estime la improcedencia de la sancion propuesta y se acuerde el **archivo del expediente** sin imposicion de sancion alguna.
-- Subsidiariamente, que se reduzca la sancion propuesta en atencion a los criterios de proporcionalidad del art. 29 de la Ley 40/2021 y a las circunstancias concurrentes.
+- Que se estime la improcedencia de la sanción propuesta y se acuerde el **archivo del expediente** sin imposición de sanción alguna.
+- Subsidiariamente, que se reduzca la sanción propuesta en atención a los criterios de proporcionalidad del art. 29 de la Ley 40/2021 y a las circunstancias concurrentes.
 
 Es justicia que pide en {{LOCALIDAD_FIRMA}}, a {{DIA}} de {{MES}} de {{ANO}}.
 

@@ -1,16 +1,16 @@
-# Modulos opcionales del motor
+# Módulos opcionales del motor
 
-Algunos tipos de grafico pesan demasiado para ir en todos los artefactos. Viven aqui como **modulos**: un `<script>` que se copia integro, sin modificarlo, **justo despues del script del motor** (antes de `</body>` y antes del script de la maqueta, si la maqueta tiene uno) y solo en los artefactos que usan ese tipo. El modulo registra su tipo en el motor y, a partir de ahi, se declara en `datos-reporte` como cualquier otro grafico.
+Algunos tipos de gráfico pesan demasiado para ir en todos los artefactos. Viven aquí como **módulos**: un `<script>` que se copia íntegro, sin modificarlo, **justo después del script del motor** (antes de `</body>` y antes del script de la maqueta, si la maqueta tiene uno) y solo en los artefactos que usan ese tipo. El módulo registra su tipo en el motor y, a partir de ahí, se declara en `datos-reporte` como cualquier otro gráfico.
 
-Si un artefacto declara un tipo de modulo pero no copia el modulo, el grafico muestra el recuadro rojo «tipo desconocido».
+Si un artefacto declara un tipo de módulo pero no copia el módulo, el gráfico muestra el recuadro rojo «tipo desconocido».
 
-Un modulo que anade algo fuera del hueco del grafico (por ejemplo, su `<style>` en el `head`) le pone `data-generado`: el visor de la app guarda el DOM tal cual y el motor quita esos nodos al cargar, antes de que el modulo los vuelva a anadir (`anatomia-artefacto.md`, seccion 7).
+Un módulo que añade algo fuera del hueco del gráfico (por ejemplo, su `<style>` en el `head`) le pone `data-generado`: el visor de la app guarda el DOM tal cual y el motor quita esos nodos al cargar, antes de que el módulo los vuelva a añadir (`anatomia-artefacto.md`, sección 7).
 
 ---
 
 ## Diagramas con conectores (`diagrama`)
 
-Cajas unidas por flechas: procesos, flujos de un procedimiento, cadenas de hechos, organigramas, estructuras societarias, relaciones entre partes y quien hace que. El modelo **no coloca nada**: declara los nodos y las conexiones, y el modulo calcula la disposicion, ajusta el texto de cada caja en varias lineas y traza las flechas con su rotulo.
+Cajas unidas por flechas: procesos, flujos de un procedimiento, cadenas de hechos, organigramas, estructuras societarias, relaciones entre partes y quién hace que. El modelo **no coloca nada**: declara los nodos y las conexiones, y el módulo calcula la disposición, ajusta el texto de cada caja en varias líneas y traza las flechas con su rotulo.
 
 ```json
 {"tipo": "diagrama", "disposicion": "capas", "direccion": "horizontal", "fuente": "cliente",
@@ -19,7 +19,7 @@ Cajas unidas por flechas: procesos, flujos de un procedimiento, cadenas de hecho
    {"id": "impago", "texto": "Impago de siete facturas", "grupo": 3},
    {"id": "pago", "texto": "¿Paga en el plazo del requerimiento?", "forma": "decision"},
    {"id": "fin", "texto": "Archivo del expediente", "forma": "inicio", "grupo": 2},
-   {"id": "monitorio", "texto": "Peticion de monitorio", "grupo": 1}
+   {"id": "monitorio", "texto": "Petición de monitorio", "grupo": 1}
  ],
  "conexiones": [
    {"de": "contrato", "a": "impago"},
@@ -32,23 +32,23 @@ Cajas unidas por flechas: procesos, flujos de un procedimiento, cadenas de hecho
 
 | Campo | Uso |
 | :--- | :--- |
-| `disposicion` | `capas` (flujos y procesos, por defecto), `arbol` (organigramas, estructuras societarias, de arriba abajo), `radial` (un nodo central y sus relaciones) o `carriles` (quien hace que: una franja por actor) |
-| `direccion` | En `capas`: `horizontal` o `vertical`. Si no se indica, el modulo elige: hasta cinco pasos encadenados en horizontal y, a partir de ahi, en vertical |
+| `disposicion` | `capas` (flujos y procesos, por defecto), `arbol` (organigramas, estructuras societarias, de arriba abajo), `radial` (un nodo central y sus relaciones) o `carriles` (quién hace que: una franja por actor) |
+| `direccion` | En `capas`: `horizontal` o `vertical`. Si no se indica, el módulo elige: hasta cinco pasos encadenados en horizontal y, a partir de ahí, en vertical |
 | `nodos[].forma` | `caja` (por defecto), `inicio` (inicio o fin, con extremos redondos), `decision` (rombo) o `nota` (borde discontinuo) |
 | `nodos[].grupo` | Color de la serie, `1` a `6` o `ok`, `aviso`, `riesgo`. `grupos` da el nombre de cada grupo para la leyenda |
 | `nodos[].carril` | En `carriles`, el actor al que pertenece; `carriles` fija el orden de las franjas |
 | `centro` | En `radial`, el id del nodo central (por defecto, el primero) |
-| `conexiones[].texto` | Rotulo corto de la flecha: «si», «no», «20 dias», «burofax» |
-| `conexiones[].estilo` | `discontinua` (relacion indirecta o eventual) o `destacada` (el camino que importa) |
+| `conexiones[].texto` | Rotulo corto de la flecha: «si», «no», «20 días», «burofax» |
+| `conexiones[].estilo` | `discontinua` (relación indirecta o eventual) o `destacada` (el camino que importa) |
 
 Reglas:
 
 - **Solo los pasos que ha descrito el usuario o que constan en el expediente.** Si el flujo queda incompleto (falta que pasa cuando si paga, por ejemplo), se pregunta en el chat; no se completa con pasos supuestos.
-- **Colores de grupo:** la serie `1` a `6` para distinguir fases o actores; `ok`, `aviso` y `riesgo` solo cuando el nodo es un resultado bueno, dudoso o malo (cobro, archivo, sancion).
-- **Maximo 24 nodos.** Un diagrama mayor no se lee: se divide en dos o se resume.
-- Texto de cada caja corto, en una o dos lineas. Los detalles van en el texto del artefacto, no dentro de la caja.
-- Una conexion que vuelve atras (un ciclo) se dibuja por fuera, curvada. Si hay muchas, el proceso esta mal descrito o necesita otra forma.
-- El diagrama va en una tarjeta `ancho-total` si tiene mas de tres pasos en horizontal. En una diapositiva caben a lo ancho hasta cinco pasos; con mas, el modulo lo pasa a vertical o conviene dividirlo en dos diapositivas.
+- **Colores de grupo:** la serie `1` a `6` para distinguir fases o actores; `ok`, `aviso` y `riesgo` solo cuando el nodo es un resultado bueno, dudoso o malo (cobro, archivo, sanción).
+- **Máximo 24 nodos.** Un diagrama mayor no se lee: se divide en dos o se resume.
+- Texto de cada caja corto, en una o dos líneas. Los detalles van en el texto del artefacto, no dentro de la caja.
+- Una conexión que vuelve atrás (un ciclo) se dibuja por fuera, curvada. Si hay muchas, el proceso está mal descrito o necesita otra forma.
+- El diagrama va en una tarjeta `ancho-total` si tiene más de tres pasos en horizontal. En una diapositiva caben a lo ancho hasta cinco pasos; con más, el módulo lo pasa a vertical o conviene dividirlo en dos diapositivas.
 
 ```js modulo=diagramas
 <script>
@@ -273,24 +273,24 @@ R.tipos.diagrama.fijo = true;  /* su tamano sale de su contenido: no se recalcul
 
 ---
 
-## Graficos avanzados (`dispersion`, `histograma`, `radar`, `embudo`, `treemap`, `pendiente`, `halteras`, `piramide`, `calendario`, `pictograma`)
+## Gráficos avanzados (`dispersion`, `histograma`, `radar`, `embudo`, `treemap`, `pendiente`, `halteras`, `piramide`, `calendario`, `pictograma`)
 
-Formas menos frecuentes que las del motor de la base. Un solo modulo para todas: se copia si el artefacto usa cualquiera de ellas.
+Formas menos frecuentes que las del motor de la base. Un solo módulo para todas: se copia si el artefacto usa cualquiera de ellas.
 
 | Tipo | Pregunta que responde | Datos |
 | :--- | :--- | :--- |
-| `dispersion` | ¿Hay relacion entre dos magnitudes? Con `tamano`, una tercera (burbujas) | `puntos: [{rotulo, x, y, tamano}]`, `eje_x: {nombre, unidad}`, `eje_y: {nombre, unidad}`, `nombre_tamano`, `unidad_tamano` |
-| `histograma` | ¿Como se reparten muchos valores sueltos? (dias de demora, cuantias) | `valores` en bruto, `tramos` (por defecto, regla de Sturges), `desde`, `hasta`, `unidad`, `nombre` |
-| `radar` | ¿Que perfil tiene cada opcion en varios criterios? (de 3 a 8) | `ejes`, `series: [{nombre, valores}]`, `maximo` (por ejemplo 10 si se puntua de 0 a 10) |
-| `embudo` | ¿Cuantos llegan a cada etapa y cuantos se pierden? | `etapas: [{rotulo, valor}]`; el modulo calcula el paso de cada etapa a la siguiente |
-| `treemap` | ¿Que peso tiene cada partida cuando son muchas? | `elementos: [{rotulo, valor}]`, `unidad` |
-| `pendiente` | ¿Como cambia cada partida entre dos momentos? | `etiquetas: ["antes", "despues"]`, `elementos: [{rotulo, antes, despues}]` |
-| `halteras` | ¿Que distancia hay entre dos valores de cada partida? (pedido y concedido) | `nombres: {a, b}`, `elementos: [{rotulo, a, b}]` |
-| `piramide` | ¿Como se comparan dos grupos por tramos? | `etiquetas`, `izquierda: {nombre, valores}`, `derecha: {nombre, valores}` |
-| `calendario` | ¿Que dias concentran la actividad o los vencimientos? | `dias: {"AAAA-MM-DD": numero}`, `desde`, `hasta` |
-| `pictograma` | Una proporcion contada en figuras («3 de cada 10») | `valor`, `total` (hasta 10 por fila), `rotulo` |
+| `dispersion` | ¿Hay relación entre dos magnitudes? Con `tamano`, una tercera (burbujas) | `puntos: [{rotulo, x, y, tamano}]`, `eje_x: {nombre, unidad}`, `eje_y: {nombre, unidad}`, `nombre_tamano`, `unidad_tamano` |
+| `histograma` | ¿Cómo se reparten muchos valores sueltos? (días de demora, cuantías) | `valores` en bruto, `tramos` (por defecto, regla de Sturges), `desde`, `hasta`, `unidad`, `nombre` |
+| `radar` | ¿Qué perfil tiene cada opción en varios criterios? (de 3 a 8) | `ejes`, `series: [{nombre, valores}]`, `maximo` (por ejemplo 10 si se puntúa de 0 a 10) |
+| `embudo` | ¿Cuántos llegan a cada etapa y cuántos se pierden? | `etapas: [{rotulo, valor}]`; el módulo calcula el paso de cada etapa a la siguiente |
+| `treemap` | ¿Qué peso tiene cada partida cuando son muchas? | `elementos: [{rotulo, valor}]`, `unidad` |
+| `pendiente` | ¿Cómo cambia cada partida entre dos momentos? | `etiquetas: ["antes", "despues"]`, `elementos: [{rotulo, antes, despues}]` |
+| `halteras` | ¿Qué distancia hay entre dos valores de cada partida? (pedido y concedido) | `nombres: {a, b}`, `elementos: [{rotulo, a, b}]` |
+| `piramide` | ¿Cómo se comparan dos grupos por tramos? | `etiquetas`, `izquierda: {nombre, valores}`, `derecha: {nombre, valores}` |
+| `calendario` | ¿Qué días concentran la actividad o los vencimientos? | `dias: {"AAAA-MM-DD": numero}`, `desde`, `hasta` |
+| `pictograma` | Una proporción contada en figuras («3 de cada 10») | `valor`, `total` (hasta 10 por fila), `rotulo` |
 
-Reglas: los valores se dan en bruto y el modulo calcula escalas, tramos y porcentajes; el radar puntua todas las opciones con la misma escala y el mismo criterio, explicado en el texto; el histograma necesita al menos cinco valores; el pictograma no sirve para mas de unas decenas de figuras.
+Reglas: los valores se dan en bruto y el módulo calcula escalas, tramos y porcentajes; el radar puntúa todas las opciones con la misma escala y el mismo criterio, explicado en el texto; el histograma necesita al menos cinco valores; el pictograma no sirve para más de unas decenas de figuras.
 
 ```js modulo=avanzados
 <script>
@@ -536,22 +536,22 @@ R.tipos.pictograma = function (fig, g) {
 
 ---
 
-## Graficos analiticos (`area_apilada`, `pareto`, `escalones`, `cajas`, `tornado`, `rango`, `mapa_calor`, `sankey`, `anillos`, `puntuacion`)
+## Gráficos analíticos (`area_apilada`, `pareto`, `escalones`, `cajas`, `tornado`, `rango`, `mapa_calor`, `sankey`, `anillos`, `puntuacion`)
 
-Formas para analizar y comparar: composicion en el tiempo, concentracion, distribucion, sensibilidad y flujos. Un solo modulo para todas: se copia si el artefacto usa cualquiera de ellas.
+Formas para analizar y comparar: composición en el tiempo, concentración, distribución, sensibilidad y flujos. Un solo módulo para todas: se copia si el artefacto usa cualquiera de ellas.
 
 | Tipo | Pregunta que responde | Datos |
 | :--- | :--- | :--- |
-| `area_apilada` | ¿Como se compone el total a lo largo del tiempo? | `etiquetas`, `series: [{nombre, valores}]`, `unidad`; el total de cada periodo lo calcula el modulo |
-| `pareto` | ¿Que pocas partidas concentran casi todo? (deudores, causas, asuntos) | `elementos: [{rotulo, valor}]`, `unidad`, `umbral` (80 por defecto); el modulo ordena, acumula y atenua lo que queda por encima del umbral |
-| `escalones` | ¿Como cambia un valor que se mantiene a tramos? (tipo de interes, salario minimo, tasas) | `etiquetas`, `series: [{nombre, valores}]`, `unidad`; cada valor rige hasta la etiqueta siguiente |
-| `cajas` | ¿Como se distribuyen muchos valores en cada grupo? (dias de resolucion por juzgado) | `grupos: [{rotulo, valores}]` en bruto (al menos cinco por grupo), `unidad`; el modulo calcula minimo, cuartiles, mediana y valores atipicos |
-| `tornado` | ¿Que parametro mueve mas el resultado? (sensibilidad de una simulacion) | `base` (resultado central), `elementos: [{rotulo, bajo, alto}]` (resultado con cada parametro en su extremo), `nombres: {bajo, alto}`, `unidad` |
-| `rango` | ¿Donde cae una cifra dentro de una horquilla? (sancion entre minimo y maximo legal, oferta frente a tasacion) | `minimo`, `maximo`, `tramos: [{hasta, rotulo, color}]` (opcional), `marcas: [{rotulo, valor}]`, `unidad` |
-| `mapa_calor` | ¿Donde se concentra algo en dos dimensiones? (juzgado por mes, area por cliente) | `filas`, `columnas`, `valores` (una lista por fila), `unidad`, `color` |
-| `sankey` | ¿De donde a donde fluye el importe o el volumen? (de consultas a vias, reparto de un presupuesto) | `nodos: [{id, texto}]`, `flujos: [{de, a, valor}]`, `unidad`; hasta 16 nodos, sin ciclos |
-| `anillos` | ¿Que grado de avance o cumplimiento tienen hasta cuatro objetivos? | `elementos: [{rotulo, valor, maximo}]` (`maximo` 100 por defecto) |
-| `puntuacion` | ¿Que nota tiene cada criterio en una escala corta? | `elementos: [{rotulo, valor}]`, `maximo` (5 por defecto, hasta 10) |
+| `area_apilada` | ¿Cómo se compone el total a lo largo del tiempo? | `etiquetas`, `series: [{nombre, valores}]`, `unidad`; el total de cada periodo lo calcula el módulo |
+| `pareto` | ¿Qué pocas partidas concentran casi todo? (deudores, causas, asuntos) | `elementos: [{rotulo, valor}]`, `unidad`, `umbral` (80 por defecto); el módulo ordena, acumula y atenúa lo que queda por encima del umbral |
+| `escalones` | ¿Cómo cambia un valor que se mantiene a tramos? (tipo de interés, salario mínimo, tasas) | `etiquetas`, `series: [{nombre, valores}]`, `unidad`; cada valor rige hasta la etiqueta siguiente |
+| `cajas` | ¿Cómo se distribuyen muchos valores en cada grupo? (días de resolución por juzgado) | `grupos: [{rotulo, valores}]` en bruto (al menos cinco por grupo), `unidad`; el módulo calcula mínimo, cuartiles, mediana y valores atípicos |
+| `tornado` | ¿Qué parámetro mueve más el resultado? (sensibilidad de una simulación) | `base` (resultado central), `elementos: [{rotulo, bajo, alto}]` (resultado con cada parámetro en su extremo), `nombres: {bajo, alto}`, `unidad` |
+| `rango` | ¿Dónde cae una cifra dentro de una horquilla? (sanción entre mínimo y máximo legal, oferta frente a tasación) | `minimo`, `maximo`, `tramos: [{hasta, rotulo, color}]` (opcional), `marcas: [{rotulo, valor}]`, `unidad` |
+| `mapa_calor` | ¿Dónde se concentra algo en dos dimensiones? (juzgado por mes, área por cliente) | `filas`, `columnas`, `valores` (una lista por fila), `unidad`, `color` |
+| `sankey` | ¿De dónde a dónde fluye el importe o el volumen? (de consultas a vías, reparto de un presupuesto) | `nodos: [{id, texto}]`, `flujos: [{de, a, valor}]`, `unidad`; hasta 16 nodos, sin ciclos |
+| `anillos` | ¿Qué grado de avance o cumplimiento tienen hasta cuatro objetivos? | `elementos: [{rotulo, valor, maximo}]` (`maximo` 100 por defecto) |
+| `puntuacion` | ¿Qué nota tiene cada criterio en una escala corta? | `elementos: [{rotulo, valor}]`, `maximo` (5 por defecto, hasta 10) |
 
 ```json
 {"tipo": "pareto", "unidad": "eur", "fuente": "cliente", "umbral": 80,
@@ -561,19 +561,19 @@ Formas para analizar y comparar: composicion en el tiempo, concentracion, distri
 
 ```json
 {"tipo": "rango", "unidad": "eur", "minimo": 601, "maximo": 30000,
- "tramos": [{"hasta": 6000, "rotulo": "Grado minimo", "color": "ok"}, {"hasta": 18000, "rotulo": "Grado medio", "color": "aviso"}, {"rotulo": "Grado maximo", "color": "riesgo"}],
- "marcas": [{"rotulo": "Propuesta de la inspeccion", "valor": 12500}, {"rotulo": "Alegamos", "valor": 3000}]}
+ "tramos": [{"hasta": 6000, "rotulo": "Grado mínimo", "color": "ok"}, {"hasta": 18000, "rotulo": "Grado medio", "color": "aviso"}, {"rotulo": "Grado máximo", "color": "riesgo"}],
+ "marcas": [{"rotulo": "Propuesta de la inspección", "valor": 12500}, {"rotulo": "Alegamos", "valor": 3000}]}
 ```
 
 ```json
 {"tipo": "sankey", "unidad": "num",
- "nodos": [{"id": "con", "texto": "Consultas"}, {"id": "mon", "texto": "Monitorio"}, {"id": "neg", "texto": "Negociacion"}, {"id": "arc", "texto": "Archivo"},
+ "nodos": [{"id": "con", "texto": "Consultas"}, {"id": "mon", "texto": "Monitorio"}, {"id": "neg", "texto": "Negociación"}, {"id": "arc", "texto": "Archivo"},
            {"id": "cob", "texto": "Cobrado"}, {"id": "jui", "texto": "Juicio"}],
  "flujos": [{"de": "con", "a": "mon", "valor": 120}, {"de": "con", "a": "neg", "valor": 60}, {"de": "con", "a": "arc", "valor": 20},
             {"de": "mon", "a": "cob", "valor": 80}, {"de": "mon", "a": "jui", "valor": 40}, {"de": "neg", "a": "cob", "valor": 45}, {"de": "neg", "a": "arc", "valor": 15}]}
 ```
 
-Reglas: `area_apilada` y `escalones` no admiten negativos y arrancan en cero; `pareto` ordena siempre de mayor a menor (el orden es la informacion); `cajas` exige al menos cinco valores por grupo y muestra como puntos los valores que se alejan mas de 1,5 veces el rango intercuartilico; `tornado` ordena los parametros por amplitud, de mayor a menor; en `rango`, el ultimo tramo puede ir sin `hasta` (llega al maximo) y las marcas fuera de la horquilla se pegan a su extremo; `sankey` calcula la posicion de cada nodo y falla si los flujos forman un ciclo; `mapa_calor` necesita una lista de valores por fila con un valor por columna (`null` deja la celda vacia).
+Reglas: `area_apilada` y `escalones` no admiten negativos y arrancan en cero; `pareto` ordena siempre de mayor a menor (el orden es la información); `cajas` exige al menos cinco valores por grupo y muestra como puntos los valores que se alejan más de 1,5 veces el rango intercuartílico; `tornado` ordena los parámetros por amplitud, de mayor a menor; en `rango`, el último tramo puede ir sin `hasta` (llega al máximo) y las marcas fuera de la horquilla se pegan a su extremo; `sankey` calcula la posición de cada nodo y falla si los flujos forman un ciclo; `mapa_calor` necesita una lista de valores por fila con un valor por columna (`null` deja la celda vacía).
 
 ```js modulo=analiticos
 <script>
@@ -873,31 +873,31 @@ R.tipos.puntuacion = function (fig, g, id, W) {
 
 ---
 
-## Graficos de seguimiento (`progreso`, `semaforos`, `linea_tiempo`)
+## Gráficos de seguimiento (`progreso`, `semaforos`, `linea_tiempo`)
 
-Formas para el seguimiento de un expediente o de un plan: cuanto se ha avanzado, en que estado esta cada punto y que ha pasado cuando. Un solo modulo para las tres.
+Formas para el seguimiento de un expediente o de un plan: cuánto se ha avanzado, en que estado está cada punto y que ha pasado cuando. Un solo módulo para las tres.
 
 | Tipo | Pregunta que responde | Datos |
 | :--- | :--- | :--- |
-| `progreso` | ¿Cuanto se ha avanzado en cada fase o cuanto se ha cobrado de cada partida? | `elementos: [{rotulo, valor, maximo, objetivo}]` (`maximo` 100 por defecto; `objetivo` dibuja una marca), `tramos: [60, 85]` opcional para colorear por porcentaje, `unidad` |
-| `semaforos` | ¿En que estado esta cada punto de un control o de una lista de requisitos? | `elementos: [{rotulo, estado, nota}]` con `estado` en `ok`, `aviso`, `riesgo` o `pendiente`; `nombres` opcional para los rotulos de estado |
-| `linea_tiempo` | ¿Que ocurrio y cuando, sobre una escala real de tiempo? | `hitos: [{fecha, rotulo, estado}]` en `AAAA-MM-DD`, `hoy` opcional; los hitos anteriores a hoy van en gris |
+| `progreso` | ¿Cuánto se ha avanzado en cada fase o cuánto se ha cobrado de cada partida? | `elementos: [{rotulo, valor, maximo, objetivo}]` (`maximo` 100 por defecto; `objetivo` dibuja una marca), `tramos: [60, 85]` opcional para colorear por porcentaje, `unidad` |
+| `semaforos` | ¿En qué estado está cada punto de un control o de una lista de requisitos? | `elementos: [{rotulo, estado, nota}]` con `estado` en `ok`, `aviso`, `riesgo` o `pendiente`; `nombres` opcional para los rótulos de estado |
+| `linea_tiempo` | ¿Qué ocurrió y cuándo, sobre una escala real de tiempo? | `hitos: [{fecha, rotulo, estado}]` en `AAAA-MM-DD`, `hoy` opcional; los hitos anteriores a hoy van en gris |
 
 ```json
 {"tipo": "semaforos", "fuente": "cliente",
  "elementos": [{"rotulo": "Registro de actividades de tratamiento", "estado": "ok", "nota": "Actualizado en marzo de 2026"},
                {"rotulo": "Contratos con encargados", "estado": "aviso", "nota": "Faltan dos proveedores"},
-               {"rotulo": "Evaluacion de impacto", "estado": "riesgo", "nota": "No realizada para el videoanalisis"},
-               {"rotulo": "Delegado de proteccion de datos", "estado": "pendiente"}]}
+               {"rotulo": "Evaluación de impacto", "estado": "riesgo", "nota": "No realizada para el videoanálisis"},
+               {"rotulo": "Delegado de protección de datos", "estado": "pendiente"}]}
 ```
 
 ```json
 {"tipo": "linea_tiempo", "hoy": "2026-09-24", "fuente": "cliente",
  "hitos": [{"fecha": "2025-11-15", "rotulo": "Vence la primera factura"}, {"fecha": "2026-05-04", "rotulo": "Reconocimiento de deuda"},
-           {"fecha": "2026-09-17", "rotulo": "Burofax"}, {"fecha": "2026-10-09", "rotulo": "Presentacion del monitorio", "estado": "aviso"}]}
+           {"fecha": "2026-09-17", "rotulo": "Burofax"}, {"fecha": "2026-10-09", "rotulo": "Presentación del monitorio", "estado": "aviso"}]}
 ```
 
-Reglas: `progreso` recorta al cien por cien lo que supere el maximo pero muestra el valor real en la tabla; `semaforos` se dibuja en HTML (no en SVG) y cuenta los estados al pie de la lista; `linea_tiempo` no representa duraciones (para eso, `plazos`), sino momentos, y alterna los rotulos arriba y abajo para que no se pisen.
+Reglas: `progreso` recorta al cien por cien lo que supere el máximo pero muestra el valor real en la tabla; `semaforos` se dibuja en HTML (no en SVG) y cuenta los estados al pie de la lista; `linea_tiempo` no representa duraciones (para eso, `plazos`), sino momentos, y alterna los rótulos arriba y abajo para que no se pisen.
 
 ```js modulo=seguimiento
 <script>
@@ -991,7 +991,7 @@ R.tipos.linea_tiempo = function (fig, g, id, W) {
 
 ## Ajuste a una hoja (`encaje`)
 
-Para las maquetas de una sola hoja (`resumen_ejecutivo`, `ficha_una_pagina`, `poster`). Antes de imprimir mide el contenido al ancho util de la hoja y, si pasa de una, reduce la escala lo justo. La maqueta fija la hoja en sus estilos con `:root{--encaje:<ancho> <alto>}`, en px a 96 por pulgada: `703 1000` para A4 vertical con los margenes de la base, `1497 1032` para A3 apaisado con margenes de 12 mm. Si hay que reducir mucho, sobra contenido: se quita un bloque.
+Para las maquetas de una sola hoja (`resumen_ejecutivo`, `ficha_una_pagina`, `poster`). Antes de imprimir mide el contenido al ancho útil de la hoja y, si pasa de una, reduce la escala lo justo. La maqueta fija la hoja en sus estilos con `:root{--encaje:<ancho> <alto>}`, en px a 96 por pulgada: `703 1000` para A4 vertical con los márgenes de la base, `1497 1032` para A3 apaisado con márgenes de 12 mm. Si hay que reducir mucho, sobra contenido: se quita un bloque.
 
 ```js modulo=encaje
 <script>
@@ -1033,11 +1033,11 @@ Para las maquetas de una sola hoja (`resumen_ejecutivo`, `ficha_una_pagina`, `po
 
 ## Iconos (`iconos`)
 
-Un juego propio de iconos de trazo, sin recursos externos, para indicadores, avisos, listas y diapositivas. Se escriben en el HTML con `<span class="icono" data-icono="nombre"></span>` (o, en una diapositiva, dentro de cualquier texto como `{icono:nombre}`) y toman el tamano y el color del texto que los rodea.
+Un juego propio de iconos de trazo, sin recursos externos, para indicadores, avisos, listas y diapositivas. Se escriben en el HTML con `<span class="icono" data-icono="nombre"></span>` (o, en una diapositiva, dentro de cualquier texto como `{icono:nombre}`) y toman el tamaño y el color del texto que los rodea.
 
 Nombres: `plazo` (reloj), `calendario`, `juzgado`, `balanza`, `contrato`, `firma`, `euro`, `alerta`, `ok`, `persona`, `grupo`, `empresa`, `correo`, `telefono`, `ubicacion`, `candado`.
 
-Uso con mesura: un icono acompana a un texto, nunca lo sustituye (el texto sigue diciendo lo que es), y no mas de un icono por indicador o por punto de una lista.
+Uso con mesura: un icono acompaña a un texto, nunca lo sustituye (el texto sigue diciendo lo que es), y no más de un icono por indicador o por punto de una lista.
 
 ```js modulo=iconos
 <script>
@@ -1081,17 +1081,17 @@ Reportes.iconos = TRAZOS;
 
 ---
 
-## Codigo QR (`qr`)
+## Código QR (`qr`)
 
-Un QR que lleva a la fuente, al expediente o a la version consolidada de una norma, para quien lee el documento en papel. Se genera dentro del documento, sin ningun servicio externo.
+Un QR que lleva a la fuente, al expediente o a la versión consolidada de una norma, para quien lee el documento en papel. Se genera dentro del documento, sin ningún servicio externo.
 
 ```json
-{"tipo": "qr", "texto": "https://www.boe.es/buscar/act.php?id=BOE-A-2000-323", "rotulo": "Version consolidada de la norma citada", "tamano": 132}
+{"tipo": "qr", "texto": "https://www.boe.es/buscar/act.php?id=BOE-A-2000-323", "rotulo": "Versión consolidada de la norma citada", "tamano": 132}
 ```
 
-- `texto`: la URL o el texto (hasta unos 210 caracteres). Solo URLs verificadas en la sesion o aportadas por el usuario.
+- `texto`: la URL o el texto (hasta unos 210 caracteres). Solo URLs verificadas en la sesión o aportadas por el usuario.
 - `tamano`: lado en pixeles en pantalla (por defecto 132; al imprimir, unos 3,5 cm).
-- `rotulo`: lo que el lector encontrara al escanearlo. Un QR sin rotulo no dice a donde lleva.
+- `rotulo`: lo que el lector encontrara al escanearlo. Un QR sin rotulo no dice a dónde lleva.
 
 ```js modulo=qr
 <script>
@@ -1226,7 +1226,7 @@ R.tipos.qr.fijo = true;
 
 ## Identidad del despacho (`marca`)
 
-Aplica los colores, el logo y el pie del despacho a partir del bloque `marca` de los datos, sin tocar el CSS. **No es un modulo que se copie: va dentro del motor de la base**, para que la app pueda poner o quitar los colores del despacho sin la IA. Si los datos no traen `marca`, no hace nada. Es la forma de resolver `colores_despacho` (SKILL.md, 1.2), sobre cualquier tema.
+Aplica los colores, el logo y el pie del despacho a partir del bloque `marca` de los datos, sin tocar el CSS. **No es un módulo que se copie: va dentro del motor de la base**, para que la app pueda poner o quitar los colores del despacho sin la IA. Si los datos no traen `marca`, no hace nada. Es la forma de resolver `colores_despacho` (SKILL.md, 1.2), sobre cualquier tema.
 
 ```json
 "marca": {"nombre": "Lasheras & Gil Abogados", "acento": "#7a1f3d", "acento_fuerte": "#5c1730",
@@ -1236,21 +1236,21 @@ Aplica los colores, el logo y el pie del despacho a partir del bloque `marca` de
 ```
 
 - Colores en hexadecimal de 3, 4, 6 u 8 cifras; otro valor se ignora. Rigen en pantalla clara y en papel. Basta con `acento`; el resto es opcional.
-- `oscuro`: version para la pantalla oscura (la del sistema, la fijada con `data-modo="oscuro"` o la de un tema siempre oscuro). Un color corporativo oscuro (un granate, un azul marino) no se lee sobre fondo negro: si no se da, el motor usa el acento aclarado y deja la serie del tema, que si contrasta.
-- `logo`: solo si lo aporta el usuario, como data URI de imagen de menos de 15 KB. Va en la cabecera o, en una presentacion, en la portada. Sobre la portada oscura del documento largo conviene una version clara.
-- `pie`: linea que se anade al pie del documento.
-- La app lo cambia en vivo con `Reportes.vistaPrevia({marca: {...}})` o lo quita con `marca: null` (`anatomia-artefacto.md`, «Diseno editable»).
+- `oscuro`: versión para la pantalla oscura (la del sistema, la fijada con `data-modo="oscuro"` o la de un tema siempre oscuro). Un color corporativo oscuro (un granate, un azul marino) no se lee sobre fondo negro: si no se da, el motor usa el acento aclarado y deja la serie del tema, que si contrasta.
+- `logo`: solo si lo aporta el usuario, como data URI de imagen de menos de 15 KB. Va en la cabecera o, en una presentación, en la portada. Sobre la portada oscura del documento largo conviene una versión clara.
+- `pie`: línea que se añade al pie del documento.
+- La app lo cambia en vivo con `Reportes.vistaPrevia({marca: {...}})` o lo quita con `marca: null` (`anatomia-artefacto.md`, «Diseño editable»).
 
 ---
 
-## Plazos en dias habiles (`plazos`)
+## Plazos en días hábiles (`plazos`)
 
-Anade dos calculos a `cifras`:
+Añade dos cálculos a `cifras`:
 
-- `{"calculo": "dias_habiles", "desde": "2026-09-17", "hasta": "2026-10-05", "festivos": [...], "agosto_inhabil": true}`: los dias habiles entre dos fechas.
-- `{"calculo": "vencimiento", "desde": "2026-10-01", "dias": 20, "festivos": [...], "unidad": "fecha"}`: la fecha en que vence un plazo de tantos dias habiles, contados desde el dia siguiente.
+- `{"calculo": "dias_habiles", "desde": "2026-09-17", "hasta": "2026-10-05", "festivos": [...], "agosto_inhabil": true}`: los días hábiles entre dos fechas.
+- `{"calculo": "vencimiento", "desde": "2026-10-01", "dias": 20, "festivos": [...], "unidad": "fecha"}`: la fecha en que vence un plazo de tantos días hábiles, contados desde el día siguiente.
 
-Se excluyen sabados y domingos. `festivos` es la lista de **todos los demas dias inhabiles** que correspondan (festivos nacionales, autonomicos y locales del lugar, y los que la norma procesal aplicable declare inhabiles), en `AAAA-MM-DD`, **aportados por el usuario o verificados en la sesion**: el modulo no trae ningun calendario. `agosto_inhabil` solo para plazos procesales en que agosto lo sea. Un vencimiento alimenta un diagrama de plazos con `"fin": "@clave"`. El resultado es orientativo y se dice asi en el bloque de supuestos.
+Se excluyen sábados y domingos. `festivos` es la lista de **todos los demás días inhábiles** que correspondan (festivos nacionales, autonómicos y locales del lugar, y los que la norma procesal aplicable declare inhábiles), en `AAAA-MM-DD`, **aportados por el usuario o verificados en la sesión**: el módulo no trae ningún calendario. `agosto_inhabil` solo para plazos procesales en que agosto lo sea. Un vencimiento alimenta un diagrama de plazos con `"fin": "@clave"`. El resultado es orientativo y se dice así en el bloque de supuestos.
 
 ```js modulo=plazos
 <script>
@@ -1279,20 +1279,20 @@ R.calculos.vencimiento = function (def) {
 
 ---
 
-## Mapa de Espana (`mapa`, con `mapa_ccaa` o `mapa_provincias`)
+## Mapa de España (`mapa`, con `mapa_ccaa` o `mapa_provincias`)
 
-Mapa de coropletas: cada comunidad autonoma o provincia se pinta con mas o menos intensidad segun su valor, en cinco tramos iguales desde cero con cifras redondas, con leyenda, recuadro de Canarias y Ceuta y Melilla como puntos. Las zonas sin dato salen rayadas. Contornos simplificados de Natural Earth (dominio publico).
+Mapa de coropletas: cada comunidad autónoma o provincia se pinta con más o menos intensidad según su valor, en cinco tramos iguales desde cero con cifras redondas, con leyenda, recuadro de Canarias y Ceuta y Melilla como puntos. Las zonas sin dato salen rayadas. Contornos simplificados de Natural Earth (dominio público).
 
-Se copian **dos** piezas: el modulo `mapa` (el codigo) y el bloque de contornos del nivel que se use: `mapa_ccaa` (unos 6 KB) o `mapa_provincias` (unos 11 KB).
+Se copian **dos** piezas: el módulo `mapa` (el código) y el bloque de contornos del nivel que se use: `mapa_ccaa` (unos 6 KB) o `mapa_provincias` (unos 11 KB).
 
 ```json
 {"tipo": "mapa", "nivel": "ccaa", "unidad": "asuntos", "fuente": "cgpj",
  "valores": {"Andalucia": 412, "Madrid": 520, "ES-CT": 388}, "destacar": ["Madrid"]}
 ```
 
-- `valores`: por codigo ISO 3166-2 (siempre seguro: `ES-AN`, `ES-MD`, `ES-Z`...) o por nombre, con o sin tildes. Se aceptan el nombre oficial y los habituales: «Madrid» o «Comunidad de Madrid», «Murcia», «Comunidad Valenciana», «Baleares», «Asturias», «Navarra»; en provincias, «Vizcaya» o «Bizkaia», «Gerona» o «Girona», «La Coruna», «Alicante» o «Alacant»... Un nombre que no existe da error, no se ignora. Un valor `null` deja la zona sin dato.
-- `tasa`: en lugar de `valores`, `{"numerador": {...}, "denominador": {...}, "por": 1000}` calcula cada zona como numerador / denominador x por (reclamaciones por 1.000 polizas, asuntos por 100.000 habitantes). Para comparar zonas de tamano muy distinto se usan tasas, no totales. La unidad de una tasa se dice en el subtitulo y en `nombre_valor` («por 1.000 polizas»), con `"unidad": "num"`.
-- `nivel`: `ccaa` (por defecto) o `provincias`. `destacar`: zonas con el borde marcado, por codigo o nombre.
+- `valores`: por código ISO 3166-2 (siempre seguro: `ES-AN`, `ES-MD`, `ES-Z`...) o por nombre, con o sin tildes. Se aceptan el nombre oficial y los habituales: «Madrid» o «Comunidad de Madrid», «Murcia», «Comunidad Valenciana», «Baleares», «Asturias», «Navarra»; en provincias, «Vizcaya» o «Bizkaia», «Gerona» o «Girona», «La Coruña», «Alicante» o «Alacant»... Un nombre que no existe da error, no se ignora. Un valor `null` deja la zona sin dato.
+- `tasa`: en lugar de `valores`, `{"numerador": {...}, "denominador": {...}, "por": 1000}` calcula cada zona como numerador / denominador x por (reclamaciones por 1.000 pólizas, asuntos por 100.000 habitantes). Para comparar zonas de tamaño muy distinto se usan tasas, no totales. La unidad de una tasa se dice en el subtitulo y en `nombre_valor` («por 1.000 pólizas»), con `"unidad": "num"`.
+- `nivel`: `ccaa` (por defecto) o `provincias`. `destacar`: zonas con el borde marcado, por código o nombre.
 - Solo valores no negativos. Cualquier valor puede ser `"@clave"` de `cifras`. La tabla de datos lista las zonas de mayor a menor.
 
 ```js modulo=mapa

@@ -168,8 +168,8 @@ Si el usuario ya ha identificado inequívocamente la materia, la entidad y el tr
 * **Si `[V1 = disconformidad_alta]` → Plantilla: `assets/template-escrito-disconformidad-alta-medica.md`.** Advierte del plazo brevísimo y de que la disconformidad debe presentarse en el plazo y ante el órgano correctos, o el alta despliega todos sus efectos.
 * **Si `[V1 = revision_grado]` → Plantilla: `assets/template-solicitud-revision-grado-incapacidad.md`.** Comprueba que haya transcurrido el plazo de revisión fijado en la resolución de reconocimiento o que concurra agravación o mejoría acreditada.
 * **Si `[V1 = demanda]` → Plantilla: `assets/template-demanda-seguridad-social.md`.** Exige la resolución de la reclamación previa o la acreditación de su desestimación presunta.
-- `V2` no elige plantilla: determina los requisitos, la base reguladora y la controversia tipica que se argumentan en el escrito.
-- `V3` no elige plantilla: determina el organo destinatario, que es el que dicto la resolucion, y las particularidades de tramitacion de esa entidad.
+- `V2` no elige plantilla: determina los requisitos, la base reguladora y la controversia típica que se argumentan en el escrito.
+- `V3` no elige plantilla: determina el órgano destinatario, que es el que dictó la resolución, y las particularidades de tramitación de esa entidad.
 
 ---
 
@@ -189,7 +189,7 @@ Envía un mensaje formal que contenga:
 2. **Cómputo del plazo** con la fecha límite, y advertencia expresa si el margen es escaso.
 3. **Órgano destinatario** exacto y forma de presentación, incluida la sede electrónica cuando exista.
 4. **Motivos de impugnación** que se van a articular y **prueba médica o documental** que conviene reunir, con indicación de lo que falta.
-5. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Menciónala por su denominación formal (sin mostrar rutas internas ni volcar su contenido); si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
+5. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Menciónala por su denominación formal (sin mostrar rutas internas ni volcar su contenido); si el enrutamiento asigno varios documentos, nómbralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
 6. **Elección de Plantilla Base:** Aplica el protocolo universal de `REG-AST-01` (`CLAUDE.md`), convocando en ese mismo turno el formulario interactivo `restricted_human_in_the_loop_request` para que el usuario elija entre la plantilla del sistema o aportar su propia minuta.
 
 ### 2.3 Manejo Determinista de la Elección

@@ -8,8 +8,8 @@
       "description": "Tools and skills to create, parameterise, update and register custom document templates (assets) for system skills or as global user templates through set_skill_template, update_user_template and save_user_template."
     }
   },
-  "version": "0.2.0",
-  "description": "Herramientas y skills para la creacion, parametrizacion, actualizacion y registro de plantillas personalizadas (assets) para skills del sistema o de usuario global mediante set_skill_template, update_user_template y save_user_template.",
+  "version": "0.2.1",
+  "description": "Herramientas y skills para la creación, parametrizacion, actualización y registro de plantillas personalizadas (assets) para skills del sistema o de usuario global mediante set_skill_template, update_user_template y save_user_template.",
   "author": {
     "name": "GravitonAI"
   },

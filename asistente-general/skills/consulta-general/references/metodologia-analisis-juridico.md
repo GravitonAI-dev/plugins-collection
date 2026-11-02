@@ -22,7 +22,7 @@ Para garantizar un razonamiento riguroso y transparente, el análisis de una con
    - Ponderar la carga de la prueba (art. 217 LEC): ¿quién tiene que probar qué hecho y de qué medios de prueba se dispone (documental, testifical, pericial)?
    - Identificar posibles excepciones o causas de oposición que pueda esgrimir la contraparte (prescripción, caducidad, incumplimiento previo, fuerza mayor).
 
-4. **Conclusion (Conclusión y Dictamen Operativo):**
+4. **Conclusión (Conclusión y Dictamen Operativo):**
    - Emitir un juicio fundamentado sobre la viabilidad (alta, media, baja, dudosa).
    - Diseñar una hoja de ruta con pasos secuenciales (reclamación extrajudicial fehaciente previa, mediación/conciliación, o acción judicial).
 

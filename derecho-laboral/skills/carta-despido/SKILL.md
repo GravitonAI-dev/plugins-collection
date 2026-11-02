@@ -175,7 +175,7 @@ Envía un mensaje formal que contenga:
 1. **Marco legal aplicable:** norma, artículos y convenio identificado, explicando el efecto de la clasificación obtenida.
 2. **Cómputo del plazo y calendario de la operación:** fecha de efectos propuesta, preaviso exigible, y advertencia expresa de que el trabajador dispone de **20 días hábiles** desde la fecha de efectos para impugnar el despido (artículo 59.3 del Estatuto de los Trabajadores y artículo 103 LRJS), con conciliación previa obligatoria que suspende el cómputo.
 3. **Cálculo económico preliminar desglosado**, cuando la modalidad conlleve indemnización, con la fórmula a la vista y la advertencia de que el importe definitivo depende del salario regulador acreditado.
-4. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Menciónala por su denominación formal (sin mostrar rutas internas ni volcar su contenido); si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
+4. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Menciónala por su denominación formal (sin mostrar rutas internas ni volcar su contenido); si el enrutamiento asigno varios documentos, nómbralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
 5. **Elección de Plantilla Base:** Aplica el protocolo universal de `REG-AST-01` (`CLAUDE.md`), convocando en ese mismo turno el formulario interactivo `restricted_human_in_the_loop_request` para que el usuario elija entre la plantilla del sistema o aportar su propia minuta.
 
 ### 2.3 Manejo Determinista de la Elección

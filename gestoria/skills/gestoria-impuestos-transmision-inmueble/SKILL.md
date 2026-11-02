@@ -21,27 +21,27 @@ i18n:
       transfer), for inheritance and gift tax (inheritance tax skill), for the seller's personal
       income tax on the capital gain, or for judicial review appeals against assessments.
 description: >
-  Prepara los dos impuestos que se devengan al transmitir un inmueble en Espana conforme al **Real
+  Prepara los dos impuestos que se devengan al transmitir un inmueble en España conforme al **Real
   Decreto Legislativo 1/1993**, texto refundido de la Ley del Impuesto sobre Transmisiones
-  Patrimoniales y Actos Juridicos Documentados, que grava la adquisicion, y al **Real Decreto
+  Patrimoniales y Actos Jurídicos Documentados, que grava la adquisición, y al **Real Decreto
   Legislativo 2/2004**, texto refundido de la Ley Reguladora de las Haciendas Locales, que regula el
   impuesto municipal sobre el incremento de valor de los terrenos de naturaleza urbana.
 
 
-  Genera tres documentos: la hoja de datos de la autoliquidacion del impuesto de transmisiones
-  patrimoniales (modelo 600 autonomico), la hoja de datos de la autoliquidacion o declaracion de la
-  plusvalia municipal, y el escrito de solicitud de rectificacion de autoliquidacion y devolucion de
+  Genera tres documentos: la hoja de datos de la autoliquidación del impuesto de transmisiones
+  patrimoniales (modelo 600 autonómico), la hoja de datos de la autoliquidación o declaración de la
+  plusvalía municipal, y el escrito de solicitud de rectificación de autoliquidación y devolución de
   ingresos indebidos al amparo de la **Ley 58/2003** General Tributaria.
 
 
-  Aplica el valor de referencia de Catastro como base imponible, compara los dos metodos de calculo de
-  la plusvalia (coeficientes objetivos e incremento real) para aplicar el mas favorable, comprueba el
-  supuesto de no sujecion cuando no hay incremento de valor, y computa los plazos de presentacion de
-  treinta dias habiles en actos entre vivos y de seis meses en las transmisiones por causa de muerte.
+  Aplica el valor de referencia de Catastro como base imponible, compara los dos métodos de cálculo de
+  la plusvalía (coeficientes objetivos e incremento real) para aplicar el más favorable, comprueba el
+  supuesto de no sujeción cuando no hay incremento de valor, y computa los plazos de presentación de
+  treinta días hábiles en actos entre vivos y de seis meses en las transmisiones por causa de muerte.
 
 
-  NO usar para transmisiones sujetas a IVA (obra nueva, primera entrega o transmision empresarial), ni
-  para el impuesto de sucesiones y donaciones, que corresponde a la skill de liquidacion del impuesto
+  NO usar para transmisiones sujetas a IVA (obra nueva, primera entrega o transmisión empresarial), ni
+  para el impuesto de sucesiones y donaciones, que corresponde a la skill de liquidación del impuesto
   de sucesiones, ni para el IRPF de la ganancia patrimonial del vendedor, ni para recursos
   contencioso-administrativos contra liquidaciones.
 
@@ -52,31 +52,31 @@ description: >
   [Ley General Tributaria](https://www.boe.es/buscar/act.php?id=BOE-A-2003-23186).
 when_to_use: |
   - El usuario ha comprado una vivienda de segunda mano y tiene que liquidar el impuesto de transmisiones.
-  - El usuario ha vendido, heredado o recibido en donacion un inmueble y le reclaman la plusvalia municipal.
-  - El usuario pregunta cuanto va a pagar por comprar o vender una vivienda y en que plazo.
-  - El usuario vendio con perdida o por debajo del precio de compra y quiere saber si debe pagar plusvalia.
-  - El usuario pago una plusvalia que considera indebida y quiere solicitar su devolucion.
-  - El usuario pregunta que es el valor de referencia de Catastro y como afecta a lo que paga.
+  - El usuario ha vendido, heredado o recibido en donación un inmueble y le reclaman la plusvalía municipal.
+  - El usuario pregunta cuánto va a pagar por comprar o vender una vivienda y en que plazo.
+  - El usuario vendió con pérdida o por debajo del precio de compra y quiere saber si debe pagar plusvalía.
+  - El usuario pago una plusvalía que considera indebida y quiere solicitar su devolución.
+  - El usuario pregunta qué es el valor de referencia de Catastro y como afecta a lo que paga.
 inputs:
-  - documento: autoliquidacion ITP / plusvalia municipal / solicitud de rectificacion y devolucion (V1)
+  - documento: autoliquidación ITP / plusvalía municipal / solicitud de rectificación y devolución (V1)
   - tipo_transmision: onerosa / lucrativa (V2)
   - metodo_calculo_plusvalia: objetivo por coeficientes / incremento real (V3)
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
-  - datos_obligado: nombre y apellidos o razon social, NIF/NIE/CIF, domicilio fiscal, telefono y correo
+  - datos_obligado: nombre y apellidos o razón social, NIF/NIE/CIF, domicilio fiscal, teléfono y correo
   - datos_transmitente: identidad y NIF de quien transmite
   - datos_adquirente: identidad y NIF de quien adquiere
-  - datos_inmueble: direccion completa, referencia catastral, superficie, valor catastral total y del suelo
-  - datos_operacion: fecha de la transmision, titulo, notario y numero de protocolo si existe
+  - datos_inmueble: dirección completa, referencia catastral, superficie, valor catastral total y del suelo
+  - datos_operacion: fecha de la transmisión, título, notario y número de protocolo si existe
   - valores: precio o valor declarado y valor de referencia de Catastro
-  - fechas_adquisicion_anterior: fecha y valor de la adquisicion anterior del mismo inmueble
+  - fechas_adquisicion_anterior: fecha y valor de la adquisición anterior del mismo inmueble
   - municipio_y_ordenanza: ayuntamiento competente, tipo de gravamen y coeficientes de la ordenanza
   - comunidad_autonoma: comunidad competente y tipo de gravamen aplicable, con sus bonificaciones
   - motivo_rectificacion: causa por la que se considera indebido el ingreso y su importe
 outputs:
-  - hoja_datos_itp: hoja de datos para la autoliquidacion del modelo 600 autonomico, DRAFT
-  - hoja_datos_plusvalia: hoja de datos de la plusvalia municipal con los dos metodos comparados, DRAFT
-  - solicitud_rectificacion: escrito de rectificacion de autoliquidacion y devolucion de ingresos indebidos, DRAFT
-  - checklist_plazos_y_documentos: documentos, sede de presentacion y computo de plazos de cada impuesto
+  - hoja_datos_itp: hoja de datos para la autoliquidación del modelo 600 autonómico, DRAFT
+  - hoja_datos_plusvalia: hoja de datos de la plusvalía municipal con los dos métodos comparados, DRAFT
+  - solicitud_rectificacion: escrito de rectificación de autoliquidación y devolución de ingresos indebidos, DRAFT
+  - checklist_plazos_y_documentos: documentos, sede de presentación y cómputo de plazos de cada impuesto
 references:
   - references/itp-base-imponible-y-valor-referencia.md
   - references/plusvalia-municipal-metodos-y-no-sujecion.md
@@ -127,7 +127,7 @@ Invoca la herramienta con las preguntas de triaje:
   "form_data": [
     {
       "id": "documento",
-      "rationale": "Resolver V1 para determinar cual de los dos impuestos se liquida o si se reclama una devolucion.",
+      "rationale": "Resolver V1 para determinar cuál de los dos impuestos se liquida o si se reclama una devolución.",
       "question": "¿Qué necesita preparar?",
       "options": [
         {"id": "itp_modelo_600", "label": "Impuesto de transmisiones patrimoniales por la compra del inmueble (modelo 600)"},
@@ -138,7 +138,7 @@ Invoca la herramienta con las preguntas de triaje:
     },
     {
       "id": "tipo_transmision",
-      "rationale": "Resolver V2: en las transmisiones onerosas el sujeto pasivo de la plusvalia es el transmitente y en las lucrativas el adquirente.",
+      "rationale": "Resolver V2: en las transmisiones onerosas el sujeto pasivo de la plusvalía es el transmitente y en las lucrativas el adquirente.",
       "question": "¿Cómo se ha transmitido el inmueble?",
       "options": [
         {"id": "onerosa", "label": "A título oneroso (compraventa, permuta, dación en pago)"},
@@ -147,7 +147,7 @@ Invoca la herramienta con las preguntas de triaje:
     },
     {
       "id": "metodo_calculo_plusvalia",
-      "rationale": "Resolver V3: el contribuyente puede optar por el metodo que le resulte mas favorable.",
+      "rationale": "Resolver V3: el contribuyente puede optar por el método que le resulte más favorable.",
       "question": "Si es plusvalía municipal, ¿conoce el valor por el que se adquirió antes el inmueble, para poder comparar el incremento real con el cálculo por coeficientes?",
       "show_if": {"question_id": "documento", "option_ids": ["plusvalia_iivtnu", "rectificacion_devolucion"]},
       "options": [

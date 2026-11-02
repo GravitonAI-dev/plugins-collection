@@ -15,17 +15,17 @@ i18n:
       (form 620/621). Do not use for new vehicles, initial registrations, final deregistration
       for scrapping, licence duplicates, or transfers in professional trade-in stock.
 description: >
-  Prepara el tramite administrativo de cambio de titularidad (transferencia) de un vehiculo usado ante
-  la DGT y, en su caso, la notificacion de venta por el vendedor, conforme al **Reglamento General de Vehiculos (RD 2822/1998)**, que regula la matriculacion y los cambios de titularidad de los vehiculos, en su texto consolidado verificado en el BOE y a la normativa de tasas de la DGT.
-  Opera bajo el flujo de 5 fases canonicas con clasificacion HITL, consulta de assets, creacion zero-vacios
-  en workspace y edicion incremental seccion a seccion. Genera el contrato de compraventa, la hoja de datos
-  para la solicitud en la DGT, la notificacion de venta y el checklist de documentos, tasas y liquidacion
-  del ITP autonomico (modelo 620/621). NO usar para vehiculos nuevos, matriculaciones iniciales, bajas
+  Prepara el trámite administrativo de cambio de titularidad (transferencia) de un vehículo usado ante
+  la DGT y, en su caso, la notificación de venta por el vendedor, conforme al **Reglamento General de Vehículos (RD 2822/1998)**, que regula la matriculación y los cambios de titularidad de los vehículos, en su texto consolidado verificado en el BOE y a la normativa de tasas de la DGT.
+  Opera bajo el flujo de 5 fases canónicas con clasificación HITL, consulta de assets, creación zero-vacíos
+  en workspace y edición incremental sección a sección. Genera el contrato de compraventa, la hoja de datos
+  para la solicitud en la DGT, la notificación de venta y el checklist de documentos, tasas y liquidación
+  del ITP autonómico (modelo 620/621). NO usar para vehículos nuevos, matriculaciones iniciales, bajas
   definitivas por desguace, duplicados de permiso, ni para transmisiones en compraventa profesional en
-  regimen de existencias.
+  régimen de existencias.
 when_to_use: |
-  - Un particular compra o vende un vehiculo usado y necesita cambiar la titularidad en la DGT.
-  - El usuario quiere el contrato de compraventa del vehiculo y la hoja de datos del tramite.
+  - Un particular compra o vende un vehículo usado y necesita cambiar la titularidad en la DGT.
+  - El usuario quiere el contrato de compraventa del vehículo y la hoja de datos del trámite.
   - El vendedor quiere notificar la venta a la DGT para dejar de figurar como titular.
   - El usuario pide el checklist de documentos, tasas y organismo para presentar la transferencia.
 inputs:
@@ -34,16 +34,16 @@ inputs:
   - naturaleza_vendedor: persona_fisica / persona_juridica (V3)
   - naturaleza_comprador: persona_fisica / persona_juridica (V4)
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
-  - datos_vehiculo: matricula, numero de bastidor (VIN), marca, modelo, fecha de primera matriculacion
-  - datos_vendedor: nombre o razon social, NIF o CIF, domicilio
-  - datos_comprador: nombre o razon social, NIF o CIF, domicilio
-  - precio: precio de venta pactado en euros y fecha de la transmision
-  - comunidad_autonoma: comunidad autonoma del comprador a efectos del ITP
-  - estado_itv: si el vehiculo tiene la ITV en vigor (si / no / no aplica)
+  - datos_vehiculo: matrícula, número de bastidor (VIN), marca, modelo, fecha de primera matriculación
+  - datos_vendedor: nombre o razón social, NIF o CIF, domicilio
+  - datos_comprador: nombre o razón social, NIF o CIF, domicilio
+  - precio: precio de venta pactado en euros y fecha de la transmisión
+  - comunidad_autonoma: comunidad autónoma del comprador a efectos del ITP
+  - estado_itv: si el vehículo tiene la ITV en vigor (sí / no / no aplica)
 outputs:
-  - contrato_compraventa: contrato de compraventa del vehiculo en markdown, DRAFT
+  - contrato_compraventa: contrato de compraventa del vehículo en markdown, DRAFT
   - solicitud_cambio_titularidad: hoja de datos + checklist + organismo + tasa para la solicitud DGT, DRAFT
-  - notificacion_venta: opcional, escrito de notificacion de venta del vendedor a la DGT, DRAFT
+  - notificacion_venta: opcional, escrito de notificación de venta del vendedor a la DGT, DRAFT
 references:
   - references/dgt-cambio-titularidad.md
   - references/itp-vehiculos-usados.md
@@ -149,7 +149,7 @@ Envía un mensaje estructurado y pedagógico:
    - Liquidación obligatoria del Impuesto sobre Transmisiones Patrimoniales (ITP - Modelo 620 o 621 telemático) ante la Comunidad Autónoma del comprador antes de la DGT.
 2. **Propuesta de Plantilla Oficial del Sistema:**
    - Presentar los modelos oficiales seleccionados.
-   - Menciona por su denominación formal (sin mostrar rutas internas ni volcar su contenido) la hoja **que ha resuelto el enrutamiento de la Fase 1.3**; si el enrutamiento asigno varias, nombralas todas y en el orden en que se van a rellenar. **No propongas una hoja distinta de la enrutada.**
+   - Menciona por su denominación formal (sin mostrar rutas internas ni volcar su contenido) la hoja **que ha resuelto el enrutamiento de la Fase 1.3**; si el enrutamiento asigno varias, nómbralas todas y en el orden en que se van a rellenar. **No propongas una hoja distinta de la enrutada.**
 3. **Elección de Plantilla Base:** Aplica el protocolo universal de `REG-AST-01` (`CLAUDE.md`), convocando en ese mismo turno el formulario interactivo `restricted_human_in_the_loop_request` para que el usuario elija entre la plantilla del sistema o aportar su propia minuta.
 
 ### 2.3 Manejo Determinista de la Elección

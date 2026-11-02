@@ -1,79 +1,79 @@
-# TRLGDCU — Clausulas Abusivas (Arts. 80-91)
+# TRLGDCU — Cláusulas Abusivas (Arts. 80-91)
 
 > Material de referencia para la skill `reclamacion-clausulas-abusivas`. Basado en el Real Decreto
 > Legislativo 1/2007, de 16 de noviembre, por el que se aprueba el texto refundido de la Ley General
-> para la Defensa de los Consumidores y Usuarios (TRLGDCU), texto consolidado, Libro II, Titulo II.
-> La skill verifica siempre la version vigente en el BOE antes de aplicar estos datos.
+> para la Defensa de los Consumidores y Usuarios (TRLGDCU), texto consolidado, Libro II, Título II.
+> La skill verifica siempre la versión vigente en el BOE antes de aplicar estos datos.
 
 ---
 
-## Ambito: consumidor y clausula no negociada
+## Ámbito: consumidor y cláusula no negociada
 
-El regimen de proteccion frente a clausulas abusivas exige dos presupuestos:
+El régimen de protección frente a cláusulas abusivas exige dos presupuestos:
 
 | Presupuesto | Norma | Significado |
 |---|---|---|
-| Consumidor | Art. 3 TRLGDCU | Persona fisica que actua con un proposito ajeno a su actividad comercial, empresarial, oficio o profesion (y personas juridicas/entidades sin animo de lucro en el ambito no empresarial) |
-| Empresario predisponente | Art. 4 TRLGDCU | Persona fisica o juridica que actua en el marco de su actividad empresarial o profesional |
-| Clausula no negociada individualmente | Art. 82.1 TRLGDCU | Estipulacion predispuesta e impuesta cuya incorporacion no es fruto de negociacion individual |
+| Consumidor | Art. 3 TRLGDCU | Persona física que actúa con un propósito ajeno a su actividad comercial, empresarial, oficio o profesión (y personas jurídicas/entidades sin animo de lucro en el ámbito no empresarial) |
+| Empresario predisponente | Art. 4 TRLGDCU | Persona física o jurídica que actúa en el marco de su actividad empresarial o profesional |
+| Cláusula no negociada individualmente | Art. 82.1 TRLGDCU | Estipulación predispuesta e impuesta cuya incorporación no es fruto de negociación individual |
 
-La carga de la prueba de que una clausula se negocio individualmente corresponde al empresario (Art. 82.2).
-
----
-
-## Control de incorporacion (Art. 80)
-
-Las clausulas no negociadas individualmente deben cumplir:
-
-- **Concrecion, claridad y sencillez** en la redaccion, con posibilidad de comprension directa, sin reenvios a textos no facilitados.
-- **Accesibilidad y legibilidad**, de forma que el consumidor conozca su existencia y contenido antes de la celebracion del contrato.
-- **Buena fe y justo equilibrio** entre los derechos y obligaciones de las partes, lo que excluye las clausulas abusivas.
-
-El control de transparencia (derivado del Art. 80 y de la Directiva 93/13) exige que el consumidor pueda comprender la carga economica y juridica de la clausula, especialmente en las que definen el objeto principal o el precio.
+La carga de la prueba de que una cláusula se negocio individualmente corresponde al empresario (Art. 82.2).
 
 ---
 
-## Concepto de clausula abusiva (Art. 82)
+## Control de incorporación (Art. 80)
 
-Son abusivas todas las estipulaciones no negociadas individualmente y las practicas no consentidas expresamente que, en contra de las exigencias de la buena fe, causen, en perjuicio del consumidor, un desequilibrio importante de los derechos y obligaciones de las partes.
+Las cláusulas no negociadas individualmente deben cumplir:
 
-El caracter abusivo se aprecia atendiendo a la naturaleza de los bienes o servicios, a las circunstancias concurrentes en el momento de la celebracion y a las demas clausulas del contrato o de otro del que dependa.
+- **Concreción, claridad y sencillez** en la redacción, con posibilidad de comprensión directa, sin reenvíos a textos no facilitados.
+- **Accesibilidad y legibilidad**, de forma que el consumidor conozca su existencia y contenido antes de la celebración del contrato.
+- **Buena fe y justo equilibrio** entre los derechos y obligaciones de las partes, lo que excluye las cláusulas abusivas.
 
----
-
-## Nulidad y no integracion (Art. 83)
-
-- Las clausulas abusivas son **nulas de pleno derecho** y se tienen por no puestas.
-- El contrato subsiste sin ellas si puede subsistir sin la clausula abusiva.
-- El juez que declare la nulidad **no puede integrar ni moderar** el contenido de la clausula abusiva; su exclusion es plena (redaccion tras la reforma que adapto el articulo a la jurisprudencia del TJUE).
+El control de transparencia (derivado del Art. 80 y de la Directiva 93/13) exige que el consumidor pueda comprender la carga económica y jurídica de la cláusula, especialmente en las que definen el objeto principal o el precio.
 
 ---
 
-## Lista de clausulas abusivas (Arts. 85-90)
+## Concepto de cláusula abusiva (Art. 82)
+
+Son abusivas todas las estipulaciones no negociadas individualmente y las prácticas no consentidas expresamente que, en contra de las exigencias de la buena fe, causen, en perjuicio del consumidor, un desequilibrio importante de los derechos y obligaciones de las partes.
+
+El carácter abusivo se aprecia atendiendo a la naturaleza de los bienes o servicios, a las circunstancias concurrentes en el momento de la celebración y a las demás cláusulas del contrato o de otro del que dependa.
+
+---
+
+## Nulidad y no integración (Art. 83)
+
+- Las cláusulas abusivas son **nulas de pleno derecho** y se tienen por no puestas.
+- El contrato subsiste sin ellas si puede subsistir sin la cláusula abusiva.
+- El juez que declare la nulidad **no puede integrar ni moderar** el contenido de la cláusula abusiva; su exclusión es plena (redacción tras la reforma que adapto el artículo a la jurisprudencia del TJUE).
+
+---
+
+## Lista de cláusulas abusivas (Arts. 85-90)
 
 El TRLGDCU tipifica supuestos concretos, entre otros:
 
-| Grupo | Articulo | Ejemplos |
+| Grupo | Artículo | Ejemplos |
 |---|---|---|
-| Por vincular el contrato a la voluntad del empresario | Art. 85 | Prorrogas automaticas con plazo excesivo; reserva de modificacion unilateral sin causa |
-| Por limitar los derechos del consumidor | Art. 86 | Exclusion o limitacion indebida de derechos legales ante el incumplimiento |
-| Por falta de reciprocidad | Art. 87 | Obligaciones del consumidor sin contrapartida; retencion de cantidades por renuncia |
-| Sobre garantias | Art. 88 | Imposicion de garantias desproporcionadas; inversion indebida de la carga de la prueba |
-| Sobre perfeccion y ejecucion | Art. 89 | Imposicion al consumidor de gastos que corresponden al empresario; declaraciones de adhesion no prestadas |
-| Sobre competencia y derecho aplicable | Art. 90 | Sumision a fuero distinto del domicilio del consumidor |
+| Por vincular el contrato a la voluntad del empresario | Art. 85 | Prórrogas automáticas con plazo excesivo; reserva de modificación unilateral sin causa |
+| Por limitar los derechos del consumidor | Art. 86 | Exclusión o limitación indebida de derechos legales ante el incumplimiento |
+| Por falta de reciprocidad | Art. 87 | Obligaciones del consumidor sin contrapartida; retención de cantidades por renuncia |
+| Sobre garantías | Art. 88 | Imposición de garantías desproporcionadas; inversión indebida de la carga de la prueba |
+| Sobre perfección y ejecución | Art. 89 | Imposición al consumidor de gastos que corresponden al empresario; declaraciones de adhesión no prestadas |
+| Sobre competencia y derecho aplicable | Art. 90 | Sumisión a fuero distinto del domicilio del consumidor |
 
-El Art. 89.3 se ha invocado, junto con la Directiva 93/13 y la jurisprudencia, en materia de imputacion al consumidor de gastos de formalizacion (notaria, registro, gestoria, tributos) que por ley corresponden al empresario.
+El Art. 89.3 se ha invocado, junto con la Directiva 93/13 y la jurisprudencia, en materia de imputación al consumidor de gastos de formalización (notaría, registro, gestoría, tributos) que por ley corresponden al empresario.
 
 ---
 
 ## Efecto restitutorio
 
-Declarada la nulidad, procede reponer la situacion al momento anterior a la aplicacion de la clausula: el empresario debe **restituir las cantidades cobradas** en virtud de la clausula, con sus intereses. El alcance temporal de la restitucion y el dies a quo de la prescripcion de la accion restitutoria se rigen por la jurisprudencia vigente del TJUE y del Tribunal Supremo (ver `jurisprudencia-tjue-ts-clausulas.md`), que debe verificarse en cada uso.
+Declarada la nulidad, procede reponer la situación al momento anterior a la aplicación de la cláusula: el empresario debe **restituir las cantidades cobradas** en virtud de la cláusula, con sus intereses. El alcance temporal de la restitución y el dies a quo de la prescripción de la acción restitutoria se rigen por la jurisprudencia vigente del TJUE y del Tribunal Supremo (ver `jurisprudencia-tjue-ts-clausulas.md`), que debe verificarse en cada uso.
 
 ---
 
-## Que NO cubre este regimen
+## Qué NO cubre este régimen
 
-- Contratos entre empresarios o profesionales (rige el control de la LCGC en cuanto a incorporacion, pero no el control de contenido del consumo).
-- Clausulas negociadas individualmente.
-- Materias de consumo distintas (garantias del producto, viajes combinados, servicios financieros no referidos a clausulas abusivas), que exigen encuadre propio.
+- Contratos entre empresarios o profesionales (rige el control de la LCGC en cuanto a incorporación, pero no el control de contenido del consumo).
+- Cláusulas negociadas individualmente.
+- Materias de consumo distintas (garantías del producto, viajes combinados, servicios financieros no referidos a cláusulas abusivas), que exigen encuadre propio.

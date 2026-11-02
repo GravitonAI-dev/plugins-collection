@@ -21,25 +21,25 @@ i18n:
       amendments to the articles of an already registered company, or for insolvency
       proceedings.
 description: >
-  Prepara los documentos de constitucion de una sociedad de responsabilidad limitada en Espana
+  Prepara los documentos de constitución de una sociedad de responsabilidad limitada en España
   conforme al **Real Decreto Legislativo 1/2010**, texto refundido de la Ley de Sociedades de Capital
-  (LSC), que regula la constitucion, el capital, las aportaciones y el organo de administracion, y al
+  (LSC), que regula la constitución, el capital, las aportaciones y el órgano de administración, y al
   **Real Decreto 1784/1996**, Reglamento del Registro Mercantil (RRM), que fija los requisitos de la
-  denominacion social y de la inscripcion.
+  denominación social y de la inscripción.
 
 
-  Genera tres documentos: la solicitud de certificacion negativa de denominacion al Registro Mercantil
-  Central, los estatutos sociales completos y la minuta de escritura de constitucion para el notario.
+  Genera tres documentos: la solicitud de certificación negativa de denominación al Registro Mercantil
+  Central, los estatutos sociales completos y la minuta de escritura de constitución para el notario.
 
 
-  Trata el capital social minimo de un euro y el regimen especial de reserva y responsabilidad del
+  Trata el capital social mínimo de un euro y el régimen especial de reserva y responsabilidad del
   Art. 4.3 LSC introducido por la Ley 18/2022, las aportaciones dinerarias y no dinerarias con la
   responsabilidad solidaria del Art. 73 LSC, la unipersonalidad de los Arts. 12 a 14 LSC, el objeto
-  social con su CNAE y las cuatro formas de organizar la administracion del Art. 210 LSC.
+  social con su CNAE y las cuatro formas de organizar la administración del Art. 210 LSC.
 
 
-  NO usar para sociedades anonimas o cotizadas, para modificaciones estructurales (fusion, escision o
-  cesion global), para modificaciones de estatutos de una sociedad ya inscrita, ni para el concurso de
+  NO usar para sociedades anónimas o cotizadas, para modificaciones estructurales (fusión, escisión o
+  cesión global), para modificaciones de estatutos de una sociedad ya inscrita, ni para el concurso de
   acreedores.
 
 
@@ -48,31 +48,31 @@ description: >
   [Reglamento del Registro Mercantil](https://www.boe.es/buscar/act.php?id=BOE-A-1996-17533).
 when_to_use: |
   - El usuario va a crear una sociedad limitada y necesita los estatutos o la minuta de escritura.
-  - El usuario necesita solicitar la certificacion negativa de denominacion social al Registro Mercantil Central.
-  - El usuario pregunta cuanto capital necesita para constituir una SL o que implica el capital de un euro.
-  - El usuario va a aportar bienes o derechos en lugar de dinero al capital y pregunta por su valoracion.
-  - El usuario constituye la sociedad como socio unico y pregunta por la unipersonalidad.
-  - El usuario pregunta que forma de administracion elegir (administrador unico, solidarios, mancomunados o consejo).
+  - El usuario necesita solicitar la certificación negativa de denominación social al Registro Mercantil Central.
+  - El usuario pregunta cuánto capital necesita para constituir una SL o que implica el capital de un euro.
+  - El usuario va a aportar bienes o derechos en lugar de dinero al capital y pregunta por su valoración.
+  - El usuario constituye la sociedad como socio único y pregunta por la unipersonalidad.
+  - El usuario pregunta qué forma de administración elegir (administrador único, solidarios, mancomunados o consejo).
 inputs:
-  - documento: certificacion de denominacion / estatutos sociales / minuta de escritura (V1)
+  - documento: certificación de denominación / estatutos sociales / minuta de escritura (V1)
   - numero_socios: unipersonal / pluripersonal (V2)
   - aportaciones: dinerarias / no dinerarias / mixtas (V3)
-  - organo_administracion: administrador unico / solidarios / mancomunados / consejo (V4)
+  - organo_administracion: administrador único / solidarios / mancomunados / consejo (V4)
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
   - denominaciones_propuestas: hasta cinco denominaciones sociales por orden de preferencia
-  - datos_socios: nombre o razon social, NIF/NIE/CIF, domicilio, estado civil y regimen economico si aplica
-  - capital_social: cifra de capital en euros y numero, valor nominal y numeracion de las participaciones
+  - datos_socios: nombre o razón social, NIF/NIE/CIF, domicilio, estado civil y régimen económico si aplica
+  - capital_social: cifra de capital en euros y número, valor nominal y numeración de las participaciones
   - reparto_participaciones: participaciones que suscribe cada socio y su desembolso
-  - objeto_social: actividades que constituyen el objeto y su codigo CNAE
-  - domicilio_social: direccion completa del domicilio social en territorio espanol
+  - objeto_social: actividades que constituyen el objeto y su código CNAE
+  - domicilio_social: dirección completa del domicilio social en territorio español
   - ejercicio_social: fecha de inicio y cierre del ejercicio social
-  - administradores: identidad, cargo, duracion y retribucion del organo de administracion
-  - aportaciones_no_dinerarias: descripcion, titulo, valoracion y participaciones que se asignan
+  - administradores: identidad, cargo, duración y retribución del órgano de administración
+  - aportaciones_no_dinerarias: descripción, título, valoración y participaciones que se asignan
 outputs:
-  - solicitud_certificacion_denominacion: solicitud de certificacion negativa al Registro Mercantil Central, DRAFT
-  - estatutos_sociales: estatutos completos de la sociedad limitada por capitulos y articulos, DRAFT
-  - minuta_escritura_constitucion: minuta de escritura de constitucion para el notario, DRAFT
-  - checklist_tramites: relacion de tramites, organismos, plazos y costes de la constitucion
+  - solicitud_certificacion_denominacion: solicitud de certificación negativa al Registro Mercantil Central, DRAFT
+  - estatutos_sociales: estatutos completos de la sociedad limitada por capítulos y artículos, DRAFT
+  - minuta_escritura_constitucion: minuta de escritura de constitución para el notario, DRAFT
+  - checklist_tramites: relación de trámites, organismos, plazos y costes de la constitución
 references:
   - references/lsc-constitucion-sociedad-limitada.md
   - references/tramites-denominacion-notaria-registro.md
@@ -83,7 +83,7 @@ assets:
   - assets/template-minuta-escritura-constitucion.md
 ---
 
-# Constituir una Sociedad de Responsabilidad Limitada (Denominacion, Estatutos y Escritura)
+# Constituir una Sociedad de Responsabilidad Limitada (Denominación, Estatutos y Escritura)
 
 > DRAFT — para revisión por un abogado mercantilista o notario antes de su firma, elevación a público o inscripción. No constituye asesoramiento jurídico vinculante.
 
@@ -124,7 +124,7 @@ Invoca la herramienta con las preguntas de triaje:
   "form_data": [
     {
       "id": "documento",
-      "rationale": "Resolver V1 para determinar cual de los tres documentos de constitucion se prepara.",
+      "rationale": "Resolver V1 para determinar cuál de los tres documentos de constitución se prepara.",
       "question": "¿Qué documento necesita preparar ahora?",
       "options": [
         {"id": "certificacion_denominacion", "label": "Solicitud de certificación de denominación social (primer paso, Registro Mercantil Central)"},
@@ -135,7 +135,7 @@ Invoca la herramienta con las preguntas de triaje:
     },
     {
       "id": "numero_socios",
-      "rationale": "Resolver V2 para aplicar el regimen de unipersonalidad de los Arts. 12 a 14 LSC.",
+      "rationale": "Resolver V2 para aplicar el régimen de unipersonalidad de los Arts. 12 a 14 LSC.",
       "question": "¿La sociedad se constituye con un socio único o con varios socios?",
       "options": [
         {"id": "unipersonal", "label": "Socio único (sociedad unipersonal)"},
@@ -144,7 +144,7 @@ Invoca la herramienta con las preguntas de triaje:
     },
     {
       "id": "organo_administracion",
-      "rationale": "Resolver V4 para redactar el articulo de administracion conforme al Art. 210 LSC.",
+      "rationale": "Resolver V4 para redactar el artículo de administración conforme al Art. 210 LSC.",
       "question": "¿Cómo se va a organizar la administración de la sociedad?",
       "options": [
         {"id": "administrador_unico", "label": "Administrador único (una sola persona con todas las facultades)"},

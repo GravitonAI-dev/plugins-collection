@@ -15,31 +15,31 @@ i18n:
       not use for non-monetary, unliquidated or disputed debts, or for claims against public
       administrations.
 description: >
-  Genera la peticion inicial de proceso monitorio para reclamar una deuda dineraria liquida,
-  determinada, vencida y exigible de cualquier cuantia, conforme a los articulos 812 a 818 de la
-  **Ley 1/2000 de Enjuiciamiento Civil (LEC)**, que regula el proceso monitorio como via rapida para cobrar deudas documentadas, en su version consolidada vigente verificada en el BOE.
-  Opcionalmente genera tambien el burofax de requerimiento previo (intento de MASC). Adapta el
-  documento segun la naturaleza de las partes y el tipo de deuda (rentas de arrendamiento u otra).
-  NO usar para deudas no dinerarias, iliquidas o controvertidas, ni para reclamaciones frente a
-  Administraciones Publicas.
+  Genera la petición inicial de proceso monitorio para reclamar una deuda dineraria líquida,
+  determinada, vencida y exigible de cualquier cuantía, conforme a los artículos 812 a 818 de la
+  **Ley 1/2000 de Enjuiciamiento Civil (LEC)**, que regula el proceso monitorio como vía rápida para cobrar deudas documentadas, en su versión consolidada vigente verificada en el BOE.
+  Opcionalmente genera también el burofax de requerimiento previo (intento de MASC). Adapta el
+  documento según la naturaleza de las partes y el tipo de deuda (rentas de arrendamiento u otra).
+  NO usar para deudas no dinerarias, ilíquidas o controvertidas, ni para reclamaciones frente a
+  Administraciones Públicas.
 when_to_use: |
   - El usuario quiere reclamar el cobro de una deuda dineraria impagada.
   - El usuario dispone de documentos que acreditan la deuda (facturas, contrato, reconocimiento, rentas).
-  - El usuario pide una peticion de monitorio o un burofax previo de reclamacion de pago.
+  - El usuario pide una petición de monitorio o un burofax previo de reclamación de pago.
 inputs:
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
-  - alcance: solo peticion inicial / peticion inicial + burofax previo
-  - tipo_deuda: rentas de arrendamiento / otra (facturas, prestamo, servicios, comunidad de propietarios)
-  - naturaleza_acreedor: persona fisica o persona juridica
-  - datos_acreedor: nombre o razon social, NIF o CIF, domicilio
-  - datos_deudor: nombre o razon social, NIF o CIF, domicilio o lugar donde pueda ser hallado
-  - origen_deuda: descripcion del origen y documentos que la acreditan
+  - alcance: solo petición inicial / petición inicial + burofax previo
+  - tipo_deuda: rentas de arrendamiento / otra (facturas, préstamo, servicios, comunidad de propietarios)
+  - naturaleza_acreedor: persona física o persona jurídica
+  - datos_acreedor: nombre o razón social, NIF o CIF, domicilio
+  - datos_deudor: nombre o razón social, NIF o CIF, domicilio o lugar donde pueda ser hallado
+  - origen_deuda: descripción del origen y documentos que la acreditan
   - cuantia: principal en euros e intereses si proceden
-  - fecha_vencimiento: fecha en que la deuda vencio y devino exigible
+  - fecha_vencimiento: fecha en que la deuda venció y devino exigible
   - partido_judicial: domicilio del deudor a efectos de competencia (Art. 813)
-  - masc_intentado: si se ha intentado un medio adecuado de solucion de controversias (si / no)
+  - masc_intentado: si se ha intentado un medio adecuado de solución de controversias (sí / no)
 outputs:
-  - peticion_monitorio: peticion inicial de proceso monitorio en markdown, DRAFT
+  - peticion_monitorio: petición inicial de proceso monitorio en markdown, DRAFT
   - burofax_requerimiento: opcional, burofax de requerimiento previo en markdown, DRAFT
 references:
   - references/estilo-redaccion-escritos.md
@@ -53,7 +53,7 @@ assets:
   - assets/template-peticion-inicial-monitorio.md
 ---
 
-# Generar Peticion de Proceso Monitorio
+# Generar Petición de Proceso Monitorio
 
 > DRAFT — para revisión por un abogado colegiado antes de su firma. No constituye asesoramiento jurídico definitivo.
 
@@ -134,17 +134,17 @@ Invoca la herramienta con las opciones de triaje:
 - `V4` — `masc_intentado`
 
 ### 1.3 Enrutamiento de Estado (Routing por Vectores)
-Una vez resueltos los vectores, evalua en este orden:
+Una vez resueltos los vectores, evalúa en este orden:
 
 - Si **V2 = rentas_arrendamiento** → **HOJA RENTAS**: `assets/template-peticion-inicial-monitorio-rentas.md` (Art. 812.2.2.º LEC, que admite acumular las rentas y cantidades debidas del arrendamiento).
 - Si **V2 = otra causa** → **HOJA GENERAL**: `assets/template-peticion-inicial-monitorio.md`.
-- Si **V1 = peticion_y_burofax**, o **V4 = no** → generar ademas, y **ANTES** de la peticion inicial, `assets/template-burofax-requerimiento-previo-masc.md`. El requerimiento fehaciente previo no es presupuesto de admision del monitorio, pero por defecto conservador se recomienda dejarlo acreditado: constituye en mora, fija la fecha de devengo de los intereses y evita la discusion sobre la procedibilidad. Explicaselo al cliente en esos terminos, sin presentarlo como obligatorio.
-- Si **V1 = solo_peticion** y **V4 = si** → no se genera el burofax; se hace constar en la peticion el intento ya practicado.
-- V3 no elige asset: determina la variante del encabezamiento de comparecencia y la acreditacion de la representacion (persona fisica, o persona juridica con su representante y el titulo del que resulta la representacion).
-- Si la deuda **no es dineraria, liquida, determinada, vencida y exigible** (Art. 812.1 LEC) → **DETENER**: el monitorio no es el cauce. Derivar a `reclamacion-cantidad` para que elija la via declarativa procedente. No crear documento.
-- Si lo que se pretende es **oponerse** a un monitorio ya notificado al cliente → **DETENER**: derivar a `reclamacion-cantidad`, que cubre el escrito de oposicion. No crear documento.
-- Si la deuda es de **cuotas de comunidad de propietarios** → **DETENER** y derivar a `propiedad-horizontal`, que exige la certificacion previa del acuerdo de la junta (articulos 21.1 a 21.3 de la Ley de Propiedad Horizontal) y tiene su propia peticion inicial.
-- **Requisito de procedibilidad (Ley Organica 1/2025).** Si el intento previo de un medio adecuado de solucion de controversias no esta acreditado y esta skill no genera por si misma el documento que lo acredita, **deriva a `masc-acuerdos`**, que produce el requerimiento de negociacion, el acta del intento, la oferta vinculante, el acuerdo transaccional y la declaracion responsable de imposibilidad. Ofrece encadenar con ella antes de continuar, y advierte de que sin ese documento la demanda no se admite a tramite.
+- Si **V1 = peticion_y_burofax**, o **V4 = no** → generar además, y **ANTES** de la petición inicial, `assets/template-burofax-requerimiento-previo-masc.md`. El requerimiento fehaciente previo no es presupuesto de admisión del monitorio, pero por defecto conservador se recomienda dejarlo acreditado: constituye en mora, fija la fecha de devengo de los intereses y evita la discusión sobre la procedibilidad. Explícaselo al cliente en esos términos, sin presentarlo como obligatorio.
+- Si **V1 = solo_peticion** y **V4 = si** → no se genera el burofax; se hace constar en la petición el intento ya practicado.
+- V3 no elige asset: determina la variante del encabezamiento de comparecencia y la acreditación de la representación (persona física, o persona jurídica con su representante y el título del que resulta la representación).
+- Si la deuda **no es dineraria, líquida, determinada, vencida y exigible** (Art. 812.1 LEC) → **DETENER**: el monitorio no es el cauce. Derivar a `reclamacion-cantidad` para que elija la vía declarativa procedente. No crear documento.
+- Si lo que se pretende es **oponerse** a un monitorio ya notificado al cliente → **DETENER**: derivar a `reclamacion-cantidad`, que cubre el escrito de oposición. No crear documento.
+- Si la deuda es de **cuotas de comunidad de propietarios** → **DETENER** y derivar a `propiedad-horizontal`, que exige la certificación previa del acuerdo de la junta (artículos 21.1 a 21.3 de la Ley de Propiedad Horizontal) y tiene su propia petición inicial.
+- **Requisito de procedibilidad (Ley Orgánica 1/2025).** Si el intento previo de un medio adecuado de solución de controversias no está acreditado y esta skill no genera por sí misma el documento que lo acredita, **deriva a `masc-acuerdos`**, que produce el requerimiento de negociación, el acta del intento, la oferta vinculante, el acuerdo transaccional y la declaración responsable de imposibilidad. Ofrece encadenar con ella antes de continuar, y advierte de que sin ese documento la demanda no se admite a trámite.
 
 ---
 
@@ -156,31 +156,31 @@ En esta fase compartes en el chat el plan de trabajo y marco legal, y consultas 
 Ejecuta esta secuencia completa; en esta materia la verificación no es opcional:
 
 
-La skill verifica las fuentes oficiales en cada lanzamiento y, si detecta una version posterior, aplica la redaccion vigente al documento que redacta en el workspace del usuario, sin modificar sus propios archivos de plugin. Ejecutar SIEMPRE esta secuencia:
+La skill verifica las fuentes oficiales en cada lanzamiento y, si detecta una versión posterior, aplica la redacción vigente al documento que redacta en el workspace del usuario, sin modificar sus propios archivos de plugin. Ejecutar SIEMPRE esta secuencia:
 
-- **Leer la fecha/version registrada localmente.** Consultar `references/fuentes-plantillas-validadas.md`, que llega cargada en tu contexto, y anotar la "Version registrada" de la LEC y del modelo del CGPJ.
+- **Leer la fecha/versión registrada localmente.** Consultar `references/fuentes-plantillas-validadas.md`, que llega cargada en tu contexto, y anotar la "Versión registrada" de la LEC y del modelo del CGPJ.
 
 - **Consultar la fuente oficial vigente.** Invocar:
 ```
 web_search(...)
 ```
-Extraer: fecha del texto consolidado vigente de la LEC; redaccion actual de los arts. 812 a 818 y del art. 264 (acreditacion del intento de MASC); estado de aplicacion de la LO 1/2025 (BOE-A-2025-76).
+Extraer: fecha del texto consolidado vigente de la LEC; redacción actual de los arts. 812 a 818 y del art. 264 (acreditación del intento de MASC); estado de aplicación de la LO 1/2025 (BOE-A-2025-76).
 
-Consultar tambien el modelo normalizado del CGPJ:
+Consultar también el modelo normalizado del CGPJ:
 ```
 web_search(...)
 ```
 
-- **Comparar.** Contrastar la version oficial con la registrada localmente y con el texto de las references.
+- **Comparar.** Contrastar la versión oficial con la registrada localmente y con el texto de las references.
 
 - **Aplicación de la redacción vigente.** Si la versión oficial es posterior o el texto de los artículos ha cambiado, aplica la redacción vigente directamente sobre el documento a redactar en el workspace del usuario, sin usar versiones desactualizadas.
 
 - **Fallback si la fuente no es accesible.** Si `web_search` no devuelve la fuente oficial:
 ```
-web_search("Ley Enjuiciamiento Civil proceso monitorio articulos 812 818 texto consolidado BOE")
+web_search("Ley Enjuiciamiento Civil proceso monitorio artículos 812 818 texto consolidado BOE")
 ```
-Si tambien falla: usar las references locales como respaldo y notificar al usuario:
-"No se pudo verificar la version vigente de la LEC en el BOE. La peticion se genera con la version de referencia. Verificar manualmente antes de presentar."
+Si también falla: usar las references locales como respaldo y notificar al usuario:
+"No se pudo verificar la versión vigente de la LEC en el BOE. La petición se genera con la versión de referencia. Verificar manualmente antes de presentar."
 
 ### 2.2 Mensaje de Plan de Acción y Elección de Plantilla
 Envía un mensaje estructurado y formal que contenga:
@@ -188,7 +188,7 @@ Envía un mensaje estructurado y formal que contenga:
 2. **Orientación Legal del Caso:**
    Informa al usuario, en registro formal, de la norma y los artículos aplicables a la ruta resuelta, con la versión vigente verificada en la Fase 2.1 y el enlace de la fuente consultada.
 
-3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** (menciónala por su denominación formal, sin mostrar rutas internas ni volcar su contenido). Si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la seccion de assets.
+3. **Propuesta de Plantilla Oficial del Sistema:** Detalla que dispones de la plantilla oficial validada **que ha resuelto el enrutamiento de la Fase 1.3** (menciónala por su denominación formal, sin mostrar rutas internas ni volcar su contenido). Si el enrutamiento asigno varios documentos, nómbralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada** ni la primera del inventario de la sección de assets.
 4. **Elección de Plantilla Base:** Aplica el protocolo universal de `REG-AST-01` (`CLAUDE.md`), convocando en ese mismo turno el formulario interactivo `restricted_human_in_the_loop_request` para que el usuario elija entre la plantilla del sistema o aportar su propia minuta.
 
 ### 2.3 Manejo Determinista de la Elección
@@ -231,11 +231,11 @@ Aplica rigurosamente las directivas `REG-FDB-01` y `REG-CLO-01` de `CLAUDE.md`:
 
 ## Límites Legales y Guardrails de Dominio (Gobernados por Vectores)
 
-1. Verificar siempre la LEC en el BOE antes de redactar. Sin verificacion, no proceder.
-2. Si se detecta en el BOE una version de la LEC posterior a la registrada en las references, aplicar la redacción vigente directamente sobre el documento a redactar en el workspace del usuario. No usar una version desactualizada.
-3. Solo procede el monitorio si la deuda es dineraria, liquida, determinada, vencida y exigible (Art. 812). Si no lo es, no redactar la peticion: advertir y ofrecer alternativa (juicio declarativo) o escalacion.
+1. Verificar siempre la LEC en el BOE antes de redactar. Sin verificación, no proceder.
+2. Si se detecta en el BOE una versión de la LEC posterior a la registrada en las references, aplicar la redacción vigente directamente sobre el documento a redactar en el workspace del usuario. No usar una versión desactualizada.
+3. Solo procede el monitorio si la deuda es dineraria, líquida, determinada, vencida y exigible (Art. 812). Si no lo es, no redactar la petición: advertir y ofrecer alternativa (juicio declarativo) o escalación.
 4. Debe existir al menos un documento que acredite la deuda (Art. 812). Sin documento acreditativo, no procede.
-5. Competencia exclusiva del Juzgado de Primera Instancia del domicilio o residencia del deudor (Art. 813). No admitir sumision a otro fuero.
-6. Posicion conservadora sobre el MASC: ante la duda sobre si es exigible en el monitorio (LO 1/2025), recomendar e integrar el intento previo (burofax) y advertir de la cuestion.
-7. Los campos a rellenar usan el placeholder propio del asset en doble llave, p. ej. `{{CUANTIA_RECLAMADA}}` (NUNCA corchete simple `[DATO]`: colisiona con los identificadores de privacidad `[PERSON_1]`). Si hace falta marcar un hueco suelto sin placeholder propio, usa `{{DATO_FALTANTE}}` una sola vez por documento: nunca lo repitas para dos datos distintos, porque el `edit_file` posterior necesita un `oldString` unico. Nunca inventar datos, cuantias ni fechas.
+5. Competencia exclusiva del Juzgado de Primera Instancia del domicilio o residencia del deudor (Art. 813). No admitir sumisión a otro fuero.
+6. Posición conservadora sobre el MASC: ante la duda sobre si es exigible en el monitorio (LO 1/2025), recomendar e integrar el intento previo (burofax) y advertir de la cuestión.
+7. Los campos a rellenar usan el placeholder propio del asset en doble llave, p. ej. `{{CUANTIA_RECLAMADA}}` (NUNCA corchete simple `[DATO]`: colisiona con los identificadores de privacidad `[PERSON_1]`). Si hace falta marcar un hueco suelto sin placeholder propio, usa `{{DATO_FALTANTE}}` una sola vez por documento: nunca lo repitas para dos datos distintos, porque el `edit_file` posterior necesita un `oldString` único. Nunca inventar datos, cuantías ni fechas.
 8. Nunca afirmar que la deuda es exigible o incontrovertida sin base documental. Nunca inventar jurisprudencia.

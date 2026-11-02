@@ -186,7 +186,7 @@ Envía un mensaje formal que contenga:
 2. **Cómputo de la prescripción** con la fecha límite.
 3. **Estructura del documento** y desglose económico que se va a construir.
 4. **Advertencia sobre el secreto profesional:** la minuta necesita detalle para justificar el honorario, pero no puede revelar la estrategia del asunto, las confidencias del cliente ni datos de terceros. Explica que se describirán **actuaciones**, no contenidos.
-5. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Menciónala por su denominación formal (sin mostrar rutas internas ni volcar su contenido); si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
+5. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Menciónala por su denominación formal (sin mostrar rutas internas ni volcar su contenido); si el enrutamiento asigno varios documentos, nómbralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
 6. **Elección de Plantilla Base:** Aplica el protocolo universal de `REG-AST-01` (`CLAUDE.md`), convocando en ese mismo turno el formulario interactivo `restricted_human_in_the_loop_request` para que el usuario elija entre la plantilla del sistema o aportar su propia minuta.
 
 ### 2.3 Manejo Determinista de la Elección

@@ -44,7 +44,7 @@ La impugnación **no suspende** por sí sola la ejecución de la sanción: la su
 4. ¿Se ha verificado la prescripción del artículo 60.2 desde la fecha de conocimiento?
 5. ¿Figura la sanción en el cuadro del convenio para esa gravedad, y respeta su duración máxima?
 6. ¿Es la sanción proporcionada, o quedará reducida en juicio?
-7. ¿Se ha respetado el *non bis in idem* respecto de sanciones previas por los mismos hechos?
+7. ¿Se ha respetado el *non bis in ídem* respecto de sanciones previas por los mismos hechos?
 8. ¿Es preceptivo expediente contradictorio, y está instruido y concluido?
 9. ¿Consta la comunicación escrita con fecha, hechos y sanción, y su acuse de recibo?
 10. ¿Hay que informar a la representación legal de los trabajadores?

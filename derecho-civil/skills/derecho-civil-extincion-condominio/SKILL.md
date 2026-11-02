@@ -20,58 +20,58 @@ i18n:
       liquidation of the matrimonial property regime, for partition of an inheritance among
       several heirs, or for division of business assets.
 description: >
-  Genera los documentos para deshacer una copropiedad sobre un inmueble conforme al **Codigo Civil**,
+  Genera los documentos para deshacer una copropiedad sobre un inmueble conforme al **Código Civil**,
   que regula la comunidad de bienes y el derecho de todo comunero a pedir en cualquier momento la
-  division de la cosa comun (Arts. 392 a 406), y a la **Ley 1/2000 de Enjuiciamiento Civil**, que fija
+  división de la cosa común (Arts. 392 a 406), y a la **Ley 1/2000 de Enjuiciamiento Civil**, que fija
   el cauce judicial cuando no hay acuerdo.
 
 
-  Genera tres documentos: el requerimiento previo a los demas comuneros con propuesta de adjudicacion
-  y valoracion, la minuta de escritura de extincion de condominio para el notario con su compensacion
-  en metalico y el reparto de gastos, y la demanda de division de la cosa comun cuando el acuerdo
+  Genera tres documentos: el requerimiento previo a los demás comuneros con propuesta de adjudicación
+  y valoración, la minuta de escritura de extinción de condominio para el notario con su compensación
+  en metálico y el reparto de gastos, y la demanda de división de la cosa común cuando el acuerdo
   resulta imposible.
 
 
-  Trata el caso mas frecuente en la practica, la pareja no casada que compro a medias, con la
-  subrogacion o cancelacion del prestamo hipotecario pendiente, la indivisibilidad del inmueble y sus
-  consecuencias, la valoracion y la compensacion entre comuneros, la liquidacion de los gastos
-  soportados por uno solo, y la tributacion mas favorable de la extincion frente a la compraventa.
+  Trata el caso más frecuente en la práctica, la pareja no casada que compro a medias, con la
+  subrogación o cancelación del préstamo hipotecario pendiente, la indivisibilidad del inmueble y sus
+  consecuencias, la valoración y la compensación entre comuneros, la liquidación de los gastos
+  soportados por uno solo, y la tributación más favorable de la extinción frente a la compraventa.
 
 
-  NO usar para la liquidacion del regimen economico matrimonial, que corresponde a la skill de
-  liquidacion de gananciales, ni para la particion de una herencia con varios herederos, que
-  corresponde a la skill de herencia, ni para la division de patrimonios empresariales.
+  NO usar para la liquidación del régimen económico matrimonial, que corresponde a la skill de
+  liquidación de gananciales, ni para la partición de una herencia con varios herederos, que
+  corresponde a la skill de herencia, ni para la división de patrimonios empresariales.
 
 
   Normas aplicadas, en su texto consolidado en el BOE:
-  [Codigo Civil](https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763) y
+  [Código Civil](https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763) y
   [Ley 1/2000 de Enjuiciamiento Civil](https://www.boe.es/buscar/act.php?id=BOE-A-2000-323).
 when_to_use: |
   - Una pareja no casada se separa y quiere deshacer la copropiedad de la vivienda que compro a medias.
-  - Varios copropietarios de un inmueble quieren que uno se quede con el y compense a los demas.
-  - Un comunero quiere salir de la copropiedad y los demas no acceden.
-  - El usuario pregunta como se reparte la hipoteca pendiente al extinguir el condominio.
-  - El usuario pregunta que impuesto se paga al extinguir un condominio y si sale mas barato que vender.
-  - El usuario ha pagado solo la hipoteca o los gastos del inmueble comun y quiere que se le compense.
+  - Varios copropietarios de un inmueble quieren que uno se quede con el y compense a los demás.
+  - Un comunero quiere salir de la copropiedad y los demás no acceden.
+  - El usuario pregunta cómo se reparte la hipoteca pendiente al extinguir el condominio.
+  - El usuario pregunta qué impuesto se paga al extinguir un condominio y si sale más barato que vender.
+  - El usuario ha pagado solo la hipoteca o los gastos del inmueble común y quiere que se le compense.
 inputs:
-  - documento: requerimiento previo / escritura de extincion de condominio / demanda de division (V1)
+  - documento: requerimiento previo / escritura de extinción de condominio / demanda de división (V1)
   - acuerdo: hay acuerdo entre comuneros / no hay acuerdo (V2)
-  - hipoteca: con prestamo hipotecario pendiente / sin carga hipotecaria (V3)
+  - hipoteca: con préstamo hipotecario pendiente / sin carga hipotecaria (V3)
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
-  - datos_comuneros: nombre, NIF/NIE, domicilio, estado civil y cuota de participacion de cada comunero
-  - datos_inmueble: direccion, referencia catastral, superficie, datos registrales y anejos
-  - titulo_adquisicion: titulo por el que se adquirio la copropiedad, fecha y notario
-  - valoracion: valor atribuido al inmueble y forma de determinarlo, con tasacion si existe
-  - adjudicacion: comunero al que se adjudica el inmueble y compensacion en metalico a los demas
-  - hipoteca_pendiente: entidad, numero de prestamo, capital pendiente y titulares
+  - datos_comuneros: nombre, NIF/NIE, domicilio, estado civil y cuota de participación de cada comunero
+  - datos_inmueble: dirección, referencia catastral, superficie, datos registrales y anejos
+  - titulo_adquisicion: título por el que se adquirió la copropiedad, fecha y notario
+  - valoracion: valor atribuido al inmueble y forma de determinarlo, con tasación si existe
+  - adjudicacion: comunero al que se adjudica el inmueble y compensación en metálico a los demás
+  - hipoteca_pendiente: entidad, número de préstamo, capital pendiente y titulares
   - gastos_soportados: pagos de hipoteca, IBI, comunidad, seguros y obras soportados por cada comunero
-  - uso_del_inmueble: quien ha usado el inmueble y desde cuando, y si se reclama compensacion por el uso
-  - fiscalidad: reparto de impuestos, notaria y registro entre los comuneros
+  - uso_del_inmueble: quién ha usado el inmueble y desde cuando, y si se reclama compensación por el uso
+  - fiscalidad: reparto de impuestos, notaría y registro entre los comuneros
 outputs:
-  - requerimiento_extincion_condominio: requerimiento previo a los comuneros con propuesta y valoracion, DRAFT
-  - minuta_escritura_extincion: minuta de escritura de extincion de condominio para el notario, DRAFT
-  - demanda_division_cosa_comun: demanda de division de la cosa comun, DRAFT
-  - checklist_tramites: tramites, tributacion, cancelacion de cargas e inscripcion registral
+  - requerimiento_extincion_condominio: requerimiento previo a los comuneros con propuesta y valoración, DRAFT
+  - minuta_escritura_extincion: minuta de escritura de extinción de condominio para el notario, DRAFT
+  - demanda_division_cosa_comun: demanda de división de la cosa común, DRAFT
+  - checklist_tramites: trámites, tributación, cancelación de cargas e inscripción registral
 references:
   - references/cc-comunidad-de-bienes-y-division.md
   - references/hipoteca-valoracion-y-fiscalidad-de-la-extincion.md
@@ -122,7 +122,7 @@ Invoca la herramienta con las preguntas de triaje:
   "form_data": [
     {
       "id": "documento",
-      "rationale": "Resolver V1 para determinar si se prepara la via extrajudicial, la escritura o la demanda.",
+      "rationale": "Resolver V1 para determinar si se prepara la vía extrajudicial, la escritura o la demanda.",
       "question": "¿Qué documento necesita?",
       "options": [
         {"id": "requerimiento_previo", "label": "Requerimiento a los demás copropietarios, con propuesta de reparto"},
@@ -133,7 +133,7 @@ Invoca la herramienta con las preguntas de triaje:
     },
     {
       "id": "acuerdo",
-      "rationale": "Resolver V2: con acuerdo la via es notarial; sin acuerdo hay que agotar el requerimiento y el medio adecuado de solucion de controversias antes de demandar.",
+      "rationale": "Resolver V2: con acuerdo la vía es notarial; sin acuerdo hay que agotar el requerimiento y el medio adecuado de solución de controversias antes de demandar.",
       "question": "¿Hay acuerdo entre todos los copropietarios sobre quién se queda el inmueble y por cuánto?",
       "options": [
         {"id": "con_acuerdo", "label": "Sí, hay acuerdo"},
@@ -142,7 +142,7 @@ Invoca la herramienta con las preguntas de triaje:
     },
     {
       "id": "hipoteca",
-      "rationale": "Resolver V3: la hipoteca pendiente exige tratar la subrogacion o cancelacion y el consentimiento de la entidad.",
+      "rationale": "Resolver V3: la hipoteca pendiente exige tratar la subrogación o cancelación y el consentimiento de la entidad.",
       "question": "¿Queda préstamo hipotecario pendiente sobre el inmueble?",
       "options": [
         {"id": "con_hipoteca", "label": "Sí, queda hipoteca por pagar"},

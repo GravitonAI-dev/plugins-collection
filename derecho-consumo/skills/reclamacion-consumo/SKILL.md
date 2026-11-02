@@ -151,7 +151,7 @@ Invoca la herramienta con las opciones de triaje:
     },
     {
       "id": "adhesion_arbitraje",
-      "rationale": "Resolver V5: el arbitraje solo obliga a la empresa si esta adherida o si acepta someterse. Sin adhesión, la solicitud puede quedar en nada y conviene decirlo antes de presentarla.",
+      "rationale": "Resolver V5: el arbitraje solo obliga a la empresa si está adherida o si acepta someterse. Sin adhesión, la solicitud puede quedar en nada y conviene decirlo antes de presentarla.",
       "question": "¿Está la empresa adherida al Sistema Arbitral de Consumo?",
       "options": [
         {"id": "si", "label": "Sí, tiene el distintivo o consta su adhesión"},
@@ -178,7 +178,7 @@ Invoca la herramienta con las opciones de triaje:
 
 **Comprobación 2 — ¿Está agotada la vía previa?** El arbitraje y los organismos sectoriales exigen haber reclamado antes a la empresa.
 
-* **Si `[V3 = no_reclamado]` y `[V1 = solicitud_arbitraje]`, o `[V3 = no_reclamado]` y `[V1 = escrito_administracion]` → reconducir. Esta regla tiene prioridad sobre el enrutamiento de la comprobacion 4.** Explica que el paso previo es reclamar a la empresa y que sin acreditarlo la solicitud puede inadmitirse. Genera primero `assets/template-reclamacion-previa-empresa.md` y ofrece preparar después el documento pedido.
+* **Si `[V3 = no_reclamado]` y `[V1 = solicitud_arbitraje]`, o `[V3 = no_reclamado]` y `[V1 = escrito_administracion]` → reconducir. Esta regla tiene prioridad sobre el enrutamiento de la comprobación 4.** Explica que el paso previo es reclamar a la empresa y que sin acreditarlo la solicitud puede inadmitirse. Genera primero `assets/template-reclamacion-previa-empresa.md` y ofrece preparar después el documento pedido.
 
 **Comprobación 3 — Cómputo y comunicación de plazos.** Antes de redactar, pide la fecha de compra o de contratación y la del hecho reclamado, y comunica en el chat el plazo de garantía o de reclamación aplicable, los días consumidos y la fecha límite, sobre `references/plazos-de-garantia-y-reclamacion.md`. **Verifica los plazos en el texto vigente: no los cites de memoria.**
 
@@ -223,7 +223,7 @@ Envía un mensaje formal que contenga:
 2. **Plazos:** el que tiene el usuario para reclamar y el que tiene la empresa u organismo para responder, con la fecha límite concreta.
 3. **Qué ocurre si no hay respuesta:** el paso siguiente del itinerario, dicho de antemano.
 4. **Documentos que debe conservar y acompañar.**
-5. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Menciónala por su denominación formal (sin mostrar rutas internas ni volcar su contenido); si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
+5. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Menciónala por su denominación formal (sin mostrar rutas internas ni volcar su contenido); si el enrutamiento asigno varios documentos, nómbralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
 6. **Elección de Plantilla Base:** Aplica el protocolo universal de `REG-AST-01` (`CLAUDE.md`), convocando en ese mismo turno el formulario interactivo `restricted_human_in_the_loop_request` para que el usuario elija entre la plantilla del sistema o aportar su propia minuta.
 
 ### 2.3 Manejo Determinista de la Elección

@@ -20,58 +20,58 @@ i18n:
       dependent self-employed relationships (employment law plugin), or for financial,
       insurance, public works or software licence contracts with pre-set general terms.
 description: >
-  Redacta los contratos habituales entre empresas en Espana conforme al **Codigo Civil** (Arts. 1254 a
-  1258 y 1543 y siguientes), que fija el regimen general de las obligaciones y contratos, al **Codigo
+  Redacta los contratos habituales entre empresas en España conforme al **Código Civil** (Arts. 1254 a
+  1258 y 1543 y siguientes), que fija el régimen general de las obligaciones y contratos, al **Código
   de Comercio**, que rige los actos de comercio, y a la **Ley 12/1992** sobre contrato de agencia, que
-  regula el estatuto del agente y su indemnizacion por clientela.
+  regula el estatuto del agente y su indemnización por clientela.
 
 
-  Genera cuatro contratos: prestacion de servicios entre empresas, acuerdo de confidencialidad,
-  contrato de agencia y contrato de distribucion.
+  Genera cuatro contratos: prestación de servicios entre empresas, acuerdo de confidencialidad,
+  contrato de agencia y contrato de distribución.
 
 
-  Incorpora los plazos maximos de pago de la normativa de morosidad, el regimen de encargado del
-  tratamiento cuando el prestador accede a datos personales, la proteccion del secreto empresarial, y
-  la ley aplicable y el fuero cuando la contraparte es extranjera. Advierte de la diferencia critica
-  entre agencia y distribucion en materia de indemnizacion por clientela y de los indicios de
+  Incorpora los plazos máximos de pago de la normativa de morosidad, el régimen de encargado del
+  tratamiento cuando el prestador accede a datos personales, la protección del secreto empresarial, y
+  la ley aplicable y el fuero cuando la contraparte es extranjera. Advierte de la diferencia crítica
+  entre agencia y distribución en materia de indemnización por clientela y de los indicios de
   laboralidad que pueden convertir al agente o al prestador en trabajador por cuenta ajena.
 
 
   NO usar cuando la contraparte sea un consumidor, que corresponde al plugin de consumo, ni para
-  relaciones laborales o de trabajadores autonomos economicamente dependientes, que corresponden al
-  plugin laboral, ni para contratos financieros, de seguro, de obra publica o de licencia de software
+  relaciones laborales o de trabajadores autónomos económicamente dependientes, que corresponden al
+  plugin laboral, ni para contratos financieros, de seguro, de obra pública o de licencia de software
   con condiciones generales predispuestas.
 
 
   Normas aplicadas, en su texto consolidado en el BOE:
-  [Codigo Civil](https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763) y
+  [Código Civil](https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763) y
   [Ley 12/1992 sobre Contrato de Agencia](https://www.boe.es/buscar/act.php?id=BOE-A-1992-12347).
 when_to_use: |
   - Una empresa va a prestar o recibir servicios de otra empresa y necesita el contrato.
-  - Dos empresas van a intercambiar informacion confidencial antes o durante una negociacion.
+  - Dos empresas van a intercambiar información confidencial antes o durante una negociación.
   - Una empresa va a nombrar un agente comercial que promueva sus productos de forma estable.
   - Una empresa va a nombrar un distribuidor que compre y revenda sus productos en un territorio.
-  - El usuario pregunta la diferencia entre agente y distribuidor, o si tendra que indemnizar por clientela al terminar.
-  - El usuario pregunta que plazo de pago puede pactar con un proveedor o cliente empresa.
+  - El usuario pregunta la diferencia entre agente y distribuidor, o si tendrá que indemnizar por clientela al terminar.
+  - El usuario pregunta qué plazo de pago puede pactar con un proveedor o cliente empresa.
 inputs:
-  - documento: prestacion de servicios / confidencialidad / agencia / distribucion (V1)
-  - contraparte: empresa espanola / empresa extranjera (V2)
+  - documento: prestación de servicios / confidencialidad / agencia / distribución (V1)
+  - contraparte: empresa española / empresa extranjera (V2)
   - duracion: indefinida / plazo determinado (V3)
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
-  - datos_partes: razon social, CIF, domicilio, datos registrales y representante de cada parte
-  - objeto_contrato: descripcion de los servicios, productos o informacion objeto del contrato
-  - precio_y_pago: precio o comision, forma de calculo, periodicidad y plazo de pago
-  - plazo_y_preaviso: duracion, prorrogas y plazo de preaviso para la terminacion
-  - territorio_y_exclusiva: ambito territorial y caracter exclusivo o no de la relacion
+  - datos_partes: razón social, CIF, domicilio, datos registrales y representante de cada parte
+  - objeto_contrato: descripción de los servicios, productos o información objeto del contrato
+  - precio_y_pago: precio o comisión, forma de cálculo, periodicidad y plazo de pago
+  - plazo_y_preaviso: duración, prórrogas y plazo de preaviso para la terminación
+  - territorio_y_exclusiva: ámbito territorial y carácter exclusivo o no de la relación
   - objetivos_minimos: objetivos de venta o niveles de servicio exigidos y consecuencias de su incumplimiento
-  - datos_personales: si el prestador accedera a datos personales y con que finalidad
+  - datos_personales: si el prestador accederá a datos personales y con que finalidad
   - propiedad_intelectual: titularidad y licencia de los resultados o de las marcas
-  - ley_y_fuero: ley aplicable y sumision a tribunales o a arbitraje
+  - ley_y_fuero: ley aplicable y sumisión a tribunales o a arbitraje
 outputs:
-  - contrato_prestacion_servicios: contrato de prestacion de servicios entre empresas, DRAFT
+  - contrato_prestacion_servicios: contrato de prestación de servicios entre empresas, DRAFT
   - acuerdo_confidencialidad: acuerdo de confidencialidad unilateral o reciproco, DRAFT
-  - contrato_agencia: contrato de agencia mercantil con su regimen de comision e indemnizacion, DRAFT
-  - contrato_distribucion: contrato de distribucion con territorio, objetivos y terminacion, DRAFT
+  - contrato_agencia: contrato de agencia mercantil con su régimen de comisión e indemnización, DRAFT
+  - contrato_distribucion: contrato de distribución con territorio, objetivos y terminación, DRAFT
 references:
   - references/regimen-contratos-mercantiles.md
   - references/agencia-vs-distribucion-y-morosidad.md
@@ -123,7 +123,7 @@ Invoca la herramienta con las preguntas de triaje:
   "form_data": [
     {
       "id": "documento",
-      "rationale": "Resolver V1 para determinar cual de los contratos mercantiles se redacta.",
+      "rationale": "Resolver V1 para determinar cuál de los contratos mercantiles se redacta.",
       "question": "¿Qué contrato necesita?",
       "options": [
         {"id": "prestacion_servicios", "label": "Prestación de servicios entre empresas"},
@@ -135,7 +135,7 @@ Invoca la herramienta con las preguntas de triaje:
     },
     {
       "id": "contraparte",
-      "rationale": "Resolver V2 para fijar ley aplicable, fuero y regimen de pago transfronterizo.",
+      "rationale": "Resolver V2 para fijar ley aplicable, fuero y régimen de pago transfronterizo.",
       "question": "¿La otra parte es una empresa española o extranjera?",
       "options": [
         {"id": "empresa_espanola", "label": "Empresa española"},
@@ -144,7 +144,7 @@ Invoca la herramienta con las preguntas de triaje:
     },
     {
       "id": "duracion",
-      "rationale": "Resolver V3: la duracion indefinida obliga a regular el preaviso de terminacion.",
+      "rationale": "Resolver V3: la duración indefinida obliga a regular el preaviso de terminación.",
       "question": "¿La relación será indefinida o por un plazo determinado?",
       "options": [
         {"id": "indefinida", "label": "Indefinida, con posibilidad de terminar mediante preaviso"},

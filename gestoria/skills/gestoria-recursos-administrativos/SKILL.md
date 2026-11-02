@@ -22,61 +22,61 @@ i18n:
       fine appeal skill), for tax procedures (economic-administrative claim), or for immigration
       matters (immigration plugin).
 description: >
-  Prepara los escritos frente a cualquier Administracion espanola conforme a la **Ley 39/2015** del
-  Procedimiento Administrativo Comun, que regula los recursos de alzada y de reposicion, el silencio
-  administrativo y el computo de plazos, a la **Ley 40/2015** de Regimen Juridico del Sector Publico,
+  Prepara los escritos frente a cualquier Administración española conforme a la **Ley 39/2015** del
+  Procedimiento Administrativo Común, que regula los recursos de alzada y de reposición, el silencio
+  administrativo y el cómputo de plazos, a la **Ley 40/2015** de Régimen Jurídico del Sector Público,
   que fija los requisitos de la responsabilidad patrimonial, y a la **Ley 19/2013** de transparencia,
-  que reconoce el derecho de acceso a la informacion publica.
+  que reconoce el derecho de acceso a la información pública.
 
 
-  Genera tres documentos: el recurso administrativo (de alzada cuando el acto no agota la via
-  administrativa y de reposicion cuando si la agota), la reclamacion de responsabilidad patrimonial
-  por los danos causados por el funcionamiento de los servicios publicos, y la solicitud de acceso a
-  la informacion publica con su reclamacion posterior.
+  Genera tres documentos: el recurso administrativo (de alzada cuando el acto no agota la vía
+  administrativa y de reposición cuando si la agota), la reclamación de responsabilidad patrimonial
+  por los daños causados por el funcionamiento de los servicios públicos, y la solicitud de acceso a
+  la información pública con su reclamación posterior.
 
 
-  Determina que recurso procede segun si el acto agota o no la via administrativa, computa los plazos
+  Determina qué recurso procede según si el acto agota o no la vía administrativa, computa los plazos
   de un mes y de tres meses y el del silencio con sus efectos, acredita los cuatro requisitos de la
-  responsabilidad patrimonial y el plazo de un ano desde el dano, y advierte de la ejecutividad del
-  acto y de la necesidad de pedir expresamente la suspension.
+  responsabilidad patrimonial y el plazo de un año desde el daño, y advierte de la ejecutividad del
+  acto y de la necesidad de pedir expresamente la suspensión.
 
 
-  NO usar para el recurso contencioso-administrativo ante los tribunales, ni para sanciones de trafico,
-  que tienen su propia skill, ni para procedimientos tributarios, cuya via es la reclamacion
-  economico-administrativa, ni para materia de extranjeria, que corresponde a su propio plugin.
+  NO usar para el recurso contencioso-administrativo ante los tribunales, ni para sanciones de tráfico,
+  que tienen su propia skill, ni para procedimientos tributarios, cuya vía es la reclamación
+  económico-administrativa, ni para materia de extranjería, que corresponde a su propio plugin.
 
 
   Normas aplicadas, en su texto consolidado en el BOE:
-  [Ley 39/2015 del Procedimiento Administrativo Comun](https://www.boe.es/buscar/act.php?id=BOE-A-2015-10565),
-  [Ley 40/2015 de Regimen Juridico del Sector Publico](https://www.boe.es/buscar/act.php?id=BOE-A-2015-10566) y
+  [Ley 39/2015 del Procedimiento Administrativo Común](https://www.boe.es/buscar/act.php?id=BOE-A-2015-10565),
+  [Ley 40/2015 de Régimen Jurídico del Sector Público](https://www.boe.es/buscar/act.php?id=BOE-A-2015-10566) y
   [Ley 19/2013 de transparencia](https://www.boe.es/buscar/act.php?id=BOE-A-2013-12887).
 when_to_use: |
-  - Al usuario le han denegado una licencia, una subvencion o una ayuda y quiere recurrir.
-  - Al usuario le han notificado una resolucion administrativa desfavorable y no sabe que recurso cabe.
-  - La Administracion no contesta y el usuario pregunta que efecto tiene el silencio.
-  - El usuario ha sufrido un dano por el funcionamiento de un servicio publico y quiere ser indemnizado.
-  - El usuario quiere pedir informacion o documentacion a una Administracion y no se la facilitan.
+  - Al usuario le han denegado una licencia, una subvención o una ayuda y quiere recurrir.
+  - Al usuario le han notificado una resolución administrativa desfavorable y no sabe qué recurso cabe.
+  - La Administración no contesta y el usuario pregunta qué efecto tiene el silencio.
+  - El usuario ha sufrido un daño por el funcionamiento de un servicio público y quiere ser indemnizado.
+  - El usuario quiere pedir información o documentación a una Administración y no se la facilitan.
   - El usuario pregunta si tiene que pagar o cumplir mientras se resuelve su recurso.
 inputs:
-  - documento: recurso administrativo / responsabilidad patrimonial / acceso a la informacion (V1)
-  - agota_via: el acto no agota la via administrativa / el acto agota la via administrativa (V2)
-  - via_previa: primera solicitud / ya hubo resolucion o silencio (V3)
+  - documento: recurso administrativo / responsabilidad patrimonial / acceso a la información (V1)
+  - agota_via: el acto no agota la vía administrativa / el acto agota la vía administrativa (V2)
+  - via_previa: primera solicitud / ya hubo resolución o silencio (V3)
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
-  - datos_interesado: nombre o razon social, NIF/NIE/CIF, domicilio de notificaciones, telefono y correo
-  - representante: identidad del representante y titulo de la representacion, si actua por medio de otro
-  - organo_administracion: administracion, organo que dicto el acto y organo competente para resolver
-  - datos_acto: identificacion del acto o resolucion, numero de expediente, fecha y fecha de notificacion
-  - contenido_acto: contenido de la resolucion y motivacion que expresa
-  - motivos_impugnacion: motivos de fondo y de forma en que se basa la impugnacion
-  - datos_dano: descripcion del dano, fecha en que se produjo, lugar y servicio publico implicado
-  - valoracion_dano: importe reclamado con su desglose y forma de calculo
-  - informacion_solicitada: informacion o documentacion concreta que se solicita y formato preferido
-  - prueba: documentos, fotografias, informes y testigos que se aportan
+  - datos_interesado: nombre o razón social, NIF/NIE/CIF, domicilio de notificaciones, teléfono y correo
+  - representante: identidad del representante y título de la representación, si actúa por medio de otro
+  - organo_administracion: administración, órgano que dictó el acto y órgano competente para resolver
+  - datos_acto: identificación del acto o resolución, número de expediente, fecha y fecha de notificación
+  - contenido_acto: contenido de la resolución y motivación que expresa
+  - motivos_impugnacion: motivos de fondo y de forma en que se basa la impugnación
+  - datos_dano: descripción del daño, fecha en que se produjo, lugar y servicio público implicado
+  - valoracion_dano: importe reclamado con su desglose y forma de cálculo
+  - informacion_solicitada: información o documentación concreta que se solicita y formato preferido
+  - prueba: documentos, fotografías, informes y testigos que se aportan
 outputs:
-  - recurso_administrativo: recurso de alzada o de reposicion con solicitud de suspension, DRAFT
-  - reclamacion_responsabilidad_patrimonial: reclamacion de responsabilidad patrimonial con valoracion del dano, DRAFT
-  - solicitud_acceso_informacion: solicitud de acceso a la informacion publica y su reclamacion, DRAFT
-  - checklist_plazos: computo de plazos, efectos del silencio y via posterior que queda abierta
+  - recurso_administrativo: recurso de alzada o de reposición con solicitud de suspensión, DRAFT
+  - reclamacion_responsabilidad_patrimonial: reclamación de responsabilidad patrimonial con valoración del daño, DRAFT
+  - solicitud_acceso_informacion: solicitud de acceso a la información pública y su reclamación, DRAFT
+  - checklist_plazos: cómputo de plazos, efectos del silencio y vía posterior que queda abierta
 references:
   - references/lpacap-recursos-silencio-y-plazos.md
   - references/responsabilidad-patrimonial-y-transparencia.md
@@ -127,7 +127,7 @@ Invoca la herramienta con las preguntas de triaje:
   "form_data": [
     {
       "id": "documento",
-      "rationale": "Resolver V1 para determinar cual de los tres escritos frente a la Administracion se prepara.",
+      "rationale": "Resolver V1 para determinar cuál de los tres escritos frente a la Administración se prepara.",
       "question": "¿Qué necesita preparar?",
       "options": [
         {"id": "recurso_administrativo", "label": "Recurrir una resolución administrativa que le perjudica"},
@@ -138,7 +138,7 @@ Invoca la herramienta con las preguntas de triaje:
     },
     {
       "id": "agota_via",
-      "rationale": "Resolver V2: determina si procede recurso de alzada o de reposicion, que tienen plazos y organos distintos.",
+      "rationale": "Resolver V2: determina si procede recurso de alzada o de reposición, que tienen plazos y órganos distintos.",
       "question": "Si es un recurso administrativo, ¿indica la notificación que contra la resolución cabe recurso de alzada, o que agota la vía administrativa?",
       "show_if": {"question_id": "documento", "option_ids": ["recurso_administrativo"]},
       "options": [
@@ -149,7 +149,7 @@ Invoca la herramienta con las preguntas de triaje:
     },
     {
       "id": "via_previa",
-      "rationale": "Resolver V3: la reclamacion de transparencia y el recurso exigen una resolucion o un silencio previos.",
+      "rationale": "Resolver V3: la reclamación de transparencia y el recurso exigen una resolución o un silencio previos.",
       "question": "¿Es su primera petición a la Administración, o ya recibió respuesta o no le contestaron?",
       "options": [
         {"id": "primera_solicitud", "label": "Es la primera petición"},

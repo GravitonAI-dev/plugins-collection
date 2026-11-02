@@ -1,57 +1,57 @@
-# Estilo de Redaccion de Escritos Judiciales
+# Estilo de Redacción de Escritos Judiciales
 
-> Material de referencia para la skill `juicio-ordinario`. Reglas de estilo aplicables a la redaccion
-> de la demanda, el guion de la audiencia previa, la proposicion de prueba y el escrito de conclusiones.
-> Basado en guias de colegios de la abogacia y organismos oficiales.
+> Material de referencia para la skill `juicio-ordinario`. Reglas de estilo aplicables a la redacción
+> de la demanda, el guion de la audiencia previa, la proposición de prueba y el escrito de conclusiones.
+> Basado en guías de colegios de la abogacía y organismos oficiales.
 > La skill aplica estas reglas al redactar; no forman parte del output al usuario.
 
 ---
 
 ## Fuentes
 
-| Guia | Organismo |
+| Guía | Organismo |
 |---|---|
-| Guia de buenas practicas sobre escritos e informes y actuaciones judiciales | ICAB — Colegio de la Abogacia de Barcelona |
-| Guia de redaccion judicial clara | Ministerio de Justicia |
+| Guía de buenas prácticas sobre escritos e informes y actuaciones judiciales | ICAB — Colegio de la Abogacía de Barcelona |
+| Guía de redacción judicial clara | Ministerio de Justicia |
 | Libro de estilo de la Justicia | RAE / CGPJ |
-| Recomendaciones de lenguaje juridico claro | Consejo General de la Abogacia Espanola |
+| Recomendaciones de lenguaje jurídico claro | Consejo General de la Abogacía Española |
 
 ---
 
-## Reglas de extension (ICAB)
+## Reglas de extensión (ICAB)
 
-| Tipo de asunto | Extension razonable |
+| Tipo de asunto | Extensión razonable |
 |---|---|
-| Repetitivo / sencillo | No mas de 10 folios |
-| Complejidad media | No mas de 20 folios |
-| Gran complejidad | Solo excepcionalmente mas de 30 folios |
+| Repetitivo / sencillo | No más de 10 folios |
+| Complejidad media | No más de 20 folios |
+| Gran complejidad | Solo excepcionalmente más de 30 folios |
 
-Una demanda de juicio ordinario suele ser de complejidad media o alta: admite mas extension que un monitorio, pero debe evitar el relleno. Mejor un escrito ordenado y preciso que uno extenso y redundante. Los HECHOS se exponen numerados y con claridad; los FUNDAMENTOS DE DERECHO, ordenados por materia.
+Una demanda de juicio ordinario suele ser de complejidad media o alta: admite más extensión que un monitorio, pero debe evitar el relleno. Mejor un escrito ordenado y preciso que uno extenso y redundante. Los HECHOS se exponen numerados y con claridad; los FUNDAMENTOS DE DERECHO, ordenados por materia.
 
 ---
 
 ## Reglas de claridad y lenguaje
 
-- Cada frase transmite una sola idea, sin ambiguedad.
-- Frases y parrafos cortos. Evitar construcciones largas o enrevesadas.
+- Cada frase transmite una sola idea, sin ambigüedad.
+- Frases y párrafos cortos. Evitar construcciones largas o enrevesadas.
 - Usar la voz activa en lugar de la pasiva.
 - Escribir con naturalidad: evitar palabras rebuscadas, latinismos y extranjerismos innecesarios.
-- Precision terminologica y riqueza lexica: no repetir la misma palabra de forma monotona.
+- Precisión terminológica y riqueza léxica: no repetir la misma palabra de forma monótona.
 - Evitar citas largas y literales de sentencias; citar solo lo esencial y su referencia.
-- No abusar de mayusculas, subrayados ni negritas.
+- No abusar de mayúsculas, subrayados ni negritas.
 
 ---
 
 ## Reglas de estructura
 
-- Encabezamiento con el organo judicial (AL JUZGADO DE PRIMERA INSTANCIA DE ...).
-- Identificacion clara de las partes (demandante y demandado) y de la postulacion (procurador y abogado).
+- Encabezamiento con el órgano judicial (AL JUZGADO DE PRIMERA INSTANCIA DE ...).
+- Identificación clara de las partes (demandante y demandado) y de la postulación (procurador y abogado).
 - HECHOS numerados (PRIMERO, SEGUNDO, ...), un hecho por apartado, correlativos a los documentos.
-- Documentos referenciados y numerados (Documento nº 1, nº 2, ...), acompanados con la demanda (Art. 265 LEC).
-- FUNDAMENTOS DE DERECHO ordenados: procesales (competencia, procedimiento, cuantia, postulacion, procedibilidad) y de fondo (accion ejercitada).
-- Fijacion expresa de la CUANTIA del procedimiento y de la clase de juicio.
+- Documentos referenciados y numerados (Documento nº 1, nº 2, ...), acompañados con la demanda (Art. 265 LEC).
+- FUNDAMENTOS DE DERECHO ordenados: procesales (competencia, procedimiento, cuantía, postulación, procedibilidad) y de fondo (acción ejercitada).
+- Fijación expresa de la CUANTÍA del procedimiento y de la clase de juicio.
 - SUPLICO limpio y concreto: pedir exactamente lo que se solicita.
-- OTROSIES ordenados (proposicion de recibimiento a prueba, designacion de domicilios, etc.).
+- OTROSÍES ordenados (proposición de recibimiento a prueba, designación de domicilios, etc.).
 - Lugar, fecha y firma del procurador y del letrado al final.
 
 ---
@@ -59,11 +59,11 @@ Una demanda de juicio ordinario suele ser de complejidad media o alta: admite ma
 ## Formato (recomendado)
 
 - Tipo de letra legible (p. ej. Times New Roman 12 o Arial 11), interlineado 1,5.
-- Margenes suficientes; numeracion de paginas.
+- Márgenes suficientes; numeración de paginas.
 - Un espacio entre apartados; encabezados destacados de forma sobria.
 
 ---
 
-## Aplicacion en esta skill
+## Aplicación en esta skill
 
-Al rellenar los assets, redactar los HECHOS de forma numerada y concisa, con una idea por apartado; relacionar cada documento en el hecho correspondiente; ordenar los FUNDAMENTOS DE DERECHO separando lo procesal de lo sustantivo; fijar con claridad la cuantia; y mantener el SUPLICO ajustado a lo estrictamente pedido. En la audiencia previa y las conclusiones, seguir el orden legal de los tramites (Arts. 414-430 y 433). Evitar formulas grandilocuentes y latinismos.
+Al rellenar los assets, redactar los HECHOS de forma numerada y concisa, con una idea por apartado; relacionar cada documento en el hecho correspondiente; ordenar los FUNDAMENTOS DE DERECHO separando lo procesal de lo sustantivo; fijar con claridad la cuantía; y mantener el SUPLICO ajustado a lo estrictamente pedido. En la audiencia previa y las conclusiones, seguir el orden legal de los trámites (Arts. 414-430 y 433). Evitar fórmulas grandilocuentes y latinismos.

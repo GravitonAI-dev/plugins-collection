@@ -1,51 +1,51 @@
-# Estilo de Redaccion de Recursos Administrativos Generales
+# Estilo de Redacción de Recursos Administrativos Generales
 
 > Material de referencia para la skill `gestoria-recursos-administrativos`. Reglas de estilo
-> aplicables al recurso de alzada o de reposicion, a la reclamacion de responsabilidad patrimonial y
-> a la solicitud de acceso a la informacion publica. Basado en guias de lenguaje administrativo claro.
+> aplicables al recurso de alzada o de reposición, a la reclamación de responsabilidad patrimonial y
+> a la solicitud de acceso a la información pública. Basado en guías de lenguaje administrativo claro.
 > La skill aplica estas reglas al preparar el escrito; no forman parte del output al usuario.
 
 ---
 
 ## Fuentes
 
-| Guia | Organismo |
+| Guía | Organismo |
 |---|---|
-| Manual de lenguaje administrativo claro | Administraciones Publicas / Comunidad de Madrid |
-| Guia de redaccion judicial clara | Ministerio de Justicia |
-| Recomendaciones de lenguaje claro | Ministerio de Politica Territorial y Funcion Publica |
+| Manual de lenguaje administrativo claro | Administraciones Públicas / Comunidad de Madrid |
+| Guía de redacción judicial clara | Ministerio de Justicia |
+| Recomendaciones de lenguaje claro | Ministerio de Política Territorial y Función Pública |
 
 ---
 
 ## Reglas de claridad y lenguaje
 
-- Cada motivo o hecho transmite una sola idea, sin ambiguedad.
+- Cada motivo o hecho transmite una sola idea, sin ambigüedad.
 - Frases cortas y directas; lenguaje llano, sin jerga administrativa innecesaria.
-- Usar la voz activa y la forma impersonal propia del ambito administrativo.
-- Precision terminologica: distinguir con rigor "alzada" de "reposicion", y "silencio estimatorio" de "silencio desestimatorio" segun el procedimiento concreto.
-- No abusar de mayusculas, subrayados ni negritas.
-- Importes y plazos siempre expresados con su computo exacto.
+- Usar la voz activa y la forma impersonal propia del ámbito administrativo.
+- Precisión terminológica: distinguir con rigor "alzada" de "reposición", y "silencio estimatorio" de "silencio desestimatorio" según el procedimiento concreto.
+- No abusar de mayúsculas, subrayados ni negritas.
+- Importes y plazos siempre expresados con su cómputo exacto.
 
 ---
 
 ## Reglas de estructura
 
-- Encabezamiento con el organo destinatario y el numero de expediente.
+- Encabezamiento con el órgano destinatario y el número de expediente.
 - Datos del interesado y, en su caso, del representante.
-- Identificacion precisa del acto o resolucion que se recurre, con fecha de notificacion y computo del plazo.
-- Motivos numerados: de forma primero, de fondo despues.
-- Peticion final clara, con la solicitud de suspension separada cuando proceda.
+- Identificación precisa del acto o resolución que se recurre, con fecha de notificación y cómputo del plazo.
+- Motivos numerados: de forma primero, de fondo después.
+- Petición final clara, con la solicitud de suspensión separada cuando proceda.
 
 ---
 
 ## Formato (recomendado)
 
-- Tipo de letra legible; interlineado comodo.
+- Tipo de letra legible; interlineado cómodo.
 - Un espacio entre bloques; encabezados sobrios.
-- Tablas para la valoracion de daños en la reclamacion de responsabilidad patrimonial.
+- Tablas para la valoración de daños en la reclamación de responsabilidad patrimonial.
 
 ---
 
-## Aplicacion en esta skill
+## Aplicación en esta skill
 
-Al rellenar los assets, calcular siempre el plazo desde la fecha exacta de notificacion antes de redactar; verificar si el acto agota o no la via administrativa para elegir el recurso correcto; y, en responsabilidad patrimonial, argumentar los cuatro requisitos por separado (daño, causalidad, ausencia de deber de soportarlo, ausencia de fuerza mayor). Evitar formulas grandilocuentes y tecnicismos sin explicar.
+Al rellenar los assets, calcular siempre el plazo desde la fecha exacta de notificación antes de redactar; verificar si el acto agota o no la vía administrativa para elegir el recurso correcto; y, en responsabilidad patrimonial, argumentar los cuatro requisitos por separado (daño, causalidad, ausencia de deber de soportarlo, ausencia de fuerza mayor). Evitar fórmulas grandilocuentes y tecnicismos sin explicar.

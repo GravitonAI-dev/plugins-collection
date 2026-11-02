@@ -1,6 +1,6 @@
 # CONTRATO / ACUERDO PRIVADO — {{PARTE_A_NOMBRE}} / {{PARTE_B_NOMBRE}}
 
-> DRAFT — Para revision letrada colegiada antes de su firma o presentacion formal.
+> DRAFT — Para revisión letrada colegiada antes de su firma o presentación formal.
 
 ---
 
@@ -12,13 +12,13 @@ En {{LOCALIDAD_FIRMA}}, a {{DIA}} de {{MES}} de {{ANO}}.
 
 **DE UNA PARTE (PARTE A):**
 
-D./Dña. {{PARTE_A_NOMBRE}}, mayor de edad, con DNI/NIF {{PARTE_A_NIF}}, con domicilio en {{PARTE_A_DOMICILIO}}, codigo postal {{PARTE_A_CP}}, localidad {{PARTE_A_LOCALIDAD}}, provincia {{PARTE_A_PROVINCIA}}, telefono {{PARTE_A_TELEFONO}} y correo electronico {{PARTE_A_EMAIL}}, en adelante "LA PARTE A".
+D./Dña. {{PARTE_A_NOMBRE}}, mayor de edad, con DNI/NIF {{PARTE_A_NIF}}, con domicilio en {{PARTE_A_DOMICILIO}}, código postal {{PARTE_A_CP}}, localidad {{PARTE_A_LOCALIDAD}}, provincia {{PARTE_A_PROVINCIA}}, teléfono {{PARTE_A_TELEFONO}} y correo electrónico {{PARTE_A_EMAIL}}, en adelante "LA PARTE A".
 
 **DE OTRA PARTE (PARTE B):**
 
-D./Dña. {{PARTE_B_NOMBRE}}, mayor de edad, con DNI/NIF {{PARTE_B_NIF}}, con domicilio en {{PARTE_B_DOMICILIO}}, codigo postal {{PARTE_B_CP}}, localidad {{PARTE_B_LOCALIDAD}}, provincia {{PARTE_B_PROVINCIA}}, telefono {{PARTE_B_TELEFONO}} y correo electronico {{PARTE_B_EMAIL}}, en adelante "LA PARTE B".
+D./Dña. {{PARTE_B_NOMBRE}}, mayor de edad, con DNI/NIF {{PARTE_B_NIF}}, con domicilio en {{PARTE_B_DOMICILIO}}, código postal {{PARTE_B_CP}}, localidad {{PARTE_B_LOCALIDAD}}, provincia {{PARTE_B_PROVINCIA}}, teléfono {{PARTE_B_TELEFONO}} y correo electrónico {{PARTE_B_EMAIL}}, en adelante "LA PARTE B".
 
-Ambas partes se reconocen capacidad legal suficiente para la celebracion del presente acuerdo y, a tal efecto,
+Ambas partes se reconocen capacidad legal suficiente para la celebración del presente acuerdo y, a tal efecto,
 
 ---
 
@@ -46,11 +46,11 @@ Ambas partes se reconocen capacidad legal suficiente para la celebracion del pre
 
 {{ESTIPULACION_OBLIGACIONES_B}}
 
-**CUARTA. — Contraprestacion economica.**
+**CUARTA. — Contraprestación económica.**
 
 {{ESTIPULACION_CONTRAPRESTACION}}
 
-**QUINTA. — Duracion y prorroga.**
+**QUINTA. — Duración y prórroga.**
 
 {{ESTIPULACION_DURACION}}
 
@@ -58,21 +58,21 @@ Ambas partes se reconocen capacidad legal suficiente para la celebracion del pre
 
 {{ESTIPULACION_CONFIDENCIALIDAD}}
 
-**SEPTIMA. — Propiedad intelectual e industrial.**
+**SÉPTIMA. — Propiedad intelectual e industrial.**
 
 {{ESTIPULACION_PROPIEDAD_INTELECTUAL}}
 
-**OCTAVA. — Responsabilidad e indemnizacion.**
+**OCTAVA. — Responsabilidad e indemnización.**
 
 {{ESTIPULACION_RESPONSABILIDAD}}
 
-**NOVENA. — Resolucion del acuerdo.**
+**NOVENA. — Resolución del acuerdo.**
 
 {{ESTIPULACION_RESOLUCION}}
 
-**DECIMA. — Legislacion aplicable y jurisdiccion.**
+**DÉCIMA. — Legislación aplicable y jurisdicción.**
 
-El presente acuerdo tendra la consideracion de contrato privado entre las partes, rigiendose por lo dispuesto en el Codigo Civil espanol (arts. 1254 y siguientes). Para cualquier controversia que pudiera surgir en la interpretacion o ejecucion del presente acuerdo, ambas partes se someten expresamente a los Juzgados y Tribunales de {{CIUDAD_JURISDICCION}}, con renuncia expresa a cualquier otro fuero que pudiera corresponderles.
+El presente acuerdo tendrá la consideración de contrato privado entre las partes, rigiéndose por lo dispuesto en el Código Civil español (arts. 1254 y siguientes). Para cualquier controversia que pudiera surgir en la interpretación o ejecución del presente acuerdo, ambas partes se someten expresamente a los Juzgados y Tribunales de {{CIUDAD_JURISDICCION}}, con renuncia expresa a cualquier otro fuero que pudiera corresponderles.
 
 ---
 

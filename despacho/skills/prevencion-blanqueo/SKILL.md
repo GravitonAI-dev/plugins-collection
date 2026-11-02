@@ -202,7 +202,7 @@ Envía un mensaje formal que contenga:
 2. **Medidas de diligencia debida exigibles** según el nivel de riesgo, enumeradas.
 3. **Documentación que hay que recabar del cliente**, con indicación de lo que falta.
 4. **Advertencia sobre el momento:** la identificación formal debe practicarse **con carácter previo** al establecimiento de la relación de negocios o a la ejecución de la operación, en los términos que la ley establezca. Verifícalo.
-5. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Menciónala por su denominación formal (sin mostrar rutas internas ni volcar su contenido); si el enrutamiento asigno varios documentos, nombralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
+5. **Propuesta de plantilla oficial del sistema que ha resuelto el enrutamiento de la Fase 1.3.** Menciónala por su denominación formal (sin mostrar rutas internas ni volcar su contenido); si el enrutamiento asigno varios documentos, nómbralos todos y en el orden en que se van a redactar. **No propongas una plantilla distinta de la enrutada.**
 6. **Elección de Plantilla Base:** Aplica el protocolo universal de `REG-AST-01` (`CLAUDE.md`), convocando en ese mismo turno el formulario interactivo `restricted_human_in_the_loop_request` para que el usuario elija entre la plantilla del sistema o aportar su propia minuta.
 
 ### 2.3 Manejo Determinista de la Elección

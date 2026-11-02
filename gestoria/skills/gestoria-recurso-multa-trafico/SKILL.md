@@ -22,59 +22,59 @@ i18n:
       without a licence, criminal drink-driving, reckless driving), for penalties from
       authorities other than traffic, or for claiming damages from an accident.
 description: >
-  Prepara la defensa frente a una sancion de trafico en Espana conforme al **Real Decreto Legislativo
-  6/2015**, texto refundido de la Ley sobre Trafico, Circulacion de Vehiculos a Motor y Seguridad
-  Vial, que regula el procedimiento sancionador, la identificacion del conductor y el permiso por
-  puntos, y a la **Ley 39/2015** del Procedimiento Administrativo Comun, que fija las reglas de
-  notificacion, plazos y recursos.
+  Prepara la defensa frente a una sanción de tráfico en España conforme al **Real Decreto Legislativo
+  6/2015**, texto refundido de la Ley sobre Tráfico, Circulación de Vehículos a Motor y Seguridad
+  Vial, que regula el procedimiento sancionador, la identificación del conductor y el permiso por
+  puntos, y a la **Ley 39/2015** del Procedimiento Administrativo Común, que fija las reglas de
+  notificación, plazos y recursos.
 
 
-  Genera tres documentos: el escrito de identificacion del conductor responsable cuando la denuncia se
-  dirige al titular del vehiculo, el escrito de alegaciones dentro del procedimiento sancionador, y el
-  recurso de reposicion contra la resolucion sancionadora ya dictada.
+  Genera tres documentos: el escrito de identificación del conductor responsable cuando la denuncia se
+  dirige al titular del vehículo, el escrito de alegaciones dentro del procedimiento sancionador, y el
+  recurso de reposición contra la resolución sancionadora ya dictada.
 
 
-  Computa los plazos de veinte dias naturales para alegar y de un mes para recurrir, explica el efecto
-  del pago con reduccion del cincuenta por ciento (que pone fin al procedimiento, impide alegar y no
-  evita la perdida de puntos), revisa los defectos de notificacion y la validez de la notificacion
-  electronica en la Direccion Electronica Vial, y comprueba la prescripcion de la infraccion y la
+  Computa los plazos de veinte días naturales para alegar y de un mes para recurrir, explica el efecto
+  del pago con reducción del cincuenta por ciento (que pone fin al procedimiento, impide alegar y no
+  evita la pérdida de puntos), revisa los defectos de notificación y la validez de la notificación
+  electrónica en la Dirección Electrónica Vial, y comprueba la prescripción de la infracción y la
   caducidad del procedimiento.
 
 
   NO usar para el recurso contencioso-administrativo ante los tribunales, ni para infracciones penales
-  contra la seguridad vial (conduccion sin permiso, alcoholemia penal, temeridad), ni para sanciones
-  de otras administraciones distintas de trafico, ni para reclamar danos de un accidente.
+  contra la seguridad vial (conducción sin permiso, alcoholemia penal, temeridad), ni para sanciones
+  de otras administraciones distintas de tráfico, ni para reclamar daños de un accidente.
 
 
   Normas aplicadas, en su texto consolidado en el BOE:
-  [Ley sobre Trafico y Seguridad Vial](https://www.boe.es/buscar/act.php?id=BOE-A-2015-11722) y
-  [Ley 39/2015 del Procedimiento Administrativo Comun](https://www.boe.es/buscar/act.php?id=BOE-A-2015-10565).
+  [Ley sobre Tráfico y Seguridad Vial](https://www.boe.es/buscar/act.php?id=BOE-A-2015-11722) y
+  [Ley 39/2015 del Procedimiento Administrativo Común](https://www.boe.es/buscar/act.php?id=BOE-A-2015-10565).
 when_to_use: |
-  - Al usuario le ha llegado una multa de trafico y quiere alegar o recurrir.
-  - Al usuario, como titular del vehiculo, le requieren que identifique quien conducia.
+  - Al usuario le ha llegado una multa de tráfico y quiere alegar o recurrir.
+  - Al usuario, como titular del vehículo, le requieren que identifique quién conducía.
   - El usuario pregunta si le conviene pagar con el descuento del cincuenta por ciento o alegar.
   - El usuario pregunta si le van a quitar puntos y si el descuento se los devuelve.
-  - El usuario cree que la multa esta mal notificada, prescrita o caducada.
-  - El usuario ya recibio la resolucion sancionadora y quiere recurrirla en via administrativa.
+  - El usuario cree que la multa está mal notificada, prescrita o caducada.
+  - El usuario ya recibió la resolución sancionadora y quiere recurrirla en vía administrativa.
 inputs:
-  - documento: identificacion del conductor / alegaciones / recurso de reposicion (V1)
-  - fase_procedimiento: con reduccion vigente / procedimiento ordinario (V2)
+  - documento: identificación del conductor / alegaciones / recurso de reposición (V1)
+  - fase_procedimiento: con reducción vigente / procedimiento ordinario (V2)
   - tipo_infraccion: leve o grave sin puntos / grave con puntos / muy grave (V3)
   - origen_plantilla: plantilla estándar del sistema / plantilla propia del usuario
-  - datos_interesado: nombre y apellidos, NIF/NIE, domicilio de notificaciones, telefono y correo
-  - datos_expediente: numero de expediente, organismo sancionador y fecha de la denuncia
-  - datos_vehiculo: matricula, marca y modelo, y condicion del interesado (titular, arrendatario o conductor)
-  - datos_notificacion: fecha y forma de notificacion, y si esta dado de alta en la Direccion Electronica Vial
+  - datos_interesado: nombre y apellidos, NIF/NIE, domicilio de notificaciones, teléfono y correo
+  - datos_expediente: número de expediente, organismo sancionador y fecha de la denuncia
+  - datos_vehiculo: matrícula, marca y modelo, y condición del interesado (titular, arrendatario o conductor)
+  - datos_notificacion: fecha y forma de notificación, y si está dado de alta en la Dirección Electrónica Vial
   - hechos_denunciados: precepto infringido, hecho denunciado, lugar, fecha y hora
-  - importe_y_puntos: importe de la sancion, importe con reduccion y puntos a detraer
+  - importe_y_puntos: importe de la sanción, importe con reducción y puntos a detraer
   - motivos_defensa: motivos de fondo y de forma en que se basa la defensa
-  - prueba: documentos, fotografias, testigos o informes que se aportan
-  - datos_conductor: identidad, NIF, domicilio y numero de permiso del conductor responsable
+  - prueba: documentos, fotografías, testigos o informes que se aportan
+  - datos_conductor: identidad, NIF, domicilio y número de permiso del conductor responsable
 outputs:
-  - escrito_identificacion_conductor: escrito de identificacion del conductor responsable, DRAFT
+  - escrito_identificacion_conductor: escrito de identificación del conductor responsable, DRAFT
   - escrito_alegaciones: escrito de alegaciones en el procedimiento sancionador, DRAFT
-  - recurso_reposicion: recurso de reposicion contra la resolucion sancionadora, DRAFT
-  - checklist_plazos: computo de plazos de alegaciones, recurso, prescripcion y caducidad
+  - recurso_reposicion: recurso de reposición contra la resolución sancionadora, DRAFT
+  - checklist_plazos: cómputo de plazos de alegaciones, recurso, prescripción y caducidad
 references:
   - references/procedimiento-sancionador-trafico.md
   - references/notificaciones-prescripcion-y-puntos.md
@@ -125,7 +125,7 @@ Invoca la herramienta con las preguntas de triaje:
   "form_data": [
     {
       "id": "documento",
-      "rationale": "Resolver V1 para determinar que escrito procede segun el momento procedimental.",
+      "rationale": "Resolver V1 para determinar qué escrito procede según el momento procedimental.",
       "question": "¿Qué le pide la Administración o qué necesita presentar?",
       "options": [
         {"id": "identificacion_conductor", "label": "Me requieren que identifique quién conducía el vehículo"},
@@ -136,7 +136,7 @@ Invoca la herramienta con las preguntas de triaje:
     },
     {
       "id": "fase_procedimiento",
-      "rationale": "Resolver V2: el plazo de reduccion del 50% coexiste con el de alegaciones y son incompatibles.",
+      "rationale": "Resolver V2: el plazo de reducción del 50% coexiste con el de alegaciones y son incompatibles.",
       "question": "¿Está todavía dentro del plazo de pago con reducción del cincuenta por ciento?",
       "options": [
         {"id": "con_reduccion_vigente", "label": "Sí, aún puedo pagar con el descuento"},
@@ -145,7 +145,7 @@ Invoca la herramienta con las preguntas de triaje:
     },
     {
       "id": "tipo_infraccion",
-      "rationale": "Resolver V3 para advertir de la perdida de puntos y del plazo de prescripcion aplicable.",
+      "rationale": "Resolver V3 para advertir de la pérdida de puntos y del plazo de prescripción aplicable.",
       "question": "¿Qué tipo de infracción le imputan?",
       "options": [
         {"id": "leve_o_grave_sin_puntos", "label": "Leve o grave sin pérdida de puntos"},
