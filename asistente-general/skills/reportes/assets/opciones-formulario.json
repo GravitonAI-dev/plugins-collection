@@ -1,0 +1,60 @@
+{
+  "estilo": {
+    "question": "¿Qué estilo quiere para el reporte?",
+    "options": [
+      {"id": "tema_moderno", "label": "Moderno: paneles y presentaciones", "modelo": "data-tema=\"moderno\". Azul vivo, degradado de fondo, tarjetas muy redondeadas con sombra, cifras grandes. Paneles de datos, herramientas y presentaciones; cliente empresa o startup."},
+      {"id": "tema_sobrio", "label": "Sobrio: juzgado y cliente institucional", "modelo": "data-tema=\"sobrio\". Azul petróleo y neutros cálidos, radios cortos, sin degradado. Informes de viabilidad y dictámenes; juzgado, cliente institucional."},
+      {"id": "tema_editorial", "label": "Editorial: documentos para imprimir", "modelo": "data-tema=\"editorial\". Serif de sistema, papel crema, filetes finos, sin sombras, titulares grandes. White papers, memorias y dossieres largos que se imprimen."},
+      {"id": "tema_corporativo", "label": "Corporativo: memorias y comités", "modelo": "data-tema=\"corporativo\". Azul marino y gris, tarjetas cuadradas con borde marcado, cabecera con filete lateral, títulos de sección en mayúsculas. Memorias anuales, KPIs, comités de dirección."},
+      {"id": "tema_minimal", "label": "Minimal: resúmenes de una página", "modelo": "data-tema=\"minimal\". Blanco, negro y un único acento naranja; sin bordes ni sombras; serie de grises. Resúmenes ejecutivos de una página, propuestas de honorarios."},
+      {"id": "tema_nocturno", "label": "Nocturno: proyectar en pantalla", "modelo": "data-tema=\"nocturno\". Siempre oscuro (ignora data-modo): turquesa e índigo, brillo suave; imprime en blanco. Presentaciones en pantalla, paneles para sala de reuniones."},
+      {"id": "tema_tecnico", "label": "Técnico: auditorías y cumplimiento", "modelo": "data-tema=\"tecnico\". Monoespaciada de sistema, verde azulado, bordes de un píxel, radios mínimos. Auditorías, cumplimiento, informes forenses o de sistemas."},
+      {"id": "tema_calido", "label": "Cálido: particulares y familia", "modelo": "data-tema=\"calido\". Tierras: terracota, oliva y ocre sobre arena; radios amplios. Particulares, inmobiliario, herencias y familia; casos de éxito."},
+      {"id": "tema_institucional", "label": "Institucional: administración y organismos", "modelo": "data-tema=\"institucional\". Granate y dorado, titulares en serif, cabecera con filete doble. Administración, universidades, colegios profesionales, fundaciones."},
+      {"id": "tema_pizarra", "label": "Pizarra: paneles densos", "modelo": "data-tema=\"pizarra\". Grises pizarra con acento cian, tarjetas con filete lateral, tablas compactas. Paneles densos de seguimiento, facturación y cobros, tablas largas."},
+      {"id": "tema_suave", "label": "Suave: boletines y comunicación", "modelo": "data-tema=\"suave\". Pasteles sobre lila, radios grandes, sombra difusa. Boletines, comunicación interna, casos de éxito."},
+      {"id": "tema_prensa", "label": "Prensa: novedades normativas", "modelo": "data-tema=\"prensa\". Serif de periódico, blanco y negro con un rojo, filete grueso de cabecera, entradilla en cursiva. Boletines normativos, notas de actualidad, newsletters."},
+      {"id": "tema_alto_contraste", "label": "Alto contraste: accesibilidad", "modelo": "data-tema=\"alto_contraste\". Negro, blanco y amarillo en oscuro, bordes de dos píxeles, sin radios ni colores suaves. Accesibilidad, baja visión, proyección con mala luz."},
+      {"id": "tema_dorado", "label": "Dorado: prestigio y dirección", "modelo": "data-tema=\"dorado\". Siempre oscuro (ignora data-modo): negro y oro con verde salvia, titulares en serifa, brillo dorado en las cifras. Dirección, patrimonio, banca privada."},
+      {"id": "tema_esmeralda_noche", "label": "Esmeralda nocturno: paneles en pantalla", "modelo": "data-tema=\"esmeralda_noche\". Siempre oscuro (ignora data-modo): negro verdoso, esmeralda y oro. Paneles de seguimiento en pantalla, sostenibilidad, energía."},
+      {"id": "tema_ambar", "label": "Ámbar: paneles operativos", "modelo": "data-tema=\"ambar\". Siempre oscuro (ignora data-modo): negro, ámbar y amarillo con verde lima, títulos en mayúsculas. Salas de control, paneles operativos, alertas."},
+      {"id": "tema_oliva_oro", "label": "Oliva y oro: rural y patrimonio", "modelo": "data-tema=\"oliva_oro\". Siempre oscuro (ignora data-modo): verde oliva profundo con oro y verdes cálidos. Agroalimentario, rural, bodegas, patrimonio familiar."},
+      {"id": "tema_lima", "label": "Lima: tecnología y datos", "modelo": "data-tema=\"lima\". Siempre oscuro (ignora data-modo): negro con lima y amarillo, cifras monoespaciadas, radios cortos. Tecnología, datos, startups."},
+      {"id": "tema_menta", "label": "Menta: salud y particulares", "modelo": "data-tema=\"menta\". Pastel: menta y melocotón sobre blanco verdoso, radios grandes. Salud, bienestar, comunicación amable con particulares."},
+      {"id": "tema_melocoton", "label": "Melocotón: familia y eventos", "modelo": "data-tema=\"melocoton\". Pastel: melocotón, rosa y verde agua. Familia, educación, eventos, boletines cercanos."},
+      {"id": "tema_lavanda", "label": "Lavanda: comunicación interna", "modelo": "data-tema=\"lavanda\". Pastel: lavanda y rosa con verde agua. Comunicación interna, RR. HH., formación."}
+    ]
+  },
+  "colores": {
+    "question": "¿Cómo quiere los colores del reporte?",
+    "options": [
+      {"id": "modo_sistema", "label": "Como el sistema: claro de día, oscuro de noche", "modelo": "Sin atributo data-modo: el reporte sigue al sistema (claro de día, oscuro de noche)."},
+      {"id": "modo_claro", "label": "Siempre en claro", "modelo": "data-modo=\"claro\" en la etiqueta html: siempre en claro."},
+      {"id": "modo_oscuro", "label": "Siempre en oscuro", "modelo": "data-modo=\"oscuro\" en la etiqueta html: siempre en oscuro; en papel sale en claro."},
+      {"id": "colores_despacho", "label": "Con los colores de mi despacho", "modelo": "Sin data-modo. Colores corporativos encima del tema con el bloque marca de datos-reporte (acento obligatorio; serie, versión oscura, logo y pie opcionales): si no se conocen, se piden en bloque (color principal en hexadecimal o descrito, segundo color, logo, línea de pie) y el nombre del despacho va en la etiqueta superior."}
+    ]
+  },
+  "formato": {
+    "question": "¿Qué reporte necesita?",
+    "options": [
+      {"id": "informe_visual", "label": "Informe visual: secciones, indicadores, cronograma y tablas", "modelo": "Maqueta informe_visual: lectura secuencial con índice lateral, fila de indicadores, secciones numeradas, tabla, cronología de hitos, avisos y firmas."},
+      {"id": "panel_datos", "label": "Panel de datos: indicadores y gráficos", "modelo": "Maqueta panel_datos: rejilla de tarjetas con indicadores (uno con minigráfico), barras, anillo, evolución con umbral, cascada, medidor y tabla de detalle con totales."},
+      {"id": "herramienta_interactiva", "label": "Herramienta interactiva: calculadora o simulador", "modelo": "Maqueta herramienta_interactiva: campos de entrada con recálculo inmediato, medidor, desglose tabular, lista de verificación y supuestos; lleva script propio."},
+      {"id": "presentacion", "label": "Presentación en diapositivas", "modelo": "Maqueta presentacion: diapositivas 16:9 declaradas como datos (portada, agenda, cifra, gráfico, comparativa, cronología, tabla, cita, equipo, próximos pasos, cierre), navegación, notas del orador, una por página al imprimir; lleva script propio."},
+      {"id": "documento_largo", "label": "Documento largo: white paper, memoria, due diligence", "modelo": "Maqueta documento_largo: portada, índice y páginas numeradas, capítulos con texto, gráficos y tablas; lleva script propio."},
+      {"id": "resumen_ejecutivo", "label": "Resumen ejecutivo de una página", "modelo": "Maqueta resumen_ejecutivo: una sola hoja A4 con titular, tres indicadores, un gráfico y tres conclusiones; al imprimir se encaja en la hoja."},
+      {"id": "cuadro_mando", "label": "Cuadro de mando: KPIs con variación y objetivos", "modelo": "Maqueta cuadro_mando: ocho KPIs con variación, objetivo y estado, gráficos de evolución y reparto, tabla; para dirección."},
+      {"id": "ficha_una_pagina", "label": "Ficha de una página: datos clave de un asunto", "modelo": "Maqueta ficha_una_pagina: datos clave de un asunto, cliente o sociedad en una hoja A4 con indicadores, progreso y tabla; se encaja al imprimir."},
+      {"id": "infografia", "label": "Infografía: cifras grandes para divulgar", "modelo": "Maqueta infografia: tres cifras grandes y gráficos sencillos para divulgar; texto mínimo."},
+      {"id": "comparativa", "label": "Comparativa: opciones frente a frente", "modelo": "Maqueta comparativa: dos a cuatro opciones frente a frente con criterios, gráfico y recomendación."},
+      {"id": "cronograma_expediente", "label": "Cronograma del expediente", "modelo": "Maqueta cronograma_expediente: qué pasó, qué corre y qué viene: línea de tiempo, plazos en días hábiles y próximos pasos."},
+      {"id": "lista_control", "label": "Lista de control de cumplimiento", "modelo": "Maqueta lista_control: cumplimiento por bloque y requisito con estados que fija el usuario y progreso global."},
+      {"id": "mapa_riesgos", "label": "Mapa de riesgos: matriz y exposición", "modelo": "Maqueta mapa_riesgos: matriz probabilidad-impacto, impacto económico y exposición; las valoraciones las fija el usuario."},
+      {"id": "escenarios", "label": "Escenarios: qué pasa si cambian los supuestos", "modelo": "Maqueta escenarios: tabla de supuestos por escenario y resultados calculados en cifras y gráficos, nunca a mano."},
+      {"id": "embudo_conversion", "label": "Embudo: un proceso por etapas", "modelo": "Maqueta embudo_conversion: un proceso por etapas y dónde se pierde (captación, recobro), con tasas por etapa."},
+      {"id": "actividad_equipo", "label": "Actividad del equipo: horas y carga por área", "modelo": "Maqueta actividad_equipo: horas, asuntos y carga por persona o área, con evolución y reparto."},
+      {"id": "informe_territorial", "label": "Informe territorial: por comunidad o provincia", "modelo": "Maqueta informe_territorial: datos por comunidad autónoma o provincia sobre el mapa de España, con tasas por zona y tabla."},
+      {"id": "poster", "label": "Póster A3 apaisado para colgar", "modelo": "Maqueta poster: una hoja A3 apaisada con titular grande, tres cifras y un gráfico; sin tablas ni textos largos; se encaja al imprimir."}
+    ]
+  }
+}

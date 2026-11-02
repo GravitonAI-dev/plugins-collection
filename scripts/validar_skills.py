@@ -314,8 +314,9 @@ for _h in sorted(glob.glob('*/skills/*/ejemplos/*.html')+glob.glob('*/skills/*/a
     _tipos=set(re.findall(r'\btipos\.(\w+) = function',_t)); _TIPOS_MOTOR|=_tipos
     try: _d=json.loads(_m.group(1))
     except ValueError as _e: print(f"  FALLO datos-reporte no es JSON valido: {_h} ({_e})"); FALLOS+=1; continue
-    # La galeria no es un reporte: muestra todos los tipos con todos los modulos a la vez.
-    if len(_t.encode())>174080 and 'galeria' not in _h: print(f"  FALLO reporte de mas de 170 KB: {_h} ({len(_t.encode())} bytes)"); FALLOS+=1
+    # La base lleva el motor, los 44 graficos y los 21 temas (unos 200 KB de codigo fijo marcado con data-fijo,
+    # que el servidor colapsa al mandarlo al modelo); el contenido propio de un reporte no deberia pasar de 60 KB.
+    if len(_t.encode())>266240 and 'galeria' not in _h: print(f"  FALLO reporte de mas de 260 KB: {_h} ({len(_t.encode())} bytes)"); FALLOS+=1
     _fu=_d.get('fuentes') or {}
     for _k,_f in _fu.items():
         if not (_f.get('nombre') and re.fullmatch(r'\d{4}-\d{2}-\d{2}',str(_f.get('consulta','')))):
