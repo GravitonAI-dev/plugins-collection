@@ -1,6 +1,6 @@
 {
   "name": "asistente-general",
-  "enabled": false,
+  "enabled": true,
   "displayName": "Asistente General",
   "i18n": {
     "en": {
