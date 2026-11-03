@@ -203,11 +203,11 @@ data_sources:
 
 # Reportes visuales autocontenidos
 
-> Los materiales se leen con `read_skill_document(names=[...], section=...)` solo cuando la fase los nombra, en UNA llamada por fase y nunca enteros los catálogos grandes. La base `template-base-reportes.md` y `maquetas-codigo.md` **no se leen nunca**: los monta el sistema. El HTML abierto aparece en `# WORKSPACE ACTIVE DOCUMENTS` con su código fijo colapsado: ese código no se edita.
+> De los catálogos (`maquetas-reportes.md`, `catalogo-graficos.md`) se lee solo la sección que la fase nombra. El HTML abierto aparece en `# WORKSPACE ACTIVE DOCUMENTS` con su código fijo colapsado: ese código no se edita. Las vistas previas se describen en lenguaje natural, nunca con código.
 
 > DRAFT — para revisión por un abogado o profesional colegiado antes de su entrega o difusión.
 
-**Correspondencia con el enrutamiento** (vectores internos, nunca se mencionan en el chat): `V1` formato (respuesta a `formato`); `V2` fijado en `ambos` (pantalla e impresión), no se pregunta; `V3` origen de datos (`origen_datos`); `V4` estilo (`estilo`); `V5` `plantilla_sistema` salvo señal de maqueta propia (`origen_plantilla`); `V6` receta de `catalogo-reportes.md` deducida por escucha activa; `V7` colores (`colores`). Prohibido imprimir código HTML, CSS o JS en el chat: las vistas previas se describen en lenguaje natural.
+**Correspondencia con el enrutamiento** (vectores internos, nunca se mencionan en el chat): `V1` formato (respuesta a `formato`); `V2` fijado en `ambos` (pantalla e impresión), no se pregunta; `V3` origen de datos (`origen_datos`); `V4` estilo (`estilo`); `V5` `plantilla_sistema` salvo señal de maqueta propia (`origen_plantilla`); `V6` receta de `catalogo-reportes.md` deducida por escucha activa; `V7` colores (`colores`).
 
 ## FASE 1 — Clasificación (formulario al cargar)
 
@@ -227,24 +227,24 @@ data_sources:
 ]}
 ```
 
-Si elige `colores_despacho` sin haber dado los colores, se piden en bloque con `slot_filling_request` (color principal en hexadecimal o descrito, segundo color, logo y línea de pie, todos opcionales menos el primero); si no los da, el reporte sale con los colores del tema y se le dice que puede ponerlos después desde el visor.
+Con `colores_despacho`, la descripción de la opción elegida dice qué datos pedir y qué hacer si no los da.
 
 ## FASE 2 — Datos y plan
 
 1. Lee en UNA ronda la ficha de la maqueta elegida, `read_skill_document(names=["maquetas-reportes.md"], section="<id>")`, y `criterios-visualizacion-datos.md`. Si `V3 = busqueda_web`, en esa misma ronda `fetch_url` a las `data_sources` del frontmatter (con el `row_filter` de sus `notes`; una tabla se pide una vez); solo si fallan, `web_search` con máximo dos búsquedas por dato y todas en una ronda; y si tampoco, **estimación marcada** en el propio artefacto y enumerada en el chat. Nunca ceros ni blancos; todo dato de internet cita fuente, URL y fecha.
 2. Si los datos los aporta el usuario, pregunta una vez (salvo que ya lo dijera) si el reporte se construye solo con ellos o se enriquece con fuentes de internet; los orígenes quedan diferenciados en el pie.
 3. En un turno, expón el plan: la idea principal, los indicadores, qué gráfico responde a cada pregunta y por qué (según `criterios-visualizacion-datos.md`), y qué datos faltan. Nombra la plantilla solo por su denominación formal; nunca rutas ni contenido. Cierra con «Si prefiere partir de su propia maqueta, péguela en el chat o dígamelo» y, sin esperar, pasa a la Fase 3.
-4. `origen_plantilla` (`REG-AST-01`) solo con señal de maqueta propia (la menciona, pega un HTML o hay en el espacio de trabajo un HTML que no creó esta skill). Con `plantilla_usuario`: comprueba sus reglas invariables con `anatomia-artefacto.md`, advierte de incumplimientos, adopta la versión corregida y crea el archivo con `create_file`.
+4. `origen_plantilla` (formulario de plantilla del sistema o minuta propia) solo con señal de maqueta propia (la menciona, pega un HTML o hay en el espacio de trabajo un HTML que no creó esta skill). Con `plantilla_usuario`: comprueba sus reglas invariables con `anatomia-artefacto.md`, advierte de incumplimientos, adopta la versión corregida y crea el archivo con `create_file`.
 
 ## FASE 3 — Creación del artefacto
 
-Una sola llamada a `create_file_from_skill_document`, nunca `create_file`: el sistema copia la base (estilos, 21 temas, motor y todos los gráficos ya dentro) y la maqueta, y usted solo aporta las partes variables.
+Una sola llamada a `create_file_from_skill_document`, nunca `create_file`: el sistema copia la base (estilos, 21 temas, motor y todos los gráficos ya dentro; ni la base ni `maquetas-codigo.md` se leen) y la maqueta, y usted solo aporta las partes variables.
 
 - `name: "template-base-reportes.md"`; `relative_file_path`: `snake_case.html` descriptivo en el idioma del usuario, sin acentos ni eñes.
 - `fragments`: `{"CONTENIDO": "maquetas-codigo.md#<id>/contenido", "FICHA": "…#<id>/ficha", "ESTILOS_MAQUETA": "…#<id>/estilos", "SCRIPT_MAQUETA": "…#<id>/script", "ACCIONES": "…#<id>/acciones"}` según las partes que la ficha diga que tiene la maqueta; las que no tenga van en `remove` (`ESTILOS_MAQUETA`, `SCRIPT_MAQUETA`, `ACCIONES`).
-- `values`: `ANCHO` (el de la ficha), `TITULO_CORTO` (nombre corto para la pestaña y el PDF), `TITULO_DOCUMENTO` (titular que afirma la idea principal), `ETIQUETA_SUPERIOR`, `ENTRADILLA`, `PIE_AVISO_LEGAL` y todos los marcadores de la maqueta cuyo valor ya conozca (Zero-Omission: nombres, fechas, referencia, indicadores con cifra conocida). Texto plano, sin etiquetas.
-- `replace`: `data-tema="moderno"` → `data-tema="<id del estilo>"` (y `data-modo="claro"`/`"oscuro"` detrás si V7 lo fija); y el JSON inicial de `datos-reporte` (`"fuentes": {},\n  "cifras": {},\n  "graficos": {}`) por los datos ya conocidos; con `colores_despacho`, el bloque `marca` (`acento` obligatorio) en esos datos.
-- Un dato esencial que falte se pide en bloque; uno no esencial se quita con su línea; solo lo que el usuario decidió no dar queda como `{{VARIABLE}}` (`allow_unresolved`). Nunca se inventa una cifra. Un marcador sin resolver hace fallar la llamada y la tool los enumera: resuélvalos y repita.
+- `values` (lista de `{marker, text}`, texto plano sin etiquetas): `ANCHO` (el de la ficha), `TITULO_CORTO` (nombre corto para la pestaña y el PDF), `TITULO_DOCUMENTO` (titular que afirma la idea principal), `ETIQUETA_SUPERIOR`, `ENTRADILLA`, `PIE_AVISO_LEGAL` y todos los marcadores de la maqueta cuyo valor ya conozca (Zero-Omission: nombres, fechas, referencia, indicadores con cifra conocida).
+- `replace` (lista de `{find, with}`): `data-tema="moderno"` por `data-tema="<id del estilo>"` (y `data-modo="claro"`/`"oscuro"` detrás si V7 lo fija); y el JSON inicial de `datos-reporte` (`"fuentes": {},\n  "cifras": {},\n  "graficos": {}`) por los datos ya conocidos; con `colores_despacho`, el bloque `marca` (`acento` obligatorio) en esos datos.
+- Un dato esencial que falte se pide en bloque; uno no esencial se quita con su línea; solo lo que el usuario decidió no dar queda como `{{VARIABLE}}` (`allow_unresolved`). Nunca se inventa una cifra.
 - Confirma la ruta del artefacto e indica en dos frases cómo se abre (doble clic o desde el espacio de trabajo; botón inferior para imprimir o guardar como PDF) y cómo se modifica (estilo, colores y forma de cada gráfico desde el visor de la app, sin la IA; el resto, en el chat). En esa misma respuesta abre el primer bloque de la Fase 4.
 
 ## FASE 4 — Edición bloque a bloque
@@ -255,12 +255,20 @@ Para cada bloque: recogida de datos (`slot_filling_request` en bloque; ingestió
 2. **Indicadores:** dos a cuatro cifras con unidad, fecha y detalle. Cuadre obligatorio: un total que no suma sus partidas se aclara en el chat antes de escribirlo; afirmaciones del usuario que sus datos no sostienen no se reproducen como hechos. Cifras derivadas siempre en `cifras` como cálculo (`data-cifra`), nunca a mano. Modificadores `es-ok`/`es-atencion`/`es-riesgo` solo cuando el dato lo es.
 3. **Cuerpo visual:** cada gráfico se declara en `datos-reporte.graficos` con su `data-grafico` y su fuente por clave; el motor calcula escalas, totales y porcentajes. La ficha de la maqueta dice qué gráfico va en cada hueco; si necesita otro, lee solo su familia en `catalogo-graficos.md` (`section`). Una forma por pregunta; nunca una colección. Presentaciones: una idea por diapositiva, notas del orador, vista previa de una línea por diapositiva. Documento largo: el resumen ejecutivo al final. Herramienta interactiva: el cálculo en JavaScript nativo dentro del script de la maqueta, que devuelve `{resultado1, resultado2, resultado3, medidor, desglose}`. `lista_control` y `mapa_riesgos` llevan los estados y valoraciones que fija el usuario; `escenarios` calcula resultados desde `cifras`. Rótulos, leyendas y alternativas accesibles en el idioma del usuario; clases e identificadores en español.
 4. **Supuestos, fuentes y advertencias:** fórmulas e hipótesis de todo cálculo; pie con las fuentes consultadas y la advertencia legal; aviso destacado si corren plazos.
-5. **Control de calidad:** la lista de `criterios-visualizacion-datos.md`: sin marcadores pendientes ni series vacías, cifras coherentes entre texto y gráficos, legible en claro y oscuro, sin desbordamiento, sin gráfico en error, impresión correcta, aviso DRAFT.
+5. **Control de calidad:** la lista de control de `criterios-visualizacion-datos.md`.
 
-## FASE 5 — Cierre (REG-FDB-01 y REG-CLO-01)
+## FASE 5 — Cierre
 
-Menú: 1. modificar un bloque; 2. añadir un bloque; 3. eliminar contenido o corregir cifras y datos; 4. revisar coherencia, accesibilidad e impresión; 5. finalizar. Al finalizar: borrador sujeto a revisión colegiada; las cifras calculadas son estimaciones que no sustituyen liquidaciones ni peritajes, y se enumeran las estimaciones marcadas; lo que vaya a un organismo o procedimiento se traslada a su documento formal, con su propia skill.
+Menú de cierre en el chat:
+
+1. Modificar o ajustar un bloque existente.
+2. Añadir un bloque nuevo.
+3. Eliminar contenido o corregir cifras y datos.
+4. Revisar coherencia, accesibilidad e impresión.
+5. Dar el artefacto por finalizado.
+
+Al finalizar: borrador sujeto a revisión colegiada; las cifras calculadas son estimaciones que no sustituyen liquidaciones ni peritajes, y se enumeran las estimaciones marcadas; lo que vaya a un organismo o procedimiento se traslada a su documento formal, con su propia skill.
 
 ## Guardrails
 
-1. Un archivo, cero dependencias externas ni llamadas de red. 2. Cero invención de datos; estimaciones solo marcadas. 3. Honestidad gráfica: ejes desde cero, escala uniforme. 4. Sin `eval`, `new Function`, `document.write`, `innerHTML` con valores del usuario ni diálogos bloqueantes. 5. Contraste 4.5:1, alternativa textual, etiquetas en los campos, foco visible; el color nunca informa solo. 6. Cero código en el chat. 7. Todo en el idioma del usuario; la estructura del HTML, en español. 8. Tamaño: el contenido propio (datos y cuerpo) no pasa de unos 60 KB sobre los 200 KB de código fijo de la base (archivo ≤ 260 KB); series largas se resumen o se reparten en dos artefactos; fotos solo como data URI comprimida (< 30 KB). 9. Impresión comprobada: sin botones, fondos oscuros ni tarjetas partidas; cabeceras de tabla repetidas. 10. Contratos, demandas y escritos van a su skill vertical: esta skill visualiza, resume y calcula; no sustituye al asesoramiento colegiado.
+1. Las reglas técnicas invariables (un archivo sin dependencias ni red, seguridad del script, accesibilidad, impresión, tamaño: contenido propio ≤ 60 KB, archivo ≤ 260 KB) son las de `anatomia-artefacto.md`. 2. Cero invención de datos; estimaciones solo marcadas. 3. Honestidad gráfica: ejes desde cero, escala uniforme. 4. Todo en el idioma del usuario; la estructura del HTML, en español. 5. Contratos, demandas y escritos van a su skill vertical: esta skill visualiza, resume y calcula; no sustituye al asesoramiento colegiado.

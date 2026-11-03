@@ -30,12 +30,13 @@ DATOS_VACIOS = re.compile(r'(<script type="application/json" id="datos-reporte">
 def _leer_maquetas():
     """{(maqueta, parte): texto} de los bloques de la referencia, mas {maqueta: ancho}."""
     texto = open(MAQUETAS, encoding="utf-8").read()
-    codigo = open(MAQUETAS_CODIGO, encoding="utf-8").read() if os.path.exists(MAQUETAS_CODIGO) else ""
+    codigo = open(MAQUETAS_CODIGO, encoding="utf-8").read()
     piezas = {(m, p): c for m, p, c in re.findall(r"```\w+ maqueta=(\w+) parte=(\w+)\n(.*?)\n```", texto + "\n" + codigo, re.S)}
     anchos = dict(re.findall(r"\(`(\w+)`\)\n\n\*\*Ancho:\*\* `(\w+)`", texto))
     return piezas, anchos
 PIEZAS, ANCHOS = _leer_maquetas()
 BASE_HTML = open(BASE, encoding="utf-8").read()
+OPCIONES = json.load(open(os.path.join(SKILL, "assets", "opciones-formulario.json"), encoding="utf-8"))  # estilo, colores y formato del cuestionario
 TEMAS = ["moderno"] + re.findall(r'^:root\[data-tema="(\w+)"\]\{$', BASE_HTML, re.M)  # todos van en la base
 
 def componer(destino, textos, datos, maqueta=None, tema="moderno", ficha=None, contenido=None, ancho=None):
@@ -977,7 +978,7 @@ def catalogo_visual():
         tok = tokens(re.search(r':root\[data-tema="%s"\]\{(.*?)\}' % t, base, re.S).group(1))
         temas.append((t, NOMBRES.get(t, t.capitalize()), USOS[t], tok))
     # la pregunta de estilo (assets/opciones-formulario.json) ofrece estos mismos temas, en este orden y con este nombre y uso
-    catalogo = json.load(open(os.path.join(SKILL, "assets", "opciones-formulario.json"), encoding="utf-8"))
+    catalogo = OPCIONES
     opciones = [(o["id"], o["label"]) for o in catalogo["estilo"]["options"]]
     esperadas = [("tema_" + t, "%s: %s" % (nombre, uso[0].lower() + uso[1:])) for t, nombre, uso, _ in temas]
     if opciones != esperadas:
@@ -1135,7 +1136,7 @@ def vistas_cuestionario():
     vistas = {"tema_" + t: variante(t, None if t in oscuros else "claro") for t in TEMAS}
     vistas.update({"modo_claro": variante("moderno", "claro"), "modo_oscuro": variante("moderno", "oscuro"),
                    "colores_despacho": variante("moderno", "claro", MARCA_MUESTRA)})
-    catalogo = json.load(open(os.path.join(SKILL, "assets", "opciones-formulario.json"), encoding="utf-8"))
+    catalogo = OPCIONES
     opciones = {o["id"] for clave in ("estilo", "colores") for o in catalogo[clave]["options"]}
     if opciones != set(vistas) | {"modo_sistema"}:
         print("  AVISO las opciones estilo y colores de opciones-formulario.json no coinciden con las miniaturas: %s" % sorted(opciones ^ (set(vistas) | {"modo_sistema"})))
@@ -1167,7 +1168,7 @@ def vistas_cuestionario():
         png = os.path.join(AQUI, "miniaturas", archivo + ".png")
         if not os.path.exists(png):
             print("  AVISO: falta la miniatura %s; la vista del formato %s no se actualiza" % (png, maqueta))
-        if os.path.exists(png):
+        else:
             im = Image.open(png).convert("RGB")
             im = im.resize((480, int(im.height * 480 / im.width)), Image.LANCZOS)
             imagenes[maqueta] = im.crop((0, 0, 480, min(300, im.height)))

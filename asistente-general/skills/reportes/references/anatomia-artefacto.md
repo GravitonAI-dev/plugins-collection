@@ -8,7 +8,7 @@ Reglas técnicas invariables del formato. Todo artefacto que produzca esta skill
 - **Prohibido** cualquier recurso remoto: `<script src="https://...">`, `<link rel="stylesheet" href="https://...">`, fuentes de Google Fonts, imágenes por URL, `fetch`, `XMLHttpRequest`, `import` de módulos remotos, iframes a terceros. Bajo `file://` fallan en silencio o los bloquea el navegador y el artefacto se ve roto.
 - **Prohibidas las librerías** (Chart.js, D3, Tailwind por CDN, React, jQuery). Los gráficos los dibuja en SVG el motor propio que viaja dentro de la base, a partir del bloque de datos `datos-reporte` (contrato en `catalogo-graficos.md`). Nunca se escriben coordenadas a mano.
 - Si hace falta una imagen, se incrusta como SVG en línea o como `data:` URI, y solo si es imprescindible.
-- **Fotografías:** se incrustan como `data:image/jpeg;base64,...` dentro de una `<figure>`, comprimidas antes a un ancho máximo de unos 520 px y calidad media (el objetivo es que la foto pese menos de 30 KB, porque cuenta para el límite de 170 KB del archivo). Toda foto lleva `alt` descriptivo y `<figcaption>` con su crédito: autor, título, origen y licencia con URL. Solo se usan imágenes con licencia que permita el uso (dominio público, CC0, CC BY, CC BY-SA) y nunca una foto sin fuente conocida.
+- **Fotografías:** se incrustan como `data:image/jpeg;base64,...` dentro de una `<figure>`, comprimidas antes a un ancho máximo de unos 520 px y calidad media (el objetivo es que la foto pese menos de 30 KB, porque cuenta para el límite de tamaño del archivo, abajo). Toda foto lleva `alt` descriptivo y `<figcaption>` con su crédito: autor, título, origen y licencia con URL. Solo se usan imágenes con licencia que permita el uso (dominio público, CC0, CC BY, CC BY-SA) y nunca una foto sin fuente conocida.
 - Tipografía: pilas de fuentes del sistema (la sans de la base; serif o monoespaciada en los temas editorial, institucional, prensa y técnico). Nunca fuentes descargadas.
 
 ## 2. Cabecera obligatoria
@@ -76,8 +76,7 @@ El artefacto se edita **siempre desde el chat**, pidiendo el cambio al asistente
 
 **El visor guarda lo que ve.** Al guardar, la app serializa el DOM (`outerHTML`), así que lo que los scripts añaden al cargar acaba en el archivo. Por eso todo nodo que un script añade fuera de un gráfico (un `<style>` en el `head`, una diapositiva, una línea del índice, el pie o el logo de la marca) lleva `data-generado`, y el motor, que se ejecuta antes que los módulos y la maqueta, quita al arrancar todos los `[data-generado]` que vengan del archivo; la hoja de la marca tiene además el id fijo `estilo-marca`. Lo que se dibuja dentro de un hueco `data-grafico` no lo necesita: el motor vacía el hueco antes de dibujar. Un script nuevo de maqueta o de módulo sigue la misma regla.
 
-Por eso el catálogo, la etiqueta `reportes-diseno` y los 21 temas no se quitan nunca de la base, y un gráfico que se quiera poder cambiar de forma usa un tipo de una familia (`catalogo-graficos.md`). Los tipos de módulo de las familias (`area_apilada`, `escalones`, `pareto`, `anillos`, `treemap` y `progreso`) solo aparecen como alternativa si su módulo va copiado.
-
+Por eso el catálogo, la etiqueta `reportes-diseno` y los 21 temas no se quitan nunca de la base, y un gráfico que se quiera poder cambiar de forma usa un tipo de una familia (`catalogo-graficos.md`).
 ## 8. Datos y marcadores
 
 - Ningún dato inventado. Cifras, fechas, importes y referencias proceden de lo aportado por el usuario, de un documento de su espacio de trabajo o de una fuente verificada en la sesión.
@@ -86,6 +85,6 @@ Por eso el catálogo, la etiqueta `reportes-diseno` y los 21 temas no se quitan 
 
 ## 9. Tamaño
 
-El archivo completo no debería superar unos **170 KB**; la base con el motor ocupa unos 100, de los que unos 35 son los 21 temas y el catálogo que permiten cambiar el diseño desde la app. Los documentos abiertos del espacio de trabajo se incorporan enteros al contexto de la conversación y compiten por un presupuesto común: un artefacto desmesurado desplaza a los documentos de trabajo del usuario. Si el volumen de datos es mayor, se resume la serie, se agrupa por tramos o se reparte en dos artefactos: un panel con lo esencial y un documento con el detalle.
+El archivo completo no debería superar unos **260 KB**: la base ocupa unos 200 de código fijo (motor, 44 gráficos, 21 temas y catálogo, marcado `data-fijo`, que el sistema no manda al modelo), así que el contenido propio (datos, cuerpo y fotos) no debería pasar de unos **60 KB**. Los documentos abiertos del espacio de trabajo se incorporan enteros al contexto de la conversación y compiten por un presupuesto común: un artefacto desmesurado desplaza a los documentos de trabajo del usuario. Si el volumen de datos es mayor, se resume la serie, se agrupa por tramos o se reparte en dos artefactos: un panel con lo esencial y un documento con el detalle.
 
 Los artefactos de ejemplo pesan entre 105 y 155 KB (los que llevan varios módulos son los mayores), que es el orden de magnitud esperable.
