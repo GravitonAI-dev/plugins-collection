@@ -1,8 +1,8 @@
 # Asistente General
 
-Plugin de GravitonAI para la atención de consultas abiertas, orientación jurídica y administrativa multidisciplinar, análisis de supuestos de hecho, búsquedas web y generación bajo demanda de informes y dictámenes técnicos cuando una consulta no clasifica en una skill vertical especializada.
+Plugin de GravitonAI que actúa como **asistente legal de primera línea** para personas que no son juristas: atiende cualquier consulta, explica en lenguaje llano, orienta sobre la vía adecuada y redacta en conversación los documentos que no tienen una skill vertical propia. Es además el **fallback universal** para orquestadores como LangGraph, Claude Code o arquitecturas multiagente.
 
-Sirve como el **fallback universal y asistente de primera línea** para orquestadores como LangGraph, Claude Code o arquitecturas multiagente.
+La skill `consulta-general` funciona en **modo conversacional** (`interaction: conversational` en su frontmatter): sin fases, sin plantillas rígidas y con formularios solo para decisiones determinantes. El orquestador le inyecta el `CLAUDE.conversational.md` de la raíz de la colección en lugar del `CLAUDE.md` global procedimental.
 
 ---
 
@@ -11,16 +11,16 @@ Sirve como el **fallback universal y asistente de primera línea** para orquesta
 - Resuelve consultas directas, definiciones, cálculos, conceptos y cuestiones de conocimiento general en el chat de forma ágil y sin burocracia.
 - Realiza búsquedas de información, datos de mercado y hechos recientes en tiempo real mediante `web_search` con citas estructuradas.
 - Inspecciona, resume y analiza documentos existentes en el espacio de trabajo activo (prioritariamente mediante `# WORKSPACE ACTIVE DOCUMENTS`, o `read_file` como recurso extremo).
-- Analiza problemas legales y administrativos multidisciplinares, identificando la normativa aplicable, la viabilidad de pretensiones y los riesgos.
+- Entiende el problema que cuenta el usuario, lo encuadra, explica la vía adecuada, la viabilidad y los riesgos, y avisa de plazos en curso.
 - Detecta si la consulta encaja en una skill especializada del catálogo (`derecho-civil`, `gestoria`, etc.) y orienta al usuario hacia ella.
-- Genera y edita incrementalmente en el workspace informes formales (`informe_consulta_legal.md`, `memo_orientacion.md`) cuando el usuario lo solicita.
+- Redacta en conversación, con pocas preguntas en prosa y un borrador completo temprano, los documentos sin skill propia: reclamaciones de consumo, requerimientos y burofaxes, escritos ante la Administración, acuerdos privados, correos y comunicaciones formales, informes y memorandos, cartas personales. Las pautas de cada tipo están en `references/guia-estilos-redaccion.md`.
 - Produce artefactos autocontenidos en un único archivo `.html` que el usuario abre en su navegador con doble clic y puede imprimir o guardar como PDF: informes visuales, paneles de datos con gráficos y herramientas interactivas de cálculo.
 
 ## Qué NO hace
 
 - No sustituye el asesoramiento ni la representación legal por un abogado o graduado social colegiado.
 - No redacta contratos hiper-especializados ni demandas tipificadas cuando existe una skill vertical propia (ej. `arrendamiento-urbano`, `monitorio`, etc.).
-- No fuerza la creación de documentos en disco ni cuestionarios interactivos innecesarios para dudas directas.
+- No fuerza la creación de documentos ni cuestionarios para dudas directas, ni interroga con formularios extensos: pregunta lo imprescindible en prosa y reserva los formularios para decisiones cerradas.
 - No construye aplicaciones web con servidor, base de datos o conexión a servicios externos: los artefactos son un único archivo estático sin dependencias.
 
 ---
@@ -29,14 +29,16 @@ Sirve como el **fallback universal y asistente de primera línea** para orquesta
 
 ### `consulta-general`
 
-Asistente universal y versátil para el procesamiento de consultas no catalogadas. Opera en tres modalidades adaptativas según la intención del usuario:
-1. **Modo Directo (Chat):** Respuestas instantáneas para dudas informativas, datos de mercado o lectura de archivos de workspace.
-2. **Modo Consultivo y Orientación:** Diagnóstico del caso, encuadre legal, análisis de riesgos, hoja de ruta y sugerencia de derivación a skills especializadas.
-3. **Modo Documental (Workspace bajo demanda):** Creación y edición incremental sección a sección de un dictamen o memorándum formal en disco.
+Asistente legal conversacional. Atiende en el mismo hilo la consulta y, si hace falta, el documento:
+1. **Responde** dudas directas, factuales, de mercado o sobre archivos del espacio de trabajo, en el chat.
+2. **Orienta**: devuelve la situación con sus palabras, dice qué vía encaja (y corrige, por ejemplo, una «denuncia» que en realidad es una reclamación de consumo), avisa de plazos y riesgos y pregunta solo lo imprescindible, en un único mensaje y en prosa.
+3. **Redacta** el borrador completo en el espacio de trabajo en cuanto tiene lo esencial, siguiendo la ficha del tipo de documento de `references/guia-estilos-redaccion.md`; lo que falta queda como `{{MARCADOR}}` y se ajusta después sobre el propio documento.
 
 - **Invocación:** `/asistente-general:consulta-general`
-- **Inputs principales:** Materia/rama de la consulta (V1), tipo de requerimiento (V2), perfil del consultante (V3), situación de urgencia/plazos (V4), origen de la plantilla/formato (V5), hechos y dudas planteadas.
-- **Outputs:** Respuesta argumentada en chat o informe formal en markdown (`DRAFT`) en workspace (`assets/template-informe-consulta-general.md` o `assets/template-memo-orientacion-rapida.md`).
+- **Modo:** `interaction: conversational` (recibe `CLAUDE.conversational.md` en lugar del `CLAUDE.md` global).
+- **Inputs principales:** la situación contada por el usuario, el tipo de documento si lo pide, los hechos esenciales, las partes (buscadas primero en clientes) y la documentación aportada.
+- **Outputs:** respuesta en chat o borrador completo en markdown (`DRAFT`) en el espacio de trabajo.
+- **Referencias:** `guia-estilos-redaccion.md` (fichas por tipo de documento), `metodologia-analisis-juridico.md` (método y plazos), `fuentes-normativas-generales.md`, `matriz-derivacion-especialidades.md`.
 
 ### `reportes`
 
@@ -73,11 +75,9 @@ asistente-general/
 ├── README.md
 └── skills/
     ├── consulta-general/
-    │   ├── SKILL.md
-    │   ├── assets/
-    │   │   ├── template-informe-consulta-general.md
-    │   │   └── template-memo-orientacion-rapida.md
+    │   ├── SKILL.md                            ← interaction: conversational
     │   └── references/
+    │       ├── guia-estilos-redaccion.md       ← fichas por tipo de documento
     │       ├── metodologia-analisis-juridico.md
     │       ├── fuentes-normativas-generales.md
     │       └── matriz-derivacion-especialidades.md

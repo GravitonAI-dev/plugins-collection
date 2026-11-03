@@ -3,7 +3,7 @@
 
 Comprueba, sobre cada `*/skills/*/SKILL.md`:
 
-  1. Estructura   — frontmatter con sus claves, cinco fases, formulario JSON valido.
+  1. Estructura   — frontmatter con sus claves, cinco fases (salvo skills con `interaction: conversational`), formulario JSON valido.
   2. Vectores     — todo identificador `Vn` usado esta declarado en el bloque de
                     correspondencia de la Fase 1.2, y todo `Vn = valor` usa un
                     identificador de opcion real de su campo.
@@ -117,7 +117,8 @@ for f in sorted(glob.glob('*/skills/*/SKILL.md')):
     fm=t.split('\n---\n')[0]
     if not CLAVES <= set(re.findall(r'^([a-z0-9_]+):', fm, re.M)):
         print(f"  FALLO frontmatter incompleto: {nombre}"); FALLOS+=1
-    if len(re.findall(r'^## FASE [1-5]', t, re.M))!=5:
+    conversacional=re.search(r'^interaction:\s*conversational\s*$', fm, re.M) is not None
+    if not conversacional and len(re.findall(r'^## FASE [1-5]', t, re.M))!=5:
         print(f"  FALLO no tiene cinco fases: {nombre}"); FALLOS+=1
     m=re.search(r'### 1\.2[^\n]*\n(.*?)(?=### 1\.3)', t, re.S)
     jb=re.search(r'```json\n(.*?)\n```', m.group(1), re.S) if m else None
@@ -205,7 +206,8 @@ for _s in sorted(glob.glob('*/skills/*/SKILL.md')):
             print(f"  AVISO description sin ley base identificable: {_n}")
         elif not re.search(r'\*\*[^*\n]*(?:'+_LEY.pattern+r')[^*\n]*\*\*', _dd):
             print(f"  FALLO ley base citada pero no en negrita (la tarjeta SI renderiza Markdown): {_n}"); FALLOS+=1
-    if _plug!='gestion-plantillas':
+    _conv=re.search(r'^interaction:\s*conversational\s*$', _fm, re.M) is not None
+    if _plug!='gestion-plantillas' and not _conv:
         if 'DRAFT' not in _t: print(f"  FALLO SKILL.md sin header DRAFT: {_n}"); FALLOS+=1
         if 'origen_plantilla' not in _t: print(f"  FALLO Fase 2 sin formulario origen_plantilla (REG-AST-01): {_n}"); FALLOS+=1
         _f5=_t.split('\n## FASE 5',1)[1].split('\n## ',1)[0] if '\n## FASE 5' in _t else ''

@@ -569,9 +569,9 @@ Generación de solicitudes y checklists para trámites administrativos en Españ
 Creación, parametrización, actualización y registro de plantillas personalizadas (assets) para skills del sistema o globales de usuario mediante `set_skill_template`, `update_user_template` y `save_user_template`.
 **Skills**: `registrar-plantillas`.
 
-### `asistente-general` (v0.1.0)
+### `asistente-general` (v2.0.0)
 Asistente universal de primera línea y fallback para consultas no catalogadas, orientación multidisciplinar, búsquedas web e informes bajo demanda.
-**Skills**: `consulta-general`.
+**Skills**: `consulta-general` (modo conversacional, `interaction: conversational`), `reportes`.
 
 ---
 
