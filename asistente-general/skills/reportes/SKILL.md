@@ -1,5 +1,6 @@
 ---
 name: reportes
+enabled: false
 title: Reportes
 i18n:
   en:
