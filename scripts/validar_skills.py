@@ -243,6 +243,16 @@ def _reclamar(tabla, ident, duenio, tipo):
     if ident in tabla and tabla[ident]!=duenio:
         print(f"  FALLO {tipo} duplicado: '{ident}' lo reclaman {duenio} y {tabla[ident]}"); FALLOS+=1
     tabla.setdefault(ident, duenio)
+# `enabled` (opcional) apaga un plugin o una skill sin borrarlo (README §14.1). Sin el campo esta
+# activo, asi que solo se acepta un booleano: un valor raro o una clave mal escrita lo dejarian
+# encendido sin que nadie lo note.
+_ENABLED_TYPOS={'enable','enabeld','enabed','disabled','disable','active','activo','habilitado'}
+def _comprobar_enabled(datos, duenio):
+    global FALLOS
+    if 'enabled' in datos and not isinstance(datos['enabled'], bool):
+        print(f"  FALLO enabled no es true/false: {duenio} ({datos['enabled']!r})"); FALLOS+=1
+    _mal=sorted(k for k in datos if str(k).lower() in _ENABLED_TYPOS)
+    if _mal: print(f"  FALLO clave {_mal} parece 'enabled' mal escrita: {duenio}"); FALLOS+=1
 _SIDS={}
 for _s in sorted(glob.glob('*/skills/*/SKILL.md')):
     _n=_s.split('/skills/')[1][:-9]
@@ -253,6 +263,7 @@ for _s in sorted(glob.glob('*/skills/*/SKILL.md')):
     _reclamar(_SIDS,_n,_n,'id de skill')
     if _y.get('name')!=_s.split('/')[2]: print(f"  FALLO name del frontmatter distinto de la carpeta: {_s.split('/')[2]} (name: {_y.get('name')})"); FALLOS+=1
     if not str(_y.get('title') or '').strip(): print(f"  FALLO skill sin title: {_n}"); FALLOS+=1
+    _comprobar_enabled(_y,_n)
     _dl=_y.get('document_language')
     if _dl is not None and not re.fullmatch(r'[a-z]{2}', str(_dl)):
         print(f"  FALLO document_language no es un codigo ISO 639-1 (ej. 'es', 'en'): {_n} ({_dl!r})"); FALLOS+=1
@@ -272,6 +283,7 @@ _PIDS={}
 for _pj in sorted(glob.glob('*/.claude-plugin/plugin.json')):
     _p=_pj.split('/')[0]; _d=json.load(open(_pj,encoding='utf-8'))
     _reclamar(_PIDS,_d.get('name'),_p,'id de plugin')
+    _comprobar_enabled(_d,_p)
     if not str(_d.get('displayName') or '').strip(): print(f"  FALLO plugin sin displayName: {_p}"); FALLOS+=1
     _i=_d.get('i18n')
     if not isinstance(_i,dict) or not isinstance(_i.get('en'),dict):

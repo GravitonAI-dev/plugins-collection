@@ -260,7 +260,7 @@ Un plugin es una unidad de **dominio vertical** (legal comercial, privacidad, pr
 }
 ```
 
-`name` es el id canónico (coincide con la carpeta) y `displayName`/`description` son los textos en español. `i18n.<lang>` aporta el alias (`name`, kebab-case y único entre plugins), el `displayName` y la `description` en otro idioma; la app muestra el bloque del idioma del usuario y el backend acepta el alias como sinónimo del id. Los arrays `agents` y `hooks` están **vacíos** en este punto (no implementados). Quedan reservados para la fase 2.
+`name` es el id canónico (coincide con la carpeta) y `displayName`/`description` son los textos en español. `i18n.<lang>` aporta el alias (`name`, kebab-case y único entre plugins), el `displayName` y la `description` en otro idioma; la app muestra el bloque del idioma del usuario y el backend acepta el alias como sinónimo del id. Los arrays `agents` y `hooks` están **vacíos** en este punto (no implementados). Quedan reservados para la fase 2. El campo opcional `"enabled": false` apaga el plugin sin borrarlo (§14.1).
 
 ### 7.2 `.mcp.json`
 
@@ -506,6 +506,23 @@ Regla de oro: **definir una vez, referenciar por id**.
 7. **Documentar** la skill en `mi-plugin/README.md` con: nombre, descripción de una línea, ejemplo de invocación, qué no hace.
 8. **Validar** que el nombre de la skill es kebab-case y único dentro del plugin.
 9. **Pasar el control de calidad** de §10 y subir la versión del plugin (§15). Sin eso el PR no se puede fusionar.
+
+### 14.1 Deshabilitar un plugin o una skill
+
+Para apagar algo para todos los usuarios sin borrarlo del catálogo:
+
+- **Plugin**: `"enabled": false` en `<plugin>/.claude-plugin/plugin.json`.
+- **Skill**: `enabled: false` en el frontmatter de su `SKILL.md`.
+
+Sin el campo, o con `true`, se carga como siempre. El backend de ConfAI salta lo
+apagado al cargar el catálogo: no aparece en la app, el clasificador no lo ve y
+no se puede invocar por nombre ni por alias. Llega a las apps en la siguiente
+sincronización con Updates-Manager, sin publicar versión de la app. Cada rama es
+un catálogo: se prueba en `develop` antes de llevarlo a `main`.
+
+Como cualquier cambio, sube la versión del plugin (PATCH) en `plugin.json` y en
+`marketplace.json` (§15). Para volver a encenderlo, se quita el campo. Para ver
+qué está apagado: `grep -rnE '"enabled": *false|^enabled: *false' */`.
 
 ---
 
