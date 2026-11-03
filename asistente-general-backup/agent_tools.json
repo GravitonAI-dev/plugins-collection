@@ -1,0 +1,40 @@
+{
+  "tools": [
+    {
+      "id": "io.gravitonai.tools.read_file"
+    },
+    {
+      "id": "io.gravitonai.tools.create_file"
+    },
+    {
+      "id": "io.gravitonai.tools.edit_file"
+    },
+    {
+      "id": "io.gravitonai.tools.web_search"
+    },
+    {
+      "id": "io.gravitonai.tools.search_boe"
+    },
+    {
+      "id": "io.gravitonai.tools.get_boe_block"
+    },
+    {
+      "id": "io.gravitonai.tools.human_in_the_loop_request"
+    },
+    {
+      "id": "io.gravitonai.tools.restricted_human_in_the_loop_request"
+    },
+    {
+      "id": "io.gravitonai.tools.slot_filling_request"
+    },
+    {
+      "id": "io.gravitonai.tools.search_clients"
+    },
+    {
+      "id": "io.gravitonai.tools.get_client"
+    },
+    {
+      "id": "io.gravitonai.tools.save_client"
+    }
+  ]
+}

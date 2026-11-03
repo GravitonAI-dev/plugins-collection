@@ -1,0 +1,1751 @@
+<!doctype html>
+<html lang="es" data-tema="esmeralda_noche">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="reportes-diseno" content="1">
+<title>Cronograma 2026/0417</title>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  color-scheme:light dark;
+  --fondo:#f6f7fb;--superficie:#ffffff;--superficie-2:#f4f6fb;--borde:#e3e7f0;--borde-suave:#eef1f7;
+  --texto:#121722;--apagado:#5f6675;
+  --acento:#2f6ae8;--acento-suave:#eaf1ff;--acento-fuerte:#1c46ad;
+  --ok:#0f9d63;--aviso:#e08a12;--riesgo:#d1445a;--linea-rejilla:#e8ebf3;
+  --c1:#2f6ae8;--c2:#12b886;--c3:#f59e0b;--c4:#7c5cf0;--c5:#e35d9a;--c6:#64748b;
+  --e1:4px;--e2:8px;--e3:14px;--e4:22px;--e5:34px;--e6:56px;
+  --radio:20px;--radio-s:12px;
+  --sombra:0 1px 2px rgba(47,106,232,.07),0 8px 22px rgba(18,23,34,.07),0 28px 56px rgba(47,106,232,.07);
+  --fuente:ui-sans-serif,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  /* oscuro: el modo los copia en los tokens de arriba */
+  --fondo-o:#0d1017;--superficie-o:#161b25;--superficie-2-o:#1d232f;--borde-o:#2a3240;--borde-suave-o:#222935;
+  --texto-o:#e9edf5;--apagado-o:#9aa4b8;
+  --acento-o:#7aa5ff;--acento-suave-o:#17233a;--acento-fuerte-o:#a9c4ff;
+  --ok-o:#3ddc97;--aviso-o:#f0b354;--riesgo-o:#ff7a90;--linea-rejilla-o:#242c39;
+  --c1-o:#7aa5ff;--c2-o:#3ddc97;--c3-o:#f0b354;--c4-o:#a78bfa;--c5-o:#f472b6;--c6-o:#94a3b8;
+  --sombra-o:0 1px 2px rgba(0,0,0,.5),0 10px 26px rgba(0,0,0,.45),0 30px 60px rgba(0,0,0,.4);
+}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--fondo);color:var(--texto);font-family:var(--fuente);font-size:16px;line-height:1.55;
+  /* El degradado de fondo es un token: cada tema lo cambia o lo quita con --degradado. */
+  background-image:var(--degradado,radial-gradient(900px 460px at 12% -8%,color-mix(in srgb,var(--acento) 13%,transparent),transparent 72%),radial-gradient(760px 420px at 92% 4%,color-mix(in srgb,var(--c2) 10%,transparent),transparent 70%));
+  background-attachment:fixed}
+.contenedor{max-width:var(--ancho);margin:0 auto;padding:var(--e5) var(--e4) var(--e6)}
+a{color:var(--acento)}
+.borrador{display:flex;gap:var(--e3);border:1px solid var(--borde);border-left:4px solid var(--aviso);
+  background:var(--superficie-2);border-radius:var(--radio);padding:var(--e3) var(--e4);
+  font-size:.86rem;color:var(--apagado);margin:0 0 var(--e5);box-shadow:var(--sombra)}
+.borrador strong{color:var(--texto);letter-spacing:.04em}
+.antetitulo{font-size:.73rem;letter-spacing:.16em;text-transform:uppercase;color:var(--acento);font-weight:650;margin:0 0 var(--e2)}
+h1{font-size:clamp(1.65rem,3.6vw,2.4rem);line-height:1.12;margin:0 0 var(--e3);letter-spacing:-.022em;font-weight:680}
+.entradilla{font-size:1.06rem;color:var(--apagado);margin:0 0 var(--e4);max-width:66ch}
+.ficha{display:flex;flex-wrap:wrap;gap:var(--e2) var(--e5);font-size:.84rem;color:var(--apagado);margin:0;padding:0;list-style:none}
+.ficha b{color:var(--texto);font-weight:620}
+.indicadores{display:grid;grid-template-columns:repeat(auto-fit,minmax(212px,1fr));gap:var(--e3);margin:0 0 var(--e4)}
+.indicador{background:var(--superficie);border:1px solid var(--borde);border-radius:var(--radio);
+  padding:calc(var(--e4) + var(--e1)) var(--e4) var(--e4);box-shadow:var(--sombra);position:relative;overflow:hidden}
+.indicador::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;
+  background:linear-gradient(90deg,var(--acento),color-mix(in srgb,var(--acento) 45%,var(--c2)))}
+.indicador.es-ok::before{background:var(--ok)}
+.indicador.es-atencion::before{background:var(--aviso)}
+.indicador.es-riesgo::before{background:var(--riesgo)}
+.indicador .rotulo{font-size:.74rem;text-transform:uppercase;letter-spacing:.09em;color:var(--apagado);margin:0 0 var(--e2)}
+.indicador .cifra{color:var(--color-cifra,var(--texto));font-size:clamp(1.6rem,2.3vw,2.25rem);font-weight:680;letter-spacing:-.032em;line-height:1.05;margin:0;
+  font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.indicador .detalle{font-size:.8rem;color:var(--apagado);margin:var(--e2) 0 0}
+.indicador.es-ok .cifra{color:var(--ok)}
+.indicador.es-atencion .cifra{color:var(--aviso)}
+.indicador.es-riesgo .cifra{color:var(--riesgo)}
+.tarjeta{background:var(--superficie);border:1px solid var(--borde);border-radius:var(--radio);
+  padding:calc(var(--e4) + var(--e2)) calc(var(--e4) + var(--e3));box-shadow:var(--sombra)}
+h2{font-size:clamp(1.02rem,1.5vw,1.16rem);margin:0 0 var(--e1);letter-spacing:-.012em;font-weight:660}
+.subtitulo{font-size:.84rem;color:var(--apagado);margin:0 0 var(--e4)}
+p{margin:0 0 var(--e3)}
+ul,ol{margin:0 0 var(--e3);padding-left:22px}
+li{margin:0 0 var(--e1)}
+.aviso{border:1px solid var(--borde);border-left:4px solid var(--acento);background:var(--acento-suave);
+  border-radius:var(--radio-s);padding:var(--e3) var(--e4);margin:var(--e4) 0 0;font-size:.93rem}
+.aviso.riesgo{border-left-color:var(--riesgo)}
+.aviso.favorable{border-left-color:var(--ok)}
+.aviso .titulo{display:block;font-weight:660;margin-bottom:var(--e1)}
+.tabla{overflow-x:auto;margin:var(--e3) 0 0;max-width:100%}
+.malla>*,.columnas>*,.diseno>*,.indicadores>*{min-width:0}
+table{border-collapse:collapse;width:100%;font-size:.91rem;min-width:460px}
+caption{caption-side:top;text-align:left;font-size:.82rem;color:var(--apagado);padding-bottom:var(--e2)}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--borde-suave);vertical-align:top}
+thead th{font-size:.73rem;text-transform:uppercase;letter-spacing:.07em;color:var(--apagado);border-bottom:1px solid var(--borde)}
+tbody tr:nth-child(even){background:var(--superficie-2)}
+tbody tr:hover{background:var(--acento-suave)}
+tfoot td{font-weight:660;border-top:1px solid var(--borde);border-bottom:none}
+td.cifra,th.cifra{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.distintivo{display:inline-block;font-size:.73rem;font-weight:630;padding:3px 10px;border-radius:999px;
+  border:1px solid var(--borde);background:var(--superficie-2);color:var(--apagado);white-space:nowrap}
+.distintivo.ok{color:var(--ok);border-color:var(--ok)}
+.distintivo.atencion{color:var(--aviso);border-color:var(--aviso)}
+.distintivo.riesgo{color:var(--riesgo);border-color:var(--riesgo)}
+.barras{list-style:none;margin:0;padding:0}
+.barras li{margin:0 0 var(--e3)}
+.barras .fila{display:flex;justify-content:space-between;gap:var(--e3);font-size:.88rem;margin:0 0 5px}
+.barras .fila .valor{font-variant-numeric:tabular-nums;color:var(--apagado)}
+.pista{height:10px;border-radius:999px;background:var(--superficie-2);border:1px solid var(--borde-suave);overflow:hidden}
+.pista span{display:block;height:100%;border-radius:999px}
+svg{max-width:100%;height:auto;display:block}
+.eje{font-size:11px;fill:var(--apagado)}
+.rejilla{stroke:var(--linea-rejilla);stroke-width:1}
+.banda{fill:var(--ok);opacity:.12}
+.leyenda{display:flex;flex-wrap:wrap;gap:var(--e2) var(--e4);list-style:none;margin:var(--e3) 0 0;padding:0;font-size:.83rem;color:var(--apagado)}
+.leyenda li{display:flex;align-items:center;gap:7px;margin:0}
+.leyenda i{width:11px;height:11px;border-radius:3px;display:inline-block}
+.acciones{display:flex;gap:var(--e3);flex-wrap:wrap;margin:var(--e5) 0 0}
+button{font:inherit;font-size:.9rem;font-weight:620;color:var(--texto);background:var(--superficie);
+  border:1px solid var(--borde);border-radius:var(--radio-s);padding:10px 18px;cursor:pointer;box-shadow:var(--sombra)}
+button:hover{border-color:var(--acento);color:var(--acento)}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
+.pie{margin-top:var(--e5);padding-top:var(--e4);border-top:1px solid var(--borde);font-size:.82rem;color:var(--apagado)}
+@media (prefers-reduced-motion:no-preference){
+  .aparece{animation:aparece .55s cubic-bezier(.22,.7,.3,1) both}
+  .aparece:nth-child(2){animation-delay:.05s}
+  .aparece:nth-child(3){animation-delay:.1s}
+  .aparece:nth-child(4){animation-delay:.15s}
+  .pista span{animation:crece .8s cubic-bezier(.22,.7,.3,1) both;transform-origin:left center}
+  @keyframes aparece{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+  @keyframes crece{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+}
+:root{--ancho:1080px}
+/* Temas de temas-visuales.md: se elige uno con data-tema en la etiqueta html. Ninguno se edita ni se borra. */
+:root[data-tema="sobrio"]{
+  --degradado:none;
+  --fondo:#f7f6f3;--superficie:#ffffff;--superficie-2:#f3f1ec;--borde:#ddd8ce;--borde-suave:#ebe7df;
+  --texto:#1c1f24;--apagado:#585c63;
+  --acento:#1f5f73;--acento-suave:#e7f0f2;--acento-fuerte:#154452;
+  --ok:#2f7d4f;--aviso:#a8650f;--riesgo:#b23a48;--linea-rejilla:#e6e2da;
+  --c1:#1f5f73;--c2:#8a6d3b;--c3:#5b7f4a;--c4:#7a4e6e;--c5:#b0623d;--c6:#6b7280;
+  --radio:10px;--radio-s:7px;
+  --sombra:0 1px 2px rgba(28,31,36,.06),0 6px 18px rgba(28,31,36,.05);
+  /* oscuro: el modo los copia en los tokens de arriba */
+  --fondo-o:#101417;--superficie-o:#171d21;--superficie-2-o:#1e252a;--borde-o:#2c353b;--borde-suave-o:#242c31;
+  --texto-o:#e8eaec;--apagado-o:#a0a7ad;
+  --acento-o:#6fb3c6;--acento-suave-o:#16262c;--acento-fuerte-o:#9fd0dd;
+  --ok-o:#6cc58f;--aviso-o:#e0a95a;--riesgo-o:#ef8590;--linea-rejilla-o:#252d33;
+  --c1-o:#6fb3c6;--c2-o:#d1b07a;--c3-o:#9cc28a;--c4-o:#c49ab8;--c5-o:#e39a78;--c6-o:#9aa3ad;
+  --sombra-o:0 1px 2px rgba(0,0,0,.5),0 8px 22px rgba(0,0,0,.4);
+}
+:root[data-tema="editorial"]{
+  --degradado:none;
+  --fondo:#f9f6ef;--superficie:#fffdf8;--superficie-2:#f3eee3;--borde:#d9d2c3;--borde-suave:#e9e3d6;
+  --texto:#1b1a17;--apagado:#5c574d;
+  --acento:#8b2e2e;--acento-suave:#f4e6e3;--acento-fuerte:#5e1d1d;
+  --ok:#3b6e3f;--aviso:#9c6a12;--riesgo:#a62f3b;--linea-rejilla:#e4ded0;
+  --c1:#8b2e2e;--c2:#2f4f6f;--c3:#b7812b;--c4:#4f6b44;--c5:#6b4a7a;--c6:#7a7468;
+  --radio:4px;--radio-s:3px;--sombra:none;
+  --fuente:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  /* oscuro: el modo los copia en los tokens de arriba */
+  --fondo-o:#171511;--superficie-o:#1f1c17;--superficie-2-o:#27231d;--borde-o:#3a352c;--borde-suave-o:#2f2a23;
+  --texto-o:#ece6d8;--apagado-o:#a69e8e;
+  --acento-o:#e08a8a;--acento-suave-o:#33211f;--acento-fuerte-o:#f0b0b0;
+  --ok-o:#8cc48f;--aviso-o:#e2b35a;--riesgo-o:#f08a94;--linea-rejilla-o:#2e2922;
+  --c1-o:#e08a8a;--c2-o:#8fb3d6;--c3-o:#e0b86a;--c4-o:#9fc08f;--c5-o:#c4a0d4;--c6-o:#a09a8e;--sombra-o:none;
+}
+:root[data-tema="editorial"] h1{font-weight:600;letter-spacing:-.01em;font-size:clamp(1.9rem,4vw,2.8rem)}
+:root[data-tema="editorial"] .antetitulo,:root[data-tema="editorial"] .indicador .rotulo,:root[data-tema="editorial"] thead th,:root[data-tema="editorial"] .distintivo,:root[data-tema="editorial"] .eje{font-family:ui-sans-serif,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+:root[data-tema="editorial"] .indicador::before{background:var(--texto);height:2px}
+:root[data-tema="editorial"] .indicador .cifra{font-weight:600}
+:root[data-tema="editorial"] .entradilla{font-style:italic;font-size:1.12rem}
+:root[data-tema="editorial"] .tarjeta{border-top:2px solid var(--texto)}
+:root[data-tema="editorial"] .distintivo{border-radius:3px}
+:root[data-tema="corporativo"]{
+  --degradado:none;--color-cifra:var(--acento-fuerte);
+  --fondo:#eef1f5;--superficie:#ffffff;--superficie-2:#f4f6f9;--borde:#cfd6e0;--borde-suave:#e1e6ed;
+  --texto:#0f1b2d;--apagado:#51607a;
+  --acento:#0b3d91;--acento-suave:#e4ebf7;--acento-fuerte:#072a66;
+  --ok:#1b7f4b;--aviso:#b26a00;--riesgo:#b3261e;--linea-rejilla:#dfe4eb;
+  --c1:#0b3d91;--c2:#4f81bd;--c3:#9bbb59;--c4:#8064a2;--c5:#f79646;--c6:#7f8c9b;
+  --radio:6px;--radio-s:4px;--sombra:0 1px 2px rgba(15,27,45,.08);
+  /* oscuro: el modo los copia en los tokens de arriba */
+  --fondo-o:#0f1623;--superficie-o:#162032;--superficie-2-o:#1c283d;--borde-o:#2c3a52;--borde-suave-o:#243149;
+  --texto-o:#e6ebf4;--apagado-o:#9fb0c9;
+  --acento-o:#7ea6ea;--acento-suave-o:#1b2b47;--acento-fuerte-o:#a9c4f5;
+  --ok-o:#5ec98f;--aviso-o:#e3a74c;--riesgo-o:#ef7b74;--linea-rejilla-o:#243149;
+  --c1-o:#7ea6ea;--c2-o:#9dc0ea;--c3-o:#b6d37a;--c4-o:#b39ddb;--c5-o:#f9b27c;--c6-o:#9aa7b8;--sombra-o:0 1px 2px rgba(0,0,0,.5);
+}
+:root[data-tema="corporativo"] .contenedor>header{border-left:6px solid var(--acento);padding-left:var(--e4);margin-bottom:var(--e4)}
+:root[data-tema="corporativo"] .indicador::before{background:var(--acento)}
+:root[data-tema="corporativo"] h2{text-transform:uppercase;letter-spacing:.07em;font-size:.9rem}
+:root[data-tema="corporativo"] .distintivo{border-radius:4px}
+:root[data-tema="corporativo"] thead th{background:var(--superficie-2)}
+:root[data-tema="minimal"]{
+  --degradado:none;
+  --fondo:#ffffff;--superficie:#ffffff;--superficie-2:#f6f6f6;--borde:#e4e4e4;--borde-suave:#efefef;
+  --texto:#111111;--apagado:#5f5f5f;
+  --acento:#e4531b;--acento-suave:#fdeee7;--acento-fuerte:#b33a0b;
+  --ok:#1a8f5a;--aviso:#b86f00;--riesgo:#d12f2f;--linea-rejilla:#ececec;
+  --c1:#111111;--c2:#e4531b;--c3:#8a8a8a;--c4:#c4c4c4;--c5:#4d4d4d;--c6:#adadad;
+  --radio:0;--radio-s:0;--sombra:none;
+  /* oscuro: el modo los copia en los tokens de arriba */
+  --fondo-o:#0e0e0e;--superficie-o:#0e0e0e;--superficie-2-o:#1a1a1a;--borde-o:#2c2c2c;--borde-suave-o:#212121;
+  --texto-o:#f2f2f2;--apagado-o:#a6a6a6;
+  --acento-o:#ff7a47;--acento-suave-o:#2a1710;--acento-fuerte-o:#ffa07a;
+  --ok-o:#4ccf8d;--aviso-o:#f0a53a;--riesgo-o:#ff6b6b;--linea-rejilla-o:#262626;
+  --c1-o:#f2f2f2;--c2-o:#ff7a47;--c3-o:#9a9a9a;--c4-o:#555555;--c5-o:#cfcfcf;--c6-o:#737373;--sombra-o:none;
+}
+:root[data-tema="minimal"] .indicador,:root[data-tema="minimal"] .tarjeta{border:0;border-top:1px solid var(--texto);border-radius:0;padding-left:0;padding-right:0;background:transparent}
+:root[data-tema="minimal"] .indicador::before{display:none}
+:root[data-tema="minimal"] .borrador{box-shadow:none;background:transparent;border-left-width:2px}
+:root[data-tema="minimal"] h1{font-weight:500;letter-spacing:-.03em;font-size:clamp(1.9rem,4vw,2.9rem)}
+:root[data-tema="minimal"] .indicador .cifra{font-weight:500;letter-spacing:-.04em;font-size:clamp(2rem,3vw,2.9rem)}
+:root[data-tema="minimal"] .distintivo,:root[data-tema="minimal"] button{border-radius:0}
+:root[data-tema="minimal"] .aviso{background:transparent;border-width:0 0 0 2px;border-radius:0;padding-left:var(--e3)}
+:root[data-tema="minimal"] tbody tr:nth-child(even){background:transparent}
+:root[data-tema="tecnico"]{
+  --degradado:none;
+  --fondo:#f4f5f2;--superficie:#fbfbf9;--superficie-2:#eceee8;--borde:#c9cdc2;--borde-suave:#dde0d7;
+  --texto:#161a16;--apagado:#55605a;
+  --acento:#0f766e;--acento-suave:#e0f2ef;--acento-fuerte:#0a4f4a;
+  --ok:#2e7d32;--aviso:#a35b00;--riesgo:#b42318;--linea-rejilla:#dcdfd6;
+  --c1:#0f766e;--c2:#b45309;--c3:#4338ca;--c4:#6b7280;--c5:#be185d;--c6:#1f2937;
+  --radio:4px;--radio-s:3px;--sombra:none;
+  --fuente:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono","Courier New",monospace;
+  /* oscuro: el modo los copia en los tokens de arriba */
+  --fondo-o:#0f1412;--superficie-o:#141a17;--superficie-2-o:#1a221e;--borde-o:#2b3530;--borde-suave-o:#222b26;
+  --texto-o:#dfe7e2;--apagado-o:#9baba3;
+  --acento-o:#5eead4;--acento-suave-o:#113a35;--acento-fuerte-o:#99f6e4;
+  --ok-o:#6fdc8c;--aviso-o:#f5b64a;--riesgo-o:#ff7b72;--linea-rejilla-o:#222b26;
+  --c1-o:#5eead4;--c2-o:#f5b64a;--c3-o:#a5b4fc;--c4-o:#9ca3af;--c5-o:#f9a8d4;--c6-o:#d1d5db;--sombra-o:none;
+}
+:root[data-tema="tecnico"] body{font-size:15px}
+:root[data-tema="tecnico"] h1{font-size:clamp(1.4rem,3vw,2rem);letter-spacing:0;font-weight:700}
+:root[data-tema="tecnico"] .antetitulo::before{content:"// "}
+:root[data-tema="tecnico"] .indicador::before{background:var(--acento);height:3px}
+:root[data-tema="tecnico"] .indicador .cifra{letter-spacing:-.01em;font-size:clamp(1.4rem,2vw,1.9rem)}
+:root[data-tema="tecnico"] .distintivo{border-radius:3px;text-transform:uppercase;letter-spacing:.04em}
+:root[data-tema="tecnico"] .tarjeta,:root[data-tema="tecnico"] .indicador{border-color:var(--borde)}
+:root[data-tema="tecnico"] .borrador{box-shadow:none}
+:root[data-tema="calido"]{
+  --degradado:radial-gradient(900px 460px at 8% -8%,color-mix(in srgb,var(--c3) 16%,transparent),transparent 70%),radial-gradient(760px 420px at 95% 2%,color-mix(in srgb,var(--c1) 10%,transparent),transparent 70%);
+  --fondo:#f8f1e7;--superficie:#fffaf3;--superficie-2:#f3e9da;--borde:#e2d3bd;--borde-suave:#ecdfcc;
+  --texto:#2b2118;--apagado:#6b5a4a;
+  --acento:#c2410c;--acento-suave:#fbe9df;--acento-fuerte:#8f2f08;
+  --ok:#4d7c0f;--aviso:#b45309;--riesgo:#b91c1c;--linea-rejilla:#e9dece;
+  --c1:#c2410c;--c2:#5b7a2a;--c3:#d4a017;--c4:#7c3f58;--c5:#2f6f8f;--c6:#8c7b6b;
+  --radio:18px;--radio-s:10px;--sombra:0 2px 6px rgba(43,33,24,.06),0 12px 28px rgba(194,65,12,.06);
+  /* oscuro: el modo los copia en los tokens de arriba */
+  --fondo-o:#1a1512;--superficie-o:#231c17;--superficie-2-o:#2b231d;--borde-o:#3f342b;--borde-suave-o:#342b24;
+  --texto-o:#f1e8dd;--apagado-o:#b3a392;
+  --acento-o:#fb923c;--acento-suave-o:#3a2415;--acento-fuerte-o:#fdba74;
+  --ok-o:#a3d96b;--aviso-o:#f6b352;--riesgo-o:#f87171;--linea-rejilla-o:#342b24;
+  --c1-o:#fb923c;--c2-o:#a3d96b;--c3-o:#f2c94c;--c4-o:#d98fb0;--c5-o:#7cc0e0;--c6-o:#b0a08f;--sombra-o:0 2px 6px rgba(0,0,0,.4),0 12px 28px rgba(0,0,0,.35);
+}
+:root[data-tema="calido"] .indicador::before{background:linear-gradient(90deg,var(--c1),var(--c3))}
+:root[data-tema="calido"] h1{font-weight:640}
+:root[data-tema="institucional"]{
+  --degradado:none;
+  --fondo:#f5f3f0;--superficie:#ffffff;--superficie-2:#f1ede8;--borde:#d6cfc6;--borde-suave:#e6e0d8;
+  --texto:#1f1a1a;--apagado:#5f5651;
+  --acento:#6b1f2a;--acento-suave:#f3e4e6;--acento-fuerte:#48141c;
+  --ok:#2f6b3a;--aviso:#946200;--riesgo:#a31d2d;--linea-rejilla:#e4ded6;
+  --c1:#6b1f2a;--c2:#b08d3c;--c3:#2f4a6b;--c4:#4f6b3a;--c5:#7a4b70;--c6:#7b746d;
+  --radio:8px;--radio-s:5px;--sombra:0 1px 2px rgba(31,26,26,.08);
+  /* oscuro: el modo los copia en los tokens de arriba */
+  --fondo-o:#151212;--superficie-o:#1d1818;--superficie-2-o:#251f1f;--borde-o:#3a3131;--borde-suave-o:#2e2727;
+  --texto-o:#efe9e6;--apagado-o:#aa9f9a;
+  --acento-o:#e39aa5;--acento-suave-o:#35202a;--acento-fuerte-o:#f2bfc6;
+  --ok-o:#86c58f;--aviso-o:#e3b35a;--riesgo-o:#f08b95;--linea-rejilla-o:#2e2727;
+  --c1-o:#e39aa5;--c2-o:#dcc27a;--c3-o:#90aed0;--c4-o:#a3c48f;--c5-o:#cfa0c4;--c6-o:#a8a09a;--sombra-o:0 1px 2px rgba(0,0,0,.5);
+}
+:root[data-tema="institucional"] h1,:root[data-tema="institucional"] h2{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;font-weight:600}
+:root[data-tema="institucional"] h1{font-size:clamp(1.8rem,3.8vw,2.6rem)}
+:root[data-tema="institucional"] .contenedor>header{border-bottom:3px double var(--acento);padding-bottom:var(--e4);margin-bottom:var(--e4)}
+:root[data-tema="institucional"] .antetitulo{color:var(--c2)}
+:root[data-tema="institucional"] .indicador::before{background:linear-gradient(90deg,var(--c1),var(--c2))}
+:root[data-tema="pizarra"]{
+  --degradado:none;
+  --fondo:#e9edf0;--superficie:#f7f9fa;--superficie-2:#eef2f4;--borde:#c9d3d9;--borde-suave:#dae2e7;
+  --texto:#152028;--apagado:#546470;
+  --acento:#0e7490;--acento-suave:#dff3f8;--acento-fuerte:#0a4f61;
+  --ok:#15803d;--aviso:#a16207;--riesgo:#b91c1c;--linea-rejilla:#d8e0e5;
+  --c1:#0e7490;--c2:#334155;--c3:#0d9488;--c4:#64748b;--c5:#7c3aed;--c6:#94a3b8;
+  --radio:10px;--radio-s:6px;--sombra:0 1px 3px rgba(21,32,40,.08);
+  /* oscuro: el modo los copia en los tokens de arriba */
+  --fondo-o:#1e2a32;--superficie-o:#263540;--superficie-2-o:#2e3f4b;--borde-o:#3f5260;--borde-suave-o:#354653;
+  --texto-o:#e7eef2;--apagado-o:#a7b8c3;
+  --acento-o:#67d3ee;--acento-suave-o:#163844;--acento-fuerte-o:#a5e6f5;
+  --ok-o:#6ad08a;--aviso-o:#f0bf55;--riesgo-o:#f27c7c;--linea-rejilla-o:#354653;
+  --c1-o:#67d3ee;--c2-o:#b5c4d0;--c3-o:#5fd4c6;--c4-o:#8ea2b1;--c5-o:#c4a7f8;--c6-o:#7f93a1;--sombra-o:0 1px 3px rgba(0,0,0,.4);
+}
+:root[data-tema="pizarra"] .indicador{border-left:4px solid var(--acento);padding-top:var(--e4)}
+:root[data-tema="pizarra"] .indicador::before{display:none}
+:root[data-tema="pizarra"] .indicador.es-ok{border-left-color:var(--ok)}
+:root[data-tema="pizarra"] .indicador.es-atencion{border-left-color:var(--aviso)}
+:root[data-tema="pizarra"] .indicador.es-riesgo{border-left-color:var(--riesgo)}
+:root[data-tema="pizarra"] table{font-size:.86rem}
+:root[data-tema="pizarra"] th,:root[data-tema="pizarra"] td{padding:7px 10px}
+:root[data-tema="pizarra"] h2{font-size:1rem}
+:root[data-tema="suave"]{
+  --degradado:radial-gradient(900px 460px at 10% -8%,color-mix(in srgb,var(--c1) 14%,transparent),transparent 72%),radial-gradient(760px 420px at 92% 4%,color-mix(in srgb,var(--c4) 10%,transparent),transparent 70%);
+  --fondo:#f7f5fb;--superficie:#ffffff;--superficie-2:#f3f0fa;--borde:#e4dff0;--borde-suave:#ede9f6;
+  --texto:#2a2440;--apagado:#655e80;
+  --acento:#7c5cbf;--acento-suave:#efe9fb;--acento-fuerte:#58409a;
+  --ok:#2e9e73;--aviso:#b8780f;--riesgo:#c94a62;--linea-rejilla:#ebe7f3;
+  --c1:#7c5cbf;--c2:#3fa89d;--c3:#e58f3f;--c4:#d86a95;--c5:#4f82d3;--c6:#8f8ba3;
+  --radio:24px;--radio-s:14px;--sombra:0 2px 4px rgba(42,36,64,.04),0 14px 34px rgba(124,92,191,.10);
+  /* oscuro: el modo los copia en los tokens de arriba */
+  --fondo-o:#17141f;--superficie-o:#201c2b;--superficie-2-o:#282335;--borde-o:#3a3449;--borde-suave-o:#302a3e;
+  --texto-o:#ece8f5;--apagado-o:#aaa3bf;
+  --acento-o:#b39ae8;--acento-suave-o:#2b2340;--acento-fuerte-o:#d2c2f5;
+  --ok-o:#6fd3a6;--aviso-o:#f0bb62;--riesgo-o:#f28aa0;--linea-rejilla-o:#302a3e;
+  --c1-o:#b39ae8;--c2-o:#7fd3ca;--c3-o:#f7bf85;--c4-o:#f0a3c0;--c5-o:#8fb3f0;--c6-o:#9a95ad;--sombra-o:0 2px 4px rgba(0,0,0,.4),0 14px 34px rgba(0,0,0,.35);
+}
+:root[data-tema="suave"] .indicador::before{background:linear-gradient(90deg,var(--c1),var(--c4))}
+:root[data-tema="suave"] .borrador{border-radius:var(--radio-s)}
+:root[data-tema="suave"] button{border-radius:999px}
+:root[data-tema="prensa"]{
+  --degradado:none;
+  --fondo:#ffffff;--superficie:#ffffff;--superficie-2:#f4f4f4;--borde:#1a1a1a;--borde-suave:#cfcfcf;
+  --texto:#111111;--apagado:#4a4a4a;
+  --acento:#c8102e;--acento-suave:#fbe9ec;--acento-fuerte:#8e0b20;
+  --ok:#1f7a3c;--aviso:#9a6400;--riesgo:#c8102e;--linea-rejilla:#dcdcdc;
+  --c1:#111111;--c2:#c8102e;--c3:#6b6b6b;--c4:#a8a8a8;--c5:#3d3d3d;--c6:#d2d2d2;
+  --radio:0;--radio-s:0;--sombra:none;
+  --fuente:Georgia,"Times New Roman",Times,serif;
+  /* oscuro: el modo los copia en los tokens de arriba */
+  --fondo-o:#121212;--superficie-o:#121212;--superficie-2-o:#1c1c1c;--borde-o:#e5e5e5;--borde-suave-o:#3a3a3a;
+  --texto-o:#f0f0f0;--apagado-o:#b5b5b5;
+  --acento-o:#ff5a73;--acento-suave-o:#33161c;--acento-fuerte-o:#ff8fa0;
+  --ok-o:#5fcf85;--aviso-o:#f2b84b;--riesgo-o:#ff5a73;--linea-rejilla-o:#2e2e2e;
+  --c1-o:#f0f0f0;--c2-o:#ff5a73;--c3-o:#a5a5a5;--c4-o:#6a6a6a;--c5-o:#cfcfcf;--c6-o:#474747;--sombra-o:none;
+}
+:root[data-tema="prensa"] .contenedor>header{border-top:4px solid var(--texto);border-bottom:1px solid var(--texto);padding:var(--e3) 0 var(--e3);margin-bottom:var(--e4)}
+:root[data-tema="prensa"] h1{font-weight:700;font-size:clamp(2rem,4.4vw,3rem);letter-spacing:-.015em}
+:root[data-tema="prensa"] .entradilla{font-style:italic;font-size:1.1rem}
+:root[data-tema="prensa"] .antetitulo,:root[data-tema="prensa"] .indicador .rotulo,:root[data-tema="prensa"] thead th,:root[data-tema="prensa"] .distintivo,:root[data-tema="prensa"] .eje,:root[data-tema="prensa"] .ficha{font-family:ui-sans-serif,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+:root[data-tema="prensa"] .antetitulo{color:var(--texto)}
+:root[data-tema="prensa"] .indicador,:root[data-tema="prensa"] .tarjeta{border:0;border-top:1px solid var(--texto);border-radius:0;padding-left:0;padding-right:0}
+:root[data-tema="prensa"] .indicador::before{display:none}
+:root[data-tema="prensa"] .indicador .cifra{font-weight:700}
+:root[data-tema="prensa"] thead th{color:var(--texto);border-bottom:2px solid var(--texto)}
+:root[data-tema="prensa"] .borrador{box-shadow:none;border-radius:0}
+:root[data-tema="prensa"] .distintivo,:root[data-tema="prensa"] button{border-radius:0}
+:root[data-tema="alto_contraste"]{
+  --degradado:none;--texto-sobre-serie:var(--fondo);
+  --fondo:#ffffff;--superficie:#ffffff;--superficie-2:#f0f0f0;--borde:#000000;--borde-suave:#555555;
+  --texto:#000000;--apagado:#222222;
+  --acento:#0000d6;--acento-suave:#e8e8ff;--acento-fuerte:#000080;
+  --ok:#006400;--aviso:#7a4200;--riesgo:#b00020;--linea-rejilla:#8a8a8a;
+  --c1:#0000d6;--c2:#006400;--c3:#7a4200;--c4:#6a0dad;--c5:#b00020;--c6:#333333;
+  --radio:0;--radio-s:0;--sombra:none;
+  /* oscuro: el modo los copia en los tokens de arriba */
+  --fondo-o:#000000;--superficie-o:#000000;--superficie-2-o:#161616;--borde-o:#ffffff;--borde-suave-o:#aaaaaa;
+  --texto-o:#ffffff;--apagado-o:#dddddd;
+  --acento-o:#ffff00;--acento-suave-o:#333300;--acento-fuerte-o:#ffff80;
+  --ok-o:#00ff7f;--aviso-o:#ffb000;--riesgo-o:#ff6070;--linea-rejilla-o:#777777;
+  --c1-o:#ffff00;--c2-o:#00ff7f;--c3-o:#ffb000;--c4-o:#d8a0ff;--c5-o:#ff6070;--c6-o:#cccccc;--sombra-o:none;
+}
+:root[data-tema="alto_contraste"] .indicador,:root[data-tema="alto_contraste"] .tarjeta,:root[data-tema="alto_contraste"] .aviso,:root[data-tema="alto_contraste"] .borrador,:root[data-tema="alto_contraste"] button,:root[data-tema="alto_contraste"] .distintivo{border-width:2px}
+:root[data-tema="alto_contraste"] .aviso,:root[data-tema="alto_contraste"] .borrador{border-left-width:8px}
+:root[data-tema="alto_contraste"] .indicador::before{height:6px;background:var(--acento)}
+:root[data-tema="alto_contraste"] .indicador .rotulo,:root[data-tema="alto_contraste"] thead th,:root[data-tema="alto_contraste"] .subtitulo,:root[data-tema="alto_contraste"] .leyenda,:root[data-tema="alto_contraste"] .eje{color:var(--texto);fill:var(--texto);font-weight:700}
+:root[data-tema="alto_contraste"] .distintivo{font-weight:700}
+:root[data-tema="alto_contraste"] .grafico .numero-riesgo,:root[data-tema="alto_contraste"] a{text-decoration:underline}
+:root[data-tema="menta"]{
+  --degradado:radial-gradient(900px 460px at 10% -8%,rgba(127,209,178,.22),transparent 72%),radial-gradient(760px 420px at 92% 4%,rgba(255,198,168,.18),transparent 70%);--texto-sobre-serie:#1d2b26;
+  --fondo:#f2faf6;--superficie:#ffffff;--superficie-2:#eaf6f0;--borde:#d2eadf;--borde-suave:#e3f2eb;
+  --texto:#1d2b26;--apagado:#5b6f67;
+  --acento:#2a8a68;--acento-suave:#dff3ea;--acento-fuerte:#1c6a4f;
+  --ok:#2a8a68;--aviso:#b8770f;--riesgo:#c4506a;--linea-rejilla:#e2efe9;
+  --c1:#7fd1b2;--c2:#ffc6a8;--c3:#a9c8f5;--c4:#f6e08f;--c5:#d7b6f2;--c6:#b9c4bf;
+  --radio:22px;--radio-s:14px;--sombra:0 2px 4px rgba(29,43,38,.04),0 14px 34px rgba(42,138,104,.10);
+  /* oscuro: el modo los copia en los tokens de arriba */
+  --fondo-o:#101a16;--superficie-o:#17231e;--superficie-2-o:#1d2c26;--borde-o:#2c4038;--borde-suave-o:#24352e;
+  --texto-o:#e8f4ee;--apagado-o:#a3b9b0;
+  --acento-o:#8ee0c1;--acento-suave-o:#1d3a2f;--acento-fuerte-o:#bff0dc;
+  --ok-o:#8ee0c1;--aviso-o:#f5c87a;--riesgo-o:#f4a0b4;--linea-rejilla-o:#24352e;
+  --c1-o:#8ee0c1;--c2-o:#ffc6a8;--c3-o:#b4d0f7;--c4-o:#f6e08f;--c5-o:#dcc0f4;--c6-o:#9fb0a9;
+  --sombra-o:0 2px 4px rgba(0,0,0,.4),0 14px 34px rgba(0,0,0,.35);
+}
+:root[data-tema="menta"] .indicador::before{background:linear-gradient(90deg,var(--c1),var(--c2))}
+:root[data-tema="menta"] button{border-radius:999px}
+:root[data-tema="melocoton"]{
+  --degradado:radial-gradient(900px 460px at 10% -8%,rgba(255,179,143,.24),transparent 72%),radial-gradient(760px 420px at 92% 4%,rgba(242,168,192,.16),transparent 70%);--texto-sobre-serie:#2e2320;
+  --fondo:#fff6f1;--superficie:#ffffff;--superficie-2:#fdeee6;--borde:#f3dccf;--borde-suave:#f8e8df;
+  --texto:#2e2320;--apagado:#76625a;
+  --acento:#c4572e;--acento-suave:#fde6da;--acento-fuerte:#9a3f1d;
+  --ok:#3f8f6a;--aviso:#b5730c;--riesgo:#c0405a;--linea-rejilla:#f5e6dd;
+  --c1:#ffb38f;--c2:#9fd8c6;--c3:#f7d488;--c4:#f2a8c0;--c5:#a8c6ef;--c6:#cdbcb4;
+  --radio:22px;--radio-s:14px;--sombra:0 2px 4px rgba(46,35,32,.04),0 14px 34px rgba(196,87,46,.10);
+  /* oscuro: el modo los copia en los tokens de arriba */
+  --fondo-o:#1b1311;--superficie-o:#241a17;--superficie-2-o:#2c211d;--borde-o:#43332d;--borde-suave-o:#382a25;
+  --texto-o:#f6ebe6;--apagado-o:#c0aaa1;
+  --acento-o:#ffb38f;--acento-suave-o:#3a2419;--acento-fuerte-o:#ffd3bf;
+  --ok-o:#9fd8c6;--aviso-o:#f7d488;--riesgo-o:#f4a0b4;--linea-rejilla-o:#382a25;
+  --c1-o:#ffb38f;--c2-o:#9fd8c6;--c3-o:#f7d488;--c4-o:#f2a8c0;--c5-o:#a8c6ef;--c6-o:#b8a69e;
+  --sombra-o:0 2px 4px rgba(0,0,0,.4),0 14px 34px rgba(0,0,0,.35);
+}
+:root[data-tema="melocoton"] .indicador::before{background:linear-gradient(90deg,var(--c1),var(--c4))}
+:root[data-tema="melocoton"] button{border-radius:999px}
+:root[data-tema="lavanda"]{
+  --degradado:radial-gradient(900px 460px at 10% -8%,rgba(184,166,245,.24),transparent 72%),radial-gradient(760px 420px at 92% 4%,rgba(245,184,212,.16),transparent 70%);--texto-sobre-serie:#24203a;
+  --fondo:#f7f5ff;--superficie:#ffffff;--superficie-2:#f0edfd;--borde:#e0daf7;--borde-suave:#ebe7fb;
+  --texto:#24203a;--apagado:#635d80;
+  --acento:#6a4fc4;--acento-suave:#ece6ff;--acento-fuerte:#4e379c;
+  --ok:#2f8f74;--aviso:#b4740f;--riesgo:#c2456a;--linea-rejilla:#ebe7f8;
+  --c1:#b8a6f5;--c2:#f5b8d4;--c3:#9fdcd0;--c4:#ffd59e;--c5:#a6c8f7;--c6:#c4bfd6;
+  --radio:22px;--radio-s:14px;--sombra:0 2px 4px rgba(36,32,58,.04),0 14px 34px rgba(106,79,196,.10);
+  /* oscuro: el modo los copia en los tokens de arriba */
+  --fondo-o:#141221;--superficie-o:#1c192d;--superficie-2-o:#232038;--borde-o:#363150;--borde-suave-o:#2c2843;
+  --texto-o:#ece9f8;--apagado-o:#aaa4c6;
+  --acento-o:#c4b5fd;--acento-suave-o:#2a2448;--acento-fuerte-o:#e0d8fe;
+  --ok-o:#9fdcd0;--aviso-o:#ffd59e;--riesgo-o:#f5b8d4;--linea-rejilla-o:#2c2843;
+  --c1-o:#c4b5fd;--c2-o:#f5b8d4;--c3-o:#9fdcd0;--c4-o:#ffd59e;--c5-o:#a6c8f7;--c6-o:#aaa4c6;
+  --sombra-o:0 2px 4px rgba(0,0,0,.4),0 14px 34px rgba(0,0,0,.35);
+}
+:root[data-tema="lavanda"] .indicador::before{background:linear-gradient(90deg,var(--c1),var(--c2))}
+:root[data-tema="lavanda"] button{border-radius:999px}
+/* Modo claro u oscuro. Sin data-modo en la etiqueta html sigue al sistema; data-modo="claro" u
+   "oscuro" lo fija. Cada tema claro trae su version oscura en los tokens terminados en -o, y estas
+   reglas la pasan a los tokens normales. Los temas siempre oscuros van despues: no tienen -o e
+   ignoran el modo. En papel no rige: se imprime siempre con los colores claros. */
+:root[data-modo="claro"]{color-scheme:light}
+:root[data-modo="oscuro"]{color-scheme:dark}
+@media screen and (prefers-color-scheme:dark){:root:not([data-modo="claro"]){--fondo:var(--fondo-o);--superficie:var(--superficie-o);--superficie-2:var(--superficie-2-o);--borde:var(--borde-o);--borde-suave:var(--borde-suave-o);--texto:var(--texto-o);--apagado:var(--apagado-o);--acento:var(--acento-o);--acento-suave:var(--acento-suave-o);--acento-fuerte:var(--acento-fuerte-o);--ok:var(--ok-o);--aviso:var(--aviso-o);--riesgo:var(--riesgo-o);--linea-rejilla:var(--linea-rejilla-o);--c1:var(--c1-o);--c2:var(--c2-o);--c3:var(--c3-o);--c4:var(--c4-o);--c5:var(--c5-o);--c6:var(--c6-o);--sombra:var(--sombra-o)}}
+@media screen{:root[data-modo="oscuro"]{--fondo:var(--fondo-o);--superficie:var(--superficie-o);--superficie-2:var(--superficie-2-o);--borde:var(--borde-o);--borde-suave:var(--borde-suave-o);--texto:var(--texto-o);--apagado:var(--apagado-o);--acento:var(--acento-o);--acento-suave:var(--acento-suave-o);--acento-fuerte:var(--acento-fuerte-o);--ok:var(--ok-o);--aviso:var(--aviso-o);--riesgo:var(--riesgo-o);--linea-rejilla:var(--linea-rejilla-o);--c1:var(--c1-o);--c2:var(--c2-o);--c3:var(--c3-o);--c4:var(--c4-o);--c5:var(--c5-o);--c6:var(--c6-o);--sombra:var(--sombra-o)}}
+:root[data-tema="nocturno"]{
+  --degradado:radial-gradient(800px 420px at 10% -10%,rgba(94,234,212,.16),transparent 70%),radial-gradient(700px 380px at 90% 0,rgba(129,140,248,.16),transparent 70%);--texto-sobre-serie:#0b0f1a;
+  color-scheme:dark;
+  --fondo:#0b0f1a;--superficie:#121829;--superficie-2:#182036;--borde:#263050;--borde-suave:#1e2740;
+  --texto:#e6ecff;--apagado:#a3aecf;
+  --acento:#5eead4;--acento-suave:#11313a;--acento-fuerte:#99f6e4;
+  --ok:#4ade80;--aviso:#fbbf24;--riesgo:#fb7185;--linea-rejilla:#1f2941;
+  --c1:#5eead4;--c2:#818cf8;--c3:#fbbf24;--c4:#f472b6;--c5:#60a5fa;--c6:#94a3b8;
+  --radio:16px;--radio-s:10px;--sombra:0 0 0 1px rgba(94,234,212,.08),0 12px 32px rgba(0,0,0,.55);
+}
+:root[data-tema="nocturno"] .indicador::before{background:linear-gradient(90deg,var(--c1),var(--c2))}
+:root[data-tema="nocturno"] .indicador .cifra{text-shadow:0 0 24px color-mix(in srgb,var(--acento) 35%,transparent)}
+/* En papel: la base pone fondo blanco, texto negro y estados legibles; el tema solo da su acento y su serie de papel. */
+@media print{
+  :root[data-tema="nocturno"]{--acento:#0f766e;--acento-fuerte:#0b5a54;--c1:#0f766e;--c2:#4f46e5;--c3:#b45309;--c4:#be185d;--c5:#1d4ed8;--c6:#64748b;}
+}
+:root[data-tema="dorado"]{
+  --degradado:radial-gradient(900px 460px at 10% -10%,rgba(212,175,55,.14),transparent 70%),radial-gradient(700px 380px at 92% 0,rgba(143,191,106,.08),transparent 70%);--texto-sobre-serie:#0b0a08;--color-cifra:var(--acento-fuerte);
+  color-scheme:dark;
+  --fondo:#0b0a08;--superficie:#15130f;--superficie-2:#1d1a14;--borde:#332d22;--borde-suave:#26221a;
+  --texto:#f3ecdc;--apagado:#b3a88f;
+  --acento:#d4af37;--acento-suave:#2a2312;--acento-fuerte:#f0d27a;
+  --ok:#7bc96f;--aviso:#f0b429;--riesgo:#ef6f6c;--linea-rejilla:#2a251c;
+  --c1:#d4af37;--c2:#8fbf6a;--c3:#f5d76e;--c4:#c08a3e;--c5:#6fb8a8;--c6:#a39b88;
+  --radio:12px;--radio-s:8px;--sombra:0 0 0 1px rgba(212,175,55,.10),0 14px 34px rgba(0,0,0,.6);
+}
+:root[data-tema="dorado"] h1,:root[data-tema="dorado"] h2{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-weight:600}
+:root[data-tema="dorado"] .indicador::before{background:linear-gradient(90deg,#8a6d1f,var(--acento),#f0d27a)}
+:root[data-tema="dorado"] .indicador .cifra{text-shadow:0 0 22px rgba(212,175,55,.25)}
+:root[data-tema="dorado"] .antetitulo{letter-spacing:.24em}
+/* En papel: la base pone fondo blanco, texto negro y estados legibles; el tema solo da su acento y su serie de papel. */
+@media print{
+  :root[data-tema="dorado"]{--acento:#8a6d1f;--acento-fuerte:#6b5416;--c1:#9a7b1c;--c2:#4f7a3a;--c3:#b8902a;--c4:#8a5a22;--c5:#2f6f63;--c6:#6b6455;}
+}
+:root[data-tema="esmeralda_noche"]{
+  --degradado:radial-gradient(800px 420px at 8% -10%,rgba(52,211,153,.14),transparent 70%),radial-gradient(700px 380px at 95% 0,rgba(212,175,55,.10),transparent 70%);--texto-sobre-serie:#07110d;
+  color-scheme:dark;
+  --fondo:#07110d;--superficie:#0e1a15;--superficie-2:#13231c;--borde:#1f3a2e;--borde-suave:#182d24;
+  --texto:#e6f2ec;--apagado:#9db8ab;
+  --acento:#34d399;--acento-suave:#0f2a20;--acento-fuerte:#86efc4;
+  --ok:#4ade80;--aviso:#fbbf24;--riesgo:#fb7185;--linea-rejilla:#183026;
+  --c1:#34d399;--c2:#d4af37;--c3:#a3e635;--c4:#2dd4bf;--c5:#fbbf24;--c6:#94a3b8;
+  --radio:14px;--radio-s:9px;--sombra:0 0 0 1px rgba(52,211,153,.08),0 12px 32px rgba(0,0,0,.55);
+}
+:root[data-tema="esmeralda_noche"] .indicador::before{background:linear-gradient(90deg,var(--c1),var(--c2))}
+/* En papel: la base pone fondo blanco, texto negro y estados legibles; el tema solo da su acento y su serie de papel. */
+@media print{
+  :root[data-tema="esmeralda_noche"]{--acento:#0f7a55;--acento-fuerte:#0b5c40;--c1:#0f7a55;--c2:#9a7b1c;--c3:#5b8a1e;--c4:#0e7470;--c5:#b07a0f;--c6:#64748b;}
+}
+:root[data-tema="ambar"]{
+  --degradado:radial-gradient(900px 440px at 50% -12%,rgba(251,191,36,.13),transparent 70%);--texto-sobre-serie:#0c0b07;--color-cifra:var(--acento);
+  color-scheme:dark;
+  --fondo:#0c0b07;--superficie:#16140d;--superficie-2:#1e1b12;--borde:#36301c;--borde-suave:#292414;
+  --texto:#f7f1de;--apagado:#b9ae8c;
+  --acento:#fbbf24;--acento-suave:#2d2410;--acento-fuerte:#fde68a;
+  --ok:#84cc16;--aviso:#fb923c;--riesgo:#f87171;--linea-rejilla:#2a2516;
+  --c1:#fbbf24;--c2:#84cc16;--c3:#fde68a;--c4:#f97316;--c5:#22d3ee;--c6:#a8a29e;
+  --radio:10px;--radio-s:6px;--sombra:0 0 0 1px rgba(251,191,36,.10),0 12px 30px rgba(0,0,0,.6);
+}
+:root[data-tema="ambar"] .indicador::before{background:var(--acento);height:3px}
+:root[data-tema="ambar"] h2{text-transform:uppercase;letter-spacing:.06em;font-size:.92rem}
+/* En papel: la base pone fondo blanco, texto negro y estados legibles; el tema solo da su acento y su serie de papel. */
+@media print{
+  :root[data-tema="ambar"]{--acento:#a86a00;--acento-fuerte:#7f5000;--c1:#b07a00;--c2:#4d7c0f;--c3:#c49a2c;--c4:#c2410c;--c5:#0e7490;--c6:#78716c;}
+}
+:root[data-tema="oliva_oro"]{
+  --degradado:radial-gradient(900px 460px at 10% -8%,rgba(227,179,65,.12),transparent 70%),radial-gradient(760px 420px at 95% 2%,rgba(155,191,76,.10),transparent 70%);--texto-sobre-serie:#10140b;
+  color-scheme:dark;
+  --fondo:#10140b;--superficie:#181e11;--superficie-2:#1f2717;--borde:#33402a;--borde-suave:#28331f;
+  --texto:#eef1e4;--apagado:#aeb79a;
+  --acento:#e3b341;--acento-suave:#2a2814;--acento-fuerte:#f2d27e;
+  --ok:#9bd16b;--aviso:#f0b354;--riesgo:#f08a7a;--linea-rejilla:#28331f;
+  --c1:#e3b341;--c2:#9bbf4c;--c3:#d9e07a;--c4:#6b9e5a;--c5:#c97b3d;--c6:#9aa08a;
+  --radio:16px;--radio-s:10px;--sombra:0 2px 6px rgba(0,0,0,.4),0 14px 32px rgba(0,0,0,.45);
+}
+:root[data-tema="oliva_oro"] h1{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;font-weight:600}
+:root[data-tema="oliva_oro"] .indicador::before{background:linear-gradient(90deg,var(--c2),var(--c1))}
+/* En papel: la base pone fondo blanco, texto negro y estados legibles; el tema solo da su acento y su serie de papel. */
+@media print{
+  :root[data-tema="oliva_oro"]{--acento:#8a6a14;--acento-fuerte:#6b5210;--c1:#a8841f;--c2:#5b7a2a;--c3:#8c8f2e;--c4:#3f6b34;--c5:#9a5a24;--c6:#6b6f5d;}
+}
+:root[data-tema="lima"]{
+  --degradado:none;--texto-sobre-serie:#090b08;
+  color-scheme:dark;
+  --fondo:#090b08;--superficie:#111410;--superficie-2:#171b15;--borde:#283024;--borde-suave:#1e241b;
+  --texto:#ecf2e6;--apagado:#a3ae98;
+  --acento:#a3e635;--acento-suave:#1f2b10;--acento-fuerte:#d9f99d;
+  --ok:#4ade80;--aviso:#facc15;--riesgo:#fb7185;--linea-rejilla:#1e241b;
+  --c1:#a3e635;--c2:#facc15;--c3:#22c55e;--c4:#e2e8f0;--c5:#38bdf8;--c6:#78716c;
+  --radio:6px;--radio-s:4px;--sombra:0 0 0 1px rgba(163,230,53,.10),0 10px 28px rgba(0,0,0,.6);
+  --fuente:ui-sans-serif,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+:root[data-tema="lima"] .indicador::before{background:var(--acento);height:2px}
+:root[data-tema="lima"] .indicador .cifra,:root[data-tema="lima"] td.cifra{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;letter-spacing:-.02em}
+:root[data-tema="lima"] .antetitulo::before{content:"● ";color:var(--acento)}
+/* En papel: la base pone fondo blanco, texto negro y estados legibles; el tema solo da su acento y su serie de papel. */
+@media print{
+  :root[data-tema="lima"]{--acento:#4d7c0f;--acento-fuerte:#3a5e0b;--c1:#4d7c0f;--c2:#a16207;--c3:#15803d;--c4:#475569;--c5:#0369a1;--c6:#57534e;}
+}
+.malla{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:var(--e3);margin:0 0 var(--e3);align-items:start}
+.malla .ancho-total{grid-column:1/-1}
+.malla.dos{grid-template-columns:repeat(2,minmax(0,1fr))}
+.malla.tres{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:760px){.malla.dos,.malla.tres{grid-template-columns:1fr}}
+.grafico{margin:0;min-width:0}
+.tendencia{margin:var(--e3) 0 0;padding-top:var(--e2);border-top:1px solid var(--borde-suave)}
+.chispa{display:block;width:100%;height:30px}
+.chispa-area{fill:var(--acento);opacity:.13;stroke:none}
+.chispa-linea{fill:none;stroke:var(--acento);stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.chispa-punto{fill:var(--acento)}
+.tendencia-nota{font-size:.76rem;color:var(--apagado);margin:5px 0 0}
+.centro-anillo{text-anchor:middle;fill:var(--texto);font-weight:670}
+.grafico svg{margin:0 auto}
+.grafico svg.medidor{max-width:300px}
+.grafico svg.reparto{max-width:320px}
+.grafico .valor-punto{font-size:11px;fill:var(--texto);font-weight:620}
+.grafico .anotacion{stroke:var(--apagado);stroke-width:1;stroke-dasharray:3 3}
+.grafico .texto-anotacion{font-size:10.5px;fill:var(--apagado)}
+.grafico .cero{stroke:var(--apagado);stroke-width:1}
+.grafico .zona{font-size:12px;fill:var(--apagado);font-weight:620}
+.grafico .numero-riesgo{font-size:11px;font-weight:700;fill:var(--texto-sobre-serie,#fff)}
+.grafico .fecha-fin{font-size:10.5px;fill:var(--apagado)}
+.grafico .fecha-fin.dentro{fill:var(--texto-sobre-serie,#fff);font-weight:620}
+.grafico .hoy{stroke:var(--riesgo);stroke-width:2;stroke-dasharray:4 3}
+.grafico .texto-hoy{font-size:11px;fill:var(--riesgo);font-weight:650}
+ol.leyenda{display:block;padding-left:20px}
+[data-cifra].delta-bien{color:var(--ok)}
+[data-cifra].delta-mal{color:var(--riesgo)}
+.grafico .valor-punto.dentro{fill:var(--texto-sobre-serie,#fff)}
+.leyenda .porcentaje{color:var(--texto);font-variant-numeric:tabular-nums;font-weight:620}
+.medidor-rotulo{text-align:center;font-size:.82rem;color:var(--apagado);margin:0 0 var(--e3)}
+.medidor .pista-arco{fill:none;stroke:var(--superficie-2);stroke-width:18;stroke-linecap:round}
+.medidor .arco{fill:none;stroke-width:18;stroke-linecap:round;transition:stroke-dasharray .35s ease}
+.fuente-grafico{font-size:.76rem;color:var(--apagado);margin:var(--e2) 0 0}
+.datos-grafico{margin:var(--e3) 0 0;font-size:.82rem}
+.datos-grafico summary{cursor:pointer;color:var(--apagado);width:max-content}
+.datos-grafico summary:hover{color:var(--acento)}
+.datos-grafico table{min-width:0;font-size:.82rem;margin-top:var(--e2)}
+.datos-grafico button{font-size:.78rem;padding:6px 12px;margin-top:var(--e2);box-shadow:none}
+.error-grafico{border:1px dashed var(--riesgo);color:var(--riesgo);border-radius:var(--radio-s);padding:var(--e3);font-size:.85rem;margin:0}
+.fuentes-reporte{margin:0 0 var(--e3);padding-left:20px}
+.fuentes-reporte li{margin:0 0 var(--e1)}
+@media print{
+  :root,:root[data-tema]{--fondo:#fff;--superficie:#fff;--superficie-2:#fff;--borde:#c8c5bf;--borde-suave:#dcd9d3;
+        --linea-rejilla:#d5d2cc;--texto:#000;--apagado:#3f3d39;--sombra:none;--acento-suave:#f2f6f8;
+        color-scheme:light;--texto-sobre-serie:#fff;--ok:#2f7d4f;--aviso:#a8650f;--riesgo:#b23a48}
+  @page{size:A4;margin:15mm 14mm 17mm;@bottom-right{content:counter(page) " / " counter(pages);font-size:8pt;color:#666}}
+  *{animation:none!important;transition:none!important}
+  *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
+  body{font-size:10.5pt;background-image:none}
+  .indicador .cifra{text-shadow:none}
+  .contenedor{max-width:none;padding:0}
+  .acciones,.datos-grafico{display:none}
+  .malla{display:block}
+  .tarjeta,.indicador{break-inside:avoid;box-shadow:none;padding:var(--e3) var(--e4)}
+  .tarjeta{margin:0 0 var(--e3)}
+  .malla .tarjeta svg{max-height:190px}
+  .malla .tarjeta.ancho-total svg{max-height:none}
+  .borrador{padding:var(--e2) var(--e3);font-size:.78rem;margin-bottom:var(--e3)}
+  h1{margin-bottom:var(--e2)}
+  .entradilla{margin-bottom:var(--e2)}
+  .indicadores{grid-template-columns:repeat(2,1fr)}
+  thead{display:table-header-group}
+  /* Chrome repite el tfoot en cada pagina; asi solo aparece al final. */
+  tfoot{display:table-row-group}
+  tbody tr:hover{background:transparent}
+  /* En papel no hay scroll horizontal: la tabla se compacta hasta caber en el A4. */
+  .tabla{overflow:visible}
+  table{min-width:0;font-size:8.6pt}
+  th,td{padding:5px 7px}
+  .distintivo{font-size:.62rem;padding:2px 7px}
+  a{color:#000;text-decoration:none}
+  p{orphans:3;widows:3}
+  h1,h2,h3{break-after:avoid}
+  tr,.grafico,.aviso,.leyenda,.barras li,.cronologia li{break-inside:avoid}
+  caption{break-after:avoid}
+}
+/* Estilos propios de la maqueta: se sustituye por los de su parte=estilos o se borra la linea. */
+.contenedor>.aviso{margin:0 0 var(--e3)}
+.pasos{list-style:none;counter-reset:paso;padding:0;margin:0}
+.pasos li{counter-increment:paso;display:grid;grid-template-columns:28px 1fr;column-gap:var(--e2);padding:10px 0;border-bottom:1px solid var(--borde-suave)}
+.pasos li::before{content:counter(paso);grid-row:span 2;width:24px;height:24px;border-radius:50%;background:var(--acento);color:var(--superficie);font-size:.78rem;font-weight:700;display:grid;place-items:center}
+.pasos span{font-size:.82rem;color:var(--apagado)}
+</style>
+</head>
+<body>
+<main class="contenedor" style="--ancho:1080px">
+
+  <p class="borrador"><span><strong>DRAFT</strong> &mdash; Documento de trabajo generado en la plataforma. Las cifras, plazos y conclusiones deben ser verificados por un abogado o profesional colegiado antes de su firma, entrega o uso externo. No constituye asesoramiento juridico vinculante.</span></p>
+  <noscript><p class="aviso riesgo">Los graficos y algunas cifras de este documento se dibujan con JavaScript. Activelo en el navegador para verlos; el texto y las tablas se leen igualmente.</p></noscript>
+
+  <header>
+    <p class="antetitulo">Cronograma del expediente | 2026/0417</p>
+    <h1>El monitorio se presenta el 9 de octubre</h1>
+    <p class="entradilla">Donde esta la reclamacion frente a Construcciones Delta, que plazo corre y que viene ahora.</p>
+    <ul class="ficha">
+      <li><b>Referencia:</b> 2026/0417</li>
+      <li><b>Fecha:</b> 24 de septiembre de 2026</li>
+    </ul>
+  </header>
+
+  <div class="indicadores">
+    <div class="indicador aparece">
+      <p class="rotulo">Fase</p>
+      <p class="cifra">Requerimiento</p>
+      <p class="detalle">de cuatro</p>
+    </div>
+    <div class="indicador aparece es-atencion">
+      <p class="rotulo">Proximo vencimiento</p>
+      <p class="cifra">27/09/2026</p>
+      <p class="detalle">Plazo del burofax</p>
+    </div>
+    <div class="indicador aparece">
+      <p class="rotulo">Dias que quedan</p>
+      <p class="cifra">3</p>
+      <p class="detalle">Naturales</p>
+    </div>
+  </div>
+  <div class="aviso riesgo"><span class="titulo">Plazo en curso</span>El plazo del burofax vence el 27 de septiembre. Si no hay pago, se presenta el monitorio el 9 de octubre.</div>
+  <div class="malla dos">
+    <section class="tarjeta ancho-total">
+      <h2>Diez meses desde la primera factura</h2>
+      <p class="subtitulo">Lo que ha pasado, en una escala real de fechas</p>
+      <figure class="grafico" data-grafico="hitos"></figure>
+    </section>
+    <section class="tarjeta ancho-total">
+      <h2>Lo que corre ahora</h2>
+      <p class="subtitulo">Plazos en curso y previstos, con la marca de hoy</p>
+      <figure class="grafico" data-grafico="plazos"></figure>
+    </section>
+    <section class="tarjeta">
+      <h2>La reclamacion va por la mitad</h2>
+      <p class="subtitulo">Avance por fase</p>
+      <figure class="grafico" data-grafico="fases"></figure>
+    </section>
+    <section class="tarjeta">
+      <h2>Proximos pasos</h2>
+      <p class="subtitulo">Con responsable y fecha</p>
+      <ol class="pasos">
+        <li><b>Comprobar si llega el pago</b><span>Cliente · 27 sept</span></li>
+        <li><b>Preparar la peticion de monitorio</b><span>Despacho · 9 oct</span></li>
+        <li><b>Seguir el requerimiento del juzgado</b><span>Despacho · nov</span></li>
+      </ol>
+    </section>
+  </div>
+
+  <div class="acciones">
+    <button type="button" id="imprimir">Imprimir o guardar en PDF</button>
+    
+  </div>
+
+  <footer class="pie">
+    <p><b>Fuentes</b></p>
+    <ol class="fuentes-reporte" id="fuentes-reporte"></ol>
+    <p>Datos ficticios de demostracion. No sustituye al asesoramiento de un profesional colegiado.</p>
+  </footer>
+
+</main>
+<!-- Catalogo del diseno editable: lo lee la app para ofrecer estilos y graficos. No se edita. -->
+<script type="application/json" id="catalogo-reporte">
+{"temas": [
+ {"id": "moderno", "nombre": "Moderno", "familia": "claro", "para": "Paneles y presentaciones", "siempre_oscuro": false},
+ {"id": "sobrio", "nombre": "Sobrio", "familia": "claro", "para": "Juzgado y cliente institucional", "siempre_oscuro": false},
+ {"id": "editorial", "nombre": "Editorial", "familia": "claro", "para": "Documentos para imprimir", "siempre_oscuro": false},
+ {"id": "corporativo", "nombre": "Corporativo", "familia": "claro", "para": "Memorias y comit\u00e9s", "siempre_oscuro": false},
+ {"id": "minimal", "nombre": "Minimal", "familia": "claro", "para": "Res\u00famenes de una p\u00e1gina", "siempre_oscuro": false},
+ {"id": "nocturno", "nombre": "Nocturno", "familia": "oscuro", "para": "Proyectar en pantalla", "siempre_oscuro": true},
+ {"id": "tecnico", "nombre": "T\u00e9cnico", "familia": "claro", "para": "Auditor\u00edas y cumplimiento", "siempre_oscuro": false},
+ {"id": "calido", "nombre": "C\u00e1lido", "familia": "claro", "para": "Particulares y familia", "siempre_oscuro": false},
+ {"id": "institucional", "nombre": "Institucional", "familia": "claro", "para": "Administraci\u00f3n y organismos", "siempre_oscuro": false},
+ {"id": "pizarra", "nombre": "Pizarra", "familia": "claro", "para": "Paneles densos", "siempre_oscuro": false},
+ {"id": "suave", "nombre": "Suave", "familia": "pastel", "para": "Boletines y comunicaci\u00f3n", "siempre_oscuro": false},
+ {"id": "prensa", "nombre": "Prensa", "familia": "claro", "para": "Novedades normativas", "siempre_oscuro": false},
+ {"id": "alto_contraste", "nombre": "Alto contraste", "familia": "claro", "para": "Accesibilidad", "siempre_oscuro": false},
+ {"id": "dorado", "nombre": "Dorado", "familia": "oscuro", "para": "Prestigio y direcci\u00f3n", "siempre_oscuro": true},
+ {"id": "esmeralda_noche", "nombre": "Esmeralda nocturno", "familia": "oscuro", "para": "Paneles en pantalla", "siempre_oscuro": true},
+ {"id": "ambar", "nombre": "\u00c1mbar", "familia": "oscuro", "para": "Paneles operativos", "siempre_oscuro": true},
+ {"id": "oliva_oro", "nombre": "Oliva y oro", "familia": "oscuro", "para": "Rural y patrimonio", "siempre_oscuro": true},
+ {"id": "lima", "nombre": "Lima", "familia": "oscuro", "para": "Tecnolog\u00eda y datos", "siempre_oscuro": true},
+ {"id": "menta", "nombre": "Menta", "familia": "pastel", "para": "Salud y particulares", "siempre_oscuro": false},
+ {"id": "melocoton", "nombre": "Melocot\u00f3n", "familia": "pastel", "para": "Familia y eventos", "siempre_oscuro": false},
+ {"id": "lavanda", "nombre": "Lavanda", "familia": "pastel", "para": "Comunicaci\u00f3n interna", "siempre_oscuro": false}
+ ],
+ "familias_graficos": [
+  {"id": "series", "tipos": [
+   {"tipo": "columnas", "nombre": "Columnas", "pregunta": "\u00bfQu\u00e9 es mayor?"},
+   {"tipo": "apiladas", "nombre": "Columnas apiladas", "pregunta": "\u00bfQu\u00e9 peso tiene cada parte?"},
+   {"tipo": "linea", "nombre": "L\u00ednea", "pregunta": "\u00bfC\u00f3mo evoluciona?"},
+   {"tipo": "area_apilada", "nombre": "\u00c1rea apilada", "pregunta": "\u00bfC\u00f3mo evoluciona?"},
+   {"tipo": "escalones", "nombre": "Escalones", "pregunta": "\u00bfC\u00f3mo evoluciona?"}
+  ]},
+  {"id": "partidas", "tipos": [
+   {"tipo": "barras", "nombre": "Barras", "pregunta": "\u00bfQu\u00e9 es mayor?"},
+   {"tipo": "pareto", "nombre": "Pareto", "pregunta": "\u00bfQu\u00e9 es mayor?"},
+   {"tipo": "divergentes", "nombre": "Divergentes", "pregunta": "\u00bfQu\u00e9 es mayor?"},
+   {"tipo": "treemap", "nombre": "Treemap", "pregunta": "\u00bfQu\u00e9 peso tiene cada parte?"}
+  ]},
+  {"id": "porciones", "tipos": [
+   {"tipo": "anillo", "nombre": "Anillo", "pregunta": "\u00bfQu\u00e9 peso tiene cada parte?"},
+   {"tipo": "tarta", "nombre": "Tarta", "pregunta": "\u00bfQu\u00e9 peso tiene cada parte?"}
+  ]},
+  {"id": "avance", "tipos": [
+   {"tipo": "progreso", "nombre": "Progreso", "pregunta": "\u00bfCu\u00e1nto llevamos y en qu\u00e9 estado?"},
+   {"tipo": "anillos", "nombre": "Anillos", "pregunta": "\u00bfCu\u00e1nto llevamos y en qu\u00e9 estado?"}
+  ]}
+ ]}
+</script>
+<script type="application/json" id="datos-reporte">
+{
+ "idioma": "es-ES",
+ "moneda": "EUR",
+ "fuentes": {
+  "demo": {
+   "nombre": "Datos ficticios de demostracion",
+   "consulta": "2026-10-11"
+  }
+ },
+ "cifras": {},
+ "graficos": {
+  "hitos": {
+   "tipo": "linea_tiempo",
+   "hoy": "2026-09-24",
+   "hitos": [
+    {
+     "fecha": "2025-11-15",
+     "rotulo": "Vence la primera factura"
+    },
+    {
+     "fecha": "2026-01-20",
+     "rotulo": "Vence la segunda"
+    },
+    {
+     "fecha": "2026-05-04",
+     "rotulo": "Reconocimiento de deuda"
+    },
+    {
+     "fecha": "2026-07-02",
+     "rotulo": "Ultimo pago parcial"
+    },
+    {
+     "fecha": "2026-09-17",
+     "rotulo": "Burofax"
+    },
+    {
+     "fecha": "2026-10-09",
+     "rotulo": "Presentacion del monitorio",
+     "estado": "aviso"
+    }
+   ],
+   "fuente": "demo"
+  },
+  "plazos": {
+   "tipo": "plazos",
+   "hoy": "2026-09-24",
+   "resumen": "Plazos en curso",
+   "plazos": [
+    {
+     "rotulo": "Plazo del burofax",
+     "inicio": "2026-09-17",
+     "fin": "2026-09-27"
+    },
+    {
+     "rotulo": "Preparar el monitorio",
+     "inicio": "2026-09-28",
+     "fin": "2026-10-09"
+    },
+    {
+     "rotulo": "Pago u oposicion",
+     "inicio": "2026-10-20",
+     "fin": "2026-11-10",
+     "aproximada": true
+    }
+   ],
+   "fuente": "demo"
+  },
+  "fases": {
+   "tipo": "progreso",
+   "unidad": "pct",
+   "resumen": "Avance por fase",
+   "elementos": [
+    {
+     "rotulo": "Documentacion",
+     "valor": 100
+    },
+    {
+     "rotulo": "Requerimiento",
+     "valor": 70
+    },
+    {
+     "rotulo": "Monitorio",
+     "valor": 0,
+     "objetivo": 100
+    },
+    {
+     "rotulo": "Cobro",
+     "valor": 0
+    }
+   ],
+   "fuente": "demo"
+  }
+ }
+}
+</script>
+<script>
+/* Motor de graficos de la skill reportes. No se modifica: los graficos se
+   declaran en el bloque datos-reporte y aqui se dibujan. */
+(function(){
+"use strict";
+var NS = "http://www.w3.org/2000/svg", D = document;
+/* El visor de la app guarda el documento tal como esta en pantalla. Lo que el motor, los modulos o la
+   maqueta anaden al cargar lleva data-generado y se quita aqui, antes de que lo vuelvan a anadir (el
+   motor va primero). La lista de fuentes que la presentacion mueve a una diapositiva vuelve al pie. */
+(function () {
+  var lista = D.getElementById("fuentes-reporte"), pie = D.querySelector(".pie");
+  if (lista && pie && lista.closest("[data-generado]")) {
+    var fijos = pie.querySelectorAll(":scope>p:not([data-generado])");
+    pie.insertBefore(lista, fijos.length ? fijos[fijos.length - 1] : null);
+  }
+  [].forEach.call(D.querySelectorAll("[data-generado]"), function (n) { if (n.parentNode) n.parentNode.removeChild(n); });
+})();
+var datos = {};
+try { datos = JSON.parse(D.getElementById("datos-reporte").textContent || "{}"); }
+catch (e) { console.error("datos-reporte no es JSON valido: " + e.message); }
+var IDIOMA = datos.idioma || D.documentElement.lang || "es-ES";
+var MONEDA = datos.moneda || "EUR";
+var TEXTOS_BASE = {
+  es: {en_curso:"en curso", objetivo:"Objetivo", cumplimiento:"Cumplimiento", datos:"Ver los datos", csv:"Descargar CSV", fuente:"Fuente", fuentes:"Fuentes", consulta:"consultado el", otros:"Otros", hoy:"hoy", total:"Total", concepto:"Concepto", valor:"Valor", acumulado:"Acumulado", porcentaje:"Porcentaje", inicio:"Inicio", fin:"Fin", restantes:"Dias naturales restantes", maximo:"Maximo", ok:"Asumir", aviso:"Vigilar", riesgo:"Actuar ya", error:"No se puede dibujar el grafico",
+       no_dibuja:"No se puede dibujar con estos datos", porciones:"M\u00e1s de 6 porciones: las menores se juntan en \u00abOtros\u00bb", pocas_partidas:"Con menos de 3 partidas no hay concentraci\u00f3n que ver",
+       sin_negativos:"Sin valores negativos no hay nada a la izquierda del cero", muchas_categorias:"M\u00e1s de 12 categor\u00edas: los r\u00f3tulos dejan de leerse", una_serie:"Con una sola serie no hay nada que apilar",
+       pocos_periodos:"Con menos de 3 periodos no se ve una evoluci\u00f3n", muchos_objetivos:"Admite hasta 4 objetivos"},
+  en: {en_curso:"ongoing", objetivo:"Target", cumplimiento:"Achieved", datos:"Show the data", csv:"Download CSV", fuente:"Source", fuentes:"Sources", consulta:"accessed on", otros:"Other", hoy:"today", total:"Total", concepto:"Item", valor:"Value", acumulado:"Running total", porcentaje:"Share", inicio:"Start", fin:"End", restantes:"Calendar days left", maximo:"Maximum", ok:"Accept", aviso:"Monitor", riesgo:"Act now", error:"The chart cannot be drawn",
+       no_dibuja:"Cannot be drawn with this data", porciones:"More than 6 slices: the smallest are grouped into \u201cOther\u201d", pocas_partidas:"With fewer than 3 items there is no concentration to show",
+       sin_negativos:"Without negative values there is nothing left of zero", muchas_categorias:"More than 12 categories: the labels become unreadable", una_serie:"With a single series there is nothing to stack",
+       pocos_periodos:"With fewer than 3 periods no trend shows", muchos_objetivos:"Takes up to 4 targets"}
+};
+var T = Object.assign({}, TEXTOS_BASE[IDIOMA.slice(0, 2)] || TEXTOS_BASE.es, datos.textos || {});
+var FUENTES = datos.fuentes || {};
+var usadas = [];
+
+/* ---------- utilidades ---------- */
+function svg(tag, at, padre, texto) {
+  var n = D.createElementNS(NS, tag);
+  for (var k in at) { if (at[k] !== undefined && at[k] !== null) n.setAttribute(k, at[k]); }
+  if (texto !== undefined) n.textContent = texto;
+  if (padre) padre.appendChild(n);
+  return n;
+}
+function html(tag, clase, padre, texto) {
+  var n = D.createElement(tag);
+  if (clase) n.className = clase;
+  if (texto !== undefined) n.textContent = texto;
+  if (padre) padre.appendChild(n);
+  return n;
+}
+function r1(v) { return Math.round(v * 10) / 10; }
+function num(v) { return typeof v === "number" && isFinite(v); }
+function suma(a) { return a.reduce(function (s, v) { return num(v) ? s + v : s; }, 0); }
+function maximo(a) { return Math.max.apply(null, a.filter(num)); }
+function minimo(a) { return Math.min.apply(null, a.filter(num)); }
+function consejo(nodo, texto) { svg("title", {}, nodo, texto); return nodo; }
+
+var formatos = {};
+function fmt(v, unidad, corto, decimales) {
+  if (!num(v)) return "\u2014";
+  if (unidad === "fecha") return fmtFechaLarga.format(v);
+  unidad = unidad || "num";
+  var clave = unidad + (corto ? "|c" : "") + "|" + decimales, f = formatos[clave];
+  if (!f) {
+    var o = {maximumFractionDigits: 2};
+    if (unidad === "eur" || unidad === "moneda") o = {style: "currency", currency: MONEDA, minimumFractionDigits: 2, maximumFractionDigits: 2};
+    else if (unidad === "pct") o = {style: "percent", maximumFractionDigits: 1};
+    else if (unidad === "entero") o = {maximumFractionDigits: 0};
+    o.useGrouping = "always";  /* 7.300 y no 7300, tambien con cuatro cifras */
+    if (corto && unidad !== "pct") { o.notation = "compact"; o.minimumFractionDigits = 0; o.maximumFractionDigits = 1; }
+    if (num(decimales)) { o.minimumFractionDigits = decimales; o.maximumFractionDigits = decimales; }
+    f = formatos[clave] = new Intl.NumberFormat(IDIOMA, o);
+  }
+  var s = f.format(unidad === "pct" ? v / 100 : v);
+  var conocida = {eur: 1, moneda: 1, pct: 1, num: 1, entero: 1};
+  return conocida[unidad] ? s : s + "\u00a0" + unidad;
+}
+var fmtFecha = new Intl.DateTimeFormat(IDIOMA, {day: "numeric", month: "short", timeZone: "UTC"});
+var fmtFechaLarga = new Intl.DateTimeFormat(IDIOMA, {day: "numeric", month: "long", year: "numeric", timeZone: "UTC"});
+var fmtMes = new Intl.DateTimeFormat(IDIOMA, {month: "short", year: "2-digit", timeZone: "UTC"});
+function fecha(texto) {
+  if (num(texto)) return texto;  /* ya es una fecha calculada (por ejemplo, un vencimiento) */
+  var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(texto || "");
+  if (!m) throw new Error("fecha no valida (usa AAAA-MM-DD): " + texto);
+  return Date.UTC(+m[1], +m[2] - 1, +m[3]);
+}
+var DIA = 86400000;
+
+/* Tope del eje: la cifra legible inmediatamente superior al maximo, de modo que
+   los cuartos de la rejilla tambien sean cifras redondas. */
+function techo(v) {
+  if (!(v > 0)) return 1;
+  var m = Math.pow(10, Math.floor(Math.log10(v))), pasos = [1, 1.2, 1.6, 2, 2.4, 3, 4, 5, 6, 8, 10];
+  for (var i = 0; i < pasos.length; i++) { if (pasos[i] * m >= v * (1 - 1e-9)) return pasos[i] * m; }
+  return 10 * m;
+}
+function color(c, i) {
+  if (typeof c === "number") return "var(--c" + c + ")";
+  if (/^(ok|aviso|riesgo|acento|acento-fuerte)$/.test(c || "")) return "var(--" + c + ")";
+  if (/^#([0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(c || "")) return c;
+  return "var(--c" + ((i % 6) + 1) + ")";
+}
+function lienzo(fig, ancho, alto, resumen, clase, estirar) {
+  return svg("svg", {"class": clase, viewBox: "0 0 " + ancho + " " + alto, preserveAspectRatio: estirar ? "none" : null, role: "img", "aria-label": resumen}, fig);
+}
+function recortar(texto, n) { texto = String(texto); return texto.length > n ? texto.slice(0, n - 1) + "\u2026" : texto; }
+/* Leyenda y tabla de datos de los graficos por series (columnas y linea). */
+function leyendaSeries(series) { return series.map(function (se, j) { return {color: color(se.color, j), texto: se.nombre}; }); }
+function tablaSeries(g, et, series, totales) {
+  var cab = [g.nombre_etiqueta || T.concepto].concat(series.map(function (se) { return se.nombre; }));
+  if (totales) cab.push(T.total);
+  return {cabecera: cab, unidad: g.unidad, filas: et.map(function (eti, i) {
+    var f = [eti].concat(series.map(function (se) { return se.valores[i]; }));
+    if (totales) f.push(totales[i]);
+    return f;
+  })};
+}
+function leyenda(fig, elementos) {
+  var ul = html("ul", "leyenda", fig);
+  elementos.forEach(function (e) {
+    var li = html("li", "", ul), i = html("i", "", li);
+    i.style.background = e.color;
+    if (e.opacidad) i.style.opacity = e.opacidad;
+    li.appendChild(D.createTextNode(e.texto));
+    if (e.extra) html("span", "porcentaje", li, e.extra);
+  });
+}
+
+/* ---------- lienzo cartesiano comun: x de 64 a 664, y de 44 a 244 ---------- */
+/* El ancho W se mide en cada tarjeta (de 320 a 700) para que los rotulos
+   conserven su tamano real; al imprimir se dibuja siempre a 700. */
+var W = 700, X0 = 64, X1 = 664, Y0 = 44, Y1 = 244;
+function util() { return X1 - X0; }
+function rejilla(s, tope, unidad, x0, x1) {
+  x0 = num(x0) ? x0 : X0; x1 = num(x1) ? x1 : X1;  /* los modulos pueden acotar el ancho util */
+  for (var k = 0; k <= 4; k++) {
+    var y = Y1 - k * 50;
+    svg("line", {"class": "rejilla", x1: x0, y1: y, x2: x1, y2: y}, s);
+    svg("text", {"class": "eje", x: x0 - 8, y: y + 4, "text-anchor": "end"}, s, k ? fmt(tope * k / 4, unidad, true) : "0");
+  }
+}
+function rotulosX(s, etiquetas, xDe, extremos) {
+  /* En un eje temporal (extremos) se salta rotulos; en categorias se muestran todos. */
+  var n = etiquetas.length, paso = extremos ? Math.ceil(n / Math.max(3, Math.floor(util() / 72))) : 1;
+  /* Cada rotulo cabe en su hueco: si no, se recorta y el texto completo queda en el consejo. */
+  var cabe = Math.max(4, Math.floor(util() / Math.ceil(n / paso) / 6.4));
+  etiquetas.forEach(function (e, i) {
+    if (i % paso && i !== n - 1) return;
+    var ancla = "middle";
+    if (extremos && i === 0) ancla = "start";
+    if (extremos && i === n - 1) ancla = "end";
+    consejo(svg("text", {"class": "eje", x: r1(xDe(i)), y: 266, "text-anchor": ancla}, s, recortar(e, cabe)), String(e));
+  });
+}
+/* Columna de rotulos a la izquierda (barras de bala, divergentes y plazos). */
+function columnaRotulos() { return W < 520 ? 112 : 150; }
+function rotuloFila(s, y, texto) { consejo(svg("text", {"class": "eje", x: columnaRotulos() - 10, y: y, "text-anchor": "end"}, s, recortar(texto, W < 520 ? 16 : 28)), texto); }
+function yDe(v, tope) { return r1(Y1 - v / tope * 200); }
+
+/* ---------- tipos ---------- */
+var tipos = {};
+
+tipos.barras = function (fig, g) {
+  var el = (g.elementos || []).slice();
+  if (!el.length) throw new Error("faltan elementos");
+  if (el.some(function (e) { return !num(e.valor) || e.valor < 0; })) throw new Error("las barras necesitan valores numericos no negativos; para saldos con signo usa cascada");
+  if (g.orden !== "original") el.sort(function (a, b) { return b.valor - a.valor; });
+  var tope = maximo(el.map(function (e) { return e.valor; }));
+  var ul = html("ul", "barras", fig);
+  el.forEach(function (e, i) {
+    var li = html("li", "", ul), fila = html("p", "fila", li);
+    html("span", "", fila, e.rotulo);
+    html("span", "valor", fila, fmt(e.valor, g.unidad));
+    var pista = html("div", "pista", li), barra = html("span", "", pista);
+    pista.setAttribute("role", "img");
+    pista.setAttribute("aria-label", e.rotulo + ": " + fmt(e.valor, g.unidad));
+    var c = color(e.color, i);
+    barra.style.width = r1(tope > 0 ? e.valor / tope * 100 : 0) + "%";
+    barra.style.background = "linear-gradient(90deg," + c + ",color-mix(in srgb," + c + " 72%,white))";
+  });
+  return {cabecera: [T.concepto, g.nombre_valor || T.valor],
+          filas: el.map(function (e) { return [e.rotulo, e.valor]; })};
+};
+
+function columnasComun(fig, g, apilar, cien) {
+  var et = g.etiquetas || [], series = g.series || [], n = et.length;
+  if (!n || !series.length) throw new Error("faltan etiquetas o series");
+  var totales = et.map(function (_, i) { return suma(series.map(function (s) { return s.valores[i]; })); });
+  var unidad = cien ? "pct" : g.unidad;
+  var tope = cien ? 100 : techo(apilar ? maximo(totales) : maximo([].concat.apply([], series.map(function (s) { return s.valores; }))));
+  var s = lienzo(fig, W, 280, g.resumen || "");
+  rejilla(s, tope, unidad);
+  var banda = util() / n, anchoGrupo = banda * (apilar ? 0.56 : 0.7), ns = series.length;
+  et.forEach(function (eti, i) {
+    var acumulado = 0;
+    series.forEach(function (se, j) {
+      var v = se.valores[i];
+      if (!num(v)) return;
+      if (v < 0) throw new Error("las columnas no admiten valores negativos; usa cascada para saldos con signo");
+      if (cien) v = totales[i] ? v / totales[i] * 100 : 0;
+      var c = color(se.color, j), x, w, y, alto = v / tope * 200;
+      if (apilar) { w = anchoGrupo; x = X0 + banda * i + (banda - w) / 2; y = Y1 - (acumulado + v) / tope * 200; acumulado += v; }
+      else { w = anchoGrupo / ns; x = X0 + banda * i + (banda - anchoGrupo) / 2 + j * w; y = Y1 - alto; }
+      var r = svg("rect", {x: r1(x + (apilar ? 0 : 1)), y: r1(y), width: r1(Math.max(w - (apilar ? 0 : 2), 1)), height: r1(alto), fill: c, rx: apilar ? 0 : 3}, s);
+      consejo(r, eti + " \u00b7 " + se.nombre + ": " + fmt(cien ? v : se.valores[i], unidad));
+      if (!apilar && g.valores !== false && (ns === 1 ? n <= 12 : n * ns <= 6 && banda / ns >= 44)) {
+        svg("text", {"class": "valor-punto", x: r1(x + w / 2), y: r1(y - 6), "text-anchor": "middle"}, s, fmt(v, unidad, true));
+      }
+    });
+    if (apilar && !cien && g.valores !== false && n <= 12) {
+      svg("text", {"class": "valor-punto", x: r1(X0 + banda * (i + 0.5)), y: yDe(totales[i], tope) - 6, "text-anchor": "middle"}, s, fmt(totales[i], unidad, true));
+    }
+  });
+  rotulosX(s, et, function (i) { return X0 + banda * (i + 0.5); });
+  if (ns > 1) leyenda(fig, leyendaSeries(series));
+  return tablaSeries(g, et, series, apilar && totales);
+}
+tipos.columnas = function (fig, g) { return columnasComun(fig, g, false, false); };
+tipos.apiladas = function (fig, g) { return columnasComun(fig, g, true, !!g.cien); };
+
+tipos.linea = function (fig, g, id) {
+  var et = g.etiquetas || [], series = g.series || [], n = et.length;
+  if (n < 2 || !series.length) throw new Error("hacen falta al menos dos etiquetas y una serie");
+  var todos = [].concat.apply([], series.map(function (s) { return s.valores; }));
+  if (minimo(todos) < 0) throw new Error("la linea con area no admite valores negativos");
+  var tope = techo(Math.max(maximo(todos), g.umbral ? g.umbral.hasta : 0));
+  var s = lienzo(fig, W, 280, g.resumen || "");
+  var xDe = function (i) { return X0 + i * util() / (n - 1); };
+  if (g.umbral) {
+    var u = g.umbral, yb = yDe(u.hasta, tope);
+    svg("rect", {"class": "banda", x: X0, y: yb, width: util(), height: r1((u.hasta - (u.desde || 0)) / tope * 200), style: u.color ? "fill:" + color(u.color, 0) : null}, s);
+  }
+  rejilla(s, tope, g.unidad);
+  var defs = svg("defs", {}, s);
+  series.forEach(function (se, j) {
+    var c = color(se.color, j), tramos = [[]];
+    se.valores.forEach(function (v, i) { if (num(v)) tramos[tramos.length - 1].push([r1(xDe(i)), yDe(v, tope), i]); else if (tramos[tramos.length - 1].length) tramos.push([]); });
+    var conArea = j === 0 && g.area !== false;
+    if (conArea) {
+      var gr = svg("linearGradient", {id: "degradado-" + id, x1: 0, y1: 0, x2: 0, y2: 1}, defs);
+      svg("stop", {offset: "0%", "stop-color": c, "stop-opacity": ".32"}, gr);
+      svg("stop", {offset: "100%", "stop-color": c, "stop-opacity": "0"}, gr);
+    }
+    tramos.forEach(function (t) {
+      if (!t.length) return;
+      var pts = t.map(function (p) { return p[0] + "," + p[1]; }).join(" ");
+      if (conArea && t.length > 1) svg("polygon", {points: pts + " " + t[t.length - 1][0] + "," + Y1 + " " + t[0][0] + "," + Y1, fill: "url(#degradado-" + id + ")"}, s);
+      svg("polyline", {points: pts, fill: "none", stroke: c, "stroke-width": j ? 2.4 : 2.6, "stroke-dasharray": j && g.discontinuas !== false ? "7 5" : null, "stroke-linejoin": "round", "stroke-linecap": "round"}, s);
+      t.forEach(function (p) {
+        consejo(svg("circle", {cx: p[0], cy: p[1], r: j ? 3 : 3.6, fill: c}, s), et[p[2]] + " \u00b7 " + se.nombre + ": " + fmt(se.valores[p[2]], g.unidad));
+      });
+    });
+    (se.destacar || (j === 0 ? g.destacar : null) || []).forEach(function (cual) {
+      var vals = se.valores, i = cual === "maximo" ? vals.indexOf(maximo(vals)) : cual === "minimo" ? vals.indexOf(minimo(vals)) : cual === "ultimo" ? vals.length - 1 : cual === "primero" ? 0 : -1;
+      if (i < 0 || !num(vals[i])) return;
+      svg("text", {"class": "valor-punto", x: r1(xDe(i)), y: yDe(vals[i], tope) - 9, "text-anchor": i === 0 ? "start" : i === n - 1 ? "end" : "middle"}, s, fmt(vals[i], g.unidad, true));
+    });
+  });
+  (g.anotaciones || []).forEach(function (a) {
+    var x = r1(xDe(a.indice));
+    svg("line", {"class": "anotacion", x1: x, y1: 30, x2: x, y2: Y1}, s);
+    svg("text", {"class": "texto-anotacion", x: x + (a.indice > n / 2 ? -4 : 4), y: 26, "text-anchor": a.indice > n / 2 ? "end" : "start"}, s, a.texto);
+  });
+  rotulosX(s, et, xDe, true);
+  var ley = leyendaSeries(series);
+  if (g.umbral && g.umbral.rotulo) ley.push({color: g.umbral.color ? color(g.umbral.color, 0) : "var(--ok)", opacidad: ".35", texto: g.umbral.rotulo});
+  if (ley.length > 1) leyenda(fig, ley);
+  return tablaSeries(g, et, series);
+};
+
+tipos.chispa = function (fig, g) {
+  var v = g.valores || [], n = v.length, validos = v.filter(num);
+  if (n < 2 || validos.length < 2) throw new Error("hacen falta al menos dos valores numericos");
+  var lo = minimo(v), hi = maximo(v), rango = (hi - lo) || 1;
+  var x = function (i) { return r1(1 + i * 118 / (n - 1)); }, y = function (val) { return r1(30 - (val - lo) / rango * 28); };
+  var s = lienzo(fig, 120, 32, g.resumen || "", "chispa", true), tramo = [], ultimo = -1;
+  /* Un null interrumpe la linea, igual que en el grafico de linea. */
+  v.concat([null]).forEach(function (val, i) {
+    if (num(val)) { tramo.push([x(i), y(val)]); ultimo = i; return; }
+    if (tramo.length > 1) {
+      var pts = tramo.map(function (p) { return p.join(","); }).join(" ");
+      svg("polygon", {"class": "chispa-area", points: pts + " " + tramo[tramo.length - 1][0] + ",32 " + tramo[0][0] + ",32"}, s);
+      svg("polyline", {"class": "chispa-linea", points: pts}, s);
+    }
+    tramo = [];
+  });
+  svg("circle", {"class": "chispa-punto", cx: x(ultimo), cy: y(v[ultimo]), r: 2.4}, s);
+  var nota = g.nota;
+  if (!nota && g.etiquetas && validos[0]) {
+    var vari = (validos[validos.length - 1] - validos[0]) / Math.abs(validos[0]) * 100;
+    nota = g.etiquetas[0] + " \u2013 " + g.etiquetas[g.etiquetas.length - 1] + ": " + (vari > 0 ? "+" : "") + fmt(vari, "pct");
+  }
+  if (nota) html("p", "tendencia-nota", fig, nota);
+  return null;
+};
+
+tipos.medidor = function (fig, g) {
+  /* real puede pasar de 100 (un plazo excedido): el arco se limita, la cifra no. */
+  var tope = g.maximo || 100, real = (g.valor || 0) / tope * 100, p = Math.max(0, Math.min(100, real));
+  var tramos = g.tramos || [60, 85];
+  var c = g.color ? color(g.color) : real <= tramos[0] ? "var(--ok)" : real <= tramos[1] ? "var(--aviso)" : "var(--riesgo)";
+  var L = Math.PI * 90, arco = r1(p / 100 * L);
+  var s = lienzo(fig, 240, 150, g.resumen || "", "medidor");
+  svg("path", {"class": "pista-arco", d: "M 30 125 A 90 90 0 0 1 210 125"}, s);
+  svg("path", {"class": "arco", d: "M 30 125 A 90 90 0 0 1 210 125", stroke: c, "stroke-dasharray": arco + " " + r1(L - arco + 1)}, s);
+  svg("text", {x: 120, y: 112, "text-anchor": "middle", "font-size": 34, "font-weight": 670, fill: "var(--texto)"}, s, num(g.cifra) ? fmt(g.cifra, g.unidad || "pct") : g.cifra || (g.unidad ? fmt(g.valor, g.unidad) : fmt(real, "pct")));
+  svg("text", {"class": "eje", x: 30, y: 146, "text-anchor": "middle"}, s, "0");
+  svg("text", {"class": "eje", x: 210, y: 146, "text-anchor": "middle"}, s, g.unidad ? fmt(tope, g.unidad, true) : "100\u00a0%");
+  if (g.rotulo) html("p", "medidor-rotulo", fig, g.rotulo);
+  return {cabecera: [T.valor, T.maximo, T.porcentaje], filas: [[g.valor, tope, fmt(real, "pct")]], unidad: g.unidad};
+};
+
+tipos.cascada = function (fig, g) {
+  var pasos = g.pasos || [];
+  if (!pasos.length) throw new Error("faltan pasos");
+  var acum = 0, col = pasos.map(function (p) { var a = acum; acum += p.valor; return {rotulo: p.rotulo, valor: p.valor, desde: a, hasta: acum, color: p.color}; });
+  col.push({rotulo: (g.total && g.total.rotulo) || T.total, valor: acum, desde: 0, hasta: acum, total: true});
+  var hi = techo(maximo(col.map(function (c) { return Math.max(c.desde, c.hasta); })));
+  var lo = Math.min(0, minimo(col.map(function (c) { return Math.min(c.desde, c.hasta); })));
+  if (lo < 0) lo = -techo(-lo);
+  var n = col.length, banda = util() / n, w = banda * 0.6;
+  var y = function (v) { return r1(Y1 - (v - lo) / (hi - lo) * (Y1 - Y0)); };
+  var s = lienzo(fig, W, 280, g.resumen || "");
+  svg("line", {"class": "rejilla", x1: X0, y1: 44, x2: X1, y2: 44}, s);
+  svg("line", {"class": lo < 0 ? "cero" : "rejilla", x1: X0, y1: y(0), x2: X1, y2: y(0)}, s);
+  col.forEach(function (c, i) {
+    var x = r1(X0 + banda * i + (banda - w) / 2), top = y(Math.max(c.desde, c.hasta)), alto = r1(Math.abs(y(c.desde) - y(c.hasta)));
+    var relleno = c.total ? "var(--acento-fuerte)" : c.valor < 0 ? "var(--riesgo)" : color(c.color, i);
+    consejo(svg("rect", {x: x, y: top, width: r1(w), height: Math.max(alto, 1), fill: relleno, rx: 3}, s), c.rotulo + ": " + fmt(c.valor, g.unidad));
+    svg("text", {"class": "valor-punto", x: r1(x + w / 2), y: top - 6, "text-anchor": "middle"}, s, (c.valor < 0 ? "" : !c.total && i ? "+" : "") + fmt(c.valor, g.unidad, true));
+    if (i < n - 1) svg("line", {"class": "conector", x1: r1(x + w), y1: y(c.hasta), x2: r1(x + banda), y2: y(c.hasta), stroke: "var(--linea-rejilla)", "stroke-dasharray": "3 3"}, s);
+  });
+  rotulosX(s, col.map(function (c) { return c.rotulo; }), function (i) { return X0 + banda * (i + 0.5); });
+  return {cabecera: [T.concepto, T.valor, T.acumulado], filas: col.map(function (c) { return [c.rotulo, c.valor, c.hasta]; }), unidad: g.unidad};
+};
+
+tipos.matriz = function (fig, g) {
+  var filas = g.filas || [], cols = g.columnas || [], nf = filas.length, nc = cols.length;
+  if (nf < 2 || nc < 2 || nf > 4 || nc > 4) throw new Error("la matriz necesita de dos a cuatro niveles por eje");
+  var zonas = Object.assign({ok: T.ok, aviso: T.aviso, riesgo: T.riesgo}, g.zonas || {});
+  var Wm = Math.min(W, 560), x0 = 96, y0 = 16, ancho = Wm - x0 - 14, alto = 216, cw = ancho / nc, ch = alto / nf;
+  var s = lienzo(fig, Wm, 290, g.resumen || "");
+  for (var f = 0; f < nf; f++) for (var c = 0; c < nc; c++) {
+    var nivel = ((nf - 1 - f) + c) / (nf + nc - 2), zona = nivel < 0.34 ? "ok" : nivel < 0.67 ? "aviso" : "riesgo";
+    svg("rect", {x: r1(x0 + c * cw), y: r1(y0 + f * ch), width: r1(cw - 2), height: r1(ch - 2), fill: "var(--" + zona + ")", opacity: zona === "riesgo" ? ".22" : ".16", rx: 4}, s);
+    svg("text", {"class": "zona", x: r1(x0 + c * cw + cw / 2), y: r1(y0 + f * ch + 15), "text-anchor": "middle"}, s, zonas[zona]);
+  }
+  filas.forEach(function (r, f) { svg("text", {"class": "eje", x: x0 - 8, y: r1(y0 + f * ch + ch / 2 + 4), "text-anchor": "end"}, s, r); });
+  cols.forEach(function (r, c) { svg("text", {"class": "eje", x: r1(x0 + c * cw + cw / 2), y: y0 + alto + 16, "text-anchor": "middle"}, s, r); });
+  if (g.eje_filas) svg("text", {"class": "eje", x: 12, y: y0 + alto / 2, "text-anchor": "middle", transform: "rotate(-90 12 " + (y0 + alto / 2) + ")"}, s, g.eje_filas);
+  if (g.eje_columnas) svg("text", {"class": "eje", x: x0 + ancho / 2, y: y0 + alto + 34, "text-anchor": "middle"}, s, g.eje_columnas);
+  var ocupadas = {};
+  var items = g.elementos || [];
+  items.forEach(function (e, i) {
+    var f = filas.indexOf(e.fila), c = cols.indexOf(e.columna);
+    if (f < 0 || c < 0) throw new Error("el elemento " + (i + 1) + " no esta en ninguna celda: " + e.fila + " / " + e.columna);
+    var k = f + "-" + c, orden = ocupadas[k] = (ocupadas[k] || 0) + 1;
+    var cx = r1(x0 + c * cw + cw / 2 + ((orden - 1) % 3 - 1) * 20), cy = r1(y0 + f * ch + ch / 2 + 8 + Math.floor((orden - 1) / 3) * 20);
+    consejo(svg("circle", {cx: cx, cy: cy, r: 8.5, fill: color(e.color, 3)}, s), (i + 1) + ". " + e.nombre);
+    svg("text", {"class": "numero-riesgo", x: cx, y: cy + 3.5, "text-anchor": "middle"}, s, String(i + 1));
+  });
+  if (items.length) {
+    var ol = html("ol", "leyenda", fig);
+    items.forEach(function (e) { html("li", "", ol, e.nombre); });
+  }
+  return {cabecera: ["#", T.concepto, g.eje_filas || "", g.eje_columnas || ""], filas: items.map(function (e, i) { return [i + 1, e.nombre, e.fila, e.columna]; })};
+};
+
+tipos.plazos = function (fig, g) {
+  var pl = g.plazos || [];
+  if (!pl.length) throw new Error("faltan plazos");
+  var hoy = fecha(g.hoy), ini = pl.map(function (p) { return fecha(p.inicio); }), fin = pl.map(function (p) { return p.fin ? fecha(p.fin) : hoy; });  /* sin fin: fase abierta hasta hoy */
+  var desde = Math.min(hoy, minimo(ini)), hasta = Math.max(hoy, maximo(fin)), margen = Math.max((hasta - desde) * 0.04, DIA);
+  desde -= margen; hasta += margen;
+  var x0 = columnaRotulos(), ancho = W - x0 - 30, alto = 46 + pl.length * 38 + 34;
+  var x = function (t) { return r1(x0 + (t - desde) / (hasta - desde) * ancho); };
+  var s = lienzo(fig, W, alto, g.resumen || "");
+  var base = alto - 26, dias = (hasta - desde) / DIA;
+  svg("line", {"class": "rejilla", x1: x0, y1: base, x2: x0 + ancho, y2: base}, s);
+  var marcas = [];
+  if (dias <= 120) {
+    var paso = dias <= 14 ? 1 : dias <= 45 ? 7 : 14, t = desde - desde % DIA + DIA;
+    for (; t <= hasta; t += DIA * paso) marcas.push([t, fmtFecha.format(t)]);
+  } else {
+    var d = new Date(desde), salto = dias > 1100 ? 12 : dias > 540 ? 3 : 1;
+    d = Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 1);
+    while (d <= hasta) { marcas.push([d, fmtMes.format(d)]); var dd = new Date(d); d = Date.UTC(dd.getUTCFullYear(), dd.getUTCMonth() + salto, 1); }
+  }
+  var pasoMarca = Math.ceil(marcas.length / 9);
+  marcas.forEach(function (m, i) {
+    if (i % pasoMarca) return;
+    svg("line", {"class": "rejilla", x1: x(m[0]), y1: 40, x2: x(m[0]), y2: base}, s);
+    svg("text", {"class": "eje", x: x(m[0]), y: base + 16, "text-anchor": "middle"}, s, m[1]);
+  });
+  pl.forEach(function (p, i) {
+    var y = 46 + i * 38, a = ini[i], b = fin[i];
+    var c = p.color ? color(p.color, i) : !p.fin ? "var(--aviso)" : b < hoy ? "var(--c6)" : a <= hoy ? "var(--aviso)" : color(null, i);
+    rotuloFila(s, y + 13, p.rotulo);
+    /* Una fecha aproximada (prevista, no notificada) se dibuja con borde discontinuo y relleno claro. */
+    consejo(svg("rect", {x: x(a), y: y, width: Math.max(r1(x(b) - x(a)), 3), height: 18, rx: 4, fill: c, opacity: b < hoy && p.fin ? ".55" : null,
+      "fill-opacity": p.aproximada ? ".3" : null, stroke: p.aproximada ? c : null, "stroke-dasharray": p.aproximada ? "4 3" : null}, s),
+      p.rotulo + ": " + fmtFechaLarga.format(a) + " \u2013 " + (p.fin ? fmtFechaLarga.format(b) : T.en_curso));
+    var dch = x(b) + 6 < x0 + ancho - 40, etiqueta = !p.fin ? T.en_curso : (p.aproximada ? "\u2248 " : "") + fmtFecha.format(b);
+    svg("text", {"class": dch || p.aproximada ? "fecha-fin" : "fecha-fin dentro", x: dch ? x(b) + 6 : x(b) - 6, y: y + 13, "text-anchor": dch ? "start" : "end"}, s, etiqueta);
+  });
+  svg("line", {"class": "hoy", x1: x(hoy), y1: 30, x2: x(hoy), y2: base}, s);
+  svg("text", {"class": "texto-hoy", x: x(hoy), y: 24, "text-anchor": "middle"}, s, g.texto_hoy || T.hoy);
+  return {cabecera: [T.concepto, T.inicio, T.fin, T.restantes], filas: pl.map(function (p, i) {
+    return [p.rotulo, fmtFechaLarga.format(ini[i]), p.fin ? (p.aproximada ? "\u2248 " : "") + fmtFechaLarga.format(fin[i]) : T.en_curso, p.fin ? Math.max(0, Math.round((fin[i] - hoy) / DIA)) : "\u2014"];
+  })};
+};
+
+function sector(cx, cy, R, r, a0, a1) {
+  var gran = a1 - a0 > Math.PI ? 1 : 0;
+  var p = function (rad, a) { return r1(cx + rad * Math.cos(a)) + " " + r1(cy + rad * Math.sin(a)); };
+  if (a1 - a0 >= 2 * Math.PI - 1e-6) {
+    var anillo = "M " + p(R, a0) + " A " + R + " " + R + " 0 1 1 " + p(R, a0 + Math.PI) + " A " + R + " " + R + " 0 1 1 " + p(R, a0) + " Z";
+    return r ? anillo + " M " + p(r, a0) + " A " + r + " " + r + " 0 1 0 " + p(r, a0 + Math.PI) + " A " + r + " " + r + " 0 1 0 " + p(r, a0) + " Z" : anillo;
+  }
+  var d = "M " + p(R, a0) + " A " + R + " " + R + " 0 " + gran + " 1 " + p(R, a1);
+  return r ? d + " L " + p(r, a1) + " A " + r + " " + r + " 0 " + gran + " 0 " + p(r, a0) + " Z"
+           : d + " L " + r1(cx) + " " + r1(cy) + " Z";
+}
+function reparto(fig, g, hueco) {
+  var por = (g.porciones || []).filter(function (p) { return num(p.valor) && p.valor > 0; });
+  if (!por.length) throw new Error("faltan porciones con valor positivo");
+  var max = Math.min(g.maximo_porciones || 6, 6);
+  if (por.length > max) {
+    por.sort(function (a, b) { return b.valor - a.valor; });
+    var resto = por.slice(max - 1);
+    por = por.slice(0, max - 1).concat([{rotulo: g.texto_otros || T.otros, valor: suma(resto.map(function (p) { return p.valor; })), color: 6}]);
+  }
+  var total = suma(por.map(function (p) { return p.valor; }));
+  var s = lienzo(fig, 230, 190, g.resumen || "", "reparto"), a = -Math.PI / 2;
+  por.forEach(function (p, i) {
+    var b = a + p.valor / total * 2 * Math.PI;
+    consejo(svg("path", {d: sector(115, 95, 80, hueco ? 52 : 0, a, b), fill: color(p.color, i), stroke: "var(--superficie)", "stroke-width": 2}, s),
+      p.rotulo + ": " + fmt(p.valor, g.unidad) + " (" + fmt(p.valor / total * 100, "pct") + ")");
+    a = b;
+  });
+  if (hueco) {
+    var centro = g.centro || {};
+    /* La cifra central puede ser texto o un numero (tambien "@clave"), que se formatea con la unidad. */
+    svg("text", {"class": "centro-anillo", x: 115, y: 99, "font-size": 21}, s, num(centro.cifra) ? fmt(centro.cifra, g.unidad, true) : centro.cifra || fmt(total, g.unidad, true));
+    if (centro.rotulo) consejo(svg("text", {"class": "centro-anillo eje", x: 115, y: 117, "font-size": 10.5}, s, recortar(centro.rotulo, 17)), centro.rotulo);
+  }
+  leyenda(fig, por.map(function (p, i) { return {color: color(p.color, i), texto: p.rotulo, extra: fmt(p.valor / total * 100, "pct")}; }));
+  return {cabecera: [T.concepto, T.valor, T.porcentaje], filas: por.map(function (p) { return [p.rotulo, p.valor, fmt(p.valor / total * 100, "pct")]; }).concat([[T.total, total, "100 %"]]), unidad: g.unidad};
+}
+tipos.anillo = function (fig, g) { return reparto(fig, g, true); };
+tipos.tarta = function (fig, g) { return reparto(fig, g, false); };
+
+tipos.bala = function (fig, g) {
+  var el = g.elementos || [];
+  if (!el.length) throw new Error("faltan elementos");
+  var tope = techo(maximo([].concat.apply([], el.map(function (e) { return [e.valor, e.objetivo].concat(e.tramos || []); }))));
+  var x0 = columnaRotulos(), ancho = W - x0 - 64, fila = 46, s = lienzo(fig, W, el.length * fila + 28, g.resumen || "");
+  var x = function (v) { return r1(x0 + Math.max(0, v) / tope * ancho); };
+  el.forEach(function (e, i) {
+    if (!num(e.valor)) throw new Error("el elemento " + (i + 1) + " no tiene valor");
+    var y = 6 + i * fila;
+    rotuloFila(s, y + 19, e.rotulo);
+    /* Tramos cualitativos de fondo (malo, regular, bueno): el mayor, el mas claro. */
+    var tr = (e.tramos || []).slice().sort(function (a, b) { return b - a; });
+    (tr.length ? tr : [tope]).forEach(function (u, k) { svg("rect", {x: x0, y: y + 4, width: x(u) - x0, height: 22, fill: "var(--apagado)", opacity: r1(0.08 + k * 0.08)}, s); });
+    consejo(svg("rect", {x: x0, y: y + 10, width: Math.max(x(e.valor) - x0, 1), height: 10, rx: 2, fill: color(e.color, 0)}, s), e.rotulo + ": " + fmt(e.valor, g.unidad));
+    if (num(e.objetivo)) consejo(svg("rect", {x: x(e.objetivo) - 1.5, y: y + 1, width: 3, height: 28, fill: "var(--texto)"}, s), T.objetivo + ": " + fmt(e.objetivo, g.unidad));
+    svg("text", {"class": "valor-punto", x: x0 + ancho + 8, y: y + 19}, s, fmt(e.valor, g.unidad, true));
+  });
+  var marcas = W < 520 ? 2 : 4;  /* en una tarjeta estrecha, menos rotulos para que no se pisen */
+  for (var k = 0; k <= marcas; k++) svg("text", {"class": "eje", x: x(tope * k / marcas), y: el.length * fila + 22, "text-anchor": "middle"}, s, k ? fmt(tope * k / marcas, g.unidad, true) : "0");
+  return {cabecera: [T.concepto, T.valor, T.objetivo, T.cumplimiento], unidad: g.unidad, filas: el.map(function (e) {
+    return [e.rotulo, e.valor, num(e.objetivo) ? e.objetivo : null, num(e.objetivo) && e.objetivo ? fmt(e.valor / e.objetivo * 100, "pct") : "\u2014"];
+  })};
+};
+
+tipos.divergentes = function (fig, g) {
+  var el = g.elementos || [];
+  if (!el.length) throw new Error("faltan elementos");
+  if (el.some(function (e) { return !num(e.valor); })) throw new Error("todos los elementos necesitan valor numerico");
+  var tope = techo(maximo(el.map(function (e) { return Math.abs(e.valor); })));
+  var x0 = columnaRotulos(), ancho = W - x0 - 16, centro = x0 + ancho / 2, fila = 30, colores = g.colores || {};
+  var s = lienzo(fig, W, el.length * fila + 30, g.resumen || "");
+  var x = function (v) { return r1(centro + v / tope * ancho / 2); };
+  el.forEach(function (e, i) {
+    var y = 6 + i * fila, v = e.valor, c = color(e.color || (v < 0 ? colores.negativo || "riesgo" : colores.positivo || "ok"), 0);
+    rotuloFila(s, y + 13, e.rotulo);
+    consejo(svg("rect", {x: Math.min(x(v), centro), y: y, width: Math.max(Math.abs(x(v) - centro), 1), height: 18, rx: 3, fill: c}, s), e.rotulo + ": " + fmt(v, g.unidad));
+    /* La cifra va fuera de la barra; si no cabe junto al borde, dentro y en blanco. */
+    var fuera = v < 0 ? x(v) - 6 > x0 + 34 : x(v) + 6 < x0 + ancho - 34;
+    var xt = v < 0 ? (fuera ? x(v) - 5 : x(v) + 5) : (fuera ? x(v) + 5 : x(v) - 5);
+    svg("text", {"class": fuera ? "valor-punto" : "valor-punto dentro", x: xt, y: y + 13, "text-anchor": (v < 0) === fuera ? "end" : "start"}, s, (v > 0 ? "+" : "") + fmt(v, g.unidad, true));
+  });
+  var base = el.length * fila + 6;
+  svg("line", {"class": "cero", x1: centro, y1: 0, x2: centro, y2: base}, s);
+  [-tope, 0, tope].forEach(function (v) { svg("text", {"class": "eje", x: x(v), y: base + 16, "text-anchor": v < 0 ? "start" : v > 0 ? "end" : "middle"}, s, v ? fmt(v, g.unidad, true) : "0"); });
+  if (g.nombres) leyenda(fig, [{color: color(colores.positivo || "ok", 0), texto: g.nombres.positivo}, {color: color(colores.negativo || "riesgo", 0), texto: g.nombres.negativo}]);
+  return {cabecera: [T.concepto, T.valor], filas: el.map(function (e) { return [e.rotulo, e.valor]; }), unidad: g.unidad};
+};
+
+/* ---------- tabla de datos, CSV y fuentes ---------- */
+function tablaDatos(fig, tabla, id) {
+  var det = html("details", "datos-grafico", fig);
+  html("summary", "", det, T.datos);
+  var cont = html("div", "tabla", det), t = html("table", "", cont), fila = html("tr", "", html("thead", "", t));
+  tabla.cabecera.forEach(function (c, i) { html("th", i ? "cifra" : "", fila, c); });
+  var cuerpo = html("tbody", "", t);
+  tabla.filas.forEach(function (f) {
+    var tr = html("tr", "", cuerpo);
+    f.forEach(function (v, i) { html("td", i ? "cifra" : "", tr, num(v) ? fmt(v, tabla.unidad) : String(v === null || v === undefined ? "\u2014" : v)); });
+  });
+  var boton = html("button", "", det, T.csv);
+  boton.type = "button";
+  boton.addEventListener("click", function () {
+    var decimal = (1.5).toLocaleString(IDIOMA).indexOf(",") > -1 ? "," : ".";
+    var sep = decimal === "," ? ";" : ",";
+    var celda = function (v) { var s = num(v) ? String(v).replace(".", decimal) : String(v === null || v === undefined ? "" : v); return /[";,\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
+    var csv = [tabla.cabecera].concat(tabla.filas).map(function (f) { return f.map(celda).join(sep); }).join("\r\n");
+    var enlace = D.createElement("a");
+    enlace.href = URL.createObjectURL(new Blob(["\ufeff" + csv], {type: "text/csv;charset=utf-8"}));
+    enlace.download = id + ".csv";
+    D.body.appendChild(enlace); enlace.click(); enlace.remove();
+  });
+}
+function textoFuente(clave) {
+  var f = FUENTES[clave];
+  if (!f) { console.error("Fuente no declarada en datos-reporte: " + clave); return clave; }
+  var t = f.nombre;
+  if (f.url) t += " (" + f.url + ")";
+  /* Una fecha que no sea AAAA-MM-DD (o un marcador pendiente) se muestra tal cual: nunca rompe el motor. */
+  if (f.consulta) t += ", " + T.consulta + " " + (/^\d{4}-\d{2}-\d{2}$/.test(f.consulta) ? fmtFechaLarga.format(fecha(f.consulta)) : f.consulta);
+  return t;
+}
+function fuentesDe(g) {
+  var claves = [].concat(g.fuente || [], (g.series || []).map(function (s) { return s.fuente; })).filter(Boolean);
+  return claves.filter(function (c, i) { return claves.indexOf(c) === i; });
+}
+
+/* ---------- cifras sueltas del texto (data-cifra) ---------- */
+function elementosDe(g) { return g.elementos || g.porciones || g.pasos || g.etapas || null; }
+function valoresDe(g, serie) {
+  if (g.series) return (g.series[serie || 0] || {}).valores || [];
+  var el = elementosDe(g);
+  if (el) return el.map(function (e) { return e.valor; });
+  if (g.valores || num(g.valor)) return g.valores || [g.valor];
+  throw new Error("el grafico " + g.tipo + " no tiene valores sobre los que calcular");
+}
+/* Cifra por su clave, con la pila de lo que se esta calculando para detectar ciclos. */
+function cifraDe(clave, pila) {
+  pila = pila || [];
+  if (pila.indexOf(clave) > -1) throw new Error("referencia circular en " + clave);
+  var d = (datos.cifras || {})[clave];
+  if (!d) throw new Error("no hay cifra " + clave);
+  return cifra(d, pila.concat([clave]));
+}
+/* Calculos que anaden los modulos (por ejemplo, plazos en dias habiles). */
+var calculos = {};
+function cifra(def, pila) {
+  pila = pila || [];
+  if (num(def.valor)) return def.valor;
+  if (calculos[def.calculo]) return calculos[def.calculo](def);
+  /* Operacion entre dos cifras (o numeros): porcentaje de cumplimiento, diferencia con un objetivo... */
+  if (def.operacion) {
+    var op = function (x) { return num(x) ? x : cifraDe(x, pila); };
+    var a = op(def.a), b = op(def.b);
+    switch (def.operacion) {
+      case "suma": return a + b;
+      case "diferencia": return a - b;
+      case "cociente": return a / b;
+      case "porcentaje": return a / b * 100;
+      case "producto": return a * b;
+    }
+    throw new Error("operacion desconocida: " + def.operacion);
+  }
+  var g = (datos.graficos || {})[def.de];
+  if (!g) throw new Error("no hay grafico " + def.de);
+  if (pila.indexOf("#" + def.de) > -1) throw new Error("referencia circular en el grafico " + def.de);
+  /* Los valores "@clave" del grafico se resuelven antes: la cifra y el grafico suman lo mismo. */
+  var v = valoresDe(referencias(g, pila.concat(["#" + def.de])), def.serie).filter(num);
+  switch (def.calculo) {
+    case "suma": return suma(v);
+    case "media": return suma(v) / v.length;
+    case "maximo": return maximo(v);
+    case "minimo": return minimo(v);
+    case "primero": return v[0];
+    case "ultimo": return v[v.length - 1];
+    case "cuenta": return v.length;
+    case "variacion": return (v[v.length - 1] - v[0]) / Math.abs(v[0]) * 100;
+    case "diferencia": return v[v.length - 1] - v[0];
+    case "porcentaje":
+      var lista = elementosDe(g) || [], elegido = lista.filter(function (e) { return e.rotulo === def.elemento; })[0];
+      if (!elegido) throw new Error("no hay elemento " + def.elemento + " en " + def.de);
+      return elegido.valor / suma(v) * 100;
+  }
+  throw new Error("calculo desconocido: " + def.calculo);
+}
+
+/* ---------- arranque ---------- */
+/* Un valor "@clave" dentro de un grafico se sustituye por la cifra clave de cifras: asi una
+   diferencia o un total calculado alimenta tambien al grafico sin escribirlo a mano. */
+function referencias(x, pila) {
+  if (typeof x === "string" && /^@[\w-]+$/.test(x)) return cifraDe(x.slice(1), pila);
+  if (Array.isArray(x)) return x.map(function (y) { return referencias(y, pila); });
+  if (x && typeof x === "object") { var o = {}; for (var k in x) o[k] = referencias(x[k], pila); return o; }
+  return x;
+}
+function escala(fig) { return parseFloat(getComputedStyle(fig).getPropertyValue("--escala-grafico")) || 1; }
+function dibujar(fig, ancho) {
+  var id = fig.getAttribute("data-grafico"), g = (datos.graficos || {})[id];
+  fig.textContent = "";
+  /* --escala-grafico (por ejemplo en una diapositiva) dibuja con un lienzo menor para que,
+     al ampliarse hasta el ancho de la figura, los rotulos salgan mas grandes. */
+  var esc = escala(fig);
+  W = Math.round(Math.min(700, Math.max(320, (impresion && esc === 1 ? 700 : ancho || 700) / esc)));
+  X1 = W - 36;
+  try {
+    if (!g) throw new Error("no hay datos con el nombre " + id);
+    if (!tipos[g.tipo]) throw new Error("tipo desconocido: " + g.tipo);
+    g = referencias(g, ["#" + id]);
+    var tabla = tipos[g.tipo](fig, g, id, W);  /* W: ancho del lienzo, para los tipos de los modulos */
+    if (tabla && g.tabla !== false) tablaDatos(fig, tabla, id);
+    var claves = fuentesDe(g);
+    claves.forEach(function (c) { if (usadas.indexOf(c) < 0) usadas.push(c); });
+    /* La linea de fuente va en las figuras; el minigrafico de un indicador no la lleva. */
+    if (claves.length && fig.tagName === "FIGURE") html("p", "fuente-grafico", fig, (claves.length > 1 ? T.fuentes : T.fuente) + ": " + claves.map(textoFuente).join("; "));
+  } catch (e) {
+    console.error("Grafico " + id + ": " + e.message);
+    fig.textContent = "";
+    html("p", "error-grafico", fig, T.error + " \u00ab" + id + "\u00bb: " + e.message);
+  }
+}
+/* Los tipos de ancho fijo (viewBox propio o HTML) no se redibujan al cambiar el ancho. */
+["barras", "chispa", "medidor", "anillo", "tarta"].forEach(function (t) { tipos[t].fijo = true; });
+var impresion = false, figuras = [], anchos = [];
+function todos(soloVariables) {
+  var medidas = figuras.map(function (f) { return f.clientWidth; });  /* se mide todo antes de escribir */
+  figuras.forEach(function (f, i) {
+    var g = (datos.graficos || {})[f.getAttribute("data-grafico")];
+    if (!soloVariables || !(g && tipos[g.tipo] && tipos[g.tipo].fijo)) dibujar(f, medidas[i]);
+  });
+  anchos = medidas;
+}
+/* Cifras del texto. Con "signo": true se muestra la variacion con su signo y flecha,
+   en verde si es favorable (o en rojo; "mejor": "bajar" invierte el criterio). */
+function pintarCifras() {
+  D.querySelectorAll("[data-cifra]").forEach(function (n) {
+    var clave = n.getAttribute("data-cifra"), def = (datos.cifras || {})[clave] || {};
+    try {
+      var v = cifraDe(clave), texto = fmt(v, def.unidad, false, def.decimales);
+      if (def.signo) {
+        texto = (v > 0 ? "\u25b2 +" : v < 0 ? "\u25bc " : "") + texto;
+        var bien = (v >= 0) !== (def.mejor === "bajar"), colorea = def.mejor !== "neutro" && v !== 0;
+        n.classList.toggle("delta-bien", colorea && bien);
+        n.classList.toggle("delta-mal", colorea && !bien);
+      }
+      n.textContent = texto;
+    } catch (e) { console.error("Cifra " + clave + ": " + e.message); n.textContent = "{{" + clave + "}}"; }
+  });
+}
+function arrancar() {
+  aplicarMarca();
+  figuras = [].slice.call(D.querySelectorAll("[data-grafico]"));
+  todos();
+  pintarCifras();
+  var lista = D.getElementById("fuentes-reporte");
+  if (lista) {
+    lista.textContent = "";
+    Object.keys(FUENTES).forEach(function (c) { if (usadas.indexOf(c) < 0) usadas.push(c); });
+    usadas.forEach(function (c) { html("li", "", lista, textoFuente(c)); });
+  }
+  inicial = estado();
+  atributos = {tema: H.getAttribute("data-tema"), modo: H.getAttribute("data-modo")};
+}
+/* Se redibuja si cambia el ancho de alguna tarjeta y, al imprimir, a tamano fijo. */
+var espera;
+function reajustar() { if (figuras.some(function (f, i) { return Math.abs(f.clientWidth - anchos[i]) > 24; })) todos(true); }
+window.addEventListener("resize", function () { clearTimeout(espera); espera = setTimeout(reajustar, 150); });
+window.addEventListener("beforeprint", function () { impresion = true; todos(true); });
+window.addEventListener("afterprint", function () { impresion = false; todos(true); });
+var imprimir = D.getElementById("imprimir");
+if (imprimir) imprimir.addEventListener("click", function () { window.print(); });
+function actualizar(id, cambios) {
+  Object.assign(datos.graficos[id], cambios);
+  figuras.forEach(function (f) { if (f.getAttribute("data-grafico") === id) dibujar(f, f.clientWidth); });
+  pintarCifras();
+}
+
+/* ---------- diseno editable: tema, modo, colores del despacho y forma de los graficos ---------- */
+/* La app cambia el diseno sin la IA: lee el catalogo, prueba en pantalla con vistaPrevia y restaurar
+   (que no guardan nada) y escribe en el archivo data-tema, data-modo, marca y graficos.<id>.tipo. */
+var H = D.documentElement, CATALOGO = {};
+try { CATALOGO = JSON.parse((D.getElementById("catalogo-reporte") || {}).textContent || "{}"); }
+catch (e) { console.error("catalogo-reporte no es JSON valido: " + e.message); }
+function copia(x) { return x === undefined || x === null ? null : JSON.parse(JSON.stringify(x)); }
+
+/* Colores del despacho (bloque marca de los datos), encima del tema: una hoja que va despues de la
+   del tema con su misma especificidad (:root:root, que vale tambien sin data-tema). Rigen en papel y en pantalla clara; en
+   pantalla oscura, su version oscura o, si no se da, el acento aclarado, porque un granate o un azul
+   marino no se leen sobre fondo negro. Se vuelve a aplicar al cambiar el tema o el modo. */
+var HEX = /^#([0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})$/i, OSCURO = window.matchMedia ? window.matchMedia("(prefers-color-scheme:dark)") : null;
+function variablesMarca(c, aclarar) {
+  var v = "", a = c.acento;
+  if (HEX.test(a || "")) {
+    var fuerte = HEX.test(c.acento_fuerte || "") ? c.acento_fuerte : a;
+    if (aclarar) { fuerte = "color-mix(in srgb," + a + " 35%,#fff)"; a = "color-mix(in srgb," + a + " 55%,#fff)"; }
+    v += "--acento:" + a + ";--acento-fuerte:" + fuerte + ";--acento-suave:color-mix(in srgb," + a + " 12%,var(--superficie));";
+  }
+  if (!aclarar) (c.serie || []).slice(0, 6).forEach(function (x, i) { if (HEX.test(x)) v += "--c" + (i + 1) + ":" + x + ";"; });
+  return v;
+}
+/* Si una marca trae algo que aplicar: un color valido, el logo o el pie. */
+function marcaAplicable(m) {
+  var colores = function (c) { return !!c && (HEX.test(c.acento || "") || (c.serie || []).some(function (x) { return HEX.test(x); })); };
+  return !!m && typeof m === "object" && (colores(m) || colores(m.oscuro) || /^data:image\//.test(m.logo || "") || !!String(m.pie || "").trim());
+}
+/* Oscura si el tema es siempre oscuro, si data-modo la fija o si sigue al sistema y este esta en oscuro. */
+function pantallaOscura() {
+  var cs = getComputedStyle(H).colorScheme || "";
+  return cs === "dark" || (cs !== "light" && !!OSCURO && OSCURO.matches);
+}
+function aplicarMarca() {
+  [].forEach.call(D.querySelectorAll('[data-generado="marca"]'), function (n) { n.parentNode.removeChild(n); });
+  var m = datos.marca;
+  if (!m) return;
+  var R0 = ":root:root", pantalla = !pantallaOscura() ? variablesMarca(m) : m.oscuro ? variablesMarca(m.oscuro) : variablesMarca(m, true);
+  var hoja = D.getElementById("estilo-marca") || html("style", "", D.head);
+  hoja.id = "estilo-marca";
+  hoja.setAttribute("data-generado", "marca");
+  hoja.textContent = "@media print{" + R0 + "{" + variablesMarca(m) + "}}@media screen{" + R0 + "{" + pantalla + "}}";
+  var pie = D.querySelector(".pie");
+  if (m.pie && pie) html("p", "", pie, m.pie).setAttribute("data-generado", "marca");
+  /* El logo, en la portada de una presentacion o de un documento largo, o en la cabecera. */
+  var destino = D.querySelector(".maqueta-portada") || D.querySelector(".contenedor>header");
+  if (destino && /^data:image\/(png|jpeg|svg\+xml|webp);base64,/.test(m.logo || "")) {
+    var img = html("img", "", null);
+    img.src = m.logo; img.alt = m.nombre || "";
+    img.setAttribute("style", "display:block;max-height:52px;max-width:220px;margin:0 0 12px");
+    img.setAttribute("data-generado", "marca");
+    destino.insertBefore(img, destino.firstChild);
+  }
+}
+if (OSCURO) {
+  var alCambiarSistema = function () { if (datos.marca) aplicarMarca(); };
+  if (OSCURO.addEventListener) OSCURO.addEventListener("change", alCambiarSistema); else if (OSCURO.addListener) OSCURO.addListener(alCambiarSistema);
+}
+
+/* Titulo visible de un grafico: el encabezado que lo precede en su tarjeta (o el rotulo de su
+   indicador), subiendo como mucho tres niveles. Si ese encabezado es tambien el de otro grafico
+   anterior, o no hay, vale mas su resumen; y si no tiene, su nombre. */
+function tituloDe(fig, id) {
+  var resumen = ((datos.graficos || {})[id] || {}).resumen;
+  for (var n = fig, k = 0; n && n !== D.body && k < 3; n = n.parentElement, k++) {
+    for (var p = n.previousElementSibling, otros = 0; p; p = p.previousElementSibling) {
+      if (p.matches("[data-grafico]")) otros++;
+      if (!p.matches("h1,h2,h3,h4,figcaption,.rotulo")) continue;
+      var c = p.cloneNode(true);
+      [].forEach.call(c.querySelectorAll(".orden"), function (x) { x.parentNode.removeChild(x); });
+      var t = c.textContent.replace(/\s+/g, " ").trim();
+      if (t) return otros && resumen ? resumen : t;
+    }
+  }
+  return resumen || id;
+}
+/* Un data-tema que no esta en el catalogo no aplica ningun bloque: se ve el moderno, el de :root. */
+function temaConocido(id) { return (CATALOGO.temas || []).some(function (t) { return t.id === id; }); }
+function estado() {
+  var vistos = {}, graficos = [], modo = H.getAttribute("data-modo");
+  [].forEach.call(D.querySelectorAll("[data-grafico]"), function (f) {
+    var id = f.getAttribute("data-grafico"), g = (datos.graficos || {})[id];
+    if (!g || vistos[id]) return;
+    vistos[id] = true;
+    graficos.push({id: id, tipo: g.tipo || null, titulo: tituloDe(f, id)});
+  });
+  return {tema: temaConocido(H.getAttribute("data-tema")) ? H.getAttribute("data-tema") : "moderno", modo: modo === "claro" || modo === "oscuro" ? modo : "sistema",
+          marca: copia(datos.marca), graficos: graficos};
+}
+function fijar(tema, modo, marca) {
+  H.setAttribute("data-tema", tema);
+  if (modo === "sistema") H.removeAttribute("data-modo"); else H.setAttribute("data-modo", modo);
+  if (marca) datos.marca = copia(marca); else delete datos.marca;
+}
+/* Aplica en pantalla, sin guardar: tema, modo (claro, oscuro o sistema) y marca (null la quita, y una
+   marca sin nada que aplicar cuenta como null). */
+function vistaPrevia(o) {
+  o = o || {};
+  var actual = estado();
+  if (o.tema !== undefined && !temaConocido(o.tema)) throw new Error("tema desconocido: " + o.tema);
+  if (o.modo !== undefined && !/^(claro|oscuro|sistema)$/.test(o.modo)) throw new Error("modo desconocido: " + o.modo);
+  fijar(o.tema !== undefined ? o.tema : actual.tema, o.modo !== undefined ? o.modo : actual.modo, o.marca !== undefined ? (marcaAplicable(o.marca) ? o.marca : null) : datos.marca);
+  aplicarMarca();
+  reajustar();
+}
+
+/* Tipos que leen la misma forma de datos (familias del catalogo): se cambian entre si sin tocar los datos. */
+function familiaDe(tipo) {
+  return (CATALOGO.familias_graficos || []).filter(function (f) { return f.tipos.some(function (t) { return t.tipo === tipo; }); })[0] || null;
+}
+/* Por que un tipo no conviene con estos datos, o null. Primero, si no se puede ni dibujar. */
+function avisoDe(tipo, g, id) {
+  var el = g.elementos || [], et = g.etiquetas || [], series = g.series || [];
+  if (tipo === "anillos" && el.length > 4) return T.muchos_objetivos;
+  try { tipos[tipo](D.createElement("figure"), Object.assign({}, g, {tipo: tipo}), id + "-prueba", W); }
+  catch (e) { return T.no_dibuja; }
+  if ((tipo === "tarta" || tipo === "anillo") && (g.porciones || []).length > 6) return T.porciones;
+  if ((tipo === "pareto" || tipo === "treemap") && el.length < 3) return T.pocas_partidas;
+  if (tipo === "divergentes" && !el.some(function (e) { return e.valor < 0; })) return T.sin_negativos;
+  if ((tipo === "columnas" || tipo === "apiladas") && et.length > 12) return T.muchas_categorias;
+  if ((tipo === "apiladas" || tipo === "area_apilada") && series.length < 2) return T.una_serie;
+  if ((tipo === "linea" || tipo === "area_apilada" || tipo === "escalones") && et.length < 3) return T.pocos_periodos;
+  return null;
+}
+function alternativas(id) {
+  var g = (datos.graficos || {})[id];
+  if (!g) return [];
+  var familia = familiaDe(g.tipo), resuelto = g;
+  if (!familia) return [];
+  try { resuelto = referencias(g, ["#" + id]); } catch (e) { /* el grafico ya muestra su error */ }
+  return familia.tipos.filter(function (t) { return tipos[t.tipo]; }).map(function (t) {
+    return {tipo: t.tipo, nombre: t.nombre, pregunta: t.pregunta, actual: t.tipo === g.tipo, aviso: avisoDe(t.tipo, resuelto, id)};
+  });
+}
+/* Vuelve al diseno con el que cargo la pagina, con data-tema y data-modo tal como venian. */
+var inicial = null, atributos = null;
+function restaurar() {
+  if (!inicial) return;
+  fijar(inicial.tema, inicial.modo, inicial.marca);
+  ["tema", "modo"].forEach(function (k) {
+    var v = atributos[k];
+    if (v === null) H.removeAttribute("data-" + k); else H.setAttribute("data-" + k, v);
+  });
+  aplicarMarca();
+  inicial.graficos.forEach(function (g) { var d = datos.graficos[g.id]; if (d && d.tipo !== g.tipo) actualizar(g.id, {tipo: g.tipo}); });
+  reajustar();
+}
+
+/* Interfaz para los modulos opcionales (que registran tipos en Reportes.tipos), para el script de una
+   maqueta y para la app. actualizar cambia los datos de un grafico (tambien su tipo) y lo redibuja
+   junto con las cifras del texto. */
+window.Reportes = {datos: datos, fmt: fmt, tipos: tipos, T: T, svg: svg, html: html, color: color, lienzo: lienzo,
+  recortar: recortar, consejo: consejo, escala: escala, leyenda: leyenda, r1: r1, num: num, maximo: maximo, minimo: minimo,
+  techo: techo, fecha: fecha, DIA: DIA, rejilla: rejilla, yDe: yDe, columnaRotulos: columnaRotulos, rotuloFila: rotuloFila,
+  rotulosX: rotulosX, tablaSeries: tablaSeries, leyendaSeries: leyendaSeries,
+  calculos: calculos, IDIOMA: IDIOMA, actualizar: actualizar,
+  catalogo: CATALOGO, estado: estado, vistaPrevia: vistaPrevia, alternativas: alternativas, restaurar: restaurar};
+/* El dibujo espera a que acabe de cargar la pagina: asi los modulos y el script de la maqueta, que van
+   despues del motor, ya han registrado sus tipos o su contenido. */
+if (D.readyState === "loading") D.addEventListener("DOMContentLoaded", arrancar); else arrancar();
+})();
+</script>
+<script>
+/* Modulo de graficos de seguimiento para el motor de artefactos. Se copia integro, despues
+   del motor, solo en los artefactos que usan alguno de estos tipos. */
+(function(){
+"use strict";
+var R = Reportes, D = document, svg = R.svg, r1 = R.r1, fmt = R.fmt, color = R.color, consejo = R.consejo, num = R.num, T = R.T;
+var TX = Object.assign(/^en/.test(R.IDIOMA)
+  ? {estado: "Status", nota: "Note", fecha: "Date", ok: "Compliant", aviso: "Attention", riesgo: "At risk", pendiente: "Pending"}
+  : {estado: "Estado", nota: "Nota", fecha: "Fecha", ok: "Correcto", aviso: "Atencion", riesgo: "Riesgo", pendiente: "Pendiente"}, R.datos.textos || {});
+function texto(s, at, contenido, clase) { return svg("text", Object.assign({"class": clase || "eje"}, at), s, contenido); }
+var estilosSemaforos = ".semaforos{list-style:none;margin:0;padding:0}.semaforo{display:flex;align-items:flex-start;gap:12px;padding:9px 0;border-bottom:1px solid var(--borde-suave)}" +
+  ".semaforo .luz{flex:none;width:12px;height:12px;border-radius:50%;margin-top:6px;background:var(--apagado)}.semaforo-ok .luz{background:var(--ok)}.semaforo-aviso .luz{background:var(--aviso)}.semaforo-riesgo .luz{background:var(--riesgo)}" +
+  ".semaforo>div{flex:1;min-width:0}.semaforo .nota{display:block;font-size:.82rem;color:var(--apagado)}.semaforos-resumen{font-size:.82rem;color:var(--apagado);margin:var(--e2) 0 0}";
+/* Los estilos de los semaforos se anaden la primera vez que se dibuja uno, no en todo artefacto con el modulo. */
+function conEstilos() { if (estilosSemaforos) { var e = R.html("style", "", D.head, estilosSemaforos); e.setAttribute("data-generado", ""); estilosSemaforos = null; } }
+var fechaCorta = new Intl.DateTimeFormat(R.IDIOMA, {day: "numeric", month: "short", year: "2-digit", timeZone: "UTC"});
+
+/* Progreso: barras de avance con porcentaje y, si se da, marca de objetivo. */
+R.tipos.progreso = function (fig, g, id, W) {
+  var el = g.elementos || [], tramos = g.tramos || null;
+  if (!el.length) throw new Error("faltan elementos");
+  var x0 = R.columnaRotulos(), x1 = W - 66, fila = 32, s = R.lienzo(fig, W, el.length * fila + 6, g.resumen);
+  el.forEach(function (e, i) {
+    var mx = num(e.maximo) ? e.maximo : 100;
+    if (!num(e.valor) || e.valor < 0) throw new Error(e.rotulo + ": valor numerico no negativo");
+    var p = e.valor / mx * 100, y = 6 + i * fila;
+    var c = e.color ? color(e.color, i) : tramos ? (p < tramos[0] ? "var(--riesgo)" : p < tramos[1] ? "var(--aviso)" : "var(--ok)") : color(g.color || "acento", 0);
+    R.rotuloFila(s, y + 14, e.rotulo);
+    svg("rect", {x: x0, y: y + 4, width: x1 - x0, height: 12, rx: 6, fill: "var(--superficie-2)", stroke: "var(--borde-suave)"}, s);
+    consejo(svg("rect", {x: x0, y: y + 4, width: r1(Math.max(0, (x1 - x0) * Math.min(100, p) / 100)), height: 12, rx: 6, fill: c}, s), e.rotulo + ": " + fmt(e.valor, g.unidad) + " / " + fmt(mx, g.unidad) + " (" + fmt(p, "pct") + ")");
+    if (num(e.objetivo)) { var xo = r1(x0 + (x1 - x0) * Math.min(1, e.objetivo / mx)); consejo(svg("line", {x1: xo, y1: y, x2: xo, y2: y + 20, stroke: "var(--texto)", "stroke-width": 2}, s), T.objetivo + ": " + fmt(e.objetivo, g.unidad)); }
+    texto(s, {x: x1 + 8, y: y + 14}, fmt(p, "pct"), "valor-punto");
+    e.pct = p;
+  });
+  return {cabecera: [T.concepto, T.valor, T.maximo, T.porcentaje], unidad: g.unidad, filas: el.map(function (e) { return [e.rotulo, e.valor, num(e.maximo) ? e.maximo : 100, fmt(e.pct, "pct")]; })};
+};
+
+/* Semaforos: estado de cada punto de control, en HTML, con recuento al pie. */
+R.tipos.semaforos = function (fig, g) {
+  var el = g.elementos || [], nombres = Object.assign({ok: TX.ok, aviso: TX.aviso, riesgo: TX.riesgo, pendiente: TX.pendiente}, g.nombres || {}), cuenta = {ok: 0, aviso: 0, riesgo: 0, pendiente: 0};
+  if (!el.length) throw new Error("faltan elementos");
+  conEstilos();
+  var ul = R.html("ul", "semaforos", fig);
+  el.forEach(function (e) {
+    if (!/^(ok|aviso|riesgo|pendiente)$/.test(e.estado || "")) throw new Error(e.rotulo + ": estado debe ser ok, aviso, riesgo o pendiente");
+    cuenta[e.estado]++;
+    var li = R.html("li", "semaforo semaforo-" + e.estado, ul);  /* prefijo: aviso y riesgo ya son clases de la base */
+    R.html("span", "luz", li).setAttribute("aria-hidden", "true");
+    var cuerpo = R.html("div", "", li);
+    R.html("b", "", cuerpo, e.rotulo);
+    if (e.nota) R.html("span", "nota", cuerpo, e.nota);
+    R.html("span", "distintivo " + (e.estado === "aviso" ? "atencion" : e.estado === "pendiente" ? "" : e.estado), li, nombres[e.estado]);
+  });
+  R.html("p", "semaforos-resumen", fig, ["ok", "aviso", "riesgo", "pendiente"].filter(function (k) { return cuenta[k]; }).map(function (k) { return cuenta[k] + " " + nombres[k].toLowerCase(); }).join(" · "));
+  return {cabecera: [T.concepto, TX.estado, TX.nota], filas: el.map(function (e) { return [e.rotulo, nombres[e.estado], e.nota || "—"]; })};
+};
+
+/* Linea de tiempo: hitos sobre una escala real de fechas, con la marca de hoy. */
+R.tipos.linea_tiempo = function (fig, g, id, W) {
+  var hitos = (g.hitos || []).map(function (h) { return Object.assign({}, h, {t: R.fecha(h.fecha)}); }).sort(function (a, b) { return a.t - b.t; });
+  if (hitos.length < 2) throw new Error("hacen falta al menos dos hitos con fecha");
+  var hoy = g.hoy ? R.fecha(g.hoy) : null, desde = hitos[0].t, hasta = hitos[hitos.length - 1].t;
+  if (hoy !== null) { desde = Math.min(desde, hoy); hasta = Math.max(hasta, hoy); }
+  var margen = (hasta - desde) * 0.06 || R.DIA; desde -= margen; hasta += margen;
+  var x0 = 24, x1 = W - 24, ym = 100, X = function (t) { return r1(x0 + (t - desde) / (hasta - desde) * (x1 - x0)); };
+  var s = R.lienzo(fig, W, 200, g.resumen), corta = fechaCorta, larga = {format: function (t) { return fmt(t, "fecha"); }};
+  svg("line", {x1: x0, y1: ym, x2: x1, y2: ym, stroke: "var(--borde)", "stroke-width": 2}, s);
+  if (hoy !== null) { svg("line", {"class": "hoy", x1: X(hoy), y1: ym - 80, x2: X(hoy), y2: ym + 80}, s); texto(s, {x: X(hoy) + 4, y: 14}, T.hoy, "texto-hoy"); }
+  var niveles = [-30, 36, -62, 68];
+  hitos.forEach(function (h, i) {
+    var x = X(h.t), yl = ym + niveles[i % 4], arriba = yl < ym, c = h.estado ? color(h.estado, i) : (hoy !== null && h.t < hoy ? "var(--apagado)" : color(g.color || "acento", 0));
+    var ancla = x < 90 ? "start" : x > W - 90 ? "end" : "middle";
+    /* Junto a la marca de hoy, el rotulo se aparta hacia el lado contrario para no pisarla. */
+    if (hoy !== null && ancla === "middle" && Math.abs(x - X(hoy)) < 60) ancla = x < X(hoy) ? "end" : "start";
+    svg("line", {x1: x, y1: ym, x2: x, y2: arriba ? yl + 16 : yl - 12, stroke: c, "stroke-width": 1}, s);
+    consejo(svg("circle", {cx: x, cy: ym, r: 6, fill: c, stroke: "var(--superficie)", "stroke-width": 2}, s), larga.format(h.t) + ": " + h.rotulo);
+    texto(s, {x: x, y: yl, "text-anchor": ancla, "font-weight": 650}, R.recortar(h.rotulo, 24), "valor-punto");
+    texto(s, {x: x, y: yl + 13, "text-anchor": ancla}, corta.format(h.t));
+  });
+  return {cabecera: [TX.fecha, T.concepto], filas: hitos.map(function (h) { return [larga.format(h.t), h.rotulo]; })};
+};
+
+["semaforos"].forEach(function (t) { R.tipos[t].fijo = true; });
+})();
+</script>
+</body>
+</html>
