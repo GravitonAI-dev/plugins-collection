@@ -84,13 +84,15 @@ asistente-general/
     └── reportes/
         ├── SKILL.md
         ├── assets/
-        │   └── template-base-reportes.md      ← estilos, temas, impresión y motor de gráficos
+        │   ├── template-base-reportes.md      ← estilos, 21 temas, impresión, motor y los 44 gráficos (código fijo, `data-fijo`)
+        │   ├── opciones-formulario.json       ← catálogo de estilos, colores y formatos para el formulario (la app pinta la galería; el modelo recibe solo lo elegido)
+        │   └── vista-*.png                    ← miniaturas de cada opción
         ├── references/
         │   ├── catalogo-reportes.md           ← recetas de los artefactos típicos
-        │   ├── maquetas-reportes.md           ← esqueleto de cada tipo de artefacto
-        │   ├── modulos-motor.md               ← módulos opcionales (diagramas, gráficos avanzados, iconos, QR)
+        │   ├── maquetas-reportes.md           ← ficha de cada formato (huecos, marcadores, ejemplo de datos), ≤ 2 KB por maqueta
+        │   ├── maquetas-codigo.md             ← HTML, CSS y JS de cada maqueta; lo monta el sistema por `fragments`, el modelo no lo lee
+        │   ├── catalogo-graficos.md           ← contrato de declaración de los 44 gráficos, por familias
         │   ├── anatomia-artefacto.md
-        │   ├── biblioteca-componentes-visuales.md
         │   └── criterios-visualizacion-datos.md
         └── ejemplos/
             ├── generar_ejemplos.py

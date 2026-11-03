@@ -18,7 +18,9 @@
             "description": "Ruta estilo POSIX (barras inclinadas '/') relativa al directorio raíz del espacio de trabajo de la conversación activa (ej: 'documento.md', 'informes/resumen.md'). Se rechazan segmentos '..' y rutas absolutas. El archivo ya debe existir en el espacio de trabajo."
           }
         },
-        "required": ["relative_file_path"],
+        "required": [
+          "relative_file_path"
+        ],
         "additionalProperties": false
       },
       "output_schema": {
@@ -30,7 +32,11 @@
           }
         }
       },
-      "tags": ["io", "workspace", "files"],
+      "tags": [
+        "io",
+        "workspace",
+        "files"
+      ],
       "side_effects": false
     },
     {
@@ -50,65 +56,152 @@
             "description": "Contenido UTF-8 a escribir en el archivo. Debe ser el texto completo. Los marcadores de sincronización están estrictamente prohibidos."
           }
         },
-        "required": ["relative_file_path", "file_content"],
+        "required": [
+          "relative_file_path",
+          "file_content"
+        ],
         "additionalProperties": false
       },
       "output_schema": {
         "type": "object",
         "properties": {
-          "success": { "type": "boolean" },
-          "data": { "type": "string", "description": "Ruta absoluta del archivo creado" },
-          "error": { "type": "string", "description": "Mensaje de error si la creación falla" }
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "string",
+            "description": "Ruta absoluta del archivo creado"
+          },
+          "error": {
+            "type": "string",
+            "description": "Mensaje de error si la creación falla"
+          }
         }
       },
-      "tags": ["io", "workspace", "files", "creation"],
+      "tags": [
+        "io",
+        "workspace",
+        "files",
+        "creation"
+      ],
       "side_effects": true
     },
     {
       "id": "io.gravitonai.tools.create_file_from_skill_document",
       "name": "create_file_from_skill_document",
-      "description": "Crea un archivo en el espacio de trabajo de la conversación A PARTIR DE UNA PLANTILLA DE LA SKILL ACTIVA (un archivo de sus assets/ o references/, tal como lo lista el índice de materiales): el backend copia la plantilla y aplica tus `replacements` (texto literal → texto, p. ej. {\"{{TITULO_DOCUMENTO}}\": \"Informe…\", \"data-tema=\\\"moderno\\\"\": \"data-tema=\\\"prensa\\\"\"}) y `remove` (literales que se borran). Nunca leas ni reescribas la plantilla: usa SIEMPRE esta herramienta, nunca `create_file`, cuando una skill mande copiar o instanciar una de sus plantillas, y pasa solo las partes variables. Todo `{{MARCADOR}}` debe quedar resuelto (sustituido o borrado) salvo los que listes en `allow_unresolved` (un dato que el usuario decidió no dar).\nDevuelve {\"success\": true, \"data\": <ruta_absoluta>} o {\"success\": false, \"error\": \"...\", \"unresolved_markers\": [...]}.",
-      "version": "1.0.0",
+      "description": "Creates a workspace file FROM A TEMPLATE OF THE ACTIVE SKILL (assets/ or references/, as listed in the materials index): the backend copies and fills it, you never read nor rewrite it. Always this tool, never `create_file`, when a skill says to copy a template. `fragments`: blocks the skill documents provide, as `<document>#<block selector>` ({\"CONTENIDO\": \"maquetas-codigo.md#panel_datos/contenido\"}), copied first. `values`: markers to fill, a LIST of {\"marker\": \"TITULO_CORTO\", \"text\": \"...\"} (no braces), including those the fragments bring; numbered rows (`FILA_1_C1`…) clone the example row. `replace`: other literal snippets, a LIST of {\"find\", \"with\"} (attributes, the initial JSON of a data block). `remove`: literal texts to delete. Every text is PLAIN TEXT or the JSON of a data block, never HTML. Every `{{MARKER}}` must be resolved unless listed in `allow_unresolved`. Returns {\"success\": true, \"data\": <absolute path>} or {\"success\": false, \"error\", \"unresolved_markers\"}.",
+      "version": "1.1.0",
       "input_schema": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string",
-            "description": "Nombre de archivo de la plantilla, exactamente como en el índice de materiales (sin ruta)."
+            "description": "As listed in the materials index."
           },
           "relative_file_path": {
             "type": "string",
-            "description": "Ruta estilo POSIX relativa a la raíz del espacio de trabajo para el archivo nuevo. Se rechazan '..' y rutas absolutas; los directorios padre se crean."
+            "description": "Relative to the workspace root."
+          },
+          "fragments": {
+            "type": "object",
+            "description": "Marker → `<skill document>#<block selector>`.",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "marker": {
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "marker",
+                "text"
+              ]
+            }
+          },
+          "replace": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "find": {
+                  "type": "string"
+                },
+                "with": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "find",
+                "with"
+              ]
+            }
           },
           "replacements": {
             "type": "object",
-            "additionalProperties": { "type": "string" },
-            "description": "Texto literal de la plantilla → texto que lo sustituye (todas sus apariciones). Normalmente marcadores como `{{CONTENIDO}}`, pero vale cualquier fragmento literal (un atributo, un bloque JSON)."
+            "description": "Deprecated: use `values` and `replace`.",
+            "additionalProperties": {
+              "type": "string"
+            }
           },
           "remove": {
             "type": "array",
-            "items": { "type": "string" },
-            "description": "Literales (normalmente marcadores) que se borran de la plantilla."
+            "items": {
+              "type": "string"
+            }
           },
           "allow_unresolved": {
             "type": "array",
-            "items": { "type": "string" },
-            "description": "Marcadores que pueden quedar en el archivo (datos que el usuario decidió no dar)."
+            "description": "Markers that may stay.",
+            "items": {
+              "type": "string"
+            }
           }
         },
-        "required": ["name", "relative_file_path", "replacements"],
+        "required": [
+          "name",
+          "relative_file_path"
+        ],
         "additionalProperties": false
       },
       "output_schema": {
         "type": "object",
         "properties": {
-          "success": { "type": "boolean" },
-          "data": { "type": "string", "description": "Ruta absoluta del archivo creado" },
-          "error": { "type": "string", "description": "Mensaje de error si la creación falla" },
-          "unresolved_markers": { "type": "array", "items": { "type": "string" }, "description": "Marcadores que quedaron sin resolver (solo en caso de fallo)" }
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "string",
+            "description": "Ruta absoluta del archivo creado"
+          },
+          "error": {
+            "type": "string",
+            "description": "Mensaje de error si la creación falla"
+          },
+          "unresolved_markers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Marcadores que quedaron sin resolver (solo en caso de fallo)"
+          }
         }
       },
-      "tags": ["io", "workspace", "files", "creation", "skills"],
+      "tags": [
+        "io",
+        "workspace",
+        "files",
+        "creation",
+        "skills"
+      ],
       "side_effects": true
     },
     {
@@ -137,18 +230,35 @@
             "description": "Si es true, reemplaza cada ocurrencia de old_string. Si es false (por defecto), old_string debe aparecer exactamente una vez."
           }
         },
-        "required": ["relative_file_path", "old_string", "new_string"],
+        "required": [
+          "relative_file_path",
+          "old_string",
+          "new_string"
+        ],
         "additionalProperties": false
       },
       "output_schema": {
         "type": "object",
         "properties": {
-          "success": { "type": "boolean" },
-          "data": { "type": "string", "description": "Ruta absoluta del archivo editado" },
-          "error": { "type": "string", "description": "Mensaje de error si la edición falla" }
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "string",
+            "description": "Ruta absoluta del archivo editado"
+          },
+          "error": {
+            "type": "string",
+            "description": "Mensaje de error si la edición falla"
+          }
         }
       },
-      "tags": ["io", "workspace", "files", "editing"],
+      "tags": [
+        "io",
+        "workspace",
+        "files",
+        "editing"
+      ],
       "side_effects": true
     },
     {
@@ -170,11 +280,18 @@
           },
           "recency": {
             "type": "string",
-            "enum": ["day", "week", "month", "year"],
+            "enum": [
+              "day",
+              "week",
+              "month",
+              "year"
+            ],
             "description": "Filtro opcional de antigüedad temporal. Restringe los resultados al último día/semana/mes/año ('day', 'week', 'month', 'year'). OMITIR para temas atemporales (leyes, definiciones, jurisprudencia consolidada); establecer únicamente cuando la frescura sea determinante (noticias, precios, lanzamientos)."
           }
         },
-        "required": ["query"],
+        "required": [
+          "query"
+        ],
         "additionalProperties": false
       },
       "output_schema": {
@@ -182,121 +299,214 @@
         "items": {
           "type": "object",
           "properties": {
-            "title": { "type": "string", "description": "Título de la página web." },
-            "url": { "type": "string", "description": "URL pública de la fuente." },
-            "snippet": { "type": "string", "description": "Fragmento descriptivo o resumen corto." },
-            "content": { "type": "string", "description": "Extracto textual representativo extraído de la página (~800 caracteres)." }
+            "title": {
+              "type": "string",
+              "description": "Título de la página web."
+            },
+            "url": {
+              "type": "string",
+              "description": "URL pública de la fuente."
+            },
+            "snippet": {
+              "type": "string",
+              "description": "Fragmento descriptivo o resumen corto."
+            },
+            "content": {
+              "type": "string",
+              "description": "Extracto textual representativo extraído de la página (~800 caracteres)."
+            }
           },
-          "required": ["title", "url", "snippet", "content"]
+          "required": [
+            "title",
+            "url",
+            "snippet",
+            "content"
+          ]
         }
       },
-      "tags": ["retrieval", "web", "research"],
+      "tags": [
+        "retrieval",
+        "web",
+        "research"
+      ],
       "side_effects": false
     },
     {
       "id": "io.gravitonai.tools.fetch_url",
       "name": "fetch_url",
-      "description": "Lee una página web pública, un PDF o un endpoint de datos (JSON, CSV, XML) y devuelve los pasajes más relevantes para `query` (~4000 caracteres). Un endpoint de datos vuelve como FILAS desde el principio (una por registro, `campo=valor; ...`, con las columnas constantes en una línea `constant:`), con un presupuesto mayor (40 000 caracteres) y los campos `rows_total`, `rows_returned` y `truncated`; si viene truncado, vuelve a llamar con `row_filter` (términos separados por `|`, p. ej. el año o el territorio) para quedarte solo con las filas que necesitas. Devuelve un objeto con url, content y content_status (\"ok\", \"pdf\" o \"data\" = leído; \"failed\" = no se pudo leer, con un campo `fallback` que dice qué hacer en su lugar).\n\nREGLAS DE USO:\n- Si la skill activa declara data_sources, lee PRIMERO esas URL en vez de buscar en la web el mismo dato, en la MISMA ronda que la lectura de materiales de la skill. Las fuentes declaradas tienen su propio tope de 6 lecturas por turno.\n- Úsala para leer una URL devuelta por web_search (o dada por el usuario) cuando su extracto falta o es demasiado corto para sostener las cifras, artículos o resoluciones que vas a citar.\n- Como máximo 2 páginas por dato, solo las más autorizadas (boletines oficiales, institutos de estadística, tribunales, documentación del proveedor). Comparte el presupuesto de 8 llamadas salientes por turno con web_search.\n- Si falla (403, 404, tabla dinámica sin texto), no reintentes la misma URL ni busques el mismo dato en otro sitio: cita el fragmento como no verificado o aplica el fallback de la skill (estimaciones marcadas).",
+      "description": "Reads one public web page, PDF or data endpoint (JSON, CSV, XML): the passages most relevant to `query` (~4000 chars). A data endpoint comes back as ROWS (`field=value; ...`) with a larger budget plus `rows_total`, `rows_returned` and `truncated`: if truncated, call again with `row_filter`. Returns url, content and content_status (\"ok\", \"pdf\", \"data\" = read; \"failed\" = not readable, with a `fallback`). Fetch the data sources the active skill declares FIRST, with its materials. At most 2 pages per data item, the most authoritative; shares the budget of 8 outbound calls with `web_search`. If it fails (403, 404, dynamic table), do not retry nor look for the datum elsewhere: skill fallback.",
       "version": "1.1.0",
       "input_schema": {
         "type": "object",
         "properties": {
           "url": {
-            "type": "string",
-            "description": "URL absoluta http(s) de una página pública, PDF o endpoint de datos. El texto debe llegar ya anonimizado (sin PIIs)."
+            "type": "string"
           },
           "query": {
             "type": "string",
-            "description": "Qué se busca en la página; se usa para elegir los pasajes relevantes. Ignorado en endpoints de datos."
+            "description": "What to look for."
           },
           "row_filter": {
             "type": "string",
-            "description": "Solo endpoints de datos: conserva las filas que contienen alguno de estos términos (separados por `|`; sin distinguir mayúsculas ni acentos), p. ej. '2025' o 'Hombres|Mujeres'. La cabecera se conserva siempre."
+            "description": "Data endpoints: keep rows containing any of these `|`-separated terms."
           },
           "max_rows": {
             "type": "integer",
-            "description": "Solo endpoints de datos: devolver como mucho este número de filas."
+            "description": "Data endpoints: row cap."
           }
         },
-        "required": ["url", "query"],
+        "required": [
+          "url",
+          "query"
+        ],
         "additionalProperties": false
       },
       "output_schema": {
         "type": "object",
         "properties": {
-          "url": {"type": "string", "description": "URL leída."},
-          "content": {"type": "string", "description": "Pasajes relevantes de la página, o los datos desde el principio si es un endpoint JSON/CSV/XML."},
-          "content_status": {"type": "string", "enum": ["ok", "pdf", "data", "failed"], "description": "Si la página se pudo leer y de qué tipo era."},
-          "rows_total": {"type": "integer", "description": "Solo datos: filas que tenía el endpoint."},
-          "rows_returned": {"type": "integer", "description": "Solo datos: filas devueltas."},
-          "truncated": {"type": "boolean", "description": "Solo datos: si no cupieron todas las filas (vuelve a pedir con row_filter)."},
-          "fallback": {"type": "string", "description": "Solo cuando content_status es failed: qué hacer en lugar de reintentar."}
+          "url": {
+            "type": "string",
+            "description": "URL leída."
+          },
+          "content": {
+            "type": "string",
+            "description": "Pasajes relevantes de la página, o los datos desde el principio si es un endpoint JSON/CSV/XML."
+          },
+          "content_status": {
+            "type": "string",
+            "enum": [
+              "ok",
+              "pdf",
+              "data",
+              "failed"
+            ],
+            "description": "Si la página se pudo leer y de qué tipo era."
+          },
+          "rows_total": {
+            "type": "integer",
+            "description": "Solo datos: filas que tenía el endpoint."
+          },
+          "rows_returned": {
+            "type": "integer",
+            "description": "Solo datos: filas devueltas."
+          },
+          "truncated": {
+            "type": "boolean",
+            "description": "Solo datos: si no cupieron todas las filas (vuelve a pedir con row_filter)."
+          },
+          "fallback": {
+            "type": "string",
+            "description": "Solo cuando content_status es failed: qué hacer en lugar de reintentar."
+          }
         },
-        "required": ["url", "content", "content_status"]
+        "required": [
+          "url",
+          "content",
+          "content_status"
+        ]
       },
-      "tags": ["retrieval", "web", "research"],
+      "tags": [
+        "retrieval",
+        "web",
+        "research"
+      ],
       "side_effects": false
     },
     {
       "id": "io.gravitonai.tools.human_in_the_loop_request",
       "name": "human_in_the_loop_request",
-      "description": "Solicita información al usuario a través de un formulario interactivo.\n\nESTRUCTURA — dos campos anidados, NO confundirlos:\n- Cada pregunta tiene 'selection_type': 'single_select' | 'multi_select'.\n- Cada opción tiene únicamente 'id' y 'label' (el sistema añade automáticamente una opción de texto libre y establece option_type='predefined' de forma automática).\n\nREGLAS CRÍTICAS:\n- 'form_data' es una lista de objetos de pregunta COMPLETOS. Cada objeto de pregunta DEBE contener directamente sus propias claves 'id', 'rationale', 'question' y 'options'.\n- NUNCA dividir atributos de la pregunta en elementos separados del array.\n- NUNCA usar claves de serialización tipo XML como '$text' o 'item' en lugar de 'question' u 'options'.\n- Cada elemento de 'options' DEBE ser un objeto PLANO con 'id' y 'label'.\\n- IDIOMA: 'question' y 'label' van SIEMPRE en el idioma del usuario (el de sus mensajes, incluido el mensaje autom\u00e1tico de inicio de skill); 'id' se mantiene literal, nunca se traduce.\n\nEJEMPLO:\n{\n  \"form_data\": [\n    {\n      \"id\": \"tipo_inmueble\",\n      \"rationale\": \"Necesito saber qué tipo de propiedad para incluir cláusulas específicas.\",\n      \"selection_type\": \"single_select\",\n      \"question\": \"¿Qué tipo de inmueble vas a arrendar?\",\n      \"options\": [\n        {\"id\": \"casa\",        \"label\": \"Casa / Habitación\"},\n        {\"id\": \"apartamento\", \"label\": \"Apartamento\"},\n        {\"id\": \"local\",       \"label\": \"Local comercial\"}\n      ]\n    },\n    {\n      \"id\": \"info_basica\",\n      \"rationale\": \"Datos necesarios para redactar el contrato.\",\n      \"selection_type\": \"multi_select\",\n      \"question\": \"Selecciona los datos que ya tengas disponibles:\",\n      \"options\": [\n        {\"id\": \"nombre\",  \"label\": \"Nombre completo\"},\n        {\"id\": \"cédula\",  \"label\": \"Número de cédula\"},\n        {\"id\": \"dirección\", \"label\": \"Dirección del inmueble\"}\n      ]\n    }\n  ]\n}",
-      "version": "1.0.0",
+      "description": "Form of questions with predefined options (single or multi select); the system appends a free-text option to each, so never add 'Other' yourself. `form_data` is a list of complete question objects, each with its own `id`, `rationale`, `selection_type`, `question` and `options` (flat objects with `id` and `label`), or `options_from` (a key of the skill's option catalogue) instead of `options`. Never split a question across array elements or use keys like '$text'.\n- A question that only applies to some answers of an EARLIER question ('Si es…', a 'no_procede' option) carries 'show_if': {\"question_id\": <that question>, \"option_ids\": [<its options for which this one applies>]}; chains are allowed, and every option the skill defines is kept.\n- NEVER ASK WHAT THE USER ALREADY SAID: a question the user's messages or earlier answers settle, even in other words, is taken as answered and dropped, also from the forms a skill writes out in full: send only the questions still open, and no call if none is left.",
+      "version": "1.1.0",
       "input_schema": {
         "type": "object",
         "properties": {
           "form_data": {
             "type": "array",
             "minItems": 1,
-            "description": "Lista de preguntas que componen el formulario.",
             "items": {
               "type": "object",
               "properties": {
                 "id": {
                   "type": "string",
-                  "description": "Identificador único de la pregunta dentro del formulario."
+                  "description": ""
                 },
                 "rationale": {
                   "type": "string",
-                  "description": "Explicación interna de por qué es estrictamente necesario hacer esta pregunta al usuario."
+                  "description": ""
                 },
                 "selection_type": {
                   "type": "string",
-                  "enum": ["single_select", "multi_select"],
-                  "description": "single_select = una opción; multi_select = se pueden elegir múltiples opciones."
+                  "enum": [
+                    "single_select",
+                    "multi_select"
+                  ],
+                  "description": ""
                 },
                 "question": {
                   "type": "string",
-                  "description": "Texto de la pregunta mostrado al usuario. Debe estar en el idioma del usuario."
+                  "description": ""
                 },
                 "options": {
                   "type": "array",
                   "minItems": 1,
-                  "description": "Lista de opciones de respuesta predefinidas. El sistema añade automáticamente una opción de texto libre. No incluir opciones de texto libre en esta lista.",
+                  "description": "Omit it with `options_from`.",
                   "items": {
                     "type": "object",
                     "properties": {
                       "id": {
                         "type": "string",
-                        "description": "Identificador único de la opción (ej. 'opt_1', 'opt_2')."
+                        "description": ""
                       },
                       "label": {
                         "type": "string",
-                        "description": "Etiqueta visible de la opción. Debe estar en el idioma del usuario."
+                        "description": ""
                       }
                     },
-                    "required": ["id", "label"],
-                    "additionalProperties": false
+                    "required": [
+                      "id",
+                      "label"
+                    ]
                   }
+                },
+                "show_if": {
+                  "type": "object",
+                  "description": "Shown only when one of 'option_ids' is chosen in 'question_id'.",
+                  "properties": {
+                    "question_id": {
+                      "type": "string",
+                      "description": ""
+                    },
+                    "option_ids": {
+                      "type": "array",
+                      "minItems": 1,
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": ""
+                    }
+                  },
+                  "required": [
+                    "question_id",
+                    "option_ids"
+                  ]
+                },
+                "options_from": {
+                  "type": "string",
+                  "description": "Key of the skill's option catalogue: the backend fills 'options' (and 'question' if omitted); leave 'options' out."
                 }
               },
-              "required": ["id", "rationale", "selection_type", "question", "options"],
-              "additionalProperties": false
+              "required": [
+                "id",
+                "rationale",
+                "selection_type",
+                "question"
+              ]
             }
           }
         },
-        "required": ["form_data"],
-        "additionalProperties": false
+        "required": [
+          "form_data"
+        ]
       },
       "output_schema": {
         "type": "object",
@@ -307,64 +517,100 @@
           }
         }
       },
-      "tags": ["interaction", "hitl", "form", "selection"],
+      "tags": [
+        "interaction",
+        "hitl",
+        "form",
+        "selection"
+      ],
       "side_effects": false
     },
     {
       "id": "io.gravitonai.tools.restricted_human_in_the_loop_request",
       "name": "restricted_human_in_the_loop_request",
-      "description": "Solicita información al usuario a través de un formulario de opciones cerradas (sin texto libre).\n\nESTRUCTURA — cada pregunta define 'id', 'rationale', 'question' y 'options'. El sistema establece automáticamente selection_type='single_select' y option_type='predefined' en cada elemento.\n\nREGLAS CRÍTICAS:\n- PROHIBICIÓN ESTRICTA DE ENTRADA DE DATOS / SLOTS: Las opciones de esta herramienta son EXCLUSIVAMENTE alternativas cerradas mutuamente excluyentes (botones de radio). Queda TERMINANTEMENTE PROHIBIDO usar esta herramienta para solicitar que el usuario escriba, rellene o introduzca datos como direcciones, municipios, referencias catastrales, importes, cuentas bancarias, nombres o fechas. Si el usuario debe escribir o rellenar datos, usa SIEMPRE 'slot_filling_request'. NUNCA mezcles selección cerrada con recolección de datos de texto libre.\n- 'form_data' es una lista de objetos de pregunta COMPLETOS. Cada objeto de pregunta DEBE contener directamente sus propias claves 'id', 'rationale', 'question' y 'options'.\n- NUNCA dividir atributos de la pregunta en elementos separados del array.\n- NUNCA usar claves de serialización tipo XML como '$text' o 'item' en lugar de 'question' u 'options'.\n- Cada elemento de 'options' DEBE ser un objeto PLANO con 'id' y 'label'.\\n- IDIOMA: 'question' y 'label' van SIEMPRE en el idioma del usuario (el de sus mensajes, incluido el mensaje autom\u00e1tico de inicio de skill); 'id' se mantiene literal, nunca se traduce.\n\nEJEMPLO:\n{\n  \"form_data\": [\n    {\n      \"id\": \"q_scope\",\n      \"rationale\": \"Necesito que confirmes el alcance antes de proceder.\",\n      \"question\": \"¿Qué alcance debe tener la operación?\",\n      \"options\": [\n        {\"id\": \"opt_full\",    \"label\": \"Operación completa\"},\n        {\"id\": \"opt_partial\", \"label\": \"Operación parcial\"},\n        {\"id\": \"opt_cancel\",  \"label\": \"Cancelar\"}\n      ]\n    }\n  ]\n}",
-      "version": "1.0.0",
+      "description": "Form of closed, mutually exclusive options (one choice per question): template choice, roles, yes/no, client disambiguation. NEVER for data the user must type (addresses, amounts, names, dates): that is `slot_filling_request`. The system appends a free-text option to each question, so never add 'Other' yourself (mandatory options such as 'ninguna' still apply). `form_data` is a list of complete question objects, each with its own `id`, `rationale`, `question` and `options` (flat objects with `id` and `label`), or `options_from` (a key of the skill's option catalogue) instead. Never split a question across array elements or use keys like '$text'.\n- A question that only applies to some answers of an EARLIER question ('Si es…', a 'no_procede' option) carries 'show_if': {\"question_id\": <that question>, \"option_ids\": [<its options for which this one applies>]}; chains are allowed, and every option the skill defines is kept.\n- NEVER ASK WHAT THE USER ALREADY SAID: a question the user's messages or earlier answers settle, even in other words, is taken as answered and dropped, also from the forms a skill writes out in full: send only the questions still open, and no call if none is left.",
+      "version": "1.1.0",
       "input_schema": {
         "type": "object",
         "properties": {
           "form_data": {
             "type": "array",
             "minItems": 1,
-            "description": "Lista de preguntas del formulario (únicamente opciones predefinidas cerradas).",
             "items": {
               "type": "object",
               "properties": {
                 "id": {
                   "type": "string",
-                  "description": "Identificador único de la pregunta dentro del formulario."
+                  "description": ""
                 },
                 "rationale": {
                   "type": "string",
-                  "description": "Explicación interna de por qué es estrictamente necesario hacer esta pregunta al usuario."
+                  "description": ""
                 },
                 "question": {
                   "type": "string",
-                  "description": "Texto de la pregunta mostrado al usuario. Debe estar en el idioma del usuario."
+                  "description": ""
                 },
                 "options": {
                   "type": "array",
                   "minItems": 1,
-                  "description": "Lista de opciones cerradas predefinidas (selección única).",
+                  "description": "Omit it with `options_from`.",
                   "items": {
                     "type": "object",
                     "properties": {
                       "id": {
                         "type": "string",
-                        "description": "Identificador único de la opción (ej. 'opt_1', 'opt_2')."
+                        "description": ""
                       },
                       "label": {
                         "type": "string",
-                        "description": "Etiqueta visible de la opción. Debe estar en el idioma del usuario."
+                        "description": ""
                       }
                     },
-                    "required": ["id", "label"],
-                    "additionalProperties": false
+                    "required": [
+                      "id",
+                      "label"
+                    ]
                   }
+                },
+                "show_if": {
+                  "type": "object",
+                  "description": "Shown only when one of 'option_ids' is chosen in 'question_id'.",
+                  "properties": {
+                    "question_id": {
+                      "type": "string",
+                      "description": ""
+                    },
+                    "option_ids": {
+                      "type": "array",
+                      "minItems": 1,
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": ""
+                    }
+                  },
+                  "required": [
+                    "question_id",
+                    "option_ids"
+                  ]
+                },
+                "options_from": {
+                  "type": "string",
+                  "description": "Key of the skill's option catalogue: the backend fills 'options' (and 'question' if omitted); leave 'options' out."
                 }
               },
-              "required": ["id", "rationale", "question", "options"],
-              "additionalProperties": false
+              "required": [
+                "id",
+                "rationale",
+                "question"
+              ]
             }
           }
         },
-        "required": ["form_data"],
-        "additionalProperties": false
+        "required": [
+          "form_data"
+        ]
       },
       "output_schema": {
         "type": "object",
@@ -375,64 +621,75 @@
           }
         }
       },
-      "tags": ["interaction", "hitl", "form", "restricted"],
+      "tags": [
+        "interaction",
+        "hitl",
+        "form",
+        "restricted"
+      ],
       "side_effects": false
     },
     {
       "id": "io.gravitonai.tools.slot_filling_request",
       "name": "slot_filling_request",
-      "description": "Solicita datos estructurados de llenado de campos (slot-filling) al usuario a través de un formulario compuesto íntegramente por campos de entrada de texto libre.\n\nCUÁNDO USAR:\n- PRECEDENCIA OBLIGATORIA PARA DATOS DE PARTES: NUNCA uses esta herramienta en primer lugar si se requieren datos de personas físicas o jurídicas (nombre, DNI/NIE/CIF, domicilio, email, teléfono). DEBES llamar primero a 'search_clients'. Solo si 'search_clients' devuelve 0 resultados se podrán solicitar datos de la parte mediante este formulario.\n- PROHIBICIÓN ESTRICTA DE RE-SOLICITUD (CERO REDUNDANCIA - REG-CLI-02): Si los datos de una persona ya fueron obtenidos mediante 'search_clients' o 'get_client' en cualquier momento de la sesión, queda TERMINANTEMENTE PROHIBIDO volver a solicitarlos, ni en este formulario ni en el chat. Si todos los datos necesarios para la cláusula o comparecencia constan en la ficha del cliente, NO invoques 'slot_filling_request': redacta directamente la cláusula, muestra la vista previa en el chat y pide confirmación.\n- Usa esta herramienta para datos específicos de la transacción, términos contractuales, fechas, importes o datos residuales faltantes no presentes en la base de datos.\n- HERRAMIENTA EXCLUSIVA PARA ENTRADA DE DATOS: Cualquier dato que el usuario deba escribir o rellenar (dirección del inmueble, municipio, referencia catastral, precio, renta, cuenta bancaria, fechas) DEBE solicitarse mediante esta herramienta, NUNCA mediante 'restricted_human_in_the_loop_request'.\n- PETICIONES POR LOTES (BATCH): Prefiere SIEMPRE solicitar datos en LOTES — solicita la MÁXIMA cantidad de información necesaria en un único bloque de invocación en lugar de preguntar de forma incremental uno por uno.\n\nESTRUCTURA:\n- 'form_data' es una lista de grupos de preguntas COMPLETOS.\n- Cada grupo de preguntas DEBE contener directamente sus propias claves 'id', 'rationale', 'question' (título del grupo) y 'options'.\n- Cada elemento de 'options' representa un slot de texto libre con 'id' y 'label'.\n- 'label' DEBE ser un texto descriptivo tipo placeholder (ej. 'Dirección completa', 'Referencia catastral', 'Importe mensual (€)'), SIEMPRE en el idioma del usuario.\n\nREGLAS CRÍTICAS:\n- NUNCA dividir atributos del grupo de preguntas en elementos separados del array.\n- NUNCA usar claves de serialización tipo XML como '$text' o 'item' en lugar de 'question' u 'options'.\n- Cada elemento de 'options' DEBE ser un objeto PLANO con 'id' y 'label'.\n\nEJEMPLO:\n{\n  \"form_data\": [\n    {\n      \"id\": \"datos_inmueble\",\n      \"rationale\": \"Identificación de la vivienda objeto del contrato.\",\n      \"question\": \"Información del inmueble:\",\n      \"options\": [\n        {\"id\": \"direccion_vivienda\", \"label\": \"Dirección completa de la vivienda\"},\n        {\"id\": \"referencia_catastral\", \"label\": \"Referencia catastral del inmueble\"}\n      ]\n    },\n    {\n      \"id\": \"condiciones_arrendamiento\",\n      \"rationale\": \"Condiciones económicas y temporales de la transacción.\",\n      \"question\": \"Términos del contrato:\",\n      \"options\": [\n        {\"id\": \"renta_mensual\", \"label\": \"Importe de la renta mensual (€)\"},\n        {\"id\": \"duracion_contrato\", \"label\": \"Duración pactada (años/meses)\"},\n        {\"id\": \"cuenta_bancaria\", \"label\": \"IBAN para abono de la renta\"}\n      ]\n    }\n  ]\n}",
-      "version": "1.0.0",
+      "description": "Form of free-text fields for data the user must TYPE (transaction terms, amounts, dates, addresses, residual party data not in a client record nor in the chat); never for a choice among options. Ask for every missing field of the task in ONE call, grouped by topic, never one by one, and never for data already known. `form_data` is a list of complete group objects, each with its own `id`, `rationale`, `question` (group title) and `options` (the fields: flat objects with `id` and `label`, the label a placeholder in the user's language, e.g. {\"id\": \"renta_mensual\", \"label\": \"Importe de la renta mensual (€)\"}). Never split a group across array elements or use keys like '$text'.",
+      "version": "1.1.0",
       "input_schema": {
         "type": "object",
         "properties": {
           "form_data": {
             "type": "array",
             "minItems": 1,
-            "description": "Lista de grupos de campos de slot-filling (únicamente campos de texto libre).",
             "items": {
               "type": "object",
               "properties": {
                 "id": {
                   "type": "string",
-                  "description": "Identificador único de la pregunta o grupo de campos (ej. 'owner_data', 'property_info')."
+                  "description": ""
                 },
                 "rationale": {
                   "type": "string",
-                  "description": "Explicación interna de por qué se necesitan estos campos/slots específicos."
+                  "description": ""
                 },
                 "question": {
                   "type": "string",
-                  "description": "Título del grupo o encabezado de sección mostrado al usuario (ej. 'Datos del arrendador', 'Información del inmueble'). Debe estar en el idioma del usuario."
+                  "description": "Group title."
                 },
                 "options": {
                   "type": "array",
                   "minItems": 1,
-                  "description": "Lista de campos de entrada de texto libre (slots) a ser rellenados por el usuario. Cada opción define un 'id' y un 'label' estilo placeholder.",
+                  "description": "The fields.",
                   "items": {
                     "type": "object",
                     "properties": {
                       "id": {
                         "type": "string",
-                        "description": "Identificador único del campo (ej. 'owner_name', 'owner_dni', 'property_address')."
+                        "description": ""
                       },
                       "label": {
                         "type": "string",
-                        "description": "Placeholder o etiqueta descriptiva para el campo de texto (ej. 'Nombre del propietario', 'DNI / NIF del propietario', 'Dirección completa'). Debe estar en el idioma del usuario."
+                        "description": "Placeholder, in the user's language."
                       }
                     },
-                    "required": ["id", "label"],
-                    "additionalProperties": false
+                    "required": [
+                      "id",
+                      "label"
+                    ]
                   }
                 }
               },
-              "required": ["id", "rationale", "question", "options"],
-              "additionalProperties": false
+              "required": [
+                "id",
+                "rationale",
+                "question",
+                "options"
+              ]
             }
           }
         },
-        "required": ["form_data"],
-        "additionalProperties": false
+        "required": [
+          "form_data"
+        ]
       },
       "output_schema": {
         "type": "object",
@@ -443,7 +700,12 @@
           }
         }
       },
-      "tags": ["interaction", "hitl", "form", "slots"],
+      "tags": [
+        "interaction",
+        "hitl",
+        "form",
+        "slots"
+      ],
       "side_effects": false
     },
     {
@@ -467,40 +729,57 @@
             "description": "El contenido completo de la plantilla parametrizada en formato Markdown a asignar al asset especificado."
           }
         },
-        "required": ["skill_name", "asset_name", "template_content"],
+        "required": [
+          "skill_name",
+          "asset_name",
+          "template_content"
+        ],
         "additionalProperties": false
       },
       "output_schema": {
         "type": "object",
         "properties": {
-          "skill_name": { "type": "string" },
-          "asset_name": { "type": "string" },
-          "template_content": { "type": "string" }
+          "skill_name": {
+            "type": "string"
+          },
+          "asset_name": {
+            "type": "string"
+          },
+          "template_content": {
+            "type": "string"
+          }
         }
       },
-      "tags": ["templates", "configuration", "assets", "skills"],
+      "tags": [
+        "templates",
+        "configuration",
+        "assets",
+        "skills"
+      ],
       "side_effects": true
     },
     {
       "id": "io.gravitonai.tools.read_skill_document",
       "name": "read_skill_document",
-      "description": "Lee materiales de la skill activa (archivos de sus references/, assets/ o scripts/) por nombre de archivo, tal como los lista el bloque `materials-index` del prompt. Pasa en `names` todos los archivos que nombra la fase en curso, en UNA llamada; de un catálogo grande (maquetas, módulos, temas) lee solo la sección que necesitas con `section`. Nunca leas materiales de fases posteriores ni releas un archivo ya leído en el turno. Una plantilla que haya que copiar al workspace no se lee: se instancia con `create_file_from_skill_document`. No consume presupuesto de herramientas.\nDevuelve {\"success\": true, \"data\": {\"documents\": [{\"name\", \"content\"}], \"missing\": [...], \"deferred\": [...]}} (con un solo nombre, {\"data\": {\"name\", \"content\"}}); `deferred` lista los que no cupieron en la llamada (120 000 caracteres como mucho).",
+      "description": "Reads materials of the active skill (references/, assets/, scripts/) by file name, as listed in `materials-index`. Pass in `names` EVERY file the phase you are executing names, in ONE call: never one call per file, never every material up front, never a file already read this turn. From a catalogue over ~40 KB read only the section you need with `section`. Templates to copy are NOT read (`create_file_from_skill_document` fills them). Free: no tool budget. Returns {\"success\": true, \"data\": {\"documents\": [{\"name\", \"content\"}], \"missing\": [], \"deferred\": []}} or an error.",
       "version": "1.1.0",
       "input_schema": {
         "type": "object",
         "properties": {
           "names": {
             "type": "array",
-            "items": { "type": "string" },
-            "description": "Nombres de archivo (sin ruta), exactamente como en el índice de materiales; todos los de la fase en curso, juntos."
+            "description": "As listed in the materials index.",
+            "items": {
+              "type": "string"
+            }
           },
           "name": {
             "type": "string",
-            "description": "Un solo nombre de archivo; mejor `names`."
+            "description": "Prefer `names`."
           },
           "section": {
             "type": "string",
-            "description": "Lee solo la sección Markdown cuyo encabezado contiene este texto (sin distinguir mayúsculas ni acentos; vale un id entre acentos graves como `panel_datos`), hasta el siguiente encabezado del mismo nivel."
+            "description": "Only the section whose heading contains this text (an id like `panel_datos` works)."
           }
         },
         "additionalProperties": false
@@ -508,12 +787,23 @@
       "output_schema": {
         "type": "object",
         "properties": {
-          "success": { "type": "boolean" },
-          "data": { "type": "object", "description": "El material o los materiales leídos" },
-          "error": { "type": "string", "description": "Mensaje de error si no se pudo leer" }
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "description": "El material o los materiales leídos"
+          },
+          "error": {
+            "type": "string",
+            "description": "Mensaje de error si no se pudo leer"
+          }
         }
       },
-      "tags": ["skills", "materials"],
+      "tags": [
+        "skills",
+        "materials"
+      ],
       "side_effects": false
     },
     {
@@ -538,11 +828,20 @@
       "output_schema": {
         "type": "object",
         "properties": {
-          "success": { "type": "boolean" },
-          "data": { "type": "array" }
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "array"
+          }
         }
       },
-      "tags": ["introspection", "catalog", "skills", "assets"],
+      "tags": [
+        "introspection",
+        "catalog",
+        "skills",
+        "assets"
+      ],
       "side_effects": false
     },
     {
@@ -562,20 +861,38 @@
             "description": "El contenido completo actualizado en texto o Markdown a persistir para la plantilla."
           }
         },
-        "required": ["asset_name", "template_content"],
+        "required": [
+          "asset_name",
+          "template_content"
+        ],
         "additionalProperties": false
       },
       "output_schema": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "name": { "type": "string" },
-          "asset_name": { "type": "string" },
-          "description": { "type": "string" },
-          "content_length": { "type": "integer" }
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "asset_name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "content_length": {
+            "type": "integer"
+          }
         }
       },
-      "tags": ["templates", "configuration", "user_templates", "update"],
+      "tags": [
+        "templates",
+        "configuration",
+        "user_templates",
+        "update"
+      ],
       "side_effects": true
     },
     {
@@ -599,20 +916,39 @@
             "description": "Descripción obligatoria que explica el propósito, uso o ámbito de aplicación de la plantilla."
           }
         },
-        "required": ["name", "template_content", "description"],
+        "required": [
+          "name",
+          "template_content",
+          "description"
+        ],
         "additionalProperties": false
       },
       "output_schema": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "name": { "type": "string" },
-          "asset_name": { "type": "string" },
-          "description": { "type": "string" },
-          "content_length": { "type": "integer" }
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "asset_name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "content_length": {
+            "type": "integer"
+          }
         }
       },
-      "tags": ["templates", "configuration", "user_templates", "creation"],
+      "tags": [
+        "templates",
+        "configuration",
+        "user_templates",
+        "creation"
+      ],
       "side_effects": true
     },
     {
@@ -628,29 +964,57 @@
             "description": "Nombre de archivo exacto o identificador de la plantilla a verificar (ej. 'template-carta-de-presentacion.md')."
           }
         },
-        "required": ["asset_name"],
+        "required": [
+          "asset_name"
+        ],
         "additionalProperties": false
       },
       "output_schema": {
         "type": "object",
         "properties": {
-          "success": { "type": "boolean" },
-          "exists": { "type": "boolean" },
+          "success": {
+            "type": "boolean"
+          },
+          "exists": {
+            "type": "boolean"
+          },
           "data": {
             "type": "object",
             "properties": {
-              "id": { "type": "string" },
-              "name": { "type": "string" },
-              "asset_name": { "type": "string" },
-              "description": { "type": "string" },
-              "skill_name": { "type": ["string", "null"] },
-              "is_user_template": { "type": "boolean" }
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "asset_name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "skill_name": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "is_user_template": {
+                "type": "boolean"
+              }
             }
           },
-          "error": { "type": "string" }
+          "error": {
+            "type": "string"
+          }
         }
       },
-      "tags": ["templates", "configuration", "user_templates", "verification"],
+      "tags": [
+        "templates",
+        "configuration",
+        "user_templates",
+        "verification"
+      ],
       "side_effects": false
     },
     {
@@ -667,7 +1031,10 @@
           },
           "client_type": {
             "type": "string",
-            "enum": ["INDIVIDUAL", "LEGAL_ENTITY"],
+            "enum": [
+              "INDIVIDUAL",
+              "LEGAL_ENTITY"
+            ],
             "description": "Optional filter by client type."
           }
         },
@@ -676,22 +1043,37 @@
       "output_schema": {
         "type": "object",
         "properties": {
-          "success": { "type": "boolean" },
+          "success": {
+            "type": "boolean"
+          },
           "data": {
             "type": "object",
             "properties": {
               "clients": {
                 "type": "array",
-                "items": { "type": "object" }
+                "items": {
+                  "type": "object"
+                }
               },
-              "total": { "type": "integer" },
-              "has_more": { "type": "boolean" },
-              "next_step": { "type": "string" }
+              "total": {
+                "type": "integer"
+              },
+              "has_more": {
+                "type": "boolean"
+              },
+              "next_step": {
+                "type": "string"
+              }
             }
           }
         }
       },
-      "tags": ["crm", "clients", "search", "identity"],
+      "tags": [
+        "crm",
+        "clients",
+        "search",
+        "identity"
+      ],
       "side_effects": false
     },
     {
@@ -707,17 +1089,28 @@
             "description": "UUID of the client, as returned by `search_clients`."
           }
         },
-        "required": ["client_id"],
+        "required": [
+          "client_id"
+        ],
         "additionalProperties": false
       },
       "output_schema": {
         "type": "object",
         "properties": {
-          "success": { "type": "boolean" },
-          "data": { "type": "object" }
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object"
+          }
         }
       },
-      "tags": ["crm", "clients", "details", "identity"],
+      "tags": [
+        "crm",
+        "clients",
+        "details",
+        "identity"
+      ],
       "side_effects": false
     },
     {
@@ -734,7 +1127,10 @@
           },
           "client_type": {
             "type": "string",
-            "enum": ["INDIVIDUAL", "LEGAL_ENTITY"],
+            "enum": [
+              "INDIVIDUAL",
+              "LEGAL_ENTITY"
+            ],
             "description": "Type of client: 'INDIVIDUAL' (persona física) or 'LEGAL_ENTITY' (persona jurídica). Inferred if omitted."
           },
           "full_name": {
@@ -755,7 +1151,12 @@
           },
           "document_type": {
             "type": "string",
-            "enum": ["DNI", "NIE", "PASSPORT", "OTHER"],
+            "enum": [
+              "DNI",
+              "NIE",
+              "PASSPORT",
+              "OTHER"
+            ],
             "description": "Identification document type. Inferred from document_number if omitted."
           },
           "document_number": {
@@ -828,7 +1229,10 @@
           },
           "status": {
             "type": "string",
-            "enum": ["ACTIVE", "DRAFT"],
+            "enum": [
+              "ACTIVE",
+              "DRAFT"
+            ],
             "description": "Status of the client: 'ACTIVE' or 'DRAFT'. If omitted, determined automatically based on data completeness."
           }
         },
@@ -837,13 +1241,28 @@
       "output_schema": {
         "type": "object",
         "properties": {
-          "success": { "type": "boolean" },
-          "message": { "type": "string" },
-          "data": { "type": "object" },
-          "next_step": { "type": "string" }
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object"
+          },
+          "next_step": {
+            "type": "string"
+          }
         }
       },
-      "tags": ["crm", "clients", "save", "create", "update", "identity"],
+      "tags": [
+        "crm",
+        "clients",
+        "save",
+        "create",
+        "update",
+        "identity"
+      ],
       "side_effects": true
     },
     {
@@ -854,26 +1273,61 @@
       "input_schema": {
         "type": "object",
         "properties": {
-          "query": { "type": "string", "description": "Consulta en lenguaje natural, en español. Llega ya anonimizada (sin PIIs)." },
-          "alt_queries": { "type": "array", "items": { "type": "string" }, "maxItems": 2, "description": "Hasta 2 reformulaciones (sinónimos, término técnico, referencia exacta)." },
-          "top_k": { "type": "integer", "minimum": 1, "maximum": 10, "default": 5, "description": "Número de resultados (1-10). Por defecto 5." },
+          "query": {
+            "type": "string",
+            "description": "Consulta en lenguaje natural, en español. Llega ya anonimizada (sin PIIs)."
+          },
+          "alt_queries": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 2,
+            "description": "Hasta 2 reformulaciones (sinónimos, término técnico, referencia exacta)."
+          },
+          "top_k": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10,
+            "default": 5,
+            "description": "Número de resultados (1-10). Por defecto 5."
+          },
           "filters": {
             "type": "object",
             "properties": {
-              "scope": { "type": "string", "enum": ["estatal", "autonomico"] },
-              "in_force_only": { "type": "boolean", "default": true },
-              "norm_ids": { "type": "array", "items": { "type": "string" }, "description": "Restringe a normas concretas (BOE-A-…)." }
+              "scope": {
+                "type": "string",
+                "enum": [
+                  "estatal",
+                  "autonomico"
+                ]
+              },
+              "in_force_only": {
+                "type": "boolean",
+                "default": true
+              },
+              "norm_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Restringe a normas concretas (BOE-A-…)."
+              }
             },
             "additionalProperties": false
           }
         },
-        "required": ["query"],
+        "required": [
+          "query"
+        ],
         "additionalProperties": false
       },
       "output_schema": {
         "type": "object",
         "properties": {
-          "success": { "type": "boolean" },
+          "success": {
+            "type": "boolean"
+          },
           "data": {
             "type": "object",
             "properties": {
@@ -882,23 +1336,52 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "norm": { "type": "object", "description": "id (BOE-A-…), title, aliases, rank, official_number, scope, status, in_force, url_consolidada." },
-                    "block": { "type": "object", "description": "id, kind, title, breadcrumb, text, is_truncated, char_count, url (enlace oficial con ancla), effective_from, footnotes (máx. 3)." }
+                    "norm": {
+                      "type": "object",
+                      "description": "id (BOE-A-…), title, aliases, rank, official_number, scope, status, in_force, url_consolidada."
+                    },
+                    "block": {
+                      "type": "object",
+                      "description": "id, kind, title, breadcrumb, text, is_truncated, char_count, url (enlace oficial con ancla), effective_from, footnotes (máx. 3)."
+                    }
                   }
                 }
               },
-              "references": { "type": "array", "description": "Normas y artículos citados en la consulta que el motor resolvió (raw, type, norm_id, block_id, resolved)." },
-              "index_updated_at": { "type": "string" },
-              "norms_indexed": { "type": "integer" },
-              "disclaimer": { "type": "string" },
-              "note": { "type": "string", "description": "Solo cuando hits está vacío." }
+              "references": {
+                "type": "array",
+                "description": "Normas y artículos citados en la consulta que el motor resolvió (raw, type, norm_id, block_id, resolved)."
+              },
+              "index_updated_at": {
+                "type": "string"
+              },
+              "norms_indexed": {
+                "type": "integer"
+              },
+              "disclaimer": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string",
+                "description": "Solo cuando hits está vacío."
+              }
             }
           },
-          "error": { "type": "string" },
-          "fallback": { "type": "string", "description": "\"web_search\" cuando el buscador del BOE no está disponible." }
+          "error": {
+            "type": "string"
+          },
+          "fallback": {
+            "type": "string",
+            "description": "\"web_search\" cuando el buscador del BOE no está disponible."
+          }
         }
       },
-      "tags": ["retrieval", "legal", "boe", "legislation", "research"],
+      "tags": [
+        "retrieval",
+        "legal",
+        "boe",
+        "legislation",
+        "research"
+      ],
       "side_effects": false
     },
     {
@@ -909,30 +1392,91 @@
       "input_schema": {
         "type": "object",
         "properties": {
-          "norm_id": { "type": "string", "description": "Id de la norma, como norm.id de search_boe (p. ej. BOE-A-1994-26003)." },
-          "block_id": { "type": "string", "description": "Id del bloque, como block.id de search_boe (p. ej. a9)." }
+          "norm_id": {
+            "type": "string",
+            "description": "Id de la norma, como norm.id de search_boe (p. ej. BOE-A-1994-26003)."
+          },
+          "block_id": {
+            "type": "string",
+            "description": "Id del bloque, como block.id de search_boe (p. ej. a9)."
+          }
         },
-        "required": ["norm_id", "block_id"],
+        "required": [
+          "norm_id",
+          "block_id"
+        ],
         "additionalProperties": false
       },
       "output_schema": {
         "type": "object",
         "properties": {
-          "success": { "type": "boolean" },
+          "success": {
+            "type": "boolean"
+          },
           "data": {
             "type": "object",
             "properties": {
-              "norm_id": { "type": "string" },
-              "block": { "type": "object", "description": "id, kind, title, breadcrumb, text (completo, hasta 6.000 caracteres), is_truncated, char_count, url, effective_from, footnotes (máx. 3)." },
-              "disclaimer": { "type": "string" }
+              "norm_id": {
+                "type": "string"
+              },
+              "block": {
+                "type": "object",
+                "description": "id, kind, title, breadcrumb, text (completo, hasta 6.000 caracteres), is_truncated, char_count, url, effective_from, footnotes (máx. 3)."
+              },
+              "disclaimer": {
+                "type": "string"
+              }
             }
           },
-          "error": { "type": "string" },
-          "fallback": { "type": "string" }
+          "error": {
+            "type": "string"
+          },
+          "fallback": {
+            "type": "string"
+          }
         }
       },
-      "tags": ["retrieval", "legal", "boe", "legislation"],
+      "tags": [
+        "retrieval",
+        "legal",
+        "boe",
+        "legislation"
+      ],
       "side_effects": false
+    },
+    {
+      "id": "io.gravitonai.tools.search_workspace",
+      "name": "search_workspace",
+      "description": "Searches the indexed documents of the current project (all its conversations and the project folder: Markdown, PDF, Word, transcribed audio) and returns the most relevant excerpts with their location. Use it when the answer may be in a document of '# WORKSPACE LIBRARY' whose text is not in the prompt, or the user refers to facts, clauses or parties from their documents. One focused query in the language of the documents; parallel calls for independent questions; `path_prefix` restricts it to a folder or file. Cite the `location` of what you rely on; say so if `index.complete` is false; no results means no match, never invent content.",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          },
+          "top_k": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20
+          },
+          "path_prefix": {
+            "type": "string",
+            "description": "A folder or file of '# WORKSPACE LIBRARY'."
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object"
+      },
+      "tags": [
+        "workspace"
+      ],
+      "side_effects": "none"
     }
   ]
 }

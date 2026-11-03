@@ -21,7 +21,8 @@ from concurrent.futures import ThreadPoolExecutor
 AQUI = os.path.dirname(os.path.abspath(__file__))
 SKILL = os.path.join(AQUI, "..")
 BASE = os.path.join(SKILL, "assets", "template-base-reportes.md")
-MAQUETAS = os.path.join(SKILL, "references", "maquetas-reportes.md")
+MAQUETAS = os.path.join(SKILL, "references", "maquetas-reportes.md")      # fichas: ancho y bloque de datos
+MAQUETAS_CODIGO = os.path.join(SKILL, "references", "maquetas-codigo.md")  # contenido, ficha, estilos, acciones y script
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 DATOS_VACIOS = re.compile(r'(<script type="application/json" id="datos-reporte">\n).*?(\n</script>)', re.S)
 
@@ -29,15 +30,16 @@ DATOS_VACIOS = re.compile(r'(<script type="application/json" id="datos-reporte">
 def _leer_maquetas():
     """{(maqueta, parte): texto} de los bloques de la referencia, mas {maqueta: ancho}."""
     texto = open(MAQUETAS, encoding="utf-8").read()
-    piezas = {(m, p): c for m, p, c in re.findall(r"```\w+ maqueta=(\w+) parte=(\w+)\n(.*?)\n```", texto, re.S)}
+    codigo = open(MAQUETAS_CODIGO, encoding="utf-8").read()
+    piezas = {(m, p): c for m, p, c in re.findall(r"```\w+ maqueta=(\w+) parte=(\w+)\n(.*?)\n```", texto + "\n" + codigo, re.S)}
     anchos = dict(re.findall(r"\(`(\w+)`\)\n\n\*\*Ancho:\*\* `(\w+)`", texto))
     return piezas, anchos
 PIEZAS, ANCHOS = _leer_maquetas()
-MODULOS = dict(re.findall(r"```js modulo=(\w+)\n(.*?)\n```", open(os.path.join(SKILL, "references", "modulos-motor.md"), encoding="utf-8").read(), re.S))
 BASE_HTML = open(BASE, encoding="utf-8").read()
+OPCIONES = json.load(open(os.path.join(SKILL, "assets", "opciones-formulario.json"), encoding="utf-8"))  # estilo, colores y formato del cuestionario
 TEMAS = ["moderno"] + re.findall(r'^:root\[data-tema="(\w+)"\]\{$', BASE_HTML, re.M)  # todos van en la base
 
-def componer(destino, textos, datos, maqueta=None, tema="moderno", ficha=None, contenido=None, ancho=None, modulos=()):
+def componer(destino, textos, datos, maqueta=None, tema="moderno", ficha=None, contenido=None, ancho=None):
     """Compone un ejemplo como lo hara el modelo: base, partes de la maqueta y datos."""
     parte = lambda nombre: PIEZAS.get((maqueta, nombre), "")
     html = BASE_HTML.replace('data-tema="moderno"', 'data-tema="%s"' % tema)
@@ -47,10 +49,7 @@ def componer(destino, textos, datos, maqueta=None, tema="moderno", ficha=None, c
     if tema not in TEMAS:
         raise SystemExit("Tema desconocido en %s: %s (no esta en la base)" % (destino, tema))
     html = DATOS_VACIOS.sub(lambda m: m.group(1) + json.dumps(datos, ensure_ascii=False, indent=1) + m.group(2), html)
-    for modulo in modulos:  # los modulos van despues del motor y antes del script de la maqueta
-        html = html.replace("</body>", MODULOS[modulo] + "\n</body>")
-    if parte("script"):
-        html = html.replace("</body>", parte("script") + "\n</body>")
+    html = html.replace("{{SCRIPT_MAQUETA}}", parte("script"))  # los modulos ya van en la base; el script de la maqueta, en su hueco
     textos = dict({"TITULO_CORTO": textos.get("TITULO_DOCUMENTO", "")}, **textos)
     for clave, valor in textos.items():
         html = html.replace("{{%s}}" % clave, valor)
@@ -261,7 +260,7 @@ def presentacion():
       ]}
     textos = dict(COMUN, **{"TITULO_DOCUMENTO": "Reclamacion a Construcciones Delta", "ETIQUETA_SUPERIOR": "Presentacion al cliente",
                             "ENTRADILLA": "Presentacion para la reunion con el cliente."})
-    return componer("presentacion_reclamacion_cliente.html", textos, datos, "presentacion", modulos=["diagramas"])
+    return componer("presentacion_reclamacion_cliente.html", textos, datos, "presentacion")
 
 def white_paper():
     demo = {"demo": {"nombre": "Datos ficticios de demostracion", "consulta": "2026-10-11"}}
@@ -311,7 +310,7 @@ def white_paper():
       "SUBTITULO_CAPITULO_3": "Tres medidas que cambian el resultado", "PUNTO_1": "Aceptacion escrita de cada factura o albaran.", "PUNTO_2": "Requerimiento fehaciente a los treinta dias del vencimiento.",
       "TITULO_NOTAS": "Notas", "NOTA_1": "Todas las cifras de este documento son ficticias y sirven solo para mostrar el formato.",
     })
-    return componer("white_paper_morosidad_pymes.html", textos, datos, "documento_largo", tema="editorial", contenido=contenido, modulos=["diagramas"])
+    return componer("white_paper_morosidad_pymes.html", textos, datos, "documento_largo", tema="editorial", contenido=contenido)
 
 def resumen():
     datos = {"idioma": "es-ES", "moneda": "EUR", "fuentes": FUENTE_CLIENTE,
@@ -337,7 +336,7 @@ def resumen():
       "CONCLUSION_3": "Si hay oposicion, el asunto pasa al declarativo; la cuantia lo justifica.",
       "DECISION_QUE_SE_PIDE": "Decision: autorizar la presentacion de la peticion de monitorio antes del 2 de octubre.",
     })
-    return componer("resumen_reclamacion_una_pagina.html", textos, datos, "resumen_ejecutivo", tema="corporativo", modulos=["encaje"])
+    return componer("resumen_reclamacion_una_pagina.html", textos, datos, "resumen_ejecutivo", tema="corporativo")
 
 # --------------------------------------------------------------------------- galeria
 FLUJO_MONITORIO = {"tipo": "diagrama", "disposicion": "capas", "grupos": {"1": "Via judicial", "2": "Cierre", "3": "Hechos"},
@@ -523,7 +522,7 @@ def galeria():
       "ENTRADILLA": "Cada grafico se declara con sus datos en el bloque datos-reporte y lo dibuja el motor de la base. Bajo cada uno estan su tabla de datos, la descarga en CSV y su fuente.",
     })
     return componer("galeria_graficos.html", textos, datos, ficha='<li><b>Tipos:</b> %d</li>' % len(GALERIA),
-                    contenido=contenido, ancho="1120px", modulos=["diagramas", "avanzados", "analiticos", "seguimiento", "iconos", "qr", "plazos", "mapa", "mapa_ccaa", "mapa_provincias"])
+                    contenido=contenido, ancho="1120px")
 
 GALERIA_DICT = {c: dict(g) for c, _, _, g in GALERIA}
 
@@ -571,7 +570,7 @@ def cuadro_mando():
                           {"rotulo": "Litigacion", "valor": 1180, "objetivo": 1200, "tramos": [900, 1200, 1600]}, {"rotulo": "Laboral", "valor": 760, "objetivo": 1000, "tramos": [700, 950, 1300]}]},
          "estado": {"tipo": "semaforos", "resumen": "Estado por area", "elementos": [{"rotulo": "Mercantil", "estado": "ok", "nota": "En objetivo de horas y cobro"},
                     {"rotulo": "Litigacion", "estado": "aviso", "nota": "18.350 EUR pendientes de mas de 60 dias"}, {"rotulo": "Laboral", "estado": "riesgo", "nota": "24 % por debajo de sus horas"}]}}
-    return componer("cuadro_mando_comite.html", t, _d(cifras, g), "cuadro_mando", tema="dorado", modulos=["analiticos", "seguimiento"])
+    return componer("cuadro_mando_comite.html", t, _d(cifras, g), "cuadro_mando", tema="dorado")
 
 def ficha_una_pagina():
     t = dict(PIE_DEMO, TITULO_DOCUMENTO="Construcciones Delta, S.L.: deuda vencida y en reclamacion", TITULO_CORTO="Ficha Construcciones Delta", ETIQUETA_SUPERIOR="Ficha de cliente deudor",
@@ -586,7 +585,7 @@ def ficha_una_pagina():
     g = {"principal": {"tipo": "barras", "unidad": "eur", "elementos": ELEMENTOS_FACTURAS, "resumen": "Principal por factura"},
          "estado": {"tipo": "semaforos", "resumen": "Requisitos de la reclamacion", "elementos": [{"rotulo": "Reconocimiento de deuda", "estado": "ok", "nota": "Correo de 4 de mayo"},
                     {"rotulo": "Requerimiento fehaciente", "estado": "ok", "nota": "Burofax de 17 de septiembre"}, {"rotulo": "Solvencia del deudor", "estado": "aviso", "nota": "Sin informe reciente"}]}}
-    return componer("ficha_deudor_una_pagina.html", t, _d(cifras, g, FUENTE_CLIENTE | DEMO), "ficha_una_pagina", tema="minimal", modulos=["seguimiento", "encaje"])
+    return componer("ficha_deudor_una_pagina.html", t, _d(cifras, g, FUENTE_CLIENTE | DEMO), "ficha_una_pagina", tema="minimal")
 
 def infografia():
     t = dict(PIE_DEMO, TITULO_DOCUMENTO="La morosidad de las pymes, en tres cifras", TITULO_CORTO="Infografia morosidad", ETIQUETA_SUPERIOR="Infografia | Datos de demostracion",
@@ -598,7 +597,7 @@ def infografia():
          "avance": {"tipo": "anillos", "resumen": "Porcentaje recuperado por via", "elementos": [{"rotulo": "Negociacion", "valor": 55}, {"rotulo": "Monitorio", "valor": 70}, {"rotulo": "Juicio", "valor": 82}]},
          "hitos": {"tipo": "linea_tiempo", "resumen": "Hitos de una reclamacion", "hitos": [{"fecha": "2026-01-15", "rotulo": "Vence la factura"}, {"fecha": "2026-03-01", "rotulo": "Recordatorio"},
                    {"fecha": "2026-05-04", "rotulo": "Burofax"}, {"fecha": "2026-06-20", "rotulo": "Monitorio"}, {"fecha": "2026-08-17", "rotulo": "Cobro"}]}}
-    return componer("infografia_morosidad.html", t, _d(cifras, g), "infografia", tema="menta", modulos=["avanzados", "analiticos", "seguimiento"])
+    return componer("infografia_morosidad.html", t, _d(cifras, g), "infografia", tema="menta")
 
 def comparativa():
     t = dict(PIE_DEMO, TITULO_DOCUMENTO="El monitorio gana en coste y en rapidez", TITULO_CORTO="Comparativa de vias", ETIQUETA_SUPERIOR="Comparativa de opciones | Expediente 2026/0417",
@@ -614,7 +613,7 @@ def comparativa():
                     "series": [{"nombre": "Monitorio", "valores": [9, 8, 7, 6, 8]}, {"nombre": "Negociacion", "valores": [10, 9, 5, 8, 7]}, {"nombre": "Juicio", "valores": [3, 2, 8, 6, 5]}]},
          "distancia": {"tipo": "halteras", "unidad": "eur", "resumen": "Coste minimo y maximo", "nombres": {"a": "Minimo", "b": "Maximo"},
                        "elementos": [{"rotulo": "Negociacion", "a": 300, "b": 900}, {"rotulo": "Monitorio", "a": 600, "b": 2400}, {"rotulo": "Juicio", "a": 4200, "b": 9800}]}}
-    return componer("comparativa_vias.html", t, _d({}, g), "comparativa", tema="corporativo", modulos=["avanzados"])
+    return componer("comparativa_vias.html", t, _d({}, g), "comparativa", tema="corporativo")
 
 def cronograma_expediente():
     t = dict(PIE_DEMO, TITULO_DOCUMENTO="El monitorio se presenta el 9 de octubre", TITULO_CORTO="Cronograma 2026/0417", ETIQUETA_SUPERIOR="Cronograma del expediente | 2026/0417",
@@ -631,7 +630,7 @@ def cronograma_expediente():
                {"rotulo": "Preparar el monitorio", "inicio": "2026-09-28", "fin": "2026-10-09"}, {"rotulo": "Pago u oposicion", "inicio": "2026-10-20", "fin": "2026-11-10", "aproximada": True}]},
          "fases": {"tipo": "progreso", "unidad": "pct", "resumen": "Avance por fase", "elementos": [{"rotulo": "Documentacion", "valor": 100}, {"rotulo": "Requerimiento", "valor": 70},
                    {"rotulo": "Monitorio", "valor": 0, "objetivo": 100}, {"rotulo": "Cobro", "valor": 0}]}}
-    return componer("cronograma_expediente_0417.html", t, _d({}, g), "cronograma_expediente", tema="esmeralda_noche", modulos=["seguimiento"])
+    return componer("cronograma_expediente_0417.html", t, _d({}, g), "cronograma_expediente", tema="esmeralda_noche")
 
 def lista_control():
     t = dict(PIE_DEMO, TITULO_DOCUMENTO="Cumplimos el 70 % de los requisitos de proteccion de datos", TITULO_CORTO="Lista de control RGPD", ETIQUETA_SUPERIOR="Lista de control | Proteccion de datos",
@@ -649,7 +648,7 @@ def lista_control():
     g = {"bloques": {"tipo": "progreso", "unidad": "pct", "tramos": [50, 80], "resumen": "Avance por bloque", "elementos": [{"rotulo": "Gobernanza", "valor": 100}, {"rotulo": "Informacion", "valor": 85},
                      {"rotulo": "Encargados", "valor": 60}, {"rotulo": "Seguridad", "valor": 40}]},
          "requisitos": GALERIA_DICT["semaforos"]}
-    return componer("lista_control_rgpd.html", t, _d(cifras, g), "lista_control", tema="tecnico", modulos=["seguimiento"])
+    return componer("lista_control_rgpd.html", t, _d(cifras, g), "lista_control", tema="tecnico")
 
 def mapa_riesgos():
     t = dict(PIE_DEMO, TITULO_DOCUMENTO="Dos riesgos concentran la exposicion de la operacion", TITULO_CORTO="Mapa de riesgos", ETIQUETA_SUPERIOR="Mapa de riesgos | Compra de Delta Servicios",
@@ -667,7 +666,7 @@ def mapa_riesgos():
                      "elementos": [{"rotulo": "Inspeccion fiscal", "bajo": 120000, "alto": 268000}, {"rotulo": "Contingencia laboral", "bajo": 158000, "alto": 231000},
                                    {"rotulo": "Litigio con cliente", "bajo": 171000, "alto": 214000}, {"rotulo": "Garantias bancarias", "bajo": 180000, "alto": 199000}]},
          "exposicion": GALERIA_DICT["rango"]}
-    return componer("mapa_riesgos_operacion.html", t, _d(cifras, g), "mapa_riesgos", tema="ambar", modulos=["analiticos", "seguimiento"])
+    return componer("mapa_riesgos_operacion.html", t, _d(cifras, g), "mapa_riesgos", tema="ambar")
 
 def escenarios():
     t = dict(PIE_DEMO, TITULO_DOCUMENTO="La indemnizacion estara entre 36.000 y 61.000 euros", TITULO_CORTO="Escenarios indemnizacion", ETIQUETA_SUPERIOR="Escenarios | Reclamacion por accidente",
@@ -686,7 +685,7 @@ def escenarios():
          "sensibilidad": GALERIA_DICT["tornado"],
          "horquilla": {"tipo": "rango", "unidad": "eur", "resumen": "Horquilla", "minimo": 36000, "maximo": 61000,
                        "marcas": [{"rotulo": "Oferta aseguradora", "valor": 31000, "color": "riesgo"}, {"rotulo": "Reclamamos", "valor": 52000, "color": "ok"}]}}
-    return componer("escenarios_indemnizacion.html", t, _d(cifras, g), "escenarios", tema="oliva_oro", modulos=["analiticos"])
+    return componer("escenarios_indemnizacion.html", t, _d(cifras, g), "escenarios", tema="oliva_oro")
 
 def embudo_conversion():
     t = dict(PIE_DEMO, TITULO_DOCUMENTO="Uno de cada cuatro contactos acaba en encargo", TITULO_CORTO="Embudo de captacion", ETIQUETA_SUPERIOR="Embudo de conversion | Captacion",
@@ -698,7 +697,7 @@ def embudo_conversion():
     cifras = {"indicador_1": {"de": "embudo", "calculo": "maximo", "unidad": "entero"}, "indicador_3": {"de": "embudo", "calculo": "ultimo", "unidad": "entero"},
               "indicador_2": {"operacion": "porcentaje", "a": "indicador_3", "b": "indicador_1", "unidad": "pct"}, "variacion_2": {"valor": 2.4, "unidad": "pct", "signo": True}}
     g = {"embudo": GALERIA_DICT["embudo"], "evolucion": GALERIA_DICT["area_apilada"], "flujos": GALERIA_DICT["sankey"]}
-    return componer("embudo_captacion.html", t, _d(cifras, g), "embudo_conversion", tema="lima", modulos=["avanzados", "analiticos"])
+    return componer("embudo_captacion.html", t, _d(cifras, g), "embudo_conversion", tema="lima")
 
 def actividad_equipo():
     t = dict(PIE_DEMO, TITULO_DOCUMENTO="Civil y mercantil concentran la actividad del trimestre", TITULO_CORTO="Actividad del equipo", ETIQUETA_SUPERIOR="Actividad del equipo | Tercer trimestre",
@@ -712,7 +711,7 @@ def actividad_equipo():
     g = {"por_area": GALERIA_DICT["mapa_calor"], "dias": GALERIA_DICT["calendario"], "tiempos": GALERIA_DICT["cajas"],
          "horas": {"tipo": "bala", "unidad": "horas", "resumen": "Horas por area", "elementos": [{"rotulo": "Civil", "valor": 1520, "objetivo": 1350, "tramos": [900, 1200, 1700]},
                    {"rotulo": "Mercantil", "valor": 1290, "objetivo": 1300, "tramos": [900, 1200, 1700]}, {"rotulo": "Laboral", "valor": 760, "objetivo": 1000, "tramos": [700, 950, 1300]}]}}
-    return componer("actividad_equipo_t3.html", t, _d(cifras, g), "actividad_equipo", tema="pizarra", modulos=["analiticos", "avanzados"])
+    return componer("actividad_equipo_t3.html", t, _d(cifras, g), "actividad_equipo", tema="pizarra")
 
 def informe_territorial():
     t = dict(PIE_DEMO, TITULO_DOCUMENTO="Madrid tiene la tasa mas alta de asuntos por cliente", TITULO_CORTO="Informe territorial", ETIQUETA_SUPERIOR="Informe territorial | Asuntos por comunidad",
@@ -726,7 +725,7 @@ def informe_territorial():
     cifras = {"indicador_1": {"de": "ranking", "calculo": "suma", "unidad": "entero"}}
     g = {"mapa": GALERIA_DICT["mapa"], "ranking": {"tipo": "barras", "unidad": "entero", "resumen": "Por comunidad", "elementos": elementos[:8]},
          "concentracion": {"tipo": "pareto", "unidad": "entero", "nombre": "Asuntos", "resumen": "Concentracion", "elementos": elementos[:6] + [{"rotulo": "Resto", "valor": sum(e["valor"] for e in elementos[6:])}]}}
-    return componer("informe_territorial_asuntos.html", t, _d(cifras, g), "informe_territorial", tema="lavanda", modulos=["mapa", "mapa_ccaa", "analiticos"])
+    return componer("informe_territorial_asuntos.html", t, _d(cifras, g), "informe_territorial", tema="lavanda")
 
 def poster():
     t = dict(PIE_DEMO, TITULO_DOCUMENTO="Reclamar a tiempo recupera el 70 % de la deuda", TITULO_CORTO="Poster morosidad", ETIQUETA_SUPERIOR="Jornada de morosidad | Octubre de 2026",
@@ -735,7 +734,7 @@ def poster():
     cifras = {"cifra_1": {"valor": 42180, "unidad": "eur", "decimales": 0}, "cifra_2": {"valor": 214, "unidad": "entero"}, "cifra_3": {"valor": 70, "unidad": "pct"}}
     _, datos_panel_ = datos_panel()
     g = {"principal": dict(datos_panel_["graficos"]["evolucion"], fuente="demo")}
-    return componer("poster_morosidad.html", t, _d(cifras, g), "poster", tema="nocturno", modulos=["encaje"])
+    return componer("poster_morosidad.html", t, _d(cifras, g), "poster", tema="nocturno")
 
 NUEVAS = [cuadro_mando, ficha_una_pagina, infografia, comparativa, cronograma_expediente, lista_control, mapa_riesgos, escenarios, embudo_conversion, actividad_equipo, informe_territorial, poster]
 
@@ -787,7 +786,7 @@ aplicar(q.get("tema") || "moderno", q.get("modo") || "sistema");
     html = BASE_HTML.replace("{{ANCHO}}", ANCHOS["panel_datos"]).replace("{{FICHA}}", PIEZAS[("panel_datos", "ficha")]).replace("{{CONTENIDO}}", PIEZAS[("panel_datos", "contenido")])
     html = html.replace("{{ESTILOS_MAQUETA}}", PIEZAS.get(("panel_datos", "estilos"), "")).replace("{{ACCIONES}}", "")
     html = DATOS_VACIOS.sub(lambda m: m.group(1) + json.dumps(datos, ensure_ascii=False, indent=1) + m.group(2), html)
-    html = html.replace("\n  <header>", "\n  " + selector, 1).replace("</body>", script + "\n</body>")
+    html = html.replace("\n  <header>", "\n  " + selector, 1).replace("{{SCRIPT_MAQUETA}}", script)
     for clave, valor in textos.items():
         html = html.replace("{{%s}}" % clave, valor)
     pendientes = sorted(set(re.findall(r"\{\{(\w+)\}\}", html)))
@@ -883,7 +882,7 @@ var botones = document.querySelectorAll("#filtro button"), tarjetas = document.q
     html = BASE_HTML.replace("{{ANCHO}}", "1180px").replace("{{FICHA}}", '<li><b>Maquetas:</b> %d</li>' % len(FICHAS_MAQUETAS)).replace("{{CONTENIDO}}", contenido)
     html = html.replace("{{ESTILOS_MAQUETA}}", estilos).replace("{{ACCIONES}}", "")
     html = DATOS_VACIOS.sub(lambda m: m.group(1) + json.dumps({"idioma": "es-ES", "moneda": "EUR", "fuentes": {}, "cifras": {}, "graficos": {}}) + m.group(2), html)
-    html = html.replace("</body>", script + "\n</body>")
+    html = html.replace("{{SCRIPT_MAQUETA}}", script)
     for clave, valor in textos.items():
         html = html.replace("{{%s}}" % clave, valor)
     pendientes = sorted(set(re.findall(r"\{\{(\w+)\}\}", html)))
@@ -978,12 +977,12 @@ def catalogo_visual():
     for t, _ in G.TEMAS_GALERIA[2:]:  # moderno y sobrio, arriba; en el orden del catalogo
         tok = tokens(re.search(r':root\[data-tema="%s"\]\{(.*?)\}' % t, base, re.S).group(1))
         temas.append((t, NOMBRES.get(t, t.capitalize()), USOS[t], tok))
-    # la pregunta de estilo de SKILL.md (1.2) ofrece estos mismos temas, en este orden y con este nombre y uso
-    form = json.loads(re.search(r"### 1\.2 Formulario.*?```json\n(.*?)\n```", open(os.path.join(SKILL, "SKILL.md"), encoding="utf-8").read(), re.S).group(1))
-    opciones = [(o["id"], o["label"]) for q in form["form_data"] if q["id"] == "identidad_visual" for o in q["options"]]
+    # la pregunta de estilo (assets/opciones-formulario.json) ofrece estos mismos temas, en este orden y con este nombre y uso
+    catalogo = OPCIONES
+    opciones = [(o["id"], o["label"]) for o in catalogo["estilo"]["options"]]
     esperadas = [("tema_" + t, "%s: %s" % (nombre, uso[0].lower() + uso[1:])) for t, nombre, uso, _ in temas]
     if opciones != esperadas:
-        print("  AVISO la pregunta identidad_visual de SKILL.md no coincide con los temas del catalogo; deberia ser:")
+        print("  AVISO la pregunta estilo de opciones-formulario.json no coincide con los temas del catalogo; deberia ser:")
         for i, l in esperadas: print('        {"id": "%s", "label": "%s"},' % (i, l))
     muestras = []
     fuente_base = temas[0][3]["fuente"]  # la del tema moderno, ya leida de la base
@@ -1057,9 +1056,7 @@ def catalogo_visual():
     html = G.BASE_HTML.replace("{{ANCHO}}", "1180px").replace("{{FICHA}}", "").replace("{{CONTENIDO}}", contenido)
     html = html.replace("{{ESTILOS_MAQUETA}}", estilos).replace("{{ACCIONES}}", "")
     html = G.DATOS_VACIOS.sub(lambda m: m.group(1) + json.dumps(datos, ensure_ascii=False) + m.group(2), html)
-    for mod in ["diagramas", "avanzados", "analiticos", "seguimiento", "qr", "plazos", "mapa", "mapa_ccaa", "mapa_provincias"]:
-        html = html.replace("</body>", G.MODULOS[mod] + "\n</body>")
-    html = html.replace("</body>", """<script>
+    html = html.replace("{{SCRIPT_MAQUETA}}", """<script>
     (function(){
     "use strict";
     /* ?solo=<id> deja solo ese bloque (un grupo de graficos o los estilos): es lo que se fotografia para la descripcion de la skill. */
@@ -1074,8 +1071,7 @@ def catalogo_visual():
 var titulo = b.querySelector(":scope > h2");  /* el titulo del grupo ya va en el texto de la descripcion */
 if (titulo) titulo.style.display = "none";
     })();
-    </script>
-    </body>""")
+    </script>""")
     for k, v in textos.items(): html = html.replace("{{%s}}" % k, v)
     pendientes = sorted(set(re.findall(r"\{\{(\w+)\}\}", html)))
     open(os.path.join(AQUI, "galeria_catalogo.html"), "w", encoding="utf-8").write(html)
@@ -1140,10 +1136,13 @@ def vistas_cuestionario():
     vistas = {"tema_" + t: variante(t, None if t in oscuros else "claro") for t in TEMAS}
     vistas.update({"modo_claro": variante("moderno", "claro"), "modo_oscuro": variante("moderno", "oscuro"),
                    "colores_despacho": variante("moderno", "claro", MARCA_MUESTRA)})
-    form = json.loads(re.search(r"### 1\.2 Formulario.*?```json\n(.*?)\n```", open(os.path.join(SKILL, "SKILL.md"), encoding="utf-8").read(), re.S).group(1))
-    opciones = {o["id"] for q in form["form_data"] if q["id"] in ("identidad_visual", "colores_reporte") for o in q["options"]}
+    catalogo = OPCIONES
+    opciones = {o["id"] for clave in ("estilo", "colores") for o in catalogo[clave]["options"]}
     if opciones != set(vistas) | {"modo_sistema"}:
-        print("  AVISO las opciones de identidad_visual y colores_reporte de SKILL.md no coinciden con las miniaturas: %s" % sorted(opciones ^ (set(vistas) | {"modo_sistema"})))
+        print("  AVISO las opciones estilo y colores de opciones-formulario.json no coinciden con las miniaturas: %s" % sorted(opciones ^ (set(vistas) | {"modo_sistema"})))
+    formatos = {maqueta: archivo for archivo, maqueta, *_ in FICHAS_MAQUETAS}
+    if set(formatos) != {o["id"] for o in catalogo["formato"]["options"]}:
+        print("  AVISO las opciones de formato de opciones-formulario.json no coinciden con los ejemplos: %s" % sorted(set(formatos) ^ {o["id"] for o in catalogo["formato"]["options"]}))
     destino = os.path.join(SKILL, "assets")
     def captura(nombre, html):
         with tempfile.TemporaryDirectory(prefix="reportes-vista-") as tmp:
@@ -1164,6 +1163,15 @@ def vistas_cuestionario():
         mascara = Image.new("L", (480, 300), 0)
         mascara.putdata([255 if x * 300 + y * 480 > 480 * 300 else 0 for y in range(300) for x in range(480)])
         imagenes["modo_sistema"] = Image.composite(imagenes["modo_oscuro"], imagenes["modo_claro"], mascara)
+    # Los formatos: la miniatura de su ejemplo (ya capturada en ejemplos/miniaturas), recortada por arriba a 480x300.
+    for maqueta, archivo in formatos.items():
+        png = os.path.join(AQUI, "miniaturas", archivo + ".png")
+        if not os.path.exists(png):
+            print("  AVISO: falta la miniatura %s; la vista del formato %s no se actualiza" % (png, maqueta))
+        else:
+            im = Image.open(png).convert("RGB")
+            im = im.resize((480, int(im.height * 480 / im.width)), Image.LANCZOS)
+            imagenes[maqueta] = im.crop((0, 0, 480, min(300, im.height)))
     for nombre, im in imagenes.items():
         if im is None:
             continue

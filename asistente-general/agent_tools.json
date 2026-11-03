@@ -35,6 +35,18 @@
     },
     {
       "id": "io.gravitonai.tools.save_client"
+    },
+    {
+      "id": "io.gravitonai.tools.read_skill_document"
+    },
+    {
+      "id": "io.gravitonai.tools.create_file_from_skill_document"
+    },
+    {
+      "id": "io.gravitonai.tools.fetch_url"
+    },
+    {
+      "id": "io.gravitonai.tools.search_workspace"
     }
   ]
 }

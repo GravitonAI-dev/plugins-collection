@@ -10,15 +10,15 @@ Comprueba, sobre cada `*/skills/*/SKILL.md`:
   3. Ramas        — enumera el producto cartesiano de los dominios de los vectores
                     que consume la Fase 1.3 y verifica que ninguna combinacion se
                     quede sin rama, y que ninguna reciba dos plantillas exclusivas.
-  4. Capas        — el nucleo `CLAUDE.md` raiz no pasa de 5000 caracteres, cada capa
+  4. Capas        — el nucleo `CLAUDE.md` raiz no pasa de 6000 caracteres, cada capa
                     declarada en `prompt_layers` existe en `prompts/<capa>.md` y todo
                     plugin con skills de documentos (assets/) declara `documentos-legales`
-                    salvo `asistente-general`.
+                    (una skill se excluye con `prompt_layers: []`; README, seccion 6.4).
 
 Uso:  python3 scripts/validar_skills.py   (desde la raiz del repositorio)
 Salida: informe por skill y codigo de salida 1 si hay algun fallo.
 """
-import re,glob,json,unicodedata,itertools
+import re,glob,json,unicodedata,itertools,os
 def norm(s):
     s=unicodedata.normalize('NFKD',s).encode('ascii','ignore').decode().lower()
     return re.sub(r'[^a-z0-9]+','_',s).strip('_')
@@ -115,6 +115,7 @@ print(f"==== {TH} combinaciones sin rama | {TC} con dos plantillas | {len(det)} 
 FALLOS=0
 CLAVES={'name','title','i18n','description','when_to_use','inputs','outputs'}
 TOKEN=re.compile(r'\bV\d+(?:\.[a-z]|-bis|b)?\b')
+_CATALOGO_TOOLS=json.load(open('agent_tools.json',encoding='utf-8'))['tools']  # se lee una vez para todo el script
 for f in sorted(glob.glob('*/skills/*/SKILL.md')):
     t=open(f,encoding='utf-8').read()
     nombre=f.split('/skills/')[1][:-9]
@@ -123,19 +124,45 @@ for f in sorted(glob.glob('*/skills/*/SKILL.md')):
         print(f"  FALLO frontmatter incompleto: {nombre}"); FALLOS+=1
     if len(re.findall(r'^## FASE [1-5]', t, re.M))!=5:
         print(f"  FALLO no tiene cinco fases: {nombre}"); FALLOS+=1
-    m=re.search(r'### 1\.2[^\n]*\n(.*?)(?=### 1\.3)', t, re.S)
-    jb=re.search(r'```json\n(.*?)\n```', m.group(1), re.S) if m else None
-    if jb:
+    # Todo bloque JSON con form_data del SKILL.md: cada pregunta lleva id, rationale y question, y
+    # o bien sus options (>= 2) o bien options_from (las opciones las pone el servidor desde
+    # assets/opciones-formulario.json de la skill, que debe tener esa clave).
+    _catalogo_opciones={}
+    _cop=os.path.join(os.path.dirname(f),'assets','opciones-formulario.json')
+    if os.path.exists(_cop):
+        try: _catalogo_opciones=json.load(open(_cop,encoding='utf-8'))
+        except Exception as e: print(f"  FALLO opciones-formulario.json invalido: {nombre} ({e})"); FALLOS+=1
+    for jb in re.finditer(r'```json\n(\{\s*"form_data".*?)\n```', t, re.S):
         try: d=json.loads(jb.group(1))
         except Exception as e:
-            print(f"  FALLO formulario JSON invalido: {nombre} ({e})"); FALLOS+=1; d=None
-        if d:
-            for q in d["form_data"]:
-                if not {"id","rationale","question","options"} <= set(q) or len(q["options"])<2:
-                    print(f"  FALLO pregunta mal formada: {nombre}/{q.get('id')}"); FALLOS+=1
-            for q in d["form_data"][1:]:
-                if q.get('question','').lower().startswith('si ') and not any(o.get('id') in ('no_procede','no_aplica') for o in q.get('options',[])):
-                    print(f"  AVISO pregunta condicional sin opcion no_procede (REG-TRI-01): {nombre}/{q.get('id')}")
+            print(f"  FALLO formulario JSON invalido: {nombre} ({e})"); FALLOS+=1; continue
+        for q in d.get("form_data",[]):
+            if not {"id","rationale","question"} <= set(q):
+                print(f"  FALLO pregunta mal formada: {nombre}/{q.get('id')}"); FALLOS+=1
+            elif q.get("options_from"):
+                if q["options_from"] not in _catalogo_opciones or len(_catalogo_opciones[q["options_from"]].get("options",[]))<2:
+                    print(f"  FALLO options_from sin clave en assets/opciones-formulario.json: {nombre}/{q['id']} ({q['options_from']})"); FALLOS+=1
+            elif len(q.get("options",[]))<2:
+                print(f"  FALLO pregunta con menos de dos opciones y sin options_from: {nombre}/{q.get('id')}"); FALLOS+=1
+        for q in d.get("form_data",[])[1:]:
+            if q.get('question','').lower().startswith('si ') and not any(o.get('id') in ('no_procede','no_aplica') for o in q.get('options',[])):
+                print(f"  AVISO pregunta condicional sin opcion no_procede (REG-TRI-01): {nombre}/{q.get('id')}")
+    # tools: del frontmatter: nombres del catalogo raiz agent_tools.json
+    _fmt=re.search(r'^tools:\n((?:  - .*\n)+)', t, re.M)
+    if _fmt:
+        _nombres={x['name'] for x in _CATALOGO_TOOLS}
+        _plugin_tools={x['id'].rsplit('.',1)[-1] for x in json.load(open(os.path.join(f.split('/')[0],'agent_tools.json'),encoding='utf-8'))['tools']} if os.path.exists(os.path.join(f.split('/')[0],'agent_tools.json')) else None
+        for _tn in re.findall(r'^  - (\S+)', _fmt.group(1), re.M):
+            if _tn not in _nombres: print(f"  FALLO tool del frontmatter que no esta en agent_tools.json: {nombre}/{_tn}"); FALLOS+=1
+            elif _plugin_tools is not None and _tn not in _plugin_tools: print(f"  FALLO tool del frontmatter que el plugin no declara en su agent_tools.json: {nombre}/{_tn}"); FALLOS+=1
+    if _catalogo_opciones:
+        _dir=os.path.dirname(f)
+        _fichas=set(re.findall(r'^## .*?\(`(\w+)`\)', open(os.path.join(_dir,'references','maquetas-reportes.md'),encoding='utf-8').read(), re.M)) if os.path.exists(os.path.join(_dir,'references','maquetas-reportes.md')) else set()
+        _base=open(os.path.join(_dir,'assets','template-base-reportes.md'),encoding='utf-8').read() if os.path.exists(os.path.join(_dir,'assets','template-base-reportes.md')) else ''
+        _temas={'tema_'+x for x in ['moderno']+re.findall(r'^:root\[data-tema="(\w+)"\]\{$', _base, re.M)}
+        for _clave,_esperados in (('formato',_fichas),('estilo',_temas)):
+            _ids={o.get('id') for o in _catalogo_opciones.get(_clave,{}).get('options',[])}
+            if _esperados and _ids!=_esperados: print(f"  FALLO opciones-formulario.json/{_clave} no coincide con el catalogo real: {sorted(_ids^_esperados)}"); FALLOS+=1
     c=re.search(r'Correspondencia con el enrutamiento(.*?)\n\n', t, re.S)
     if c:
         decl=set(re.findall(r'`(V\d+(?:\.[a-z]|-bis|b)?)`', c.group(1)))
@@ -144,23 +171,21 @@ for f in sorted(glob.glob('*/skills/*/SKILL.md')):
         if sin: print(f"  FALLO vectores sin declarar: {nombre} {sin}"); FALLOS+=1
     elif TOKEN.search(t):
         print(f"  FALLO sin bloque de correspondencia: {nombre}"); FALLOS+=1
-    import os
     for a in sorted(set(re.findall(r'(?:assets|references)/[\w.-]+\.md', t))):
         if not os.path.exists(os.path.join(os.path.dirname(f),a)):
             print(f"  FALLO {a.split('/')[0][:-1]} inexistente: {nombre} {a}"); FALLOS+=1
 
 # ---------------------------------------------------------------- registro de plugins y skills
-import os as _os
 _market='.claude-plugin/marketplace.json'
 _reg=set()
-if _os.path.exists(_market):
+if os.path.exists(_market):
     _m=json.load(open(_market,encoding='utf-8'))
     _reg={p['name'] for p in _m.get('plugins',[])}
 for _pj in sorted(glob.glob('*/.claude-plugin/plugin.json')):
     _p=_pj.split('/')[0]
     _d=json.load(open(_pj,encoding='utf-8'))
     _listadas=[s.split('/')[-1] for s in _d.get('skills',[])]
-    _reales=sorted(_os.path.basename(x.rstrip('/')) for x in glob.glob(f'{_p}/skills/*/'))
+    _reales=sorted(os.path.basename(x.rstrip('/')) for x in glob.glob(f'{_p}/skills/*/'))
     _falta=[s for s in _reales if s not in _listadas]
     _sobra=[s for s in _listadas if s not in _reales]
     if _falta: print(f"  FALLO skills en disco que {_p}/plugin.json no carga: {_falta}"); FALLOS+=1
@@ -175,7 +200,7 @@ for _s in sorted(glob.glob('*/skills/*/SKILL.md')):
 
 # ------------------------------------------- fase 9 del builder (plugin-builder.md, seccion 9)
 import unicodedata as _ud
-_cat={x['id'] for x in json.load(open('agent_tools.json',encoding='utf-8'))['tools']}
+_cat={x['id'] for x in _CATALOGO_TOOLS}
 for _at in sorted(glob.glob('*/agent_tools.json')):
     _ids={x['id'] for x in json.load(open(_at,encoding='utf-8'))['tools']}
     if _ids-_cat:
@@ -188,7 +213,7 @@ for _pj in sorted(glob.glob('*/.claude-plugin/plugin.json')):
     if not _KEBAB.match(_d.get('name','')): print(f"  FALLO nombre de plugin no kebab-case: {_p}"); FALLOS+=1
     if not _d.get('description'): print(f"  FALLO plugin sin description: {_p}"); FALLOS+=1
 for _e in json.load(open('.claude-plugin/marketplace.json',encoding='utf-8'))['plugins']:
-    if not _os.path.isdir(_e.get('source','')): print(f"  FALLO source inexistente en marketplace: {_e['name']}"); FALLOS+=1
+    if not os.path.isdir(_e.get('source','')): print(f"  FALLO source inexistente en marketplace: {_e['name']}"); FALLOS+=1
     if not _SEMVER.match(_e.get('version','')): print(f"  FALLO version no semver en marketplace: {_e['name']}"); FALLOS+=1
     if not _e.get('description'): print(f"  FALLO entrada de marketplace sin description: {_e['name']}"); FALLOS+=1
 _EXCL=re.compile(r'\bNO\s+(usar|cubre|sustituye|genera|dise[nñ]a|se\s+usa|aplica)', re.I)
@@ -224,7 +249,7 @@ for _a in sorted(glob.glob('*/skills/*/assets/*.md')):
     if 'gestion-plantillas' in _a: continue
     _t=open(_a,encoding='utf-8').read()
     if 'DRAFT' not in _t: print(f"  FALLO asset sin header DRAFT: {_a}"); FALLOS+=1
-    if '{{' in _t and not _os.path.basename(_a).startswith('template-'): print(f"  FALLO asset con marcadores sin prefijo template-: {_a}"); FALLOS+=1
+    if '{{' in _t and not os.path.basename(_a).startswith('template-'): print(f"  FALLO asset con marcadores sin prefijo template-: {_a}"); FALLOS+=1
     if 'mailto:' in _t: print(f"  FALLO enlace mailto en asset: {_a}"); FALLOS+=1
     if re.search(r'<!doctype html', _t, re.I): continue
     if '<!--' in _t: print(f"  FALLO comentario HTML en asset (no es render-safe): {_a}"); FALLOS+=1
@@ -308,14 +333,18 @@ _TIPOS_MOTOR=set()
 # Tipos de los modulos opcionales (referencias), que un reporte puede copiar.
 for _r in glob.glob('*/skills/*/references/*.md'): _TIPOS_MOTOR|=set(re.findall(r'\btipos\.(\w+) = function',open(_r,encoding='utf-8').read()))
 _DATOS=re.compile(r'<script type="application/json" id="datos-reporte">(.*?)</script>',re.S)
+_FIJO=re.compile(r'<(style|script)\b[^>]*\bdata-fijo\b[^>]*>.*?</\1>',re.S)
+_MAX_PROPIO=61440  # 60 KB de contenido propio por reporte
 for _h in sorted(glob.glob('*/skills/*/ejemplos/*.html')+glob.glob('*/skills/*/assets/*.md')):
     _t=open(_h,encoding='utf-8').read(); _m=_DATOS.search(_t)
     if not _m: continue
     _tipos=set(re.findall(r'\btipos\.(\w+) = function',_t)); _TIPOS_MOTOR|=_tipos
     try: _d=json.loads(_m.group(1))
     except ValueError as _e: print(f"  FALLO datos-reporte no es JSON valido: {_h} ({_e})"); FALLOS+=1; continue
-    # La galeria no es un reporte: muestra todos los tipos con todos los modulos a la vez.
-    if len(_t.encode())>174080 and 'galeria' not in _h: print(f"  FALLO reporte de mas de 170 KB: {_h} ({len(_t.encode())} bytes)"); FALLOS+=1
+    # El codigo fijo de la base (motor, graficos y temas, marcado data-fijo) no cuenta: el servidor lo colapsa
+    # al mandarlo al modelo. Lo que se mide es el contenido propio del reporte (datos, cuerpo, fotos).
+    _propio=len(_FIJO.sub('',_t).encode())
+    if _propio>_MAX_PROPIO: print(f"  FALLO contenido propio del reporte de mas de {_MAX_PROPIO//1024} KB: {_h} ({_propio} bytes sin el codigo data-fijo)"); FALLOS+=1
     _fu=_d.get('fuentes') or {}
     for _k,_f in _fu.items():
         if not (_f.get('nombre') and re.fullmatch(r'\d{4}-\d{2}-\d{2}',str(_f.get('consulta','')))):
@@ -352,7 +381,7 @@ for _pj in sorted(glob.glob('*/.claude-plugin/plugin.json')):
     if not isinstance(_capas,list) or not all(isinstance(_c,str) and _KEBAB.match(_c) for _c in _capas):
         print(f"  FALLO prompt_layers no es una lista de nombres kebab-case: {_p}"); FALLOS+=1; continue
     for _c in _capas:
-        if not _os.path.isfile(f'prompts/{_c}.md'): print(f"  FALLO capa declarada sin fichero prompts/{_c}.md: {_p}"); FALLOS+=1
+        if not os.path.isfile(f'prompts/{_c}.md'): print(f"  FALLO capa declarada sin fichero prompts/{_c}.md: {_p}"); FALLOS+=1
     if glob.glob(f'{_p}/skills/*/assets/') and 'documentos-legales' not in _capas:
         print(f"  FALLO plugin con skills de documentos (assets/) sin la capa documentos-legales en prompt_layers: {_p}"); FALLOS+=1
 

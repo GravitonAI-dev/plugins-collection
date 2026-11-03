@@ -99,7 +99,7 @@
       "name": "asistente-general",
       "displayName": "Asistente General",
       "source": "./asistente-general",
-      "version": "1.10.3",
+      "version": "1.11.0",
       "description": "Asistente universal de primera línea y fallback para consultas generales, orientación jurídica y administrativa multidisciplinar, búsquedas web, análisis de hechos y generación bajo demanda de informes y memorandums técnicos. Incorpora además la generación de artefactos autocontenidos en un único archivo HTML que el usuario abre en su navegador y exporta a PDF con fidelidad de color desde su propio botón: informes y dossieres visuales, paneles de datos y herramientas interactivas de calculo, presentaciones en diapositivas con notas del orador, documentos largos (white paper, memoria) con portada, índice y paginas numeradas, resúmenes de una página, un catálogo de reportes típicos y un motor de gráficos propio que los dibuja a partir de datos (barras, columnas, apiladas, línea con umbral y anotaciones, minigráfico, medidor, cascada, matriz de riesgo, plazos, anillo, tarta, bala y divergentes, más diagramas con conectores, gráficos avanzados, mapa de España, iconos y QR), con su tabla de datos, su fuente y su descarga en CSV, sin librerías ni recursos externos.",
       "author": {
         "name": "GravitonAI"
