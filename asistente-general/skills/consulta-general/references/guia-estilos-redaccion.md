@@ -8,10 +8,10 @@ Orientación para redactar, no moldes. Cada ficha dice qué debe contener un doc
 - **Hechos antes que derecho.** Primero qué pasó, en orden cronológico y sin adjetivos; después por qué eso da derecho a algo; al final qué se pide.
 - **Petición concreta.** Todo escrito termina diciendo exactamente qué se quiere (importe, acción, plazo). Un escrito sin petición no sirve.
 - **Tono firme, nunca ofensivo.** Se describe, no se insulta. Lo que se afirme debe poder probarse; lo que no, se formula como «según consta» o «a mi entender».
-- **Referencias legales solo verificadas.** Citar una ley da fuerza; citar una ley mal la quita. Si no se ha verificado el artículo en la sesión, se menciona la norma por su nombre general («la normativa de consumo», «la Ley del Procedimiento Administrativo Común») sin número de artículo.
+- **Referencias legales siempre verificadas.** Citar una ley da fuerza; citar una ley mal la quita. Todo documento jurídico o administrativo cita en el cuerpo la norma en que se basa (denominación oficial y artículo), verificada antes en la sesión en el BOE consolidado u otra fuente oficial. Solo si la fuente no pudo verificarse se menciona la norma por su nombre general («la normativa de consumo», «la Ley del Procedimiento Administrativo Común») sin número de artículo. Las URLs de las fuentes van en el chat, no en el documento, salvo en el informe o memorando (`informe_memo`). Las cartas personales y las comunicaciones de negocio sin efecto jurídico no llevan citas.
 - **Datos identificativos completos y coherentes.** El mismo nombre y número de documento en encabezado, cuerpo y firma. Si falta un dato, `{{MARCADOR}}` en todas sus apariciones.
 - **Aviso de borrador.** Todo documento jurídico o administrativo abre con la línea `> DRAFT — Para revisión por un abogado o profesional colegiado antes de su firma o presentación.` Las comunicaciones de negocio y los textos personales no la llevan.
-- **Formato Markdown limpio:** título `#`, secciones `##`, listas cuando ayuden, sin tablas salvo que el contenido sea tabular, sin enlaces automáticos en correos ni URLs.
+- **Formato Markdown limpio:** título `#`, secciones `##`, listas cuando ayuden, sin tablas salvo que el contenido sea tabular, sin enlaces automáticos en correos ni URLs (salvo las URLs en texto plano del apartado de fuentes de `informe_memo`).
 
 ## Reclamación de consumo u hoja de reclamaciones (`reclamacion_consumo`)
 
@@ -122,10 +122,11 @@ Orientación para redactar, no moldes. Cada ficha dice qué debe contener un doc
 4. Análisis: la cuestión, la norma o el criterio aplicable (solo lo verificado), su aplicación al caso, los puntos fuertes y los riesgos. Si hay plazos de prescripción o caducidad, con la fecha límite estimada.
 5. Recomendación y pasos siguientes, en orden (requerimiento previo, intento de acuerdo, reclamación administrativa o judicial), con lo que haría falta reunir (documentos, pruebas, presupuesto).
 6. Advertencia de que es un análisis preliminar sujeto a revisión profesional.
+7. Apartado final `## Fuentes normativas consultadas`: cada norma citada, los artículos en que se apoya el análisis y su URL oficial en texto plano.
 
 **Tono.** Analítico y honesto: se dice lo que juega a favor y lo que juega en contra, sin vender la posición del cliente.
 
-**Imprescindibles.** Conclusión al principio, hechos en los que se basa, riesgos, pasos siguientes.
+**Imprescindibles.** Conclusión al principio, hechos en los que se basa, riesgos, pasos siguientes, fuentes normativas consultadas.
 
 **Errores frecuentes.** Enterrar la conclusión al final; citar normativa no verificada; omitir los riesgos; recomendar sin decir qué documentos hacen falta.
 

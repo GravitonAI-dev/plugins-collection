@@ -99,7 +99,7 @@
       "name": "asistente-general",
       "displayName": "Asistente General",
       "source": "./asistente-general",
-      "version": "2.0.1",
+      "version": "2.0.3",
       "description": "Asistente legal de primera línea para usuarios no especializados: atiende consultas, explica en lenguaje llano, orienta sobre la vía adecuada y redacta en conversación los documentos que no tienen una skill vertical propia (reclamaciones, requerimientos, escritos a la Administración, acuerdos privados, comunicaciones formales, informes). Incorpora además la generación de artefactos autocontenidos en un único archivo HTML que el usuario abre en su navegador y exporta a PDF: informes y dossieres visuales, paneles de datos, herramientas interactivas de cálculo, presentaciones y documentos largos, con un motor de gráficos propio y sin librerías ni recursos externos.",
       "author": {
         "name": "GravitonAI"
