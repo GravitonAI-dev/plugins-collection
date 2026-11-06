@@ -9,7 +9,7 @@
       "description": "First-line legal assistant for non-specialist users: answers questions, explains in plain language, points to the right course of action and drafts, in conversation, the documents that have no vertical skill of their own (complaints, formal demands, filings before public bodies, private agreements, formal communications, reports). It also produces self-contained single-file HTML artifacts (visual reports, dashboards, interactive calculators, slide decks and long documents) with its own chart engine and no external libraries."
     }
   },
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Asistente legal de primera línea para usuarios no especializados: atiende consultas, explica en lenguaje llano, orienta sobre la vía adecuada y redacta en conversación los documentos que no tienen una skill vertical propia (reclamaciones, requerimientos, escritos a la Administración, acuerdos privados, comunicaciones formales, informes). Incorpora además la generación de artefactos autocontenidos en un único archivo HTML que el usuario abre en su navegador y exporta a PDF: informes y dossieres visuales, paneles de datos, herramientas interactivas de cálculo, presentaciones y documentos largos, con un motor de gráficos propio y sin librerías ni recursos externos.",
   "author": {
     "name": "GravitonAI"
