@@ -1609,7 +1609,7 @@
     {
       "id": "io.gravitonai.tools.get_tc_resolution",
       "name": "get_tc_resolution",
-      "description": "Lee una resolución del Tribunal Constitucional, o una de sus partes. ref es la resolution.citation que devolvió search_tc (STC 58/2018) o su ECLI. part: fj_8 (un fundamento jurídico), fallo, fundamentos, votos o antecedentes (el recorrido del asunto en los tribunales ordinarios: qué decidieron el juzgado, la Audiencia y el Supremo); sin part, extractos doctrinales y fallo. Devuelve hasta 6.000 caracteres y parts, la lista de partes con su tamaño. No sirve para buscar ni admite referencias inventadas. Es nativa: está en todos los chats sin declararla en el plugin. El esquema que ve el modelo es el del registro del backend (ConfAI-Desktop-App, native_tools/tc_tools.py); este catálogo lo documenta.",
+      "description": "Lee una resolución del Tribunal Constitucional, o una de sus partes. ref es la resolution.citation que devolvió search_tc (STC 58/2018) o su ECLI. part: fj_8 (un fundamento jurídico), fallo, fundamentos, votos o antecedentes (el recorrido del asunto en los tribunales ordinarios: qué decidieron el juzgado, la Audiencia y el Supremo); sin part, extractos doctrinales y fallo. Devuelve hasta 6.000 caracteres por llamada y parts, la lista de partes con su tamaño; una parte larga (los antecedentes suelen ocupar decenas de miles de caracteres) se lee por páginas con offset: si truncated es true, sigue en next_offset, y se pueden pedir varias páginas a la vez. No sirve para buscar ni admite referencias inventadas. Es nativa: está en todos los chats sin declararla en el plugin. El esquema que ve el modelo es el del registro del backend (ConfAI-Desktop-App, native_tools/tc_tools.py); este catálogo lo documenta.",
       "version": "1.0.0",
       "input_schema": {
         "type": "object",
@@ -1621,6 +1621,12 @@
           "part": {
             "type": "string",
             "description": "fj_8, fallo, fundamentos, votos, antecedentes."
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0,
+            "description": "Caracteres de `part` que se saltan, para leer la página siguiente."
           }
         },
         "required": [
@@ -1654,6 +1660,10 @@
               },
               "truncated": {
                 "type": "boolean"
+              },
+              "next_offset": {
+                "type": "integer",
+                "description": "Dónde sigue la lectura. Solo si truncated es true."
               },
               "warnings": {
                 "type": "array",
