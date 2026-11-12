@@ -1003,6 +1003,685 @@
         "research"
       ],
       "side_effects": false
+    },
+    {
+      "id": "io.gravitonai.tools.search_eu_law",
+      "name": "search_eu_law",
+      "description": "Busca en EUR-Lex legislación de la Unión Europea (reglamentos, directivas, tratados) y jurisprudencia del TJUE, y devuelve los artículos, apartados y fallos más relevantes con su enlace oficial (doc.url). Úsala, antes que web_search, cuando la respuesta dependa de una norma europea o de una sentencia del TJUE, o el usuario cite una (\"RGPD\", \"Directiva 93/13\", \"C-131/12\", un CELEX o un ECLI). query en español; queries son hasta 2 variantes de la misma pregunta, no otros temas. kind separa legislación de jurisprudencia; filters.interprets da la jurisprudencia de una norma o artículo y filters.origin_country (\"ESP\") los asuntos planteados por jueces españoles, con su tribunal de origen (referring_court: una pista, no una cita). Una búsqueda por tema: la de texto libre gasta una cuota diaria compartida. Cita con el enlace, reproduce el disclaimer y, si hits está vacío o una referencia no se resuelve, dilo: nunca inventes normas, asuntos ni ECLI. Es nativa: está en todos los chats sin declararla en el plugin. El esquema que ve el modelo es el del registro del backend (ConfAI-Desktop-App, native_tools/eu_law_tools.py); este catálogo lo documenta.",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Palabras clave en español o una referencia."
+          },
+          "queries": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 2,
+            "description": "Hasta 2 variantes de `query`."
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "legislation",
+              "case_law",
+              "all"
+            ],
+            "default": "all"
+          },
+          "top_k": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10,
+            "default": 5,
+            "description": "Documentos (1-10)."
+          },
+          "filters": {
+            "type": "object",
+            "properties": {
+              "date_from": {
+                "type": "string",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                "description": "AAAA-MM-DD."
+              },
+              "date_to": {
+                "type": "string",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                "description": "AAAA-MM-DD."
+              },
+              "doc_types": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "judgment",
+                    "order",
+                    "ag_opinion",
+                    "preliminary_request",
+                    "regulation",
+                    "directive",
+                    "decision",
+                    "treaty"
+                  ]
+                },
+                "description": "Vacío: sentencias y autos; reglamentos y directivas."
+              },
+              "court": {
+                "type": "string",
+                "enum": [
+                  "CJ",
+                  "GC"
+                ]
+              },
+              "in_force_only": {
+                "type": "boolean",
+                "default": true
+              },
+              "interprets": {
+                "type": "object",
+                "properties": {
+                  "celex": {
+                    "type": "string",
+                    "description": "CELEX de la norma."
+                  },
+                  "article": {
+                    "type": "string",
+                    "pattern": "^\\d{1,3}$"
+                  }
+                },
+                "required": [
+                  "celex"
+                ],
+                "additionalProperties": false
+              },
+              "origin_country": {
+                "type": "string",
+                "pattern": "^[A-Za-z]{3}$",
+                "description": "País de origen del asunto, p. ej. ESP."
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "hits": {
+                "type": "array",
+                "description": "Cada hit: doc (celex, type, title, date, ecli, court, in_force, language, consolidated_celex, url, origin_country, referring_court) y passages (id art_17 | point_45 | operative, label, section, text, truncated). Unos 6.000 caracteres en total."
+              },
+              "references": {
+                "type": "array",
+                "description": "Referencias reconocidas en la consulta: raw, type, celexes, resolved."
+              },
+              "warnings": {
+                "type": "array",
+                "description": "Avisos del servicio: qué faltó y por qué. Solo si los hay."
+              },
+              "degraded": {
+                "type": "boolean",
+                "description": "true si la respuesta es parcial. Solo si lo es."
+              },
+              "disclaimer": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string"
+              }
+            }
+          },
+          "error": {
+            "type": "string"
+          },
+          "fallback": {
+            "type": "string"
+          }
+        }
+      },
+      "tags": [
+        "retrieval",
+        "legal",
+        "eu",
+        "legislation",
+        "case-law"
+      ],
+      "side_effects": false
+    },
+    {
+      "id": "io.gravitonai.tools.get_eu_document",
+      "name": "get_eu_document",
+      "description": "Lee una norma o una sentencia de la Unión Europea por el celex que devolvió search_eu_law, o una de sus partes (part: art_17, point_45, point_45-52 u operative, el fallo). Úsala cuando un pasaje de search_eu_law venga truncated y vayas a citarlo literalmente, o para leer un artículo o apartado concreto. No sirve para buscar ni admite identificadores inventados. Devuelve hasta 6.000 caracteres; sin part, el principio del documento y la lista de partes que se pueden pedir. Es nativa: está en todos los chats sin declararla en el plugin. El esquema que ve el modelo es el del registro del backend (ConfAI-Desktop-App, native_tools/eu_law_tools.py); este catálogo lo documenta.",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "celex": {
+            "type": "string",
+            "description": "`doc.celex` de search_eu_law."
+          },
+          "part": {
+            "type": "string",
+            "description": "art_17, point_45, point_45-52 u operative."
+          },
+          "lang": {
+            "type": "string",
+            "enum": [
+              "es",
+              "fr",
+              "en"
+            ]
+          },
+          "version": {
+            "type": "string",
+            "enum": [
+              "current",
+              "original"
+            ],
+            "description": "Legislación: consolidada vigente (por defecto) u original."
+          }
+        },
+        "required": [
+          "celex"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "doc": {
+                "type": "object",
+                "description": "Como en search_eu_law."
+              },
+              "passages": {
+                "type": "array",
+                "description": "id, label, section, text, truncated."
+              },
+              "is_truncated": {
+                "type": "boolean"
+              },
+              "parts": {
+                "type": "string",
+                "description": "Identificadores de las partes del documento. Solo si no se pidió part."
+              },
+              "warnings": {
+                "type": "array",
+                "description": "Avisos del servicio: qué faltó y por qué. Solo si los hay."
+              },
+              "disclaimer": {
+                "type": "string"
+              }
+            }
+          },
+          "error": {
+            "type": "string"
+          },
+          "fallback": {
+            "type": "string"
+          }
+        }
+      },
+      "tags": [
+        "retrieval",
+        "legal",
+        "eu"
+      ],
+      "side_effects": false
+    },
+    {
+      "id": "io.gravitonai.tools.search_hudoc",
+      "name": "search_hudoc",
+      "description": "Busca sentencias y decisiones del Tribunal Europeo de Derechos Humanos en HUDOC y devuelve los párrafos, el fallo y el resumen jurídico oficial con su enlace (case.url). Úsala, antes que web_search, para derechos del Convenio Europeo de Derechos Humanos y casos contra España. Las consultas van EN INGLÉS (queries_en), con las expresiones del Tribunal; añade queries_fr en francés si el caso es contra España. El artículo del Convenio y el Estado demandado van en filters (articles, respondent), no en el texto. El resultado puede venir en inglés, francés o español: solo el inglés y el francés son auténticos. Si hay superseded_chamber_judgment, la doctrina vigente es la sentencia de Gran Sala. Cita con nombre del caso, número de demanda, fecha y párrafo; reproduce el disclaimer y, si hits está vacío, dilo: nunca inventes casos. Es nativa: está en todos los chats sin declararla en el plugin. El esquema que ve el modelo es el del registro del backend (ConfAI-Desktop-App, native_tools/hudoc_tools.py); este catálogo lo documenta.",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "queries_en": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "maxItems": 2,
+            "description": "Palabras clave en inglés o una referencia."
+          },
+          "queries_fr": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 2,
+            "description": "Las mismas consultas en francés."
+          },
+          "top_k": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5,
+            "default": 3,
+            "description": "Casos (1-5)."
+          },
+          "filters": {
+            "type": "object",
+            "properties": {
+              "articles": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "maxItems": 10,
+                "description": "Artículos del Convenio."
+              },
+              "respondent": {
+                "type": "string",
+                "pattern": "^[A-Za-z]{3}$",
+                "description": "Estado demandado, p. ej. ESP."
+              },
+              "min_importance": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 4,
+                "description": "1 = solo casos clave … 4 = todos."
+              },
+              "collections": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "grand_chamber",
+                    "chamber",
+                    "committee",
+                    "decisions"
+                  ]
+                }
+              },
+              "date_from": {
+                "type": "string",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                "description": "AAAA-MM-DD."
+              },
+              "date_to": {
+                "type": "string",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                "description": "AAAA-MM-DD."
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "queries_en"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "hits": {
+                "type": "array",
+                "description": "Cada hit: case (itemid, name, application_numbers, ecli, date, kind, body, respondent, importance 1-4, articles, conclusion, language, is_summary_translation, superseded_chamber_judgment, url), passages (id summary | p_92 | operative, label, kind, text, truncated) y other_languages. Unos 6.000 caracteres en total."
+              },
+              "access_mode": {
+                "type": "string",
+                "description": "degraded | cache_only. Solo si no es el normal."
+              },
+              "warnings": {
+                "type": "array",
+                "description": "Avisos del servicio: qué faltó y por qué. Solo si los hay."
+              },
+              "degraded": {
+                "type": "boolean",
+                "description": "true si la respuesta es parcial. Solo si lo es."
+              },
+              "disclaimer": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string"
+              }
+            }
+          },
+          "error": {
+            "type": "string"
+          },
+          "fallback": {
+            "type": "string"
+          }
+        }
+      },
+      "tags": [
+        "retrieval",
+        "legal",
+        "echr",
+        "case-law"
+      ],
+      "side_effects": false
+    },
+    {
+      "id": "io.gravitonai.tools.get_hudoc_document",
+      "name": "get_hudoc_document",
+      "description": "Lee una sentencia o decisión del TEDH, o una de sus partes. ref es el case.itemid que devolvió search_hudoc, un ECLI o un número de demanda (1874/13); el nombre del caso no vale. part: p_71 o p_71-80 (párrafos), operative (fallo), summary, opinions (votos), facts (hechos y proceso ante los tribunales nacionales), framework (Derecho y práctica internos), law o procedure; sin part, resumen y fallo. Devuelve hasta 6.000 caracteres y outline, el rango de párrafos de cada sección. No sirve para buscar. Es nativa: está en todos los chats sin declararla en el plugin. El esquema que ve el modelo es el del registro del backend (ConfAI-Desktop-App, native_tools/hudoc_tools.py); este catálogo lo documenta.",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string",
+            "description": "`case.itemid`, ECLI o nº de demanda."
+          },
+          "part": {
+            "type": "string"
+          },
+          "lang": {
+            "type": "string",
+            "enum": [
+              "eng",
+              "fre",
+              "spa"
+            ]
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "case": {
+                "type": "object",
+                "description": "Como en search_hudoc."
+              },
+              "passages": {
+                "type": "array",
+                "description": "id, label, kind, text, truncated."
+              },
+              "outline": {
+                "type": "array",
+                "description": "section, first_paragraph, last_paragraph."
+              },
+              "other_languages": {
+                "type": "array"
+              },
+              "access_mode": {
+                "type": "string"
+              },
+              "warnings": {
+                "type": "array",
+                "description": "Avisos del servicio: qué faltó y por qué. Solo si los hay."
+              },
+              "degraded": {
+                "type": "boolean",
+                "description": "true si la respuesta es parcial. Solo si lo es."
+              },
+              "disclaimer": {
+                "type": "string"
+              }
+            }
+          },
+          "error": {
+            "type": "string"
+          },
+          "fallback": {
+            "type": "string"
+          }
+        }
+      },
+      "tags": [
+        "retrieval",
+        "legal",
+        "echr"
+      ],
+      "side_effects": false
+    },
+    {
+      "id": "io.gravitonai.tools.search_tc",
+      "name": "search_tc",
+      "description": "Busca sentencias, autos y declaraciones del Tribunal Constitucional de España y devuelve los fundamentos jurídicos y el fallo con su enlace oficial (resolution.url). Úsala, antes que web_search, para derechos fundamentales, recursos de amparo y constitucionalidad de leyes, o cuando el usuario cite una STC o un ATC. queries: de 1 a 3 consultas de 2-4 palabras clave cada una (el buscador exige que aparezcan todas; varias consultas son sinónimos del mismo tema), o una referencia (STC 58/2018, un ECLI). filters.cites acota a las resoluciones que citan un artículo; filters.subject_area, al orden civil, penal, social o contencioso. challenged_decisions (la resolución de los tribunales ordinarios que se revisaba) y cited_case_law son pistas para localizar esas resoluciones, no citas verificadas: su texto no se ha leído. Cita como «STC 58/2018, FJ 8» con el enlace; reproduce el disclaimer y, si hits está vacío, dilo: nunca inventes sentencias. Es nativa: está en todos los chats sin declararla en el plugin. El esquema que ve el modelo es el del registro del backend (ConfAI-Desktop-App, native_tools/tc_tools.py); este catálogo lo documenta.",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "queries": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "maxItems": 3,
+            "description": "Consultas de 2-4 palabras clave, o una referencia."
+          },
+          "top_k": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5,
+            "default": 3,
+            "description": "Resoluciones (1-5)."
+          },
+          "filters": {
+            "type": "object",
+            "properties": {
+              "types": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "sentencia",
+                    "auto",
+                    "declaracion"
+                  ]
+                },
+                "description": "Por defecto, solo sentencias."
+              },
+              "date_from": {
+                "type": "string",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                "description": "AAAA-MM-DD."
+              },
+              "date_to": {
+                "type": "string",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                "description": "AAAA-MM-DD."
+              },
+              "cites": {
+                "type": "object",
+                "properties": {
+                  "norm": {
+                    "type": "string",
+                    "description": "Sigla (CE, LOTC…) o título."
+                  },
+                  "article": {
+                    "type": "string",
+                    "description": "Artículo, p. ej. 18.4."
+                  }
+                },
+                "required": [
+                  "norm"
+                ],
+                "additionalProperties": false
+              },
+              "subject_area": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "civil",
+                    "penal",
+                    "social",
+                    "contencioso",
+                    "electoral",
+                    "militar",
+                    "parlamentario",
+                    "otros"
+                  ]
+                }
+              },
+              "challenged_decision": {
+                "type": "string",
+                "description": "P. ej. «auto Sala de lo Social Tribunal Supremo 14 de septiembre de 2021»."
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "queries"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "hits": {
+                "type": "array",
+                "description": "Cada hit: resolution (citation, ecli, type, date, court_body, process_type, boe_id, url, summary), passages (id fj_8 | fallo, label, kind extracto | fundamento | fallo, text; un mismo id puede repetirse), cited_provisions (máx. 5), cited_case_law (máx. 5) y challenged_decisions. Unos 6.000 caracteres de pasajes en total."
+              },
+              "warnings": {
+                "type": "array",
+                "description": "Avisos del servicio: qué faltó y por qué. Solo si los hay."
+              },
+              "degraded": {
+                "type": "boolean",
+                "description": "true si la respuesta es parcial. Solo si lo es."
+              },
+              "disclaimer": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string"
+              }
+            }
+          },
+          "error": {
+            "type": "string"
+          },
+          "fallback": {
+            "type": "string"
+          }
+        }
+      },
+      "tags": [
+        "retrieval",
+        "legal",
+        "constitutional-court",
+        "case-law"
+      ],
+      "side_effects": false
+    },
+    {
+      "id": "io.gravitonai.tools.get_tc_resolution",
+      "name": "get_tc_resolution",
+      "description": "Lee una resolución del Tribunal Constitucional, o una de sus partes. ref es la resolution.citation que devolvió search_tc (STC 58/2018) o su ECLI. part: fj_8 (un fundamento jurídico), fallo, fundamentos, votos o antecedentes (el recorrido del asunto en los tribunales ordinarios: qué decidieron el juzgado, la Audiencia y el Supremo); sin part, extractos doctrinales y fallo. Devuelve hasta 6.000 caracteres y parts, la lista de partes con su tamaño. No sirve para buscar ni admite referencias inventadas. Es nativa: está en todos los chats sin declararla en el plugin. El esquema que ve el modelo es el del registro del backend (ConfAI-Desktop-App, native_tools/tc_tools.py); este catálogo lo documenta.",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string",
+            "description": "`resolution.citation` o ECLI."
+          },
+          "part": {
+            "type": "string",
+            "description": "fj_8, fallo, fundamentos, votos, antecedentes."
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "resolution": {
+                "type": "object",
+                "description": "Como en search_tc."
+              },
+              "passages": {
+                "type": "array",
+                "description": "id, label, kind, text."
+              },
+              "parts": {
+                "type": "array",
+                "description": "id, label, chars."
+              },
+              "challenged_decisions": {
+                "type": "array"
+              },
+              "truncated": {
+                "type": "boolean"
+              },
+              "warnings": {
+                "type": "array",
+                "description": "Avisos del servicio: qué faltó y por qué. Solo si los hay."
+              },
+              "degraded": {
+                "type": "boolean",
+                "description": "true si la respuesta es parcial. Solo si lo es."
+              },
+              "disclaimer": {
+                "type": "string"
+              }
+            }
+          },
+          "error": {
+            "type": "string"
+          },
+          "fallback": {
+            "type": "string"
+          }
+        }
+      },
+      "tags": [
+        "retrieval",
+        "legal",
+        "constitutional-court"
+      ],
+      "side_effects": false
     }
   ]
 }
