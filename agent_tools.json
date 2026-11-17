@@ -1692,6 +1692,210 @@
         "constitutional-court"
       ],
       "side_effects": false
+    },
+    {
+      "id": "io.gravitonai.tools.search_cendoj",
+      "name": "search_cendoj",
+      "description": "Busca fichas y resúmenes de jurisprudencia ordinaria española en el CENDOJ (Tribunal Supremo, Audiencia Nacional, TSJ, Audiencias Provinciales y juzgados) y devuelve el ROJ, el ECLI, el órgano, la fecha, el ponente, el resumen oficial y el enlace oficial (decision.url). Úsala, antes que web_search, para jurisprudencia de los tribunales ordinarios o para convertir una pista devuelta por otro motor (challenged_decisions de search_tc, referring_court de search_eu_law) en su referencia oficial. queries: de 1 a 3 consultas de 2-4 palabras clave cada una. Usa filters.court cuando la pregunta nombre el tribunal y filters.case_number o decision_number para localizar una pista. Solo devuelve la ficha y el resumen, NO el texto íntegro de la sentencia: cita únicamente el ROJ, el ECLI y lo que diga summary o extract, nunca inventes fundamentos ni fallo, y entrega decision.url para que el usuario abra la sentencia. Es nativa: está en todos los chats sin declararla en el plugin. El esquema que ve el modelo es el del registro del backend (ConfAI-Desktop-App, native_tools/cendoj_tools.py); este catálogo lo documenta.",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "queries": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "maxItems": 3,
+            "description": "Consultas de 2-4 palabras clave."
+          },
+          "top_k": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10,
+            "default": 5,
+            "description": "Resoluciones (1-10)."
+          },
+          "filters": {
+            "type": "object",
+            "properties": {
+              "court": {
+                "type": "string",
+                "enum": [
+                  "ts",
+                  "ts_civil",
+                  "ts_penal",
+                  "ts_contencioso",
+                  "ts_social",
+                  "ts_militar",
+                  "ts_especial",
+                  "an",
+                  "an_penal",
+                  "an_contencioso",
+                  "an_social",
+                  "tsj",
+                  "tsj_civil_penal",
+                  "tsj_contencioso",
+                  "tsj_social",
+                  "ap",
+                  "juzgados"
+                ]
+              },
+              "jurisdiction": {
+                "type": "string",
+                "enum": [
+                  "civil",
+                  "penal",
+                  "contencioso",
+                  "social",
+                  "militar",
+                  "especial"
+                ]
+              },
+              "date_from": {
+                "type": "string",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                "description": "AAAA-MM-DD."
+              },
+              "date_to": {
+                "type": "string",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                "description": "AAAA-MM-DD."
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "sentencia",
+                  "auto"
+                ]
+              },
+              "rapporteur": {
+                "type": "string",
+                "description": "Ponente."
+              },
+              "case_number": {
+                "type": "string",
+                "description": "Nº de recurso, p. ej. 2681/2025."
+              },
+              "decision_number": {
+                "type": "string",
+                "description": "Nº de resolución, p. ej. 757/2026."
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "queries"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "hits": {
+                "type": "array",
+                "description": "Cada hit: decision (roj, ecli, kind, court, chamber, municipality, date, decision_number, case_number, rapporteur, title, url), summary (resumen propio, si lo trae) y extract (extracto de la consulta, si lo trae)."
+              },
+              "warnings": {
+                "type": "array",
+                "description": "Avisos del servicio: qué faltó y por qué. Solo si los hay."
+              },
+              "degraded": {
+                "type": "boolean",
+                "description": "true si la respuesta es parcial o procede de la caché de respaldo. Solo si lo es."
+              },
+              "disclaimer": {
+                "type": "string"
+              },
+              "note": {
+                "type": "string"
+              }
+            }
+          },
+          "error": {
+            "type": "string"
+          },
+          "fallback": {
+            "type": "string"
+          }
+        }
+      },
+      "tags": [
+        "retrieval",
+        "legal",
+        "cendoj",
+        "case-law"
+      ],
+      "side_effects": false
+    },
+    {
+      "id": "io.gravitonai.tools.get_cendoj_decision",
+      "name": "get_cendoj_decision",
+      "description": "Devuelve la ficha y el resumen oficial de una resolución ordinaria del CENDOJ por su ROJ (\"STS 1164/2024\", \"SAP TF 1105/2026\") o su ECLI (\"ECLI:ES:TS:2024:1164\"). No devuelve el texto íntegro de la sentencia (no disponible sin captcha): cita únicamente el ROJ, el ECLI y lo que diga summary, y entrega decision.url para que el usuario abra la sentencia. No sirve para buscar por tema ni por número de recurso o resolución (para eso, search_cendoj). Es nativa: está en todos los chats sin declararla en el plugin. El esquema que ve el modelo es el del registro del backend (ConfAI-Desktop-App, native_tools/cendoj_tools.py); este catálogo lo documenta.",
+      "version": "1.0.0",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "ref": {
+            "type": "string",
+            "description": "ROJ (\"STS 1164/2024\") o ECLI (\"ECLI:ES:TS:2024:1164\")."
+          }
+        },
+        "required": [
+          "ref"
+        ],
+        "additionalProperties": false
+      },
+      "output_schema": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "decision": {
+                "type": "object",
+                "description": "Como en search_cendoj."
+              },
+              "summary": {
+                "type": "string"
+              },
+              "warnings": {
+                "type": "array",
+                "description": "Avisos del servicio. Solo si los hay."
+              },
+              "degraded": {
+                "type": "boolean"
+              },
+              "disclaimer": {
+                "type": "string"
+              }
+            }
+          },
+          "error": {
+            "type": "string"
+          },
+          "fallback": {
+            "type": "string"
+          }
+        }
+      },
+      "tags": [
+        "retrieval",
+        "legal",
+        "cendoj"
+      ],
+      "side_effects": false
     }
   ]
 }
