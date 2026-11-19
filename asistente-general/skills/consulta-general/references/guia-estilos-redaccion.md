@@ -1,19 +1,19 @@
 # Guía de estilos de redacción
 
-Orientación para redactar, no moldes. Cada ficha dice qué debe contener un documento de ese tipo, en qué orden suele ir, con qué tono y qué errores evitar. El texto se escribe para el caso concreto, con los hechos que el usuario ha contado; lo que no se sabe queda como `{{MARCADOR}}`. Todo documento se escribe en español salvo que el usuario pida otra lengua.
+Orientación para redactar, no moldes: nada de esta guía se copia al documento. Cada apartado dice qué debe contener un documento de ese tipo, en qué orden suele ir, con qué tono y qué errores evitar. El texto se escribe para el caso concreto, con los hechos que el usuario ha contado; lo que no se sabe queda como `{{MARCADOR}}`. Todo documento se escribe en español salvo que el usuario pida otra lengua.
 
-## Principios generales (`principios`)
+## Principios generales
 
 - **Una idea por párrafo.** Párrafos cortos, frases completas, sin subordinadas interminables.
 - **Hechos antes que derecho.** Primero qué pasó, en orden cronológico y sin adjetivos; después por qué eso da derecho a algo; al final qué se pide.
 - **Petición concreta.** Todo escrito termina diciendo exactamente qué se quiere (importe, acción, plazo). Un escrito sin petición no sirve.
 - **Tono firme, nunca ofensivo.** Se describe, no se insulta. Lo que se afirme debe poder probarse; lo que no, se formula como «según consta» o «a mi entender».
-- **Fundamentación integrada en la prosa.** Citar una ley da fuerza; citar una ley mal la quita. Todo documento jurídico o administrativo se apoya en la ley: cada petición, exigencia u obligación relevante va acompañada, en la misma frase, de la norma que la ampara, con su denominación oficial y artículo, verificada antes en la sesión en el BOE consolidado u otra fuente oficial. Ejemplos: «De acuerdo con el artículo … de la Ley …, procedo a exigir…»; «Conforme a lo dispuesto en el artículo … del Código Civil, las partes acuerdan…». No se crea un apartado separado de fundamentos. Solo si la fuente no pudo verificarse se menciona la norma por su nombre general («la normativa de consumo», «la Ley del Procedimiento Administrativo Común») sin número de artículo. Las URLs de las fuentes van en el chat, no en el documento, salvo en el informe o memorando (`informe_memo`). Las cartas personales y las comunicaciones de negocio sin efecto jurídico no llevan citas.
+- **Fundamentación integrada en la prosa.** Citar una ley da fuerza; citar una ley mal la quita. Todo documento jurídico o administrativo se apoya en la ley: cada petición, exigencia u obligación relevante va acompañada, en la misma frase, de la norma que la ampara, con su denominación oficial y artículo, verificada antes en la sesión en el BOE consolidado u otra fuente oficial. Ejemplos: «De acuerdo con el artículo … de la Ley …, procedo a exigir…»; «Conforme a lo dispuesto en el artículo … del Código Civil, las partes acuerdan…». No se crea un apartado separado de fundamentos. Solo si la fuente no pudo verificarse se menciona la norma por su nombre general («la normativa de consumo», «la Ley del Procedimiento Administrativo Común») sin número de artículo. Las URLs de las fuentes van en el chat, no en el documento, salvo en el informe o memorando. Las cartas personales y las comunicaciones de negocio sin efecto jurídico no llevan citas.
 - **Datos identificativos completos y coherentes.** El mismo nombre y número de documento en encabezado, cuerpo y firma. Si falta un dato, `{{MARCADOR}}` en todas sus apariciones.
 - **Aviso de borrador.** Todo documento jurídico o administrativo abre con la línea `> DRAFT — Para revisión por un abogado o profesional colegiado antes de su firma o presentación.` Las comunicaciones de negocio y los textos personales no la llevan.
-- **Formato Markdown limpio:** título `#`, secciones `##`, listas cuando ayuden, sin tablas salvo que el contenido sea tabular, sin enlaces automáticos en correos ni URLs (salvo las URLs en texto plano del apartado de fuentes de `informe_memo`).
+- **Formato Markdown limpio:** título `#`, secciones `##`, listas cuando ayuden, sin tablas salvo que el contenido sea tabular, sin enlaces automáticos en correos ni URLs (salvo las URLs en texto plano del apartado de fuentes de un informe o memorando).
 
-## Reclamación de consumo u hoja de reclamaciones (`reclamacion_consumo`)
+## Reclamación de consumo u hoja de reclamaciones
 
 **Para qué.** Dejar constancia formal de una queja frente a un establecimiento o empresa (restaurante, tienda, compañía de servicios, taller) y pedir una solución: devolución, reparación, compensación o rectificación. Es el paso previo habitual a acudir a la oficina de consumo o a una junta arbitral; muchas veces resuelve el problema por sí sola.
 
@@ -35,7 +35,7 @@ Orientación para redactar, no moldes. Cada ficha dice qué debe contener un doc
 
 **Orientación al usuario.** Explicar que la hoja de reclamaciones oficial se pide en el propio establecimiento y que este documento sirve tanto para rellenarla como para enviarla por escrito; que en caso de desatención se puede acudir a la oficina municipal o autonómica de consumo; y que una denuncia penal solo procede ante hechos delictivos (lesiones, estafa, amenazas), no ante un mal servicio.
 
-## Carta o burofax de requerimiento (`requerimiento`)
+## Carta o burofax de requerimiento
 
 **Para qué.** Exigir formalmente a alguien que haga o deje de hacer algo (pagar una deuda, devolver una fianza, cesar una molestia, cumplir un contrato) dejando prueba fehaciente de la fecha y el contenido. Interrumpe plazos de prescripción y es el paso previo razonable a cualquier reclamación judicial.
 
@@ -53,7 +53,7 @@ Orientación para redactar, no moldes. Cada ficha dice qué debe contener un doc
 
 **Errores frecuentes.** Requerir sin plazo; exigir sin citar la norma que lo ampara; relatar toda la historia de la relación; incluir reproches personales; exigir intereses o penalizaciones que no se han pactado ni la ley prevé.
 
-## Escrito ante la Administración (`escrito_administracion`)
+## Escrito ante la Administración
 
 **Para qué.** Dirigirse a un organismo público: alegaciones frente a una sanción o un expediente, una solicitud, una queja formal o un recurso no reglado. Si se trata de un recurso de alzada o reposición con plazo y forma regulados, hay que advertir el plazo (normalmente un mes desde la notificación) y recomendar revisión profesional.
 
@@ -74,7 +74,7 @@ Orientación para redactar, no moldes. Cada ficha dice qué debe contener un doc
 
 **Orientación al usuario.** Decir cómo se presenta (registro electrónico, sede del organismo, oficina de asistencia en materia de registros) y que conserve el justificante de presentación.
 
-## Acuerdo privado (`acuerdo_privado`)
+## Acuerdo privado
 
 **Para qué.** Dejar por escrito un pacto entre dos o más partes que no tiene contrato tipo en el catálogo: colaboración, prestación de servicios puntual, reparto de gastos, convivencia, uso de un bien, reconocimiento de una situación. Se rige por la autonomía de la voluntad del Código Civil: vale lo que se pacte mientras no sea contrario a la ley, la moral o el orden público.
 
@@ -93,7 +93,7 @@ Orientación para redactar, no moldes. Cada ficha dice qué debe contener un doc
 
 **Cuándo derivar.** Préstamos entre particulares, comodato y reconocimiento de deuda tienen habilidad propia (`contratos-particulares`); los arrendamientos y las compraventas de inmuebles también.
 
-## Correo o comunicación formal (`comunicacion_formal`)
+## Correo o comunicación formal
 
 **Para qué.** Comunicarse por escrito con una empresa, un cliente, un organismo o una persona en un contexto profesional: una solicitud, una respuesta, un aviso, una propuesta, una disculpa, una queja no formalizada.
 
@@ -111,7 +111,7 @@ Orientación para redactar, no moldes. Cada ficha dice qué debe contener un doc
 
 **Errores frecuentes.** Empezar con antecedentes largos; varios temas sin separar; pedir sin plazo; firmar sin contacto. No lleva aviso de borrador.
 
-## Informe, memorando o dictamen (`informe_memo`)
+## Informe, memorando o dictamen
 
 **Para qué.** Poner por escrito un análisis para que otra persona tome una decisión: la viabilidad de una reclamación, los riesgos de una situación, los pasos a dar. Un memorando es breve y ejecutivo; un informe desarrolla cada punto.
 
@@ -131,7 +131,7 @@ Orientación para redactar, no moldes. Cada ficha dice qué debe contener un doc
 
 **Errores frecuentes.** Enterrar la conclusión al final; citar normativa no verificada; omitir los riesgos; recomendar sin decir qué documentos hacen falta.
 
-## Carta personal (`carta_personal`)
+## Carta personal
 
 **Para qué.** Un texto de uso personal: una carta a un familiar o vecino, una comunicación a una comunidad, una explicación o disculpa, una petición informal. No es un documento jurídico y no lleva aviso de borrador.
 
